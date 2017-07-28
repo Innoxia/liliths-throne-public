@@ -1,0 +1,46 @@
+<p>
+	You step back and knock on the door, pretending to have only just arrived as Lilaya and Rose snap round to see who's disturbing them.
+	Lilaya's hand slips out from under Rose's dress, and they both stand up as you enter the room.
+</p>
+
+<p>
+	O-Oh, hi, $player.getName()!, Lilaya shouts, clearly taken by surprise at your sudden appearance, 
+	#if($player.isVisiblyPregnant() && $game.getDialogueFlags().reactedToPregnancyLilaya)
+		$aunt.speech("So, you're ready for more tests, then? Wait... Are you <i>pregnant</i>?<br />Well, nevermind, I can help you deal with that later! For now, let's just get these tests done, come over here!")
+	#else
+		$aunt.speech("So, you're ready for more tests, then? Come over here!")
+	#end
+</p>
+
+
+<p>
+	You do as she instructs, and make your way over to where she's standing. Rose quickly makes her exit, hurrying past you and blushing as you say hello. Lilaya motions for you to sit down in the chair she just vacated, and as you do so, she grabs a smooth, wand-like instrument from another table. Moving over to you, the wand suddenly starts giving off a faint pink glow, and she starts swiping it over your body, humming as she does so.
+</p>
+
+<p>
+	$aunt.speech("Hmm, well... Yes...,") she says, and after a few moments of running this test, she steps back and places the wand to one side before continuing, $aunt.speech("So, your arcane aura hasn't shown any signs of degradation. It looks like it's permanent. If you've been out in Dominion, maybe you've noticed by now, but with an aura that strong, you have the same effect on people that a demon would.")
+</p>
+
+<p>
+	$player.speech("You mean...") you start, but Lilaya cuts you off.
+</p>
+
+<p>
+	$aunt.speech("Yes, I mean that anyone you encounter is going to feel extremely aroused when in your presence,"), she explains, $aunt.speech("and if you haven't figured it out yet, that's the main power behind the arcane. Sure, it can be harnessed to create all sorts of spells and enchantments, but at its core, it's a primitive force that feeds off people's sexual desires.")
+</p>
+
+<p>
+	$player.speech("So everyone I meet is going to want to have sex with me?") you ask.
+</p>
+
+<p>
+	$aunt.speech("Sort of, but remember that they have their own, less powerful, auras that reduce the potency of yours. If they become too weak, whether mentally or physically, they won't be able to control their aura any more, and that's when all they'll be able to think of is... well... A-anyway, the same applies right back at you,") she says, starting to blush a little.
+</p>
+
+<p>
+	$player.speech("So if someone beats me up, my own arcane aura is going to make me want to have sex with them?!") you ask.
+</p>
+
+<p>
+	$aunt.speech("Pretty much, but it'll also happen if you cast too many spells and get mentally fatigued. Anyway, enough of that for now, I need to tell you what I've discovered about how you got here.")
+</p>

@@ -1,0 +1,21 @@
+<p>
+	[pc.speech(Thanks Lilaya, I understand now, but it still seems a little strange.)]
+</p>
+<p>
+	[lilaya.speech(It is a little strange, yes, I don't really know how you're able to absorb essences like that,)] Lilaya responds, [lilaya.speech(but anyway, I've already got that arcane observation device set up in your room, so I was thinking that I could put one of my spare enchanting plates up there for you if you'd like? That way, when you enchant things, I can get some more data about how your aura is working.)]
+</p>
+<p>
+	[pc.speech(Sure, that sounds like a good idea, thanks again Lilaya!)]
+</p>
+<p>
+	Lilaya smiles at you, before turning and calling Rose over from her corner of the room. Instructing the cat-girl to go and set up an enchanting plate in your room, Lilaya then turns back to you, [lilaya.speech(Well, that's about it for how essences and enchanting works. You should go and try it out! I really need to get on with my work, but come by later, and maybe I can think up some new <i>tests</i> to run on you!)]
+</p>
+<p>
+	Lilaya walks you to the door, winking suggestively as she finishes her last sentence. With a little giggle, she skips back into the lab, leaving you to go and find out how Rose is getting on with setting the enchantment plate up.
+</p>
+<p>
+	Heading upstairs, you quickly make your way back to your room. Pushing open the door, you find that Rose has already come-and-gone, and, sitting on top of your as-yet-unused writing desk, you see a shiny new enchanting plate.
+</p>
+<p>
+	<i>Innoxia's note: The enchanting mechanics are still a work in progress. I plan on making the elements collectable items, as well as adding 'arcane essences' to be gained from having sex, and also providing the functionality to enchant clothing!</i>
+</p>

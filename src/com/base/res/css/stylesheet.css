@@ -1,0 +1,150 @@
+.root{
+    -fx-font-size: 12pt;
+	-fx-font-family: Verdana;
+    /*-fx-font-family: "Angelina";*/
+	-fx-background-color: "#1e1e20";/*linear-gradient(from 0% 0% to 100% 100%, #290a1f 0%, #1a001a 100%);*/
+}
+
+.context-menu {
+    -fx-background-color: #006699;
+    -fx-text-fill: white;
+    -fx-padding: 0;
+    -fx-spacing: 0;
+    -fx-background-radius: 0; 
+    -fx-hgap: 0;
+    -fx-vgap: 0;
+    -fx-effect: dropshadow(three-pass-box, #000000, 0, 0, 0, 0);
+}
+
+/*.label{
+	-fx-font-size: 12pt;
+	-fx-font-family: "Angelina";
+}*/
+
+.tooltip{
+	-fx-background-color: "#111111";
+	-fx-effect: dropshadow(three-pass-box, #000000, 0, 0, 0, 0);
+	-fx-font-size: 8pt;
+	-fx-font-family: Verdana;
+	-fx-background-radius: 0; 
+	-fx-border-radius: 0; 
+	-fx-padding: 4;
+}
+
+.menu-item .label {
+    -fx-text-fill: yellow;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: white;
+}
+
+.button{
+	-fx-font-size: 8pt;
+	-fx-max-height: 12px;
+	-fx-text-fill: "#060606";
+	-fx-background-color: "#AAAAAA";/*"transparent";*/
+	-fx-padding: 0;
+}
+.button:hover{
+	-fx-background-color: "#DDDDDD";
+    /*-fx-text-fill: "#dc17e8";*/
+	-fx-cursor: hand;
+}
+
+.vbox {
+    -fx-background-color: #1e1e20;
+}
+
+
+/* The increment and decrement button CSS class of scrollbar */
+ .increment-button , .decrement-button {
+	visibility: hidden;
+    -fx-background-color:transparent;
+	-fx-background-radius: 2px;
+	-fx-padding:0 -0.75em 0 -0.75em;
+}
+
+/* The main scrollbar **track** CSS class  */
+ .scroll-bar:horizontal .track ,
+ .scroll-bar:vertical .track{
+     -fx-background-color: transparent;
+	 
+	 -fx-background-radius: 2px;
+	 -fx-border-radius: 2px;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+ .scroll-bar:horizontal .thumb,
+ .scroll-bar:vertical .thumb {
+    -fx-background-color:#444444;
+	-fx-background-insets: 2, 0, 0;
+	
+	-fx-background-radius: 2px;
+}
+
+.scroll-pane {
+  -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+  -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .track-background {
+  visibility: hidden;
+}
+
+.scroll-bar:vertical .track {
+  visibility: hidden;
+}
+
+.hide-thumb .scroll-bar:vertical .thumb {
+  -fx-background-color: transparent;
+}
+
+
+
+
+#gridPanePhone{
+    -fx-background-color: #ff8080;
+}
+
+#anchorPaneCanvas{
+	-fx-background-radius: 5 5 5 5;
+	-fx-background-color: #19191a;
+	
+	/*
+	-fx-border-color:black;
+	-fx-border-width: 1px 0 1px 1px;
+	-fx-border-radius: 5px 0 0 5px;
+	*/
+}
+
+#mainCanvas{
+	-fx-background-color: #f0f0f0;
+}
+
+#hBoxButtons{
+	-fx-background-color: "#f0f0f0";
+	-fx-background-radius: 0 0 5 5;
+}
+
+#webViewMain{
+}
+
+#webViewMap{
+}
+
+#webViewInventory{
+}
+
+
+#vBoxNameInfo{
+	-fx-background-color: "#f0f0f0";
+}
+
+#vBoxAttributes{
+	-fx-background-color: "#f0f0f0";
+}
+
