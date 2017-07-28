@@ -1,0 +1,8 @@
+bin/
+data/
+.*
+*.bak
+*~
+*.old
+*.class
+*.log
