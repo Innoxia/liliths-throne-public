@@ -823,6 +823,8 @@ public class GameCharacter implements Serializable {
 //	}
 	
 	public boolean hasFetish(Fetish f) {
+		if (f == null)
+			return true;
 		return fetishes.contains(f);
 	}
 	
