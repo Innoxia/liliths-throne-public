@@ -44,7 +44,7 @@ public enum GenderPreference {
 	public static Gender getGenderFromUserPreferences(List<Gender> gendersToInclude) {
 		int total=0;
 		for(Gender g : Gender.values()) {
-			if(gendersToInclude.contains(gendersToInclude))
+			if (gendersToInclude.contains(g))
 				total+=Main.getProperties().genderPreferencesMap.get(g);
 		}
 		
@@ -52,7 +52,7 @@ public enum GenderPreference {
 		
 		int newTotal=0;
 		for(Gender g : Gender.values()) {
-			if(gendersToInclude.contains(gendersToInclude)) {
+			if (gendersToInclude.contains(g)) {
 				newTotal+=Main.getProperties().genderPreferencesMap.get(g);
 				if(random<=newTotal) {
 					return g;

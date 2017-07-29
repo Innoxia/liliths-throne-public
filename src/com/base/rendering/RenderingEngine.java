@@ -7,8 +7,8 @@ import java.util.Set;
 
 import com.base.game.KeyboardAction;
 import com.base.game.character.GameCharacter;
-import com.base.game.character.attributes.Attribute;
 import com.base.game.character.attributes.ArousalLevel;
+import com.base.game.character.attributes.Attribute;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.attributes.FitnessLevel;
 import com.base.game.character.attributes.IntelligenceLevel;
@@ -22,7 +22,6 @@ import com.base.game.character.npc.NPC;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.MapDisplay;
 import com.base.game.inventory.InventorySlot;
-import com.base.game.inventory.Rarity;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.sex.Sex;
