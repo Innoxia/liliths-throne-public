@@ -1,7 +1,9 @@
 # **Tutorial for Building Liliths Throne**
 
 *You will need the Eclipse IDE and Java SE Development Kit!*
-https://www.eclipse.org/downloads/?
+
+https://www.eclipse.org/downloads/
+
 http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 
 1. Open Eclipse
