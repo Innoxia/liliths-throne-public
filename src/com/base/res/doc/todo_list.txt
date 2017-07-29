@@ -66,6 +66,11 @@
 	
 	
 	
+	If you get Lilaya pregnant, then manage to avoid her until the pregnancy is over, then go talk to her for the 'did she get pregnant or not' scene... she acts like she was never pregnant.
+	
+	Mother's milk feeding isn't working
+	
+	Stroke cock isn't parsing [pc.cock] right.
 	
 	Character view -> Panel on right
 		Add details about romance/affection/relationship.
@@ -110,6 +115,7 @@
 		Add a reset button to both fetish and perk screen
 	
 	Dominant oral
+		Remember paizuri!
 	
 	Combine potion effects!
 	
