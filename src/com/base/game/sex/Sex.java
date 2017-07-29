@@ -361,7 +361,8 @@ public enum Sex {
 					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getAssRawCapacityValue()).getDescriptor() + "!</b></p>");
 			}
 		}
-		if (Main.game.getPlayer().getVaginaRawCapacityValue() != Main.game.getPlayer().getVaginaStretchedCapacity() && areasStretchedPlayer.contains(CoverableArea.VAGINA)) {
+	if (Main.game.getPlayer().getVaginaRawCapacityValue() != Main.game.getPlayer().getVaginaStretchedCapacity()
+		&& areasStretchedPlayer.contains(OrificeType.VAGINA_PLAYER)) {
 			if (Main.game.getPlayer().getVaginaElasticity() == OrificeElasticity.SEVEN_ELASTIC){
 
 				Main.game.getPlayer().setVaginaStretchedCapacity(Main.game.getPlayer().getVaginaRawCapacityValue());

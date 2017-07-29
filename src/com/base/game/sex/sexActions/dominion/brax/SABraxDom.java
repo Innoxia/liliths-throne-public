@@ -1185,7 +1185,7 @@ public class SABraxDom {
 		
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getPlayerPenetrationRequests().contains(CoverableArea.VAGINA))
+	    if (Sex.getPlayerPenetrationRequests().contains(OrificeType.VAGINA_PLAYER))
 				return SexActionPriority.UNIQUE_MAX;
 			else
 				return SexActionPriority.HIGH;
@@ -1198,7 +1198,7 @@ public class SABraxDom {
 			if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)!=null)
 				UtilText.nodeContentSB.append("Brax pulls back, letting his "+Sex.getPartner().getPenisName(true)+" slide out of your tight ass.</br>");
 			
-			if (Sex.getPlayerPenetrationRequests().contains(CoverableArea.VAGINA)) {
+	    if (Sex.getPlayerPenetrationRequests().contains(OrificeType.VAGINA_PLAYER)) {
 				UtilText.nodeContentSB.append("Brax growls down to you as he brings the tip of his cock up to your pussy, "
 					+ UtilText.parseSpeech("You want me to fuck your little cunt, huh? Well, I like to make my little beta happy...", Main.game.getBrax())
 					+ "</br>");
