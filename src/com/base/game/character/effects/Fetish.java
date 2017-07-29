@@ -12,6 +12,7 @@ import com.base.game.character.attributes.Attribute;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.body.types.VaginaType;
 import com.base.game.dialogue.utils.UtilText;
+import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Util.ListValue;
@@ -169,6 +170,12 @@ public enum Fetish implements PerkInterface {
 					new ListValue<>("<span style='color:" + Colour.GENERIC_BAD + ";'>Suffer</span> <span style='color:" + Colour.GENERIC_ARCANE + ";'>'broken virgin'</span>")),
 			null) {
 
+
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return character.hasVagina()
+					&& character.isVaginaVirgin();
+		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -470,6 +477,10 @@ public enum Fetish implements PerkInterface {
 					+ ";'>Talk like a bimbo</span>")),
 			null) {
 
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return character.isFeminine();
+		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -708,6 +719,12 @@ public enum Fetish implements PerkInterface {
 					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX+ ";'>Resist sex pace</span>"),
 					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_ARCANE+ ";'>Non-consensual scenes</span>")),
 			null) {
+		// ONLY IF THE PLAYER HAS IT!
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return character.isPlayer()
+					|| Main.game.getPlayer().hasFetish(this);
+		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {

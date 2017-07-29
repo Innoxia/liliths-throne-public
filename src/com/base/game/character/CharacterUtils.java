@@ -1026,39 +1026,9 @@ public class CharacterUtils {
 	public static void addFetishes(GameCharacter character) {
 		List<Fetish> fetishes = new ArrayList<>();
 		for(Fetish f : Fetish.values()) {
-			if (f==Fetish.FETISH_PURE_VIRGIN) {
-				if(character.hasVagina())
-					fetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_BIMBO) {
-				if(character.isFeminine())
-					fetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_PREGNANCY) {
-				if(character.hasVagina())
-					fetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_IMPREGNATION) {
-				if(character.hasPenis())
-					fetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_SEEDER) {
-				if(character.hasPenis())
-					fetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_BROODMOTHER) {
-				if(character.hasVagina())
-					fetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_CUM_STUD) {
-				if(character.hasPenis())
-					fetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_NON_CON) {
-				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_NON_CON)) // Don't allow the NPC to have a non-con fetish if the player isn't in to it.
-					fetishes.add(f);
-				
-			} else if (f.getFetishesForAutomaticUnlock().isEmpty()){
+			if (f.getFetishesForAutomaticUnlock().isEmpty()) {
+				fetishes.add(f);
+			} else if (f.isAvailable(character)) {
 				fetishes.add(f);
 			}
 		}
