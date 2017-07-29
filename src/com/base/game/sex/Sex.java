@@ -340,7 +340,8 @@ public enum Sex {
 		sexSB = new StringBuilder();
 
 		// Stretching effects for each of the player's orifices:
-		if (Main.game.getPlayer().getAssRawCapacityValue() != Main.game.getPlayer().getAssStretchedCapacity() && areasStretchedPlayer.contains(CoverableArea.ANUS)) {
+		if (Main.game.getPlayer().getAssRawCapacityValue() != Main.game.getPlayer().getAssStretchedCapacity()
+				&& areasStretchedPlayer.contains(OrificeType.ANUS_PLAYER)) {
 			if (Main.game.getPlayer().getAssElasticity() == OrificeElasticity.SEVEN_ELASTIC){
 
 				Main.game.getPlayer().setAssStretchedCapacity(Main.game.getPlayer().getAssRawCapacityValue());
