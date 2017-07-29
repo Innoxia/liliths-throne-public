@@ -1,11 +1,12 @@
 # **Tutorial for Building Liliths Throne**
 
 *You will need the Eclipse IDE and Java SE Development Kit!*
-*If you already have Eclipse, verify that you are running Luna or later, as Java 1.8 is required*
 
 https://www.eclipse.org/downloads/
 
 http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
+*If you already have Eclipse, verify that you are running Luna or later, as Java 1.8 is required*
 
 1. Open Eclipse
 2. Click File, Import it will then open a wizard, open Git and choose Projects from Git, click Next
