@@ -112,7 +112,7 @@ public class Litter implements Serializable {
 		if(getMotherRace()!=getFatherRace()) {
 			if (getSonsFromMother() > 0) {
 				descriptionSB.append(
-						"<b>"+Util.intToString(getSonsFromMother())+ " </b><b style='color:"+ Colour.MASCULINE.()+ ";'>"
+						"<b>"+Util.intToString(getSonsFromMother())+ " </b><b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"
 							+ (getSonsFromMother() > 1
 								? getMotherRace().getOffspringMaleName()
 								: getMotherRace().getOffspringMaleNameSingular())
@@ -129,7 +129,7 @@ public class Litter implements Serializable {
 					}
 				}
 				descriptionSB.append(
-						"<b>"+Util.intToString(getSonsFromFather())+ " </b><b style='color:"+ Colour.MASCULINE.()+ ";'>"
+						"<b>"+Util.intToString(getSonsFromFather())+ " </b><b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"
 							+ (getSonsFromFather() > 1
 								? getFatherRace().getOffspringMaleName()
 								: getFatherRace().getOffspringMaleNameSingular())
@@ -140,7 +140,7 @@ public class Litter implements Serializable {
 		} else {
 			if (getSonsFromMother()+getSonsFromFather() > 0) {
 				descriptionSB.append(
-						"<b>"+Util.intToString(getSonsFromMother()+getSonsFromFather())+ " </b><b style='color:"+ Colour.MASCULINE.()+ ";'>"
+						"<b>"+Util.intToString(getSonsFromMother()+getSonsFromFather())+ " </b><b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"
 							+ (getSonsFromMother()+getSonsFromFather() > 1
 								? getMotherRace().getOffspringMaleName()
 								: getMotherRace().getOffspringMaleNameSingular())
@@ -159,7 +159,7 @@ public class Litter implements Serializable {
 					}
 				}
 				descriptionSB.append(
-						"<b>"+Util.intToString(getDaughtersFromMother())+ " </b><b style='color:"+ Colour.FEMININE.()+ ";'>"
+						"<b>"+Util.intToString(getDaughtersFromMother())+ " </b><b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"
 							+ (getDaughtersFromMother() > 1
 								? getMotherRace().getOffspringFemaleName()
 								: getMotherRace().getOffspringFemaleNameSingular())
@@ -172,7 +172,7 @@ public class Litter implements Serializable {
 					descriptionSB.append(", and ");
 				}
 				descriptionSB.append(
-						"<b>"+Util.intToString(getDaughtersFromFather())+ " </b><b style='color:"+ Colour.FEMININE.()+ ";'>"
+						"<b>"+Util.intToString(getDaughtersFromFather())+ " </b><b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"
 							+ (getDaughtersFromFather() > 1
 								? getFatherRace().getOffspringFemaleName()
 								: getFatherRace().getOffspringFemaleNameSingular())
@@ -184,7 +184,7 @@ public class Litter implements Serializable {
 					descriptionSB.append(" and ");
 				}
 				descriptionSB.append(
-						"<b>"+Util.intToString(getDaughtersFromMother()+getDaughtersFromFather())+ " </b><b style='color:"+ Colour.FEMININE.()+ ";'>"
+						"<b>"+Util.intToString(getDaughtersFromMother()+getDaughtersFromFather())+ " </b><b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"
 							+ (getDaughtersFromMother()+getDaughtersFromFather() > 1
 								? getMotherRace().getOffspringFemaleName()
 								: getMotherRace().getOffspringFemaleNameSingular())

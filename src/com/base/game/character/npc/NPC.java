@@ -5619,7 +5619,7 @@ public abstract class NPC extends GameCharacter {
 	protected String losingPureVirginity(){
 		return UtilText.parse(Sex.getPartner(),
 				"<p style='text-align:center;'>"
-					+ "<b style='color:"+Colour.GENERIC_TERRIBLE.()+";'>Broken Virgin</b>"
+					+ "<b style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
 				+ "</p>"
 				+ "<p>"
 					+ "You can't believe what's happening."
@@ -5647,7 +5647,7 @@ public abstract class NPC extends GameCharacter {
 				+ "</p>"
 				+ "<p>"
 				+ "You're vaguely aware of [npc.name] grunting away somewhere in the background, completely oblivious to how hard you've been hit by the loss of your virginity."
-				+ " With a shuddering sigh, you decide to resign yourself to the fact that now you're nothing more than a <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().()+";'>broken virgin</b>..."
+				+ " With a shuddering sigh, you decide to resign yourself to the fact that now you're nothing more than a <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
 				+ "</p>");
 	}
 	
@@ -5863,9 +5863,9 @@ public abstract class NPC extends GameCharacter {
 		if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER).isPlayer()) {
 			return formatVirginityLoss("You have taken [npc.name]'s anal virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
-							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.()+";'>Due to your deflowering fetish, you gain</i>"
-							+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
-							+ " <i style='color:"+Colour.GENERIC_ARCANE.()+";'>experience!</i></p>"
+							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
+							+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
+							+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>experience!</i></p>"
 							:"");
 			
 		} else {
@@ -5877,9 +5877,9 @@ public abstract class NPC extends GameCharacter {
 		if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER).isPlayer()) {
 			return formatVirginityLoss("[npc.Name]'s hymen has been torn; you have taken [npc.her] virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
-							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.()+";'>Due to your deflowering fetish, you gain</i>"
-							+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.()+";'>"+Fetish.getExperienceGainFromTakingVaginalVirginity(Main.game.getPlayer())+"</i>"
-							+ " <i style='color:"+Colour.GENERIC_ARCANE.()+";'>experience from taking [npc.name]'s virginity!</i></p>"
+							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
+							+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>"+Fetish.getExperienceGainFromTakingVaginalVirginity(Main.game.getPlayer())+"</i>"
+							+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>experience from taking [npc.name]'s virginity!</i></p>"
 							:"");
 			
 		} else {
@@ -5891,9 +5891,9 @@ public abstract class NPC extends GameCharacter {
 		if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER).isPlayer()) {
 			return formatVirginityLoss("You have taken [npc.name]'s nipple virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
-							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.()+";'>Due to your deflowering fetish, you gain</i>"
-							+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
-							+ " <i style='color:"+Colour.GENERIC_ARCANE.()+";'>experience!</i></p>"
+							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
+							+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
+							+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>experience!</i></p>"
 							:"");
 			
 		} else {
@@ -5905,9 +5905,9 @@ public abstract class NPC extends GameCharacter {
 		if(Sex.getPenetrationTypeInOrifice(OrificeType.URETHRA_PARTNER).isPlayer()) {
 			return formatVirginityLoss("You have taken [npc.name]'s urethral virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
-							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.()+";'>Due to your deflowering fetish, you gain</i>"
-							+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
-							+ " <i style='color:"+Colour.GENERIC_ARCANE.()+";'>experience!</i></p>"
+							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
+							+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
+							+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>experience!</i></p>"
 							:"");
 		} else {
 			return formatVirginityLoss("[npc.Name] has taken [npc.her] own urethral virginity!");
@@ -5918,9 +5918,9 @@ public abstract class NPC extends GameCharacter {
 		if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER).isPlayer()) {
 			return formatVirginityLoss("You have given [npc.name] [npc.her] first oral experience!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
-							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.()+";'>Due to your deflowering fetish, you gain</i>"
-							+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
-							+ " <i style='color:"+Colour.GENERIC_ARCANE.()+";'>experience!</i></p>"
+							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
+							+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
+							+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>experience!</i></p>"
 							:"");
 			
 		} else {

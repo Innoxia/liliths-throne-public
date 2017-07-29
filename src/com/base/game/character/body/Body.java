@@ -210,21 +210,21 @@ public class Body implements Serializable {
 		// Describe race:
 		if (owner.isPlayer()) {
 			sb.append("<p>"
-						+ "You are [pc.name], <span style='color:"+getGender().getColour().()+";'>[pc.a_gender]</span> [pc.raceStage] [pc.race]. "
+						+ "You are [pc.name], <span style='color:"+getGender().getColour().toWebHexString()+";'>[pc.a_gender]</span> [pc.raceStage] [pc.race]. "
 						+ owner.getAppearsAsGenderDescription()
 						+" Standing at full height, you measure [pc.heightFeetInches] ([pc.heightCm]cm)."
 					+"</p>");
 		} else {
 			if(owner.getPlayerKnowsAreasMap().get(CoverableArea.PENIS) && owner.getPlayerKnowsAreasMap().get(CoverableArea.VAGINA)) {
 				sb.append("<p>"
-						+ "[npc.Name] is <span style='color:"+getGender().getColour().()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
+						+ "[npc.Name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
 						+ owner.getAppearsAsGenderDescription()
 						+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm)."
 					+ "</p>");
 			} else {
 				if(Main.game.getPlayer().hasPerk(Perk.OBSERVANT)) {
 					sb.append("<p>"
-							+ "Thanks to your observant perk, you can detect that [npc.name] is <span style='color:"+getGender().getColour().()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
+							+ "Thanks to your observant perk, you can detect that [npc.name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
 							+ owner.getAppearsAsGenderDescription()
 							+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm)."
 						+ "</p>");
@@ -251,123 +251,123 @@ public class Body implements Serializable {
 		if (femininity <= Femininity.MASCULINE_STRONG.getMaximumFemininity()) {
 			sb.append(
 					UtilText.returnStringAtRandom(
-							"a <span style='color:" + Colour.MASCULINE_PLUS.() + ";'>very masculine</span>",
-							"an <span style='color:" + Colour.MASCULINE_PLUS.() + ";'>extremely handsome</span>"));
+							"a <span style='color:" + Colour.MASCULINE_PLUS.toWebHexString() + ";'>very masculine</span>",
+							"an <span style='color:" + Colour.MASCULINE_PLUS.toWebHexString() + ";'>extremely handsome</span>"));
 			
 		} else if (femininity <= Femininity.MASCULINE.getMaximumFemininity()) {
 			sb.append(
 					UtilText.returnStringAtRandom(
-							"a <span style='color:" + Colour.MASCULINE.() + ";'>masculine</span>",
-							"a <span style='color:" + Colour.MASCULINE.() + ";'>handsome</span>"));
+							"a <span style='color:" + Colour.MASCULINE.toWebHexString() + ";'>masculine</span>",
+							"a <span style='color:" + Colour.MASCULINE.toWebHexString() + ";'>handsome</span>"));
 			
 		} else if (femininity <= Femininity.ANDROGYNOUS.getMaximumFemininity()) {
-			sb.append("an <span style='color:" + Colour.ANDROGYNOUS.() + ";'>androgynous</span>");
+			sb.append("an <span style='color:" + Colour.ANDROGYNOUS.toWebHexString() + ";'>androgynous</span>");
 			
 		} else if (femininity <= Femininity.FEMININE.getMaximumFemininity()) {
 			sb.append(
 					UtilText.returnStringAtRandom(
-							"a <span style='color:" + Colour.FEMININE.() + ";'>pretty</span>",
-							"a <span style='color:" + Colour.FEMININE.() + ";'>feminine</span>",
-							"a <span style='color:" + Colour.FEMININE.() + ";'>cute</span>"));
+							"a <span style='color:" + Colour.FEMININE.toWebHexString() + ";'>pretty</span>",
+							"a <span style='color:" + Colour.FEMININE.toWebHexString() + ";'>feminine</span>",
+							"a <span style='color:" + Colour.FEMININE.toWebHexString() + ";'>cute</span>"));
 			
 		} else {
 			sb.append(
 					UtilText.returnStringAtRandom(
-							"an <span style='color:" + Colour.FEMININE_PLUS.() + ";'>extremely beautiful</span>",
-							"a <span style='color:" + Colour.FEMININE_PLUS.() + ";'>very feminine</span>",
-							"a <span style='color:" + Colour.FEMININE_PLUS.() + ";'>beautiful</span>",
-							"a <span style='color:" + Colour.FEMININE_PLUS.() + ";'>gorgeous</span>"));
+							"an <span style='color:" + Colour.FEMININE_PLUS.toWebHexString() + ";'>extremely beautiful</span>",
+							"a <span style='color:" + Colour.FEMININE_PLUS.toWebHexString() + ";'>very feminine</span>",
+							"a <span style='color:" + Colour.FEMININE_PLUS.toWebHexString() + ";'>beautiful</span>",
+							"a <span style='color:" + Colour.FEMININE_PLUS.toWebHexString() + ";'>gorgeous</span>"));
 		}
 		
 		// Face and eyes:
 		switch (face.getType()) {
 			case HUMAN:
 				if (owner.isPlayer()) {
-					sb.append(" face, with a pair of <span style='color:"+owner.getEyeColour().()+";'>[pc.eyeColour] [pc.eyes+]</span>"
+					sb.append(" face, with a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[pc.eyeColour] [pc.eyes+]</span>"
 							+ (face.isPiercedNose() ? " and a pierced nose." : "."));
 				} else {
-					sb.append(" face, with a pair of <span style='color:"+owner.getEyeColour().()+";'>[npc.eyeColour] [npc.eyes+]</span>"
+					sb.append(" face, with a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[npc.eyeColour] [npc.eyes+]</span>"
 							+ (face.isPiercedNose() ? " and a pierced nose." : "."));
 				}
 				break;
 			case ANGEL:
 				if (owner.isPlayer()) {
 					sb.append(" face, which seems to radiate a soft golden glow."
-							+ " You have a pair of <span style='color:"+owner.getEyeColour().()+";'>[pc.eyeColour] [pc.eyes+]</span>"
+							+ " You have a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[pc.eyeColour] [pc.eyes+]</span>"
 							+ (face.isPiercedNose() ? ", and your nose has been pierced." : "."));
 				} else {
 					sb.append(" face which seems to radiate a soft golden glow."
-							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().()+";'>[npc.eyeColour] [npc.eyes+]</span>"
+							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[npc.eyeColour] [npc.eyes+]</span>"
 							+ (face.isPiercedNose() ? ", and [npc.her] nose has been pierced." : "."));
 				}
 				break;
 			case DEMON_COMMON:
 				if (owner.isPlayer()) {
-					sb.append(", perfectly proportioned face, with a pair of <span style='color:"+owner.getEyeColour().()+";'>[pc.eyeColour] [pc.eyes+]</span>"
+					sb.append(", perfectly proportioned face, with a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[pc.eyeColour] [pc.eyes+]</span>"
 							+ (face.isPiercedNose() ? " and a pierced nose." : "."));
 				} else {
-					sb.append(", perfectly proportioned face, with a pair of <span style='color:"+owner.getEyeColour().()+";'>[npc.eyeColour] [npc.eyes+]</span>"
+					sb.append(", perfectly proportioned face, with a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[npc.eyeColour] [npc.eyes+]</span>"
 							+ (face.isPiercedNose() ? ", and a pierced nose." : "."));
 				}
 				break;
 			case DOG_MORPH:
 				if (owner.isPlayer()) {
 					sb.append(", anthropomorphic dog-like face, complete with muzzle."
-							+ " You have a pair of <span style='color:"+owner.getEyeColour().()+";'>[pc.eyeColour] [pc.eyes+]</span>"
+							+ " You have a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[pc.eyeColour] [pc.eyes+]</span>"
 							+ (face.isPiercedNose() ? "a pierced nose." : "."));
 				} else {
 					sb.append(", anthropomorphic dog-like face, complete with muzzle."
-							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().()+";'>[npc.eyeColour] [npc.eyes+]</span>"
+							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[npc.eyeColour] [npc.eyes+]</span>"
 							+ (face.isPiercedNose() ? ", and a pierced nose." : "."));
 				}
 				break;
 			case LYCAN:
 				if (owner.isPlayer()) {
 					sb.append(", anthropomorphic wolf-like face, complete with muzzle."
-							+ " You have a pair of <span style='color:"+owner.getEyeColour().()+";'>[pc.eyeColour] [pc.eyes+]</span>" + (face.isPiercedNose() ? " and a pierced nose." : "."));
+							+ " You have a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[pc.eyeColour] [pc.eyes+]</span>" + (face.isPiercedNose() ? " and a pierced nose." : "."));
 				} else {
 					sb.append(", anthropomorphic wolf-like face, complete with muzzle."
-							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().()+";'>[npc.eyeColour] [npc.eyes+]</span>" + (face.isPiercedNose() ? " and a pierced nose." : "."));
+							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[npc.eyeColour] [npc.eyes+]</span>" + (face.isPiercedNose() ? " and a pierced nose." : "."));
 				}
 				break;
 			case CAT_MORPH:
 				if (owner.isPlayer()) {
 					sb.append(", anthropomorphic cat-like face, with a cute little muzzle."
-							+ " You have a pair of <span style='color:"+owner.getEyeColour().()+";'>[pc.eyeColour] [pc.eyes+]</span>" + (face.isPiercedNose() ? " and a pierced nose." : "."));
+							+ " You have a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[pc.eyeColour] [pc.eyes+]</span>" + (face.isPiercedNose() ? " and a pierced nose." : "."));
 				} else {
 					sb.append(", anthropomorphic cat-like face, with a cute little muzzle."
-							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().()+";'>[npc.eyeColour] [npc.eyes+]</span>" + (face.isPiercedNose() ? " and a pierced nose." : "."));
+							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[npc.eyeColour] [npc.eyes+]</span>" + (face.isPiercedNose() ? " and a pierced nose." : "."));
 				}
 				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer()) {
 					sb.append(", anthropomorphic horse-like face, with a long, horse-like muzzle."
-							+ " You have a pair of <span style='color:"+owner.getEyeColour().()+";'>[pc.eyeColour] [pc.eyes+]</span>"
+							+ " You have a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[pc.eyeColour] [pc.eyes+]</span>"
 							+ (face.isPiercedNose() ? " and a pierced nose." : "."));
 				} else {
 					sb.append(", anthropomorphic horse-like face, with a long, horse-like muzzle."
-							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().()+";'>[npc.eyeColour] [npc.eyes+]</span>"
+							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[npc.eyeColour] [npc.eyes+]</span>"
 							+ (face.isPiercedNose() ? " and a pierced nose." : "."));
 				}
 				break;
 			case SLIME:
 				if (owner.isPlayer())
 					sb.append(" face, which is completely made out of [pc.faceColour] slime."
-							+ " You have a pair of <span style='color:"+owner.getEyeColour().()+";'>[pc.eyeColour] [pc.eyes+]</span>"
+							+ " You have a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[pc.eyeColour] [pc.eyes+]</span>"
 							+ (face.isPiercedNose() ? " and a pierced nose." : "."));
 				else
 					sb.append(" face, which is completely made out of " + skinTypeColours.get(face.getType().getSkinType()).getName() + " slime."
-							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().()+";'>[npc.eyeColour] [npc.eyes+]</span>"
+							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[npc.eyeColour] [npc.eyes+]</span>"
 							+ (face.isPiercedNose() ? " and a pierced nose." : "."));
 				break;
 			case HARPY:
 				if (owner.isPlayer())
 					sb.append(", anthropomorphic bird-like face, complete with beak."
-							+ " You have a pair of <span style='color:"+owner.getEyeColour().()+";'>[pc.eyeColour] [pc.eyes+]</span>"
+							+ " You have a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[pc.eyeColour] [pc.eyes+]</span>"
 							+ (face.isPiercedNose() ? ", and the end of your beak has been pierced." : "."));
 				else
 					sb.append(", anthropomorphic bird-like face, complete with beak."
-							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().()+";'>[npc.eyeColour] [npc.eyes+]</span>"
+							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[npc.eyeColour] [npc.eyes+]</span>"
 							+ (face.isPiercedNose() ? ", and the end of [npc.her] beak has been pierced." : "."));
 				break;
 			default:
@@ -386,47 +386,47 @@ public class Body implements Serializable {
 			}
 			
 			if (face.isVirgin()) {
-				sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You've never given head before, so you don't know what you could fit down your throat</span>.");
+				sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You've never given head before, so you don't know what you could fit down your throat</span>.");
 			} else {
 				switch(face.getCapacity().getMaximumSizeComfortableWithLube()) {
 					case NEGATIVE_UTILITY_VALUE: case ZERO_MICROSCOPIC:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You're terrible at giving head</span>, and struggle to fit the tip of even a tiny cock into your mouth without gagging.");
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're terrible at giving head</span>, and struggle to fit the tip of even a tiny cock into your mouth without gagging.");
 						break;
 					case ONE_TINY:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You're really bad at giving head</span>, and struggle to fit even a tiny cocks into your mouth without gagging.");
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're really bad at giving head</span>, and struggle to fit even a tiny cocks into your mouth without gagging.");
 //						sb.append(" You find anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case TWO_AVERAGE:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You're not great at giving head</span>, and anything larger than an average-sized human cock will cause you to gag.");
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're not great at giving head</span>, and anything larger than an average-sized human cock will cause you to gag.");
 //						sb.append(" You find anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case THREE_LARGE:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You're somewhat competent at giving head</span>, and can suppress your gag reflex enough to comfortably suck large cocks.");
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're somewhat competent at giving head</span>, and can suppress your gag reflex enough to comfortably suck large cocks.");
 //						sb.append(" You find anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case FOUR_HUGE:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You're pretty good at giving head</span>, and can comfortably suck huge cocks without gagging.");
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're pretty good at giving head</span>, and can comfortably suck huge cocks without gagging.");
 //						sb.append(" You find anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case FIVE_ENORMOUS:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You're somewhat of an expert at giving head</span>, and can suck enormous cocks without too much difficulty.");
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're somewhat of an expert at giving head</span>, and can suck enormous cocks without too much difficulty.");
 //						sb.append(" You find anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case SIX_GIGANTIC:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You're amazing at giving head</span>, and can comfortably suck all but the most absurdly-sized of cocks with ease.");
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're amazing at giving head</span>, and can comfortably suck all but the most absurdly-sized of cocks with ease.");
 //						sb.append(" You find anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case SEVEN_STALLION:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You are</span>"
-								+ " <span style='color:" + Colour.GENERIC_EXCELLENT.() + ";'>legendary</span>"
-								+ " <span style='color:" + Colour.GENERIC_SEX.() + ";'>at giving head</span>; it's almost as though your throat was purposefully designed to fit phallic objects of any size or shape.");
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You are</span>"
+								+ " <span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>legendary</span>"
+								+ " <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>at giving head</span>; it's almost as though your throat was purposefully designed to fit phallic objects of any size or shape.");
 						break;
 					default:
 						break;
 				}
 				for(PenetrationType pt : PenetrationType.values()) {
 					if(Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER))!=null) {
-						sb.append(" <span style='color:" + Colour.GENERIC_ARCANE.() + ";'>The first time you performed oral sex was to "
+						sb.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>The first time you performed oral sex was to "
 								+ Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER)) + ".</span>");
 					}
 				}
@@ -444,40 +444,40 @@ public class Body implements Serializable {
 			
 			if (owner.getPlayerKnowsAreasMap().get(CoverableArea.MOUTH)) {
 				if (face.isVirgin()) {
-					sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.She]'s never given head before.</span>.");
+					sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s never given head before.</span>.");
 				} else {
 					switch(face.getCapacity().getMaximumSizeComfortableWithLube()) {
 					case NEGATIVE_UTILITY_VALUE: case ZERO_MICROSCOPIC:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.She]'s terrible at giving head</span>, and struggles to fit the tip of even the smallest of cocks into [npc.her] mouth without gagging.");
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s terrible at giving head</span>, and struggles to fit the tip of even the smallest of cocks into [npc.her] mouth without gagging.");
 						break;
 					case ONE_TINY:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.She]'s really bad at giving head</span>, and struggles to fit even tiny cocks into [npc.her] mouth without gagging.");
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s really bad at giving head</span>, and struggles to fit even tiny cocks into [npc.her] mouth without gagging.");
 //						sb.append(" [npc.She] finds anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case TWO_AVERAGE:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.She]'s not great at giving head</span>, and anything larger than an average-sized human cock will cause [npc.her] to gag.");
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s not great at giving head</span>, and anything larger than an average-sized human cock will cause [npc.her] to gag.");
 //						sb.append(" [npc.She] finds anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case THREE_LARGE:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.She]'s somewhat competent at giving head</span>, and can suppress [npc.her] gag reflex enough to comfortably suck large cocks.");
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s somewhat competent at giving head</span>, and can suppress [npc.her] gag reflex enough to comfortably suck large cocks.");
 //						sb.append(" [npc.She] finds anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case FOUR_HUGE:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.She]'s pretty good at giving head</span>, and can comfortably suck huge cocks without gagging.");
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s pretty good at giving head</span>, and can comfortably suck huge cocks without gagging.");
 //						sb.append(" [npc.She] finds anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case FIVE_ENORMOUS:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.She]'s somewhat of an expert at giving head</span>, and can suck enormous cocks without too much difficulty.");
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s somewhat of an expert at giving head</span>, and can suck enormous cocks without too much difficulty.");
 //						sb.append(" [npc.She] finds anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case SIX_GIGANTIC:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.She]'s amazing at giving head</span>, and can comfortably suck all but the most absurdly-sized of cocks with ease.");
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s amazing at giving head</span>, and can comfortably suck all but the most absurdly-sized of cocks with ease.");
 //						sb.append(" [npc.She] finds anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case SEVEN_STALLION:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.She] is</span>"
-								+ " <span style='color:" + Colour.GENERIC_EXCELLENT.() + ";'>legendary</span>"
-								+ " <span style='color:" + Colour.GENERIC_SEX.() + ";'>at giving head</span>;"
+						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She] is</span>"
+								+ " <span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>legendary</span>"
+								+ " <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>at giving head</span>;"
 										+ " it's almost as though [npc.her] throat was purposefully designed to fit phallic objects of any size or shape.");
 						break;
 					default:
@@ -485,7 +485,7 @@ public class Body implements Serializable {
 				}
 				}
 			} else {
-				sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You don't know [npc.herHim] well enough to know how competent [npc.she] is at performing oral sex.</span>");
+				sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You don't know [npc.herHim] well enough to know how competent [npc.she] is at performing oral sex.</span>");
 			}
 		}
 		// Ear:
@@ -694,52 +694,52 @@ public class Body implements Serializable {
 		if (femininity <= Femininity.MASCULINE_STRONG.getMaximumFemininity()) {
 			sb.append(
 					UtilText.returnStringAtRandom(
-							", and together, form an <span style='color:" + Colour.MASCULINE_PLUS.() + ";'>extremely masculine</span> figure.",
-							", and together, form a <span style='color:" + Colour.MASCULINE_PLUS.() + ";'>very handsome</span> figure."));
+							", and together, form an <span style='color:" + Colour.MASCULINE_PLUS.toWebHexString() + ";'>extremely masculine</span> figure.",
+							", and together, form a <span style='color:" + Colour.MASCULINE_PLUS.toWebHexString() + ";'>very handsome</span> figure."));
 			
 		} else if (femininity <= Femininity.MASCULINE.getMaximumFemininity()) {
 			sb.append(
 					UtilText.returnStringAtRandom(
-							", and together, form a <span style='color:" + Colour.MASCULINE.() + ";'>masculine</span> figure.",
-							", and together, form a <span style='color:" + Colour.MASCULINE.() + ";'>handsome</span> figure."));
+							", and together, form a <span style='color:" + Colour.MASCULINE.toWebHexString() + ";'>masculine</span> figure.",
+							", and together, form a <span style='color:" + Colour.MASCULINE.toWebHexString() + ";'>handsome</span> figure."));
 			
 		} else if (femininity <= Femininity.ANDROGYNOUS.getMaximumFemininity()) {
-			sb.append(", and together, form an <span style='color:" + Colour.ANDROGYNOUS.() + ";'>androgynous</span> figure.");
+			sb.append(", and together, form an <span style='color:" + Colour.ANDROGYNOUS.toWebHexString() + ";'>androgynous</span> figure.");
 			
 		} else if (femininity <= Femininity.FEMININE.getMaximumFemininity()) {
 			sb.append(
 					UtilText.returnStringAtRandom(
-							", and together, form a <span style='color:" + Colour.FEMININE.() + ";'>feminine</span> figure.",
-							", and together, form a <span style='color:" + Colour.FEMININE.() + ";'>pretty</span> figure."));
+							", and together, form a <span style='color:" + Colour.FEMININE.toWebHexString() + ";'>feminine</span> figure.",
+							", and together, form a <span style='color:" + Colour.FEMININE.toWebHexString() + ";'>pretty</span> figure."));
 			
 		} else {
 			sb.append(
 					UtilText.returnStringAtRandom(
-							", and together, form an <span style='color:" + Colour.FEMININE_PLUS.() + ";'>extremely beautiful</span> figure.",
-							", and together, form a <span style='color:" + Colour.FEMININE_PLUS.() + ";'>gorgeous</span> figure.",
-							", and together, form a <span style='color:" + Colour.FEMININE_PLUS.() + ";'>jaw-droppingly beautiful</span> figure."));
+							", and together, form an <span style='color:" + Colour.FEMININE_PLUS.toWebHexString() + ";'>extremely beautiful</span> figure.",
+							", and together, form a <span style='color:" + Colour.FEMININE_PLUS.toWebHexString() + ";'>gorgeous</span> figure.",
+							", and together, form a <span style='color:" + Colour.FEMININE_PLUS.toWebHexString() + ";'>jaw-droppingly beautiful</span> figure."));
 		}
 		
 		// Pregnancy:
 		if(owner.hasStatusEffect(StatusEffect.PREGNANT_1)){
 			if (owner.isPlayer())
-				sb.append(" Your belly is slightly swollen, and it's clear to anyone who takes a closer look that <span style='color:"+Colour.GENERIC_ARCANE.()+";'>you're pregnant</span>.");
+				sb.append(" Your belly is slightly swollen, and it's clear to anyone who takes a closer look that <span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>you're pregnant</span>.");
 			else
-				sb.append(" [npc.Her] belly is slightly swollen, and it's clear to anyone who takes a closer look that <span style='color:"+Colour.GENERIC_ARCANE.()+";'>[npc.she]'s pregnant</span>.");
+				sb.append(" [npc.Her] belly is slightly swollen, and it's clear to anyone who takes a closer look that <span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc.she]'s pregnant</span>.");
 			
 		}else if(owner.hasStatusEffect(StatusEffect.PREGNANT_2)){
 			if (owner.isPlayer())
-				sb.append(" Your belly is heavily swollen, and it's clear to anyone who glances your way that <span style='color:"+Colour.GENERIC_ARCANE.()+";'>you're pregnant</span>.");
+				sb.append(" Your belly is heavily swollen, and it's clear to anyone who glances your way that <span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>you're pregnant</span>.");
 			else
-				sb.append(" [npc.Her] belly is heavily swollen, and it's clear to anyone who glances [npc.her] way that <span style='color:"+Colour.GENERIC_ARCANE.()+";'>[npc.she]'s pregnant</span>.");
+				sb.append(" [npc.Her] belly is heavily swollen, and it's clear to anyone who glances [npc.her] way that <span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc.she]'s pregnant</span>.");
 		
 		}else if(owner.hasStatusEffect(StatusEffect.PREGNANT_3)){
 			if (owner.isPlayer())
 				sb.append(" Your belly is massively swollen, and it's completely obvious to anyone who glances your way that"
-						+ " <span style='color:"+Colour.GENERIC_ARCANE.()+";'>you're expecting to give birth very soon</span>.");
+						+ " <span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>you're expecting to give birth very soon</span>.");
 			else
 				sb.append(" [npc.Her] belly is massively swollen, and it's completely obvious to anyone who glances [npc.her] way that"
-						+ " <span style='color:"+Colour.GENERIC_ARCANE.()+";'>[npc.she]'s expecting to give birth very soon</span>.");
+						+ " <span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc.she]'s expecting to give birth very soon</span>.");
 		}
 		
 		// Breasts:
@@ -1037,25 +1037,25 @@ public class Body implements Serializable {
 		if (femininity <= Femininity.MASCULINE_STRONG.getMaximumFemininity()) {
 			sb.append(
 					UtilText.returnStringAtRandom(
-							"<span style='color:" + Colour.MASCULINE_PLUS.() + ";'>have a very masculine shape to them</span>."));
+							"<span style='color:" + Colour.MASCULINE_PLUS.toWebHexString() + ";'>have a very masculine shape to them</span>."));
 			
 		} else if (femininity <= Femininity.MASCULINE.getMaximumFemininity()) {
 			sb.append(
 					UtilText.returnStringAtRandom(
-							"<span style='color:" + Colour.MASCULINE.() + ";'>have a masculine shape to them</span>."));
+							"<span style='color:" + Colour.MASCULINE.toWebHexString() + ";'>have a masculine shape to them</span>."));
 			
 		} else if (femininity <= Femininity.ANDROGYNOUS.getMaximumFemininity()) {
-			sb.append("<span style='color:" + Colour.ANDROGYNOUS.() + ";'>look quite androgynous, and could easily belong to either a male or female</span>.");
+			sb.append("<span style='color:" + Colour.ANDROGYNOUS.toWebHexString() + ";'>look quite androgynous, and could easily belong to either a male or female</span>.");
 			
 		} else if (femininity <= Femininity.FEMININE.getMaximumFemininity()) {
 			sb.append(
 					UtilText.returnStringAtRandom(
-							"<span style='color:" + Colour.FEMININE.() + ";'>are slender and feminine-looking</span>."));
+							"<span style='color:" + Colour.FEMININE.toWebHexString() + ";'>are slender and feminine-looking</span>."));
 			
 		} else {
 			sb.append(
 					UtilText.returnStringAtRandom(
-							"<span style='color:" + Colour.FEMININE_PLUS.() + ";'>have an extremely feminine shape to them</span>."));
+							"<span style='color:" + Colour.FEMININE_PLUS.toWebHexString() + ";'>have an extremely feminine shape to them</span>."));
 		}
 		
 		
@@ -1138,7 +1138,7 @@ public class Body implements Serializable {
 			sb.append(" " + getAssDescription(owner));
 			sb.append("</p>");
 		} else {
-			sb.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You haven't seen [npc.her] naked ass before, so you don't know what [npc.her] asshole looks like.</span>");
+			sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You haven't seen [npc.her] naked ass before, so you don't know what [npc.her] asshole looks like.</span>");
 			sb.append("</p>");
 		}
 		
@@ -1156,7 +1156,7 @@ public class Body implements Serializable {
 			}
 		} else {
 			sb.append(" <p>"
-						+ "<span style='color:" + Colour.GENERIC_SEX.() + ";'>You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] cock looks like, or even if [npc.she] has one.</span>"
+						+ "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] cock looks like, or even if [npc.she] has one.</span>"
 					+ "</p>");
 		}
 		
@@ -1167,7 +1167,7 @@ public class Body implements Serializable {
 			}
 		} else {
 			sb.append(" <p>"
-						+ "<span style='color:" + Colour.GENERIC_SEX.() + ";'>You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] pussy looks like, or even if [npc.she] has one.</span>"
+						+ "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] pussy looks like, or even if [npc.she] has one.</span>"
 					+ "</p>");
 		}
 		
@@ -1420,16 +1420,16 @@ public class Body implements Serializable {
 				break;
 		}
 
-		descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It is "+Capacity.getCapacityFromValue(ass.getStretchedCapacity()).getDescriptor()+", and can comfortably take "
+		descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is "+Capacity.getCapacityFromValue(ass.getStretchedCapacity()).getDescriptor()+", and can comfortably take "
 				+ Capacity.getCapacityFromValue(ass.getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with enough lube.</span>");
 		
 		if (isPlayer) {
 			if (ass.isVirgin()){
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_GOOD.() + ";'>You have retained your anal virginity.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have retained your anal virginity.</span>");
 			}else{
 				for(PenetrationType pt : PenetrationType.values()) {
 					if(Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER))!=null) {
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.() + ";'>You lost your anal virginity to "
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your anal virginity to "
 								+ Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER)) + ".</span>");
 					}
 				}
@@ -1438,28 +1438,28 @@ public class Body implements Serializable {
 		// Ass wetness:
 		switch (ass.getWetness()) {
 		case ZERO_DRY:
-			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It is completely dry, and would need lubricating before sex.</span>");
+			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is completely dry, and would need lubricating before sex.</span>");
 			break;
 		case ONE_SLIGHTLY_MOIST:
-			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It is slightly moist, but would still need lubricating before sex.</span>");
+			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is slightly moist, but would still need lubricating before sex.</span>");
 			break;
 		case TWO_MOIST:
-			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It is moist, but would still need lubricating before sex.</span>");
+			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is moist, but would still need lubricating before sex.</span>");
 			break;
 		case THREE_WET:
-			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Its surface constantly beads with wet droplets, which provides enough natural lubrication for sex.</span>");
+			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Its surface constantly beads with wet droplets, which provides enough natural lubrication for sex.</span>");
 			break;
 		case FOUR_SLIMY:
-			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Its surface is always slimy and ready for penetration.</span>");
+			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Its surface is always slimy and ready for penetration.</span>");
 			break;
 		case FIVE_SLOPPY:
-			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Its surface is always slimy, and the interior is constantly sloppy and ready for sex.</span>");
+			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Its surface is always slimy, and the interior is constantly sloppy and ready for sex.</span>");
 			break;
 		case SIX_SOPPING_WET:
-			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Its constantly sopping wet from natural lubrication and ready for penetration.</span>");
+			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Its constantly sopping wet from natural lubrication and ready for penetration.</span>");
 			break;
 		case SEVEN_DROOLING:
-			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It constantly drools with natural lubrication, and its sopping wet entrance is always ready for penetration.</span>");
+			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It constantly drools with natural lubrication, and its sopping wet entrance is always ready for penetration.</span>");
 			break;
 		default:
 			break;
@@ -1467,28 +1467,28 @@ public class Body implements Serializable {
 		// Ass plasticity:
 		switch (ass.getElasticity()) {
 			case ZERO_UNYIELDING:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It is extremely unyielding, but when it does get stretched out, it stays that way.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is extremely unyielding, but when it does get stretched out, it stays that way.</span>");
 				break;
 			case ONE_RIGID:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It takes a huge amount of effort to stretch it out, but when it does, it loses a good portion of its original tightness.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It takes a huge amount of effort to stretch it out, but when it does, it loses a good portion of its original tightness.</span>");
 				break;
 			case TWO_FIRM:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It does not stretch very easily, but when it does, it struggles to return to its original size.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It does not stretch very easily, but when it does, it struggles to return to its original size.</span>");
 				break;
 			case THREE_FLEXIBLE:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It reluctantly stretches out when used as a sexual orifice, and takes a while to return to its original size.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It reluctantly stretches out when used as a sexual orifice, and takes a while to return to its original size.</span>");
 				break;
 			case FOUR_LIMBER:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It is somewhat resistant to being stretched out, but will return to its original size after a couple of days.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is somewhat resistant to being stretched out, but will return to its original size after a couple of days.</span>");
 				break;
 			case FIVE_STRETCHY:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It stretches out fairly easily, and returns to its original size within a day or so.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It stretches out fairly easily, and returns to its original size within a day or so.</span>");
 				break;
 			case SIX_SUPPLE:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It stretches out very easily, and returns to its original size within a matter of hours.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It stretches out very easily, and returns to its original size within a matter of hours.</span>");
 				break;
 			case SEVEN_ELASTIC:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It is extremely elastic, and can be comfortably stretched out before instantly returning to its original size.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is extremely elastic, and can be comfortably stretched out before instantly returning to its original size.</span>");
 				break;
 			default:
 				break;
@@ -1517,12 +1517,12 @@ public class Body implements Serializable {
 				if (isPlayer) {
 					descriptionSB.append("Your nipples have formed into demonic little pseudo-pussies, which invitingly drool out a slimy milk-like liquid whenever you get aroused.");
 					if (breast.getRawCapacityValue() == 0)
-						descriptionSB.append(" You feel disappointed that despite their appearance, <span style='color:" + Colour.GENERIC_SEX.() + ";'>your nipples are far too tight for anything to fit into them</span>.");
+						descriptionSB.append(" You feel disappointed that despite their appearance, <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>your nipples are far too tight for anything to fit into them</span>.");
 					
 				} else if (playerKnowledgeOfBreasts) {
 						descriptionSB.append("[npc.Her] nipples are formed into demonic little pseudo-pussies, which invitingly drool out a slimy milk-like liquid whenever [npc.she] gets aroused.");
 						if (breast.getRawCapacityValue() == 0)
-							descriptionSB.append(" Despite their appearance, <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.her] nipples are far too tight for anything to fit into them</span>.");
+							descriptionSB.append(" Despite their appearance, <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.her] nipples are far too tight for anything to fit into them</span>.");
 				}
 				break;
 				
@@ -1573,31 +1573,31 @@ public class Body implements Serializable {
 					if (playerKnowledgeOfBreasts) {
 						descriptionSB.append("[npc.Her] nipples are little nubs of " + skinTypeColours.get(BodyCoveringType.SLIME) + " slime.");
 					} else
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You've never seen [npc.her] naked chest, so you don't know what [npc.her] nipples look like.</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You've never seen [npc.her] naked chest, so you don't know what [npc.her] nipples look like.</span>");
 				}
 				break;
 			default:
 				break;
 		}
 		if(!isPlayer && !playerKnowledgeOfBreasts) {
-			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You've never seen [npc.her] naked chest, so you don't know what [npc.her] nipples look like.</span>");
+			descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You've never seen [npc.her] naked chest, so you don't know what [npc.her] nipples look like.</span>");
 		}
 		
 		if(isPlayer){
 			if (breast.isFuckable())
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Your nipples have widened enough to be able to comfortably take "
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Your nipples have widened enough to be able to comfortably take "
 						+ Capacity.getCapacityFromValue(breast.getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.</span>");
 			else if (breast.getRawCapacityValue() > 0)
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Despite the fact that your nipples have widened enough to be able to comfortably take "
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Despite the fact that your nipples have widened enough to be able to comfortably take "
 						+ Capacity.getCapacityFromValue(breast.getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor()
 						+ " cocks with sufficient lubrication, you don't have enough breast flesh for your tits to be fuckable!</span>");
 		
 		}else if(playerKnowledgeOfBreasts){
 			if (breast.isFuckable())
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.Her] nipples have widened enough to be able to comfortably take "
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.Her] nipples have widened enough to be able to comfortably take "
 						+ Capacity.getCapacityFromValue(breast.getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.</span>");
 			else if (breast.getRawCapacityValue() > 0)
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Despite the fact that [npc.her] nipples have widened enough to be able to comfortably take "
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Despite the fact that [npc.her] nipples have widened enough to be able to comfortably take "
 						+ Capacity.getCapacityFromValue(breast.getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor()
 						+ " cocks with sufficient lubrication, [npc.she] doesn't have enough breast flesh for [npc.her] tits to be fuckable!</span>");
 		}
@@ -1606,7 +1606,7 @@ public class Body implements Serializable {
 		if (isPlayer && !breast.isVirgin()) {
 			for(PenetrationType pt : PenetrationType.values()) {
 				if(Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER))!=null) {
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.() + ";'>You lost your nipple virginity to "
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your nipple virginity to "
 							+ Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER)) + ".</span>");
 				}
 			}
@@ -1614,14 +1614,14 @@ public class Body implements Serializable {
 		// Milk production:
 		if (breast.getRawLactationValue() > 0) {
 			if (isPlayer)
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You are currently lactating, and are producing about " + breast.getRawLactationValue() + "mL of " + breast.getMilkName()
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You are currently lactating, and are producing about " + breast.getRawLactationValue() + "mL of " + breast.getMilkName()
 						+ " every time you are milked.</span>");
 			else {
 				if (playerKnowledgeOfBreasts)
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.She] is currently lactating, and can produce about " + breast.getRawLactationValue() + "mL of " + breast.getMilkName()
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She] is currently lactating, and can produce about " + breast.getRawLactationValue() + "mL of " + breast.getMilkName()
 							+ " every time [npc.she] is milked.</span>");
 				else
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You don't know if [npc.she]'s producing any milk.</span>");
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You don't know if [npc.she]'s producing any milk.</span>");
 			}
 		}
 		
@@ -1630,53 +1630,53 @@ public class Body implements Serializable {
 			switch (breast.getElasticity()) {
 				case ZERO_UNYIELDING:
 					if (isPlayer)
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Your nipples are extremely unyielding, but when they do get stretched out, they stay that way.</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Your nipples are extremely unyielding, but when they do get stretched out, they stay that way.</span>");
 					else
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.Her] nipples are extremely unyielding, but when they do get stretched out, they stay that way.</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.Her] nipples are extremely unyielding, but when they do get stretched out, they stay that way.</span>");
 					break;
 				case ONE_RIGID:
 					if (isPlayer)
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It takes a huge amount of effort to stretch your nipples out, but when it happens,"
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It takes a huge amount of effort to stretch your nipples out, but when it happens,"
 								+ " they lose a good portion of their original tightness.</span>");
 					else
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It takes a huge amount of effort to stretch [npc.her] nipples out, but when it happens,"
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It takes a huge amount of effort to stretch [npc.her] nipples out, but when it happens,"
 								+ " they lose a good portion of their original tightness.</span>");
 					break;
 				case TWO_FIRM:
 					if (isPlayer)
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Your nipples do not stretch very easily, but when they do, they struggle to return to their original size.</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Your nipples do not stretch very easily, but when they do, they struggle to return to their original size.</span>");
 					else
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.Her] nipples do not stretch very easily, but when they do, they struggle to return to their original size.</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.Her] nipples do not stretch very easily, but when they do, they struggle to return to their original size.</span>");
 					break;
 				case THREE_FLEXIBLE:
 					if (isPlayer)
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Your nipples reluctantly stretch out when used as a sexual orifice, and they take a while to return to their original size.</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Your nipples reluctantly stretch out when used as a sexual orifice, and they take a while to return to their original size.</span>");
 					else
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.Her] nipples reluctantly stretch out when used as a sexual orifice, and they take a while to return to their original size.</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.Her] nipples reluctantly stretch out when used as a sexual orifice, and they take a while to return to their original size.</span>");
 					break;
 				case FOUR_LIMBER:
 					if (isPlayer)
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Your nipples are somewhat resistant to being stretched out, but will return to their original size after a couple of days.</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Your nipples are somewhat resistant to being stretched out, but will return to their original size after a couple of days.</span>");
 					else
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.Her] nipples are somewhat resistant to being stretched out, but will return to their original size after a couple of days.</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.Her] nipples are somewhat resistant to being stretched out, but will return to their original size after a couple of days.</span>");
 					break;
 				case FIVE_STRETCHY:
 					if (isPlayer)
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Your nipples stretch out fairly easily, and return to their original size within a day or so.</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Your nipples stretch out fairly easily, and return to their original size within a day or so.</span>");
 					else
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.Her] nipples stretch out fairly easily, and return to their original size within a day or so.</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.Her] nipples stretch out fairly easily, and return to their original size within a day or so.</span>");
 					break;
 				case SIX_SUPPLE:
 					if (isPlayer)
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Your nipples stretch out very easily, and return to their original size within a matter of hours.</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Your nipples stretch out very easily, and return to their original size within a matter of hours.</span>");
 					else
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.Her] nipples stretch out very easily, and return to their original size within a matter of hours.</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.Her] nipples stretch out very easily, and return to their original size within a matter of hours.</span>");
 					break;
 				case SEVEN_ELASTIC:
 					if (isPlayer)
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Your nipples are extremely elastic, and can be comfortably stretched out before instantly returning to their original size.</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Your nipples are extremely elastic, and can be comfortably stretched out before instantly returning to their original size.</span>");
 					else
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.Her] nipples are extremely elastic, and can be comfortably stretched out before instantly returning to their original size.</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.Her] nipples are extremely elastic, and can be comfortably stretched out before instantly returning to their original size.</span>");
 					break;
 				default:
 					break;
@@ -1818,44 +1818,44 @@ public class Body implements Serializable {
 		if (Capacity.getCapacityFromValue(penis.getStretchedCapacity()) != Capacity.ZERO_IMPENETRABLE) {
 			if (isPlayer) {
 				if (penis.getSecondPenisType() != PenisType.NONE)
-					descriptionSB.append(" Both of your cock's urethras have been loosened enough that they present ready orifices for penetration. <span style='color:" + Colour.GENERIC_SEX.()
+					descriptionSB.append(" Both of your cock's urethras have been loosened enough that they present ready orifices for penetration. <span style='color:" + Colour.GENERIC_SEX.toWebHexString()
 							+ ";'>They can comfortably be penetrated by " + Capacity.getCapacityFromValue(penis.getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.</span>");
 				else
-					descriptionSB.append(" Your cock's urethra has been loosened enough that it presents a ready orifice for penetration. <span style='color:" + Colour.GENERIC_SEX.() + ";'>It can comfortably be penetrated by "
+					descriptionSB.append(" Your cock's urethra has been loosened enough that it presents a ready orifice for penetration. <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It can comfortably be penetrated by "
 							+ Capacity.getCapacityFromValue(penis.getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.</span>");
 			} else {
 				if (penis.getSecondPenisType() != PenisType.NONE)
-					descriptionSB.append(" Both of [npc.her] cock's urethras have been loosened enough that they present ready orifices for penetration. <span style='color:" + Colour.GENERIC_SEX.()
+					descriptionSB.append(" Both of [npc.her] cock's urethras have been loosened enough that they present ready orifices for penetration. <span style='color:" + Colour.GENERIC_SEX.toWebHexString()
 							+ ";'>They can comfortably be penetrated by " + Capacity.getCapacityFromValue(penis.getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.</span>");
 				else
-					descriptionSB.append(" [npc.Her] cock's urethra has been loosened enough that it presents a ready orifice for penetration. <span style='color:" + Colour.GENERIC_SEX.() + ";'>It can comfortably be penetrated by "
+					descriptionSB.append(" [npc.Her] cock's urethra has been loosened enough that it presents a ready orifice for penetration. <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It can comfortably be penetrated by "
 							+ Capacity.getCapacityFromValue(penis.getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.</span>");
 			}
 			// Elasticity:
 			switch (penis.getElasticity()) {
 				case ZERO_UNYIELDING:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>The urethra is extremely unyielding, but when it does get stretched out, it stays that way.</span>");
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>The urethra is extremely unyielding, but when it does get stretched out, it stays that way.</span>");
 					break;
 				case ONE_RIGID:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It takes a huge amount of effort to stretch the urethra out, but when it does, it loses a good portion of its original tightness.</span>");
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It takes a huge amount of effort to stretch the urethra out, but when it does, it loses a good portion of its original tightness.</span>");
 					break;
 				case TWO_FIRM:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>The urethra does not stretch very easily, but when it does, it struggles to return to its original size.</span>");
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>The urethra does not stretch very easily, but when it does, it struggles to return to its original size.</span>");
 					break;
 				case THREE_FLEXIBLE:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>The urethra reluctantly stretches out when used as a sexual orifice, and takes a while to return to its original size.</span>");
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>The urethra reluctantly stretches out when used as a sexual orifice, and takes a while to return to its original size.</span>");
 					break;
 				case FOUR_LIMBER:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>The urethra is somewhat resistant to being stretched out, but will return to its original size after a couple of days.</span>");
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>The urethra is somewhat resistant to being stretched out, but will return to its original size after a couple of days.</span>");
 					break;
 				case FIVE_STRETCHY:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>The urethra stretches out fairly easily, and returns to its original size within a day or so.</span>");
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>The urethra stretches out fairly easily, and returns to its original size within a day or so.</span>");
 					break;
 				case SIX_SUPPLE:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>The urethra stretches out very easily, and returns to its original size within a matter of hours.</span>");
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>The urethra stretches out very easily, and returns to its original size within a matter of hours.</span>");
 					break;
 				case SEVEN_ELASTIC:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>The urethra is extremely elastic, and can be comfortably stretched out before instantly returning to its original size.</span>");
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>The urethra is extremely elastic, and can be comfortably stretched out before instantly returning to its original size.</span>");
 					break;
 				default:
 					break;
@@ -1865,7 +1865,7 @@ public class Body implements Serializable {
 			if (!penis.isUrethraVirgin()) {
 				for(PenetrationType pt : PenetrationType.values()) {
 					if(Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER))!=null) {
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.() + ";'>You lost your urethral virginity to "
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your urethral virginity to "
 								+ Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER)) + ".</span>");
 					}
 				}
@@ -2096,27 +2096,27 @@ public class Body implements Serializable {
 		// Virgin/capacity:
 		if (vagina.isVirgin()) {
 			if (isPlayer)
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Within your " + Capacity.getCapacityFromValue(vagina.getStretchedCapacity()).getDescriptor() + " "
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Within your " + Capacity.getCapacityFromValue(vagina.getStretchedCapacity()).getDescriptor() + " "
 						+ vagina.getName(owner, false) + ", your hymen is still intact, as your " + vagina.getName(owner, false) + " has never been penetrated before.</span>"
-						+ " <span style='color:" + Colour.GENERIC_GOOD.() + ";'>You have retained your vaginal virginity.</span>");
+						+ " <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have retained your vaginal virginity.</span>");
 			else
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Within [npc.her] " + Capacity.getCapacityFromValue(vagina.getStretchedCapacity()).getDescriptor() + " "
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Within [npc.her] " + Capacity.getCapacityFromValue(vagina.getStretchedCapacity()).getDescriptor() + " "
 						+ vagina.getName(owner, false) + ", [npc.her] hymen is still intact, as [npc.her] " + vagina.getName(owner, false) + " has never been penetrated before.</span>");
 		} else {
 			if (isPlayer) {
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Your pussy is " + Capacity.getCapacityFromValue(vagina.getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Your pussy is " + Capacity.getCapacityFromValue(vagina.getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
 						+ Capacity.getCapacityFromValue(vagina.getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.</span>");
 				
 
 				for(PenetrationType pt : PenetrationType.values()) {
 					if(Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER))!=null) {
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.() + ";'>You lost your virginity to "
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your virginity to "
 								+ Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER)) + ".</span>");
 					}
 				}
 				
 			} else{
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.Her] pussy is " + Capacity.getCapacityFromValue(vagina.getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.Her] pussy is " + Capacity.getCapacityFromValue(vagina.getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
 						+ Capacity.getCapacityFromValue(vagina.getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.</span>");
 			}
 		}
@@ -2124,52 +2124,52 @@ public class Body implements Serializable {
 		switch (vagina.getWetness()) {
 		case ZERO_DRY:
 			if (isPlayer)
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It's completely dry and never gets wet, no matter how aroused you are.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It's completely dry and never gets wet, no matter how aroused you are.</span>");
 			else
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It's completely dry and never gets wet, no matter how aroused [npc.she] gets.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It's completely dry and never gets wet, no matter how aroused [npc.she] gets.</span>");
 			break;
 		case ONE_SLIGHTLY_MOIST:
 			if (isPlayer)
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It's slightly moist, and you need a huge amount of stimulation before you get wet.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It's slightly moist, and you need a huge amount of stimulation before you get wet.</span>");
 			else
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It's slightly moist, and [npc.she] needs a huge amount of stimulation before [npc.she] gets wet.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It's slightly moist, and [npc.she] needs a huge amount of stimulation before [npc.she] gets wet.</span>");
 			break;
 		case TWO_MOIST:
 			if (isPlayer)
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It's moist, but you still need a lot of stimulation before you get wet.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It's moist, but you still need a lot of stimulation before you get wet.</span>");
 			else
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It's moist, but [npc.she] still needs a lot of stimulation before [npc.she] gets wet.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It's moist, but [npc.she] still needs a lot of stimulation before [npc.she] gets wet.</span>");
 			break;
 		case THREE_WET:
 			if (isPlayer)
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>You only need a small amount of foreplay before it gets wet enough for penetration.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You only need a small amount of foreplay before it gets wet enough for penetration.</span>");
 			else
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.She] only needs a small amount of foreplay before [npc.she] gets wet enough for penetration.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She] only needs a small amount of foreplay before [npc.she] gets wet enough for penetration.</span>");
 			break;
 		case FOUR_SLIMY:
 			if (isPlayer)
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It's always slimy and wet, and you're ready for penetration at a moment's notice.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It's always slimy and wet, and you're ready for penetration at a moment's notice.</span>");
 			else
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It's always slimy and wet, and [npc.she]'s ready for penetration at a moment's notice.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It's always slimy and wet, and [npc.she]'s ready for penetration at a moment's notice.</span>");
 			break;
 		case FIVE_SLOPPY:
 			if (isPlayer)
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Its surface is always coated in slimy moisture, and within, your pussy is sloppy and practically begging to be fucked.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Its surface is always coated in slimy moisture, and within, your pussy is sloppy and practically begging to be fucked.</span>");
 			else
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Its surface is always coated in slimy moisture, and within, [npc.her] pussy is sloppy and practically begging to be fucked.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Its surface is always coated in slimy moisture, and within, [npc.her] pussy is sloppy and practically begging to be fucked.</span>");
 			break;
 		case SIX_SOPPING_WET:
 			if (isPlayer)
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Your pussy is never anything less than sopping wet, and a trickle of your natural lubricant constantly dribbles from your slit.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Your pussy is never anything less than sopping wet, and a trickle of your natural lubricant constantly dribbles from your slit.</span>");
 			else
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.Her] pussy is never anything less than sopping wet, and a trickle of [npc.her] natural lubricant constantly dribbles from [npc.her] slit.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.Her] pussy is never anything less than sopping wet, and a trickle of [npc.her] natural lubricant constantly dribbles from [npc.her] slit.</span>");
 			break;
 		case SEVEN_DROOLING:
 			if (isPlayer)
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>Your pussy is so wet that it audibly squelches with every step you take, and a constant stream of juices flow from your inviting cunt.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Your pussy is so wet that it audibly squelches with every step you take, and a constant stream of juices flow from your inviting cunt.</span>");
 			else
 				descriptionSB
-						.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.Her] pussy is so wet that it audibly squelches with every step [npc.she] takes, and a constant stream of juices flow from [npc.her] inviting cunt.</span>");
+						.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.Her] pussy is so wet that it audibly squelches with every step [npc.she] takes, and a constant stream of juices flow from [npc.her] inviting cunt.</span>");
 			break;
 		default:
 			break;
@@ -2177,28 +2177,28 @@ public class Body implements Serializable {
 		// Elasticity:
 		switch (vagina.getElasticity()) {
 			case ZERO_UNYIELDING:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It is extremely unyielding, but when it does get stretched out, it stays that way.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is extremely unyielding, but when it does get stretched out, it stays that way.</span>");
 				break;
 			case ONE_RIGID:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It takes a huge amount of effort to stretch it out, but when it does, it loses a good portion of its original tightness.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It takes a huge amount of effort to stretch it out, but when it does, it loses a good portion of its original tightness.</span>");
 				break;
 			case TWO_FIRM:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It does not stretch very easily, but when it does, it struggles to return to its original size.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It does not stretch very easily, but when it does, it struggles to return to its original size.</span>");
 				break;
 			case THREE_FLEXIBLE:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It reluctantly stretches out when used as a sexual orifice, and takes a while to return to its original size.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It reluctantly stretches out when used as a sexual orifice, and takes a while to return to its original size.</span>");
 				break;
 			case FOUR_LIMBER:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It is somewhat resistant to being stretched out, but will return to its original size after a couple of days.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is somewhat resistant to being stretched out, but will return to its original size after a couple of days.</span>");
 				break;
 			case FIVE_STRETCHY:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It stretches out fairly easily, and returns to its original size within a day or so.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It stretches out fairly easily, and returns to its original size within a day or so.</span>");
 				break;
 			case SIX_SUPPLE:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It stretches out very easily, and returns to its original size within a matter of hours.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It stretches out very easily, and returns to its original size within a matter of hours.</span>");
 				break;
 			case SEVEN_ELASTIC:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.() + ";'>It is extremely elastic, and can be comfortably stretched out before instantly returning to its original size.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is extremely elastic, and can be comfortably stretched out before instantly returning to its original size.</span>");
 				break;
 			default:
 				break;
@@ -2229,7 +2229,7 @@ public class Body implements Serializable {
 			descriptionSB.append(
 					UtilText.parse(owner,
 					"<p>"
-						+ "<span style='color:" + Colour.GENERIC_SEX.() + ";'>"
+						+ "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 							+ "You have had sex with [npc.name] "+Util.intToString(owner.getStats().getTotalTimesHadSex())+" "+(owner.getStats().getTotalTimesHadSex()==1?"time.":"times.")
 						+"</span>"));
 			
@@ -2298,7 +2298,7 @@ public class Body implements Serializable {
 		if(owner.isVisiblyPregnant()) {
 			descriptionSB.append(UtilText.parse(owner,
 				"<p>"
-				+ "<span style='color:" + Colour.GENERIC_ARCANE.() + ";'>From one of your sexual encounters, you've ended up impregnating [npc.name].</span>"));
+				+ "<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of your sexual encounters, you've ended up impregnating [npc.name].</span>"));
 			
 			if(owner.hasStatusEffect(StatusEffect.PREGNANT_1)) {
 				descriptionSB.append(UtilText.parse(owner,
@@ -2317,7 +2317,7 @@ public class Body implements Serializable {
 			
 			descriptionSB.append(UtilText.parse(owner,
 				"<p>"
-				+ "<span style='color:" + Colour.GENERIC_ARCANE.() + ";'>"
+				+ "<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"
 						+ "[npc.Name] is the mother of some of your children, and in total, has given birth "+Util.intToString(owner.getLittersBirthed().size())+" "+(owner.getLittersBirthed().size()==1?"time":"times")+".</span>"));
 			
 			for(Litter litter : owner.getLittersBirthed()) {
@@ -2340,7 +2340,7 @@ public class Body implements Serializable {
 				if(pp.getFather()==owner) {
 					descriptionSB.append(UtilText.parse(owner,
 							"<p>"
-								+ "<span style='color:" + Colour.GENERIC_ARCANE.() + ";'>From one of your sexual encounters, you've been impregnated, and it's possible that [npc.name] is the father.</span>"
+								+ "<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of your sexual encounters, you've been impregnated, and it's possible that [npc.name] is the father.</span>"
 							+ "</p>"));
 					break;
 				}
@@ -2359,7 +2359,7 @@ public class Body implements Serializable {
 			if(fatheredLitters!=0) {
 				descriptionSB.append(UtilText.parse(owner,
 					"<p>"
-					+ "<span style='color:" + Colour.GENERIC_ARCANE.() + ";'>"
+					+ "<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"
 							+ "[npc.Name] is the father of some of your children, and has, in total, impregnated you "+Util.intToString(fatheredLitters)+" "+(fatheredLitters==1?"time":"times")+".</span>"));
 				
 				for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {

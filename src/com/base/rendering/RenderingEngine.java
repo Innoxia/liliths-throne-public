@@ -104,7 +104,7 @@ public enum RenderingEngine {
 			    "<div class='equipSlot" + " " + (clothing.getRarity().getName()) + "'"
 				    + (clothing.isSealed()
 					    ? "style='height:16vw; width:16vw; border-width:1vw; border-color:#"
-						    + Colour.SEALED.() + "; border-style:solid;'"
+						    + Colour.SEALED.toWebHexString() + "; border-style:solid;'"
 					    : "")
 				    + ">"
 				    // If clothing is displaced:
@@ -217,7 +217,7 @@ public enum RenderingEngine {
 			    "<div class='equipSlot small " + clothing.getRarity().getName() + " "
 				    + (clothing.isSealed()
 					    ? "style='height:16vw;width:16vw;border-width:1vw;border-color:#"
-						    + Colour.SEALED.() + ";border-style:solid;'"
+						    + Colour.SEALED.toWebHexString() + ";border-style:solid;'"
 					    : "")
 				    + ">"
 				    // If clothing is displaced:
@@ -365,7 +365,7 @@ public enum RenderingEngine {
 		.append("<body>" + "<div class='attribute-container'>"
 			+ "<div class='full-width-container' style='margin:0;padding:0;'>"
 			+ "<p class='player-name' style='color:"
-			+ Femininity.valueOf(Main.game.getPlayer().getFemininity()).getColour().() + ";'>"
+			+ Femininity.valueOf(Main.game.getPlayer().getFemininity()).getColour().toWebHexString() + ";'>"
 			+ (Main.game.getPlayer().getName().length() == 0
 				? (Main.game.getPlayer().getFemininity() <= Femininity.MASCULINE.getMaximumFemininity()
 					? "Hero"
@@ -376,10 +376,10 @@ public enum RenderingEngine {
 			+ "<div class='full-width-container' style='margin:0;padding:0;'>"
 			+ "<p style='text-align:center;'>" + "<b>Level " + Main.game.getPlayer().getLevel() + "</b> "
 			+ (Main.game.getPlayer().getRaceStage().getName() != "" ? "<b style='color:"
-				+ Main.game.getPlayer().getRaceStage().getColour().() + ";'>"
+				+ Main.game.getPlayer().getRaceStage().getColour().toWebHexString() + ";'>"
 				+ Util.capitaliseSentence(Main.game.getPlayer().getRaceStage().getName()) + "</b> "
 				: "")
-			+ "<b style='color:" + Main.game.getPlayer().getRace().getColour().() + ";'>"
+			+ "<b style='color:" + Main.game.getPlayer().getRace().getColour().toWebHexString() + ";'>"
 			+ (Main.game.getPlayer().isFeminine()
 				? Util.capitaliseSentence(Main.game.getPlayer().getRace().getSingularFemaleName())
 				: Util.capitaliseSentence(Main.game.getPlayer().getRace().getSingularMaleName()))
@@ -388,10 +388,10 @@ public enum RenderingEngine {
 				? "<div style=' mix-blend-mode: difference; width:"
 					+ (Main.game.getPlayer().getExperience()
 						/ (Main.game.getPlayer().getLevel() * 10f)) * 90
-					+ "vw; height:2vw; background:" + Colour.CLOTHING_BLUE_LIGHT.()
+					+ "vw; height:2vw; background:" + Colour.CLOTHING_BLUE_LIGHT.toWebHexString()
 					+ "; float:left; border-radius: 2;'></div>"
 				: "<div style=' mix-blend-mode: difference; width:90vw; height:2vw; background:"
-					+ Colour.GENERIC_EXCELLENT.()
+					+ Colour.GENERIC_EXCELLENT.toWebHexString()
 					+ "; float:left; border-radius: 2;'></div>")
 			+ "</div>" + "<div class='overlay' id='PLAYER_" + Attribute.EXPERIENCE.getName()
 			+ "' style='cursor:pointer;'></div>" + "</div>" + "</div>");
@@ -402,12 +402,12 @@ public enum RenderingEngine {
 
 	    uiAttributeSB.append("<div class='attribute-container'>"
 		    + "<p style='text-align:center;padding:0;margin:0;'>" + "<b style='color:"
-		    + Femininity.valueOf(Main.game.getPlayer().getFemininity()).getColour().() + ";'>"
+		    + Femininity.valueOf(Main.game.getPlayer().getFemininity()).getColour().toWebHexString() + ";'>"
 		    + Main.game.getPlayer().getName() + "</b>" + "</br>" + "<b>" + (Sex.isPlayerDom() ? "Dom" : "Sub")
-		    + ":</b> <b style='color:" + Sex.getSexPacePlayer().getColour().() + ";'>"
+		    + ":</b> <b style='color:" + Sex.getSexPacePlayer().getColour().toWebHexString() + ";'>"
 		    + Util.capitaliseSentence(Sex.getSexPacePlayer().getName()) + "</b> | <b>Orgasms:</b> "
 		    + (Sex.getNumberOfPlayerOrgasms() == 0 ? "<b>0</b>"
-			    : "<b style='" + Colour.GENERIC_ARCANE.() + "'>"
+			    : "<b style='" + Colour.GENERIC_ARCANE.toWebHexString() + "'>"
 				    + Sex.getNumberOfPlayerOrgasms() + "</b>")
 		    + "</p>"
 
@@ -419,13 +419,13 @@ public enum RenderingEngine {
 		    + "</div>" + "<div class='barBackgroundAtt'>" + "<div style='width:"
 		    + Main.game.getPlayer().getArousal() * 0.65 + "vw; height:5vw; background:"
 		    + ArousalLevel.getArousalLevelFromValue(Main.game.getPlayer().getArousal()).getColour()
-			    .()
+			    .toWebHexString()
 		    + "; float:left; border-radius: 2;'></div>" + "</div>"
 		    + "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:"
 		    + (renderedPlayerArousalValue < Main.game.getPlayer().getArousal()
-			    ? (Colour.GENERIC_GOOD.())
+			    ? (Colour.GENERIC_GOOD.toWebHexString())
 			    : (renderedPlayerArousalValue > Main.game.getPlayer().getArousal()
-				    ? (Colour.GENERIC_BAD.())
+				    ? (Colour.GENERIC_BAD.toWebHexString())
 				    : "default"))
 		    + ";'>" + (int) Math.ceil(Main.game.getPlayer().getArousal()) + "</p>"
 		    + "<div class='overlay' id='PLAYER_" + Attribute.AROUSAL.getName() + "'></div>" + "</div>"
@@ -437,20 +437,20 @@ public enum RenderingEngine {
 			    .getRelatedStatusEffect().getSVGString(Main.game.getPlayer())
 		    + "</div>" + "<div class='barBackgroundAtt corruption'>" + "<div style='width:"
 		    + Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION) * 0.65
-		    + "vw; height:5vw; background:" + Attribute.CORRUPTION.getColour().()
+		    + "vw; height:5vw; background:" + Attribute.CORRUPTION.getColour().toWebHexString()
 		    + "; float:left; border-radius: 2;'></div>" + "</div>"
 		    + "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:"
 		    + (renderedPlayerCorruptionValue < Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)
-			    ? (Colour.GENERIC_GOOD.())
+			    ? (Colour.GENERIC_GOOD.toWebHexString())
 			    : (renderedPlayerCorruptionValue > Main.game.getPlayer()
-				    .getAttributeValue(Attribute.CORRUPTION) ? (Colour.GENERIC_BAD.())
+				    .getAttributeValue(Attribute.CORRUPTION) ? (Colour.GENERIC_BAD.toWebHexString())
 					    : "default"))
 		    + ";'>" + (int) Math.ceil(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)) + "</p>"
 		    + "<div class='overlay' id='PLAYER_" + Attribute.CORRUPTION.getName() + "'></div>" + "</div>");
 
 	    // Status effects:
 	    // uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;'><b
-	    // style='color:"+Colour.GENERIC_SEX.()+";'>Sex Effects</b></p>");
+	    // style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Sex Effects</b></p>");
 
 	    boolean hasStatusEffects = false;
 	    for (Fetish f : Main.game.getPlayer().getFetishes()) {
@@ -468,7 +468,7 @@ public enum RenderingEngine {
 	    }
 	    if (!hasStatusEffects) {
 		uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;height:12vw;'><b style='color:"
-			+ Colour.TEXT_GREY.() + ";'>No sex effects</b></p>");
+			+ Colour.TEXT_GREY.toWebHexString() + ";'>No sex effects</b></p>");
 	    }
 
 	    uiAttributeSB.append("</div>"
@@ -476,13 +476,13 @@ public enum RenderingEngine {
 		    + "<div class='attribute-container'>"
 		    + "<div class='full-width-container' style='margin:0;padding:0;'>"
 		    + "<p style='text-align:center;padding:0;margin:0;'><b style='color:"
-		    + Femininity.valueOf(Sex.getPartner().getFemininity()).getColour().() + ";'>"
+		    + Femininity.valueOf(Sex.getPartner().getFemininity()).getColour().toWebHexString() + ";'>"
 		    + Util.capitaliseSentence(Sex.getPartner().getName()) + "</b></p>"
 		    + "<p style='text-align:center;'>"
 		    + (Sex.getPartner().getRaceStage().getName() != "" ? "<b style='color:"
-			    + Sex.getPartner().getRaceStage().getColour().() + ";'>"
+			    + Sex.getPartner().getRaceStage().getColour().toWebHexString() + ";'>"
 			    + Util.capitaliseSentence(Sex.getPartner().getRaceStage().getName()) + "</b> " : "")
-		    + "<b style='color:" + Sex.getPartner().getRace().getColour().() + ";'>"
+		    + "<b style='color:" + Sex.getPartner().getRace().getColour().toWebHexString() + ";'>"
 		    + (Sex.getPartner().isFeminine()
 			    ? Util.capitaliseSentence(Sex.getPartner().getRace().getSingularFemaleName())
 			    : Util.capitaliseSentence(Sex.getPartner().getRace().getSingularMaleName()))
@@ -490,10 +490,10 @@ public enum RenderingEngine {
 		    + "'></div>" + "</div>"
 
 		    + "<p style='text-align:center;padding:0;margin:0;'>" + "<b>" + (!Sex.isPlayerDom() ? "Dom" : "Sub")
-		    + ":</b> <b style='color:" + Sex.getSexPacePartner().getColour().() + ";'>"
+		    + ":</b> <b style='color:" + Sex.getSexPacePartner().getColour().toWebHexString() + ";'>"
 		    + Util.capitaliseSentence(Sex.getSexPacePartner().getName()) + "</b> | <b>Orgasms:</b> "
 		    + (Sex.getNumberOfPartnerOrgasms() == 0 ? "<b>0</b>"
-			    : "<b style='" + Colour.GENERIC_ARCANE.() + "'>"
+			    : "<b style='" + Colour.GENERIC_ARCANE.toWebHexString() + "'>"
 				    + Sex.getNumberOfPartnerOrgasms() + "</b>")
 		    + "</p>"
 
@@ -504,13 +504,13 @@ public enum RenderingEngine {
 			    .getSVGString(Sex.getPartner())
 		    + "</div>" + "<div class='barBackgroundAtt'>" + "<div style='width:"
 		    + Sex.getPartner().getArousal() * 0.65 + "vw; height:5vw; background:"
-		    + ArousalLevel.getArousalLevelFromValue(Sex.getPartner().getArousal()).getColour().()
+		    + ArousalLevel.getArousalLevelFromValue(Sex.getPartner().getArousal()).getColour().toWebHexString()
 		    + "; float:left; border-radius: 2;'></div>" + "</div>"
 		    + "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:"
 		    + (renderedPartnerArousalValue < Sex.getPartner().getArousal()
-			    ? (Colour.GENERIC_GOOD.())
+			    ? (Colour.GENERIC_GOOD.toWebHexString())
 			    : (renderedPartnerArousalValue > Sex.getPartner().getArousal()
-				    ? (Colour.GENERIC_BAD.())
+				    ? (Colour.GENERIC_BAD.toWebHexString())
 				    : "default"))
 		    + ";'>" + (int) Math.ceil(Sex.getPartner().getArousal()) + "</p>"
 		    + "<div class='overlay' id='PARTNER_" + Attribute.AROUSAL.getName() + "'></div>" + "</div>"
@@ -522,19 +522,19 @@ public enum RenderingEngine {
 			    .getRelatedStatusEffect().getSVGString(Sex.getPartner())
 		    + "</div>" + "<div class='barBackgroundAtt corruption'>" + "<div style='width:"
 		    + Sex.getPartner().getAttributeValue(Attribute.CORRUPTION) * 0.65 + "vw; height:5vw; background:"
-		    + Attribute.CORRUPTION.getColour().() + "; float:left; border-radius: 2;'></div>"
+		    + Attribute.CORRUPTION.getColour().toWebHexString() + "; float:left; border-radius: 2;'></div>"
 		    + "</div>" + "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:"
 		    + (renderedPartnerCorruptionValue < Sex.getPartner().getAttributeValue(Attribute.CORRUPTION)
-			    ? (Colour.GENERIC_GOOD.())
+			    ? (Colour.GENERIC_GOOD.toWebHexString())
 			    : (renderedPartnerCorruptionValue > Sex.getPartner().getAttributeValue(Attribute.CORRUPTION)
-				    ? (Colour.GENERIC_BAD.())
+				    ? (Colour.GENERIC_BAD.toWebHexString())
 				    : "default"))
 		    + ";'>" + (int) Math.ceil(Sex.getPartner().getAttributeValue(Attribute.CORRUPTION)) + "</p>"
 		    + "<div class='overlay' id='PARTNER_" + Attribute.CORRUPTION.getName() + "'></div>" + "</div>");
 
 	    // Status effects:
 	    // uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;'><b
-	    // style='color:"+Colour.GENERIC_SEX.()+";'>Sex Effects</b></p>");
+	    // style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Sex Effects</b></p>");
 
 	    hasStatusEffects = false;
 	    for (Fetish f : Sex.getPartner().getFetishes()) {
@@ -552,7 +552,7 @@ public enum RenderingEngine {
 	    }
 	    if (!hasStatusEffects) {
 		uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;height:12vw;'><b style='color:"
-			+ Colour.TEXT_GREY.() + ";'>No sex effects</b></p>");
+			+ Colour.TEXT_GREY.toWebHexString() + ";'>No sex effects</b></p>");
 	    }
 
 	    uiAttributeSB.append("</div>");
@@ -571,13 +571,13 @@ public enum RenderingEngine {
 				.getRelatedStatusEffect().getSVGString(Main.game.getPlayer())
 			+ "</div>" + "<div class='barBackgroundAtt'>" + "<div style='width:"
 			+ Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH) * 0.65
-			+ "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.()
+			+ "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString()
 			+ "; float:left; border-radius: 2;'></div>" + "</div>"
 			+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:"
 			+ (renderedStrengthValue < Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH)
-				? (Colour.GENERIC_GOOD.())
+				? (Colour.GENERIC_GOOD.toWebHexString())
 				: (renderedStrengthValue > Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH)
-					? (Colour.GENERIC_BAD.())
+					? (Colour.GENERIC_BAD.toWebHexString())
 					: "default"))
 			+ ";'>" + (int) Math.ceil(Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH)) + "</p>"
 			+ "<div class='overlay' id='PLAYER_" + Attribute.STRENGTH.getName() + "'></div>" + "</div>"
@@ -591,13 +591,13 @@ public enum RenderingEngine {
 				.getRelatedStatusEffect().getSVGString(Main.game.getPlayer())
 			+ "</div>" + "<div class='barBackgroundAtt'>" + "<div style='width:"
 			+ Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE) * 0.65
-			+ "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.()
+			+ "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString()
 			+ "; float:left; border-radius: 2;'></div>" + "</div>"
 			+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:"
 			+ (renderedIntelligenceValue < Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE)
-				? (Colour.GENERIC_GOOD.())
+				? (Colour.GENERIC_GOOD.toWebHexString())
 				: (renderedIntelligenceValue > Main.game.getPlayer().getAttributeValue(
-					Attribute.INTELLIGENCE) ? (Colour.GENERIC_BAD.()) : "default"))
+					Attribute.INTELLIGENCE) ? (Colour.GENERIC_BAD.toWebHexString()) : "default"))
 			+ ";'>" + (int) Math.ceil(Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE))
 			+ "</p>" + "<div class='overlay' id='PLAYER_" + Attribute.INTELLIGENCE.getName() + "'></div>"
 			+ "</div>"
@@ -610,13 +610,13 @@ public enum RenderingEngine {
 				.getRelatedStatusEffect().getSVGString(Main.game.getPlayer())
 			+ "</div>" + "<div class='barBackgroundAtt'>" + "<div style='width:"
 			+ Main.game.getPlayer().getAttributeValue(Attribute.FITNESS) * 0.65
-			+ "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.()
+			+ "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString()
 			+ "; float:left; border-radius: 2;'></div>" + "</div>"
 			+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:"
 			+ (renderedFitnessValue < Main.game.getPlayer().getAttributeValue(Attribute.FITNESS)
-				? (Colour.GENERIC_GOOD.())
+				? (Colour.GENERIC_GOOD.toWebHexString())
 				: (renderedFitnessValue > Main.game.getPlayer().getAttributeValue(Attribute.FITNESS)
-					? (Colour.GENERIC_BAD.())
+					? (Colour.GENERIC_BAD.toWebHexString())
 					: "default"))
 			+ ";'>" + (int) Math.ceil(Main.game.getPlayer().getAttributeValue(Attribute.FITNESS)) + "</p>"
 			+ "<div class='overlay' id='PLAYER_" + Attribute.FITNESS.getName() + "'></div>" + "</div>"
@@ -630,13 +630,13 @@ public enum RenderingEngine {
 				.getRelatedStatusEffect().getSVGString(Main.game.getPlayer())
 			+ "</div>" + "<div class='barBackgroundAtt corruption'>" + "<div style='width:"
 			+ Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION) * 0.65
-			+ "vw; height:5vw; background:" + Attribute.CORRUPTION.getColour().()
+			+ "vw; height:5vw; background:" + Attribute.CORRUPTION.getColour().toWebHexString()
 			+ "; float:left; border-radius: 2;'></div>" + "</div>"
 			+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:"
 			+ (renderedPlayerCorruptionValue < Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)
-				? (Colour.GENERIC_GOOD.())
+				? (Colour.GENERIC_GOOD.toWebHexString())
 				: (renderedPlayerCorruptionValue > Main.game.getPlayer()
-					.getAttributeValue(Attribute.CORRUPTION) ? (Colour.GENERIC_BAD.())
+					.getAttributeValue(Attribute.CORRUPTION) ? (Colour.GENERIC_BAD.toWebHexString())
 						: "default"))
 			+ ";'>" + (int) Math.ceil(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION))
 			+ "</p>" + "<div class='overlay' id='PLAYER_" + Attribute.CORRUPTION.getName() + "'></div>"
@@ -651,7 +651,7 @@ public enum RenderingEngine {
 				.getStrengthLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH))
 				.getRelatedStatusEffect().getSVGString(Main.game.getPlayer())
 			+ "</div>" + "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>"
-			+ "<b style='color:" + Attribute.STRENGTH.getColour().() + ";'>"
+			+ "<b style='color:" + Attribute.STRENGTH.getColour().toWebHexString() + ";'>"
 			+ (int) Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH) + "</b>" + "</div>"
 			+ "<div class='overlay' id='PLAYER_" + Attribute.STRENGTH.getName() + "'></div>" + "</div>"
 
@@ -661,7 +661,7 @@ public enum RenderingEngine {
 					Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE))
 				.getRelatedStatusEffect().getSVGString(Main.game.getPlayer())
 			+ "</div>" + "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>"
-			+ "<b style='color:" + Attribute.INTELLIGENCE.getColour().() + ";'>"
+			+ "<b style='color:" + Attribute.INTELLIGENCE.getColour().toWebHexString() + ";'>"
 			+ (int) Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE) + "</b>" + "</div>"
 			+ "<div class='overlay' id='PLAYER_" + Attribute.INTELLIGENCE.getName() + "'></div>" + "</div>"
 
@@ -670,7 +670,7 @@ public enum RenderingEngine {
 				.getFitnessLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.FITNESS))
 				.getRelatedStatusEffect().getSVGString(Main.game.getPlayer())
 			+ "</div>" + "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>"
-			+ "<b style='color:" + Attribute.FITNESS.getColour().() + ";'>"
+			+ "<b style='color:" + Attribute.FITNESS.getColour().toWebHexString() + ";'>"
 			+ (int) Main.game.getPlayer().getAttributeValue(Attribute.FITNESS) + "</b>" + "</div>"
 			+ "<div class='overlay' id='PLAYER_" + Attribute.FITNESS.getName() + "'></div>" + "</div>"
 
@@ -680,7 +680,7 @@ public enum RenderingEngine {
 					Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION))
 				.getRelatedStatusEffect().getSVGString(Main.game.getPlayer())
 			+ "</div>" + "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>"
-			+ "<b style='color:" + Attribute.CORRUPTION.getColour().() + ";'>"
+			+ "<b style='color:" + Attribute.CORRUPTION.getColour().toWebHexString() + ";'>"
 			+ (int) Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION) + "</b>" + "</div>"
 			+ "<div class='overlay' id='PLAYER_" + Attribute.CORRUPTION.getName() + "'></div>" + "</div>"
 			+ "</div>");
@@ -695,12 +695,12 @@ public enum RenderingEngine {
 		    + "<div style='width:"
 		    + (((float) Main.game.getPlayer().getHealth())
 			    / (Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM))) * 65
-		    + "vw; height:5vw; background:" + Colour.ATTRIBUTE_HEALTH.()
+		    + "vw; height:5vw; background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString()
 		    + "; float:left; border-radius: 2;'></div>" + "</div>"
 		    + "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
-		    + (renderedHealthValue < Main.game.getPlayer().getHealth() ? Colour.GENERIC_GOOD.()
+		    + (renderedHealthValue < Main.game.getPlayer().getHealth() ? Colour.GENERIC_GOOD.toWebHexString()
 			    : renderedHealthValue > Main.game.getPlayer().getHealth()
-				    ? (Colour.GENERIC_BAD.())
+				    ? (Colour.GENERIC_BAD.toWebHexString())
 				    : "default")
 		    + ";'>" + (int) Math.ceil(Main.game.getPlayer().getHealth()) + "</p>"
 		    + "<div class='overlay' id='PLAYER_" + Attribute.HEALTH_MAXIMUM.getName() + "'></div>" + "</div>"
@@ -710,12 +710,12 @@ public enum RenderingEngine {
 		    + "<div style='width:"
 		    + (((float) Main.game.getPlayer().getMana())
 			    / (Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM))) * 65
-		    + "vw; height:5vw; background:" + Colour.ATTRIBUTE_MANA.()
+		    + "vw; height:5vw; background:" + Colour.ATTRIBUTE_MANA.toWebHexString()
 		    + "; float:left; border-radius: 2;'></div>" + "</div>"
 		    + "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
-		    + (renderedManaValue < Main.game.getPlayer().getMana() ? (Colour.GENERIC_GOOD.())
+		    + (renderedManaValue < Main.game.getPlayer().getMana() ? (Colour.GENERIC_GOOD.toWebHexString())
 			    : (renderedManaValue > Main.game.getPlayer().getMana()
-				    ? (Colour.GENERIC_BAD.())
+				    ? (Colour.GENERIC_BAD.toWebHexString())
 				    : "default"))
 		    + ";'>" + (int) Math.ceil(Main.game.getPlayer().getMana()) + "</p>"
 		    + "<div class='overlay' id='PLAYER_" + Attribute.MANA_MAXIMUM.getName() + "'></div>" + "</div>"
@@ -723,13 +723,13 @@ public enum RenderingEngine {
 		    + "<div class='full-width-container' style='margin:0;padding:0;'>" + "<div class='imageIcon'>"
 		    + Attribute.STAMINA_MAXIMUM.getSVGString() + "</div>" + "<div class='barBackgroundAtt'>"
 		    + "<div style='width:" + (Main.game.getPlayer().getStaminaPercentage() * 65)
-		    + "vw; height:5vw; background:" + Colour.ATTRIBUTE_FITNESS.()
+		    + "vw; height:5vw; background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString()
 		    + "; float:left; border-radius: 2;'></div>" + "</div>"
 		    + "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
 		    + (renderedStaminaValue < Main.game.getPlayer().getStamina()
-			    ? (Colour.GENERIC_GOOD.())
+			    ? (Colour.GENERIC_GOOD.toWebHexString())
 			    : (renderedStaminaValue > Main.game.getPlayer().getStamina()
-				    ? (Colour.GENERIC_BAD.())
+				    ? (Colour.GENERIC_BAD.toWebHexString())
 				    : "default"))
 		    + ";'>" + (int) Math.ceil(Main.game.getPlayer().getStamina()) + "</p>"
 		    + "<div class='overlay' id='PLAYER_" + Attribute.STAMINA_MAXIMUM.getName() + "'></div>" + "</div>"
@@ -775,7 +775,7 @@ public enum RenderingEngine {
 
 			    + "<div style='position:absolute; right:0; height:100%; width:2vw; background:#222; border-radius: 2;'>"
 			    + "<div style='position:absolute; bottom:0; height:" + timerHeight
-			    + "%; width:2vw; background:" + timerColour.()
+			    + "%; width:2vw; background:" + timerColour.toWebHexString()
 			    + "; float:left; border-radius: 2;'></div>" + "</div>"
 
 			    + "<div class='overlay' id='SE_PLAYER_" + se + "'></div>"
@@ -862,7 +862,7 @@ public enum RenderingEngine {
 								    .getFemininity() <= Femininity.ANDROGYNOUS
 									    .getMaximumFemininity() ? Colour.ANDROGYNOUS
 										    : Colour.FEMININE_PLUS))
-											    .()
+											    .toWebHexString()
 					    + ";'>");
 				}
 
@@ -909,7 +909,7 @@ public enum RenderingEngine {
 								    .getFemininity() <= Femininity.ANDROGYNOUS
 									    .getMaximumFemininity() ? Colour.ANDROGYNOUS
 										    : Colour.FEMININE_PLUS))
-											    .()
+											    .toWebHexString()
 					    + ";'>");
 				}
 
@@ -956,7 +956,7 @@ public enum RenderingEngine {
 								    .getFemininity() <= Femininity.ANDROGYNOUS
 									    .getMaximumFemininity() ? Colour.ANDROGYNOUS
 										    : Colour.FEMININE_PLUS))
-											    .()
+											    .toWebHexString()
 					    + ";'>");
 				}
 
@@ -1003,7 +1003,7 @@ public enum RenderingEngine {
 								    .getFemininity() <= Femininity.ANDROGYNOUS
 									    .getMaximumFemininity() ? Colour.ANDROGYNOUS
 										    : Colour.FEMININE_PLUS))
-											    .()
+											    .toWebHexString()
 					    + ";'>");
 				}
 
@@ -1225,7 +1225,7 @@ public enum RenderingEngine {
 		+ String.format("%02d", (Main.game.getMinutesPassed() % (24 * 60)) / 60) + ":"
 		+ String.format("%02d", (Main.game.getMinutesPassed() % (24 * 60)) % 60) + "</b>" + "</br>" + title
 		+ "</p>" + "<p style='float:left;width:20vw;text-align:center;margin-top:8px;padding:0;'>"
-		+ "<b style='color: " + com.base.utils.Colour.CURRENCY.() + ";'>"
+		+ "<b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
 		+ Main.game.getCurrencySymbol() + "</b> <b>" + Main.game.getPlayer().getMoney() + "</b>" + "</p>"
 		+ "</body>";
     }

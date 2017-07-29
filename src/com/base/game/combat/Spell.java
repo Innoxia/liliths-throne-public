@@ -190,11 +190,11 @@ public enum Spell {
 
 			if (caster.isPlayer())
 				descriptionSB = new StringBuilder("<p>" + "Summoning a swirling vortex of pure energy around your " + Main.game.getPlayer().getArmNameSingular() + ", you focus its raw power into an" + " <b style='color: "
-						+ Attribute.DAMAGE_PHYSICAL.getColour().() + ";'>" + "arcane shield</b> that quickly surrounds you, providing improved protection from physical attacks." + "</p>");
+						+ Attribute.DAMAGE_PHYSICAL.getColour().toWebHexString() + ";'>" + "arcane shield</b> that quickly surrounds you, providing improved protection from physical attacks." + "</p>");
 			else
 				descriptionSB = new StringBuilder(
 						UtilText.genderParsing(caster, "<p>" + "Summoning a swirling vortex of pure energy around <her> " + caster.getArmNameSingular() + ", <she> focuses its raw power into an"
-								+ " <b style='color: " + Attribute.DAMAGE_PHYSICAL.getColour().() + ";'>" + "arcane shield</b> that quickly surrounds <herPro>, providing improved protection from physical attacks." + "</p>"));
+								+ " <b style='color: " + Attribute.DAMAGE_PHYSICAL.getColour().toWebHexString() + ";'>" + "arcane shield</b> that quickly surrounds <herPro>, providing improved protection from physical attacks." + "</p>"));
 
 			descriptionSB.append(getDamageAndCostDescription(caster, target, cost, -1, true, isCritical));
 			return descriptionSB.toString();
@@ -223,11 +223,11 @@ public enum Spell {
 
 			if (caster.isPlayer())
 				descriptionSB = new StringBuilder("<p>" + "Summoning a swirling vortex of arcane flames around your " + Main.game.getPlayer().getArmNameSingular() + ", you focus its raw power into a" + " <b style='color: "
-						+ Attribute.DAMAGE_FIRE.getColour().() + ";'>" + "fire shield</b> that quickly surrounds you, providing improved protection from fire attacks." + "</p>");
+						+ Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + "fire shield</b> that quickly surrounds you, providing improved protection from fire attacks." + "</p>");
 			else
 				descriptionSB = new StringBuilder(
 						UtilText.genderParsing(caster, "<p>" + "Summoning a swirling vortex of arcane flames around <her> " + caster.getArmNameSingular() + ", <she> focuses its raw power into a"
-								+ " <b style='color: " + Attribute.DAMAGE_FIRE.getColour().() + ";'>" + "fire shield</b> that quickly surrounds <herPro>, providing improved protection from fire attacks." + "</p>"));
+								+ " <b style='color: " + Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + "fire shield</b> that quickly surrounds <herPro>, providing improved protection from fire attacks." + "</p>"));
 
 			descriptionSB.append(getDamageAndCostDescription(caster, target, cost, -1, true, isCritical));
 			return descriptionSB.toString();
@@ -256,11 +256,11 @@ public enum Spell {
 
 			if (caster.isPlayer())
 				descriptionSB = new StringBuilder("<p>" + "Summoning a swirling vortex of arcane ice around your " + Main.game.getPlayer().getArmNameSingular() + ", you focus its raw power into an" + " <b style='color: "
-						+ Attribute.DAMAGE_ICE.getColour().() + ";'>" + "ice shield</b> that quickly surrounds you, providing improved protection from cold attacks." + "</p>");
+						+ Attribute.DAMAGE_ICE.getColour().toWebHexString() + ";'>" + "ice shield</b> that quickly surrounds you, providing improved protection from cold attacks." + "</p>");
 			else
 				descriptionSB = new StringBuilder(
 						UtilText.genderParsing(caster, "<p>" + "Summoning a swirling vortex of arcane ice around <her> " + caster.getArmNameSingular() + ", <she> focuses its raw power into an" + " <b style='color: "
-								+ Attribute.DAMAGE_ICE.getColour().() + ";'>" + "ice shield</b> that quickly surrounds <herPro>, providing improved protection from cold attacks." + "</p>"));
+								+ Attribute.DAMAGE_ICE.getColour().toWebHexString() + ";'>" + "ice shield</b> that quickly surrounds <herPro>, providing improved protection from cold attacks." + "</p>"));
 
 			descriptionSB.append(getDamageAndCostDescription(caster, target, cost, -1, true, isCritical));
 			return descriptionSB.toString();
@@ -289,11 +289,11 @@ public enum Spell {
 
 			if (caster.isPlayer())
 				descriptionSB = new StringBuilder("<p>" + "Summoning a swirling vortex of toxic miasma around your " + Main.game.getPlayer().getArmNameSingular() + ", you focus its raw power into an" + " <b style='color: "
-						+ Attribute.DAMAGE_POISON.getColour().() + ";'>" + "poison shield</b> that quickly surrounds you, providing improved protection from poison attacks." + "</p>");
+						+ Attribute.DAMAGE_POISON.getColour().toWebHexString() + ";'>" + "poison shield</b> that quickly surrounds you, providing improved protection from poison attacks." + "</p>");
 			else
 				descriptionSB = new StringBuilder(
 						UtilText.genderParsing(caster, "<p>" + "Summoning a swirling vortex of toxic miasma around <her> " + caster.getArmNameSingular() + ", <she> focuses its raw power into an"
-								+ " <b style='color: " + Attribute.DAMAGE_POISON.getColour().() + ";'>" + "poison shield</b> that quickly surrounds <herPro>, providing improved protection from poison attacks." + "</p>"));
+								+ " <b style='color: " + Attribute.DAMAGE_POISON.getColour().toWebHexString() + ";'>" + "poison shield</b> that quickly surrounds <herPro>, providing improved protection from poison attacks." + "</p>"));
 
 			descriptionSB.append(getDamageAndCostDescription(caster, target, cost, -1, true, isCritical));
 			return descriptionSB.toString();
@@ -605,12 +605,12 @@ public enum Spell {
 		if (caster == Main.game.getPlayer()) {
 			if (isCritical)
 				damageCostDescriptionSB.append(!isSelfCastSpell()
-						? "<p>" + (isHit ? "<b>You <b style='color: " + Colour.CLOTHING_GOLD.() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().() + ";'>"
+						? "<p>" + (isHit ? "<b>You <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
 								+ damageType.getName() + "</b>" + " damage!</b>" : "<b>You missed!</b>") + "</p>"
-						: "<p>" + (isHit ? "<b>You <b style='color: " + Colour.CLOTHING_GOLD.() + ";'>critically</b> cast the spell, doubling its duration!</b>" : "<b>You missed!</b>") + "</p>");
+						: "<p>" + (isHit ? "<b>You <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> cast the spell, doubling its duration!</b>" : "<b>You missed!</b>") + "</p>");
 			else
 				damageCostDescriptionSB.append(!isSelfCastSpell()
-						? "<p>" + (isHit ? "<b>You did " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().() + ";'>" + damageType.getName() + "</b>" + " damage!</b>" : "<b>You missed!</b>") + "</p>"
+						? "<p>" + (isHit ? "<b>You did " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + " damage!</b>" : "<b>You missed!</b>") + "</p>"
 						: "");
 
 			if (statusEffects != null && isHit) {
@@ -623,24 +623,24 @@ public enum Spell {
 						else
 							damageCostDescriptionSB.append(", ");
 					}
-					damageCostDescriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour().() + ";'>" + seEntry.getKey().getName(target) + "</b>");
+					damageCostDescriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
 				}
 				damageCostDescriptionSB.append(".</p>");
 			}
 
 			damageCostDescriptionSB
-					.append("<p>" + "Harnessing the arcane to cast spells is incredibly draining, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_MANA.getColour().() + ";'>willpower</b>!</b>" + "</p>");
+					.append("<p>" + "Harnessing the arcane to cast spells is incredibly draining, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_MANA.getColour().toWebHexString() + ";'>willpower</b>!</b>" + "</p>");
 		} else {
 
 			if (isCritical)
 				damageCostDescriptionSB.append(!isSelfCastSpell()
-						? "<p>" + (isHit ? "<b>You were <b style='color: " + Colour.CLOTHING_GOLD.() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().() + ";'>"
+						? "<p>" + (isHit ? "<b>You were <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
 								+ damageType.getName() + "</b>" + " damage!</b>" : "<b>" + caster.getName("The") + " missed!</b>") + "</p>"
-						: "<p>" + (isHit ? "<b>" + caster.getName("The") + " <b style='color: " + Colour.CLOTHING_GOLD.() + ";'>critically</b> cast the spell, doubling its duration!</b>"
+						: "<p>" + (isHit ? "<b>" + caster.getName("The") + " <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> cast the spell, doubling its duration!</b>"
 								: "<b>" + caster.getName("The") + " missed!</b>") + "</p>");
 			else
 				damageCostDescriptionSB
-						.append(!isSelfCastSpell() ? "<p>" + (isHit ? "<b>You took " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().() + ";'>" + damageType.getName() + "</b>" + " damage!</b>"
+						.append(!isSelfCastSpell() ? "<p>" + (isHit ? "<b>You took " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + " damage!</b>"
 								: "<b>" + caster.getName("The") + " missed!</b>") + "</p>" : "");
 
 			if (statusEffects != null && isHit) {
@@ -653,13 +653,13 @@ public enum Spell {
 						else
 							damageCostDescriptionSB.append(", ");
 					}
-					damageCostDescriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour().() + ";'>" + seEntry.getKey().getName(target) + "</b>");
+					damageCostDescriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
 				}
 				damageCostDescriptionSB.append("!</p>");
 			}
 
 			damageCostDescriptionSB.append(UtilText.genderParsing(caster,
-					"<p>" + "Harnessing the arcane to cast spells is incredibly draining, and <she> loses <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_MANA.getColour().() + ";'>willpower</b>!</b>" + "</p>"));
+					"<p>" + "Harnessing the arcane to cast spells is incredibly draining, and <she> loses <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_MANA.getColour().toWebHexString() + ";'>willpower</b>!</b>" + "</p>"));
 		}
 
 		return damageCostDescriptionSB.toString();

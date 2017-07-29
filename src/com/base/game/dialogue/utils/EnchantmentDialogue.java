@@ -62,7 +62,7 @@ public class EnchantmentDialogue {
 							+ "<div class='overlay no-pointer' id='ESSENCE_"+essence.hashCode()+"'></div>"
 						+ "</div>"
 						+ " <div style='display:inline-block; height:16px; vertical-align: middle;'>"
-							+ "<b style='color:"+essence.getColour().()+";'>"+Main.game.getPlayer().getEssenceCount(essence)+"</b>"
+							+ "<b style='color:"+essence.getColour().toWebHexString()+";'>"+Main.game.getPlayer().getEssenceCount(essence)+"</b>"
 						+ "</div>"
 					+ "</div>"
 					);
@@ -141,7 +141,7 @@ public class EnchantmentDialogue {
 							+ "<div class='overlay no-pointer' id='ESSENCE_COST_"+ingredient.getRelatedEssence().hashCode()+"'></div>"
 						+ "</div>"
 						+ " <div style='display:inline-block; vertical-align: middle;'>"
-							+ "<b style='color:"+ingredient.getRelatedEssence().getColour().()+";'>"+effect.getCost()+"</b>"
+							+ "<b style='color:"+ingredient.getRelatedEssence().getColour().toWebHexString()+";'>"+effect.getCost()+"</b>"
 						+ "</div> "
 						+ "</div>");
 
@@ -200,7 +200,7 @@ public class EnchantmentDialogue {
 						"<div class='enchanting-essence-effect'>"
 							+ "<div class='enchanting-text'>");
 				if(effect.getEffectsDescription()!=null) {
-					inventorySB.append("<b style='color:"+ingredient.getRelatedEssence().getColour().()+";'>Effect to be added:</b> ");
+					inventorySB.append("<b style='color:"+ingredient.getRelatedEssence().getColour().toWebHexString()+";'>Effect to be added:</b> ");
 					for(String s : effect.getEffectsDescription()) {
 						inventorySB.append("</br><b>"+Util.capitaliseSentence(s)+"</b>");
 					}
@@ -244,13 +244,13 @@ public class EnchantmentDialogue {
 						+ ingredient.getRelatedEssence().getSVGString()
 						+ "<div class='overlay no-pointer' id='ESSENCE_COST_"+ingredient.getRelatedEssence().hashCode()+"'></div>"
 					+ "</div>"
-					+ " <span style='color:"+ingredient.getRelatedEssence().getColour().()+";'>"+EnchantingUtils.getCost(ingredient, effects)+"</span>");
+					+ " <span style='color:"+ingredient.getRelatedEssence().getColour().toWebHexString()+";'>"+EnchantingUtils.getCost(ingredient, effects)+"</span>");
 			inventorySB.append("</div>");
 			
 			// Effects:
 			inventorySB.append("<div class='enchanting-text' style='text-align:center;padding-top:4px;'>");
 			if(effects.isEmpty()) {
-				inventorySB.append("<span style='color:"+Colour.TEXT_GREY.()+";'>No effects added</span>");
+				inventorySB.append("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No effects added</span>");
 			} else {
 				int i=0;
 				for(ItemEffect ie : effects) {

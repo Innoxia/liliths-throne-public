@@ -535,13 +535,13 @@ public class SPBeautySalon {
 									+ "Hair lengths"
 								+"</h6>"
 								+ "<p style='text-align:center;'>"
-									+ "Your current length is <b style='color:"+Colour.GENERIC_GOOD.()+";'>highlighted</b>."
+									+ "Your current length is <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>highlighted</b>."
 								+ "</p>"
 								+ "<p style='text-align:center;'>");
 								
 			for(HairLength length : HairLength.values()){
 				if(Main.game.getPlayer().getHairLength()==length)
-					descriptionSB.append("<b style='color:"+Colour.GENERIC_GOOD.()+";'>"+Util.capitaliseSentence(length.getDescriptor())+"</b></br>");
+					descriptionSB.append("<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+Util.capitaliseSentence(length.getDescriptor())+"</b></br>");
 				else
 					descriptionSB.append(Util.capitaliseSentence(length.getDescriptor())+"</br>");
 			}
@@ -551,8 +551,8 @@ public class SPBeautySalon {
 								+ "A small paragraph at the bottom of the page informs you that Kate needs to use more arcane power the longer your hair is."
 								+ " As a result, the price of hair lengthening is more expensive the longer your hair gets."
 								+ " At its current length, Kate will charge you:</br>"
-								+ "<b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>30</b> for a hair cut.</br>"
-								+ "<b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" +(Main.game.getPlayer().getHairRawLengthValue()*5) +"</b> for a permanent hair extension."
+								+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>30</b> for a hair cut.</br>"
+								+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" +(Main.game.getPlayer().getHairRawLengthValue()*5) +"</b> for a permanent hair extension."
 								+ "</p>");
 			
 			return descriptionSB.toString();
@@ -568,7 +568,7 @@ public class SPBeautySalon {
 					return new Response("Cut (" + Main.game.getCurrencySymbol() + " 30)", "You are already bald, so there's nothing for Kate to cut!", null);
 				
 				} else {
-					return new Response("Cut (<span style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</span> 30)",
+					return new Response("Cut (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 30)",
 							"Ask Kate to cut your hair a little shorter. This will shorten your hair from <b>"+Main.game.getPlayer().getHairLength().getDescriptor()+"</b> to <b>"
 								+HairLength.getShorter(Main.game.getPlayer().getHairRawLengthValue()).getDescriptor()+"</b>", SHOP_BEAUTY_SALON_HAIR_LENGTH){
 						@Override
@@ -576,7 +576,7 @@ public class SPBeautySalon {
 							Main.game.getPlayer().incrementMoney(-30);
 							Main.game.getPlayer().setHairLength(HairLength.getShorter(Main.game.getPlayer().getHairRawLengthValue()).getMedianValue());
 							Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-									+ "You pay Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>30</b>."
+									+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>30</b>."
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
 									+ "With a fair amount of skill, she snips away at your "+Main.game.getPlayer().getHairName()+" with a pair of scissors, leaving you with:</br>"
@@ -596,7 +596,7 @@ public class SPBeautySalon {
 							"You don't have enough money to get your hair cut!", null);
 				
 				} else {
-					return new Response("Lengthen (<span style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</span> " +(Main.game.getPlayer().getHairRawLengthValue()*5) +")",
+					return new Response("Lengthen (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> " +(Main.game.getPlayer().getHairRawLengthValue()*5) +")",
 							"Ask Kate to lengthen your hair. This will lengthen your hair from <b>"+Main.game.getPlayer().getHairLength().getDescriptor()+"</b> to <b>"
 									+HairLength.getLonger(Main.game.getPlayer().getHairRawLengthValue()).getDescriptor()+"</b>",
 							SHOP_BEAUTY_SALON_HAIR_LENGTH){
@@ -606,7 +606,7 @@ public class SPBeautySalon {
 							Main.game.getPlayer().incrementMoney(-cost);
 							Main.game.getPlayer().setHairLength(HairLength.getLonger(Main.game.getPlayer().getHairRawLengthValue()).getMedianValue());
 							Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-									+ "You pay Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+cost+"</b>."
+									+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+cost+"</b>."
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
 									+ "With a bright pink flash, Kate harnesses her arcane aura, channeling it's power into your "+Main.game.getPlayer().getHairName()+". As you open your eyes, you see that she's left you with:</br>"
@@ -667,10 +667,10 @@ public class SPBeautySalon {
 					if(Main.game.getPlayer().getHairColour()==colour)
 						descriptionSB.append(
 								"<b>*</b>"
-								+" <b style='color:"+colour.()+";'>"+Util.capitaliseSentence(colour.getName())+"</b> "
+								+" <b style='color:"+colour.toWebHexString()+";'>"+Util.capitaliseSentence(colour.getName())+"</b> "
 								+"<b>*</b></br>");
 					else
-						descriptionSB.append("<span style='color:"+colour.()+";'>"+Util.capitaliseSentence(colour.getName())+"</span></br>");
+						descriptionSB.append("<span style='color:"+colour.toWebHexString()+";'>"+Util.capitaliseSentence(colour.getName())+"</span></br>");
 				};
 				
 			descriptionSB.append("</p>"
@@ -678,7 +678,7 @@ public class SPBeautySalon {
 					+ "A small paragraph at the bottom of the page informs you that Kate uses a special arcane power to change your hair colour."
 					+ " It seems to be trying to emphasise the fact that this isn't a temporary dye, and will permanently change your natural colouring.</p>"
 					+ "<p style='text-align:center;'>"
-					+ "All hair recolouring costs <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>30</b>."
+					+ "All hair recolouring costs <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>30</b>."
 					+ "</p>");
 			
 			return descriptionSB.toString();
@@ -701,7 +701,7 @@ public class SPBeautySalon {
 				} else {
 					return new Response(
 							Util.capitaliseSentence(Main.game.getPlayer().getHairType().getAllColours().get(index-1).getName())
-								+" (<span style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</span> 30)",
+								+" (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 30)",
 							"Ask Kate to change your natural hair colour to "+Main.game.getPlayer().getHairType().getAllColours().get(index-1).getName()+".",
 							SHOP_BEAUTY_SALON_HAIR_COLOUR){
 						@Override
@@ -710,13 +710,13 @@ public class SPBeautySalon {
 							Main.game.getPlayer().setHairColour(Main.game.getPlayer().getHairType().getAllColours().get(index-1));
 							
 							Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-									+ "You pay Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>30</b>."
+									+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>30</b>."
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
 									+ "She runs her delicate fingertips down your scalp as she starts to massage your head."
 									+ " A bright crackle of pink arcane energy suddenly leaps down from her hand, and your eyes open wide as you see your "+Main.game.getPlayer().getHairName()+" changing colour."
 									+ " Within seconds, you're left with:</br>"
-									+"<b style='color:"+Main.game.getPlayer().getHairColour().()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getHairColour().getName())+"</b> <b>"+Main.game.getPlayer().getHairName()+"</b>."
+									+"<b style='color:"+Main.game.getPlayer().getHairColour().toWebHexString()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getHairColour().getName())+"</b> <b>"+Main.game.getPlayer().getHairName()+"</b>."
 									+ "</p>");
 						}
 					};
@@ -744,14 +744,14 @@ public class SPBeautySalon {
 			+ "<p style='text-align:center;'>");
 			
 			for(BodyCoveringType st : skins){
-				descriptionSB.append("<b style='color:"+Main.game.getPlayer().getSkinColour(st).()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getSkinColour(st).getName())
+				descriptionSB.append("<b style='color:"+Main.game.getPlayer().getSkinColour(st).toWebHexString()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getSkinColour(st).getName())
 										+"</b> <b>"+st.getName(Main.game.getPlayer())+" ("+st.getRace().getName()+")</b>"
 										+ "</br>");
 			};
 			
 			descriptionSB.append("</p>"
 				+ "<p style='text-align:center;'>"
-				+ "All skin and fur recolouring costs <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
+				+ "All skin and fur recolouring costs <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
 				+ "</p>"
 				+ "<p style='text-align:center;'>"
 				+ "Choose a skin or fur type to see the different colours available."
@@ -803,15 +803,15 @@ public class SPBeautySalon {
 					if(Main.game.getPlayer().getSkinColour(Main.game.getDialogueFlags().skinTypeSelected)==colour)
 						descriptionSB.append(
 								"<b>*</b>"
-								+" <b style='color:"+colour.()+";'>"+Util.capitaliseSentence(colour.getName())+"</b> "
+								+" <b style='color:"+colour.toWebHexString()+";'>"+Util.capitaliseSentence(colour.getName())+"</b> "
 								+"<b>*</b></br>");
 					else
-						descriptionSB.append("<span style='color:"+colour.()+";'>"+Util.capitaliseSentence(colour.getName())+"</span></br>");
+						descriptionSB.append("<span style='color:"+colour.toWebHexString()+";'>"+Util.capitaliseSentence(colour.getName())+"</span></br>");
 				};
 				
 			descriptionSB.append("</p>"
 					+ "<p style='text-align:center;'>"
-					+ "All skin and fur recolouring costs <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
+					+ "All skin and fur recolouring costs <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
 					+ "</p>");
 			
 			return descriptionSB.toString();
@@ -834,7 +834,7 @@ public class SPBeautySalon {
 				} else {
 					return new Response(
 							Util.capitaliseSentence(Main.game.getDialogueFlags().skinTypeSelected.getAllColours().get(index-1).getName())
-								+" (<span style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</span> 200)",
+								+" (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 200)",
 							"Ask Kate to change your natural "+Main.game.getDialogueFlags().skinTypeSelected.getName(Main.game.getPlayer())+" colour to "+Main.game.getDialogueFlags().skinTypeSelected.getAllColours().get(index-1).getName()+".",
 							SHOP_BEAUTY_SALON_SKIN_COLOUR_CHOICES){
 						@Override
@@ -843,14 +843,14 @@ public class SPBeautySalon {
 							Main.game.getPlayer().setSkinColour(Main.game.getDialogueFlags().skinTypeSelected, Main.game.getDialogueFlags().skinTypeSelected.getAllColours().get(index-1));
 							
 							Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-									+ "You pay Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
+									+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
 									+ "She runs her delicate fingertips all over your body, and you notice that her touch lingers longer at your groin and chest than elsewhere."
 									+ " Before you get the chance to point this out to her, a bright crackle of pink arcane energy suddenly leaps from her hands, and your eyes open wide as you see your "
 										+Main.game.getDialogueFlags().skinTypeSelected.getName(Main.game.getPlayer())+" changing colour."
 									+ " Within seconds, you're left with:</br>"
-									+"<b style='color:"+Main.game.getPlayer().getSkinColour(Main.game.getDialogueFlags().skinTypeSelected).()+";'>"
+									+"<b style='color:"+Main.game.getPlayer().getSkinColour(Main.game.getDialogueFlags().skinTypeSelected).toWebHexString()+";'>"
 										+Util.capitaliseSentence(Main.game.getPlayer().getSkinColour(Main.game.getDialogueFlags().skinTypeSelected).getName())
 										+"</b> <b>"+Main.game.getDialogueFlags().skinTypeSelected.getName(Main.game.getPlayer())+"</b>."
 									+ "</p>");
@@ -901,10 +901,10 @@ public class SPBeautySalon {
 					if(Main.game.getPlayer().getEyeColour()==colour)
 						descriptionSB.append(
 								"<b>*</b>"
-								+" <b style='color:"+colour.()+";'>"+Util.capitaliseSentence(colour.getName())+"</b> "
+								+" <b style='color:"+colour.toWebHexString()+";'>"+Util.capitaliseSentence(colour.getName())+"</b> "
 								+"<b>*</b></br>");
 					else
-						descriptionSB.append("<span style='color:"+colour.()+";'>"+Util.capitaliseSentence(colour.getName())+"</span></br>");
+						descriptionSB.append("<span style='color:"+colour.toWebHexString()+";'>"+Util.capitaliseSentence(colour.getName())+"</span></br>");
 				};
 				
 			descriptionSB.append("</p>"
@@ -912,7 +912,7 @@ public class SPBeautySalon {
 					+ "A small paragraph at the bottom of the page informs you that Kate uses a special arcane power to change your eye colour."
 					+ " Apparently, it's extremely draining on her aura, so eye colouring is just as expensive as skin colouring.</p>"
 					+ "<p style='text-align:center;'>"
-					+ "All eye recolouring costs <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
+					+ "All eye recolouring costs <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
 					+ "</p>");
 			
 			return descriptionSB.toString();
@@ -934,7 +934,7 @@ public class SPBeautySalon {
 				
 				} else {
 					return new Response(
-							Util.capitaliseSentence(Main.game.getPlayer().getEyeType().getAllColours().get(index-1).getName())+" (<span style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</span> 200)",
+							Util.capitaliseSentence(Main.game.getPlayer().getEyeType().getAllColours().get(index-1).getName())+" (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 200)",
 							"Ask Kate to change your natural eye colour to "+Main.game.getPlayer().getEyeType().getAllColours().get(index-1).getName()+".",
 							SHOP_BEAUTY_SALON_EYE_COLOUR){
 						@Override
@@ -943,13 +943,13 @@ public class SPBeautySalon {
 							Main.game.getPlayer().setEyeColour(Main.game.getPlayer().getEyeType().getAllColours().get(index-1));
 							
 							Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-									+ "You pay Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
+									+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
 									+ "She runs her delicate fingertips over the contours of your cheeks, slowly moving up to gently rub at your lower eyelids."
 									+ " A bright crackle of pink arcane energy suddenly flashes across your vision, and as Kate steps back, you look into the mirror in front of you to see that your "+Main.game.getPlayer().getEyeName()+" have changed colour."
 									+ " You now have:</br>"
-									+"<b style='color:"+Main.game.getPlayer().getEyeColour().()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getEyeColour().getName())+"</b> <b>"+Main.game.getPlayer().getEyeName()+"</b>."
+									+"<b style='color:"+Main.game.getPlayer().getEyeColour().toWebHexString()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getEyeColour().getName())+"</b> <b>"+Main.game.getPlayer().getEyeName()+"</b>."
 									+ "</p>");
 						}
 					};
@@ -975,37 +975,37 @@ public class SPBeautySalon {
 	private static String pierceTableRow(String partName, int price, int priceRemoval){
 		return "<tr>"
 				+ "<td>"+partName+"</td>"
-				+ "<td><span style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+"</td>"
-				+ "<td><span style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+priceRemoval+"</td>"
+				+ "<td><span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+"</td>"
+				+ "<td><span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+priceRemoval+"</td>"
 			+ "</tr>";
 	}
 	private static String pierceReponseTitle(String partName, int price){
 		if(Main.game.getPlayer().getMoney()<price)
 			return "<span class='option-disabled'>"+partName +" (<b>P</b>: " + Main.game.getCurrencySymbol() +" "+price+")</span>";
 		else
-			return partName +" (<b style='color:"+Colour.GENERIC_GOOD.()+";'>P</b>: "+"<span style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+")";
+			return partName +" (<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>P</b>: "+"<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+")";
 	}
 	private static String removalReponseTitle(String partName, int price){
 		if(Main.game.getPlayer().getMoney()<price)
 			return "<span class='option-disabled'>"+partName +" (<b>R</b>: " + Main.game.getCurrencySymbol() +" "+price+")</span>";
 		else
-			return partName +" (<b style='color:"+Colour.GENERIC_BAD.()+";'>R</b>: "+"<span style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+")";
+			return partName +" (<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>R</b>: "+"<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+")";
 	}
 	private static String pierceReponseDescription(String partName, int price){
 		if(Main.game.getPlayer().getMoney()<price)
 			return "You don't have enough money to get your "+partName+" pierced!</br></br>"
-					+ "It costs <span style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+", but you only have"
-							+ " <span style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span style='color:"+Colour.GENERIC_BAD.()+";'>"+Main.game.getPlayer().getMoney()+"</span>!";
+					+ "It costs <span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+", but you only have"
+							+ " <span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+Main.game.getPlayer().getMoney()+"</span>!";
 		else
-			return "Ask Kate to pierce your "+partName +". This will cost <span style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+".";
+			return "Ask Kate to pierce your "+partName +". This will cost <span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+".";
 	}
 	private static String removalReponseDescription(String partName, int price){
 		if(Main.game.getPlayer().getMoney()<price)
 			return "You don't have enough money to remove the piercing from your "+partName+"!</br></br>"
-					+ "It costs <span style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+", but you only have"
-							+ " <span style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span style='color:"+Colour.GENERIC_BAD.()+";'>"+Main.game.getPlayer().getMoney()+"</span>!";
+					+ "It costs <span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+", but you only have"
+							+ " <span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+Main.game.getPlayer().getMoney()+"</span>!";
 		else
-			return "Ask Kate to remove the piercing from your "+partName +". This will cost <span style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+".";
+			return "Ask Kate to remove the piercing from your "+partName +". This will cost <span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+".";
 	}
 	
 	
@@ -1039,7 +1039,7 @@ public class SPBeautySalon {
 				case PIERCING_EAR:
 					return "<span style='text-align:center;'>"
 							+ "<p>"
-					+ "You pay Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+					+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 					+ "</p>"
 					+Main.game.getPlayer().setPiercedEar(true)
 					+"</span>";
@@ -1069,56 +1069,56 @@ public class SPBeautySalon {
 //										+ " Letting out a disapproving sigh at how lazy she is, you end up having to leave her payment on the little table beside you."
 //										+ "</p>"
 //										+ "<p>"
-//										+ "You paid Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+//										+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 //										+ "</p>"
 //										+Main.game.getPlayer().setPiercedEar(true));
 //					break;
 				case PIERCING_LIP:
 					return "<span style='text-align:center;'>"
 							+ "<p>"
-							+ "You pay Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+							+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 							+ "</p>"
 							+Main.game.getPlayer().setPiercedLip(true)
 							+"</span>";
 				case PIERCING_NIPPLE:
 					return "<span style='text-align:center;'>"
 							+ "<p>"
-							+ "You pay Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+							+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 							+ "</p>"
 							+Main.game.getPlayer().setPiercedNipple(true)
 							+"</span>";
 				case PIERCING_NOSE:
 					return "<span style='text-align:center;'>"
 							+ "<p>"
-							+ "You pay Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+							+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 							+ "</p>"
 							+Main.game.getPlayer().setPiercedNose(true)
 							+"</span>";
 				case PIERCING_PENIS:
 					return "<span style='text-align:center;'>"
 							+ "<p>"
-							+ "You pay Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+							+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 							+ "</p>"
 							+Main.game.getPlayer().setPiercedPenis(true)
 							+"</span>";
 				case PIERCING_STOMACH:
 					return "<span style='text-align:center;'>"
 							+ "<p>"
-							+ "You pay Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+							+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 							+ "</p>"
 							+Main.game.getPlayer().setPiercedNavel(true)
 							+"</span>";
 				case PIERCING_TONGUE:
 					return "<span style='text-align:center;'>"
 							+ "<p>"
-							+ "You pay Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+							+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 							+ "</p>"
 							+Main.game.getPlayer().setPiercedTongue(true)
 							+"</span>";
 				case PIERCING_VAGINA:
 					return "<span style='text-align:center;'>"
 							+ "<p>"
-							+ "You pay Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+							+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 							+ "</p>"
 							+Main.game.getPlayer().setPiercedVagina(true)
 							+"</span>";
@@ -1136,7 +1136,7 @@ public class SPBeautySalon {
 			case PIERCING_EAR:
 				return "<span style='text-align:center;'>"
 						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 						+ "</p>"
 						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_EAR)==null?""
 								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_EAR), true, Main.game.getKate()))
@@ -1145,7 +1145,7 @@ public class SPBeautySalon {
 			case PIERCING_LIP:
 				return "<span style='text-align:center;'>"
 						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 						+ "</p>"
 						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_LIP)==null?""
 								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_LIP), true, Main.game.getKate()))
@@ -1154,7 +1154,7 @@ public class SPBeautySalon {
 			case PIERCING_NIPPLE:
 				return "<span style='text-align:center;'>"
 						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 						+ "</p>"
 						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NIPPLE)==null?""
 								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NIPPLE), true, Main.game.getKate()))
@@ -1163,7 +1163,7 @@ public class SPBeautySalon {
 			case PIERCING_NOSE:
 				return "<span style='text-align:center;'>"
 						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 						+ "</p>"
 						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NOSE)==null?""
 								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NOSE), true, Main.game.getKate()))
@@ -1172,7 +1172,7 @@ public class SPBeautySalon {
 			case PIERCING_PENIS:
 				return "<span style='text-align:center;'>"
 						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 						+ "</p>"
 						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_PENIS)==null?""
 								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_PENIS), true, Main.game.getKate()))
@@ -1181,7 +1181,7 @@ public class SPBeautySalon {
 			case PIERCING_STOMACH:
 				return "<span style='text-align:center;'>"
 						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 						+ "</p>"
 						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_STOMACH)==null?""
 								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_STOMACH), true, Main.game.getKate()))
@@ -1190,7 +1190,7 @@ public class SPBeautySalon {
 			case PIERCING_TONGUE:
 				return "<span style='text-align:center;'>"
 						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 						+ "</p>"
 						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_TONGUE)==null?""
 								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_TONGUE), true, Main.game.getKate()))
@@ -1199,7 +1199,7 @@ public class SPBeautySalon {
 			case PIERCING_VAGINA:
 				return "<span style='text-align:center;'>"
 						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
 						+ "</p>"
 						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_VAGINA)==null?""
 								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_VAGINA), true, Main.game.getKate()))
@@ -1251,8 +1251,8 @@ public class SPBeautySalon {
 									+"<table style='font-size:1em; text-align:center; margin: 0 auto;'>"
 									+ "<tr>"
 										+ "<th style='padding:0 8px 0 8px;'>Part</th>"
-										+ "<th style='padding:0 8px 0 8px; color:"+Colour.GENERIC_GOOD.()+";'>Pierce</th>"
-										+ "<th style='padding:0 8px 0 8px; color:"+Colour.GENERIC_BAD.()+";'>Removal</th>"
+										+ "<th style='padding:0 8px 0 8px; color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Pierce</th>"
+										+ "<th style='padding:0 8px 0 8px; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Removal</th>"
 									+ "</tr>"
 									+ pierceTableRow("Ears", earPiercingCost, earRemovalCost)
 									+ pierceTableRow("Nose", nosePiercingCost, noseRemovalCost)
@@ -1265,8 +1265,8 @@ public class SPBeautySalon {
 									+"<table style='font-size:1em; text-align:center; margin: 0 auto;'>"
 									+ "<tr>"
 										+ "<th style='padding:0 8px 0 8px;'>Part</th>"
-										+ "<th style='padding:0 8px 0 8px; color:"+Colour.GENERIC_GOOD.()+";'>Pierce</th>"
-										+ "<th style='padding:0 8px 0 8px; color:"+Colour.GENERIC_BAD.()+";'>Removal</th>"
+										+ "<th style='padding:0 8px 0 8px; color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Pierce</th>"
+										+ "<th style='padding:0 8px 0 8px; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Removal</th>"
 									+ "</tr>"
 									+ pierceTableRow("Nipples", nipplePiercingCost, nippleRemovalCost)
 									+ pierceTableRow("Vagina", vaginaPiercingCost, vaginaRemovalCost)

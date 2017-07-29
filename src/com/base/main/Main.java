@@ -68,13 +68,13 @@ public class Main extends Application {
 	public static String patchNotes =
 			
 		"<h1 style='text-align:center;'>Version " + Main.VERSION_NUMBER + "</h1>"
-		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_ARCANE.() + ";'>This is a preview release, and contains half-finished content!</b></h6>"
-//		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.() + ";'>Very-early Alpha release!</b></h6>"
+		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>This is a preview release, and contains half-finished content!</b></h6>"
+//		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha release!</b></h6>"
 		
-		+ "<p><b style='color:"+Colour.GENERIC_EXCELLENT.()+";'>Important information:</b> <i>If you don't see a mini-map in the bottom-left corner of the screen after starting the game, please update your java!</i></p>"
+		+ "<p><b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Important information:</b> <i>If you don't see a mini-map in the bottom-left corner of the screen after starting the game, please update your java!</i></p>"
 		
 		+ "<p>"
-		+ "This is just a preview release, so <b style='color:"+Colour.GENERIC_BAD.()+";'>only play it if you're prepared to encounter some serious bugs and half-written content!</b>"
+		+ "This is just a preview release, so <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>only play it if you're prepared to encounter some serious bugs and half-written content!</b>"
 		+ " The full, polished version of this release will be out on Friday!"
 		+ "</p>"
 		
@@ -139,7 +139,7 @@ public class Main extends Application {
 		+ "</list>";
 	
 	public static String disclaimer = "<h1 style='text-align:center;'>DISCLAIMER</h1>"
-			+"<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.()+";'>You must read and agree to the following in order to play this game!</h6>"
+			+"<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
 
 			+ "<p>This game is a <b>fictional</b> text-based erotic RPG." + " All content contained within this game forms part of a fictional universe that is not related to real-life places, people or events.</br></br>"
 
@@ -403,7 +403,7 @@ public class Main extends Application {
 			    }
 
 				properties.lastSaveLocation = name;//"data/saves/"+name+".lts";
-				properties.nameColour = Femininity.valueOf(game.getPlayer().getFemininity()).getColour().();
+				properties.nameColour = Femininity.valueOf(game.getPlayer().getFemininity()).getColour().toWebHexString();
 				properties.name = game.getPlayer().getName();
 				properties.level = game.getPlayer().getLevel();
 				properties.money = game.getPlayer().getMoney();

@@ -68,7 +68,7 @@ public class PhoneDialogue {
 			if (index == 1) {
 				return new Response(
 						(Main.game.getPlayer().isMainQuestUpdated() || Main.game.getPlayer().isSideQuestUpdated() || Main.game.getPlayer().isRomanceQuestUpdated())
-							?"<span style='color:" + Colour.GENERIC_EXCELLENT.() + ";'>Planner</span>"
+							?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Planner</span>"
 							:"Planner",
 						"Open your planner to view your current quests.", PLANNER_MAIN){
 					@Override
@@ -99,7 +99,7 @@ public class PhoneDialogue {
 			} else if (index == 5) {
 				return new Response(
 						(Main.game.getPlayer().isNewWeaponDiscovered() || Main.game.getPlayer().isNewClothingDiscovered() || Main.game.getPlayer().isNewItemDiscovered() || Main.game.getPlayer().isNewRaceDiscovered())
-							? "<span style='color:" + Colour.GENERIC_EXCELLENT.() + ";'>Encyclopedia</span>"
+							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Encyclopedia</span>"
 							:"Encyclopedia",
 						"Have a look at all the different items and races you've discovered so far.", ENCYCLOPEDIA){
 					@Override
@@ -111,7 +111,7 @@ public class PhoneDialogue {
 			} else if (index == 6) {
 				return new Response(
 						(Main.game.getPlayer().getLevelUpPoints() > 0 || Main.game.getPlayer().getPerkPoints() > 0)
-							? "<span style='color:" + Colour.GENERIC_EXCELLENT.() + ";'>Character</span>"
+							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Character</span>"
 							:"Character",
 						"View your character page.", CHARACTER_LEVEL_UP){
 					@Override
@@ -161,15 +161,15 @@ public class PhoneDialogue {
 			// Main Quests:
 
 			journalSB.append("<details open>");
-			journalSB.append("<summary class='quest-title' style='color:" + QuestType.MAIN.getColour().() + ";'>" + QuestLine.MAIN.getName() + "</summary>");
+			journalSB.append("<summary class='quest-title' style='color:" + QuestType.MAIN.getColour().toWebHexString() + ";'>" + QuestLine.MAIN.getName() + "</summary>");
 
 			// journalSB.append("<div class='quest-title main'
-			// style='color:"+QuestType.MAIN.getColour().()+";'>"+QuestLine.MAIN.getName()+"</div>");
+			// style='color:"+QuestType.MAIN.getColour().toWebHexString()+";'>"+QuestLine.MAIN.getName()+"</div>");
 			if (!Main.game.getPlayer().isMainQuestCompleted()) {
-				journalSB.append("<div class='quest-box'>" + Quest.getLevelAndExperinceHTML(Main.game.getPlayer().getMainQuest(), true) + "<h6 style='color:" + QuestType.MAIN.getColour().() + ";text-align:center;'>"
+				journalSB.append("<div class='quest-box'>" + Quest.getLevelAndExperinceHTML(Main.game.getPlayer().getMainQuest(), true) + "<h6 style='color:" + QuestType.MAIN.getColour().toWebHexString() + ";text-align:center;'>"
 						+ Main.game.getPlayer().getMainQuest().getName() + "</h6>" + "<p style='text-align:center;'>" + Main.game.getPlayer().getMainQuest().getDescription() + "</p>" + "</div>");
 			} else {
-				journalSB.append("<div class='quest-box'>" + "<h6 style='color:" + QuestType.MAIN.getColour().() + ";text-align:center;'>" + QuestLine.MAIN.getName() + "</h6>" + "<p style='text-align:center;'>"
+				journalSB.append("<div class='quest-box'>" + "<h6 style='color:" + QuestType.MAIN.getColour().toWebHexString() + ";text-align:center;'>" + QuestLine.MAIN.getName() + "</h6>" + "<p style='text-align:center;'>"
 						+ QuestLine.MAIN.getCompletedDescription() + "</p>" + "</div>");
 			}
 
@@ -177,7 +177,7 @@ public class PhoneDialogue {
 
 				for (int i = Main.game.getPlayer().getMainQuestProgress() - 1; i >= 0; i--)
 					journalSB.append("<div class='quest-box'>" + Quest.getLevelAndExperinceHTML(Main.game.getPlayer().getMainQuestAtIndex(i), false) + "<h6 style='color:" + QuestType.MAIN.getColour().getShades()[1]
-							+ ";text-align:center;'><b>Completed - " + Main.game.getPlayer().getMainQuestAtIndex(i).getName() + "</b></h6>" + "<p style='color:" + Colour.TEXT_GREY.() + ";text-align:center;'>"
+							+ ";text-align:center;'><b>Completed - " + Main.game.getPlayer().getMainQuestAtIndex(i).getName() + "</b></h6>" + "<p style='color:" + Colour.TEXT_GREY.toWebHexString() + ";text-align:center;'>"
 							+ Main.game.getPlayer().getMainQuestAtIndex(i).getCompletedDescription() + "</p>" + "</div>");
 			}
 			journalSB.append("</details>");
@@ -192,7 +192,7 @@ public class PhoneDialogue {
 				
 			} else if (index == 2) {
 				return new Response((Main.game.getPlayer().isSideQuestUpdated()
-						?"<span style='color:" + Colour.GENERIC_EXCELLENT.() + ";'>Side quests</span>"
+						?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Side quests</span>"
 						:"Side quests"), "View your side quests.", PLANNER_SIDE){
 					@Override
 					public void effects() {
@@ -202,7 +202,7 @@ public class PhoneDialogue {
 				
 			} else if (index == 3) {
 				return new Response((Main.game.getPlayer().isRomanceQuestUpdated()
-						?"<span style='color:" + Colour.GENERIC_EXCELLENT.() + ";'>Romance quests</span>"
+						?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Romance quests</span>"
 						:"Romance quests"), "View your romance quests.", PLANNER_ROMANCE){
 					@Override
 					public void effects() {
@@ -239,11 +239,11 @@ public class PhoneDialogue {
 					if (q.isCompleted(Main.game.getPlayer().getSideQuestProgress(q))) {
 						journalSB.append("<summary class='quest-title' style='color:" + q.getType().getColour().getShades()[1] + ";'>Completed - " + q.getName() + "</summary>");
 						journalSB.append("<div class='quest-box'>" + "<h6 style='color:" + q.getType().getColour().getShades()[1] + "; text-align:center;'><b>Side Quest Completed</b></h6>" + "<p style='color:"
-								+ Colour.TEXT_GREY.() + ";text-align:center;'>" + q.getCompletedDescription() + "</p>" + "</div>");
+								+ Colour.TEXT_GREY.toWebHexString() + ";text-align:center;'>" + q.getCompletedDescription() + "</p>" + "</div>");
 
 					} else {
-						journalSB.append("<summary class='quest-title' style='color:" + q.getType().getColour().() + ";'>" + q.getName() + "</summary>");
-						journalSB.append("<div class='quest-box'>" + Quest.getLevelAndExperinceHTML(q.getQuestArray()[Main.game.getPlayer().getSideQuestProgress(q)], true) + "<h6 style='color:" + q.getType().getColour().()
+						journalSB.append("<summary class='quest-title' style='color:" + q.getType().getColour().toWebHexString() + ";'>" + q.getName() + "</summary>");
+						journalSB.append("<div class='quest-box'>" + Quest.getLevelAndExperinceHTML(q.getQuestArray()[Main.game.getPlayer().getSideQuestProgress(q)], true) + "<h6 style='color:" + q.getType().getColour().toWebHexString()
 								+ "; text-align:center;'><b>" + q.getQuestArray()[Main.game.getPlayer().getSideQuestProgress(q)].getName() + "</b></h6>" + "<p style='text-align:center;'>"
 								+ q.getQuestArray()[Main.game.getPlayer().getSideQuestProgress(q)].getDescription() + "</p>" + "</div>");
 
@@ -251,7 +251,7 @@ public class PhoneDialogue {
 
 					for (int i = 0; (i < Main.game.getPlayer().getSideQuestProgress(q) && i < q.getQuestArray().length); i++)
 						journalSB.append("<div class='quest-box'>" + Quest.getLevelAndExperinceHTML(q.getQuestArray()[i], false) + "<h6 style='color:" + q.getType().getColour().getShades()[1] + ";text-align:center;'><b>Completed - "
-								+ q.getQuestArray()[i].getName() + "</b></h6>" + "<p style='color:" + Colour.TEXT_GREY.() + ";text-align:center;'>" + q.getQuestArray()[i].getCompletedDescription() + "</p>" + "</div>");
+								+ q.getQuestArray()[i].getName() + "</b></h6>" + "<p style='color:" + Colour.TEXT_GREY.toWebHexString() + ";text-align:center;'>" + q.getQuestArray()[i].getCompletedDescription() + "</p>" + "</div>");
 
 					journalSB.append("</details>");
 				}
@@ -270,7 +270,7 @@ public class PhoneDialogue {
 				return new Response("Side quests", "View your side quests.", null);
 			} else if (index == 3) {
 				return new Response((Main.game.getPlayer().isRomanceQuestUpdated()
-						?"<span style='color:" + Colour.GENERIC_EXCELLENT.() + ";'>Romance quests</span>"
+						?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Romance quests</span>"
 						:"Romance quests"), "View your romance quests.", PLANNER_ROMANCE){
 					@Override
 					public void effects() {
@@ -305,12 +305,12 @@ public class PhoneDialogue {
 
 					if (q.isCompleted(Main.game.getPlayer().getRomanceQuestProgress(q))) {
 						journalSB.append("<summary class='quest-title' style='color:" + q.getType().getColour().getShades()[1] + ";'>" + q.getName() + " - Completed</summary>");
-						journalSB.append("<div class='quest-box'>" + "<h6 style='color:" + q.getType().getColour().() + "; text-align:center;'><b>Romance Quest Completed</b></h6>" + "<p style='text-align:center;'>"
+						journalSB.append("<div class='quest-box'>" + "<h6 style='color:" + q.getType().getColour().toWebHexString() + "; text-align:center;'><b>Romance Quest Completed</b></h6>" + "<p style='text-align:center;'>"
 								+ q.getCompletedDescription() + "</p>" + "</div>");
 
 					} else {
-						journalSB.append("<summary class='quest-title' style='color:" + q.getType().getColour().() + ";'>" + q.getName() + "</summary>");
-						journalSB.append("<div class='quest-box'>" + Quest.getLevelAndExperinceHTML(q.getQuestArray()[Main.game.getPlayer().getRomanceQuestProgress(q)], true) + "<h6 style='color:" + q.getType().getColour().()
+						journalSB.append("<summary class='quest-title' style='color:" + q.getType().getColour().toWebHexString() + ";'>" + q.getName() + "</summary>");
+						journalSB.append("<div class='quest-box'>" + Quest.getLevelAndExperinceHTML(q.getQuestArray()[Main.game.getPlayer().getRomanceQuestProgress(q)], true) + "<h6 style='color:" + q.getType().getColour().toWebHexString()
 								+ ";text-align:center;'><b>" + q.getQuestArray()[Main.game.getPlayer().getRomanceQuestProgress(q)].getName() + "</b></h6>" + "<p style='text-align:center;'>"
 								+ q.getQuestArray()[Main.game.getPlayer().getRomanceQuestProgress(q)].getDescription() + "</p>" + "</div>");
 
@@ -318,7 +318,7 @@ public class PhoneDialogue {
 
 					for (int i = 0; (i < Main.game.getPlayer().getRomanceQuestProgress(q) && i < q.getQuestArray().length); i++)
 						journalSB.append("<div class='quest-box'>" + Quest.getLevelAndExperinceHTML(q.getQuestArray()[i], false) + "<h6 style='color:" + q.getType().getColour().getShades()[1] + ";text-align:center;'><b>Completed: "
-								+ q.getQuestArray()[i].getName() + "</b></h6>" + "<p style='color:" + Colour.TEXT_GREY.() + ";text-align:center;'>" + q.getQuestArray()[i].getCompletedDescription() + "</p>" + "</div>");
+								+ q.getQuestArray()[i].getName() + "</b></h6>" + "<p style='color:" + Colour.TEXT_GREY.toWebHexString() + ";text-align:center;'>" + q.getQuestArray()[i].getCompletedDescription() + "</p>" + "</div>");
 
 					journalSB.append("</details>");
 				}
@@ -337,7 +337,7 @@ public class PhoneDialogue {
 				return new Response("Main quests", "View your progress on the main quest.", PLANNER_MAIN);
 			} else if (index == 2) {
 				return new Response((Main.game.getPlayer().isSideQuestUpdated()
-						?"<span style='color:" + Colour.GENERIC_EXCELLENT.() + ";'>Side quests</span>"
+						?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Side quests</span>"
 						:"Side quests"), "View your side quests.", PLANNER_SIDE){
 					@Override
 					public void effects() {
@@ -628,17 +628,17 @@ public class PhoneDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append("<div class='extraAttribute-quarter'>"
-						+ "Mothered <b style='color:"+Colour.MASCULINE.()+";'>Sons</b></br>" + sonsBirthed
+						+ "Mothered <b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Sons</b></br>" + sonsBirthed
 					+ "</div>"
 					+ "<div class='extraAttribute-quarter'>"
-						+ "Mothered <b style='color:"+Colour.FEMININE.()+";'>Daughters</b></br>" + daughtersBirthed
+						+ "Mothered <b style='color:"+Colour.FEMININE.toWebHexString()+";'>Daughters</b></br>" + daughtersBirthed
 					+ "</div>"
 					
 					+ "<div class='extraAttribute-quarter'>"
-						+ "Fathered <b style='color:"+Colour.MASCULINE.()+";'>Sons</b></br>" + sonsFathered
+						+ "Fathered <b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Sons</b></br>" + sonsFathered
 					+ "</div>"
 					+ "<div class='extraAttribute-quarter'>"
-						+ "Fathered <b style='color:"+Colour.FEMININE.()+";'>Daughters</b></br>" + daughtersFathered
+						+ "Fathered <b style='color:"+Colour.FEMININE.toWebHexString()+";'>Daughters</b></br>" + daughtersFathered
 					+ "</div>"
 					+"<div class='subTitle'>Total offspring: "+(sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered)+"</div>"
 					
@@ -667,10 +667,10 @@ public class PhoneDialogue {
 					UtilText.nodeContentSB.append(
 							"<tr>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+Colour.FEMININE.()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc)?npc.getName():"Unknown")+"</b>"
+									+ "<b style='color:"+Colour.FEMININE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc)?npc.getName():"Unknown")+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+npc.getRace().getColour().()+";'>"+npc.getRace().getOffspringFemaleNameSingular()+"</b>"
+									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getRace().getOffspringFemaleNameSingular()+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
 									+ "<b>"+(npc.getMother().isPlayer()?"You":npc.getMother().getName())+"</b>"
@@ -683,10 +683,10 @@ public class PhoneDialogue {
 					UtilText.nodeContentSB.append(
 							"<tr>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+Colour.MASCULINE.()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc)?npc.getName():"Unknown")+"</b>"
+									+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc)?npc.getName():"Unknown")+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+npc.getRace().getColour().()+";'>"+npc.getRace().getOffspringMaleNameSingular()+"</b>"
+									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getRace().getOffspringMaleNameSingular()+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
 									+ "<b>"+(npc.getMother().isPlayer()?"You":npc.getMother().getName())+"</b>"
@@ -733,7 +733,7 @@ public class PhoneDialogue {
 	
 
 	private static String sexStatRow(Colour colour, String name, int given, int loadsGiven, int received, int loadsReceived) {
-		return "<div class='extraAttribute-third'>" + "<span style='color:" + colour.() + ";'>" + name + "</span>" + "</div>" + "<div class='extraAttribute-sixth'>" + given + "</div>" + "<div class='extraAttribute-sixth'>"
+		return "<div class='extraAttribute-third'>" + "<span style='color:" + colour.toWebHexString() + ";'>" + name + "</span>" + "</div>" + "<div class='extraAttribute-sixth'>" + given + "</div>" + "<div class='extraAttribute-sixth'>"
 				+ (loadsGiven < 0 ? "<span class='option-disabled'>-</span>" : loadsGiven) + "</div>" + "<div class='extraAttribute-sixth'>" + received + "</div>" + "<div class='extraAttribute-sixth'>"
 				+ (loadsReceived < 0 ? "<span class='option-disabled'>-</span>" : loadsReceived) + "</div>";
 	}
@@ -764,9 +764,9 @@ public class PhoneDialogue {
 					contentSB.append(UtilText.parse(pp.getFather(),
 							"<b>[npc.Name(A)] (</b>"
 								+ (pp.getFather().getRaceStage().getName()!=""
-										?"<b style='color:"+pp.getFather().getRaceStage().getColour().()+";'>" + Util.capitaliseSentence(pp.getFather().getRaceStage().getName())+"</b> "
+										?"<b style='color:"+pp.getFather().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getFather().getRaceStage().getName())+"</b> "
 										:"")
-								+ "<b style='color:"+pp.getFather().getRace().getColour().()+";'>"
+								+ "<b style='color:"+pp.getFather().getRace().getColour().toWebHexString()+";'>"
 								+ (pp.getFather().getGender().isFeminine()?Util.capitaliseSentence(pp.getFather().getRace().getSingularFemaleName()):Util.capitaliseSentence(pp.getFather().getRace().getSingularMaleName()))
 								+ "</b><b>) Probability: "));
 					
@@ -818,7 +818,7 @@ public class PhoneDialogue {
 		
 		if(noPregnancies){
 			contentSB.append("<div class='subTitle'>"
-					+ "<span style='color:"+Colour.TEXT_GREY.()+";'>You have never been pregnant!</span>"
+					+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>You have never been pregnant!</span>"
 					+ "</div>");
 		}
 		
@@ -839,9 +839,9 @@ public class PhoneDialogue {
 							+ "</br>"
 							+"<b>[npc.Name(A)] (</b>"
 								+ (pp.getMother().getRaceStage().getName()!=""
-										?"<b style='color:"+pp.getMother().getRaceStage().getColour().()+";'>" + Util.capitaliseSentence(pp.getMother().getRaceStage().getName())+"</b> "
+										?"<b style='color:"+pp.getMother().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getMother().getRaceStage().getName())+"</b> "
 										:"")
-								+ "<b style='color:"+pp.getMother().getRace().getColour().()+";'>"
+								+ "<b style='color:"+pp.getMother().getRace().getColour().toWebHexString()+";'>"
 								+ (pp.getMother().getGender().isFeminine()?Util.capitaliseSentence(pp.getMother().getRace().getSingularFemaleName()):Util.capitaliseSentence(pp.getMother().getRace().getSingularMaleName()))
 								+ "</b><b>)</b>"));
 					
@@ -908,7 +908,7 @@ public class PhoneDialogue {
 		
 		if(noPregnancies){
 			contentSB.append("<div class='subTitle'>"
-					+ "<span style='color:"+Colour.TEXT_GREY.()+";'>You have never got anyone pregnant!</span>"
+					+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>You have never got anyone pregnant!</span>"
 					+ "</div>");
 		}
 		
@@ -922,48 +922,48 @@ public class PhoneDialogue {
 	}
 
 	private static String attributeValue(GameCharacter owner, Attribute att) {
-		return "<span style='color:" + att.getColour().() + ";'>" + Util.capitaliseSentence(att.getName()) + "</span></br>"
+		return "<span style='color:" + att.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(att.getName()) + "</span></br>"
 				+ (owner.getBaseAttributeValue(att) > 0 ? "<span style='color:" + Colour.GENERIC_GOOD.getShades()[1] + ";'>"
-						: (owner.getBaseAttributeValue(att) < 0 ? "<span style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";'>" : "<span style='color:" + Colour.TEXT_GREY.() + ";'>"))
-				+ owner.getBaseAttributeValue(att) + "</span>" + "<span style='color:" + Colour.TEXT_GREY.() + ";'> + </span>"
+						: (owner.getBaseAttributeValue(att) < 0 ? "<span style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";'>" : "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>"))
+				+ owner.getBaseAttributeValue(att) + "</span>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'> + </span>"
 				+ (owner.getBonusAttributeValue(att) > 0 ? "<span style='color:" + Colour.GENERIC_GOOD.getShades()[1] + ";'>"
-						: (owner.getBonusAttributeValue(att) < 0 ? "<span style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";'>" : "<span style='color:" + Colour.TEXT_GREY.() + ";'>"))
-				+ owner.getBonusAttributeValue(att) + "</span>" + "<span style='color:" + Colour.TEXT_GREY.() + ";'> = </span>" + owner.getAttributeValue(att);
+						: (owner.getBonusAttributeValue(att) < 0 ? "<span style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";'>" : "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>"))
+				+ owner.getBonusAttributeValue(att) + "</span>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'> = </span>" + owner.getAttributeValue(att);
 	}
 
 	private static String extraAttributeTableRow(GameCharacter owner, String type, Attribute damage, Attribute resist) {
 		return "<div class='extraAttribute-third type'>"
-				+ "<span style='color:" + damage.getColour().() + ";'>" + type + "</span>" + "</div>"
+				+ "<span style='color:" + damage.getColour().toWebHexString() + ";'>" + type + "</span>" + "</div>"
 				
 				+ "<div class='extraAttribute-third damage'>"
-					+ "<span style='color:"+Colour.TEXT_GREY.()+";'>" + damage.getBaseValue() + "</span>"
+					+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>" + damage.getBaseValue() + "</span>"
 					+ " + "
-					+ (owner.getBonusAttributeValue(damage)==0?"<span style='color:" + Colour.TEXT_GREY.() + ";'>"
+					+ (owner.getBonusAttributeValue(damage)==0?"<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>"
 							:(owner.getBonusAttributeValue(damage)>0
 								?"<span style='color:" + Colour.GENERIC_GOOD.getShades()[1] + ";'>"
 								:"<span style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";'>"))
 					+ owner.getBonusAttributeValue(damage)+"</span> = "
 					+ (owner.getAttributeValue(damage) > damage.getBaseValue()
-											? "<span style='color:" + Colour.GENERIC_GOOD.() + ";'>"
+											? "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
 											: (owner.getAttributeValue(damage) < damage.getBaseValue()
-													? "<span style='color:" + Colour.GENERIC_BAD.() + ";'>"
+													? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"
 													: ""))
 					+ owner.getAttributeValue(damage)
 					+ "</span>"
 				+ "</div>"
 					
 				+ "<div class='extraAttribute-third damage'>"
-					+ "<span style='color:"+Colour.TEXT_GREY.()+";'>" + resist.getBaseValue() + "</span>"
+					+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>" + resist.getBaseValue() + "</span>"
 					+ " + "
-					+ (owner.getBonusAttributeValue(resist)==0?"<span style='color:" + Colour.TEXT_GREY.() + ";'>"
+					+ (owner.getBonusAttributeValue(resist)==0?"<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>"
 							:(owner.getBonusAttributeValue(resist)>0
 								?"<span style='color:" + Colour.GENERIC_GOOD.getShades()[1] + ";'>"
 								:"<span style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";'>"))
 					+ owner.getBonusAttributeValue(resist)+"</span> = "
 					+ (owner.getAttributeValue(resist) > resist.getBaseValue()
-											? "<span style='color:" + Colour.GENERIC_GOOD.() + ";'>"
+											? "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
 											: (owner.getAttributeValue(resist) < resist.getBaseValue()
-													? "<span style='color:" + Colour.GENERIC_BAD.() + ";'>"
+													? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"
 													: ""))
 					+ owner.getAttributeValue(resist)
 					+ "</span>"
@@ -972,15 +972,15 @@ public class PhoneDialogue {
 	}
 
 	private static String extraAttributeBonus(GameCharacter owner, Attribute bonus) {
-		return "<div class='extraAttribute-half bonus'>" + "<span style='color:" + bonus.getColour().() + ";'>" + Util.capitaliseSentence(bonus.getName()) + "</span></br>"
+		return "<div class='extraAttribute-half bonus'>" + "<span style='color:" + bonus.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(bonus.getName()) + "</span></br>"
 
 				+ (owner.getBaseAttributeValue(bonus) > 0 ? "<span style='color:" + Colour.GENERIC_GOOD.getShades()[1] + ";'>"
-						: (owner.getBaseAttributeValue(bonus) < 0 ? "<span style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";'>" : "<span style='color:" + Colour.TEXT_GREY.() + ";'>"))
-				+ owner.getBaseAttributeValue(bonus) + "</span>" + "<span style='color:" + Colour.TEXT_GREY.() + ";'> + </span>"
+						: (owner.getBaseAttributeValue(bonus) < 0 ? "<span style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";'>" : "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>"))
+				+ owner.getBaseAttributeValue(bonus) + "</span>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'> + </span>"
 				+ (owner.getBonusAttributeValue(bonus) > 0 ? "<span style='color:" + Colour.GENERIC_GOOD.getShades()[1] + ";'>"
-						: (owner.getBonusAttributeValue(bonus) < 0 ? "<span style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";'>" : "<span style='color:" + Colour.TEXT_GREY.() + ";'>"))
-				+ owner.getBonusAttributeValue(bonus) + "</span>" + "<span style='color:" + Colour.TEXT_GREY.() + ";'> = </span>"
-				+ (owner.getAttributeValue(bonus) > 0 ? "<span style='color:" + Colour.GENERIC_GOOD.() + ";'>" : (owner.getAttributeValue(bonus) < 0 ? "<span style='color:" + Colour.GENERIC_BAD.() + ";'>" : "<span>"))
+						: (owner.getBonusAttributeValue(bonus) < 0 ? "<span style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";'>" : "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>"))
+				+ owner.getBonusAttributeValue(bonus) + "</span>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'> = </span>"
+				+ (owner.getAttributeValue(bonus) > 0 ? "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" : (owner.getAttributeValue(bonus) < 0 ? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" : "<span>"))
 				+ owner.getAttributeValue(bonus) + "</span>"
 
 				+ "</div>";
@@ -1067,7 +1067,7 @@ public class PhoneDialogue {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response((Main.game.getPlayer().isNewRaceDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.() + ";'>Races</span>":"Races",
+				return new Response((Main.game.getPlayer().isNewRaceDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Races</span>":"Races",
 						"Have a look at all the different races that you've encountered in your travels.", RACES){
 					@Override
 					public void effects() {
@@ -1076,7 +1076,7 @@ public class PhoneDialogue {
 				};
 			
 			} else if (index == 2) {
-				return new Response((Main.game.getPlayer().isNewWeaponDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.() + ";'>Weapons</span>":"Weapons",
+				return new Response((Main.game.getPlayer().isNewWeaponDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Weapons</span>":"Weapons",
 						"Have a look at all the different weapons that you've encountered in your travels.", WEAPON_CATALOGUE){
 					@Override
 					public void effects() {
@@ -1085,7 +1085,7 @@ public class PhoneDialogue {
 				};
 			
 			} else if (index == 3) {
-				return new Response((Main.game.getPlayer().isNewClothingDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.() + ";'>Clothing</span>":"Clothing",
+				return new Response((Main.game.getPlayer().isNewClothingDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Clothing</span>":"Clothing",
 						"Have a look at all the different clothing that you've encountered in your travels.", CLOTHING_CATALOGUE){
 					@Override
 					public void effects() {
@@ -1094,7 +1094,7 @@ public class PhoneDialogue {
 				};
 			
 			} else if (index == 4) {
-				return new Response((Main.game.getPlayer().isNewItemDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.() + ";'>Items</span>":"Items",
+				return new Response((Main.game.getPlayer().isNewItemDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Items</span>":"Items",
 						"Have a look at all the different items that you've encountered in your travels.", ITEM_CATALOGUE){
 					@Override
 					public void effects() {
@@ -1145,16 +1145,16 @@ public class PhoneDialogue {
 
 			journalSB.append("<div class='phone-item-third slot'>Slot</div>");
 			journalSB.append("<div class='phone-item-third name'>Weapon</div>");
-			journalSB.append("<div class='phone-item-third colours'>Damage types <span style='color:" + Colour.TEXT_GREY.() + ";'>(Hover for image)</span></div>");
+			journalSB.append("<div class='phone-item-third colours'>Damage types <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
 
 			for (WeaponType weapon : weaponsDiscoveredList) {
 				if (Main.game.getPlayer().getWeaponsDiscovered().contains(weapon)) {
 					journalSB.append("<div class='phone-item-third slot'>" + Util.capitaliseSentence(weapon.getSlot().getName()) + "</div>");
-					journalSB.append("<div class='phone-item-third name' style='color:" + weapon.getRarity().getColour().() + ";'>" + Util.capitaliseSentence(weapon.getName()) + "</div>");
+					journalSB.append("<div class='phone-item-third name' style='color:" + weapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(weapon.getName()) + "</div>");
 
 					journalSB.append("<div class='phone-item-third colours'>");
 					for (DamageType dt : weapon.getAvailableDamageTypes())
-						journalSB.append("<div class='phone-item-colour' id='" + (weapon.toString() + "_" + dt.toString()) + "' style='background-color:" + dt.getMultiplierAttribute().getColour().() + ";'></div>");
+						journalSB.append("<div class='phone-item-colour' id='" + (weapon.toString() + "_" + dt.toString()) + "' style='background-color:" + dt.getMultiplierAttribute().getColour().toWebHexString() + ";'></div>");
 					journalSB.append("</div>");
 
 				} else {
@@ -1195,16 +1195,16 @@ public class PhoneDialogue {
 
 			journalSB.append("<div class='phone-item-third slot'>Slot</div>");
 			journalSB.append("<div class='phone-item-third name'>Clothing</div>");
-			journalSB.append("<div class='phone-item-third colours'>Colours <span style='color:" + Colour.TEXT_GREY.() + ";'>(Hover for image)</span></div>");
+			journalSB.append("<div class='phone-item-third colours'>Colours <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
 
 			for (ClothingType clothing : clothingDiscoveredList) {
 				if (Main.game.getPlayer().getClothingDiscovered().contains(clothing)) {
 					journalSB.append("<div class='phone-item-third slot'>" + Util.capitaliseSentence(clothing.getSlot().getName()) + "</div>");
-					journalSB.append("<div class='phone-item-third name' style='color:" + clothing.getRarity().getColour().() + ";'>" + Util.capitaliseSentence(clothing.getName()) + "</div>");
+					journalSB.append("<div class='phone-item-third name' style='color:" + clothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(clothing.getName()) + "</div>");
 
 					journalSB.append("<div class='phone-item-third colours'>");
 					for (Colour c : clothing.getAvailableColours())
-						journalSB.append("<div class='phone-item-colour' id='" + (clothing.toString() + "_" + c.toString()) + "' style='background-color:" + c.() + ";'></div>");
+						journalSB.append("<div class='phone-item-colour' id='" + (clothing.toString() + "_" + c.toString()) + "' style='background-color:" + c.toWebHexString() + ";'></div>");
 					journalSB.append("</div>");
 
 				} else {
@@ -1247,7 +1247,7 @@ public class PhoneDialogue {
 
 			for (ItemType item : itemsDiscoveredList) {
 				if (Main.game.getPlayer().getItemsDiscovered().contains(item)) {
-					journalSB.append("<div class='phone-item-half name' style='color:" + item.getRarity().getColour().() + ";'>" + Util.capitaliseSentence(item.getName(false)) + "</div>");
+					journalSB.append("<div class='phone-item-half name' style='color:" + item.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(item.getName(false)) + "</div>");
 
 					journalSB.append("<div class='phone-item-half effects'>");
 					if(item.getEffects().size()==0) {
@@ -1295,7 +1295,7 @@ public class PhoneDialogue {
 		content = "<p style='text-align:center;'>You have encountered the following races in your travels:</p>";
 		
 		for (Race r : Main.game.getPlayer().getRacesDiscovered())
-			content += "<p style='text-align:center;'><b style='color:"+r.getColour().()+";'>" + Util.capitaliseSentence(r.getName()) + "</b></p>";
+			content += "<p style='text-align:center;'><b style='color:"+r.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(r.getName()) + "</b></p>";
 	}
 
 	public static final DialogueNodeOld RACES = new DialogueNodeOld("Discovered races", "View discovered races", true) {
@@ -1324,9 +1324,9 @@ public class PhoneDialogue {
 					public void effects() {
 						title = Util.capitaliseSentence(Main.game.getPlayer().getRacesDiscovered().get(index - 1).getName()) + " ("
 								+ Util.capitaliseSentence(Main.game.getPlayer().getRacesDiscovered().get(index - 1).getGenus().getName()) + ")";
-						content = "<p>" + "Male " + Main.game.getPlayer().getRacesDiscovered().get(index - 1).getName() + "s are called <b style='color:" + Colour.MASCULINE.() + ";'>"
+						content = "<p>" + "Male " + Main.game.getPlayer().getRacesDiscovered().get(index - 1).getName() + "s are called <b style='color:" + Colour.MASCULINE.toWebHexString() + ";'>"
 								+ Main.game.getPlayer().getRacesDiscovered().get(index - 1).getPluralMaleName() + "</b>." + "</p>" + "<p>" + "Female " + Main.game.getPlayer().getRacesDiscovered().get(index - 1).getName()
-								+ "s are called <b style='color:" + Colour.FEMININE.() + ";'>" + Main.game.getPlayer().getRacesDiscovered().get(index - 1).getPluralFemaleName() + "</b>." + "</p>"
+								+ "s are called <b style='color:" + Colour.FEMININE.toWebHexString() + ";'>" + Main.game.getPlayer().getRacesDiscovered().get(index - 1).getPluralFemaleName() + "</b>." + "</p>"
 								+ Main.game.getPlayer().getRacesDiscovered().get(index - 1).getDescription();
 					}
 				};
@@ -1359,7 +1359,7 @@ public class PhoneDialogue {
 					"<div class='lvlup-container'>"
 
 						+ "<div class='lvlup-title'>"
-							+ "Core Attributes (<b " + (isAttributePointsAvailableToSpend() ? "style='color:" + Colour.GENERIC_EXCELLENT.() + ";'" : "") + ">"
+							+ "Core Attributes (<b " + (isAttributePointsAvailableToSpend() ? "style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'" : "") + ">"
 							+ (Main.game.getPlayer().getLevelUpPoints() - (strengthPoints + intelligencePoints + fitnessPoints)) + "</b> point"
 							+ ((Main.game.getPlayer().getLevelUpPoints() - (strengthPoints + intelligencePoints + fitnessPoints)) != 1 ? "s" : "") + " to spend)"
 						+ "</div>"
@@ -1371,10 +1371,10 @@ public class PhoneDialogue {
 								+ "<div class='lvlup-attribute-innerContainer'>"
 									+ "<h6>" + Util.capitaliseSentence(Attribute.STRENGTH.getName()) + "</h6>"
 									+ "<div style='width:180px; height:8px; background:#222222; float:left; border-radius: 2;'>"
-										+ "<div style='width:" + Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH) * 1.8 + "px; height:8px; background:" + Colour.ATTRIBUTE_STRENGTH.() + "; float:left; border-radius: 2;'></div>"
-										+ "<div style='width:" + strengthPoints * 1.8 + "px; height:8px; background:" + Colour.GENERIC_EXCELLENT.() + "; float:left; border-radius: 2;'></div>"
+										+ "<div style='width:" + Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH) * 1.8 + "px; height:8px; background:" + Colour.ATTRIBUTE_STRENGTH.toWebHexString() + "; float:left; border-radius: 2;'></div>"
+										+ "<div style='width:" + strengthPoints * 1.8 + "px; height:8px; background:" + Colour.GENERIC_EXCELLENT.toWebHexString() + "; float:left; border-radius: 2;'></div>"
 									+ "</div>"
-									+ "<p style='padding:0;margin:0;line-height:16px;" + (strengthPoints > 0 ? "color:" + Colour.GENERIC_EXCELLENT.() + ";" : "") + "'>"
+									+ "<p style='padding:0;margin:0;line-height:16px;" + (strengthPoints > 0 ? "color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";" : "") + "'>"
 										+ ((int) Math.ceil(Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH)) + strengthPoints)
 									+ "</p>"
 								+ "</div>"
@@ -1382,7 +1382,7 @@ public class PhoneDialogue {
 								+ "<div class='lvlup-attribute-innerContainer'>"
 									+ "<div class='lvlup-button" + (strengthPoints == 0 ? " disabled" : "") + "' id='strength-decrease' style='float:left;'><b>-</b></div>"
 									+ "<span style='float:left; padding:0; margin:0; width:174px; text-align:center; height:24px;'>"
-									+ "<b" + (strengthPoints > 0 ? " style='color:" + Colour.GENERIC_EXCELLENT.() + ";'" : "") + ">+" + strengthPoints + "</b>"
+									+ "<b" + (strengthPoints > 0 ? " style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'" : "") + ">+" + strengthPoints + "</b>"
 									+ "</span>"
 									+ "<div class='lvlup-button" + (isAttributePointsAvailableToSpend() && (Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH) + strengthPoints < 100) ? "" : " disabled")
 										+ "' id='strength-increase' style='float:left;'><b>+</b></div>"
@@ -1396,10 +1396,10 @@ public class PhoneDialogue {
 								+ "<div class='lvlup-attribute-innerContainer'>"
 									+ "<h6>" + Util.capitaliseSentence(Attribute.INTELLIGENCE.getName()) + "</h6>"
 									+ "<div style='width:180px; height:8px; background:#222222; float:left; border-radius: 2;'>"
-										+ "<div style='width:" + Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE) * 1.8 + "px; height:8px; background:" + Colour.ATTRIBUTE_INTELLIGENCE.() + "; float:left; border-radius: 2;'></div>"
-										+ "<div style='width:" + intelligencePoints * 1.8 + "px; height:8px; background:" + Colour.GENERIC_EXCELLENT.() + "; float:left; border-radius: 2;'></div>"
+										+ "<div style='width:" + Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE) * 1.8 + "px; height:8px; background:" + Colour.ATTRIBUTE_INTELLIGENCE.toWebHexString() + "; float:left; border-radius: 2;'></div>"
+										+ "<div style='width:" + intelligencePoints * 1.8 + "px; height:8px; background:" + Colour.GENERIC_EXCELLENT.toWebHexString() + "; float:left; border-radius: 2;'></div>"
 									+ "</div>"
-									+ "<p style='padding:0;margin:0;line-height:16px;" + (intelligencePoints > 0 ? "color:" + Colour.GENERIC_EXCELLENT.() + ";" : "") + "'>"
+									+ "<p style='padding:0;margin:0;line-height:16px;" + (intelligencePoints > 0 ? "color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";" : "") + "'>"
 										+ ((int) Math.ceil(Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE)) + intelligencePoints)
 									+ "</p>"
 								+ "</div>"
@@ -1407,7 +1407,7 @@ public class PhoneDialogue {
 								+ "<div class='lvlup-attribute-innerContainer'>"
 									+ "<div class='lvlup-button" + (intelligencePoints == 0 ? " disabled" : "") + "' id='intelligence-decrease' style='float:left;'><b>-</b></div>"
 									+ "<span style='float:left; padding:0; margin:0; width:174px; text-align:center; height:24px;'>"
-									+ "<b" + (intelligencePoints > 0 ? " style='color:" + Colour.GENERIC_EXCELLENT.() + ";'" : "") + ">+" + intelligencePoints + "</b>"
+									+ "<b" + (intelligencePoints > 0 ? " style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'" : "") + ">+" + intelligencePoints + "</b>"
 									+ "</span>"
 									+ "<div class='lvlup-button" + (isAttributePointsAvailableToSpend() && (Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE) + intelligencePoints < 100) ? "" : " disabled")
 										+ "' id='intelligence-increase' style='float:left;'><b>+</b></div>"
@@ -1421,10 +1421,10 @@ public class PhoneDialogue {
 								+ "<div class='lvlup-attribute-innerContainer'>"
 									+ "<h6>" + Util.capitaliseSentence(Attribute.FITNESS.getName()) + "</h6>"
 									+ "<div style='width:180px; height:8px; background:#222222; float:left; border-radius: 2;'>"
-										+ "<div style='width:" + Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS) * 1.8 + "px; height:8px; background:" + Colour.ATTRIBUTE_FITNESS.() + "; float:left; border-radius: 2;'></div>"
-										+ "<div style='width:" + fitnessPoints * 1.8 + "px; height:8px; background:" + Colour.GENERIC_EXCELLENT.() + "; float:left; border-radius: 2;'></div>"
+										+ "<div style='width:" + Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS) * 1.8 + "px; height:8px; background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString() + "; float:left; border-radius: 2;'></div>"
+										+ "<div style='width:" + fitnessPoints * 1.8 + "px; height:8px; background:" + Colour.GENERIC_EXCELLENT.toWebHexString() + "; float:left; border-radius: 2;'></div>"
 									+ "</div>"
-									+ "<p style='padding:0;margin:0;line-height:16px;" + (fitnessPoints > 0 ? "color:" + Colour.GENERIC_EXCELLENT.() + ";" : "") + "'>"
+									+ "<p style='padding:0;margin:0;line-height:16px;" + (fitnessPoints > 0 ? "color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";" : "") + "'>"
 										+ ((int) Math.ceil(Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS)) + fitnessPoints)
 									+ "</p>"
 								+ "</div>"
@@ -1432,7 +1432,7 @@ public class PhoneDialogue {
 								+ "<div class='lvlup-attribute-innerContainer'>"
 									+ "<div class='lvlup-button" + (fitnessPoints == 0 ? " disabled" : "") + "' id='fitness-decrease' style='float:left;'><b>-</b></div>"
 									+ "<span style='float:left; padding:0; margin:0; width:174px; text-align:center; height:24px;'>"
-									+ "<b" + (fitnessPoints > 0 ? " style='color:" + Colour.GENERIC_EXCELLENT.() + ";'" : "") + ">+" + fitnessPoints + "</b>"
+									+ "<b" + (fitnessPoints > 0 ? " style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'" : "") + ">+" + fitnessPoints + "</b>"
 									+ "</span>"
 									+ "<div class='lvlup-button" + (isAttributePointsAvailableToSpend() && (Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS) + fitnessPoints < 100) ? "" : " disabled")
 										+ "' id='fitness-increase' style='float:left;'><b>+</b></div>"
@@ -1447,7 +1447,7 @@ public class PhoneDialogue {
 
 					+ "<div class='lvlup-container'>"
 
-					+ "<div class='lvlup-title'>" + "Perks (" + (spendingPoints > 0 ? "<span style='color:" + Colour.GENERIC_EXCELLENT.() + ";'>" : "<span>")
+					+ "<div class='lvlup-title'>" + "Perks (" + (spendingPoints > 0 ? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>" : "<span>")
 					+ (spendingPoints)
 					+ "</span> point" + (spendingPoints != 1 ? "s" : "") + " to spend)" + "</div>"
 
@@ -1469,11 +1469,11 @@ public class PhoneDialogue {
 						if (i % 2 == 0) { // Perk icon
 							if (PerkTree.getPerkGrid()[i / 2][j - 1] != null) {
 								journalSB.append("<td id='perkUnlock" + PerkTree.getPerkGrid()[i / 2][j - 1] + "' class='perkCell" + (Main.game.getPlayer().hasPerk(PerkTree.getPerkGrid()[i / 2][j - 1])
-										? " owned' style='border:4px solid " + PerkTree.getPerkGrid()[i / 2][j - 1].getPerkCategory().getColour().() + ";'>"
+										? " owned' style='border:4px solid " + PerkTree.getPerkGrid()[i / 2][j - 1].getPerkCategory().getColour().toWebHexString() + ";'>"
 										: (PerkTree.getPerkGrid()[i / 2][j - 1].isAvailable(Main.game.getPlayer(), levelUpPerks)
-												? " unlocked' style='border:4px solid " + (levelUpPerks.contains(PerkTree.getPerkGrid()[i / 2][j - 1]) ? Colour.GENERIC_EXCELLENT.() + ";"
+												? " unlocked' style='border:4px solid " + (levelUpPerks.contains(PerkTree.getPerkGrid()[i / 2][j - 1]) ? Colour.GENERIC_EXCELLENT.toWebHexString() + ";"
 														: PerkTree.getPerkGrid()[i / 2][j - 1].getPerkCategory().getColour().getShades()[1] + ";") + "'>"
-												: " locked' style='border:4px solid " + Colour.TEXT_GREY.() + ";'>"))
+												: " locked' style='border:4px solid " + Colour.TEXT_GREY.toWebHexString() + ";'>"))
 										+ PerkTree.getPerkGrid()[i / 2][j - 1].getSVGString()
 										+ (Main.game.getPlayer().hasPerk(PerkTree.getPerkGrid()[i / 2][j - 1]) || levelUpPerks.contains(PerkTree.getPerkGrid()[i / 2][j - 1]) // Overlay to create disabled effect:
 												? ""
@@ -1515,7 +1515,7 @@ public class PhoneDialogue {
 				if (strengthPoints == 0 && intelligencePoints == 0 && fitnessPoints == 0 && levelUpPerks.isEmpty())
 					return new Response("Apply", "You haven't spent any points, so there isn't anything to apply.", null);
 				else
-					return new Response("Apply", "Apply the changes that you've chosen. <b style='color:" + Colour.GENERIC_ARCANE.() + ";'>Once applied, this cannot be undone!</b>", CHARACTER_LEVEL_UP){
+					return new Response("Apply", "Apply the changes that you've chosen. <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Once applied, this cannot be undone!</b>", CHARACTER_LEVEL_UP){
 						@Override
 						public void effects() {
 							if (strengthPoints != 0)
@@ -1642,9 +1642,9 @@ public class PhoneDialogue {
 							? " owned' style='border:4px solid " + fetish.getPerkCategory().getColour().getShades()[1] + ";'>"
 							: (fetish.isAvailable(Main.game.getPlayer(), levelUpFetishes)
 									? " unlocked' style='border:4px solid " + (levelUpFetishes.contains(fetish)
-											? Colour.GENERIC_EXCELLENT.() + ";"
-											: Colour.TEXT_GREY.() + ";") + "'>"
-									: " locked' style='border:4px solid " + Colour.TEXT_GREY.() + ";'>"))
+											? Colour.GENERIC_EXCELLENT.toWebHexString() + ";"
+											: Colour.TEXT_GREY.toWebHexString() + ";") + "'>"
+									: " locked' style='border:4px solid " + Colour.TEXT_GREY.toWebHexString() + ";'>"))
 							+ "<div class='fetish-icon-content'>"+fetish.getSVGString()+"</div>"
 							+ (Main.game.getPlayer().hasFetish(fetish) || levelUpFetishes.contains(fetish) // Overlay to create disabled effect:
 									? ""
@@ -1668,7 +1668,7 @@ public class PhoneDialogue {
 					journalSB.append(
 							"<div id='fetishUnlock" + fetish + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
 									? " owned' style='border:4px solid " + fetish.getPerkCategory().getColour().getShades()[1] + ";'>"
-									: " unlocked' style='border:4px solid " + Colour.TEXT_GREY.() + ";'>")
+									: " unlocked' style='border:4px solid " + Colour.TEXT_GREY.toWebHexString() + ";'>")
 							+ "<div class='fetish-icon-content'>"+fetish.getSVGString()+"</div>"
 							+ (Main.game.getPlayer().hasFetish(fetish) // Overlay to create disabled effect:
 									? ""
@@ -1700,7 +1700,7 @@ public class PhoneDialogue {
 				if (levelUpFetishes.isEmpty()) {
 					return new Response("Apply", "You haven't spent any points, so there isn't anything to apply.", null);
 				} else {
-					return new Response("Apply", "Apply the changes that you've chosen. <b style='color:" + Colour.GENERIC_ARCANE.() + ";'>Once applied, this cannot be undone!</b>", CHARACTER_FETISHES){
+					return new Response("Apply", "Apply the changes that you've chosen. <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Once applied, this cannot be undone!</b>", CHARACTER_FETISHES){
 						@Override
 						public void effects() {
 							for (PerkInterface f : levelUpFetishes) {

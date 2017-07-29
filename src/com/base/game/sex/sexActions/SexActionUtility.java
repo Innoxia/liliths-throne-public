@@ -245,7 +245,7 @@ public class SexActionUtility {
 
 		@Override
 		public String getDescription() {
-			return "<i style='color:" + Colour.DISPLACED.() + ";'>Clothing removal</i> - "+Sex.getUnequipClothingText();
+			return "<i style='color:" + Colour.DISPLACED.toWebHexString() + ";'>Clothing removal</i> - "+Sex.getUnequipClothingText();
 		}
 	};
 	

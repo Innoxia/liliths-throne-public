@@ -255,9 +255,9 @@ public enum WeaponType {
 						Main.game.getPlayer().setNewWeaponDiscovered(true);
 						Main.game.getTextEndStringBuilder().append(
 								"<p style='text-align:center;'>"
-									+ "<b style='color:"+Colour.GENERIC_EXCELLENT.()+";'>New entry in your phone's encyclopedia:</b>"
+									+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
 									+ "</br>"
-									+ "<b>Weapon:</b> <b style='color:"+wt.getRarity().getColour().()+";'>"+Util.capitaliseSentence(wt.getName())+"</b>"
+									+ "<b>Weapon:</b> <b style='color:"+wt.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(wt.getName())+"</b>"
 								+ "</p>");
 					}
 				}

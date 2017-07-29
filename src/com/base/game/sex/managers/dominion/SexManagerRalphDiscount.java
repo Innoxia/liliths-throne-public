@@ -58,8 +58,8 @@ public class SexManagerRalphDiscount extends SexManagerDefault {
 					+ " His huge pair of black-skinned balls droop down loosely at the base of his bestial shaft, and you gulp at the thought of what's about to happen..."
 				+ "</p>" 
 				+ "<p>" 
-					+ "<b>There are</b> <b style='color:" + Colour.GENERIC_GOOD.() + ";'>no customers</b> <b>near the counter.</b>"
-					+ " <b>You will earn a</b> <b style='color:" + Colour.GENERIC_GOOD.() + ";'>25%</b> <b>discount.</b>"
+					+ "<b>There are</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>no customers</b> <b>near the counter.</b>"
+					+ " <b>You will earn a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>25%</b> <b>discount.</b>"
 				+ "</p>";
 	}
 	

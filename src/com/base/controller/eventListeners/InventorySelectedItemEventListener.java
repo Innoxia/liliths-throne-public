@@ -257,11 +257,11 @@ public class InventorySelectedItemEventListener implements EventListener {
 		} else if (clothingEquipped != null) {
 			if (Main.game.isInCombat()) {
 				if (RenderingEngine.ENGINE.getCharactersInventoryToRender().isPlayer()) {
-					Main.game.getTextEndStringBuilder().append("<p><span style='color:" + Colour.GENERIC_BAD.() + ";'>You can't alter your clothing while in combat!</span></p>");
+					Main.game.getTextEndStringBuilder().append("<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You can't alter your clothing while in combat!</span></p>");
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				} else {
 					Main.game.getTextEndStringBuilder().append(
-							"<p><span style='color:" + Colour.GENERIC_BAD.() + ";'>[npc.Name] isn't going to let you play with [npc.her] clothing!</span></p>");
+							"<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>[npc.Name] isn't going to let you play with [npc.her] clothing!</span></p>");
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}
 			} else if (Main.game.isInSex()) {
@@ -276,7 +276,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 						Main.game.setContent(new Response("", "", InventoryDialogue.CLOTHING_EQUIPPED));
 					}else{
 						Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot manage your own clothing!");
-//						Main.game.getTextEndStringBuilder().append("<p><span style='color:" + Colour.GENERIC_BAD.() + ";'>You can't manage your own clothes in this sex scene!</span></p>");
+//						Main.game.getTextEndStringBuilder().append("<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You can't manage your own clothes in this sex scene!</span></p>");
 //						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));	
 					}
 					
@@ -289,7 +289,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 						Main.game.setContent(new Response("", "", InventoryDialogue.CLOTHING_EQUIPPED));
 					}else{
 						Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot manage "+ Sex.getPartner().getName("the") + "'s clothing!");
-//						Main.game.getTextEndStringBuilder().append("<p><span style='color:" + Colour.GENERIC_BAD.() + ";'>You can't manage "
+//						Main.game.getTextEndStringBuilder().append("<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You can't manage "
 //								+ Sex.getPartner().getName("the") + "'s clothes in this sex scene!</span></p>");
 //						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}
@@ -303,20 +303,20 @@ public class InventorySelectedItemEventListener implements EventListener {
 		} else if (weaponEquipped != null) {
 			if (Main.game.isInCombat()) {
 				if (RenderingEngine.ENGINE.getCharactersInventoryToRender().isPlayer()) {
-					Main.game.getTextEndStringBuilder().append("<p><span style='color:" + Colour.GENERIC_BAD.() + ";'>You can't change your weapons while in combat!</span></p>");
+					Main.game.getTextEndStringBuilder().append("<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You can't change your weapons while in combat!</span></p>");
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				} else {
 					Main.game.getTextEndStringBuilder().append(
-							"<p><span style='color:" + Colour.GENERIC_BAD.() + ";'>[npc.Name] isn't going to let you play with [npc.her] weapons!</span></p>");
+							"<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>[npc.Name] isn't going to let you play with [npc.her] weapons!</span></p>");
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}
 			} else if (Main.game.isInSex()) {
 //				if (RenderingEngine.ENGINE.getCharactersInventoryToRender().isPlayer()) {
-//					Main.game.getTextEndStringBuilder().append("<p><span style='color:" + Colour.GENERIC_BAD.() + ";'>You can't change your weapons while having sex!</span></p>");
+//					Main.game.getTextEndStringBuilder().append("<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You can't change your weapons while having sex!</span></p>");
 //					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 //				} else {
 //					Main.game.getTextEndStringBuilder().append(GenericSentence.parseTextForGenderReplacement(Combat.COMBAT.getOpponent(),
-//							"<p><span style='color:" + Colour.GENERIC_BAD.() + ";'>" + "You're too excited to worry about playing with " + Combat.COMBAT.getOpponent().getNameWithDeterminer("the") + "'s weapons right now!</span></p>"));
+//							"<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" + "You're too excited to worry about playing with " + Combat.COMBAT.getOpponent().getNameWithDeterminer("the") + "'s weapons right now!</span></p>"));
 //					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 //				}
 			} else {

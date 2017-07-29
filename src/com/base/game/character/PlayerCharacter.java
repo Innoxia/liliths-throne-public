@@ -167,12 +167,12 @@ public class PlayerCharacter extends GameCharacter {
 			setMainQuestUpdated(true);
 
 			if (isMainQuestCompleted()) // The main quest has been completed
-				return "<p style='text-align:center;'><b style='color:" + QuestLine.MAIN.getType().getColour().() + ";'>Quest - " + QuestLine.MAIN.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.()
-						+ ";'>Task Completed</b><b> - " + mainQuest.getQuestArray()[mainQuestProgress - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.() + ";'>+"
+				return "<p style='text-align:center;'><b style='color:" + QuestLine.MAIN.getType().getColour().toWebHexString() + ";'>Quest - " + QuestLine.MAIN.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString()
+						+ ";'>Task Completed</b><b> - " + mainQuest.getQuestArray()[mainQuestProgress - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>+"
 						+ mainQuest.getQuestArray()[mainQuestProgress - 1].getExperienceReward() + " xp</b></br>" + "<b>All Tasks Completed!</b></p>";
 			else
-				return "<p style='text-align:center;'><b style='color:" + QuestLine.MAIN.getType().getColour().() + ";'>Quest - " + QuestLine.MAIN.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.()
-						+ ";'>Task Completed</b><b> - " + mainQuest.getQuestArray()[mainQuestProgress - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.() + ";'>+"
+				return "<p style='text-align:center;'><b style='color:" + QuestLine.MAIN.getType().getColour().toWebHexString() + ";'>Quest - " + QuestLine.MAIN.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString()
+						+ ";'>Task Completed</b><b> - " + mainQuest.getQuestArray()[mainQuestProgress - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>+"
 						+ mainQuest.getQuestArray()[mainQuestProgress - 1].getExperienceReward() + " xp</b></br>" + "<b>New Task - " + mainQuest.getQuestArray()[mainQuestProgress].getName() + "</b></p>";
 
 		} else if (questLine.getType() == QuestType.SIDE) {
@@ -181,7 +181,7 @@ public class PlayerCharacter extends GameCharacter {
 
 				setSideQuestUpdated(true);
 
-				return "<p style='text-align:center;'><b style='color:" + questLine.getType().getColour().() + ";'>New Quest - " + questLine.getName() + "</b></br>" + "<b>New Task - " + questLine.getQuestArray()[0].getName()
+				return "<p style='text-align:center;'><b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>New Quest - " + questLine.getName() + "</b></br>" + "<b>New Task - " + questLine.getQuestArray()[0].getName()
 						+ "</b></p>";
 			}
 
@@ -196,12 +196,12 @@ public class PlayerCharacter extends GameCharacter {
 																	// quest has
 																	// been
 																	// completed
-				return "<p style='text-align:center;'><b style='color:" + questLine.getType().getColour().() + ";'>Quest - " + questLine.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.()
-						+ ";'>Task Completed</b><b> - " + questLine.getQuestArray()[sideQuests.get(questLine) - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.() + ";'>+"
+				return "<p style='text-align:center;'><b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString()
+						+ ";'>Task Completed</b><b> - " + questLine.getQuestArray()[sideQuests.get(questLine) - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>+"
 						+ questLine.getQuestArray()[sideQuests.get(questLine) - 1].getExperienceReward() + " xp</b></br>" + "<b>Quest Completed!</b></p>";
 			else
-				return "<p style='text-align:center;'><b style='color:" + questLine.getType().getColour().() + ";'>Quest - " + questLine.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.()
-						+ ";'>Task Completed</b><b> - " + questLine.getQuestArray()[sideQuests.get(questLine) - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.() + ";'>+"
+				return "<p style='text-align:center;'><b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString()
+						+ ";'>Task Completed</b><b> - " + questLine.getQuestArray()[sideQuests.get(questLine) - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>+"
 						+ questLine.getQuestArray()[sideQuests.get(questLine) - 1].getExperienceReward() + " xp</b></br>" + "<b>New Task - " + questLine.getQuestArray()[sideQuests.get(questLine)].getName() + "</b></p>";
 
 		} else {
@@ -210,7 +210,7 @@ public class PlayerCharacter extends GameCharacter {
 
 				setRomanceQuestUpdated(true);
 
-				return "<p style='text-align:center;'><b>New Quest - " + questLine.getName() + "</b></br>" + "<b style='color:" + questLine.getType().getColour().() + ";'>New Task - " + questLine.getQuestArray()[0].getName()
+				return "<p style='text-align:center;'><b>New Quest - " + questLine.getName() + "</b></br>" + "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>New Task - " + questLine.getQuestArray()[0].getName()
 						+ "</b></p>";
 			}
 
@@ -227,12 +227,12 @@ public class PlayerCharacter extends GameCharacter {
 																		// has
 																		// been
 																		// completed:
-				return "<p style='text-align:center;'><b style='color:" + questLine.getType().getColour().() + ";'>Quest - " + questLine.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.()
-						+ ";'>Task Completed</b><b> - " + questLine.getQuestArray()[romanceQuests.get(questLine) - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.() + ";'>+"
+				return "<p style='text-align:center;'><b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString()
+						+ ";'>Task Completed</b><b> - " + questLine.getQuestArray()[romanceQuests.get(questLine) - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>+"
 						+ questLine.getQuestArray()[romanceQuests.get(questLine) - 1].getExperienceReward() + " xp</b></br>" + "<b>Quest Completed!</b></p>";
 			else
-				return "<p style='text-align:center;'><b style='color:" + questLine.getType().getColour().() + ";'>Quest - " + questLine.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.()
-						+ ";'>Task Completed</b><b> - " + questLine.getQuestArray()[romanceQuests.get(questLine) - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.() + ";'>+"
+				return "<p style='text-align:center;'><b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString()
+						+ ";'>Task Completed</b><b> - " + questLine.getQuestArray()[romanceQuests.get(questLine) - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>+"
 						+ questLine.getQuestArray()[romanceQuests.get(questLine) - 1].getExperienceReward() + " xp</b></br>" + "<b>New Task - " + questLine.getQuestArray()[romanceQuests.get(questLine)].getName() + "</b></p>";
 		}
 	}

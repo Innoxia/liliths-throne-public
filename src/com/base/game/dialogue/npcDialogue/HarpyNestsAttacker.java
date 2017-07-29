@@ -58,7 +58,7 @@ public class HarpyNestsAttacker {
 								+ " Jumping backwards, you ready yourself for a fight; this [npc.race] doesn't look like [npc.she]'ll listen to reason..."
 							+ "</p>"
 							+ "<p style='text-align:center;'>" 
-								+ "<b style='color:" + Colour.GENERIC_SEX.() + ";'>You ended up getting [npc.name] pregnant, but it's done nothing to calm [npc.herHim] down!</b>"
+								+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You ended up getting [npc.name] pregnant, but it's done nothing to calm [npc.herHim] down!</b>"
 							+ "</p>";
 						
 					} else {
@@ -81,7 +81,7 @@ public class HarpyNestsAttacker {
 								+ " Jumping backwards, you ready yourself for a fight; this [npc.race] doesn't look like [npc.she]'ll listen to reason..."
 							+ "</p>"
 							+ "<p style='text-align:center;'>" 
-								+ "<b style='color:" + Colour.GENERIC_SEX.() + ";'>You ended up getting [npc.name] pregnant, and now [npc.she]'s even angrier than before!</b>"
+								+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You ended up getting [npc.name] pregnant, and now [npc.she]'s even angrier than before!</b>"
 							+ "</p>";
 					}
 					
@@ -105,7 +105,7 @@ public class HarpyNestsAttacker {
 							+ " Jumping backwards, you ready yourself for a fight; this [npc.race] doesn't look like [npc.she]'ll listen to reason..."
 						+ "</p>"
 						+ "<p style='text-align:center;'>" 
-							+ "<b style='color:" + Colour.GENERIC_SEX.() + ";'>[npc.Name] is still pregnant, and is as angry as ever!</b>"
+							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.Name] is still pregnant, and is as angry as ever!</b>"
 						+ "</p>";
 				}
 				
