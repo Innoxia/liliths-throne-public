@@ -164,9 +164,9 @@ public enum ItemEffectType {
 					+ "</p>"
 					+(Main.game.getPlayer().addRaceDiscovered(Race.HARPY)
 							?"<p style='text-align:center;'>"
-								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
+								+ "<b style='color:"+Colour.GENERIC_EXCELLENT+";'>New entry in your phone's encyclopedia:</b>"
 								+ "</br>"
-								+ "<b>Race:</b> <b style='color:"+Race.HARPY.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Race.HARPY.getName())+"</b>"
+								+ "<b>Race:</b> <b style='color:"+Race.HARPY.getColour()+";'>"+Util.capitaliseSentence(Race.HARPY.getName())+"</b>"
 							+ "</p>"
 								:"");
 		}
@@ -860,7 +860,7 @@ public enum ItemEffectType {
 	// Specials:
 	
 	BIMBO_LOLLIPOP(Util.newArrayListOfValues(
-			new ListValue<>("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Bimbo</b> <b style='color:"+Colour.RACE_HARPY.toWebHexString()+";'>harpy</b> <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>transformation</b>")),
+			new ListValue<>("<b style='color:"+Colour.GENERIC_SEX+";'>Bimbo</b> <b style='color:"+Colour.RACE_HARPY+";'>harpy</b> <b style='color:"+Colour.GENERIC_SEX+";'>transformation</b>")),
 			Colour.RACE_HARPY) {
 		
 		@Override
@@ -884,7 +884,7 @@ public enum ItemEffectType {
 				sb.append("</br>"
 						+ "<p>"
 							+ "A giggle escapes from between your [pc.lips], and you suddenly find yourself unable to think of anything other than how, like, super awesome bimbos are and stuff!"
-							+ "</br><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the bimbo fetish!</b>"
+							+ "</br><b style='color:"+Colour.GENERIC_SEX+";'>You have gained the bimbo fetish!</b>"
 						+ "</p>");
 			}
 			
@@ -948,7 +948,7 @@ public enum ItemEffectType {
 	},
 	
 	NYMPHO_LOLLIPOP(Util.newArrayListOfValues(
-			new ListValue<>("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Nympho</b> <b style='color:"+Colour.RACE_HARPY.toWebHexString()+";'>harpy</b> <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>transformation</b>")),
+			new ListValue<>("<b style='color:"+Colour.GENERIC_SEX+";'>Nympho</b> <b style='color:"+Colour.RACE_HARPY+";'>harpy</b> <b style='color:"+Colour.GENERIC_SEX+";'>transformation</b>")),
 			Colour.RACE_HARPY) {
 		
 		@Override
@@ -972,7 +972,7 @@ public enum ItemEffectType {
 				sb.append("</br>"
 						+ "<p>"
 							+ "A desperate moan escapes from between your [pc.lips], and you suddenly find yourself unable to think of anything other than sex, sex, and more sex!"
-							+ "</br><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the nymphomaniac perk!</b>"
+							+ "</br><b style='color:"+Colour.GENERIC_SEX+";'>You have gained the nymphomaniac perk!</b>"
 						+ "</p>");
 			}
 			
@@ -1045,7 +1045,7 @@ public enum ItemEffectType {
 	},
 	
 	DOMINANT_PERFUME(Util.newArrayListOfValues(
-			new ListValue<>("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Dominant</b> <b style='color:"+Colour.RACE_HARPY.toWebHexString()+";'>harpy</b> <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>transformation</b>")),
+			new ListValue<>("<b style='color:"+Colour.GENERIC_SEX+";'>Dominant</b> <b style='color:"+Colour.RACE_HARPY+";'>harpy</b> <b style='color:"+Colour.GENERIC_SEX+";'>transformation</b>")),
 			Colour.RACE_HARPY) {
 		
 		@Override
@@ -1069,7 +1069,7 @@ public enum ItemEffectType {
 				sb.append("</br>"
 						+ "<p>"
 							+ "A deep groan escapes from between your [pc.lips], and you suddenly find yourself thinking of how much you want to dominate the next person you come across!"
-							+ "</br><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the dominant fetish!</b>"
+							+ "</br><b style='color:"+Colour.GENERIC_SEX+";'>You have gained the dominant fetish!</b>"
 						+ "</p>");
 			}
 			
@@ -1466,7 +1466,7 @@ public enum ItemEffectType {
 					addResourceDescriptionsRestore(20, restorationType);
 				} else {
 					if(primaryModifier.getAssociatedAttribute()!=null) {
-						descriptions.add("[style.boldGood(+5)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
+						descriptions.add("[style.boldGood(+5)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
 					}
 				}
 				break;
@@ -1475,7 +1475,7 @@ public enum ItemEffectType {
 					addResourceDescriptionsRestore(30, restorationType);
 				} else {
 					if(primaryModifier.getAssociatedAttribute()!=null) {
-						descriptions.add("[style.boldExcellent(+0.5)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b>");
+						descriptions.add("[style.boldExcellent(+0.5)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b>");
 					}
 				}
 				break;
@@ -1484,7 +1484,7 @@ public enum ItemEffectType {
 					addResourceDescriptionsRestore(40, restorationType);
 				} else {
 					if(primaryModifier.getAssociatedAttribute()!=null) {
-						descriptions.add("[style.boldExcellent(+1)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b>");
+						descriptions.add("[style.boldExcellent(+1)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b>");
 					}
 				}
 				break;
@@ -1494,7 +1494,7 @@ public enum ItemEffectType {
 					addResourceDescriptionsDrain(10, restorationType);
 				} else {
 					if(primaryModifier.getAssociatedAttribute()!=null) {
-						descriptions.add("[style.boldBad(-5)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
+						descriptions.add("[style.boldBad(-5)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
 					}
 				}
 				break;
@@ -1503,7 +1503,7 @@ public enum ItemEffectType {
 					addResourceDescriptionsDrain(20, restorationType);
 				} else {
 					if(primaryModifier.getAssociatedAttribute()!=null) {
-						descriptions.add("[style.boldTerrible(-0.5)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b>");
+						descriptions.add("[style.boldTerrible(-0.5)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b>");
 					}
 				}
 				break;
@@ -1512,7 +1512,7 @@ public enum ItemEffectType {
 					addResourceDescriptionsDrain(30, restorationType);
 				} else {
 					if(primaryModifier.getAssociatedAttribute()!=null) {
-						descriptions.add("[style.boldTerrible(-1)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b>");
+						descriptions.add("[style.boldTerrible(-1)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b>");
 					}
 				}
 				break;
@@ -1523,7 +1523,7 @@ public enum ItemEffectType {
 					
 				} else {
 					if(primaryModifier.getAssociatedAttribute()!=null) {
-						descriptions.add("[style.boldGood(+1)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
+						descriptions.add("[style.boldGood(+1)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
 					}
 				}
 				break;

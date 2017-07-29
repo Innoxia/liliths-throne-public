@@ -100,33 +100,33 @@ public class InventoryTooltipEventListener implements EventListener {
 			}
 
 			tooltipSB.append("<div class='subTitle-half'>"
-					+ (item.isConsumedOnUse() ? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Consumed on use</span>" : "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Infinite uses</span>") + "</div>"
+					+ (item.isConsumedOnUse() ? "<span style='color:" + Colour.GENERIC_BAD + ";'>Consumed on use</span>" : "<span style='color:" + Colour.GENERIC_GOOD + ";'>Infinite uses</span>") + "</div>"
 					+ "<div class='subTitle-half'>"
 					+ (item.isAbleToBeUsedInCombat()
 							? (item.isAbleToBeUsedInSex()
-									?"<span style='color:" + Colour.GENERIC_COMBAT.toWebHexString() + ";'>Combat</span> & <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex</span> use"
-									:"<span style='color:" + Colour.GENERIC_COMBAT.toWebHexString() + ";'>Combat</span> use")
+									?"<span style='color:" + Colour.GENERIC_COMBAT + ";'>Combat</span> & <span style='color:" + Colour.GENERIC_SEX + ";'>Sex</span> use"
+									:"<span style='color:" + Colour.GENERIC_COMBAT + ";'>Combat</span> use")
 							: (item.isAbleToBeUsedInSex()
-									?"<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex</span> use"
+									?"<span style='color:" + Colour.GENERIC_SEX + ";'>Sex</span> use"
 									:"Standard use"))
 					+ "</div>"
 
 					+ "<div class='description' style='height:104px'>" + item.getDescription() + "</div>"
 					
 					
-					+ "<div class='subTitle'>" + "<b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol()
+					+ "<div class='subTitle'>" + "<b style='color: " + com.base.utils.Colour.CURRENCY + ";'>" + Main.game.getCurrencySymbol()
 					+ "</b> <b>" + item.getValue() + "</b>" + "</div>");
 
 			if (Main.game.getDialogueFlags().tradePartner != null) {
 				if (owner.isPlayer()) {
 					if (Main.game.getDialogueFlags().tradePartner.willBuy(item))
-						tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " offers " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
+						tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " offers " + " <b style='color: " + com.base.utils.Colour.CURRENCY + ";'>"
 								+ Main.game.getCurrencySymbol() + "</b> <b>" + ((int) (Main.game.getDialogueFlags().tradePartner.getBuyModifier() * item.getValue())) + "</b>" + "</div>");
 					else
 						tooltipSB.append(
-								"<div class='subTitle'>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will not buy this</span>" + "</div>");
+								"<div class='subTitle'>" + "<span style='color:" + Colour.TEXT_GREY + ";'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will not buy this</span>" + "</div>");
 				} else {
-					tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " wants " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
+					tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " wants " + " <b style='color: " + com.base.utils.Colour.CURRENCY + ";'>"
 							+ Main.game.getCurrencySymbol() + "</b> <b>" + ((int) (Main.game.getDialogueFlags().tradePartner.getSellModifier() * item.getValue())) + "</b>" + "</div>");
 				}
 			}
@@ -154,7 +154,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			Main.mainController.setTooltipSize(360, 446);
 
 			tooltipSB.setLength(0);
-			tooltipSB.append("<div class='title' style='color:" + genericClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(genericClothing.getName()) + "</div>"
+			tooltipSB.append("<div class='title' style='color:" + genericClothing.getRarity().getColour() + ";'>" + Util.capitaliseSentence(genericClothing.getName()) + "</div>"
 
 					+ "<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
 
@@ -167,7 +167,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			Main.mainController.setTooltipSize(360, 446);
 
 			tooltipSB.setLength(0);
-			tooltipSB.append("<div class='title' style='color:" + genericWeapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(genericWeapon.getName()) + "</div>"
+			tooltipSB.append("<div class='title' style='color:" + genericWeapon.getRarity().getColour() + ";'>" + Util.capitaliseSentence(genericWeapon.getName()) + "</div>"
 
 					+ "<div class='subTitle'>" + Util.capitaliseSentence(dt.getName()) + "</div>"
 
@@ -217,7 +217,7 @@ public class InventoryTooltipEventListener implements EventListener {
 								clothingBlockingThisSlot.add(c.getName());
 
 						if (!clothingBlockingThisSlot.isEmpty()) {
-							setBlockedTooltipContent("This slot is currently <b style='color:" + Colour.SEALED.toWebHexString() + ";'>blocked</b> by your " + Util.stringsToStringList(clothingBlockingThisSlot, false) + ".");
+							setBlockedTooltipContent("This slot is currently <b style='color:" + Colour.SEALED + ";'>blocked</b> by your " + Util.stringsToStringList(clothingBlockingThisSlot, false) + ".");
 							
 						} else if (ClothingType.slotBlockedByRace(equippedToCharacter, invSlot) != null) {
 							setBlockedTooltipContent(ClothingType.getCannotBeWornDescription(equippedToCharacter, invSlot));
@@ -303,20 +303,20 @@ public class InventoryTooltipEventListener implements EventListener {
 		} else if (enchantmentModifier != null) {
 			Main.mainController.setTooltipSize(360, 174);
 			Main.mainController.setTooltipContent(UtilText.parse(
-					"<div class='title' style='color:"+enchantmentModifier.getRarity().getColour().toWebHexString()+";'>"
+					"<div class='title' style='color:"+enchantmentModifier.getRarity().getColour()+";'>"
 							+ Util.capitaliseSentence(enchantmentModifier.getName())
 					+ "</div>"
 					+ "<div class='description' style='height:48px'>"
 					+ enchantmentModifier.getDescription()
 					+ "</div>"
 					+ "<div class='subTitle'>"
-							+ "Costs: <b style='color:"+EnchantmentDialogue.ingredient.getRelatedEssence().getColour().toWebHexString() + ";'>"
+							+ "Costs: <b style='color:"+EnchantmentDialogue.ingredient.getRelatedEssence().getColour() + ";'>"
 								+ enchantmentModifier.getValue()+" "+EnchantmentDialogue.ingredient.getRelatedEssence().getName()+"</b> essence"+(enchantmentModifier.getValue()>1?"s":"")
 					+ "</div>"));
 		
 		} else if (essence != null) {
 			Main.mainController.setTooltipSize(360, 60);
-			Main.mainController.setTooltipContent(UtilText.parse("<div class='title'><b style='color:"+essence.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(essence.getName()) + "</b> essence</div>"));
+			Main.mainController.setTooltipContent(UtilText.parse("<div class='title'><b style='color:"+essence.getColour()+";'>" + Util.capitaliseSentence(essence.getName()) + "</b> essence</div>"));
 		
 		}  else {
 			return;
@@ -329,7 +329,7 @@ public class InventoryTooltipEventListener implements EventListener {
 	private void setBlockedTooltipContent(String description){
 		Main.mainController.setTooltipSize(360, 164);
 		Main.mainController.setTooltipContent(UtilText.parse(
-				"<div class='title'>" + Util.capitaliseSentence(invSlot.getName()) + ": <span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Blocked!</span></div>"
+				"<div class='title'>" + Util.capitaliseSentence(invSlot.getName()) + ": <span style='color:" + Colour.GENERIC_BAD + ";'>Blocked!</span></div>"
 				+ "<div class='description'>" + description + "</div>"));
 	}
 	
@@ -447,10 +447,10 @@ public class InventoryTooltipEventListener implements EventListener {
 
 		if (equippedToCharacter != null)
 			tooltipSB.append("<b>" + Attack.getMinimumDamage(owner, null, Attack.MAIN) + " - " + Attack.getMaximumDamage(owner, null, Attack.MAIN) + "</b>"
-						+ "</br><b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(absWep.getDamageType().getName()) + "</b> damage");
+						+ "</br><b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour() + ";'>" + Util.capitaliseSentence(absWep.getDamageType().getName()) + "</b> damage");
 		else
 			tooltipSB.append("<b>" + Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN) + " - " + Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN) + "</b>"
-					+ "</br><b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>"
+					+ "</br><b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour() + ";'>"
 					+ Util.capitaliseSentence(absWep.getDamageType().getName()) + "</b> damage");
 
 		tooltipSB.append("</div>"
@@ -460,35 +460,35 @@ public class InventoryTooltipEventListener implements EventListener {
 		// Bonus attributes and spells granted:
 		tooltipSB.append("<div class='subTitle-half'>");
 		if (absWep.getAttributeModifiers().isEmpty())
-			tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No bonuses</span>");
+			tooltipSB.append("<span style='color:" + Colour.TEXT_GREY + ";'>No bonuses</span>");
 		else {
 			tooltipSB.append("<b>" + Util.capitaliseSentence(absWep.getCoreEnchantment().getPositiveEnchantment()) + "</b>");
 			for (Entry<Attribute, Integer> e : absWep.getAttributeModifiers().entrySet())
-				tooltipSB.append("</br>+" + e.getValue() + " <span style='color:" + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getAbbreviatedName()) + "</span>");
+				tooltipSB.append("</br>+" + e.getValue() + " <span style='color:" + e.getKey().getColour() + ";'>" + Util.capitaliseSentence(e.getKey().getAbbreviatedName()) + "</span>");
 		}
 		tooltipSB.append("</div>");
 		tooltipSB.append("<div class='subTitle-half'>");
 		if (absWep.getSpells().isEmpty())
-			tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No spells</span>");
+			tooltipSB.append("<span style='color:" + Colour.TEXT_GREY + ";'>No spells</span>");
 		else {
 			tooltipSB.append("<b>Spells</b>");
 			for (Spell s : absWep.getSpells())
-				tooltipSB.append("</br><span style='color:" + s.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(s.getName()) + "</span>");
+				tooltipSB.append("</br><span style='color:" + s.getDamageType().getMultiplierAttribute().getColour() + ";'>" + Util.capitaliseSentence(s.getName()) + "</span>");
 		}
 		tooltipSB.append("</div>");
 
 		// Value:
-		tooltipSB.append("<div class='subTitle'>" + "<b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + absWep.getValue() + "</b>" + "</div>");
+		tooltipSB.append("<div class='subTitle'>" + "<b style='color: " + com.base.utils.Colour.CURRENCY + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + absWep.getValue() + "</b>" + "</div>");
 
 		if (Main.game.getDialogueFlags().tradePartner != null) {
 			if (owner.isPlayer()) {
 				if (Main.game.getDialogueFlags().tradePartner.willBuy(absWep))
-					tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " offers " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
+					tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " offers " + " <b style='color: " + com.base.utils.Colour.CURRENCY + ";'>"
 							+ Main.game.getCurrencySymbol() + "</b> <b>" + ((int) (Main.game.getDialogueFlags().tradePartner.getBuyModifier() * absWep.getValue())) + "</b>" + "</div>");
 				else
-					tooltipSB.append("<div class='subTitle'>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will not buy this</span>" + "</div>");
+					tooltipSB.append("<div class='subTitle'>" + "<span style='color:" + Colour.TEXT_GREY + ";'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will not buy this</span>" + "</div>");
 			} else {
-				tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " wants " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
+				tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " wants " + " <b style='color: " + com.base.utils.Colour.CURRENCY + ";'>"
 						+ Main.game.getCurrencySymbol() + "</b> <b>" + ((int) (Main.game.getDialogueFlags().tradePartner.getSellModifier() * absWep.getValue())) + "</b>" + "</div>");
 			}
 		}
@@ -521,7 +521,7 @@ public class InventoryTooltipEventListener implements EventListener {
 				+ "<div class='subTitle-half'>" + Util.capitaliseSentence(absClothing.getClothingType().getSlot().getName()) + "</div>"
 
 				+ "<div class='subTitle-half'>"
-				+ (absClothing.getClothingType().getClothingSet() == null ? "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Not part of a set</span>" : absClothing.getClothingType().getClothingSet().getName() + " set") + "</div>"
+				+ (absClothing.getClothingType().getClothingSet() == null ? "<span style='color:" + Colour.TEXT_GREY + ";'>Not part of a set</span>" : absClothing.getClothingType().getClothingSet().getName() + " set") + "</div>"
 
 				+ "<div class='description'>" + absClothing.getClothingType().getDescription() + "</div>");
 
@@ -530,27 +530,27 @@ public class InventoryTooltipEventListener implements EventListener {
 
 		if (!absClothing.getAttributeModifiers().isEmpty()) {// Display enchantments:
 			if (!absClothing.isEnchantmentKnown())
-				tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Unidentified!</span>");
+				tooltipSB.append("<span style='color:" + Colour.TEXT_GREY + ";'>Unidentified!</span>");
 			else {
 				tooltipSB.append("<b>" + Util.capitaliseSentence(absClothing.isBadEnchantment() ? absClothing.getCoreEnchantment().getNegativeEnchantment() : absClothing.getCoreEnchantment().getPositiveEnchantment()) + "</b>");
 				for (Entry<Attribute, Integer> e : absClothing.getAttributeModifiers().entrySet())
-					tooltipSB.append("</br>" + (e.getValue() < 0 ? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" : "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>+") + e.getValue()
-							+ "</span> <span style='color:" + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getAbbreviatedName()) + "</span>");
+					tooltipSB.append("</br>" + (e.getValue() < 0 ? "<span style='color:" + Colour.GENERIC_BAD + ";'>" : "<span style='color:" + Colour.GENERIC_GOOD + ";'>+") + e.getValue()
+							+ "</span> <span style='color:" + e.getKey().getColour() + ";'>" + Util.capitaliseSentence(e.getKey().getAbbreviatedName()) + "</span>");
 			}
 		} else {
 			tooltipSB.append("<b>Ordinary</b>");
 		}
 		// Display resistance:
 		tooltipSB.append(absClothing.getClothingType().getPhysicalResistance() == 0
-				? "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>0 "+ Attribute.RESISTANCE_PHYSICAL.getAbbreviatedName() +"</span>"
-				: "</br><span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>+" + absClothing.getClothingType().getPhysicalResistance() + "</span>" + " <span style='color:" + Attribute.RESISTANCE_PHYSICAL.getColour().toWebHexString()
+				? "</br><span style='color:" + Colour.TEXT_GREY + ";'>0 "+ Attribute.RESISTANCE_PHYSICAL.getAbbreviatedName() +"</span>"
+				: "</br><span style='color:" + Colour.GENERIC_GOOD + ";'>+" + absClothing.getClothingType().getPhysicalResistance() + "</span>" + " <span style='color:" + Attribute.RESISTANCE_PHYSICAL.getColour()
 						+ ";'>" + Attribute.RESISTANCE_PHYSICAL.getAbbreviatedName() + "</span>");
 
 		tooltipSB.append("</div>");
 
 		tooltipSB.append("<div class='subTitle-half'>");
 		if (absClothing.getExtraDescriptions(equippedToCharacter).isEmpty())
-			tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No Status</span>");
+			tooltipSB.append("<span style='color:" + Colour.TEXT_GREY + ";'>No Status</span>");
 		else {
 			tooltipSB.append("<b>Status</b>");
 			for (String s : absClothing.getExtraDescriptions(equippedToCharacter))
@@ -559,18 +559,18 @@ public class InventoryTooltipEventListener implements EventListener {
 		tooltipSB.append("</div>");
 
 		// Value:
-		tooltipSB.append("<div class='subTitle'>" + "<b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (absClothing.isEnchantmentKnown() ? absClothing.getValue() : "?")
+		tooltipSB.append("<div class='subTitle'>" + "<b style='color: " + com.base.utils.Colour.CURRENCY + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (absClothing.isEnchantmentKnown() ? absClothing.getValue() : "?")
 				+ "</b>" + "</div>");
 
 		if (Main.game.getDialogueFlags().tradePartner != null) {
 			if (owner.isPlayer()) {
 				if (Main.game.getDialogueFlags().tradePartner.willBuy(absClothing))
-					tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " offers " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
+					tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " offers " + " <b style='color: " + com.base.utils.Colour.CURRENCY + ";'>"
 							+ Main.game.getCurrencySymbol() + "</b> <b>" + (absClothing.isEnchantmentKnown() ? (int) (Main.game.getDialogueFlags().tradePartner.getBuyModifier() * absClothing.getValue()) : 5) + "</b>" + "</div>");
 				else
-					tooltipSB.append("<div class='subTitle'>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will not buy this</span>" + "</div>");
+					tooltipSB.append("<div class='subTitle'>" + "<span style='color:" + Colour.TEXT_GREY + ";'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will not buy this</span>" + "</div>");
 			} else {
-				tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " wants " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
+				tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " wants " + " <b style='color: " + com.base.utils.Colour.CURRENCY + ";'>"
 						+ Main.game.getCurrencySymbol() + "</b> <b>" + (absClothing.isEnchantmentKnown() ? (int) (Main.game.getDialogueFlags().tradePartner.getSellModifier() * absClothing.getValue()) : 5) + "</b>" + "</div>");
 			}
 		}

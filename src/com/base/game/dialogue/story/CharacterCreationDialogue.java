@@ -135,7 +135,7 @@ public class CharacterCreationDialogue {
 		
 		@Override
 		public String getLabel() {
-			return "Body<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'> &gt Attributes &gt Name &gt Confirm</span>";
+			return "Body<span style='color:"+Colour.TEXT_GREY+";'> &gt Attributes &gt Name &gt Confirm</span>";
 		}
 
 		@Override
@@ -292,12 +292,12 @@ public class CharacterCreationDialogue {
 				+ Util.capitaliseSentence(Gender.MALE.getName())
 				+ "</span> | "
 				+ "<b style='color:"
-				+ Colour.FEMININE.toWebHexString()
+				+ Colour.FEMININE
 				+ ";'>"
 				+ Util.capitaliseSentence(Gender.FEMALE.getName())
 				+ "</b>")
 				: ("<b style='color:"
-						+ Colour.MASCULINE.toWebHexString()
+						+ Colour.MASCULINE
 						+ ";'>"
 						+ Util.capitaliseSentence(Gender.MALE.getName())
 						+ "</b> | "
@@ -311,7 +311,7 @@ public class CharacterCreationDialogue {
 		int i = 0;
 		for (Colour cs : RacialBody.HUMAN.getSkinType().getNaturalColours()) {
 			if (Main.game.getPlayer().getSkinColour(RacialBody.HUMAN.getSkinType()) == cs)
-				contentSB.append("<b style='color:" + cs.toWebHexString() + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
+				contentSB.append("<b style='color:" + cs + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
 			else
 				contentSB.append("<span class='option-disabled'>" + Util.capitaliseSentence(cs.getName()) + "</span>");
 
@@ -327,7 +327,7 @@ public class CharacterCreationDialogue {
 		int i = 0;
 		for (Colour cs : RacialBody.HUMAN.getHairType().getNaturalColours()) {
 			if (Main.game.getPlayer().getHairColour() == cs)
-				contentSB.append("<b style='color:" + cs.toWebHexString() + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
+				contentSB.append("<b style='color:" + cs + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
 			else
 				contentSB.append("<span class='option-disabled'>" + Util.capitaliseSentence(cs.getName()) + "</span>");
 
@@ -343,7 +343,7 @@ public class CharacterCreationDialogue {
 		int i = 0;
 		for (Colour cs : RacialBody.HUMAN.getEyeType().getNaturalColours()) {
 			if (Main.game.getPlayer().getEyeColour() == cs)
-				contentSB.append("<b style='color:" + cs.toWebHexString() + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
+				contentSB.append("<b style='color:" + cs + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
 			else
 				contentSB.append("<span class='option-disabled'>" + Util.capitaliseSentence(cs.getName()) + "</span>");
 
@@ -359,12 +359,12 @@ public class CharacterCreationDialogue {
 		for (int j = 0; j < bodyTypeMale.length; j++) {
 			if (Main.game.getPlayer().getGender() == Gender.FEMALE) {
 				if (bodyTypeIndex == j)
-					contentSB.append("<b style='color:" + bodyColourFemale[j].toWebHexString() + ";'>" + Util.capitaliseSentence(bodyTypeFemale[j]) + "</b>");
+					contentSB.append("<b style='color:" + bodyColourFemale[j] + ";'>" + Util.capitaliseSentence(bodyTypeFemale[j]) + "</b>");
 				else
 					contentSB.append("<span class='option-disabled'>" + Util.capitaliseSentence(bodyTypeFemale[j]) + "</span>");
 			} else {
 				if (bodyTypeIndex == j)
-					contentSB.append("<b style='color:" + bodyColourMale[j].toWebHexString() + ";'>" + Util.capitaliseSentence(bodyTypeMale[j]) + "</b>");
+					contentSB.append("<b style='color:" + bodyColourMale[j] + ";'>" + Util.capitaliseSentence(bodyTypeMale[j]) + "</b>");
 				else
 					contentSB.append("<span class='option-disabled'>" + Util.capitaliseSentence(bodyTypeMale[j]) + "</span>");
 			}
@@ -377,19 +377,19 @@ public class CharacterCreationDialogue {
 	
 //	public static String getSexualOrientationOption() {
 //		if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-//			return "<span style='color:"+ SexualOrientation.ANDROPHILIC.getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(SexualOrientation.ANDROPHILIC.getName())+ "</span>"
+//			return "<span style='color:"+ SexualOrientation.ANDROPHILIC.getColour()+ ";'>"+ Util.capitaliseSentence(SexualOrientation.ANDROPHILIC.getName())+ "</span>"
 //					+ " | <span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.GYNEPHILIC.getName())+ "</span>"
 //					+ " | <span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.AMBIPHILIC.getName())+ "</span>";
 //			
 //		} else if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC) {
 //			return "<span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.ANDROPHILIC.getName())+ "</span>"
-//					+ " | <span style='color:"+ SexualOrientation.GYNEPHILIC.getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(SexualOrientation.GYNEPHILIC.getName())+ "</span>"
+//					+ " | <span style='color:"+ SexualOrientation.GYNEPHILIC.getColour()+ ";'>"+ Util.capitaliseSentence(SexualOrientation.GYNEPHILIC.getName())+ "</span>"
 //					+ " | <span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.AMBIPHILIC.getName())+ "</span>";
 //			
 //		} else {
 //			return "<span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.ANDROPHILIC.getName())+ "</span>"
 //					+ " | <span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.GYNEPHILIC.getName())+ "</span>"
-//					+ " | <span style='color:"+ SexualOrientation.AMBIPHILIC.getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(SexualOrientation.AMBIPHILIC.getName())+ "</span>";
+//					+ " | <span style='color:"+ SexualOrientation.AMBIPHILIC.getColour()+ ";'>"+ Util.capitaliseSentence(SexualOrientation.AMBIPHILIC.getName())+ "</span>";
 //			
 //		}
 //	}
@@ -451,7 +451,7 @@ public class CharacterCreationDialogue {
 		
 		@Override
 		public String getLabel() {
-			return "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Body &gt </span>Attributes <span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>&gt Name &gt Confirm</span>";
+			return "<span style='color:"+Colour.TEXT_GREY+";'>Body &gt </span>Attributes <span style='color:"+Colour.TEXT_GREY+";'>&gt Name &gt Confirm</span>";
 		}
 		
 		@Override
@@ -501,7 +501,7 @@ public class CharacterCreationDialogue {
 		
 		@Override
 		public String getLabel() {
-			return "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Body &gt Attributes &gt</span> Name <span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>&gt Confirm</span>";
+			return "<span style='color:"+Colour.TEXT_GREY+";'>Body &gt Attributes &gt</span> Name <span style='color:"+Colour.TEXT_GREY+";'>&gt Confirm</span>";
 		}
 
 		@Override
@@ -516,7 +516,7 @@ public class CharacterCreationDialogue {
 					+ "'>"
 					+ "</form>"
 					+ (unsuitableName ? "<p style='text-align:center;padding-top:0;'><b style=' color:"
-							+ Colour.GENERIC_BAD.toWebHexString()
+							+ Colour.GENERIC_BAD
 							+ ";'>Invalid name.</b></p>" : "")
 
 					+ "<p id='hiddenFieldName' style='display:none;'></p>");
@@ -587,7 +587,7 @@ public class CharacterCreationDialogue {
 		
 		@Override
 		public String getLabel() {
-			return "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Body &gt Attributes &gt Name &gt</span> Confirm";
+			return "<span style='color:"+Colour.TEXT_GREY+";'>Body &gt Attributes &gt Name &gt</span> Confirm";
 		}
 		
 		@Override
@@ -606,7 +606,7 @@ public class CharacterCreationDialogue {
 				};
 				
 			} else if (index == 2) {
-				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.</br></br><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
+				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.</br></br><i style='color:" + Colour.GENERIC_BAD + ";'>Not recommended for first time playing!</i>"){
 					@Override
 					public void effects() {
 
@@ -769,7 +769,7 @@ public class CharacterCreationDialogue {
 					+ baseName
 				+ "</td>"
 				+ "<td>"
-					+ "<div class='saveLoadButton' id='character_import_" + baseName + "' style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Load</div>"
+					+ "<div class='saveLoadButton' id='character_import_" + baseName + "' style='color:"+Colour.GENERIC_GOOD+";'>Load</div>"
 				+ "</td>"
 				+ "</tr>";
 	}
@@ -786,7 +786,7 @@ public class CharacterCreationDialogue {
 		public String getContent() {
 			return Main.game.getPlayer().getBodyDescription()
 					+"<details>"
-					+ "<summary class='quest-title' style='color:" + QuestType.MAIN.getColour().toWebHexString() + ";'>Import Log</summary>"
+					+ "<summary class='quest-title' style='color:" + QuestType.MAIN.getColour() + ";'>Import Log</summary>"
 					+ CharacterUtils.getCharacterImportLog()
 					+ "</details>";
 		}
@@ -802,7 +802,7 @@ public class CharacterCreationDialogue {
 				};
 				
 			} else if (index == 2) {
-				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.</br></br><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
+				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.</br></br><i style='color:" + Colour.GENERIC_BAD + ";'>Not recommended for first time playing!</i>"){
 					@Override
 					public void effects() {
 

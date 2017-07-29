@@ -686,13 +686,13 @@ public class Lab {
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
 						+ "You currently have <b>"+Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence)
-							+"</b> <b style='color:"+Main.game.getDialogueFlags().focusedEssence.getColour().toWebHexString()+";'>"+Main.game.getDialogueFlags().focusedEssence.getName()+"</b> essences."
+							+"</b> <b style='color:"+Main.game.getDialogueFlags().focusedEssence.getColour()+";'>"+Main.game.getDialogueFlags().focusedEssence.getName()+"</b> essences."
 					+ "</p>");
 			
 			if(Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(ItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)))) {
 				UtilText.nodeContentSB.append(
 						"<p style='text-align:center;'>"
-							+ "<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You don't have any space left in your inventory, so you can't extract essences right now!</b>"
+							+ "<b style='color:"+Colour.GENERIC_BAD+";'>You don't have any space left in your inventory, so you can't extract essences right now!</b>"
 						+ "</p>");
 			}
 			
@@ -717,7 +717,7 @@ public class Lab {
 											+ " Pushing the cork stopper back in the top, you smile as you realise that you've successfully extracted an essence; something that only a Lilin should be able to do!"
 										+ "</p>"
 										+ "<p style='text-align:center;'>"
-											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to inventory:</b> <b>" + (TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)).getDisplayName(true) + "</b>"
+											+ "<b style='color:" + Colour.GENERIC_GOOD + ";'>Item added to inventory:</b> <b>" + (TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)).getDisplayName(true) + "</b>"
 										+ "</p>");
 								Main.game.getPlayer().incrementEssenceCount(Main.game.getDialogueFlags().focusedEssence, -1);
 							}
@@ -750,7 +750,7 @@ public class Lab {
 											+ "Grabbing another vial, you set about repeating the process several times..."
 										+ "</p>"
 										+ "<p style='text-align:center;'>"
-											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>5x</b> <b>" + TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence).getDisplayName(true) + "</b>"
+											+ "<b style='color:" + Colour.GENERIC_GOOD + ";'>Items added to inventory:</b> <b>5x</b> <b>" + TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence).getDisplayName(true) + "</b>"
 										+ "</p>");
 								Main.game.getPlayer().incrementEssenceCount(Main.game.getDialogueFlags().focusedEssence, -5);
 							}
@@ -782,7 +782,7 @@ public class Lab {
 											+ "Grabbing another vial, you set about repeating the process several times..."
 										+ "</p>"
 										+ "<p style='text-align:center;'>"
-											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>25x</b> <b>" + TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence).getDisplayName(true) + "</b>"
+											+ "<b style='color:" + Colour.GENERIC_GOOD + ";'>Items added to inventory:</b> <b>25x</b> <b>" + TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence).getDisplayName(true) + "</b>"
 										+ "</p>");
 								Main.game.getPlayer().incrementEssenceCount(Main.game.getDialogueFlags().focusedEssence, -25);
 							}
@@ -814,7 +814,7 @@ public class Lab {
 											+ "Grabbing another vial, you set about repeating the process several times..."
 										+ "</p>"
 										+ "<p style='text-align:center;'>"
-											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>"+Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence)+"x</b> <b>"
+											+ "<b style='color:" + Colour.GENERIC_GOOD + ";'>Items added to inventory:</b> <b>"+Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence)+"x</b> <b>"
 												+ TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence).getDisplayName(true) + "</b>"
 										+ "</p>");
 								Main.game.getPlayer().incrementEssenceCount(Main.game.getDialogueFlags().focusedEssence, -Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence));
@@ -2462,7 +2462,7 @@ public class Lab {
 						litterSB.append(" powerful");
 						break;
 				}
-				litterSB.append(" <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 1
+				litterSB.append(" <b style='color:"+ Colour.MASCULINE+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 1
 								? Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleName()+ "</b>, who have their father's features."
 								: Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+ "</b>, who has his father's features."));
 			}
@@ -2501,7 +2501,7 @@ public class Lab {
 						litterSB.append(" powerful");
 						break;
 				}
-				litterSB.append(" <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 1
+				litterSB.append(" <b style='color:"+ Colour.MASCULINE+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 1
 								? Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleName()+ "</b>, who have your features."
 								: Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+ "</b>, who has your features."));
 			}
@@ -2540,7 +2540,7 @@ public class Lab {
 						litterSB.append(" grinning");
 						break;
 				}
-				litterSB.append(" <b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 1
+				litterSB.append(" <b style='color:"+ Colour.FEMININE+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 1
 							? Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringFemaleName()+ "</b>, who have their father's features."
 							: Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringFemaleNameSingular()+ "</b>, who has her father's features."));
 			}
@@ -2579,7 +2579,7 @@ public class Lab {
 						litterSB.append(" grinning");
 						break;
 				}
-				litterSB.append(" <b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 1
+				litterSB.append(" <b style='color:"+ Colour.FEMININE+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 1
 							? Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringFemaleName()+ "</b>, who have your features."
 							: Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringFemaleNameSingular()+ "</b>, who has your features."));
 			}

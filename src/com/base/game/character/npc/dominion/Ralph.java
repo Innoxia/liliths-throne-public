@@ -156,7 +156,7 @@ public class Ralph extends NPC {
 			
 			if(isDiscountActive()){
 				descriptionSB.append("<p>"
-						+ "<b>Ralph is giving you a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"+Main.game.getDialogueFlags().ralphDiscount+"%</b> <b>discount!</b>"
+						+ "<b>Ralph is giving you a</b> <b style='color:" + Colour.GENERIC_GOOD + ";'>"+Main.game.getDialogueFlags().ralphDiscount+"%</b> <b>discount!</b>"
 							+ "</p>");
 			}else{
 				descriptionSB.append("<p>"
