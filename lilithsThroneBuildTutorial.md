@@ -1,6 +1,7 @@
 # **Tutorial for Building Liliths Throne**
 
 *You will need the Eclipse IDE and Java SE Development Kit!*
+*If you already have Eclipse, verify that you are running Luna or later, as Java 1.8 is required*
 
 https://www.eclipse.org/downloads/
 
