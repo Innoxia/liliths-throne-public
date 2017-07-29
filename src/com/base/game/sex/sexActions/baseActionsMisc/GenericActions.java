@@ -153,7 +153,7 @@ public class GenericActions {
 			if(UtilText.nodeContentSB.length()!=0)
 				UtilText.nodeContentSB.append("</br></br>");
 			UtilText.nodeContentSB.append("[pc.speech(I don't want to see you trying to get yourself off, understood?)] you growl at [npc.name].</br></br>"
-					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc.Name] will no longer use any self-penetrative actions.</i>");
+					+ "<i style='color:"+Colour.GENERIC_ARCANE.()+";'>[npc.Name] will no longer use any self-penetrative actions.</i>");
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -218,7 +218,7 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			return "[pc.speech(I want to see you trying to get yourself off!)] you growl at [npc.name].</br></br>"
-					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc.Name] is now able to use any self-penetrative actions.</i>";
+					+ "<i style='color:"+Colour.GENERIC_ARCANE.()+";'>[npc.Name] is now able to use any self-penetrative actions.</i>";
 		}
 
 		@Override
@@ -254,7 +254,7 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			return "[pc.speech(Don't you <i>dare</i> try and touch any of my clothes!)] you growl at [npc.name].</br></br>"
-					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc.Name] will not attempt to remove or displace any of your clothes.</i>";
+					+ "<i style='color:"+Colour.GENERIC_ARCANE.()+";'>[npc.Name] will not attempt to remove or displace any of your clothes.</i>";
 		}
 
 		@Override
@@ -289,7 +289,7 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			return "[pc.speech(How about you help me take off some of these clothes?)] you [pc.moan].</br></br>"
-					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc.Name] is now able to manage your clothing.</i>";
+					+ "<i style='color:"+Colour.GENERIC_ARCANE.()+";'>[npc.Name] is now able to manage your clothing.</i>";
 		}
 
 		@Override

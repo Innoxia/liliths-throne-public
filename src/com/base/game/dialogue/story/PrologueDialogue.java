@@ -362,7 +362,7 @@ public class PrologueDialogue {
 				return new Response("Furries?!",
 						"Why are furries real?! You <b>hate</b> furries! Channel your rage and try to break free.</br>"
 						+ "<b>This will set your starting furry preference to </b><b style='color:"
-						+ RaceStage.PARTIAL.getColour().toWebHexString()
+						+ RaceStage.PARTIAL.getColour().()
 						+ ";'>Minimum</b><b>."
 						+ " This can be changed at any time from the options menu.</b>", 
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES){

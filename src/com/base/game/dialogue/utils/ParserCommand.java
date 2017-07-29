@@ -53,8 +53,8 @@ public abstract class ParserCommand {
 	}
 
 	public String getExampleBeforeParse(String target, String arguments) {
-		return "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>"+target+"</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+tags.get(0)+"</i>"
-				+(arguments==""?"":"<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>("+arguments+")</i>")+"]";
+		return "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.()+";'>"+target+"</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.()+";'>"+tags.get(0)+"</i>"
+				+(arguments==""?"":"<i style='color:"+Colour.CLOTHING_YELLOW.()+";'>("+arguments+")</i>")+"]";
 	}
 	
 	public abstract String parse(String command, String arguments, String target);

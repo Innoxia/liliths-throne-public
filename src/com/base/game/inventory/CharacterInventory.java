@@ -534,7 +534,7 @@ public class CharacterInventory implements Serializable {
 	private void transformationIncompatible(GameCharacter character, AbstractClothing c, List<AbstractClothing> clothingRemovalList, String description){
 		if (tempSB.length() != 0)
 			tempSB.append("</br></br>");
-		tempSB.append("</br><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"+description+"</span>");
+		tempSB.append("</br><span style='color:" + Colour.GENERIC_BAD.() + ";'>"+description+"</span>");
 		if (isInventoryFull()) {
 			Main.game.getActiveWorld().getCell(character.getLocation()).getInventory().addClothing(c);
 			tempSB.append("</br>" + character.droppedItemText(c));
@@ -577,14 +577,14 @@ public class CharacterInventory implements Serializable {
 
 		// Check to see if any of the character's body parts are blockingequipping this item:
 		if (ClothingType.slotBlockedByRace(characterClothingOwner, newClothing.getClothingType().getSlot()) != null) {
-			equipTextSB.append("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" + ClothingType.getCannotBeWornDescription(characterClothingOwner, newClothing.getClothingType().getSlot()) + "</span>");
+			equipTextSB.append("<span style='color:" + Colour.GENERIC_BAD.() + ";'>" + ClothingType.getCannotBeWornDescription(characterClothingOwner, newClothing.getClothingType().getSlot()) + "</span>");
 			return false;
 		}
 
 		// Can't equip if InventorySlot is taken by a sealed piece of clothing:
 		if (getClothingInSlot(newClothing.getClothingType().getSlot()) != null) {
 			if(getClothingInSlot(newClothing.getClothingType().getSlot()).isSealed()) {
-				equipTextSB.append("You can't equip the "+newClothing.getName()+", as your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
+				equipTextSB.append("You can't equip the "+newClothing.getName()+", as your <b style='color:" + Colour.SEALED.() + ";'>sealed</b> "
 							+ getClothingInSlot(newClothing.getClothingType().getSlot()).getName() + " can't be removed!");
 				return false;
 			}
@@ -654,7 +654,7 @@ public class CharacterInventory implements Serializable {
 		if (incompatibleUnequippableClothing.size() != 0) {
 			for(AbstractClothing c : incompatibleUnequippableClothing) {
 				if(c.isSealed())
-					equipTextSB.append("You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
+					equipTextSB.append("You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.() + ";'>sealed</b> "
 							+c.getName()+ " "+(c.getClothingType().isPlural()?"are":"is")+" in the way.");
 			}
 			return false;
@@ -679,7 +679,7 @@ public class CharacterInventory implements Serializable {
 										if(automaticClothingManagement && isAbleToBeDisplaced(equippedClothing, bpEquipped.displacementType, false, automaticClothingManagement, characterClothingOwner, characterClothingEquipper, true)) {
 											clothingToRemove.put(equippedClothing, bpEquipped.displacementType);
 										} else {
-											equipTextSB.append("Your <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
+											equipTextSB.append("Your <b style='color:"+Colour.GENERIC_BAD.()+";'>" + equippedClothing.getName() + "</b> "
 													+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing you from being able to equip the "+newClothing.getName()+"!");
 											blockingClothing = equippedClothing;
 											return false;
@@ -690,7 +690,7 @@ public class CharacterInventory implements Serializable {
 											clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
 										} else {
 											if(equippedClothing.isSealed()) {
-												equipTextSB.append("You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
+												equipTextSB.append("You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.() + ";'>sealed</b> "
 														+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way.");
 											} else {
 												equipTextSB.append("You can't equip the " + newClothing.getName() + " because your "
@@ -724,7 +724,7 @@ public class CharacterInventory implements Serializable {
 						clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
 					} else {
 						if(equippedClothing.isSealed()) {
-							equipTextSB.append("You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
+							equipTextSB.append("You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.() + ";'>sealed</b> "
 									+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way.");
 						} else {
 							equipTextSB.append("You can't equip the " + newClothing.getName() + " because your "
@@ -830,7 +830,7 @@ public class CharacterInventory implements Serializable {
 		}
 
 		if (clothing.isSealed()) {
-			equipTextSB.append("Your " + clothing.getName() + " can't be removed because "+(clothing.getClothingType().isPlural()?"they are":"it is")+" <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b>!");
+			equipTextSB.append("Your " + clothing.getName() + " can't be removed because "+(clothing.getClothingType().isPlural()?"they are":"it is")+" <b style='color:" + Colour.SEALED.() + ";'>sealed</b>!");
 			blockingClothing = clothing;
 			return false;
 		} else if (!continuingIsAbleToEquip) {
@@ -859,7 +859,7 @@ public class CharacterInventory implements Serializable {
 													if(automaticClothingManagement)
 														clothingToRemove.put(equippedClothing, bpEquipped.displacementType);
 													else{
-														equipTextSB.append("Your <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
+														equipTextSB.append("Your <b style='color:"+Colour.GENERIC_BAD.()+";'>" + equippedClothing.getName() + "</b> "
 																+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing you from being able to unequip your "+clothing.getName()+"!");
 														
 														blockingClothing = equippedClothing;
@@ -1053,7 +1053,7 @@ public class CharacterInventory implements Serializable {
 			}
 
 			unableToDisplaceText.append(
-					(unableToDisplaceText.length() == 0 ? "" : "</br><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>") + clothing.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, dt, false)// (Main.game.isInSex()?Sex.isSubResisting():false))
+					(unableToDisplaceText.length() == 0 ? "" : "</br><span style='color:" + Colour.GENERIC_ARCANE.() + ";'>") + clothing.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, dt, false)// (Main.game.isInSex()?Sex.isSubResisting():false))
 							+ "</span>");
 
 			List<AbstractClothing> replaceClothingList = new ArrayList<>();
@@ -1162,7 +1162,7 @@ public class CharacterInventory implements Serializable {
 						: c.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, clothingToRemove.get(c), false)));// (Main.game.isInSex()?Sex.isSubResisting():false))));
 
 			unableToReplaceText
-					.append((unableToReplaceText.length() == 0 ? "" : "</br><span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>") + clothing.getClothingType().replaceText(characterClothingOwner, characterRemovingClothing, dt, false)// (Main.game.isInSex()?Sex.isSubResisting():false))
+					.append((unableToReplaceText.length() == 0 ? "" : "</br><span style='color:" + Colour.GENERIC_GOOD.() + ";'>") + clothing.getClothingType().replaceText(characterClothingOwner, characterRemovingClothing, dt, false)// (Main.game.isInSex()?Sex.isSubResisting():false))
 							+ "</span>");
 
 			List<AbstractClothing> replaceClothingList = new ArrayList<>();

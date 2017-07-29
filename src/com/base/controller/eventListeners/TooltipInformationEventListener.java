@@ -80,11 +80,11 @@ public class TooltipInformationEventListener implements EventListener {
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");
 				if (statusEffect.getModifiersAsStringList(owner).size() != 0) {
-					tooltipSB.append("<b style='color:" + Colour.STATUS_EFFECT.toWebHexString() + ";'>Status Effect</b>");
+					tooltipSB.append("<b style='color:" + Colour.STATUS_EFFECT.() + ";'>Status Effect</b>");
 					for (String s : statusEffect.getModifiersAsStringList(owner))
 						tooltipSB.append("</br>" + s);
 				} else {
-					tooltipSB.append("<b style='color:" + Colour.STATUS_EFFECT.toWebHexString() + ";'>Status Effect</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No bonuses</span>");
+					tooltipSB.append("<b style='color:" + Colour.STATUS_EFFECT.() + ";'>Status Effect</b>" + "</br><span style='color:" + Colour.TEXT_GREY.() + ";'>No bonuses</span>");
 				}
 			tooltipSB.append("</div>");
 
@@ -115,7 +115,7 @@ public class TooltipInformationEventListener implements EventListener {
 						}
 						
 						tooltipSB.append("<div class='subTitle'><b>Time remaining: "
-								+ "<b style='color:"+timerColour.toWebHexString()+";'>" + (owner.getStatusEffectDuration(statusEffect) / 60) + ":" + String.format("%02d", (owner.getStatusEffectDuration(statusEffect) % 60)) + "</b>"
+								+ "<b style='color:"+timerColour.()+";'>" + (owner.getStatusEffectDuration(statusEffect) / 60) + ":" + String.format("%02d", (owner.getStatusEffectDuration(statusEffect) % 60)) + "</b>"
 								+ "</div>");
 						//STATUS_EFFECT_TIME_OVERFLOW
 					}
@@ -140,11 +140,11 @@ public class TooltipInformationEventListener implements EventListener {
 				// Attribute modifiers:
 				tooltipSB.append("<div class='subTitle-picture'>");
 				if (perk.getModifiersAsStringList().size() != 0) {
-					tooltipSB.append("<b style='color:" + Colour.PERK.toWebHexString() + ";'>Perk</b>");
+					tooltipSB.append("<b style='color:" + Colour.PERK.() + ";'>Perk</b>");
 					for (String s : perk.getModifiersAsStringList())
 						tooltipSB.append("</br>" + s);
 				} else
-					tooltipSB.append("<b style='color:" + Colour.PERK.toWebHexString() + ";'>Perk</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
+					tooltipSB.append("<b style='color:" + Colour.PERK.() + ";'>Perk</b>" + "</br><span style='color:" + Colour.TEXT_GREY.() + ";'>None</span>");
 				tooltipSB.append("</div>");
 	
 				// Picture:
@@ -167,11 +167,11 @@ public class TooltipInformationEventListener implements EventListener {
 				// Attribute modifiers:
 				tooltipSB.append("<div class='subTitle-picture'>");
 				if (perk.getModifiersAsStringList().size() != 0) {
-					tooltipSB.append("<b style='color:" + Colour.FETISH.toWebHexString() + ";'>Fetish</b>");
+					tooltipSB.append("<b style='color:" + Colour.FETISH.() + ";'>Fetish</b>");
 					for (String s : perk.getModifiersAsStringList())
 						tooltipSB.append("</br>" + s);
 				} else
-					tooltipSB.append("<b style='color:" + Colour.FETISH.toWebHexString() + ";'>Fetish</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
+					tooltipSB.append("<b style='color:" + Colour.FETISH.() + ";'>Fetish</b>" + "</br><span style='color:" + Colour.TEXT_GREY.() + ";'>None</span>");
 				tooltipSB.append("</div>");
 	
 				// Picture:
@@ -202,11 +202,11 @@ public class TooltipInformationEventListener implements EventListener {
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");
 			if (levelUpPerk.getModifiersAsStringList().size() != 0) {
-				tooltipSB.append("<b style='color:" + Colour.PERK.toWebHexString() + ";'>Perk</b>");
+				tooltipSB.append("<b style='color:" + Colour.PERK.() + ";'>Perk</b>");
 				for (String s : levelUpPerk.getModifiersAsStringList())
 					tooltipSB.append("</br>" + s);
 			} else
-				tooltipSB.append("<b style='color:" + Colour.PERK.toWebHexString() + ";'>Perk</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
+				tooltipSB.append("<b style='color:" + Colour.PERK.() + ";'>Perk</b>" + "</br><span style='color:" + Colour.TEXT_GREY.() + ";'>None</span>");
 			tooltipSB.append("</div>");
 
 			// Picture:
@@ -238,11 +238,11 @@ public class TooltipInformationEventListener implements EventListener {
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");
 			if (fetish.getModifiersAsStringList().size() != 0) {
-				tooltipSB.append("<b style='color:" + Colour.FETISH.toWebHexString() + ";'>Fetish</b>");
+				tooltipSB.append("<b style='color:" + Colour.FETISH.() + ";'>Fetish</b>");
 				for (String s : fetish.getModifiersAsStringList())
 					tooltipSB.append("</br>" + s);
 			} else
-				tooltipSB.append("<b style='color:" + Colour.FETISH.toWebHexString() + ";'>Fetish</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
+				tooltipSB.append("<b style='color:" + Colour.FETISH.() + ";'>Fetish</b>" + "</br><span style='color:" + Colour.TEXT_GREY.() + ";'>None</span>");
 			tooltipSB.append("</div>");
 
 			// Picture:
@@ -264,16 +264,16 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(specialAttack.getName()) + "</div>");
 
 			// Attribute modifiers:
-			tooltipSB.append("<div class='subTitle-picture'>" + "<b style='color:" + Colour.SPECIAL_ATTACK.toWebHexString() + ";'>Special Attack</b></br>" + "<b>" + (specialAttack.getMinimumDamage(owner, null)) + "-"
-					+ (specialAttack.getMaximumDamage(owner, null)) + "</b>" + " <b style='color:" + specialAttack.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + specialAttack.getDamageType().getName()
+			tooltipSB.append("<div class='subTitle-picture'>" + "<b style='color:" + Colour.SPECIAL_ATTACK.() + ";'>Special Attack</b></br>" + "<b>" + (specialAttack.getMinimumDamage(owner, null)) + "-"
+					+ (specialAttack.getMaximumDamage(owner, null)) + "</b>" + " <b style='color:" + specialAttack.getDamageType().getMultiplierAttribute().getColour().() + ";'>" + specialAttack.getDamageType().getName()
 					+ "</b> damage");
 
-			tooltipSB.append("</br><b style='color:" + Colour.SPECIAL_ATTACK.toWebHexString() + ";'>Applies</b>");
+			tooltipSB.append("</br><b style='color:" + Colour.SPECIAL_ATTACK.() + ";'>Applies</b>");
 			if (specialAttack.getStatusEffects().size() != 0) {
 				for (Entry<StatusEffect, Integer> e : specialAttack.getStatusEffects().entrySet())
-					tooltipSB.append("</br><b style='color:" + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getName(owner)) + "</b> for " + e.getValue() + " turn" + (e.getValue() > 1 ? "s" : ""));
+					tooltipSB.append("</br><b style='color:" + e.getKey().getColour().() + ";'>" + Util.capitaliseSentence(e.getKey().getName(owner)) + "</b> for " + e.getValue() + " turn" + (e.getValue() > 1 ? "s" : ""));
 			} else
-				tooltipSB.append("</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No effects</span>");
+				tooltipSB.append("</br><span style='color:" + Colour.TEXT_GREY.() + ";'>No effects</span>");
 			tooltipSB.append("</div>");
 
 			// Picture:
@@ -283,8 +283,8 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("<div class='description'>" + specialAttack.getDescription(owner) + "</div>");
 
 			tooltipSB.append("<div class='subTitle'>"
-					+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Costs</b> <b>" + (specialAttack.getMinimumCost(owner)) + " - " + (specialAttack.getMaximumCost(owner)) + "</b>"
-							+ " <b style='color:" + Colour.ATTRIBUTE_FITNESS.toWebHexString() + ";'>stamina</b>" + "</div>");
+					+ "<b style='color:" + Colour.GENERIC_BAD.() + ";'>Costs</b> <b>" + (specialAttack.getMinimumCost(owner)) + " - " + (specialAttack.getMaximumCost(owner)) + "</b>"
+							+ " <b style='color:" + Colour.ATTRIBUTE_FITNESS.() + ";'>stamina</b>" + "</div>");
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
@@ -299,21 +299,21 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(spell.getName()) + "</div>");
 
 			// Attribute modifiers:
-			tooltipSB.append("<div class='subTitle-picture'>" + "<b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Spell</b></br>");
+			tooltipSB.append("<div class='subTitle-picture'>" + "<b style='color:" + Colour.GENERIC_ARCANE.() + ";'>Spell</b></br>");
 
 			if (spell.isSelfCastSpell())
-				tooltipSB.append("<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Beneficial</b> <b style='color:" + spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + spell.getDamageType().getName()
+				tooltipSB.append("<b style='color:" + Colour.GENERIC_GOOD.() + ";'>Beneficial</b> <b style='color:" + spell.getDamageType().getMultiplierAttribute().getColour().() + ";'>" + spell.getDamageType().getName()
 						+ "</b> spell");
 			else
 				tooltipSB.append("<b>" + (spell.getMinimumDamage(owner, null, spellLevel)) + "-" + (spell.getMaximumDamage(owner, null, spellLevel)) + "</b>" + " <b style='color:"
-						+ spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + spell.getDamageType().getName() + "</b> damage");
+						+ spell.getDamageType().getMultiplierAttribute().getColour().() + ";'>" + spell.getDamageType().getName() + "</b> damage");
 
-			tooltipSB.append("</br><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Applies</b>");
+			tooltipSB.append("</br><b style='color:" + Colour.GENERIC_ARCANE.() + ";'>Applies</b>");
 			if (spell.getStatusEffects().size() != 0) {
 				for (Entry<StatusEffect, Integer> e : spell.getStatusEffects().entrySet())
-					tooltipSB.append("</br><b style='color:" + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getName(owner)) + "</b> for " + e.getValue() + " turn" + (e.getValue() > 1 ? "s" : ""));
+					tooltipSB.append("</br><b style='color:" + e.getKey().getColour().() + ";'>" + Util.capitaliseSentence(e.getKey().getName(owner)) + "</b> for " + e.getValue() + " turn" + (e.getValue() > 1 ? "s" : ""));
 			} else
-				tooltipSB.append("</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No effects</span>");
+				tooltipSB.append("</br><span style='color:" + Colour.TEXT_GREY.() + ";'>No effects</span>");
 
 			tooltipSB.append("</div>");
 
@@ -324,8 +324,8 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("<div class='description'>" + spell.getDescription(owner, spellLevel) + "</div>");
 
 			tooltipSB.append("<div class='subTitle'>"
-					+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Costs</b> <b>" + (spell.getMinimumCost(owner, spellLevel)) + " - " + (spell.getMaximumCost(owner, spellLevel)) + "</b>"
-							+ " <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>willpower</b>" + "</div>");
+					+ "<b style='color:" + Colour.GENERIC_BAD.() + ";'>Costs</b> <b>" + (spell.getMinimumCost(owner, spellLevel)) + " - " + (spell.getMaximumCost(owner, spellLevel)) + "</b>"
+							+ " <b style='color:" + Colour.ATTRIBUTE_MANA.() + ";'>willpower</b>" + "</div>");
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
@@ -368,24 +368,24 @@ public class TooltipInformationEventListener implements EventListener {
 				Main.mainController.setTooltipSize(360, 460 + (yIncrease * 20));
 				
 				tooltipSB.setLength(0);
-				tooltipSB.append("<div class='title' style='color:" + attribute.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(attribute.getName()) + "</div>"
+				tooltipSB.append("<div class='title' style='color:" + attribute.getColour().() + ";'>" + Util.capitaliseSentence(attribute.getName()) + "</div>"
 
-						+ "<div class='subTitle-third'>" + "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Core</b></br>"
+						+ "<div class='subTitle-third'>" + "<b style='color:" + Colour.TEXT_GREY.() + ";'>Core</b></br>"
 						+ (owner.getBaseAttributeValue(attribute) > 0 ? "<span style='color: " + Colour.GENERIC_EXCELLENT.getShades()[1] + ";'>" : "<span>") + String.format("%.2f", owner.getBaseAttributeValue(attribute)) + "</span>" + "</div>"
 						
-						+ "<div class='subTitle-third'>" + "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Bonus</b></br>"
+						+ "<div class='subTitle-third'>" + "<b style='color:" + Colour.TEXT_GREY.() + ";'>Bonus</b></br>"
 						+ ((owner.getBonusAttributeValue(attribute)) > 0 ? "<span style='color: " + Colour.GENERIC_GOOD.getShades()[1] + ";'>"
-								: ((owner.getBonusAttributeValue(attribute)) == 0 ? "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" : "<span style='color: " + Colour.GENERIC_BAD.getShades()[1] + ";'>"))
+								: ((owner.getBonusAttributeValue(attribute)) == 0 ? "<span style='color:" + Colour.TEXT_GREY.() + ";'>" : "<span style='color: " + Colour.GENERIC_BAD.getShades()[1] + ";'>"))
 						+ String.format("%.2f", owner.getBonusAttributeValue(attribute))+ "</span>" + "</div>"
 						
-						+ "<div class='subTitle-third'>" + "<b style='color:" + attribute.getColour().toWebHexString() + ";'>Total</b></br>" + String.format("%.2f", owner.getAttributeValue(attribute))
+						+ "<div class='subTitle-third'>" + "<b style='color:" + attribute.getColour().() + ";'>Total</b></br>" + String.format("%.2f", owner.getAttributeValue(attribute))
 						+ "</span>" + "</div>");
 				
 				tooltipSB.append("<div class='description-half'>" + attribute.getDescription(owner) + "</div>");
 				
 				// Related status effect:
 				tooltipSB.append("<div class='title'>"
-												+ "<span style='color:"+currentAttributeStatusEffect.getColour().toWebHexString()+";'>"
+												+ "<span style='color:"+currentAttributeStatusEffect.getColour().()+";'>"
 												+ currentAttributeStatusEffect.getName(owner)
 												+"</span> ("+minimumLevelValue
 												+"-"
@@ -396,11 +396,11 @@ public class TooltipInformationEventListener implements EventListener {
 				// Attribute modifiers:
 				tooltipSB.append("<div class='subTitle-picture'>");
 				if (currentAttributeStatusEffect.getModifiersAsStringList(owner).size() != 0) {
-					tooltipSB.append("<b style='color:" + Colour.STATUS_EFFECT.toWebHexString() + ";'>Status Effect</b>");
+					tooltipSB.append("<b style='color:" + Colour.STATUS_EFFECT.() + ";'>Status Effect</b>");
 					for (String s : currentAttributeStatusEffect.getModifiersAsStringList(owner))
 						tooltipSB.append("</br>" + s);
 				} else
-					tooltipSB.append("<b style='color:" + Colour.STATUS_EFFECT.toWebHexString() + ";'>Status Effect</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No bonuses</span>");
+					tooltipSB.append("<b style='color:" + Colour.STATUS_EFFECT.() + ";'>Status Effect</b>" + "</br><span style='color:" + Colour.TEXT_GREY.() + ";'>No bonuses</span>");
 				tooltipSB.append("</div>");
 			
 				// Picture:
@@ -417,15 +417,15 @@ public class TooltipInformationEventListener implements EventListener {
 				Main.mainController.setTooltipSize(360, 550);
 
 				tooltipSB.setLength(0);
-				tooltipSB.append("<div class='title' style='color:" + owner.getRace().getColour().toWebHexString() + ";'>"
-						+(owner.getRaceStage().getName()!=""?"<b style='color:"+owner.getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(owner.getRaceStage().getName())+"</b> ":"")
-						+ "<b style='color:"+owner.getRace().getColour().toWebHexString()+";'>"
+				tooltipSB.append("<div class='title' style='color:" + owner.getRace().getColour().() + ";'>"
+						+(owner.getRaceStage().getName()!=""?"<b style='color:"+owner.getRaceStage().getColour().()+";'>" + Util.capitaliseSentence(owner.getRaceStage().getName())+"</b> ":"")
+						+ "<b style='color:"+owner.getRace().getColour().()+";'>"
 						+ (owner.isFeminine()?Util.capitaliseSentence(owner.getRace().getSingularFemaleName()):Util.capitaliseSentence(owner.getRace().getSingularMaleName()))
 						+ "</b>"
 						+ "</div>");
 				
 				if(owner.isPlayer()) {
-					tooltipSB.append("<div class='subTitle'>" + "Level " + owner.getLevel() + " <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>|</span> " + ((PlayerCharacter)owner).getExperience() + " / "
+					tooltipSB.append("<div class='subTitle'>" + "Level " + owner.getLevel() + " <span style='color:" + Colour.TEXT_GREY.() + ";'>|</span> " + ((PlayerCharacter)owner).getExperience() + " / "
 							+ (10 * owner.getLevel()) + " xp" + "</div>");
 				} else {
 					tooltipSB.append("<div class='subTitle'>" + "Level " + owner.getLevel() + "</div>");
@@ -433,87 +433,87 @@ public class TooltipInformationEventListener implements EventListener {
 
 				// GREATER:
 				// Face:
-				tooltipSB.append("<div class='subTitle-half body'>" + "Face - <span style='color:" + owner.getFaceRace().getColour().toWebHexString() + ";'>"
-						+ Util.capitaliseSentence(owner.getFaceRace().getName()) + "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getFaceType().getSkinType()).toWebHexString()
+				tooltipSB.append("<div class='subTitle-half body'>" + "Face - <span style='color:" + owner.getFaceRace().getColour().() + ";'>"
+						+ Util.capitaliseSentence(owner.getFaceRace().getName()) + "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getFaceType().getSkinType()).()
 						+ ";'>" + Util.capitaliseSentence(owner.getSkinColour(owner.getFaceType().getSkinType()).getName()) + "</span> " + owner.getFaceType().getSkinType().getName(owner) + "</div>");
 				// Skin:
-				tooltipSB.append("<div class='subTitle-half body'>" + "Body - <span style='color:" + owner.getSkinRace().getColour().toWebHexString() + ";'>"
-						+ Util.capitaliseSentence(owner.getSkinRace().getName()) + "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getSkinType()).toWebHexString() + ";'>"
+				tooltipSB.append("<div class='subTitle-half body'>" + "Body - <span style='color:" + owner.getSkinRace().getColour().() + ";'>"
+						+ Util.capitaliseSentence(owner.getSkinRace().getName()) + "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getSkinType()).() + ";'>"
 						+ Util.capitaliseSentence(owner.getSkinColour(owner.getSkinType()).getName()) + "</span> " + owner.getSkinName() + "</div>");
 
 				// LESSER:
 				// Arms:
-				tooltipSB.append("<div class='subTitle-half body'>" + "Arms - <span style='color:" + owner.getArmRace().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(owner.getArmRace().getName())
-						+ "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getArmType().getSkinType()).toWebHexString() + ";'>"
+				tooltipSB.append("<div class='subTitle-half body'>" + "Arms - <span style='color:" + owner.getArmRace().getColour().() + ";'>" + Util.capitaliseSentence(owner.getArmRace().getName())
+						+ "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getArmType().getSkinType()).() + ";'>"
 						+ Util.capitaliseSentence(owner.getSkinColour(owner.getArmType().getSkinType()).getName()) + "</span> " + owner.getArmType().getSkinType().getName(owner) + "</div>");
 				// Legs:
-				tooltipSB.append("<div class='subTitle-half body'>" + "Legs - <span style='color:" + owner.getLegRace().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(owner.getLegRace().getName())
-						+ "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getLegType().getSkinType()).toWebHexString() + ";'>"
+				tooltipSB.append("<div class='subTitle-half body'>" + "Legs - <span style='color:" + owner.getLegRace().getColour().() + ";'>" + Util.capitaliseSentence(owner.getLegRace().getName())
+						+ "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getLegType().getSkinType()).() + ";'>"
 						+ Util.capitaliseSentence(owner.getSkinColour(owner.getLegType().getSkinType()).getName()) + "</span> " + owner.getLegType().getSkinType().getName(owner) + "</div>");
 
 				// PARTIAL:
 				// Hair:
-				tooltipSB.append("<div class='subTitle-half body'>" + "Hair - <span style='color:" + owner.getHairRace().getColour().toWebHexString() + ";'>"
-						+ Util.capitaliseSentence(owner.getHairRace().getName()) + "</span></br>" + "<span style='color:" + owner.getHairColour().toWebHexString() + ";'>"
+				tooltipSB.append("<div class='subTitle-half body'>" + "Hair - <span style='color:" + owner.getHairRace().getColour().() + ";'>"
+						+ Util.capitaliseSentence(owner.getHairRace().getName()) + "</span></br>" + "<span style='color:" + owner.getHairColour().() + ";'>"
 						+ Util.capitaliseSentence(owner.getHairColour().getName()) + "</span> " + owner.getHairType().getName(owner) + "</div>");
 				// Eye:
-				tooltipSB.append("<div class='subTitle-half body'>" + "Eyes - <span style='color:" + owner.getEyeRace().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(owner.getEyeRace().getName())
-						+ "</span></br>" + "<span style='color:" + owner.getEyeColour().toWebHexString() + ";'>" + Util.capitaliseSentence(owner.getEyeColour().getName()) + "</span> "
+				tooltipSB.append("<div class='subTitle-half body'>" + "Eyes - <span style='color:" + owner.getEyeRace().getColour().() + ";'>" + Util.capitaliseSentence(owner.getEyeRace().getName())
+						+ "</span></br>" + "<span style='color:" + owner.getEyeColour().() + ";'>" + Util.capitaliseSentence(owner.getEyeColour().getName()) + "</span> "
 						+ owner.getEyeType().getName(owner) + "</div>");
 				// Ear:
-				tooltipSB.append("<div class='subTitle-half body'>" + "Ears - <span style='color:" + owner.getEarRace().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(owner.getEarRace().getName())
-						+ "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getEarType().getSkinType()).toWebHexString() + ";'>"
+				tooltipSB.append("<div class='subTitle-half body'>" + "Ears - <span style='color:" + owner.getEarRace().getColour().() + ";'>" + Util.capitaliseSentence(owner.getEarRace().getName())
+						+ "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getEarType().getSkinType()).() + ";'>"
 						+ Util.capitaliseSentence(owner.getSkinColour(owner.getEarType().getSkinType()).getName()) + "</span> " + owner.getEarType().getSkinType().getName(owner) + "</div>");
 				// Horn:
 				if (owner.getHornType() != HornType.NONE)
-					tooltipSB.append("<div class='subTitle-half body'>" + "Horns - <span style='color:" + owner.getHornRace().getColour().toWebHexString() + ";'>"
+					tooltipSB.append("<div class='subTitle-half body'>" + "Horns - <span style='color:" + owner.getHornRace().getColour().() + ";'>"
 							+ Util.capitaliseSentence(owner.getHornRace().getName()) + "</span></br>" + "<span style='color:"
-							+ owner.getSkinColour(owner.getHornType().getSkinType()).toWebHexString() + ";'>"
+							+ owner.getSkinColour(owner.getHornType().getSkinType()).() + ";'>"
 							+ Util.capitaliseSentence(owner.getSkinColour(owner.getHornType().getSkinType()).getName()) + "</span> " + owner.getHornType().getSkinType().getName(owner) + "</div>");
 				else
-					tooltipSB.append("<div class='subTitle-half body'>" + "Horns - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+					tooltipSB.append("<div class='subTitle-half body'>" + "Horns - <span style='color:" + Colour.TEXT_GREY.() + ";'>None</span>" + "</div>");
 				// Wing:
 				if (owner.getWingType() != WingType.NONE)
-					tooltipSB.append("<div class='subTitle-half body'>" + "Wings - <span style='color:" + owner.getWingRace().getColour().toWebHexString() + ";'>"
+					tooltipSB.append("<div class='subTitle-half body'>" + "Wings - <span style='color:" + owner.getWingRace().getColour().() + ";'>"
 							+ Util.capitaliseSentence(owner.getWingRace().getName()) + "</span></br>" + "<span style='color:"
-							+ owner.getSkinColour(owner.getWingType().getSkinType()).toWebHexString() + ";'>"
+							+ owner.getSkinColour(owner.getWingType().getSkinType()).() + ";'>"
 							+ Util.capitaliseSentence(owner.getSkinColour(owner.getWingType().getSkinType()).getName()) + "</span> " + owner.getWingType().getSkinType().getName(owner) + "</div>");
 				else
-					tooltipSB.append("<div class='subTitle-half body'>" + "Wings - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+					tooltipSB.append("<div class='subTitle-half body'>" + "Wings - <span style='color:" + Colour.TEXT_GREY.() + ";'>None</span>" + "</div>");
 				// Tail:
 				if (owner.getTailType() != TailType.NONE)
-					tooltipSB.append("<div class='subTitle-half body'>" + "Tail - <span style='color:" + owner.getTailRace().getColour().toWebHexString() + ";'>"
+					tooltipSB.append("<div class='subTitle-half body'>" + "Tail - <span style='color:" + owner.getTailRace().getColour().() + ";'>"
 							+ Util.capitaliseSentence(owner.getTailRace().getName()) + "</span></br>" + "<span style='color:"
-							+ owner.getSkinColour(owner.getTailType().getSkinType()).toWebHexString() + ";'>"
+							+ owner.getSkinColour(owner.getTailType().getSkinType()).() + ";'>"
 							+ Util.capitaliseSentence(owner.getSkinColour(owner.getTailType().getSkinType()).getName()) + "</span> " + owner.getTailType().getSkinType().getName(owner) + "</div>");
 				else
-					tooltipSB.append("<div class='subTitle-half body'>" + "Tail - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+					tooltipSB.append("<div class='subTitle-half body'>" + "Tail - <span style='color:" + Colour.TEXT_GREY.() + ";'>None</span>" + "</div>");
 
 				// SEXUAL:
 				// Vagina:
 				if (owner.getVaginaType() != VaginaType.NONE)
-					tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Vagina</span> - " + "<span style='color:" + owner.getVaginaRace().getColour().toWebHexString()
+					tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.() + ";'>Vagina</span> - " + "<span style='color:" + owner.getVaginaRace().getColour().()
 							+ ";'>" + Util.capitaliseSentence(owner.getVaginaRace().getName()) + "</span></br>" + "<span style='color:"
-							+ owner.getSkinColour(owner.getVaginaType().getSkinType()).toWebHexString() + ";'>"
+							+ owner.getSkinColour(owner.getVaginaType().getSkinType()).() + ";'>"
 							+ Util.capitaliseSentence(owner.getSkinColour(owner.getVaginaType().getSkinType()).getName()) + "</span> " + owner.getVaginaType().getSkinType().getName(owner) + "</div>");
 				else
-					tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Vagina</span> - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+					tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.() + ";'>Vagina</span> - <span style='color:" + Colour.TEXT_GREY.() + ";'>None</span>" + "</div>");
 				// Penis:
 				if (owner.getPenisType() != PenisType.NONE)
-					tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Penis</span> - " + "<span style='color:" + owner.getPenisRace().getColour().toWebHexString()
+					tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.() + ";'>Penis</span> - " + "<span style='color:" + owner.getPenisRace().getColour().()
 							+ ";'>" + Util.capitaliseSentence(owner.getPenisRace().getName()) + "</span></br>" + "<span style='color:"
-							+ owner.getSkinColour(owner.getPenisType().getSkinType()).toWebHexString() + ";'>"
+							+ owner.getSkinColour(owner.getPenisType().getSkinType()).() + ";'>"
 							+ Util.capitaliseSentence(owner.getSkinColour(owner.getPenisType().getSkinType()).getName()) + "</span> " + owner.getPenisType().getSkinType().getName(owner) + "</div>");
 				else
-					tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Penis</span> - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+					tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.() + ";'>Penis</span> - <span style='color:" + Colour.TEXT_GREY.() + ";'>None</span>" + "</div>");
 				// Ass:
-				tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Ass</span> - " + "<span style='color:" + owner.getAssRace().getColour().toWebHexString() + ";'>"
-						+ Util.capitaliseSentence(owner.getAssRace().getName()) + "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getSkinType()).toWebHexString() + ";'>"
+				tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.() + ";'>Ass</span> - " + "<span style='color:" + owner.getAssRace().getColour().() + ";'>"
+						+ Util.capitaliseSentence(owner.getAssRace().getName()) + "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getSkinType()).() + ";'>"
 						+ Util.capitaliseSentence(owner.getSkinColour(owner.getSkinType()).getName()) + "</span> " + owner.getSkinType().getName(owner) + "</div>");
 				// Breasts:
-				tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>" + (owner.getBreastSize().getMeasurement() > 0 ? "Breasts" : "Chest") + "</span> - "
-						+ "<span style='color:" + owner.getBreastRace().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(owner.getBreastRace().getName()) + "</span></br>" + "<span style='color:"
-						+ owner.getSkinColour(owner.getSkinType()).toWebHexString() + ";'>" + Util.capitaliseSentence(owner.getSkinColour(owner.getSkinType()).getName())
+				tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.() + ";'>" + (owner.getBreastSize().getMeasurement() > 0 ? "Breasts" : "Chest") + "</span> - "
+						+ "<span style='color:" + owner.getBreastRace().getColour().() + ";'>" + Util.capitaliseSentence(owner.getBreastRace().getName()) + "</span></br>" + "<span style='color:"
+						+ owner.getSkinColour(owner.getSkinType()).() + ";'>" + Util.capitaliseSentence(owner.getSkinColour(owner.getSkinType()).getName())
 						+ "</span> " + owner.getSkinType().getName(owner) + "</div>");
 
 				Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
@@ -522,11 +522,11 @@ public class TooltipInformationEventListener implements EventListener {
 				Main.mainController.setTooltipSize(360, 234);
 
 				Main.mainController.setTooltipContent(UtilText.parse(
-						"<div class='title' style='color:" + attribute.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(attribute.getName()) + "</div>"
+						"<div class='title' style='color:" + attribute.getColour().() + ";'>" + Util.capitaliseSentence(attribute.getName()) + "</div>"
 
 						+ "<div class='subTitle-third'>"
 						+ "<b style='color:"
-						+ Colour.TEXT_GREY.toWebHexString()
+						+ Colour.TEXT_GREY.()
 						+ ";'>Core</b></br>"
 						+ (owner.getBaseAttributeValue(attribute) > 0 ? "<span style='color: "
 								+ Colour.GENERIC_EXCELLENT.getShades()[1]
@@ -536,13 +536,13 @@ public class TooltipInformationEventListener implements EventListener {
 						+ "</div>"
 						+ "<div class='subTitle-third'>"
 						+ "<b style='color:"
-						+ Colour.TEXT_GREY.toWebHexString()
+						+ Colour.TEXT_GREY.()
 						+ ";'>Bonus</b></br>"
 						+ ((owner.getBonusAttributeValue(attribute)) > 0 ? "<span style='color: "
 								+ Colour.GENERIC_GOOD.getShades()[1]
 								+ ";'>"
 								: ((owner.getBonusAttributeValue(attribute)) == 0 ? "<span style='color:"
-										+ Colour.TEXT_GREY.toWebHexString()
+										+ Colour.TEXT_GREY.()
 										+ ";'>"
 										: "<span style='color: "
 												+ Colour.GENERIC_BAD.getShades()[1]
@@ -552,7 +552,7 @@ public class TooltipInformationEventListener implements EventListener {
 						+ "</div>"
 						+ "<div class='subTitle-third'>"
 						+ "<b style='color:"
-						+ attribute.getColour().toWebHexString()
+						+ attribute.getColour().()
 						+ ";'>Total</b></br>"
 						+ owner.getAttributeValue(attribute)
 						+ "</span>"
@@ -567,7 +567,7 @@ public class TooltipInformationEventListener implements EventListener {
 			Main.mainController.setTooltipSize(360, 600);
 
 			tooltipSB.setLength(0);
-			tooltipSB.append("<div class='title' style='color:" + Femininity.valueOf(Main.game.getPlayer().getFemininity()).getColour().toWebHexString() + ";'>"
+			tooltipSB.append("<div class='title' style='color:" + Femininity.valueOf(Main.game.getPlayer().getFemininity()).getColour().() + ";'>"
 					+ (Main.game.getPlayer().getName().length() == 0 ? (Main.game.getPlayer().getFemininity() <= Femininity.MASCULINE.getMaximumFemininity() ? "Hero" : "Heroine") : Main.game.getPlayer().getName()) + "</div>"
 
 					+ extraAttributeBonus(Main.game.getPlayer(), Attribute.CRITICAL_CHANCE)
@@ -607,7 +607,7 @@ public class TooltipInformationEventListener implements EventListener {
 			} else {
 				target = CharactersPresentDialogue.characterViewed;
 			}
-			tooltipSB.append("<div class='title' style='color:" + Femininity.valueOf(target.getFemininity()).getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(target.getName()) + "</div>");
+			tooltipSB.append("<div class='title' style='color:" + Femininity.valueOf(target.getFemininity()).getColour().() + ";'>" + Util.capitaliseSentence(target.getName()) + "</div>");
 
 			tooltipSB.append(
 					extraAttributeBonus(target, Attribute.CRITICAL_CHANCE)
@@ -635,7 +635,7 @@ public class TooltipInformationEventListener implements EventListener {
 			Main.mainController.setTooltipSize(360, 100);
 
 			tooltipSB.setLength(0);
-			tooltipSB.append("<div class='title'>" + "<b style='color:" + Main.game.getCurrentWeather().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(Main.game.getCurrentWeather().getName()) + "</b>" + "</div>"
+			tooltipSB.append("<div class='title'>" + "<b style='color:" + Main.game.getCurrentWeather().getColour().() + ";'>" + Util.capitaliseSentence(Main.game.getCurrentWeather().getName()) + "</b>" + "</div>"
 					+ "<div class='title'>" + "<b>" + ((Main.game.getWeatherTimeRemaining() / 60) + 1) + " hour" + (((Main.game.getWeatherTimeRemaining() / 60) + 1) > 1 ? "s" : "") + " remaining" + "</b>" + "</div>");
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
@@ -647,7 +647,7 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title'>Protection</div>"
 					+ "<div class='subTitle'>"
-					+ (owner.isWearingCondom()?"<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Wearing Condom</span>":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>No Condom</span>")
+					+ (owner.isWearingCondom()?"<span style='color:"+Colour.GENERIC_GOOD.()+";'>Wearing Condom</span>":"<span style='color:"+Colour.GENERIC_BAD.()+";'>No Condom</span>")
 					+"</div>");
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
@@ -675,7 +675,7 @@ public class TooltipInformationEventListener implements EventListener {
 					+ "</div>"
 					+ "<div class='description'>"
 					+ "Click to copy the currently displayed dialogue to your clipboard.</br></br>"
-					+ "This scene was written by <b style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>"
+					+ "This scene was written by <b style='color:"+Colour.ANDROGYNOUS.()+";'>"
 					+ Main.game.getCurrentDialogueNode().getAuthor()
 					+ "</b></div>");
 
@@ -696,39 +696,39 @@ public class TooltipInformationEventListener implements EventListener {
 
 	private String extraAttributeTableRow(GameCharacter owner, String type, Attribute damage, Attribute resist) {
 //		if (owner.isPlayer() || Main.game.getPlayer().getPerks().contains(Perk.OBSERVANT))
-			return "<div class='subTitle-third combatValue'>" + "<span style='color:" + damage.getColour().toWebHexString() + ";'>" + type + "</span>" + "</div>" + "<div class='subTitle-third combatValue'>"
+			return "<div class='subTitle-third combatValue'>" + "<span style='color:" + damage.getColour().() + ";'>" + type + "</span>" + "</div>" + "<div class='subTitle-third combatValue'>"
 					+ (owner.getAttributeValue(damage) > damage.getBaseValue()
-											? "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
+											? "<span style='color:" + Colour.GENERIC_GOOD.() + ";'>"
 											: (owner.getAttributeValue(damage) < damage.getBaseValue()
-													? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"
+													? "<span style='color:" + Colour.GENERIC_BAD.() + ";'>"
 													: ""))
 					+ owner.getAttributeValue(damage)
 					+ "</span>" + "</div>" + "<div class='subTitle-third combatValue'>"
 					+ (resist == null ? "0.0"
-							: (owner.getAttributeValue(resist) > 0 ? "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
-									: (owner.getAttributeValue(resist) < 0 ? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" : "")) + owner.getAttributeValue(resist) + "</span>")
+							: (owner.getAttributeValue(resist) > 0 ? "<span style='color:" + Colour.GENERIC_GOOD.() + ";'>"
+									: (owner.getAttributeValue(resist) < 0 ? "<span style='color:" + Colour.GENERIC_BAD.() + ";'>" : "")) + owner.getAttributeValue(resist) + "</span>")
 					+ "</div>";
 //		else
-//			return "<div class='subTitle-third combatValue'>" + "<span style='color:" + damage.getColour().toWebHexString() + ";'>" + type + "</span>" + "</div>" + "<div class='subTitle-third combatValue'>" + "<span style='color:"
-//					+ Colour.TEXT_GREY.toWebHexString() + ";'>???</span>" + "</div>" + "<div class='subTitle-third combatValue'>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>???</span>" + "</div>";
+//			return "<div class='subTitle-third combatValue'>" + "<span style='color:" + damage.getColour().() + ";'>" + type + "</span>" + "</div>" + "<div class='subTitle-third combatValue'>" + "<span style='color:"
+//					+ Colour.TEXT_GREY.() + ";'>???</span>" + "</div>" + "<div class='subTitle-third combatValue'>" + "<span style='color:" + Colour.TEXT_GREY.() + ";'>???</span>" + "</div>";
 	}
 
 	private String extraAttributeBonus(GameCharacter owner, Attribute bonus) {
 //		if (owner.isPlayer() || Main.game.getPlayer().getPerks().contains(Perk.OBSERVANT))
 			return "<div class='subTitle-half'>" + "<span style='color:"
-					+ bonus.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(bonus.getName()) + "</span></br>" + (owner.getAttributeValue(bonus) > bonus.getBaseValue()
-							? "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" : (owner.getAttributeValue(bonus) < bonus.getBaseValue() ? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" : ""))
+					+ bonus.getColour().() + ";'>" + Util.capitaliseSentence(bonus.getName()) + "</span></br>" + (owner.getAttributeValue(bonus) > bonus.getBaseValue()
+							? "<span style='color:" + Colour.GENERIC_GOOD.() + ";'>" : (owner.getAttributeValue(bonus) < bonus.getBaseValue() ? "<span style='color:" + Colour.GENERIC_BAD.() + ";'>" : ""))
 					+ owner.getAttributeValue(bonus) + "</span>" + "</div>";
 //		else
-//			return "<div class='subTitle-half'>" + "<span style='color:" + bonus.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(bonus.getName()) + "</span></br>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString()
+//			return "<div class='subTitle-half'>" + "<span style='color:" + bonus.getColour().() + ";'>" + Util.capitaliseSentence(bonus.getName()) + "</span></br>" + "<span style='color:" + Colour.TEXT_GREY.()
 //					+ ";'>???</span>" + "</div>";
 	}
 //	
 //	private String corruptionLevelRow(AttributeLevelCorruption level){
 //		if(Main.game.getPlayer().getCorruptionLevel()==level)
-//			return "<div class='subTitle'><span style='color:"+level.getColour().toWebHexString()+";'>"+Utilities.capitaliseSentence(level.getName())+"</span>" + " ("+level.getMinimumValue()+"-"+level.getMaximumValue()+")</div>";
+//			return "<div class='subTitle'><span style='color:"+level.getColour().()+";'>"+Utilities.capitaliseSentence(level.getName())+"</span>" + " ("+level.getMinimumValue()+"-"+level.getMaximumValue()+")</div>";
 //		else
-//			return "<div class='subTitle'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Utilities.capitaliseSentence(level.getName())+"" + " ("+level.getMinimumValue()+"-"+level.getMaximumValue()+")</span></div>";
+//			return "<div class='subTitle'><span style='color:"+Colour.TEXT_GREY.()+";'>"+Utilities.capitaliseSentence(level.getName())+"" + " ("+level.getMinimumValue()+"-"+level.getMaximumValue()+")</span></div>";
 //	}
 
 	public TooltipInformationEventListener setInformation(String title, String description) {

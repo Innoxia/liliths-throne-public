@@ -270,11 +270,11 @@ public class UtilText {
 		}
 
 		if (Femininity.valueOf(Main.game.getPlayer().getFemininity()) == Femininity.MASCULINE || Femininity.valueOf(Main.game.getPlayer().getFemininity()) == Femininity.MASCULINE_STRONG)
-			return "<span class='speech' style='color:" + Colour.MASCULINE.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+			return "<span class='speech' style='color:" + Colour.MASCULINE.() + ";'>" + modifiedSentence + "</span>";
 		else if (Femininity.valueOf(Main.game.getPlayer().getFemininity()) == Femininity.ANDROGYNOUS)
-			return "<span class='speech' style='color:" + Colour.ANDROGYNOUS.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+			return "<span class='speech' style='color:" + Colour.ANDROGYNOUS.() + ";'>" + modifiedSentence + "</span>";
 		else
-			return "<span class='speech' style='color:" + Colour.FEMININE.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+			return "<span class='speech' style='color:" + Colour.FEMININE.() + ";'>" + modifiedSentence + "</span>";
 	}
 
 	public static String parseSpeech(String text, GameCharacter target) {
@@ -311,11 +311,11 @@ public class UtilText {
 
 		} else {
 			if (Femininity.valueOf(target.getFemininity()) == Femininity.MASCULINE || Femininity.valueOf(target.getFemininity()) == Femininity.MASCULINE_STRONG)
-				return "<span class='speech' style='color:" + Colour.MASCULINE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+				return "<span class='speech' style='color:" + Colour.MASCULINE_NPC.() + ";'>" + modifiedSentence + "</span>";
 			else if (Femininity.valueOf(target.getFemininity()) == Femininity.ANDROGYNOUS)
-				return "<span class='speech' style='color:" + Colour.ANDROGYNOUS_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+				return "<span class='speech' style='color:" + Colour.ANDROGYNOUS_NPC.() + ";'>" + modifiedSentence + "</span>";
 			else
-				return "<span class='speech' style='color:" + Colour.FEMININE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+				return "<span class='speech' style='color:" + Colour.FEMININE_NPC.() + ";'>" + modifiedSentence + "</span>";
 		}
 	}
 	
@@ -328,11 +328,11 @@ public class UtilText {
 
 		} else {
 			if (Femininity.valueOf(target.getFemininity()) == Femininity.MASCULINE || Femininity.valueOf(target.getFemininity()) == Femininity.MASCULINE_STRONG)
-				return "<span class='speech' style='color:" + Colour.MASCULINE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+				return "<span class='speech' style='color:" + Colour.MASCULINE_NPC.() + ";'>" + modifiedSentence + "</span>";
 			else if (Femininity.valueOf(target.getFemininity()) == Femininity.ANDROGYNOUS)
-				return "<span class='speech' style='color:" + Colour.ANDROGYNOUS_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+				return "<span class='speech' style='color:" + Colour.ANDROGYNOUS_NPC.() + ";'>" + modifiedSentence + "</span>";
 			else
-				return "<span class='speech' style='color:" + Colour.FEMININE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+				return "<span class='speech' style='color:" + Colour.FEMININE_NPC.() + ";'>" + modifiedSentence + "</span>";
 		}
 	}
 	public static String parseThought(String text, GameCharacter target) {
@@ -353,11 +353,11 @@ public class UtilText {
 
 		} else {
 			if (Femininity.valueOf(target.getFemininity()) == Femininity.MASCULINE || Femininity.valueOf(target.getFemininity()) == Femininity.MASCULINE_STRONG)
-				return "<span class='thoughts' style='color:" + Colour.MASCULINE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+				return "<span class='thoughts' style='color:" + Colour.MASCULINE_NPC.() + ";'>" + modifiedSentence + "</span>";
 			else if (Femininity.valueOf(target.getFemininity()) == Femininity.ANDROGYNOUS)
-				return "<span class='thoughts' style='color:" + Colour.ANDROGYNOUS_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+				return "<span class='thoughts' style='color:" + Colour.ANDROGYNOUS_NPC.() + ";'>" + modifiedSentence + "</span>";
 			else
-				return "<span class='thoughts' style='color:" + Colour.FEMININE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+				return "<span class='thoughts' style='color:" + Colour.FEMININE_NPC.() + ";'>" + modifiedSentence + "</span>";
 		}
 	}
 
@@ -373,11 +373,11 @@ public class UtilText {
 			modifiedSentence = Util.addStutter(modifiedSentence, 6);
 
 		if (femininity == Femininity.MASCULINE || femininity == Femininity.MASCULINE_STRONG)
-			return "<span class='speech' style='color:" + Colour.MASCULINE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+			return "<span class='speech' style='color:" + Colour.MASCULINE_NPC.() + ";'>" + modifiedSentence + "</span>";
 		else if (femininity == Femininity.ANDROGYNOUS)
-			return "<span class='speech' style='color:" + Colour.ANDROGYNOUS_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+			return "<span class='speech' style='color:" + Colour.ANDROGYNOUS_NPC.() + ";'>" + modifiedSentence + "</span>";
 		else
-			return "<span class='speech' style='color:" + Colour.FEMININE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+			return "<span class='speech' style='color:" + Colour.FEMININE_NPC.() + ";'>" + modifiedSentence + "</span>";
 	}
 	
 	public static String getDisabledResponse(String label) {
@@ -386,13 +386,13 @@ public class UtilText {
 	
 	// "Temporary" methods until I refine the way DialogueNodes work:
 	public static String getRequirementsDescription(PerkInterface perkRequired) {
-		return ("You require the perk '<b style='color:"+perkRequired.getPerkCategory().getColour().toWebHexString()+";'>"+perkRequired.getName(Main.game.getPlayer())+"</b>'.");
+		return ("You require the perk '<b style='color:"+perkRequired.getPerkCategory().getColour().()+";'>"+perkRequired.getName(Main.game.getPlayer())+"</b>'.");
 	}
 	
 	public static String getRequirementsDescription(PerkInterface perkRequired, Gender... gendersRequired) {
 		descriptionSB.setLength(0);
 		
-		descriptionSB.append("You require the perk '<b style='color:"+perkRequired.getPerkCategory().getColour().toWebHexString()+";'>"+perkRequired.getName(Main.game.getPlayer())+"</b>'");
+		descriptionSB.append("You require the perk '<b style='color:"+perkRequired.getPerkCategory().getColour().()+";'>"+perkRequired.getName(Main.game.getPlayer())+"</b>'");
 		
 		if(gendersRequired.length==0) {
 			descriptionSB.append(".");
@@ -406,7 +406,7 @@ public class UtilText {
 					else
 						descriptionSB.append(", ");
 				}
-				descriptionSB.append("<b style='color:"+gendersRequired[i].getColour().toWebHexString()+";'>"+gendersRequired[i].getName()+"</b>");
+				descriptionSB.append("<b style='color:"+gendersRequired[i].getColour().()+";'>"+gendersRequired[i].getName()+"</b>");
 			}
 			
 			descriptionSB.append(".");
@@ -418,7 +418,7 @@ public class UtilText {
 	public static String getRequirementsDescription(CorruptionLevel corruptionNeeded, PerkInterface... perkRequired) {
 		descriptionSB.setLength(0);
 		
-		descriptionSB.append("You require a corruption level of <b style='color:"+corruptionNeeded.getColour().toWebHexString()+";'>"+corruptionNeeded.getName()+"</b>");
+		descriptionSB.append("You require a corruption level of <b style='color:"+corruptionNeeded.getColour().()+";'>"+corruptionNeeded.getName()+"</b>");
 		
 		if(perkRequired.length==0) {
 			descriptionSB.append(".");
@@ -432,7 +432,7 @@ public class UtilText {
 					else
 						descriptionSB.append(", ");
 				}
-				descriptionSB.append("<b style='color:"+perkRequired[i].getPerkCategory().getColour().toWebHexString()+";'>"+perkRequired[i].getName(Main.game.getPlayer())+"</b>");
+				descriptionSB.append("<b style='color:"+perkRequired[i].getPerkCategory().getColour().()+";'>"+perkRequired[i].getName(Main.game.getPlayer())+"</b>");
 			}
 			
 			descriptionSB.append(".");
@@ -442,15 +442,15 @@ public class UtilText {
 	}
 	
 	public static String formatVirginityLoss(String s) {
-		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'><i>"+s+"</i></p>";
+		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.()+";'><i>"+s+"</i></p>";
 	}
 	
 	public static String formatTooLoose(String s) {
-		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'><i>"+s+"</i></p>";
+		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.()+";'><i>"+s+"</i></p>";
 	}
 	
 	public static String formatStretching(String s) {
-		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'><i>"+s+"</i></p>";
+		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.()+";'><i>"+s+"</i></p>";
 	}
 
 	public static boolean isVowel(char c) {
@@ -1511,34 +1511,34 @@ public class UtilText {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("vagina") || arguments.equalsIgnoreCase("pussy") || arguments.equalsIgnoreCase("cunt")) {
 						if(character.getHighestZLayerCoverableArea(CoverableArea.VAGINA)==null)
-							return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>no_clothing_covering_vagina</i>";
+							return "<i style='color:"+Colour.GENERIC_BAD.()+";'>no_clothing_covering_vagina</i>";
 						else
 							return character.getHighestZLayerCoverableArea(CoverableArea.VAGINA).getName();
 						
 					} else if(arguments.equalsIgnoreCase("penis") || arguments.equalsIgnoreCase("cock") || arguments.equalsIgnoreCase("dick")) {
 						if(character.getHighestZLayerCoverableArea(CoverableArea.PENIS)==null)
-							return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>no_clothing_covering_penis</i>";
+							return "<i style='color:"+Colour.GENERIC_BAD.()+";'>no_clothing_covering_penis</i>";
 						else
 							return character.getHighestZLayerCoverableArea(CoverableArea.PENIS).getName();
 						
 					} else if(arguments.equalsIgnoreCase("nipple") || arguments.equalsIgnoreCase("nipples")) {
 						if(character.getHighestZLayerCoverableArea(CoverableArea.NIPPLES)==null)
-							return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>no_clothing_covering_nipples</i>";
+							return "<i style='color:"+Colour.GENERIC_BAD.()+";'>no_clothing_covering_nipples</i>";
 						else
 							return character.getHighestZLayerCoverableArea(CoverableArea.NIPPLES).getName();
 						
 					} else if(arguments.equalsIgnoreCase("ass") || arguments.equalsIgnoreCase("asshole")) {
 						if(character.getHighestZLayerCoverableArea(CoverableArea.ANUS)==null)
-							return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>no_clothing_covering_asshole</i>";
+							return "<i style='color:"+Colour.GENERIC_BAD.()+";'>no_clothing_covering_asshole</i>";
 						else
 							return character.getHighestZLayerCoverableArea(CoverableArea.ANUS).getName();
 						
 					} else {
-						return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Clothing_area_not_found</i>";
+						return "<i style='color:"+Colour.GENERIC_BAD.()+";'>Clothing_area_not_found</i>";
 					}
 					
 				} else {
-					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Clothing_area_not_found</i>";
+					return "<i style='color:"+Colour.GENERIC_BAD.()+";'>Clothing_area_not_found</i>";
 				}
 			}
 			
@@ -1566,34 +1566,34 @@ public class UtilText {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("vagina") || arguments.equalsIgnoreCase("pussy") || arguments.equalsIgnoreCase("cunt")) {
 						if(character.getLowestZLayerCoverableArea(CoverableArea.VAGINA)==null)
-							return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>no_clothing_covering_vagina</i>";
+							return "<i style='color:"+Colour.GENERIC_BAD.()+";'>no_clothing_covering_vagina</i>";
 						else
 							return character.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName();
 						
 					} else if(arguments.equalsIgnoreCase("penis") || arguments.equalsIgnoreCase("cock") || arguments.equalsIgnoreCase("dick")) {
 						if(character.getLowestZLayerCoverableArea(CoverableArea.PENIS)==null)
-							return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>no_clothing_covering_penis</i>";
+							return "<i style='color:"+Colour.GENERIC_BAD.()+";'>no_clothing_covering_penis</i>";
 						else
 							return character.getLowestZLayerCoverableArea(CoverableArea.PENIS).getName();
 						
 					} else if(arguments.equalsIgnoreCase("nipple") || arguments.equalsIgnoreCase("nipples")) {
 						if(character.getLowestZLayerCoverableArea(CoverableArea.NIPPLES)==null)
-							return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>no_clothing_covering_nipples</i>";
+							return "<i style='color:"+Colour.GENERIC_BAD.()+";'>no_clothing_covering_nipples</i>";
 						else
 							return character.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).getName();
 						
 					} else if(arguments.equalsIgnoreCase("ass") || arguments.equalsIgnoreCase("asshole")) {
 						if(character.getLowestZLayerCoverableArea(CoverableArea.ANUS)==null)
-							return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>no_clothing_covering_asshole</i>";
+							return "<i style='color:"+Colour.GENERIC_BAD.()+";'>no_clothing_covering_asshole</i>";
 						else
 							return character.getLowestZLayerCoverableArea(CoverableArea.ANUS).getName();
 						
 					} else {
-						return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Clothing_area_not_found</i>";
+						return "<i style='color:"+Colour.GENERIC_BAD.()+";'>Clothing_area_not_found</i>";
 					}
 					
 				} else {
-					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Clothing_area_not_found</i>";
+					return "<i style='color:"+Colour.GENERIC_BAD.()+";'>Clothing_area_not_found</i>";
 				}
 			}
 			
@@ -1661,9 +1661,9 @@ public class UtilText {
 					@Override
 					public String parse(String command, String arguments, String target) {
 						if(arguments!=null)
-							return "<b style='color:"+c.toWebHexString()+";'>"+arguments+"</b>";
+							return "<b style='color:"+c.()+";'>"+arguments+"</b>";
 						else
-							return "<b style='color:"+c.toWebHexString()+";'>...</b>";
+							return "<b style='color:"+c.()+";'>...</b>";
 					}
 				});
 				
@@ -1683,9 +1683,9 @@ public class UtilText {
 					@Override
 					public String parse(String command, String arguments, String target) {
 						if(arguments!=null)
-							return "<i style='color:"+c.toWebHexString()+";'>"+arguments+"</i>";
+							return "<i style='color:"+c.()+";'>"+arguments+"</i>";
 						else
-							return "<i style='color:"+c.toWebHexString()+";'>...</i>";
+							return "<i style='color:"+c.()+";'>...</i>";
 					}
 				});
 			}
@@ -2990,7 +2990,7 @@ public class UtilText {
 		}
 		
 		if(!commandFound)
-			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>command_unknown</i>";
+			return "<i style='color:"+Colour.GENERIC_BAD.()+";'>command_unknown</i>";
 		
 		if(parseAddPronoun) {
 			output = (UtilText.isVowel(output.charAt(0))?"an ":"a ")+output;
@@ -3093,9 +3093,9 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(getBodyPartFromType(bodyPart) instanceof AssType || getBodyPartFromType(bodyPart) instanceof BreastType)
-					return character.getSkinColour(character.getSkinType()).toWebHexString();
+					return character.getSkinColour(character.getSkinType()).();
 				else
-					return character.getSkinColour(getBodyPartFromType(bodyPart).getSkinType()).toWebHexString();
+					return character.getSkinColour(getBodyPartFromType(bodyPart).getSkinType()).();
 			}
 		});
 		

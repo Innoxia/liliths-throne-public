@@ -489,7 +489,7 @@ public class Game implements Serializable {
 				} else {
 					Main.game.getPlayer().incrementAttribute(Attribute.CORRUPTION, response.getCorruptionNeeded().getCorruptionBypass());
 					corruptionGains = ("<p style='text-align:center;'>"
-							+ "<b>You have gained +"+response.getCorruptionNeeded().getCorruptionBypass()+"</b> <b style='color:"+Attribute.CORRUPTION.getColour().toWebHexString()+";'>corruption</b><b>!</b>"
+							+ "<b>You have gained +"+response.getCorruptionNeeded().getCorruptionBypass()+"</b> <b style='color:"+Attribute.CORRUPTION.getColour().()+";'>corruption</b><b>!</b>"
 							+ "</p>");
 				}
 			}
@@ -529,9 +529,9 @@ public class Game implements Serializable {
 									if(Main.game.getPlayer().addRaceDiscovered(character.getRace())) {
 										Main.game.getTextEndStringBuilder().append(
 												"<p style='text-align:center;'>"
-													+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
+													+ "<b style='color:"+Colour.GENERIC_EXCELLENT.()+";'>New entry in your phone's encyclopedia:</b>"
 													+ "</br>"
-													+ "<b>Race:</b> <b style='color:"+character.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(character.getRace().getName())+"</b>"
+													+ "<b>Race:</b> <b style='color:"+character.getRace().getColour().()+";'>"+Util.capitaliseSentence(character.getRace().getName())+"</b>"
 												+ "</p>");
 									}
 									((NPC) character).setLastTimeEncountered(minutesPassed);
@@ -694,9 +694,9 @@ public class Game implements Serializable {
 						if(Main.game.getPlayer().addRaceDiscovered(character.getRace())) {
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
+										+ "<b style='color:"+Colour.GENERIC_EXCELLENT.()+";'>New entry in your phone's encyclopedia:</b>"
 										+ "</br>"
-										+ "<b>Race:</b> <b style='color:"+character.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(character.getRace().getName())+"</b>"
+										+ "<b>Race:</b> <b style='color:"+character.getRace().getColour().()+";'>"+Util.capitaliseSentence(character.getRace().getName())+"</b>"
 									+ "</p>");
 						}
 						
@@ -1020,19 +1020,19 @@ public class Game implements Serializable {
 		
 		if (response.isCombatHighlight()) {
 			if(response.isAvailable() || response.isAbleToBypass())
-				style = "style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; font-size:"+fontSize+"em;'";
+				style = "style='color:"+Colour.GENERIC_COMBAT.()+"; font-size:"+fontSize+"em;'";
 			
 		} else if (response.isSexHighlight()) {
 			if(response.isAvailable() || response.isAbleToBypass())
-				style = "style='color:"+Colour.GENERIC_SEX.toWebHexString()+"; font-size:"+fontSize+"em;'";
+				style = "style='color:"+Colour.GENERIC_SEX.()+"; font-size:"+fontSize+"em;'";
 			
 		} else if (response.isSexPenetrationHighlight()) {
 			if(response.isAvailable() || response.isAbleToBypass())
-				style = "style='color:"+Colour.GENERIC_SEX.toWebHexString()+"; font-size:"+fontSize+"em;'";
+				style = "style='color:"+Colour.GENERIC_SEX.()+"; font-size:"+fontSize+"em;'";
 			
 		} else if (response.isSexPositioningHighlight()) {
 			if(response.isAvailable() || response.isAbleToBypass())
-				style = "style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+"; font-size:"+fontSize+"em;'";
+				style = "style='color:"+Colour.GENERIC_ARCANE.()+"; font-size:"+fontSize+"em;'";
 			
 		}
 		
@@ -1251,10 +1251,10 @@ public class Game implements Serializable {
 //			if(!response.hasRequirements()) {
 //				
 //				if(response.isSexHighlight()) {
-//					tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex</span></div>");
+//					tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.() + ";'>Sex</span></div>");
 //					boxHeight+=44;
 //				} else if(response.isCombatHighlight()) {
-//					tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.toWebHexString() + ";'>Combat</span></div>");
+//					tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.() + ";'>Combat</span></div>");
 //					boxHeight+=44;
 //				}
 //				
@@ -1264,36 +1264,36 @@ public class Game implements Serializable {
 //				
 //				if(response.isAvailable()) {
 //					if(response.isSexHighlight())
-//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex</span> (<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Available</span>)</div>");
+//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.() + ";'>Sex</span> (<span style='color:" + Colour.GENERIC_GOOD.() + ";'>Available</span>)</div>");
 //					else if(response.isCombatHighlight())
-//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.toWebHexString() + ";'>Combat</span> (<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Available</span>)</div>");
+//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.() + ";'>Combat</span> (<span style='color:" + Colour.GENERIC_GOOD.() + ";'>Available</span>)</div>");
 //					else
-//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Available</span></div>");
+//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_GOOD.() + ";'>Available</span></div>");
 //					boxHeight+=44;
 //					
 //					tooltipSB.append("<div class='description'>" + response.getTooltipText() + "</div>");
 //					
 //				} else if(response.isAbleToBypass()) {
 //					if(response.isSexHighlight())
-//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex</span> (<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Corruptive</span>)</div>");
+//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.() + ";'>Sex</span> (<span style='color:" + Colour.GENERIC_ARCANE.() + ";'>Corruptive</span>)</div>");
 //					else if(response.isCombatHighlight())
-//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.toWebHexString() + ";'>Combat</span> (<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Corruptive</span>)</div>");
+//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.() + ";'>Combat</span> (<span style='color:" + Colour.GENERIC_ARCANE.() + ";'>Corruptive</span>)</div>");
 //					else
-//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Corruptive</span></div>");
+//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_ARCANE.() + ";'>Corruptive</span></div>");
 //					boxHeight+=44;
 //					
 //					tooltipSB.append("<div class='description'>" + response.getTooltipText() + "</div>");
 //					
 //				} else {
 //					if(response.isSexHighlight())
-//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex</span> (<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Unavailable</span>)</div>");
+//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.() + ";'>Sex</span> (<span style='color:" + Colour.GENERIC_BAD.() + ";'>Unavailable</span>)</div>");
 //					else if(response.isCombatHighlight())
-//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.toWebHexString() + ";'>Combat</span> (<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Unavailable</span>)</div>");
+//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.() + ";'>Combat</span> (<span style='color:" + Colour.GENERIC_BAD.() + ";'>Unavailable</span>)</div>");
 //					else
-//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Unavailable</span></div>");
+//						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_BAD.() + ";'>Unavailable</span></div>");
 //					boxHeight+=44;
 //
-//					tooltipSB.append("<div class='description'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>" + response.getTooltipText() + "</span></div>");
+//					tooltipSB.append("<div class='description'><span style='color:"+Colour.TEXT_GREY.()+";'>" + response.getTooltipText() + "</span></div>");
 //				}
 //
 //				tooltipSB.append("<div class='description-small'>");
@@ -1350,7 +1350,7 @@ public class Game implements Serializable {
 	 */
 	public void flashMessage(Colour colour, String text){
 		Main.mainController.getWebEngine().executeScript(
-				"document.getElementById('bottom-text').innerHTML=\"<span style='color:"+colour.toWebHexString()+";'>"+text+"</span>\";"
+				"document.getElementById('bottom-text').innerHTML=\"<span style='color:"+colour.()+";'>"+text+"</span>\";"
 				+ "document.getElementById('bottom-text').classList.add('demo');"
 				+ "setTimeout(function(){"
 				+ "document.getElementById('bottom-text').classList.remove('demo');"

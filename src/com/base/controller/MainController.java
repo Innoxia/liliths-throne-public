@@ -332,7 +332,7 @@ public class MainController implements Initializable {
 							for (Entry<KeyboardAction, KeyCode> entry : Main.getProperties().hotkeyMapPrimary.entrySet())
 								if (entry.getValue() == event.getCode()) {
 									actionToBind = null;
-									Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>The key '" + event.getCode().getName()
+									Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + "<b style='color:" + Colour.GENERIC_BAD.() + ";'>The key '" + event.getCode().getName()
 											+ "' is already the primary bind for the action '" + entry.getKey().getName() + "'!</b>" + "</p>");
 									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 									return;
@@ -340,7 +340,7 @@ public class MainController implements Initializable {
 							for (Entry<KeyboardAction, KeyCode> entry : Main.getProperties().hotkeyMapSecondary.entrySet())
 								if (entry.getValue() == event.getCode()) {
 									actionToBind = null;
-									Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>The key '" + event.getCode().getName()
+									Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + "<b style='color:" + Colour.GENERIC_BAD.() + ";'>The key '" + event.getCode().getName()
 											+ "' is already the secondary bind for the action '" + entry.getKey().getName() + "'!</b>" + "</p>");
 									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 									return;

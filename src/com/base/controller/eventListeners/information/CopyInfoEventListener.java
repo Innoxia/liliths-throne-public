@@ -24,7 +24,7 @@ public class CopyInfoEventListener implements EventListener {
 				+ "</div>"
 				+ "<div class='description'>"
 				+ "Click to copy the currently displayed dialogue to your clipboard.</br></br>"
-				+ "This scene was written by <b style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>"
+				+ "This scene was written by <b style='color:"+Colour.ANDROGYNOUS.()+";'>"
 				+ Main.game.getCurrentDialogueNode().getAuthor()
 				+ "</b></div>");
 		

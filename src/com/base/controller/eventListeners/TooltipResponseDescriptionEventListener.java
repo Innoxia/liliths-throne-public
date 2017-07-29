@@ -97,10 +97,10 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 				if(!response.hasRequirements()) {
 					
 					if(response.isSexHighlight()) {
-						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex</span></div>");
+						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.() + ";'>Sex</span></div>");
 						boxHeight+=44;
 					} else if(response.isCombatHighlight()) {
-						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.toWebHexString() + ";'>Combat</span></div>");
+						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.() + ";'>Combat</span></div>");
 						boxHeight+=44;
 					}
 					
@@ -110,16 +110,16 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 					
 					if(response.isAvailable()) {
 						if(response.isSexHighlight())
-							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex</span> (<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Available</span>)</div>");
+							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.() + ";'>Sex</span> (<span style='color:" + Colour.GENERIC_GOOD.() + ";'>Available</span>)</div>");
 						else if(response.isCombatHighlight())
-							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.toWebHexString() + ";'>Combat</span> (<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Available</span>)</div>");
+							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.() + ";'>Combat</span> (<span style='color:" + Colour.GENERIC_GOOD.() + ";'>Available</span>)</div>");
 						else
-							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Available</span></div>");
+							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_GOOD.() + ";'>Available</span></div>");
 						boxHeight+=44;
 						
 						if(response.getSexPace()!=null) {
-							tooltipSB.append("<div class='subTitle'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex Pace:</span>"
-									+ " <span style='color:" + response.getSexPace().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(response.getSexPace().getName())+"</span></div>");
+							tooltipSB.append("<div class='subTitle'><span style='color:" + Colour.GENERIC_SEX.() + ";'>Sex Pace:</span>"
+									+ " <span style='color:" + response.getSexPace().getColour().() + ";'>"+Util.capitaliseSentence(response.getSexPace().getName())+"</span></div>");
 							boxHeight+=44;
 						}
 						
@@ -127,16 +127,16 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 						
 					} else if(response.isAbleToBypass()) {
 						if(response.isSexHighlight())
-							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex</span> (<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Corruptive</span>)</div>");
+							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.() + ";'>Sex</span> (<span style='color:" + Colour.GENERIC_ARCANE.() + ";'>Corruptive</span>)</div>");
 						else if(response.isCombatHighlight())
-							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.toWebHexString() + ";'>Combat</span> (<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Corruptive</span>)</div>");
+							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.() + ";'>Combat</span> (<span style='color:" + Colour.GENERIC_ARCANE.() + ";'>Corruptive</span>)</div>");
 						else
-							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Corruptive</span></div>");
+							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_ARCANE.() + ";'>Corruptive</span></div>");
 						boxHeight+=44;
 						
 						if(response.getSexPace()!=null) {
-							tooltipSB.append("<div class='subTitle'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex Pace:</span>"
-									+ " <span style='color:" + response.getSexPace().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(response.getSexPace().getName())+"</span></div>");
+							tooltipSB.append("<div class='subTitle'><span style='color:" + Colour.GENERIC_SEX.() + ";'>Sex Pace:</span>"
+									+ " <span style='color:" + response.getSexPace().getColour().() + ";'>"+Util.capitaliseSentence(response.getSexPace().getName())+"</span></div>");
 							boxHeight+=44;
 						}
 						
@@ -144,20 +144,20 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 						
 					} else {
 						if(response.isSexHighlight())
-							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex</span> (<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Unavailable</span>)</div>");
+							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.() + ";'>Sex</span> (<span style='color:" + Colour.GENERIC_BAD.() + ";'>Unavailable</span>)</div>");
 						else if(response.isCombatHighlight())
-							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.toWebHexString() + ";'>Combat</span> (<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Unavailable</span>)</div>");
+							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.() + ";'>Combat</span> (<span style='color:" + Colour.GENERIC_BAD.() + ";'>Unavailable</span>)</div>");
 						else
-							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Unavailable</span></div>");
+							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_BAD.() + ";'>Unavailable</span></div>");
 						boxHeight+=44;
 						
 						if(response.getSexPace()!=null) {
-							tooltipSB.append("<div class='subTitle'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Sex Pace:</span>"
-									+ " <span style='color:" + response.getSexPace().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(response.getSexPace().getName())+"</span></div>");
+							tooltipSB.append("<div class='subTitle'><span style='color:" + Colour.GENERIC_SEX.() + ";'>Sex Pace:</span>"
+									+ " <span style='color:" + response.getSexPace().getColour().() + ";'>"+Util.capitaliseSentence(response.getSexPace().getName())+"</span></div>");
 							boxHeight+=44;
 						}
 						
-						tooltipSB.append("<div class='description'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>" + response.getTooltipText() + "</span></div>");
+						tooltipSB.append("<div class='description'><span style='color:"+Colour.TEXT_GREY.()+";'>" + response.getTooltipText() + "</span></div>");
 					}
 					
 					tooltipSB.append(
