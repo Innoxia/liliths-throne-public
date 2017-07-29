@@ -103,6 +103,11 @@ public enum Fetish implements PerkInterface {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.THREE_DIRTY;
 		}
+
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return character.hasPenis();
+		}
 	},
 	
 	FETISH_MASTURBATION(60,
@@ -330,6 +335,11 @@ public enum Fetish implements PerkInterface {
 		}
 		
 		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return character.hasVagina();
+		}
+
+		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.TWO_HORNY;
 		}
@@ -354,7 +364,12 @@ public enum Fetish implements PerkInterface {
 				return UtilText.parse(owner, "[npc.Name] has a fetish for getting girls pregnant.");
 			}
 		}
-		
+
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return character.hasPenis();
+		}
+
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.TWO_HORNY;
@@ -408,6 +423,11 @@ public enum Fetish implements PerkInterface {
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.TWO_HORNY;
+		}
+
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return character.hasPenis();
 		}
 	},
 	
