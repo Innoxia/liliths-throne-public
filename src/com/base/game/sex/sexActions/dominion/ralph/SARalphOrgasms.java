@@ -315,12 +315,12 @@ public class SARalphOrgasms {
 								+ " Ralph just seems to want to get rid of them as soon as possible, and forgets to knock off the portion of your discount he just gave away!"
 								+ " The reason for his oversight is soon made clear..."
 								+ "</br></br>"
-								+ "<b>There are now</b> <b style='color:" + Colour.GENERIC_GOOD() + ";'>no customers</b> <b>near the counter.</b>"
+								+ "<b>There are now</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>no customers</b> <b>near the counter.</b>"
 										+ "</br></br>");
 					else
 						UtilText.nodeContentSB.append("Ralph quickly finishes up with the customer, and as you hear them start to walk away, you realise that by staying quiet, they didn't find out that you were here!"
 								+ "</br></br>"
-								+ "<b>There are now</b> <b style='color:" + Colour.GENERIC_GOOD() + ";'>no customers</b> <b>near the counter.</b>"
+								+ "<b>There are now</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>no customers</b> <b>near the counter.</b>"
 										+ "</br></br>");
 				}
 				
@@ -356,13 +356,13 @@ public class SARalphOrgasms {
 			if(((Ralph)Main.game.getRalph()).isDiscountActive() && (SexFlags.ralphDiscount<Main.game.getDialogueFlags().ralphDiscount)){
 				UtilText.nodeContentSB.append(
 						"</br></br>"
-						+ "<b style='color:" + Colour.TEXT_GREY() + ";'>You have earned a "+SexFlags.ralphDiscount+"% discount for the next three days!</b>"
+						+ "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You have earned a "+SexFlags.ralphDiscount+"% discount for the next three days!</b>"
 						+ "</br></br>"
-						+ "<b>Because Ralph was already giving you the bigger discount of </b> <b style='color:" + Colour.GENERIC_GOOD() + ";'>"
+						+ "<b>Because Ralph was already giving you the bigger discount of </b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
 							+Main.game.getDialogueFlags().ralphDiscount+"%</b><b>, he instead agrees to refresh that for the next three days!</b>");
 				
 			} else {
-				UtilText.nodeContentSB.append("</br></br><b>You have earned a</b> <b style='color:" + Colour.GENERIC_GOOD() + ";'>"+SexFlags.ralphDiscount+"%</b> <b>discount for the next three days!</b>");
+				UtilText.nodeContentSB.append("</br></br><b>You have earned a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"+SexFlags.ralphDiscount+"%</b> <b>discount for the next three days!</b>");
 			}
 			
 			return UtilText.nodeContentSB.toString();

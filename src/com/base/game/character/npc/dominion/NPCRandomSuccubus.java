@@ -439,7 +439,7 @@ public class NPCRandomSuccubus extends NPC {
 		
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN))
 			StringBuilderSB.append("<p style='text-align:center;'>"
-					+ "<b style='color:"+Colour.GENERIC_TERRIBLE()+";'>Broken Virgin</b>"
+					+ "<b style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
 				+ "</p>"
 				+ "<p>"
 					+ "As the succubus carries on pounding away between your legs, the sudden realisation of what's just happened hits you like a sledgehammer."
@@ -460,7 +460,7 @@ public class NPCRandomSuccubus extends NPC {
 				+ "<p>"
 				+ "You're vaguely aware of the succubus's taunts fading away as she starts to focus her concentration on fucking you."
 				+ " With a desperate moan, you start bucking your hips back against her, resigning yourself to the fact that now you're nothing more than a"
-				+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour()()+";'>broken virgin</b>..."
+				+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
 				+ "</p>");
 		
 		return UtilText.genderParsing(Sex.getPartner(),

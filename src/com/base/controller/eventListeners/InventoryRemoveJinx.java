@@ -24,11 +24,7 @@ public class InventoryRemoveJinx implements EventListener {
 	public void handleEvent(Event event) {
 		Main.game.getTextStartStringBuilder()
 				.append("<p>You concentrate on the magical energy in the " + (InventoryDialogue.isJinxRemovalFromFloor() ? InventoryDialogue.getWeaponFloor().getName() : InventoryDialogue.getWeapon().getName()) + ", channelling it into your "
-						+ InventoryDialogue.getJinxedClothing().get(index).getName()
-						+ ".</p>"
-						+ "<p><b style='color:"
-						+ Colour.GENERIC_ARCANE
-						+ ";'>With a sudden pink flash, the "
+						+ InventoryDialogue.getJinxedClothing().get(index).getName() + ".</p>" + "<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>With a sudden pink flash, the "
 						+ (InventoryDialogue.isJinxRemovalFromFloor() ? InventoryDialogue.getWeaponFloor().getName() : InventoryDialogue.getWeapon().getName()) + " vanishes, removing the jinx in the process.</b></p>");
 
 		if (InventoryDialogue.isJinxRemovalFromFloor()) {

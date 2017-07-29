@@ -285,21 +285,21 @@ public class GameCharacter implements Serializable {
 	public String getSpeechColour() {
 		if (Femininity.valueOf(getFemininity()) == Femininity.MASCULINE || Femininity.valueOf(getFemininity()) == Femininity.MASCULINE_STRONG) {
 			if(isPlayer())
-				return Colour.MASCULINE();
+				return Colour.MASCULINE.toWebHexString();
 			else
-				return Colour.MASCULINE_NPC();
+				return Colour.MASCULINE_NPC.toWebHexString();
 
 		} else if (Femininity.valueOf(getFemininity()) == Femininity.ANDROGYNOUS){
 			if(isPlayer())
-				return Colour.ANDROGYNOUS();
+				return Colour.ANDROGYNOUS.toWebHexString();
 			else
-				return Colour.ANDROGYNOUS_NPC();
+				return Colour.ANDROGYNOUS_NPC.toWebHexString();
 
 		} else {
 			if(isPlayer())
-				return Colour.FEMININE();
+				return Colour.FEMININE.toWebHexString();
 			else
-				return Colour.FEMININE_NPC();
+				return Colour.FEMININE_NPC.toWebHexString();
 		}
 	}
 
@@ -776,16 +776,16 @@ public class GameCharacter implements Serializable {
 		
 		if(isPlayer()) {
 			if(potionAttributes.get(att)<0)
-				return "You now have [style.boldBad("+potionAttributes.get(att)+")] <b style='color:"+att.getColour()()+";'>"+att.getName()+"</b> for as long as you can maintain your potion effects!";
+				return "You now have [style.boldBad("+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b> for as long as you can maintain your potion effects!";
 			else
-				return "You now have [style.boldGood(+"+potionAttributes.get(att)+")] <b style='color:"+att.getColour()()+";'>"+att.getName()+"</b> for as long as you can maintain your potion effects!";
+				return "You now have [style.boldGood(+"+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b> for as long as you can maintain your potion effects!";
 		} else {
 			if(potionAttributes.get(att)<0)
 				return UtilText.parse(this,
-						"[npc.Name] now has [style.boldBad("+potionAttributes.get(att)+")] <b style='color:"+att.getColour()()+";'>"+att.getName()+"</b> for as long as [npc.she] can maintain [npc.her] potion effects!");
+						"[npc.Name] now has [style.boldBad("+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b> for as long as [npc.she] can maintain [npc.her] potion effects!");
 			else
 				return UtilText.parse(this,
-						"[npc.Name] now has [style.boldGood(+"+potionAttributes.get(att)+")] <b style='color:"+att.getColour()()+";'>"+att.getName()+"</b> for as long as [npc.she] can maintain [npc.her] potion effects!");
+						"[npc.Name] now has [style.boldGood(+"+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b> for as long as [npc.she] can maintain [npc.her] potion effects!");
 		}
 	}
 	
@@ -1155,14 +1155,14 @@ public class GameCharacter implements Serializable {
 
 				if (isPlayer()) {
 					return ("<p>"
-							+ "Due to your <b style='color:" + Colour.GENERIC_ARCANE() + ";'>masochist fetish</b>, incoming damage is reduced by 40%, but in turn, you take"
-									+ " <b>"+-(manaLoss)+"</b> <b style='color:" + Colour.DAMAGE_TYPE_MANA() + ";'>willpower damage</b> as you struggle to control your arousal!"
+							+ "Due to your <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>masochist fetish</b>, incoming damage is reduced by 40%, but in turn, you take"
+									+ " <b>"+-(manaLoss)+"</b> <b style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</b> as you struggle to control your arousal!"
 							+ "</p>");
 				} else {
 					return (UtilText.genderParsing(this,
 							"<p>"
-								+ "Due to <her> <b style='color:" + Colour.GENERIC_ARCANE() + ";'>masochist fetish</b>, incoming damage is reduced by 40%, but in turn, <she> takes"
-								+ " <b>"+-(manaLoss)+"</b> <b style='color:" + Colour.DAMAGE_TYPE_MANA() + ";'>willpower damage</b> as <she> struggles to control <her> arousal!"
+								+ "Due to <her> <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>masochist fetish</b>, incoming damage is reduced by 40%, but in turn, <she> takes"
+								+ " <b>"+-(manaLoss)+"</b> <b style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</b> as <she> struggles to control <her> arousal!"
 							+ "</p>"));
 				}
 			// Sadist:
@@ -1175,8 +1175,8 @@ public class GameCharacter implements Serializable {
 					
 					return (UtilText.parse(this,
 							"<p>"
-								+ "Due to [npc.her] <b style='color:" + Colour.GENERIC_ARCANE() + ";'>sadist fetish</b>, [npc.she] suffers 10% of dealt damage as willpower damage, causing [npc.herHim] to take"
-								+ " <b>"+-(manaLoss)+"</b> <b style='color:" + Colour.DAMAGE_TYPE_MANA() + ";'>willpower damage</b> as [npc.she] struggles to control [npc.her] arousal!"
+								+ "Due to [npc.her] <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>sadist fetish</b>, [npc.she] suffers 10% of dealt damage as willpower damage, causing [npc.herHim] to take"
+								+ " <b>"+-(manaLoss)+"</b> <b style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</b> as [npc.she] struggles to control [npc.her] arousal!"
 							+ "</p>"));
 					
 				} else {
@@ -1184,8 +1184,8 @@ public class GameCharacter implements Serializable {
 					setHealth(getHealth() + increment);
 					
 					return ("<p>"
-							+ "Due to your <b style='color:" + Colour.GENERIC_ARCANE() + ";'>sadist fetish</b>, you suffer 10% of dealt damage as willpower damage, causing you to take"
-									+ " <b>"+-(manaLoss)+"</b> <b style='color:" + Colour.DAMAGE_TYPE_MANA() + ";'>willpower damage</b> as you struggle to control your arousal!"
+							+ "Due to your <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>sadist fetish</b>, you suffer 10% of dealt damage as willpower damage, causing you to take"
+									+ " <b>"+-(manaLoss)+"</b> <b style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</b> as you struggle to control your arousal!"
 							+ "</p>");
 				}
 				
@@ -1527,14 +1527,14 @@ public class GameCharacter implements Serializable {
 				return "<p style='text-align:center;'>"
 							+ "You drop your " + item.getName() + " on the floor."
 							+ "</br>"
-							+ "<span style='color:" + Colour.GENERIC_TERRIBLE() + ";'>The " + item.getName() + " will be lost if you leave this location!</span>"
+							+ "<span style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>The " + item.getName() + " will be lost if you leave this location!</span>"
 						+ "</p>";
 			} else {
 				return UtilText.parse(this,
 					"<p style='text-align:center;'>"
 						+ "[npc.Name] drops [npc.her] " + item.getName() + " on the floor."
 						+ "</br>"
-						+ "<span style='color:" + Colour.GENERIC_TERRIBLE() + ";'>The " + item.getName() + " will be lost if you leave this location!</span>"
+						+ "<span style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>The " + item.getName() + " will be lost if you leave this location!</span>"
 					+ "</p>");
 			}
 			
@@ -1543,14 +1543,14 @@ public class GameCharacter implements Serializable {
 				return "<p style='text-align:center;'>"
 							+ "You drop your " + item.getName() + " on the floor."
 							+ "</br>"
-							+ "<span style='color:" + Colour.GENERIC_EXCELLENT() + ";'>The " + item.getName() + " will be stored safely in this location!</span>"
+							+ "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>The " + item.getName() + " will be stored safely in this location!</span>"
 						+ "</p>";
 			} else {
 				return UtilText.parse(this,
 					"<p style='text-align:center;'>"
 						+ "[npc.Name] drops [npc.her] " + item.getName() + " on the floor."
 						+ "</br>"
-						+ "<span style='color:" + Colour.GENERIC_TERRIBLE() + ";'>The " + item.getName() + " will be stored safely in this location!</span>"
+						+ "<span style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>The " + item.getName() + " will be stored safely in this location!</span>"
 					+ "</p>");
 			}
 		}
@@ -1558,23 +1558,23 @@ public class GameCharacter implements Serializable {
 
 	public String addedItemToInventoryText(AbstractCoreItem item) {
 		if(item instanceof AbstractItem) {
-			return "<b style='color:" + Colour.GENERIC_GOOD() + ";'>Item added to inventory:</b> <b>" + ((AbstractItem)item).getDisplayName(true) + "</b>";
+			return "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to inventory:</b> <b>" + ((AbstractItem)item).getDisplayName(true) + "</b>";
 		}
 		if(item instanceof AbstractClothing) {
-			return "<b style='color:" + Colour.GENERIC_GOOD() + ";'>Clothing added to inventory:</b> <b>" + ((AbstractClothing)item).getDisplayName(true) + "</b>";
+			return "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Clothing added to inventory:</b> <b>" + ((AbstractClothing)item).getDisplayName(true) + "</b>";
 		}
 		if(item instanceof AbstractWeapon) {
-			return "<b style='color:" + Colour.GENERIC_GOOD() + ";'>Weapon added to inventory:</b> <b>" + ((AbstractWeapon)item).getDisplayName(true) + "</b>";
+			return "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Weapon added to inventory:</b> <b>" + ((AbstractWeapon)item).getDisplayName(true) + "</b>";
 		}
-		return "<b style='color:" + Colour.GENERIC_GOOD() + ";'>Item added to inventory:</b> <b>" + item.getName() + "</b>";
+		return "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to inventory:</b> <b>" + item.getName() + "</b>";
 	}
 
 	public String addedItemToInventoryText(ItemType item) {
-		return "<p style='text-align:center;'>" + "<span style='color:" + Colour.GENERIC_GOOD() + ";'>You add the " + item.getName(false) + " to your inventory.</span>" + "</p>";
+		return "<p style='text-align:center;'>" + "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You add the " + item.getName(false) + " to your inventory.</span>" + "</p>";
 	}
 
 	public String inventoryFullText() {
-		return "<p style='text-align:center;'>" + "<b style='color:" + Colour.GENERIC_BAD() + ";'>Your inventory is full!</b>" + "</p>";
+		return "<p style='text-align:center;'>" + "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full!</b>" + "</p>";
 	}
 	
 	public void resetInventory(){
@@ -1767,9 +1767,9 @@ public class GameCharacter implements Serializable {
 				Main.game.getPlayer().setNewItemDiscovered(true);
 				Main.game.getTextEndStringBuilder().append(
 						"<p style='text-align:center;'>"
-							+ "<b style='color:"+Colour.GENERIC_EXCELLENT()+";'>New entry in your phone's encyclopedia:</b>"
+							+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
 							+ "</br>"
-							+ "<b>Item:</b> <b style='color:"+item.getRarity().getColour()()+";'>"+Util.capitaliseSentence(item.getName())+"</b>"
+							+ "<b>Item:</b> <b style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(item.getName())+"</b>"
 						+ "</p>");
 			}
 		}
@@ -2043,9 +2043,9 @@ public class GameCharacter implements Serializable {
 					Main.game.getPlayer().setNewClothingDiscovered(true);
 					Main.game.getTextEndStringBuilder().append(
 							"<p style='text-align:center;'>"
-								+ "<b style='color:"+Colour.GENERIC_EXCELLENT()+";'>New entry in your phone's encyclopedia:</b>"
+								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
 								+ "</br>"
-								+ "<b>Clothing:</b> <b style='color:"+newClothing.getRarity().getColour()()+";'>"+Util.capitaliseSentence(newClothing.getName())+"</b>"
+								+ "<b>Clothing:</b> <b style='color:"+newClothing.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(newClothing.getName())+"</b>"
 							+ "</p>");
 				}
 			}
@@ -2075,9 +2075,9 @@ public class GameCharacter implements Serializable {
 					Main.game.getPlayer().setNewClothingDiscovered(true);
 					Main.game.getTextEndStringBuilder().append(
 							"<p style='text-align:center;'>"
-								+ "<b style='color:"+Colour.GENERIC_EXCELLENT()+";'>New entry in your phone's encyclopedia:</b>"
+								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
 								+ "</br>"
-								+ "<b>Clothing:</b> <b style='color:"+newClothing.getRarity().getColour()()+";'>"+Util.capitaliseSentence(newClothing.getName())+"</b>"
+								+ "<b>Clothing:</b> <b style='color:"+newClothing.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(newClothing.getName())+"</b>"
 							+ "</p>");
 				}
 			}
@@ -2108,9 +2108,9 @@ public class GameCharacter implements Serializable {
 					Main.game.getPlayer().setNewClothingDiscovered(true);
 					Main.game.getTextEndStringBuilder().append(
 							"<p style='text-align:center;'>"
-								+ "<b style='color:"+Colour.GENERIC_EXCELLENT()+";'>New entry in your phone's encyclopedia:</b>"
+								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
 								+ "</br>"
-								+ "<b>Clothing:</b> <b style='color:"+newClothing.getRarity().getColour()()+";'>"+Util.capitaliseSentence(newClothing.getName())+"</b>"
+								+ "<b>Clothing:</b> <b style='color:"+newClothing.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(newClothing.getName())+"</b>"
 							+ "</p>");
 				}
 			}
@@ -2724,13 +2724,13 @@ public class GameCharacter implements Serializable {
 					if(displayColourDiscovered) {
 						if(isPlayer()) {
 							postTFSB.append("<b>You have discovered that your natural</b>"
-											+" <b style='color:"+bp.getType().getRace().getColour()()+";'>"+bp.getType().getRace().getName()+"'s</b> <b>"+bp.getName(this)+" colour is</b>"
-											+ " <b style='color:"+getSkinColour(bp.getType().getSkinType())()+";'>"+getSkinColour(bp.getType().getSkinType()).getName()+"</b><b>!</b>");
+											+" <b style='color:"+bp.getType().getRace().getColour().toWebHexString()+";'>"+bp.getType().getRace().getName()+"'s</b> <b>"+bp.getName(this)+" colour is</b>"
+											+ " <b style='color:"+getSkinColour(bp.getType().getSkinType()).toWebHexString()+";'>"+getSkinColour(bp.getType().getSkinType()).getName()+"</b><b>!</b>");
 						} else {
 							postTFSB.append(UtilText.parse(this,
 									"<b>[npc.Name] has discovered that [npc.her] natural</b>"
-									+" <b style='color:"+bp.getType().getRace().getColour()()+";'>"+bp.getType().getRace().getName()+"'s</b> <b>"+bp.getName(this)+" colour is</b>"
-									+ " <b style='color:"+getSkinColour(bp.getType().getSkinType())()+";'>"+getSkinColour(bp.getType().getSkinType()).getName()+"</b><b>!</b>"));
+									+" <b style='color:"+bp.getType().getRace().getColour().toWebHexString()+";'>"+bp.getType().getRace().getName()+"'s</b> <b>"+bp.getName(this)+" colour is</b>"
+									+ " <b style='color:"+getSkinColour(bp.getType().getSkinType()).toWebHexString()+";'>"+getSkinColour(bp.getType().getSkinType()).getName()+"</b><b>!</b>"));
 						}
 					}
 				}
@@ -2768,24 +2768,24 @@ public class GameCharacter implements Serializable {
 		if (body.getFemininity() < femininity) {
 			if (body.setFemininity(femininity))
 				return isPlayer()
-						? "<p>" + "You feel your body slim down and shift to become <b style='color:" + Colour.FEMININE() + ";'>more feminine</b>." + "</br>" + "You have <b style='color:"
-								+ Femininity.valueOf(getFemininity()).getColour()() + ";'>" + Femininity.getFemininityName(getFemininity(), true) + "</b> body." + "</p>"
-						: UtilText.genderParsing(this, "<p>" + "<Her> body shifts to become <b style='color:" + Colour.FEMININE() + ";'>more feminine</b>." + "</p>");
+						? "<p>" + "You feel your body slim down and shift to become <b style='color:" + Colour.FEMININE.toWebHexString() + ";'>more feminine</b>." + "</br>" + "You have <b style='color:"
+								+ Femininity.valueOf(getFemininity()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininity(), true) + "</b> body." + "</p>"
+						: UtilText.genderParsing(this, "<p>" + "<Her> body shifts to become <b style='color:" + Colour.FEMININE.toWebHexString() + ";'>more feminine</b>." + "</p>");
 		} else {
 			if (body.setFemininity(femininity))
 				return isPlayer()
-						? "<p>" + "You feel your body getting broader and shifting to become <b style='color:" + Colour.MASCULINE() + ";'>more masculine</b>." + "</br>" + "You have <b style='color:"
-								+ Femininity.valueOf(getFemininity()).getColour()() + ";'>" + Femininity.getFemininityName(getFemininity(), true) + "</b> body." + "</p>"
-						: UtilText.genderParsing(this, "<p>" + "<Her> body shifts to become <b style='color:" + Colour.MASCULINE() + ";'>more masculine</b>." + "</p>");
+						? "<p>" + "You feel your body getting broader and shifting to become <b style='color:" + Colour.MASCULINE.toWebHexString() + ";'>more masculine</b>." + "</br>" + "You have <b style='color:"
+								+ Femininity.valueOf(getFemininity()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininity(), true) + "</b> body." + "</p>"
+						: UtilText.genderParsing(this, "<p>" + "<Her> body shifts to become <b style='color:" + Colour.MASCULINE.toWebHexString() + ";'>more masculine</b>." + "</p>");
 		}
 		
 		if(isPlayer()) {
 			return "<p class='center'>"
-					+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Your femininity doesn't change...</span>"
+					+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Your femininity doesn't change...</span>"
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name]'s femininity doesn't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name]'s femininity doesn't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -2824,25 +2824,25 @@ public class GameCharacter implements Serializable {
 		if (body.getHeight() < height) {
 			if (body.setHeight(height))
 				return isPlayer()
-						? "<p>" + "The world around you seems slightly further away than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>grown taller</b>."
+						? "<p>" + "The world around you seems slightly further away than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>."
 								+ "</br>" + "You are now <b>" + getHeight() + "cm</b> tall." + "</p>"
 						: UtilText.genderParsing(this,
-								"<p>" + "<She> sways from side to side a little, <her> balance suddenly thrown off by the fact that she's just <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>grown taller</b>." + "</p>");
+								"<p>" + "<She> sways from side to side a little, <her> balance suddenly thrown off by the fact that she's just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>." + "</p>");
 		} else {
 			if (body.setHeight(height))
 				return isPlayer()
-						? "<p>" + "The world around you suddenly seems slightly closer than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>become shorter</b>."
+						? "<p>" + "The world around you suddenly seems slightly closer than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>become shorter</b>."
 								+ "</br>" + "You are now <b>" + getHeight() + "cm</b> tall." + "</p>"
-						: UtilText.genderParsing(this, "<p>" + "<She> shrinks down, <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>becoming noticeably shorter</b>." + "</p>");
+						: UtilText.genderParsing(this, "<p>" + "<She> shrinks down, <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>becoming noticeably shorter</b>." + "</p>");
 		}
 		
 		if(isPlayer()) {
 			return "<p class='center'>"
-					+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Your height doesn't change...</span>"
+					+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Your height doesn't change...</span>"
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name]'s height doesn't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name]'s height doesn't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -2882,12 +2882,12 @@ public class GameCharacter implements Serializable {
 			body.getFace().setPiercedNose(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your nose is now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "Your nose is now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> nose is now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "<Her> nose is now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>");
 			}
 			
@@ -2895,17 +2895,17 @@ public class GameCharacter implements Serializable {
 			body.getFace().setPiercedNose(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your nose is <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "Your nose is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> nose is <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "<Her> nose is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>");
 			}
 		} else {
 			return "<p>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>"
 					+ "</p>";
 		}
 	}
@@ -2922,12 +2922,12 @@ public class GameCharacter implements Serializable {
 			body.getEar().setPierced(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your ears are now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "Your ears are now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> ears are now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "<Her> ears are now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>");
 			}
 			
@@ -2935,17 +2935,17 @@ public class GameCharacter implements Serializable {
 			body.getEar().setPierced(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your ears are <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "Your ears are <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> ears are <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "<Her> ears are <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>");
 			}
 		} else {
 			return "<p>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>"
 					+ "</p>";
 		}
 	}
@@ -2962,12 +2962,12 @@ public class GameCharacter implements Serializable {
 			body.getFace().getTongue().setPierced(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your tongue is now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "Your tongue is now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> tongue is now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "<Her> tongue is now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>");
 			}
 			
@@ -2975,17 +2975,17 @@ public class GameCharacter implements Serializable {
 			body.getFace().getTongue().setPierced(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your tongue is <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "Your tongue is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> tongue is <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "<Her> tongue is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>");
 			}
 		} else {
 			return "<p>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>"
 					+ "</p>";
 		}
 	}
@@ -3002,12 +3002,12 @@ public class GameCharacter implements Serializable {
 			body.getFace().setPiercedLip(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your lips are now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "Your lips are now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> lips are now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "<Her> lips are now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>");
 			}
 			
@@ -3015,17 +3015,17 @@ public class GameCharacter implements Serializable {
 			body.getFace().setPiercedLip(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your lips are <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "Your lips are <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> lips are <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "<Her> lips are <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>");
 			}
 		} else {
 			return "<p>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>"
 					+ "</p>";
 		}
 	}
@@ -3042,12 +3042,12 @@ public class GameCharacter implements Serializable {
 			body.setPiercedStomach(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your navel is now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "Your navel is now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> navel is now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "<Her> navel is now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>");
 			}
 			
@@ -3055,17 +3055,17 @@ public class GameCharacter implements Serializable {
 			body.setPiercedStomach(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your navel is <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "Your navel is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> navel is <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "<Her> navel is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>");
 			}
 		} else {
 			return "<p>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>"
 					+ "</p>";
 		}
 	}
@@ -3082,12 +3082,12 @@ public class GameCharacter implements Serializable {
 			body.getBreast().setPierced(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your nipples are now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "Your nipples are now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> nipples are now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "<Her> nipples are now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>");
 			}
 			
@@ -3095,17 +3095,17 @@ public class GameCharacter implements Serializable {
 			body.getBreast().setPierced(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your nipples are <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "Your nipples are <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> nipples are <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "<Her> nipples are <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>");
 			}
 		} else {
 			return "<p>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>"
 					+ "</p>";
 		}
 	}
@@ -3122,12 +3122,12 @@ public class GameCharacter implements Serializable {
 			body.getVagina().setPierced(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your vagina is now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "Your vagina is now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> vagina is now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "<Her> vagina is now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>");
 			}
 			
@@ -3135,17 +3135,17 @@ public class GameCharacter implements Serializable {
 			body.getVagina().setPierced(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your vagina is <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "Your vagina is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> vagina is <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "<Her> vagina is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>");
 			}
 		} else {
 			return "<p>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>"
 					+ "</p>";
 		}
 	}
@@ -3162,12 +3162,12 @@ public class GameCharacter implements Serializable {
 			body.getPenis().setPierced(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your penis is now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "Your penis is now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> penis is now <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>pierced</b>."
+							+ "<Her> penis is now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>");
 			}
 			
@@ -3175,17 +3175,17 @@ public class GameCharacter implements Serializable {
 			body.getPenis().setPierced(pierced);
 			if(isPlayer()) {
 				return "<p>"
-							+ "Your penis is <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "Your penis is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>";
 			}else {
 				return UtilText.genderParsing(this,
 						"<p>"
-							+ "<Her> penis is <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>no longer pierced</b>."
+							+ "<Her> penis is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>");
 			}
 		} else {
 			return "<p>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>"
 					+ "</p>";
 		}
 	}
@@ -3205,11 +3205,11 @@ public class GameCharacter implements Serializable {
 		if (type == getArmType()) {
 			if (isPlayer()) {
 				return "<p style='text-align:center;'>"
-							+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already have the [pc.arms] of a [pc.armRace], so nothing happens...</span>"
+							+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already have the [pc.arms] of a [pc.armRace], so nothing happens...</span>"
 						+ "</p>";
 			} else {
 				return "<p style='text-align:center;'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already has the [npc.arms] of a [npc.armRace], so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already has the [npc.arms] of a [npc.armRace], so nothing happens...</span>")
 					+ "</p>";
 			}
 			
@@ -3226,18 +3226,18 @@ public class GameCharacter implements Serializable {
 		case HUMAN:
 			transformationSB.append(isPlayer()
 					? " Within moments, your upper limbs have turned back into normal human arms, complete with regular human hands." + " They're covered in a layer of ordinary " + getSkinColour(BodyCoveringType.HUMAN).getName() + " skin." + "</br>"
-							+ "You now have <b style='color:" + Colour.TRANSFORMATION_LESSER() + ";'>human arms</b>."
+							+ "You now have <b style='color:" + Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>human arms</b>."
 					: UtilText.genderParsing(this, " Within moments, <her> upper limbs have turned into human arms, complete with regular human hands." + " They're covered in a layer of ordinary "
-							+ getSkinColour(BodyCoveringType.HUMAN).getName() + " skin." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_LESSER() + ";'>human arms</b>."));
+							+ getSkinColour(BodyCoveringType.HUMAN).getName() + " skin." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>human arms</b>."));
 			break;
 		case DEMON_COMMON:
 			transformationSB.append(isPlayer()
 					? " You feel your upper limbs slimming down to become slender, human-like arms. Your hands similarly transform into more delicate versions of their human counterparts." + " As the transformation finishes, a layer of flawless "
-							+ getSkinColour(BodyCoveringType.DEMON_COMMON).getName() + " skin rapidly grows to cover your perfectly-formed appendages." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_LESSER()
+							+ getSkinColour(BodyCoveringType.DEMON_COMMON).getName() + " skin rapidly grows to cover your perfectly-formed appendages." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_LESSER.toWebHexString()
 							+ ";'>demonic arms</b>."
 					: UtilText.genderParsing(this,
 							" <Her> upper limbs slim down to become slender, human-like arms. <Her> hands similarly transform into more delicate versions of their human counterparts." + " As the transformation finishes, a layer of flawless "
-									+ getSkinColour(BodyCoveringType.DEMON_COMMON).getName() + " skin rapidly grows to cover <her> perfectly-formed appendages." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_LESSER()
+									+ getSkinColour(BodyCoveringType.DEMON_COMMON).getName() + " skin rapidly grows to cover <her> perfectly-formed appendages." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_LESSER.toWebHexString()
 									+ ";'>demonic arms</b>."));
 			break;
 		case DOG_MORPH:
@@ -3246,13 +3246,13 @@ public class GameCharacter implements Serializable {
 							+ getArmType().getSkinType().getName(this) + "." + " As your new fur finishes growing over the backs of your hands, little blunt claws grow to replace your fingernails."
 							+ " Turning your hands over, you see your palms rapidly transforming into little leathery pads, and before you know it, you're left with a pair of anthropomorphic, dog-like hands."
 							+ " At your upper-biceps, your new fur smoothly transitions into the " + getSkinType().getName(this) + " that's covering the rest of your body." + "</br>" + "You now have anthropomorphic <b style='color:"
-							+ Colour.TRANSFORMATION_LESSER() + ";'>dog-like arms</b>."
+							+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>dog-like arms</b>."
 					: UtilText.genderParsing(this,
 							" A layer of " + getSkinColour(BodyCoveringType.CANINE_FUR).getName() + " fur quickly grows over <her> arms and hands to replace <her> old " + getSkinColour(getArmType().getSkinType()).getName() + " "
 									+ getArmType().getSkinType().getName(this) + "." + " As the new fur finishes growing over the backs of <her> hands, little blunt claws grow to replace <her> fingernails."
 									+ " <She> turns <her> hands over to reveal that <her> palms are rapidly transforming into little leathery pads, and after only a moment, <she>'s left with a pair of anthropomorphic, dog-like hands."
 									+ " At <her> upper-biceps, <her> new fur smoothly transitions into the " + getSkinType().getName(this) + " that's covering covering the rest of <her> body." + "</br>" + "<She> now has anthropomorphic <b style='color:"
-									+ Colour.TRANSFORMATION_LESSER() + ";'>dog-like arms</b>."));
+									+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>dog-like arms</b>."));
 			break;
 		case LYCAN:
 			transformationSB.append(isPlayer()
@@ -3260,13 +3260,13 @@ public class GameCharacter implements Serializable {
 							+ getArmType().getSkinType().getName(this) + "." + " As your new fur finishes growing over the backs of your hands, sharp claws grow to replace your fingernails."
 							+ " Turning your hands over, you see your palms rapidly transforming into tough leathery pads, and before you know it, you're left with a pair of anthropomorphic, wolf-like hands."
 							+ " At your upper-biceps, your new fur smoothly transitions into the " + getSkinType().getName(this) + " that's covering the rest of your body." + "</br>" + "You now have anthropomorphic <b style='color:"
-							+ Colour.TRANSFORMATION_LESSER() + ";'>wolf-like arms</b>."
+							+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>wolf-like arms</b>."
 					: UtilText.genderParsing(this,
 							" A layer of shaggy " + getSkinColour(BodyCoveringType.LYCAN_FUR).getName() + " fur quickly grows over <her> arms and hands to replace <her> old " + getSkinColour(getArmType().getSkinType()).getName() + " "
 									+ getArmType().getSkinType().getName(this) + "." + " As the new fur finishes growing over the backs of <her> hands, sharp claws grow to replace <her> fingernails."
 									+ " <She> turns <her> hands over to reveal that <her> palms are rapidly transforming into tough leathery pads, and after only a moment, <she>'s left with a pair of anthropomorphic, wolf-like hands."
 									+ " At <her> upper-biceps, <her> new fur smoothly transitions into the " + getSkinType().getName(this) + " that's covering the rest of <her> body." + "</br>" + "<She> now has anthropomorphic <b style='color:"
-									+ Colour.TRANSFORMATION_LESSER() + ";'>wolf-like arms</b>."));
+									+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>wolf-like arms</b>."));
 			break;
 		case CAT_MORPH:
 			transformationSB.append(isPlayer()
@@ -3274,25 +3274,25 @@ public class GameCharacter implements Serializable {
 							+ getArmType().getSkinType().getName(this) + "." + " As your new fur finishes growing over the backs of your hands, sharp, retractable claws grow to replace your fingernails."
 							+ " Turning your hands over, you see your palms rapidly transforming into little pink pads, and before you know it, you're left with a pair of anthropomorphic, cat-like hands."
 							+ " At your upper-biceps, your new fur smoothly transitions into the " + getSkinType().getName(this) + " that's covering the rest of your body." + "</br>" + "You now have anthropomorphic <b style='color:"
-							+ Colour.TRANSFORMATION_LESSER() + ";'>cat-like arms</b>."
+							+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>cat-like arms</b>."
 					: UtilText.genderParsing(this,
 							" A layer of smooth " + getSkinColour(BodyCoveringType.FELINE_FUR).getName() + " fur quickly grows over <her> arms and hands to replace <her> old " + getSkinColour(getArmType().getSkinType()).getName() + " "
 									+ getArmType().getSkinType().getName(this) + "." + " As the new fur finishes growing over the backs of <her> hands, sharp, retractable claws grow to replace <her> fingernails."
 									+ " <She> turns <her> hands over to reveal that <her> palms are rapidly transforming into little pink pads, and after only a moment, <she>'s left with a pair of anthropomorphic, cat-like hands."
 									+ " At <her> upper-biceps, <her> new fur smoothly transitions into the " + getSkinType().getName(this) + " that's covering the rest of <her> body." + "</br>" + "<She> now has anthropomorphic <b style='color:"
-									+ Colour.TRANSFORMATION_LESSER() + ";'>cat-like arms</b>."));
+									+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>cat-like arms</b>."));
 			break;
 		case HORSE_MORPH:
 			transformationSB.append(isPlayer()
 					? " A layer of short " + getSkinColour(BodyCoveringType.HORSE_HAIR).getName() + " horse-hair quickly grows over your arms and hands to replace your old " + getSkinColour(getArmType().getSkinType()).getName() + " "
 							+ getArmType().getSkinType().getName(this) + "." + " As your new hair finishes growing over the backs of your hands, your fingernails grow thicker and transform into tough, hoof-like nails, but despite their appearance,"
 							+ " you're relieved to find that they've lost none of their dexterity." + " At your upper-biceps, your new horse-hair smoothly transitions into the " + getSkinType().getName(this) + " that's covering the rest of your body."
-							+ "</br>" + "You now have anthropomorphic <b style='color:" + Colour.TRANSFORMATION_LESSER() + ";'>horse-like arms</b>."
+							+ "</br>" + "You now have anthropomorphic <b style='color:" + Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>horse-like arms</b>."
 					: UtilText.genderParsing(this,
 							" A layer of short " + getSkinColour(BodyCoveringType.HORSE_HAIR).getName() + " horse-hair quickly grows over <her> arms and hands to replace <her> old " + getSkinColour(getArmType().getSkinType()).getName() + " "
 									+ getArmType().getSkinType().getName(this) + "." + " As the new hair finishes growing over the backs of <her> hands, <her> fingernails grow thicker and transform into tough, hoof-like nails."
 									+ " At <her> upper-biceps, <her> new horse-hair smoothly transitions into the " + getSkinType().getName(this) + " that's covering the rest of <her> body." + "</br>" + "<She> now has anthropomorphic <b style='color:"
-									+ Colour.TRANSFORMATION_LESSER() + ";'>horse-like arms</b>."));
+									+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>horse-like arms</b>."));
 			break;
 		case HARPY:
 			transformationSB.append(isPlayer()
@@ -3304,7 +3304,7 @@ public class GameCharacter implements Serializable {
 							+ " Where your hands once were, your fingers have shrunk down into the middle-joint of your new appendages. All that's left is a feathered opposable thumb, which ends in a blunt claw."
 							+ " By folding your wings back onto themselves, you can thankfully still use your thumb to grasp and manipulate objects."
 							+ " Where your new wings meet your body at the shoulder, your feathers smoothly cover the transition into the " + getSkinType().getName(this) + " that's covering your torso." + "</br>"
-							+ "You now have a pair of <b style='color:" + Colour.TRANSFORMATION_LESSER() + ";'>harpy wings</b> in place of arms."
+							+ "You now have a pair of <b style='color:" + Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>harpy wings</b> in place of arms."
 					: UtilText.genderParsing(this,
 							" A layer of " + getSkinColour(BodyCoveringType.FEATHERS).getName() + " feathers suddenly sprout out all over <her> arms and hands, quickly replacing <her> old " + getSkinColour(getArmType().getSkinType()).getName() + " "
 									+ getArmType().getSkinType().getName(this) + "."
@@ -3314,7 +3314,7 @@ public class GameCharacter implements Serializable {
 									+ " Where <her> hands once were, <her> fingers have shrunk down into the middle-joint of <her> new appendages. All that's left is a feathered opposable thumb, which ends in a blunt claw."
 									+ " By folding <her> wings back onto themselves, <she> can thankfully still use <her> thumb to grasp and manipulate objects."
 									+ " Where <her> new wings meet <her> body at the shoulder, <her> feathers smoothly cover the transition into the " + getSkinType().getName(this) + " that's covering <her> torso." + "</br>"
-									+ "<She> now has a pair of <b style='color:" + Colour.TRANSFORMATION_LESSER() + ";'>harpy wings</b> in place of arms."));
+									+ "<She> now has a pair of <b style='color:" + Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>harpy wings</b> in place of arms."));
 			break;
 		// case SLIME:
 		// if(getArmType()!=ArmType.HUMAN)
@@ -3353,10 +3353,10 @@ public class GameCharacter implements Serializable {
 		// break;
 		default:
 			transformationSB.append(isPlayer()
-					? " Your arms shift and change into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_LESSER() + ";'>" + type.getDeterminer(this) + " "
+					? " Your arms shift and change into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>" + type.getDeterminer(this) + " "
 							+ type.getName(this) + "</b>."
 					: UtilText.genderParsing(this, " <Her> arms shift and change into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "<She> now has <b style='color:"
-							+ Colour.TRANSFORMATION_LESSER() + ";'>" + type.getDeterminer(this) + " " + type.getName(this) + "</b>."));
+							+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>" + type.getDeterminer(this) + " " + type.getName(this) + "</b>."));
 		}
 		body.getArm().setType(type);
 		return transformationSB.toString() + "</br></br>" + postTransformationCalculation() + "</p>";
@@ -3400,12 +3400,12 @@ public class GameCharacter implements Serializable {
 		if (type == getAssType()) {
 			if(isPlayer()) {
 				return "<p style='text-align:center;'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already have the ass of a [pc.assRace], so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already have the ass of a [pc.assRace], so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p style='text-align:center;'>"
 						+ UtilText.parse(this,
-								"<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already has the ass of [npc.a_assRace], so nothing happens...</span>")
+								"<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already has the ass of [npc.a_assRace], so nothing happens...</span>")
 					+ "</p>";
 			}
 			
@@ -3560,10 +3560,10 @@ public class GameCharacter implements Serializable {
 
 		default:
 			transformationSB.append(isPlayer()
-					? "Your ass shifts and changes into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + type.getDeterminer(this) + " "
+					? "Your ass shifts and changes into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + type.getDeterminer(this) + " "
 							+ type.getName(this) + "</b>."
 					: UtilText.genderParsing(this, "<Her> ass shifts and changes into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + " <She> now has <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'>" + type.getDeterminer(this) + " " + type.getName(this) + "</b>."));
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + type.getDeterminer(this) + " " + type.getName(this) + "</b>."));
 		}
 		
 		body.getAss().setType(type);
@@ -3657,28 +3657,28 @@ public class GameCharacter implements Serializable {
 		if (getAssRawCapacityValue() < capacity) {
 			if (body.getAss().setCapacity(capacity))
 				if (isPlayer())
-					return "<p>" + "You let out a gasp as you feel your asshole dilate and stretch out with a mind of its own." + "</br>" + "From being stretched, <b style='color:" + Colour.TRANSFORMATION_SEXUAL()
+					return "<p>" + "You let out a gasp as you feel your asshole dilate and stretch out with a mind of its own." + "</br>" + "From being stretched, <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString()
 							+ ";'>your asshole is now " + getAssCapacity().getDescriptor() + "</b>!" + "</p>";
 				else
 					return UtilText.genderParsing(this, "<p>" + "<She> lets out a gasp as <her> asshole dilates and stretches out with a mind of its own." + "</br>" + "From being stretched, <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'><her> asshole is now " + getAssCapacity().getDescriptor() + "</b>!" + "</p>");
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'><her> asshole is now " + getAssCapacity().getDescriptor() + "</b>!" + "</p>");
 		} else {
 			if (body.getAss().setCapacity(capacity))
 				if (isPlayer())
-					return "<p>" + "You let out a cry as you feel your asshole uncontrollably tighten and clench." + "</br>" + "From tightening up, <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>your asshole is now "
+					return "<p>" + "You let out a cry as you feel your asshole uncontrollably tighten and clench." + "</br>" + "From tightening up, <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>your asshole is now "
 							+ getAssCapacity().getDescriptor() + "</b>!" + "</p>";
 				else
 					return UtilText.genderParsing(this, "<p>" + "<She> lets out a cry as <her> asshole uncontrollably tightens and clenches." + "</br>" + "From tightening up, <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'><her> asshole is now " + getAssCapacity().getDescriptor() + "</b>!" + "</p>");
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'><her> asshole is now " + getAssCapacity().getDescriptor() + "</b>!" + "</p>");
 		}
 		
 		if(isPlayer()) {
 			return "<p class='center'>"
-					+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Your [pc.asshole]'s capacity doesn't change...</span>"
+					+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Your [pc.asshole]'s capacity doesn't change...</span>"
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The capacity of [npc.name]'s [pc.asshole] doesn't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The capacity of [npc.name]'s [pc.asshole] doesn't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -3700,29 +3700,29 @@ public class GameCharacter implements Serializable {
 			if (body.getAss().setWetness(wetness)) {
 				if (isPlayer())
 					return "<p>" + "Your eyes widen as you feel moisture beading around your asshole, and you let out a lewd moan as you realise that your rear entrance is lubricating itself." + "</br>"
-							+ "After the transformation comes to an end, <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>your asshole is now " + getAssWetness().getDescriptor() + "</b>." + "</p>";
+							+ "After the transformation comes to an end, <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>your asshole is now " + getAssWetness().getDescriptor() + "</b>." + "</p>";
 				else
 					return UtilText.genderParsing(this, "<p>" + "<Her> eyes widen as moisture beads around <her> asshole, and <she> lets out a lewd moan as <she> realises that <her> rear entrance is lubricating itself."
-							+ "</br>" + "After the transformation comes to an end, <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'><her> asshole is now " + getAssWetness().getDescriptor() + "</b>." + "</p>");
+							+ "</br>" + "After the transformation comes to an end, <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'><her> asshole is now " + getAssWetness().getDescriptor() + "</b>." + "</p>");
 			}
 		} else {
 			if (body.getAss().setWetness(wetness)) {
 				if (isPlayer())
-					return "<p>" + "You fidget around uncomfortably as you feel your asshole drying up." + "</br>" + "After the transformation comes to an end, <b style='color:" + Colour.TRANSFORMATION_SEXUAL()
+					return "<p>" + "You fidget around uncomfortably as you feel your asshole drying up." + "</br>" + "After the transformation comes to an end, <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString()
 							+ ";'>your asshole is now " + getAssWetness().getDescriptor() + "</b>." + "</p>";
 				else
 					return UtilText.genderParsing(this, "<p>" + "<She> fidgets around uncomfortably as <she> feels <her> asshole drying up." + "</br>" + "After the transformation comes to an end, <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'><her> asshole is now " + getAssWetness().getDescriptor() + "</b>." + "</p>");
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'><her> asshole is now " + getAssWetness().getDescriptor() + "</b>." + "</p>");
 			}
 		}
 		
 		if(isPlayer()) {
 			return "<p class='center'>"
-					+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Your [pc.asshole]'s wetness doesn't change...</span>"
+					+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Your [pc.asshole]'s wetness doesn't change...</span>"
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The wetness of [npc.name]'s [npc.asshole] doesn't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The wetness of [npc.name]'s [npc.asshole] doesn't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -3744,28 +3744,28 @@ public class GameCharacter implements Serializable {
 			if (body.getAss().setAssSize(size))
 				if (isPlayer())
 					return "</p>" + "You feel a little off-balance as your rear end suddenly seems to get heavier, and as you give it an experimental shake, you find that your ass has definitely grown larger." + "</br>"
-							+ "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + getAssSize().getDescriptor() + " ass</b>!" + "</p>";
+							+ "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getAssSize().getDescriptor() + " ass</b>!" + "</p>";
 				else
 					return UtilText.genderParsing(this,
 							"</p>" + "<She> looks to be a little off-balance as <her> rear end suddenly seems to get larger, and as <she> gives it an experimental shake, <she> discovers that it's definitely grown bigger and heavier." + "</br>"
-									+ "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + getAssSize().getDescriptor() + " ass</b>!" + "</p>");
+									+ "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getAssSize().getDescriptor() + " ass</b>!" + "</p>");
 		} else {
 			if (body.getAss().setAssSize(size))
 				if (isPlayer())
 					return "<p>" + "You suddenly feel like a weight has been lifted from your rear end, and after giving it an experimental shake, you find that your ass has shrunk." + "</br>" + "You now have a <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'>" + getAssSize().getDescriptor() + " ass</b>!" + "</p>";
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getAssSize().getDescriptor() + " ass</b>!" + "</p>";
 				else
 					return UtilText.genderParsing(this, "<p>" + "<She> looks like a weight has been lifted from <her> rear end, and after giving it an experimental shake, <she> discovers that <her> ass has shrunk."
-							+ "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + getAssSize().getDescriptor() + " ass</b>!" + "</p>");
+							+ "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getAssSize().getDescriptor() + " ass</b>!" + "</p>");
 		}
 		
 		if(isPlayer()) {
 			return "<p class='center'>"
-					+ "<span style='color:" + Colour.TEXT_GREY() + ";'>The size of your ass doesn't change...</span>"
+					+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The size of your ass doesn't change...</span>"
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The size of [npc.name]'s ass doesn't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The size of [npc.name]'s ass doesn't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -3787,29 +3787,29 @@ public class GameCharacter implements Serializable {
 			if (body.getAss().setHipSize(size)) {
 				if (isPlayer())
 					return "<p>" + "You inhale sharply in surprise as you feel your hips push out and reshape themselves, growing wider right before your eyes." + "</br>" + "You now have <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'>" + getHipSize().getDescriptor() + " hips</b>!" + "</p>";
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getHipSize().getDescriptor() + " hips</b>!" + "</p>";
 				else
 					return UtilText.genderParsing(this, "<p>" + "<She> inhales sharply in surprise as <her> hips push out and reshape themselves, growing wider right before <her> eyes." + "</br>"
-							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + getHipSize().getDescriptor() + " hips</b>!" + "</p>");
+							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getHipSize().getDescriptor() + " hips</b>!" + "</p>");
 			}
 		} else {
 			if (body.getAss().setHipSize(size)) {
 				if (isPlayer())
 					return "<p>" + "You inhale sharply in surprise as you feel your hips collapse inwards and reshape themselves, narrowing down right before your eyes." + "</br>" + "You now have <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'>" + getHipSize().getDescriptor() + " hips</b>!" + "</p>";
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getHipSize().getDescriptor() + " hips</b>!" + "</p>";
 				else
 					return UtilText.genderParsing(this, "<p>" + "<She> inhales sharply in surprise as <her> hips collapse inwards and reshape themselves, narrowing down right before <her> eyes." + "</br>"
-							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + getHipSize().getDescriptor() + " hips</b>!" + "</p>");
+							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getHipSize().getDescriptor() + " hips</b>!" + "</p>");
 			}
 		}
 		
 		if(isPlayer()) {
 			return "<p class='center'>"
-					+ "<span style='color:" + Colour.TEXT_GREY() + ";'>The size of your hips doesn't change...</span>"
+					+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The size of your hips doesn't change...</span>"
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The size of [npc.name]'s hips doesn't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The size of [npc.name]'s hips doesn't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -3830,14 +3830,14 @@ public class GameCharacter implements Serializable {
 					return "</p>"
 								+ "You let out a little gasp as you feel a strange slackening sensation pulsating deep within your asshole."
 								+ "</br>"
-								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>asshole is now " + getAssElasticity().getDescriptor() + "</b>!"
+								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>asshole is now " + getAssElasticity().getDescriptor() + "</b>!"
 							+ "</p>";
 				else
 					return UtilText.genderParsing(this, 
 							"</p>"
 								+ "<She> lets out a little gasp as a strange slackening sensation pulsates deep within <her> asshole."
 								+ "</br>"
-								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>asshole is now " + getAssElasticity().getDescriptor() + "</b>!"
+								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>asshole is now " + getAssElasticity().getDescriptor() + "</b>!"
 							+ "</p>");
 			}
 		} else {
@@ -3846,25 +3846,25 @@ public class GameCharacter implements Serializable {
 					return "</p>"
 								+ "You let out a little gasp as you feel a strange clenching sensation pulsating deep within your asshole."
 								+ "</br>"
-								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>asshole is now " + getAssElasticity().getDescriptor() + "</b>!"
+								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>asshole is now " + getAssElasticity().getDescriptor() + "</b>!"
 							+ "</p>";
 				else
 					return UtilText.genderParsing(this,
 							"</p>"
 								+ "<She> lets out a little gasp as a strange clenching sensation pulsates deep within <her> asshole."
 								+ "</br>"
-								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>asshole is now " + getAssElasticity().getDescriptor() + "</b>!"
+								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>asshole is now " + getAssElasticity().getDescriptor() + "</b>!"
 							+ "</p>");
 			}
 		}
 		
 		if(isPlayer()) {
 			return "<p class='center'>"
-					+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Your [pc.asshole]'s elasticity doesn't change...</span>"
+					+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Your [pc.asshole]'s elasticity doesn't change...</span>"
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The elasticity of [npc.name]'s [pc.asshole] doesn't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The elasticity of [npc.name]'s [pc.asshole] doesn't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -3895,11 +3895,11 @@ public class GameCharacter implements Serializable {
 		if (type == getBreastType())
 			if(isPlayer()) { 
 				return "<p style='text-align:center;'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already have the breasts of a [pc.breastRace], so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already have the breasts of a [pc.breastRace], so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p style='text-align:center;'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already has the breasts of a [npc.breastRace], so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already has the breasts of a [npc.breastRace], so nothing happens...</span>")
 					+ "</p>";
 			}
 		
@@ -4058,9 +4058,9 @@ public class GameCharacter implements Serializable {
 	
 			default:
 				transformationSB.append(isPlayer()
-						? "Your chest shifts and changes into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + type.getName(this) + "</b>."
+						? "Your chest shifts and changes into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + type.getName(this) + "</b>."
 						: UtilText.genderParsing(this, "<Her> chest shifts and changes into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "<She> now has <b style='color:"
-								+ Colour.TRANSFORMATION_SEXUAL() + ";'>" + type.getName(this) + "</b>."));
+								+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + type.getName(this) + "</b>."));
 		}
 		body.getBreast().setType(type);
 		return transformationSB.toString()
@@ -4146,37 +4146,37 @@ public class GameCharacter implements Serializable {
 				transformation = "<p>" + "You feel a strange bubbling sensation within your " + (getBreastRawSizeValue() > 0 ? "breasts" : "chest") + ", and before you have time to react, "
 						+ (getBreastRows() == 3 ? (rows == 2 ? "the lowest of your extra pairs" : "your two extra pairs") : "your extra pair") + " of " + (getBreastRawSizeValue() > 0 ? "breasts" : "nipples") + " rapidly shrink away into the "
 						+ getSkinType().getName(this) + " of your torso." + "</br>" 
-						+ "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + Util.intToString(rows) + " pair"
+						+ "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + Util.intToString(rows) + " pair"
 						+ (rows > 1 ? "s" : "") + " of " + (getBreastRawSizeValue() > 0 ? "breasts" : "nipples") + "</b>." + "</p>";
 			else
 				transformation = UtilText.genderParsing(this,
 						"<p>" + "<She> glances down at <her> " + (getBreastRawSizeValue() > 0 ? "breasts" : "chest") + ", and before <she> has time to react, <her> "
 								+ (getBreastRows() == 3 ? (rows == 2 ? "the lowest of <her> extra pairs" : "<her> two extra pairs") : "<her> extra pair") + " of " + (getBreastRawSizeValue() > 0 ? "breasts" : "nipples")
-								+ " rapidly shrink away into the " + getSkinType().getName(this) + " of <her> torso." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>"
+								+ " rapidly shrink away into the " + getSkinType().getName(this) + " of <her> torso." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>"
 								+ Util.intToString(rows) + " pair" + (rows > 1 ? "s" : "") + " of " + (getBreastRawSizeValue() > 0 ? "breasts" : "nipples") + "</b>." + "</p>");
 
 		} else if (rows > getBreastRows()) {
 			if (isPlayer())
 				transformation = "<p>" + "You feel a strange bubbling sensation within your " + (getBreastRawSizeValue() > 0 ? "breasts" : "chest") + ", and before you have time to react, "
 						+ (getBreastRows() == 1 ? (rows == 3 ? "two extra pairs" : "an extra pair") : "an extra pair") + " of " + (getBreastRawSizeValue() > 0 ? "breasts" : "nipples") + " rapidly grow out of the " + getSkinType().getName(this)
-						+ " of your lower torso." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + Util.intToString(rows) + " pair" + (rows > 1 ? "s" : "") + " of "
+						+ " of your lower torso." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + Util.intToString(rows) + " pair" + (rows > 1 ? "s" : "") + " of "
 						+ (getBreastRawSizeValue() > 0 ? "breasts" : "nipples") + "</b>." + "</p>";
 			else
 				transformation = UtilText.genderParsing(this,
 						"<p>" + "<She> glances down at <her> " + (getBreastRawSizeValue() > 0 ? "breasts" : "chest") + ", and before <she> has time to react, "
 								+ (getBreastRows() == 1 ? (rows == 3 ? "two extra pairs" : "an extra pair") : "an extra pair") + " of " + (getBreastRawSizeValue() > 0 ? "breasts" : "nipples") + " rapidly grow out of the " + getSkinType().getName(this)
-								+ " of <her> lower torso." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + Util.intToString(rows) + " pair" + (rows > 1 ? "s" : "")
+								+ " of <her> lower torso." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + Util.intToString(rows) + " pair" + (rows > 1 ? "s" : "")
 								+ " of " + (getBreastRawSizeValue() > 0 ? "breasts" : "nipples") + "</b>." + "</p>");
 
 		} else {
 			
 			if(isPlayer()) {
 				return "<p class='center'>"
-							+ "<span style='color:" + Colour.TEXT_GREY() + ";'>The amount of breast rows you currently have doesn't change...</span>"
+							+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The amount of breast rows you currently have doesn't change...</span>"
 						+ "</p>";
 			} else {
 				return "<p class='center'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The amount of breast rows that [npc.name] currently has doesn't change...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The amount of breast rows that [npc.name] currently has doesn't change...</span>")
 					+ "</p>";
 			}
 		}
@@ -4237,13 +4237,13 @@ public class GameCharacter implements Serializable {
 						return "<p>" + "You squirm about uncomfortably as your nipples start to get unusually hard and sensitive." + " A strange pressure starts to build up in your " + (getBreastRawSizeValue() > 0 ? "breasts" : "chest")
 								+ ", and you let out a groan as you feel a drastic transformation taking place deep within your " + (getBreastRawSizeValue() > 0 ? "mammaries" : "torso") + "."
 								+ " You can't help but let out a lewd scream as your nipples suddenly spread open, revealing a deep, fuckable passage that's just formed behind them." + "</br>" + "You now have <b style='color:"
-								+ Colour.TRANSFORMATION_SEXUAL() + ";'>fuckable nipples</b>!" + "</p>";
+								+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>fuckable nipples</b>!" + "</p>";
 					else
 						return UtilText.genderParsing(this,
 								"<p>" + "<She> squirms about uncomfortably as <her> nipples start to get unusually hard and sensitive." + " A strange pressure starts to build up in <her> " + (getBreastRawSizeValue() > 0 ? "breasts" : "chest")
 										+ ", and <she> lets out a groan as a drastic transformation takes deep within <her> " + (getBreastRawSizeValue() > 0 ? "mammaries" : "torso") + "."
 										+ " <She> suddenly lets out a lewd scream as <her> nipples spread open, revealing a deep, fuckable passage that's just formed behind them." + "</br>" + "<She> now has <b style='color:"
-										+ Colour.TRANSFORMATION_SEXUAL() + ";'>fuckable nipples</b>!" + "</p>");
+										+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>fuckable nipples</b>!" + "</p>");
 				}
 			}
 
@@ -4251,11 +4251,11 @@ public class GameCharacter implements Serializable {
 				if (isPlayer())
 					return "<p>" + "You let out a lewd moan as you feel a familiar pressure building up behind your fuckable nipples."
 							+ " After just a few moments, you feel the transformation coming to an end, and you realise that your nipple-cunts have grown both wider and deeper." + "</br>" + "Your <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'>fuckable nipples' capacity has increased</b>!" + "</p>";
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>fuckable nipples' capacity has increased</b>!" + "</p>";
 				else
 					return UtilText.genderParsing(this,
 							"<p>" + "<She> lets out a lewd moan as a familiar pressure builds up behind <her> fuckable nipples."
-									+ " After just a few moments the transformation stops, leaving <her> nipple-cunts both wider and deeper than they used to be." + "</br>" + "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL()
+									+ " After just a few moments the transformation stops, leaving <her> nipple-cunts both wider and deeper than they used to be." + "</br>" + "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString()
 									+ ";'>fuckable nipples' capacity has increased</b>!" + "</p>");
 			}
 		} else {
@@ -4264,35 +4264,35 @@ public class GameCharacter implements Serializable {
 					if (isPlayer())
 						return "<p>" + "You squirm about uncomfortably as your nipples start to get unusually hard and sensitive." + " A strange pressure starts to build up in your " + (getBreastRawSizeValue() > 0 ? "breasts" : "chest")
 								+ ", and you let out a groan as you feel a drastic transformation taking place deep within your " + (getBreastRawSizeValue() > 0 ? "mammaries" : "torso") + "."
-								+ " You can't help but let out a disappointed sigh as your nipples tighten and transform into non-fuckable ones." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL()
+								+ " You can't help but let out a disappointed sigh as your nipples tighten and transform into non-fuckable ones." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString()
 								+ ";'>non-fuckable nipples</b>!" + "</p>";
 					else
 						return UtilText.genderParsing(this,
 								"<p>" + "<She> squirms about uncomfortably as <her> nipples start to get unusually hard and sensitive." + " A strange pressure starts to build up in <her> " + (getBreastRawSizeValue() > 0 ? "breasts" : "chest")
 										+ ", and <she> lets out a groan as a drastic transformation takes deep within <her> " + (getBreastRawSizeValue() > 0 ? "mammaries" : "torso") + "."
-										+ " <She> lets out a disappointed sigh as <her> nipples tighten and transform into non-fuckable ones." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL()
+										+ " <She> lets out a disappointed sigh as <her> nipples tighten and transform into non-fuckable ones." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString()
 										+ ";'>non-fuckable nipples</b>!" + "</p>");
 				}
 			}
 			if (body.getBreast().setCapacity(capacity)) {
 				if (isPlayer())
 					return "<p>" + "You let out a lewd moan as you feel a familiar pressure building up behind your fuckable nipples."
-							+ " After just a few moments, you feel the transformation coming to an end, and you realise that your nipple-cunts have tightened up." + "</br>" + "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL()
+							+ " After just a few moments, you feel the transformation coming to an end, and you realise that your nipple-cunts have tightened up." + "</br>" + "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString()
 							+ ";'>fuckable nipples' capacity has decreased</b>!" + "</p>";
 				else
 					return UtilText.genderParsing(this,
 							"<p>" + "<She> lets out a lewd moan as a familiar pressure builds up behind <her> fuckable nipples." + " After just a few moments the transformation stops, leaving <her> nipple-cunts tighter than they used to be."
-									+ "</br>" + "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>fuckable nipples' capacity has decreased</b>!" + "</p>");
+									+ "</br>" + "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>fuckable nipples' capacity has decreased</b>!" + "</p>");
 			}
 		}
 		
 		if(isPlayer()) {
 			return "<p class='center'>"
-					+ "<span style='color:" + Colour.TEXT_GREY() + ";'>The capacity of your nipples doesn't change...</span>"
+					+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The capacity of your nipples doesn't change...</span>"
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The capacity of [npc.name]'s nipples doesn't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The capacity of [npc.name]'s nipples doesn't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -4318,33 +4318,33 @@ public class GameCharacter implements Serializable {
 			if (body.getBreast().setLactation(lactation))
 				if (isPlayer())
 					return "<p>" + "You feel a strange bubbling and churning taking place deep within your " + (getBreastRawSizeValue() > 0 ? "breasts" : "chest") + ", and you let out a little gasp as a few drops of " + getMilkName()
-							+ " suddenly leak from your nipples." + "</br>" + "You are now producing  <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + getBreastLactation().getDescriptor() + " " + getMilkName() + "</b>!"
+							+ " suddenly leak from your nipples." + "</br>" + "You are now producing  <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getBreastLactation().getDescriptor() + " " + getMilkName() + "</b>!"
 							+ "</p>";
 				else
 					return UtilText.genderParsing(this,
 							"<p>" + "<She> squirms and moans as <she> looks down at <her> " + (getBreastRawSizeValue() > 0 ? "breasts" : "chest") + ", and <she> lets out a little gasp as a few drops of " + getMilkName()
-									+ " suddenly leak from <her> nipples." + "</br>" + "<She> is now producing <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + getBreastLactation().getDescriptor() + " " + getMilkName()
+									+ " suddenly leak from <her> nipples." + "</br>" + "<She> is now producing <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getBreastLactation().getDescriptor() + " " + getMilkName()
 									+ "</b>!" + "</p>");
 		} else {
 				if (body.getBreast().setLactation(lactation))
 					if (isPlayer())
 						return "<p>" + "You feel a light bubbling sensation taking place deep within your " + (getBreastRawSizeValue() > 0 ? "breasts" : "chest") + ", and you let out a little sigh as you feel your " + getMilkName()
-								+ " production drying up." + "</br>" + "You are now producing  <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + getBreastLactation().getDescriptor() + " " + getMilkName() + "</b>!"
+								+ " production drying up." + "</br>" + "You are now producing  <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getBreastLactation().getDescriptor() + " " + getMilkName() + "</b>!"
 								+ "</p>";
 					else
 						return UtilText.genderParsing(this,
 								"<p>" + "<She> squirms and moans as <she> looks down at <her> " + (getBreastRawSizeValue() > 0 ? "breasts" : "chest") + ", and <she> lets out a little sigh as <she> feels <her> " + getMilkName()
-										+ " production drying up." + "</br>" + "<She> is now producing <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + getBreastLactation().getDescriptor() + " " + getMilkName() + "</b>!"
+										+ " production drying up." + "</br>" + "<She> is now producing <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getBreastLactation().getDescriptor() + " " + getMilkName() + "</b>!"
 										+ "</p>");
 		}
 		
 		if(isPlayer()) {
 			return "<p class='center'>"
-					+ "<span style='color:" + Colour.TEXT_GREY() + ";'>The amount of [pc.milk] that you're producing doesn't change...</span>"
+					+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The amount of [pc.milk] that you're producing doesn't change...</span>"
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The amount of [npc.milk] that [npc.name] is producing doesn't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The amount of [npc.milk] that [npc.name] is producing doesn't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -4371,38 +4371,38 @@ public class GameCharacter implements Serializable {
 				if (isPlayer())
 					return "<p>" + "You feel a tingling heat spread quickly through your " + (getBreastRawSizeValue() > 0 ? "breasts" : "chest") + ", and you can't help but let out a desperate moan as your "
 							+ (getBreastRawSizeValue() > 0 ? "mammaries swell up and grow larger." : "chest swells up, and before you know what's happening, a pair of breasts have materialised on your previously-flat torso.") + "</br>"
-							+ "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + getBreastSize().getDescriptor() + (getBreastSize() != CupSize.TRAINING ? ", " + getBreastSize().getCupSizeName() + "-cup" : " ")
+							+ "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getBreastSize().getDescriptor() + (getBreastSize() != CupSize.TRAINING ? ", " + getBreastSize().getCupSizeName() + "-cup" : " ")
 							+ " breasts</b>!" + "</p>";
 				else
 					return UtilText.genderParsing(this,
 							"<p>" + "A tingling heat spreads quickly through <her> " + (getBreastRawSizeValue() > 0 ? "breasts" : "chest") + ", and <she> lets out a desperate moan as <her> "
 									+ (getBreastRawSizeValue() > 0 ? "mammaries swell up and grow larger." : "chest swells up, and before <she> knows what's happening, a pair of breasts have materialised on <her> previously-flat torso.") + "</br>"
-									+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + getBreastSize().getDescriptor()
+									+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getBreastSize().getDescriptor()
 									+ (getBreastSize() != CupSize.TRAINING ? ", " + getBreastSize().getCupSizeName() + "-cup" : " ") + " breasts</b>!" + "</p>");
 		} else {
 			if (body.getBreast().setSize(size))
 				if (isPlayer())
 					return "<p>" + "You feel a tingling heat spread quickly through your breasts, and you can't help but let out a frustrated groan as your mammaries shrink down and get smaller." + "</br>"
-							+ (getBreastSize() == CupSize.FLAT ? "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>a completely flat chest</b>!"
-									: "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + getBreastSize().getDescriptor()
+							+ (getBreastSize() == CupSize.FLAT ? "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>a completely flat chest</b>!"
+									: "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getBreastSize().getDescriptor()
 											+ (getBreastSize() != CupSize.TRAINING ? ", " + getBreastSize().getCupSizeName() + "-cup" : " ") + " breasts</b>!")
 							+ "</p>";
 				else
 					return UtilText.genderParsing(this,
 							"<p>" + "A tingling heat spreads quickly through <her> breasts, and <she> lets out a frustrated groan as <her> mammaries shrink down and get smaller." + "</br>"
-									+ (getBreastSize() == CupSize.FLAT ? "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>a completely flat chest</b>!"
-											: "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + getBreastSize().getDescriptor()
+									+ (getBreastSize() == CupSize.FLAT ? "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>a completely flat chest</b>!"
+											: "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + getBreastSize().getDescriptor()
 													+ (getBreastSize() != CupSize.TRAINING ? ", " + getBreastSize().getCupSizeName() + "-cup" : " ") + " breasts</b>!")
 									+ "</p>");
 		}
 		
 		if(isPlayer()) {
 			return "<p class='center'>"
-					+ "<span style='color:" + Colour.TEXT_GREY() + ";'>The size of your [pc.breasts] doesn't change...</span>"
+					+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The size of your [pc.breasts] doesn't change...</span>"
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The size of [npc.name]'s [npc.breasts] doesn't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The size of [npc.name]'s [npc.breasts] doesn't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -4423,14 +4423,14 @@ public class GameCharacter implements Serializable {
 					return "</p>"
 								+ "You let out a lewd moan as you feel a strange slackening sensation pulsating just behind your nipples."
 								+ "</br>"
-								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>nipples are now " + getBreastElasticity().getDescriptor() + "</b>!"
+								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>nipples are now " + getBreastElasticity().getDescriptor() + "</b>!"
 							+ "</p>";
 				else
 					return UtilText.genderParsing(this,
 							"</p>"
 								+ "<She> lets out a lewd moan as a strange slackening sensation pulsates just behind <her> nipples."
 								+ "</br>"
-								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>nipples are now " + getBreastElasticity().getDescriptor() + "</b>!"
+								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>nipples are now " + getBreastElasticity().getDescriptor() + "</b>!"
 							+ "</p>");
 		} else {
 			if (body.getBreast().setElasticity(elasticity))
@@ -4438,24 +4438,24 @@ public class GameCharacter implements Serializable {
 					return "</p>"
 								+ "You let out a lewd moan as you feel a strange clenching sensation pulsating just behind your nipples."
 								+ "</br>"
-								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>nipples are now " + getBreastElasticity().getDescriptor() + "</b>!"
+								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>nipples are now " + getBreastElasticity().getDescriptor() + "</b>!"
 							+ "</p>";
 				else
 					return UtilText.genderParsing(this,
 							"</p>"
 								+ "<She> lets out a lewd moan as a strange clenching sensation pulsates just behind <her> nipples."
 								+ "</br>"
-								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>nipples are now " + getBreastElasticity().getDescriptor() + "</b>!"
+								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>nipples are now " + getBreastElasticity().getDescriptor() + "</b>!"
 							+ "</p>");
 		}
 		
 		if(isPlayer()) {
 			return "<p class='center'>"
-					+ "<span style='color:" + Colour.TEXT_GREY() + ";'>The elasticity of your nipples doesn't change...</span>"
+					+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The elasticity of your nipples doesn't change...</span>"
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The elasticity of [npc.name]'s nipples doesn't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The elasticity of [npc.name]'s nipples doesn't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -4477,11 +4477,11 @@ public class GameCharacter implements Serializable {
 		if (type == getHairType()) {
 			if(isPlayer()) {
 				return "<p style='text-align:center;'>"
-							+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already have the [pc.hair] of a [pc.hairRace], so nothing happens...</span>"
+							+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already have the [pc.hair] of a [pc.hairRace], so nothing happens...</span>"
 						+ "</p>";
 			} else {
 				return "<p style='text-align:center;'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already has the [npc.hair] of a [npc.hairRace], so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already has the [npc.hair] of a [npc.hairRace], so nothing happens...</span>")
 					+ "</p>";
 			}
 			
@@ -4496,44 +4496,44 @@ public class GameCharacter implements Serializable {
 		case HAIR_HUMAN:
 			transformationSB.append(isPlayer()
 					? " The feeling goes away almost as quickly as it came, leaving you with human-like " + getHairColour(BodyCoveringType.HAIR_HUMAN).getName() + " hair." + "</br>" + "You now have <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>human hair</b>."
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>human hair</b>."
 					: UtilText.genderParsing(this, " The transformation is over in a matter of seconds, leaving <herPro> with human-like " + getHairColour(BodyCoveringType.HAIR_HUMAN).getName() + " hair." + "</br>"
-							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>human hair</b>."));
+							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>human hair</b>."));
 			break;
 		case HAIR_CANINE_FUR:
 			transformationSB.append(isPlayer()
 					? " The feeling goes away almost as quickly as it came, leaving you with a dog-morph's " + getHairColour(BodyCoveringType.HAIR_CANINE_FUR).getName() + ", fur-like hair." + "</br>" + "You now have <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>furry dog-like hair</b>."
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry dog-like hair</b>."
 					: UtilText.genderParsing(this, " The transformation is over in a matter of seconds, leaving <herPro> with a dog-morph's " + getHairColour(BodyCoveringType.HAIR_CANINE_FUR).getName() + ", fur-like hair." + "</br>"
-							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>furry dog-like hair</b>."));
+							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry dog-like hair</b>."));
 			break;
 		case HAIR_LYCAN_FUR:
 			transformationSB.append(isPlayer()
 					? " The feeling goes away almost as quickly as it came, leaving you with a wolf-morph's " + getHairColour(BodyCoveringType.HAIR_LYCAN_FUR).getName() + ", fur-like hair." + "</br>" + "You now have <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>furry wolf-like hair</b>."
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry wolf-like hair</b>."
 					: UtilText.genderParsing(this, " The transformation is over in a matter of seconds, leaving <herPro> with a wolf-morph's " + getHairColour(BodyCoveringType.HAIR_LYCAN_FUR).getName() + ", fur-like hair." + "</br>"
-							+ "<She> nwo has <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>furry wolf-like hair</b>."));
+							+ "<She> nwo has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry wolf-like hair</b>."));
 			break;
 		case HAIR_FELINE_FUR:
 			transformationSB.append(isPlayer()
 					? " The feeling goes away almost as quickly as it came, leaving you with a cat-morph's " + getHairColour(BodyCoveringType.HAIR_FELINE_FUR).getName() + ", fur-like hair." + "</br>" + "You now have <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>furry cat-like hair</b>."
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry cat-like hair</b>."
 					: UtilText.genderParsing(this, " The transformation is over in a matter of seconds, leaving <herPro> with a cat-morph's " + getHairColour(BodyCoveringType.HAIR_FELINE_FUR).getName() + ", fur-like hair." + "</br>"
-							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>furry cat-like hair</b>."));
+							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry cat-like hair</b>."));
 			break;
 		case HAIR_HORSE_HAIR:
 			transformationSB.append(isPlayer()
 					? " The feeling goes away almost as quickly as it came, leaving you with a horse-morph's coarse " + getHairColour(BodyCoveringType.HAIR_HORSE_HAIR).getName() + " hair." + "</br>" + "You now have <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>coarse horse-like hair</b>."
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>coarse horse-like hair</b>."
 					: UtilText.genderParsing(this, " The transformation is over in a matter of seconds, leaving <herPro> with a horse-morph's coarse " + getHairColour(BodyCoveringType.HAIR_FELINE_FUR).getName() + " hair." + "</br>"
-							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>coarse horse-like hair</b>."));
+							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>coarse horse-like hair</b>."));
 			break;
 		case HAIR_HARPY:
 			transformationSB.append(isPlayer()
 					? " The feeling quickly grows mroe and more intense, and you gasp in shock as a plume of attractive " + getHairColour(BodyCoveringType.HAIR_HARPY).getName() + " feathers quickly sprout from the top of your head." + "</br>"
-							+ "You now have a <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>plume of harpy feathers</b>."
+							+ "You now have a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>plume of harpy feathers</b>."
 					: UtilText.genderParsing(this, " <She> gasps in shock as a plume of attractive " + getHairColour(BodyCoveringType.HAIR_HARPY).getName() + " feathers quickly sprout from the top of <her> head." + "</br>"
-							+ "<She> now has a <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>plume of harpy feathers</b>."));
+							+ "<She> now has a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>plume of harpy feathers</b>."));
 			break;
 		// case SLIME:
 		// transformationSB.append(isPlayer()
@@ -4548,10 +4548,10 @@ public class GameCharacter implements Serializable {
 		// break;
 		default:
 			transformationSB.append(isPlayer()
-					? "The " + getHairName() + " on your head shifts and changes into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>"
+					? "The " + getHairName() + " on your head shifts and changes into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>"
 							+ type.getName(this) + "</b>."
 					: UtilText.genderParsing(this, "The " + getHairName() + " on <her> head shifts and changes into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "<She> now has <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>" + type.getName(this) + "</b>."));
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + type.getName(this) + "</b>."));
 		}
 		body.getHair().setType(type);
 		return transformationSB.toString() + "</br></br>" + postTransformationCalculation() + "</p>";
@@ -4594,27 +4594,27 @@ public class GameCharacter implements Serializable {
 			if (body.getHair().setLength(length))
 				if (isPlayer())
 					return "<p>" + "Your scalp itches for a moment as your " + (getHairType() == BodyCoveringType.HAIR_HARPY ? "plume of feathers" : getHairName()) + " grows longer." + "</br>" + "You now have <b style='color:"
-							+ Colour.TRANSFORMATION_GENERIC() + ";'>" + getHairLength().getDescriptor() + " " + getHairName() + "</b>." + "</p>";
+							+ Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>" + getHairLength().getDescriptor() + " " + getHairName() + "</b>." + "</p>";
 				else
 					return UtilText.genderParsing(this, "<p>" + "<She> rubs at <her> head as <her> " + (getHairType() == BodyCoveringType.HAIR_HARPY ? "plume of feathers" : getHairName()) + " grows longer." + "</br>"
-							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>" + getHairLength().getDescriptor() + " " + getHairName() + "</b>." + "</p>");
+							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>" + getHairLength().getDescriptor() + " " + getHairName() + "</b>." + "</p>");
 		} else {
 			if (body.getHair().setLength(length))
 				if (isPlayer())
 					return "<p>" + "Your scalp itches for a moment as your " + (getHairType() == BodyCoveringType.HAIR_HARPY ? "plume of feathers" : getHairName()) + " becomes shorter." + "</br>" + "You now have <b style='color:"
-							+ Colour.TRANSFORMATION_GENERIC() + ";'>" + getHairLength().getDescriptor() + " " + getHairName() + "</b>." + "</p>";
+							+ Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>" + getHairLength().getDescriptor() + " " + getHairName() + "</b>." + "</p>";
 				else
 					return UtilText.genderParsing(this, "<p>" + "<She> rubs at <her> head as <her> " + (getHairType() == BodyCoveringType.HAIR_HARPY ? "plume of feathers" : getHairName()) + " becomes shorter." + "</br>"
-							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>" + getHairLength().getDescriptor() + " " + getHairName() + "</b>." + "</p>");
+							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>" + getHairLength().getDescriptor() + " " + getHairName() + "</b>." + "</p>");
 		}
 		
 		if(isPlayer()) {
 			return "<p class='center'>"
-					+ "<span style='color:" + Colour.TEXT_GREY() + ";'>The length of your [pc.hair] doesn't change...</span>"
+					+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The length of your [pc.hair] doesn't change...</span>"
 				+ "</p>";
 		} else {
 			return "<p class='center'>"
-					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The length of [npc.name]'s [npc.hair] doesn't change...</span>")
+					+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The length of [npc.name]'s [npc.hair] doesn't change...</span>")
 				+ "</p>";
 		}
 	}
@@ -4640,13 +4640,13 @@ public class GameCharacter implements Serializable {
 			body.getBodyCoveringTypeColours().put(body.getHair().getType(), shade);
 			if (isPlayer())
 				return "<p>" + "You let out a little gasp as your " + (getHairType() == BodyCoveringType.HAIR_HARPY ? "plume of feathers" : getHairName()) + " changes colour." + "</br>" + "You now have <b style='color:"
-						+ Colour.TRANSFORMATION_GENERIC() + ";'>" + shade.getName() + " " + getHairName() + "</b>." + "</p>";
+						+ Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>" + shade.getName() + " " + getHairName() + "</b>." + "</p>";
 			else
 				return UtilText.genderParsing(this, "<p>" + "<She> lets out a little gasp as <her> " + (getHairType() == BodyCoveringType.HAIR_HARPY ? "plume of feathers" : getHairName()) + " changes colour." + "</br>"
-						+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>" + shade.getName() + " " + getHairName() + "</b>." + "</p>");
+						+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>" + shade.getName() + " " + getHairName() + "</b>." + "</p>");
 		}
 		
-		return "<p>" + "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>" + "</p>";
+		return "<p>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>" + "</p>";
 	}
 
 	/**
@@ -4661,13 +4661,13 @@ public class GameCharacter implements Serializable {
 			body.getBodyCoveringTypeColours().put(hairType, shade);
 			if (isPlayer())
 				return "<p>" + "You let out a little gasp as your " + (hairType == BodyCoveringType.HAIR_HARPY ? "plume of feathers" : hairType.getName(false, this)) + " changes colour." + "</br>" + "You now have <b style='color:"
-						+ Colour.TRANSFORMATION_GENERIC() + ";'>" + shade.getName() + " " + hairType.getName(false, this) + "</b>." + "</p>";
+						+ Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>" + shade.getName() + " " + hairType.getName(false, this) + "</b>." + "</p>";
 			else
 				return UtilText.genderParsing(this, "<p>" + "<She> lets out a little gasp as <her> " + (hairType == BodyCoveringType.HAIR_HARPY ? "plume of feathers" : hairType.getName(false, this)) + " changes colour." + "</br>"
-						+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>" + shade.getName() + " " + hairType.getName(false, this) + "</b>." + "</p>");
+						+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>" + shade.getName() + " " + hairType.getName(false, this) + "</b>." + "</p>");
 		}
 		
-		return "<p>" + "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>" + "</p>";
+		return "<p>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>" + "</p>";
 	}
 
 	// Face:
@@ -4683,11 +4683,11 @@ public class GameCharacter implements Serializable {
 		if (type == getFaceType()) {
 			if(isPlayer()) {
 				return "<p style='text-align:center;'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already have the [pc.face] of a [pc.faceRace], so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already have the [pc.face] of a [pc.faceRace], so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p style='text-align:center;'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already has the [npc.face] of a [npc.faceRace], so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already has the [npc.face] of a [npc.faceRace], so nothing happens...</span>")
 					+ "</p>";
 			}
 			
@@ -4704,58 +4704,58 @@ public class GameCharacter implements Serializable {
 		case HUMAN:
 			transformationSB.append(isPlayer()
 					? " Thankfully, the alarming feeling is over within a few moments, and you discover that you've been left with a normal human face, covered in " + getSkinColour(BodyCoveringType.HUMAN).getName() + " skin." + "</br>"
-							+ "You now have a <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>human face</b>."
+							+ "You now have a <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>human face</b>."
 					: UtilText.genderParsing(this, " Thankfully for <herPro>, the transformation is over within a few moments, leaving <herPro> with a normal human face, covered in "
-							+ getSkinColour(BodyCoveringType.HUMAN).getName() + " skin." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>human face</b>."));
+							+ getSkinColour(BodyCoveringType.HUMAN).getName() + " skin." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>human face</b>."));
 			break;
 		case DEMON_COMMON:
 			transformationSB.append(isPlayer()
 					? " Thankfully, the alarming feeling is over within a few moments, and you discover that you've been left with a new face, covered in flawless " + getSkinColour(BodyCoveringType.DEMON_COMMON).getName() + " skin."
 							+ " Although it's similar to that of a human's, your new demonic face has a strange alluring quality to it, and is indescribably attractive to anyone who lays their eyes on it." + "</br>"
-							+ "You now have a <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>demonic face</b>."
+							+ "You now have a <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>demonic face</b>."
 					: UtilText.genderParsing(this,
 							" Thankfully for <herPro>, the transformation is over within a few moments, leaving <herPro> with an indescribably alluring human-like face, which is now covered in flawless "
-									+ getSkinColour(BodyCoveringType.DEMON_COMMON).getName() + " skin." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>demonic face</b>."));
+									+ getSkinColour(BodyCoveringType.DEMON_COMMON).getName() + " skin." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>demonic face</b>."));
 			break;
 		case DOG_MORPH:
 			transformationSB.append(isPlayer()
 					? " You feel your nose and mouth twitching and transforming as they push out into an anthropomorphic dog-like muzzle, and your tongue flattens and grows wider, turning into a dog-like tongue." + " A layer of "
 							+ getSkinColour(BodyCoveringType.CANINE_FUR).getName() + " fur quickly grows to cover your new face, and as the transformation ends, you realise that you've now got the face of a greater dog-morph." + "</br>"
-							+ "You now have an <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>anthropomorphic dog-like face</b>."
+							+ "You now have an <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>anthropomorphic dog-like face</b>."
 					: UtilText.genderParsing(this,
 							" <Her> nose and mouth twitch and transform as they push out into an anthropomorphic dog-like muzzle, and <her> tongue flattens and grows wider, turning into a dog-like tongue." + " A layer of "
 									+ getSkinColour(BodyCoveringType.CANINE_FUR).getName() + " fur quickly grows to cover <her> new face, and as the transformation ends, <she>'s left with the face of a greater dog-morph." + "</br>"
-									+ "<She> now has an <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>anthropomorphic dog-like face</b>."));
+									+ "<She> now has an <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>anthropomorphic dog-like face</b>."));
 			break;
 		case LYCAN:
 			transformationSB.append(isPlayer()
 					? " You feel your nose and mouth twitching and transforming as they push out into an anthropomorphic wolf-like muzzle, and your tongue flattens and grows wider, turning into a wolf-like tongue." + " A layer of "
 							+ getSkinColour(BodyCoveringType.LYCAN_FUR).getName() + " fur quickly grows to cover your new face, and as the transformation ends, you realise that you've now got the face of a greater wolf-morph." + "</br>"
-							+ "You now have an <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>anthropomorphic wolf-like face</b>."
+							+ "You now have an <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>anthropomorphic wolf-like face</b>."
 					: UtilText.genderParsing(this,
 							" <Her> nose and mouth twitch and transform as they push out into an anthropomorphic wolf-like muzzle, and <her> tongue flattens and grows wider, turning into a wolf-like tongue." + " A layer of "
 									+ getSkinColour(BodyCoveringType.LYCAN_FUR).getName() + " fur quickly grows to cover <her> new face, and as the transformation ends, <she>'s left with the face of a greater wolf-morph." + "</br>"
-									+ "<She> now has an <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>anthropomorphic wolf-like face</b>."));
+									+ "<She> now has an <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>anthropomorphic wolf-like face</b>."));
 			break;
 		case CAT_MORPH:
 			transformationSB.append(isPlayer()
 					? " You feel your nose and mouth twitching and transforming as they push out into an anthropomorphic cat-like muzzle, and your tongue flattens and changes into a little pink cat-like tongue." + " A layer of "
 							+ getSkinColour(BodyCoveringType.FELINE_FUR).getName() + " fur quickly grows to cover your new face, and as the transformation ends, you realise that you've now got the face of a greater cat-morph." + "</br>"
-							+ "You now have an <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>anthropomorphic cat-like face</b>."
+							+ "You now have an <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>anthropomorphic cat-like face</b>."
 					: UtilText.genderParsing(this,
 							" <Her> nose and mouth twitch and transform as they push out into an anthropomorphic cat-like muzzle, and <her> tongue flattens and changes into a little pink cat-like tongue." + " A layer of "
 									+ getSkinColour(BodyCoveringType.FELINE_FUR).getName() + " fur quickly grows to cover <her> new face, and as the transformation ends, <she>'s left with the face of a greater cat-morph." + "</br>"
-									+ "<She> now has an <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>anthropomorphic cat-like face</b>."));
+									+ "<She> now has an <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>anthropomorphic cat-like face</b>."));
 			break;
 		case HORSE_MORPH:
 			transformationSB.append(isPlayer()
 					? " You feel your nose and mouth twitching and transforming as they push out into an anthropomorphic horse-like muzzle, and your tongue grows longer and stronger, turning into a horse-like tongue." + " A layer of short, "
 							+ getSkinColour(BodyCoveringType.HORSE_HAIR).getName() + " horse-hair quickly grows to cover your new face, and as the transformation ends, you realise that you've now got the face of a greater horse-morph." + "</br>"
-							+ "You now have an <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>anthropomorphic horse-like face</b>."
+							+ "You now have an <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>anthropomorphic horse-like face</b>."
 					: UtilText.genderParsing(this,
 							" <Her> nose and mouth twitch and transform as they push out into an anthropomorphic horse-like muzzle, and <her> tongue grows longer and stronger, turning into a horse-like tongue." + " A layer of short, "
 									+ getSkinColour(BodyCoveringType.HORSE_HAIR).getName() + " horse-hair quickly grows to cover <her> new face, and as the transformation ends, <she>'s left with the face of a greater horse-morph." + "</br>"
-									+ "<She> now has an <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>anthropomorphic horse-like face</b>."));
+									+ "<She> now has an <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>anthropomorphic horse-like face</b>."));
 			break;
 		case HARPY:
 			transformationSB.append(isPlayer()
@@ -4763,12 +4763,12 @@ public class GameCharacter implements Serializable {
 							+ getSkinColour(BodyCoveringType.FEATHERS).getName()
 							+ " feathers quickly grow to cover your new face, and as the transformation ends, you realise that you've now got the face of a greater harpy."
 							+ " You find, much to your relief, that you're able to harden or soften the edges of your beak at will, allowing you to portray facial emotions and wrap your beak's edges around anything you might want to put in your mouth."
-							+ "</br>" + "You now have an <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>anthropomorphic bird-like harpy face</b>."
+							+ "</br>" + "You now have an <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>anthropomorphic bird-like harpy face</b>."
 					: UtilText.genderParsing(this,
 							" <Her> nose and mouth twitch and transform as they fuse together and push out into a short beak, and <her> tongue grows longer and thinner, turning into a bird-like tongue." + " A layer of short, "
 									+ getSkinColour(BodyCoveringType.FEATHERS).getName() + " feathers quickly grow to cover <her> new face, and as the transformation ends, <she>'s left with the face of a greater harpy."
 									+ " <She> soon discovers, much to <her> relief, that <she>'s able to harden or soften the edges of <her> beak at will, allowing <herPro> to portray facial emotions and wrap <her> beak's edges"
-									+ " around anything <she> might want to put in <her> mouth." + "</br>" + "<She> now has an <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>anthropomorphic bird-like harpy face</b>."));
+									+ " around anything <she> might want to put in <her> mouth." + "</br>" + "<She> now has an <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>anthropomorphic bird-like harpy face</b>."));
 			break;
 		// case SLIME:
 		// transformationSB.append(isPlayer()
@@ -4800,10 +4800,10 @@ public class GameCharacter implements Serializable {
 		// break;
 		default:
 			transformationSB.append(isPlayer()
-					? " Your face shifts and changes into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>" + type.getDeterminer(this) + " "
+					? " Your face shifts and changes into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>" + type.getDeterminer(this) + " "
 							+ type.getName(this) + "</b>."
 					: UtilText.genderParsing(this, "<Her> face shifts and changes into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "<She> now has <b style='color:"
-							+ Colour.TRANSFORMATION_GREATER() + ";'>" + type.getDeterminer(this) + " " + type.getName(this) + "</b>."));
+							+ Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>" + type.getDeterminer(this) + " " + type.getName(this) + "</b>."));
 		}
 		body.getFace().setType(type);
 		return transformationSB.toString() + "</br></br>" + postTransformationCalculation() + "</p>";
@@ -4839,11 +4839,11 @@ public class GameCharacter implements Serializable {
 	public String setFaceMakeupLevel(int makeupLevel) {
 		if (body.getFace().setMakeupLevel(makeupLevel))
 			if (isPlayer())
-				return "<p>" + "You now have <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>" + getFaceMakeupLevel().getDescriptor() + " makeup on.</b>" + "</p>";
+				return "<p>" + "You now have <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>" + getFaceMakeupLevel().getDescriptor() + " makeup on.</b>" + "</p>";
 			else
-				return UtilText.genderParsing(this, "<p>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>" + getFaceMakeupLevel().getDescriptor() + " makeup on.</b>" + "</p>");
+				return UtilText.genderParsing(this, "<p>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>" + getFaceMakeupLevel().getDescriptor() + " makeup on.</b>" + "</p>");
 
-		return "<p>" + "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>" + "</p>";
+		return "<p>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>" + "</p>";
 	}
 
 	public String incrementFaceMakeupLevel(int increment) {
@@ -4883,21 +4883,21 @@ public class GameCharacter implements Serializable {
 		if (getFaceRawCapacityValue() < capacity) {
 			if (body.getFace().setCapacity(capacity))
 				if (isPlayer())
-					return "<p>" + "You let out a gasp as you feel your throat relax and stretch out with a mind of its own." + "</br>" + "You can now comfortably <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>deep-throat "
+					return "<p>" + "You let out a gasp as you feel your throat relax and stretch out with a mind of its own." + "</br>" + "You can now comfortably <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>deep-throat "
 							+ getFaceCapacity().getMaximumSizeComfortable().getDescriptor() + " cocks</b>!" + "</p>";
 				else
 					return UtilText.genderParsing(this, "<p>" + "<She> lets out a gasp as <her> throat relaxes and stretches out with a mind of its own." + "</br>" + "<She> can now comfortably <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'>deep-throat " + getFaceCapacity().getMaximumSizeComfortable().getDescriptor() + " cocks</b>!" + "</p>");
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>deep-throat " + getFaceCapacity().getMaximumSizeComfortable().getDescriptor() + " cocks</b>!" + "</p>");
 		} else {
 			if (body.getFace().setCapacity(capacity))
 				if (isPlayer())
-					return "<p>" + "You let out a gasp as you feel your throat close up and tighten." + "</br>" + "You can now only <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>deep-throat "
+					return "<p>" + "You let out a gasp as you feel your throat close up and tighten." + "</br>" + "You can now only <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>deep-throat "
 							+ getFaceCapacity().getMaximumSizeComfortable().getDescriptor() + " cocks</b>." + "</p>";
 				else
 					return UtilText.genderParsing(this, "<p>" + "<She> lets out a gasp as <her> throat closes up and tightens." + "</br>" + "<She> can now only <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'>deep-throat " + getFaceCapacity().getMaximumSizeComfortable().getDescriptor() + " cocks</b>." + "</p>");
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>deep-throat " + getFaceCapacity().getMaximumSizeComfortable().getDescriptor() + " cocks</b>." + "</p>");
 		}
-		return "<p>" + "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>" + "</p>";
+		return "<p>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>" + "</p>";
 	}
 
 	public String incrementFaceCapacity(float increment) {
@@ -4915,14 +4915,14 @@ public class GameCharacter implements Serializable {
 					return "</p>"
 								+ "You let out a little gasp as you feel a strange slackening sensation pulsating deep within your throat."
 								+ "</br>"
-								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>throat is now " + getAssElasticity().getDescriptor() + "</b>!"
+								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>throat is now " + getAssElasticity().getDescriptor() + "</b>!"
 							+ "</p>";
 				else
 					return UtilText.genderParsing(this, 
 							"</p>"
 								+ "<She> lets out a little gasp as a strange slackening sensation pulsates deep within <her> throat."
 								+ "</br>"
-								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>throat is now " + getAssElasticity().getDescriptor() + "</b>!"
+								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>throat is now " + getAssElasticity().getDescriptor() + "</b>!"
 							+ "</p>");
 		} else {
 			if (body.getFace().setElasticity(elasticity))
@@ -4930,18 +4930,18 @@ public class GameCharacter implements Serializable {
 					return "</p>"
 								+ "You let out a little gasp as you feel a strange clenching sensation pulsating deep within your throat."
 								+ "</br>"
-								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>throat is now " + getAssElasticity().getDescriptor() + "</b>!"
+								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>throat is now " + getAssElasticity().getDescriptor() + "</b>!"
 							+ "</p>";
 				else
 					return UtilText.genderParsing(this,
 							"</p>"
 								+ "<She> lets out a little gasp as a strange clenching sensation pulsates deep within <her> throat."
 								+ "</br>"
-								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>throat is now " + getAssElasticity().getDescriptor() + "</b>!"
+								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>throat is now " + getAssElasticity().getDescriptor() + "</b>!"
 							+ "</p>");
 		}
 		return "<p>"
-					+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>"
+					+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>"
 				+ "</p>";
 	}
 
@@ -4963,11 +4963,11 @@ public class GameCharacter implements Serializable {
 		if (type == getEyeType()) {
 			if(isPlayer()) {
 				return "<p style='text-align:center;'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already have the eyes of a [pc.eyeRace], so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already have the eyes of a [pc.eyeRace], so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p style='text-align:center;'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already has the [npc.eyes] of a [npc.eyeRace], so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already has the [npc.eyes] of a [npc.eyeRace], so nothing happens...</span>")
 					+ "</p>";
 			}
 		}
@@ -4978,56 +4978,56 @@ public class GameCharacter implements Serializable {
 		switch (type) {
 			case EYE_HUMAN:
 				transformationSB.append(isPlayer()
-						? " By the time you open them again, they've changed into normal human eyes." + "</br>" + "You now have a pair of <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeColour(type).getName()
+						? " By the time you open them again, they've changed into normal human eyes." + "</br>" + "You now have a pair of <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName()
 								+ " human eyes</b>."
 						: UtilText.genderParsing(this, " By the time <she> opens them again, they've changed into normal human eyes." + "</br>" + "<She> now has a pair of <b style='color:"
-								+ Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeColour(type).getName() + " human eyes</b>."));
+								+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + " human eyes</b>."));
 				break;
 			case EYE_DEMON_COMMON:
 				transformationSB.append(isPlayer()
 						? " Your pupils slim down and become narrow slits, while your irises shift to become slightly larger than those found on a human." + "</br>" + "You now have a pair of <b style='color:"
-								+ Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeColour(type).getName() + ", snake-like demon eyes</b>."
+								+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + ", snake-like demon eyes</b>."
 						: UtilText.genderParsing(this, " <Her> pupils slim down and become narrow slits, while <her> irises shift to become slightly larger than those found on a human." + "</br>"
-								+ "<She> now has a pair of <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeColour(type).getName() + ", snake-like demon eyes</b>."));
+								+ "<She> now has a pair of <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + ", snake-like demon eyes</b>."));
 				break;
 			case EYE_DOG_MORPH:
 				transformationSB.append(isPlayer()
 						? " Your irises grow to become slightly larger than those found on a human, while your pupils remain as little black circles in the centre." + "</br>" + "You now have a pair of anthropomorphic <b style='color:"
-								+ Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeColour(type).getName() + ", dog-like eyes</b>."
+								+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + ", dog-like eyes</b>."
 						: UtilText.genderParsing(this, " <Her> irises grow to become slightly larger than those found on a human, while <her> pupils remain as little black circles in the centre." + "</br>"
-								+ "<She> now has a pair of anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeColour(type).getName() + ", dog-like eyes</b>."));
+								+ "<She> now has a pair of anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + ", dog-like eyes</b>."));
 				break;
 			case EYE_LYCAN:
 				transformationSB.append(isPlayer()
 						? " Your irises grow to become slightly larger than those found on a human, while your pupils remain as little black circles in the centre." + "</br>" + "You now have a pair of anthropomorphic <b style='color:"
-								+ Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeColour(type).getName() + ", wolf-like eyes</b>."
+								+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + ", wolf-like eyes</b>."
 						: UtilText.genderParsing(this, " <Her> irises grow to become slightly larger than those found on a human, while <her> pupils remain as little black circles in the centre." + "</br>"
-								+ "<She> now has a pair of anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeColour(type).getName() + ", wolf-like eyes</b>."));
+								+ "<She> now has a pair of anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + ", wolf-like eyes</b>."));
 				break;
 			case EYE_FELINE:
 				transformationSB.append(isPlayer()
 						? " Your pupils slim down and become narrow slits, while your irises shift to become slightly larger than those found on a human." + "</br>" + "You now have a pair of anthropomorphic <b style='color:"
-								+ Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeColour(type).getName() + ", cat-like eyes</b>."
+								+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + ", cat-like eyes</b>."
 						: UtilText.genderParsing(this, " <Her> pupils slim down and become narrow slits, while <her> irises shift to become slightly larger than those found on a human." + "</br>"
-								+ "<She> now has a pair of anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeColour(type).getName() + ", cat-like eyes</b>."));
+								+ "<She> now has a pair of anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + ", cat-like eyes</b>."));
 				break;
 			case EYE_HORSE_MORPH:
 				transformationSB.append(isPlayer()
 						? " Your pupils squash down and become slightly more horizontal, while your irises shift to become slightly larger than those found on a human." + "</br>" + "You now have a pair of anthropomorphic <b style='color:"
-								+ Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeColour(type).getName() + ", horse-like eyes</b>."
+								+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + ", horse-like eyes</b>."
 						: UtilText.genderParsing(this, " <Her> pupils squash down and become slightly more horizontal, while <her> irises shift to become slightly larger than those found on a human." + "</br>"
-								+ "<She> now has a pair of anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeColour(type).getName() + ", horse-like eyes</b>."));
+								+ "<She> now has a pair of anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + ", horse-like eyes</b>."));
 				break;
 			case EYE_HARPY:
 				transformationSB.append(isPlayer()
 						? " Your irises shift to become slightly larger than those found on a human, and become a vivid shade of " + getEyeColour(type).getName() + "." + "</br>" + "You now have a pair of vividly-coloured <b style='color:"
-								+ Colour.TRANSFORMATION_PARTIAL() + ";'>harpy eyes</b>."
+								+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>harpy eyes</b>."
 						: UtilText.genderParsing(this, " <Her> irises shift to become slightly larger than those found on a human, and become a vivid shade of " + getEyeColour(type).getName() + "." + "</br>"
-								+ "<She> now has a pair of vividly-coloured <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>harpy eyes</b>."));
+								+ "<She> now has a pair of vividly-coloured <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>harpy eyes</b>."));
 				break;
 			default:
-				transformationSB.append(isPlayer() ? "</br>" + "You now have " + getEyeDeterminer() + "<b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeName(true) + "</b>."
-						: UtilText.genderParsing(this, "</br>" + "<She> now has " + getEyeDeterminer() + "<b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeName(true) + "</b>."));
+				transformationSB.append(isPlayer() ? "</br>" + "You now have " + getEyeDeterminer() + "<b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeName(true) + "</b>."
+						: UtilText.genderParsing(this, "</br>" + "<She> now has " + getEyeDeterminer() + "<b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeName(true) + "</b>."));
 				break;
 		}
 		body.getEye().setType(type);
@@ -5082,13 +5082,13 @@ public class GameCharacter implements Serializable {
 			body.getBodyCoveringTypeColours().put(eyeType, shade);
 			
 			if (isPlayer())
-				return "<p>" + "Your vision goes blurry for a moment as your irises change colour." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>" + shade.getName() + " eyes</b>." + "</p>";
+				return "<p>" + "Your vision goes blurry for a moment as your irises change colour." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>" + shade.getName() + " eyes</b>." + "</p>";
 			else
 				return UtilText.genderParsing(this,
-						"<p>" + "<She> blinks a few times as <her> irises change colour." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_GENERIC() + ";'>" + shade.getName() + " eyes</b>." + "</p>");
+						"<p>" + "<She> blinks a few times as <her> irises change colour." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>" + shade.getName() + " eyes</b>." + "</p>");
 		}
 		
-		return "<p>" + "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>" + "</p>";
+		return "<p>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>" + "</p>";
 	}
 
 	// Ear (part of Face):
@@ -5103,11 +5103,11 @@ public class GameCharacter implements Serializable {
 		if (type == getEarType()) {
 			if(isPlayer()) {
 				return "<p style='text-align:center;'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already have the [pc.ears] of a [pc.earRace], so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already have the [pc.ears] of a [pc.earRace], so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p style='text-align:center;'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already has the [npc.ears] of a [npc.earRace], so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already has the [npc.ears] of a [npc.earRace], so nothing happens...</span>")
 					+ "</p>";
 			}
 		}
@@ -5121,73 +5121,73 @@ public class GameCharacter implements Serializable {
 		case HUMAN:
 			transformationSB.append(isPlayer()
 					? " Within moments, they've reverted back to being normal human ears, covered in a layer of " + getSkinColour(getSkinType()).getName() + " skin." + "</br>" + "You now have a pair of <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>human ears</b>."
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>human ears</b>."
 					: UtilText.genderParsing(this, " Within moments, they've changed into normal human ears, covered in a layer of " + getSkinColour(getSkinType()).getName() + " skin." + "</br>"
-							+ "<She> now has a pair of <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>human ears</b>."));
+							+ "<She> now has a pair of <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>human ears</b>."));
 			break;
 		case DEMON_COMMON:
 			transformationSB.append(isPlayer()
 					? " They quickly shift into looking like normal human ears, but the tops soon grow up into slight points, giving them an exotic look."
 							+ " The skin that covers them ends up being the same colour as the rest of your body, being a shade of " + getSkinColour(getSkinType()).getName() + "." + "</br>" + "You now have a pair of <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>demon ears</b>."
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>demon ears</b>."
 					: UtilText.genderParsing(this,
 							" They quickly shift into looking like normal human ears, but the tops soon grow up into slight points, giving them an exotic look."
 									+ " The skin that covers them ends up being the same colour as the rest of <her> body, being a shade of " + getSkinColour(getSkinType()).getName() + "." + "</br>" + "<She> now has a pair of <b style='color:"
-									+ Colour.TRANSFORMATION_PARTIAL() + ";'>demon ears</b>."));
+									+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>demon ears</b>."));
 			break;
 		case DOG_MORPH:
 			transformationSB.append(isPlayer()
 					? " They quickly grow into upright points, and shift to sit higher up on your head than a normal pair of human ears would." + " A layer of " + getSkinColour(BodyCoveringType.CANINE_FUR).getName()
 							+ " fur grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new dog-like ears back and forth." + "</br>"
-							+ "You now have a pair of pointed, anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>dog-like ears</b>."
+							+ "You now have a pair of pointed, anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>dog-like ears</b>."
 					: UtilText.genderParsing(this,
 							" They quickly grow into upright points, and shift to sit higher up on <her> head than a normal pair of human ears would." + " A layer of " + getSkinColour(BodyCoveringType.CANINE_FUR).getName()
 									+ " fur grows to cover them, and as the transformation finishes, <she> experimentally twitches <her> new dog-like ears back and forth." + "</br>"
-									+ "<She> now has a pair of pointed, anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>dog-like ears</b>."));
+									+ "<She> now has a pair of pointed, anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>dog-like ears</b>."));
 			break;
 		case LYCAN:
 			transformationSB.append(isPlayer()
 					? " They quickly grow into large, upright points, and shift to sit higher up on your head than a normal pair of human ears would." + " A layer of " + getSkinColour(BodyCoveringType.LYCAN_FUR).getName()
 							+ " fur grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new wolf-like ears back and forth." + "</br>" + "You now have a pair of large, anthropomorphic <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>wolf-like ears</b>."
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>wolf-like ears</b>."
 					: UtilText.genderParsing(this,
 							" They quickly grow into lrage, upright points, and shift to sit higher up on <her> head than a normal pair of human ears would." + " A layer of " + getSkinColour(BodyCoveringType.LYCAN_FUR).getName()
 									+ " fur grows to cover them, and as the transformation finishes, <she> experimentally twitches <her> new wolf-like ears back and forth." + "</br>" + "<She> now has a pair of large, anthropomorphic <b style='color:"
-									+ Colour.TRANSFORMATION_PARTIAL() + ";'>wolf-like ears</b>."));
+									+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>wolf-like ears</b>."));
 			break;
 		case CAT_MORPH:
 			transformationSB.append(isPlayer()
 					? " They quickly grow into small, upright points, and shift to sit higher up on your head than a normal pair of human ears would." + " A layer of " + getSkinColour(BodyCoveringType.FELINE_FUR).getName()
 							+ " fur grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new cat-like ears back and forth." + "</br>"
-							+ "You now have a pair of pointed, anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>cat-like ears</b>."
+							+ "You now have a pair of pointed, anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>cat-like ears</b>."
 					: UtilText.genderParsing(this,
 							" They quickly grow into small, upright points, and shift to sit higher up on <her> head than a normal pair of human ears would." + " A layer of " + getSkinColour(BodyCoveringType.FELINE_FUR).getName()
 									+ " fur grows to cover them, and as the transformation finishes, <she> experimentally twitches <her> new cat-like ears back and forth." + "</br>"
-									+ "<She> now has a pair of pointed, anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>cat-like ears</b>."));
+									+ "<She> now has a pair of pointed, anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>cat-like ears</b>."));
 			break;
 		case HORSE_MORPH:
 			transformationSB.append(isPlayer()
 					? " They quickly grow into sturdy little upright points, and shift to sit higher up on your head than a normal pair of human ears would." + " A layer of short " + getSkinColour(BodyCoveringType.HORSE_HAIR).getName()
 							+ " hair grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new horse-like ears back and forth." + "</br>"
-							+ "You now have a pair of pointed, anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>horse-like ears</b>."
+							+ "You now have a pair of pointed, anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>horse-like ears</b>."
 					: UtilText.genderParsing(this,
 							" They quickly grow into sturdy little upright points, and shift to sit higher up on <her> head than a normal pair of human ears would." + " A layer of short " + getSkinColour(BodyCoveringType.HORSE_HAIR).getName()
 									+ " hair grows to cover them, and as the transformation finishes, <she> experimentally twitches <her> new horse-like ears back and forth." + "</br>"
-									+ "<She> now has a pair of pointed, anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>horse-like ears</b>."));
+									+ "<She> now has a pair of pointed, anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>horse-like ears</b>."));
 			break;
 		case HARPY:
 			transformationSB.append(isPlayer()
 					? " They quickly shrink down into little nubs, and shift to point slightly back and up." + " A layer of pretty " + getSkinColour(BodyCoveringType.FEATHERS).getName()
 							+ " feathers quickly grow to cover them, and as the transformation finishes, you're left with a pair of feathered harpy ears." + "</br>" + "You now have a pair of anthropomorphic <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>feather-covered harpy ears</b>."
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>feather-covered harpy ears</b>."
 					: UtilText.genderParsing(this,
 							" They quickly shrink down into little nubs, and shift to point slightly back and up." + " A layer of pretty " + getSkinColour(BodyCoveringType.FEATHERS).getName()
 									+ " feathers quickly grow to cover them, and as the transformation finishes, <she>'s left with a pair of feathered harpy ears." + "</br>" + "<She> nwo has a pair of anthropomorphic <b style='color:"
-									+ Colour.TRANSFORMATION_PARTIAL() + ";'>feather-covered harpy ears</b>."));
+									+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>feather-covered harpy ears</b>."));
 			break;
 		default:
-			transformationSB.append(isPlayer() ? "</br>" + "You now have " + getEyeDeterminer() + "<b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeName(true) + "</b>."
-					: UtilText.genderParsing(this, "</br>" + "<She> now has " + getEyeDeterminer() + "<b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>" + getEyeName(true) + "</b>."));
+			transformationSB.append(isPlayer() ? "</br>" + "You now have " + getEyeDeterminer() + "<b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeName(true) + "</b>."
+					: UtilText.genderParsing(this, "</br>" + "<She> now has " + getEyeDeterminer() + "<b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeName(true) + "</b>."));
 			break;
 		}
 		body.getEar().setType(type);
@@ -5260,11 +5260,11 @@ public class GameCharacter implements Serializable {
 		if (hornType == getHornType()) {
 			if(isPlayer()) {
 				return "<p style='text-align:center;'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already have the [pc.horns] of a [pc.hornRace], so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already have the [pc.horns] of a [pc.hornRace], so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p style='text-align:center;'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already has the [npc.horns] of a [npc.hornRace], so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already has the [npc.horns] of a [npc.hornRace], so nothing happens...</span>")
 					+ "</p>";
 			}
 
@@ -5281,30 +5281,30 @@ public class GameCharacter implements Serializable {
 		case NONE:
 			transformationSB.append(isPlayer()
 					? " Chunks of your " + getHornType().getName(this) + " fall to the floor as they start to crumble away, and within moments, they've completely disappeared." + "</br>" + "You have <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>lost your " + getHornType().getName(this) + "</b>."
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>lost your " + getHornType().getName(this) + "</b>."
 					: UtilText.genderParsing(this, " Chunks of <her> " + getHornType().getName(this) + " fall to the floor as they start to crumble away, and within moments, they've completely disappeared." + "</br>"
-							+ "<She> has <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>lost <her> " + getHornType().getName(this) + "</b>."));
+							+ "<She> has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>lost <her> " + getHornType().getName(this) + "</b>."));
 			break;
 		case DEMON_COMMON_FEMALE:
 			transformationSB.append(isPlayer()
 					? " A pair of hard nubs push out from your upper forehead, and you gasp as you feel a pair of long, sleek horns pushing out to sweep back across the sides of your head." + "</br>" + "You now have a pair of <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>feminine-looking demon horns</b>."
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>feminine-looking demon horns</b>."
 					: UtilText.genderParsing(this, " A pair of hard nubs push out from <her> upper forehead, and <she> gasps as a pair of long, sleek horns push out to sweep back across the sides of <her> head."
-							+ "</br>" + "<She> now has a pair of <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>feminine-looking demon horns</b>."));
+							+ "</br>" + "<She> now has a pair of <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>feminine-looking demon horns</b>."));
 			break;
 		case DEMON_COMMON_MALE:
 			transformationSB.append(isPlayer()
 					? " A pair of hard nubs push out from your upper forehead, and you gasp as you feel a pair of short, ridged horns push out and slightly bend back over your head." + "</br>" + "You now have a pair of <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>masculine-looking demon horns</b>."
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>masculine-looking demon horns</b>."
 					: UtilText.genderParsing(this, " A pair of hard nubs push out from <her> upper forehead, and <she> gasps as a pair of short, ridged horns push out and slightly bend back over <her> head." + "</br>"
-							+ "<She> now has a pair of <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>masculine-looking demon horns</b>."));
+							+ "<She> now has a pair of <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>masculine-looking demon horns</b>."));
 			break;
 		default:
 			transformationSB.append(isPlayer()
-					? " " + Util.capitaliseSentence(hornType.getDeterminer(this)) + " " + hornType.getName(this) + " grow out from the top of your head." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_PARTIAL()
+					? " " + Util.capitaliseSentence(hornType.getDeterminer(this)) + " " + hornType.getName(this) + " grow out from the top of your head." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString()
 							+ ";'>" + hornType.getName(this) + "</b>."
 					: UtilText.genderParsing(this, " " + Util.capitaliseSentence(hornType.getDeterminer(this)) + " " + hornType.getName(this) + " grow on top of <her> head." + "</br>" + "<She> nwo has <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>" + hornType.getName(this) + "</b>."));
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + hornType.getName(this) + "</b>."));
 		}
 
 		body.getHorn().setType(hornType);
@@ -5348,11 +5348,11 @@ public class GameCharacter implements Serializable {
 		if (type == getLegType()) {
 			if(isPlayer()) {
 				return "<p style='text-align:center;'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already have the [pc.legs] of a [pc.legRace], so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already have the [pc.legs] of a [pc.legRace], so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p style='text-align:center;'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already has the [npc.legs] of a [npc.legRace], so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already has the [npc.legs] of a [npc.legRace], so nothing happens...</span>")
 					+ "</p>";
 			}
 		}
@@ -5488,9 +5488,9 @@ public class GameCharacter implements Serializable {
 				default:
 					transformationSB.append(isPlayer()
 							? " Your legs shift and change into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" 
-							+ "You now have <b style='color:" + Colour.TRANSFORMATION_LESSER() + ";'>" + type.getName(this) + "</b>."
+							+ "You now have <b style='color:" + Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>" + type.getName(this) + "</b>."
 							: UtilText.genderParsing(this, " <Her> legs shift and change into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "<She> now has <b style='color:"
-									+ Colour.TRANSFORMATION_LESSER() + ";'>" + type.getName(this) + "</b>."));
+									+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>" + type.getName(this) + "</b>."));
 		}
 		body.getLeg().setType(type);
 		return transformationSB.toString() + "</br></br>" + postTransformationCalculation() + "</p>";
@@ -5553,23 +5553,23 @@ public class GameCharacter implements Serializable {
 			if(isPlayer()) {
 				if(type==PenisType.NONE) {
 					return "<p style='text-align:center;'>"
-							+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already lack a penis, so nothing happens...</span>"
+							+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already lack a penis, so nothing happens...</span>"
 						+ "</p>";
 					
 				} else {
 					return "<p style='text-align:center;'>"
-							+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already have a [pc.penisRace]'s penis, so nothing happens...</span>"
+							+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already have a [pc.penisRace]'s penis, so nothing happens...</span>"
 						+ "</p>";
 				}
 			}else {
 				if(type==PenisType.NONE) {
 					return "<p style='text-align:center;'>"
-							+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already lacks a penis, so nothing happens...</span>")
+							+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already lacks a penis, so nothing happens...</span>")
 						+ "</p>";
 					
 				} else {
 					return "<p style='text-align:center;'>"
-							+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already has a [npc.penisRace]'s penis, so nothing happens...</span>")
+							+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already has a [npc.penisRace]'s penis, so nothing happens...</span>")
 						+ "</p>";
 				}
 			}
@@ -5603,9 +5603,9 @@ public class GameCharacter implements Serializable {
 			body.getPenis().setNumberOfTesticles(0);
 			transformationSB.append(isPlayer()
 					? " You squirm and moan as your cock and balls rapidly shrink into your " + getSkinType().getName(this) + ", and within seconds, nothing's left to remind you of your manhood." + "</br>" + "You <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'>no longer have a penis</b>."
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>no longer have a penis</b>."
 					: UtilText.genderParsing(this, " <She> squirms and moans as <her> cock and balls rapidly shrink into <her> " + getSkinType().getName(this)
-							+ ", and within seconds, nothing's left to remind <herPro> of <her> manhood." + "</br>" + "<She> <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>no longer has a penis</b>."));
+							+ ", and within seconds, nothing's left to remind <herPro> of <her> manhood." + "</br>" + "<She> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>no longer has a penis</b>."));
 			// Restore urethra virginity:
 			setUrethraVirgin(true);
 			// Remove penis piercing:
@@ -5614,14 +5614,14 @@ public class GameCharacter implements Serializable {
 			break;
 		case HUMAN:
 			if (getPenisType() == PenisType.NONE)
-				transformationSB.append(isPlayer() ? "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>human penis</b>."
-						: UtilText.genderParsing(this, "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>human penis</b>."));
+				transformationSB.append(isPlayer() ? "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>human penis</b>."
+						: UtilText.genderParsing(this, "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>human penis</b>."));
 			else
 				transformationSB.append(isPlayer()
 						? " You squirm and moan as your cock and balls shift and change, and before you know what's happened, they've turned into their human counterparts, covered in " + getSkinColour(type.getSkinType()).getName() + " skin."
-								+ "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>human penis</b>."
+								+ "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>human penis</b>."
 						: UtilText.genderParsing(this, " <She> squirms and moans as <her> cock and balls shift and change, and within moments they've turned into their human counterparts, covered in "
-								+ getSkinColour(type.getSkinType()).getName() + " skin." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>human penis</b>."));
+								+ getSkinColour(type.getSkinType()).getName() + " skin." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>human penis</b>."));
 			break;
 		case DEMON_COMMON:
 			transformationSB.append(isPlayer()
@@ -5629,7 +5629,7 @@ public class GameCharacter implements Serializable {
 							+ " As you're wondering if that's all that's going to change, your penis suddenly throbs and wriggles about with a mind of its own, and you let out an involuntary moan as slimy pre-cum starts drooling from the tip."
 							+ " Within moments, your cock has reshaped itself into a meaty shaft, with thick ridges pressing out all along its length."
 							+ " The most striking feature of your new member, however, is the rows of little bumps that press out and wriggle with a mind of their own."
-							+ " You groan as more pre-cum starts to leak from these numerous little pseudo-cocks lining your new demonic shaft." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL()
+							+ " You groan as more pre-cum starts to leak from these numerous little pseudo-cocks lining your new demonic shaft." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString()
 							+ ";'>demonic penis</b>."
 					: UtilText.genderParsing(this,
 							" <She> squirms and moans as the skin covering <her> cock and balls transforms into smooth, highly sensitive " + getSkinColour(type.getSkinType()).getName() + " skin."
@@ -5637,7 +5637,7 @@ public class GameCharacter implements Serializable {
 									+ " Within moments, <her> cock has reshaped itself into a meaty shaft, with thick ridges pressing out all along its length."
 									+ " The most striking feature of <her> new member, however, is the rows of little bumps that press out and wriggle with a mind of their own."
 									+ " <She> groans as more pre-cum starts to leak from these numerous little pseudo-cocks lining <her> new demonic shaft." + "</br>" + "<She> now has a <b style='color:"
-									+ Colour.TRANSFORMATION_SEXUAL() + ";'>demonic penis</b>."));
+									+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>demonic penis</b>."));
 			break;
 		case CANINE:
 			transformationSB.append(isPlayer()
@@ -5645,13 +5645,13 @@ public class GameCharacter implements Serializable {
 							+ " Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as a thick red knot presses out at the base of your shaft."
 							+ " Panting and gasping for air, you feel the tip of your cock narrowing down as it tapers into its new form."
 							+ " As the transformation comes to an end, you discover that your shaft has reshaped itself into a tapered dog-like cock, with a thick, throbbing knot at the base." + "</br>" + "You now have a <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'>knotted dog-cock</b>."
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>knotted dog-cock</b>."
 					: UtilText.genderParsing(this,
 							" <She> squirms and moans as the skin covering <her> cock quickly turns " + getSkinColour(type.getSkinType()).getName() + ", and as the transformation moves onto the next stage, slimy pre-cum starts leaking from the tip."
 									+ " Letting out an involuntary moan, <her> penis starts shifting into a new form, and a thick red knot presses out at the base of <her> shaft."
 									+ " Panting and gasping for air, the tip of <her> cock narrows down as it tapers into its new form."
 									+ " As the transformation comes to an end, <she>'s left with a tapered dog-like cock, with a thick, throbbing knot at the base." + "</br>" + "<She> now has a <b style='color:"
-									+ Colour.TRANSFORMATION_SEXUAL() + ";'>knotted dog-cock</b>."));
+									+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>knotted dog-cock</b>."));
 			break;
 		case LUPINE:
 			transformationSB.append(isPlayer()
@@ -5659,51 +5659,51 @@ public class GameCharacter implements Serializable {
 							+ " Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as a thick red knot presses out at the base of your shaft."
 							+ " Panting and gasping for air, you feel the tip of your cock narrowing down as it tapers into its new form."
 							+ " As the transformation comes to an end, you discover that your shaft has reshaped itself into a tapered wolf-like cock, with a thick, throbbing knot at the base." + "</br>" + "You now have a <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'>knotted wolf-cock</b>."
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>knotted wolf-cock</b>."
 					: UtilText.genderParsing(this,
 							" <She> squirms and moans as the skin covering <her> cock quickly turns " + getSkinColour(type.getSkinType()).getName() + ", and as the transformation moves onto the next stage, slimy pre-cum starts leaking from the tip."
 									+ " Letting out an involuntary moan, <her> penis starts shifting into a new form, and a thick red knot presses out at the base of <her> shaft."
 									+ " Panting and gasping for air, the tip of <her> cock narrows down as it tapers into its new form."
 									+ " As the transformation comes to an end, <she>'s left with a tapered wolf-like cock, with a thick, throbbing knot at the base." + "</br>" + "<She> now has a <b style='color:"
-									+ Colour.TRANSFORMATION_SEXUAL() + ";'>knotted wolf-cock</b>."));
+									+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>knotted wolf-cock</b>."));
 			break;
 		case FELINE:
 			transformationSB.append(isPlayer()
 					? " You squirm and moan as the skin covering your cock quickly turns " + getSkinColour(type.getSkinType()).getName() + ", and as the transformation moves onto the next stage, slimy pre-cum starts leaking from the tip."
 							+ " Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as rows of little backwards-facing barbs press out all along your shaft."
 							+ " Panting and gasping for air, the transformation finally comes to an end, and you discover that your shaft has reshaped itself into a barbed cat-like cock." + "</br>" + "You now have a <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'>barbed cat-dick</b>."
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>barbed cat-dick</b>."
 					: UtilText.genderParsing(this,
 							" <She> squirms and moans as the skin covering <her> cock quickly turns " + getSkinColour(type.getSkinType()).getName() + ", and as the transformation moves onto the next stage, slimy pre-cum starts leaking from the tip."
 									+ " Letting out an involuntary moan, <her> penis starts shifting into a new form, and rows of little backwards-facing barbs press out all along <her> shaft."
 									+ " Panting and gasping for air, the transformation finally comes to an end, leaving <herPro> with a barbed cat-like cock." + "</br>" + "<She> now has a <b style='color:"
-									+ Colour.TRANSFORMATION_SEXUAL() + ";'>barbed cat-dick</b>."));
+									+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>barbed cat-dick</b>."));
 			break;
 		case EQUINE:
 			transformationSB.append(isPlayer()
 					? " You squirm and moan as the skin covering your cock and balls quickly turns " + getSkinColour(type.getSkinType()).getName() + ", and as the transformation moves onto the next stage, slimy pre-cum starts leaking from the tip."
 							+ " Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as your shaft grows wider and the head flattens down."
 							+ " Panting and gasping for air, the transformation finally comes to an end, and you discover that your penis has reshaped itself into a fat horse-like cock, complete with a wide, flared head." + "</br>"
-							+ "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>flared horse-cock</b>."
+							+ "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>flared horse-cock</b>."
 					: UtilText.genderParsing(this,
 							" <She> squirms and moans as the skin covering <her> cock and balls quickly turns " + getSkinColour(type.getSkinType()).getName()
 									+ ", and as the transformation moves onto the next stage, slimy pre-cum starts leaking from the tip."
 									+ " Letting out an involuntary moan, <her> penis starts shifting into a new form, and <her> shaft grows wider as the head flattens down."
 									+ " Panting and gasping for air, the transformation finally comes to an end, leaving <herPro> with a fat horse-like cock, complete with a wide, flared head." + "</br>" + "<She> now has a <b style='color:"
-									+ Colour.TRANSFORMATION_SEXUAL() + ";'>flared horse-cock</b>."));
+									+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>flared horse-cock</b>."));
 			break;
 		case AVIAN:
 			transformationSB.append(isPlayer()
 					? " You squirm and moan as the skin covering your cock and balls quickly turns " + getSkinColour(type.getSkinType()).getName() + ", and as the transformation moves onto the next stage, slimy pre-cum starts leaking from the tip."
 							+ " Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as a cloaca-like slit forms around the base."
 							+ " Panting and gasping for air, you discover that your penis has reshaped itself into a human-looking cock, but you now possess the ability to retract your sexual organs into the cloaca that's formed around the base."
-							+ "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>bird-like cock</b>."
+							+ "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>bird-like cock</b>."
 					: UtilText.genderParsing(this,
 							" <She> squirms and moans as the skin covering <her> cock and balls quickly turns " + getSkinColour(type.getSkinType()).getName()
 									+ ", and as the transformation moves onto the next stage, slimy pre-cum starts leaking from the tip."
 									+ " Letting out an involuntary moan, <her> penis starts shifting into a new form, and a cloaca-like slit forms around the base."
 									+ " Panting and gasping for air, <she>'s left with a human-like cock, but <she> now possesses the ability to retract <her> sexual organs into the cloaca that's formed around the base." + "</br>"
-									+ "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>bird-like cock</b>."));
+									+ "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>bird-like cock</b>."));
 			break;
 		// case SLIME:
 		// transformationSB.append(isPlayer()
@@ -5722,9 +5722,9 @@ public class GameCharacter implements Serializable {
 
 		default:
 			transformationSB.append(isPlayer()
-					? " Your cock shifts and changes into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + type.getName(this) + "</b>."
+					? " Your cock shifts and changes into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + type.getName(this) + "</b>."
 					: UtilText.genderParsing(this, " <Her> cock shifts and changes into " + type.getDeterminer(this) + " " + type.getName(this) + "." + "</br>" + "<She> now has  <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'>" + type.getName(this) + "</b>."));
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + type.getName(this) + "</b>."));
 		}
 
 		body.getPenis().setType(type);
@@ -5783,21 +5783,21 @@ public class GameCharacter implements Serializable {
 			if (body.getPenis().setNumberOfTesticles(testicleCount))
 				if (isPlayer())
 					return "<p>" + "You let out a surprised cry as you feel your balls rapidly swell and grow heavier." + " After only a few seconds, your swollen testicles painlessly split apart and multiply." + "</br>"
-							+ "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + Util.intToString(testicleCount) + " balls</b>." + "</p>";
+							+ "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + Util.intToString(testicleCount) + " balls</b>." + "</p>";
 				else
 					return UtilText.genderParsing(this,
 							"<p>" + "<She> lets out a surprised cry as <her> balls rapidly swell and grow heavier." + " After only a few seconds, <her> swollen testicles painlessly split apart and multiply." + "</br>"
-									+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + Util.intToString(testicleCount) + " balls</b>." + "</p>");
+									+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + Util.intToString(testicleCount) + " balls</b>." + "</p>");
 		} else {
 			if (body.getPenis().setNumberOfTesticles(testicleCount))
 				if (isPlayer())
-					return "<p>" + "You let out a surprised cry as you feel your balls shrink and fuse together." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>"
+					return "<p>" + "You let out a surprised cry as you feel your balls shrink and fuse together." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>"
 							+ Util.intToString(testicleCount) + " balls</b>." + "</p>";
 				else
 					return UtilText.genderParsing(this, "<p>" + "<She> lets out a surprised cry as <her> balls shrink and fuse together." + "</br>" + "<She> now has <b style='color:"
-							+ Colour.TRANSFORMATION_SEXUAL() + ";'>" + Util.intToString(testicleCount) + " balls</b>." + "</p>");
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + Util.intToString(testicleCount) + " balls</b>." + "</p>");
 		}
-		return "<p>" + "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>" + "</p>";
+		return "<p>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>" + "</p>";
 	}
 
 	public boolean isUrethraVirgin() {
@@ -5836,37 +5836,37 @@ public class GameCharacter implements Serializable {
 			if (body.getPenis().setCapacity(capacity))
 				if (getPenisRawCapacityValue() == 0) {
 					if (isPlayer())
-						return "<p>" + "You let out a gasp as you feel your urethra slacken and get wider." + "</br>" + "You can now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>fuckable urethra</b>." + "</p>";
+						return "<p>" + "You let out a gasp as you feel your urethra slacken and get wider." + "</br>" + "You can now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>fuckable urethra</b>." + "</p>";
 					else
 						return UtilText.genderParsing(this,
-								"<p>" + "<She> lets out a gasp as <her> urethra slackens and gets wider." + "</br>" + "<She> can now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>fuckable urethra</b>." + "</p>");
+								"<p>" + "<She> lets out a gasp as <her> urethra slackens and gets wider." + "</br>" + "<She> can now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>fuckable urethra</b>." + "</p>");
 				} else {
 					if (isPlayer())
-						return "<p>" + "You let out a gasp as you feel your urethra slacken and get wider." + "</br>" + "You can now fit <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>"
+						return "<p>" + "You let out a gasp as you feel your urethra slacken and get wider." + "</br>" + "You can now fit <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>"
 								+ Capacity.getCapacityFromValue(capacity).getMaximumSizeComfortable().getDescriptor() + " cocks down your urethra</b>." + "</p>";
 					else
 						return UtilText.genderParsing(this, "<p>" + "<She> lets out a gasp as <her> urethra slackens and gets wider." + "</br>" + "<She> can now fit <b style='color:"
-								+ Colour.TRANSFORMATION_SEXUAL() + ";'>" + Capacity.getCapacityFromValue(capacity).getMaximumSizeComfortable().getDescriptor() + " cocks down <her> urethra</b>." + "</p>");
+								+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + Capacity.getCapacityFromValue(capacity).getMaximumSizeComfortable().getDescriptor() + " cocks down <her> urethra</b>." + "</p>");
 				}
 		} else {
 
 			if (body.getPenis().setCapacity(capacity))
 				if (capacity == 0) {
 					if (isPlayer())
-						return "<p>" + "You let out a lewd moan as you feel your urethra tighten up." + "</br>" + "You <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>no longer have a fuckable urethra</b>." + "</p>";
+						return "<p>" + "You let out a lewd moan as you feel your urethra tighten up." + "</br>" + "You <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>no longer have a fuckable urethra</b>." + "</p>";
 					else
 						return UtilText.genderParsing(this,
-								"<p>" + "<She> lets out a lewd moan as <her> urethra tightens up." + "</br>" + "<She> <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>no longer has a fuckable urethra</b>." + "</p>");
+								"<p>" + "<She> lets out a lewd moan as <her> urethra tightens up." + "</br>" + "<She> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>no longer has a fuckable urethra</b>." + "</p>");
 				} else {
 					if (isPlayer())
-						return "<p>" + "You let out a lewd moan as you feel your urethra tighten up." + "</br>" + "You can now fit <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>"
+						return "<p>" + "You let out a lewd moan as you feel your urethra tighten up." + "</br>" + "You can now fit <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>"
 								+ Capacity.getCapacityFromValue(capacity).getMaximumSizeComfortable().getDescriptor() + " cocks down your urethra</b>." + "</p>";
 					else
 						return UtilText.genderParsing(this, "<p>" + "<She> lets out a lewd moan as <her> urethra tightens up." + "</br>" + "<She> can now fit <b style='color:"
-								+ Colour.TRANSFORMATION_SEXUAL() + ";'>" + Capacity.getCapacityFromValue(capacity).getMaximumSizeComfortable().getDescriptor() + " cocks down <her> urethra</b>." + "</p>");
+								+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + Capacity.getCapacityFromValue(capacity).getMaximumSizeComfortable().getDescriptor() + " cocks down <her> urethra</b>." + "</p>");
 				}
 		}
-		return "<p>" + "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>" + "</p>";
+		return "<p>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>" + "</p>";
 	}
 
 	public String incrementPenisCapacity(float increment) {
@@ -5890,39 +5890,39 @@ public class GameCharacter implements Serializable {
 			if (getPenisRawCumProductionValue() < cumProduction) {
 				if (body.getPenis().setCumProduction(cumProduction))
 					if (isPlayer())
-						return "<p>" + "You feel your balls grow heavier and fill up as your cum production increases." + "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>producing "
+						return "<p>" + "You feel your balls grow heavier and fill up as your cum production increases." + "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>producing "
 								+ CumProduction.getCumProductionFromInt(cumProduction).getDescriptor() + "</b>." + "</p>";
 					else
 						return UtilText.genderParsing(this, "<p>" + "<Her> balls grow heavier and fill up as <her> cum production increases." + "</br>" + "<She> is now <b style='color:"
-								+ Colour.TRANSFORMATION_SEXUAL() + ";'>producing " + CumProduction.getCumProductionFromInt(cumProduction).getDescriptor() + "</b>." + "</p>");
+								+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>producing " + CumProduction.getCumProductionFromInt(cumProduction).getDescriptor() + "</b>." + "</p>");
 			} else {
 				if (body.getPenis().setCumProduction(cumProduction))
 					if (isPlayer())
-						return "<p>" + "You feel your balls get lighter as your cum production decreases." + "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>producing "
+						return "<p>" + "You feel your balls get lighter as your cum production decreases." + "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>producing "
 								+ CumProduction.getCumProductionFromInt(cumProduction).getDescriptor() + "</b>." + "</p>";
 					else
-						return UtilText.genderParsing(this, "<p>" + "<Her> balls get lighter as <her> cum production decreases." + "</br>" + "<She> is now <b style='color:" + Colour.TRANSFORMATION_SEXUAL()
+						return UtilText.genderParsing(this, "<p>" + "<Her> balls get lighter as <her> cum production decreases." + "</br>" + "<She> is now <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString()
 								+ ";'>producing " + CumProduction.getCumProductionFromInt(cumProduction).getDescriptor() + "</b>." + "</p>");
 			}
 			
 			if(isPlayer()) {
 				return "<p class='center'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Your cum production doesn't change...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Your cum production doesn't change...</span>"
 					+ "</p>";
 			} else {
 				return "<p class='center'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name]'s cum production doesn't change...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name]'s cum production doesn't change...</span>")
 					+ "</p>";
 			}
 			
 		} else {
 			if(isPlayer()) {
 				return "<p class='center'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You don't have a penis, so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You don't have a penis, so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p class='center'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] doesn't have a penis, so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] doesn't have a penis, so nothing happens...</span>")
 					+ "</p>";
 			}
 		}
@@ -5951,42 +5951,42 @@ public class GameCharacter implements Serializable {
 					if (isPlayer())
 						return "<p>" + "You let out a groan as you feel a deep throbbing sensation building up at the base of your cock."
 								+ " Your cheeks flush red as the feeling works its way up your shaft, and as a trickle of pre-cum leaks out from the head of your now-hard member, you realise that your cock has grown larger." + "</br>"
-								+ "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + PenisSize.getPenisSizeFromInt(size).getDescriptor() + " cock</b>." + "</p>";
+								+ "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + PenisSize.getPenisSizeFromInt(size).getDescriptor() + " cock</b>." + "</p>";
 					else
 						return UtilText.genderParsing(this,
 								"<p>" + "<She> lets out a groan as a deep throbbing sensation builds up at the base of <her> cock."
 										+ " <Her> cheeks flush red as the feeling works its way up <her> shaft, and as a trickle of pre-cum leaks out from the head of <her> now-hard member, <her> cock suddenly grows larger." + "</br>"
-										+ "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + PenisSize.getPenisSizeFromInt(size).getDescriptor() + " cock</b>." + "</p>");
+										+ "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + PenisSize.getPenisSizeFromInt(size).getDescriptor() + " cock</b>." + "</p>");
 			} else {
 				if (body.getPenis().setPenisSize(size))
 					if (isPlayer())
 						return "<p>" + "You let out a groan as you feel a strange contracting sensation building up at the base of your cock."
 								+ " Your cheeks flush red as the feeling works its way up your shaft, and as a trickle of pre-cum leaks out from the head of your now-hard member, you realise that your cock has shrunk." + "</br>"
-								+ "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + PenisSize.getPenisSizeFromInt(size).getDescriptor() + " cock</b>." + "</p>";
+								+ "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + PenisSize.getPenisSizeFromInt(size).getDescriptor() + " cock</b>." + "</p>";
 					else
 						return UtilText.genderParsing(this,
 								"<p>" + "<She> lets out a groan as a strange contracting sensation builds up at the base of <her> cock."
 										+ " <Her> cheeks flush red as the feeling works its way up <her> shaft, and as a trickle of pre-cum leaks out from the head of <her> now-hard member, <her> cock suddenly shrinks." + "</br>"
-										+ "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>" + PenisSize.getPenisSizeFromInt(size).getDescriptor() + " cock</b>." + "</p>");
+										+ "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + PenisSize.getPenisSizeFromInt(size).getDescriptor() + " cock</b>." + "</p>");
 			}
 			
 			if(isPlayer()) {
 				return "<p class='center'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>The size of your [pc.penis] doesn't change...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The size of your [pc.penis] doesn't change...</span>"
 					+ "</p>";
 			} else {
 				return "<p class='center'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The size of [npc.name]'s [npc.penis] doesn't change...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The size of [npc.name]'s [npc.penis] doesn't change...</span>")
 					+ "</p>";
 			}
 		} else {
 			if(isPlayer()) {
 				return "<p class='center'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You don't have a penis, so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You don't have a penis, so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p class='center'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] doesn't have a penis, so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] doesn't have a penis, so nothing happens...</span>")
 					+ "</p>";
 			}
 		}
@@ -6012,42 +6012,42 @@ public class GameCharacter implements Serializable {
 					if (isPlayer())
 						return "<p>" + "You let out a lewd moan as your balls start to ache with a strange pressing sensation."
 								+ " After a few moments, they suddenly swell and grow larger, and you're left panting and groaning as the transformation comes to an end." + "</br>" + "You now have <b style='color:"
-								+ Colour.TRANSFORMATION_SEXUAL() + ";'>" + TesticleSize.getTesticleSizeFromInt(size).getDescriptor() + " balls</b>." + "</p>";
+								+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + TesticleSize.getTesticleSizeFromInt(size).getDescriptor() + " balls</b>." + "</p>";
 					else
 						return UtilText.genderParsing(this,
 								"<p>" + "<She> lets out a lewd moan as <her> balls start to ache with a strange pressing sensation."
 										+ " After a few moments, they suddenly swell and grow larger, and <she>'s left panting and groaning as the transformation comes to an end." + "</br>" + "<She> now has <b style='color:"
-										+ Colour.TRANSFORMATION_SEXUAL() + ";'>" + TesticleSize.getTesticleSizeFromInt(size).getDescriptor() + " balls</b>." + "</p>");
+										+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + TesticleSize.getTesticleSizeFromInt(size).getDescriptor() + " balls</b>." + "</p>");
 			} else {
 				if (body.getPenis().setTesticleSize(size))
 					if (isPlayer())
 						return "<p>" + "You let out a surprised yelp as your balls start to ache with a strange shrivelling sensation."
 								+ " After a few moments, they suddenly shrink and get smaller, and you're left groaning in frustration as the transformation comes to an end." + "</br>" + "You now have <b style='color:"
-								+ Colour.TRANSFORMATION_SEXUAL() + ";'>" + TesticleSize.getTesticleSizeFromInt(size).getDescriptor() + " balls</b>." + "</p>";
+								+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + TesticleSize.getTesticleSizeFromInt(size).getDescriptor() + " balls</b>." + "</p>";
 					else
 						return UtilText.genderParsing(this,
 								"<p>" + "<She> lets out a surprised yelp as <her> balls start to ache with a strange shrivelling sensation."
 										+ " After a few moments, they suddenly shrink and get smaller, and <she>'s left groaning in frustration as the transformation comes to an end." + "</br>" + "<She> now has <b style='color:"
-										+ Colour.TRANSFORMATION_SEXUAL() + ";'>" + TesticleSize.getTesticleSizeFromInt(size).getDescriptor() + " balls</b>." + "</p>");
+										+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + TesticleSize.getTesticleSizeFromInt(size).getDescriptor() + " balls</b>." + "</p>");
 			}
 			
 			if(isPlayer()) {
 				return "<p class='center'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>The size of your [pc.balls] doesn't change...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The size of your [pc.balls] doesn't change...</span>"
 					+ "</p>";
 			} else {
 				return "<p class='center'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The size of [npc.name]'s [npc.balls] doesn't change...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The size of [npc.name]'s [npc.balls] doesn't change...</span>")
 					+ "</p>";
 			}
 		} else {
 			if(isPlayer()) {
 				return "<p class='center'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You don't have a penis, so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You don't have a penis, so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p class='center'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] doesn't have a penis, so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] doesn't have a penis, so nothing happens...</span>")
 					+ "</p>";
 			}
 		}
@@ -6077,14 +6077,14 @@ public class GameCharacter implements Serializable {
 					return "</p>"
 								+ "You let out a desperate groan as you feel a strange slackening sensation pulsating up the length of your cock."
 								+ "</br>" 
-								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>urethra is now " + getPenisUrethraElasticity().getDescriptor() + "</b>!"
+								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>urethra is now " + getPenisUrethraElasticity().getDescriptor() + "</b>!"
 							+ "</p>";
 				else
 					return UtilText.genderParsing(this,
 							"</p>"
 								+ "<She> lets out a desperate groan as a strange slackening sensation pulsates up the length of <her> cock." 
 								+ "</br>"
-								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>urethra is now " + getPenisUrethraElasticity().getDescriptor() + "</b>!"
+								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>urethra is now " + getPenisUrethraElasticity().getDescriptor() + "</b>!"
 							+ "</p>");
 		} else {
 			if (body.getPenis().setElasticity(plasticity))
@@ -6092,18 +6092,18 @@ public class GameCharacter implements Serializable {
 					return "</p>"
 								+ "You let out a desperate groan as you feel a strange clenching sensation pulsating up the length of your cock."
 								+ "</br>"
-								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>urethra is now " + getPenisUrethraElasticity().getDescriptor() + "</b>!"
+								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>urethra is now " + getPenisUrethraElasticity().getDescriptor() + "</b>!"
 							+ "</p>";
 				else
 					return UtilText.genderParsing(this, 
 							"</p>"
 								+ "<She> lets out a desperate groan as a strange clenching sensation pulsates up the length of <her> cock."
 								+ "</br>"
-								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>urethra is now " + getPenisUrethraElasticity().getDescriptor() + "</b>!"
+								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>urethra is now " + getPenisUrethraElasticity().getDescriptor() + "</b>!"
 							+ "</p>");
 		}
 		return "<p>" 
-					+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>" 
+					+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>" 
 				+ "</p>";
 	}
 
@@ -6132,12 +6132,12 @@ public class GameCharacter implements Serializable {
 		if (skinType == getSkinType()) {
 			if(isPlayer()) {
 			return "<p style='text-align:center;'>"
-					+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already have the [pc.skin] of a [pc.skinRace], so nothing happens...</span>"
+					+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already have the [pc.skin] of a [pc.skinRace], so nothing happens...</span>"
 				+ "</p>";
 			
 			} else {
 				return "<p style='text-align:center;'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already has the [npc.skin] of a [npc.skinRace], so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already has the [npc.skin] of a [npc.skinRace], so nothing happens...</span>")
 					+ "</p>";	
 			}
 		}
@@ -6152,71 +6152,71 @@ public class GameCharacter implements Serializable {
 		case HUMAN:
 			transformationSB.append(isPlayer()
 					? " The " + getSkinType().getName(this) + " covering your body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " back into " + getSkinColour(skinType).getName() + " human skin, and you let out a satisfied sigh"
-							+ " as the transformation comes to an end and the itching stops." + "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>covered in human skin</b>."
+							+ " as the transformation comes to an end and the itching stops." + "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in human skin</b>."
 					: UtilText.genderParsing(this,
 							" The " + getSkinType().getName(this) + " covering <her> body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " back into " + getSkinColour(skinType).getName()
-									+ " human skin, and <she> lets out a satisfied sigh" + " as the transformation comes to an end and the itching stops." + "</br>" + "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER()
+									+ " human skin, and <she> lets out a satisfied sigh" + " as the transformation comes to an end and the itching stops." + "</br>" + "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString()
 									+ ";'>covered in human skin</b>."));
 			break;
 		case DEMON_COMMON:
 			transformationSB.append(isPlayer()
 					? " The " + getSkinType().getName(this) + " covering your body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into flawless " + getSkinColour(skinType).getName() + " skin, and you let out a satisfied sigh"
 							+ " as the transformation comes to an end and the itching stops. Looking at your new skin, you notice that the colour tones all over your body have become perfectly balanced in order to help show off your figure."
-							+ "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>covered in demonic skin</b>."
+							+ "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in demonic skin</b>."
 					: UtilText.genderParsing(this,
 							" The " + getSkinType().getName(this) + " covering <her> body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into flawless " + getSkinColour(skinType).getName()
 									+ " skin, and <she> lets out a satisfied sigh"
 									+ " as the transformation comes to an end and the itching stops. The colour tones all over <her> body have become perfectly balanced in order to help to show off <her> figure." + "</br>"
-									+ "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>covered in demonic skin</b>."));
+									+ "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in demonic skin</b>."));
 			break;
 		case CANINE_FUR:
 			transformationSB.append(isPlayer()
 					? " The " + getSkinType().getName(this) + " covering your body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into a layer of " + getSkinColour(skinType).getName()
 							+ " dog-like fur, and you let out a satisfied sigh"
 							+ " as the transformation comes to an end and the itching stops. Looking at your new fur, you notice that it follows the lines of your figure and is quite smooth and pleasant to touch." + "</br>"
-							+ "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>covered in dog-like fur</b>."
+							+ "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in dog-like fur</b>."
 					: UtilText.genderParsing(this,
 							" The " + getSkinType().getName(this) + " covering <her> body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into a layer of " + getSkinColour(skinType).getName()
 									+ " dog-like fur, and <she> lets out a satisfied sigh" + " as the transformation comes to an end and the itching stops. <Her> new fur follows the lines of <her> figure and is quite smooth and pleasant to touch."
-									+ "</br>" + "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>covered in dog-like fur</b>."));
+									+ "</br>" + "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in dog-like fur</b>."));
 			break;
 		case LYCAN_FUR:
 			transformationSB.append(isPlayer() ? " The " + getSkinType().getName(this) + " covering your body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into a layer of " + getSkinColour(skinType).getName()
 					+ " wolf-like fur, and you let out a satisfied sigh" + " as the transformation comes to an end and the itching stops. Looking at your new fur, you notice that it's a little shaggy around your joints and is quite densely packed."
-					+ "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>covered in wolf-like fur</b>."
+					+ "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in wolf-like fur</b>."
 					: UtilText.genderParsing(this,
 							" The " + getSkinType().getName(this) + " covering <her> body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into a layer of " + getSkinColour(skinType).getName()
 									+ " wolf-like fur, and <she> lets out a satisfied sigh" + " as the transformation comes to an end and the itching stops. <Her> new fur is a little shaggy around <her> joints and is quite densely packed." + "</br>"
-									+ "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>covered in wolf-like fur</b>."));
+									+ "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in wolf-like fur</b>."));
 			break;
 		case FELINE_FUR:
 			transformationSB.append(isPlayer() ? " The " + getSkinType().getName(this) + " covering your body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into a layer of " + getSkinColour(skinType).getName()
 					+ " cat-like fur, and you let out a satisfied sigh" + " as the transformation comes to an end and the itching stops. Looking at your new fur, you notice that it follows the lines of your figure and is extremely smooth and soft."
-					+ "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>covered in cat-like fur</b>."
+					+ "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in cat-like fur</b>."
 					: UtilText.genderParsing(this,
 							" The " + getSkinType().getName(this) + " covering <her> body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into a layer of " + getSkinColour(skinType).getName()
 									+ " cat-like fur, and <she> lets out a satisfied sigh" + " as the transformation comes to an end and the itching stops. <Her> new fur follows the lines of <her> figure and is extremely smooth and soft." + "</br>"
-									+ "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>covered in cat-like fur</b>."));
+									+ "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in cat-like fur</b>."));
 			break;
 		case HORSE_HAIR:
 			transformationSB.append(isPlayer() ? " The " + getSkinType().getName(this) + " covering your body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into a layer of short " + getSkinColour(skinType).getName()
 					+ " horse-hair, and you let out a satisfied sigh" + " as the transformation comes to an end and the itching stops. Your new hair looks very sleek, and helps to show off your figure, although it's a little coarse to the touch."
-					+ "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>covered in a short layer of horse-hair</b>."
+					+ "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in a short layer of horse-hair</b>."
 					: UtilText.genderParsing(this,
 							" The " + getSkinType().getName(this) + " covering <her> body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into a layer of short " + getSkinColour(skinType).getName()
 									+ " horse-hair, and <she> lets out a satisfied sigh"
 									+ " as the transformation comes to an end and the itching stops. <Her> new hair looks very sleek, and helps to show off <her> figure, although it's a little coarse to the touch." + "</br>"
-									+ "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>covered in a short layer of horse-hair</b>."));
+									+ "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in a short layer of horse-hair</b>."));
 			break;
 		case FEATHERS:
 			transformationSB.append(isPlayer()
 					? " The " + getSkinType().getName(this) + " covering your body rapidly turns into a layer of overlapping " + getSkinColour(skinType).getName() + " feathers, and you let out a satisfied sigh"
 							+ " as the transformation comes to an end and the itching stops. Your new feathers follow the lines of your figure and are shorter and softer around your nipples, asshole and groin." + "</br>"
-							+ "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>covered in feathers</b>."
+							+ "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in feathers</b>."
 					: UtilText.genderParsing(this,
 							" The " + getSkinType().getName(this) + " covering <her> body rapidly turns into a layer of overlapping " + getSkinColour(skinType).getName() + " feathers, and <she> lets out a satisfied sigh"
 									+ " as the transformation comes to an end and the itching stops. <Her> new feathers follow the lines of <her> figure and are shorter and softer around <her> nipples, asshole and groin." + "</br>"
-									+ "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>covered in feathers</b>."));
+									+ "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in feathers</b>."));
 			break;
 		// case SLIME:
 		// transformationSB.append(isPlayer()
@@ -6234,10 +6234,10 @@ public class GameCharacter implements Serializable {
 		// break;
 		default:
 			transformationSB.append(isPlayer()
-					? "A layer of " + getSkinColour(skinType).getName() + " " + skinType.getName(this) + " rapidly grows to cover your body." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>" + " "
+					? "A layer of " + getSkinColour(skinType).getName() + " " + skinType.getName(this) + " rapidly grows to cover your body." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>" + " "
 							+ getSkinColour(skinType).getName() + " " + skinType.getName(this) + "</b>."
 					: UtilText.genderParsing(this, "A layer of " + getSkinColour(skinType).getName() + " " + skinType.getName(this) + " rapidly grows to cover <her> body." + "</br>" + " <She> now has <b style='color:"
-							+ Colour.TRANSFORMATION_GREATER() + ";'>" + getSkinColour(skinType).getName() + " " + skinType.getName(this) + "</b>."));
+							+ Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>" + getSkinColour(skinType).getName() + " " + skinType.getName(this) + "</b>."));
 		}
 		body.getSkin().setType(skinType);
 		return transformationSB.toString() + "</br></br>" + postTransformationCalculation() + "</p>";
@@ -6284,20 +6284,20 @@ public class GameCharacter implements Serializable {
 					affectedParts.add(part.getName(this));
 
 			if (affectedParts.isEmpty())
-				return "<p>" + "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>" + "</p>";
+				return "<p>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>" + "</p>";
 
 			if (isPlayer())
 				return "<p>" + "The " + skinType.getName(this) + " on your " + Util.stringsToStringList(affectedParts, false) + " suddenly start" + (skinType.isDefaultPlural() ? "" : "s") + " to itch, and you let out a startled cry as" + " "
-						+ (skinType.isDefaultPlural() ? "they begin" : "it begins") + " to change colour." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>"
+						+ (skinType.isDefaultPlural() ? "they begin" : "it begins") + " to change colour." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>"
 						+ shade.getName() + " " + skinType.getName(this) + "</b>." + "</p>";
 			else
 				return UtilText.genderParsing(this,
 						"<p>" + "The " + skinType.getName(this) + " on <her> " + Util.stringsToStringList(affectedParts, false) + " suddenly start" + (skinType.isDefaultPlural() ? "" : "s") + " to itch, and <she> lets out a startled cry as" + " "
-								+ (skinType.isDefaultPlural() ? "they begin" : "it begins") + " to change colour." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_GREATER() + ";'>" + shade.getName() + " "
+								+ (skinType.isDefaultPlural() ? "they begin" : "it begins") + " to change colour." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>" + shade.getName() + " "
 								+ skinType.getName(this) + "</b>." + "</p>");
 			
 		}
-		return "<p>" + "<span style='color:" + Colour.TEXT_GREY() + ";'>Nothing seems to happen.</span>" + "</p>";
+		return "<p>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>" + "</p>";
 	}
 
 	// Tail:
@@ -6317,11 +6317,11 @@ public class GameCharacter implements Serializable {
 		if (tailType == getTailType()) {
 			if(isPlayer()) {
 				return "<p style='text-align:center;'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already have the [pc.tail] of a [pc.tailRace], so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already have the [pc.tail] of a [pc.tailRace], so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p style='text-align:center;'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already has the [npc.tail] of a [npc.tailRace], so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already has the [npc.tail] of a [npc.tailRace], so nothing happens...</span>")
 					+ "</p>";	
 			}
 		}
@@ -6342,77 +6342,77 @@ public class GameCharacter implements Serializable {
 		switch (tailType) {
 		case NONE:
 			transformationSB.append(isPlayer()
-					? " You gasp as you feel your " + getTailType().getName(this) + " shrinking down and disappearing into your lower back." + "</br>" + "You <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>have lost your "
+					? " You gasp as you feel your " + getTailType().getName(this) + " shrinking down and disappearing into your lower back." + "</br>" + "You <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>have lost your "
 							+ getTailType().getName(this) + "</b>."
 					: UtilText.genderParsing(this, " <She> gasps as <her> " + getTailType().getName(this) + " shrinks down and disappears into <her> lower back." + "</br>" + "<She> <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>has lost <her> " + getTailType().getName(this) + "</b>."));
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>has lost <her> " + getTailType().getName(this) + "</b>."));
 			break;
 		case DEMON_COMMON:
 			transformationSB.append(isPlayer()
 					? " A thin, spaded demon's tail sprouts from just above your ass, rapidly growing in size until it's slightly longer than one of your legs."
 							+ " You wriggle it around and soon discover that you have complete control over where it goes, allowing you to use it like a third limb." + "</br>" + "You now have a <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>demon tail</b>."
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>demon tail</b>."
 					: UtilText.genderParsing(this,
 							" A thin, spaded demon's tail sprouts from just above <her> ass, rapidly growing in size until it's slightly longer than one of <her> legs."
-									+ " <She> gives it an experimental wriggle, and it seems as though <she> has complete control over where it goes." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_PARTIAL()
+									+ " <She> gives it an experimental wriggle, and it seems as though <she> has complete control over where it goes." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString()
 									+ ";'>demon tail</b>."));
 			break;
 		case DOG_MORPH:
 			transformationSB.append(isPlayer()
 					? " A furry " + getSkinColour(BodyCoveringType.CANINE_FUR).getName() + " dog-like tail sprouts from just above your ass, rapidly growing in size until it's about half the length of one of your legs."
-							+ " You quickly realise that you have little control over it, and it wags with a mind of its own whenever you get excited." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_PARTIAL()
+							+ " You quickly realise that you have little control over it, and it wags with a mind of its own whenever you get excited." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString()
 							+ ";'>dog-like tail</b>."
 					: UtilText.genderParsing(this,
 							" A furry " + getSkinColour(BodyCoveringType.CANINE_FUR) + " dog-like tail sprouts from just above <her> ass, rapidly growing in size until it's about half the length of one of <her> legs."
-									+ " It looks like <she> has little control over it, and it wags with a mind of its own whenever <she> gets excited." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_PARTIAL()
+									+ " It looks like <she> has little control over it, and it wags with a mind of its own whenever <she> gets excited." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString()
 									+ ";'>dog-like tail</b>."));
 			break;
 		case LYCAN:
 			transformationSB.append(isPlayer()
 					? " A furry " + getSkinColour(BodyCoveringType.LYCAN_FUR).getName() + " wolf-like tail sprouts from just above your ass, rapidly growing in size until it's just over half the length of one of your legs."
 							+ " You quickly realise that you have limited control over it, and it takes a lot of effort to stop it from betraying your emotions." + "</br>" + "You now have a <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>wolf-like tail</b>."
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>wolf-like tail</b>."
 					: UtilText.genderParsing(this,
 							" A furry " + getSkinColour(BodyCoveringType.LYCAN_FUR).getName() + " wolf-like tail sprouts from just above <her> ass, rapidly growing in size until it's just over half the length of one of <her> legs."
 									+ " It looks like <she> only has limited control over it, and it would take a lot of effort to stop it from betraying <her> emotions." + "</br>" + "<She> now has a <b style='color:"
-									+ Colour.TRANSFORMATION_PARTIAL() + ";'>wolf-like tail</b>."));
+									+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>wolf-like tail</b>."));
 			break;
 		case CAT_MORPH:
 			transformationSB.append(isPlayer()
 					? " A furry " + getSkinColour(BodyCoveringType.FELINE_FUR).getName() + " cat-like tail sprouts from just above your ass, rapidly growing in size until it's almost as long as one of your legs."
-							+ " You quickly realise that you have a decent amount of control over it, and you can twist it almost anywhere you please." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_PARTIAL()
+							+ " You quickly realise that you have a decent amount of control over it, and you can twist it almost anywhere you please." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString()
 							+ ";'>cat-like tail</b>."
 					: UtilText.genderParsing(this,
 							" A furry " + getSkinColour(BodyCoveringType.FELINE_FUR).getName() + " cat-like tail sprouts from just above <her> ass, rapidly growing in size until it's almost as long as one of <her> legs."
-									+ " It looks like <she> has a decent amount of control over it, and <she> experimentally twists it around <her> leg." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_PARTIAL()
+									+ " It looks like <she> has a decent amount of control over it, and <she> experimentally twists it around <her> leg." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString()
 									+ ";'>cat-like tail</b>."));
 			break;
 		case HORSE_MORPH:
 			transformationSB.append(isPlayer()
 					? " A " + getSkinColour(BodyCoveringType.HORSE_HAIR).getName() + " horse-like tail sprouts from just above your ass, rapidly growing in length until it hangs to just over half-way down your legs."
-							+ " You quickly discover that your control over it is limited to swishing it from side to side." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>horse-like tail</b>."
+							+ " You quickly discover that your control over it is limited to swishing it from side to side." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>horse-like tail</b>."
 					: UtilText.genderParsing(this,
 							" A " + getSkinColour(BodyCoveringType.HORSE_HAIR).getName() + " horse-like tail sprouts from just above <her> ass, rapidly growing in length until it hangs to just over half-way down <her> legs."
 									+ " <She> gives it a few experimental swishes from side to side, which seems to be the limit of <her> control over it." + "</br>" + "<She> now has a <b style='color:"
-									+ Colour.TRANSFORMATION_PARTIAL() + ";'>horse-like tail</b>."));
+									+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>horse-like tail</b>."));
 			break;
 		case HARPY:
 			transformationSB
 					.append(isPlayer()
 							? " A pretty " + getSkinColour(BodyCoveringType.FEATHERS).getName() + " plume of tail feathers sprout from just above your ass. Each feather quickly grows to about one-third the length of one of your legs."
-									+ " You discover that you can quickly raise and lower your new plume, which helps you to keep your balance." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_PARTIAL()
+									+ " You discover that you can quickly raise and lower your new plume, which helps you to keep your balance." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString()
 									+ ";'>bird-like tail</b>."
 							: UtilText.genderParsing(this,
 									" A pretty " + getSkinColour(BodyCoveringType.FEATHERS).getName() + " plume of tail feathers sprout from just above <her> ass. Each feather quickly grows to about one-third the length of one of <her> legs."
-											+ " <She> flicks it up and down, which seems to help <herPro> to balance <herPro>self." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_PARTIAL()
+											+ " <She> flicks it up and down, which seems to help <herPro> to balance <herPro>self." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString()
 											+ ";'>bird-like tail</b>."));
 			break;
 		default:
 			transformationSB.append(isPlayer()
-					? " " + Util.capitaliseSentence(tailType.getDeterminer(this)) + " " + tailType.getName(this) + " grows out from your lower back." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_PARTIAL()
+					? " " + Util.capitaliseSentence(tailType.getDeterminer(this)) + " " + tailType.getName(this) + " grows out from your lower back." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString()
 							+ ";'>" + tailType.getDeterminer(this) + " " + tailType.getName(this) + "</b>."
 					: UtilText.genderParsing(this, " " + Util.capitaliseSentence(tailType.getDeterminer(this)) + " " + tailType.getName(this) + " grows out from <her> lower back." + "</br>"
-							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_LESSER() + ";'>" + tailType.getDeterminer(this) + " " + tailType.getName(this) + "</b>."));
+							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>" + tailType.getDeterminer(this) + " " + tailType.getName(this) + "</b>."));
 		}
 
 		body.getTail().setType(tailType);
@@ -6462,23 +6462,23 @@ public class GameCharacter implements Serializable {
 			if(isPlayer()) {
 				if(type == VaginaType.NONE) {
 					return "<p style='text-align:center;'>"
-							+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already lack a vagina, so nothing happens...</span>"
+							+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already lack a vagina, so nothing happens...</span>"
 						+ "</p>";
 					
 				} else {
 					return "<p style='text-align:center;'>"
-							+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already have [pc.a_vaginaRace] pussy, so nothing happens...</span>"
+							+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already have [pc.a_vaginaRace] pussy, so nothing happens...</span>"
 						+ "</p>";
 				}
 			} else {
 				if(type == VaginaType.NONE) {
 					return "<p style='text-align:center;'>"
-							+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already lacks a vagina, so nothing happens...</span>")
+							+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already lacks a vagina, so nothing happens...</span>")
 						+ "</p>";
 					
 				} else {
 					return "<p style='text-align:center;'>"
-							+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already has [npc.a_vaginaRace] pussy, so nothing happens...</span>")
+							+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already has [npc.a_vaginaRace] pussy, so nothing happens...</span>")
 						+ "</p>";	
 				}
 			}
@@ -6926,18 +6926,18 @@ public class GameCharacter implements Serializable {
 				transformationSB.append(isPlayer()
 						? " You let out a squeal of excitement as a wave of pleasure runs up from your groin, and you feel your slit shifting and contracting with a mind of its own."
 								+ " Your pussy lips puff up and darken to a deep black, and you find yourself moaning and squirming as your cunt reshapes itself into a horse-like vagina." + "</br>" + "You now have a <b style='color:"
-								+ Colour.TRANSFORMATION_SEXUAL() + ";'>horse-pussy</b>."
+								+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>horse-pussy</b>."
 						: UtilText.genderParsing(this,
 								" <She> lets out a squeal of excitement as a wave of pleasure runs up from <her> groin, and <her> slit starts shifting and contracting with a mind of its own."
-										+ " Within moments, the transformation ends, and <she> discovers that she's now got a horse-like vagina." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL()
+										+ " Within moments, the transformation ends, and <she> discovers that she's now got a horse-like vagina." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString()
 										+ ";'>horse-pussy</b>."));
 				break;
 			default:
 				transformationSB.append(isPlayer()
-						? Util.capitaliseSentence(type.getDeterminer(this)) + " " + type.getName(this) + " grows between your legs." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>"
+						? Util.capitaliseSentence(type.getDeterminer(this)) + " " + type.getName(this) + " grows between your legs." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>"
 								+ type.getName(this) + "</b>."
 						: UtilText.genderParsing(this, Util.capitaliseSentence(type.getDeterminer(this)) + " " + type.getName(this) + " grows between <her> legs." + "</br>" + "<She> now has a <b style='color:"
-								+ Colour.TRANSFORMATION_SEXUAL() + ";'>" + type.getName(this) + "</b>."));
+								+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>" + type.getName(this) + "</b>."));
 		}
 		
 		body.getVagina().setType(type);
@@ -7006,39 +7006,39 @@ public class GameCharacter implements Serializable {
 			if (getVaginaRawCapacityValue() < capacity) {
 				if (body.getVagina().setCapacity(capacity))
 					if (isPlayer())
-						return "<p>" + "You let out a gasp as you feel your pussy slacken and stretch wider." + "</br>" + "As the transformation ends, you find that <b style='color:" + Colour.TRANSFORMATION_SEXUAL()
+						return "<p>" + "You let out a gasp as you feel your pussy slacken and stretch wider." + "</br>" + "As the transformation ends, you find that <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString()
 								+ ";'>your pussy is now " + getVaginaCapacity().getDescriptor() + "</b>!" + "</p>";
 					else
 						return UtilText.genderParsing(this, "<p>" + "<She> lets out a gasp as <her> pussy slackens and stretches wider." + "</br>" + "As the transformation ends, <she> discovers that <b style='color:"
-								+ Colour.TRANSFORMATION_SEXUAL() + ";'><her> pussy is now " + getVaginaCapacity().getDescriptor() + "</b>!" + "</p>");
+								+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'><her> pussy is now " + getVaginaCapacity().getDescriptor() + "</b>!" + "</p>");
 			} else {
 				if (body.getVagina().setCapacity(capacity))
 					if (isPlayer())
-						return "<p>" + "You let out a gasp as you feel your pussy contract and get tighter." + "</br>" + "As the transformation ends, you find that <b style='color:" + Colour.TRANSFORMATION_SEXUAL()
+						return "<p>" + "You let out a gasp as you feel your pussy contract and get tighter." + "</br>" + "As the transformation ends, you find that <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString()
 								+ ";'>your pussy is now " + getVaginaCapacity().getDescriptor() + "</b>!" + "</p>";
 					else
 						return UtilText.genderParsing(this, "<p>" + "<She> lets out a gasp as <her> pussy contracts and gets tighter." + "</br>" + "As the transformation ends, <she> discovers that <b style='color:"
-								+ Colour.TRANSFORMATION_SEXUAL() + ";'><her> pussy is now " + getVaginaCapacity().getDescriptor() + "</b>!" + "</p>");
+								+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'><her> pussy is now " + getVaginaCapacity().getDescriptor() + "</b>!" + "</p>");
 			}
 			
 			if(isPlayer()) {
 				return "<p class='center'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Your [pc.pussy]'s capacity doesn't change...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Your [pc.pussy]'s capacity doesn't change...</span>"
 					+ "</p>";
 			} else {
 				return "<p class='center'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The capacity of [npc.name]'s [npc.pussy] doesn't change...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The capacity of [npc.name]'s [npc.pussy] doesn't change...</span>")
 					+ "</p>";
 			}
 			
 		} else {
 			if(isPlayer()) {
 				return "<p class='center'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You don't have a vagina, so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You don't have a vagina, so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p class='center'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] doesn't have a vagina, so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] doesn't have a vagina, so nothing happens...</span>")
 					+ "</p>";
 			}
 		}
@@ -7062,39 +7062,39 @@ public class GameCharacter implements Serializable {
 				if (body.getVagina().setWetness(wetness))
 					if (isPlayer())
 						return "<p>" + "You let out a lewd moan as you feel moisture start beading on the surface of your pussy lips." + " A trickle of girl-cum leaks from your slit, signalling that your cunt has become wetter." + "</br>"
-								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>pussy is now " + getVaginaWetness().getDescriptor() + "</b>!" + "</p>";
+								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>pussy is now " + getVaginaWetness().getDescriptor() + "</b>!" + "</p>";
 					else
 						return UtilText.genderParsing(this,
 								"<p>" + "<She> lets out a lewd moan as moisture starts beading on the surface of <her> pussy lips." + " A trickle of girl-cum leaks from <her> slit, signalling that <her> cunt has become wetter." + "</br>"
-										+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>pussy is now " + getVaginaWetness().getDescriptor() + "</b>!" + "</p>");
+										+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>pussy is now " + getVaginaWetness().getDescriptor() + "</b>!" + "</p>");
 			} else {
 					if (body.getVagina().setWetness(wetness))
 						if (isPlayer())
-							return "<p>" + "You let out a frustrated groan as you feel your pussy drying up." + "</br>" + "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>pussy is now " + getVaginaWetness().getDescriptor()
+							return "<p>" + "You let out a frustrated groan as you feel your pussy drying up." + "</br>" + "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>pussy is now " + getVaginaWetness().getDescriptor()
 									+ "</b>!" + "</p>";
 						else
-							return UtilText.genderParsing(this, "<p>" + "<She> lets out a frustrated groan as <her> pussy dries up." + "</br>" + "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL()
+							return UtilText.genderParsing(this, "<p>" + "<She> lets out a frustrated groan as <her> pussy dries up." + "</br>" + "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString()
 									+ ";'>pussy is now " + getVaginaWetness().getDescriptor() + "</b>!" + "</p>");
 			}
 	
 			if(isPlayer()) {
 				return "<p class='center'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Your [pc.pussy]'s wetness doesn't change...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Your [pc.pussy]'s wetness doesn't change...</span>"
 					+ "</p>";
 			} else {
 				return "<p class='center'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The wetness of [npc.name]'s [npc.pussy] doesn't change...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The wetness of [npc.name]'s [npc.pussy] doesn't change...</span>")
 					+ "</p>";
 			}
 			
 		} else {
 			if(isPlayer()) {
 				return "<p class='center'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You don't have a vagina, so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You don't have a vagina, so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p class='center'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] doesn't have a vagina, so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] doesn't have a vagina, so nothing happens...</span>")
 					+ "</p>";
 			}
 		}
@@ -7122,40 +7122,40 @@ public class GameCharacter implements Serializable {
 				if (body.getVagina().setClitorisSize(size))
 					if (isPlayer())
 						return "<p>" + "You gasp and squirm as a tingling sensation shoots up through your pussy." + " After a moment, the feeling fades away, and you realise that your clit has grown larger." + "</br>" + "Your <b style='color:"
-								+ Colour.TRANSFORMATION_SEXUAL() + ";'>clit is now " + getVaginaClitorisSize().getDescriptor() + "</b>!" + "</p>";
+								+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>clit is now " + getVaginaClitorisSize().getDescriptor() + "</b>!" + "</p>";
 					else
 						return UtilText.genderParsing(this,
 								"<p>" + "<She> gasps and squirms as a tingling sensation shoots up through <her> pussy." + " After a moment, the feeling fades away, and <she> realises that <her> clit has grown larger." + "</br>"
-										+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>clit is now " + getVaginaClitorisSize().getDescriptor() + "</b>!" + "</p>");
+										+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>clit is now " + getVaginaClitorisSize().getDescriptor() + "</b>!" + "</p>");
 			} else {
 				if (body.getVagina().setClitorisSize(size))
 					if (isPlayer())
 						return "<p>" + "You gasp and squirm as a tugging sensation shoots up through your pussy." + " After a moment, the feeling fades away, and you realise that your clit has shrunk." + "</br>" + "Your <b style='color:"
-								+ Colour.TRANSFORMATION_SEXUAL() + ";'>clit is now " + getVaginaClitorisSize().getDescriptor() + "</b>!" + "</p>";
+								+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>clit is now " + getVaginaClitorisSize().getDescriptor() + "</b>!" + "</p>";
 					else
 						return UtilText.genderParsing(this,
 								"<p>" + "<She> gasps and squirms as a tugging sensation shoots up through <her> pussy." + " After a moment, the feeling fades away, and <she> realises that <her> clit has shrunk." + "</br>" + "<Her> <b style='color:"
-										+ Colour.TRANSFORMATION_SEXUAL() + ";'>clit is now " + getVaginaClitorisSize().getDescriptor() + "</b>!" + "</p>");
+										+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>clit is now " + getVaginaClitorisSize().getDescriptor() + "</b>!" + "</p>");
 			}
 	
 			if(isPlayer()) {
 				return "<p class='center'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>The size of your clitoris doesn't change...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The size of your clitoris doesn't change...</span>"
 					+ "</p>";
 			} else {
 				return "<p class='center'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The size of [npc.name]'s clitoris doesn't change...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The size of [npc.name]'s clitoris doesn't change...</span>")
 					+ "</p>";
 			}
 			
 		} else {
 			if(isPlayer()) {
 				return "<p class='center'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You don't have a vagina, so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You don't have a vagina, so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p class='center'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] doesn't have a vagina, so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] doesn't have a vagina, so nothing happens...</span>")
 					+ "</p>";
 			}
 		}
@@ -7178,14 +7178,14 @@ public class GameCharacter implements Serializable {
 						return "</p>"
 									+ "You let out a high-pitched squeal as you feel a strange slackening sensation pulsating deep within your pussy."
 									+ "</br>"
-									+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>vagina is now " + getVaginaElasticity().getDescriptor() + "</b>!"
+									+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>vagina is now " + getVaginaElasticity().getDescriptor() + "</b>!"
 								+ "</p>";
 					else
 						return UtilText.genderParsing(this,
 								"</p>"
 									+ "<She> lets out a high-pitched squeal as a strange slackening sensation pulsates deep within <her> pussy."
 									+ "</br>"
-									+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>vagina is now " + getVaginaElasticity().getDescriptor() + "</b>!"
+									+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>vagina is now " + getVaginaElasticity().getDescriptor() + "</b>!"
 								+ "</p>");
 			} else {
 				if (body.getVagina().setElasticity(plasticity))
@@ -7193,35 +7193,35 @@ public class GameCharacter implements Serializable {
 						return "</p>"
 									+ "You let out a high-pitched squeal as you feel a strange clenching sensation pulsating deep within your pussy."
 									+ "</br>"
-									+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>vagina is now " + getVaginaElasticity().getDescriptor() + "</b>!" 
+									+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>vagina is now " + getVaginaElasticity().getDescriptor() + "</b>!" 
 								+ "</p>";
 					else
 						return UtilText.genderParsing(this,
 								"</p>"
 									+ "<She> lets out a high-pitched squeal as a strange clenching sensation pulsates deep within <her> pussy."
 									+ "</br>"
-									+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL() + ";'>vagina is now " + getVaginaElasticity().getDescriptor() + "</b>!"
+									+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>vagina is now " + getVaginaElasticity().getDescriptor() + "</b>!"
 								+ "</p>");
 			}
 	
 			if(isPlayer()) {
 				return "<p class='center'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>Your [pc.pussy]'s elasticity doesn't change...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Your [pc.pussy]'s elasticity doesn't change...</span>"
 					+ "</p>";
 			} else {
 				return "<p class='center'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>The elasticity of [npc.name]'s [npc.pussy] doesn't change...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>The elasticity of [npc.name]'s [npc.pussy] doesn't change...</span>")
 					+ "</p>";
 			}
 			
 		} else {
 			if(isPlayer()) {
 				return "<p class='center'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You don't have a vagina, so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You don't have a vagina, so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p class='center'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] doesn't have a vagina, so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] doesn't have a vagina, so nothing happens...</span>")
 					+ "</p>";
 			}
 		}
@@ -7257,11 +7257,11 @@ public class GameCharacter implements Serializable {
 		if (wingType == getWingType()) {
 			if(isPlayer()) {
 				return "<p style='text-align:center;'>"
-						+ "<span style='color:" + Colour.TEXT_GREY() + ";'>You already have the [pc.wings] of a [pc.wingRace], so nothing happens...</span>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You already have the [pc.wings] of a [pc.wingRace], so nothing happens...</span>"
 					+ "</p>";
 			} else {
 				return "<p style='text-align:center;'>"
-						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY() + ";'>[npc.Name] already has the [npc.wings] of a [npc.wingRace], so nothing happens...</span>")
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name] already has the [npc.wings] of a [npc.wingRace], so nothing happens...</span>")
 					+ "</p>";	
 			}
 		}
@@ -7282,24 +7282,24 @@ public class GameCharacter implements Serializable {
 		switch (wingType) {
 		case NONE:
 			transformationSB.append(isPlayer()
-					? " With a strong tugging sensation, your " + getWingType().getName(this) + " shrink away into the flesh of your back." + "</br>" + "Your <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>"
+					? " With a strong tugging sensation, your " + getWingType().getName(this) + " shrink away into the flesh of your back." + "</br>" + "Your <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>"
 							+ getWingType().getName(this) + " have disappeared</b>!"
 					: UtilText.genderParsing(this, " With a strong tugging sensation, <her> " + getWingType().getName(this) + " shrink away into the flesh of <her> back." + "</br>" + "<Her> <b style='color:"
-							+ Colour.TRANSFORMATION_PARTIAL() + ";'>" + getWingType().getName(this) + " have disappeared</b>!"));
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getWingType().getName(this) + " have disappeared</b>!"));
 			break;
 		case DEMON_COMMON:
 			transformationSB.append(isPlayer()
 					? " You bite your lip to try and suppress an unexpected moan of pleasure as a pair of cute little bat-like wings push out behind you." + " You give them an experimental flutter, but they seem to be too small to be of any use."
-							+ "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>demon wings</b>!"
+							+ "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>demon wings</b>!"
 					: UtilText.genderParsing(this, " <She> bites <her> lip to try and suppress an unexpected moan of pleasure as a pair of cute little bat-like wings push out behind <her>."
-							+ " <She> gives them an experimental flutter, but they seem to be too small to be of any use." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_PARTIAL() + ";'>demon wings</b>!"));
+							+ " <She> gives them an experimental flutter, but they seem to be too small to be of any use." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>demon wings</b>!"));
 			break;
 		default:
 			transformationSB.append(isPlayer()
-					? Util.capitaliseSentence(wingType.getDeterminer(this)) + " " + wingType.getName(this) + " grow out from your upper back." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_LESSER() + ";'>"
+					? Util.capitaliseSentence(wingType.getDeterminer(this)) + " " + wingType.getName(this) + " grow out from your upper back." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>"
 							+ wingType.getName(this) + "</b>."
 					: UtilText.genderParsing(this, Util.capitaliseSentence(wingType.getDeterminer(this)) + " " + wingType.getName(this) + " grow out from <her> upper back." + "</br>" + "<She> now has <b style='color:"
-							+ Colour.TRANSFORMATION_LESSER() + ";'>" + wingType.getName(this) + "</b>."));
+							+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>" + wingType.getName(this) + "</b>."));
 		}
 
 		body.getWing().setType(wingType);

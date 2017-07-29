@@ -1152,11 +1152,11 @@ public enum SpecialAttack {
 
 		if (caster == Main.game.getPlayer()) {
 			if (isCritical)
-				descriptionSB.append("<p>" + (isHit ? "<b>You <b style='color: " + Colour.CLOTHING_GOLD() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour()() + ";'>"
+				descriptionSB.append("<p>" + (isHit ? "<b>You <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
 						+ damageType.getName() + "</b>" + " damage!</b>" : "<b>You missed!</b>") + "</p>");
 			else
 				descriptionSB.append(
-						"<p>" + (isHit ? "<b>You did " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour()() + ";'>" + damageType.getName() + "</b>" + " damage!</b>" : "<b>You missed!</b>") + "</p>");
+						"<p>" + (isHit ? "<b>You did " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + " damage!</b>" : "<b>You missed!</b>") + "</p>");
 
 			if (statusEffects != null && isHit) {
 				descriptionSB.append(UtilText.genderParsing(target, "<p><She> is now suffering "));
@@ -1168,19 +1168,19 @@ public enum SpecialAttack {
 						else
 							descriptionSB.append(", ");
 					}
-					descriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour()() + ";'>" + seEntry.getKey().getName(target) + "</b>");
+					descriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
 				}
 				descriptionSB.append(".</p>");
 			}
 
-			descriptionSB.append("<p>" + "Using your non-human body parts in such a manner is quite tiring, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_STAMINA.getColour()() + ";'>stamina</b>!</b>" + "</p>");
+			descriptionSB.append("<p>" + "Using your non-human body parts in such a manner is quite tiring, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_STAMINA.getColour().toWebHexString() + ";'>stamina</b>!</b>" + "</p>");
 
 		} else {
 			if (isCritical)
-				descriptionSB.append("<p>" + (isHit ? "<b>You were <b style='color: " + Colour.CLOTHING_GOLD() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour()()
+				descriptionSB.append("<p>" + (isHit ? "<b>You were <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString()
 						+ ";'>" + damageType.getName() + "</b>" + " damage!</b>" : "<b>" + caster.getName("The") + " missed!</b>") + "</p>");
 			else
-				descriptionSB.append("<p>" + (isHit ? "<b>You took " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour()() + ";'>" + damageType.getName() + "</b>" + " damage!</b>"
+				descriptionSB.append("<p>" + (isHit ? "<b>You took " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + " damage!</b>"
 						: "<b>" + caster.getName("The") + " missed!</b>") + "</p>");
 
 			if (statusEffects != null && isHit) {
@@ -1193,13 +1193,13 @@ public enum SpecialAttack {
 						else
 							descriptionSB.append(", ");
 					}
-					descriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour()() + ";'>" + seEntry.getKey().getName(target) + "</b>");
+					descriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
 				}
 				descriptionSB.append("!</p>");
 			}
 
 			descriptionSB.append(UtilText.genderParsing(caster,
-					"<p>" + "Using <her> non-human body parts in such a manner is quite tiring, and <she> loses <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_STAMINA.getColour()() + ";'>stamina</b>!</b>" + "</p>"));
+					"<p>" + "Using <her> non-human body parts in such a manner is quite tiring, and <she> loses <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_STAMINA.getColour().toWebHexString() + ";'>stamina</b>!</b>" + "</p>"));
 		}
 
 		return descriptionSB.toString();
@@ -1223,15 +1223,15 @@ public enum SpecialAttack {
 				descriptionSB.append(
 						"<p>"
 							+ "[npc.Name] can't bring [npc.herself] to look away, and as [npc.she] lets out a desperate whine, you realise that [npc.she] has "
-							+ UtilText.generateSingluarDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE() + ";'>"+fetishWeakness.getName(target)+" fetish</b>, and your display is"
-							+ " <b style='color:" + Colour.GENERIC_EXCELLENT() + ";'>massively turning [npc.herHim] on</b>!</br></br>"
-							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour()() + ";'>willpower</b>!"
+							+ UtilText.generateSingluarDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>, and your display is"
+							+ " <b style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>massively turning [npc.herHim] on</b>!</br></br>"
+							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>!"
 						+ "</p>");
 			} else {
 				descriptionSB.append(
 						"<p>"
 							+ "[npc.Name] seems to be enjoying the show you're putting on, but it doesn't seem to be any more effective than a normal tease attack...</br></br>"
-							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour()() + ";'>willpower</b>."
+							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>."
 						+ "</p>");
 			}
 		} else {
@@ -1239,15 +1239,15 @@ public enum SpecialAttack {
 				descriptionSB.append(
 						"<p>"
 							+ "Because you have "
-							+UtilText.generateSingluarDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
-							+ " you find yourself unable to look away from [npc.name]'s enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE() + ";'>massively turning you on</b>!</br></br>"
-							+ "<b>You lose " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour()() + ";'>willpower</b>!"
+							+UtilText.generateSingluarDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
+							+ " you find yourself unable to look away from [npc.name]'s enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning you on</b>!</br></br>"
+							+ "<b>You lose " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>!"
 						+ "</p>");
 			} else {
 				descriptionSB.append(
 						"<p>"
 							+ "[npc.Name]'s display is quite arousing...</br></br>"
-							+ "<b>You lose " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour()() + ";'>willpower</b>."
+							+ "<b>You lose " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>."
 						+ "</p>");
 			}	
 		}
@@ -1257,11 +1257,11 @@ public enum SpecialAttack {
 		caster.incrementStamina(-cost);
 		if(caster.isPlayer()) {
 			descriptionSB.append("<p>"
-						+ "Putting on such a display is quite tiring, and you lose <b>" + cost + "</b>  <b style='color:" + Attribute.DAMAGE_STAMINA.getColour()() + ";'>stamina</b>.</b>"
+						+ "Putting on such a display is quite tiring, and you lose <b>" + cost + "</b>  <b style='color:" + Attribute.DAMAGE_STAMINA.getColour().toWebHexString() + ";'>stamina</b>.</b>"
 					+ "</p>");
 		} else {
 			descriptionSB.append("<p>"
-						+ "Putting on such a display is quite tiring, and as a result [npc.name] loses <b>" + cost + "</b>  <b style='color:" + Attribute.DAMAGE_STAMINA.getColour()() + ";'>stamina</b>.</b>"
+						+ "Putting on such a display is quite tiring, and as a result [npc.name] loses <b>" + cost + "</b>  <b style='color:" + Attribute.DAMAGE_STAMINA.getColour().toWebHexString() + ";'>stamina</b>.</b>"
 					+ "</p>");
 		}
 		

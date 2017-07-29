@@ -126,7 +126,7 @@ public class CharactersPresentDialogue {
 		+ "<div class='combat-inner-container'>"
 				+ "<div class='combat-container name'>"
 					+ "<div class='combat-container'>"
-						+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(character.getFemininity()).getColour()() + ";'>" 
+						+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(character.getFemininity()).getColour().toWebHexString() + ";'>" 
 							+ "<b>" + Util.capitaliseSentence(character.getName()) + "</b>"
 						+ "</p>"
 					+ "</div>"
@@ -135,8 +135,8 @@ public class CharactersPresentDialogue {
 							+ "<b>Level " + character.getLevel() +"</b>"
 							+ "</br>"
 							+(character.getRaceStage().getName()!=""
-								?"<b style='color:"+character.getRaceStage().getColour()()+";'>" + Util.capitaliseSentence(character.getRaceStage().getName())+"</b> ":"")
-							+ "<b style='color:"+character.getRace().getColour()()+";'>"
+								?"<b style='color:"+character.getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(character.getRaceStage().getName())+"</b> ":"")
+							+ "<b style='color:"+character.getRace().getColour().toWebHexString()+";'>"
 							+ (character.isFeminine()?Util.capitaliseSentence(character.getRace().getSingularFemaleName()):Util.capitaliseSentence(character.getRace().getSingularMaleName()))
 							+ "</b>"
 						+ "</p>"
@@ -150,7 +150,7 @@ public class CharactersPresentDialogue {
 			+ "<div class='combat-container attribute'>"
 				+ "<div class='combat-resource-icon'>" + StrengthLevel.getStrengthLevelFromValue(character.getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(character) + "</div>"
 				+ "<div class='combat-resource-number'>"
-					+ "<b style='color:" + Attribute.STRENGTH.getColour()() + ";'>" + (int) character.getAttributeValue(Attribute.STRENGTH) + "</b>"
+					+ "<b style='color:" + Attribute.STRENGTH.getColour().toWebHexString() + ";'>" + (int) character.getAttributeValue(Attribute.STRENGTH) + "</b>"
 				+ "</div>"
 				+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.STRENGTH + "'></div>"
 			+ "</div>"
@@ -158,7 +158,7 @@ public class CharactersPresentDialogue {
 			+ "<div class='combat-container attribute'>"
 				+ "<div class='combat-resource-icon'>" + IntelligenceLevel.getIntelligenceLevelFromValue(character.getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(character) + "</div>"
 				+ "<div class='combat-resource-number'>"
-				+ "<b style='color:" + Attribute.INTELLIGENCE.getColour()() + ";'>" + (int) character.getAttributeValue(Attribute.INTELLIGENCE) + "</b>"
+				+ "<b style='color:" + Attribute.INTELLIGENCE.getColour().toWebHexString() + ";'>" + (int) character.getAttributeValue(Attribute.INTELLIGENCE) + "</b>"
 				+ "</div>"
 				+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.INTELLIGENCE + "'></div>"
 			+ "</div>"
@@ -166,7 +166,7 @@ public class CharactersPresentDialogue {
 			+ "<div class='combat-container attribute'>"
 				+ "<div class='combat-resource-icon'>" + FitnessLevel.getFitnessLevelFromValue(character.getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(character) + "</div>"
 				+ "<div class='combat-resource-number'>"
-				+ "<b style='color:" + Attribute.FITNESS.getColour()() + ";'>" + (int) character.getAttributeValue(Attribute.FITNESS) + "</b>"
+				+ "<b style='color:" + Attribute.FITNESS.getColour().toWebHexString() + ";'>" + (int) character.getAttributeValue(Attribute.FITNESS) + "</b>"
 				+ "</div>"
 				+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.FITNESS + "'></div>"
 			+ "</div>"
@@ -174,7 +174,7 @@ public class CharactersPresentDialogue {
 			+ "<div class='combat-container attribute'>"
 				+ "<div class='combat-resource-icon'>" + CorruptionLevel.getCorruptionLevelFromValue(character.getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(character) + "</div>"
 				+ "<div class='combat-resource-number'>"
-				+ "<b style='color:" + Attribute.CORRUPTION.getColour()() + ";'>" + (int) character.getAttributeValue(Attribute.CORRUPTION) + "</b>"
+				+ "<b style='color:" + Attribute.CORRUPTION.getColour().toWebHexString() + ";'>" + (int) character.getAttributeValue(Attribute.CORRUPTION) + "</b>"
 				+ "</div>"
 				+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.CORRUPTION + "'></div>"
 			+ "</div>"
@@ -184,16 +184,16 @@ public class CharactersPresentDialogue {
 		+ "<div class='combat-inner-container'>"
 
 				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.HEALTH_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
-				+ (int) ((((float) character.getHealth()) / (character.getAttributeValue(Attribute.HEALTH_MAXIMUM))) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_HEALTH() + "; border-radius: 2px;'></div>" + "</div>"
+				+ (int) ((((float) character.getHealth()) / (character.getAttributeValue(Attribute.HEALTH_MAXIMUM))) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
 				+ "<div class='combat-resource-number'>"
 				+ (int) Math.ceil(character.getHealth()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.HEALTH_MAXIMUM + "'></div>" + "</div>"
 
 				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.MANA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
-				+ (int) ((((float) character.getMana()) / (character.getAttributeValue(Attribute.MANA_MAXIMUM))) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_MANA() + "; border-radius: 2px;'></div>" + "</div>"
+				+ (int) ((((float) character.getMana()) / (character.getAttributeValue(Attribute.MANA_MAXIMUM))) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_MANA.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
 				+ "<div class='combat-resource-number'>" + (int) Math.ceil(character.getMana()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.MANA_MAXIMUM + "'></div>" + "</div>"
 
 				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.STAMINA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
-				+ (int) ((((float) character.getStamina()) / (character.getAttributeValue(Attribute.STAMINA_MAXIMUM))) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_FITNESS() + "; border-radius: 2px;'></div>" + "</div>"
+				+ (int) ((((float) character.getStamina()) / (character.getAttributeValue(Attribute.STAMINA_MAXIMUM))) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
 				+ "<div class='combat-resource-number'>"
 				+ (int) Math.ceil(character.getStamina()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.STAMINA_MAXIMUM + "'></div>" + "</div>"
 
@@ -245,54 +245,54 @@ public class CharactersPresentDialogue {
 		return "<h4 style='text-align:center;'>Stats</h4>"
 				+"<table align='center'>"
 
-				+ "<tr style='height:8px; color:"+character.getGender().getColour()()+";'><th>Core</th></tr>"
+				+ "<tr style='height:8px; color:"+character.getGender().getColour().toWebHexString()+";'><th>Core</th></tr>"
 				+ statRow("Femininity", String.valueOf(character.getFemininity()))
 				+ statRow("Height (cm)", String.valueOf(character.getHeight()))
 				+ statRow("Hair length (cm)", String.valueOf(Util.conversionInchesToCentimetres(character.getHairRawLengthValue())))
 				+ statRow("Makeup", String.valueOf(character.getFaceMakeupLevel().getValue()))
 				+ "<tr style='height:8px;'></tr>"
 
-				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL()+";'><th>Breasts</th></tr>"
+				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Breasts</th></tr>"
 				+ statRow("Cup size", character.getBreastRawSizeValue() == 0 ? "N/A" : Util.capitaliseSentence(character.getBreastSize().getCupSizeName()))
 				+ (character.getPlayerKnowsAreasMap().get(CoverableArea.NIPPLES)
 					?statRow("Milk production (mL)", String.valueOf(character.getBreastRawLactationValue()))
 						+ statRow("Capacity (inches)", String.valueOf(character.getBreastRawCapacityValue()))
 						+ statRow("Elasticity", String.valueOf(character.getBreastElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getBreastElasticity().getDescriptor())+")")
-					:statRow("Milk production (mL)", "<span style='color:"+Colour.TEXT_GREY()+";'>Undiscovered</span>")
-						+ statRow("Capacity (inches)","<span style='color:"+Colour.TEXT_GREY()+";'>Undiscovered</span>")
-						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY()+";'>Undiscovered</span>"))
+					:statRow("Milk production (mL)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Capacity (inches)","<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
 				+ "<tr style='height:8px;'></tr>"
 
-				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL()+";'><th>Penis</th></tr>"
+				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Penis</th></tr>"
 				+ (character.getPlayerKnowsAreasMap().get(CoverableArea.PENIS)
 					?statRow("Length (inches)", character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawSizeValue()))
 						+ statRow("Ball size", character.getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(character.getTesticleSize().getDescriptor()))
 						+ statRow("Cum production (mL)", character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawCumProductionValue()))
-					:statRow("Length (inches)", "<span style='color:"+Colour.TEXT_GREY()+";'>Undiscovered</span>")
-						+ statRow("Ball size", "<span style='color:"+Colour.TEXT_GREY()+";'>Undiscovered</span>")
-						+ statRow("Cum production (mL)", "<span style='color:"+Colour.TEXT_GREY()+";'>Undiscovered</span>"))
+					:statRow("Length (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Ball size", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Cum production (mL)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
 				+ "<tr style='height:8px;'></tr>"
 
-				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL()+";'><th>Vagina</th></tr>"
+				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Vagina</th></tr>"
 				+ (character.getPlayerKnowsAreasMap().get(CoverableArea.VAGINA)
 					?statRow("Capacity (inches)", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawCapacityValue()))
 						+ statRow("Elasticity", String.valueOf(character.getVaginaElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getVaginaElasticity().getDescriptor())+")")
 						+ statRow("Wetness", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaWetness().getValue()) +" ("+Util.capitaliseSentence(character.getVaginaWetness().getDescriptor())+")")
 						+ statRow("Clit size (inches)", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawClitorisSizeValue()))
-					:statRow("Capacity (inches)", "<span style='color:"+Colour.TEXT_GREY()+";'>Undiscovered</span>")
-						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY()+";'>Undiscovered</span>")
-						+ statRow("Wetness", "<span style='color:"+Colour.TEXT_GREY()+";'>Undiscovered</span>")
-						+ statRow("Clit size (inches)", "<span style='color:"+Colour.TEXT_GREY()+";'>Undiscovered</span>"))
+					:statRow("Capacity (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Wetness", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Clit size (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
 				+ "<tr style='height:8px;'></tr>"
 
-				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL()+";'><th>Anus</th></tr>"
+				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Anus</th></tr>"
 				+ (character.getPlayerKnowsAreasMap().get(CoverableArea.ANUS)
 					?statRow("Capacity (inches)", String.valueOf(character.getAssRawCapacityValue()))
 						+ statRow("Elasticity", String.valueOf(character.getAssElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getAssElasticity().getDescriptor())+")")
 						+ statRow("Wetness", String.valueOf(character.getAssWetness().getValue()) +" ("+Util.capitaliseSentence(character.getAssWetness().getDescriptor())+")")
-					:statRow("Capacity (inches)", "<span style='color:"+Colour.TEXT_GREY()+";'>Undiscovered</span>")
-						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY()+";'>Undiscovered</span>")
-						+ statRow("Wetness", "<span style='color:"+Colour.TEXT_GREY()+";'>Undiscovered</span>"))
+					:statRow("Capacity (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Wetness", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
 				+ "</table>";
 	}
 	

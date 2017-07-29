@@ -32,14 +32,14 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(new ListValue<>("<span style='color:"
-					+ Colour.GENERIC_GOOD()
+					+ Colour.GENERIC_GOOD.toWebHexString()
 					+ ";'>Unlocks</span> <span style='color:"
-					+ Colour.GENERIC_SEX()
+					+ Colour.GENERIC_SEX.toWebHexString()
 					+ ";'>anal tease</span>"),
 					new ListValue<>("<span style='color:"
-							+ Colour.GENERIC_BAD()
+							+ Colour.GENERIC_BAD.toWebHexString()
 							+ ";'>Weak to</span> <span style='color:"
-							+ Colour.GENERIC_SEX()
+							+ Colour.GENERIC_SEX.toWebHexString()
 							+ ";'>anal tease</span>")),
 			null) {
 		@Override
@@ -72,8 +72,8 @@ public enum Fetish implements PerkInterface {
 			"fetish_cum_addict",
 			Colour.CLOTHING_WHITE,
 			null,
-			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX()+ ";'>cum addict tease</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX()+ ";'>cum stud tease</span>")),
+			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cum addict tease</span>"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cum stud tease</span>")),
 			null) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -105,8 +105,8 @@ public enum Fetish implements PerkInterface {
 			"fetish_cum",
 			Colour.GENERIC_ARCANE,
 			null,
-			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX()+ ";'>cum stud tease</span> (Requires penis)"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX()+ ";'>cum addict tease</span>")),
+			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cum stud tease</span> (Requires penis)"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cum addict tease</span>")),
 			null) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -138,7 +138,7 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.TEXT_GREY()+ ";'>No special abilities</span>")),
+					new ListValue<>("<span style='color:"+ Colour.TEXT_GREY.toWebHexString()+ ";'>No special abilities</span>")),
 			null) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -170,7 +170,7 @@ public enum Fetish implements PerkInterface {
 			"fetish_deflowering",
 			Colour.GENERIC_ARCANE,
 			null,
-			Util.newArrayListOfValues(new ListValue<>("Gain <span style='color:"+ Colour.GENERIC_EXPERIENCE()+ ";'>xp</span> from <span style='color:"+ Colour.GENERIC_ARCANE()+ ";'>taking virginities</span>")),
+			Util.newArrayListOfValues(new ListValue<>("Gain <span style='color:"+ Colour.GENERIC_EXPERIENCE.toWebHexString()+ ";'>xp</span> from <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>taking virginities</span>")),
 			null) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -204,8 +204,8 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:" + Colour.GENERIC_GOOD() + ";'>Gain</span> <span style='color:" + Colour.GENERIC_EXCELLENT() + ";'>'pure virgin'</span>"),
-					new ListValue<>("<span style='color:" + Colour.GENERIC_BAD() + ";'>Suffer</span> <span style='color:" + Colour.GENERIC_ARCANE() + ";'>'broken virgin'</span>")),
+					new ListValue<>("<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Gain</span> <span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>'pure virgin'</span>"),
+					new ListValue<>("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Suffer</span> <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>'broken virgin'</span>")),
 			null) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -261,20 +261,20 @@ public enum Fetish implements PerkInterface {
 			
 			if(character.getVaginaType()==VaginaType.NONE)
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_BAD()
+						+ Colour.GENERIC_BAD.toWebHexString()
 						+ ";'>Requires vagina</span>");
 			else
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_GOOD()
+						+ Colour.GENERIC_GOOD.toWebHexString()
 						+ ";'>Requires vagina</span>");
 			
 			if(!character.isVaginaVirgin())
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_BAD()
+						+ Colour.GENERIC_BAD.toWebHexString()
 						+ ";'>Requires virginity</span>");
 			else
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_GOOD()
+						+ Colour.GENERIC_GOOD.toWebHexString()
 						+ ";'>Requires virginity</span>");
 
 			return perkRequirementsList;
@@ -292,14 +292,14 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(new ListValue<>("<span style='color:"
-					+ Colour.GENERIC_GOOD()
+					+ Colour.GENERIC_GOOD.toWebHexString()
 					+ ";'>Unlocks</span> <span style='color:"
-					+ Colour.GENERIC_SEX()
+					+ Colour.GENERIC_SEX.toWebHexString()
 					+ ";'>oral tease</span>"),
 					new ListValue<>("<span style='color:"
-							+ Colour.GENERIC_BAD()
+							+ Colour.GENERIC_BAD.toWebHexString()
 							+ ";'>Weak to</span> <span style='color:"
-							+ Colour.GENERIC_SEX()
+							+ Colour.GENERIC_SEX.toWebHexString()
 							+ ";'>oral tease</span>")),
 			null) {
 		@Override
@@ -336,14 +336,14 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(new ListValue<>("<span style='color:"
-					+ Colour.GENERIC_GOOD()
+					+ Colour.GENERIC_GOOD.toWebHexString()
 					+ ";'>Unlocks</span> <span style='color:"
-					+ Colour.GENERIC_SEX()
+					+ Colour.GENERIC_SEX.toWebHexString()
 					+ ";'>breast tease</span> (Requires breasts)"),
 					new ListValue<>("<span style='color:"
-							+ Colour.GENERIC_BAD()
+							+ Colour.GENERIC_BAD.toWebHexString()
 							+ ";'>Weak to</span> <span style='color:"
-							+ Colour.GENERIC_SEX()
+							+ Colour.GENERIC_SEX.toWebHexString()
 							+ ";'>breast tease</span>")),
 			null) {
 		@Override
@@ -383,8 +383,8 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 5)),
 			Util.newArrayListOfValues(new ListValue<>("<span style='color:"
-					+ Colour.GENERIC_GOOD()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX()+ ";'>fertility tease</span> (Requires vagina)"),
-					new ListValue<>("<span style='color:" + Colour.GENERIC_BAD() + ";'>Weak to</span> <span style='color:" + Colour.GENERIC_SEX() + ";'>virility tease</span>")),
+					+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>fertility tease</span> (Requires vagina)"),
+					new ListValue<>("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Weak to</span> <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>virility tease</span>")),
 			null) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -417,8 +417,8 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 5)),
 			Util.newArrayListOfValues(new ListValue<>("<span style='color:"
-					+ Colour.GENERIC_GOOD()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX()+ ";'>virility tease</span> (Requires penis)"),
-					new ListValue<>("<span style='color:" + Colour.GENERIC_BAD() + ";'>Weak to</span> <span style='color:" + Colour.GENERIC_SEX() + ";'>fertility tease</span>")),
+					+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>virility tease</span> (Requires penis)"),
+					new ListValue<>("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Weak to</span> <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>fertility tease</span>")),
 			null) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -450,7 +450,7 @@ public enum Fetish implements PerkInterface {
 			"fetish_broodmother",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 10)),
-			Util.newArrayListOfValues(new ListValue<>("2 x <span style='color:"+ Colour.GENERIC_SEX()+ ";'>Children in mothered litters</span>")),
+			Util.newArrayListOfValues(new ListValue<>("2 x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Children in mothered litters</span>")),
 			null) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -484,7 +484,7 @@ public enum Fetish implements PerkInterface {
 			"fetish_seeder",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 10)),
-			Util.newArrayListOfValues(new ListValue<>("2 x <span style='color:"+ Colour.GENERIC_SEX()+ ";'>Children in fathered litters</span>")),
+			Util.newArrayListOfValues(new ListValue<>("2 x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Children in fathered litters</span>")),
 			null) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -517,9 +517,9 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX()+ ";'>transformation scenes</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_ARCANE()+ ";'>forced transformations</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD()+ ";'>Not yet implemented!</span>")),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>transformation scenes</span>"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>forced transformations</span>"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Not yet implemented!</span>")),
 			null) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -554,7 +554,7 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 10)),
 			Util.newArrayListOfValues(new ListValue<>("<span style='color:"
-					+ Colour.GENERIC_SEX()
+					+ Colour.GENERIC_SEX.toWebHexString()
 					+ ";'>Talk like a bimbo</span>")),
 			null) {
 		@Override
@@ -586,7 +586,7 @@ public enum Fetish implements PerkInterface {
 			"fetish_cross_dresser",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 10)),
-			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD()+ ";'>Immune to clothing femininity status effects</span>")),
+			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to clothing femininity status effects</span>")),
 			null) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -618,7 +618,7 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("Unlocks <span style='color:"+ Colour.GENERIC_ARCANE()+ ";'>Deny</span> in non-submissive sex")),
+					new ListValue<>("Unlocks <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Deny</span> in non-submissive sex")),
 			null) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -649,14 +649,14 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 5)),
 			Util.newArrayListOfValues(new ListValue<>("<span style='color:"
-					+ Colour.GENERIC_GOOD()
+					+ Colour.GENERIC_GOOD.toWebHexString()
 					+ ";'>Unlocks</span> <span style='color:"
-					+ Colour.GENERIC_SEX()
+					+ Colour.GENERIC_SEX.toWebHexString()
 					+ ";'>dominant tease</span>"),
 					new ListValue<>("<span style='color:"
-							+ Colour.GENERIC_BAD()
+							+ Colour.GENERIC_BAD.toWebHexString()
 							+ ";'>Weak to</span> <span style='color:"
-							+ Colour.GENERIC_SEX()
+							+ Colour.GENERIC_SEX.toWebHexString()
 							+ ";'>submissive tease</span>")),
 			null) {
 		@Override
@@ -689,17 +689,17 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STAMINA_MAXIMUM, 5)),
 			Util.newArrayListOfValues(new ListValue<>("<span style='color:"
-					+ Colour.GENERIC_GOOD()
+					+ Colour.GENERIC_GOOD.toWebHexString()
 					+ ";'>Unlocks</span> <span style='color:"
-					+ Colour.GENERIC_SEX()
+					+ Colour.GENERIC_SEX.toWebHexString()
 					+ ";'>submissive tease</span>"),
 					new ListValue<>("<span style='color:"
-							+ Colour.GENERIC_BAD()
+							+ Colour.GENERIC_BAD.toWebHexString()
 							+ ";'>Weak to</span> <span style='color:"
-							+ Colour.GENERIC_SEX()
+							+ Colour.GENERIC_SEX.toWebHexString()
 							+ ";'>dominant tease</span>"),
 					new ListValue<>("Unlocks <span style='color:"
-							+ Colour.GENERIC_ARCANE()
+							+ Colour.GENERIC_ARCANE.toWebHexString()
 							+ ";'>submissive sex</span>")),
 			null) {
 		@Override
@@ -731,10 +731,10 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(new ListValue<>("Unlocks <span style='color:"
-					+ Colour.GENERIC_SEX()
+					+ Colour.GENERIC_SEX.toWebHexString()
 					+ ";'>son & daughter encounters</span>"),
 					new ListValue<>("<span style='color:"
-							+ Colour.GENERIC_BAD()
+							+ Colour.GENERIC_BAD.toWebHexString()
 							+ ";'>Not implemented yet!</span>")),
 			null) {
 		@Override
@@ -766,12 +766,12 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(new ListValue<>("<span style='color:"
-					+ Colour.GENERIC_GOOD()
+					+ Colour.GENERIC_GOOD.toWebHexString()
 					+ ";'>Replaces</span> <span style='color:"
-					+ Colour.GENERIC_ARCANE()
+					+ Colour.GENERIC_ARCANE.toWebHexString()
 					+ ";'>exposed status effects</span>"
 					+ " <span style='color:"
-					+ Colour.GENERIC_GOOD()
+					+ Colour.GENERIC_GOOD.toWebHexString()
 					+ ";'>with beneficial versions</span>")),
 			null) {
 		@Override
@@ -803,10 +803,10 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(new ListValue<>("40% of incoming <span style='color:"
-					+ Colour.ATTRIBUTE_HEALTH()
+					+ Colour.ATTRIBUTE_HEALTH.toWebHexString()
 					+ ";'>health damage</span> is converted to"
 					+ " <span style='color:"
-					+ Colour.DAMAGE_TYPE_MANA()
+					+ Colour.DAMAGE_TYPE_MANA.toWebHexString()
 					+ ";'>willpower damage</span>")),
 			null) {
 		@Override
@@ -837,8 +837,8 @@ public enum Fetish implements PerkInterface {
 			"fetish_sadist",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PURE, 5)),
-			Util.newArrayListOfValues(new ListValue<>("You take 10% of dealt <span style='color:" + Colour.ATTRIBUTE_HEALTH() + ";'>health damage</span> as "
-					+ " <span style='color:"+ Colour.DAMAGE_TYPE_MANA()+ ";'>willpower damage</span>")),
+			Util.newArrayListOfValues(new ListValue<>("You take 10% of dealt <span style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>health damage</span> as "
+					+ " <span style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>willpower damage</span>")),
 			null) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -870,8 +870,8 @@ public enum Fetish implements PerkInterface {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX()+ ";'>Resist sex pace</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_ARCANE()+ ";'>Non-consensual scenes</span>")),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Resist sex pace</span>"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Non-consensual scenes</span>")),
 			null) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -1060,7 +1060,7 @@ public enum Fetish implements PerkInterface {
 						+ e.getValue()
 						+ "</b>"
 						+ " <b style='color: "
-						+ e.getKey().getColour()()
+						+ e.getKey().getColour().toWebHexString()
 						+ ";'>"
 						+ Util.capitaliseSentence(e.getKey().getAbbreviatedName())
 						+ "</b>");
@@ -1105,13 +1105,13 @@ public enum Fetish implements PerkInterface {
 			if (character.hasFetish(this.getPreviousLevelPerk())
 					|| additionalPerks.contains(this.getPreviousLevelPerk()))
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_GOOD()
+						+ Colour.GENERIC_GOOD.toWebHexString()
 						+ ";'>Unlocked '"
 						+ this.getPreviousLevelPerk().getName(character)
 						+ "'</span>");
 			else
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_BAD()
+						+ Colour.GENERIC_BAD.toWebHexString()
 						+ ";'>Unlocked '"
 						+ this.getPreviousLevelPerk().getName(character)
 						+ "'</span>");

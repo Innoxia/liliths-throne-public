@@ -132,13 +132,13 @@ public enum Attribute {
 			Util.newArrayListOfValues(new ListValue<String>("I'm feeling stronger."), new ListValue<String>("My muscles are getting bigger!"), new ListValue<String>("I'm gaining strength.")),
 			Util.newArrayListOfValues(new ListValue<String>("I don't feel any stronger."), new ListValue<String>("I feel about the same.")),
 			Util.newArrayListOfValues(new ListValue<String>("I feel weaker."), new ListValue<String>("My muscles are shrinking."), new ListValue<String>("I'm getting weaker.")),
-			Util.newArrayListOfValues(new ListValue<String>("<b>+1</b> <b style='color: " + Colour.ATTRIBUTE_HEALTH() + "'>health</b> per 1 physical strength"),
-					new ListValue<String>("<b>+0.25</b> <b style='color: " + Colour.DAMAGE_TYPE_PHYSICAL() + "'>melee damage</b> per 1 physical strength"))) {
+			Util.newArrayListOfValues(new ListValue<String>("<b>+1</b> <b style='color: " + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "'>health</b> per 1 physical strength"),
+					new ListValue<String>("<b>+0.25</b> <b style='color: " + Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString() + "'>melee damage</b> per 1 physical strength"))) {
 						@Override
 						public String getDescription(GameCharacter owner) {
 							if(owner.isPlayer())
-								return "A measure of how powerful your body is, strength <b style='color:" + Colour.GENERIC_GOOD() + ";'>passively increases</b> your"
-									+ " <b style='color:" + Colour.ATTRIBUTE_HEALTH() + ";'>maximum health</b> and <b style='color:" + Colour.DAMAGE_TYPE_PHYSICAL() + ";'>melee damage</b>.";
+								return "A measure of how powerful your body is, strength <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>passively increases</b> your"
+									+ " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>maximum health</b> and <b style='color:" + Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString() + ";'>melee damage</b>.";
 							else
 								return UtilText.genderParsing(owner,
 										"A measure of "+owner.getName("the")+"'s strength.");
@@ -155,13 +155,13 @@ public enum Attribute {
 			Util.newArrayListOfValues(new ListValue<String>("I'm getting smarter."), new ListValue<String>("I feel like I'm getting smarter!"), new ListValue<String>("I'm feeling more intelligent.")),
 			Util.newArrayListOfValues(new ListValue<String>("I don't feel any smarter."), new ListValue<String>("I feel about the same.")),
 			Util.newArrayListOfValues(new ListValue<String>("I feel less intelligent."), new ListValue<String>("My mind's slowing down."), new ListValue<String>("I feel like I'm getting stupider.")),
-			Util.newArrayListOfValues(new ListValue<String>("<b>+1</b> <b style='color: " + Colour.ATTRIBUTE_MANA() + "'>composure</b> per 1 mental strength"),
-					new ListValue<String>("<b>+0.5</b> <b style='color: " + Colour.DAMAGE_TYPE_SPELL() + "'>spell damage</b> per 1 mental strength"))) {
+			Util.newArrayListOfValues(new ListValue<String>("<b>+1</b> <b style='color: " + Colour.ATTRIBUTE_MANA.toWebHexString() + "'>composure</b> per 1 mental strength"),
+					new ListValue<String>("<b>+0.5</b> <b style='color: " + Colour.DAMAGE_TYPE_SPELL.toWebHexString() + "'>spell damage</b> per 1 mental strength"))) {
 						@Override
 						public String getDescription(GameCharacter owner) {
 							if(owner.isPlayer())
-								return "A measure of how easily you can solve problems, intelligence <b style='color:" + Colour.GENERIC_GOOD() + ";'>passively increases</b> your"
-									+ " <b style='color:" + Colour.ATTRIBUTE_MANA() + ";'>maximum willpower</b> and <b style='color:" + Colour.DAMAGE_TYPE_SPELL() + ";'>spell damage</b>.";
+								return "A measure of how easily you can solve problems, intelligence <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>passively increases</b> your"
+									+ " <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>maximum willpower</b> and <b style='color:" + Colour.DAMAGE_TYPE_SPELL.toWebHexString() + ";'>spell damage</b>.";
 							else
 								return UtilText.genderParsing(owner,
 										"A measure of "+owner.getName("the")+"'s intelligence.");
@@ -177,12 +177,12 @@ public enum Attribute {
 			"lethargy",
 			Util.newArrayListOfValues(new ListValue<String>("I'm getting healthier.")), Util.newArrayListOfValues(new ListValue<String>("I feel about the same.")),
 			Util.newArrayListOfValues(new ListValue<String>("I'm not as fit as I once was.")),
-			Util.newArrayListOfValues(new ListValue<String>("<b>+1</b> <b style='color: " + Colour.ATTRIBUTE_FITNESS() + "'>stamina</b> per 1 fitness"))) {
+			Util.newArrayListOfValues(new ListValue<String>("<b>+1</b> <b style='color: " + Colour.ATTRIBUTE_FITNESS.toWebHexString() + "'>stamina</b> per 1 fitness"))) {
 						@Override
 						public String getDescription(GameCharacter owner) {
 							if(owner.isPlayer())
-								return "A measure of how agile and athletic you are, fitness <b style='color:" + Colour.GENERIC_GOOD() + ";'>passively increases</b> your"
-										+ " <b style='color:" + Colour.ATTRIBUTE_STAMINA() + ";'>maximum stamina</b> and <b style='color:" + Colour.DAMAGE_TYPE_MANA() + ";'>willpower damage</b>.";
+								return "A measure of how agile and athletic you are, fitness <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>passively increases</b> your"
+										+ " <b style='color:" + Colour.ATTRIBUTE_STAMINA.toWebHexString() + ";'>maximum stamina</b> and <b style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</b>.";
 							else
 								return UtilText.genderParsing(owner,
 										"A measure of "+owner.getName("the")+"'s fitness.");
@@ -199,12 +199,12 @@ public enum Attribute {
 			Util.newArrayListOfValues(new ListValue<String>("My body feels so dirty."), new ListValue<String>("My body feels so filthy."), new ListValue<String>("I feel... dirtier.")),
 			Util.newArrayListOfValues(new ListValue<String>("Nothing is happening."), new ListValue<String>("I feel about the same.")),
 			Util.newArrayListOfValues(new ListValue<String>("I feel cleaner inside."), new ListValue<String>("The corruption is leaving my body.")),
-			Util.newArrayListOfValues(new ListValue<String>("<b>-0.5</b> <b style='color: " + Colour.ATTRIBUTE_MANA() + "'>arousal resistance</b> per 1 physical corruption"),
-					new ListValue<String>("<b>+0.5</b> <b style='color: " + Colour.DAMAGE_TYPE_MANA() + "'>arousal damage</b> per 1 physical corruption"))) {
+			Util.newArrayListOfValues(new ListValue<String>("<b>-0.5</b> <b style='color: " + Colour.ATTRIBUTE_MANA.toWebHexString() + "'>arousal resistance</b> per 1 physical corruption"),
+					new ListValue<String>("<b>+0.5</b> <b style='color: " + Colour.DAMAGE_TYPE_MANA.toWebHexString() + "'>arousal damage</b> per 1 physical corruption"))) {
 						@Override
 						public String getDescription(GameCharacter owner) {
 							if(owner.isPlayer())
-								return "Corruption is a measure of how dirty minded you are, and affects <b style='color:" + Colour.ATTRIBUTE_CORRUPTION() + ";'>availability of actions both in and out of sex</b>.";
+								return "Corruption is a measure of how dirty minded you are, and affects <b style='color:" + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>availability of actions both in and out of sex</b>.";
 							else
 								return UtilText.genderParsing(owner,
 										"A measure of "+owner.getName("the")+"'s corruption.");
@@ -464,38 +464,38 @@ public enum Attribute {
 							? "<p>" + UtilText.parsePlayerThought(attributeGain.get(Util.random.nextInt(attributeGain.size()))) + "</p>"
 							: "")
 							+ "<p>"
-								+ "You gain <b>" + value + "</b> <b style='color:"+ (this == Attribute.CORRUPTION ? Colour.GENERIC_TERRIBLE : Colour.GENERIC_EXCELLENT)() + ";'>core</b>"
-								+ " <b style='color:" + this.getColour()() + ";'>" + this.getName() + "</b>!"
+								+ "You gain <b>" + value + "</b> <b style='color:"+ (this == Attribute.CORRUPTION ? Colour.GENERIC_TERRIBLE : Colour.GENERIC_EXCELLENT).toWebHexString() + ";'>core</b>"
+								+ " <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
 							+ "</p>";
 	
 			} else if (value < 0) {
 				return (attributeLoss != null ? "<p>" + UtilText.parsePlayerThought(attributeLoss.get(Util.random.nextInt(attributeLoss.size()))) + "</p>" : "") + "<p>" + "You lose <b>" + value + "</b> <b style='color:"
-						+ (this == Attribute.CORRUPTION ? Colour.GENERIC_EXCELLENT : Colour.GENERIC_TERRIBLE)() + ";'>core</b>" + " <b style='color:" + this.getColour()() + ";'>" + this.getName() + "</b>!" + "</p>";
+						+ (this == Attribute.CORRUPTION ? Colour.GENERIC_EXCELLENT : Colour.GENERIC_TERRIBLE).toWebHexString() + ";'>core</b>" + " <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!" + "</p>";
 	
 			} else {
 				return (attributeNoChange != null ? "<p>" + UtilText.parsePlayerThought(attributeNoChange.get(Util.random.nextInt(attributeNoChange.size()))) + "</p>" : "") + "<p>" + "Your <b style='color:"
-						+ (this == Attribute.CORRUPTION ? Colour.GENERIC_TERRIBLE : Colour.GENERIC_EXCELLENT)() + ";'>core</b>" + " <b style='color:" + this.getColour()() + ";'>" + this.getName() + "</b> doesn't change..."
+						+ (this == Attribute.CORRUPTION ? Colour.GENERIC_TERRIBLE : Colour.GENERIC_EXCELLENT).toWebHexString() + ";'>core</b>" + " <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b> doesn't change..."
 						+ "</p>";
 			}
 		} else {
 			if (value > 0) {
 				return UtilText.parse(target,
 						"<p>"
-							+ "[npc.Name] gains <b>" + value + "</b> <b style='color:"+ (this == Attribute.CORRUPTION ? Colour.GENERIC_TERRIBLE : Colour.GENERIC_EXCELLENT)() + ";'>core</b>"
-							+ " <b style='color:" + this.getColour()() + ";'>" + this.getName() + "</b>!"
+							+ "[npc.Name] gains <b>" + value + "</b> <b style='color:"+ (this == Attribute.CORRUPTION ? Colour.GENERIC_TERRIBLE : Colour.GENERIC_EXCELLENT).toWebHexString() + ";'>core</b>"
+							+ " <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
 						+ "</p>");
 	
 			} else if (value < 0) {
 				return UtilText.parse(target,
 						"<p>"
-							+ "[npc.Name] loses <b>" + value + "</b> <b style='color:" + this.getColour()() + ";'>" + this.getName() + "</b>!"
+							+ "[npc.Name] loses <b>" + value + "</b> <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
 						+ "</p>");
 				
 	
 			} else {
 				return UtilText.parse(target,
 						"<p>"
-							+ "[npc.Name]'s <b style='color:" + this.getColour()() + ";'>" + this.getName() + "</b> remains unchanged..."
+							+ "[npc.Name]'s <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b> remains unchanged..."
 						+ "</p>");
 			}
 		}

@@ -43,7 +43,7 @@ public enum History {
 	UNFIT("Unfit", "You've never done any excercise in your life, leaving you quite out of shape. You are less fit than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FITNESS, -5))),
 
 	// Other:
-	TOWN_BIKE("Slut", "You've lost count of the amount of guys (and sometimes girls) that you've slept with. You have a lot of experience with flirting and seducing people." + " <span style='color:" + Colour.GENERIC_SEX()
+	TOWN_BIKE("Slut", "You've lost count of the amount of guys (and sometimes girls) that you've slept with. You have a lot of experience with flirting and seducing people." + " <span style='color:" + Colour.GENERIC_SEX.toWebHexString()
 			+ ";'>You start the game having already lost your virginity.</span>", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 5))) {
 		@Override
 		public void applyExtraEffects(GameCharacter character) {
@@ -172,7 +172,7 @@ public enum History {
 			for (Entry<Attribute, Integer> e : attributeModifiers.entrySet()) {
 				if (i != 0)
 					descriptionSB.append("</br>");
-				descriptionSB.append("<b>" + (e.getValue() > 0 ? "+" : "") + e.getValue() + "</b> <b style='color:" + Colour.GENERIC_EXCELLENT() + ";'>core</b> " + "<b style='color: " + e.getKey().getColour()() + ";'>"
+				descriptionSB.append("<b>" + (e.getValue() > 0 ? "+" : "") + e.getValue() + "</b> <b style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>core</b> " + "<b style='color: " + e.getKey().getColour().toWebHexString() + ";'>"
 						+ Util.capitaliseSentence(e.getKey().getName()) + "</b>");
 				i++;
 			}

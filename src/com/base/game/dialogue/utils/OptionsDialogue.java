@@ -46,7 +46,7 @@ public class OptionsDialogue {
 		
 		@Override
 		public String getContent(){
-			return "<p style='color:"+Colour.GENERIC_ARCANE()+"; font-size:64px; line-height:80px; font-weight:normal; text-align:center;'>Lilith's Throne</p>"
+			return "<p style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+"; font-size:64px; line-height:80px; font-weight:normal; text-align:center;'>Lilith's Throne</p>"
 					+ "<p style='text-align:center; font-size:24px; line-height:30px; padding-top:0; margin-top:0;'>"
 						+ "Created by Innoxia"
 					+ "</p>"
@@ -64,7 +64,7 @@ public class OptionsDialogue {
 							:"<h4 style='text-align:center;'>Last save:</h4>"
 								+ "<h5 style='color:" + Main.getProperties().nameColour + ";text-align:center;'>" + Main.getProperties().name + "</h5>"
 								+ "<p style='text-align:center;'><b>Level " + Main.getProperties().level + " " + Util.capitaliseSentence(Main.getProperties().race) + "</b></p>"
-								+ "<p style='text-align:center;'><b style='color: " + com.base.utils.Colour.CURRENCY() + ";'>&#164</b> " + Main.getProperties().money + "</p>"
+								+ "<p style='text-align:center;'><b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>&#164</b> " + Main.getProperties().money + "</p>"
 								+ "<p style='text-align:center;'>Quest: " + Util.capitaliseSentence(Main.getProperties().quest) + "</p>");
 		}
 		
@@ -75,7 +75,7 @@ public class OptionsDialogue {
 				 if(confirmNewGame || !Main.game.isStarted()) {
 					 
 					return new ResponseEffectsOnly(
-							(!Main.game.isStarted()?"New Game":"<b style='color:"+Colour.GENERIC_GOOD()+";'>Confirm</b>"), "Start a new game.</br></br><b>Remember to save your game first!</b>"){
+							(!Main.game.isStarted()?"New Game":"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Confirm</b>"), "Start a new game.</br></br><b>Remember to save your game first!</b>"){
 						@Override
 						public void effects() {
 							Main.mainController.setAttributePanelContent("");
@@ -184,17 +184,17 @@ public class OptionsDialogue {
 		String[] version = System.getProperty("java.version").split("\\.");
 		if(version.length>=2) {
 			if(Integer.valueOf(version[1])<8) {
-				sb.append("<span style='color:"+Colour.GENERIC_BAD()+";'>You have an old version of java!</span> This game needs at least v0.1.8.0_131 to work correctly!");
+				sb.append("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You have an old version of java!</span> This game needs at least v0.1.8.0_131 to work correctly!");
 				
 			} else {
 				if(version.length==3){
 					String[] versionMinor = version[2].split("_");
 					if(versionMinor.length>=2)
 						if(Integer.valueOf(versionMinor[1])<131) {
-							sb.append("<span style='color:"+Colour.GENERIC_BAD()+";'>You have an old version of java!</span> This game needs at least v0.1.8.0_131 to work correctly!");
+							sb.append("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You have an old version of java!</span> This game needs at least v0.1.8.0_131 to work correctly!");
 							
 						} else {
-							sb.append("<span style='color:"+Colour.GENERIC_GOOD()+";'>Your java is up to date!</span>");
+							sb.append("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Your java is up to date!</span>");
 						}
 				} else {
 					sb.append("This game needs at least v0.1.8.0_131 to work correctly!");
@@ -240,7 +240,7 @@ public class OptionsDialogue {
 			
 			for(File f : Main.getSavedGames()){
 				try {
-					saveLoadSB.append(getSaveLoadRow("<span style='color:"+Colour.TEXT_GREY()+";'>"+getFileTime(f)+"</span>", f.getName()));
+					saveLoadSB.append(getSaveLoadRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+getFileTime(f)+"</span>", f.getName()));
 				} catch (IOException e3) {
 					e3.printStackTrace();
 				}
@@ -267,8 +267,8 @@ public class OptionsDialogue {
 					@Override
 					public String getTitle() {
 						return "Confirmations: "+(Main.getProperties().overwriteWarning
-								?"<span style='color:"+Colour.GENERIC_GOOD()+";'>ON</span>"
-								:"<span style='color:"+Colour.GENERIC_BAD()+";'>OFF</span>");
+								?"<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>ON</span>"
+								:"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>OFF</span>");
 					}
 					
 					@Override
@@ -312,18 +312,18 @@ public class OptionsDialogue {
 					+ "</td>"
 					+ "<td>"
 						+ (name.equals(loadConfirmationName)
-								?"<div class='saveLoadButton' id='load_saved_" + baseName + "' style='color:"+Colour.GENERIC_EXCELLENT()+";'>Confirm</div>"
-								:"<div class='saveLoadButton' id='load_saved_" + baseName + "' style='color:"+Colour.GENERIC_GOOD()+";'>Load</div>")
+								?"<div class='saveLoadButton' id='load_saved_" + baseName + "' style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Confirm</div>"
+								:"<div class='saveLoadButton' id='load_saved_" + baseName + "' style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Load</div>")
 					+ "</td>"
 					+ "<td>"
 						+ (name.equals(overwriteConfirmationName)
-							?"<div class='saveLoadButton' id='overwrite_saved_" + baseName + "' style='color:"+Colour.GENERIC_TERRIBLE()+";'>Confirm</div>"
-							:"<div class='saveLoadButton' id='overwrite_saved_" + baseName + "' style='color:"+Colour.GENERIC_BAD()+";'>Overwrite</div>")
+							?"<div class='saveLoadButton' id='overwrite_saved_" + baseName + "' style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Confirm</div>"
+							:"<div class='saveLoadButton' id='overwrite_saved_" + baseName + "' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Overwrite</div>")
 					+ "</td>"
 					+ "<td>"
 						+ (name.equals(deleteConfirmationName)
-							?"<div class='deleteSaveButton' id='delete_saved_" + baseName + "' style='color:"+Colour.GENERIC_ARCANE()+";'>Confirm</div>"
-							:"<div class='deleteSaveButton' id='delete_saved_" + baseName + "' style='color:"+Colour.CLOTHING_WHITE()+";'>Delete</div>")
+							?"<div class='deleteSaveButton' id='delete_saved_" + baseName + "' style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Confirm</div>"
+							:"<div class='deleteSaveButton' id='delete_saved_" + baseName + "' style='color:"+Colour.CLOTHING_WHITE.toWebHexString()+";'>Delete</div>")
 					+ "</td>"
 					+ "</tr>";
 			
@@ -339,7 +339,7 @@ public class OptionsDialogue {
 						+ "</form>"
 					+ "</td>"
 					+ "<td>"
-						+ "<div class='saveLoadButton' id='new_saved' style='color:"+Colour.GENERIC_EXCELLENT()+";'>Save</div>"
+						+ "<div class='saveLoadButton' id='new_saved' style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Save</div>"
 					+ "</td>"
 					+ "<td>"
 						+ "<div class='saveLoadButton disabled'>-</div>"
@@ -628,7 +628,7 @@ public class OptionsDialogue {
 			return "<p>"
 						+ "<h5 style='text-align:center;'>Global gender names:</h5>"
 						+ "<table align='center'>"
-							+ "<tr><th>Body Parts</th><th style='color:"+Colour.FEMININE()+";'>Feminine body</th><th style='color:"+Colour.MASCULINE()+";'>Masculine Body</th></tr>"
+							+ "<tr><th>Body Parts</th><th style='color:"+Colour.FEMININE.toWebHexString()+";'>Feminine body</th><th style='color:"+Colour.MASCULINE.toWebHexString()+";'>Masculine Body</th></tr>"
 							+ getPronounTableRow(GenderPronoun.NO_PENIS_VAGINA)
 							+ getPronounTableRow(GenderPronoun.PENIS_NO_VAGINA)
 							+ getPronounTableRow(GenderPronoun.PENIS_VAGINA)
@@ -639,7 +639,7 @@ public class OptionsDialogue {
 					+ "<p>"
 						+ "<h5 style='text-align:center;'>Player-specific pronouns:</h5>"
 						+ "<table align='center'>"
-							+ "<tr><th>Pronoun</th><th style='color:"+Colour.FEMININE()+";'>Feminine body</th><th style='color:"+Colour.MASCULINE()+";'>Masculine Body</th></tr>"
+							+ "<tr><th>Pronoun</th><th style='color:"+Colour.FEMININE.toWebHexString()+";'>Feminine body</th><th style='color:"+Colour.MASCULINE.toWebHexString()+";'>Masculine Body</th></tr>"
 							+ getPronounTableRow(GenderPronoun.NOUN)
 							+ getPronounTableRow(GenderPronoun.YOUNG_NOUN)
 							+ getPronounTableRow(GenderPronoun.SECOND_PERSON)
@@ -648,14 +648,14 @@ public class OptionsDialogue {
 							+ getPronounTableRow(GenderPronoun.POSSESSIVE_ALONE)
 						+ "</table>"
 					+ "</p>"
-					+ "<h5 style='text-align:center;'><span style='color:"+Colour.ANDROGYNOUS()+";'>Androgynous bodies</span> (option 3)</h5>"
+					+ "<h5 style='text-align:center;'><span style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>Androgynous bodies</span> (option 3)</h5>"
 					+ "<p>"
-					+ "<b style='color:"+Colour.FEMININE()+";'>Feminine:</b> Treated as <b style='color:"+Colour.FEMININE()+";'>feminine</b>.</br>"
-					+ "<b style='color:"+Colour.ANDROGYNOUS()+";'>Clothing feminine:</b> Treated according to clothing femininity."
-							+ " If clothing is neutral, treated as <b style='color:"+Colour.FEMININE()+";'>feminine</b>.</br>"
-					+ "<b style='color:"+Colour.ANDROGYNOUS()+";'>Clothing masculine:</b> Treated according to clothing femininity."
-							+ " If clothing is neutral, treated as <b style='color:"+Colour.MASCULINE()+";'>masculine</b>.</br>"
-					+ "<b style='color:"+Colour.MASCULINE()+";'>Masculine:</b> Treated as <b style='color:"+Colour.MASCULINE()+";'>masculine</b>.</br>"
+					+ "<b style='color:"+Colour.FEMININE.toWebHexString()+";'>Feminine:</b> Treated as <b style='color:"+Colour.FEMININE.toWebHexString()+";'>feminine</b>.</br>"
+					+ "<b style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>Clothing feminine:</b> Treated according to clothing femininity."
+							+ " If clothing is neutral, treated as <b style='color:"+Colour.FEMININE.toWebHexString()+";'>feminine</b>.</br>"
+					+ "<b style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>Clothing masculine:</b> Treated according to clothing femininity."
+							+ " If clothing is neutral, treated as <b style='color:"+Colour.MASCULINE.toWebHexString()+";'>masculine</b>.</br>"
+					+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Masculine:</b> Treated as <b style='color:"+Colour.MASCULINE.toWebHexString()+";'>masculine</b>.</br>"
 					+ "</p>";
 		}
 		
@@ -693,7 +693,7 @@ public class OptionsDialogue {
 				};
 				
 			} else if (index == 3) {
-				return new Response("<span style='color:"+Main.getProperties().androgynousIdentification.getColour()()+";'>"+Util.capitaliseSentence(Main.getProperties().androgynousIdentification.getName())+"</span>",
+				return new Response("<span style='color:"+Main.getProperties().androgynousIdentification.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Main.getProperties().androgynousIdentification.getName())+"</span>",
 						"Cycle the way the game treats androgynous bodies as described above.", OPTIONS_PRONOUNS){
 					@Override
 					public void effects() {
@@ -928,11 +928,11 @@ public class OptionsDialogue {
 						+ " The 'Human encounters' option determines what the chance is for random NPCs to be fully human."
 						+ " <b>These options only affect random NPCs at the moment, but I'll do my best to add reduced-furry versions of each major NPC as well!</b>"
 						
-						+ "</br><b style='color:"+RaceStage.HUMAN.getColour()()+";'>Human:</b> "+FurryPreference.HUMAN.getDescription()
-						+ "</br><b style='color:"+RaceStage.PARTIAL_FULL.getColour()()+";'>Minimum:</b> "+FurryPreference.MINIMUM.getDescription()
-						+ "</br><b style='color:"+RaceStage.PARTIAL_FULL.getColour()()+";'>Reduced:</b> "+FurryPreference.REDUCED.getDescription()
-						+ "</br><b style='color:"+RaceStage.LESSER.getColour()()+";'>Normal:</b> "+FurryPreference.NORMAL.getDescription()
-						+ "</br><b style='color:"+RaceStage.GREATER.getColour()()+";'>Maximum:</b> "+FurryPreference.MAXIMUM.getDescription()
+						+ "</br><b style='color:"+RaceStage.HUMAN.getColour().toWebHexString()+";'>Human:</b> "+FurryPreference.HUMAN.getDescription()
+						+ "</br><b style='color:"+RaceStage.PARTIAL_FULL.getColour().toWebHexString()+";'>Minimum:</b> "+FurryPreference.MINIMUM.getDescription()
+						+ "</br><b style='color:"+RaceStage.PARTIAL_FULL.getColour().toWebHexString()+";'>Reduced:</b> "+FurryPreference.REDUCED.getDescription()
+						+ "</br><b style='color:"+RaceStage.LESSER.getColour().toWebHexString()+";'>Normal:</b> "+FurryPreference.NORMAL.getDescription()
+						+ "</br><b style='color:"+RaceStage.GREATER.getColour().toWebHexString()+";'>Maximum:</b> "+FurryPreference.MAXIMUM.getDescription()
 						
 						+ "</br></br>Please note that mythological and demonic races, such as harpies and demons, are not affected by furry preferences."
 					+ "</div>"
@@ -974,10 +974,10 @@ public class OptionsDialogue {
 				if(r.isAffectedByFurryPreference()) {
 					UtilText.nodeContentSB.append(
 							"</br></br><div style='width:100%; text-align:center;'>"
-								+ "<b style='color:"+r.getColour()()+";'>" +Util.capitaliseSentence(r.getName())+"</b>"
+								+ "<b style='color:"+r.getColour().toWebHexString()+";'>" +Util.capitaliseSentence(r.getName())+"</b>"
 							+ "</div></br>"
 							+ "<div style='width:160px; float:left;'>"
-								+ "<b style='color:"+Colour.FEMININE()+";'>Feminine:</b> "
+								+ "<b style='color:"+Colour.FEMININE.toWebHexString()+";'>Feminine:</b> "
 							+ "</div>"
 							+ "<div id='furry_preference_female_human_"+r+"' class='preference-button"+(Main.getProperties().raceFemininePreferencesMap.get(r)==FurryPreference.HUMAN?" selected":"")+"'>Human</div>"
 							+ "<div id='furry_preference_female_minimum_"+r+"' class='preference-button"+(Main.getProperties().raceFemininePreferencesMap.get(r)==FurryPreference.MINIMUM?" selected":"")+"'>Minimum</div>"
@@ -986,7 +986,7 @@ public class OptionsDialogue {
 							+ "<div id='furry_preference_female_maximum_"+r+"' class='preference-button"+(Main.getProperties().raceFemininePreferencesMap.get(r)==FurryPreference.MAXIMUM?" selected":"")+"'>Maximum</div>"
 							+ "</br></br>"
 							+ "<div style='width:160px; float:left;'>"
-								+ "<b style='color:"+Colour.MASCULINE()+";'>Masculine:</b> "
+								+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Masculine:</b> "
 							+ "</div>"
 							+ "<div id='furry_preference_male_human_"+r+"' class='preference-button"+(Main.getProperties().raceMasculinePreferencesMap.get(r)==FurryPreference.HUMAN?" selected":"")+"'>Human</div>"
 							+ "<div id='furry_preference_male_minimum_"+r+"' class='preference-button"+(Main.getProperties().raceMasculinePreferencesMap.get(r)==FurryPreference.MINIMUM?" selected":"")+"'>Minimum</div>"
