@@ -52,9 +52,9 @@ public class DominionSuccubus {
 							+ "</p>"
 							+ "<p>"
 								+ "As she steps over the fallen webbing, you recognise your tormentor as the"
-								+ " <b style='color:"+Femininity.valueOf(Main.game.getCurrentRandomAttacker().getFemininity()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getCurrentRandomAttacker().getFemininity(), false)+"</b>"
-								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getCurrentRandomAttacker().getRaceStage().getName()+"</b>"
-								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRace().getColour().toWebHexString()+";'>" + Main.game.getCurrentRandomAttacker().getName() + "</b>"
+								+ " <b style='color:"+Femininity.valueOf(Main.game.getCurrentRandomAttacker().getFemininity()).getColour()()+";'>"+Femininity.getFemininityName(Main.game.getCurrentRandomAttacker().getFemininity(), false)+"</b>"
+								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRaceStage().getColour()()+";'>" +Main.game.getCurrentRandomAttacker().getRaceStage().getName()+"</b>"
+								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRace().getColour()()+";'>" + Main.game.getCurrentRandomAttacker().getName() + "</b>"
 								+ " you've run into before."
 							+ "</p>"
 							+ "<p>"
@@ -94,9 +94,9 @@ public class DominionSuccubus {
 							+ "</p>"
 							+ "<p>"
 								+ "As she steps over the fallen webbing, you recognise your tormentor as the"
-								+ " <b style='color:"+Femininity.valueOf(Main.game.getCurrentRandomAttacker().getFemininity()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getCurrentRandomAttacker().getFemininity(), false)+"</b>"
-								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getCurrentRandomAttacker().getRaceStage().getName()+"</b>"
-								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRace().getColour().toWebHexString()+";'>" + Main.game.getCurrentRandomAttacker().getName() + "</b>"
+								+ " <b style='color:"+Femininity.valueOf(Main.game.getCurrentRandomAttacker().getFemininity()).getColour()()+";'>"+Femininity.getFemininityName(Main.game.getCurrentRandomAttacker().getFemininity(), false)+"</b>"
+								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRaceStage().getColour()()+";'>" +Main.game.getCurrentRandomAttacker().getRaceStage().getName()+"</b>"
+								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRace().getColour()()+";'>" + Main.game.getCurrentRandomAttacker().getName() + "</b>"
 								+ " you've run into before."
 							+ "</p>"
 							+ "<p>"
@@ -139,9 +139,9 @@ public class DominionSuccubus {
 						+ "</p>"
 						+ "<p>"
 							+ "As she steps over the fallen webbing, you recognise your tormentor as the"
-							+ " <b style='color:"+Femininity.valueOf(Main.game.getCurrentRandomAttacker().getFemininity()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getCurrentRandomAttacker().getFemininity(), false)+"</b>"
-							+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getCurrentRandomAttacker().getRaceStage().getName()+"</b>"
-							+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRace().getColour().toWebHexString()+";'>" + Main.game.getCurrentRandomAttacker().getName() + "</b>"
+							+ " <b style='color:"+Femininity.valueOf(Main.game.getCurrentRandomAttacker().getFemininity()).getColour()()+";'>"+Femininity.getFemininityName(Main.game.getCurrentRandomAttacker().getFemininity(), false)+"</b>"
+							+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRaceStage().getColour()()+";'>" +Main.game.getCurrentRandomAttacker().getRaceStage().getName()+"</b>"
+							+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRace().getColour()()+";'>" + Main.game.getCurrentRandomAttacker().getName() + "</b>"
 							+ " you've run into before."
 						+ "</p>"
 						+ "<p>"
@@ -174,9 +174,9 @@ public class DominionSuccubus {
 							+ "</p>"
 							+ "<p>"
 								+ "As she steps over the fallen webbing, you see that your tormentor is, in fact, "
-								+ " <b style='color:"+Femininity.valueOf(Main.game.getCurrentRandomAttacker().getFemininity()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getCurrentRandomAttacker().getFemininity(), true)+"</b>"
-								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getCurrentRandomAttacker().getRaceStage().getName()+"</b>"
-								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRace().getColour().toWebHexString()+";'>" + Main.game.getCurrentRandomAttacker().getName() + "</b>"
+								+ " <b style='color:"+Femininity.valueOf(Main.game.getCurrentRandomAttacker().getFemininity()).getColour()()+";'>"+Femininity.getFemininityName(Main.game.getCurrentRandomAttacker().getFemininity(), true)+"</b>"
+								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRaceStage().getColour()()+";'>" +Main.game.getCurrentRandomAttacker().getRaceStage().getName()+"</b>"
+								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRace().getColour()()+";'>" + Main.game.getCurrentRandomAttacker().getName() + "</b>"
 								+ ". Unlike Lilaya"+(Main.game.getDialogueFlags().kateIntroduced?" or Kate":"")+", this demon has a hungry, primal look in her eyes, and as she moves closer, she starts to talk."
 							+ "</p>"
 							+ "<p>"
@@ -281,7 +281,7 @@ public class DominionSuccubus {
 			} else if (index == 3) {
 				return new ResponseSex("Submit",
 						"Seeing the desperate, whining form of the horny succubus is proving to be too much for you to bear."
-								+ " Perhaps you could cheer her up by <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submitting to her</b> and letting her use your body?",
+								+ " Perhaps you could cheer her up by <b style='color:"+Colour.GENERIC_SEX()+";'>submitting to her</b> and letting her use your body?",
 						AFTER_SEX_DEFEAT,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
 						Main.game.getCurrentRandomAttacker(), new SMSubStanding(), AFTER_SEX_DEFEAT,

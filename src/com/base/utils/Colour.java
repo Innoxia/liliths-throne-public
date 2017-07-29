@@ -342,7 +342,7 @@ public enum Colour {
 	 * 
 	 * @return
 	 */
-	public String toWebHexString() {
+	public String() {
 		return getColor().toString().substring(2, 8);
 	}
 
@@ -397,7 +397,7 @@ public enum Colour {
 	}
 
 	public String toString() {
-		return toWebHexString();
+		return();
 	}
 
 }

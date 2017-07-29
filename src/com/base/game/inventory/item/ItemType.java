@@ -1622,7 +1622,7 @@ public enum ItemType {
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
 			return "You can't think of a use for this. Maybe it's best to throw it away...</br>"
-					+ "(You need have at least a <b style='color:"+CorruptionLevel.THREE_DIRTY.getColour().toWebHexString()+";'>"+CorruptionLevel.THREE_DIRTY.getName()+"</b> level of corruption to know how to use this!)";
+					+ "(You need have at least a <b style='color:"+CorruptionLevel.THREE_DIRTY.getColour()()+";'>"+CorruptionLevel.THREE_DIRTY.getName()+"</b> level of corruption to know how to use this!)";
 		}
 
 		@Override
@@ -2180,7 +2180,7 @@ public enum ItemType {
 
 	public String getName(boolean displayName) {
 		if(displayName) {
-			return Util.capitaliseSentence((determiner!=null?determiner:"") + " <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>");
+			return Util.capitaliseSentence((determiner!=null?determiner:"") + " <span style='color: " + rarity.getColour()() + ";'>" + name + "</span>");
 		} else {
 			return name;
 		}
@@ -2191,7 +2191,7 @@ public enum ItemType {
 	}
 
 	public String getDisplayName(boolean withRarityColour) {
-		return Util.capitaliseSentence((determiner!=null?determiner:"") + (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
+		return Util.capitaliseSentence((determiner!=null?determiner:"") + (withRarityColour ? (" <span style='color: " + rarity.getColour()() + ";'>" + name + "</span>") : name));
 	}
 
 	public String getPathName() {

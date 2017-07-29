@@ -254,15 +254,15 @@ public class CityPlaces {
 					UtilText.nodeContentSB.append(
 							UtilText.genderParsing(npc,
 									"<p style='text-align:center;'>"
-									+ "<b style='color:"+Femininity.valueOf(npc.getFemininity()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
-									+ " <b style='color:"+npc.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-									+ " <b style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</b> <b>is prowling this area!</b></p>"
+									+ "<b style='color:"+Femininity.valueOf(npc.getFemininity()).getColour()()+";'>[npc.A_femininity]</b>"
+									+ " <b style='color:"+npc.getRaceStage().getColour()()+";'>[npc.raceStage]</b>"
+									+ " <b style='color:"+npc.getRace().getColour()()+";'>[npc.race]</b> <b>is prowling this area!</b></p>"
 									
 									+ "<p style='text-align:center;'>"));
 							
 					// Combat:
 					UtilText.nodeContentSB.append(
-							UtilText.genderParsing(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> <herPro> <b>"));
+							UtilText.genderParsing(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT()+";'>fought</b> <herPro> <b>"));
 							
 							if(npc.getStats().getFoughtPlayerCount()==1) {
 								UtilText.nodeContentSB.append("once.");
@@ -276,7 +276,7 @@ public class CityPlaces {
 							UtilText.genderParsing(npc,
 									"</b>"
 									+ "</br>"
-									+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>"));
+									+ "You have <b style='color:"+Colour.GENERIC_GOOD()+";'>won</b> <b>"));
 							
 							if(npc.getStats().getLostCombatCount()==1) {
 								UtilText.nodeContentSB.append("once.");
@@ -288,7 +288,7 @@ public class CityPlaces {
 									
 					UtilText.nodeContentSB.append("</b>"
 							+ "</br>"
-							+ "You have <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>lost</b> <b>");
+							+ "You have <b style='color:"+Colour.GENERIC_BAD()+";'>lost</b> <b>");
 							if(npc.getStats().getWonCombatCount()==1) {
 								UtilText.nodeContentSB.append("once.");
 							} else if(npc.getStats().getWonCombatCount()==2) {
@@ -304,7 +304,7 @@ public class CityPlaces {
 							
 					UtilText.nodeContentSB.append(
 							UtilText.genderParsing(npc,
-									"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with <herPro> <b>"));
+									"You have had <b style='color:"+Colour.GENERIC_SEX()+";'>submissive sex</b> with <herPro> <b>"));
 					
 							if(npc.getStats().getSexAsDomCount()==1) {
 								UtilText.nodeContentSB.append("once.");
@@ -318,7 +318,7 @@ public class CityPlaces {
 							UtilText.genderParsing(npc,
 									"</b>"
 									+ "</br>"
-									+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with <herPro> <b>"));
+									+ "You have had <b style='color:"+Colour.GENERIC_SEX()+";'>dominant sex</b> with <herPro> <b>"));
 					
 							if(npc.getStats().getSexAsSubCount()==1) {
 								UtilText.nodeContentSB.append("once.");
@@ -376,15 +376,15 @@ public class CityPlaces {
 					UtilText.nodeContentSB.append(
 							UtilText.genderParsing(npc,
 									"<p style='text-align:center;'>"
-									+ "<b style='color:"+Femininity.valueOf(npc.getFemininity()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
-									+ " <b style='color:"+npc.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-									+ " <b style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</b> <b>is prowling this area!</b></p>"
+									+ "<b style='color:"+Femininity.valueOf(npc.getFemininity()).getColour()()+";'>[npc.A_femininity]</b>"
+									+ " <b style='color:"+npc.getRaceStage().getColour()()+";'>[npc.raceStage]</b>"
+									+ " <b style='color:"+npc.getRace().getColour()()+";'>[npc.race]</b> <b>is prowling this area!</b></p>"
 									
 									+ "<p style='text-align:center;'>"));
 							
 					// Combat:
 					UtilText.nodeContentSB.append(
-							UtilText.genderParsing(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> <herPro> <b>"));
+							UtilText.genderParsing(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT()+";'>fought</b> <herPro> <b>"));
 							
 							if(npc.getStats().getFoughtPlayerCount()==1) {
 								UtilText.nodeContentSB.append("once.");
@@ -398,7 +398,7 @@ public class CityPlaces {
 							UtilText.genderParsing(npc,
 									"</b>"
 									+ "</br>"
-									+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>"));
+									+ "You have <b style='color:"+Colour.GENERIC_GOOD()+";'>won</b> <b>"));
 							
 							if(npc.getStats().getLostCombatCount()==1) {
 								UtilText.nodeContentSB.append("once.");
@@ -410,7 +410,7 @@ public class CityPlaces {
 									
 					UtilText.nodeContentSB.append("</b>"
 							+ "</br>"
-							+ "You have <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>lost</b> <b>");
+							+ "You have <b style='color:"+Colour.GENERIC_BAD()+";'>lost</b> <b>");
 							if(npc.getStats().getWonCombatCount()==1) {
 								UtilText.nodeContentSB.append("once.");
 							} else if(npc.getStats().getWonCombatCount()==2) {
@@ -426,7 +426,7 @@ public class CityPlaces {
 							
 					UtilText.nodeContentSB.append(
 							UtilText.genderParsing(npc,
-									"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with <herPro> <b>"));
+									"You have had <b style='color:"+Colour.GENERIC_SEX()+";'>submissive sex</b> with <herPro> <b>"));
 					
 							if(npc.getStats().getSexAsDomCount()==1) {
 								UtilText.nodeContentSB.append("once.");
@@ -440,7 +440,7 @@ public class CityPlaces {
 							UtilText.genderParsing(npc,
 									"</b>"
 									+ "</br>"
-									+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with <herPro> <b>"));
+									+ "You have had <b style='color:"+Colour.GENERIC_SEX()+";'>dominant sex</b> with <herPro> <b>"));
 					
 							if(npc.getStats().getSexAsSubCount()==1) {
 								UtilText.nodeContentSB.append("once.");

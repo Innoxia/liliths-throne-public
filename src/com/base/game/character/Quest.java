@@ -475,20 +475,20 @@ public enum Quest {
 		if (active) {
 			if(q.getLevel() <= Main.game.getPlayer().getLevel() - 3) {
 				return "<b class='quest-extra level' style='color:"+  Colour.GENERIC_GOOD + ";'>Level " + q.getLevel()+ "</b>"
-						+ "<b class='quest-extra experience' style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + q.getExperienceReward() + " xp</b>";
+						+ "<b class='quest-extra experience' style='color:" + Colour.GENERIC_EXPERIENCE() + ";'>" + q.getExperienceReward() + " xp</b>";
 				
 			} else if (q.getLevel() >= Main.game.getPlayer().getLevel() + 3) {
 				return "<b class='quest-extra level' style='color:"+  Colour.GENERIC_BAD + ";'>Level " + q.getLevel()+ "</b>"
-						+ "<b class='quest-extra experience' style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + q.getExperienceReward() + " xp</b>";
+						+ "<b class='quest-extra experience' style='color:" + Colour.GENERIC_EXPERIENCE() + ";'>" + q.getExperienceReward() + " xp</b>";
 				
 			} else {
 				return "<b class='quest-extra level'>Level " + q.getLevel()+ "</b>"
-						+ "<b class='quest-extra experience' style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + q.getExperienceReward() + " xp</b>";
+						+ "<b class='quest-extra experience' style='color:" + Colour.GENERIC_EXPERIENCE() + ";'>" + q.getExperienceReward() + " xp</b>";
 			}
 			
 		} else {
-			return "<b class='quest-extra level' style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Level " + q.getLevel() + "</b>"
-					+ "<b class='quest-extra experience' style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" + q.getExperienceReward() + " xp</b>";
+			return "<b class='quest-extra level' style='color:" + Colour.TEXT_GREY() + ";'>Level " + q.getLevel() + "</b>"
+					+ "<b class='quest-extra experience' style='color:" + Colour.TEXT_GREY() + ";'>" + q.getExperienceReward() + " xp</b>";
 		}
 	}
 

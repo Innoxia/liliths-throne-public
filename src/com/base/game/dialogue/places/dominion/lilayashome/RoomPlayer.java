@@ -167,7 +167,7 @@ public class RoomPlayer {
 					+ "</p>"
 					+ "<p>"
 					+ "<b style='color:"
-					+ Colour.GENERIC_GOOD.toWebHexString()
+					+ Colour.GENERIC_GOOD()
 					+ ";'>You feel completely refreshed!</b>"
 					+ "</p>";
 		}
@@ -209,7 +209,7 @@ public class RoomPlayer {
 					+ "</p>"
 					+ "<p>"
 					+ "<b style='color:"
-					+ Colour.GENERIC_GOOD.toWebHexString()
+					+ Colour.GENERIC_GOOD()
 					+ ";'>You feel completely refreshed!</b>"
 					+ "</p>";
 		}
@@ -240,7 +240,7 @@ public class RoomPlayer {
 					+ "</p>"
 					+ "<p>"
 					+ "<b style='color:"
-					+ Colour.GENERIC_GOOD.toWebHexString()
+					+ Colour.GENERIC_GOOD()
 					+ ";'>Your clothes have been cleaned, and you feel refreshed!</b>"
 					+ "</p>";
 		}

@@ -186,8 +186,8 @@ public class SPGym {
 				if (Main.game.getPlayer().getMoney() < 10)
 					return new Response("Single (" + Main.game.getCurrencySymbol() + " 10)", "You don't have enough money!", null);
 				else
-					return new Response("Single Payment (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 10)",
-							"Tell Pix that you'd like to pay for a single entry to the gym. <b>This will cost </b><b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>10</b>", GYM_SINGLE_PAYMENT){
+					return new Response("Single Payment (<span style='color:" + Colour.CURRENCY() + ";'>" + Main.game.getCurrencySymbol() + "</span> 10)",
+							"Tell Pix that you'd like to pay for a single entry to the gym. <b>This will cost </b><b style='color:" + Colour.CURRENCY() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>10</b>", GYM_SINGLE_PAYMENT){
 					@Override
 					public void effects(){
 						Main.game.getPlayer().incrementMoney(-10);
@@ -198,8 +198,8 @@ public class SPGym {
 				if (Main.game.getPlayer().getMoney() < 800)
 					return new Response("Membership (" + Main.game.getCurrencySymbol() + " 800)", "You don't have enough money!", null);
 				else
-					return new Response("Membership (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 800)",
-							"Tell Pix that you'd like to sign up for the lifetime membership option. <b>This will cost </b><b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>800</b>",
+					return new Response("Membership (<span style='color:" + Colour.CURRENCY() + ";'>" + Main.game.getCurrencySymbol() + "</span> 800)",
+							"Tell Pix that you'd like to sign up for the lifetime membership option. <b>This will cost </b><b style='color:" + Colour.CURRENCY() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>800</b>",
 							GYM_LIFETIME_PAYMENT){
 					@Override
 					public void effects(){
@@ -252,8 +252,8 @@ public class SPGym {
 					if (Main.game.getPlayer().getMoney() < 10)
 						return new Response("Single Payment (" + Main.game.getCurrencySymbol() + " 10)", "You don't have enough money!", null);
 					else
-						return new Response("Single Payment (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 10)",
-								"Tell Pix that you'd like to pay for a single entry to the gym. <b>This will cost </b><b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>10</b>", GYM_SINGLE_PAYMENT){
+						return new Response("Single Payment (<span style='color:" + Colour.CURRENCY() + ";'>" + Main.game.getCurrencySymbol() + "</span> 10)",
+								"Tell Pix that you'd like to pay for a single entry to the gym. <b>This will cost </b><b style='color:" + Colour.CURRENCY() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>10</b>", GYM_SINGLE_PAYMENT){
 						@Override
 						public void effects(){
 							Main.game.getPlayer().incrementMoney(-10);
@@ -264,8 +264,8 @@ public class SPGym {
 					if (Main.game.getPlayer().getMoney() < 800)
 						return new Response("Membership (" + Main.game.getCurrencySymbol() + " 800)", "You don't have enough money!", null);
 					else
-						return new Response("Membership (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 800)",
-								"Tell Pix that you'd like to sign up for the lifetime membership option. <b>This will cost </b><b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>800</b>",
+						return new Response("Membership (<span style='color:" + Colour.CURRENCY() + ";'>" + Main.game.getCurrencySymbol() + "</span> 800)",
+								"Tell Pix that you'd like to sign up for the lifetime membership option. <b>This will cost </b><b style='color:" + Colour.CURRENCY() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>800</b>",
 								GYM_LIFETIME_PAYMENT){
 						@Override
 						public void effects(){

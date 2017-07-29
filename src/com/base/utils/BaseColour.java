@@ -65,7 +65,7 @@ public enum BaseColour {
 		return lightColour;
 	}
 	
-	public String toWebHexString() {
+	public String() {
 		return getColour().toString().substring(2, 8);
 	}
 	

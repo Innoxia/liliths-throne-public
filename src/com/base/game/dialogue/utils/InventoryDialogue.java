@@ -88,7 +88,7 @@ public class InventoryDialogue {
 										+ "</b></div>"
 								: "")
 						+ (Main.game.getDialogueFlags().tradePartner!=null
-							? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>"
+							? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY() + ";'>"
 									+ Main.game.getCurrencySymbol() + "</b><b>" + (int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>" + "</div>" : "")
 							: "")
 						+ "</div>" + "</div>");
@@ -125,7 +125,7 @@ public class InventoryDialogue {
 											+ "</b></div>"
 									: "")
 							+ (Main.game.getDialogueFlags().tradePartner!=null
-								? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>"
+								? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY() + ";'>"
 									+ Main.game.getCurrencySymbol() + "</b><b>" + (!entry.getKey().getAttributeModifiers().isEmpty() && !entry.getKey().isEnchantmentKnown()
 											?5
 											:(int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()))
@@ -155,7 +155,7 @@ public class InventoryDialogue {
 								? "<div class='item-count'><b>x" + entry.getValue()
 										+ "</b></div>"
 								: "")
-						+ (Main.game.getDialogueFlags().tradePartner!=null ? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>"
+						+ (Main.game.getDialogueFlags().tradePartner!=null ? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY() + ";'>"
 								+ Main.game.getCurrencySymbol() + "</b><b>" + (int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>" + "</div>" : "") : "")
 						+ "</div>" + "</div>");
 			}
@@ -191,7 +191,7 @@ public class InventoryDialogue {
 		inventorySB.append(
 				"<div style='width:60px; display:inline-block; margin:0 4px 0 4px;'>"
 					+ " <div style='display:inline-block; height:48px; vertical-align: middle; top:0;'>"
-						+ "<b style='color:"+Colour.CURRENCY.toWebHexString()+";'>"+Main.game.getCurrencySymbol()+"</b> <b>"+Main.game.getPlayer().getMoney()+"</b>"
+						+ "<b style='color:"+Colour.CURRENCY()+";'>"+Main.game.getCurrencySymbol()+"</b> <b>"+Main.game.getPlayer().getMoney()+"</b>"
 					+ "</div>"
 				+ "</div>"
 				);
@@ -251,7 +251,7 @@ public class InventoryDialogue {
 										+ ((AbstractClothing) itemBuyback).getSVGString()
 										+ "<div class='overlay' id='CLOTHING_BUYBACK_" + i + "'>"
 										+ "<div class='item-price'>"
-											+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + (int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()) + "</b>"
+											+ "<b style='color:" + Colour.CURRENCY() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + (int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()) + "</b>"
 										+ "</div>"
 										+ "</div>"
 										+ "</div>");
@@ -268,7 +268,7 @@ public class InventoryDialogue {
 										+ ((AbstractWeapon) itemBuyback).getSVGString()
 										+ "<div class='overlay' id='WEAPON_BUYBACK_" + i + "'>"
 										+ "<div class='item-price'>"
-											+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + (int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()) + "</b>"
+											+ "<b style='color:" + Colour.CURRENCY() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + (int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()) + "</b>"
 										+ "</div>"
 										+ "</div>" + "</div>");
 								
@@ -284,7 +284,7 @@ public class InventoryDialogue {
 										+ ((AbstractItem) itemBuyback).getSVGString()
 										+ "<div class='overlay' id='ITEM_BUYBACK_" + i + "'>"
 										+ "<div class='item-price'>"
-											+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + (int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()) + "</b>"
+											+ "<b style='color:" + Colour.CURRENCY() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + (int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()) + "</b>"
 										+ "</div>"
 										+ "</div>"
 										+ "</div>");
@@ -315,7 +315,7 @@ public class InventoryDialogue {
 											? "<div class='item-count'><b>x" + entry.getValue()
 													+ "</b></div>"
 											: "")
-									+ "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>"
+									+ "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>"
 									+ (int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</b>" + "</div>"
 									+ "</div>" + "</div>");
 						}
@@ -336,7 +336,7 @@ public class InventoryDialogue {
 													? "<div class='item-count'><b>x" + entry.getValue()
 															+ "</b></div>"
 													: "")
-									+ "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>"
+									+ "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>"
 											+ (!entry.getKey().getAttributeModifiers().isEmpty() && !entry.getKey().isEnchantmentKnown()
 													?5
 													:(int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier())) + "</b>" + "</div>"
@@ -358,7 +358,7 @@ public class InventoryDialogue {
 															? "<div class='item-count'><b>x" + entry.getValue()
 																	+ "</b></div>"
 															: "")
-											+ "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>"
+											+ "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>"
 													+ (int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</b>" + "</div>"
 											+ "</div>" + "</div>");
 						}
@@ -451,7 +451,7 @@ public class InventoryDialogue {
 			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace() != Dominion.CITY_AUNTS_HOME
 					&& Main.game.getPlayerCell().getPlace().isItemsDisappear()
 					&& Main.game.getPlayerCell().getInventory().getInventorySlotsTaken() > 0)
-				inventorySB.append("<p style='text-align: center; height:48px;'>" + "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>These items will disappear when you leave the area.</b>" + "</p>");
+				inventorySB.append("<p style='text-align: center; height:48px;'>" + "<b style='color:" + Colour.GENERIC_BAD() + ";'>These items will disappear when you leave the area.</b>" + "</p>");
 			else
 				inventorySB.append("<p style='text-align: center; height:48px;'>-</p>");
 			inventorySB.append("</div>");
@@ -470,7 +470,7 @@ public class InventoryDialogue {
 		@Override
 		public String getLabel() {
 			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat())
-				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>)";
 			else
 				return "Inventory";
 		}
@@ -546,8 +546,8 @@ public class InventoryDialogue {
 
 			} else if (index == 9 && !Main.game.isInSex() && !Main.game.isInCombat()) {
 				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>!</br>"
 						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -555,8 +555,8 @@ public class InventoryDialogue {
 						}
 					};
 				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>.</br>"
 						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -597,7 +597,7 @@ public class InventoryDialogue {
 		@Override
 		public String getContent() {
 			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + item.getDescription() + item.getExtraDescription()
-					+ (Main.game.getDialogueFlags().tradePartner!=null ? "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString()
+					+ (Main.game.getDialogueFlags().tradePartner!=null ? "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD()
 							+ ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>.</p>" : "");
 		}
 
@@ -718,9 +718,9 @@ public class InventoryDialogue {
 				}  else if (index == 2) {
 					if(Main.game.getDialogueFlags().tradePartner!=null) {
 						if (Main.game.getDialogueFlags().tradePartner.willBuy(item)) {
-							return new Response("Sell (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
+							return new Response("Sell (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
 										+ (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</span>)",
-									"Sell the " + item.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+									"Sell the " + item.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 										+ (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>.", INVENTORY_MENU){
 								@Override
 								public void effects(){
@@ -761,9 +761,9 @@ public class InventoryDialogue {
 				} else if (index == 3 && Main.game.getPlayer().getItemCount(item)>1) {
 					if(Main.game.getDialogueFlags().tradePartner!=null) {
 						if (Main.game.getDialogueFlags().tradePartner.willBuy(item)) {
-							return new Response("Sell all (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
+							return new Response("Sell all (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
 										+ (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier() * Main.game.getPlayer().getItemCount(item)) + "</span>)",
-									"Sell all of your " + item.getName() + (item.getItemType().isPlural()?"":"s")+" for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>"
+									"Sell all of your " + item.getName() + (item.getItemType().isPlural()?"":"s")+" for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>"
 										+ Main.game.getCurrencySymbol() + "</b> <b>"
 										+ (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier() * Main.game.getPlayer().getItemCount(item)) + "</b>.", INVENTORY_MENU){
 								@Override
@@ -773,7 +773,7 @@ public class InventoryDialogue {
 									Main.game.getTextStartStringBuilder().append(
 											"<p style='text-align:center;'>"
 												+ "You hand over all of your <b>" + item.getDisplayName(true) + "</b> to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for <b style='color: "
-												+ Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier() * itemCount) + "</b>."
+												+ Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier() * itemCount) + "</b>."
 											+ "</p>");
 									
 									for(int i = 0; i < itemCount; i++) {
@@ -897,8 +897,8 @@ public class InventoryDialogue {
 
 				} else if (index == 9) {
 					if (Main.game.getDialogueFlags().quickTrade) {
-						return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-								"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+						return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>",
+								"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>!</br>"
 							+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 							@Override
 							public void effects(){
@@ -906,8 +906,8 @@ public class InventoryDialogue {
 							}
 						};
 					} else {
-						return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-								"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+						return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>",
+								"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>.</br>"
 							+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 							@Override
 							public void effects(){
@@ -955,7 +955,7 @@ public class InventoryDialogue {
 		@Override
 		public String getContent() {
 			return "<div class='inventoryImage'>" + weapon.getSVGString() + "</div>" + weapon.getDescription()
-					+ (Main.game.getDialogueFlags().tradePartner!=null ? "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString()
+					+ (Main.game.getDialogueFlags().tradePartner!=null ? "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD()
 							+ ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>.</p>" : "");
 		}
 		
@@ -978,9 +978,9 @@ public class InventoryDialogue {
 			} else if (index == 2) {
 				if(Main.game.getDialogueFlags().tradePartner!=null) {
 					if (Main.game.getDialogueFlags().tradePartner.willBuy(weapon)) {
-						return new Response("Sell (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
+						return new Response("Sell (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
 									+ (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</span>)",
-								"Sell the " + weapon.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+								"Sell the " + weapon.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 									+ (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>.", INVENTORY_MENU){
 							@Override
 							public void effects(){
@@ -1022,9 +1022,9 @@ public class InventoryDialogue {
 			} else if (index == 3 && Main.game.getPlayer().getWeaponCount(weapon)>1) {
 				if(Main.game.getDialogueFlags().tradePartner!=null) {
 					if (Main.game.getDialogueFlags().tradePartner.willBuy(weapon)) {
-						return new Response("Sell all (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
+						return new Response("Sell all (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
 									+ (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier() * Main.game.getPlayer().getWeaponCount(weapon)) + "</span>)",
-								"Sell all of your " + weapon.getName() +"s for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+								"Sell all of your " + weapon.getName() +"s for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 									+ (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier() * Main.game.getPlayer().getWeaponCount(weapon)) + "</b>.", INVENTORY_MENU){
 							@Override
 							public void effects(){
@@ -1033,7 +1033,7 @@ public class InventoryDialogue {
 								Main.game.getTextStartStringBuilder().append(
 										"<p style='text-align:center;'>"
 											+ "You hand over all of your <b>" + weapon.getDisplayName(true) + "</b> to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for <b style='color: "
-											+ Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier() * itemCount) + "</b>."
+											+ Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier() * itemCount) + "</b>."
 										+ "</p>");
 								
 								for(int i = 0; i < itemCount; i++) {
@@ -1113,8 +1113,8 @@ public class InventoryDialogue {
 
 			} else if (index == 9) {
 				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>!</br>"
 						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -1122,8 +1122,8 @@ public class InventoryDialogue {
 						}
 					};
 				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>.</br>"
 						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -1172,7 +1172,7 @@ public class InventoryDialogue {
 			return "<div class='inventoryImage'>" + clothing.getSVGString() + "</div>" + clothing.getDescription() + clothing.clothingExtraInformation(null)
 					+ (Main.game.getDialogueFlags().tradePartner!=null
 							? "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy " + (clothing.getClothingType().isPlural() ? "them" : "it") + " for <b style='color: "
-									+ com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>.</p>"
+									+ com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>.</p>"
 							: "");
 		}
 		
@@ -1192,9 +1192,9 @@ public class InventoryDialogue {
 			} else if (index == 2) {
 				if(Main.game.getDialogueFlags().tradePartner!=null) {
 					if (Main.game.getDialogueFlags().tradePartner.willBuy(clothing)) {
-						return new Response("Sell (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
+						return new Response("Sell (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
 									+ (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</span>)",
-								"Sell your " + clothing.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+								"Sell your " + clothing.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 									+ (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>.", INVENTORY_MENU){
 							@Override
 							public void effects(){
@@ -1236,9 +1236,9 @@ public class InventoryDialogue {
 			} else if (index == 3 && Main.game.getPlayer().getClothingCount(clothing)>1) {
 				if(Main.game.getDialogueFlags().tradePartner!=null) {
 					if (Main.game.getDialogueFlags().tradePartner.willBuy(clothing)) {
-						return new Response("Sell all (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
+						return new Response("Sell all (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
 									+ (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier() * Main.game.getPlayer().getClothingCount(clothing)) + "</span>)",
-								"Sell all of your " + clothing.getName() +" for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+								"Sell all of your " + clothing.getName() +" for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 									+ (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier() * Main.game.getPlayer().getClothingCount(clothing)) + "</b>.", INVENTORY_MENU){
 							@Override
 							public void effects(){
@@ -1247,7 +1247,7 @@ public class InventoryDialogue {
 								Main.game.getTextStartStringBuilder().append(
 										"<p style='text-align:center;'>"
 											+ "You hand over all of your <b>" + clothing.getDisplayName(true) + "</b> to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for <b style='color: "
-											+ Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier() * itemCount) + "</b>."
+											+ Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier() * itemCount) + "</b>."
 										+ "</p>");
 								
 								for(int i = 0; i < itemCount; i++) {
@@ -1314,12 +1314,12 @@ public class InventoryDialogue {
 					return new Response("Identify (" + Main.game.getCurrencySymbol() + " 10)", "You don't have enough money!", null);
 					
 				}else {
-					return new Response("Identify (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 10)",
-								"Have the " + clothing.getName() + " identified for <span style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 10.", INVENTORY_MENU){
+					return new Response("Identify (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</span> 10)",
+								"Have the " + clothing.getName() + " identified for <span style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</span> 10.", INVENTORY_MENU){
 						@Override
 						public void effects(){
 							Main.game.getTextStartStringBuilder().append(
-									"<p style='text-align:center;'>" + "You hand over <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>10</b> to "
+									"<p style='text-align:center;'>" + "You hand over <b style='color: " + Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>10</b> to "
 											+Main.game.getDialogueFlags().tradePartner.getName("the")+", who promtly identifies your "+clothing.getName()+"."
 									+ "</p>"
 									+clothing.setEnchantmentKnown(true));
@@ -1347,8 +1347,8 @@ public class InventoryDialogue {
 
 			} else if (index == 9) {
 				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>!</br>"
 						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -1356,8 +1356,8 @@ public class InventoryDialogue {
 						}
 					};
 				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>.</br>"
 						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -1406,7 +1406,7 @@ public class InventoryDialogue {
 		public String getContent() {
 			
 			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + "<p>" + item.getDescription() + "</p>" + item.getExtraDescription() + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The")
-					+ " will sell it to you for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+					+ " will sell it to you for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 					+ (buyback ? buyBackPrice : (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier())) + "</b>." + "</p>";
 		}
 		
@@ -1423,7 +1423,7 @@ public class InventoryDialogue {
 						
 					} else {
 						return new Response("Buy-back",
-								"Buy back the " + item.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>"
+								"Buy back the " + item.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>"
 										+ Main.game.getCurrencySymbol() + "</b> <b>" + buyBackPrice + "</b> and add it to your inventory.", ITEM_TRADER){
 							@Override
 							public void effects(){
@@ -1440,9 +1440,9 @@ public class InventoryDialogue {
 						return new Response("Buy", "You don't have enough money to buy the " + item.getName() + "!", null);
 						
 					} else {
-						return new Response("Buy (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
+						return new Response("Buy (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
 									+ (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</span>)",
-								"Buy the " + item.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+								"Buy the " + item.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 										+ (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</b> and add it to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
@@ -1462,9 +1462,9 @@ public class InventoryDialogue {
 						return new Response("Buy all", "You don't have enough money to buy the " + item.getName() + "!", null);
 						
 					} else {
-						return new Response("Buy all (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
+						return new Response("Buy all (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
 									+ (int) ((item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getItemCount(item)) + "</span>)",
-								"Buy all of the " + item.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+								"Buy all of the " + item.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 										+ (int) ((item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getItemCount(item)) + "</b> and add them to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
@@ -1495,8 +1495,8 @@ public class InventoryDialogue {
 
 			} else if (index == 9) {
 				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>!</br>"
 						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -1504,8 +1504,8 @@ public class InventoryDialogue {
 						}
 					};
 				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>.</br>"
 						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -1550,7 +1550,7 @@ public class InventoryDialogue {
 		@Override
 		public String getContent() {
 			return "<div class='inventoryImage'>" + weapon.getSVGString() + "</div>" + weapon.getDescription() + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will sell it to you for <b style='color: "
-					+ com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (buyback ? buyBackPrice : (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
+					+ com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (buyback ? buyBackPrice : (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
 					+ "</b>.</p>";
 		}
 		
@@ -1567,7 +1567,7 @@ public class InventoryDialogue {
 						
 					} else {
 						return new Response("Buy-back",
-								"Buy back the " + weapon.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>"
+								"Buy back the " + weapon.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>"
 										+ Main.game.getCurrencySymbol() + "</b> <b>" + buyBackPrice + "</b> and add it to your inventory.", WEAPON_TRADER){
 							@Override
 							public void effects(){
@@ -1584,9 +1584,9 @@ public class InventoryDialogue {
 						return new Response("Buy", "You don't have enough money to buy the " + weapon.getName() + "!", null);
 						
 					} else {
-						return new Response("Buy (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
+						return new Response("Buy (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
 									+ (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</span>)",
-								"Buy the " + weapon.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+								"Buy the " + weapon.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 										+ (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</b> and add it to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
@@ -1606,9 +1606,9 @@ public class InventoryDialogue {
 						return new Response("Buy all", "You don't have enough money to buy the " + weapon.getName() + "!", null);
 						
 					} else {
-						return new Response("Buy all (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
+						return new Response("Buy all (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
 									+ (int) ((weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getWeaponCount(weapon)) + "</span>)",
-								"Buy all of the " + weapon.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+								"Buy all of the " + weapon.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 										+ (int) ((weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getWeaponCount(weapon)) + "</b> and add them to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
@@ -1639,8 +1639,8 @@ public class InventoryDialogue {
 
 			} else if (index == 9) {
 				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>!</br>"
 						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -1648,8 +1648,8 @@ public class InventoryDialogue {
 						}
 					};
 				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>.</br>"
 						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -1697,7 +1697,7 @@ public class InventoryDialogue {
 		@Override
 		public String getContent() {
 			return "<div class='inventoryImage'>" + clothing.getSVGString() + "</div>" + clothing.getDescription() + clothing.clothingExtraInformation(null) + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The")
-					+ " will sell it to you for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+					+ " will sell it to you for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 					+ (buyback ? buyBackPrice : (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier())) + "</b>.</p>";
 		}
 		
@@ -1714,7 +1714,7 @@ public class InventoryDialogue {
 						
 					} else {
 						return new Response("Buy-back",
-								"Buy back the " + clothing.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>"
+								"Buy back the " + clothing.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>"
 										+ Main.game.getCurrencySymbol() + "</b> <b>" + buyBackPrice + "</b> and add it to your inventory.", CLOTHING_TRADER){
 							@Override
 							public void effects(){
@@ -1731,9 +1731,9 @@ public class InventoryDialogue {
 						return new Response("Buy", "You don't have enough money to buy the " + clothing.getName() + "!", null);
 						
 					} else {
-						return new Response("Buy (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
+						return new Response("Buy (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
 									+ (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</span>)",
-								"Buy the " + clothing.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+								"Buy the " + clothing.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 										+ (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</b> and add it to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
@@ -1753,9 +1753,9 @@ public class InventoryDialogue {
 						return new Response("Buy all", "You don't have enough money to buy the " + clothing.getName() + "!", null);
 						
 					} else {
-						return new Response("Buy all (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
+						return new Response("Buy all (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
 									+ (int) ((clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing)) + "</span>)",
-								"Buy all of the " + clothing.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+								"Buy all of the " + clothing.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 										+ (int) ((clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing)) + "</b> and add them to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
@@ -1786,8 +1786,8 @@ public class InventoryDialogue {
 
 			} else if (index == 9) {
 				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>!</br>"
 						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -1795,8 +1795,8 @@ public class InventoryDialogue {
 						}
 					};
 				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>.</br>"
 						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -1919,8 +1919,8 @@ public class InventoryDialogue {
 			
 			} else if (index == 9) {
 				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>!</br>"
 						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -1928,8 +1928,8 @@ public class InventoryDialogue {
 						}
 					};
 				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>.</br>"
 						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -2038,8 +2038,8 @@ public class InventoryDialogue {
 				
 			} else if (index == 9) {
 				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>!</br>"
 						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -2047,8 +2047,8 @@ public class InventoryDialogue {
 						}
 					};
 				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>.</br>"
 						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -2138,8 +2138,8 @@ public class InventoryDialogue {
 
 			} else if (index == 9) {
 				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>!</br>"
 						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -2147,8 +2147,8 @@ public class InventoryDialogue {
 						}
 					};
 				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>.</br>"
 						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -2256,8 +2256,8 @@ public class InventoryDialogue {
 
 			} else if (index == 9) {
 				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>!</br>"
 						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -2265,8 +2265,8 @@ public class InventoryDialogue {
 						}
 					};
 				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>",
+							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>.</br>"
 						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 						@Override
 						public void effects(){
@@ -2392,7 +2392,7 @@ public class InventoryDialogue {
 						return new Response(Util.capitaliseSentence(clothingEquipped.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -4).getDescription()),
 								Util.capitaliseSentence(clothingEquipped.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -4).getDescription()) + " the " + clothingEquipped.getName() + ". "
 										+ clothingEquipped.getClothingBlockingDescription(clothingEquipped.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -4), ownerInSex,
-												" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(ownerInSex.isPlayer()?"your":"[npc.her]")+" ", ".</span>"),
+												" <span style='color:" + Colour.GENERIC_SEX() + ";'>This will expose "+(ownerInSex.isPlayer()?"your":"[npc.her]")+" ", ".</span>"),
 										Sex.SEX_DIALOGUE){
 							@Override
 							public void effects(){
@@ -2426,7 +2426,7 @@ public class InventoryDialogue {
 				if (index == 1) {
 					if (clothingEquipped.isSealed()) {
 						return new Response("Unequip",
-								"<span style='color:" + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>You can't unequip the " + clothingEquipped.getName() + " because " + (clothingEquipped.getClothingType().isPlural() ? "they've" : "it's")
+								"<span style='color:" + Colour.ATTRIBUTE_CORRUPTION() + ";'>You can't unequip the " + clothingEquipped.getName() + " because " + (clothingEquipped.getClothingType().isPlural() ? "they've" : "it's")
 								+ " been jinxed!</span>", null);
 						
 					} else if (Main.game.getPlayer().isInventoryFull()) {
@@ -2445,7 +2445,7 @@ public class InventoryDialogue {
 					if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
 						if (clothingEquipped.isSealed()) {
 							return new Response("Drop",
-									"<span style='color:" + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>You can't drop the " + clothingEquipped.getName()
+									"<span style='color:" + Colour.ATTRIBUTE_CORRUPTION() + ";'>You can't drop the " + clothingEquipped.getName()
 									+ " because " + (clothingEquipped.getClothingType().isPlural() ? "they've" : "it's")
 									+ " been jinxed!</span>", null);
 							
@@ -2465,7 +2465,7 @@ public class InventoryDialogue {
 					} else {
 						if (clothingEquipped.isSealed()) {
 							return new Response("Store",
-									"<span style='color:" + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>You can't store your " + clothingEquipped.getName()
+									"<span style='color:" + Colour.ATTRIBUTE_CORRUPTION() + ";'>You can't store your " + clothingEquipped.getName()
 									+ " because " + (clothingEquipped.getClothingType().isPlural() ? "they've" : "it's")
 									+ " been jinxed!</span>", null);
 							
@@ -2499,7 +2499,7 @@ public class InventoryDialogue {
 						return new Response(Util.capitaliseSentence(clothingEquipped.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 4).getOppositeDescription()),
 								Util.capitaliseSentence(clothingEquipped.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 4).getOppositeDescription()) + " the " + clothingEquipped.getName() + ". "
 										+ clothingEquipped.getClothingBlockingDescription(clothingEquipped.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 4), Main.game.getPlayer(),
-												" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>This will cover your ", ".</span>"),
+												" <span style='color:" + Colour.GENERIC_GOOD() + ";'>This will cover your ", ".</span>"),
 										CLOTHING_EQUIPPED){
 							@Override
 							public void effects(){
@@ -2510,7 +2510,7 @@ public class InventoryDialogue {
 						return new Response(Util.capitaliseSentence(clothingEquipped.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 4).getDescription()),
 								Util.capitaliseSentence(clothingEquipped.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 4).getDescription()) + " the " + clothingEquipped.getName() + ". "
 										+ clothingEquipped.getClothingBlockingDescription(clothingEquipped.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 4), Main.game.getPlayer(),
-												" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose your ", ".</span>"),
+												" <span style='color:" + Colour.GENERIC_SEX() + ";'>This will expose your ", ".</span>"),
 										CLOTHING_EQUIPPED){
 							@Override
 							public void effects(){
@@ -2538,8 +2538,8 @@ public class InventoryDialogue {
 
 				} else if (index == 9) {
 					if (Main.game.getDialogueFlags().quickTrade) {
-						return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-								"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+						return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>",
+								"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD() + ";'>ON</b>!</br>"
 							+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 							@Override
 							public void effects(){
@@ -2547,8 +2547,8 @@ public class InventoryDialogue {
 							}
 						};
 					} else {
-						return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-								"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+						return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>",
+								"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY() + ";'>OFF</b>.</br>"
 							+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 							@Override
 							public void effects(){
@@ -2634,7 +2634,7 @@ public class InventoryDialogue {
 		@Override
 		public String getContent() {
 			return "<p>Choose an item to remove its jinx.</p>"
-					+ "<p><b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>The " + (jinxRemovalFromFloor ? weaponFloor.getName() : weapon.getName())
+					+ "<p><b style='color:" + Colour.GENERIC_TERRIBLE() + ";'>The " + (jinxRemovalFromFloor ? weaponFloor.getName() : weapon.getName())
 					+ " will be lost if you do this!</b></p>";
 		}
 
@@ -2662,7 +2662,7 @@ public class InventoryDialogue {
 					+ "Available colours for this item (hover over to view preview):" + "</p>");
 
 			for (Colour c : clothing.getClothingType().getAvailableColours())
-				inventorySB.append("<div class='phone-item-colour' id='" + (clothing.getClothingType().toString() + "_" + c.toString()) + "' style='background-color:" + c.toWebHexString() + ";'></div>");
+				inventorySB.append("<div class='phone-item-colour' id='" + (clothing.getClothingType().toString() + "_" + c.toString()) + "' style='background-color:" + c() + ";'></div>");
 
 			return inventorySB.toString();
 		}
@@ -2685,7 +2685,7 @@ public class InventoryDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "<b>Your " + clothing.getName() + " " + (clothing.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b> <b style='color:"
-										+ clothing.getClothingType().getAvailableColours().get(index - 1).toWebHexString() + ";'>" + clothing.getClothingType().getAvailableColours().get(index - 1).getName() + "</b>!"
+										+ clothing.getClothingType().getAvailableColours().get(index - 1)() + ";'>" + clothing.getClothingType().getAvailableColours().get(index - 1).getName() + "</b>!"
 								+ "</p>"
 								+ "<p>"
 									+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
@@ -2716,7 +2716,7 @@ public class InventoryDialogue {
 					+ "Available colours for this item (hover over to view preview):" + "</p>");
 
 			for (Colour c : clothingEquipped.getClothingType().getAvailableColours())
-				inventorySB.append("<div class='phone-item-colour' id='" + (clothingEquipped.getClothingType().toString() + "_" + c.toString()) + "' style='background-color:" + c.toWebHexString() + ";'></div>");
+				inventorySB.append("<div class='phone-item-colour' id='" + (clothingEquipped.getClothingType().toString() + "_" + c.toString()) + "' style='background-color:" + c() + ";'></div>");
 
 			return inventorySB.toString();
 		}
@@ -2739,7 +2739,7 @@ public class InventoryDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "<b>Your " + clothingEquipped.getName() + " " + (clothingEquipped.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b> <b style='color:"
-										+ clothingEquipped.getClothingType().getAvailableColours().get(index - 1).toWebHexString() + ";'>" + clothingEquipped.getClothingType().getAvailableColours().get(index - 1).getName() + "</b>!"
+										+ clothingEquipped.getClothingType().getAvailableColours().get(index - 1)() + ";'>" + clothingEquipped.getClothingType().getAvailableColours().get(index - 1).getName() + "</b>!"
 								+ "</p>"
 								+ "<p>"
 									+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
@@ -2771,7 +2771,7 @@ public class InventoryDialogue {
 					+ "Available colours for this item (hover over to view preview):" + "</p>");
 
 			for (Colour c : clothingEquipped.getClothingType().getAvailableColours())
-				inventorySB.append("<div class='phone-item-colour' id='" + (clothingEquipped.getClothingType().toString() + "_" + c.toString()) + "' style='background-color:" + c.toWebHexString() + ";'></div>");
+				inventorySB.append("<div class='phone-item-colour' id='" + (clothingEquipped.getClothingType().toString() + "_" + c.toString()) + "' style='background-color:" + c() + ";'></div>");
 
 			return inventorySB.toString();
 		}
@@ -2794,7 +2794,7 @@ public class InventoryDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "<b>"+(ownerInSex.isPlayer()?"Your":"[npc.Name]'s")+" " + clothingEquipped.getName() + " " + (clothingEquipped.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b> <b style='color:"
-										+ clothingEquipped.getClothingType().getAvailableColours().get(index - 1).toWebHexString() + ";'>" + clothingEquipped.getClothingType().getAvailableColours().get(index - 1).getName() + "</b>!"
+										+ clothingEquipped.getClothingType().getAvailableColours().get(index - 1)() + ";'>" + clothingEquipped.getClothingType().getAvailableColours().get(index - 1).getName() + "</b>!"
 								+ "</p>"
 								+ "<p>"
 									+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
@@ -2826,16 +2826,16 @@ public class InventoryDialogue {
 	// Items:
 	public static String buyItem(AbstractItem item) {
 		if (Main.game.getPlayer().getMoney() < (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>You don't have enough money to buy this!</p>";
 
 		else if (Main.game.getPlayer().isInventoryFull())
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
 			Main.game.getDialogueFlags().tradePartner.removeItem(item);
 			Main.game.getPlayer().incrementMoney(-(int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()));
 
-			String s = "<p style='text-align:center;'>" + "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+			String s = "<p style='text-align:center;'>" + "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 					+ (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</b>" + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the "
 					+ item.getName() + "." + "</p>" + Main.game.getPlayer().addItem(item, false);
 
@@ -2846,10 +2846,10 @@ public class InventoryDialogue {
 	
 	public static String buyAllItems(AbstractItem item) {
 		if (Main.game.getPlayer().getMoney() < (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>You don't have enough money to buy this!</p>";
 
 		else if (Main.game.getPlayer().isInventoryFull())
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
 			int itemCount = Main.game.getDialogueFlags().tradePartner.getItemCount(item);
@@ -2862,11 +2862,11 @@ public class InventoryDialogue {
 
 			String s = UtilText.parse(Main.game.getDialogueFlags().tradePartner,
 					"<p style='text-align:center;'>"
-							+ "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+							+ "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 							+ (int) ((item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * itemCount) + "</b>" + " to [npc.name] in exchange for all of the "
 							+ item.getName() + " [npc.she] has."
 							+ "</br>"
-							+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>"+itemCount+"x</b> <b>"+item.getDisplayName(true)+"</b>"
+							+ "<b style='color:" + Colour.GENERIC_GOOD() + ";'>Items added to inventory:</b> <b>"+itemCount+"x</b> <b>"+item.getDisplayName(true)+"</b>"
 					+ "</p>");
 
 			Main.mainController.forceInventoryRender();
@@ -2877,16 +2877,16 @@ public class InventoryDialogue {
 	public static String buyBackItem(AbstractItem item, int price, int buyBackIndex) {
 
 		if (Main.game.getPlayer().getMoney() < price)
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>You don't have enough money to buy this!</p>";
 
 		else if (Main.game.getPlayer().isInventoryFull())
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
 			Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
 			Main.game.getPlayer().incrementMoney(-price);
 
-			String s = "<p style='text-align:center;'>" + "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + price + "</b>" + " to "
+			String s = "<p style='text-align:center;'>" + "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + price + "</b>" + " to "
 					+ Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the " + item.getName() + "." + "</p>" + Main.game.getPlayer().addItem(item, false);
 
 			Main.mainController.forceInventoryRender();
@@ -2901,7 +2901,7 @@ public class InventoryDialogue {
 		Main.game.getPlayer().incrementMoney((int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()));
 
 		String s = "<p style='text-align:center;'>" + "You hand over the " + item.getName() + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for <b style='color: "
-				+ com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>." + "</p>";
+				+ com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>." + "</p>";
 
 		Main.mainController.forceInventoryRender();
 		return s;
@@ -2910,10 +2910,10 @@ public class InventoryDialogue {
 	// Clothing:
 	public static String buyClothing(AbstractClothing clothing) {
 		if (Main.game.getPlayer().getMoney() < (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier())) {
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>You don't have enough money to buy this!</p>";
 
 		} else if (Main.game.getPlayer().isInventoryFull()) {
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		} else {
 			Main.game.getDialogueFlags().tradePartner.removeClothing(clothing);
@@ -2922,7 +2922,7 @@ public class InventoryDialogue {
 			
 			Main.game.getPlayer().incrementMoney(-((int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier())));
 
-			String s = "<p style='text-align:center;'>" + "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+			String s = "<p style='text-align:center;'>" + "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 					+ (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</b>" + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the "
 					+ clothing.getName() + "." + "</p>" + Main.game.getPlayer().addClothing(clothing, false);
 
@@ -2933,10 +2933,10 @@ public class InventoryDialogue {
 	
 	public static String buyAllClothing(AbstractClothing clothing) {
 		if (Main.game.getPlayer().getMoney() < (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier())) {
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>You don't have enough money to buy this!</p>";
 
 		} else if (Main.game.getPlayer().isInventoryFull()) {
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		} else {
 			
@@ -2957,11 +2957,11 @@ public class InventoryDialogue {
 
 			String s = UtilText.parse(Main.game.getDialogueFlags().tradePartner,
 					"<p style='text-align:center;'>"
-							+ "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+							+ "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 							+ (int) ((clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * clothingCount) + "</b>" + " to [npc.name] in exchange for all of the "
 							+ clothing.getName() + " [npc.she] has."
 							+ "</br>"
-							+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Clothing added to inventory:</b> <b>"+clothingCount+"x</b> <b>"+item.getDisplayName(true)+"</b>"
+							+ "<b style='color:" + Colour.GENERIC_GOOD() + ";'>Clothing added to inventory:</b> <b>"+clothingCount+"x</b> <b>"+item.getDisplayName(true)+"</b>"
 					+ "</p>");
 
 			Main.mainController.forceInventoryRender();
@@ -2972,16 +2972,16 @@ public class InventoryDialogue {
 	public static String buyBackClothing(AbstractClothing clothing, int price, int buyBackIndex) {
 
 		if (Main.game.getPlayer().getMoney() < price)
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>You don't have enough money to buy this!</p>";
 
 		else if (Main.game.getPlayer().isInventoryFull())
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
 			Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
 			Main.game.getPlayer().incrementMoney(-price);
 
-			String s = "<p style='text-align:center;'>" + "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + price + "</b>" + " to "
+			String s = "<p style='text-align:center;'>" + "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + price + "</b>" + " to "
 					+ Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the " + clothing.getName() + "." + "</p>" + Main.game.getPlayer().addClothing(clothing, false);
 
 			Main.mainController.forceInventoryRender();
@@ -2996,7 +2996,7 @@ public class InventoryDialogue {
 		Main.game.getPlayer().incrementMoney((int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()));
 
 		String s = "<p style='text-align:center;'>" + "You hand over the " + clothing.getName() + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for <b style='color: "
-				+ com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>." + "</p>";
+				+ com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>." + "</p>";
 
 		Main.mainController.forceInventoryRender();
 		return s;
@@ -3006,16 +3006,16 @@ public class InventoryDialogue {
 	public static String buyWeapon(AbstractWeapon weapon) {
 
 		if (Main.game.getPlayer().getMoney() < (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>You don't have enough money to buy this!</p>";
 
 		else if (Main.game.getPlayer().isInventoryFull())
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
 			Main.game.getDialogueFlags().tradePartner.removeWeapon(weapon);
 			Main.game.getPlayer().incrementMoney(-((int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier())));
 
-			String s = "<p style='text-align:center;'>" + "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+			String s = "<p style='text-align:center;'>" + "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 					+ (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</b>" + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the "
 					+ weapon.getName() + "." + "</p>" + Main.game.getPlayer().addWeapon(weapon, false);
 
@@ -3027,10 +3027,10 @@ public class InventoryDialogue {
 	public static String buyAllWeapons(AbstractWeapon weapon) {
 
 		if (Main.game.getPlayer().getMoney() < (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>You don't have enough money to buy this!</p>";
 
 		else if (Main.game.getPlayer().isInventoryFull())
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
 			int weaponCount = Main.game.getDialogueFlags().tradePartner.getWeaponCount(weapon);
@@ -3043,11 +3043,11 @@ public class InventoryDialogue {
 
 			String s = UtilText.parse(Main.game.getDialogueFlags().tradePartner,
 					"<p style='text-align:center;'>"
-							+ "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
+							+ "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
 							+ (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier() * weaponCount) + "</b>" + " to [npc.name] in exchange for all of the "
 							+ weapon.getName() + "s [npc.she] has."
 							+ "</br>"
-							+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Weapons added to inventory:</b> <b>"+weaponCount+"x</b> <b>"+weapon.getDisplayName(true)+"</b>"
+							+ "<b style='color:" + Colour.GENERIC_GOOD() + ";'>Weapons added to inventory:</b> <b>"+weaponCount+"x</b> <b>"+weapon.getDisplayName(true)+"</b>"
 					+ "</p>");
 
 			Main.mainController.forceInventoryRender();
@@ -3058,16 +3058,16 @@ public class InventoryDialogue {
 	public static String buyBackWeapon(AbstractWeapon weapon, int price, int buyBackIndex) {
 
 		if (Main.game.getPlayer().getMoney() < price)
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>You don't have enough money to buy this!</p>";
 
 		else if (Main.game.getPlayer().isInventoryFull())
-			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
+			return "<p style='colour:" + Colour.GENERIC_BAD() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
 			Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
 			Main.game.getPlayer().incrementMoney(-price);
 
-			String s = "<p style='text-align:center;'>" + "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + price + "</b>" + " to "
+			String s = "<p style='text-align:center;'>" + "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + price + "</b>" + " to "
 					+ Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the " + weapon.getName() + "." + "</p>" + Main.game.getPlayer().addWeapon(weapon, false);
 
 			Main.mainController.forceInventoryRender();
@@ -3082,7 +3082,7 @@ public class InventoryDialogue {
 		Main.game.getPlayer().incrementMoney((int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()));
 
 		String s = "<p style='text-align:center;'>" + "You hand over the " + weapon.getName() + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for <b style='color: "
-				+ com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>." + "</p>";
+				+ com.base.utils.Colour.CLOTHING_GOLD() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>." + "</p>";
 
 		Main.mainController.forceInventoryRender();
 		return s;
