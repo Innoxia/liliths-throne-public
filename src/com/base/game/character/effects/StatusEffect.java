@@ -2704,7 +2704,7 @@ public enum StatusEffect {
 			
 			// Urethra:
 			if (target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
-				switch(target.getPenisElasticity()){
+				switch(target.getPenisUrethraElasticity()){
 					//Takes 6 hours to recover each inch of capacity:
 					case ZERO_UNYIELDING:
 						target.incrementPenisStretchedCapacity(-(1/6f) * (minutesPassed/60f));

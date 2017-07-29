@@ -294,7 +294,7 @@ public class CharacterUtils {
 			addAttribute(doc, bodyPenis, "testicleSize", String.valueOf(character.getTesticleSize().getValue()));
 			addAttribute(doc, bodyPenis, "cumProduction", String.valueOf(character.getPenisRawCumProductionValue()));
 			addAttribute(doc, bodyPenis, "numberOfTesticles", String.valueOf(character.getPenisNumberOfTesticles()));
-			addAttribute(doc, bodyPenis, "elasticity", String.valueOf(character.getPenisElasticity().getValue()));
+			addAttribute(doc, bodyPenis, "elasticity", String.valueOf(character.getPenisUrethraElasticity().getValue()));
 			addAttribute(doc, bodyPenis, "capacity", String.valueOf(character.getPenisRawCapacityValue()));
 			addAttribute(doc, bodyPenis, "stretchedCapacity", String.valueOf(character.getPenisStretchedCapacity()));
 			addAttribute(doc, bodyPenis, "virgin", String.valueOf(character.isUrethraVirgin()));
@@ -771,7 +771,7 @@ public class CharacterUtils {
 					importedCharacter.setPenisType(PenisType.valueOf(penis.getAttribute("type")));
 					importedCharacter.setPenisCapacity(Float.valueOf(penis.getAttribute("capacity")));
 					importedCharacter.setCumProduction(Integer.valueOf(penis.getAttribute("cumProduction")));
-					importedCharacter.setPenisElasticity(Integer.valueOf(penis.getAttribute("elasticity")));
+					importedCharacter.setPenisUrethraElasticity(Integer.valueOf(penis.getAttribute("elasticity")));
 					importedCharacter.setPenisNumberOfTesticles(Integer.valueOf(penis.getAttribute("numberOfTesticles")));
 					importedCharacter.setPiercedPenis(Boolean.valueOf(penis.getAttribute("pierced")));
 					importedCharacter.setPenisSize(Integer.valueOf(penis.getAttribute("size")));
@@ -782,7 +782,7 @@ public class CharacterUtils {
 							+ "</br>type: "+importedCharacter.getPenisType()
 							+ "</br>capacity: "+importedCharacter.getPenisCapacity()
 							+ "</br>cumProduction: "+importedCharacter.getPenisRawCumProductionValue()
-							+ "</br>elasticity: "+importedCharacter.getPenisElasticity()
+							+ "</br>elasticity: "+importedCharacter.getPenisUrethraElasticity()
 							+ "</br>numberOfTesticles: "+importedCharacter.getPenisNumberOfTesticles()
 							+ "</br>pierced: "+importedCharacter.isPiercedPenis()
 							+ "</br>size: "+importedCharacter.getPenisRawSizeValue()

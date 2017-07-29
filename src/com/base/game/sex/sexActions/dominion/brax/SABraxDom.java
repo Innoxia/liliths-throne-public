@@ -1185,7 +1185,7 @@ public class SABraxDom {
 		
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getPlayerPenetrationRequests().contains(CoverableArea.VAGINA))
+	    if (Sex.getPlayerPenetrationRequests().contains(OrificeType.VAGINA_PLAYER))
 				return SexActionPriority.UNIQUE_MAX;
 			else
 				return SexActionPriority.HIGH;
@@ -1198,7 +1198,7 @@ public class SABraxDom {
 			if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)!=null)
 				UtilText.nodeContentSB.append("Brax pulls back, letting his "+Sex.getPartner().getPenisName(true)+" slide out of your tight ass.</br>");
 			
-			if (Sex.getPlayerPenetrationRequests().contains(CoverableArea.VAGINA)) {
+	    if (Sex.getPlayerPenetrationRequests().contains(OrificeType.VAGINA_PLAYER)) {
 				UtilText.nodeContentSB.append("Brax growls down to you as he brings the tip of his cock up to your pussy, "
 					+ UtilText.parseSpeech("You want me to fuck your little cunt, huh? Well, I like to make my little beta happy...", Main.game.getBrax())
 					+ "</br>");
@@ -1245,7 +1245,7 @@ public class SABraxDom {
 
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getPlayerPenetrationRequests().contains(CoverableArea.ANUS)) {
+			if (Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS_PLAYER)) {
 				return SexActionPriority.UNIQUE_MAX;
 			} else {
 				return SexActionPriority.NORMAL;
@@ -1259,7 +1259,7 @@ public class SABraxDom {
 			if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)!=null)
 				UtilText.nodeContentSB.append("Brax pulls back, letting his "+Sex.getPartner().getPenisName(true)+" slide out of your "+Main.game.getPlayer().getVaginaName(true)+".</br>");
 			
-			if (Sex.getPlayerPenetrationRequests().contains(CoverableArea.ANUS)) {
+			if (Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS_PLAYER)) {
 				UtilText.nodeContentSB.append("Brax growls down to you as he brings the tip of his cock up to your rear entrance, "
 					+ UtilText.parseSpeech("So, you're just a horny butt slut, huh? Well, I like to make my little beta happy...", Main.game.getBrax())
 					+ "</br>");
