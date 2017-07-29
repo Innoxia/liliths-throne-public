@@ -393,14 +393,14 @@ public interface SexActionInterface {
 						for(Fetish f : fetishesRequired){
 							if(Main.game.getPlayer().hasFetish(f)) {
 								SB.append("</br>"
-										+"<span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
-										+ " (<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>owned</span>): "
+										+"<span style='color:"+Colour.GENERIC_SEX+";'>Associated Fetish</span>"
+										+ " (<span style='color:"+Colour.GENERIC_GOOD+";'>owned</span>): "
 										+ Util.capitaliseSentence(f.getName(Main.game.getPlayer())));
 								
 							} else {
 								SB.append("</br>"
-										+"<span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
-										+ " (<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>not owned</span>): "
+										+"<span style='color:"+Colour.GENERIC_SEX+";'>Associated Fetish</span>"
+										+ " (<span style='color:"+Colour.GENERIC_BAD+";'>not owned</span>): "
 										+ Util.capitaliseSentence(f.getName(Main.game.getPlayer())));
 							}
 						}
@@ -409,19 +409,19 @@ public interface SexActionInterface {
 					if(corruptionBypass!=null) {
 						if(isCorruptionWithinRange()) {
 							SB.append("</br>"
-									+"<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
-									+ " (<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>within range</span>): "
+									+"<span style='color:"+Colour.GENERIC_ARCANE+";'>Associated Corruption</span>"
+									+ " (<span style='color:"+Colour.GENERIC_GOOD+";'>within range</span>): "
 									+ Util.capitaliseSentence(corruptionBypass.getName()));
 						} else {
 							SB.append("</br>"
-									+"<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
-									+ " (<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>out of range</span>): "
+									+"<span style='color:"+Colour.GENERIC_ARCANE+";'>Associated Corruption</span>"
+									+ " (<span style='color:"+Colour.GENERIC_BAD+";'>out of range</span>): "
 									+ Util.capitaliseSentence(corruptionBypass.getName()));
 						}
 					}
 
 					SB.append("</br>"
-							+"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requires no penetration</span>");
+							+"<span style='color:"+Colour.GENERIC_BAD+";'>Requires no penetration</span>");
 					
 					return SB.toString();
 				}

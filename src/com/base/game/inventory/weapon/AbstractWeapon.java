@@ -129,7 +129,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		descriptionSB = new StringBuilder();
 
 		descriptionSB.append("<p style='text-align:center;'><b>" + Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN) + "-" + Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN) + "</b>" + " <b style='color:"
-				+ damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b> damage</p>");
+				+ damageType.getMultiplierAttribute().getColour() + ";'>" + damageType.getName() + "</b> damage</p>");
 
 		descriptionSB.append("<p>" + weaponType.getDescription() + "</p>");
 
@@ -144,7 +144,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 						descriptionSB.append(", ");
 				}
 
-				descriptionSB.append(" <b>" + e.getValue() + "</b> <b style='color: " + e.getKey().getColour().toWebHexString() + ";'> " + e.getKey().getName() + "</b>");
+				descriptionSB.append(" <b>" + e.getValue() + "</b> <b style='color: " + e.getKey().getColour() + ";'> " + e.getKey().getName() + "</b>");
 				i++;
 			}
 			descriptionSB.append(".</p>");
@@ -161,13 +161,13 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 						descriptionSB.append(", ");
 				}
 
-				descriptionSB.append("<b style='color:" + s.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(s.getName()) + "</b>");
+				descriptionSB.append("<b style='color:" + s.getDamageType().getMultiplierAttribute().getColour() + ";'>" + Util.capitaliseSentence(s.getName()) + "</b>");
 				i++;
 			}
 			descriptionSB.append(".</p>");
 		}
 
-		descriptionSB.append("<p>It has a value of <b style='color: " + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + getValue() + "</b>.</p>");
+		descriptionSB.append("<p>It has a value of <b style='color: " + Colour.CURRENCY + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + getValue() + "</b>.</p>");
 
 		return descriptionSB.toString();
 	}
@@ -214,8 +214,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 	}
 
 	public String getDisplayName(boolean withRarityColour) {
-		return "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(damageType.getWeaponDescriptor()) + "</span> "
-				+ (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name);
+		return "<span style='color:" + damageType.getMultiplierAttribute().getColour() + ";'>" + Util.capitaliseSentence(damageType.getWeaponDescriptor()) + "</span> "
+				+ (withRarityColour ? (" <span style='color: " + rarity.getColour() + ";'>" + name + "</span>") : name);
 	}
 
 	@Override

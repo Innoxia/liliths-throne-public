@@ -242,7 +242,7 @@ public enum Sex {
 
 		sexSB.append(sexManager.getStartSexDescription());
 
-		sexSB.append("<p style='text-align:center;'><b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Starting position</b></br>"
+		sexSB.append("<p style='text-align:center;'><b style='color:"+Colour.GENERIC_ARCANE+";'>Starting position</b></br>"
 				+"<i><b>"+sexManager.getPosition().getDescription()+"</b></i></p>");
 
 		// Set starting wetness values:
@@ -346,14 +346,14 @@ public enum Sex {
 
 				Main.game.getPlayer().setAssStretchedCapacity(Main.game.getPlayer().getAssRawCapacityValue());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your elastic asshole quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE + ";'>Your elastic asshole quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
 
 			} else {
 
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
 				Main.game.getPlayer().incrementAssCapacity((Main.game.getPlayer().getAssStretchedCapacity()-Main.game.getPlayer().getAssRawCapacityValue())*Main.game.getPlayer().getAssElasticity().getCapacityIncreaseModifier());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + Main.game.getPlayer().getAssElasticity().getDescriptor() + " asshole has been stretched from its ordeal, and is currently "
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE + ";'>Your " + Main.game.getPlayer().getAssElasticity().getDescriptor() + " asshole has been stretched from its ordeal, and is currently "
 						+ Capacity.getCapacityFromValue(Main.game.getPlayer().getAssStretchedCapacity()).getDescriptor() + "!");
 
 				if(Main.game.getPlayer().getAssElasticity().getCapacityIncreaseModifier()>0)
@@ -368,14 +368,14 @@ public enum Sex {
 
 				Main.game.getPlayer().setVaginaStretchedCapacity(Main.game.getPlayer().getVaginaRawCapacityValue());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your elastic vagina quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE + ";'>Your elastic vagina quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
 
 			} else {
 
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
 				Main.game.getPlayer().incrementVaginaCapacity((Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaElasticity().getCapacityIncreaseModifier());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + Main.game.getPlayer().getVaginaElasticity().getDescriptor() + " pussy has been stretched from its ordeal, and is currently "
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE + ";'>Your " + Main.game.getPlayer().getVaginaElasticity().getDescriptor() + " pussy has been stretched from its ordeal, and is currently "
 						+ Capacity.getCapacityFromValue(Main.game.getPlayer().getVaginaStretchedCapacity()).getDescriptor() + "!");
 
 				if(Main.game.getPlayer().getVaginaElasticity().getCapacityIncreaseModifier()>0)
@@ -390,14 +390,14 @@ public enum Sex {
 
 				Main.game.getPlayer().setBreastStretchedCapacity(Main.game.getPlayer().getBreastRawCapacityValue());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your elastic nipple-cunts quickly recover from their ordeal, and instantly return to their original size!</b></p>");
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE + ";'>Your elastic nipple-cunts quickly recover from their ordeal, and instantly return to their original size!</b></p>");
 
 			} else {
 
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
 				Main.game.getPlayer().incrementBreastCapacity((Main.game.getPlayer().getBreastStretchedCapacity()-Main.game.getPlayer().getBreastRawCapacityValue())*Main.game.getPlayer().getBreastElasticity().getCapacityIncreaseModifier());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + Main.game.getPlayer().getBreastElasticity().getDescriptor() + " nipple-cunts have been stretched from their ordeal, and are currently "
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE + ";'>Your " + Main.game.getPlayer().getBreastElasticity().getDescriptor() + " nipple-cunts have been stretched from their ordeal, and are currently "
 						+ Capacity.getCapacityFromValue(Main.game.getPlayer().getBreastStretchedCapacity()).getDescriptor() + "!");
 
 				if(Main.game.getPlayer().getBreastElasticity().getCapacityIncreaseModifier()>0)
@@ -412,14 +412,14 @@ public enum Sex {
 
 				Main.game.getPlayer().setPenisStretchedCapacity(Main.game.getPlayer().getPenisRawCapacityValue());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your elastic urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE + ";'>Your elastic urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
 
 			} else {
 
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
 				Main.game.getPlayer().incrementPenisCapacity((Main.game.getPlayer().getPenisStretchedCapacity()-Main.game.getPlayer().getPenisRawCapacityValue())*Main.game.getPlayer().getPenisUrethraElasticity().getCapacityIncreaseModifier());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + Main.game.getPlayer().getPenisUrethraElasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE + ";'>Your " + Main.game.getPlayer().getPenisUrethraElasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
 						+ Capacity.getCapacityFromValue(Main.game.getPlayer().getPenisStretchedCapacity()).getDescriptor() + "!");
 
 				if(Main.game.getPlayer().getPenisUrethraElasticity().getCapacityIncreaseModifier()>0)
@@ -434,7 +434,7 @@ public enum Sex {
 
 				Main.game.getPlayer().setFaceStretchedCapacity(Main.game.getPlayer().getFaceRawCapacityValue());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your elastic throat quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE + ";'>Your elastic throat quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
 
 			} else {
 
@@ -444,7 +444,7 @@ public enum Sex {
 				Main.game.getPlayer().setFaceStretchedCapacity(Main.game.getPlayer().getFaceRawCapacityValue());
 
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From your oral experience with " + partner.getName("the") + "'s " + partner.getPenisSize().getDescriptor()
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE + ";'>From your oral experience with " + partner.getName("the") + "'s " + partner.getPenisSize().getDescriptor()
 						+ " cock, you are now experienced enough to comfortably suck " + PenisSize.getPenisSizeFromInt((int)Main.game.getPlayer().getFaceRawCapacityValue()).getDescriptor() + " dicks!</b></p>");
 			}
 		}
@@ -457,7 +457,7 @@ public enum Sex {
 				partner.setAssStretchedCapacity(partner.getAssRawCapacityValue());
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> elastic asshole quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
+						"<p><b style='color:" + Colour.GENERIC_ARCANE + ";'><Her> elastic asshole quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
 
 			} else {
 
@@ -465,7 +465,7 @@ public enum Sex {
 				partner.incrementAssCapacity((partner.getAssStretchedCapacity()-partner.getAssRawCapacityValue())*partner.getAssElasticity().getCapacityIncreaseModifier());
 
 				sexSB.append(UtilText.genderParsing(partner,
-								"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> " + partner.getAssElasticity().getDescriptor() + " asshole has been stretched from its ordeal, and is currently "
+								"<p><b style='color:" + Colour.GENERIC_ARCANE + ";'><Her> " + partner.getAssElasticity().getDescriptor() + " asshole has been stretched from its ordeal, and is currently "
 						+ Capacity.getCapacityFromValue(partner.getAssStretchedCapacity()).getDescriptor() + "!"));
 
 				if(partner.getAssElasticity().getCapacityIncreaseModifier()>0)
@@ -482,7 +482,7 @@ public enum Sex {
 
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> elastic vagina quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
+						"<p><b style='color:" + Colour.GENERIC_ARCANE + ";'><Her> elastic vagina quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
 
 			} else {
 
@@ -490,7 +490,7 @@ public enum Sex {
 				partner.incrementVaginaCapacity((partner.getVaginaStretchedCapacity()-partner.getVaginaRawCapacityValue())*partner.getVaginaElasticity().getCapacityIncreaseModifier());
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> " + partner.getVaginaElasticity().getDescriptor() + " pussy has been stretched from its ordeal, and is currently "
+						"<p><b style='color:" + Colour.GENERIC_ARCANE + ";'><Her> " + partner.getVaginaElasticity().getDescriptor() + " pussy has been stretched from its ordeal, and is currently "
 						+ Capacity.getCapacityFromValue(partner.getVaginaStretchedCapacity()).getDescriptor() + "!"));
 
 				if(partner.getVaginaElasticity().getCapacityIncreaseModifier()>0)
@@ -506,7 +506,7 @@ public enum Sex {
 				partner.setBreastStretchedCapacity(partner.getBreastRawCapacityValue());
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> elastic nipple-cunts quickly recover from their ordeal, and instantly return to their original size!</b></p>"));
+						"<p><b style='color:" + Colour.GENERIC_ARCANE + ";'><Her> elastic nipple-cunts quickly recover from their ordeal, and instantly return to their original size!</b></p>"));
 
 			} else {
 
@@ -514,7 +514,7 @@ public enum Sex {
 				partner.incrementBreastCapacity((partner.getBreastStretchedCapacity()-partner.getBreastRawCapacityValue())*partner.getBreastElasticity().getCapacityIncreaseModifier());
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> " + partner.getBreastElasticity().getDescriptor() + " nipple-cunts have been stretched from their ordeal, and are currently "
+						"<p><b style='color:" + Colour.GENERIC_ARCANE + ";'><Her> " + partner.getBreastElasticity().getDescriptor() + " nipple-cunts have been stretched from their ordeal, and are currently "
 						+ Capacity.getCapacityFromValue(partner.getBreastStretchedCapacity()).getDescriptor() + "!"));
 
 				if(partner.getBreastElasticity().getCapacityIncreaseModifier()>0)
@@ -530,7 +530,7 @@ public enum Sex {
 				partner.setPenisStretchedCapacity(partner.getPenisRawCapacityValue());
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> elastic urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
+						"<p><b style='color:" + Colour.GENERIC_ARCANE + ";'><Her> elastic urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
 
 			} else {
 
@@ -538,7 +538,7 @@ public enum Sex {
 				partner.incrementPenisCapacity((partner.getPenisStretchedCapacity()-partner.getPenisRawCapacityValue())*partner.getPenisUrethraElasticity().getCapacityIncreaseModifier());
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> " + partner.getPenisUrethraElasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
+						"<p><b style='color:" + Colour.GENERIC_ARCANE + ";'><Her> " + partner.getPenisUrethraElasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
 						+ Capacity.getCapacityFromValue(partner.getPenisStretchedCapacity()).getDescriptor() + "!"));
 
 				if(partner.getPenisUrethraElasticity().getCapacityIncreaseModifier()>0)
@@ -554,7 +554,7 @@ public enum Sex {
 				partner.setFaceStretchedCapacity(partner.getFaceRawCapacityValue());
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> elastic throat quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
+						"<p><b style='color:" + Colour.GENERIC_ARCANE + ";'><Her> elastic throat quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
 
 			} else {
 
@@ -564,7 +564,7 @@ public enum Sex {
 				partner.setFaceStretchedCapacity(partner.getFaceRawCapacityValue());
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From <her> oral experience with your " + Main.game.getPlayer().getPenisSize().getDescriptor()
+						"<p><b style='color:" + Colour.GENERIC_ARCANE + ";'>From <her> oral experience with your " + Main.game.getPlayer().getPenisSize().getDescriptor()
 						+ " cock, <she> is now experienced enough to comfortably suck " + PenisSize.getPenisSizeFromInt((int)partner.getFaceRawCapacityValue()).getDescriptor() + " dicks!</b></p>"));
 			}
 		}
@@ -678,24 +678,24 @@ public enum Sex {
 	// Text formatting:
 	
 	private static String formatInitialPenetration(String description) {
-		return "<p style='text-align:center;'><i style='color:" + BaseColour.PINK_DEEP.toWebHexString() + ";'>"+description+"</i></p>";
+		return "<p style='text-align:center;'><i style='color:" + BaseColour.PINK_DEEP + ";'>"+description+"</i></p>";
 	}
 	
 	private static String formatPenetration(String rawInput){
-		return "<p style='text-align:center; color:"+BaseColour.VIOLET.toWebHexString()+";'><i>"+rawInput+"</i></p>";
+		return "<p style='text-align:center; color:"+BaseColour.VIOLET+";'><i>"+rawInput+"</i></p>";
 	}
 	
 	private static String formatStopPenetration(String rawInput){
-		return "<p style='text-align:center; color:"+BaseColour.PINK.toWebHexString()+";'><i>"+rawInput+"</i></p>";
+		return "<p style='text-align:center; color:"+BaseColour.PINK+";'><i>"+rawInput+"</i></p>";
 	}
 	
 	private static String formatCoverableAreaBecomingExposed(String description) {
-		return "<p style='text-align:center;'><i style='color:" + BaseColour.PURPLE_LIGHT.toWebHexString() + ";'>"+description+"</i></p>";
+		return "<p style='text-align:center;'><i style='color:" + BaseColour.PURPLE_LIGHT + ";'>"+description+"</i></p>";
 	}
 	
 	private static String formatCoverableAreaGettingWet(String description) {
 		return UtilText.genderParsing(Sex.getPartner(),
-				"<p style='text-align:center;'><i style='color:" + BaseColour.LILAC_LIGHT.toWebHexString() + ";'>"+description+"</i></p>");
+				"<p style='text-align:center;'><i style='color:" + BaseColour.LILAC_LIGHT + ";'>"+description+"</i></p>");
 	}
 
 	
@@ -2333,7 +2333,7 @@ public enum Sex {
 		Sex.sexManager = sexManager;
 		Sex.sexManager.initSexActions();
 		sexSB.append(
-				"<p style='text-align:center;'><b>New position:</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+Sex.sexManager.getPosition().getName()+"</b></br>"
+				"<p style='text-align:center;'><b>New position:</b> <b style='color:"+Colour.GENERIC_ARCANE+";'>"+Sex.sexManager.getPosition().getName()+"</b></br>"
 				+"<i><b>"+Sex.sexManager.getPosition().getDescription()+"</b></i></p>");
 	}
 

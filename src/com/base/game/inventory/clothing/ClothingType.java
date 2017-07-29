@@ -6091,14 +6091,14 @@ public enum ClothingType {
 	//// if(Main.game.getPlayer().getSecondPenisType()==PenisType.NONE)
 	// return "You clip one the chastity cage in place around your cock, and as
 	// you do so, it briefly glows purple."
-	// + " <b style='color:"+Colour.SEALED.toWebHexString()+";'>The chastity
+	// + " <b style='color:"+Colour.SEALED+";'>The chastity
 	// cage has sealed itself onto your cock!</b>";
 	//// else
 	//// return "You clip the chastity cage in place around your main cock, and
 	// as you do so, it briefly glows purple."
 	//// + " A second chastity cage appears around your second cock, before they
 	// both seal themselves in place."
-	//// + " <b style='color:"+Colour.SEALED.toWebHexString()+";'>The chastity
+	//// + " <b style='color:"+Colour.SEALED+";'>The chastity
 	// cages have sealed themselves onto your cocks!</b>";
 	// }
 	//
