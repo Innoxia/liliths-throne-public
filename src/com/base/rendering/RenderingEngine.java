@@ -182,10 +182,10 @@ public enum RenderingEngine {
 	    if (charactersInventoryToRender != null) {
 		if (charactersInventoryToRender.getOffhandWeapon() != null) {
 		    inventorySB.append("<div class='equipSlot weapon "
-			    + (charactersInventoryToRender.getOffhandWeapon().getRarity().getName()
-			    + "'>" + charactersInventoryToRender.getOffhandWeapon().getSVGString()
-			    + "<div class='overlay' id='" + InventorySlot.WEAPON_OFFHAND.toString() + "Slot'></div>"
-			    + "</div>");
+			    + (charactersInventoryToRender.getOffhandWeapon().getRarity().getName() + "'>"
+				    + charactersInventoryToRender.getOffhandWeapon().getSVGString()
+				    + "<div class='overlay' id='" + InventorySlot.WEAPON_OFFHAND.toString()
+				    + "Slot'></div>" + "</div>"));
 		} else {
 		    inventorySB.append("<div class='equipSlot weapon' id='" + InventorySlot.WEAPON_OFFHAND.toString()
 			    + "Slot'></div>");
@@ -215,7 +215,7 @@ public enum RenderingEngine {
 		    // add to content:
 		    inventorySB.append(
 			    // If slot is sealed:
-			    "<div class='equipSlot small " + clothing.getRarity().getName()+" "
+			    "<div class='equipSlot small " + clothing.getRarity().getName() + " "
 				    + (clothing.isSealed()
 					    ? "style='height:16vw;width:16vw;border-width:1vw;border-color:#"
 						    + Colour.SEALED.toWebHexString() + ";border-style:solid;'"
