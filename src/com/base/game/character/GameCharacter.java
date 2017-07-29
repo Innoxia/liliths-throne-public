@@ -6066,25 +6066,25 @@ public class GameCharacter implements Serializable {
 	}
 	
 	// Urethra:
-	public OrificeElasticity getPenisElasticity() {
+	public OrificeElasticity getPenisUrethraElasticity() {
 		return body.getPenis().getElasticity();
 	}
 
-	public String setPenisElasticity(int plasticity) {
-		if (getPenisElasticity().getValue() < plasticity) {
+	public String setPenisUrethraElasticity(int plasticity) {
+		if (getPenisUrethraElasticity().getValue() < plasticity) {
 			if (body.getPenis().setElasticity(plasticity))
 				if (isPlayer())
 					return "</p>"
 								+ "You let out a desperate groan as you feel a strange slackening sensation pulsating up the length of your cock."
 								+ "</br>" 
-								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>urethra is now " + getPenisElasticity().getDescriptor() + "</b>!"
+								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>urethra is now " + getPenisUrethraElasticity().getDescriptor() + "</b>!"
 							+ "</p>";
 				else
 					return UtilText.genderParsing(this,
 							"</p>"
 								+ "<She> lets out a desperate groan as a strange slackening sensation pulsates up the length of <her> cock." 
 								+ "</br>"
-								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>urethra is now " + getPenisElasticity().getDescriptor() + "</b>!"
+								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>urethra is now " + getPenisUrethraElasticity().getDescriptor() + "</b>!"
 							+ "</p>");
 		} else {
 			if (body.getPenis().setElasticity(plasticity))
@@ -6092,14 +6092,14 @@ public class GameCharacter implements Serializable {
 					return "</p>"
 								+ "You let out a desperate groan as you feel a strange clenching sensation pulsating up the length of your cock."
 								+ "</br>"
-								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>urethra is now " + getPenisElasticity().getDescriptor() + "</b>!"
+								+ "Your <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>urethra is now " + getPenisUrethraElasticity().getDescriptor() + "</b>!"
 							+ "</p>";
 				else
 					return UtilText.genderParsing(this, 
 							"</p>"
 								+ "<She> lets out a desperate groan as a strange clenching sensation pulsates up the length of <her> cock."
 								+ "</br>"
-								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>urethra is now " + getPenisElasticity().getDescriptor() + "</b>!"
+								+ "<Her> <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>urethra is now " + getPenisUrethraElasticity().getDescriptor() + "</b>!"
 							+ "</p>");
 		}
 		return "<p>" 
@@ -6108,7 +6108,7 @@ public class GameCharacter implements Serializable {
 	}
 
 	public String incrementPenisElasticity(int increment) {
-		return setPenisElasticity(getPenisElasticity().getValue() + increment);
+		return setPenisUrethraElasticity(getPenisUrethraElasticity().getValue() + increment);
 	}
 	
 //	public boolean isPenisCreampied(){
