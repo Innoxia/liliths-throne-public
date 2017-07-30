@@ -47,6 +47,18 @@ public enum RenderingEngine {
 
     private StringBuilder inventorySB = new StringBuilder();
 
+	private void appendPiercing(InventorySlot invSlot, boolean enabled) {
+		if (enabled)
+			inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='"
+					+ invSlot.toString()
+					+ "Slot'>"
+					+ "</div></div>");
+		else
+			inventorySB.append("<div class='equipSlot small' id='"
+					+ invSlot.toString()
+					+ "Slot'></div>");
+	}
+
     /**
      * Rendering method for the bottom-left inventory screen.
      */
@@ -247,80 +259,45 @@ public enum RenderingEngine {
 
 		} else {
 		    // add to content:
+					boolean enabled = false;
 		    if (blockedSlots.contains(invSlot))
-			inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='"
-				+ invSlot.toString() + "Slot'>" + "</div></div>");
+						appendPiercing(invSlot,
+								false);
 		    else {
+
 			switch (invSlot) {
 			case PIERCING_VAGINA:
-			    if (charactersInventoryToRender.getVaginaType() == VaginaType.NONE
-				    || !charactersInventoryToRender.isPiercedVagina())
-				inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='"
-					+ invSlot.toString() + "Slot'>" + "</div></div>");
-			    else
-				inventorySB.append(
-					"<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
+			    enabled = (charactersInventoryToRender.getVaginaType() == VaginaType.NONE
+									|| !charactersInventoryToRender.isPiercedVagina());
+
 			    break;
 			case PIERCING_EAR:
-			    if (!charactersInventoryToRender.isPiercedEar())
-				inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='"
-					+ invSlot.toString() + "Slot'>" + "</div></div>");
-			    else
-				inventorySB.append(
-					"<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
+			    enabled = (!charactersInventoryToRender.isPiercedEar());
+				
 			    break;
 			case PIERCING_LIP:
-			    if (!charactersInventoryToRender.isPiercedLip())
-				inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='"
-					+ invSlot.toString() + "Slot'>" + "</div></div>");
-			    else
-				inventorySB.append(
-					"<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
+			    enabled = (!charactersInventoryToRender.isPiercedLip());
 			    break;
 			case PIERCING_NIPPLE:
-			    if (!charactersInventoryToRender.isPiercedNipple())
-				inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='"
-					+ invSlot.toString() + "Slot'>" + "</div></div>");
-			    else
-				inventorySB.append(
-					"<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
+			    enabled = (!charactersInventoryToRender.isPiercedNipple());
 			    break;
 			case PIERCING_NOSE:
-			    if (!charactersInventoryToRender.isPiercedNose())
-				inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='"
-					+ invSlot.toString() + "Slot'>" + "</div></div>");
-			    else
-				inventorySB.append(
-					"<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
+			    enabled = (!charactersInventoryToRender.isPiercedNose());
 			    break;
 			case PIERCING_PENIS:
-			    if (charactersInventoryToRender.getPenisType() == PenisType.NONE
-				    || !charactersInventoryToRender.isPiercedPenis())
-				inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='"
-					+ invSlot.toString() + "Slot'>" + "</div></div>");
-			    else
-				inventorySB.append(
-					"<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
+			    enabled = (charactersInventoryToRender.getPenisType() == PenisType.NONE
+				    || !charactersInventoryToRender.isPiercedPenis());
 			    break;
 			case PIERCING_STOMACH:
-			    if (!charactersInventoryToRender.isPiercedNavel())
-				inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='"
-					+ invSlot.toString() + "Slot'>" + "</div></div>");
-			    else
-				inventorySB.append(
-					"<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
+			    enabled = (!charactersInventoryToRender.isPiercedNavel());
 			    break;
 			case PIERCING_TONGUE:
-			    if (!charactersInventoryToRender.isPiercedTongue())
-				inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='"
-					+ invSlot.toString() + "Slot'>" + "</div></div>");
-			    else
-				inventorySB.append(
-					"<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
+			    enabled = (!charactersInventoryToRender.isPiercedTongue());
 			    break;
 			default:
 			    break;
 			}
+			appendPiercing(invSlot, enabled);
 		    }
 		}
 	    }
