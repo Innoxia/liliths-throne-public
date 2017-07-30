@@ -1,11 +1,6 @@
 package com.base.controller;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,7 +75,6 @@ import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.enchanting.TFModifier;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.item.ItemEffect;
-import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.game.sex.Sex;
@@ -385,64 +379,64 @@ public class MainController implements Initializable {
 //							 
 //							 setUpWebViews();
 							 
-							File dir = new File("data/clothing");
-							dir.mkdir();
-							for (ClothingType ct : ClothingType.values()) {
-								
-								dir = new File("data/clothing/"+ct);
-								dir.mkdir();
-								
-								for(Colour c : ct.getAvailableColours()) {
-									try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/clothing/"+ct+"/"+ct.getName().replaceAll(" ", "_")+"_"+c+".svg"), "utf-8"))) {
-										writer.write(ct.getSVGImage(c));
-									} catch (IOException e) {
-										e.printStackTrace();
-									}
-								}
-							}
-							 dir = new File("data/items");
-								dir.mkdir();
-							for (ItemType ct : ItemType.availableItems) {
-								
-								
-								try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/items/"+ct.getName(false).replaceAll(" ", "_")+".svg"), "utf-8"))) {
-									writer.write(ct.getSVGString());
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
-							}
-							 dir = new File("data/weapons");
-								dir.mkdir();
-							for (WeaponType ct : WeaponType.values()) {
-								
-								for(DamageType dt : ct.getAvailableDamageTypes())
-								try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/weapons/"+ct.getName().replaceAll(" ", "_")+"("+dt+").svg"), "utf-8"))) {
-									writer.write(ct.getSVGStringMap().get(dt));
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
-							}
-							 dir = new File("data/statusEffects");
-								dir.mkdir();
-							for (StatusEffect se : StatusEffect.values()) {
-								if(!se.isSexEffect()) {
-									try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/statusEffects/"+se+"("+se.getName(Main.game.getPlayer()).replaceAll(" ", "_")+").svg"), "utf-8"))) {
-										writer.write(se.getSVGString(Main.game.getPlayer()));
-									} catch (IOException e) {
-										e.printStackTrace();
-									}
-								}
-							}
-							 dir = new File("data/fetishes");
-								dir.mkdir();
-							for (Fetish se : Fetish.values()) {
-								
-								try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/fetishes/"+se+"("+se.getName(Main.game.getPlayer()).replaceAll(" ", "_")+").svg"), "utf-8"))) {
-									writer.write(se.getSVGString());
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
-							}
+//							File dir = new File("data/clothing");
+//							dir.mkdir();
+//							for (ClothingType ct : ClothingType.values()) {
+//								
+//								dir = new File("data/clothing/"+ct);
+//								dir.mkdir();
+//								
+//								for(Colour c : ct.getAvailableColours()) {
+//									try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/clothing/"+ct+"/"+ct.getName().replaceAll(" ", "_")+"_"+c+".svg"), "utf-8"))) {
+//										writer.write(ct.getSVGImage(c));
+//									} catch (IOException e) {
+//										e.printStackTrace();
+//									}
+//								}
+//							}
+//							 dir = new File("data/items");
+//								dir.mkdir();
+//							for (ItemType ct : ItemType.availableItems) {
+//								
+//								
+//								try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/items/"+ct.getName(false).replaceAll(" ", "_")+".svg"), "utf-8"))) {
+//									writer.write(ct.getSVGString());
+//								} catch (IOException e) {
+//									e.printStackTrace();
+//								}
+//							}
+//							 dir = new File("data/weapons");
+//								dir.mkdir();
+//							for (WeaponType ct : WeaponType.values()) {
+//								
+//								for(DamageType dt : ct.getAvailableDamageTypes())
+//								try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/weapons/"+ct.getName().replaceAll(" ", "_")+"("+dt+").svg"), "utf-8"))) {
+//									writer.write(ct.getSVGStringMap().get(dt));
+//								} catch (IOException e) {
+//									e.printStackTrace();
+//								}
+//							}
+//							 dir = new File("data/statusEffects");
+//								dir.mkdir();
+//							for (StatusEffect se : StatusEffect.values()) {
+//								if(!se.isSexEffect()) {
+//									try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/statusEffects/"+se+"("+se.getName(Main.game.getPlayer()).replaceAll(" ", "_")+").svg"), "utf-8"))) {
+//										writer.write(se.getSVGString(Main.game.getPlayer()));
+//									} catch (IOException e) {
+//										e.printStackTrace();
+//									}
+//								}
+//							}
+//							 dir = new File("data/fetishes");
+//								dir.mkdir();
+//							for (Fetish se : Fetish.values()) {
+//								
+//								try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/fetishes/"+se+"("+se.getName(Main.game.getPlayer()).replaceAll(" ", "_")+").svg"), "utf-8"))) {
+//									writer.write(se.getSVGString());
+//								} catch (IOException e) {
+//									e.printStackTrace();
+//								}
+//							}
 							 
 //							 Main.getProperties().savePropertiesAsXML();
 //							 System.out.println("Free memory (bytes) -gc: " + Runtime.getRuntime().freeMemory());
