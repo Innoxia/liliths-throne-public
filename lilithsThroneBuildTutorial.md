@@ -1,15 +1,20 @@
 # **Tutorial for Building Liliths Throne**
 
 *You will need the Eclipse IDE and Java SE Development Kit!*
-https://www.eclipse.org/downloads/?
+
+*If you already have Eclipse, verify that you are running Luna or later, as Java 1.8 is required*
+
+https://www.eclipse.org/downloads/
+
 http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
 
 1. Open Eclipse
 2. Click File, Import it will then open a wizard, open Git and choose Projects from Git, click Next
 3. Choose Clone URL and then click Next
 4. Put https://github.com/Innoxia/liliths-throne-public into the first box in Location
-5. Put github.com into the second box in Location
-6. Put /Innoxia/liliths-throne-public in the third box in Location. Then click Next
+5. Put github.com into the second box in Location, this may be done automatically.
+6. Put /Innoxia/liliths-throne-public in the third box in Location, this may be done automatically. Then click Next
 7. The wizard will now ask which branch you want, this will be "master", select this and then click next.
 8. Unless you want to change the directory, click Next, It will now download the repository.
 9. It will now download the repository.
@@ -35,3 +40,11 @@ http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.h
 9. Click OK
 10. Click Apply and Close
 11. Try Exporting Again
+
+
+####  "C:\Users\[USERNAME]\git\liliths-throne-public is not an empty directory."
+This is most likely because you have already have an outdated build open as a project. Make note of the directory it is reporting as not being empty.
+1. Close the import wizard
+2. In the Package Explorer, right click the project, and click Delete
+3. Make sure you select "Delete Project Contents on Disk". If you don't do this, you will have to do it manually in Windows File Explorer.
+4. Try Importing again
