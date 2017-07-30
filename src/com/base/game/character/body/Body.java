@@ -2494,24 +2494,10 @@ public class Body implements Serializable {
 	 * @return True if height was changed.
 	 */
 	public boolean setHeight(int height) {
-		if (this.height == height)
+		if (this.height == height) {
 			return false;
-
-		// Harpies can't grow to be taller than 170cm
-		if (arm.getType() == ArmType.HARPY) {
-			if (height <= 170) {
-				this.height = height;
-				return true;
-			}
-			if (height > 170) {
-				if (this.height < 170) {
-					this.height = 170;
-					return true;
-				} else
-					return false;
-			}
 		}
-
+		
 		if (height < 122) {
 			if (this.height > 122) {
 				this.height = 122;
@@ -2541,9 +2527,10 @@ public class Body implements Serializable {
 	 * @return True if femininity was changed.
 	 */
 	public boolean setFemininity(int femininity) {
-		if (this.femininity == femininity)
+		if (this.femininity == femininity) {
 			return false;
-
+		}
+		
 		if (femininity <= 0) {
 			if (this.femininity == 0)
 				return false;
@@ -2556,6 +2543,7 @@ public class Body implements Serializable {
 			this.femininity = 100;
 			return true;
 		}
+		
 		this.femininity = femininity;
 		return true;
 	}

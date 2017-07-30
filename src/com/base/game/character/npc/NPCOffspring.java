@@ -38,7 +38,7 @@ public class NPCOffspring extends NPC {
 
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
 		super(null, "", 3, Gender.FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.JUNGLE, Jungle.JUNGLE_CLUB, false); //TODO move to null tile
+				new CharacterInventory(10), WorldType.JUNGLE, Jungle.JUNGLE_CLUB, true); //TODO move to null tile
 
 		setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.5f+Math.random())));
 		setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.5f+Math.random())));
@@ -97,7 +97,7 @@ public class NPCOffspring extends NPC {
 	
 	@Override
 	public String getPlayerPetName() {
-		if(playerPetName=="" || playerPetName.equalsIgnoreCase("Mom") || playerPetName.equalsIgnoreCase("Dad")) {
+		if(playerPetName.length()==0 || playerPetName.equalsIgnoreCase("Mom") || playerPetName.equalsIgnoreCase("Dad")) {
 			if(Main.game.getPlayer().isFeminine()) {
 				return "Mom";
 			} else {
@@ -124,7 +124,7 @@ public class NPCOffspring extends NPC {
 	public String getDescription() {
 		int timeToBirth = this.getDayOfBirth()-this.getDayOfConception();
 		return (UtilText.parse(this,
-				"[npc.Name] is your [npc.daughter], who you "+(this.getMother().isPlayer()?"mothered":"fathered")+" with "+(this.getFather().getName("a"))+"."
+				"[npc.Name] is your [npc.daughter], who you "+(this.getMother().isPlayer()?"mothered with "+(this.getFather().getName("a")):"fathered with "+(this.getMother().getName("a")))+"."
 						+ " [npc.She] was conceived on day "+this.getDayOfConception()+", and "
 						+(timeToBirth==0
 							?"later that same day"

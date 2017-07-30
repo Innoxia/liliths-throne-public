@@ -227,7 +227,6 @@ public class GenericActions {
 		}
 	};
 	
-	
 	public static SexAction PLAYER_FORBID_PARTNER_CLOTHING = new SexAction(
 			SexActionType.PLAYER_SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -295,6 +294,76 @@ public class GenericActions {
 		@Override
 		public void applyEffects() {
 			Sex.setPartnerCanRemovePlayersClothes(true);
+		}
+	};
+	
+	public static SexAction PLAYER_FORBID_PARTNER_SELF_CLOTHING = new SexAction(
+			SexActionType.PLAYER_SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+		@Override
+		public String getActionTitle() {
+			return "Forbid self clothing";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Forbid [npc.name] from managing any of [npc.her] clothing.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return (Sex.isPlayerDom() && !Sex.getSexManager().isConsensualSex())
+					&& (Sex.isPartnerCanRemoveOwnClothes());
+		}
+
+		@Override
+		public String getDescription() {
+			return "[pc.speech(Don't you <i>dare</i> try and touch your clothes!)] you growl at [npc.name].</br></br>"
+					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc.Name] will not attempt to remove or displace any of [npc.her] clothes.</i>";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setPartnerCanRemoveOwnClothes(false);
+		}
+	};
+	
+	public static SexAction PLAYER_PERMIT_PARTNER_CLOTHING_SELF_REMOVAL = new SexAction(
+			SexActionType.PLAYER_SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+		@Override
+		public String getActionTitle() {
+			return "Permit self clothing";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Permit [npc.name] to take off and displace [npc.her] clothing.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return (Sex.isPlayerDom() && !Sex.getSexManager().isConsensualSex())
+					&& (!Sex.isPartnerCanRemoveOwnClothes());
+		}
+
+		@Override
+		public String getDescription() {
+			return "[pc.speech(How about you start taking off some of your clothes?)] you [pc.moan].</br></br>"
+					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc.Name] is now able to manage [npc.her] clothing.</i>";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setPartnerCanRemoveOwnClothes(true);
 		}
 	};
 	

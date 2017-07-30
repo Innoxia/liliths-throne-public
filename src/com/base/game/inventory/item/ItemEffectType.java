@@ -192,20 +192,40 @@ public enum ItemEffectType {
 			
 			target.addStatusEffect(StatusEffect.VIXENS_VIRILITY, 60*24);
 			
-			return "<p>"
-						+ "The little pink pill slides easily down your throat, and within moments, you feel "
+			if(target.isPlayer()) {
+				return "<p>"
+						+ "The little pink pill easily slides down your throat, and within moments, you feel "
 						+ ( Main.game.getPlayer().hasVagina()
 								? "a strange, warm glow spreading from what you guess must be your ovaries."
 									+ " Your mind fogs over with an overwhelming desire to feel potent sperm spurting deep into your "+(Main.game.getPlayer().isVisiblyPregnant()?"pussy":"womb")
-									+", and before you can stop it, a little whimper escapes from between your lips."
+									+", and before you can stop it, a little whimper escapes from between your [pc.lips]."
 									+ (Main.game.getPlayer().hasPenis()
 											?" At the same time, your manhood begins to throb with need, and you feel "
 											:"") 
 							:"")
 						+ (Main.game.getPlayer().hasPenis() 
-								? "an overpowering desire to sink deep into a fertile female's body and fill her with your [pc.cum+]."
+								? "an overpowering desire to sink deep into a fertile female's cunt and fill her with your [pc.cum+]."
 								: "")
 					+ "</p>";
+			
+			} else {
+				return UtilText.parse(target,
+						"<p>"
+							+ "The little pink pill easily slides down [npc.her] throat, and within moments, [npc.she] feels "
+							+ ( target.hasVagina()
+									? "a strange, warm glow spreading from [npc.her] ovaries."
+										+ " [npc.Her] mind fogs over with an overwhelming desire to feel potent sperm spurting deep into [npc.her] "+(Main.game.getPlayer().isVisiblyPregnant()?"pussy":"womb")
+										+", and before [npc.she] can stop it, a little whimper escapes from between [npc.her] [npc.lips]."
+										+ (target.hasPenis()
+												?" At the same time, [npc.her] manhood begins to throb with need, and [npc.she] feels "
+												:"") 
+								:"")
+							+ (Main.game.getPlayer().hasPenis() 
+									? "an overpowering desire to sink deep into a fertile female's cunt and fill her with [npc.cum+]."
+									: "")
+						+ "</p>");
+			}
+			
 		}
 	},
 	
@@ -229,9 +249,17 @@ public enum ItemEffectType {
 			
 			target.addStatusEffect(StatusEffect.PROMISCUITY_PILL, 60*24);
 			
-			return "<p>"
-					+ "The little blue pill slides easily down your throat, and after only a few moments, you feel a cool throbbing sensation taking root deep within your loins."
-					+ "</p>";
+			if(target.isPlayer()) {
+				return "<p>"
+							+ "The little blue pill easily slides down your throat, and after only a few moments, you feel a cool throbbing sensation taking root deep within your loins."
+						+ "</p>";
+			
+			} else {
+				return UtilText.parse(target,
+						"<p>"
+							+ "The little blue pill easily slides down [npc.her] throat, and after only a few moments, [npc.she] feels a cool throbbing sensation taking root deep within [npc.her] loins."
+						+ "</p>");
+			}
 		}
 	},
 	
@@ -251,42 +279,84 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
-			if(target.isVisiblyPregnant()) {
-				if(target.hasStatusEffect(StatusEffect.PREGNANT_3)) {
-					return "<p>"
-							+ "You eagerly gulp down the rich, creamy liquid. Its delicious taste overwhelms your senses, and before you know what's happening, you've already drained the entire bottle."
-							+ " Seeing as you're already in the final stage of pregnancy, nothing happens, but it sure did taste good..."
-							+ "</p>";
-				} else {
-					if(target.hasStatusEffect(StatusEffect.PREGNANT_1)) {
-						target.incrementStatusEffectDuration(StatusEffect.PREGNANT_1, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_1)-60));
+			if(target.isPlayer()) {
+				if(target.isVisiblyPregnant()) {
+					if(target.hasStatusEffect(StatusEffect.PREGNANT_3)) {
+						return "<p>"
+								+ "You eagerly gulp down the rich, creamy liquid. Its delicious taste overwhelms your senses, and before you know what's happening, you've already drained the entire bottle."
+								+ " Seeing as you're already in the final stage of pregnancy, nothing happens, but it sure did taste good..."
+								+ "</p>";
+					} else {
+						if(target.hasStatusEffect(StatusEffect.PREGNANT_1)) {
+							target.incrementStatusEffectDuration(StatusEffect.PREGNANT_1, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_1)-60));
+							
+						} else if(target.hasStatusEffect(StatusEffect.PREGNANT_2)) {
+								target.incrementStatusEffectDuration(StatusEffect.PREGNANT_2, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_2)-60));
+						}
 						
-					} else if(target.hasStatusEffect(StatusEffect.PREGNANT_2)) {
-							target.incrementStatusEffectDuration(StatusEffect.PREGNANT_2, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_2)-60));
+						return "<p>"
+								+ "You eagerly gulp down the rich, creamy liquid. Its delicious taste overwhelms your senses, and before you know what's happening, you've already drained the entire bottle."
+								+ " With an alarmed cry, you feel your belly swell and grow, and, rubbing your [pc.hands] down over your pregnant bump, you feel that your pregnancy has advanced..."
+								+ "</p>";
 					}
 					
-					return "<p>"
-							+ "You eagerly gulp down the rich, creamy liquid. Its delicious taste overwhelms your senses, and before you know what's happening, you've already drained the entire bottle."
-							+ " With an alarmed cry, you feel your belly swell and grow, and, rubbing your [pc.hands] down over your pregnant bump, you feel that your pregnancy has advanced..."
-							+ "</p>";
+				} else {
+					if(target.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+						target.incrementStatusEffectDuration(StatusEffect.PREGNANT_0, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_0)-60));
+						
+						return "<p>"
+									+ "You eagerly gulp down the rich, creamy liquid. Its delicious taste overwhelms your senses, and before you know what's happening, you've already drained the entire bottle."
+									+ " You don't know if you're actually pregnant yet, but you start to feel a soothing warmth spreading throughout your abdomen..."
+								+ "</p>";
+					} else {
+						return "<p>"
+									+ "You eagerly gulp down the rich, creamy liquid. Its delicious taste overwhelms your senses, and before you know what's happening, you've already drained the entire bottle."
+									+ " Seeing as you're not pregnant, nothing happens..."
+								+ "</p>";
+					}
 				}
 				
 			} else {
-				if(target.hasStatusEffect(StatusEffect.PREGNANT_0)) {
-					target.incrementStatusEffectDuration(StatusEffect.PREGNANT_0, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_0)-60));
+				if(target.isVisiblyPregnant()) {
+					if(target.hasStatusEffect(StatusEffect.PREGNANT_3)) {
+						return UtilText.parse(target,
+								"<p>"
+									+ "[npc.Name] gulps down the rich, creamy liquid, quickly draining the entire bottle."
+									+ " Seeing as [npc.she]'s already in the final stage of pregnancy, nothing happens..."
+								+ "</p>");
+					} else {
+						if(target.hasStatusEffect(StatusEffect.PREGNANT_1)) {
+							target.incrementStatusEffectDuration(StatusEffect.PREGNANT_1, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_1)-60));
+							
+						} else if(target.hasStatusEffect(StatusEffect.PREGNANT_2)) {
+								target.incrementStatusEffectDuration(StatusEffect.PREGNANT_2, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_2)-60));
+						}
+						return UtilText.parse(target,
+								"<p>"
+									+ "[npc.Name] gulps down the rich, creamy liquid, quickly draining the entire bottle."
+									+ " With a little cry, [npc.her] belly swells and grows, and, rubbing [npc.her] [npc.hands] down over [npc.her] pregnant bump, [npc.she] feels that [npc.her] pregnancy has advanced..."
+								+ "</p>");
+					}
 					
-					return "<p>"
-								+ "You eagerly gulp down the rich, creamy liquid. Its delicious taste overwhelms your senses, and before you know what's happening, you've already drained the entire bottle."
-								+ " You don't know if you're actually pregnant yet, but you start to feel a soothing warmth spreading throughout your abdomen..."
-							+ "</p>";
 				} else {
-					return "<p>"
-								+ "You eagerly gulp down the rich, creamy liquid. Its delicious taste overwhelms your senses, and before you know what's happening, you've already drained the entire bottle."
-								+ " Seeing as you're not pregnant, nothing happens..."
-							+ "</p>";
+					if(target.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+						target.incrementStatusEffectDuration(StatusEffect.PREGNANT_0, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_0)-60));
+
+						return UtilText.parse(target,
+								"<p>"
+									+ "[npc.Name] gulps down the rich, creamy liquid, quickly draining the entire bottle."
+									+ " Although [npc.she] don't know if [npc.she]'s actually pregnant yet, [npc.she] starts to feel a soothing warmth spreading throughout [npc.her] abdomen..."
+								+ "</p>");
+						
+					} else {
+						return UtilText.parse(target,
+								"<p>"
+									+ "[npc.Name] gulps down the rich, creamy liquid, quickly draining the entire bottle."
+									+ " Seeing as [npc.she]'s not pregnant, nothing happens..."
+								+ "</p>");
+					}
 				}
 			}
-			
 		}
 	},
 	
@@ -424,8 +494,8 @@ public enum ItemEffectType {
 	},
 	
 	SEX_HARPY_PERFUME(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldStamina(stamina)]"),
-			new ListValue<>("[style.boldSex(+1)] [style.boldFeminine(femininity)]")),
+			new ListValue<>("[style.boldSex(+1)] [style.boldFeminine(femininity)]"),
+			new ListValue<>("[style.boldGood(+1)] [style.boldFitness(fitness)] to 'potion effects'")),
 			Colour.GENERIC_SEX) {
 
 		@Override

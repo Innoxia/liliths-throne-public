@@ -53,7 +53,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			int chance = Util.random.nextInt(100) + 1;
 			Attribute rndAtt = Attribute.attributeBonusesForEnchanting.get(Util.random.nextInt(Attribute.attributeBonusesForEnchanting.size()));
 
-			if (chance <= 25) {
+			if (chance <= 20) {
 				attributeModifiers.put(rndAtt, -(Util.random.nextInt(5)+1));
 				sealed=true;
 				coreEnchantment = rndAtt;
@@ -61,8 +61,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				enchantmentKnown = false;
 				rarity = Rarity.JINXED;
 				
-			} else if (chance >= 75) {
-				if(Math.random()>0.75) {
+			} else if (chance >= 70) {
+				if(chance>=90) {
 					Attribute rndAtt2 = Attribute.attributeBonusesForEnchanting.get(Util.random.nextInt(Attribute.attributeBonusesForEnchanting.size()));
 					while(rndAtt2==rndAtt) {
 						rndAtt2 = Attribute.attributeBonusesForEnchanting.get(Util.random.nextInt(Attribute.attributeBonusesForEnchanting.size()));
@@ -288,17 +288,43 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	public String onEquipApplyEffects(GameCharacter clothingOwner, GameCharacter clothingEquipper, boolean rough) {
 		if (!enchantmentKnown) {
 			enchantmentKnown = true;
-			if (badEnchantment) {
-				clothingOwner.incrementAttribute(Attribute.CORRUPTION, 1);
-				return clothingType.equipText(clothingOwner, clothingEquipper, rough, this, true)
-						+ "</br><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"+ (clothingType.isPlural() ? "These " + clothingType.getName() + " are jinxed!" : "This " + clothingType.getName() + " is jinxed!") + "</b></br>"
-						+ "<b>You gain +1</b> <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString()+ ";'>core</b> <b style='color:" + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>corruption</b> <b>from discovering their jinx...</b>";
-			} else
-				return clothingType.equipText(clothingOwner, clothingEquipper, rough, this, true) + "</br><b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment revealed:</b> " + "<b style='color:"
-						+ coreEnchantment.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(coreEnchantment.getPositiveEnchantment()) + "</b> <b>(+" + attributeModifiers.get(coreEnchantment) + " "
-						+ Util.capitaliseSentence(coreEnchantment.getName()) + ")</b>";
-		} else
+			
+			pointlessSB.setLength(0);
+				if (badEnchantment) {
+					clothingOwner.incrementAttribute(Attribute.CORRUPTION, 1);
+					pointlessSB.append(
+							clothingType.equipText(clothingOwner, clothingEquipper, rough, this, true)
+							+ "<p style='text-align:center;'>"
+									+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Jinx revealed:</b> <b style='color:"+ coreEnchantment.getColour().toWebHexString() + ";'>"
+										+ Util.capitaliseSentence(coreEnchantment.getNegativeEnchantment()) + "</b>");
+					
+					for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
+						pointlessSB.append("</br><b>(" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
+					}
+					
+					pointlessSB.append("</br>"
+							+ "<b>You gain +1</b> <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString()+ ";'>core</b> <b style='color:" + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>corruption</b> <b>from discovering their jinx...</b>"
+							+ "</p>");
+					
+				} else {
+					pointlessSB.append(
+							clothingType.equipText(clothingOwner, clothingEquipper, rough, this, true)
+							+ "<p style='text-align:center;'>"
+									+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment revealed:</b> <b style='color:"+ coreEnchantment.getColour().toWebHexString() + ";'>"
+										+ Util.capitaliseSentence(coreEnchantment.getPositiveEnchantment()) + "</b>");
+					
+					for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
+						pointlessSB.append("</br><b>(+" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
+					}
+					
+					pointlessSB.append("</p>");
+				}
+			
+			return pointlessSB.toString();
+			
+		} else {
 			return clothingType.equipText(clothingOwner, clothingEquipper, rough, this, true);
+		}
 	}
 
 	/**
@@ -566,23 +592,42 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		return enchantmentKnown;
 	}
 
+	private StringBuilder pointlessSB = new StringBuilder();
 	public String setEnchantmentKnown(boolean enchantmentKnown) {
+		pointlessSB.setLength(0);
 		this.enchantmentKnown = enchantmentKnown;
+		
 		if(enchantmentKnown && !attributeModifiers.isEmpty()){
-			if (badEnchantment) 
-				return "<p style='text-align:center;'>"
-							+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Jinx revealed:</b> " + "<b style='color:"
-							+ coreEnchantment.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(coreEnchantment.getNegativeEnchantment()) + "</b> <b>(" + attributeModifiers.get(coreEnchantment) + " "
-							+ Util.capitaliseSentence(coreEnchantment.getName()) + ")</b>"
-						+ "</p>";
-			else
-				return "<p style='text-align:center;'>"
-							+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment revealed:</b> " + "<b style='color:"
-							+ coreEnchantment.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(coreEnchantment.getPositiveEnchantment()) + "</b> <b>(+" + attributeModifiers.get(coreEnchantment) + " "
-							+ Util.capitaliseSentence(coreEnchantment.getName()) + ")</b>"
-						+ "</p>";
-		}else
+			if (badEnchantment) {
+				pointlessSB.append(
+						"<p style='text-align:center;'>"
+								+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Jinx revealed:</b> <b style='color:"+ coreEnchantment.getColour().toWebHexString() + ";'>"
+									+ Util.capitaliseSentence(coreEnchantment.getNegativeEnchantment()) + "</b>");
+				
+				for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
+					pointlessSB.append("</br><b>(" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
+				}
+				
+				pointlessSB.append("</p>");
+				
+			} else {
+				pointlessSB.append(
+						"<p style='text-align:center;'>"
+								+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment revealed:</b> <b style='color:"+ coreEnchantment.getColour().toWebHexString() + ";'>"
+									+ Util.capitaliseSentence(coreEnchantment.getPositiveEnchantment()) + "</b>");
+				
+				for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
+					pointlessSB.append("</br><b>(+" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
+				}
+				
+				pointlessSB.append("</p>");
+			}
+			
+		} else {
 			return "";
+		}
+		
+		return pointlessSB.toString();
 	}
 
 	public Attribute getCoreEnchantment() {

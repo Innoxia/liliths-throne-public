@@ -1,13 +1,11 @@
 package com.base.game.character.gender;
 
-import java.util.List;
-
 import com.base.main.Main;
 import com.base.utils.Util;
 
 /**
  * @since 0.1.78
- * @version 0.1.78
+ * @version 0.1.82
  * @author Innoxia
  */
 public enum GenderPreference {
@@ -35,28 +33,6 @@ public enum GenderPreference {
 			newTotal+=Main.getProperties().genderPreferencesMap.get(g);
 			if(random<=newTotal) {
 				return g;
-			}
-		}
-		
-		return Gender.FEMALE;
-	}
-	
-	public static Gender getGenderFromUserPreferences(List<Gender> gendersToInclude) {
-		int total=0;
-		for(Gender g : Gender.values()) {
-			if(gendersToInclude.contains(gendersToInclude))
-				total+=Main.getProperties().genderPreferencesMap.get(g);
-		}
-		
-		int random = Util.random.nextInt(total)+1;
-		
-		int newTotal=0;
-		for(Gender g : Gender.values()) {
-			if(gendersToInclude.contains(gendersToInclude)) {
-				newTotal+=Main.getProperties().genderPreferencesMap.get(g);
-				if(random<=newTotal) {
-					return g;
-				}
 			}
 		}
 		

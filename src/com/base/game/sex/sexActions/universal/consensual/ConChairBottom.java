@@ -1467,16 +1467,16 @@ public class ConChairBottom {
 					descriptionSB.append(" As you start pinching [npc.her] [npc.nipples], a trickle of [npc.milk] runs down over [npc.her] [npc.breasts+].");
 					break;
 				case FOUR_LARGE_AMOUNT:
-					descriptionSB.append(" [npc.Her] [mpc.milk] starts to flow out over your fingertips as you greedily milk [npc.her] [npc.breasts+].");
+					descriptionSB.append(" [npc.Her] [npc.milk] starts to flow out over your fingertips as you greedily milk [npc.her] [npc.breasts+].");
 					break;
 				case FIVE_VERY_LARGE_DROOLING:
-					descriptionSB.append(" [npc.Her] [mpc.milk] starts drooling out over your fingertips as you greedily milk [npc.her] [npc.breasts+].");
+					descriptionSB.append(" [npc.Her] [npc.milk] starts drooling out over your fingertips as you greedily milk [npc.her] [npc.breasts+].");
 					break;
 				case SIX_EXTREME_AMOUNT_DRIPPING:
-					descriptionSB.append(" [npc.Her] [mpc.milk] starts pouring out over your fingertips as you greedily milk [npc.her] [npc.breasts+].");
+					descriptionSB.append(" [npc.Her] [npc.milk] starts pouring out over your fingertips as you greedily milk [npc.her] [npc.breasts+].");
 					break;
 				case SEVEN_MONSTROUS_AMOUNT_POURING:
-					descriptionSB.append(" [npc.Her] [mpc.milk] starts pouring out over your fingertips as you greedily milk [npc.her] [npc.breasts+].");
+					descriptionSB.append(" [npc.Her] [npc.milk] starts pouring out over your fingertips as you greedily milk [npc.her] [npc.breasts+].");
 					break;
 				default:
 					break;

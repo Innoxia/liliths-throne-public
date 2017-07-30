@@ -8,26 +8,25 @@
 	
 	you still haven't put in a way to change the keybinds for the third row of commands.
 	
-	Perhaps adding a â€œcuteâ€ element to responses under the different Talks to include hearts?
+	Perhaps adding a “cute” element to responses under the different Talks to include hearts?
 
 	dnieing selfaction still has no effect :/
 
-	NPCs donâ€™t have pace change mechanic it seems. I am certain youâ€™ll work on that, just putting it out there.
+	NPCs don’t have pace change mechanic it seems. I am certain you’ll work on that, just putting it out there.
 	
 	Suggestion for fetish gain: Fetishes normally are developed over time so gaining the anal fetish after fucking a few times is to be expected.
 	 What could be added is a small dialogue display asking if the player is interested in gaining a certain fetish after some conditions are met.
 	
-	I know that this version youâ€™ll be adding more content as youâ€™ve wrapped up with the pace mechanic, so Iâ€™d suggest to add more skin tones to be available to random NPCs and to Kateâ€™s shop.
+	I know that this version you’ll be adding more content as you’ve wrapped up with the pace mechanic, so I’d suggest to add more skin tones to be available to random NPCs and to Kate’s shop.
 	
 	Succubus encounter, submitting: She apparently selected to kiss the PC but not actual text shows up to that effect. There is a gap where her action description should be; 
 	After selecting one of the request choices, they disappear never to be seen as options again.
 	
-	â€œBeg her/him to stopâ€ says â€œTalk dirty to â€¦â€ in the hover-over text.
+	“Beg her/him to stop” says “Talk dirty to …” in the hover-over text.
 	
-	â€œResistingâ€ should have the same or similar effect on Arousal as â€œCalm Downâ€ as, even if the rapist is still molesting you, you should not be getting aroused because youâ€™re resisting and trying to get away.
+	“Resisting” should have the same or similar effect on Arousal as “Calm Down” as, even if the rapist is still molesting you, you should not be getting aroused because you’re resisting and trying to get away.
 	
 	some times see contrasting fetishes on mobs like androphilic + impregnation fetish
-	
 	--------
 	
 	Still issues with tooltips now showing up on 3 bottom-right icons in floor inventory on smaller resolution
@@ -118,6 +117,7 @@
 	Rose says she looks familiar in prologue?
 	
 	~I cant get the extra discount anymore, I do the blowjob scene but if I press the second discount button on ralph, nothing happens and the blowjob scene continues.~
+	: but then at the end he acts as if no one was alerted and you get it all
 	
 	I'm not certain as to this, but it appears there is a bug when if you unlock a perk, and a perk that requires that perk at the same time, you don't get the affect of the latter.
 		Or atleast it visually appears as a perk you don't have

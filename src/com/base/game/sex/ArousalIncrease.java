@@ -11,7 +11,7 @@ public enum ArousalIncrease {
 	NEGATIVE(-10),
 	
 	/**Calm down a little.*/
-	NEGATIVE_MINOR(-3),
+	NEGATIVE_MINOR(-5),
 
 	/**This action is not arousing at all for this partner. For example, if the other parter is masturbating out-of-sight.*/
 	ZERO_NONE(0),

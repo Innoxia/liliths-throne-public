@@ -58,8 +58,8 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public final static String VERSION_NUMBER = "0.1.82P",
-			VERSION_DESCRIPTION = "Preview"; //TODO Early Alpha
+	public final static String VERSION_NUMBER = "0.1.82PHF",
+			VERSION_DESCRIPTION = "Preview - Hotfix"; //TODO Early Alpha
 
 	public final static Image WINDOW_IMAGE = new Image("/com/base/res/images/windowIcon32.png");
 
@@ -110,7 +110,7 @@ public class Main extends Application {
 		
 		+"<li>Items:</li>"
 			+"<ul><b>Added:</b> Vanilla water (Human attribute consumable, similar to the other attribute consumables.)</ul>"
-			+"<ul><b>Added:<b> Bottled essences. You can now buy bottled essences from Vicky.</ul>"
+			+"<ul><b>Added:</b> Bottled essences. You can now buy bottled essences from Vicky.</ul>"
 			+"<ul><b>Added:</b> Crotchless briefs. (Masculine, groin slot.)</ul>"
 			+"<ul><b>Added:</b> Work boots. (Masculine, foot slot.)</ul>"
 			
@@ -136,6 +136,34 @@ public class Main extends Application {
 			+"<ul>Fixed bug where random Harpies would not be able to be re-encountered after completing the 'Angry Harpies' quest.</ul>"
 			+"<ul>Disabled quicksave while in phone menus, as it was causing a save game file corruption.</ul>"
 
+	+ "<h6>Hotfix</h6>"
+
+		+"<li>Clothing:</li>"
+		+"<ul><b>Added:</b> Headband (No femininity requirements, head slot). Also added a 'headband with bow' variant (feminine, head slot).</ul>"
+		+"<ul><b>Added:</b> Long-sleeved dress (feminine, torso slot).</ul>"
+		+"<ul><b>Added:</b> Shin guards (No femininity requirements, ankle slot).</ul>"
+		+"<ul><b>Added:</b> Stomach sarashi (No femininity requirements, stomach slot).</ul>"
+		+"<ul><b>Added:</b> Chest sarashi (No femininity requirements, chest slot).</ul>"
+		
+		+"<li>Other:</li>"
+		+"<ul>Removed harpy height limitation. (This was a left over from a very early version of the game.)</ul>"
+		+"<ul>Slightly increased the arousal reduction on 'Calm down' action.</ul>"
+		+"<ul>Humans now have a chance to drop Vanilla Water.</ul>"
+		+"<ul>There is now a chance for NPCs to have three fetishes. (20% chance for three, 20% chance for two, 40% chance for one, 20% chance for none)</ul>"
+		+"<ul>Added 'Permit/Forbid self clothing' actions in sex, to allow you to forbid your partner from managing any of their own clothes.</ul>"
+		+"<ul>Vicky now stocks a lot more essences.</ul>"
+		+"<ul>Rare clothing should now be spawning in correctly (10% chance for every random piece of clothing to have a rare enchantment).</ul>"
+		
+		+"<li>Bugs:</li>"
+		+"<ul>Fixed bug where almost everyone would resist if you have the non-con fetish.</ul>"
+		+"<ul>Minor typo fixes.</ul>"
+		+"<ul>Fixed several old bugs from the sex system rework (could have been causing orifice stretching issues).</ul>"
+		+"<ul>Fixed bug where fathered daughters wouldn't count in the pregnancy stats screen.</ul>"
+		+"<ul>Fixed offspring description giving incorrect mother/father name.</ul>"
+		+"<ul>Fixed Harpy Perfume tooltip incorrect effect description.</ul>"
+		+"<ul>After meeting your offspring, their name should now correctly change from 'Unknown' in the pregnancy stats screen.</ul>"
+		+"<ul>Added NPC variants for consuming Mother's Milk, Promiscuity Pills, and Vixen's Virility.</ul>"	
+		
 		+ "</list>";
 	
 	public static String disclaimer = "<h1 style='text-align:center;'>DISCLAIMER</h1>"
