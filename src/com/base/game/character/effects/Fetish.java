@@ -867,18 +867,7 @@ public enum Fetish implements PerkInterface {
 
 	@Override
 	public boolean isAvailable(GameCharacter character, List<PerkInterface> additionalPerks) {
-		if (this.getPreviousLevelPerk() != null) {
-			if (additionalPerks == null) {
-				if (character.hasFetish(this.getPreviousLevelPerk()))
-					return true;
-			} else {
-				if (character.hasFetish(this.getPreviousLevelPerk())
-						|| additionalPerks.contains(this.getPreviousLevelPerk()))
-					return true;
-			}
-			return false;
-		} else
-			return true;
+		return true;
 	}
 	
 	private static List<String> perkRequirementsList = new ArrayList<>();
