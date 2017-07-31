@@ -102,7 +102,7 @@ public class PlayerTongueVagina {
 								"With a quick shift of [npc.her] [npc.hips], [npc.name] bumps [npc.her] [npc.clit] down against your [pc.tongue]."
 										+ " Much to [npc.her] delight, you quickly start sucking and kissing [npc.her] sensitive nub, causing [npc.herHim] to let out a desperate, shuddering moan.",
 								"[npc.Name] tells you to start giving [npc.her] clit some attention, and you obediently start sucking and licking [npc.her] little button, causing [npc.herHim] to squeal and moan in pleasure.",
-								"Pushing [npc.her] n[pc.pussy] down on your [pc.tongue], [npc.name] repositions [npc.herself] so that you're focusing on kissing and licking [npc.her] sensitive little clit.");
+								"Pushing [npc.her] [npc.pussy] down on your [pc.tongue], [npc.name] repositions [npc.herself] so that you're focusing on kissing and licking [npc.her] sensitive little clit.");
 				}
 			}
 		}

@@ -102,21 +102,21 @@ public class Vicky extends NPC {
 			primaryMod = TFModifier.getTFRacialBodyPartsListList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsListList().size()));
 		}
 		
-		for(int i=0; i<5+Util.random.nextInt(10);i++)
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
 			this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_ARCANE), false);
-		for(int i=0; i<5+Util.random.nextInt(10);i++)
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
 			this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_CAT_MORPH), false);
-		for(int i=0; i<5+Util.random.nextInt(10);i++)
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
 			this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_DEMON), false);
-		for(int i=0; i<5+Util.random.nextInt(10);i++)
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
 			this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_DOG_MORPH), false);
-		for(int i=0; i<5+Util.random.nextInt(10);i++)
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
 			this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_HARPY), false);
-		for(int i=0; i<5+Util.random.nextInt(10);i++)
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
 			this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_HORSE_MORPH), false);
-		for(int i=0; i<5+Util.random.nextInt(10);i++)
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
 			this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_HUMAN), false);
-		for(int i=0; i<5+Util.random.nextInt(10);i++)
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
 			this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_WOLF_MORPH), false);
 	}
 	

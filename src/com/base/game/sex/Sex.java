@@ -340,8 +340,10 @@ public enum Sex {
 		sexSB = new StringBuilder();
 
 		// Stretching effects for each of the player's orifices:
+
 		if (Main.game.getPlayer().getAssRawCapacityValue() != Main.game.getPlayer().getAssStretchedCapacity()
 				&& areasStretchedPlayer.contains(OrificeType.ANUS_PLAYER)) {
+
 			if (Main.game.getPlayer().getAssElasticity() == OrificeElasticity.SEVEN_ELASTIC){
 
 				Main.game.getPlayer().setAssStretchedCapacity(Main.game.getPlayer().getAssRawCapacityValue());
@@ -362,8 +364,10 @@ public enum Sex {
 					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getAssRawCapacityValue()).getDescriptor() + "!</b></p>");
 			}
 		}
+
 	if (Main.game.getPlayer().getVaginaRawCapacityValue() != Main.game.getPlayer().getVaginaStretchedCapacity()
 		&& areasStretchedPlayer.contains(OrificeType.VAGINA_PLAYER)) {
+
 			if (Main.game.getPlayer().getVaginaElasticity() == OrificeElasticity.SEVEN_ELASTIC){
 
 				Main.game.getPlayer().setVaginaStretchedCapacity(Main.game.getPlayer().getVaginaRawCapacityValue());
@@ -386,6 +390,7 @@ public enum Sex {
 		}
 		if (Main.game.getPlayer().getBreastRawCapacityValue() != Main.game.getPlayer().getBreastStretchedCapacity()
 				&& areasStretchedPlayer.contains(OrificeType.NIPPLE_PLAYER)) {
+
 			if (Main.game.getPlayer().getBreastElasticity() == OrificeElasticity.SEVEN_ELASTIC){
 
 				Main.game.getPlayer().setBreastStretchedCapacity(Main.game.getPlayer().getBreastRawCapacityValue());
@@ -406,9 +411,9 @@ public enum Sex {
 					sexSB.append(" They will recover all of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getBreastRawCapacityValue()).getDescriptor() + "!</b></p>");
 			}
 		}
-		if (Main.game.getPlayer().getPenisRawCapacityValue() != Main.game.getPlayer().getPenisStretchedCapacity()
-				&& areasStretchedPlayer.contains(OrificeType.URETHRA_PLAYER)) {
-			if (Main.game.getPlayer().getPenisUrethraElasticity() == OrificeElasticity.SEVEN_ELASTIC){
+
+		if (Main.game.getPlayer().getPenisRawCapacityValue() != Main.game.getPlayer().getPenisStretchedCapacity() && areasStretchedPlayer.contains(OrificeType.URETHRA_PLAYER)) {
+			if (Main.game.getPlayer().getPenisElasticity() == OrificeElasticity.SEVEN_ELASTIC){
 
 				Main.game.getPlayer().setPenisStretchedCapacity(Main.game.getPlayer().getPenisRawCapacityValue());
 
@@ -430,6 +435,7 @@ public enum Sex {
 		}
 		if (Main.game.getPlayer().getFaceRawCapacityValue() != Main.game.getPlayer().getFaceStretchedCapacity()
 				&& areasStretchedPlayer.contains(OrificeType.MOUTH_PLAYER)) {
+
 			if (Main.game.getPlayer().getFaceElasticity() == OrificeElasticity.SEVEN_ELASTIC){
 
 				Main.game.getPlayer().setFaceStretchedCapacity(Main.game.getPlayer().getFaceRawCapacityValue());
@@ -450,8 +456,8 @@ public enum Sex {
 		}
 
 		// Stretching effects for each of the partner's orifices:
-		if (partner.getAssRawCapacityValue() != partner.getAssStretchedCapacity()
-				&& areasStretchedPartner.contains(OrificeType.ANUS_PARTNER)) {
+
+		if (partner.getAssRawCapacityValue() != partner.getAssStretchedCapacity() && areasStretchedPartner.contains(OrificeType.ANUS_PARTNER)) {
 			if (partner.getAssElasticity() == OrificeElasticity.SEVEN_ELASTIC){
 
 				partner.setAssStretchedCapacity(partner.getAssRawCapacityValue());
@@ -474,8 +480,7 @@ public enum Sex {
 					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(partner.getAssRawCapacityValue()).getDescriptor() + "!</b></p>");
 			}
 		}
-		if (partner.getVaginaRawCapacityValue() != partner.getVaginaStretchedCapacity()
-				&& areasStretchedPartner.contains(OrificeType.VAGINA_PARTNER)) {
+		if (partner.getVaginaRawCapacityValue() != partner.getVaginaStretchedCapacity() && areasStretchedPartner.contains(OrificeType.VAGINA_PARTNER)) {
 			if (partner.getVaginaElasticity() == OrificeElasticity.SEVEN_ELASTIC){
 
 				partner.setVaginaStretchedCapacity(partner.getVaginaRawCapacityValue());
@@ -499,8 +504,9 @@ public enum Sex {
 					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(partner.getVaginaRawCapacityValue()).getDescriptor() + "!</b></p>");
 			}
 		}
-		if (partner.getBreastRawCapacityValue() != partner.getBreastStretchedCapacity()
-				&& areasStretchedPartner.contains(OrificeType.NIPPLE_PARTNER)) {
+
+		if (partner.getBreastRawCapacityValue() != partner.getBreastStretchedCapacity() && areasStretchedPartner.contains(OrificeType.NIPPLE_PARTNER)) {
+
 			if (partner.getBreastElasticity() == OrificeElasticity.SEVEN_ELASTIC){
 
 				partner.setBreastStretchedCapacity(partner.getBreastRawCapacityValue());
@@ -523,9 +529,10 @@ public enum Sex {
 					sexSB.append(" They will recover all of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(partner.getBreastRawCapacityValue()).getDescriptor() + "!</b></p>");
 			}
 		}
-		if (partner.getPenisRawCapacityValue() != partner.getPenisStretchedCapacity()
-				&& areasStretchedPartner.contains(OrificeType.URETHRA_PARTNER)) {
-			if (partner.getPenisUrethraElasticity() == OrificeElasticity.SEVEN_ELASTIC){
+
+		if (partner.getPenisRawCapacityValue() != partner.getPenisStretchedCapacity() && areasStretchedPartner.contains(OrificeType.URETHRA_PARTNER)) {
+			if (partner.getPenisElasticity() == OrificeElasticity.SEVEN_ELASTIC){
+
 
 				partner.setPenisStretchedCapacity(partner.getPenisRawCapacityValue());
 
@@ -547,8 +554,9 @@ public enum Sex {
 					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(partner.getPenisRawCapacityValue()).getDescriptor() + "!</b></p>");
 			}
 		}
-		if (partner.getFaceRawCapacityValue() != partner.getFaceStretchedCapacity()
-				&& areasStretchedPartner.contains(OrificeType.MOUTH_PARTNER)) {
+
+		if (partner.getFaceRawCapacityValue() != partner.getFaceStretchedCapacity() && areasStretchedPartner.contains(OrificeType.MOUTH_PARTNER)) {
+
 			if (partner.getFaceElasticity() == OrificeElasticity.SEVEN_ELASTIC){
 
 				partner.setFaceStretchedCapacity(partner.getFaceRawCapacityValue());

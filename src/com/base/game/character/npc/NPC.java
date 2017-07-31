@@ -348,6 +348,14 @@ public abstract class NPC extends GameCharacter {
 	}
 	
 	public boolean isWantsToHaveSexWithPlayer() {
+		if(mother!=null && father!=null) {
+			if(mother.isPlayer() || father.isPlayer()) {
+				if (!hasFetish(Fetish.FETISH_INCEST)) {
+					return false;
+				}
+			}
+		}
+		
 		return getSexPaceSubPreference()!=SexPace.SUB_RESISTING;
 	}
 
@@ -360,8 +368,16 @@ public abstract class NPC extends GameCharacter {
 			if(hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
 					|| (getSexualOrientation()==SexualOrientation.ANDROPHILIC && Main.game.getPlayer().isFeminine())
 					|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !Main.game.getPlayer().isFeminine())
-					|| !hasFetish(Fetish.FETISH_INCEST)) {
+					|| hasFetish(Fetish.FETISH_NON_CON)) {
 				return SexPace.SUB_RESISTING;
+			}
+			
+			if(mother!=null && father!=null) {
+				if(mother.isPlayer() || father.isPlayer()) {
+					if (!hasFetish(Fetish.FETISH_INCEST)) {
+						return SexPace.SUB_RESISTING;
+					}
+				}
 			}
 		}
 		
