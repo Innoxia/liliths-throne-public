@@ -44,6 +44,7 @@ import com.base.game.character.npc.dominion.Vicky;
 import com.base.game.character.npc.generic.GenericAndrogynousNPC;
 import com.base.game.character.npc.generic.GenericFemaleNPC;
 import com.base.game.character.npc.generic.GenericMaleNPC;
+import com.base.game.character.race.Race;
 import com.base.game.dialogue.DialogueFlags;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.MapDisplay;
@@ -527,12 +528,7 @@ public class Game implements Serializable {
 										Main.game.getPlayer().addCharacterEncountered(character);
 									} 
 									if(Main.game.getPlayer().addRaceDiscovered(character.getRace())) {
-										Main.game.getTextEndStringBuilder().append(
-												"<p style='text-align:center;'>"
-													+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
-													+ "</br>"
-													+ "<b>Race:</b> <b style='color:"+character.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(character.getRace().getName())+"</b>"
-												+ "</p>");
+										Main.game.getTextEndStringBuilder().append(getRaceDiscoveredMessage(character.getRace()));
 									}
 									((NPC) character).setLastTimeEncountered(minutesPassed);
 								}
@@ -692,12 +688,7 @@ public class Game implements Serializable {
 							Main.game.getPlayer().addCharacterEncountered(character);
 						}
 						if(Main.game.getPlayer().addRaceDiscovered(character.getRace())) {
-							Main.game.getTextEndStringBuilder().append(
-									"<p style='text-align:center;'>"
-										+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
-										+ "</br>"
-										+ "<b>Race:</b> <b style='color:"+character.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(character.getRace().getName())+"</b>"
-									+ "</p>");
+							Main.game.getTextEndStringBuilder().append(getRaceDiscoveredMessage(character.getRace()));
 						}
 						
 						((NPC) character).setLastTimeEncountered(minutesPassed);
@@ -1797,5 +1788,21 @@ public class Game implements Serializable {
 	
 	public boolean isIncestEnabled() {
 		return player.hasFetish(Fetish.FETISH_INCEST);
+	}
+	
+	public static String getRaceDiscoveredMessage(Race race) {
+		return "<p style='text-align:center;'>"
+					+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia!</b>"
+					+ "</br>"
+					+ "<b>Race:</b> <b style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</b>"
+				+ "</p>";
+	}
+	
+	public static String getRaceAdvancedKnowledgeMessage(Race race) {
+		return "<p style='text-align:center;'>"
+					+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Advanced knowledge unlocked in your phone's encyclopedia!</b>"
+					+ "</br>"
+					+ "<b>Race:</b> <b style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</b>"
+				+ "</p>";
 	}
 }

@@ -19,9 +19,13 @@
 	
 	Patch notes:
 		
+	Gameplay:
+		<b>Added:</b> A lore book for each of the game's races, which have a chance to be randomly dropped as loot after combat.
+		
 	Other:
 		Renamed 'City gym' to 'Pix's Playground'.
 		Improved dialogue flow in all of the shops in the Shopping Arcane. (They now all have an 'exterior' scene.)
+		Split encyclopedia entries for race into 'basic' and 'advanced' knowledge. You gain basic knowledge upon encountering a race, and advanced knowledge upon reading a book about that race.
 		
 	Bugs:
 		Fixed some typos.
@@ -60,6 +64,10 @@
 	Brax dom not using proper actions?
 	
 	Gender prefs aren't being applied to offspring.
+	-Natural birth only (all children are born based on their race's natural birth rates only, human 50% male/50% female, harpy 50% trap / 50% female)
+	-Rare unusual births (most children are born with natural genders, but unusual ones have a small chance to trigger)
+	-Natural preferred births (all children are born with natural birth genders, but will respect the player's gender preferences when possible)
+	-All births preferred (children will use the player's gender preference sheet)
 	
 	Randomise succubi a bit more
 	

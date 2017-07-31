@@ -24,7 +24,7 @@ import com.base.world.places.PlaceInterface;
 
 /**
  * @since 0.1.0
- * @version 0.1.8
+ * @version 0.1.82
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter {
@@ -48,7 +48,7 @@ public class PlayerCharacter extends GameCharacter {
 	private Set<WeaponType> weaponsDiscovered;
 	private Set<ClothingType> clothingDiscovered;
 	private List<GameCharacter> charactersEncountered;
-	private List<Race> racesDiscovered;
+	private List<Race> racesDiscovered, racesAdvancedKnowledge;
 
 
 
@@ -85,6 +85,7 @@ public class PlayerCharacter extends GameCharacter {
 		charactersEncountered = new ArrayList<>();
 
 		racesDiscovered = new ArrayList<>();
+		racesAdvancedKnowledge = new ArrayList<>();
 	}
 
 	@Override
@@ -377,7 +378,22 @@ public class PlayerCharacter extends GameCharacter {
 	public List<Race> getRacesDiscovered() {
 		return racesDiscovered;
 	}
+	
+	public boolean addRacesAdvancedKnowledge(Race race) {
+		if(!racesAdvancedKnowledge.contains(race)) {
+			racesAdvancedKnowledge.add(race);
+			racesAdvancedKnowledge.sort((Race r1, Race r2) -> (r1.getName()).compareTo(r2.getName()));
+			newRaceDiscovered = true;
+			return true;
+		} else {
+			return false;
+		}
+	}
 
+	public List<Race> getRacesAdvancedKnowledge() {
+		return racesAdvancedKnowledge;
+	}
+	
 	public SizedStack<ShopTransaction> getBuybackStack() {
 		return buybackStack;
 	}

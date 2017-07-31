@@ -1324,10 +1324,20 @@ public class PhoneDialogue {
 					public void effects() {
 						title = Util.capitaliseSentence(Main.game.getPlayer().getRacesDiscovered().get(index - 1).getName()) + " ("
 								+ Util.capitaliseSentence(Main.game.getPlayer().getRacesDiscovered().get(index - 1).getGenus().getName()) + ")";
-						content = "<p>" + "Male " + Main.game.getPlayer().getRacesDiscovered().get(index - 1).getName() + "s are called <b style='color:" + Colour.MASCULINE.toWebHexString() + ";'>"
-								+ Main.game.getPlayer().getRacesDiscovered().get(index - 1).getPluralMaleName() + "</b>." + "</p>" + "<p>" + "Female " + Main.game.getPlayer().getRacesDiscovered().get(index - 1).getName()
-								+ "s are called <b style='color:" + Colour.FEMININE.toWebHexString() + ";'>" + Main.game.getPlayer().getRacesDiscovered().get(index - 1).getPluralFemaleName() + "</b>." + "</p>"
-								+ Main.game.getPlayer().getRacesDiscovered().get(index - 1).getDescription();
+						content = "<p>"
+									+ "Male " + Main.game.getPlayer().getRacesDiscovered().get(index - 1).getName() + "s are called <b style='color:" + Colour.MASCULINE.toWebHexString() + ";'>"
+									+ Main.game.getPlayer().getRacesDiscovered().get(index - 1).getPluralMaleName() + "</b>."
+								+ "</p>"
+								+ "<p>"
+									+ "Female " + Main.game.getPlayer().getRacesDiscovered().get(index - 1).getName()+ "s are called <b style='color:" + Colour.FEMININE.toWebHexString() + ";'>"
+									+ Main.game.getPlayer().getRacesDiscovered().get(index - 1).getPluralFemaleName() + "</b>."
+								+ "</p>"
+								+ Main.game.getPlayer().getRacesDiscovered().get(index - 1).getBasicDescription()
+								+(Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Main.game.getPlayer().getRacesDiscovered().get(index - 1))
+										?Main.game.getPlayer().getRacesDiscovered().get(index - 1).getAdvancedDescription()
+										:"<p style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+											+ "Further information can be discovered in books!"
+										+ "</p>");
 					}
 				};
 			

@@ -1,7 +1,5 @@
 package com.base.game.character.npc.dominion;
 
-import java.util.List;
-
 import com.base.game.character.CharacterUtils;
 import com.base.game.character.GameCharacter;
 import com.base.game.character.Name;
@@ -17,14 +15,11 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.npcDialogue.HarpyNestsAttacker;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.utils.UtilText;
-import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.item.AbstractItem;
-import com.base.game.inventory.item.ItemType;
 import com.base.game.sex.Sex;
 import com.base.main.Main;
 import com.base.utils.Util;
-import com.base.utils.Util.ListValue;
 import com.base.utils.Vector2i;
 import com.base.world.WorldType;
 import com.base.world.places.HarpyNests;
@@ -217,16 +212,6 @@ public class NPCRandomHarpy extends NPC {
 			return Attack.SEDUCTION;
 		} else {
 			return Attack.MAIN;
-		}
-	}
-
-	@Override
-	public List<AbstractCoreItem> getLootItems() {
-		if(Math.random() < 0.66) {
-			return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME)));
-			
-		} else {
-			return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY)));
 		}
 	}
 	

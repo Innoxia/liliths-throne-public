@@ -8,6 +8,7 @@ import java.util.List;
 import com.base.game.character.GameCharacter;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.body.types.PenisType;
+import com.base.game.character.race.Race;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.Rarity;
 import com.base.game.inventory.clothing.ClothingType;
@@ -1730,17 +1731,56 @@ public enum ItemType {
 		}
 	},
 	
-	BOOK_ALL_ABOUT_HARPIES(
+	BOOK_CAT_MORPH(
 			null,
 			false,
-			"All about Harpies",
-			"A little booklet, given to you by an Enforcer in the Harpy Nests, which contains information about Harpies.",
-			"harpyBooklet",
-			Colour.RACE_HARPY,
-			0,
-			Rarity.UNCOMMON,
+			"All about Cat-morphs",
+			"A book about cat-morphs.",
+			"book_race_cat_morph",
+			Colour.RACE_CAT_MORPH,
+			10,
+			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.READ_ALL_ABOUT_HARPIES, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_CAT_MORPH, null, null)))) {
+
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.CAT_MORPH)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "<p>"
+						+ "Opening the book, you read its contents..."
+					+ "</p>";
+		}
+	},
+	
+	BOOK_DEMON(
+			null,
+			false,
+			"All about Demons",
+			"A book about demons.",
+			"book_race_demon",
+			Colour.RACE_DEMON,
+			10,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_DEMON, null, null)))) {
 
 		@Override
 		public boolean canBeSold() {
@@ -1755,7 +1795,157 @@ public enum ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return "<p>"
-						+ "Opening the little booklet, you read its contents..."
+						+ "Opening the book, you read its contents..."
+					+ "</p>";
+		}
+	},
+	
+	BOOK_DOG_MORPH(
+			null,
+			false,
+			"All about Dog-morphs",
+			"A book about dog-morphs.",
+			"book_race_dog_morph",
+			Colour.RACE_DOG_MORPH,
+			10,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_DOG_MORPH, null, null)))) {
+
+		@Override
+		public boolean canBeSold() {
+			return false;
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "<p>"
+						+ "Opening the book, you read its contents..."
+					+ "</p>";
+		}
+	},
+	
+	BOOK_HARPY(
+			null,
+			false,
+			"All about Harpies",
+			"A book about harpies.",
+			"book_race_harpy",
+			Colour.RACE_HARPY,
+			10,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HARPY, null, null)))) {
+
+		@Override
+		public boolean canBeSold() {
+			return false;
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "<p>"
+						+ "Opening the book, you read its contents..."
+					+ "</p>";
+		}
+	},
+	
+	BOOK_HORSE_MORPH(
+			null,
+			false,
+			"All about Horse-morphs",
+			"A book about horse-morphs.",
+			"book_race_horse_morph",
+			Colour.RACE_HORSE_MORPH,
+			10,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HORSE_MORPH, null, null)))) {
+
+		@Override
+		public boolean canBeSold() {
+			return false;
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "<p>"
+						+ "Opening the book, you read its contents..."
+					+ "</p>";
+		}
+	},
+	
+	BOOK_HUMAN(
+			null,
+			false,
+			"All about Humans",
+			"A book about humans.",
+			"book_race_human",
+			Colour.RACE_HUMAN,
+			10,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HUMAN, null, null)))) {
+
+		@Override
+		public boolean canBeSold() {
+			return false;
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "<p>"
+						+ "Opening the book, you read its contents..."
+					+ "</p>";
+		}
+	},
+	
+	BOOK_WOLF_MORPH(
+			null,
+			false,
+			"All about Wolf-morphs",
+			"A book about wolf-morphs.",
+			"book_race_wolf_morph",
+			Colour.RACE_WOLF_MORPH,
+			10,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_WOLF_MORPH, null, null)))) {
+
+		@Override
+		public boolean canBeSold() {
+			return false;
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "<p>"
+						+ "Opening the book, you read its contents..."
 					+ "</p>";
 		}
 	};
@@ -2070,7 +2260,9 @@ public enum ItemType {
 	
 	static{
 		for(ItemType t : ItemType.values()){
-			if(t!=ItemType.POTION && t!=ItemType.ELIXIR && t!=ItemType.HARPY_MARTRIARCH_BIMBO_LOLLIPOP && t!=ItemType.HARPY_MARTRIARCH_DOMINANT_PERFUME && t!=ItemType.HARPY_MARTRIARCH_NYMPHO_LOLLIPOP && t!=ItemType.BOOK_ALL_ABOUT_HARPIES) {
+			if(t!=ItemType.POTION && t!=ItemType.ELIXIR
+					&& t!=ItemType.HARPY_MARTRIARCH_BIMBO_LOLLIPOP && t!=ItemType.HARPY_MARTRIARCH_DOMINANT_PERFUME && t!=ItemType.HARPY_MARTRIARCH_NYMPHO_LOLLIPOP
+					&& t!=ItemType.BOOK_CAT_MORPH && t!=ItemType.BOOK_DEMON && t!=ItemType.BOOK_DOG_MORPH && t!=ItemType.BOOK_HARPY && t!=ItemType.BOOK_HORSE_MORPH && t!=ItemType.BOOK_HUMAN && t!=ItemType.BOOK_WOLF_MORPH) {
 				availableItems.add(t);
 			}
 		}

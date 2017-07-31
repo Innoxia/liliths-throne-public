@@ -73,9 +73,9 @@ public enum RacialBody {
 			LegType.ANGEL,
 			BodyCoveringType.ANGEL,
 			HornType.NONE, HornType.NONE,
-			PenisType.ANGEL, PenisSize.ZERO_MICROSCOPIC, TesticleSize.ZERO_VESTIGIAL, 2, CumProduction.ONE_TRICKLE,
+			PenisType.ANGEL, PenisSize.FIVE_ENORMOUS, TesticleSize.FOUR_HUGE, 2, CumProduction.SEVEN_MONSTROUS,
 			TailType.NONE,
-			VaginaType.ANGEL, Wetness.ONE_SLIGHTLY_MOIST, Capacity.ZERO_IMPENETRABLE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER,
+			VaginaType.ANGEL, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC,
 			WingType.ANGEL) {
 		
 		@Override
@@ -128,7 +128,7 @@ public enum RacialBody {
 			HornType.NONE, HornType.NONE,
 			PenisType.CANINE, PenisSize.THREE_LARGE, TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
 			TailType.DOG_MORPH,
-			VaginaType.DOG_MORPH, Wetness.THREE_WET, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER,
+			VaginaType.DOG_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER,
 			WingType.NONE),
 	
 	WOLF_MORPH(
@@ -148,7 +148,7 @@ public enum RacialBody {
 			HornType.NONE, HornType.NONE,
 			PenisType.LUPINE, PenisSize.THREE_LARGE, TesticleSize.THREE_LARGE, 2, CumProduction.FIVE_HUGE,
 			TailType.LYCAN,
-			VaginaType.WOLF_MORPH, Wetness.FOUR_SLIMY, Capacity.FOUR_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER,
+			VaginaType.WOLF_MORPH, Wetness.FOUR_SLIMY, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER,
 			WingType.NONE),
 
 	// FELINES:
@@ -190,7 +190,7 @@ public enum RacialBody {
 			HornType.NONE, HornType.NONE,
 			PenisType.EQUINE, PenisSize.FOUR_HUGE, TesticleSize.FOUR_HUGE, 2, CumProduction.FIVE_HUGE,
 			TailType.HORSE_MORPH,
-			VaginaType.HORSE_MORPH, Wetness.THREE_WET, Capacity.FOUR_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER,
+			VaginaType.HORSE_MORPH, Wetness.THREE_WET, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER,
 			WingType.NONE),
 
 	// SLIMES:

@@ -168,7 +168,7 @@ public class HarpyNestsDialogue {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().hasHarpyNestAccess = true;
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(ItemType.generateItem(ItemType.BOOK_ALL_ABOUT_HARPIES), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(ItemType.generateItem(ItemType.BOOK_HARPY), false));
 						}
 					};
 					

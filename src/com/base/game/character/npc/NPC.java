@@ -183,7 +183,9 @@ public abstract class NPC extends GameCharacter {
 	}
 	
 	public List<AbstractCoreItem> getLootItems() {
-		if(Math.random() < 0.66) {
+		double rnd = Math.random();
+		
+		if(rnd <= 0.7) {
 			switch(getRace()) {
 				case CAT_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.INT_INGREDIENT_FELINE_FANCY)));
@@ -194,7 +196,7 @@ public abstract class NPC extends GameCharacter {
 				case WOLF_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY)));
 				case HUMAN:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.INT_INGREDIENT_VANILLA_WATER)));
 				case ANGEL:
 					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
 				case DEMON:
@@ -205,6 +207,28 @@ public abstract class NPC extends GameCharacter {
 					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
 			}
 			
+		} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(getRace())) {
+			switch(getRace()) {
+				case CAT_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_CAT_MORPH)));
+				case DOG_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_DOG_MORPH)));
+				case HORSE_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_HORSE_MORPH)));
+				case WOLF_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_WOLF_MORPH)));
+				case HUMAN:
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_HUMAN)));
+				case ANGEL:
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
+				case DEMON:
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_DEMON)));
+				case HARPY:
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_HARPY)));
+				case SLIME:
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
+			}
+		
 		} else {
 			switch(getRace()) {
 				case CAT_MORPH:
@@ -228,7 +252,7 @@ public abstract class NPC extends GameCharacter {
 			}
 		}
 		
-		return null;
+		return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
 	}
 	
 	public Map<TFEssence, Integer> getLootEssenceDrops() {

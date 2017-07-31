@@ -3,8 +3,7 @@ package com.base.game.character.body.valueEnums;
 import com.base.game.character.body.Penis;
 
 /**
- * Measured in inches of penis size that could fit comfortably within this
- * capacity.
+ * Measured in inches of penis size that could fit comfortably within this capacity.
  * 
  * @since 0.1.0
  * @version 0.1.65
