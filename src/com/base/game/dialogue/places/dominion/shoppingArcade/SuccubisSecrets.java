@@ -24,12 +24,45 @@ import com.base.utils.Util;
 
 /**
  * @since 0.1.66
- * @version 0.1.78
+ * @version 0.1.82
  * @author Innoxia
  */
-public class SPBeautySalon {
+public class SuccubisSecrets {
 	
 	private static StringBuilder descriptionSB;
+	
+	
+	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Succubi's Secrets (Exterior)", "-", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			if(Main.game.getDialogueFlags().kateIntroduced) {
+				return "<p>"
+							+ "You find yourself standing, once again, in the quiet corner of the Shopping Arcade, where the dark, shut-up beauty salon 'Succubi's Secrets' is located."
+							+ " You notice that everyone around you is completely ignoring the uninviting facade, and you smile to yourself as you realise that's exactly what its lazy owner wants."
+							+ " Now that you're here, you wonder if you should pay Kate another visit..."
+						+ "</p>";
+				
+			} else {
+				return "<p>"
+						+ "You find yourself standing in a quiet corner of the Shopping Arcade, and before you, there's a dark, shut-up store front."
+						+ " Taking a closer look at this peculiarity in amongst all the other well-kept frontages, you notice some faded lettering above the doorway, which reads 'Succubi's Secrets'."
+						+ " Curious, you walk towards the entrance, where you see that there's a little sign hanging in the door's narrow window which reads 'Open for business'."
+					+ "</p>";
+			}
+		}
+		
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Enter", "Step inside Succubi's Secrets.", SHOP_BEAUTY_SALON);
+				
+			} else {
+				return null;
+			}
+		}
+	};
 	
 	public static final DialogueNodeOld SHOP_BEAUTY_SALON = new DialogueNodeOld("Succubi's Secrets", "-", true) {
 		private static final long serialVersionUID = 1L;
@@ -37,17 +70,12 @@ public class SPBeautySalon {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Following the directions from one of the touristy-looking information boards, you make your way over to the far side of the shopping promenade, where you find a dark, shut-up store front."
-						+ " Checking your surroundings to make sure that you're in the right place, you suddenly notice the faded lettering above the doorway, which reads 'Succubi's Secrets'."
-						+ " As you approach, you see that there's a little sign hanging in the door's narrow window which reads 'Open for business'."
-					+ "</p>"
-					+ "<p>"
-					+ "Encouraged by the sign, you push open the door and step inside, somewhat apprehensive of what the interior will look like."
-					+ " You're pleasantly surprised to find that it's actually the complete opposite of what you expected."
-					+ " Clean, white marble flooring reflects the bright arcane illumination being cast from multiple delicate crystal wall-lights."
-					+ " Luxurious leather chairs line the right-hand side of the room, and in front of each one stands a ceiling-height mirror."
-					+ " All-in-all, the shop floor looks like an extremely up-market hairdressers, and a series of shelves, filled with all sorts of beauty products, runs alongside the left-hand wall,"
-					+ " finishing the look and convincing you that you're in the right place."
+						+ "Encouraged by the sign, you push open the door and step inside, somewhat apprehensive of what the interior will look like."
+						+ " You're pleasantly surprised to find that it's actually the complete opposite of what you expected."
+						+ " Clean, white marble flooring reflects the bright arcane illumination being cast from multiple delicate crystal wall-lights."
+						+ " Luxurious leather chairs line the right-hand side of the room, and in front of each one stands a ceiling-height mirror."
+						+ " All-in-all, the shop floor looks like an extremely up-market hairdressers, and a series of shelves, filled with all sorts of beauty products, runs alongside the left-hand wall,"
+						+ " finishing the look and convincing you that you're in the right place."
 					+ "</p>"
 					+ "<p>"
 					+ "As you stand in the doorway, taking in your new surroundings, you realise that the most striking feature of all is that the place is completely deserted."
@@ -74,7 +102,7 @@ public class SPBeautySalon {
 				return new Response("Watch", "Wait for the sleeping demon to wake up.", SHOP_BEAUTY_SALON_WATCH);
 
 			} else if (index == 0) {
-				return new Response("Back", "Head back out to the Shopping Promenade.", ShoppingArcadeDialogue.ENTRY);
+				return new Response("Back", "Head back out to the Shopping Promenade.", EXTERIOR);
 
 			} else {
 				return null;
@@ -299,10 +327,6 @@ public class SPBeautySalon {
 			
 			if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy) {
 				return "<p>"
-						+ "You make your way over to the boarded-up beauty salon; 'Succubi's Secrets'."
-						+ " You notice that everyone around you is completely ignoring the uninviting facade, and you smile to yourself as you realise that's exactly what its lazy owner wants."
-						+ "</p>"
-						+ "<p>"
 						+ "With the knowledge that appearances can be deceiving, you stride over to the door and push it open."
 						+ " As a big flake of peeling paint breaks off and falls to the floor, you step inside, marvelling once again at how radically different the interior is."
 						+ "</p>"
@@ -502,7 +526,7 @@ public class SPBeautySalon {
 				};
 				
 			} else if (index == 0) {
-				return new Response("Leave", "Leave Kate's shop, heading back out into the shopping promenade.", ShoppingArcadeDialogue.ARCADE){
+				return new Response("Leave", "Leave Kate's shop, heading back out into the shopping promenade.", EXTERIOR){
 					@Override
 					public void effects() {
 						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy)

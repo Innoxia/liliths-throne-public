@@ -19,37 +19,35 @@
 	
 	Patch notes:
 		
-	Clothing:
-		<b>Added:</b> Headband (No femininity requirements, head slot). Also added a 'headband with bow' variant (feminine, head slot).
-		<b>Added:</b> Long-sleeved dress (feminine, torso slot).
-		<b>Added:</b> Shin guards (No femininity requirements, ankle slot).
-		<b>Added:</b> Stomach sarashi (No femininity requirements, stomach slot).
-		<b>Added:</b> Chest sarashi (No femininity requirements, chest slot).
-		
 	Other:
-		Removed harpy height limitation. (This was a left over from a very early version of the game.)
-		Slightly increased the arousal reduction on 'Calm down' action.
-		Humans now have a chance to drop Vanilla Water.
-		There is now a chance for NPCs to have three fetishes. (20% chance for three, 20% chance for two, 40% chance for one, 20% chance for none)
-		Added 'Permit/Forbid self clothing' actions in sex, to allow you to forbid your partner from managing any of their own clothes.
-		Vicky now stocks a lot more essences.
-		Rare clothing should now be spawning in correctly (10% chance for every random piece of clothing to have a rare enchantment).
+		Renamed 'City gym' to 'Pix's Playground'.
+		Improved dialogue flow in all of the shops in the Shopping Arcane. (They now all have an 'exterior' scene.)
 		
 	Bugs:
-		Fixed bug where almost everyone would resist if you have the non-con fetish.
-		Minor typo fixes.
-		Fixed several old bugs from the sex system rework (could have been causing orifice stretching issues).
-		Fixed bug where fathered daughters wouldn't count in the pregnancy stats screen.
-		Fixed offspring description giving incorrect mother/father name.
-		Fixed Harpy Perfume tooltip incorrect effect description.
-		After meeting your offspring, their name should now correctly change from 'Unknown' in the pregnancy stats screen.
-		Added NPC variants for consuming Mother's Milk, Promiscuity Pills, and Vixen's Virility.
+		Fixed some typos.
 	
 	
 	
 	
 	
 	
+	
+	
+	Bug fixes
+	Dominant kneeling (+ tit fucking)
+	
+	
+	The encyclopedia still has the old information about human conception (all races)
+	
+	Buy all not showing up
+	
+	 in the first turn of sex, my orifices are dry, even though they're described as being so wet they perpetually drip everywhere
+	
+	Arm wraps
+	
+	No starting money if skip prologue
+	
+	Tooltip persisting on window switch
 	
 	Regarding my suggestion of changing stats to different names (so you don't have strength or fitness, which don't have any bearing on the player's appearance), coming up with names for new stats that make sense was fairly easy.  They can be things like 'force of personality' or 'self-control', things which make a lot of sense to influence how good you are with magic and how strong your aura is.  That gives you a set of combat stats that then don't have any bearing on your appearance.
 	The snag I actually ran into is actually the special attacks that various body types and transformations give you, abilities that are obviously not derived from magic at all.  It wouldn't be too hard to change enemies up so that they don't attack you directly, instead using magic to hit your aura, but those special attacks would have to be completely redone since it doesn't make a whole lot of sense for claws to give you a new spell that you can't get otherwise.

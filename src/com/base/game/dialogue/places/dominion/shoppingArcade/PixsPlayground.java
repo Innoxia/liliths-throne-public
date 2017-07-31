@@ -12,10 +12,10 @@ import com.base.utils.Colour;
 
 /**
  * @since 0.1.66
- * @version 0.1.78
+ * @version 0.1.82
  * @author Innoxia
  */
-public class SPGym {
+public class PixsPlayground {
 	
 	private static Response getResponseGym(int index) {
 		if (index == 1) {
@@ -67,22 +67,69 @@ public class SPGym {
 				}
 				
 		} else if (index == 0) {
-			return new Response("Leave", "Decide to leave the gym.", ShoppingArcadeDialogue.ARCADE);
+			return new Response("Leave", "Decide to leave the gym.", GYM_EXTERIOR);
 			
 		} else
 			return null;
 	}
 	
+	public static final DialogueNodeOld GYM_EXTERIOR = new DialogueNodeOld("Pix's Playground (Exterior)", "-", false) {
+		private static final long serialVersionUID = 1L;
 
-	public static final DialogueNodeOld GYM = new DialogueNodeOld("City gym", "-", true) {
+		@Override
+		public String getContent() {
+			if (!Main.game.getDialogueFlags().gymIntroduced) {
+				return "<p>"
+							+ "You find yourself standing before one of the largest frontages in the Shopping Arcade."
+							+ " The words 'Pix's Playground' are emblazoned in bright red lettering above the entrance, and beneath, you read the words 'Dominions #1 Gym!'."
+						+ "</p>"
+						+ "<p>"
+							+ "Most of the gym's frontage is made up of large glass panels, allowing you to take a good look inside."
+							+ " From what you can see, the interior consists of a wide open space, filled with an impressive variety of gym equipment."
+							+ " Looking through the glass doors of the entrance, you see a dog-girl sitting behind the lobby's front desk."
+						+ "</p>";
+			} else {
+				return "<p>"
+						+ "You find yourself standing before one of the largest frontages in the Shopping Arcade."
+						+ " The words 'Pix's Playground' are emblazoned in bright red lettering above the entrance, and beneath, you read the words 'Dominions #1 Gym!'."
+					+ "</p>"
+					+ "<p>"
+						+ "Most of the gym's frontage is made up of large glass panels, allowing you to take a good look inside."
+						+ " From what you can see, the interior consists of a wide open space, filled with an impressive variety of gym equipment."
+						+ " Looking through the glass doors of the entrance, you see Pix sitting behind the lobby's front desk."
+					+ "</p>";
+			}
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				if(Main.game.getDialogueFlags().gymHadTour) {
+					return new Response("Enter", "Step inside the gym.", GYM_RETURNING);
+				} else {
+					return new Response("Enter", "Step inside the gym.", GYM);
+				}
+				
+				
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public boolean isRegenerationDisabled() {
+			return true;
+		}
+	};
+
+	public static final DialogueNodeOld GYM = new DialogueNodeOld("Pix's Playground", "-", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
 			if (!Main.game.getDialogueFlags().gymIntroduced)
 				return "<p>"
-						+ "You make your way over to where the city gym is located."
-						+ " Pushing open the door, you step into the lobby, where you're immediately greeted by an extremely energetic greater dog-girl."
+						+ " Pushing open the door, you step into the gym's lobby, where you're immediately greeted by an extremely energetic greater dog-girl."
 						+ "</p>"
 						+ "<p>"
 						+ UtilText.parseSpeech("Heya! Hi! How're ya doin'!", Main.game.getPix())
@@ -103,8 +150,7 @@ public class SPGym {
 						+ "</p>";
 			else
 				return "<p>"
-						+ "You make your way over to where the city gym is located."
-						+ " Pushing open the door, you step into the lobby, where you're immediately greeted by Pix, who's looking as energetic as ever."
+						+ " Pushing open the door, you step into the gym's lobby, where you're immediately greeted by Pix, who's looking as energetic as ever."
 						+ "</p>"
 						+ "<p>"
 						+ UtilText.parseSpeech("Heya, great to see you again! How're ya doin'!", Main.game.getPix())
@@ -136,13 +182,16 @@ public class SPGym {
 				};
 				
 			} else if (index == 0) {
-				return new Response("Leave", "Tell Pix that you don't have time right now, but you might be back later.", ShoppingArcadeDialogue.ARCADE){
+				return new Response("Leave", "Tell Pix that you don't have time right now, but you might be back later.", GYM_EXTERIOR){
 					@Override
 					public void effects(){
 						Main.game.getDialogueFlags().gymIntroduced=true;
-						Main.game.getTextStartStringBuilder().append("<p>" + "You quickly shout to Pix that you don't have time for her tour right now, but you might come back later."
-								+ " She doesn't seem fazed at all by your reluctant response, and calls out after you as you leave, "
-								+ UtilText.parseSpeech("No worries! Come back at any time, I'll be waiting to see you again!", Main.game.getPix()) + "</p>");
+						Main.game.getTextStartStringBuilder().append(
+								"<p>"
+									+ "You quickly shout to Pix that you don't have time for her tour right now, but you might come back later."
+									+ " She doesn't seem fazed at all by your reluctant response, and calls out after you as you leave,"
+									+ " [pix.speech(No worries! Come back at any time, I'll be waiting to see you again!)]"
+								+ "</p>");
 					}
 				};
 
@@ -156,27 +205,44 @@ public class SPGym {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld GYM_FOLLOW = new DialogueNodeOld("City gym", "-", true) {
+	
+	public static final DialogueNodeOld GYM_FOLLOW = new DialogueNodeOld("Pix's Playground", "-", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public String getContent() {
-			return "<p>" + "You decide to follow the excitable dog-girl, and hurry to catch up with her as she sets off." + " Following Pix through a large glass door, you find yourself standing in the gym proper." + "</p>" + "<p>"
-					+ UtilText.parseSpeech("So, like, here's all the weights and machines and stuff!", Main.game.getPix()) + " she shouts, bouncing happily around the room as you follow in her footsteps, "
-					+ UtilText.parseSpeech("It's usually not much busier than this, so when you sign up, you'll find that you never have to wait for any of the equipment!", Main.game.getPix()) + "</p>" + "<p>"
-					+ "As you're wondering if Pix is even capable of speaking at a normal volume, you look around at your surroundings."
-					+ " The gym's main area, which you're currently standing in, is large and spacious, and is filled with all sorts of exercise machines, yoga mats, and free weight sections."
-					+ " Despite its impressive size and array of arcane-powered machinery, there doesn't seem to be more than a handful of people in here."
-					+ " You wonder if Pix's overbearing hyperactive personality has put people off from signing up." + "</p>" + "<p>" + UtilText.parseSpeech("Follow me! Follow me!", Main.game.getPix())
-					+ " she shouts, interrupting your thoughts as she continues her tour." + "</p>" + "<p>" + "Pix continues to show you around the gym, and you're surprised to find that there's an indoor olympic-sized swimming pool in the back."
-					+ " Outside, situated behind the shopping promenade, there's a large running track and football field, which Pix happily states are exclusively for use by the gym's members."
-					+ " She then shows you some other miscellaneous facilities, such as the changing rooms, showers and lockers."
-					+ " Before long, you find yourself stepping back into the gym's lobby, and Pix turns around and beams at you as she finishes her tour." + "</p>" + "<p>"
-					+ UtilText.parseSpeech("So, what'ya think?! Pretty awesome, huh?!", Main.game.getPix()) + " she shouts, before moving onto the business-side of things, "
-					+ UtilText.parseSpeech("Now, life-time membership is one thousand flames, or you can just pay each time you come here, which is ten flames per entry!"
-							+ " So, what'll be?! If you get the life-time membership, that includes personal workout sessions with none other than your new friend, Pix!"
-							+ " You know, I don't do this often, but I can see that you're kinda special and I'd really like to get the chance to work with that body of yours, so just for you,"
-							+ " I'll say life-time membership is only eight hundred flames! Pretty good, huh? So, what'ya want?!", Main.game.getPix())
+			return "<p>"
+						+ "You decide to follow the excitable dog-girl, and hurry to catch up with her as she sets off."
+						+ " Following Pix through a large glass door, you find yourself standing in the gym proper."
+					+ "</p>"
+					+ "<p>"
+						+ "[pix.speech(So, like, here's all the weights and machines and stuff!)]"
+						+ " she shouts, bouncing happily around the room as you follow in her footsteps, "
+						+ "[pix.speech(It's usually not much busier than this, so when you sign up, you'll find that you never have to wait for any of the equipment!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "As you're wondering if Pix is even capable of speaking at a normal volume, you look around at your surroundings."
+						+ " The gym's main area, which you're currently standing in, is large and spacious, and is filled with all sorts of exercise machines, yoga mats, and free weight sections."
+						+ " Despite its impressive size and array of arcane-powered machinery, there doesn't seem to be more than a handful of people in here."
+						+ " You wonder if Pix's overbearing hyperactive personality has put people off from signing up."
+					+ "</p>"
+					+ "<p>"
+						+ "[pix.speech(Follow me! Follow me!)]"
+						+ " she shouts, interrupting your thoughts as she continues her tour."
+					+ "</p>"
+					+ "<p>"
+						+ "Pix continues to show you around the gym, and you're surprised to find that there's an indoor olympic-sized swimming pool in the back."
+						+ " Outside, situated behind the shopping promenade, there's a large running track and football field, which Pix happily states are exclusively for use by the gym's members."
+						+ " She then shows you some other miscellaneous facilities, such as the changing rooms, showers and lockers."
+						+ " Before long, you find yourself stepping back into the gym's lobby, and Pix turns around and beams at you as she finishes her tour."
+					+ "</p>"
+					+ "<p>"
+						+ "[pix.speech(So, what'ya think?! Pretty awesome, huh?!)]"
+						+ " she shouts, before moving onto the business-side of things,"
+						+ " [pix.speech(Now, life-time membership is one thousand flames, or you can just pay each time you come here, which is ten flames per entry!"
+								+ " So, what'll be?! If you get the life-time membership, that includes personal workout sessions with none other than your new friend, Pix!"
+								+ " You know, I don't do this often, but I can see that you're kinda special and I'd really like to get the chance to work with that body of yours, so just for you,"
+								+ " I'll say life-time membership is only eight hundred flames! Pretty good, huh? So, what'ya want?!)]"
 					+ "</p>";
 		}
 		
@@ -209,7 +275,7 @@ public class SPGym {
 				};
 				
 			} else if (index == 0) {
-				return new Response("Leave", "Tell Pix that you'll think about it and be back later.", ShoppingArcadeDialogue.ARCADE);
+				return new Response("Leave", "Tell Pix that you'll think about it and be back later.", GYM_EXTERIOR);
 
 			} else {
 				return null;
@@ -221,7 +287,7 @@ public class SPGym {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld GYM_RETURNING = new DialogueNodeOld("City gym", "-", true) {
+	public static final DialogueNodeOld GYM_RETURNING = new DialogueNodeOld("Pix's Playground", "-", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -275,7 +341,7 @@ public class SPGym {
 					};
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Tell Pix that you'll think about it and be back later.", ShoppingArcadeDialogue.ARCADE);
+					return new Response("Leave", "Tell Pix that you'll think about it and be back later.", GYM_EXTERIOR);
 
 				} else {
 					return null;
@@ -286,7 +352,7 @@ public class SPGym {
 					return new Response("Enter", "Enter the gym and get changed.", GYM_MEMBER_ENTER);
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Tell Pix that you've changed your mind, and that you'll be back another time.", ShoppingArcadeDialogue.ARCADE);
+					return new Response("Leave", "Tell Pix that you've changed your mind, and that you'll be back another time.", GYM_EXTERIOR);
 					
 				} else {
 					return null;
@@ -299,7 +365,7 @@ public class SPGym {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld GYM_SINGLE_PAYMENT = new DialogueNodeOld("City gym", "-", true) {
+	public static final DialogueNodeOld GYM_SINGLE_PAYMENT = new DialogueNodeOld("Pix's Playground", "-", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -319,7 +385,7 @@ public class SPGym {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld GYM_LIFETIME_PAYMENT = new DialogueNodeOld("City gym", "-", true) {
+	public static final DialogueNodeOld GYM_LIFETIME_PAYMENT = new DialogueNodeOld("Pix's Playground", "-", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -346,7 +412,7 @@ public class SPGym {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld GYM_MEMBER_ENTER = new DialogueNodeOld("City gym", "-", true) {
+	public static final DialogueNodeOld GYM_MEMBER_ENTER = new DialogueNodeOld("Pix's Playground", "-", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -368,7 +434,7 @@ public class SPGym {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld GYM_CARDIO = new DialogueNodeOld("City gym", "-", true) {
+	public static final DialogueNodeOld GYM_CARDIO = new DialogueNodeOld("Pix's Playground", "-", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -396,7 +462,7 @@ public class SPGym {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld GYM_WEIGHTS = new DialogueNodeOld("City gym", "-", true) {
+	public static final DialogueNodeOld GYM_WEIGHTS = new DialogueNodeOld("Pix's Playground", "-", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -424,7 +490,7 @@ public class SPGym {
 			return true;
 		}
 	};
-	public static final DialogueNodeOld GYM_PIX_TRAINING = new DialogueNodeOld("City gym", "-", true) {
+	public static final DialogueNodeOld GYM_PIX_TRAINING = new DialogueNodeOld("Pix's Playground", "-", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -496,7 +562,7 @@ public class SPGym {
 				
 			} else 
 				if (index == 2) {
-				return new Response("Leave", "You're far too tired to deal with Pix right now. Get changed and leave the gym, avoiding Pix in the showers as you do so.", ShoppingArcadeDialogue.ARCADE);
+				return new Response("Leave", "You're far too tired to deal with Pix right now. Get changed and leave the gym, avoiding Pix in the showers as you do so.", GYM_EXTERIOR);
 				
 			} else {
 				return null;
@@ -509,7 +575,7 @@ public class SPGym {
 		}
 	};
 	
-	public static final DialogueNodeOld GYM_PIX_RAPE = new DialogueNodeOld("City gym", "-", true) {
+	public static final DialogueNodeOld GYM_PIX_RAPE = new DialogueNodeOld("Pix's Playground", "-", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override

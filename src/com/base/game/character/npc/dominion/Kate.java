@@ -16,7 +16,7 @@ import com.base.game.character.race.RaceStage;
 import com.base.game.character.race.RacialBody;
 import com.base.game.combat.Attack;
 import com.base.game.dialogue.DialogueNodeOld;
-import com.base.game.dialogue.places.dominion.shoppingArcade.SPBeautySalon;
+import com.base.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreItem;
@@ -187,7 +187,7 @@ public class Kate extends NPC {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Services", "Read the brochure that Kate just handed to you.", SPBeautySalon.SHOP_BEAUTY_SALON_MAIN){
+				return new Response("Services", "Read the brochure that Kate just handed to you.", SuccubisSecrets.SHOP_BEAUTY_SALON_MAIN){
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().kateIntroduced = true;
@@ -226,7 +226,7 @@ public class Kate extends NPC {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Services", "Read the brochure that Kate just handed to you.", SPBeautySalon.SHOP_BEAUTY_SALON_MAIN);
+				return new Response("Services", "Read the brochure that Kate just handed to you.", SuccubisSecrets.SHOP_BEAUTY_SALON_MAIN);
 			} else {
 				return null;
 			}
