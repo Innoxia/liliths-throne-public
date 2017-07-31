@@ -1297,15 +1297,15 @@ public class GameCharacter implements Serializable {
 	}
 	
 	public boolean isExhibitionist() {
-	return hasFetish(Fetish.FETISH_EXHIBITIONIST);
+		return perks.contains(Fetish.FETISH_EXHIBITIONIST);
 	}
 	
 	public boolean isMasochist() {
-	return hasFetish(Fetish.FETISH_MASOCHIST);
+		return perks.contains(Fetish.FETISH_MASOCHIST);
 	}
 	
 	public boolean isSubmissive() {
-	return hasFetish(Fetish.FETISH_SUBMISSIVE);
+		return perks.contains(Fetish.FETISH_SUBMISSIVE);
 	}
 	
 	// Pregnancy:
