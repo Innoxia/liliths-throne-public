@@ -34,7 +34,7 @@ public interface SexManagerInterface {
 	 *            turn.
 	 * @return The action that the partner takes.
 	 */
-	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer);
+    public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer);
 	
 	public boolean isConsensualSex();
 	public boolean isPlayerAbleToStopSex();

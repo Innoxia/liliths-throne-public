@@ -1011,7 +1011,7 @@ public enum Sex {
 	}
 
 	/** Applies extra effects and generates extra description text. */
-	private static void applyGenericDescriptionsAndEffects(SexActionInterface sexAction) {
+    private static void applyGenericDescriptionsAndEffects(SexActionInterface sexAction) {
 
 		// Set sex pace based off this SexAction:
 		if(sexAction.getSexPacePlayer()!=null) {

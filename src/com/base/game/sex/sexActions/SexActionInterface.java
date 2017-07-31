@@ -48,7 +48,7 @@ public interface SexActionInterface {
 	public ArousalIncrease getArousalGainPartner();
 	
 	public default boolean isPartnerSelfAction() {
-		
+
 		boolean selfInteraction = false;
 		
 		if(getAssociatedPenetrationType()!=null) {
