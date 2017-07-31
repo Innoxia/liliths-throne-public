@@ -200,23 +200,23 @@ public class Response {
 		SB = new StringBuilder();
 		
 		if(!isAvailable() && !isAbleToBypass()) {
-			SB.append("This action is being blocked, due to not meeting certain <span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>requirements</span>.");
+			SB.append("This action is being blocked, due to not meeting certain <span style='color:"+Colour.GENERIC_BAD+";'>requirements</span>.");
 		} else {
 			if(isAvailableFromFetishes()) {
-				SB.append("Your <span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fetish</span> bypasses this action's"
-						+ " <span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>corruption</span> requirements!");
+				SB.append("Your <span style='color:"+Colour.GENERIC_SEX+";'>fetish</span> bypasses this action's"
+						+ " <span style='color:"+Colour.GENERIC_ARCANE+";'>corruption</span> requirements!");
 				return SB.toString();
 			}
 			
 			if(corruptionBypass != null) {
 				if(isCorruptionWithinRange())
-					SB.append("Your <span style='color:"+Main.game.getPlayer().getCorruptionLevel().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getCorruptionLevel().getName())+"</span>"
-							+ " <span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>corruption</span> has unlocked this action!");
+					SB.append("Your <span style='color:"+Main.game.getPlayer().getCorruptionLevel().getColour()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getCorruptionLevel().getName())+"</span>"
+							+ " <span style='color:"+Colour.GENERIC_ARCANE+";'>corruption</span> has unlocked this action!");
 				else
-					SB.append("You will gain <b>+"+corruptionBypass.getCorruptionBypass()+"</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>corruption</b>, as"
-							+ " you don't meet the <span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>corruption</span> or <span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fetish</span> requirements!");
+					SB.append("You will gain <b>+"+corruptionBypass.getCorruptionBypass()+"</b> <b style='color:"+Colour.GENERIC_ARCANE+";'>corruption</b>, as"
+							+ " you don't meet the <span style='color:"+Colour.GENERIC_ARCANE+";'>corruption</span> or <span style='color:"+Colour.GENERIC_SEX+";'>fetish</span> requirements!");
 			} else {
-				SB.append("This action cannot be unlocked with <span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>corruption</span>.");
+				SB.append("This action cannot be unlocked with <span style='color:"+Colour.GENERIC_ARCANE+";'>corruption</span>.");
 			}
 		}
 		
@@ -230,13 +230,13 @@ public class Response {
 			for(Perk p : perksRequired){
 				if(Main.game.getPlayer().hasPerk(p)) {
 					SB.append("</br>"
-							+"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
-							+ " (<span style='color:"+Colour.PERK.toWebHexString()+";'>Perk</span>): "
+							+"<b style='color:"+Colour.GENERIC_GOOD+";'>Requirement</b>"
+							+ " (<span style='color:"+Colour.PERK+";'>Perk</span>): "
 							+Util.capitaliseSentence(p.getName(Main.game.getPlayer())));
 				} else {
 					SB.append("</br>"
-							+"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
-							+ " (<span style='color:"+Colour.PERK.toWebHexString()+";'>Perk</span>): "
+							+"<b style='color:"+Colour.GENERIC_BAD+";'>Requirement</b>"
+							+ " (<span style='color:"+Colour.PERK+";'>Perk</span>): "
 							+Util.capitaliseSentence(p.getName(Main.game.getPlayer())));
 				}
 			}
@@ -245,28 +245,28 @@ public class Response {
 		if(femininityRequired!=null) {
 			if(isFemininityInRange()) {
 				SB.append("</br>"
-						+"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
+						+"<b style='color:"+Colour.GENERIC_GOOD+";'>Requirement</b>"
 						+ " (Femininity): "
-						+ "<span style='color:"+femininityRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(femininityRequired.getName(false))+"</span>");
+						+ "<span style='color:"+femininityRequired.getColour()+";'>"+Util.capitaliseSentence(femininityRequired.getName(false))+"</span>");
 			} else {
 				SB.append("</br>"
-						+"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
+						+"<b style='color:"+Colour.GENERIC_BAD+";'>Requirement</b>"
 						+ " (Femininity): "
-						+ "<span style='color:"+femininityRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(femininityRequired.getName(false))+"</span>");
+						+ "<span style='color:"+femininityRequired.getColour()+";'>"+Util.capitaliseSentence(femininityRequired.getName(false))+"</span>");
 			}
 		}
 		
 		if(raceRequired!=null) {
 			if(isRequiredRace()) {
 				SB.append("</br>"
-						+"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
+						+"<b style='color:"+Colour.GENERIC_GOOD+";'>Requirement</b>"
 						+ " (Race): "
-						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName())+"</span>");
+						+"<span style='color:"+raceRequired.getColour()+";'>"+Util.capitaliseSentence(raceRequired.getName())+"</span>");
 			} else {
 				SB.append("</br>"
-						+"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
+						+"<b style='color:"+Colour.GENERIC_BAD+";'>Requirement</b>"
 						+ " (Race): "
-						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName())+"</span>");
+						+"<span style='color:"+raceRequired.getColour()+";'>"+Util.capitaliseSentence(raceRequired.getName())+"</span>");
 			}
 		}
 		
@@ -276,28 +276,28 @@ public class Response {
 				boolean penetrationAccess = Main.game.getPlayer().isPenetrationTypeExposed(penetrationTypeAccessRequired),
 						penetrationFree = penetrationTypeAccessRequired.isFree();
 				String penetrationName = Util.capitaliseSentence(penetrationTypeAccessRequired.getName()),
-						accessText = (penetrationAccess?"access":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>access</span>"),
-						freeText = (penetrationFree?"free":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>free</span>");
+						accessText = (penetrationAccess?"access":"<span style='color:"+Colour.GENERIC_BAD+";'>access</span>"),
+						freeText = (penetrationFree?"free":"<span style='color:"+Colour.GENERIC_BAD+";'>free</span>");
 				
 				if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED) {
 					if(penetrationAccess && penetrationFree) {
-						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): Your "+ penetrationName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD+";'>Requirement</b> ("+accessText+" & "+freeText+"): Your "+ penetrationName);
 					} else {
-						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): Your "+ penetrationName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD+";'>Requirement</b> ("+accessText+" & "+freeText+"): Your "+ penetrationName);
 					}
 					
 				} else if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION) {
 					if(penetrationFree) {
-						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+freeText+"): Your "+ penetrationName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD+";'>Requirement</b> ("+freeText+"): Your "+ penetrationName);
 					} else {
-						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+freeText+"): Your "+ penetrationName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD+";'>Requirement</b> ("+freeText+"): Your "+ penetrationName);
 					}
 					
 				} else {
 					if(penetrationAccess) {
-						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): Your "+ penetrationName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD+";'>Requirement</b> ("+accessText+"): Your "+ penetrationName);
 					} else {
-						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): Your "+ penetrationName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD+";'>Requirement</b> ("+accessText+"): Your "+ penetrationName);
 					}
 				}
 				
@@ -306,28 +306,28 @@ public class Response {
 				boolean penetrationAccess = partner.isPenetrationTypeExposed(penetrationTypeAccessRequired),
 						penetrationFree = penetrationTypeAccessRequired.isFree();
 				String penetrationName = Util.capitaliseSentence(penetrationTypeAccessRequired.getName()),
-						accessText = (penetrationAccess?"access":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>access</span>"),
-						freeText = (penetrationFree?"free":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>free</span>");
+						accessText = (penetrationAccess?"access":"<span style='color:"+Colour.GENERIC_BAD+";'>access</span>"),
+						freeText = (penetrationFree?"free":"<span style='color:"+Colour.GENERIC_BAD+";'>free</span>");
 				
 				if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED) {
 					if(penetrationAccess && penetrationFree) {
-						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): Partner's "+ penetrationName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD+";'>Requirement</b> ("+accessText+" & "+freeText+"): Partner's "+ penetrationName);
 					} else {
-						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): Partner's "+ penetrationName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD+";'>Requirement</b> ("+accessText+" & "+freeText+"): Partner's "+ penetrationName);
 					}
 					
 				} else if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION) {
 					if(penetrationFree) {
-						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+freeText+"): Partner's "+ penetrationName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD+";'>Requirement</b> ("+freeText+"): Partner's "+ penetrationName);
 					} else {
-						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+freeText+"): Partner's "+ penetrationName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD+";'>Requirement</b> ("+freeText+"): Partner's "+ penetrationName);
 					}
 					
 				} else {
 					if(penetrationAccess) {
-						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): Partner's "+ penetrationName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD+";'>Requirement</b> ("+accessText+"): Partner's "+ penetrationName);
 					} else {
-						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): Partner's "+ penetrationName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD+";'>Requirement</b> ("+accessText+"): Partner's "+ penetrationName);
 					}
 				}
 			}
@@ -339,28 +339,28 @@ public class Response {
 				boolean orificeAccess = Main.game.getPlayer().isOrificeTypeExposed(orificeTypeAccessRequired),
 						orificeFree = orificeTypeAccessRequired.isFree();
 				String orificeName = Util.capitaliseSentence(orificeTypeAccessRequired.getName()),
-						accessText = (orificeAccess?"access":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>access</span>"),
-						freeText = (orificeFree?"free":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>free</span>");
+						accessText = (orificeAccess?"access":"<span style='color:"+Colour.GENERIC_BAD+";'>access</span>"),
+						freeText = (orificeFree?"free":"<span style='color:"+Colour.GENERIC_BAD+";'>free</span>");
 				
 				if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED) {
 					if(orificeAccess && orificeFree) {
-						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): Your "+ orificeName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD+";'>Requirement</b> ("+accessText+" & "+freeText+"): Your "+ orificeName);
 					} else {
-						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): Your "+ orificeName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD+";'>Requirement</b> ("+accessText+" & "+freeText+"): Your "+ orificeName);
 					}
 					
 				} else if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION) {
 					if(orificeFree) {
-						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+freeText+"): Your "+ orificeName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD+";'>Requirement</b> ("+freeText+"): Your "+ orificeName);
 					} else {
-						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+freeText+"): Your "+ orificeName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD+";'>Requirement</b> ("+freeText+"): Your "+ orificeName);
 					}
 					
 				} else {
 					if(orificeAccess) {
-						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): Your "+ orificeName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD+";'>Requirement</b> ("+accessText+"): Your "+ orificeName);
 					} else {
-						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): Your "+ orificeName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD+";'>Requirement</b> ("+accessText+"): Your "+ orificeName);
 					}
 				}
 				
@@ -369,28 +369,28 @@ public class Response {
 				boolean orificeAccess = partner.isOrificeTypeExposed(orificeTypeAccessRequired),
 						orificeFree = orificeTypeAccessRequired.isFree();
 				String orificeName = Util.capitaliseSentence(orificeTypeAccessRequired.getName()),
-						accessText = (orificeAccess?"access":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>access</span>"),
-						freeText = (orificeFree?"free":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>free</span>");
+						accessText = (orificeAccess?"access":"<span style='color:"+Colour.GENERIC_BAD+";'>access</span>"),
+						freeText = (orificeFree?"free":"<span style='color:"+Colour.GENERIC_BAD+";'>free</span>");
 				
 				if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED) {
 					if(orificeAccess && orificeFree) {
-						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): Partner's "+ orificeName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD+";'>Requirement</b> ("+accessText+" & "+freeText+"): Partner's "+ orificeName);
 					} else {
-						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): Partner's "+ orificeName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD+";'>Requirement</b> ("+accessText+" & "+freeText+"): Partner's "+ orificeName);
 					}
 					
 				} else if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION) {
 					if(orificeFree) {
-						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+freeText+"): Partner's "+ orificeName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD+";'>Requirement</b> ("+freeText+"): Partner's "+ orificeName);
 					} else {
-						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+freeText+"): Partner's "+ orificeName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD+";'>Requirement</b> ("+freeText+"): Partner's "+ orificeName);
 					}
 					
 				} else {
 					if(orificeAccess) {
-						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): Partner's "+ orificeName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD+";'>Requirement</b> ("+accessText+"): Partner's "+ orificeName);
 					} else {
-						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): Partner's "+ orificeName);
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD+";'>Requirement</b> ("+accessText+"): Partner's "+ orificeName);
 					}
 				}
 			}
@@ -406,14 +406,14 @@ public class Response {
 			for(Fetish f : fetishesRequired){
 				if(Main.game.getPlayer().hasFetish(f)) {
 					SB.append("</br>"
-							+"<span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
-							+ " (<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>owned</span>): "
+							+"<span style='color:"+Colour.GENERIC_SEX+";'>Associated Fetish</span>"
+							+ " (<span style='color:"+Colour.GENERIC_GOOD+";'>owned</span>): "
 							+ Util.capitaliseSentence(f.getName(Main.game.getPlayer())));
 					
 				} else {
 					SB.append("</br>"
-							+"<span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
-							+ " (<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>not owned</span>): "
+							+"<span style='color:"+Colour.GENERIC_SEX+";'>Associated Fetish</span>"
+							+ " (<span style='color:"+Colour.GENERIC_BAD+";'>not owned</span>): "
 							+ Util.capitaliseSentence(f.getName(Main.game.getPlayer())));
 				}
 			}
@@ -422,13 +422,13 @@ public class Response {
 		if(corruptionBypass!=null) {
 			if(isCorruptionWithinRange()) {
 				SB.append("</br>"
-						+"<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
-						+ " (<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>within range</span>): "
+						+"<span style='color:"+Colour.GENERIC_ARCANE+";'>Associated Corruption</span>"
+						+ " (<span style='color:"+Colour.GENERIC_GOOD+";'>within range</span>): "
 						+ Util.capitaliseSentence(corruptionBypass.getName()));
 			} else {
 				SB.append("</br>"
-						+"<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
-						+ " (<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>out of range</span>): "
+						+"<span style='color:"+Colour.GENERIC_ARCANE+";'>Associated Corruption</span>"
+						+ " (<span style='color:"+Colour.GENERIC_BAD+";'>out of range</span>): "
 						+ Util.capitaliseSentence(corruptionBypass.getName()));
 			}
 		}

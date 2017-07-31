@@ -396,4 +396,8 @@ public enum Colour {
 		return formattingNames;
 	}
 
+	public String toString() {
+		return toWebHexString();
+	}
+
 }

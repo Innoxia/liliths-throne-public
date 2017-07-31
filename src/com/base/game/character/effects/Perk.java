@@ -162,7 +162,7 @@ public enum Perk implements PerkInterface {
 			Colour.ATTRIBUTE_STRENGTH,
 			null,
 			Util.newArrayListOfValues(new ListValue<>("<span style='color:"
-					+ Colour.ATTRIBUTE_STRENGTH.toWebHexString()
+					+ Colour.ATTRIBUTE_STRENGTH
 					+ ";'>Improved Combat</span>"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -191,7 +191,7 @@ public enum Perk implements PerkInterface {
 			"misc_observant",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 5)),
-			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Gender detection</span>"))) {
+			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_SEX+ ";'>Gender detection</span>"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return UtilText.parsePlayerThought("");
@@ -544,7 +544,7 @@ public enum Perk implements PerkInterface {
 			Colour.ATTRIBUTE_FITNESS,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STAMINA_MAXIMUM, 25)),
 			Util.newArrayListOfValues(new ListValue<>("<b>*</b> <span style='color:"
-					+ Colour.ATTRIBUTE_FITNESS.toWebHexString()
+					+ Colour.ATTRIBUTE_FITNESS
 					+ ";'>Improved escape chance</span>"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -583,7 +583,7 @@ public enum Perk implements PerkInterface {
 			Colour.ATTRIBUTE_FITNESS,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STAMINA_MAXIMUM, 60)),
 			Util.newArrayListOfValues(new ListValue<>("<b>*</b> <span style='color:"
-					+ Colour.ATTRIBUTE_FITNESS.toWebHexString()
+					+ Colour.ATTRIBUTE_FITNESS
 					+ ";'>Improved escape chance</span>"))) {
 		@Override
 		public String getName(GameCharacter character) {
@@ -634,8 +634,8 @@ public enum Perk implements PerkInterface {
 			"fitness_female_attraction",
 			Colour.FEMININE,
 			null,
-			Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</span>"
-					+ " vs <span style='color:" + Colour.FEMININE.toWebHexString()+ ";'>feminine opponents</span>"))) {
+			Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA + ";'>willpower damage</span>"
+					+ " vs <span style='color:" + Colour.FEMININE+ ";'>feminine opponents</span>"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return UtilText.parsePlayerThought("");
@@ -687,13 +687,13 @@ public enum Perk implements PerkInterface {
 
 			if (character.getLevel() < this.requiredLevel.getLevel())
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_BAD.toWebHexString()
+						+ Colour.GENERIC_BAD
 						+ ";'>Level "
 						+ requiredLevel.getLevel()
 						+ "</span>");
 			else
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_GOOD.toWebHexString()
+						+ Colour.GENERIC_GOOD
 						+ ";'>Level "
 						+ requiredLevel.getLevel()
 						+ "</span>");
@@ -702,13 +702,13 @@ public enum Perk implements PerkInterface {
 				if (character.hasPerk(this.getPreviousLevelPerk())
 						|| additionalPerks.contains(this.getPreviousLevelPerk()))
 					perkRequirementsList.add("<span style='color:"
-							+ Colour.GENERIC_GOOD.toWebHexString()
+							+ Colour.GENERIC_GOOD
 							+ ";'>Unlocked '"
 							+ this.getPreviousLevelPerk().getName(character)
 							+ "'</span>");
 				else
 					perkRequirementsList.add("<span style='color:"
-							+ Colour.GENERIC_BAD.toWebHexString()
+							+ Colour.GENERIC_BAD
 							+ ";'>Unlocked '"
 							+ this.getPreviousLevelPerk().getName(character)
 							+ "'</span>");
@@ -716,11 +716,11 @@ public enum Perk implements PerkInterface {
 			if (character.hasPerk(Perk.MALE_ATTRACTION)
 					|| additionalPerks.contains(Perk.MALE_ATTRACTION))
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_BAD.toWebHexString()
+						+ Colour.GENERIC_BAD
 						+ ";'>Incompatible with 'Minx'</span>");
 			else
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_GOOD.toWebHexString()
+						+ Colour.GENERIC_GOOD
 						+ ";'>Incompatible with 'Minx'</span>");
 
 			return perkRequirementsList;
@@ -733,8 +733,8 @@ public enum Perk implements PerkInterface {
 			"fitness_male_attraction",
 			Colour.MASCULINE,
 			null,
-			Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</span>"
-					+ " vs <span style='color:" + Colour.MASCULINE.toWebHexString()+ ";'>masculine opponents</span>"))) {
+			Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA + ";'>willpower damage</span>"
+					+ " vs <span style='color:" + Colour.MASCULINE+ ";'>masculine opponents</span>"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return UtilText.parsePlayerThought("");
@@ -786,13 +786,13 @@ public enum Perk implements PerkInterface {
 
 			if (character.getLevel() < this.requiredLevel.getLevel())
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_BAD.toWebHexString()
+						+ Colour.GENERIC_BAD
 						+ ";'>Level "
 						+ requiredLevel.getLevel()
 						+ "</span>");
 			else
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_GOOD.toWebHexString()
+						+ Colour.GENERIC_GOOD
 						+ ";'>Level "
 						+ requiredLevel.getLevel()
 						+ "</span>");
@@ -801,13 +801,13 @@ public enum Perk implements PerkInterface {
 				if (character.hasPerk(this.getPreviousLevelPerk())
 						|| additionalPerks.contains(this.getPreviousLevelPerk()))
 					perkRequirementsList.add("<span style='color:"
-							+ Colour.GENERIC_GOOD.toWebHexString()
+							+ Colour.GENERIC_GOOD
 							+ ";'>Unlocked '"
 							+ this.getPreviousLevelPerk().getName(character)
 							+ "'</span>");
 				else
 					perkRequirementsList.add("<span style='color:"
-							+ Colour.GENERIC_BAD.toWebHexString()
+							+ Colour.GENERIC_BAD
 							+ ";'>Unlocked '"
 							+ this.getPreviousLevelPerk().getName(character)
 							+ "'</span>");
@@ -815,11 +815,11 @@ public enum Perk implements PerkInterface {
 			if (character.hasPerk(Perk.FEMALE_ATTRACTION)
 					|| additionalPerks.contains(Perk.FEMALE_ATTRACTION))
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_BAD.toWebHexString()
+						+ Colour.GENERIC_BAD
 						+ ";'>Incompatible with 'Ladykiller'</span>");
 			else
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_GOOD.toWebHexString()
+						+ Colour.GENERIC_GOOD
 						+ ";'>Incompatible with 'Ladykiller'</span>");
 
 			return perkRequirementsList;
@@ -835,7 +835,7 @@ public enum Perk implements PerkInterface {
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_MANA, -25)),
-			Util.newArrayListOfValues(new ListValue<>("Earn 2 <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essences</span> from each orgasm"))) {
+			Util.newArrayListOfValues(new ListValue<>("Earn 2 <span style='color:" + Colour.GENERIC_ARCANE+ ";'>arcane essences</span> from each orgasm"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return "";
@@ -1034,7 +1034,7 @@ public enum Perk implements PerkInterface {
 						+ e.getValue()
 						+ "</b>"
 						+ " <b style='color: "
-						+ e.getKey().getColour().toWebHexString()
+						+ e.getKey().getColour()
 						+ ";'>"
 						+ Util.capitaliseSentence(e.getKey().getAbbreviatedName())
 						+ "</b>");
@@ -1076,13 +1076,13 @@ public enum Perk implements PerkInterface {
 
 		if (character.getLevel() < this.requiredLevel.getLevel())
 			perkRequirementsList.add("<span style='color:"
-					+ Colour.GENERIC_BAD.toWebHexString()
+					+ Colour.GENERIC_BAD
 					+ ";'>Level "
 					+ requiredLevel.getLevel()
 					+ "</span>");
 		else
 			perkRequirementsList.add("<span style='color:"
-					+ Colour.GENERIC_GOOD.toWebHexString()
+					+ Colour.GENERIC_GOOD
 					+ ";'>Level "
 					+ requiredLevel.getLevel()
 					+ "</span>");
@@ -1091,13 +1091,13 @@ public enum Perk implements PerkInterface {
 			if (character.hasPerk(this.getPreviousLevelPerk())
 					|| additionalPerks.contains(this.getPreviousLevelPerk()))
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_GOOD.toWebHexString()
+						+ Colour.GENERIC_GOOD
 						+ ";'>Unlocked '"
 						+ this.getPreviousLevelPerk().getName(character)
 						+ "'</span>");
 			else
 				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_BAD.toWebHexString()
+						+ Colour.GENERIC_BAD
 						+ ";'>Unlocked '"
 						+ this.getPreviousLevelPerk().getName(character)
 						+ "'</span>");
