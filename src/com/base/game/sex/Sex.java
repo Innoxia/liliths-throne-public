@@ -953,6 +953,7 @@ public enum Sex {
 
 			// Add actions:
 			for (SexActionInterface sexAction : sexManager.getActionsAvailablePartner()) {
+		if (!(sexAction.isPartnerSelfAction() && !partnerAllowedToUseSelfActions)) {
 				if (sexAction.isAddedToAvailableSexActions() && (partnerAllowedToUseSelfActions?true:(!sexAction.isPartnerSelfPenetration()))) {
 					
 					if(Main.game.isNonConEnabled()
@@ -981,6 +982,7 @@ public enum Sex {
 						}
 					}
 				}
+			    }
 			}
 
 			if(!uniqueMax.isEmpty()) {
