@@ -319,7 +319,7 @@ public class SPBeautySalon {
 						+ "[kate.speech(Hehe, look what you did!)] she laughs, [kate.speech(Mmm, it sure is nice being pregnant...)]"
 						+ "</p>"
 						+ "<p>"
-						+ "She hands you a nearby brochure, and as you thank her, you can't help but feel quite taken aback at how casual she's acting aabout this."
+						+ "She hands you a nearby brochure, and as you thank her, you can't help but feel quite taken aback at how casual she's acting about this."
 						+ "</p>"
 						+ "<p>"
 						+ "[pc.speech(Is there anything I can get for you?)] you ask, unsure of quite how to react to Kate's blasé attitude, [pc.speech(You don't seem very concerned about being pregnant...)]"

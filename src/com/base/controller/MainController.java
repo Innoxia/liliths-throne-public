@@ -394,8 +394,7 @@ public class MainController implements Initializable {
 //									}
 //								}
 //							}
-							
-//							 File dir = new File("data/items");
+//							 dir = new File("data/items");
 //								dir.mkdir();
 //							for (ItemType ct : ItemType.availableItems) {
 //								
@@ -406,8 +405,7 @@ public class MainController implements Initializable {
 //									e.printStackTrace();
 //								}
 //							}
-							 
-//							 File dir = new File("data/weapons");
+//							 dir = new File("data/weapons");
 //								dir.mkdir();
 //							for (WeaponType ct : WeaponType.values()) {
 //								
@@ -418,31 +416,40 @@ public class MainController implements Initializable {
 //									e.printStackTrace();
 //								}
 //							}
-							
-//							 File dir = new File("data/statusEffects");
+//							 dir = new File("data/statusEffects");
 //								dir.mkdir();
 //							for (StatusEffect se : StatusEffect.values()) {
+//								if(!se.isSexEffect()) {
+//									try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/statusEffects/"+se+"("+se.getName(Main.game.getPlayer()).replaceAll(" ", "_")+").svg"), "utf-8"))) {
+//										writer.write(se.getSVGString(Main.game.getPlayer()));
+//									} catch (IOException e) {
+//										e.printStackTrace();
+//									}
+//								}
+//							}
+//							 dir = new File("data/fetishes");
+//								dir.mkdir();
+//							for (Fetish se : Fetish.values()) {
 //								
-//								try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/statusEffects/"+se+"("+se.getName(Main.game.getPlayer()).replaceAll(" ", "_")+").svg"), "utf-8"))) {
-//									writer.write(se.getSVGString(Main.game.getPlayer()));
+//								try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/fetishes/"+se+"("+se.getName(Main.game.getPlayer()).replaceAll(" ", "_")+").svg"), "utf-8"))) {
+//									writer.write(se.getSVGString());
 //								} catch (IOException e) {
 //									e.printStackTrace();
 //								}
 //							}
-							
 							 
 //							 Main.getProperties().savePropertiesAsXML();
 //							 System.out.println("Free memory (bytes) -gc: " + Runtime.getRuntime().freeMemory());
 //							 System.gc();
 //							 System.out.println("Free memory (bytes) +gc: " + Runtime.getRuntime().freeMemory());
 						 }
+						 
 //						 if(event.getCode()==KeyCode.DELETE){
 //							 for(Fetish fetish : Fetish.values()) {
 //								 Main.game.getPlayer().addFetish(fetish);
 //								 Sex.getPartner().addFetish(fetish);
 //							 }
 //						 }
-						 
 //						 System.out.println(event.getCode());
 						 
 

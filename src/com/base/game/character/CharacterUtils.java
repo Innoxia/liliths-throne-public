@@ -1064,15 +1064,25 @@ public class CharacterUtils {
 		}
 
 		double randomNumber = Math.random();
+		// Add three fetishes:
+		if(randomNumber>0.8f) {
+			Fetish f = fetishes.get(Util.random.nextInt(fetishes.size()));
+			character.addFetish(f);
+			fetishes.remove(f);
+			f = fetishes.get(Util.random.nextInt(fetishes.size()));
+			character.addFetish(f);
+			fetishes.remove(f);
+			character.addFetish(fetishes.get(Util.random.nextInt(fetishes.size())));
+			
 		// Add two fetishes:
-		if(randomNumber>0.75f) {
+		} else if(randomNumber>0.6f) {
 			Fetish f = fetishes.get(Util.random.nextInt(fetishes.size()));
 			character.addFetish(f);
 			fetishes.remove(f);
 			character.addFetish(fetishes.get(Util.random.nextInt(fetishes.size())));
 			
 		// Add one fetish:
-		} else if(randomNumber>0.25f) {
+		} else if(randomNumber>0.2f) {
 			character.addFetish(fetishes.get(Util.random.nextInt(fetishes.size())));
 		}
 	}

@@ -622,7 +622,7 @@ public class PhoneDialogue {
 			}
 			for (Litter litter : Main.game.getPlayer().getLittersFathered()){
 				sonsFathered+=litter.getSonsFromMother()+litter.getSonsFromFather();
-				daughtersFathered+=litter.getDaughtersFromFather()+litter.getDaughtersFromFather();
+				daughtersFathered+=litter.getDaughtersFromMother()+litter.getDaughtersFromFather();
 			}
 			
 			UtilText.nodeContentSB.setLength(0);

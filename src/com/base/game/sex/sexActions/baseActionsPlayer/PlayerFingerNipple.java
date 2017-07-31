@@ -408,16 +408,16 @@ public class PlayerFingerNipple {
 					UtilText.nodeContentSB.append(" As you start pinching [npc.her] [npc.nipples], a trickle of [npc.milk] runs down over [npc.her] [npc.breasts+].");
 					break;
 				case FOUR_LARGE_AMOUNT:
-					UtilText.nodeContentSB.append(" [npc.Her] [mpc.milk] starts to flow out over your [pc.fingers] as you greedily milk [npc.her] [npc.breasts+].");
+					UtilText.nodeContentSB.append(" [npc.Her] [npc.milk] starts to flow out over your [pc.fingers] as you greedily milk [npc.her] [npc.breasts+].");
 					break;
 				case FIVE_VERY_LARGE_DROOLING:
-					UtilText.nodeContentSB.append(" [npc.Her] [mpc.milk] starts drooling out over your [pc.fingers] as you greedily milk [npc.her] [npc.breasts+].");
+					UtilText.nodeContentSB.append(" [npc.Her] [npc.milk] starts drooling out over your [pc.fingers] as you greedily milk [npc.her] [npc.breasts+].");
 					break;
 				case SIX_EXTREME_AMOUNT_DRIPPING:
-					UtilText.nodeContentSB.append(" [npc.Her] [mpc.milk] starts pouring out over your [pc.fingers] as you greedily milk [npc.her] [npc.breasts+].");
+					UtilText.nodeContentSB.append(" [npc.Her] [npc.milk] starts pouring out over your [pc.fingers] as you greedily milk [npc.her] [npc.breasts+].");
 					break;
 				case SEVEN_MONSTROUS_AMOUNT_POURING:
-					UtilText.nodeContentSB.append(" [npc.Her] [mpc.milk] starts pouring out over your [pc.fingers] as you greedily milk [npc.her] [npc.breasts+].");
+					UtilText.nodeContentSB.append(" [npc.Her] [npc.milk] starts pouring out over your [pc.fingers] as you greedily milk [npc.her] [npc.breasts+].");
 					break;
 				default:
 					break;
