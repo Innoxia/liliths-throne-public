@@ -735,7 +735,7 @@ public enum Fetish implements PerkInterface {
 					+ ";'>son & daughter encounters</span>"),
 					new ListValue<>("<span style='color:"
 							+ Colour.GENERIC_BAD.toWebHexString()
-							+ ";'>Not implemented yet!</span>")),
+							+ ";'>Partly implemented</span>")),
 			null) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
