@@ -43,6 +43,8 @@ http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.h
 
 
 ####  "C:\Users\[USERNAME]\git\liliths-throne-public is not an empty directory."
+**This is the same error as "Some or all projects cannot be imported as they already exist in the workspace"**
+
 This is most likely because you have already have an outdated build open as a project. Make note of the directory it is reporting as not being empty.
 1. Close the import wizard
 2. In the Package Explorer, right click the project, and click Delete
