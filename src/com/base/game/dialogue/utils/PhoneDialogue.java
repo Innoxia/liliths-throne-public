@@ -15,6 +15,7 @@ import com.base.game.character.body.types.PenisType;
 import com.base.game.character.body.types.VaginaType;
 import com.base.game.character.effects.Fetish;
 import com.base.game.character.effects.Perk;
+import com.base.game.character.effects.PerkCategory;
 import com.base.game.character.effects.PerkInterface;
 import com.base.game.character.effects.PerkTree;
 import com.base.game.character.effects.StatusEffect;
@@ -1353,7 +1354,8 @@ public class PhoneDialogue {
 	};
 
 	public static int strengthPoints = 0, intelligencePoints = 0, fitnessPoints = 0, spendingPoints=0, spendingFetishPoints=0;
-	public static List<PerkInterface> levelUpPerks = new ArrayList<>(), levelUpFetishes = new ArrayList<>();
+	public static List<PerkInterface> levelUpPerks = new ArrayList<>();
+	public static List<Fetish> levelUpFetishes = new ArrayList<>();
 
 	public static boolean isAttributePointsAvailableToSpend() {
 		return (Main.game.getPlayer().getLevelUpPoints() - (strengthPoints + intelligencePoints + fitnessPoints)) > 0;
@@ -1648,8 +1650,8 @@ public class PhoneDialogue {
 				if(fetish.getFetishesForAutomaticUnlock().isEmpty())
 					journalSB.append(
 							"<div id='fetishUnlock" + fetish + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
-							? " owned' style='border:4px solid " + fetish.getPerkCategory().getColour().getShades()[1] + ";'>"
-							: (fetish.isAvailable(Main.game.getPlayer(), levelUpFetishes)
+							? " owned' style='border:4px solid " + PerkCategory.FETISH.getColour().getShades()[1] + ";'>"
+							: (fetish.isAvailable(Main.game.getPlayer())
 									? " unlocked' style='border:4px solid " + (levelUpFetishes.contains(fetish)
 											? Colour.GENERIC_EXCELLENT.toWebHexString() + ";"
 											: Colour.TEXT_GREY.toWebHexString() + ";") + "'>"
@@ -1657,7 +1659,7 @@ public class PhoneDialogue {
 							+ "<div class='fetish-icon-content'>"+fetish.getSVGString()+"</div>"
 							+ (Main.game.getPlayer().hasFetish(fetish) || levelUpFetishes.contains(fetish) // Overlay to create disabled effect:
 									? ""
-									: (fetish.isAvailable(Main.game.getPlayer(), levelUpFetishes)
+									: (fetish.isAvailable(Main.game.getPlayer())
 											? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
 											: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>"))
 							+ "</div>");
@@ -1676,7 +1678,7 @@ public class PhoneDialogue {
 				if(!fetish.getFetishesForAutomaticUnlock().isEmpty())
 					journalSB.append(
 							"<div id='fetishUnlock" + fetish + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
-									? " owned' style='border:4px solid " + fetish.getPerkCategory().getColour().getShades()[1] + ";'>"
+									? " owned' style='border:4px solid " + PerkCategory.FETISH.getColour().getShades()[1] + ";'>"
 									: " unlocked' style='border:4px solid " + Colour.TEXT_GREY.toWebHexString() + ";'>")
 							+ "<div class='fetish-icon-content'>"+fetish.getSVGString()+"</div>"
 							+ (Main.game.getPlayer().hasFetish(fetish) // Overlay to create disabled effect:
@@ -1712,8 +1714,8 @@ public class PhoneDialogue {
 					return new Response("Apply", "Apply the changes that you've chosen. <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Once applied, this cannot be undone!</b>", CHARACTER_FETISHES){
 						@Override
 						public void effects() {
-							for (PerkInterface f : levelUpFetishes) {
-								Main.game.getPlayer().addFetish((Fetish)f);
+							for (Fetish f : levelUpFetishes) {
+								Main.game.getPlayer().addFetish(f);
 								f.applyPerkGained(Main.game.getPlayer());
 							}
 							

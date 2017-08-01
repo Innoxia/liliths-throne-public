@@ -348,6 +348,10 @@ public abstract class NPC extends GameCharacter {
 				}
 			}
 			
+			if(hasFetish(Fetish.FETISH_ORAL_GIVING) && canUseMouth()) {
+				sexPositionPreferences.add(SexPosition.KNEELING_PARTNER_PERFORMING_ORAL);
+			}
+			
 			if(hasFetish(Fetish.FETISH_ANAL_GIVING) && canUsePenis() && playerCanUseAnus()) {
 				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
 				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);

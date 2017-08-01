@@ -45,7 +45,6 @@
 	
 	SABraxDom????
 	
-	NPC position preferences
 	(+ remove fetishes)
 	Perk/fetish experience
 	

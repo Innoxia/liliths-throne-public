@@ -112,7 +112,7 @@ public class LevelUpButtonsEventListener implements EventListener {
 			} else if (
 					((PhoneDialogue.spendingFetishPoints+PhoneDialogue.getFetishCost() <= Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)) || (Main.game.getPlayer().getFetishes().size()+PhoneDialogue.levelUpFetishes.size()==0))
 					&& !Main.game.getPlayer().hasFetish(f)
-					&& f.isAvailable(Main.game.getPlayer(), PhoneDialogue.levelUpFetishes)
+					&& f.isAvailable(Main.game.getPlayer())
 					&& f.getFetishesForAutomaticUnlock().isEmpty()) { // Have points to spend, player doesn't own this fetish:
 
 				PhoneDialogue.levelUpFetishes.add(f);

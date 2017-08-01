@@ -809,7 +809,7 @@ public class GameCharacter implements Serializable {
 	/**The returned list is ordered by rendering priority.*/
 	public List<Fetish> getFetishes() {
 		tempFetishList = new ArrayList<>(fetishes);
-		tempFetishList.sort((PerkInterface o1, PerkInterface o2) -> ((Integer) o2.getRenderingPriority()).compareTo(((Integer) o1.getRenderingPriority())));
+		tempFetishList.sort((Fetish o1, Fetish o2) -> ((Integer) o2.getRenderingPriority()).compareTo(((Integer) o1.getRenderingPriority())));
 		return tempFetishList;
 	}
 	

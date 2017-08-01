@@ -1990,12 +1990,12 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, "PERK_PLAYER_" + p, "mouseenter", el, false);
 				}
 			}
-			for (PerkInterface f : Main.game.getPlayer().getFetishes()) {
+			for (Fetish f : Main.game.getPlayer().getFetishes()) {
 				if (((EventTarget) documentAttributes.getElementById("FETISH_PLAYER_" + f)) != null) {
 					addEventListener(documentAttributes, "FETISH_PLAYER_" + f, "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, "FETISH_PLAYER_" + f, "mouseleave", hideTooltipListener, false);
 
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setPerk(f, Main.game.getPlayer());
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, Main.game.getPlayer());
 					addEventListener(documentAttributes, "FETISH_PLAYER_" + f, "mouseenter", el, false);
 				}
 			}
@@ -2010,12 +2010,12 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, "PERK_PARTNER_" + p, "mouseenter", el, false);
 				}
 			}
-			for (PerkInterface f : Sex.getPartner().getFetishes()) {
+			for (Fetish f : Sex.getPartner().getFetishes()) {
 				if (((EventTarget) documentAttributes.getElementById("FETISH_PARTNER_" + f)) != null) {
 					addEventListener(documentAttributes, "FETISH_PARTNER_" + f, "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, "FETISH_PARTNER_" + f, "mouseleave", hideTooltipListener, false);
 
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setPerk(f, Sex.getPartner());
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, Sex.getPartner());
 					addEventListener(documentAttributes, "FETISH_PARTNER_" + f, "mouseenter", el, false);
 				}
 			}
