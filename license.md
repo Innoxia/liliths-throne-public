@@ -19,7 +19,7 @@ Redistribution, use, and modification of the Project and its Content, with or wi
 1. The Project must retain the above copyright notice and this license as is.
 2. The Binaries must reproduce the above copyright notice (i.e. leave Innoxia's name in the credits page).
 3. The Project, its Content, and Binaries:
-3a. must carry prominent notices stating it is modified, if applicable.
+3a. must carry prominent notices stating it is modified, and not endorsed by Innoxia, if applicable.
 3b. must be available free of charge, if distributed.
 3c. may not be used for commercial purposes.
 
