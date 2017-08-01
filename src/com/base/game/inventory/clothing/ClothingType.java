@@ -429,7 +429,7 @@ public enum ClothingType {
 		}
 	},
 
-	HEAD_HEADBAND("a", false, "headband", "A plain headband, designed to keep your head pushed back out of your face.", 1, null, InventorySlot.HEAD, Rarity.COMMON, null, "head_headband", null,
+	HEAD_HEADBAND("a", false, "headband", "A plain headband, designed to keep your hair pushed back out of your face.", 1, null, InventorySlot.HEAD, Rarity.COMMON, null, "head_headband", null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
@@ -483,7 +483,7 @@ public enum ClothingType {
 		}
 	},
 	
-	HEAD_HEADBAND_BOW("a", false, "bow headband", "A headband with a cute bow attached to the top, designed to keep your head pushed back out of your face.", 1, Femininity.FEMININE, InventorySlot.HEAD, Rarity.COMMON, null, "head_headband_bow", null,
+	HEAD_HEADBAND_BOW("a", false, "bow headband", "A headband with a cute bow attached to the top, designed to keep your hair pushed back out of your face.", 1, Femininity.FEMININE, InventorySlot.HEAD, Rarity.COMMON, null, "head_headband_bow", null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(

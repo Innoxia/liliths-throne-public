@@ -491,16 +491,16 @@ public class DomDoggy {
 			
 			String flaredSpecial = "", knottedSpecial = "", barbedSpecial = "";
 			
-			if(Sex.getPartner().isPenisKnotted()) {
+			if(Main.game.getPlayer().isPenisKnotted()) {
 				knottedSpecial = " Your [pc.cock+] suddenly starts violently throbbing, and you know that you're about to cum."
 										+ " Grabbing your [pc.cock] in one [pc.hand], you point it at [npc.name]'s ass, furiously masturbating as your thick knot swells up.";
 			}
-			if(Sex.getPartner().isPenisBarbedShaft()) {
-				barbedSpecial = " Your barbed cat-dick suddenly starts violently throbbing, and you know that you're about to cum."
+			if(Main.game.getPlayer().isPenisBarbedShaft()) {
+				barbedSpecial = " Your barbed [pc.cock] suddenly starts violently throbbing, and you know that you're about to cum."
 						+ " Grabbing your [pc.cock] in one hand, you point it at [npc.name]'s ass, furiously masturbating as your hand slides up and down over your sensitive little barbs.";
 			}
-			if(Sex.getPartner().isPenisFlaredHead()) {
-				flaredSpecial = " Your flared horse-cock suddenly starts violently throbbing, and you know that you're about to cum."
+			if(Main.game.getPlayer().isPenisFlaredHead()) {
+				flaredSpecial = " Your flared [pc.cock] suddenly starts violently throbbing, and you know that you're about to cum."
 						+ " Grabbing your [pc.cock] in one [pc.hand], you point it at [npc.name]'s ass, furiously masturbating as your flared head swells up.";
 			}
 			
@@ -1174,16 +1174,16 @@ public class DomDoggy {
 			
 			String flaredSpecial = "", knottedSpecial = "", barbedSpecial = "";
 			
-			if(Sex.getPartner().isPenisKnotted()) {
+			if(Main.game.getPlayer().isPenisKnotted()) {
 				knottedSpecial = " Your [pc.cock+] suddenly starts violently throbbing, and you know that you're about to cum."
 										+ " Grabbing your [pc.cock] in one [pc.hand], you point it at [npc.name]'s ass, furiously masturbating as your thick knot swells up.";
 			}
-			if(Sex.getPartner().isPenisBarbedShaft()) {
-				barbedSpecial = " Your barbed cat-dick suddenly starts violently throbbing, and you know that you're about to cum."
+			if(Main.game.getPlayer().isPenisBarbedShaft()) {
+				barbedSpecial = " Your barbed [pc.cock] suddenly starts violently throbbing, and you know that you're about to cum."
 						+ " Grabbing your [pc.cock] in one hand, you point it at [npc.name]'s ass, furiously masturbating as your hand slides up and down over your sensitive little barbs.";
 			}
-			if(Sex.getPartner().isPenisFlaredHead()) {
-				flaredSpecial = " Your flared horse-cock suddenly starts violently throbbing, and you know that you're about to cum."
+			if(Main.game.getPlayer().isPenisFlaredHead()) {
+				flaredSpecial = " Your flared [pc.cock] suddenly starts violently throbbing, and you know that you're about to cum."
 						+ " Grabbing your [pc.cock] in one [pc.hand], you point it at [npc.name]'s ass, furiously masturbating as your flared head swells up.";
 			}
 			

@@ -137,10 +137,10 @@ public enum ItemEffectType {
 							:"")
 					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.CAT_MORPH)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.CAT_MORPH)
-							:"")
-					+"<p>"
-						+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-					+ "</p>";
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+							:"");
 		}
 	},
 	
@@ -167,10 +167,10 @@ public enum ItemEffectType {
 							:"")
 					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.DEMON)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.DEMON)
-							:"")
-					+"<p>"
-						+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-					+ "</p>";
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+							:"");
 		}
 	},
 	
@@ -197,10 +197,10 @@ public enum ItemEffectType {
 							:"")
 					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.DOG_MORPH)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.DOG_MORPH)
-							:"")
-					+"<p>"
-						+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-					+ "</p>";
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+							:"");
 		}
 	},
 	
@@ -227,10 +227,10 @@ public enum ItemEffectType {
 							:"")
 					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.HARPY)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.HARPY)
-							:"")
-					+"<p>"
-						+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-					+ "</p>";
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+							:"");
 		}
 	},
 	
@@ -257,10 +257,10 @@ public enum ItemEffectType {
 							:"")
 					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.HORSE_MORPH)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.HORSE_MORPH)
-							:"")
-					+"<p>"
-						+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-					+ "</p>";
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+							:"");
 		}
 	},
 	
@@ -287,10 +287,10 @@ public enum ItemEffectType {
 							:"")
 					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.HUMAN)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.HUMAN)
-							:"")
-					+"<p>"
-						+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-					+ "</p>";
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+							:"");
 		}
 	},
 	
@@ -317,10 +317,10 @@ public enum ItemEffectType {
 							:"")
 					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.WOLF_MORPH)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.WOLF_MORPH)
-							:"")
-					+"<p>"
-						+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-					+ "</p>";
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+							:"");
 		}
 	},
 	

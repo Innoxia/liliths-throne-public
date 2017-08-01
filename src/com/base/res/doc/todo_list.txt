@@ -21,6 +21,7 @@
 		
 	Gameplay:
 		<b>Added:</b> A lore book for each of the game's races, which have a chance to be randomly dropped as loot after combat.
+		Added Lilaya's Library text, as well as entries for the new lore books (once they've been found).
 		
 	Other:
 		Renamed 'City gym' to 'Pix's Playground'.
@@ -29,6 +30,7 @@
 		
 	Bugs:
 		Fixed some typos.
+		Fixed some incorrect penis descriptions in doggy-style orgasm scenes.
 	
 	
 	
@@ -40,8 +42,7 @@
 	Bug fixes
 	Dominant kneeling (+ tit fucking)
 	
-	
-	The encyclopedia still has the old information about human conception (all races)
+	NPCs with the non-con fetish shouldn't have lowered arousal gain when you rape them
 	
 	Buy all not showing up
 	
