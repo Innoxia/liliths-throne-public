@@ -509,7 +509,7 @@ public class HarpyNestDominant {
 					+ "</p>"
 					+ "<p>"
 						+ "You can't help but let out a mocking laugh as the matriarch submits to you."
-						+ " Having the choice between building up a new flock, or submitting to your rule, [harpyDominantCompanion.name] has obviously chosen the latter, and you reward her obedience by telling her what she wants to hear,"
+						+ " Having the choice between building up a new flock, or submitting to your rule, [harpyDominant.name] has obviously chosen the latter, and you reward her obedience by telling her what she wants to hear,"
 						+ " [pc.speech(Good girl! You'll do exactly as I say from now on, understood?!)]"
 					+ "</p>"
 					+ "<p>"

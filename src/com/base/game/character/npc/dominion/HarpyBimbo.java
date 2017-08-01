@@ -42,7 +42,7 @@ public class HarpyBimbo extends NPC {
 		super(new NameTriplet("Brittany"),
 				"One of the more notable harpy matriarchs, Brittany is the leader of a flock of harpies."
 						+ " In order to get into her good graces, most of her flock try to mimic her behaviour and appearance."
-						+ " As a result, Becky's flock is primarily made up of bleach-blonde bimbos.",
+						+ " As a result, Brittany's flock is primarily made up of bleach-blonde bimbos.",
 				7, Gender.FEMALE, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.HARPY_NEST, HarpyNests.HARPY_NEST_YELLOW, true);
 

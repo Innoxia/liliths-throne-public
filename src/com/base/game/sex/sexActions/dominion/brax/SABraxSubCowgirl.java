@@ -593,7 +593,7 @@ public class SABraxSubCowgirl {
 
 			UtilText.nodeContentSB.append("Reaching down and taking hold of the "+Sex.getPartner().getPenisName(true)+" beneath you, you shuffle around until it's lined up to your "+Main.game.getPlayer().getVaginaName(true)+"."
 					+ " Not wasting another moment, you quickly sink down, feeling the tapered end of Brax's "+Sex.getPartner().getPenisName(true)+" easily slide into you."
-					+ " With a desperate wail, you sink down, stuffing more and more of the radily widening shaft into your "+Main.game.getPlayer().getVaginaName(true)
+					+ " With a desperate wail, you sink down, stuffing more and more of the readily widening shaft into your "+Main.game.getPlayer().getVaginaName(true)
 					+", until at last, with a quiver of delight, you feel the swollen knot at the base bump against your pussy lips.");
 
 			return UtilText.nodeContentSB.toString();
@@ -631,7 +631,7 @@ public class SABraxSubCowgirl {
 
 			UtilText.nodeContentSB.append("Reaching down and taking hold of the "+Sex.getPartner().getPenisName(true)+" beneath you, you shuffle around until it's lined up to your "+Main.game.getPlayer().getAssholeName(true)+"."
 					+ " Not wasting another moment, you quickly sink down, feeling the tapered end of Brax's "+Sex.getPartner().getPenisName(true)+" slide into you."
-					+ " With a desperate wail, you sink down, stuffing more and more of the radily widening shaft into your "+Main.game.getPlayer().getAssholeName(true)
+					+ " With a desperate wail, you sink down, stuffing more and more of the readily widening shaft into your "+Main.game.getPlayer().getAssholeName(true)
 					+", until at last, with a quiver of delight, you feel the swollen knot at the base bump against your "+Main.game.getPlayer().getAssholeName(true)+".");
 
 			return UtilText.nodeContentSB.toString();
