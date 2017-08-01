@@ -7,8 +7,11 @@ Although this Project is publicly available, it is not open source software. All
 **Definitions:**
 
 "Project" shall be defined as the source code and/or modifications/alterations comprising the software package known as "Lilith's Throne"; its assets, source code, Content, and all associated repositories, tools, configuration, and archives.
+
 "Binaries" refers to the executable produced from the source code and/or modified/altered source code.
+
 "Content" shall be defined to include machine or programming code; text of any kind, including written narratives and descriptions, markup and formatting, and any other information that may be represented in the Unicode specification; images, drawings, video, animations, sound, or music; adjustments to Project settings, configuration, parameters, or environment; or any other tangible or intangible thing which the user voluntarily makes available to the Project creator(s) and/or maintainers.
+
 "Contribution" shall be defined as submitting any Content, idea, or suggestion available to the Project creator(s) and/or maintainers by any means, including e-mail, file transfer protocols of any kind, git pull requests, git pushes, or any other electronic or physical transfer of any kind which makes available to the project creator(s) and/or maintainers for inclusion in the Project.
 
 --------
