@@ -8,6 +8,7 @@ import com.base.game.sex.SexPosition;
 import com.base.game.sex.managers.universal.SMDomBackToWall;
 import com.base.game.sex.managers.universal.SMDomDoggy;
 import com.base.game.sex.managers.universal.SMDomFaceToWall;
+import com.base.game.sex.managers.universal.SMDomSelfKneeling;
 import com.base.game.sex.managers.universal.SMDomKneeling;
 import com.base.game.sex.managers.universal.SMDomSixtyNine;
 import com.base.game.sex.managers.universal.SMSubBackToWall;
@@ -193,6 +194,45 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMDomKneeling());
 			
+			SexFlags.positioningBlockedPartner = true;
+			SexFlags.resetRequests();
+		}
+	};
+
+	public static SexAction PLAYER_FORCE_POSITION_SELF_KNEELING = new SexAction(
+			SexActionType.PLAYER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& Sex.getPosition() != SexPosition.KNEELING_PLAYER_PERFORMING_ORAL
+					&& Sex.isPlayerDom();
+		}
+
+		@Override
+		public String getActionTitle() {
+			return "Kneel (give oral)";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Get on your knees.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Smiling, you slowly slide down to your knees in front of [npc.name].";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setSexManager(new SMDomSelfKneeling());
+
 			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();
 		}
