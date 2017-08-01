@@ -231,7 +231,7 @@ public class HarpyNestNympho {
 					+ "</p>"
 					+ "<p>"
 						+ "Pushing through the crowds, you soon find yourself standing before the harpy they're all talking about."
-						+ " Moaning and squealing in delight, you see the matriarch of this next unashamedly riding one of her boy-toys."
+						+ " Moaning and squealing in delight, you see the matriarch of this nest unashamedly riding one of her boy-toys."
 						+ " As you come to a halt in front of them, they both suddenly let out an exceptionally loud scream, and you look down to see a slick trail of fresh cum oozing out of the pink-feathered matriarch's pussy."
 						+ " After taking a few moments to catch her breath, she lifts herself up, allowing the hot load to drool out of her well-used cunt, and, leaning down to deliver a passionate kiss on her partner's lips, she moans,"
 						+ " [harpyNympho.speech(Ah, [harpyNymphoCompanion.Name]! I love your cock most of all!)]"

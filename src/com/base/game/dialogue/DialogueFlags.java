@@ -45,7 +45,7 @@ public class DialogueFlags implements Serializable {
 			readBook1, readBook2, readBook3,
 			
 			// Brax:
-			accessToEnforcerHQ, braxTransformedPlayer, braxBeaten, seenBraxAfterQuest, feminisedBrax, bimboifiedBrax,
+			accessToEnforcerHQ, braxTransformedPlayer, braxBeaten, seenBraxAfterQuest, feminisedBrax, bimbofiedBrax,
 			
 			// Harpy Nests:
 			hasHarpyNestAccess, bimboEncountered, bimboPacified, dominantEncountered, dominantPacified, nymphoEncountered, nymphoPacified;
@@ -89,7 +89,7 @@ public class DialogueFlags implements Serializable {
 		braxBeaten = false;
 		seenBraxAfterQuest = false;
 		feminisedBrax = false;
-		bimboifiedBrax = false;
+		bimbofiedBrax = false;
 
 		// Harpy Nests:
 		hasHarpyNestAccess = false;

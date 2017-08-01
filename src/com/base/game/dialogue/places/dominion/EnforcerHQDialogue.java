@@ -286,7 +286,7 @@ public class EnforcerHQDialogue {
 							+ "</p>";
 					
 				} else {
-					if(Main.game.getDialogueFlags().bimboifiedBrax) {
+					if(Main.game.getDialogueFlags().bimbofiedBrax) {
 						return "<p>"
 								+ "You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk."
 								+ " As you come to a halt in front of her, you look down over the top of the desk to see [brax.name] furiously masturbating on the floor."
@@ -447,7 +447,7 @@ public class EnforcerHQDialogue {
 							}
 						};
 						
-					} else if(!Main.game.getDialogueFlags().bimboifiedBrax) {
+					} else if(!Main.game.getDialogueFlags().bimbofiedBrax) {
 						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].", RECEPTION_DESK,
 								Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
 								"<p>"
@@ -557,8 +557,8 @@ public class EnforcerHQDialogue {
 							}
 						};
 						
-					} else if(!Main.game.getDialogueFlags().bimboifiedBrax) {
-						return new Response("Bimbofy [brax.name]", "Transform [brax.name] into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOIFY){
+					} else if(!Main.game.getDialogueFlags().bimbofiedBrax) {
+						return new Response("Bimbofy [brax.name]", "Transform [brax.name] into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOFY){
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().seenBraxAfterQuest = true;
@@ -1018,7 +1018,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_SECRETARY_BRAX_BIMBOIFY = new DialogueNodeOld("Enforcer HQ", "-", false) {
+	public static final DialogueNodeOld INTERIOR_SECRETARY_BRAX_BIMBOFY = new DialogueNodeOld("Enforcer HQ", "-", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -1039,7 +1039,7 @@ public class EnforcerHQDialogue {
 							+ " [candi.speechNoEffects(I've got, like, these amazing potions to try out! Perhaps I should use one on Bree?!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Bree shuffles about nervously as she hears what you're planning, and, while she doesn't openly complain, you can tell that she really doens't want this to happen."
+							+ "Bree shuffles about nervously as she hears what you're planning, and, while she doesn't openly complain, you can tell that she really doesn't want this to happen."
 							+ " You wonder if this is going too far, or if it's what Bree really deserves..."
 						+ "</p>";
 		}
@@ -1047,10 +1047,10 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Turn Bree into Brandi", "Transform Bree into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOIFY_COMPLETED) {
+				return new Response("Turn Bree into Brandi", "Transform Bree into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED) {
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().bimboifiedBrax = true;
+						Main.game.getDialogueFlags().bimbofiedBrax = true;
 						Main.game.getBrax().setName(new NameTriplet("Brandi", "Brandi", "Brandi"));
 						
 						Main.game.getBrax().addFetish(Fetish.FETISH_BIMBO);
@@ -1075,7 +1075,7 @@ public class EnforcerHQDialogue {
 				};
 				
 			} else if (index == 0) {
-				return new Response("Leave", "Change your mind and leave Bree the way she is.", INTERIOR_SECRETARY_BRAX_BIMBOIFY_CHANGE_MIND);
+				return new Response("Leave", "Change your mind and leave Bree the way she is.", INTERIOR_SECRETARY_BRAX_BIMBOFY_CHANGE_MIND);
 				
 			} else {
 				return null;
@@ -1083,7 +1083,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_SECRETARY_BRAX_BIMBOIFY_COMPLETED = new DialogueNodeOld("Enforcer HQ", "-", false) {
+	public static final DialogueNodeOld INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED = new DialogueNodeOld("Enforcer HQ", "-", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -1105,7 +1105,7 @@ public class EnforcerHQDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "Bree starts shifting around uncomfortably in her seat, and, looking down, you see the cause of her discomfort."
-							+ " Her ass and hips are rapidly expanding, and with an audible tear, her enforcer shorts split at the seam."
+							+ " Her ass and hips are rapidly expanding, and with an audible tear, her enforcer shorts split at the seams."
 							+ " Letting out a little cry, Bree clutches the fabric against her groin, trying to conceal herself as the next transformation starts to take place."
 						+ "</p>"
 						+ "<p>"
@@ -1131,7 +1131,7 @@ public class EnforcerHQDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "Before you have any time to comment on her new body and personality, Candi grabs her arm and pulls her into her office, shouting behind her,"
-							+ " [candi.speechNoEffects(I'm gonna give Brandi some of my old clothes, give us five mins, then come have some fun with her!)]"
+							+ " [candi.speechNoEffects(I'm gonna give Brandi some of my old clothes, give us five minutes, then come have some fun with her!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "You could either do as Candi says, and go into the office after five minutes, or leave and come back another time to have some fun with Brandi."
@@ -1141,7 +1141,7 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new ResponseSex("Sex with Brandi", "Have sex with Brandi.", INTERIOR_SECRETARY_BRAX_BIMBOIFY_COMPLETED,
+				return new ResponseSex("Sex with Brandi", "Have sex with Brandi.", INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED,
 						Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
 						"<p>"
 							+ "After waiting for five minutes, you follow Candi into her office."
@@ -1180,7 +1180,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTERIOR_SECRETARY_BRAX_BIMBOIFY_CHANGE_MIND = new DialogueNodeOld("Enforcer HQ", "-", false) {
+	public static final DialogueNodeOld INTERIOR_SECRETARY_BRAX_BIMBOFY_CHANGE_MIND = new DialogueNodeOld("Enforcer HQ", "-", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -1207,7 +1207,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("Enforcer HQ", "-", false) {
+	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("Enforcer HQ", "Return to the Reception desk.", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override

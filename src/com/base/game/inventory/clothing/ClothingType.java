@@ -2038,7 +2038,7 @@ public enum ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " unzips <her> slip dress and wriggles out of it as it drops to <her> feet.");
 			else {
 				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " unzips your slip dress and pulls it your body and past your feet.";
+					return Util.capitaliseSentence(clothingRemover.getName("the")) + " unzips your slip dress and pulls it up your body and past your feet.";
 				else
 					return UtilText.genderParsing(clothingOwner, "You unzip " + clothingOwner.getName("the") + "'s slip dress and pull it down off <her> body and past <her> feet.");
 			}
