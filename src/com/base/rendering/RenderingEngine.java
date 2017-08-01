@@ -48,6 +48,18 @@ public enum RenderingEngine {
 
 	private StringBuilder inventorySB = new StringBuilder();
 	
+	private void appendPiercing(InventorySlot invSlot, boolean enabled) {
+		if (enabled)
+			inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='"
+					+ invSlot.toString()
+					+ "Slot'>"
+					+ "</div></div>");
+		else
+			inventorySB.append("<div class='equipSlot small' id='"
+					+ invSlot.toString()
+					+ "Slot'></div>");
+	}
+
 	/**
 	 * Rendering method for the bottom-left inventory screen.
 	 */
@@ -213,12 +225,8 @@ public enum RenderingEngine {
 					inventorySB.append(
 							// If slot is sealed:
 							"<div class='equipSlot small "
-									+ (clothing.getRarity() == Rarity.COMMON ? " common" : "")
-									+ (clothing.getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-									+ (clothing.getRarity() == Rarity.RARE ? " rare" : "")
-									+ (clothing.getRarity() == Rarity.EPIC ? " epic" : "")
-									+ (clothing.getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-									+ (clothing.getRarity() == Rarity.JINXED ? " jinxed" : "") + "'"
+									+ clothing.getRarity().getName()
+									+ "'"
 									+ (clothing.isSealed() ? "style='height:16vw;width:16vw;border-width:1vw;border-color:#" + Colour.SEALED.toWebHexString() + ";border-style:solid;'" : "") + ">"
 									// If clothing is displaced:
 									+ (!clothing.getDisplacedList().isEmpty() ? "<div class='displacedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDisplacedIcon() + "</div>" : "")
@@ -237,60 +245,44 @@ public enum RenderingEngine {
 				} else {
 					// add to content:
 					if (blockedSlots.contains(invSlot))
-						inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='" + invSlot.toString() + "Slot'>" + "</div></div>");
-					else{
-						switch(invSlot){
-							case PIERCING_VAGINA:
-								if(charactersInventoryToRender.getVaginaType()==VaginaType.NONE || !charactersInventoryToRender.isPiercedVagina())
-									inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='" + invSlot.toString() + "Slot'>" + "</div></div>");
-								else
-									inventorySB.append("<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
-								break;
-							case PIERCING_EAR:
-								if(!charactersInventoryToRender.isPiercedEar())
-									inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='" + invSlot.toString() + "Slot'>" + "</div></div>");
-								else
-									inventorySB.append("<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
-								break;
-							case PIERCING_LIP:
-								if(!charactersInventoryToRender.isPiercedLip())
-									inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='" + invSlot.toString() + "Slot'>" + "</div></div>");
-								else
-									inventorySB.append("<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
-								break;
-							case PIERCING_NIPPLE:
-								if(!charactersInventoryToRender.isPiercedNipple())
-									inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='" + invSlot.toString() + "Slot'>" + "</div></div>");
-								else
-									inventorySB.append("<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
-								break;
-							case PIERCING_NOSE:
-								if(!charactersInventoryToRender.isPiercedNose())
-									inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='" + invSlot.toString() + "Slot'>" + "</div></div>");
-								else
-									inventorySB.append("<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
-								break;
-							case PIERCING_PENIS:
-								if(charactersInventoryToRender.getPenisType()==PenisType.NONE || !charactersInventoryToRender.isPiercedPenis())
-									inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='" + invSlot.toString() + "Slot'>" + "</div></div>");
-								else
-									inventorySB.append("<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
-								break;
-							case PIERCING_STOMACH:
-								if(!charactersInventoryToRender.isPiercedNavel())
-									inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='" + invSlot.toString() + "Slot'>" + "</div></div>");
-								else
-									inventorySB.append("<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
-								break;
-							case PIERCING_TONGUE:
-								if(!charactersInventoryToRender.isPiercedTongue())
-									inventorySB.append("<div class='equipSlot small'><div class='overlay disabled' id='" + invSlot.toString() + "Slot'>" + "</div></div>");
-								else
-									inventorySB.append("<div class='equipSlot small' id='" + invSlot.toString() + "Slot'></div>");
-								break;
+						appendPiercing(invSlot,
+								false);
+					else {
+						boolean enabled = false;
+						switch (invSlot) {
+						case PIERCING_VAGINA:
+							enabled = (charactersInventoryToRender.getVaginaType() == VaginaType.NONE
+									|| !charactersInventoryToRender.isPiercedVagina());
+
+							break;
+						case PIERCING_EAR:
+							enabled = (!charactersInventoryToRender.isPiercedEar());
+
+							break;
+						case PIERCING_LIP:
+							enabled = (!charactersInventoryToRender.isPiercedLip());
+							break;
+						case PIERCING_NIPPLE:
+							enabled = (!charactersInventoryToRender.isPiercedNipple());
+							break;
+						case PIERCING_NOSE:
+							enabled = (!charactersInventoryToRender.isPiercedNose());
+							break;
+						case PIERCING_PENIS:
+							enabled = (charactersInventoryToRender.getPenisType() == PenisType.NONE
+									|| !charactersInventoryToRender.isPiercedPenis());
+							break;
+						case PIERCING_STOMACH:
+							enabled = (!charactersInventoryToRender.isPiercedNavel());
+							break;
+						case PIERCING_TONGUE:
+							enabled = (!charactersInventoryToRender.isPiercedTongue());
+							break;
 							default:
 								break;
 						}
+						appendPiercing(invSlot,
+								enabled);
 					}
 				}
 			}

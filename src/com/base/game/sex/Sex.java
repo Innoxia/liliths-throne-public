@@ -943,19 +943,28 @@ public enum Sex {
 
 			// Add actions:
 			for (SexActionInterface sexAction : sexManager.getActionsAvailablePartner()) {
-				if (sexAction.isAddedToAvailableSexActions() && (partnerAllowedToUseSelfActions?true:(!sexAction.isPartnerSelfPenetration()))) {
-					
-					if(Main.game.isNonConEnabled()
-							&& getSexPacePartner()==SexPace.SUB_RESISTING
-							&& ((sexAction.getSexPacePartner()!=null && sexAction.getSexPacePartner()!=SexPace.SUB_RESISTING) || sexAction.isPartnerSelfAction())) {
-						// Do not add action if the partner is resisting and this action is SUB_EAGER or SUB_NORMAL or is a self action
+				if (!(sexAction.isPartnerSelfAction()
+						&& !partnerAllowedToUseSelfActions)) {
+					if (sexAction.isAddedToAvailableSexActions()
+							&& (partnerAllowedToUseSelfActions ? true : (!sexAction.isPartnerSelfPenetration()))) {
 						
-					} else if(sexAction.getSexPacePartner()!=null && getSexPacePartner()!=sexAction.getSexPacePartner()) {
-						// Do not add action if action does not correspond to the partner's preferred action pace
-						
-					} else {
-						// Add action as normal:
-						switch(sexAction.getPriority()){
+						if (Main.game.isNonConEnabled()
+								&& getSexPacePartner() == SexPace.SUB_RESISTING
+								&& ((sexAction.getSexPacePartner() != null
+										&& sexAction.getSexPacePartner() != SexPace.SUB_RESISTING)
+										|| sexAction.isPartnerSelfAction())) {
+							// Do not add action if the partner is resisting and
+							// this action is SUB_EAGER or SUB_NORMAL or is a
+							// self action
+
+						} else if (sexAction.getSexPacePartner() != null
+								&& getSexPacePartner() != sexAction.getSexPacePartner()) {
+							// Do not add action if action does not correspond
+							// to the partner's preferred action pace
+
+						} else {
+							// Add action as normal:
+							switch (sexAction.getPriority()) {
 							case LOW:
 								lowPriority.add(sexAction);
 								break;
@@ -968,6 +977,7 @@ public enum Sex {
 							case UNIQUE_MAX:
 								uniqueMax.add(sexAction);
 								break;
+							}
 						}
 					}
 				}

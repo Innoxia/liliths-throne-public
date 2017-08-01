@@ -12,6 +12,7 @@ import com.base.game.character.attributes.Attribute;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.body.types.VaginaType;
 import com.base.game.dialogue.utils.UtilText;
+import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Util.ListValue;
@@ -42,15 +43,7 @@ public enum Fetish implements PerkInterface {
 							+ Colour.GENERIC_SEX.toWebHexString()
 							+ ";'>anal tease</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -75,15 +68,7 @@ public enum Fetish implements PerkInterface {
 			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cum addict tease</span>"),
 					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cum stud tease</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -108,15 +93,7 @@ public enum Fetish implements PerkInterface {
 			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cum stud tease</span> (Requires penis)"),
 					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cum addict tease</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -130,6 +107,11 @@ public enum Fetish implements PerkInterface {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.THREE_DIRTY;
 		}
+
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return character.hasPenis();
+		}
 	},
 	
 	FETISH_MASTURBATION(60,
@@ -140,15 +122,6 @@ public enum Fetish implements PerkInterface {
 			Util.newArrayListOfValues(
 					new ListValue<>("<span style='color:"+ Colour.TEXT_GREY.toWebHexString()+ ";'>No special abilities</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -172,15 +145,6 @@ public enum Fetish implements PerkInterface {
 			null,
 			Util.newArrayListOfValues(new ListValue<>("Gain <span style='color:"+ Colour.GENERIC_EXPERIENCE.toWebHexString()+ ";'>xp</span> from <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>taking virginities</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -207,15 +171,6 @@ public enum Fetish implements PerkInterface {
 					new ListValue<>("<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Gain</span> <span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>'pure virgin'</span>"),
 					new ListValue<>("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Suffer</span> <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>'broken virgin'</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -233,26 +188,9 @@ public enum Fetish implements PerkInterface {
 		}
 		
 		@Override
-		public boolean isAvailable(GameCharacter character, List<PerkInterface> additionalPerks) {
-			
-			if(character.getVaginaType()==VaginaType.NONE)
-				return false;
-			
-			if(!character.isVaginaVirgin())
-				return false;
-
-			if (this.getPreviousLevelPerk() != null) {
-				if (additionalPerks == null) {
-					if (character.hasFetish(this.getPreviousLevelPerk()))
-						return true;
-				} else {
-					if (character.hasFetish(this.getPreviousLevelPerk())
-							|| additionalPerks.contains(this.getPreviousLevelPerk()))
-						return true;
-				}
-				return false;
-			} else
-				return true;
+		public boolean isAvailable(GameCharacter character) {
+			return character.hasVagina()
+					&& character.isVaginaVirgin();
 		}
 
 		@Override
@@ -302,15 +240,6 @@ public enum Fetish implements PerkInterface {
 							+ Colour.GENERIC_SEX.toWebHexString()
 							+ ";'>oral tease</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -346,15 +275,6 @@ public enum Fetish implements PerkInterface {
 							+ Colour.GENERIC_SEX.toWebHexString()
 							+ ";'>breast tease</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -386,15 +306,6 @@ public enum Fetish implements PerkInterface {
 					+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>fertility tease</span> (Requires vagina)"),
 					new ListValue<>("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Weak to</span> <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>virility tease</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -405,6 +316,11 @@ public enum Fetish implements PerkInterface {
 			}
 		}
 		
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return character.hasVagina();
+		}
+
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.TWO_HORNY;
@@ -420,15 +336,6 @@ public enum Fetish implements PerkInterface {
 					+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>virility tease</span> (Requires penis)"),
 					new ListValue<>("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Weak to</span> <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>fertility tease</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -439,6 +346,11 @@ public enum Fetish implements PerkInterface {
 			}
 		}
 		
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return character.hasPenis();
+		}
+
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.TWO_HORNY;
@@ -452,15 +364,6 @@ public enum Fetish implements PerkInterface {
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 10)),
 			Util.newArrayListOfValues(new ListValue<>("2 x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Children in mothered litters</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -486,15 +389,6 @@ public enum Fetish implements PerkInterface {
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 10)),
 			Util.newArrayListOfValues(new ListValue<>("2 x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Children in fathered litters</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -505,6 +399,11 @@ public enum Fetish implements PerkInterface {
 			}
 		}
 		
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return character.hasPenis();
+		}
+
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.TWO_HORNY;
@@ -521,15 +420,6 @@ public enum Fetish implements PerkInterface {
 					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>forced transformations</span>"),
 					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Not yet implemented!</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -557,15 +447,6 @@ public enum Fetish implements PerkInterface {
 					+ Colour.GENERIC_SEX.toWebHexString()
 					+ ";'>Talk like a bimbo</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -575,6 +456,12 @@ public enum Fetish implements PerkInterface {
 				return UtilText.genderParsing(owner, owner.getName("The")
 						+ " loves acting like a complete bimbo.");
 		}
+
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return character.isFeminine();
+		}
+
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.ONE_VANILLA;
@@ -588,15 +475,6 @@ public enum Fetish implements PerkInterface {
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 10)),
 			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to clothing femininity status effects</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -620,15 +498,6 @@ public enum Fetish implements PerkInterface {
 			Util.newArrayListOfValues(
 					new ListValue<>("Unlocks <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Deny</span> in non-submissive sex")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -659,15 +528,6 @@ public enum Fetish implements PerkInterface {
 							+ Colour.GENERIC_SEX.toWebHexString()
 							+ ";'>submissive tease</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -702,15 +562,6 @@ public enum Fetish implements PerkInterface {
 							+ Colour.GENERIC_ARCANE.toWebHexString()
 							+ ";'>submissive sex</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -737,15 +588,6 @@ public enum Fetish implements PerkInterface {
 							+ Colour.GENERIC_BAD.toWebHexString()
 							+ ";'>Partly implemented</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -774,15 +616,6 @@ public enum Fetish implements PerkInterface {
 					+ Colour.GENERIC_GOOD.toWebHexString()
 					+ ";'>with beneficial versions</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -809,15 +642,6 @@ public enum Fetish implements PerkInterface {
 					+ Colour.DAMAGE_TYPE_MANA.toWebHexString()
 					+ ";'>willpower damage</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -840,15 +664,6 @@ public enum Fetish implements PerkInterface {
 			Util.newArrayListOfValues(new ListValue<>("You take 10% of dealt <span style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>health damage</span> as "
 					+ " <span style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>willpower damage</span>")),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -874,16 +689,6 @@ public enum Fetish implements PerkInterface {
 					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Non-consensual scenes</span>")),
 			null) {
 		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
 				return "You love nothing more than when someone's being forced, against their will, to have sex. The more they're struggling, the more you get turned on...";
@@ -892,6 +697,14 @@ public enum Fetish implements PerkInterface {
 				return UtilText.parse(owner, "[npc.Name] has a fetish for non-consensual encounters.");
 			}
 		}
+
+		// ONLY IF THE PLAYER HAS IT!
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return character.isPlayer()
+					|| Main.game.getPlayer().hasFetish(this);
+		}
+
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.THREE_DIRTY;
@@ -911,15 +724,6 @@ public enum Fetish implements PerkInterface {
 			Util.newArrayListOfValues(
 					new ListValue<>(Fetish.FETISH_DOMINANT),
 					new ListValue<>(Fetish.FETISH_SUBMISSIVE))) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -947,15 +751,6 @@ public enum Fetish implements PerkInterface {
 					new ListValue<>(Fetish.FETISH_IMPREGNATION),
 					new ListValue<>(Fetish.FETISH_BROODMOTHER),
 					new ListValue<>(Fetish.FETISH_SEEDER))) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -981,15 +776,6 @@ public enum Fetish implements PerkInterface {
 			Util.newArrayListOfValues(
 					new ListValue<>(Fetish.FETISH_SADIST),
 					new ListValue<>(Fetish.FETISH_MASOCHIST))) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return UtilText.parsePlayerThought("");
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1081,22 +867,11 @@ public enum Fetish implements PerkInterface {
 
 	@Override
 	public boolean isAvailable(GameCharacter character, List<PerkInterface> additionalPerks) {
-		if (this.getPreviousLevelPerk() != null) {
-			if (additionalPerks == null) {
-				if (character.hasFetish(this.getPreviousLevelPerk()))
-					return true;
-			} else {
-				if (character.hasFetish(this.getPreviousLevelPerk())
-						|| additionalPerks.contains(this.getPreviousLevelPerk()))
-					return true;
-			}
-			return false;
-		} else
-			return true;
+		return true;
 	}
 	
 	private static List<String> perkRequirementsList = new ArrayList<>();
-	
+
 	@Override
 	public List<String> getPerkRequirements(GameCharacter character, List<PerkInterface> additionalPerks) {
 		perkRequirementsList.clear();
@@ -1139,10 +914,14 @@ public enum Fetish implements PerkInterface {
 	}
 
 	@Override
-	public abstract String applyPerkGained(GameCharacter character);
+	public String applyPerkGained(GameCharacter character) {
+		return UtilText.parsePlayerThought("");
+	}
 
 	@Override
-	public abstract String applyPerkLost(GameCharacter character);
+	public String applyPerkLost(GameCharacter character) {
+		return UtilText.parsePlayerThought("");
+	}
 
 	@Override
 	public Fetish getPreviousLevelPerk() {
