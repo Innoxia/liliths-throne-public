@@ -1414,7 +1414,7 @@ public abstract class NPC extends GameCharacter {
 								return UtilText.returnStringAtRandom(
 										"That's right slut, take my cock! Your pussy belongs to me!",
 										"What a horny bitch! Take my cock you slut!",
-										"You feel that, fuck toy?! My cock sinking deep into your slutty little cunt?!");
+										"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little cunt?!");
 							case SUB_EAGER:
 								return UtilText.returnStringAtRandom(
 										"Yes! Use my cock! I love your pussy!",
@@ -1452,7 +1452,7 @@ public abstract class NPC extends GameCharacter {
 								return UtilText.returnStringAtRandom(
 										"That's right slut, feel my [npc.tail] pushing deep into your worthless little cunt! Your pussy belongs to me!",
 										"What a horny bitch! Now moan for me as I fuck you with my tail!",
-										"You feel that fuck toy?! My [npc.tail] sinking deep into your slutty little cunt?!");
+										"You feel that, fuck toy?! Do you feel my  [npc.tail] sinking deep into your slutty little cunt?!");
 							case SUB_EAGER:
 								return UtilText.returnStringAtRandom(
 										"Yes! Use my [npc.tail]! I love your pussy!",
@@ -1592,7 +1592,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my cock! Your ass belongs to me!",
 									"What a horny bitch! Take my cock you filthy little butt-slut!",
-									"You feel that fuck toy?! My cock sinking deep into your slutty little ass?!");
+									"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little ass?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my cock! I love your ass!",
@@ -1630,7 +1630,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right bitch, feel my [npc.tail] pushing deep into your slutty ass!",
 									"What a horny slut! Now moan for me as I fuck your ass with my tail!",
-									"You feel that fuck toy?! My [npc.tail] sinking deep into your slutty little ass?!");
+									"You feel that, fuck toy?! Do you feel my  [npc.tail] sinking deep into your slutty little ass?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my [npc.tail]! I love your ass!",
@@ -1948,7 +1948,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my cock! Feel it pushing deep into your nipple!",
 									"What a horny bitch! Taking my cock deep into your tit like a slut!",
-									"You feel that fuck toy?! My cock sinking deep into your slutty little nipple?!");
+									"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little nipple?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my cock! I love your tits!",
@@ -1986,7 +1986,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my [npc.tail]! Feel it pushing deep into your nipple!",
 									"What a horny bitch! Taking my [npc.tail] deep into your tit like a slut!",
-									"You feel that fuck toy?! My [npc.tail] sinking deep into your slutty little nipple?!");
+									"You feel that, fuck toy?! Do you feel my  [npc.tail] sinking deep into your slutty little nipple?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my [npc.tail]! I love your tits!",
@@ -3002,7 +3002,7 @@ public abstract class NPC extends GameCharacter {
 								return UtilText.returnStringAtRandom(
 										"That's right slut, take my cock! Your pussy belongs to me!",
 										"What a horny bitch! Take my cock you slut!",
-										"You feel that fuck toy?! My cock sinking deep into your slutty little cunt?!");
+										"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little cunt?!");
 							case SUB_EAGER:
 								return UtilText.returnStringAtRandom(
 										"Yes! Use my cock! I love your pussy!",
@@ -3040,7 +3040,7 @@ public abstract class NPC extends GameCharacter {
 								return UtilText.returnStringAtRandom(
 										"That's right slut, feel my [pc.tail] pushing deep into your worthless little cunt! Your pussy belongs to me!",
 										"What a horny bitch! Now moan for me as I fuck you with my tail!",
-										"You feel that fuck toy?! My [pc.tail] sinking deep into your slutty little cunt?!");
+										"You feel that, fuck toy?! Do you feel my  [pc.tail] sinking deep into your slutty little cunt?!");
 							case SUB_EAGER:
 								return UtilText.returnStringAtRandom(
 										"Yes! Use my [pc.tail]! I love your pussy!",
@@ -3180,7 +3180,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my cock! Your ass belongs to me!",
 									"What a horny bitch! Take my cock you filthy little butt-slut!",
-									"You feel that fuck toy?! My cock sinking deep into your slutty little ass?!");
+									"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little ass?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my cock! I love your ass!",
@@ -3218,7 +3218,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right bitch, feel my [pc.tail] pushing deep into your slutty ass!",
 									"What a horny slut! Now moan for me as I fuck your ass with my tail!",
-									"You feel that fuck toy?! My [pc.tail] sinking deep into your slutty little ass?!");
+									"You feel that, fuck toy?! Do you feel my  [pc.tail] sinking deep into your slutty little ass?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my [pc.tail]! I love your ass!",
@@ -3534,7 +3534,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my cock! Feel it pushing deep into your nipple!",
 									"What a horny bitch! Taking my cock deep into your tit like a slut!",
-									"You feel that fuck toy?! My cock sinking deep into your slutty little nipple?!");
+									"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little nipple?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my cock! I love your tits!",
@@ -3572,7 +3572,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my [pc.tail]! Feel it pushing deep into your nipple!",
 									"What a horny bitch! Taking my [pc.tail] deep into your tit like a slut!",
-									"You feel that fuck toy?! My [pc.tail] sinking deep into your slutty little nipple?!");
+									"You feel that, fuck toy?! Do you feel my  [pc.tail] sinking deep into your slutty little nipple?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my [pc.tail]! I love your tits!",

@@ -397,10 +397,10 @@ public class Util {
 		utilitiesStringBuilder.setLength(0);
 
 		// 1 in "frequency" words are bimbo interjections, with a minimum of 1.
-		int wordsToBimboify = splitSentence.length / frequency + 1;
+		int wordsToBimbofy = splitSentence.length / frequency + 1;
 
 		int offset = 0;
-		for (int i = 0; i < wordsToBimboify; i++) {
+		for (int i = 0; i < wordsToBimbofy; i++) {
 			offset = random.nextInt(frequency);
 			offset = ((i * frequency + offset) >= splitSentence.length ? splitSentence.length - 1 : (i * frequency + offset));
 			if (offset != 0) {

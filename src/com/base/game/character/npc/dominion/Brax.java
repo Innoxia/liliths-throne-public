@@ -100,7 +100,7 @@ public class Brax extends NPC {
 	
 	@Override
 	public String getDescription() {
-		if(Main.game.getDialogueFlags().bimboifiedBrax) {
+		if(Main.game.getDialogueFlags().bimbofiedBrax) {
 			return "The one-time 'Chief of Dominion Operations', [brax.name] is now completely unrecognisable from [brax.her] former self."
 					+ " With some help from Candi, she's been transformed into a brain-dead bimbo, who can only think about where the next cock is coming from.";
 			
@@ -185,7 +185,7 @@ public class Brax extends NPC {
 	
 	@Override
 	public SexPace getSexPaceSubPreference(){
-		if(Main.game.getDialogueFlags().bimboifiedBrax) {
+		if(Main.game.getDialogueFlags().bimbofiedBrax) {
 			return SexPace.SUB_EAGER;
 			
 		} else if(Main.game.getDialogueFlags().feminisedBrax) {
@@ -204,7 +204,7 @@ public class Brax extends NPC {
 	@Override
 	public String getSpeechColour() {
 		if(Main.getProperties().lightTheme) {
-			if(Main.game.getDialogueFlags().bimboifiedBrax) {
+			if(Main.game.getDialogueFlags().bimbofiedBrax) {
 				return "#FF0AA5";
 			} else if(Main.game.getDialogueFlags().feminisedBrax) {
 				return "#C60AFF";
@@ -213,7 +213,7 @@ public class Brax extends NPC {
 			}
 			
 		} else {
-			if(Main.game.getDialogueFlags().bimboifiedBrax) {
+			if(Main.game.getDialogueFlags().bimbofiedBrax) {
 				return "#E36DE1";
 			} else if(Main.game.getDialogueFlags().feminisedBrax) {
 				return "#D79EFF";
@@ -650,7 +650,7 @@ public class Brax extends NPC {
 			}
 		}
 	};
-	public static final DialogueNodeOld AFTER_DEFEAT_TRANSFORMATION = new DialogueNodeOld("Brax's Office", "-", true, true) {
+	public static final DialogueNodeOld AFTER_DEFEAT_TRANSFORMATION = new DialogueNodeOld("Brax's Office", "In Brax's Office after being forced to drink the potion.", true, true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -782,7 +782,7 @@ public class Brax extends NPC {
 		}
 	};
 
-	public static final DialogueNodeOld AFTER_DOMINANT_SEX = new DialogueNodeOld("Brax collapses", "", true) {
+	public static final DialogueNodeOld AFTER_DOMINANT_SEX = new DialogueNodeOld("Brax collapses", "Brax collapses and you return to his office.", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override

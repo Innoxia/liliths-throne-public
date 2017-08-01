@@ -579,7 +579,7 @@ public enum Race {
 	 * +
 	 * " This is an illusion however, and a closer inspection will reveal all the slimes are linked together into one slime queen."
 	 * +
-	 * " Each outer slime will take on the appearance of the slime that the queen absobed, although none are permitted to be more attractive than the queen herself.</p>"
+	 * " Each outer slime will take on the appearance of the slime that the queen absorbed, although none are permitted to be more attractive than the queen herself.</p>"
 	 * ,
 	 * 
 	 * "Slime queens are only ever female in appearance.",

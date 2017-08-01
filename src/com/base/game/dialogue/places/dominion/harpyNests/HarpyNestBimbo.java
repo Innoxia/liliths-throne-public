@@ -158,7 +158,7 @@ public class HarpyNestBimbo {
 										+ " [bimboHarpy.speechNoEffects(I mean, like, only if you want to and stuff!)]"
 							+ "</p>"
 							+ "<p>"
-								+ "One of her feathered hands sinks down between her legs, and she leans back on her knees, presenting panties to you as she starts rubbing at the fabric."
+								+ "One of her feathered hands sinks down between her legs, and she leans back on her knees, presenting her panties to you as she starts rubbing at the fabric."
 								+ " Several members of her inner-circle start mimicking her behaviour, and, shuffling ever closer, [bimboHarpy.name] moans out loud,"
 								+ " [bimboHarpy.speechNoEffects(Ah! Please! Fuck me!)]"
 							+ "</p>";
