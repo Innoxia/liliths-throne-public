@@ -320,17 +320,17 @@ public abstract class NPC extends GameCharacter {
 			
 			if(this.hasFetish(Fetish.FETISH_ANAL) && canUseAnus()) {
 				sexPositionPreferences.add(SexPosition.DOGGY_PARTNER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER_BEHIND);
+				sexPositionPreferences.add(SexPosition.FACING_WALL_PARTNER);
 			}
 			
 			if(this.hasFetish(Fetish.FETISH_PREGNANCY) && canUseVagina()) {
 				sexPositionPreferences.add(SexPosition.DOGGY_PARTNER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER_BEHIND);
-				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER_IN_CHARGE);
+				sexPositionPreferences.add(SexPosition.FACING_WALL_PARTNER);
+				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PARTNER);
 			}
 
 			if(this.hasFetish(Fetish.FETISH_IMPREGNATION) && canUsePenis()) {
-				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER_IN_CHARGE);
+				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PARTNER);
 			}
 			
 			if(getRace()==Race.DOG_MORPH || getRace()==Race.WOLF_MORPH) {
@@ -350,17 +350,17 @@ public abstract class NPC extends GameCharacter {
 			
 			if(hasFetish(Fetish.FETISH_ANAL) && canUsePenis() && playerCanUseAnus()) {
 				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPosition.FACING_WALL_PARTNER_BEHIND);
+				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
 			}
 			
 			if(this.hasFetish(Fetish.FETISH_IMPREGNATION) && canUsePenis() && playerCanUseVagina()) {
 				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPosition.FACING_WALL_PARTNER_BEHIND);
-				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PARTNER_IN_CHARGE);
+				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
+				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
 			}
 			
 			if(this.hasFetish(Fetish.FETISH_PREGNANCY) && playerCanUsePenis() && canUseVagina()) {
-				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PARTNER_IN_CHARGE);
+				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
 			}
 			
 			if((getRace()==Race.DOG_MORPH || getRace()==Race.WOLF_MORPH) && canUsePenis() && canUseVagina()) {

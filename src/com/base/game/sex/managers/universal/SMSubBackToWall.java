@@ -112,7 +112,7 @@ public class SMSubBackToWall extends SexManagerDefault {
 	
 	@Override
 	public SexPosition getPosition() {
-		return SexPosition.BACK_TO_WALL_PARTNER_IN_CHARGE;
+		return SexPosition.BACK_TO_WALL_PLAYER;
 	}
 
 	@Override

@@ -1131,7 +1131,7 @@ public class EnforcerHQDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "Before you have any time to comment on her new body and personality, Candi grabs her arm and pulls her into her office, shouting behind her,"
-							+ " [candi.speechNoEffects(I'm gonna give Brandi some of my old clothes, give us five minutes, then come have some fun with her!)]"
+							+ " [candi.speechNoEffects(I'm gonna give Brandi some of my old clothes, give us five mins, then come have some fun with her!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "You could either do as Candi says, and go into the office after five minutes, or leave and come back another time to have some fun with Brandi."

@@ -317,7 +317,7 @@ public class PlayerPenisVagina {
 						break;
 				}
 				
-			} else if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PLAYER_IN_CHARGE) {// Back-to-wall penetration descriptions:
+			} else if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER) {// Back-to-wall penetration descriptions:
 				
 				switch(Sex.getSexPacePlayer()) {
 					case DOM_GENTLE:
@@ -467,7 +467,7 @@ public class PlayerPenisVagina {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PLAYER_IN_CHARGE) {// Back-to-wall descriptions:
+			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER) {// Back-to-wall descriptions:
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
@@ -706,7 +706,7 @@ public class PlayerPenisVagina {
 						break;
 				}
 				
-			} else if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PLAYER_IN_CHARGE) {// Back-to-wall descriptions:
+			} else if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER) {// Back-to-wall descriptions:
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
@@ -1221,7 +1221,7 @@ public class PlayerPenisVagina {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PLAYER_IN_CHARGE) {// Back-to-wall descriptions:
+			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER) {// Back-to-wall descriptions:
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Reaching down to gently take hold of [npc.name]'s [npc.hips+], you start bucking back and forth, pressing [npc.herHim] against the wall as you repeatedly impale your [pc.pussy+] on [npc.her] [npc.cock+].",
@@ -1310,7 +1310,7 @@ public class PlayerPenisVagina {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER_IN_CHARGE) {// Back-to-wall descriptions:
+			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PLAYER) {// Back-to-wall descriptions:
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				

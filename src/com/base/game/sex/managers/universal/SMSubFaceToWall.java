@@ -106,7 +106,7 @@ public class SMSubFaceToWall extends SexManagerDefault {
 	
 	@Override
 	public SexPosition getPosition() {
-		return SexPosition.FACING_WALL_PARTNER_BEHIND;
+		return SexPosition.FACING_WALL_PLAYER;
 	}
 
 	@Override

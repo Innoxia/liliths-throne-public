@@ -23,6 +23,9 @@
 		<b>Added:</b> A lore book for each of the game's races, which have a chance to be randomly dropped as loot after combat.
 		Added Lilaya's Library text, as well as entries for the new lore books (once they've been found).
 		
+	Sex:
+		<b>Added:</b> Dominant kneeling position (for both player and NPCs).
+		
 	Other:
 		Renamed 'City gym' to 'Pix's Playground'.
 		Improved dialogue flow in all of the shops in the Shopping Arcane. (They now all have an 'exterior' scene.)

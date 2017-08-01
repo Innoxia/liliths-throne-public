@@ -28,6 +28,7 @@ public class SexFlags implements Serializable {
 	requestedBackToWall,
 	requestedFaceToWall,
 	requestedKneeling,
+	requestedSelfKneeling,
 	
 	// Brax: TODO Temporary awaiting Brax rewrite
 	braxCumOnChest,
@@ -84,6 +85,7 @@ public class SexFlags implements Serializable {
 		requestedBackToWall = false;
 		requestedFaceToWall = false;
 		requestedKneeling = false;
+		requestedSelfKneeling = false;
 	}
 
 }

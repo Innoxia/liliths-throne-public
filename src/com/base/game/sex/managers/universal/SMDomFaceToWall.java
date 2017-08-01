@@ -106,7 +106,7 @@ public class SMDomFaceToWall extends SexManagerDefault {
 	
 	@Override
 	public SexPosition getPosition() {
-		return SexPosition.FACING_WALL_PLAYER_BEHIND;
+		return SexPosition.FACING_WALL_PARTNER;
 	}
 
 	@Override
