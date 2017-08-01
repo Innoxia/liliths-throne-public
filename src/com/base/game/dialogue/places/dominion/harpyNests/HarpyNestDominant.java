@@ -166,7 +166,7 @@ public class HarpyNestDominant {
 						+ "</p>"
 						+ "<p>"
 							+ "Jumping down off of her podium, [harpyDominant.name] falls to her knees before you."
-							+ " Noticing what's going on, [harpyDominantComapnion.name] lets out a little squeak, and, pulling out of her fuck-toy, jumps down onto her knees beside her matriarch."
+							+ " Noticing what's going on, [harpyDominantCompanion.name] lets out a little squeak, and, pulling out of her fuck-toy, jumps down onto her knees beside her matriarch."
 							+ " Shuffling forwards, [harpyDominant.Name] bows her head, before asking,"
 							+ " [harpyDominant.speech(What can I do for you "+(Main.game.getPlayer().isFeminine()?"Mistress":"Master")+"?!)]"
 						+ "</p>";

@@ -313,12 +313,12 @@ public abstract class NPC extends GameCharacter {
 		// Doggy, kneeling, 69, wall back, wall front
 		
 		if(Sex.isPlayerDom()) { // These are irrelevant, as the player can always choose what to do if they're the dom:
-			if(hasFetish(Fetish.FETISH_ORAL) && canUseMouth()) {
+			if(hasFetish(Fetish.FETISH_ORAL_GIVING) && canUseMouth()) {
 				sexPositionPreferences.add(SexPosition.KNEELING_PARTNER_PERFORMING_ORAL);
 				sexPositionPreferences.add(SexPosition.SIXTY_NINE_PLAYER_TOP);
 			}
 			
-			if(this.hasFetish(Fetish.FETISH_ANAL) && canUseAnus()) {
+			if(this.hasFetish(Fetish.FETISH_ANAL_RECEIVING) && canUseAnus()) {
 				sexPositionPreferences.add(SexPosition.DOGGY_PARTNER_ON_ALL_FOURS);
 				sexPositionPreferences.add(SexPosition.FACING_WALL_PARTNER);
 			}
@@ -338,7 +338,7 @@ public abstract class NPC extends GameCharacter {
 			}
 			
 		} else { // Taking into account partner and player body parts and accessibility:
-			if(hasFetish(Fetish.FETISH_ORAL)) {
+			if(hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
 				if(playerCanUseMouth() && (canUsePenis() || canUseVagina())) {
 					sexPositionPreferences.add(SexPosition.KNEELING_PLAYER_PERFORMING_ORAL);
 				}
@@ -348,7 +348,7 @@ public abstract class NPC extends GameCharacter {
 				}
 			}
 			
-			if(hasFetish(Fetish.FETISH_ANAL) && canUsePenis() && playerCanUseAnus()) {
+			if(hasFetish(Fetish.FETISH_ANAL_GIVING) && canUsePenis() && playerCanUseAnus()) {
 				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
 				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
 			}

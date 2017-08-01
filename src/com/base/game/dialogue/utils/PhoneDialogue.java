@@ -1482,14 +1482,14 @@ public class PhoneDialogue {
 										? " owned' style='border:4px solid " + PerkTree.getPerkGrid()[i / 2][j - 1].getPerkCategory().getColour().toWebHexString() + ";'>"
 										: (PerkTree.getPerkGrid()[i / 2][j - 1].isAvailable(Main.game.getPlayer(), levelUpPerks)
 												? " unlocked' style='border:4px solid " + (levelUpPerks.contains(PerkTree.getPerkGrid()[i / 2][j - 1]) ? Colour.GENERIC_EXCELLENT.toWebHexString() + ";"
-														: PerkTree.getPerkGrid()[i / 2][j - 1].getPerkCategory().getColour().getShades()[1] + ";") + "'>"
+														: PerkTree.getPerkGrid()[i / 2][j - 1].getPerkCategory().getColour().getShades()[0] + ";") + "'>"
 												: " locked' style='border:4px solid " + Colour.TEXT_GREY.toWebHexString() + ";'>"))
 										+ PerkTree.getPerkGrid()[i / 2][j - 1].getSVGString()
 										+ (Main.game.getPlayer().hasPerk(PerkTree.getPerkGrid()[i / 2][j - 1]) || levelUpPerks.contains(PerkTree.getPerkGrid()[i / 2][j - 1]) // Overlay to create disabled effect:
 												? ""
 												: (PerkTree.getPerkGrid()[i / 2][j - 1].isAvailable(Main.game.getPlayer(), levelUpPerks)
-														? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.2; border-radius:5px;'></div>"
-														: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.3; border-radius:5px;'></div>"))
+														? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
+														: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>"))
 										+ "</td>");
 							} else
 								journalSB.append("<td class='perkCell'></td>");
@@ -1588,10 +1588,9 @@ public class PhoneDialogue {
 		public String getHeaderContent() {
 			journalSB = new StringBuilder(
 					"<div class='statsDescriptionBox'>"
-						+ "You can unlock fetishes by using the arcane essences that you've gathered (from orgasming in sex)."
+						+ "You can unlock fetishes by using <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>arcane essences</b> (gain from from orgasming in sex)."
 						+ " <b>Your first fetish is free</b>, but it will cost you <b>five</b> arcane essences for each one you unlock after that."
-						+ "</br></br>"
-						+ "Derived fetishes cannot be directly unlocked, but are instead automatically unlocked when you meet their requirements."
+						+ " Derived fetishes cannot be directly unlocked, but are instead automatically unlocked when you meet their requirements."
 					+ "</div>"
 						
 					+"<div class='extraAttribute-third'>"
@@ -1659,8 +1658,8 @@ public class PhoneDialogue {
 							+ (Main.game.getPlayer().hasFetish(fetish) || levelUpFetishes.contains(fetish) // Overlay to create disabled effect:
 									? ""
 									: (fetish.isAvailable(Main.game.getPlayer(), levelUpFetishes)
-											? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.3; border-radius:5px;'></div>"
-											: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.6; border-radius:5px;'></div>"))
+											? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
+											: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>"))
 							+ "</div>");
 			}
 			
@@ -1682,7 +1681,7 @@ public class PhoneDialogue {
 							+ "<div class='fetish-icon-content'>"+fetish.getSVGString()+"</div>"
 							+ (Main.game.getPlayer().hasFetish(fetish) // Overlay to create disabled effect:
 									? ""
-									: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.3; border-radius:5px;'></div>")
+									: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>")
 							+ "</div>");
 			}
 			journalSB.append("</div>");

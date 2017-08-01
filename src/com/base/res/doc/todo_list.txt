@@ -20,11 +20,15 @@
 	Patch notes:
 		
 	Gameplay:
+		<b>Changed:</b> Split up anal, oral, and breast fetishes into giving and receiving variants, with associated tease attacks.
 		<b>Added:</b> A lore book for each of the game's races, which have a chance to be randomly dropped as loot after combat.
 		Added Lilaya's Library text, as well as entries for the new lore books (once they've been found).
 		
 	Sex:
 		<b>Added:</b> Dominant kneeling position (for both player and NPCs).
+		
+	UI:
+		Made perks slightly easier to distinguish between owned and unowned. (I'm going to do a big rework of this screen soon.)
 		
 	Other:
 		Renamed 'City gym' to 'Pix's Playground'.
@@ -39,19 +43,22 @@
 	
 	
 	
+	SABraxDom????
+	
+	NPC position preferences
+	(+ remove fetishes)
+	Perk/fetish experience
 	
 	
+	AI in sex, PLEASE FIX
 	
-	
-	
-	
-	
-	Dominant kneeling (+ tit fucking)
+	Dominant kneeling
+		 (+ tit fucking)
+		 + nipple fucking
 		Request nipple penetration
 	
 	Bug fixes
 	
-	Perk screen (+ remove fetishes)
 	
 	Clothing enchanting
 	

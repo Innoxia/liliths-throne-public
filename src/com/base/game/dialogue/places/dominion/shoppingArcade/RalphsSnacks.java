@@ -209,7 +209,7 @@ public class RalphsSnacks {
 		public Response getResponse(int index) {
 			if (index == 1) {
 				return new ResponseSex("Agree", "Agree to do as Ralph says and suck his cock.", INTERIOR_ASK_FOR_DISCOUNT,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL)), null, CorruptionLevel.TWO_HORNY,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING)), null, CorruptionLevel.TWO_HORNY,
 						null, null, null,
 						Main.game.getRalph(), new SexManagerRalphDiscount(), Ralph.AFTER_SEX, ""){
 					@Override

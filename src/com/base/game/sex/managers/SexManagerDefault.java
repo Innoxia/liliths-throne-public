@@ -341,7 +341,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		}
 		
 		// Ban all anal actions unless the partner has an anal fetish, or if there is no vagina available to use.
-		if(!Sex.getPartner().hasFetish(Fetish.FETISH_ANAL)) {
+		if(!Sex.getPartner().hasFetish(Fetish.FETISH_ANAL_GIVING)) {
 			for(SexActionInterface action : availableActions) {
 				if(action.getAssociatedOrificeType()!=null) {
 					if(action.getAssociatedOrificeType().isAnus()) {
@@ -482,7 +482,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				if(action.getActionType()==SexActionType.PARTNER_PENETRATION) {
 					if(action.getAssociatedPenetrationType().isPenis() || action.getAssociatedPenetrationType().isTail() || action.getAssociatedPenetrationType().isTentacle()) {
 						// Anal penetrations:
-						if((Sex.getPartner().hasFetish(Fetish.FETISH_ANAL) || Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS_PLAYER)) && action.getAssociatedOrificeType()!=null) {
+						if((Sex.getPartner().hasFetish(Fetish.FETISH_ANAL_GIVING) || Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS_PLAYER)) && action.getAssociatedOrificeType()!=null) {
 							if(action.getAssociatedOrificeType().isAnus()) {
 								returnableActions.add(action);
 							}

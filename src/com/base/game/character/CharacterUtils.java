@@ -944,7 +944,7 @@ public class CharacterUtils {
 		}
 		
 		//Ass:
-		if(character.hasFetish(Fetish.FETISH_ANAL)) {
+		if(character.hasFetish(Fetish.FETISH_ANAL_RECEIVING)) {
 			character.setAssVirgin(false);
 			character.setAssCapacity(character.getAssRawCapacityValue()*1.2f);
 			character.setAssStretchedCapacity(character.getAssRawCapacityValue());
@@ -970,7 +970,7 @@ public class CharacterUtils {
 		}
 		
 		// Face:
-		if(character.hasFetish(Fetish.FETISH_ORAL)) {
+		if(character.hasFetish(Fetish.FETISH_ORAL_GIVING)) {
 			character.setFaceCapacity(Capacity.FIVE_ROOMY.getMedianValue());
 			character.setFaceStretchedCapacity(character.getFaceRawCapacityValue());
 			character.setFaceVirgin(false);

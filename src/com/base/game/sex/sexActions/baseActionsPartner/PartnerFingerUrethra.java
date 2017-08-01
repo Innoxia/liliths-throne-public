@@ -181,16 +181,6 @@ public class PartnerFingerUrethra {
 							"Running [npc.her] [npc.fingers+] over your [pc.balls+], [npc.name] starts to stroke and cup them, letting out [npc.a_moan+] as your [pc.cock+] twitches in response.");
 			}
 		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
-		}
 	};
 	
 }

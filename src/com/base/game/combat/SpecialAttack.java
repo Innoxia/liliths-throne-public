@@ -27,8 +27,8 @@ import com.base.utils.Util.Value;
 public enum SpecialAttack {
 
 	// Special tease attacks from fetishes:
-	TEASE_ANAL(50,
-			"anal tease",
+	TEASE_ANAL_RECEIVING(50,
+			"buttslut tease",
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.MANA,
@@ -86,14 +86,14 @@ public enum SpecialAttack {
 									:"[npc.speech(My slutty asshole <i>needs</i> your cock!)]")));
 			}
 			
-			return applySpecialSeduction(caster, target, Fetish.FETISH_ANAL, attackText);
+			return applySpecialSeduction(caster, target, Fetish.FETISH_ANAL_GIVING, attackText);
 
 		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				return "Due to your anal fetish, you're able to use your ass as a tool to seduce your opponents.";
+				return "Due to your "+Fetish.FETISH_ANAL_RECEIVING.getName(owner)+" fetish, you're able to use your ass as a tool to seduce your opponents.";
 			} else {
 				return UtilText.parse(owner, "[npc.Name] is able to use [npc.her] ass in an attempt to seduce you!");
 			}
@@ -101,7 +101,63 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			return owner.hasFetish(Fetish.FETISH_ANAL);
+			return owner.hasFetish(Fetish.FETISH_ANAL_RECEIVING);
+		}
+	},
+	
+	TEASE_ANAL_GIVING(50,
+			"anal tease",
+			"fetish_generic",
+			Colour.GENERIC_ARCANE,
+			DamageType.MANA,
+			DamageLevel.NORMAL,
+			DamageVariance.LOW,
+			SpecialAttackSpellCosts.MEDIUM,
+			null) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+			
+			String attackText = "";
+			
+			if(caster.isPlayer()) {
+				attackText = (UtilText.returnStringAtRandom(
+						"You grin at [npc.name], before moving your gaze down to [npc.her] [npc.ass+] and [pc.moaning],"
+							+" [pc.speech(Your ass looks like it needs a good fuck!)]",
+
+						"You hungrily stare at [npc.name]'s [npc.ass+], [pc.moaning],"
+							+" [pc.speech(I'm going to fuck that ass so hard!)]",
+
+						"Gazing lustfully at [npc.name]'s [npc.ass+], you let out [pc.a_moan+],"
+							+" [pc.speech(I'm going to pound that sweet ass into the ground!)]"));
+				
+			} else {
+				attackText = (UtilText.returnStringAtRandom(
+						"[npc.Name] grins at you, before moving [npc.her] gaze down to your [pc.ass+] and [npc.moaning],"
+							+" [npc.speech(Your ass looks like it needs a good fuck!)]",
+
+						"[npc.Name] hungrily stares at your [pc.ass+], [npc.moaning],"
+							+" [npc.speech(I'm going to fuck that ass so hard!)]",
+
+						"Gazing lustfully at your [pc.ass+], [npc.name] lets out [npc.a_moan+],"
+							+" [npc.speech(I'm going to pound that sweet ass into the ground!)]"));
+			}
+			
+			return applySpecialSeduction(caster, target, Fetish.FETISH_ANAL_RECEIVING, attackText);
+
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Due to your "+Fetish.FETISH_ANAL_GIVING.getName(owner)+" fetish, you're able to seduce your opponents by telling them how you're going to use their ass.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] is able to tell you how [npc.she]'s going to use your ass in an attempt to seduce you!");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			return owner.hasFetish(Fetish.FETISH_ANAL_GIVING);
 		}
 	},
 	
@@ -223,7 +279,63 @@ public enum SpecialAttack {
 		}
 	},
 	
-	TEASE_ORAL(50, "oral tease", "fetish_generic", Colour.GENERIC_ARCANE,
+	TEASE_ORAL_RECEIVING(50,
+			"oral tease",
+			"fetish_generic",
+			Colour.GENERIC_ARCANE,
+			DamageType.MANA,
+			DamageLevel.NORMAL,
+			DamageVariance.LOW,
+			SpecialAttackSpellCosts.MEDIUM,
+			null) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+			
+			String attackText = "";
+			
+			if(caster.isPlayer()) {
+				attackText = (UtilText.returnStringAtRandom(
+						"You grin at [npc.name], gazing at [npc.her] [npc.lips+] as you [pc.moanVerb],"
+							+" [pc.speech(I can't wait to put your [npc.lips] to use!)]",
+
+						"You hungrily stare at [npc.name]'s [npc.lips+], [pc.moaning],"
+							+" [pc.speech(Your tongue belongs between my [pc.legs]!)]",
+
+						"Gazing lustfully at [npc.name]'s [npc.lips+], you let out [pc.a_moan+],"
+							+" [pc.speech(I'm going to put your [npc.lips] to good use!)]"));
+				
+			} else {
+				attackText = (UtilText.returnStringAtRandom(
+						"[npc.Name] grins at you, gazing at your [pc.lips+] as [npc.she] [npc.moanVerb],"
+							+" [npc.speech(I can't wait to put your [pc.lips] to use!)]",
+
+						"[npc.Name] hungrily stares at your [pc.lips+], [npc.moaning],"
+							+" [npc.speech(Your tongue belongs between my [npc.legs]!)]",
+
+						"Gazing lustfully at your [pc.lips+], [npc.name] lets out [npc.a_moan+],"
+							+" [npc.speech(I'm going to put your [pc.lips] to good use!)]"));
+			}
+			
+			return applySpecialSeduction(caster, target, Fetish.FETISH_ORAL_GIVING, attackText);
+
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Due to your "+Fetish.FETISH_ORAL_RECEIVING.getName(owner)+" fetish, you're able to use a special tease attack!";
+			} else {
+				return UtilText.parse(owner, "[npc.name] is able to use a special "+Fetish.FETISH_ORAL_RECEIVING.getName(owner)+" tease attack!");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			return owner.hasFetish(Fetish.FETISH_ORAL_RECEIVING);
+		}
+	},
+	
+	TEASE_ORAL_GIVING(50, "oral performer tease", "fetish_generic", Colour.GENERIC_ARCANE,
 			DamageType.MANA, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
 			null) {
 		@Override
@@ -276,22 +388,95 @@ public enum SpecialAttack {
 									:"[npc.speech(You know you want me to suck your cock!)]")));
 			}
 			
-			return applySpecialSeduction(caster, target, Fetish.FETISH_ORAL, attackText);
+			return applySpecialSeduction(caster, target, Fetish.FETISH_ORAL_RECEIVING, attackText);
 
 		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				return "Due to your oral fetish, you're able to use a special tease attack!";
+				return "Due to your "+Fetish.FETISH_ORAL_GIVING.getName(owner)+" fetish, you're able to use a special tease attack!";
 			} else {
-				return UtilText.parse(owner, "[npc.name] is able to use a special oral tease attack!");
+				return UtilText.parse(owner, "[npc.name] is able to use a special "+Fetish.FETISH_ORAL_GIVING.getName(owner)+" tease attack!");
 			}
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			return owner.hasFetish(Fetish.FETISH_ORAL);
+			return owner.hasFetish(Fetish.FETISH_ORAL_GIVING);
+		}
+	},
+	
+	TEASE_BREASTS_OTHERS(50,
+			"breasts lover tease",
+			"fetish_generic",
+			Colour.GENERIC_ARCANE,
+			DamageType.MANA,
+			DamageLevel.NORMAL,
+			DamageVariance.LOW,
+			SpecialAttackSpellCosts.MEDIUM,
+			null) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+			
+			String attackText = "";
+			
+			if(caster.isPlayer()) {
+				if(target.hasBreasts()) {
+					attackText = (UtilText.returnStringAtRandom(
+							"You grin at [npc.name], gazing at [npc.her] [npc.breasts+] as you [pc.moanVerb],"
+								+" [pc.speech(I can't wait to get my [pc.hands] on your [npc.breasts]!)]",
+	
+							"You hungrily stare at [npc.name]'s [npc.breasts+], [pc.moaning],"
+								+" [pc.speech(I'm going to have fun playing with those!)]",
+	
+							"Gazing lustfully at [npc.name]'s [npc.breasts+], you let out [pc.a_moan+],"
+								+" [pc.speech(I'm going to have fun those [npc.breasts+] of yours!)]"));
+					
+				} else { //TODO
+					attackText = "Gazing at [npc.name]'s chest, you let out an annoyed huff,"
+									+ " [pc.speech(I wish you had a nice pair of tits that I could use!)]";
+				}
+				
+			} else {
+				if(target.hasBreasts()) {
+					attackText = (UtilText.returnStringAtRandom(
+							"[npc.Name] grins at you, gazing at your [pc.breasts+] as [npc.she] [npc.moanVerb],"
+								+" [npc.speech(I can't wait to put your [pc.lips] to use!)]",
+	
+							"[npc.Name] hungrily stares at your [pc.breasts+], [npc.moaning],"
+								+" [npc.speech(Your going to have fun playing with those!)]",
+	
+							"Gazing lustfully at your [pc.breasts+], [npc.name] lets out [npc.a_moan+],"
+									+" [npc.speech(I'm going to have fun those [pc.breasts+] of yours!)]"));
+					
+				} else { //TODO
+					attackText = "Gazing at your chest, [npc.name] lets out an annoyed huff,"
+									+ " [npc.speech(I wish you had a nice pair of tits that I could use!)]";
+				}
+			}
+			
+			return applySpecialSeduction(caster, target, Fetish.FETISH_BREASTS_SELF, attackText);
+
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Due to your "+Fetish.FETISH_BREASTS_OTHERS.getName(owner)+" fetish, you're able to use a special tease attack!";
+			} else {
+				return UtilText.parse(owner, "[npc.name] is able to use a special "+Fetish.FETISH_BREASTS_OTHERS.getName(owner)+" tease attack!");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			return owner.hasFetish(Fetish.FETISH_BREASTS_OTHERS)
+					&& (Main.game.isInCombat()
+							?(owner.isPlayer()
+									?Combat.getOpponent().hasBreasts()
+									:Main.game.getPlayer().hasBreasts())
+							:true);
 		}
 	},
 	
@@ -348,7 +533,7 @@ public enum SpecialAttack {
 									:"[npc.speech(~Aah!~ My nipples are so hard!)]")));
 			}
 			
-			return applySpecialSeduction(caster, target, Fetish.FETISH_BREASTS, attackText);
+			return applySpecialSeduction(caster, target, Fetish.FETISH_BREASTS_OTHERS, attackText);
 
 		}
 
@@ -363,7 +548,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			return owner.hasFetish(Fetish.FETISH_BREASTS) && owner.hasBreasts();
+			return owner.hasFetish(Fetish.FETISH_BREASTS_SELF) && owner.hasBreasts();
 		}
 	},
 	
