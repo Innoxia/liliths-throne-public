@@ -31,6 +31,7 @@
 		Made perks slightly easier to distinguish between owned and unowned. (I'm going to do a big rework of this screen soon.)
 		
 	Other:
+		Fetishes have been slightly reworked. Instead of the first fetish being free, you now start the game with 5 arcane essences. Fetishes that unlock content (Transformation and Non-con fetishes) are free.
 		Renamed 'City gym' to 'Pix's Playground'.
 		Improved dialogue flow in all of the shops in the Shopping Arcane. (They now all have an 'exterior' scene.)
 		Split encyclopedia entries for race into 'basic' and 'advanced' knowledge. You gain basic knowledge upon encountering a race, and advanced knowledge upon reading a book about that race.
@@ -38,6 +39,11 @@
 	Bugs:
 		Fixed some typos.
 		Fixed some incorrect penis descriptions in doggy-style orgasm scenes.
+		You now correctly start with 40 flames if you skip prologue.
+	
+	
+	
+	
 	
 	
 	
@@ -46,10 +52,9 @@
 	SABraxDom????
 	
 	(+ remove fetishes)
-	Perk/fetish experience
 	
 	
-	AI in sex, PLEASE FIX
+	AI in sex, PLEASE FIX :3
 	
 	Dominant kneeling
 		 (+ tit fucking)
@@ -64,7 +69,7 @@
 	Incest - Romance & slavery
 	
 	
-	
+	Fix this! >:3
 	You don't know what their nipples look like since you've never seen them before" showing up when nipples are exposed fixed itself yet
 	
 	
@@ -75,8 +80,6 @@
 	 in the first turn of sex, my orifices are dry, even though they're described as being so wet they perpetually drip everywhere
 	
 	Arm wraps
-	
-	No starting money if skip prologue
 	
 	Tooltip persisting on window switch
 	
@@ -90,11 +93,31 @@
 	
 	Brax dom not using proper actions?
 	
+	
+	
+	
+	-Child race is determined as one of the parent's dominant race (50/50 of player or partner's race, perks determine if player is more or less likely)
+	-Child's furriness rating is determined to be something between the parent's furriness (random, average, or based on player choice of which)
+	-Furriness is same as furry preference settings.
+	-Humans are essentially all races with no furriness, so their race is ignored when determining what race the child will have (only if the child's furriness is 0 are they human)
+	-The gender of the child is determined based on a mix of the natural birth rates for their race and the player's gender preferences, based on a setting chosen in the gender preference menu.  The options are:
+	--All natural births (children are always the natural genders, ex: humans are 50% male and 50% female, harpies are 50% traps and 50% female)
+	--Some preferred births (children are mostly natural genders, with a 10-33% chance to instead follow the player's gender preferences)
+	--Natural preferred births (children are always natural genders, but will follow the player's gender preferences when possible, ex: if either male or female are enabled, the split will be based on the players gender preferences, otherwise it's the default)
+	--All preferred births (children's genders are always based on the player's gender preferences)
+	
+	{
 	Gender prefs aren't being applied to offspring.
 	-Natural birth only (all children are born based on their race's natural birth rates only, human 50% male/50% female, harpy 50% trap / 50% female)
 	-Rare unusual births (most children are born with natural genders, but unusual ones have a small chance to trigger)
 	-Natural preferred births (all children are born with natural birth genders, but will respect the player's gender preferences when possible)
 	-All births preferred (children will use the player's gender preference sheet)
+	}
+	
+	
+	
+	
+	
 	
 	Randomise succubi a bit more
 	

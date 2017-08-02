@@ -1353,7 +1353,7 @@ public class PhoneDialogue {
 		}
 	};
 
-	public static int strengthPoints = 0, intelligencePoints = 0, fitnessPoints = 0, spendingPoints=0, spendingFetishPoints=0;
+	public static int strengthPoints = 0, intelligencePoints = 0, fitnessPoints = 0, spendingPoints=0;
 	public static List<PerkInterface> levelUpPerks = new ArrayList<>();
 	public static List<Fetish> levelUpFetishes = new ArrayList<>();
 
@@ -1575,10 +1575,16 @@ public class PhoneDialogue {
 	public static int getFetishCost() {
 //		float i = (Main.game.getPlayer().getFetishes().size() + levelUpFetishes.size());
 //		return (int) ((i*i*0.5f) + (i*0.5f) + 1);
-		if(Main.game.getPlayer().getFetishes().size()+PhoneDialogue.levelUpFetishes.size()==0)
-			return 0;
-		else
-			return 5;
+//		if(Main.game.getPlayer().getFetishes().size()+PhoneDialogue.levelUpFetishes.size()==0)
+//			return 0;
+//		else
+//			return 5;
+		
+		int cost = 0;
+		for(Fetish f : levelUpFetishes) {
+			cost+=f.getCost();
+		}
+		return cost;
 	}
 	
 	public static final DialogueNodeOld CHARACTER_FETISHES = new DialogueNodeOld("Fetishes", "", true) {
@@ -1620,7 +1626,7 @@ public class PhoneDialogue {
 						+ (TFEssence.ARCANE.getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>"
 						+ TFEssence.ARCANE.getSVGString()
 						+ "</div>"
-						+ " "+spendingFetishPoints
+						+ " "+getFetishCost()
 					+ "</div>"
 					
 					+"<div class='extraAttribute-third'>"
@@ -1634,7 +1640,7 @@ public class PhoneDialogue {
 						+ (TFEssence.ARCANE.getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>"
 						+ TFEssence.ARCANE.getSVGString()
 						+ "</div>"
-						+ " "+(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) - spendingFetishPoints)
+						+ " "+(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) - getFetishCost())
 					+ "</div>"
 					
 
@@ -1702,7 +1708,6 @@ public class PhoneDialogue {
 				return new Response("Back", "Return to your phone's main menu.", MENU) {
 					@Override
 					public void effects() {
-						spendingFetishPoints = 0;
 						levelUpFetishes.clear();
 					}
 				};
@@ -1719,8 +1724,7 @@ public class PhoneDialogue {
 								f.applyPerkGained(Main.game.getPlayer());
 							}
 							
-							Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -spendingFetishPoints);
-							spendingFetishPoints = 0;
+							Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -getFetishCost());
 
 							levelUpFetishes.clear();
 						}

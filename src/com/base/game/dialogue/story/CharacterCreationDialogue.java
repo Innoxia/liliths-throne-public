@@ -27,6 +27,7 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.inventory.clothing.ClothingType;
+import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.main.Main;
@@ -614,6 +615,8 @@ public class CharacterCreationDialogue {
 						applyGameStart();
 
 						Main.game.getPlayer().resetInventory();
+						Main.game.getPlayer().setMoney(40);
+						Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 5);
 
 						Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
 						if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE)
@@ -639,8 +642,6 @@ public class CharacterCreationDialogue {
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(LilayasHome.LILAYA_HOME_ROOM_PLAYER),
 								true);
-
-						Main.game.getPlayer().setMoney(40);
 					}
 				};
 				
@@ -811,6 +812,9 @@ public class CharacterCreationDialogue {
 
 						Main.game.getPlayer().resetInventory();
 
+						Main.game.getPlayer().setMoney(40);
+						Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 5);
+						
 						Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
 						if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE)
 							Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.CHEST_SPORTS_BRA, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
@@ -835,8 +839,6 @@ public class CharacterCreationDialogue {
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(LilayasHome.LILAYA_HOME_ROOM_PLAYER),
 								true);
-
-						Main.game.getPlayer().setMoney(40);
 					}
 				};
 				
