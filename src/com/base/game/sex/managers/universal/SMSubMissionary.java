@@ -11,6 +11,7 @@ import com.base.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerNipple;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerUrethra;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
+import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisAnus;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisVagina;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerTailAnus;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerTailVagina;
@@ -18,7 +19,6 @@ import com.base.game.sex.sexActions.baseActionsPartner.PartnerTongueMouth;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerNipple;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
-import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisAnus;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisVagina;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerTailAnus;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerTailVagina;
@@ -42,16 +42,12 @@ import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailMouth;
 import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailNipple;
 import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailVagina;
 import com.base.game.sex.sexActions.universal.GenericOrgasms;
-import com.base.game.sex.sexActions.universal.dom.DomBackToWall;
+import com.base.game.sex.sexActions.universal.sub.SubMissionary;
 
-/**
- * @since 0.1.69
- * @version 0.1.82
- * @author Innoxia
- */
-public class SMDomBackToWall extends SexManagerDefault {
 
-	public SMDomBackToWall() {
+public class SMSubMissionary extends SexManagerDefault {
+
+	public SMSubMissionary() {
 		super(
 				// Self actions:
 				
@@ -80,12 +76,11 @@ public class SMDomBackToWall extends SexManagerDefault {
 				PartnerSelfNoPen.class,
 				
 				// Scene-specific:
-
+				
 				PlayerTongueMouth.class,
 				PlayerFingerNipple.class,
 				PlayerFingerUrethra.class,
 				PlayerFingerVagina.class,
-				PlayerPenisAnus.class,
 				PlayerPenisVagina.class,
 				PlayerTailVagina.class,
 				PlayerTailAnus.class,
@@ -94,18 +89,19 @@ public class SMDomBackToWall extends SexManagerDefault {
 				PartnerFingerNipple.class,
 				PartnerFingerUrethra.class,
 				PartnerFingerVagina.class,
+				PartnerPenisAnus.class,
 				PartnerPenisVagina.class,
 				PartnerTailVagina.class,
 				PartnerTailAnus.class,
 				
-				DomBackToWall.class,
+				SubMissionary.class, 
 				
 				// Positioning:
 				
 				GenericPositioning.class,
-				
+
 				// Universal:
-				
+
 				PlayerTalk.class,
 				PartnerTalk.class,
 				GenericActions.class,
@@ -114,7 +110,7 @@ public class SMDomBackToWall extends SexManagerDefault {
 	
 	@Override
 	public SexPosition getPosition() {
-		return SexPosition.BACK_TO_WALL_PLAYER_IN_CHARGE;
+		return SexPosition.MISSIONARY_PARTNER_IN_CHARGE;
 	}
 
 	@Override
@@ -129,7 +125,7 @@ public class SMDomBackToWall extends SexManagerDefault {
 	
 	@Override
 	public boolean isPlayerAbleToStopSex() {
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -149,16 +145,17 @@ public class SMDomBackToWall extends SexManagerDefault {
 	
 	@Override
 	public boolean isPartnerCanRemovePlayersClothes(){
-		return false;
+		return true;
 	}
 
 	@Override
 	public SexPace getStartingSexPacePlayer() {
-		return SexPace.DOM_NORMAL;
+		return SexPace.SUB_NORMAL;
 	}
 
 	@Override
 	public SexPace getStartingSexPacePartner() {
-		return Sex.getPartner().getSexPaceSubPreference();
+		return Sex.getPartner().getSexPaceDomPreference();
 	}
+
 }

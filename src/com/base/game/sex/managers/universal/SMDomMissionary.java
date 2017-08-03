@@ -42,16 +42,11 @@ import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailMouth;
 import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailNipple;
 import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailVagina;
 import com.base.game.sex.sexActions.universal.GenericOrgasms;
-import com.base.game.sex.sexActions.universal.dom.DomBackToWall;
+import com.base.game.sex.sexActions.universal.dom.DomMissionary;
 
-/**
- * @since 0.1.69
- * @version 0.1.82
- * @author Innoxia
- */
-public class SMDomBackToWall extends SexManagerDefault {
+public class SMDomMissionary extends SexManagerDefault {
 
-	public SMDomBackToWall() {
+	public SMDomMissionary() {
 		super(
 				// Self actions:
 				
@@ -98,7 +93,7 @@ public class SMDomBackToWall extends SexManagerDefault {
 				PartnerTailVagina.class,
 				PartnerTailAnus.class,
 				
-				DomBackToWall.class,
+				DomMissionary.class,
 				
 				// Positioning:
 				
@@ -114,7 +109,7 @@ public class SMDomBackToWall extends SexManagerDefault {
 	
 	@Override
 	public SexPosition getPosition() {
-		return SexPosition.BACK_TO_WALL_PLAYER_IN_CHARGE;
+		return SexPosition.MISSIONARY_PLAYER_IN_CHARGE;
 	}
 
 	@Override

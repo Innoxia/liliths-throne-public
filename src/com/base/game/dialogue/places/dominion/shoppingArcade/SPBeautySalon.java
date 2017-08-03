@@ -593,7 +593,7 @@ public class SPBeautySalon {
 				
 				} else if(Main.game.getPlayer().getHairLength()==HairLength.SEVEN_TO_FLOOR) {
 					return new Response("Lengthen (" + Main.game.getCurrencySymbol() + " " +(Main.game.getPlayer().getHairRawLengthValue()*5) +")",
-							"You don't have enough money to get your hair cut!", null);
+							"Your hair is already reaching the floor, so there is no need to get your hair lengthened!", null);
 				
 				} else {
 					return new Response("Lengthen (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> " +(Main.game.getPlayer().getHairRawLengthValue()*5) +")",
