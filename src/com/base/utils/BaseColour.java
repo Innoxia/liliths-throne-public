@@ -48,6 +48,8 @@ public enum BaseColour {
 	BLUE(Util.newColour(0x05CDFF), Util.newColour(0x00627A)),
 	BLUE_STEEL(Util.newColour(0xA7B7D2), Util.newColour(0x5671A4)),
 	
+	SILVER(Util.newColour(0xC0C0C0), Util.newColour(0x999999)),
+	
 	BLACK(Util.newColour(0xB3B3B3), Util.newColour(0x1F1F1F));
 	
 	private Color colour, lightColour;
