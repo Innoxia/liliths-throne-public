@@ -597,7 +597,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.EYE_PINK),
 					new ListValue<Colour>(Colour.EYE_BLACK))),
 
-	EYE_VULPINE(Race.FOX_MORPH
+	EYE_FOX_MORPH(Race.FOX_MORPH
 		    	"a pair of",
 		    	true,
 		    	"eyes",
