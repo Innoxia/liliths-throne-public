@@ -597,20 +597,6 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.EYE_PINK),
 					new ListValue<Colour>(Colour.EYE_BLACK))),
 
-	EYE_SLIME(Race.SLIME,
-			"a pair of",
-			true,
-			"eyes",
-			"eye",
-			"slime",
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.SLIME_PINK),
-					new ListValue<Colour>(Colour.SLIME_BLUE),
-					new ListValue<Colour>(Colour.SLIME_GREEN),
-					new ListValue<Colour>(Colour.SLIME_RED),
-					new ListValue<Colour>(Colour.SLIME_BLACK)),
-			null);
-
 	EYE_VULPINE(Race.FOX_MORPH
 		    	"a pair of",
 		    	true,
@@ -627,6 +613,20 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.EYE_RED),
 					new ListValue<Colour>(Colour.EYE_PINK),
 					new ListValue<Colour>(Colour.EYE_BLACK))),
+	
+	EYE_SLIME(Race.SLIME,
+			"a pair of",
+			true,
+			"eyes",
+			"eye",
+			"slime",
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.SLIME_PINK),
+					new ListValue<Colour>(Colour.SLIME_BLUE),
+					new ListValue<Colour>(Colour.SLIME_GREEN),
+					new ListValue<Colour>(Colour.SLIME_RED),
+					new ListValue<Colour>(Colour.SLIME_BLACK)),
+			null);
 					
 	
 	private String determiner, namePlural, nameSingular, descriptor;
