@@ -64,7 +64,14 @@ public enum PenisType implements BodyPartTypeInterface {
 		}
 	},
 
-	AVIAN(BodyCoveringType.HUMAN, Race.HARPY);
+	AVIAN(BodyCoveringType.HUMAN, Race.HARPY),
+	
+	VULPINE(BodyCoveringType.CANINE_PENIS, Race.FOX_MORPH) {
+		@Override
+		public boolean isKnotted() {
+			return true;
+		}
+	};
 
 	
 	private BodyCoveringType skinType;
@@ -233,6 +240,8 @@ public enum PenisType implements BodyPartTypeInterface {
 			case CANINE:
 				if(gc.getRace()==Race.WOLF_MORPH) {
 					return UtilText.returnStringAtRandom("wolf-cum", "wolf-cream", "wolf-jism", "wolf-jizz", "wolf-seed");
+				} else if(gc.getRace()==Race.FOX_MORPH) {
+					return UtilText.returnStringAtRandom("fox-cum", "fox-cream", "fox-jism", "fox-jizz", "fox-seed");
 				} else {
 					return UtilText.returnStringAtRandom("dog-cum", "dog-cream", "dog-jism", "dog-jizz", "dog-seed");
 				}
