@@ -80,7 +80,7 @@ public enum EarType implements BodyPartTypeInterface {
 			case SLIME:
 				return UtilText.returnStringAtRandom("slimy", "gooey");
 			case FOX_MORPH:
-				return UtilText.returnStringAtRandom("furry", "fur-coated", "cat-like");
+				return UtilText.returnStringAtRandom("furry", "fur-coated", "fox-like");
 			default:
 				return UtilText.returnStringAtRandom("");
 		}
