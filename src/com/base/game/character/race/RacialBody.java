@@ -151,6 +151,26 @@ public enum RacialBody {
 			VaginaType.WOLF_MORPH, Wetness.FOUR_SLIMY, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER,
 			WingType.NONE),
 
+	FOX_MORPH(
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.STRENGTH, 20f),
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 30f),
+					new Value<Attribute, Float>(Attribute.FITNESS, 25f),
+					new Value<Attribute, Float>(Attribute.CORRUPTION, 50f)),
+			ArmType.VULPINE,
+			AssType.FOX_MORPH, AssSize.TWO_SMALL, AssSize.FOUR_LARGE, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE,
+			BreastType.FOX_MORPH, CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, CupSize.D, 3, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE,
+			180, 30, 170, 85,
+			FaceType.FOX_MORPH, BodyCoveringType.EYE_FOX_MORPH, EarType.FOX_MORPH,
+			BodyCoveringType.HAIR_VULPINE_FUR, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
+			LegType.FOX_MORPH,
+			BodyCoveringType.VULPINE_FUR,
+			HornType.NONE, HornType.NONE,
+			PenisType.VULPINE, PenisSize.THREE_LARGE, TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
+			TailType.FOX_MORPH,
+			VaginaType.FOX_MORPH, Wetness.FOUR_SLIMY, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER,
+			WingType.NONE),
+	
 	// FELINES:
 	CAT_MORPH(
 			Util.newHashMapOfValues(
@@ -244,6 +264,7 @@ public enum RacialBody {
 			}
 		}
 	};
+	
 
 	// Attributes modified by this Trait:
 	private HashMap<Attribute, Float> attributeModifiers;
@@ -355,6 +376,8 @@ public enum RacialBody {
 				return RacialBody.WOLF_MORPH;
 			case SLIME:
 				return RacialBody.SLIME;
+			case FOX_MORPH
+				return RacialBody.FOX_MORPH
 		}
 		return RacialBody.HUMAN;
 	}
