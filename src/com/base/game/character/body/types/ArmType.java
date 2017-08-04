@@ -27,9 +27,9 @@ public enum ArmType implements BodyPartTypeInterface {
 
 	SLIME(BodyCoveringType.SLIME, Race.SLIME),
 
-	HARPY(BodyCoveringType.FEATHERS, Race.HARPY);
+	HARPY(BodyCoveringType.FEATHERS, Race.HARPY),
 	
-	FOX_MORPH(BodyCoveringType.VULPINE_FUR, Race.FOX_MORPH),
+	FOX_MORPH(BodyCoveringType.VULPINE_FUR, Race.FOX_MORPH);
 
 	private BodyCoveringType skinType;
 	private Race race;
