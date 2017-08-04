@@ -38,7 +38,10 @@ public enum VaginaType implements BodyPartTypeInterface {
 		}
 	},
 
-	HARPY(BodyCoveringType.FEATHERS, Race.HARPY);
+	HARPY(BodyCoveringType.FEATHERS, Race.HARPY),
+	
+	FOX_MORPH(BodyCoveringType.VULPINE_FUR, Race.FOX_MORPH),
+	
 
 	private BodyCoveringType skinType;
 	private Race race;
@@ -64,6 +67,12 @@ public enum VaginaType implements BodyPartTypeInterface {
 			switch(this){
 				case HORSE_MORPH:
 					return UtilText.returnStringAtRandom("cherry", "cunt", "kitty", "pussy", "sex", "slit", "twat", "horse-pussy");
+				case FOX_MORPH:
+					return UtilText.returnStringAtRandom("cherry", "cunt", "kitty", "pussy", "sex", "slit", "twat", "spade");
+				case DOG_MORPH:
+					return UtilText.returnStringAtRandom("cherry", "cunt", "kitty", "pussy", "sex", "slit", "twat", "spade");
+				case WOLF_MORPH:
+					return UtilText.returnStringAtRandom("cherry", "cunt", "kitty", "pussy", "sex", "slit", "twat", "spade");
 				case NONE:
 					return "";
 				default:
@@ -74,6 +83,12 @@ public enum VaginaType implements BodyPartTypeInterface {
 			switch(this){
 				case HORSE_MORPH:
 					return UtilText.returnStringAtRandom("cunt", "kitty", "pussy", "sex", "slit", "twat", "horse-pussy");
+				case FOX_MORPH:
+					return UtilText.returnStringAtRandom("cunt", "kitty", "pussy", "sex", "slit", "twat", "spade");
+				case DOG_MORPH:
+					return UtilText.returnStringAtRandom("cunt", "kitty", "pussy", "sex", "slit", "twat", "spade");
+				case WOLF_MORPH:
+					return UtilText.returnStringAtRandom("cunt", "kitty", "pussy", "sex", "slit", "twat", "spade");
 				case NONE:
 					return "";
 				default:
@@ -88,6 +103,12 @@ public enum VaginaType implements BodyPartTypeInterface {
 			switch(this){
 				case HORSE_MORPH:
 					return UtilText.returnStringAtRandom("cherries", "cunts", "kitties", "pussies", "sex", "slits", "twats", "horse-pussies");
+				case FOX_MORPH:
+					return UtilText.returnStringAtRandom("cherries", "cunts", "kitties", "pussies", "sex", "slits", "twats", "spades");
+				case DOG_MORPH:
+					return UtilText.returnStringAtRandom("cherries", "cunts", "kitties", "pussies", "sex", "slits", "twats", "spades");
+				case WOLF_MORPH:
+					return UtilText.returnStringAtRandom("cherries", "cunts", "kitties", "pussies", "sex", "slits", "twats", "spades");
 				case NONE:
 					return "";
 				default:
@@ -98,6 +119,12 @@ public enum VaginaType implements BodyPartTypeInterface {
 			switch(this){
 				case HORSE_MORPH:
 					return UtilText.returnStringAtRandom("cunts", "kitties", "pussies", "sex", "slits", "twats", "horse-pussies");
+				case FOX_MORPH:
+					return UtilText.returnStringAtRandom("cunts", "kitties", "pussies", "sex", "slits", "twats", "spades");
+				case DOG_MORPH:
+					return UtilText.returnStringAtRandom("cunts", "kitties", "pussies", "sex", "slits", "twats", "spades");
+				case WOLF_MORPH:
+					return UtilText.returnStringAtRandom("cunts", "kitties", "pussies", "sex", "slits", "twats", "spades");
 				case NONE:
 					return "";
 				default:
@@ -117,9 +144,9 @@ public enum VaginaType implements BodyPartTypeInterface {
 					case DEMON_COMMON:
 						return UtilText.returnStringAtRandom("tentacle-lined", "irresistible", "demonic");
 					case DOG_MORPH:
-						return UtilText.returnStringAtRandom("hot", "animalistic", "dog-like", "canine");
+						return UtilText.returnStringAtRandom("hot", "animalistic", "dog-like", "canine", "triangle-shaped", "triangular");
 					case WOLF_MORPH:
-						return UtilText.returnStringAtRandom("hot", "animalistic", "wolf-like", "lupine");
+						return UtilText.returnStringAtRandom("hot", "animalistic", "wolf-like", "lupine", "triangle-shaped", "triangular"));
 					case CAT_MORPH:
 						return UtilText.returnStringAtRandom("hot", "animalistic", "cat-like", "feline");
 					case HORSE_MORPH:
@@ -132,6 +159,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("gooey");
 					case HARPY:
 						return UtilText.returnStringAtRandom("hot", "bird-like", "avian");
+					case FOX_MORPH:
+						return UtilText.returnStringAtRandom("hot", "animalistic", "fox-like", "vixen-like", "vulpine", "triangle-shaped", "triangular");
 					default:
 						return UtilText.returnStringAtRandom("");
 				}
