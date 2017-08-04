@@ -939,7 +939,7 @@ public enum ItemType {
 			"Bottled Arcane Essence",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+Colour.GENERIC_ARCANE.getName()+" glow of an arcane essence flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceAngel",
+			"bottledEssenceArcane",
 			Colour.GENERIC_ARCANE,
 			50,
 			Rarity.LEGENDARY,
@@ -1783,6 +1783,20 @@ public enum ItemType {
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_DEMON, null, null)))) {
 
 		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.DEMON)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
+		@Override
 		public boolean canBeSold() {
 			return false;
 		}
@@ -1813,6 +1827,20 @@ public enum ItemType {
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_DOG_MORPH, null, null)))) {
 
 		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.DOG_MORPH)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
+		@Override
 		public boolean canBeSold() {
 			return false;
 		}
@@ -1841,7 +1869,21 @@ public enum ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HARPY, null, null)))) {
+		
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.HARPY)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
 		@Override
 		public boolean canBeSold() {
 			return false;
@@ -1871,7 +1913,21 @@ public enum ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HORSE_MORPH, null, null)))) {
+		
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.HORSE_MORPH)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
 		@Override
 		public boolean canBeSold() {
 			return false;
@@ -1903,6 +1959,20 @@ public enum ItemType {
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HUMAN, null, null)))) {
 
 		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.HUMAN)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
+		@Override
 		public boolean canBeSold() {
 			return false;
 		}
@@ -1932,6 +2002,20 @@ public enum ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_WOLF_MORPH, null, null)))) {
 
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.WOLF_MORPH)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
 		@Override
 		public boolean canBeSold() {
 			return false;

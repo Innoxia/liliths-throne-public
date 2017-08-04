@@ -1775,7 +1775,7 @@ public class MainController implements Initializable {
 		}
 		
 		// Save/load:
-		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.SAVE_LOAD) {
+		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.SAVE_LOAD && !Main.game.isInCombat() && !Main.game.isInSex()) {
 			for (File f : Main.getSavedGames()) {
 				if (((EventTarget) document.getElementById("overwrite_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )) != null) {
 					((EventTarget) document.getElementById("overwrite_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )).addEventListener("click", e -> {

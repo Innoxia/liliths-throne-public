@@ -210,7 +210,22 @@ td, th{
 	text-align: right;
 }
 
-
+.encyclopedia-container{
+	box-sizing:border-box;
+	
+	float:right;
+	background-color: transparent;
+	background:#19191a;
+	border-radius:5px;
+	
+	font-size:18px;
+	line-height:22px;
+	
+	padding:1%;
+	margin:1%;
+	width:40%;
+	-webkit-user-select: none;
+}
 
 .lvlup-container{
 	margin:0 0 8px 0;
@@ -369,6 +384,25 @@ position:relative;
 	max-width:768px;
 	-webkit-user-select: none;
 }
+.fetish-container-half{
+	box-sizing:border-box;
+	
+	float:left;
+	background-color: transparent;
+	background:#19191a;
+	border-radius:5px;
+	
+	font-size:20px;
+	font-weight: bold;
+	text-align:center;
+	line-height:24px;
+	
+	padding:1%;
+	margin:1%;
+	width:48%;
+	max-width:400px;
+	-webkit-user-select: none;
+}
 .fetish-icon {
 	display:inline-block;
 	background-color: #333333;
@@ -378,6 +412,10 @@ position:relative;
 	width:8%;
 	margin:1%;
 	-webkit-box-sizing: border-box;
+}
+.fetish-icon.double{
+	width:16%;
+	margin:2%;
 }
 .fetish-icon:after {
   content: "";

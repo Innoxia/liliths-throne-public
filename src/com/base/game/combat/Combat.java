@@ -83,7 +83,7 @@ public enum Combat {
 		opponent = npc;
 		critical = false;
 		
-		opponent.getStats().setFoughtPlayerCount(opponent.getStats().getFoughtPlayerCount()+1);
+		opponent.setFoughtPlayerCount(opponent.getFoughtPlayerCount()+1);
 
 		previousAction = Attack.NONE;
 
@@ -206,7 +206,7 @@ public enum Combat {
 				
 			}
 			
-			opponent.getStats().setLostCombatCount(opponent.getStats().getLostCombatCount()+1);
+			opponent.setLostCombatCount(opponent.getLostCombatCount()+1);
 			
 		} else {
 			int xpGain = (Main.game.getPlayer().getLevel()*2);
@@ -220,7 +220,7 @@ public enum Combat {
 			postCombatStringBuilder.append("<h6 style='text-align:center;'>You <b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>lost</b>"
 					+ " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + (Main.game.getPlayer().getMoney()==0?money:opponent.getLootMoney()/2) + "</b>!</h6>");
 
-			opponent.getStats().setWonCombatCount(opponent.getStats().getWonCombatCount()+1);
+			opponent.setWonCombatCount(opponent.getWonCombatCount()+1);
 		}
 
 		RenderingEngine.ENGINE.setCharactersInventoryToRender(Main.game.getPlayer());

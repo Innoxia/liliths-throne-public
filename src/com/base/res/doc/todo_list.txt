@@ -7,89 +7,144 @@
 	Version goals:
 		Make save games compatible. (This is going to be a lot of work, and may end up running into the next version as well, but I'll do my best to get it done for this version!)
 		Finish the next stage of the main quest (Scarlett and Alexa content).
-		Implement the start of slavery & NPC romance.
-		Add 'Dominant kneeling'
 		Add more items of male clothing!
-		Do a lot of bug fixing, add several minor suggestions, and add some more content here and there.
 		
-		Make the public github repository.
 		Start work on getting a website up and running (to host a proper wiki).
 	
 	
 	
 	Patch notes:
+		I've got everything totally finished in the engine for romance and slavery now! Although I managed to achieve all of the sub-goals for this version, I didn't manage to get the main two done in time (Alexa content and save-game compatibility).
+		I really want to move on to writing content, but bugs and other minor engine stuff keeps on cropping up.
+		That being said, I think most things are now in a stable enough state, so I'll be able to spend the entire of next week solely focusing on writing Alexa, incest, and generic NPC content. (And work on the save-game compatibility.)
+		I will have NPC slavery and romance done for next Friday!
+		
+	Engine:
+		Finished implementing affection and obedience mechanics. (For romance and slavery content.)
 		
 	Gameplay:
 		<b>Changed:</b> Split up anal, oral, and breast fetishes into giving and receiving variants, with associated tease attacks.
-		<b>Added:</b> A lore book for each of the game's races, which have a chance to be randomly dropped as loot after combat.
+		<b>Added:</b> Lusty maiden fetish. Derived fetish from having virginity, buttslut, oral performer, and breasts fetishes.
+		<b>Added:</b> A lore book for each of the game's races, which each have a chance to be randomly dropped as loot after combat.
 		Added Lilaya's Library text, as well as entries for the new lore books (once they've been found).
+		Added sexual orientation for the player (gynephilic, androphilic, ambiphilic). This can be changed in the fetishes screen at any time. (I'm going to do some more work on this for the next version.)
+		
+	Clothing:
+		<b>Added:</b> Scarf (no femininity requirements, neck slot).
+		<b>Added:</b> Cargo trousers (masculine, leg slot).
 		
 	Sex:
 		<b>Added:</b> Dominant kneeling position (for both player and NPCs).
+		<b>Added:</b> Nipple penetration sex groups. (Player-Penis in Partner-Nipple, and Partner-Penis in Player-Nipple). Can be used in kneeling and 69 positions.
+		Slightly improved AI in sex so that they shouldn't keep stopping/starting penetrations.
+		Slightly improved NPC's sex position selection.
+		Added 'Request nipple-sex' as an action during sex.
 		
 	UI:
 		Made perks slightly easier to distinguish between owned and unowned. (I'm going to do a big rework of this screen soon.)
+		Slightly improved the fetishes screen.
+		Added a 'Reset' action to the fetish screen, allowing you to reset your fetishes and receive a refund of half of their total arcane essence cost.
+		Added an 'average stats' panel to the race screen in your encyclopedia.
+		Added a credits screen, accessible from the main menu.
+		Expanded NPC character view UI to show affection and obedience.
 		
 	Other:
 		Fetishes have been slightly reworked. Instead of the first fetish being free, you now start the game with 5 arcane essences. Fetishes that unlock content (Transformation and Non-con fetishes) are free.
 		Renamed 'City gym' to 'Pix's Playground'.
 		Improved dialogue flow in all of the shops in the Shopping Arcane. (They now all have an 'exterior' scene.)
 		Split encyclopedia entries for race into 'basic' and 'advanced' knowledge. You gain basic knowledge upon encountering a race, and advanced knowledge upon reading a book about that race.
+		Changed kissing dirty talk.
+		Exposed breasts status effect is now applied if your chest is exposed while having a feminine body, even if your breasts are flat.
+		Unique NPC's clothing is no longer able to be stolen.
+		Balls size now affects how strangers assume your gender. (If you have huge or larger balls, the bulge makes it obvious that you have a cock.)
+		If an NPC has the non-con fetish, they will no longer have reduced arousal gains when they resist in sex. (I'm treating the non-con fetish for NPCs as them loving it either way.)
+		Potion effects status effect can now be increased by drinking successive potions (+30 minutes for each effect), up to a maximum of 6 hours. (I'll rework this a little more for the next version.)
 		
 	Bugs:
-		Fixed some typos.
+		Fixed quite a few typos and parsing errors.
 		Fixed some incorrect penis descriptions in doggy-style orgasm scenes.
 		You now correctly start with 40 flames if you skip prologue.
+		Exhibitionists will now wear revealing clothing in their groin/chest slots.
+		Fixed actions being duplicated in Brax's dominant sex scene.
+		Fixed Arcane essence bottle icon.
+		Fixed incorrect descriptions in gentle self-fucking in the back-to-wall position.
+		Fixed incorrect options after defeating a harpy in combat.
+		Fixed some actions not being greyed-out when they're unavailable. (Such as the 'Stroke Pussy' action.)
+		Fixed bug that was causing your partner to struggle with removing underwear in sex.
+		Fixed bugs related to not knowing what an NPC's nipples look like.
+		You should now be able to permanently increase your oral sex skills (by sucking large cocks :3).
+		You should now start sex with your orifices already wet, where applicable (e.g. if you have a drooling vagina, you'll now be wet on the first turn of sex).
+		Succubi should now re-dress themselves after having their clothing stolen.
+		Fixed a lot of incorrect clothing removal descriptions.
+		Fixed bug where virginity loss by succubus tail would return a virginity loss by penis description.
+		Fixed NPC giving eager descriptions when genitalia was revealed in sex.
 	
 	
 	
 	
+	Incest & generic NPC - Romance & slavery
+		when i am on the tile it just says a feminine wolf girl or masculine wolf boy rather than their name
+		Get NPCs into room
+		
+	Alexa
+	
+	Add unique scene for succubus taking virginity with tail.
+	
+	Combine potion effects!
+	
+	Add better reaction dialogue for:
+		Starting sex with areas exposed
+		Revealing areas while resisting
 	
 	
+	veils
 	
 	
-	
-	SABraxDom????
-	
-	(+ remove fetishes)
-	
-	
-	AI in sex, PLEASE FIX :3
-	
-	Dominant kneeling
-		 (+ tit fucking)
-		 + nipple fucking
-		Request nipple penetration
-	
-	Bug fixes
+	save game in sex/combat
 	
 	
 	Clothing enchanting
 	
-	Incest - Romance & slavery
+	Used condom mechanics (enchant + impregnate)
+	
+	+ tit fucking
+	+ hotdogging
+	+ thigh sex
+	
+	voyeur fetish as a partner to exhibitionist
 	
 	
-	Fix this! >:3
-	You don't know what their nipples look like since you've never seen them before" showing up when nipples are exposed fixed itself yet
+	Ralph's scenes
 	
 	
-	NPCs with the non-con fetish shouldn't have lowered arousal gain when you rape them
+	5) Also on the Non-Con Train, the description of your partner in the "Step Back" screen after the dirty deed has been done is also positive.
+	 After 12 orgasms, the formerly Pure Virgin Non-Con partner shouldn't be "thoroughly satisfied because you gave them what they wanted."
+	  Without getting too brutal you could say something along the lines of "Your reluctant partner lay panting in your combined fluids, their trembles a mark of their attempted resistance and ultimate failure to do so" or something. 
+	
+	
+	
+	Pix multi-breast
+	
+	
 	
 	Buy all not showing up
-	
-	 in the first turn of sex, my orifices are dry, even though they're described as being so wet they perpetually drip everywhere
 	
 	Arm wraps
 	
 	Tooltip persisting on window switch
 	
-	Regarding my suggestion of changing stats to different names (so you don't have strength or fitness, which don't have any bearing on the player's appearance), coming up with names for new stats that make sense was fairly easy.  They can be things like 'force of personality' or 'self-control', things which make a lot of sense to influence how good you are with magic and how strong your aura is.  That gives you a set of combat stats that then don't have any bearing on your appearance.
-	The snag I actually ran into is actually the special attacks that various body types and transformations give you, abilities that are obviously not derived from magic at all.  It wouldn't be too hard to change enemies up so that they don't attack you directly, instead using magic to hit your aura, but those special attacks would have to be completely redone since it doesn't make a whole lot of sense for claws to give you a new spell that you can't get otherwise.
+	Regarding my suggestion of changing stats to different names (so you don't have strength or fitness, which don't have any bearing on the player's appearance), coming up with names for new stats that make sense was fairly easy.
+	  They can be things like 'force of personality' or 'self-control', things which make a lot of sense to influence how good you are with magic and how strong your aura is.
+	    That gives you a set of combat stats that then don't have any bearing on your appearance.
+	The snag I actually ran into is actually the special attacks that various body types and transformations give you, abilities that are obviously not derived from magic at all.
+	  It wouldn't be too hard to change enemies up so that they don't attack you directly, instead using magic to hit your aura, but those special attacks would have to be completely
+	   redone since it doesn't make a whole lot of sense for claws to give you a new spell that you can't get otherwise.
 	
 	
 	In the same way dicks will be getting flags it would be nice if pussies could also get a couple more variables for stuff like labia size/shape. It would also be nice if their pubic hair and it's potential styling were a flag rather than a matter of race. 
 	Similarly it would be nice if nipples could get a bit more details like size, shape, state of inversion. Areola size/shape. 
-	( For example it would be hot if some nipples started inverted but then 'pop' out once they get stiff from arousal. While some, especially fuckable nipples should probably stay inverted regardless of arousal. As for Areola being to make them puffy separately from the nipples base size would be neat.)
+	( For example it would be hot if some nipples started inverted but then 'pop' out once they get stiff from arousal.
+	 While some, especially fuckable nipples should probably stay inverted regardless of arousal. As for Areola being to make them puffy separately from the nipples base size would be neat.)
 	
 	Brax dom not using proper actions?
 	
@@ -126,20 +181,14 @@
 		
 	get mother milk from NPC drops
 	
-	told succubus to remove vagina, can't interact with it, but it got described in the list of things that got revealed when i moved her pants
-	
 	pots might not be adding to core
-	
-	when i am on the tile it just says a femenine wolf girl or masculine wolf boy rather than their name
 	
 	Sloppy seconds fetish?
 	
 	parse TFs piece-by-piece
 	
 	If you get Lilaya pregnant, then manage to avoid her until the pregnancy is over, then go talk to her for the 'did she get pregnant or not' scene... she acts like she was never pregnant.
-	
-	Stroke cock isn't parsing [pc.cock] right.
-	
+
 	NPC for TFs and resistance
 		individual body preferences for NPCs (breast size, cock size, femininity, etc)
 	
@@ -188,20 +237,12 @@
 	Dominant oral
 		Remember paizuri!
 	
-	Combine potion effects!
-	
-	
-	
-	shin guards, and sarashi
 	
 	Sex effects:
 		Make status effects affect penetrator
 		Fetishes all on one icon?
 		Status effects for penetration types as well
 		
-	
-	Enchant clothing.
-	
 	Export to save inventory
 	
 	Quests
@@ -213,7 +254,6 @@
 	AI are trying to remove all pen before orgasming? :s
 		": Diana basically removed my finger from her ass, pulled off my dick from her throat, stopped fingering my pussy and then came"
 	
-	unique NPCs clothes are stealable
 	
 	a decently game-breaking bug: Diana has an infinity loop where she stops the kissing action the PC initiated as the dom. When selected again she does it again to no end. So kissing is bugged for her atm.
 	It seems Lexi has the same problem as Diana, and the issue is not an infinite loop but they just constantly stop kissing
@@ -235,22 +275,14 @@ Also noticed the Stop partner self action option disappears.
 	
 	the assaulting succubus doesn't have her racial trait, despite being Greater (and fully Demonic)
 	
-	
 	Change sex actions into categories:
 		[pen actions]
 		[orifice actions]
 	
-	Dominant kneeling
-	
 	Saving in combat is causing a bug where if you reload, the enemy retains their lost health from before the load
-	
-	
 	
 	So apparently if you start as Androgynous Woman on the body, then chose your pronoun prefernce to be male, it ends up in that scenario:
 		"You are a female man."
-	
-	
-	Penis reveal causing resisting NPCs to say "This is gonna be good"
 	
 	
 	Quests really need sorting out
@@ -1021,49 +1053,7 @@ Also noticed the Stop partner self action option disappears.
 	--------------------------
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	-----FIXING THE MEMORY LEAK:-----
-	
-	It is 100% related to the setContent() method.
-	
-	It is 100% stemming from the lines:
-	674 to 700
-	In Game.java
-	
-	In VisualVM, it can be seen that the "JavaFX Application" and the "QuantumRenderer-0" threads keep having more and more bytes allocated to them, and never release them.
-	This is the cause of the memory leak.
-	
-	Try setting all content through javascript???
-	This would avoid having to call the webview's setContent() method.
-	
-	----------
-	
-	
-	TESTING REQUIRED:
-		All Brax & Enforcer HQ content variations.
-	
-	
-	Write harpy encounter
-		Remember player can TF wings away
 		
-	Write placeholder red/pink/yellow nest dialogue (no interaction for this version)
-	
-	Write Alexa encounter
-	
-	Write Scarlett + Alexa Dialogue
-		Get back to find Scarlett has been enslaved by Alexa (naked in bondage with ballgag in mouth)
-		Have to buy Scarlett so you an order her to tell you what happened
-		Can then either keep her or release her.
-	
-	
-	
 	Make options:
 		Breast count
 		Furry

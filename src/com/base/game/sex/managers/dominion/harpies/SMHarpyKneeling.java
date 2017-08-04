@@ -12,6 +12,7 @@ import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerUrethra;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerTongueVagina;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisMouth;
+import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisNipple;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
@@ -36,7 +37,7 @@ import com.base.game.sex.sexActions.universal.dom.DomKneeling;
 
 /**
  * @since 0.1.8
- * @version 0.1.8
+ * @version 0.1.82
  * @author Innoxia
  */
 public class SMHarpyKneeling extends SexManagerDefault {
@@ -72,6 +73,7 @@ public class SMHarpyKneeling extends SexManagerDefault {
 				// Scene-specific:
 
 				PlayerPenisMouth.class,
+				PlayerPenisNipple.class,
 
 				PartnerFingerUrethra.class,
 				PartnerFingerVagina.class,

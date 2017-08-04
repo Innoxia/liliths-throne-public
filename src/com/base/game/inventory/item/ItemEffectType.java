@@ -115,7 +115,8 @@ public enum ItemEffectType {
 	},
 	
 	BOOK_READ_CAT_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("Unlocks advanced encyclopedia entry for cat-morphs.")),
+			new ListValue<>("Adds cat-morph encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
 			Colour.RACE_CAT_MORPH) {
 
 		@Override
@@ -140,12 +141,14 @@ public enum ItemEffectType {
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
 								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
 							:"");
 		}
 	},
 	
 	BOOK_READ_DEMON(Util.newArrayListOfValues(
-			new ListValue<>("Unlocks advanced encyclopedia entry for demons.")),
+			new ListValue<>("Adds demon encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
 			Colour.RACE_DEMON) {
 
 		@Override
@@ -170,12 +173,14 @@ public enum ItemEffectType {
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
 								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
 							:"");
 		}
 	},
 	
 	BOOK_READ_DOG_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("Unlocks advanced encyclopedia entry for dog-morphs.")),
+			new ListValue<>("Adds dog-morph encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
 			Colour.RACE_DOG_MORPH) {
 
 		@Override
@@ -200,12 +205,14 @@ public enum ItemEffectType {
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
 								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
 							:"");
 		}
 	},
 	
 	BOOK_READ_HARPY(Util.newArrayListOfValues(
-			new ListValue<>("Unlocks advanced encyclopedia entry for harpies.")),
+			new ListValue<>("Adds harpy encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
 			Colour.RACE_HARPY) {
 
 		@Override
@@ -230,12 +237,14 @@ public enum ItemEffectType {
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
 								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
 							:"");
 		}
 	},
 	
 	BOOK_READ_HORSE_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("Unlocks advanced encyclopedia entry for horse-morphs.")),
+			new ListValue<>("Adds horse-morph encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
 			Colour.RACE_HORSE_MORPH) {
 
 		@Override
@@ -260,12 +269,14 @@ public enum ItemEffectType {
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
 								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
 							:"");
 		}
 	},
 	
 	BOOK_READ_HUMAN(Util.newArrayListOfValues(
-			new ListValue<>("Unlocks advanced encyclopedia entry for humans.")),
+			new ListValue<>("Adds human encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
 			Colour.RACE_HUMAN) {
 
 		@Override
@@ -290,12 +301,14 @@ public enum ItemEffectType {
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
 								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
 							:"");
 		}
 	},
 	
 	BOOK_READ_WOLF_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("Unlocks advanced encyclopedia entry for wolf-morphs.")),
+			new ListValue<>("Adds wolf-morph encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
 			Colour.RACE_WOLF_MORPH) {
 
 		@Override
@@ -320,6 +333,7 @@ public enum ItemEffectType {
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
 								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
 							:"");
 		}
 	},

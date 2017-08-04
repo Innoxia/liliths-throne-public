@@ -30,7 +30,7 @@ public class DominionOffspring {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getCurrentRandomAttacker().getStats().getFoughtPlayerCount()>0) {
+			if(Main.game.getCurrentRandomAttacker().getFoughtPlayerCount()>0) {
 				
 				if(Main.game.getCurrentRandomAttacker().isVisiblyPregnant()){
 					// Pregnant encounters:
@@ -180,10 +180,20 @@ public class DominionOffspring {
 				return new Response("Background", "Ask [npc.name] how [npc.she] makes a living.", OFFSPRING_ENCOUNTER_PROGRESSION);
 				
 			} else if (index == 2) {
-				return new Response("Hug", "Hug [npc.name].", OFFSPRING_ENCOUNTER_PHYSICAL);
+				return new Response("Hug", "Hug [npc.name].", OFFSPRING_ENCOUNTER_PHYSICAL) {
+					@Override
+					public void effects() {
+						Main.game.getTextEndStringBuilder().append(Main.game.getCurrentRandomAttacker().incrementRelationshipAffection(Main.game.getPlayer(), 3));
+					}
+				};
 				
 			} else if (index == 3) {
-				return new Response("Small talk", "Chat about this and that with [npc.name].", OFFSPRING_ENCOUNTER_MINOR);
+				return new Response("Small talk", "Chat about this and that with [npc.name].", OFFSPRING_ENCOUNTER_MINOR) {
+					@Override
+					public void effects() {
+						Main.game.getTextEndStringBuilder().append(Main.game.getCurrentRandomAttacker().incrementRelationshipAffection(Main.game.getPlayer(), 1));
+					}
+				};
 				
 			} else if (index == 4) {
 				return new Response("Gift", "Give [npc.name] a gift.", OFFSPRING_ENCOUNTER_GIFT);
@@ -202,7 +212,12 @@ public class DominionOffspring {
 							+ "</p>"
 							+ "<p>"
 								+ "Grinning, you step forwards and pull your [npc.daughter] into a passionate kiss..."
-							+ "</p>");
+							+ "</p>") {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getCurrentRandomAttacker().incrementRelationshipAffection(Main.game.getPlayer(), 10));
+						}
+					};
 				} else {
 					return new Response("Sex", "[npc.Name] s clearly not interested in having sex with you.", null);
 				}

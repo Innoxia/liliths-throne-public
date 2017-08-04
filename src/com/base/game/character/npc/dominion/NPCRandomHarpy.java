@@ -81,7 +81,14 @@ public class NPCRandomHarpy extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
-		setPendingClothingDressing(true);
+		if(applyEffects) {
+			setPendingClothingDressing(true);
+		}
+	}
+
+	@Override
+	public boolean isClothingStealable() {
+		return true;
 	}
 	
 	@Override

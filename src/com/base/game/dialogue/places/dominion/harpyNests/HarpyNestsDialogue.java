@@ -641,4 +641,38 @@ public class HarpyNestsDialogue {
 			return null;
 		}
 	};
+	
+	/**
+	 * Alexa's nest: Described as the largest and post populous of all the nests.
+	 * 		Approach
+	 * 
+	 * Approach: Harpy blocks your way, reveals that this is Alexa's nest.
+	 * 		Scarlett
+	 * 		Leave
+	 * 
+	 * Scarlett: Shown to Alexa, go into detail about how beautiful she is. Asks what you want
+	 * 		Scarlett (No punishment)
+	 * 		Scarlett (Take punishment)
+	 * 
+	 * Alexa Scarlett: Alexa flies into a rage. If chosen take punishment, she orders you to be locked in stocks. She flies off to slaver alley to 'deal with that bitch once and for all'.
+	 * 
+	 * If in stocks:
+	 * 		Harpy males take turns fucking you.
+	 * 		Then you're released.
+	 * If no punishment:
+	 * 		Free to leave and follow after Alexa.
+	 * 
+	 * Slaver alley: Get back to find Scarlett has been enslaved by Alexa (naked in bondage with ballgag in mouth). Have to buy Scarlett so you can order her to tell you what happened.
+	 * 		Can then either keep her or release her.
+	 * 
+	 * 
+	 * Buying Scarlett:
+	 * 		Need slaver license -> City Hall -> 500 flames (2000 for collars, 2000 for enslavement contract). You can only get one because of Lilaya being your aunt.
+	 * 		2000 flames for Scarlett
+	 * 		
+	 * 
+	 * 		
+	 * Shop turns 'for sale'. Can buy it later.
+	 */
+	
 }

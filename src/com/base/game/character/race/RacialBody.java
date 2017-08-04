@@ -33,7 +33,7 @@ import com.base.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.66
+ * @version 0.1.82
  * @author Innoxia
  */
 public enum RacialBody {

@@ -78,28 +78,107 @@ public enum Fetish {
 		}
 	},
 	
-	FETISH_CUM_ADDICT(60,
-			"cum addict",
+	FETISH_ORAL_RECEIVING(60,
+			"oral",
 			false,
-			"fetish_cum_addict",
-			Colour.CLOTHING_WHITE,
+			"fetish_oral_receiving",
+			Colour.GENERIC_ARCANE,
 			null,
-			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cum addict tease</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cum stud tease</span>")),
+			Util.newArrayListOfValues(
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>oral tease</span>"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>oral performer tease</span>")),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You are hopelessly addicted to cum. You really don't care who's providing it; all you want is for your mouth to be full of delicious, salty seed..."
-						+ " Letting it slide around over your tongue, savouring every moment... Mmm... Cum really is the best...";
-			else
-				return UtilText.parse(owner, "[npc.Name] has a fetish for cum.");
+			if (owner.isPlayer()) {
+				return "You absolutely love receiving oral sex. Guiding your partner's head down between your legs is your favourite activity, and you're always eager for someone's lips and tongue to bring you to orgasm.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] has a fetish for receiving oral sex.");
+			}
 		}
 		
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
-			return CorruptionLevel.THREE_DIRTY;
+			return CorruptionLevel.ONE_VANILLA;
+		}
+	},
+	
+	FETISH_ORAL_GIVING(60,
+			"oral performer",
+			false,
+			"fetish_oral_giving",
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>oral performer tease</span>"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>oral tease</span>")),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You absolutely love giving oral sex. Going down between your partner's legs is your favourite activity, and you're always ready and eager to use your mouth to bring them to orgasm!";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] has a fetish for giving oral sex.");
+			}
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.ONE_VANILLA;
+		}
+	},
+	
+	FETISH_BREASTS_OTHERS(60,
+			"breasts lover",
+			false,
+			"fetish_breasts_others",
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>breasts lover tease</span>"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>breasts tease</span>")),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You have an obsession with breasts. Either big or small, if someone's got a pair (or more) of tits, you're going to be finding a way to use them.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] has a fetish for other's breasts.");
+			}
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.ONE_VANILLA;
+		}
+	},
+	
+	FETISH_BREASTS_SELF(60,
+			"breasts",
+			false,
+			"fetish_breasts_self",
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>breasts tease</span>"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>breasts lover tease</span>")),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You have an obsession with your breasts. You love nothing more than pleasuring your partners with them, or showing them off to your many admirers.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] has a fetish for using [npc.her] breasts.");
+			}
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.ONE_VANILLA;
 		}
 	},
 	
@@ -127,28 +206,28 @@ public enum Fetish {
 		}
 	},
 	
-	FETISH_MASTURBATION(60,
-			"masturbation",
+	FETISH_CUM_ADDICT(60,
+			"cum addict",
 			false,
-			"fetish_masturbation",
-			Colour.GENERIC_ARCANE,
+			"fetish_cum_addict",
+			Colour.CLOTHING_WHITE,
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.TEXT_GREY.toWebHexString()+ ";'>No special abilities</span>")),
+			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cum addict tease</span>"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cum stud tease</span>")),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "To you, masturbating is just as good as, if not better than, having sex.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name] loves masturbating.");
-			}
+			if (owner.isPlayer())
+				return "You are hopelessly addicted to cum. You really don't care who's providing it; all you want is for your mouth to be full of delicious, salty seed..."
+						+ " Letting it slide around over your tongue, savouring every moment... Mmm... Cum really is the best...";
+			else
+				return UtilText.parse(owner, "[npc.Name] has a fetish for cum.");
 		}
 		
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
-			return CorruptionLevel.ONE_VANILLA;
+			return CorruptionLevel.THREE_DIRTY;
 		}
 	},
 	
@@ -242,23 +321,22 @@ public enum Fetish {
 		}
 	},
 	
-	FETISH_ORAL_RECEIVING(60,
-			"oral",
+	FETISH_MASTURBATION(60,
+			"masturbation",
 			false,
-			"fetish_oral_receiving",
+			"fetish_masturbation",
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>oral tease</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>oral performer tease</span>")),
+					new ListValue<>("<span style='color:"+ Colour.TEXT_GREY.toWebHexString()+ ";'>No special abilities</span>")),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				return "You absolutely love receiving oral sex. Guiding your partner's head down between your legs is your favourite activity, and you're always eager for someone's lips and tongue to bring you to orgasm.";
+				return "To you, masturbating is just as good as, if not better than, having sex.";
 			} else {
-				return UtilText.parse(owner, "[npc.Name] has a fetish for receiving oral sex.");
+				return UtilText.parse(owner, "[npc.Name] loves masturbating.");
 			}
 		}
 		
@@ -268,87 +346,12 @@ public enum Fetish {
 		}
 	},
 	
-	FETISH_ORAL_GIVING(60,
-			"oral performer",
-			false,
-			"fetish_oral_giving",
-			Colour.GENERIC_ARCANE,
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>oral performer tease</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>oral tease</span>")),
-			null) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You absolutely love giving oral sex. Going down between your partner's legs is your favourite activity, and you're always ready and eager to use your mouth to bring them to orgasm!";
-			} else {
-				return UtilText.parse(owner, "[npc.Name] has a fetish for giving oral sex.");
-			}
-		}
-		
-		@Override
-		public CorruptionLevel getAssociatedCorruptionLevel() {
-			return CorruptionLevel.ONE_VANILLA;
-		}
-	},
 	
 	// FETISH_SPANKING("spanking", "You love the idea of spanking or being
 	// spanked during sex."),
 
 	// Body parts:
-	FETISH_BREASTS_OTHERS(60,
-			"breasts lover",
-			false,
-			"fetish_breasts_others",
-			Colour.GENERIC_ARCANE,
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>breasts lover tease</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>breasts tease</span>")),
-			null) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You have an obsession with breasts. Either big or small, if someone's got a pair (or more) of tits, you're going to be finding a way to use them.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name] has a fetish for other's breasts.");
-			}
-		}
-		
-		@Override
-		public CorruptionLevel getAssociatedCorruptionLevel() {
-			return CorruptionLevel.ONE_VANILLA;
-		}
-	},
 	
-	FETISH_BREASTS_SELF(60,
-			"breasts",
-			false,
-			"fetish_breasts_self",
-			Colour.GENERIC_ARCANE,
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>breasts tease</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>breasts lover tease</span>")),
-			null) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You have an obsession with your breasts. You love nothing more than pleasuring your partners with them, or showing them off to your many admirers.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name] has a fetish for using [npc.her] breasts.");
-			}
-		}
-		
-		@Override
-		public CorruptionLevel getAssociatedCorruptionLevel() {
-			return CorruptionLevel.ONE_VANILLA;
-		}
-	},
 	// FETISH_LACTATION("lactation", "The idea of someone being milked drives
 	// you crazy with lust."),
 	// FETISH_FOOT("foot", "It doesn't matter if they're yours or your
@@ -608,7 +611,7 @@ public enum Fetish {
 	},
 	FETISH_INCEST(60,
 			"incest",
-			false,
+			true,
 			"fetish_incest",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -718,7 +721,7 @@ public enum Fetish {
 				return "You love nothing more than when someone's being forced, against their will, to have sex. The more they're struggling, the more you get turned on...";
 				
 			} else {
-				return UtilText.parse(owner, "[npc.Name] has a fetish for non-consensual encounters.");
+				return UtilText.parse(owner, "[npc.Name] has a fetish for non-consensual encounters, both as the perpetrator or the victim.");
 			}
 		}
 		@Override
@@ -806,6 +809,35 @@ public enum Fetish {
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.THREE_DIRTY;
+		}
+	},
+	
+	FETISH_LUSTY_MAIDEN(60,
+			"lusty maiden",
+			false,
+			"fetish_lusty_maiden",
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Empowers</span> <span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>'pure virgin'</span>"),
+					new ListValue<>("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Amplifies</span> <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>'broken virgin'</span>")),
+			Util.newArrayListOfValues(
+					new ListValue<>(Fetish.FETISH_PURE_VIRGIN),
+					new ListValue<>(Fetish.FETISH_ANAL_RECEIVING),
+					new ListValue<>(Fetish.FETISH_ORAL_GIVING),
+					new ListValue<>(Fetish.FETISH_BREASTS_SELF))) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You are the ultimate tease, seducing and pleasuring others with your ass, mouth, and breasts, but never allowing anyone to touch your virgin pussy.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] loves to pleasure others with [npc.her] ass, mouth, and breasts, but will never allow anyone to get near [npc.her] virgin pussy.");
+			}
+		}
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.TWO_HORNY;
 		}
 	};
 	

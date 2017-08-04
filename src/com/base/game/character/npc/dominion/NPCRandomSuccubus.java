@@ -27,6 +27,7 @@ import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.sex.OrificeType;
+import com.base.game.sex.PenetrationType;
 import com.base.game.sex.Sex;
 import com.base.main.Main;
 import com.base.utils.Colour;
@@ -115,9 +116,15 @@ public class NPCRandomSuccubus extends NPC {
 		if (applyEffects) {
 			setVaginaType(VaginaType.DEMON_COMMON);
 			setPenisType(PenisType.NONE);
+			setPendingClothingDressing(true);
 		}
 	}
 
+	@Override
+	public boolean isClothingStealable() {
+		return true;
+	}
+	
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return true;
@@ -317,9 +324,9 @@ public class NPCRandomSuccubus extends NPC {
 	// Losing virginity:
 	private static StringBuilder StringBuilderSB;
 	public String getPlayerVaginaVirginityLossDescription(boolean isPlayerDom){
-		if(isPlayerDom)
+		if(isPlayerDom || Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==PenetrationType.TAIL_PARTNER) {
 			return super.getPlayerVaginaVirginityLossDescription(isPlayerDom);
-		
+		}
 		
 		StringBuilderSB = new StringBuilder();
 		

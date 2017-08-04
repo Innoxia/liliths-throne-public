@@ -13,6 +13,7 @@ import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerUrethra;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerTongueVagina;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisMouth;
+import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisNipple;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.*;
 import com.base.game.sex.sexActions.baseActionsSelfPlayer.*;
 import com.base.game.sex.sexActions.universal.GenericOrgasms;
@@ -55,6 +56,7 @@ public class SMSubSelfKneeling extends SexManagerDefault {
 				// Scene-specific:
 
 				PlayerPenisMouth.class,
+				PlayerPenisNipple.class,
 
 				PartnerFingerUrethra.class,
 				PartnerFingerVagina.class,

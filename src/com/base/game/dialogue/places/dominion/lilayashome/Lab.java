@@ -1417,7 +1417,7 @@ public class Lab {
 						+ "</p>");
 				
 				// Player has had sex with Lilaya before:
-				if(player.getStats().getSexPartnerStats(aunt) != null) {
+				if(player.getSexPartnerStats(aunt) != null) {
 					if(player.getPotentialPartnersAsMother().stream().anyMatch(x -> x.getFather() == aunt)) {
 						if(player.getPotentialPartnersAsMother().stream().anyMatch(x -> x.getFather() != aunt)) {
 							// Lilaya might be the 'father':

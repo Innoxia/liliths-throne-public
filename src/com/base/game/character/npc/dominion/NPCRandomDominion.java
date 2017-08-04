@@ -182,6 +182,11 @@ public class NPCRandomDominion extends NPC {
 			setPendingClothingDressing(true);
 		}
 	}
+
+	@Override
+	public boolean isClothingStealable() {
+		return true;
+	}
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {

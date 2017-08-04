@@ -1,7 +1,6 @@
 package com.base.game.dialogue.responses;
 
 import java.util.List;
-
 import com.base.game.character.GameCharacter;
 import com.base.game.character.QuestLine;
 import com.base.game.character.attributes.Attribute;
@@ -23,7 +22,7 @@ import com.base.utils.Util;
 
 /**
  * @since 0.1.69
- * @version 0.1.78
+ * @version 0.1.82
  * @author Innoxia
  */
 public class Response {
@@ -108,7 +107,7 @@ public class Response {
 			return null;
 		}
 	}
-	
+
 	public boolean disabledOnNullDialogue(){
 		return true;
 	}

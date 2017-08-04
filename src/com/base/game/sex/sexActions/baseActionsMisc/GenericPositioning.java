@@ -343,7 +343,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getActionDescription() {
-			return "Try and move into a position so that you're facing a nearby wall.";
+			return "Try and move into a position so that your back is up against a nearby wall.";
 		}
 
 		@Override

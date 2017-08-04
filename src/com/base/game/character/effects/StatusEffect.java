@@ -20,7 +20,6 @@ import com.base.game.character.attributes.StrengthLevel;
 import com.base.game.character.body.types.PenisType;
 import com.base.game.character.body.types.VaginaType;
 import com.base.game.character.body.valueEnums.Capacity;
-import com.base.game.character.body.valueEnums.CupSize;
 import com.base.game.character.npc.NPC;
 import com.base.game.character.race.Race;
 import com.base.game.character.race.RaceStage;
@@ -41,7 +40,7 @@ import com.base.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.79
+ * @version 0.1.82
  * @author Innoxia
  */
 public enum StatusEffect {
@@ -1855,7 +1854,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getSexualOrientation()==SexualOrientation.ANDROPHILIC && !target.isPlayer();
+			return target.getSexualOrientation()==SexualOrientation.ANDROPHILIC;
 		}
 		
 		@Override
@@ -1890,7 +1889,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getSexualOrientation()==SexualOrientation.GYNEPHILIC && !target.isPlayer();
+			return target.getSexualOrientation()==SexualOrientation.GYNEPHILIC;
 		}
 		
 		@Override
@@ -1923,7 +1922,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getSexualOrientation()==SexualOrientation.AMBIPHILIC && !target.isPlayer();
+			return target.getSexualOrientation()==SexualOrientation.AMBIPHILIC;
 		}
 		
 		@Override
@@ -3125,7 +3124,7 @@ public enum StatusEffect {
 					&& (target.isCoverableAreaExposed(CoverableArea.ANUS)
 							|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.getPenisType() != PenisType.NONE)
 							|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.getVaginaType() != VaginaType.NONE))
-					&& !(target.hasBreasts() && target.isCoverableAreaExposed(CoverableArea.NIPPLES)); 
+					&& !((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaExposed(CoverableArea.NIPPLES)); 
 		}
 	},
 	
@@ -3155,7 +3154,7 @@ public enum StatusEffect {
 					&& !(target.isCoverableAreaExposed(CoverableArea.ANUS)
 							|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.getPenisType() != PenisType.NONE)
 							|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.getVaginaType() != VaginaType.NONE))
-					&& (target.hasBreasts() && target.isCoverableAreaExposed(CoverableArea.NIPPLES)); 
+					&& ((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaExposed(CoverableArea.NIPPLES)); 
 		}
 	},
 	
@@ -3185,7 +3184,7 @@ public enum StatusEffect {
 					&& (target.isCoverableAreaExposed(CoverableArea.ANUS)
 							|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.getPenisType() != PenisType.NONE)
 							|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.getVaginaType() != VaginaType.NONE))
-					&& (target.hasBreasts() && target.isCoverableAreaExposed(CoverableArea.NIPPLES)); 
+					&& ((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaExposed(CoverableArea.NIPPLES)); 
 		}
 	},
 	
@@ -3216,7 +3215,7 @@ public enum StatusEffect {
 							|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.getPenisType() != PenisType.NONE)
 							|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.getVaginaType() != VaginaType.NONE) 
 							|| ((target.isCoverableAreaExposed(CoverableArea.PENIS) || target.isCoverableAreaExposed(CoverableArea.VAGINA)) && (target.getPenisType() == PenisType.NONE && target.getVaginaType() == VaginaType.NONE)))
-						&& !(target.getBreastSize() != CupSize.FLAT && target.isCoverableAreaExposed(CoverableArea.NIPPLES)));
+						&& !((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaExposed(CoverableArea.NIPPLES)));
 		}
 	},
 	FETISH_EXHIBITIONIST_BREASTS(
@@ -3245,7 +3244,7 @@ public enum StatusEffect {
 						&& (!(target.isCoverableAreaExposed(CoverableArea.PENIS) && target.getPenisType() != PenisType.NONE)
 							&& !(target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.getVaginaType() != VaginaType.NONE)
 							&& !((target.isCoverableAreaExposed(CoverableArea.PENIS) || target.isCoverableAreaExposed(CoverableArea.VAGINA)) && (target.getPenisType() == PenisType.NONE && target.getVaginaType() == VaginaType.NONE)))
-						&& (target.getBreastSize() != CupSize.FLAT && target.isCoverableAreaExposed(CoverableArea.NIPPLES)));
+						&& ((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaExposed(CoverableArea.NIPPLES)));
 		}
 	},
 	FETISH_EXHIBITIONIST_PLUS_BREASTS(
@@ -3275,7 +3274,7 @@ public enum StatusEffect {
 							|| (target.isCoverableAreaExposed(CoverableArea.PENIS) && target.getPenisType() != PenisType.NONE)
 							|| (target.isCoverableAreaExposed(CoverableArea.VAGINA) && target.getVaginaType() != VaginaType.NONE)
 							|| ((target.isCoverableAreaExposed(CoverableArea.PENIS) || target.isCoverableAreaExposed(CoverableArea.VAGINA)) && (target.getPenisType() == PenisType.NONE && target.getVaginaType() == VaginaType.NONE)))
-						&& (target.getBreastSize() != CupSize.FLAT && target.isCoverableAreaExposed(CoverableArea.NIPPLES)));
+						&& ((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaExposed(CoverableArea.NIPPLES)));
 		}
 	},
 
@@ -3305,7 +3304,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.hasFetish(Fetish.FETISH_PURE_VIRGIN) && target.hasVagina() && target.isVaginaVirgin();
+			return target.hasFetish(Fetish.FETISH_PURE_VIRGIN) && !target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN) && target.hasVagina() && target.isVaginaVirgin();
 		}
 		
 		@Override
@@ -3313,6 +3312,46 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	FETISH_PURE_VIRGIN_LUSTY_MAIDEN(
+			80,
+			"lusty maiden",
+			"virginPureLustyMaiden",
+			Colour.GENERIC_EXCELLENT,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, 25f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PURE, 25f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return "You represent the perfect image of a pure, righteous being. You're more than willing to use your ass, mouth, and breasts in order to retain your precious virginity, and so what if you so happen to absolutely love it?!";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] represents the perfect image of a pure, righteous being."
+						+ " [npc.She]'s more than willing to use [npc.her] ass, mouth, and breasts in order to retain [npc.her] precious virginity, and so what if [npc.she] so happens to absolutely love it?!");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN) && target.hasVagina() && target.isVaginaVirgin();
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+	
 	FETISH_BROKEN_VIRGIN(
 			80,
 			"broken virgin",
@@ -3333,6 +3372,45 @@ public enum StatusEffect {
 			if(target.isPlayer()) {
 				return "Losing your virginity has hit you hard. All you can think of is big, thick cocks breaking you in like a worthless slut, before defiling your womb with their foul cum..."
 						+ " Without your virginty, all you can see yourself as is a cheap sex toy.";
+			} else {
+				return UtilText.parse(target,
+						"Losing [npc.her] virginity has hit [npc.name] hard. All [npc.she] can think of is big, thick cocks breaking [npc.herHim] in like a worthless slut, before defiling [npc.her] womb with their foul cum..."
+								+ " Without [npc.her] virginty, all [npc.she] can see [npc.herself] as is a cheap sex toy.");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.hasFetish(Fetish.FETISH_PURE_VIRGIN) && !target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN) && target.hasVagina() && !target.isVaginaVirgin();
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+	FETISH_BROKEN_VIRGIN_LUSTY_MAIDEN(
+			80,
+			"broken maiden",
+			"virginBrokenLustyMaiden",
+			Colour.GENERIC_TERRIBLE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, -50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -50f),
+					new Value<Attribute, Float>(Attribute.CORRUPTION, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -25f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return "Losing your virginity has hit you hard. All of your efforts to deflect attention away from your pussy and to your other assets was wasted, and now you can only see yourself as a cheap sex toy, to be used by anyone.";
 			} else {
 				return UtilText.parse(target,
 						"Losing [npc.her] virginity has hit [npc.name] hard. All [npc.she] can think of is big, thick cocks breaking [npc.herHim] in like a worthless slut, before defiling [npc.her] womb with their foul cum..."

@@ -491,4 +491,54 @@ public class PlayerTalk {
 			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
 		}
 	};
+	
+	public static SexAction PLAYER_REQUEST_NIPPLE = new SexAction(
+			SexActionType.PLAYER,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ONE_VANILLA,
+			null,
+			null) {
+		@Override
+		public String getActionTitle() {
+			return "Request nipple-sex";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Tell [npc.name] that you'd like [npc.herHim] to use your [pc.nipples+].";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.NIPPLE_PLAYER)
+					&& Main.game.getPlayer().isBreastFuckable()
+					&& !SexFlags.requestsBlockedPlayer
+					&& !Sex.isPlayerDom();
+		}
+
+		@Override
+		public String getDescription() {
+			return "Putting on the most pleading expression you can muster, you cry out to [npc.name], "
+							+UtilText.returnStringAtRandom(
+									"[pc.speech(Please, fuck my nipples!)]",
+									"[pc.speech(Fuck my nipples, please!)]");
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.clearPlayerPenetrationRequests();
+			Sex.addPlayerPenetrationRequest(OrificeType.NIPPLE_PLAYER);
+		}
+		
+		@Override
+		public List<Fetish> getFetishesPlayer() {
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
+		}
+		
+		@Override
+		public List<Fetish> getFetishesPartner() {
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
+		}
+	};
 }

@@ -13,6 +13,7 @@ import com.base.game.character.Name;
 import com.base.game.character.NameTriplet;
 import com.base.game.character.QuestLine;
 import com.base.game.character.QuestType;
+import com.base.game.character.SexualOrientation;
 import com.base.game.character.body.types.VaginaType;
 import com.base.game.character.body.valueEnums.AssSize;
 import com.base.game.character.body.valueEnums.CupSize;
@@ -169,11 +170,13 @@ public class CharacterCreationDialogue {
 					+ getEyeOption()
 					+ "</p>"
 					
-//					+ "</br>"
-//					
-//					+ "<p style='text-align:center;'><b>Sexual Orientation</b></br>"
-//					+ getSexualOrientationOption()
-//					+ "</p>"
+					+ "</br>"
+					
+					+ "<p style='text-align:center;'><b>Sexual Orientation</b></br>"
+					+ getSexualOrientationOption()
+					+"</br>"
+					+ "<i style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>This can be changed in the 'Fetishes' screen at any time.</i>"
+					+ "</p>"
 					;
 		}
 
@@ -257,24 +260,24 @@ public class CharacterCreationDialogue {
 				};
 				
 			}
-//			else if (index == 7) {
-//				return new Response("Orientation", "Cycle your sexual orientation. (Hover over the status effect on the left of the screen to see what each orientation means.)", CHOOSE_BODY){
-//					@Override
-//					public void effects() {
-//						if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-//							Main.game.getPlayer().setSexualOrientation(SexualOrientation.GYNEPHILIC);
-//							
-//						} else if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC) {
-//							Main.game.getPlayer().setSexualOrientation(SexualOrientation.AMBIPHILIC);
-//							
-//						} else {
-//							Main.game.getPlayer().setSexualOrientation(SexualOrientation.ANDROPHILIC);
-//							
-//						}
-//					}
-//				};
-//				
-//			}
+			else if (index == 7) {
+				return new Response("Orientation", "Cycle your sexual orientation. (Hover over the status effect on the left of the screen to see what each orientation means.)", CHOOSE_BODY){
+					@Override
+					public void effects() {
+						if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC) {
+							Main.game.getPlayer().setSexualOrientation(SexualOrientation.ANDROPHILIC);
+							
+						} else if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+							Main.game.getPlayer().setSexualOrientation(SexualOrientation.AMBIPHILIC);
+							
+						} else {
+							Main.game.getPlayer().setSexualOrientation(SexualOrientation.GYNEPHILIC);
+							
+						}
+					}
+				};
+				
+			}
 			else {
 				return null;
 			}
@@ -376,24 +379,24 @@ public class CharacterCreationDialogue {
 		return contentSB.toString();
 	}
 	
-//	public static String getSexualOrientationOption() {
-//		if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-//			return "<span style='color:"+ SexualOrientation.ANDROPHILIC.getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(SexualOrientation.ANDROPHILIC.getName())+ "</span>"
-//					+ " | <span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.GYNEPHILIC.getName())+ "</span>"
-//					+ " | <span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.AMBIPHILIC.getName())+ "</span>";
-//			
-//		} else if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC) {
-//			return "<span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.ANDROPHILIC.getName())+ "</span>"
-//					+ " | <span style='color:"+ SexualOrientation.GYNEPHILIC.getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(SexualOrientation.GYNEPHILIC.getName())+ "</span>"
-//					+ " | <span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.AMBIPHILIC.getName())+ "</span>";
-//			
-//		} else {
-//			return "<span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.ANDROPHILIC.getName())+ "</span>"
-//					+ " | <span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.GYNEPHILIC.getName())+ "</span>"
-//					+ " | <span style='color:"+ SexualOrientation.AMBIPHILIC.getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(SexualOrientation.AMBIPHILIC.getName())+ "</span>";
-//			
-//		}
-//	}
+	public static String getSexualOrientationOption() {
+		if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC) {
+			return "<span style='color:"+ SexualOrientation.GYNEPHILIC.getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(SexualOrientation.GYNEPHILIC.getName())+ "</span>"
+					+ " | <span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.ANDROPHILIC.getName())+ "</span>"
+					+ " | <span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.AMBIPHILIC.getName())+ "</span>";
+			
+		} else if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+			return "<span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.GYNEPHILIC.getName())+ "</span>"
+					+ " | <span style='color:"+ SexualOrientation.ANDROPHILIC.getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(SexualOrientation.ANDROPHILIC.getName())+ "</span>"
+					+ " | <span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.AMBIPHILIC.getName())+ "</span>";
+			
+		} else {
+			return "<span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.GYNEPHILIC.getName())+ "</span>"
+					+ " | <span class='option-disabled'>"+ Util.capitaliseSentence(SexualOrientation.ANDROPHILIC.getName())+ "</span>"
+					+ " | <span style='color:"+ SexualOrientation.AMBIPHILIC.getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(SexualOrientation.AMBIPHILIC.getName())+ "</span>";
+			
+		}
+	}
 
 	private static void setSkin() {
 		Main.game.getPlayer().setSkinColour(RacialBody.HUMAN.getSkinType(), RacialBody.HUMAN.getSkinType().getNaturalColours().get(skinColourIndex));

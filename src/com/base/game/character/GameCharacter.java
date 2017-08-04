@@ -85,6 +85,7 @@ import com.base.game.inventory.weapon.AbstractWeapon;
 import com.base.game.sex.OrificeType;
 import com.base.game.sex.PenetrationType;
 import com.base.game.sex.PregnancyDescriptor;
+import com.base.game.sex.SexType;
 import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.utils.Util;
@@ -127,6 +128,9 @@ public class GameCharacter implements Serializable {
 	protected CharacterInventory inventory;
 
 	protected History history;
+
+	protected List<GameCharacter> slavesOwned;
+	protected GameCharacter owner;
 	
 	protected SexualOrientation sexualOrientation;
 	
@@ -163,9 +167,20 @@ public class GameCharacter implements Serializable {
 	// Clothes:
 	protected int nakedSlots;
 	
+	
 	// Stats:
-	protected CharacterStats stats;
+	// Combat stats:
+	private int foughtPlayerCount, lostCombatCount, wonCombatCount;
+	
+	
+	// Sex stats:
+	private int sexConsensualCount, sexAsSubCount, sexAsDomCount;
+	private Map<SexType, Integer> sexCountMap;
+	private Map<SexType, Integer> cumCountMap;
+	private Map<SexType, String> virginityLossMap;
+	private Map<GameCharacter, Map<SexType, Integer>> sexPartnerMap;
 
+	
 	// Misc.:
 	protected static List<CharacterChangeEventListener> playerAttributeChangeEventListeners = new ArrayList<>();
 	protected static List<CharacterChangeEventListener> NPCAttributeChangeEventListeners = new ArrayList<>();
@@ -188,6 +203,9 @@ public class GameCharacter implements Serializable {
 		location = new Vector2i(0, 0);
 		
 		history = History.NEUTRAL;
+
+		slavesOwned = new ArrayList<>();
+		owner = null;
 		
 		sexualOrientation = startingRace.getSexualOrientation(startingGender);
 		
@@ -239,7 +257,7 @@ public class GameCharacter implements Serializable {
 		potentialPartnersAsFather = new ArrayList<>();
 		
 		// Stats:
-		stats = new CharacterStats();
+		initStats();
 		
 		// Start all attributes and bonus attributes at 0:
 		for (Attribute a : Attribute.values()) {
@@ -470,7 +488,6 @@ public class GameCharacter implements Serializable {
 		this.description = description;
 	}
 
-
 	public History getHistory() {
 		return history;
 	}
@@ -491,7 +508,55 @@ public class GameCharacter implements Serializable {
 
 		updateAttributeListeners();
 	}
+	
+	
+	// Slavery:
+	
+	public List<GameCharacter> getSlavesOwned() {
+		return slavesOwned;
+	}
+	
+	public boolean addSlave(GameCharacter slave) {
+		boolean added = slavesOwned.add(slave);
+		
+		if(added) {
+			if(slave.isSlave()) {
+				slave.getOwner().removeSlave(slave);
+			}
+			slave.setOwner(this);
+		}
+		
+		return added;
+	}
+	
+	public boolean removeSlave(GameCharacter slave) {
+		boolean removed = slavesOwned.remove(slave);
+		
+		if(removed) {
+			slave.setOwner(null);
+		}
+		
+		return removed;
+	}
+	
+	public GameCharacter getOwner() {
+		return owner;
+	}
 
+	/**
+	 * Do not call this method directly! Use the owner's addSlave() and removeSlave() methods!
+	 * @param owner
+	 */
+	public void setOwner(GameCharacter owner) {
+		this.owner = owner;
+	}
+	
+	public boolean isSlave() {
+		return owner != null;
+	}
+
+	
+	
 	public SexualOrientation getSexualOrientation() {
 		return sexualOrientation;
 	}
@@ -760,19 +825,37 @@ public class GameCharacter implements Serializable {
 		Map<Attribute, Float> savedPotionEffects = new EnumMap<>(Attribute.class);
 		savedPotionEffects.putAll(getPotionAttributes());
 		
-		removeStatusEffect(StatusEffect.POTION_EFFECTS);
+		int potionTimeRemaining = 0;
+		
+		if(this.hasStatusEffect(StatusEffect.POTION_EFFECTS)) {
+			potionTimeRemaining = getStatusEffectDuration(StatusEffect.POTION_EFFECTS);
+			removeStatusEffect(StatusEffect.POTION_EFFECTS);
+		}
 		
 		setPotionAttributes(savedPotionEffects);
 		
-		if(potionAttributes.containsKey(att))
+		if(potionAttributes.containsKey(att)) {
 			setPotionAttribute(att, potionAttributes.get(att)+value);
-		else
+		} else {
 			setPotionAttribute(att, value);
+		}
 		
-		if(potionAttributes.get(att)==0)
+		if(potionAttributes.get(att)==0) {
 			potionAttributes.remove(att);
+		}
 		
-		addStatusEffect(StatusEffect.POTION_EFFECTS, 60);
+		potionTimeRemaining+=30;
+		
+		if(potionTimeRemaining>=6*60) {
+			addStatusEffect(StatusEffect.POTION_EFFECTS, 6*60);
+			
+		} else if(potionTimeRemaining>60) {
+			addStatusEffect(StatusEffect.POTION_EFFECTS, potionTimeRemaining);
+			
+		} else {
+			addStatusEffect(StatusEffect.POTION_EFFECTS, 60);
+			
+		}
 		
 		if(isPlayer()) {
 			if(potionAttributes.get(att)<0)
@@ -1068,9 +1151,159 @@ public class GameCharacter implements Serializable {
 	
 	// Stats:
 	
-	public CharacterStats getStats() {
-		return stats;
+	private void initStats() {
+		foughtPlayerCount=0;
+		lostCombatCount=0;
+		wonCombatCount=0;
+		
+		// Sex Stats:
+		sexConsensualCount=0;
+		sexAsSubCount=0;
+		sexAsDomCount=0;
+		
+		sexPartnerMap = new HashMap<GameCharacter, Map<SexType, Integer>>();
+		
+		sexCountMap = new HashMap<>();
+		cumCountMap = new HashMap<>();
+		virginityLossMap = new HashMap<>();
+		
+	};
+	
+	public Map<SexType, Integer> getSexPartnerStats(GameCharacter c) {
+		return sexPartnerMap.get(c);
 	}
+	
+	public Map<GameCharacter, Map<SexType, Integer>> getSexPartners() {
+		return sexPartnerMap;
+	}
+	
+	public void addSexPartner(GameCharacter partner, SexType sexType) {
+		if(this.sexPartnerMap.get(partner) == null) {
+			Map<SexType, Integer> n = new HashMap<>();
+			this.sexPartnerMap.put(partner, n);
+		}
+		
+		Map <SexType, Integer> sp = this.sexPartnerMap.get(partner);
+		if(sp.get(sexType) == null) {
+			sp.put(sexType, 0);
+		}
+		
+		sp.put(sexType, sp.get(sexType) + 1);
+	}
+
+
+	public int getFoughtPlayerCount() {
+		return foughtPlayerCount;
+	}
+	public void setFoughtPlayerCount(int count) {
+		foughtPlayerCount = count;
+	}
+
+	public int getLostCombatCount() {
+		return lostCombatCount;
+	}
+	public void setLostCombatCount(int count) {
+		lostCombatCount = count;
+	}
+
+	public int getWonCombatCount() {
+		return wonCombatCount;
+	}
+	public void setWonCombatCount(int count) {
+		wonCombatCount = count;
+	}
+
+	
+	// Sex stats:
+	public int getSexConsensualCount() {
+		return sexConsensualCount;
+	}
+	public void setSexConsensualCount(int count) {
+		sexConsensualCount = count;
+	}
+
+	public int getSexAsSubCount() {
+		return sexAsSubCount;
+	}
+	public void setSexAsSubCount(int count) {
+		sexAsSubCount = count;
+	}
+
+	public int getSexAsDomCount() {
+		return sexAsDomCount;
+	}
+	public void setSexAsDomCount(int count) {
+		sexAsDomCount = count;
+	}
+
+	public int getTotalTimesHadSex() {
+		return getSexAsDomCount() + getSexAsSubCount() + getSexConsensualCount();
+	}
+	
+	// Sex:
+	public void incrementSexCount(SexType sexType) {
+		if(sexCountMap.get(sexType)==null) {
+			sexCountMap.put(sexType, 1);
+		} else {
+			sexCountMap.put(sexType, sexCountMap.get(sexType) + 1);
+		}
+	}
+	public void setSexCount(SexType sexType, int integer) {
+		if(sexCountMap.get(sexType)==null) {
+			sexCountMap.put(sexType, integer);
+		} else {
+			sexCountMap.put(sexType, integer);
+		}
+	}
+	public int getSexCount(SexType sexType) {
+		if(sexCountMap.get(sexType)==null) {
+			return 0;
+		} else {
+			return sexCountMap.get(sexType);
+		}
+	}
+
+	// Cum:
+	public void incrementCumCount(SexType sexType) {
+		if(cumCountMap.get(sexType)==null) {
+			cumCountMap.put(sexType, 1);
+		} else {
+			cumCountMap.put(sexType, cumCountMap.get(sexType) + 1);
+		}
+	}
+	public void setCumCount(SexType sexType, int integer) {
+		if(cumCountMap.get(sexType)==null) {
+			cumCountMap.put(sexType, integer);
+		} else {
+			cumCountMap.put(sexType, integer);
+		}
+	}
+	public int getCumCount(SexType sexType) {
+		if(cumCountMap.get(sexType)==null) {
+			return 0;
+		} else {
+			return cumCountMap.get(sexType);
+		}
+	}
+
+	// Virginity:
+	public void setVirginityLoss(SexType sexType, String description) {
+		virginityLossMap.put(sexType, description);
+	}
+	
+	public String getVirginityLoss(SexType sexType) {
+		return virginityLossMap.get(sexType);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -2355,10 +2588,15 @@ public class GameCharacter implements Serializable {
 					}
 					
 			} else if(visibleVagina) {
-				if(getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue() && hasPenis()) {
+				if((getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue() || getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue()) && hasPenis()) {
 					// Exposed vagina and obvious penis bulge:
 					if(isPlayer()) {
-						return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with the fact that your [pc.vagina] is exposed, reveals to everyone that you're [pc.a_gender].", Gender.FUTANARI);
+						if(getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue()) {
+							return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with the fact that your [pc.vagina] is exposed, reveals to everyone that you're [pc.a_gender].", Gender.FUTANARI);
+						} else {
+							return new GenderAppearance("The "+getTesticleSize().getDescriptor()+" bulge of your [pc.balls] between your legs, combined with the fact that your [pc.vagina] is exposed, reveals to everyone that you're [pc.a_gender].",
+									Gender.FUTANARI);
+						}
 					} else {
 						return new GenderAppearance(UtilText.parse(this,
 								"The [npc.cockSize] bulge between [npc.her] legs, combined with the fact that [npc.her] [npc.vagina] is exposed, reveals to everyone that [npc.she]'s [npc.a_gender]."), Gender.FUTANARI);
@@ -2399,10 +2637,14 @@ public class GameCharacter implements Serializable {
 				}
 				
 			} else {
-				if(getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue() && hasPenis()) {
+				if((getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue() || getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue()) && hasPenis()) {
 					// Obvious penis bulge:
 					if(isPlayer()) {
-						return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_gender].", Gender.SHEMALE);
+						if(getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue()) {
+							return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_gender].", Gender.SHEMALE);
+						} else {
+							return new GenderAppearance("The "+getTesticleSize().getDescriptor()+" bulge of your [pc.balls] between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_gender].", Gender.SHEMALE);
+						}
 					} else {
 						return new GenderAppearance(UtilText.parse(this,
 								"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.she]'s [npc.a_gender]."), Gender.SHEMALE);
@@ -2481,10 +2723,15 @@ public class GameCharacter implements Serializable {
 				}
 				
 			} else if(visibleVagina) {
-				if(getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue() && hasPenis()) {
+				if((getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue() || getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue()) && hasPenis()) {
 					// Exposed vagina and obvious penis bulge:
 					if(isPlayer()) {
-						return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with the fact that your [pc.vagina] is exposed, reveals to everyone that you're [pc.a_gender].", Gender.HERMAPHRODITE);
+						if(getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue()) {
+							return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with the fact that your [pc.vagina] is exposed, reveals to everyone that you're [pc.a_gender].", Gender.HERMAPHRODITE);
+						} else {
+							return new GenderAppearance("The "+getTesticleSize().getDescriptor()+" bulge of your [pc.balls] between your legs, combined with the fact that your [pc.vagina] is exposed, reveals to everyone that you're [pc.a_gender].",
+									Gender.HERMAPHRODITE);
+						}
 					} else {
 						return new GenderAppearance(UtilText.parse(this,
 								"The [npc.cockSize] bulge between [npc.her] legs, combined with the fact that [npc.her] [npc.vagina] is exposed, reveals to everyone that [npc.she]'s [npc.a_gender]."), Gender.HERMAPHRODITE);
@@ -2525,10 +2772,14 @@ public class GameCharacter implements Serializable {
 				}
 				
 			} else {
-				if(getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue() && hasPenis()) {
+				if((getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue() || getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue()) && hasPenis()) {
 					// Obvious penis bulge:
 					if(isPlayer()) {
-						return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_gender].", Gender.MALE);
+						if(getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue()) {
+							return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_gender].", Gender.MALE);
+						} else {
+							return new GenderAppearance("The "+getTesticleSize().getDescriptor()+" bulge of your [pc.balls] between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_gender].", Gender.MALE);
+						}
 					} else {
 						return new GenderAppearance(UtilText.parse(this,
 								"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.she]'s [npc.a_gender]."), Gender.MALE);
