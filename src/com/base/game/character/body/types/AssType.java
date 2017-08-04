@@ -27,7 +27,7 @@ public enum AssType implements BodyPartTypeInterface {
 	
 	HARPY(BodyCoveringType.FEATHERS, Race.HARPY),
 
-	SLIME(BodyCoveringType.SLIME, Race.SLIME)
+	SLIME(BodyCoveringType.SLIME, Race.SLIME),
 	
 	FOX_MORPH(BodyCoveringType.VULPINE_FUR, Race.FOX_MORPH);
 
