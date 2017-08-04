@@ -26,7 +26,9 @@ public enum FaceType implements BodyPartTypeInterface {
 
 	SLIME(BodyCoveringType.SLIME, TongueType.SLIME, Race.SLIME),
 
-	HARPY(BodyCoveringType.FEATHERS, TongueType.TENGU, Race.HARPY);
+	HARPY(BodyCoveringType.FEATHERS, TongueType.TENGU, Race.HARPY),
+	
+	FOX_MORPH(BodyCoveringType.VULPINE_FUR, TongueType.FOX_MORPH, Race.FOX_MORPH);
 
 	private BodyCoveringType skinType;
 	private TongueType tongueType;
@@ -58,6 +60,8 @@ public enum FaceType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("muzzle", "face");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("muzzle", "face");
+			case FOX_MORPH:
+				return UtilText.returnStringAtRandom("muzzle", "face");
 			default:
 				return UtilText.returnStringAtRandom("face");
 		}
@@ -71,6 +75,8 @@ public enum FaceType implements BodyPartTypeInterface {
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("muzzles", "faces");
 			case LYCAN:
+				return UtilText.returnStringAtRandom("muzzles", "faces");
+			case FOX_MORPH:
 				return UtilText.returnStringAtRandom("muzzles", "faces");
 			default:
 				return UtilText.returnStringAtRandom("faces");
@@ -98,6 +104,8 @@ public enum FaceType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("anthropomorphic wolf-like", "wolf-like");
 			case SLIME:
 				return UtilText.returnStringAtRandom("slimy");
+			case FOX_MORPH
+				return UtilText.returnStringAtRandom("anthropomorphic fox-like", "fox-like", "vulpine");
 			default:
 				return UtilText.returnStringAtRandom("");
 		}
