@@ -561,6 +561,28 @@ public enum TFModifier {
 		}
 	},
 	
+	TF_MOD_TESTICLE_INTERNAL("internal testicles",
+			"Applies an effect such that the user's testicles retract and become internal.",
+			"internal balls",
+			"modifier_circle_negative",
+			Colour.GENERIC_BAD,
+			Rarity.COMMON){
+		public boolean isSoloDescriptor() {
+			return true;
+		}
+	},
+	
+	TF_MOD_TESTICLE_EXTERNAL("external testicles",
+			"Applies an effect such that the user's testicles descend and become external.",
+			"external balls",
+			"modifier_circle_positive",
+			Colour.GENERIC_GOOD,
+			Rarity.COMMON){
+		public boolean isSoloDescriptor() {
+			return true;
+		}
+	},
+	
 	TF_MOD_FEMININITY_INCREASE("femininity",
 			"Applies an effect such that the user becomes more feminine.",
 			"feminine",
