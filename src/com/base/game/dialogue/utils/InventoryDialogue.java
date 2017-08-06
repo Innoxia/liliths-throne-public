@@ -10,6 +10,7 @@ import com.base.game.character.GameCharacter;
 import com.base.game.character.QuestLine;
 import com.base.game.character.attributes.Attribute;
 import com.base.game.character.attributes.CorruptionLevel;
+import com.base.game.character.npc.NPC;
 import com.base.game.character.npc.dominion.Nyan;
 import com.base.game.combat.Attack;
 import com.base.game.combat.Combat;
@@ -507,19 +508,19 @@ public class InventoryDialogue {
 						@Override
 						public void effects(){
 							int i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
-							while(i>0) {
+							while(i>0 && Main.game.getPlayer().getInventorySlotsTaken() < 24) {
 								Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true);
 								i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
 							}
 							
 							i = Main.game.getPlayerCell().getInventory().getClothingInInventory().size();
-							while(i>0) {
+							while(i>0 && Main.game.getPlayer().getInventorySlotsTaken() < 24) {
 								Main.game.getPlayer().addClothing(Main.game.getPlayerCell().getInventory().getClothingInInventory().get(i-1), true);
 								i = Main.game.getPlayerCell().getInventory().getClothingInInventory().size();
 							}
 							
 							i = Main.game.getPlayerCell().getInventory().getWeaponsInInventory().size();
-							while(i>0) {
+							while(i>0 && Main.game.getPlayer().getInventorySlotsTaken() < 24) {
 								Main.game.getPlayer().addWeapon(Main.game.getPlayerCell().getInventory().getWeaponsInInventory().get(i-1), true);
 								i = Main.game.getPlayerCell().getInventory().getWeaponsInInventory().size();
 							}
@@ -2342,6 +2343,13 @@ public class InventoryDialogue {
 								null, CorruptionLevel.FOUR_LUSTFUL, null, null, null);
 						
 					} else {
+						if(ownerInSex instanceof NPC) {
+							if(!((NPC)ownerInSex).isClothingStealable()) {
+								return new Response("Steal", "You can't steal this character's clothing...", null,
+										null, CorruptionLevel.FOUR_LUSTFUL, null, null, null);
+							}
+						}
+						
 						if(Sex.isPlayerDom() && !Sex.getSexManager().isConsensualSex()) {
 							if (ownerInSex.isAbleToUnequip(clothingEquipped, false, Main.game.getPlayer())) {
 								if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothingEquipped)) {

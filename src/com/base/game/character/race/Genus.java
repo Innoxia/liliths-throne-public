@@ -4,14 +4,43 @@ import com.base.utils.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.1.52
+ * @version 0.1.82
  * @author Innoxia
  */
 public enum Genus {
 
-	HUMAN("human", Colour.CLOTHING_RED), RODENT("rodent", Colour.CLOTHING_RED), SLIME("slime", Colour.CLOTHING_RED), CANINE("canine", Colour.CLOTHING_RED), FELINE("feline", Colour.CLOTHING_RED), EQUINE("equine", Colour.CLOTHING_RED), VULPINE("vulpine", Colour.CLOTHING_RED), BOVINE("bovine", Colour.CLOTHING_RED), INSECT(
-			"insectoid",
-			Colour.CLOTHING_RED), ARACHNID("arachnoid", Colour.CLOTHING_RED), AVIAN("aviine", Colour.CLOTHING_RED), AQUATIC("aquatic", Colour.CLOTHING_RED), REPTILE("reptilian", Colour.CLOTHING_RED), DRAGON("dragon", Colour.CLOTHING_RED), DEMON("demon", Colour.CLOTHING_RED), CELESTIAL("celestial", Colour.CLOTHING_RED);
+	HUMAN("human",
+			Colour.RACE_HUMAN),
+	RODENT("rodent",
+			Colour.CLOTHING_RED), //TODO
+	SLIME("slime",
+			Colour.RACE_SLIME),
+	CANINE("canine",
+			Colour.RACE_DOG_MORPH),
+	FELINE("feline",
+			Colour.RACE_CAT_MORPH),
+	EQUINE("equine",
+			Colour.RACE_HORSE_MORPH),
+	VULPINE("vulpine",
+			Colour.CLOTHING_RED), //TODO
+	BOVINE("bovine",
+			Colour.CLOTHING_RED), //TODO
+	INSECT("insectoid",
+			Colour.CLOTHING_RED), //TODO
+	ARACHNID("arachnoid",
+			Colour.CLOTHING_RED), //TODO
+	AVIAN("aviine",
+			Colour.RACE_HARPY),
+	AQUATIC("aquatic",
+			Colour.CLOTHING_RED), //TODO
+	REPTILE("reptilian",
+			Colour.CLOTHING_RED), //TODO
+	DRAGON("dragon",
+			Colour.CLOTHING_RED), //TODO
+	DEMON("demon",
+			Colour.RACE_DEMON),
+	CELESTIAL("celestial",
+			Colour.RACE_ANGEL);
 
 	private String name;
 	private Colour colour;

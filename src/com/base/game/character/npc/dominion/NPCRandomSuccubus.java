@@ -22,18 +22,16 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.npcDialogue.DominionSuccubus;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.utils.UtilText;
-import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItem;
-import com.base.game.inventory.item.ItemType;
 import com.base.game.sex.OrificeType;
+import com.base.game.sex.PenetrationType;
 import com.base.game.sex.Sex;
 import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.utils.Util;
-import com.base.utils.Util.ListValue;
 import com.base.utils.Util.Value;
 import com.base.utils.Vector2i;
 import com.base.world.WorldType;
@@ -118,9 +116,15 @@ public class NPCRandomSuccubus extends NPC {
 		if (applyEffects) {
 			setVaginaType(VaginaType.DEMON_COMMON);
 			setPenisType(PenisType.NONE);
+			setPendingClothingDressing(true);
 		}
 	}
 
+	@Override
+	public boolean isClothingStealable() {
+		return true;
+	}
+	
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return true;
@@ -152,14 +156,6 @@ public class NPCRandomSuccubus extends NPC {
 			return Attack.MAIN;
 		else
 			return Attack.SEDUCTION;
-	}
-	
-	public List<AbstractCoreItem> getLootItems() {
-		if(Math.random()<=0.66) {
-			return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.COR_INGREDIENT_LILITHS_GIFT)));
-		} else {
-			return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_DEMON)));
-		}
 	}
 	
 	@Override
@@ -328,9 +324,9 @@ public class NPCRandomSuccubus extends NPC {
 	// Losing virginity:
 	private static StringBuilder StringBuilderSB;
 	public String getPlayerVaginaVirginityLossDescription(boolean isPlayerDom){
-		if(isPlayerDom)
+		if(isPlayerDom || Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==PenetrationType.TAIL_PARTNER) {
 			return super.getPlayerVaginaVirginityLossDescription(isPlayerDom);
-		
+		}
 		
 		StringBuilderSB = new StringBuilder();
 		

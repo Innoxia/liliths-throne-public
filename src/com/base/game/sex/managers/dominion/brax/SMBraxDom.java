@@ -35,12 +35,13 @@ import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailMouth;
 import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailNipple;
 import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailVagina;
 import com.base.game.sex.sexActions.dominion.brax.BraxPositioning;
+import com.base.game.sex.sexActions.dominion.brax.SABraxDom;
 import com.base.game.sex.sexActions.universal.GenericOrgasms;
 import com.base.game.sex.sexActions.universal.sub.SubDoggy;
 
 /**
  * @since 0.1.52
- * @version 0.1.8
+ * @version 0.1.82
  * @author Innoxia
  */
 public class SMBraxDom extends SexManagerDefault {
@@ -76,6 +77,8 @@ public class SMBraxDom extends SexManagerDefault {
 				// Scene-specific:
 				
 				SubDoggy.class,
+				
+				SABraxDom.class,
 				
 				PlayerTailVagina.class,
 				PlayerTailAnus.class,

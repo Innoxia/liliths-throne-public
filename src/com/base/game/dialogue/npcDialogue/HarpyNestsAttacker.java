@@ -2,6 +2,7 @@ package com.base.game.dialogue.npcDialogue;
 
 import com.base.game.Weather;
 import com.base.game.character.QuestLine;
+import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.body.types.ArmType;
 import com.base.game.character.effects.Fetish;
 import com.base.game.character.race.Race;
@@ -19,6 +20,7 @@ import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Util.ListValue;
+import com.base.world.places.Dominion;
 
 public class HarpyNestsAttacker {
 	public static final DialogueNodeOld HARPY_ATTACKS = new DialogueNodeOld("Angry harpy", "An angry harpy swoops down on you!", true) {
@@ -130,7 +132,7 @@ public class HarpyNestsAttacker {
 							+ "</p>";
 					
 				} else {
-					if(Main.game.getCurrentRandomAttacker().getStats().getFoughtPlayerCount()>0) {
+					if(Main.game.getCurrentRandomAttacker().getFoughtPlayerCount()>0) {
 						return "<p>"
 									+ "As you travel along the narrow walkways, you find yourself passing the home of that aggressive [npc.race] who attacked you before."
 									+ " As you walk by, [npc.she] suddenly jumps down in front of you, blocking your path."
@@ -272,28 +274,51 @@ public class HarpyNestsAttacker {
 		
 		@Override
 		public Response getResponse(int index) {
-			if (index == 1) {
-				return new Response("Continue", "Carry on your way...", null){
-					@Override
-					public DialogueNodeOld getNextDialogue() {
-						return GenericDialogue.getDefaultDialogueNoEncounter();
-					}
-				};
-				
-			} else if (index == 2) {
-				return new ResponseSex("Have some fun",
-						"Well, [npc.she] <i>is</i> asking for it!",
-						AFTER_SEX_VICTORY,
-						Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY);
-				
-			} else if (index == 3) {
-				return new ResponseSex("Submit",
-						"You're not really sure what to do now...</br>"
-							+ "Perhaps it would be best to let [npc.name] choose what to do next?",
-						AFTER_SEX_DEFEAT,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-						Main.game.getCurrentRandomAttacker(), new SMSubStanding(), AFTER_SEX_DEFEAT,
-						"<p>"
+			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer()) {
+				if (index == 1) {
+					return new Response("Continue", "Carry on your way...", null){
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return GenericDialogue.getDefaultDialogueNoEncounter();
+						}
+					};
+					
+				} else if (index == 2) {
+					return new ResponseSex("Have some fun",
+							"Well, [npc.she] <i>is</i> asking for it!",
+							AFTER_SEX_VICTORY,
+							Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY);
+					
+				} else if (index == 3) {
+					return new ResponseSex("Have some gentle fun",
+							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
+							AFTER_SEX_VICTORY,
+							Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY) {
+						@Override
+						public void effects() {
+							sexPacePlayer = (SexPace.DOM_GENTLE);
+						}
+					};
+					
+				} else if (index == 4) {
+					return new ResponseSex("Have some rough fun",
+							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
+							AFTER_SEX_VICTORY,
+							Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY) {
+						@Override
+						public void effects() {
+							sexPacePlayer = (SexPace.DOM_ROUGH);
+						}
+					};
+					
+				} else if (index == 5) {
+					return new ResponseSex("Submit",
+							"You're not really sure what to do now...</br>"
+								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
+							AFTER_SEX_DEFEAT,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
+							Main.game.getCurrentRandomAttacker(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]."
 								+ " Leaning down, you do the first thing that comes into your mind, and start apologising,"
 								+ " [pc.speech(Sorry... I was just trying to defend myself, you know... Erm... Is there anything I can do to make it up to you?)]"
@@ -312,25 +337,99 @@ public class HarpyNestsAttacker {
 								+ " You let out a muffled yelp as your opponent takes charge, but as you feel [npc.her] [npc.hands] reaching down to start roughly groping your ass,"
 									+ " you realise that you couldn't be happier with how things have turned out..."
 							+ "</p>");
-				
-			} else if (index == 5) {
-				return new Response(
-						"Remove character",
-						"Scare "+Main.game.getCurrentRandomAttacker().getName("the")+" away. <b>This will remove "+Main.game.getCurrentRandomAttacker().getName("the")+" from this area, allowing another NPC to move into this tile.</b>",
-						AFTER_COMBAT_VICTORY){
 					
-					@Override
-					public DialogueNodeOld getNextDialogue() {
-						return GenericDialogue.getDefaultDialogueNoEncounter();
-					}
-					@Override
-					public void effects() {
-						Main.game.removeNPC(Main.game.getCurrentRandomAttacker());
-					}
-				};
+				} else if (index == 6 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
+					return new Response(
+							"Remove character",
+							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
+							AFTER_COMBAT_VICTORY){
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return GenericDialogue.getDefaultDialogueNoEncounter();
+						}
+						@Override
+						public void effects() {
+							Main.game.removeNPC(Main.game.getCurrentRandomAttacker());
+						}
+					};
+					
+				} else {
+					return null;
+				}
 				
 			} else {
-				return null;
+				if (index == 1) {
+					return new Response("Continue", "Carry on your way...", null){
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return GenericDialogue.getDefaultDialogueNoEncounter();
+						}
+					};
+					
+				} else if (index == 2) {
+					return new ResponseSex(
+							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", AFTER_SEX_VICTORY,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+							null, null, null,
+							Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
+								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]."
+								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace..."
+							+ "</p>");
+					
+				} else if (index == 3) {
+					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", AFTER_SEX_VICTORY,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+							null, null, null,
+							Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
+								+ "Reaching down, you take hold of [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]."
+								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace..."
+							+ "</p>") {
+						@Override
+						public void effects() {
+							sexPacePlayer = (SexPace.DOM_GENTLE);
+						}
+					};
+					
+				} else if (index == 4) {
+					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", AFTER_SEX_VICTORY,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+							null, null, null,
+							Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
+								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]."
+								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace..."
+							+ "</p>") {
+						@Override
+						public void effects() {
+							sexPacePlayer = (SexPace.DOM_ROUGH);
+						}
+					};
+					
+				} else if (index == 5) {
+					return new Response("Submit",
+							"You can't submit to [npc.herHim], as [npc.she] has no interest in having sex with you!",
+							null);
+					
+				} else if (index == 6 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
+					return new Response(
+							"Remove character",
+							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
+							AFTER_COMBAT_VICTORY){
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return GenericDialogue.getDefaultDialogueNoEncounter();
+						}
+						@Override
+						public void effects() {
+							Main.game.removeNPC(Main.game.getCurrentRandomAttacker());
+						}
+					};
+					
+				} else {
+					return null;
+				}
 			}
 		}
 	};

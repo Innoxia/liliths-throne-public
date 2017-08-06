@@ -30,7 +30,7 @@ public class DominionAlleywayAttacker {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getCurrentRandomAttacker().getStats().getFoughtPlayerCount()>0) {
+			if(Main.game.getCurrentRandomAttacker().getFoughtPlayerCount()>0) {
 				
 				if(Main.game.getCurrentRandomAttacker().isVisiblyPregnant()){
 					// Pregnant encounters:

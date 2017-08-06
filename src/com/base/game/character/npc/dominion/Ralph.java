@@ -11,7 +11,7 @@ import com.base.game.character.race.RaceStage;
 import com.base.game.character.race.RacialBody;
 import com.base.game.combat.Attack;
 import com.base.game.dialogue.DialogueNodeOld;
-import com.base.game.dialogue.places.dominion.shoppingArcade.ShoppingArcadeDialogue;
+import com.base.game.dialogue.places.dominion.shoppingArcade.RalphsSnacks;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreItem;
@@ -31,7 +31,7 @@ import com.base.world.places.ShoppingArcade;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.82
  * @author Innoxia
  */
 public class Ralph extends NPC {
@@ -102,10 +102,11 @@ public class Ralph extends NPC {
 	 * Discount is active for three days after earning it.
 	 */
 	public boolean isDiscountActive(){
-		if(Main.game.getDialogueFlags().ralphDiscountStartTime==-1 || Main.game.getDialogueFlags().ralphDiscount<=0)
+		if(Main.game.getDialogueFlags().ralphDiscountStartTime==-1 || Main.game.getDialogueFlags().ralphDiscount<=0) {
 			return false;
-		else
+		} else {
 			return (Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) < (60*24*3);
+		}
 	}
 
 	@Override
@@ -209,15 +210,15 @@ public class Ralph extends NPC {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "Ralph returns to running his shop, and you walk back over to the transformative consumables section, wondering if you should buy anything with your discount."
-					+ " When he's sure that nobody else is watching, Ralph gazes lustfully at your body, and you're pretty sure that you could convince him to give you another \"discount\" anytime you wanted it."
+						+ "Ralph returns to running his shop, and you walk back over to the transformative consumables section, wondering if you should buy anything with your discount."
+						+ " When he's sure that nobody else is watching, Ralph gazes lustfully at your body, and you're pretty sure that you could convince him to give you another \"discount\" any time you wanted it."
 					+ "</p>";
 		}
 
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on browsing the wares in Ralph's shop.", ShoppingArcadeDialogue.SHOP_CONSUMABLES);
+				return new Response("Continue", "Carry on browsing the wares in Ralph's shop.", RalphsSnacks.INTERIOR);
 			} else {
 				return null;
 			}

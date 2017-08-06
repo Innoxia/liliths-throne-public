@@ -260,13 +260,13 @@ public class PartnerTalk {
 		@Override
 		public List<Fetish> getFetishesPlayer() {
 			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_PREGNANCY));
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_IMPREGNATION));
 				
 			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_ANAL));
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_ANAL_GIVING));
 				
 			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_BREASTS));
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
 				
 			} else {
 				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD));
@@ -279,10 +279,10 @@ public class PartnerTalk {
 				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_PREGNANCY));
 				
 			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_ANAL));
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
 				
 			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_BREASTS));
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_BREASTS_SELF));
 				
 			} else {
 				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT));

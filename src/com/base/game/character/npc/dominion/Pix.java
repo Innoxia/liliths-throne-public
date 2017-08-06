@@ -8,7 +8,6 @@ import com.base.game.character.body.valueEnums.CupSize;
 import com.base.game.character.effects.Fetish;
 import com.base.game.character.gender.Gender;
 import com.base.game.character.npc.NPC;
-import com.base.game.character.npc.RomanceProgress;
 import com.base.game.character.race.RaceStage;
 import com.base.game.character.race.RacialBody;
 import com.base.game.combat.Attack;
@@ -26,7 +25,7 @@ import com.base.world.places.ShoppingArcade;
 
 /**
  * @since 0.1.6x
- * @version 0.1.69.9
+ * @version 0.1.82
  * @author Innoxia
  */
 public class Pix extends NPC {
@@ -82,11 +81,6 @@ public class Pix extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
-		if (romanceProgress <= RomanceProgress.TWO_FRIENDLY.getProgressMax()) {
-			romanceProgress += 10;
-			if (romanceProgress > RomanceProgress.TWO_FRIENDLY.getProgressMax())
-				romanceProgress = RomanceProgress.TWO_FRIENDLY.getProgressMax();
-		}
 	}
 	
 	public static final DialogueNodeOld PIX_POST_SEX = new DialogueNodeOld("Pix dresses you", "You're too tired to complain as Pix starts dressing you.", false) {

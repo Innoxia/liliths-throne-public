@@ -11,7 +11,6 @@ import com.base.game.character.body.valueEnums.CupSize;
 import com.base.game.character.effects.StatusEffect;
 import com.base.game.character.gender.Gender;
 import com.base.game.character.npc.NPC;
-import com.base.game.character.npc.RomanceProgress;
 import com.base.game.character.race.RaceStage;
 import com.base.game.character.race.RacialBody;
 import com.base.game.combat.Attack;
@@ -30,7 +29,7 @@ import com.base.world.places.LilayasHome;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.82
  * @author Innoxia
  */
 public class Lilaya extends NPC {
@@ -96,11 +95,6 @@ public class Lilaya extends NPC {
 	public void endSex(boolean applyEffects) {
 		if (applyEffects) {
 			setPenisType(PenisType.NONE);
-		}
-		if (romanceProgress <= RomanceProgress.TWO_FRIENDLY.getProgressMax()) {
-			romanceProgress += 10;
-			if (romanceProgress > RomanceProgress.TWO_FRIENDLY.getProgressMax())
-				romanceProgress = RomanceProgress.TWO_FRIENDLY.getProgressMax();
 		}
 	}
 	

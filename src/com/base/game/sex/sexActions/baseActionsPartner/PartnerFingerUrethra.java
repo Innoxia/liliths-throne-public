@@ -92,13 +92,13 @@ public class PartnerFingerUrethra {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Letting out a soft [pc.moan], you start gently bucking your [pc.hips] against [npc.her] [npc.hand], focusing on the feeling of your [pc.cock+] as it throbs in response to [npc.her] touch.",
 							" With a soft [pc.moan], you start slowly thrusting your [pc.hips] against [npc.her] touch, enjoying the feeling of [npc.her] [npc.fingers+] sliding up and down your [pc.cock+].",
-							" You start slowly bucking your [pc.hips] against [npc.her] [npc.hand], [pc.moaning] softly as you focus on the feeling of [npc.her] [npc.fingers+] sliding up and down your [npc.cock+]."));
+							" You start slowly bucking your [pc.hips] against [npc.her] [npc.hand], [pc.moaning] softly as you focus on the feeling of [npc.her] [npc.fingers+] sliding up and down your [pc.cock+]."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Letting out [pc.a_moan+], you start eagerly bucking your [pc.hips] against [npc.her] [npc.hand], focusing on the feeling of your [pc.cock+] as it throbs in response to [npc.her] touch.",
 							" With [pc.a_moan+], you start eagerly thrusting your [pc.hips] against [npc.her] touch, enjoying the feeling of [npc.her] [npc.fingers+] sliding up and down your [pc.cock+].",
-							" You start eagerly bucking your [pc.hips] against [npc.her] [npc.hand], [pc.moaning+] as you focus on the feeling of [npc.her] [npc.fingers+] sliding up and down your [npc.cock+]."));
+							" You start eagerly bucking your [pc.hips] against [npc.her] [npc.hand], [pc.moaning+] as you focus on the feeling of [npc.her] [npc.fingers+] sliding up and down your [pc.cock+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -110,13 +110,13 @@ public class PartnerFingerUrethra {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Letting out [pc.a_moan+], you start eagerly bucking your [pc.hips] against [npc.her] [npc.hand], focusing on the feeling of your [pc.cock+] as it throbs in response to [npc.her] touch.",
 							" With [pc.a_moan+], you start eagerly thrusting your [pc.hips] against [npc.her] touch, enjoying the feeling of [npc.her] [npc.fingers+] sliding up and down your [pc.cock+].",
-							" You start eagerly bucking your [pc.hips] against [npc.her] [npc.hand], [pc.moaning+] as you focus on the feeling of [npc.her] [npc.fingers+] sliding up and down your [npc.cock+]."));
+							" You start eagerly bucking your [pc.hips] against [npc.her] [npc.hand], [pc.moaning+] as you focus on the feeling of [npc.her] [npc.fingers+] sliding up and down your [pc.cock+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Letting out [pc.a_moan+], you start bucking your [pc.hips] against [npc.her] [npc.hand], focusing on the feeling of your [pc.cock+] as it throbs in response to [npc.her] touch.",
 							" With [pc.a_moan+], you start thrusting your [pc.hips] against [npc.her] touch, enjoying the feeling of [npc.her] [npc.fingers+] sliding up and down your [pc.cock+].",
-							" You start bucking your [pc.hips] against [npc.her] [npc.hand], [pc.moaning+] as you focus on the feeling of [npc.her] [npc.fingers+] sliding up and down your [npc.cock+]."));
+							" You start bucking your [pc.hips] against [npc.her] [npc.hand], [pc.moaning+] as you focus on the feeling of [npc.her] [npc.fingers+] sliding up and down your [pc.cock+]."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -180,16 +180,6 @@ public class PartnerFingerUrethra {
 							"You find yourself letting out [pc.a_moan+] as [npc.name] reaches up with one [npc.hand] and starts to stroke and play with your [pc.balls+].",
 							"Running [npc.her] [npc.fingers+] over your [pc.balls+], [npc.name] starts to stroke and cup them, letting out [npc.a_moan+] as your [pc.cock+] twitches in response.");
 			}
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
 		}
 	};
 	

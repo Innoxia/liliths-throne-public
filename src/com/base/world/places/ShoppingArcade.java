@@ -5,10 +5,12 @@ import java.io.InputStream;
 
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.encounters.Encounter;
-import com.base.game.dialogue.places.dominion.shoppingArcade.SPBeautySalon;
-import com.base.game.dialogue.places.dominion.shoppingArcade.SPGym;
+import com.base.game.dialogue.places.dominion.shoppingArcade.RalphsSnacks;
+import com.base.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
+import com.base.game.dialogue.places.dominion.shoppingArcade.ArcaneArts;
+import com.base.game.dialogue.places.dominion.shoppingArcade.ClothingEmporium;
+import com.base.game.dialogue.places.dominion.shoppingArcade.PixsPlayground;
 import com.base.game.dialogue.places.dominion.shoppingArcade.ShoppingArcadeDialogue;
-import com.base.main.Main;
 import com.base.utils.BaseColour;
 import com.base.utils.Bearing;
 import com.base.utils.Util;
@@ -17,7 +19,7 @@ import com.base.world.WorldType;
 
 /**
  * @since 0.1.78
- * @version 0.1.78
+ * @version 0.1.82
  * @author Innoxia
  */
 public enum ShoppingArcade implements PlaceInterface {
@@ -28,42 +30,15 @@ public enum ShoppingArcade implements PlaceInterface {
 	// Places:
 	GENERIC_SHOP("Shop", "dominion/shoppingArcade/genericShop", BaseColour.BLACK, ShoppingArcadeDialogue.GENERIC_SHOP, null, true, false),
 	
-	RALPHS_SHOP_ITEMS("Ralph's Snacks", "dominion/shoppingArcade/ralphShop", BaseColour.TEAL, ShoppingArcadeDialogue.SHOP_CONSUMABLES, null, true, false),
+	RALPHS_SHOP_ITEMS("Ralph's Snacks", "dominion/shoppingArcade/ralphShop", BaseColour.TEAL, RalphsSnacks.EXTERIOR, null, true, false),
 	
-	NYANS_SHOP_CLOTHING("Nyan's Clothing Emporium", "dominion/shoppingArcade/nyanShop", BaseColour.ROSE, ShoppingArcadeDialogue.SHOP_CLOTHING, null, true, false) {
-		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
-			if(Main.game.getDialogueFlags().nyanIntroduced) {
-				return ShoppingArcadeDialogue.SHOP_CLOTHING_REPEAT;
-			} else {
-				return ShoppingArcadeDialogue.SHOP_CLOTHING;
-			}
-		}
-	},
+	NYANS_SHOP_CLOTHING("Nyan's Clothing Emporium", "dominion/shoppingArcade/nyanShop", BaseColour.ROSE, ClothingEmporium.EXTERIOR, null, true, false),
 	
-	VICKYS_SHOP_WEAPONS("Arcane Arts", "dominion/shoppingArcade/vickyShop", BaseColour.MAGENTA, ShoppingArcadeDialogue.SHOP_WEAPONS, null, true, false),
+	VICKYS_SHOP_WEAPONS("Arcane Arts", "dominion/shoppingArcade/vickyShop", BaseColour.MAGENTA, ArcaneArts.EXTERIOR, null, true, false),
 
-	KATES_SHOP_BEAUTY("Succubi's Secrets", "dominion/shoppingArcade/kateShop", BaseColour.PINK, SPBeautySalon.SHOP_BEAUTY_SALON, null, true, false) {
-		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
-			if(Main.game.getDialogueFlags().kateIntroduced) {
-				return SPBeautySalon.SHOP_BEAUTY_SALON_ENTER;
-			} else {
-				return SPBeautySalon.SHOP_BEAUTY_SALON;
-			}
-		}
-	},
+	KATES_SHOP_BEAUTY("Succubi's Secrets", "dominion/shoppingArcade/kateShop", BaseColour.PINK, SuccubisSecrets.EXTERIOR, null, true, false),
 
-	PIXS_GYM("City Gym", "dominion/shoppingArcade/gym", BaseColour.GOLD, SPGym.GYM, null, true, false) {
-		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
-			if(Main.game.getDialogueFlags().gymHadTour) {
-				return SPGym.GYM_RETURNING;
-			} else {
-				return SPGym.GYM;
-			}
-		}
-	},
+	PIXS_GYM("City Gym", "dominion/shoppingArcade/gym", BaseColour.GOLD, PixsPlayground.GYM_EXTERIOR, null, true, false),
 
 	// Exits & entrances:
 	ARCADE_ENTRANCE("Exit", "dominion/shoppingArcade/entranceGate", BaseColour.RED, ShoppingArcadeDialogue.ENTRY, null, true, false){
@@ -92,14 +67,13 @@ public enum ShoppingArcade implements PlaceInterface {
 			Encounter encounterType,
 			boolean populated,
 			boolean dangerous) {
-		
 		this.name = name;
 		this.colour = colour;
 		this.dialogue = dialogue;
 		this.encounterType = encounterType;
 		this.populated = populated;
 		this.dangerous = dangerous;
-
+		
 		if(SVGPath!=null) {
 			try {
 				InputStream is = this.getClass().getResourceAsStream("/com/base/res/map/" + SVGPath + ".svg");

@@ -19,6 +19,7 @@ import com.base.game.character.PlayerCharacter;
 import com.base.game.character.QuestLine;
 import com.base.game.character.attributes.AffectionLevel;
 import com.base.game.character.attributes.Attribute;
+import com.base.game.character.attributes.ObedienceLevel;
 import com.base.game.character.effects.Fetish;
 import com.base.game.character.effects.StatusEffect;
 import com.base.game.character.npc.NPC;
@@ -44,6 +45,7 @@ import com.base.game.character.npc.dominion.Vicky;
 import com.base.game.character.npc.generic.GenericAndrogynousNPC;
 import com.base.game.character.npc.generic.GenericFemaleNPC;
 import com.base.game.character.npc.generic.GenericMaleNPC;
+import com.base.game.character.race.Race;
 import com.base.game.dialogue.DialogueFlags;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.MapDisplay;
@@ -181,15 +183,24 @@ public class Game implements Serializable {
 		
 		lilaya = new Lilaya();
 		NPCList.add(lilaya);
+		lilaya.addRelationship(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 		
 		rose = new Rose();
 		NPCList.add(rose);
-		
-		lilaya.getStats().addRelationship(rose, AffectionLevel.POSITIVE_FOUR_CHERISH.getMedianValue());
-		rose.getStats().addRelationship(lilaya, AffectionLevel.POSITIVE_FOUR_CHERISH.getMedianValue());
+		rose.addRelationship(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+		lilaya.addSlave(rose);
+		rose.setObedience(ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMedianValue());
+		lilaya.addRelationship(rose, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+		rose.addRelationship(lilaya, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
 		
 		brax = new Brax();
 		NPCList.add(brax);
+
+		candiReceptionist = new CandiReceptionist();
+		NPCList.add(candiReceptionist);
+
+		brax.addRelationship(candiReceptionist, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+		candiReceptionist.addRelationship(brax, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
 		
 		ralph = new Ralph();
 		NPCList.add(ralph);
@@ -215,32 +226,39 @@ public class Game implements Serializable {
 		alexa = new Alexa();
 		NPCList.add(alexa);
 		
-		alexa.getStats().addRelationship(scarlett, AffectionLevel.NEGATIVE_FOUR_STRONG_DISLIKE.getMedianValue());
-		scarlett.getStats().addRelationship(alexa, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+		alexa.addRelationship(scarlett, AffectionLevel.NEGATIVE_FOUR_HATE.getMedianValue());
+		scarlett.addRelationship(alexa, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
 		
 		harpyBimbo = new HarpyBimbo();
 		NPCList.add(harpyBimbo);
 		
 		harpyBimboCompanion = new HarpyBimboCompanion();
 		NPCList.add(harpyBimboCompanion);
+
+		harpyBimbo.addRelationship(harpyBimboCompanion, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+		harpyBimboCompanion.addRelationship(harpyBimbo, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
 		
 		harpyDominant = new HarpyDominant();
 		NPCList.add(harpyDominant);
 
 		harpyDominantCompanion = new HarpyDominantCompanion();
 		NPCList.add(harpyDominantCompanion);
+
+		harpyDominant.addRelationship(harpyDominantCompanion, AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+		harpyDominantCompanion.addRelationship(harpyDominant, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
 		
 		harpyNympho = new HarpyNympho();
 		NPCList.add(harpyNympho);
 
 		harpyNymphoCompanion = new HarpyNymphoCompanion();
 		NPCList.add(harpyNymphoCompanion);
+
+		harpyNympho.addRelationship(harpyNymphoCompanion, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+		harpyNymphoCompanion.addRelationship(harpyNympho, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
 		
 		pazu = new Pazu();
 		NPCList.add(pazu);
 		
-		candiReceptionist = new CandiReceptionist();
-		NPCList.add(candiReceptionist);
 		
 		genericMaleNPC = new GenericMaleNPC();
 		genericFemaleNPC = new GenericFemaleNPC();
@@ -527,12 +545,7 @@ public class Game implements Serializable {
 										Main.game.getPlayer().addCharacterEncountered(character);
 									} 
 									if(Main.game.getPlayer().addRaceDiscovered(character.getRace())) {
-										Main.game.getTextEndStringBuilder().append(
-												"<p style='text-align:center;'>"
-													+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
-													+ "</br>"
-													+ "<b>Race:</b> <b style='color:"+character.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(character.getRace().getName())+"</b>"
-												+ "</p>");
+										Main.game.getTextEndStringBuilder().append(getRaceDiscoveredMessage(character.getRace()));
 									}
 									((NPC) character).setLastTimeEncountered(minutesPassed);
 								}
@@ -692,12 +705,7 @@ public class Game implements Serializable {
 							Main.game.getPlayer().addCharacterEncountered(character);
 						}
 						if(Main.game.getPlayer().addRaceDiscovered(character.getRace())) {
-							Main.game.getTextEndStringBuilder().append(
-									"<p style='text-align:center;'>"
-										+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
-										+ "</br>"
-										+ "<b>Race:</b> <b style='color:"+character.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(character.getRace().getName())+"</b>"
-									+ "</p>");
+							Main.game.getTextEndStringBuilder().append(getRaceDiscoveredMessage(character.getRace()));
 						}
 						
 						((NPC) character).setLastTimeEncountered(minutesPassed);
@@ -969,9 +977,8 @@ public class Game implements Serializable {
 		
 		if(response.disabledOnNullDialogue() && response.getNextDialogue()==null) {
 			responseDisabled = true;
-		}
-		
-		if (response.isAbleToBypass()) {
+			
+		} else if (response.isAbleToBypass()) {
 			iconRight = "<div class='response-icon'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseCorruptionBypass()+"</div>";
 //			responseDisabled = false;
 		}
@@ -1797,5 +1804,21 @@ public class Game implements Serializable {
 	
 	public boolean isIncestEnabled() {
 		return player.hasFetish(Fetish.FETISH_INCEST);
+	}
+	
+	public static String getRaceDiscoveredMessage(Race race) {
+		return "<p style='text-align:center;'>"
+					+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia!</b>"
+					+ "</br>"
+					+ "<b>Race:</b> <b style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</b>"
+				+ "</p>";
+	}
+	
+	public static String getRaceAdvancedKnowledgeMessage(Race race) {
+		return "<p style='text-align:center;'>"
+					+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Advanced knowledge unlocked in your phone's encyclopedia!</b>"
+					+ "</br>"
+					+ "<b>Race:</b> <b style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</b>"
+				+ "</p>";
 	}
 }

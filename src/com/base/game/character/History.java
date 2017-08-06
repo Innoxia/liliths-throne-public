@@ -52,27 +52,27 @@ public enum History {
 			character.setFaceVirgin(false);
 
 			if (character.isPlayer()) {
-				character.getStats().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), "your first boyfriend in the park");
-				character.getStats().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 130 + Util.random.nextInt(50));
-				character.getStats().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 60 + Util.random.nextInt(40));
+				character.setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), "your first boyfriend in the park");
+				character.setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 130 + Util.random.nextInt(50));
+				character.setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 60 + Util.random.nextInt(40));
 
 
-				character.getStats().setVirginityLoss(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER), "your first girlfriend as she lay back on her bed");
-				character.getStats().setSexCount(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER), 5 + Util.random.nextInt(20));
+				character.setVirginityLoss(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER), "your first girlfriend as she lay back on her bed");
+				character.setSexCount(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER), 5 + Util.random.nextInt(20));
 				
 
-				character.getStats().setVirginityLoss(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER), "your first girlfriend after you did the same for her");
-				character.getStats().setSexCount(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER), 5 + Util.random.nextInt(15));
+				character.setVirginityLoss(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER), "your first girlfriend after you did the same for her");
+				character.setSexCount(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER), 5 + Util.random.nextInt(15));
 				
 
-				character.getStats().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), "some guy in a club's toilet cubicle");
-				character.getStats().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 60 + Util.random.nextInt(30));
-				character.getStats().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 20 + Util.random.nextInt(20));
+				character.setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), "some guy in a club's toilet cubicle");
+				character.setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 60 + Util.random.nextInt(30));
+				character.setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 20 + Util.random.nextInt(20));
 				
 
-				character.getStats().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), "some guy in your first threesome");
-				character.getStats().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 5 + Util.random.nextInt(10));
-				character.getStats().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 2 + Util.random.nextInt(5));
+				character.setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), "some guy in your first threesome");
+				character.setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 5 + Util.random.nextInt(10));
+				character.setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 2 + Util.random.nextInt(5));
 			}
 
 			character.setAssCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue());
@@ -86,27 +86,27 @@ public enum History {
 			character.setFaceVirgin(true);
 
 			if (character.isPlayer()) {
-				character.getStats().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), "");
-				character.getStats().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 0);
-				character.getStats().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 0);
+				character.setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), "");
+				character.setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 0);
+				character.setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 0);
 
 
-				character.getStats().setVirginityLoss(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER), "");
-				character.getStats().setSexCount(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER), 0);
+				character.setVirginityLoss(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER), "");
+				character.setSexCount(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER), 0);
 				
 
-				character.getStats().setVirginityLoss(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER), "");
-				character.getStats().setSexCount(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER), 0);
+				character.setVirginityLoss(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER), "");
+				character.setSexCount(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER), 0);
 				
 
-				character.getStats().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), "");
-				character.getStats().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 0);
-				character.getStats().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 0);
+				character.setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), "");
+				character.setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 0);
+				character.setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 0);
 				
 
-				character.getStats().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), "");
-				character.getStats().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 0);
-				character.getStats().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 0);
+				character.setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), "");
+				character.setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 0);
+				character.setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 0);
 			}
 
 			character.setAssCapacity(Capacity.ZERO_IMPENETRABLE.getMedianValue());

@@ -1648,6 +1648,28 @@ public class UtilText {
 				
 				commandNames = new ArrayList<>();
 				for(String s : c.getFormattingNames()) {
+					commandNames.add("color"+Util.capitaliseSentence(s));
+					commandNames.add("c"+Util.capitaliseSentence(s));
+					commandNames.add("colour"+Util.capitaliseSentence(s));
+				}
+				
+				commandsList.add(new ParserCommand(
+						commandNames,
+						false,
+						false,
+						"(text to colour)",
+						"Description of method"){//TODO
+					@Override
+					public String parse(String command, String arguments, String target) {
+						if(arguments!=null)
+							return "<span style='color:"+c.toWebHexString()+";'>"+arguments+"</span>";
+						else
+							return "<span style='color:"+c.toWebHexString()+";'>...</span>";
+					}
+				});
+				
+				commandNames = new ArrayList<>();
+				for(String s : c.getFormattingNames()) {
 					commandNames.add("bold"+Util.capitaliseSentence(s));
 					commandNames.add("b"+Util.capitaliseSentence(s));
 				}

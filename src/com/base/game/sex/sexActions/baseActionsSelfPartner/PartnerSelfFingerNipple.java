@@ -84,7 +84,7 @@ public class PartnerSelfFingerNipple {
 
 		@Override
 		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
 		}
 	};
 	
@@ -151,7 +151,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS), new ListValue<>(Fetish.FETISH_MASTURBATION));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
 		}
 	};
 	
@@ -194,7 +194,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS), new ListValue<>(Fetish.FETISH_MASTURBATION));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
 		}
 	};
 	
@@ -237,7 +237,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS), new ListValue<>(Fetish.FETISH_MASTURBATION));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
 		}
 	};
 	
@@ -280,7 +280,7 @@ public class PartnerSelfFingerNipple {
 
 		@Override
 		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_BREASTS), new ListValue<>(Fetish.FETISH_MASTURBATION));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
 		}
 	};
 	
@@ -323,7 +323,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS), new ListValue<>(Fetish.FETISH_MASTURBATION));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
 		}
 	};
 	
@@ -366,7 +366,7 @@ public class PartnerSelfFingerNipple {
 
 		@Override
 		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_BREASTS), new ListValue<>(Fetish.FETISH_MASTURBATION));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
 		}
 	};
 	

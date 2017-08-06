@@ -25,7 +25,7 @@ import com.base.world.places.EnforcerHQ;
 
 /**
  * @since 0.1.78
- * @version 0.1.79
+ * @version 0.1.82
  * @author Innoxia
  */
 public class CandiReceptionist extends NPC {
@@ -62,7 +62,7 @@ public class CandiReceptionist extends NPC {
 		this.setSkinColour(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLEACH_BLONDE);
 
 		this.addFetish(Fetish.FETISH_BIMBO);
-		this.addFetish(Fetish.FETISH_ORAL);
+		this.addFetish(Fetish.FETISH_ORAL_GIVING);
 		this.addFetish(Fetish.FETISH_CUM_ADDICT);
 		
 		this.setFemininity(85);

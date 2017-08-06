@@ -25,6 +25,7 @@ import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.story.CharacterCreationDialogue;
 import com.base.main.Main;
 import com.base.utils.Colour;
+import com.base.utils.CreditsSlot;
 import com.base.utils.Util;
 
 /**
@@ -97,13 +98,21 @@ public class OptionsDialogue {
 				 }
 				
 			} else if (index == 2) {
-			return new Response("Save/Load", "Open the save/load game window.", SAVE_LOAD){
-				@Override
-				public void effects() {
-					loadConfirmationName = ""; overwriteConfirmationName = ""; deleteConfirmationName = "";
-					confirmNewGame=false;
+				if(Main.game.isInCombat()) {
+					return new Response("Save/Load", "You cannot save during combat! Sorry! I'm trying to fix this so that you'll be able to!", null);
+					
+				} else if(Main.game.isInSex()) {
+					return new Response("Save/Load", "You cannot save during sex! Sorry! I'm trying to fix this so that you'll be able to!", null);
+							
+				} else {
+					return new Response("Save/Load", "Open the save/load game window.", SAVE_LOAD){
+						@Override
+						public void effects() {
+							loadConfirmationName = ""; overwriteConfirmationName = ""; deleteConfirmationName = "";
+							confirmNewGame=false;
+						}
+					};
 				}
-			};
 				
 			} else if (index == 3) {
 				return new Response("Options", "Open the options page.", OPTIONS);
@@ -140,6 +149,9 @@ public class OptionsDialogue {
 						confirmNewGame=false;
 					}
 				};
+				
+			} else if (index == 7) {
+				return new Response("Credits", "View the game's credits screen.", CREDITS);
 				
 			} else if (index == 0) {
 				if(Main.game.isStarted()) {
@@ -224,7 +236,8 @@ public class OptionsDialogue {
 					+ "<b>Please Note:</b></br>"
 					+ "1. Only standard characters (letters and numbers) will work for save file names.</br>"
 					+ "2. The 'AutoSave' file is automatically overwritten every time you move between maps.</br>"
-					+ "3. The 'QuickSave' file is automatically overwritten every time you quick save (default keybind is F5)."
+					+ "3. The 'QuickSave' file is automatically overwritten every time you quick save (default keybind is F5).</br>"
+					+ "<b>You cannot save during combat or sex due to some bugs that I need to fix!</b>"
 					+ "</p>"
 					+ "<p>"
 					+ "<table align='center'>"
@@ -1009,6 +1022,73 @@ public class OptionsDialogue {
 		public Response getResponse(int index) {
 			 if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", OPTIONS);
+				
+			}else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.OPTIONS;
+		}
+	};
+	
+	public static final DialogueNodeOld CREDITS = new DialogueNodeOld("Credits", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent(){
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "Thank you for playing Lilith's Throne, I hope you enjoy it just as much as I do making it!"
+						+ " Thank you so much to all of the supporters on Patreon! Thanks to you, I'm able to spend more time working on Lilith's Throne, and I promise that I'll make this game the very best that I can!"
+					+ "</p>"
+					+"<p style='text-align:center;'>"
+						+ "Lilith's Throne has been created by:</br>"
+						+ "<b style='color:#9b78fa;'>Innoxia</b>"
+						+ "</br></br>"
+						+ "Special thanks to:</br>"
+						+ "<b>Sensei</b>,</br>"
+						+ "<b style='color:#fa0063;'>loveless</b>, <b style='color:#c790b2;'>Blue999</b>, and <b style='color:#ec9538;'>DesuDemona</b></br>"
+						+ "<b style='color:#e06e5f;'>Everyone who's supported me on Patreon</b>,</br>"
+						+ "<b>Bug reporters, wikia contributors, content writers, and feedback providers</b>,</br>"
+						+ "and</br>"
+						+ "<b>Everyone for playing Lilith's Throne!</b>"
+					+ "</p>"
+					+ "</br>"
+					+ "<h5 style='text-align:center; color:"+Colour.RARITY_LEGENDARY.toWebHexString()+";'>Legendary Patrons</h5>"
+					+ "<p style='text-align:center;'>");
+			
+			for(CreditsSlot cs : Main.credits) {
+				if(cs.getLegendaryCount()>0) {
+					UtilText.nodeContentSB.append("</br><b style='color:"+Colour.RARITY_LEGENDARY.toWebHexString()+";'>&#9679</b> "+cs.getName());
+				}
+			}
+			
+			UtilText.nodeContentSB.append(
+					"</p>"
+					+ "</br>"
+					+ "<h5 style='text-align:center; color:"+Colour.RARITY_EPIC.toWebHexString()+";'>Epic Patrons</h5>"
+					+ "<p style='text-align:center;'>");
+			
+			for(CreditsSlot cs : Main.credits) {
+				if(cs.getLegendaryCount()==0 && cs.getEpicCount()>0) {
+					UtilText.nodeContentSB.append("</br><b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>&#9679</b> "+cs.getName());
+				}
+			}
+			
+			UtilText.nodeContentSB.append("</p>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public Response getResponse(int index) {
+			if (index == 0) {
+				return new Response("Back", "Go back to the options menu.", MENU);
 				
 			}else {
 				return null;

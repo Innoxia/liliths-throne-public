@@ -60,12 +60,12 @@ public class SubSixtyNine {
 		
 		@Override
 		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
 		}
 		
 		@Override
 		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
 		}
 	};
 	
@@ -104,12 +104,12 @@ public class SubSixtyNine {
 		
 		@Override
 		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
 		}
 		
 		@Override
 		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
 		}
 	};
 	
@@ -148,12 +148,12 @@ public class SubSixtyNine {
 		
 		@Override
 		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
 		}
 		
 		@Override
 		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
 		}
 	};
 	
@@ -195,12 +195,12 @@ public class SubSixtyNine {
 		
 		@Override
 		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
 		}
 		
 		@Override
 		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
 		}
 	};
 	
@@ -239,12 +239,12 @@ public class SubSixtyNine {
 		
 		@Override
 		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
 		}
 		
 		@Override
 		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
 		}
 	};
 }

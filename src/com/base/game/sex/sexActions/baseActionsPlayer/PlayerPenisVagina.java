@@ -317,7 +317,7 @@ public class PlayerPenisVagina {
 						break;
 				}
 				
-			} else if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PLAYER_IN_CHARGE) {// Back-to-wall penetration descriptions:
+			} else if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER) {// Back-to-wall penetration descriptions:
 				
 				switch(Sex.getSexPacePlayer()) {
 					case DOM_GENTLE:
@@ -467,7 +467,7 @@ public class PlayerPenisVagina {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PLAYER_IN_CHARGE) {// Back-to-wall descriptions:
+			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER) {// Back-to-wall descriptions:
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
@@ -706,7 +706,7 @@ public class PlayerPenisVagina {
 						break;
 				}
 				
-			} else if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PLAYER_IN_CHARGE) {// Back-to-wall descriptions:
+			} else if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER) {// Back-to-wall descriptions:
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
@@ -1221,13 +1221,13 @@ public class PlayerPenisVagina {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PLAYER_IN_CHARGE) {// Back-to-wall descriptions:
+			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER) {// Back-to-wall descriptions:
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						"Reaching down to gently take hold of [npc.name]'s [npc.hips+], you start bucking back and forth, pressing [npc.herHim] against the wall as you repeatedly impale your [pc.pussy+] on [npc.her] [npc.cock+].",
-						"Gently pressing [npc.name] back against the wall, you start to gently buck your [pc.hips] into [npc.her] groin, [pc.moaning] softly into [npc.her] [npc.ear] as you slowly fuck yourself on [npc.her] [npc.cock+].",
-						"With a soft [pc.moan], you push your [pc.hips] forwards, impaling your [pc.pussy+] on [npc.name]'s [npc.cock+], before gently sliding back and starting to fuck [npc.herHim] against the wall.",
-						"Leaning in and breathing hotly down on [npc.name]'s neck, you start to buck your [pc.hips] back and forth, gently fucking yourself on [npc.her] [npc.cock+] as you [pc.moan] hotly into [npc.her] [npc.ear]."));
+						"Reaching down to gently take hold of your [npc.hips+], [npc.name] starts bucking back and forth, pressing you against the wall as [npc.she] repeatedly impales [npc.her] [npc.pussy+] on your [pc.cock+].",
+						"Gently pressing you back against the wall, [npc.name] starts to gently buck [npc.her] [npc.hips] into your groin, [npc.moaning] softly into your [pc.ear] as [npc.she] slowly fucks [npc.herself] on your [pc.cock+].",
+						"With a soft [npc.moan], [npc.name] pushes [npc.her] [npc.hips] forwards, impaling [npc.her] [npc.pussy+] on your [pc.cock+], before gently sliding back and starting to fuck you against the wall.",
+						"Leaning in and breathing hotly down on your  neck, [npc.name] starts to buck [npc.her] [npc.hips] back and forth, gently fucking [npc.herself] on your [pc.cock+] as [npc.she] [npc.moansVerb] hotly into your [pc.ear]."));
 				
 			} else { // Default descriptions:
 			
@@ -1310,7 +1310,7 @@ public class PlayerPenisVagina {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER_IN_CHARGE) {// Back-to-wall descriptions:
+			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PLAYER) {// Back-to-wall descriptions:
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				

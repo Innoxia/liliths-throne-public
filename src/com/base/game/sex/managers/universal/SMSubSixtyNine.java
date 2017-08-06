@@ -12,11 +12,13 @@ import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerAnus;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerUrethra;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisMouth;
+import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisNipple;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerTongueVagina;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerAnus;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisMouth;
+import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisNipple;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerTongueVagina;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
@@ -81,12 +83,14 @@ public class SMSubSixtyNine extends SexManagerDefault {
 				PartnerFingerVagina.class,
 				PartnerFingerAnus.class,
 				PartnerTongueVagina.class,
+				PartnerPenisNipple.class,
 
 				PlayerPenisMouth.class,
 				PlayerFingerUrethra.class,
 				PlayerFingerVagina.class,
 				PlayerFingerAnus.class,
 				PlayerTongueVagina.class,
+				PlayerPenisNipple.class,
 				
 				SubSixtyNine.class, 
 				

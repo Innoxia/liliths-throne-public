@@ -3,6 +3,7 @@ package com.base.game.inventory.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.base.game.Game;
 import com.base.game.character.GameCharacter;
 import com.base.game.character.attributes.Attribute;
 import com.base.game.character.body.types.ArmType;
@@ -113,8 +114,105 @@ public enum ItemEffectType {
 		}
 	},
 	
-	READ_ALL_ABOUT_HARPIES(Util.newArrayListOfValues(
-			new ListValue<>("Learn about harpies.")),
+	BOOK_READ_CAT_MORPH(Util.newArrayListOfValues(
+			new ListValue<>("Adds cat-morph encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			Colour.RACE_CAT_MORPH) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			return Race.CAT_MORPH.getBasicDescription()
+					+Race.CAT_MORPH.getAdvancedDescription()
+					+(Main.game.getPlayer().addRaceDiscovered(Race.CAT_MORPH)
+							?Game.getRaceDiscoveredMessage(Race.CAT_MORPH)
+							:"")
+					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.CAT_MORPH)
+							?Game.getRaceAdvancedKnowledgeMessage(Race.CAT_MORPH)
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
+							:"");
+		}
+	},
+	
+	BOOK_READ_DEMON(Util.newArrayListOfValues(
+			new ListValue<>("Adds demon encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			Colour.RACE_DEMON) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			return Race.DEMON.getBasicDescription()
+					+Race.DEMON.getAdvancedDescription()
+					+(Main.game.getPlayer().addRaceDiscovered(Race.DEMON)
+							?Game.getRaceDiscoveredMessage(Race.DEMON)
+							:"")
+					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.DEMON)
+							?Game.getRaceAdvancedKnowledgeMessage(Race.DEMON)
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
+							:"");
+		}
+	},
+	
+	BOOK_READ_DOG_MORPH(Util.newArrayListOfValues(
+			new ListValue<>("Adds dog-morph encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			Colour.RACE_DOG_MORPH) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			return Race.DOG_MORPH.getBasicDescription()
+					+Race.DOG_MORPH.getAdvancedDescription()
+					+(Main.game.getPlayer().addRaceDiscovered(Race.DOG_MORPH)
+							?Game.getRaceDiscoveredMessage(Race.DOG_MORPH)
+							:"")
+					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.DOG_MORPH)
+							?Game.getRaceAdvancedKnowledgeMessage(Race.DOG_MORPH)
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
+							:"");
+		}
+	},
+	
+	BOOK_READ_HARPY(Util.newArrayListOfValues(
+			new ListValue<>("Adds harpy encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
 			Colour.RACE_HARPY) {
 
 		@Override
@@ -129,46 +227,114 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
-			return "<p>"
-						+ "Although harpies live in Dominion, they're almost never seen walking down at street level."
-						+ " Instead, most of the buildings in Dominion have had their rooves converted into 'harpy nests'."
-						+ " These nests are large communal living spaces, where harpies in the same flock will live together."
-						+ " Each nest will be controlled by the most attractive harpy in the flock, who is commonly referred to as the flock's matriarch."
-					+ "</p>"
-					+ "<p>"
-						+ "Harpy society is both matriarchal and very insular, and can seem quite alarming to an outside observer."
-						+ " All harpy society is based on femininity and beauty, and the more attractive a harpy is, the higher they are on the social ladder."
-						+ " Any harpies that are not part of a flock will be mercilessly bulled and taunted by members of other flocks until they submit to the protection of a matriarch."
-					+ "</p>"
-					+ "<p>"
-						+ "Each matriarch will have their own way for a harpy to show submission, but some of the more common demands involve public humiliation, or having to offer themselves as sexual relief for the rest of the flock."
-						+ " Once the matriarch decides that their display of submission has been acceptable, the harpy will be accepted into the flock,"
-							+ " although they will often continue to be treated as a servant or slave by any harpies that are more attractive than they are."
-					+ "</p>"
-					+ "<p>"
-						+ "Most harpies, no matter if they're male or female, are gynephilic, with the odd exception being ambiphilic."
-						+ " Due to this fact, male harpies do their best to look as feminine as possible, in order to appear attractive to the harpy females."
-						+ " Despite their best efforts, however, male harpies are never as feminine as the females, which causes them to be treated as the lowest of the low, and will be mercilessly bullied by all females in the flock."
-						+ " Harpy males seem to think that this arrangement is worthwhile, as if they do a good job of obeying their mistress's commands, they will sometimes be offered sex as a reward."
-					+ "</p>"
-					+ "<p>"
-						+ "All harpies, both male and female, have a well-deserved reputation for being narcissists, and are only interested in being more attractive than the other harpies in their flock."
-						+ " They will take extreme offence at being called ugly, and can quickly be driven into a blind rage by anyone doing so."
-					+ "</p>"
-					+ "<p>"
-						+ "Harpy pregnancies are a mix between mammalian and avian reproduction."
-						+ " They are impregnated in much the same way as a human, but instead of giving birth to live young, a clutch of two to six eggs will grow inside a harpy's womb once she's been fertilised."
-						+ " Pregnancy advances just like that of other common races, but when it comes time to give birth, the harpy will seek out a safe place to lay her eggs."
-						+ " After laying is complete, the mother becomes fiercely protective of her clutch, and will refuse to sleep while she incubates her eggs for approximately eighteen to twenty-four hours."
-						+ " Once the eggs finally hatch, the mother will usually collapse from exhaustion."
-					+ "</p>"
+			return Race.HARPY.getBasicDescription()
+					+Race.HARPY.getAdvancedDescription()
 					+(Main.game.getPlayer().addRaceDiscovered(Race.HARPY)
-							?"<p style='text-align:center;'>"
-								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
-								+ "</br>"
-								+ "<b>Race:</b> <b style='color:"+Race.HARPY.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Race.HARPY.getName())+"</b>"
-							+ "</p>"
-								:"");
+							?Game.getRaceDiscoveredMessage(Race.HARPY)
+							:"")
+					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.HARPY)
+							?Game.getRaceAdvancedKnowledgeMessage(Race.HARPY)
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
+							:"");
+		}
+	},
+	
+	BOOK_READ_HORSE_MORPH(Util.newArrayListOfValues(
+			new ListValue<>("Adds horse-morph encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			Colour.RACE_HORSE_MORPH) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			return Race.HORSE_MORPH.getBasicDescription()
+					+Race.HORSE_MORPH.getAdvancedDescription()
+					+(Main.game.getPlayer().addRaceDiscovered(Race.HORSE_MORPH)
+							?Game.getRaceDiscoveredMessage(Race.HORSE_MORPH)
+							:"")
+					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.HORSE_MORPH)
+							?Game.getRaceAdvancedKnowledgeMessage(Race.HORSE_MORPH)
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
+							:"");
+		}
+	},
+	
+	BOOK_READ_HUMAN(Util.newArrayListOfValues(
+			new ListValue<>("Adds human encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			Colour.RACE_HUMAN) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			return Race.HUMAN.getBasicDescription()
+					+Race.HUMAN.getAdvancedDescription()
+					+(Main.game.getPlayer().addRaceDiscovered(Race.HUMAN)
+							?Game.getRaceDiscoveredMessage(Race.HUMAN)
+							:"")
+					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.HUMAN)
+							?Game.getRaceAdvancedKnowledgeMessage(Race.HUMAN)
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
+							:"");
+		}
+	},
+	
+	BOOK_READ_WOLF_MORPH(Util.newArrayListOfValues(
+			new ListValue<>("Adds wolf-morph encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			Colour.RACE_WOLF_MORPH) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			return Race.WOLF_MORPH.getBasicDescription()
+					+Race.WOLF_MORPH.getAdvancedDescription()
+					+(Main.game.getPlayer().addRaceDiscovered(Race.WOLF_MORPH)
+							?Game.getRaceDiscoveredMessage(Race.WOLF_MORPH)
+							:"")
+					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.WOLF_MORPH)
+							?Game.getRaceAdvancedKnowledgeMessage(Race.WOLF_MORPH)
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
+							:"");
 		}
 	},
 	

@@ -89,57 +89,57 @@ public interface SexManagerInterface {
 
 	// Partner:
 	public default String getPartnerAssRevealReaction(boolean isSub) {
+		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.ANUS, true);
+		
 		String s = "<p>"
 				+ UtilText.genderParsing(Sex.getPartner(), Sex.getPartner().getAssDescription())
 				+ "</p>"
 				+ ((NPC) Sex.getPartner()).getPartnerAssRevealReaction(isSub);
-
-		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.ANUS, true);
 		
 		return s;
 	}
 
 	public default String getPartnerBreastsRevealReaction(boolean isSub) {
+		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.NIPPLES, true);
+		
 		String s = "<p>"
 				+ UtilText.genderParsing(Sex.getPartner(), Sex.getPartner().getBreastDescription())
 				+ "</p>"
 				+ ((NPC) Sex.getPartner()).getPartnerBreastsRevealReaction(isSub);
-
-		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.NIPPLES, true);
 		
 		return s;
 	}
 
 	public default String getPartnerPenisRevealReaction(boolean isSub) {
+		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
+		
 		String s = "<p>"
 				+ UtilText.genderParsing(Sex.getPartner(), Sex.getPartner().getPenisDescription())
 				+ "</p>"
 				+ ((NPC) Sex.getPartner()).getPartnerPenisRevealReaction(isSub);
-
-		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
 		
 		return s;
 	}
 
 	public default String getPartnerVaginaRevealReaction(boolean isSub) {
+		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
+		
 		String s = "<p>"
 				+ UtilText.genderParsing(Sex.getPartner(), Sex.getPartner().getVaginaDescription())
 				+ "</p>"
 				+ ((NPC) Sex.getPartner()).getPartnerVaginaRevealReaction(isSub);
-
-		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
 		
 		return s;
 	}
 
 	public default String getPartnerMoundRevealReaction(boolean isSub) {
+		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
+		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
+		
 		String s = "<p>"
 				+ UtilText.genderParsing(Sex.getPartner(), Sex.getPartner().getMoundDescription())
 				+ "</p>"
 				+ ((NPC) Sex.getPartner()).getPartnerMoundRevealReaction(isSub);
-
-		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
-		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
 		
 		return s;
 	}

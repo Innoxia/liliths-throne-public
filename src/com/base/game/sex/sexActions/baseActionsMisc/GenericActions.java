@@ -54,7 +54,7 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			
-			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER_IN_CHARGE) {
+			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PLAYER) {
 				return UtilText.returnStringAtRandom(
 						"You slap, hit, and kick [npc.name] as you desperately try to struggle out of [npc.her] grip, but your efforts prove to be in vain as [npc.she] easily keeps you pinned back against the wall.",
 						"Struggling against [npc.name], you let out [pc.a_sob+] as you weakly try to wriggle out of [npc.her] grasp, but [npc.her] grip is too strong for you, and [npc.she] easily keeps you pushed you back against the wall.",
@@ -66,7 +66,7 @@ public class GenericActions {
 						"Trying to crawl away from [npc.name] on all fours, you let out [pc.a_sob+] as you feel [npc.herHim] grasp your [pc.hips], before pulling you back into position.",
 						"Begging for [npc.herHim] to leave you alone, you desperately try to crawl away from [npc.name], [pc.sobbing] in distress as [npc.she] takes hold of your [pc.hips] and pulls you back into [npc.herHim].");
 				
-			} else if(Sex.getPosition()==SexPosition.FACING_WALL_PARTNER_BEHIND) {
+			} else if(Sex.getPosition()==SexPosition.FACING_WALL_PLAYER) {
 				return UtilText.returnStringAtRandom(
 						"You slap, hit, and kick [npc.name] as you desperately try to struggle out of [npc.her] grip, but your efforts prove to be in vain as [npc.she] easily keeps you pinned up against the wall.",
 						"Struggling against [npc.name], you let out [pc.a_sob+] as you weakly try to wriggle out of [npc.her] grasp, but [npc.her] grip is too strong for you, and [npc.she] easily keeps you pushed up against the wall.",
@@ -490,7 +490,7 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			
-			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PLAYER_IN_CHARGE) {
+			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER) {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] slaps, hits, and kicks you as [npc.she] desperately tries to struggle out of your grip, but [npc.her] efforts prove to be in vain as you easily keep [npc.herHim] pinned back against the wall.",
 						"Struggling against you, [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to wriggle out of your grasp, but your grip is too strong for [npc.herHim], and you easily keep [npc.herHim] pushed back against the wall.",
@@ -502,7 +502,7 @@ public class GenericActions {
 						"Trying to crawl away from you on all fours, [npc.name] lets out [npc.a_sob+] as you grasp [npc.her] [npc.hips], before pulling [npc.herHim] back into position.",
 						"Begging for you to leave [npc.herHim] alone, [npc.name] desperately tries to crawl away from you, [npc.sobbing] in distress as you take hold of [npc.her] [npc.hips] and pull [npc.herHim] back into you.");
 				
-			} else if(Sex.getPosition()==SexPosition.FACING_WALL_PLAYER_BEHIND) {
+			} else if(Sex.getPosition()==SexPosition.FACING_WALL_PARTNER) {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] slaps, hits, and kicks you as [npc.she] desperately tries to struggle out of your grip, but [npc.her] efforts prove to be in vain as you easily keep [npc.herHim] pinned up against the wall.",
 						"Struggling against you, [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to wriggle out of your grasp, but your grip is too strong for [npc.herHim], and you easily keep [npc.herHim] pushed up against the wall.",

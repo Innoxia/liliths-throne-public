@@ -258,10 +258,10 @@ public class PlayerTalk {
 				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_PREGNANCY));
 				
 			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_ANAL));
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
 				
 			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_BREASTS));
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_BREASTS_SELF));
 				
 			} else {
 				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT));
@@ -271,13 +271,13 @@ public class PlayerTalk {
 		@Override
 		public List<Fetish> getFetishesPartner() {
 			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_PREGNANCY));
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_IMPREGNATION));
 				
 			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_ANAL));
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_ANAL_GIVING));
 				
 			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_BREASTS));
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
 				
 			} else {
 				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD));
@@ -430,16 +430,16 @@ public class PlayerTalk {
 		@Override
 		public List<Fetish> getFetishesPlayer() {
 			if(Main.game.getPlayer().getVaginaType()!=VaginaType.NONE) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL), new ListValue<>(Fetish.FETISH_PURE_VIRGIN));
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_PURE_VIRGIN));
 				
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL));
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
 			}
 		}
 		
 		@Override
 		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
 		}
 	};
 	
@@ -483,12 +483,62 @@ public class PlayerTalk {
 		
 		@Override
 		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
 		}
 		
 		@Override
 		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
+		}
+	};
+	
+	public static SexAction PLAYER_REQUEST_NIPPLE = new SexAction(
+			SexActionType.PLAYER,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ONE_VANILLA,
+			null,
+			null) {
+		@Override
+		public String getActionTitle() {
+			return "Request nipple-sex";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Tell [npc.name] that you'd like [npc.herHim] to use your [pc.nipples+].";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.NIPPLE_PLAYER)
+					&& Main.game.getPlayer().isBreastFuckable()
+					&& !SexFlags.requestsBlockedPlayer
+					&& !Sex.isPlayerDom();
+		}
+
+		@Override
+		public String getDescription() {
+			return "Putting on the most pleading expression you can muster, you cry out to [npc.name], "
+							+UtilText.returnStringAtRandom(
+									"[pc.speech(Please, fuck my nipples!)]",
+									"[pc.speech(Fuck my nipples, please!)]");
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.clearPlayerPenetrationRequests();
+			Sex.addPlayerPenetrationRequest(OrificeType.NIPPLE_PLAYER);
+		}
+		
+		@Override
+		public List<Fetish> getFetishesPlayer() {
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
+		}
+		
+		@Override
+		public List<Fetish> getFetishesPartner() {
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
 		}
 	};
 }

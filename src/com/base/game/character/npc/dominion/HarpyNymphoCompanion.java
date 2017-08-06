@@ -44,7 +44,7 @@ public class HarpyNymphoCompanion extends NPC {
 
 		this.addFetish(Fetish.FETISH_CUM_STUD);
 		this.addFetish(Fetish.FETISH_SUBMISSIVE);
-		this.addFetish(Fetish.FETISH_BREASTS);
+		this.addFetish(Fetish.FETISH_BREASTS_OTHERS);
 		
 		this.setEyeColour(Colour.EYE_BLUE);
 		this.setHairColour(Colour.FEATHERS_BLACK);

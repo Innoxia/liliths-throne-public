@@ -302,7 +302,7 @@ public class EnforcerHQDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "As she speaks, Candi reaches down to tug [brax.name]'s [brax.arms] away from [brax.her] [brax.pussy], causing the horny bimbo to cry out,"
-								+ " [brax.speech(Awww! Candi! Please! I, like, <i>need</i> this! You gotta let m- eugh!)]"
+								+ " [brax.speechNoEffects(Awww! Candi! Please! I, like, <i>need</i> this! You gotta let m- ~Aah!~)]"
 							+ "</p>"
 							+ "<p>"
 								+ "[brax.Name]'s pathetic whining is cut off as Candi stands up, sharply yanking on [brax.his] pink leash,"
@@ -310,7 +310,7 @@ public class EnforcerHQDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "[brax.name] immediately jumps to [brax.his] feet, and as [brax.he] catches sight of you, [brax.he] lets out a delighted squeal,"
-								+ " [brax.speech(Yes! Heya! Please, like, can we play together?! I'm, like, thinking of you all the time and stuff!)]"
+								+ " [brax.speechNoEffects(Yes! Heya! Please, like, can we play together?! I'm, like, thinking of you all the time and stuff!)]"
 							+ "</p>"
 							+ "<p>"
 								+ "As [brax.name] drops [brax.his] hands back down to [brax.her] groin and starts masturbating, Candi turns back to face you,"
@@ -558,7 +558,7 @@ public class EnforcerHQDialogue {
 						};
 						
 					} else if(!Main.game.getDialogueFlags().bimbofiedBrax) {
-						return new Response("BIMBOFY [brax.name]", "Transform [brax.name] into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOFY){
+						return new Response("Bimbofy [brax.name]", "Transform [brax.name] into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOFY){
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().seenBraxAfterQuest = true;
@@ -1131,7 +1131,7 @@ public class EnforcerHQDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "Before you have any time to comment on her new body and personality, Candi grabs her arm and pulls her into her office, shouting behind her,"
-							+ " [candi.speechNoEffects(I'm gonna give Brandi some of my old clothes, give us five minutes, then come have some fun with her!)]"
+							+ " [candi.speechNoEffects(I'm gonna give Brandi some of my old clothes, give us five mins, then come have some fun with her!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "You could either do as Candi says, and go into the office after five minutes, or leave and come back another time to have some fun with Brandi."

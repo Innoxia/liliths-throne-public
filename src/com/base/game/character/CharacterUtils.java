@@ -350,7 +350,7 @@ public class CharacterUtils {
 					
 					addAttribute(doc, element, "penetrationType", pt.toString());
 					addAttribute(doc, element, "orificeType", ot.toString());
-					addAttribute(doc, element, "count", String.valueOf(((PlayerCharacter)character).getStats().getCumCount(new SexType(pt, ot))));
+					addAttribute(doc, element, "count", String.valueOf(((PlayerCharacter)character).getCumCount(new SexType(pt, ot))));
 				}
 			}
 
@@ -363,7 +363,7 @@ public class CharacterUtils {
 					
 					addAttribute(doc, element, "penetrationType", pt.toString());
 					addAttribute(doc, element, "orificeType", ot.toString());
-					addAttribute(doc, element, "count", String.valueOf(((PlayerCharacter)character).getStats().getSexCount(new SexType(pt, ot))));
+					addAttribute(doc, element, "count", String.valueOf(((PlayerCharacter)character).getSexCount(new SexType(pt, ot))));
 				}
 			}
 
@@ -371,13 +371,13 @@ public class CharacterUtils {
 			characterSexStats.appendChild(characterVirginityTakenBy);
 			for(PenetrationType pt : PenetrationType.values()) {
 				for(OrificeType ot : OrificeType.values()) {
-					if(((PlayerCharacter)character).getStats().getVirginityLoss(new SexType(pt, ot))!=null) {
+					if(((PlayerCharacter)character).getVirginityLoss(new SexType(pt, ot))!=null) {
 						Element element = doc.createElement("virginity");
 						characterVirginityTakenBy.appendChild(element);
 						
 						addAttribute(doc, element, "penetrationType", pt.toString());
 						addAttribute(doc, element, "orificeType", ot.toString());
-						addAttribute(doc, element, "takenBy", String.valueOf(((PlayerCharacter)character).getStats().getVirginityLoss(new SexType(pt, ot))));
+						addAttribute(doc, element, "takenBy", String.valueOf(((PlayerCharacter)character).getVirginityLoss(new SexType(pt, ot))));
 					}
 				}
 			}
@@ -870,7 +870,7 @@ public class CharacterUtils {
 					
 					try {
 						for(int it =0 ; it<Integer.valueOf(e.getAttribute("count")) ; it++)
-							importedCharacter.getStats().incrementCumCount(new SexType(PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType"))));
+							importedCharacter.incrementCumCount(new SexType(PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType"))));
 						characterImportLog.append("</br>Added cum count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
 					}catch(IllegalArgumentException ex){
 					}
@@ -883,7 +883,7 @@ public class CharacterUtils {
 					
 					try {
 						for(int it =0 ; it<Integer.valueOf(e.getAttribute("count")) ; it++)
-							importedCharacter.getStats().incrementSexCount(new SexType(PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType"))));
+							importedCharacter.incrementSexCount(new SexType(PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType"))));
 						characterImportLog.append("</br>Added sex count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
 					}catch(IllegalArgumentException ex){
 					}
@@ -896,7 +896,7 @@ public class CharacterUtils {
 					
 					try {
 						for(int it =0 ; it<Integer.valueOf(e.getAttribute("count")) ; it++)
-							importedCharacter.getStats().setVirginityLoss(new SexType(PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType"))), e.getAttribute("takenBy"));
+							importedCharacter.setVirginityLoss(new SexType(PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType"))), e.getAttribute("takenBy"));
 						characterImportLog.append("</br>Added sex count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" (taken by:"+e.getAttribute("takenBy")+")");
 					}catch(IllegalArgumentException ex){
 					}
@@ -944,7 +944,7 @@ public class CharacterUtils {
 		}
 		
 		//Ass:
-		if(character.hasFetish(Fetish.FETISH_ANAL)) {
+		if(character.hasFetish(Fetish.FETISH_ANAL_RECEIVING)) {
 			character.setAssVirgin(false);
 			character.setAssCapacity(character.getAssRawCapacityValue()*1.2f);
 			character.setAssStretchedCapacity(character.getAssRawCapacityValue());
@@ -970,7 +970,7 @@ public class CharacterUtils {
 		}
 		
 		// Face:
-		if(character.hasFetish(Fetish.FETISH_ORAL)) {
+		if(character.hasFetish(Fetish.FETISH_ORAL_GIVING)) {
 			character.setFaceCapacity(Capacity.FIVE_ROOMY.getMedianValue());
 			character.setFaceStretchedCapacity(character.getFaceRawCapacityValue());
 			character.setFaceVirgin(false);
@@ -1113,12 +1113,10 @@ public class CharacterUtils {
 				
 				if((slot.isCoreClothing() || Math.random()>0.75f || slot.isJewellery()) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
 					if(!ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot).isEmpty() && (ClothingType.slotBlockedByRace(character, slot) != character.getRace())) {
-						if(slot==InventorySlot.CHEST && !character.hasBreasts()) {
-							// Skip if character shouldn't be wearing a bra.
-						} else {
-							ClothingType ct = getClothingTypeForSlot(character, slot, ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot));
-							
-							if(ct!=null) {
+						
+						ClothingType ct = getClothingTypeForSlot(character, slot, ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot));
+						
+						if(ct!=null) {
 							character.equipClothingFromNowhere(ClothingType.generateClothing(
 									ct,
 									(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
@@ -1127,7 +1125,6 @@ public class CharacterUtils {
 													?primaryColour
 													:secondaryColour)),
 									false), true, character);
-							}
 						}
 					}
 				}
@@ -1146,23 +1143,20 @@ public class CharacterUtils {
 				
 				if((slot.isCoreClothing() || Math.random()>0.75f || slot.isJewellery()) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
 					if(!ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot).isEmpty() && (ClothingType.slotBlockedByRace(character, slot) != character.getRace())) {
-						if(slot==InventorySlot.CHEST && !character.hasBreasts()) {
-							// Skip if character shouldn't be wearing a bra.
-						} else {
-							ClothingType ct = getClothingTypeForSlot(character, slot, ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot));
-							
-							if(ct!=null) {
-							character.equipClothingFromNowhere(ClothingType.generateClothing(
-									ct,
-									(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
-											? lingerieColour
-											: (slot.isCoreClothing()
-													?primaryColour
-													:secondaryColour)),
-									false), true, character);
-							}
-							
+						
+						ClothingType ct = getClothingTypeForSlot(character, slot, ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot));
+						
+						if(ct!=null) {
+						character.equipClothingFromNowhere(ClothingType.generateClothing(
+								ct,
+								(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
+										? lingerieColour
+										: (slot.isCoreClothing()
+												?primaryColour
+												:secondaryColour)),
+								false), true, character);
 						}
+							
 					}
 				}
 			}
@@ -1175,6 +1169,8 @@ public class CharacterUtils {
 		boolean canEquip=true;
 		
 		for(ClothingType ct : clothingOptions) {
+			canEquip=true;
+			
 			if(slot==InventorySlot.CHEST && !character.hasBreasts()) {
 				canEquip = false;
 				

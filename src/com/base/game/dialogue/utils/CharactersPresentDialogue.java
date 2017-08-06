@@ -1,10 +1,14 @@
 package com.base.game.dialogue.utils;
 
+import java.util.Map.Entry;
+
 import com.base.game.character.GameCharacter;
+import com.base.game.character.attributes.AffectionLevel;
 import com.base.game.character.attributes.Attribute;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.attributes.FitnessLevel;
 import com.base.game.character.attributes.IntelligenceLevel;
+import com.base.game.character.attributes.ObedienceLevel;
 import com.base.game.character.attributes.StrengthLevel;
 import com.base.game.character.body.types.PenisType;
 import com.base.game.character.body.types.VaginaType;
@@ -12,6 +16,7 @@ import com.base.game.character.body.valueEnums.Femininity;
 import com.base.game.character.effects.Fetish;
 import com.base.game.character.effects.Perk;
 import com.base.game.character.effects.StatusEffect;
+import com.base.game.character.npc.NPC;
 import com.base.game.combat.SpecialAttack;
 import com.base.game.combat.Spell;
 import com.base.game.dialogue.DialogueNodeOld;
@@ -32,7 +37,7 @@ import com.base.utils.Util;
 public class CharactersPresentDialogue {
 
 	private static String menuContent, menuTitle;
-	private static StringBuilder infoBoxSB = new StringBuilder();
+	private static StringBuilder infoBoxSB = new StringBuilder(), infoScreenSB = new StringBuilder();
 	public static GameCharacter characterViewed = null;
 
 	public static void resetContent() {
@@ -42,17 +47,7 @@ public class CharactersPresentDialogue {
 		RenderingEngine.ENGINE.setCharactersInventoryToRender(Main.game.getCharactersPresent().get(0));
 		
 		menuTitle = "Characters present ("+Util.capitaliseSentence(Main.game.getCharactersPresent().get(0).getName())+")";
-
-		menuContent = getCharacterInfoBox(Main.game.getCharactersPresent().get(0))
-				+ "<h4>Background</h4>"
-				+ "<p>"
-					+ Main.game.getCharactersPresent().get(0).getDescription()
-				+ "</p>"
-				+ "<h4>Appearance</h4>"
-				+ "<p>"
-					+ Main.game.getCharactersPresent().get(0).getBodyDescription()
-				+ "</p>"
-				+ getStats(Main.game.getCharactersPresent().get(0));
+		menuContent = getCharacterInformationScreen((NPC) Main.game.getCharactersPresent().get(0));
 		
 		RenderingEngine.ENGINE.renderInventory();
 	}
@@ -91,16 +86,7 @@ public class CharactersPresentDialogue {
 						
 						RenderingEngine.ENGINE.setCharactersInventoryToRender(Main.game.getCharactersPresent().get(index - 1));
 						menuTitle = "Characters present ("+Util.capitaliseSentence(Main.game.getCharactersPresent().get(index - 1).getName())+")";
-						menuContent = getCharacterInfoBox(Main.game.getCharactersPresent().get(index - 1))
-								+ "<h4>Background</h4>"
-								+ "<p>"
-										+ Main.game.getCharactersPresent().get(index - 1).getDescription()
-								+ "</p>"
-										+ "<h4>Appearance</h4>"
-								+ "<p>"
-									+ Main.game.getCharactersPresent().get(index - 1).getBodyDescription()
-								+ "</p>"
-								+ getStats(Main.game.getCharactersPresent().get(index - 1));
+						menuContent = getCharacterInformationScreen((NPC) Main.game.getCharactersPresent().get(index - 1));
 						
 						RenderingEngine.ENGINE.renderInventory();
 					}
@@ -117,7 +103,57 @@ public class CharactersPresentDialogue {
 		}
 	};
 	
-	public static String getCharacterInfoBox(GameCharacter character) {
+	public static String getCharacterInformationScreen(NPC character) {
+		infoScreenSB.setLength(0);
+		
+		infoScreenSB.append(getCharacterInfoBox(character)
+				+ "<h4>Background</h4>"
+				+ "<p>"
+					+ character.getDescription()
+				+ "</p>"
+				+ "</br>"
+				+ "<h4>Relationships</h4>"
+				+ "<p>"
+					+ "[style.boldAffection(Affection:)]</br>"
+					+ AffectionLevel.getDescription(character, Main.game.getPlayer(),
+							AffectionLevel.getAffectionLevelFromValue(character.getRelationshipAffection(Main.game.getPlayer())), true));
+		
+		for(Entry<GameCharacter, Integer> entry : character.getRelationshipsMap().entrySet()) {
+			if(!entry.getKey().isPlayer()) {
+				infoScreenSB.append("</br>" + AffectionLevel.getDescription(character, entry.getKey(), AffectionLevel.getAffectionLevelFromValue(character.getRelationshipAffection(entry.getKey())), true));
+			}
+		}
+		
+		infoScreenSB.append("</br></br>"
+					+ "[style.boldObedience(Obedience:)]</br>"
+					+ UtilText.parse(character,
+							(character.isSlave()
+								?"[npc.Name] [style.boldArcane(is a slave)], owned by "+character.getOwner().getName("a")+"."
+								:"[npc.Name] [style.boldGood(is not a slave)]."))
+					+ "</br>"+ObedienceLevel.getDescription(character, ObedienceLevel.getObedienceLevelFromValue(character.getObedience()), true)
+					+"</br></br>"
+					+ "[style.boldArcane(Slaves owned:)]");
+		
+		if(character.getSlavesOwned().isEmpty()) {
+			infoScreenSB.append("</br>[style.colourDisabled(None)]");
+		} else {
+			for(GameCharacter slave : character.getSlavesOwned()) {
+				infoScreenSB.append(UtilText.parse(slave, "</br>[npc.Name]"));
+			}
+		}
+		
+		infoScreenSB.append("</p>"
+				+ "</br>"
+					+ "<h4>Appearance</h4>"
+				+ "<p>"
+					+ character.getBodyDescription()
+				+ "</p>"
+				+ getStats(character));
+		
+		return infoScreenSB.toString();
+	}
+	
+	private static String getCharacterInfoBox(GameCharacter character) {
 		infoBoxSB.setLength(0);
 		
 		infoBoxSB.append("<div class='combat-display left' style='float:right;'>"

@@ -1,7 +1,5 @@
 package com.base.game.character.npc.dominion;
 
-import java.util.List;
-
 import com.base.game.character.CharacterUtils;
 import com.base.game.character.GameCharacter;
 import com.base.game.character.Name;
@@ -16,14 +14,11 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.npcDialogue.DominionAlleywayAttacker;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.utils.UtilText;
-import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.item.AbstractItem;
-import com.base.game.inventory.item.ItemType;
 import com.base.game.sex.Sex;
 import com.base.main.Main;
 import com.base.utils.Util;
-import com.base.utils.Util.ListValue;
 import com.base.utils.Vector2i;
 import com.base.world.WorldType;
 import com.base.world.places.Dominion;
@@ -187,6 +182,11 @@ public class NPCRandomDominion extends NPC {
 			setPendingClothingDressing(true);
 		}
 	}
+
+	@Override
+	public boolean isClothingStealable() {
+		return true;
+	}
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
@@ -332,56 +332,6 @@ public class NPCRandomDominion extends NPC {
 		}
 	}
 
-	@Override
-	public List<AbstractCoreItem> getLootItems() {
-		if(Math.random() < 0.66) {
-			switch(getRace()) {
-				case CAT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.INT_INGREDIENT_FELINE_FANCY)));
-				case DOG_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.FIT_INGREDIENT_CANINE_CRUSH)));
-				case HORSE_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER)));
-				case WOLF_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY)));
-				case HUMAN:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.INT_INGREDIENT_VANILLA_WATER)));
-				case ANGEL:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
-				case DEMON:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.COR_INGREDIENT_LILITHS_GIFT)));
-				case HARPY:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME)));
-				case SLIME:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
-			}
-			
-		} else {
-			switch(getRace()) {
-				case CAT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_CAT_MORPH)));
-				case DOG_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_DOG_MORPH)));
-				case HORSE_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_HORSE_MORPH)));
-				case WOLF_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_WOLF_MORPH)));
-				case HUMAN:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
-				case ANGEL:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
-				case DEMON:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_DEMON)));
-				case HARPY:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY)));
-				case SLIME:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
-			}
-		}
-		
-		return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
-	}
-	
 	@Override
 	public String getLostVirginityDescriptor() {
 		return "in the streets of Dominion";

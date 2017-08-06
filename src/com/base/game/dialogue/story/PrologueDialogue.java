@@ -17,6 +17,7 @@ import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.ClothingType;
+import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.main.Main;
 import com.base.utils.Colour;
@@ -277,7 +278,9 @@ public class PrologueDialogue {
 				return new Response("Wake up", "You slowly start to regain consciousness.", INTRO_NEW_WORLD_1){
 					@Override
 					public void effects() {
-					
+
+						Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 5);
+						
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
 						
 						Main.game.setRenderMapSection(true);

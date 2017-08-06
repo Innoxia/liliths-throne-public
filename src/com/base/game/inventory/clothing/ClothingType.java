@@ -450,7 +450,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] pulls the headband onto [npc.her] head.");
 			else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls the headband onto your head.");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls the headband onto your head.");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull the headband onto [npc.name]'s head.");
 				}
@@ -465,7 +465,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] takes off [npc.her] headband.");
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls your headband off.");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls your headband off.");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull [npc.name]'s headband off.");
 				}
@@ -504,7 +504,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] pulls the headband onto [npc.her] head.");
 			else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls the headband onto your head.");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls the headband onto your head.");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull the headband onto [npc.name]'s head.");
 				}
@@ -519,7 +519,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] takes off [npc.her] headband.");
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls your headband off.");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls your headband off.");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull [npc.name]'s headband off.");
 				}
@@ -811,45 +811,53 @@ public enum ClothingType {
 			null, // List<InventorySlot> incompatibleSlots
 
 			Util.newArrayListOfValues(new ListValue<Colour>(com.base.utils.Colour.CLOTHING_COPPER), new ListValue<Colour>(com.base.utils.Colour.CLOTHING_SILVER), new ListValue<Colour>(com.base.utils.Colour.CLOTHING_GOLD))) {
+		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
 				return "You put on the necklace, clipping the chain together at the back of your neck.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner,
-						Util.capitaliseSentence(clothingOwner.getName("the")) + " puts a " + clothing.getName(true) + " around <her> neck, reaching around" + " to fasten the clip at the back.");
-			else {
+				
+			}else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
+				return UtilText.parse(clothingOwner, "[npc.Name] puts a necklace around [npc.her] neck, before reaching around to fasten the clip at the back.");
+				
+			}else {
 				if (rough) {
-					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " holds your head still and fastens " + clothing.getName(true) + " around your neck.";
-					else
-						return UtilText.genderParsing(clothingOwner, "You hold " + clothingOwner.getName("the") + "'s head still as you fasten the necklace around <her> neck.");
+					if (clothingOwner.isPlayer()) {
+						return UtilText.parse(clothingRemover, "[npc.Name] holds your head still and fastens a necklace around your neck.");
+					} else {
+						return UtilText.parse(clothingOwner, "You hold [npc.name]'s head still as you fasten the necklace around [npc.her] neck.");
+					}
 				} else {
-					if (clothingOwner.isPlayer())
-						return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " clips " + clothing.getName(true) + " around your neck.");
-					else
-						return UtilText.genderParsing(clothingOwner, "You fasten the necklace around " + clothingOwner.getName("the") + "'s neck.");
+					if (clothingOwner.isPlayer()) {
+						return UtilText.parse(clothingRemover, "[npc.Name] clips a necklace around your neck.");
+					} else {
+						return UtilText.parse(clothingOwner, "You fasten the necklace around [npc.name]'s neck.");
+					}
 				}
 			}
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
 				return "You unclip your necklace and take it off.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " unclips <her> necklace and takes it off.");
-			else {
+				
+			}else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
+				return UtilText.parse(clothingOwner, "[npc.Name] unclips [npc.her] necklace and takes it off.");
+				
+			}else {
 				if (rough) {
-					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " grabs your necklace and yanks it from your neck.";
-					else
-						return UtilText.genderParsing(clothingOwner, "You grab " + clothingOwner.getName("the") + "'s necklace and yank it from <her> neck.");
+					if (clothingOwner.isPlayer()) {
+						return UtilText.parse(clothingRemover, "[npc.Name] grabs your necklace and yanks it from your neck.");
+					} else {
+						return UtilText.parse(clothingOwner, "You grab [npc.name]'s necklace and yank it from [npc.her] neck.");
+					}
 				} else {
-					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " unclips your necklace and removes it.";
-					else
-						return "You unclip " + clothingOwner.getName("the") + "'s necklace and take it off.";
+					if (clothingOwner.isPlayer()) {
+						return UtilText.parse(clothingRemover, "[npc.Name] unclips your necklace and removes it.");
+					} else {
+						return UtilText.parse(clothingOwner, "You unclip [npc.name]'s necklace and take it off.");
+					}
 				}
 			}
 		}
@@ -864,6 +872,7 @@ public enum ClothingType {
 			return null;
 		}
 	},
+	
 	NECK_ANKH_NECKLACE("an", false, "ankh necklace", "A necklace with a cross-shaped pendant, which has a loop instead of the top arm.", 0, null, InventorySlot.NECK, Rarity.COMMON, null, "neck_ankhNecklace", null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
@@ -871,6 +880,7 @@ public enum ClothingType {
 			null, // List<InventorySlot> incompatibleSlots
 
 			Util.newArrayListOfValues(new ListValue<Colour>(com.base.utils.Colour.CLOTHING_COPPER), new ListValue<Colour>(com.base.utils.Colour.CLOTHING_SILVER), new ListValue<Colour>(com.base.utils.Colour.CLOTHING_GOLD))) {
+		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
@@ -882,13 +892,13 @@ public enum ClothingType {
 			}else {
 				if (rough) {
 					if (clothingOwner.isPlayer()) {
-						return UtilText.parse(clothingOwner, "[npc.Name] holds your head still and fastens an ahnk necklace around your neck.");
+						return UtilText.parse(clothingRemover, "[npc.Name] holds your head still and fastens an ahnk necklace around your neck.");
 					} else {
 						return UtilText.parse(clothingOwner, "You hold [npc.name]'s head still as you fasten the necklace around [npc.her] neck.");
 					}
 				} else {
 					if (clothingOwner.isPlayer()) {
-						return UtilText.parse(clothingOwner, "[npc.Name] clips an ahnk necklace around your neck.");
+						return UtilText.parse(clothingRemover, "[npc.Name] clips an ahnk necklace around your neck.");
 					} else {
 						return UtilText.parse(clothingOwner, "You fasten the ahnk necklace around [npc.name]'s neck.");
 					}
@@ -907,13 +917,13 @@ public enum ClothingType {
 			}else {
 				if (rough) {
 					if (clothingOwner.isPlayer()) {
-						return UtilText.parse(clothingOwner, "[npc.Name] grabs your necklace and yanks it from your neck.");
+						return UtilText.parse(clothingRemover, "[npc.Name] grabs your necklace and yanks it from your neck.");
 					} else {
 						return UtilText.parse(clothingOwner, "You grab [npc.name]'s necklace and yank it from [npc.her] neck.");
 					}
 				} else {
 					if (clothingOwner.isPlayer()) {
-						return UtilText.parse(clothingOwner, "[npc.Name] unclips your ankh necklace and removes it.");
+						return UtilText.parse(clothingRemover, "[npc.Name] unclips your ankh necklace and removes it.");
 					} else {
 						return UtilText.parse(clothingOwner, "You unclip [npc.name]'s necklace and take it off.");
 					}
@@ -931,6 +941,75 @@ public enum ClothingType {
 			return null;
 		}
 	},
+	
+	NECK_SCARF("a", false, "scarf", "A unisex scarf, made of a soft, wooly fabric.", 1, null, InventorySlot.NECK, Rarity.COMMON, null, "neck_scarf", null,
+
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
+
+			null, // List<InventorySlot> incompatibleSlots
+
+			Colour.allClothingColours) {
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
+				return "You wrap the scarf around your neck.";
+				
+			}else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
+				return UtilText.parse(clothingOwner, "[npc.Name] wraps a scarf around [npc.her] neck.");
+				
+			}else {
+				if (rough) {
+					if (clothingOwner.isPlayer()) {
+						return UtilText.parse(clothingRemover, "[npc.Name] holds your head still and wraps a scarf around your neck.");
+					} else {
+						return UtilText.parse(clothingOwner, "You hold [npc.name]'s head still as you wrap the scarf around [npc.her] neck.");
+					}
+				} else {
+					if (clothingOwner.isPlayer()) {
+						return UtilText.parse(clothingRemover, "[npc.Name] wraps a scarf around your neck.");
+					} else {
+						return UtilText.parse(clothingOwner, "You wrap the scarf around [npc.name]'s neck.");
+					}
+				}
+			}
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
+				return "You unwrap your scarf and take it off.";
+				
+			}else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
+				return UtilText.parse(clothingOwner, "[npc.Name] unwraps [npc.her] scarf and takes it off.");
+				
+			}else {
+				if (rough) {
+					if (clothingOwner.isPlayer()) {
+						return UtilText.parse(clothingRemover, "[npc.Name] grabs your scarf and yanks it from your neck.");
+					} else {
+						return UtilText.parse(clothingOwner, "You grab [npc.name]'s scarf and yank it from [npc.her] neck.");
+					}
+				} else {
+					if (clothingOwner.isPlayer()) {
+						return UtilText.parse(clothingRemover, "[npc.Name] unwraps your scarf and removes it.");
+					} else {
+						return UtilText.parse(clothingOwner, "You unwrap [npc.name]'s scarf and take it off.");
+					}
+				}
+			}
+		}
+
+		@Override
+		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
+			return null;
+		}
+
+		@Override
+		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
+			return null;
+		}
+	},
+	
 	NECK_SLAVE_COLLAR("a", false, "slave collar", "A heavy metal collar, of the type worn by slaves. It carries a potent enchantment that suppresses the wearer's arcane aura and ability to resist direct commands.", // TODO
 			0, null, InventorySlot.NECK, Rarity.EPIC, null, "neck_slave_collar",
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, -100), new Value<Attribute, Integer>(Attribute.RESISTANCE_MANA, -100), new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, -100)),
@@ -2076,73 +2155,87 @@ public enum ClothingType {
 	TORSO_PLUNGE_DRESS("a", false, "plunge dress", "An elegant dress with a plunging v-neckline, perfect for showing off its wearer's cleavage.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_plunge_dress", null,
 
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.CHEST), new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null,
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.REMOVE_OR_EQUIP,
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+											new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(DisplacementType.PULLS_UP,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
 
 			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
 
 			Colour.allClothingColours) {
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
 				return "You step into the plunge dress and pull it up around your torso. Once in place, you reach back and zip yourself up.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner,
-						Util.capitaliseSentence(clothingOwner.getName("the")) + " steps into " + clothing.getName(true) + ", pulling it up around <her> torso." + " Once in place, <she> reaches back to zip <herPro>self up.");
-			else {
-				if (clothingOwner.isPlayer())
-					return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " guides " + clothing.getName(true) + " around your "
-							+ clothingOwner.getLegName() + " before pulling it up around your torso. One it's in place, <she> zips it up at the back.");
-				else
-					return UtilText.genderParsing(clothingOwner,
-							"You guide the plunge dress up around " + clothingOwner.getName("the") + "'s " + clothingOwner.getLegName() + " before pulling it up around <her> torso. Once it's in place, you zip <herPro> up at the back.");
+			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
+				return UtilText.parse(clothingOwner, "[npc.Name] steps into " + clothing.getName(true) + ", before pulling it up around [npc.her] torso. Once in place, [npc.she] reaches back to zip [npc.herself] up.");
+			} else {
+				if (clothingOwner.isPlayer()) {
+					return UtilText.parse(clothingRemover, "[npc.Name] guides " + clothing.getName(true) + " up around your [pc.legs]. Once in place, [npc.she] reaches back to zip it up.");
+				} else {
+					return UtilText.parse(clothingOwner, "Your guide " + clothing.getName(true) + " up around [npc.name]'s [npc.legs]. Once in place, you reach back to zip [npc.herHim] up.");
+				}
 			}
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
 				return "You unzip your plunge dress and wriggle out of it as it drops to your feet.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner,
-						Util.capitaliseSentence(clothingOwner.getName("the")) + " unzips <her> plunge dress and wriggles out of it as it drops to <her> feet.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " unzips your plunge dress and pulls it up your body and past your feet.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You unzip " + clothingOwner.getName("the") + "'s plunge dress and pull it down off <her> body and past <her> feet.");
+			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
+				return UtilText.parse(clothingOwner, "[npc.Name] unzips [npc.her] " + clothing.getName(true) + " and wriggles out of it.");
+			} else {
+				if (clothingOwner.isPlayer()) {
+					return UtilText.parse(clothingRemover, "[npc.Name] unzips your plunge dress and pulls it down to the ground.");
+				} else {
+					return UtilText.parse(clothingOwner, "You unzip [npc.name]'s plunge dress and pull it down to the ground.");
+				}
 			}
 		}
 
 		@Override
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull up your plunge dress's skirt.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls up the lower half of <her> plunge dress.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls up the lower half of your plunge dress.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull up the lower half of " + clothingOwner.getName("the") + "'s plunge dress.");
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
+				return "You pull up the lower half of your plunge dress.";
+			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
+				return UtilText.parse(clothingOwner, "[npc.Name] pulls up the lower half of [npc.her] plunge dress.");
+			} else {
+				if (clothingOwner.isPlayer()) {
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls up the lower half of your plunge dress.");
+				} else {
+					return UtilText.parse(clothingOwner, "You pull up the lower half of [npc.name]'s plunge dress.");
+				}
 			}
 		}
 
 		@Override
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull your plunge dress back down.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> plunge dress back down.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your plunge dress back down.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull back down " + clothingOwner.getName("the") + "'s plunge dress.");
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
+				return "You pull the lower half of your plunge dress back down.";
+			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
+				return UtilText.parse(clothingOwner, "[npc.Name] pulls the lower half of [npc.her] plunge dress back down.");
+			} else {
+				if (clothingOwner.isPlayer()) {
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls the lower half of your plunge dress back down.");
+				} else {
+					return UtilText.parse(clothingOwner, "You pull the lower half of [npc.name]'s plunge dress back down.");
+				}
 			}
 		}
 	},
@@ -2168,7 +2261,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] steps into " + clothing.getName(true) + ", before pulling it up around [npc.her] torso. Once in place, [npc.she] reaches back to zip [npc.herself] up.");
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] guides " + clothing.getName(true) + " up around your [pc.legs]. Once in place, [npc.she] reaches back to zip it up.");
+					return UtilText.parse(clothingRemover, "[npc.Name] guides " + clothing.getName(true) + " up around your [pc.legs]. Once in place, [npc.she] reaches back to zip it up.");
 				} else {
 					return UtilText.parse(clothingOwner, "Your guide " + clothing.getName(true) + " up around [npc.name]'s [npc.legs]. Once in place, you reach back to zip [npc.herHim] up.");
 				}
@@ -2183,7 +2276,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] unzips [npc.her] " + clothing.getName(true) + " and wriggles out of it.");
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] unzips your dress and pulls it down to the ground.");
+					return UtilText.parse(clothingRemover, "[npc.Name] unzips your dress and pulls it down to the ground.");
 				} else {
 					return UtilText.parse(clothingOwner, "You unzip [npc.name]'s dress and pull it down to the ground.");
 				}
@@ -2198,7 +2291,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] pulls up the lower half of [npc.her] dress.");
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls up the lower half of your dress.");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls up the lower half of your dress.");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull up the lower half of [npc.name]'s dress.");
 				}
@@ -2213,7 +2306,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] pulls the lower half of [npc.her] dress back down.");
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls the lower half of your dress back down.");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls the lower half of your dress back down.");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull the lower half of [npc.name]'s dress back down.");
 				}
@@ -2946,7 +3039,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] unwraps the sarashi from around [npc.her] chest.");
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] unwraps the sarashi from around your chest.");
+					return UtilText.parse(clothingRemover, "[npc.Name] unwraps the sarashi from around your chest.");
 				} else {
 					return UtilText.parse(clothingOwner, "You unwrap the sarashi from around [npc.name]'s chest.");
 				}
@@ -3199,7 +3292,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] unwraps the sarashi from around [npc.her] stomach.");
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] unwraps your sarashi and removes it from around your stomach.");
+					return UtilText.parse(clothingRemover, "[npc.Name] unwraps your sarashi and removes it from around your stomach.");
 				} else {
 					return UtilText.parse(clothingOwner, "You unwrap [npc.name]'s sarashi and remove it from around [npc.her] stomach.");
 				}
@@ -3387,7 +3480,7 @@ public enum ClothingType {
 			
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls off your fishnet gloves.");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls off your fishnet gloves.");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull off [npc.name]'s fishnet gloves.");
 				}
@@ -3765,7 +3858,7 @@ public enum ClothingType {
 				
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls your miniskirt down and slides it off your [pc.feet].");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls your miniskirt down and slides it off your [pc.feet].");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull [npc.name]'s miniskirt down and slide it off [npc.her] [npc.feet].");
 				}
@@ -3782,7 +3875,7 @@ public enum ClothingType {
 				
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls up your miniskirt.");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls up your miniskirt.");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull up [npc.name]'s miniskirt.");
 				}
@@ -3825,7 +3918,7 @@ public enum ClothingType {
 				
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls your microskirt down and slides it off your [pc.feet].");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls your microskirt down and slides it off your [pc.feet].");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull [npc.name]'s microskirt down and slide it off [npc.her] [npc.feet].");
 				}
@@ -3870,7 +3963,7 @@ public enum ClothingType {
 				
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls your microskirt down and slides it off your [pc.feet].");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls your microskirt down and slides it off your [pc.feet].");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull [npc.name]'s microskirt down and slide it off [npc.her] [npc.feet].");
 				}
@@ -3919,7 +4012,7 @@ public enum ClothingType {
 				
 			}else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls your shorts down, before sliding them off your feet.");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls your shorts down, before sliding them off your feet.");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull [npc.name]'s shorts down and slide them off [npc.her] feet.");
 				}
@@ -3936,7 +4029,7 @@ public enum ClothingType {
 				
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls your shorts down.");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls your shorts down.");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull [npc.name]'s shorts down.");
 				}
@@ -3984,7 +4077,7 @@ public enum ClothingType {
 				
 			}else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls your bike shorts down, before sliding them off your feet.");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls your bike shorts down, before sliding them off your feet.");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull [npc.name]'s bike shorts down and slide them off [npc.her] feet.");
 				}
@@ -4001,7 +4094,7 @@ public enum ClothingType {
 				
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls your bike shorts down.");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls your bike shorts down.");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull [npc.name]'s bike shorts down.");
 				}
@@ -4132,6 +4225,7 @@ public enum ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> jeans back up.");
 		}
 	},
+	
 	LEG_TROUSERS("a pair of", true, "trousers", "A pair of men's trousers that hang loosely around the legs.", 1, Femininity.MASCULINE, InventorySlot.LEG, Rarity.COMMON, null, "leg_trousers", null,
 
 			Util.newArrayListOfValues(
@@ -4189,6 +4283,80 @@ public enum ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> trousers back up.");
 		}
 	},
+	
+	LEG_CARGO_TROUSERS("a pair of", true, "cargo trousers", "A pair of men's baggy cargo trousers, made of a hard-wearing fabric.", 1, Femininity.MASCULINE, InventorySlot.LEG, Rarity.COMMON, null, "leg_cargo_trousers", null,
+
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(
+							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.FEET),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(DisplacementType.PULLS_DOWN, null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.ANUS),
+									new ListValue<CoverableArea>(CoverableArea.PENIS),
+									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+							Util.newArrayListOfValues(new ListValue<ClothingAccess>(
+									ClothingAccess.GROIN))))),
+
+			null,
+
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK),
+					new ListValue<Colour>(Colour.CLOTHING_BROWN),
+					new ListValue<Colour>(Colour.CLOTHING_TAN))) {
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
+				return "You step into the cargo trousers before pulling them up to your waist.";
+			} else {
+				return UtilText.genderParsing(clothingOwner,
+						Util.capitaliseSentence(clothingOwner.getName("the")) + " steps into " + clothing.getName(true) + " before pulling them up to <her> waist.");
+			}
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You pull down your cargo trousers and kick them off your feet.";
+			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
+				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> cargo trousers, kicking them off <her> feet.");
+			else {
+				if (clothingOwner.isPlayer())
+					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your cargo trousers down and slides them off your feet.";
+				else
+					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s cargo trousers down and slide them off <her> feet.");
+			}
+		}
+
+		@Override
+		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You pull down your cargo trousers.";
+			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
+				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> cargo trousers.");
+			else {
+				if (clothingOwner.isPlayer())
+					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your cargo trousers down.";
+				else
+					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s cargo trousers down.");
+			}
+		}
+
+		@Override
+		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You pull your cargo trousers back up.";
+			else
+				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> cargo trousers back up.");
+		}
+	},
+	
 	LEG_YOGA_PANTS("a pair of", true, "yoga pants", "A pair of very tight yoga pants, made from a stretchable and thin fabric.", 1, Femininity.FEMININE, InventorySlot.LEG, Rarity.COMMON, null, "leg_yoga_pants", null,
 
 			Util.newArrayListOfValues(
@@ -4874,7 +5042,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] pulls down [npc.her] " + clothing.getName(true) + " before before kicking them off [npc.her] [npc.feet].");
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls down your before before sliding them off your [pc.feet].");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls down your before before sliding them off your [pc.feet].");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull [npc.name]'s briefs down before before sliding them off [npc.her] [npc.feet].");
 				}
@@ -4889,7 +5057,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] shifts [npc.her] briefs to one side.");
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] shifts your briefs to one side.");
+					return UtilText.parse(clothingRemover, "[npc.Name] shifts your briefs to one side.");
 				} else {
 					return UtilText.parse(clothingOwner, "You shift [npc.name]'s briefs to one side.");
 				}
@@ -4944,7 +5112,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] pulls down [npc.her] " + clothing.getName(true) + " before before kicking them off [npc.her] [npc.feet].");
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls down your before before sliding them off your [pc.feet].");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls down your briefs before before sliding them off your [pc.feet].");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull [npc.name]'s briefs down before before sliding them off [npc.her] [npc.feet].");
 				}
@@ -4959,7 +5127,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] shifts [npc.her] briefs to one side.");
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] shifts your briefs to one side.");
+					return UtilText.parse(clothingRemover, "[npc.Name] shifts your briefs to one side.");
 				} else {
 					return UtilText.parse(clothingOwner, "You shift [npc.name]'s briefs to one side.");
 				}
@@ -5326,7 +5494,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] unfastens [npc.her] shin guards.");
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] unfastens and removes your shin guards.");
+					return UtilText.parse(clothingRemover, "[npc.Name] unfastens and removes your shin guards.");
 				} else {
 					return UtilText.parse(clothingOwner, "You unfasten and remove [npc.name]'s shin guards.");
 				}
@@ -5579,7 +5747,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] unties [npc.her] laces and pulls [npc.her] boots off.");
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingOwner, "[npc.Name] pulls your boots off.");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls your boots off.");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull off [npc.name]'s boots.");
 				}

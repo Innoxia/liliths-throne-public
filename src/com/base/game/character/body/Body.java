@@ -425,9 +425,9 @@ public class Body implements Serializable {
 						break;
 				}
 				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER))!=null) {
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER))!=null) {
 						sb.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>The first time you performed oral sex was to "
-								+ Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER)) + ".</span>");
+								+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER)) + ".</span>");
 					}
 				}
 			}
@@ -1428,9 +1428,9 @@ public class Body implements Serializable {
 				descriptionSB.append(" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have retained your anal virginity.</span>");
 			}else{
 				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER))!=null) {
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER))!=null) {
 						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your anal virginity to "
-								+ Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER)) + ".</span>");
+								+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER)) + ".</span>");
 					}
 				}
 			}
@@ -1605,9 +1605,9 @@ public class Body implements Serializable {
 		
 		if (isPlayer && !breast.isVirgin()) {
 			for(PenetrationType pt : PenetrationType.values()) {
-				if(Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER))!=null) {
+				if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER))!=null) {
 					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your nipple virginity to "
-							+ Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER)) + ".</span>");
+							+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER)) + ".</span>");
 				}
 			}
 		}
@@ -1864,9 +1864,9 @@ public class Body implements Serializable {
 		if (isPlayer) {
 			if (!penis.isUrethraVirgin()) {
 				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER))!=null) {
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER))!=null) {
 						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your urethral virginity to "
-								+ Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER)) + ".</span>");
+								+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER)) + ".</span>");
 					}
 				}
 			}
@@ -2109,9 +2109,9 @@ public class Body implements Serializable {
 				
 
 				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER))!=null) {
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER))!=null) {
 						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your virginity to "
-								+ Main.game.getPlayer().getStats().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER)) + ".</span>");
+								+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER)) + ".</span>");
 					}
 				}
 				
@@ -2221,7 +2221,7 @@ public class Body implements Serializable {
 	
 	public String getSexDetails(GameCharacter owner) {
 		
-		if(owner.getStats().getTotalTimesHadSex() >=1) {
+		if(owner.getTotalTimesHadSex() >=1) {
 			descriptionSB = new StringBuilder();
 			
 			// Amount of sex:
@@ -2230,54 +2230,54 @@ public class Body implements Serializable {
 					UtilText.parse(owner,
 					"<p>"
 						+ "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
-							+ "You have had sex with [npc.name] "+Util.intToString(owner.getStats().getTotalTimesHadSex())+" "+(owner.getStats().getTotalTimesHadSex()==1?"time.":"times.")
+							+ "You have had sex with [npc.name] "+Util.intToString(owner.getTotalTimesHadSex())+" "+(owner.getTotalTimesHadSex()==1?"time.":"times.")
 						+"</span>"));
 			
-			if(owner.getStats().getSexConsensualCount()>=1) {
-				if(owner.getStats().getSexConsensualCount() == owner.getStats().getTotalTimesHadSex()) {
-					if(owner.getStats().getTotalTimesHadSex()==1) {
+			if(owner.getSexConsensualCount()>=1) {
+				if(owner.getSexConsensualCount() == owner.getTotalTimesHadSex()) {
+					if(owner.getTotalTimesHadSex()==1) {
 						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was consensual."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getStats().getTotalTimesHadSex())+" times were consensual."));
+						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex())+" times were consensual."));
 					}
 					
 				} else {
-					if(owner.getStats().getTotalTimesHadSex()==1) {
+					if(owner.getTotalTimesHadSex()==1) {
 						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was consensual."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getStats().getSexConsensualCount()))+" of these times were consensual."));
+						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexConsensualCount()))+" of these times were consensual."));
 					}
 				}
 			}
-			if(owner.getStats().getSexAsSubCount()>=1) {
-				if(owner.getStats().getSexAsSubCount() == owner.getStats().getTotalTimesHadSex()) {
-					if(owner.getStats().getTotalTimesHadSex()==1) {
+			if(owner.getSexAsSubCount()>=1) {
+				if(owner.getSexAsSubCount() == owner.getTotalTimesHadSex()) {
+					if(owner.getTotalTimesHadSex()==1) {
 						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was non-consensual, with you as the dominant partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getStats().getTotalTimesHadSex())+" times were non-consensual, with you as the dominant partner."));
+						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex())+" times were non-consensual, with you as the dominant partner."));
 					}
 					
 				} else {
-					if(owner.getStats().getTotalTimesHadSex()==1) {
+					if(owner.getTotalTimesHadSex()==1) {
 						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was non-consensual, with you as the dominant partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getStats().getSexAsSubCount()))+" of these times were non-consensual, with you as the dominant partner."));
+						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexAsSubCount()))+" of these times were non-consensual, with you as the dominant partner."));
 					}
 				}
 			}
-			if(owner.getStats().getSexAsDomCount()>=1) {
-				if(owner.getStats().getSexAsDomCount() == owner.getStats().getTotalTimesHadSex()) {
-					if(owner.getStats().getTotalTimesHadSex()==1) {
+			if(owner.getSexAsDomCount()>=1) {
+				if(owner.getSexAsDomCount() == owner.getTotalTimesHadSex()) {
+					if(owner.getTotalTimesHadSex()==1) {
 						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was non-consensual, with you as the submissive partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getStats().getTotalTimesHadSex())+" times were non-consensual, with you as the submissive partner."));
+						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex())+" times were non-consensual, with you as the submissive partner."));
 					}
 					
 				} else {
-					if(owner.getStats().getTotalTimesHadSex()==1) {
+					if(owner.getTotalTimesHadSex()==1) {
 						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was non-consensual, with you as the submissive partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getStats().getSexAsDomCount()))+" of these times were non-consensual, with you as the submissive partner."));
+						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexAsDomCount()))+" of these times were non-consensual, with you as the submissive partner."));
 					}
 				}
 			}

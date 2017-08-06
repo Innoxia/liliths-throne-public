@@ -101,25 +101,17 @@ public class LevelUpButtonsEventListener implements EventListener {
 		} else if (f != null) {
 			if (PhoneDialogue.levelUpFetishes.contains(f)) { // Already selected this fetish, so remove it:
 
-				
-				if(Main.game.getPlayer().getFetishes().size()+PhoneDialogue.levelUpFetishes.size()>1)
-					PhoneDialogue.spendingFetishPoints -= PhoneDialogue.getFetishCost();
-
 				PhoneDialogue.levelUpFetishes.remove(f);
 				
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 
 			} else if (
-					((PhoneDialogue.spendingFetishPoints+PhoneDialogue.getFetishCost() <= Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)) || (Main.game.getPlayer().getFetishes().size()+PhoneDialogue.levelUpFetishes.size()==0))
+				(PhoneDialogue.getFetishCost()+f.getCost() <= Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE))
 					&& !Main.game.getPlayer().hasFetish(f)
-					&& f.isAvailable(Main.game.getPlayer(), PhoneDialogue.levelUpFetishes)
+					&& f.isAvailable(Main.game.getPlayer())
 					&& f.getFetishesForAutomaticUnlock().isEmpty()) { // Have points to spend, player doesn't own this fetish:
 
 				PhoneDialogue.levelUpFetishes.add(f);
-				
-				if(Main.game.getPlayer().getFetishes().size()+PhoneDialogue.levelUpFetishes.size()>1)
-					PhoneDialogue.spendingFetishPoints += PhoneDialogue.getFetishCost();
-				
 
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}

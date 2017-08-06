@@ -1,13 +1,15 @@
 package com.base.game.dialogue.places.dominion.lilayashome;
 
 import com.base.game.character.attributes.Attribute;
+import com.base.game.character.race.Race;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
+import com.base.game.inventory.item.ItemType;
 import com.base.main.Main;
 
 /**
  * @since 0.1.78
- * @version 0.1.78
+ * @version 0.1.82
  * @author Innoxia
  */
 public class Library {
@@ -22,7 +24,15 @@ public class Library {
 
 		@Override
 		public String getContent() {
-			return "Books!";//TODO
+			return "<p>"
+						+ "Pushing open a heavy wooden door, you find yourself walking into Lilaya's library."
+						+ " Much like her lab, the walls are covered in shelving, holding hundreds upon hundreds of books of all shapes and sizes."
+						+ " Much of the room is taken up by free-standing book cases, although there's a little space on one side of the room, where a couple of comfortable leather-bound chairs flank an ornate fireplace."
+					+ "</p>"
+					+ "<p>"
+						+ "Walking around, you scan the titles printed onto the spines of the books, but there's not really much that catches your eye."
+						+ " Only a few volumes really look to be worth your time, and you wonder if you should take some time to do a spot of reading..."
+					+ "</p>";
 		}
 
 		@Override
@@ -53,17 +63,51 @@ public class Library {
 				return new Response("Dominion's History", "A paperback book describing the events that led to the creation of the city you currently find yourself in.", DOMINION_HISTORY) {
 					@Override
 					public void effects() {
-						if(!Main.game.getDialogueFlags().readBook1) {
+						if(!Main.game.getDialogueFlags().readBook3) {
 							Main.game.getDialogueFlags().readBook3 = true;
 						}
 					}
 				};
+
+			} else if (index == 4) {
+				return bookResponse(ItemType.BOOK_CAT_MORPH, Race.CAT_MORPH);
+
+			} else if (index == 5) {
+				return bookResponse(ItemType.BOOK_DEMON, Race.DEMON);
+
+			} else if (index == 6) {
+				return bookResponse(ItemType.BOOK_DOG_MORPH, Race.DOG_MORPH);
+
+			} else if (index == 7) {
+				return bookResponse(ItemType.BOOK_HARPY, Race.HARPY);
+
+			} else if (index == 8) {
+				return bookResponse(ItemType.BOOK_HORSE_MORPH, Race.HORSE_MORPH);
+
+			} else if (index == 9) {
+				return bookResponse(ItemType.BOOK_HUMAN, Race.HUMAN);
+
+			} else if (index == 10) {
+				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
 
 			} else {
 				return null;
 			}
 		}
 	};
+	
+	private static Response bookResponse(ItemType book, Race race) {
+		if(Main.game.getPlayer().getRacesAdvancedKnowledge().contains(race)) {
+			return new Response(book.getName(false), book.getDescription(), LIBRARY) {
+				@Override
+				public void effects() {
+					Main.game.getTextEndStringBuilder().append(book.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer()));
+				}
+			};
+		} else {
+			return new Response(book.getName(false), "You haven't discovered this book yet!", null);
+		}
+	}
 	
 	public static final DialogueNodeOld ARCANE_AROUSAL = new DialogueNodeOld("", "", false) {
 		/**

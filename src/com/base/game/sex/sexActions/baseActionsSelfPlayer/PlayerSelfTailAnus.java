@@ -55,7 +55,7 @@ public class PlayerSelfTailAnus {
 		
 		@Override
 		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
 		}
 	};
 	
@@ -98,7 +98,7 @@ public class PlayerSelfTailAnus {
 		
 		@Override
 		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL), new ListValue<>(Fetish.FETISH_MASTURBATION));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
 		}
 	};
 	
@@ -141,7 +141,7 @@ public class PlayerSelfTailAnus {
 		
 		@Override
 		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL), new ListValue<>(Fetish.FETISH_MASTURBATION));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
 		}
 	};
 	
@@ -184,7 +184,7 @@ public class PlayerSelfTailAnus {
 
 		@Override
 		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_ANAL), new ListValue<>(Fetish.FETISH_MASTURBATION));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
 		}
 	};
 	
@@ -227,7 +227,7 @@ public class PlayerSelfTailAnus {
 		
 		@Override
 		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL), new ListValue<>(Fetish.FETISH_MASTURBATION));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
 		}
 	};
 	
@@ -270,7 +270,7 @@ public class PlayerSelfTailAnus {
 
 		@Override
 		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_ANAL), new ListValue<>(Fetish.FETISH_MASTURBATION));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
 		}
 	};
 	

@@ -208,10 +208,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		// Skip over remove clothing if action is of HIGH or MAX priority
 		if(Sex.getAvailableSexActionsPartner().get(0).getPriority()!=SexActionPriority.HIGH
-				&& Sex.getAvailableSexActionsPartner().get(0).getPriority()!=SexActionPriority.UNIQUE_MAX
-				&& !Sex.isAnyNonSelfPenetrationHappening()) {// The AI won't care about minor clothing any more if there is already penetrative sex occurring.
-			
-			
+				&& Sex.getAvailableSexActionsPartner().get(0).getPriority()!=SexActionPriority.UNIQUE_MAX) {
+				
 			if(!Sex.isPartnerCanRemovePlayersClothes()) {
 				if(Sex.isPartnerCanRemoveOwnClothes()) {
 					// Get access to own nipples before anything else:
@@ -341,7 +339,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		}
 		
 		// Ban all anal actions unless the partner has an anal fetish, or if there is no vagina available to use.
-		if(!Sex.getPartner().hasFetish(Fetish.FETISH_ANAL)) {
+		if(!Sex.getPartner().hasFetish(Fetish.FETISH_ANAL_GIVING)) {
 			for(SexActionInterface action : availableActions) {
 				if(action.getAssociatedOrificeType()!=null) {
 					if(action.getAssociatedOrificeType().isAnus()) {
@@ -397,6 +395,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// Priority 9 (last resort):
 		return SexActionUtility.PARTNER_NONE;
 	}
+
 	
 	/**
 	 * Finger and tongue actions are considered foreplay.
@@ -452,6 +451,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		return null;
 	}
+
+	private boolean removedAllPenetrationAfterForeplay = false;
 	
 	private SexAction performSexAction() {
 		List<SexActionInterface> availableActions = Sex.getAvailableSexActionsPartner();
@@ -471,19 +472,28 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		if(!isSexPenetration) {
 			// --- Stop foreplay actions: ---
-			for(SexActionInterface action : availableActions) {
-				if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
-					return (SexAction) action;
+			if(!removedAllPenetrationAfterForeplay) {
+				for(SexActionInterface action : availableActions) {
+					if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
+						return (SexAction) action;
+					}
 				}
 			}
+			removedAllPenetrationAfterForeplay = true;
 			
 			// --- Start penetrating: ---
 			for(SexActionInterface action : availableActions) {
 				if(action.getActionType()==SexActionType.PARTNER_PENETRATION) {
 					if(action.getAssociatedPenetrationType().isPenis() || action.getAssociatedPenetrationType().isTail() || action.getAssociatedPenetrationType().isTentacle()) {
 						// Anal penetrations:
-						if((Sex.getPartner().hasFetish(Fetish.FETISH_ANAL) || Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS_PLAYER)) && action.getAssociatedOrificeType()!=null) {
+						if((Sex.getPartner().hasFetish(Fetish.FETISH_ANAL_GIVING) || Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS_PLAYER)) && action.getAssociatedOrificeType()!=null) {
 							if(action.getAssociatedOrificeType().isAnus()) {
+								returnableActions.add(action);
+							}
+						}
+						// Nipple penetrations:
+						if((Sex.getPartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS) || Sex.getPlayerPenetrationRequests().contains(OrificeType.NIPPLE_PLAYER)) && action.getAssociatedOrificeType()!=null) {
+							if(action.getAssociatedOrificeType().isNipple()) {
 								returnableActions.add(action);
 							}
 						}

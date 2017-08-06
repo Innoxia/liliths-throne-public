@@ -26,14 +26,22 @@ public enum Race {
 			"women",
 
 			"<p>"
-				+ "Humans are the least numerous of all the races that inhabit this world."
-				+ " Although some people appear to be human on first glance, a fluffy pair of ears, a swishing tail, or a concealed bestial cock will often end up betraying their status as a partial-morph of one race or another."
-				+ " Those few humans who do inhabit this world are typically unable to harness the arcane."
-				+ " The humans here are much like those from your universe, and have wildly varying personalities, body types, and sexual preferences."
+				+ "Humans are the least numerous of all the races."
+				+ " Although some people appear to be human on first glance, a fluffy pair of ears, a swishing tail, or a concealed bestial cock will often end up betraying their status as a morph of one race or another."
+				+ " Humans have wildly varying personalities, body types, and sexual preferences."
+			+ "</p>",
+			
+			
+			"<p>"
+				+ "Demons, following the orders of the Lilin, often encourage other races to treat humans as inferior beings."
+				+ " Rumours of Lilith's intense dislike of humans are commonplace, which would explain the fact that humans are banned from serving in any position of power within Dominion."
+				+ " This is partially the reason why humans are so rare; those that are born human often transform themselves to avoid persecution."
 			+ "</p>"
 			+ "<p>"
-				+ "Humans are a peculiarity of this world when it comes to matters of reproduction."
-				+ " While all other races give birth to offspring of their own race, human offspring will always be of the same race as the father."
+				+ "A defining feature of humans is that they are typically unable to harness the arcane, which often leads to further ridicule from the other races."
+			+ "</p>"
+			+ "<p>"
+				+ "Human offspring will be a mixture of more humans and offspring of their partner's race."
 			+ "</p>",
 
 
@@ -62,20 +70,21 @@ public enum Race {
 			"angel",
 			
 			"<p>"
-				+ "Angels are similar in looks as to how you would have imagined them, minus their seemingly-universal androgyny."
-				+ " Their bodies closely resemble that of a human's, with the exception of having a gigantic pair of white-feathered wings growing from their shoulder blades."
-				+ " Their only other distinguishing feature is the fact that they seem to be surrounded by a pale golden radiance at all times."
-			+ "</p>"
-
-			+ "<p>"
+				+ "Angels look pretty much exactly how most people imagine them."
+				+ " Their bodies closely resemble that of a human's, with the exception of having a gigantic pair of white-feathered wings growing from their backs."
+				+ " Their skin, while similar to that of a human's, gives off a pale golden radiance at all times."
+			+ "</p>",
+			
+			"<p>"
 				+ "Although they fit the stereotypical appearance of an angel, these ones certainly don't act like their traditional counterparts."
-				+ " Almost all of them try to pretend that they have some kind of special power, despite the fact that they're actually only quite averagely-skilled when it comes to harnessing the arcane."
-				+ " This minor personality flaw is overlooked by most people due to their universal nymphomania."
-				+ " Their affliction is so severe that it's almost impossible for an angel to be able to go more than an hour without masturbating or having sex."
+				+ " Boastful, loud, and incredibly vulgar, angels often make up stories about how powerful they are, despite the fact that they're actually only quite averagely-skilled when it comes to harnessing the arcane."
 			+ "</p>"
-
 			+ "<p>"
-				+ "Angels are completely unable to father offspring or get pregnant."
+				+ "To an even greater extent than demons, angels are completely obsessed with sex."
+				+ " Their nymphomania is so severe that it's almost impossible for an angel to be able to go more than an hour without masturbating or seeking out sex."
+			+ "</p>"
+			+ "<p>"
+				+ "An angel's offspring will be a mixture of more angels and offspring of their partner's race."
 			+ "</p>",
 
 			Colour.CLOTHING_WHITE,
@@ -104,9 +113,15 @@ public enum Race {
 			"succubi",
 
 			"<p>"
-				+ "In this universe, not only are demons real, but they also conform to the stereotypical image that was common in your old world."
+				+ "Not only are demons real, but they also conform to their stereotypical image."
 				+ " A pair of horns, bat-like wings, and a spaded tail, amongst other features, all mark a person as a demon."
 				+ " Demons are able to shift their bodies into any form they like, although the vast majority of them prefer to remain as females."
+			+ "</p>",
+			
+			"<p>"
+				+ "Demons are created in one of two ways."
+				+ " They are either born from a Lilin being impregnated by a demon, or they are created when a Lilin corrupts another race into becoming a demon."
+				+ " If a Lilin is impregnated by a non-demon, which is an extremely rare occurrence, their offspring will be half-demons, who are the lowest on the demonic social ladder."
 			+ "</p>"
 			+ "<p>"
 				+ "Despite their alarming appearance, demons do not seem to be predisposed towards evil."
@@ -114,7 +129,7 @@ public enum Race {
 				+ " This is a result of their incredibly potent arcane aura, which, while being able to shield them from an arcane storm's effects, as well as granting them access to powerful arcane spells, causes them to crave sexual pleasure."
 			+ "</p>"
 			+ "<p>"
-				+ "Demons will always give birth to a litter of imps; creatures that resemble a demon in appearance, but are of a smaller stature and mischievous temperament."
+				+ "A demon's offspring will be a mixture of imps and offspring of their partner's race."
 			+ "</p>",
 
 
@@ -162,19 +177,20 @@ public enum Race {
 			"dog-girls",
 
 			"<p>"
-				+ "Dog-morphs are one of the more common anthropomorphic races found in this world."
-				+ " Easily identified by their wagging tails, fluffy ears, and energetic mannerisms, dog-morphs can be found almost everywhere."
-			+ "</p>"
-			+ "<p>"
+				+ "Dog-morphs are a very common race."
+				+ " Easily identified by their wagging tails, fluffy ears, and energetic mannerisms, dog-morphs can be found almost anywhere."
+			+ "</p>",
+			
+			"<p>"
 				+ "Dog-morphs are typically highly excitable and incredibly sociable, which often causes them to approach strangers in an attempt to make new friends."
-				+ " Although such friendly behaviour is common, dog-morphs still have very varied personalities, much like humans, and not all of them are as gregarious as their reputation would have you expect."
+				+ " Although such friendly behaviour is common, dog-morphs still have varied personalities, much like humans, and not all of them are as gregarious as their reputation would have you expect."
 			+ "</p>"
 			+ "<p>"
 				+ "Dog-morphs, like the other common races, get heavily affected by arcane storms."
 				+ " Being exposed to arcane thunder will fill dog-boys with the desire to assert their dominance over anyone they meet, while dog-girls will go into heat."
 			+ "</p>"
 			+ "<p>"
-				+ "Dog-morphs will give birth to a litter of their own kind, in much the same way that a human pregnancy works."
+				+ "A dog-morph's offspring will be a mixture of dog-morphs and offspring of their partner's race."
 			+ "</p>",
 
 			Colour.RACE_DOG_MORPH,
@@ -201,8 +217,9 @@ public enum Race {
 			"<p>"
 				+ "Wolf-morphs are a common anthropomorphic race that can be found almost anywhere."
 				+ " Possessing a shaggy tail, upright ears, and hungry wolf-like eyes, wolf-morphs can sometimes be mistaken for a dog-morph at first glance."
-			+ "</p>"
-			+ "<p>"
+			+ "</p>",
+			
+			"<p>"
 				+ "Unlike dog-morphs, however, wolf-morphs are extremely unpredictable, and although they sometimes share the same energetic mannerisms as dog-morphs, they often focus their energy on trying to assert their dominance."
 				+ " Wolf-morphs typically have short tempers and a primal instinct to prey on the weak."
 				+ " As a result, many people try to avoid encounters with wolf-morphs, finding them to be more trouble than they're worth."
@@ -212,7 +229,7 @@ public enum Race {
 				+ " Being exposed to arcane thunder will fill wolf-boys with the overwhelming desire to assert their dominance over anyone they meet, while wolf-girls will go into heat."
 			+ "</p>"
 			+ "<p>"
-				+ "Wolf-morphs will give birth to a litter of their own kind, in much the same way that a human pregnancy works."
+				+ "A wolf-morph's offspring will be a mixture of wolf-morphs and offspring of their partner's race."
 			+ "</p>",
 			
 			Colour.RACE_WOLF_MORPH,
@@ -239,18 +256,19 @@ public enum Race {
 			"<p>"
 				+ "Cat-morphs are one of the more common anthropomorphic races found in this world."
 				+ " A sleek tail, upright ears, and cat-like eyes identify a cat-morph."
-			+ "</p>"
-			+ "<p>"
+			+ "</p>",
+			
+			"<p>"
 				+ "Like all the other common races, a cat-morph's personality can vary wildly from person to person, although they do have some typical characteristics."
 				+ " Cat-morphs are usually quite delicate in their mannerisms, and although they often try to hide it, they can get extremely curious about things they haven't encountered before."
-				+ " Most cat-morphs are very feminine, and it's quite common for cat-boys to be quite androgynous."
+				+ " Most cat-morphs are very feminine, and it's quite common for cat-boys to err more towards androgyny than masculinity."
 			+ "</p>"
 			+ "<p>"
 				+ "Cat-morphs, like the other common races, get heavily affected by arcane storms."
 				+ " Being exposed to arcane thunder will make cat-boys seek out a partner to mate with, while cat-girls will go into heat."
 			+ "</p>"
 			+ "<p>"
-				+ "Cat-morphs will give birth to a litter of their own kind, in much the same way that a human pregnancy works."
+				+ "A cat-morph's offspring will be a mixture of cat-morphs and offspring of their partner's race."
 			+ "</p>",
 
 			
@@ -280,8 +298,9 @@ public enum Race {
 			"<p>"
 				+ "Horse-morphs are one of the more common anthropomorphic races found in this world."
 				+ " A pair of horse-like ears and a swishing tail are usually enough to identify a horse-morph."
-			+ "</p>"
-			+ "<p>"
+			+ "</p>",
+			
+			"<p>"
 				+ "Horse-morphs have the reputation of being all brawn and no brains."
 				+ " There is some truth behind this characterisation, as most horse-morphs are quite dull-witted, although they are usually far stronger than the other common races."
 				+ " Horse-morphs are usually very haughty, and take great offence at any perceived sleight against them."
@@ -292,7 +311,7 @@ public enum Race {
 				+ " Horse-girls will react to arcane thunder by going into heat, and will force themselves on anyone they might come across."
 			+ "</p>"
 			+ "<p>"
-				+ "Horse-morphs will give birth to one or two of their own kind, in much the same way that a human pregnancy works."
+				+ "A horse-morph's offspring will be a mixture of horse-morphs and offspring of their partner's race."
 			+ "</p>",
 
 			Colour.RACE_HORSE_MORPH,
@@ -316,22 +335,28 @@ public enum Race {
 			"slimes",
 			"slimes",
 			
-			// TODO
-			"<p>Slimes are a humanoid race, able to morph their bodies into different shapes and sizes."
-					+ " Slimes are tolerated in Dominion, as they aren't aggressive and don't cause too many problems."
-					+ " They are typically found near bodies of water, as they require a steady source of liquid to stay healthy."
-					+ " Slimes can change their gender at will, though the vast majority choose to take on a female form, and seeing a male slime is a very rare occurance.</p>"
+			// TODO Not accurate!
+			"<p>"
+				+ "Slimes are a humanoid race, able to morph their bodies into different shapes and sizes."
+				+ " Slimes are tolerated in Dominion, as they aren't aggressive and don't cause too many problems."
+				+ " They are typically found near bodies of water, as they require a steady source of liquid to stay healthy."
+				+ " Slimes can change their gender at will, though the vast majority choose to take on a female form, and seeing a male slime is a very rare occurance."
+			+ "</p>",
 
-					+ "<p>Slimes are quite stupid, and usually only care about obtaining other species' cum and milk."
-					+ " They will change their bodies to become as attractive as possible in order to attract a mate."
-					+ " Once a suitable mate has been found, slimes will be extremely eager to please them in any way they can, so they can feast on their sexual fluids."
-					+ " If they attract a female partner, they will encourage them to drink lactation-inducing liquids in order to get a full meal.</p>"
+			"<p>"
+				+ "Slimes are quite stupid, and usually only care about obtaining other species' cum and milk."
+				+ " They will change their bodies to become as attractive as possible in order to attract a mate."
+				+ " Once a suitable mate has been found, slimes will be extremely eager to please them in any way they can, so they can feast on their sexual fluids."
+				+ " If they attract a female partner, they will encourage them to drink lactation-inducing liquids in order to get a full meal."
+			+ "</p>"
 
-					+ "<p>Slimes can come in all shapes and sizes, as they are capable of morphing their bodies."
-					+ " Doing so requires some time and effort, so slimes usually stick to one appearance."
-					+ " Most slimes, however, will take on the form of a beautiful woman with massive breasts, as they prefer attracting male partners."
-					+ " If they attract an unwilling partner, slimes have no qualms about fighting, as they can't be hurt by any physical attacks."
-					+ " Their soft bodies are unable to inflict much damage on others though, so they will often resort to seducing their opponents into submission.</p>",
+			+ "<p>"
+				+ "Slimes can come in all shapes and sizes, as they are capable of morphing their bodies."
+				+ " Doing so requires some time and effort, so slimes usually stick to one appearance."
+				+ " Most slimes, however, will take on the form of a beautiful woman with massive breasts, as they prefer attracting male partners."
+				+ " If they attract an unwilling partner, slimes have no qualms about fighting, as they can't be hurt by any physical attacks."
+				+ " Their soft bodies are unable to inflict much damage on others though, so they will often resort to seducing their opponents into submission."
+			+ "</p>",
 
 			Colour.CLOTHING_WHITE,
 			Genus.SLIME,
@@ -361,6 +386,12 @@ public enum Race {
 			"harpies",
 			
 			"<p>"
+				+ "Harpies have human bodies and faces, but in place of arms, they have huge, feathered wings."
+				+ " Their legs are similarly bird-like in appearance, and are covered in leathery, bird-like skin, with talons in place of feet."
+				+ " In stark contrast to most mythological tales, harpies are exceptionally beautiful, and their feathers come in all sorts of brightly coloured varieties."
+			+ "</p>",
+			
+			"<p>"
 				+ "Although harpies live in Dominion, they're almost never seen walking down at street level."
 				+ " Instead, most of the buildings in Dominion have had their rooves converted into 'harpy nests'."
 				+ " These nests are large communal living spaces, where harpies in the same flock will live together."
@@ -388,10 +419,11 @@ public enum Race {
 			+ "</p>"
 			+ "<p>"
 				+ "Harpy pregnancies are a mix between mammalian and avian reproduction."
-				+ " They are impregnated in much the same way as a human, but instead of giving birth to live young, a clutch of two to six eggs will grow inside a harpy's womb once she's been fertilised."
+				+ " They are impregnated in much the same way as a human, but instead of giving birth to live young, a clutch of eggs will grow inside a harpy's womb once she's been fertilised."
 				+ " Pregnancy advances just like that of other common races, but when it comes time to give birth, the harpy will seek out a safe place to lay her eggs."
 				+ " After laying is complete, the mother becomes fiercely protective of her clutch, and will refuse to sleep while she incubates her eggs for approximately eighteen to twenty-four hours."
 				+ " Once the eggs finally hatch, the mother will usually collapse from exhaustion."
+				+ " The resulting offspring will be a mixture of harpies and offspring of their partner's race."
 			+ "</p>",
 			
 			Colour.RACE_HARPY,
@@ -1366,7 +1398,7 @@ public enum Race {
 	 * StatusEffect.LILIN);
 	 */
 
-	private String name, singularMaleName, singularFemaleName, pluralMaleName, pluralFemaleName, description;
+	private String name, singularMaleName, singularFemaleName, pluralMaleName, pluralFemaleName, basicDescription, advancedDescription;
 	private Colour colour;
 	private Genus genus;
 	private Disposition disposition;
@@ -1384,7 +1416,8 @@ public enum Race {
 			String pluralMaleName,
 			String pluralFemaleName,
 
-			String description,
+			String basicDescription,
+			String advancedDescription,
 
 			Colour colour, Genus genus, Disposition disposition, StatusEffect statusEffect, List<Attack> preferredAttacks, boolean vulnerableToLilithsLustStorm,
 			
@@ -1401,8 +1434,9 @@ public enum Race {
 		
 		this.pluralMaleName = pluralMaleName;
 		this.pluralFemaleName = pluralFemaleName;
-		
-		this.description = description;
+
+		this.basicDescription = basicDescription;
+		this.advancedDescription = advancedDescription;
 
 		this.colour = colour;
 		this.genus = genus;
@@ -1426,13 +1460,13 @@ public enum Race {
 		return name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getBasicDescription() {
+		return basicDescription;
 	}
 
-	// public RacialBody getBodyType() {
-	// return bodyType;
-	// }
+	public String getAdvancedDescription() {
+		return advancedDescription;
+	}
 
 	public Genus getGenus() {
 		return genus;

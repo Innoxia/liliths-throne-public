@@ -47,9 +47,9 @@ public class HarpyNympho extends NPC {
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 
 		this.addFetish(Fetish.FETISH_CUM_ADDICT);
-		this.addFetish(Fetish.FETISH_ANAL);
-		this.addFetish(Fetish.FETISH_ORAL);
-		this.addFetish(Fetish.FETISH_BREASTS);
+		this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+		this.addFetish(Fetish.FETISH_ORAL_GIVING);
+		this.addFetish(Fetish.FETISH_BREASTS_SELF);
 		this.addFetish(Fetish.FETISH_EXHIBITIONIST);
 		
 		this.setEyeColour(Colour.EYE_GREEN);

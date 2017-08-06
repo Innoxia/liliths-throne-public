@@ -264,12 +264,12 @@ public class CityPlaces {
 					UtilText.nodeContentSB.append(
 							UtilText.genderParsing(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> <herPro> <b>"));
 							
-							if(npc.getStats().getFoughtPlayerCount()==1) {
+							if(npc.getFoughtPlayerCount()==1) {
 								UtilText.nodeContentSB.append("once.");
-							} else if(npc.getStats().getFoughtPlayerCount()==2) {
+							} else if(npc.getFoughtPlayerCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
 							} else {
-								UtilText.nodeContentSB.append(Util.intToString(npc.getStats().getLostCombatCount())+" times.");
+								UtilText.nodeContentSB.append(Util.intToString(npc.getLostCombatCount())+" times.");
 							}
 							
 					UtilText.nodeContentSB.append(
@@ -278,23 +278,23 @@ public class CityPlaces {
 									+ "</br>"
 									+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>"));
 							
-							if(npc.getStats().getLostCombatCount()==1) {
+							if(npc.getLostCombatCount()==1) {
 								UtilText.nodeContentSB.append("once.");
-							} else if(npc.getStats().getLostCombatCount()==2) {
+							} else if(npc.getLostCombatCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
 							} else {
-								UtilText.nodeContentSB.append(Util.intToString(npc.getStats().getLostCombatCount())+" times.");
+								UtilText.nodeContentSB.append(Util.intToString(npc.getLostCombatCount())+" times.");
 							}
 									
 					UtilText.nodeContentSB.append("</b>"
 							+ "</br>"
 							+ "You have <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>lost</b> <b>");
-							if(npc.getStats().getWonCombatCount()==1) {
+							if(npc.getWonCombatCount()==1) {
 								UtilText.nodeContentSB.append("once.");
-							} else if(npc.getStats().getWonCombatCount()==2) {
+							} else if(npc.getWonCombatCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
 							} else {
-								UtilText.nodeContentSB.append(Util.intToString(npc.getStats().getWonCombatCount())+" times.");
+								UtilText.nodeContentSB.append(Util.intToString(npc.getWonCombatCount())+" times.");
 							}
 							UtilText.nodeContentSB.append("</b></p>");
 						
@@ -306,12 +306,12 @@ public class CityPlaces {
 							UtilText.genderParsing(npc,
 									"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with <herPro> <b>"));
 					
-							if(npc.getStats().getSexAsDomCount()==1) {
+							if(npc.getSexAsDomCount()==1) {
 								UtilText.nodeContentSB.append("once.");
-							} else if(npc.getStats().getSexAsDomCount()==2) {
+							} else if(npc.getSexAsDomCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
 							} else {
-								UtilText.nodeContentSB.append(Util.intToString(npc.getStats().getSexAsDomCount())+" times.");
+								UtilText.nodeContentSB.append(Util.intToString(npc.getSexAsDomCount())+" times.");
 							}
 							
 					UtilText.nodeContentSB.append(
@@ -320,12 +320,12 @@ public class CityPlaces {
 									+ "</br>"
 									+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with <herPro> <b>"));
 					
-							if(npc.getStats().getSexAsSubCount()==1) {
+							if(npc.getSexAsSubCount()==1) {
 								UtilText.nodeContentSB.append("once.");
-							} else if(npc.getStats().getSexAsSubCount()==2) {
+							} else if(npc.getSexAsSubCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
 							} else {
-								UtilText.nodeContentSB.append(Util.intToString(npc.getStats().getSexAsSubCount())+" times.");
+								UtilText.nodeContentSB.append(Util.intToString(npc.getSexAsSubCount())+" times.");
 							}
 							UtilText.nodeContentSB.append("</b></p>");
 							
@@ -386,12 +386,12 @@ public class CityPlaces {
 					UtilText.nodeContentSB.append(
 							UtilText.genderParsing(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> <herPro> <b>"));
 							
-							if(npc.getStats().getFoughtPlayerCount()==1) {
+							if(npc.getFoughtPlayerCount()==1) {
 								UtilText.nodeContentSB.append("once.");
-							} else if(npc.getStats().getFoughtPlayerCount()==2) {
+							} else if(npc.getFoughtPlayerCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
 							} else {
-								UtilText.nodeContentSB.append(Util.intToString(npc.getStats().getLostCombatCount())+" times.");
+								UtilText.nodeContentSB.append(Util.intToString(npc.getLostCombatCount())+" times.");
 							}
 							
 					UtilText.nodeContentSB.append(
@@ -400,23 +400,23 @@ public class CityPlaces {
 									+ "</br>"
 									+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>"));
 							
-							if(npc.getStats().getLostCombatCount()==1) {
+							if(npc.getLostCombatCount()==1) {
 								UtilText.nodeContentSB.append("once.");
-							} else if(npc.getStats().getLostCombatCount()==2) {
+							} else if(npc.getLostCombatCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
 							} else {
-								UtilText.nodeContentSB.append(Util.intToString(npc.getStats().getLostCombatCount())+" times.");
+								UtilText.nodeContentSB.append(Util.intToString(npc.getLostCombatCount())+" times.");
 							}
 									
 					UtilText.nodeContentSB.append("</b>"
 							+ "</br>"
 							+ "You have <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>lost</b> <b>");
-							if(npc.getStats().getWonCombatCount()==1) {
+							if(npc.getWonCombatCount()==1) {
 								UtilText.nodeContentSB.append("once.");
-							} else if(npc.getStats().getWonCombatCount()==2) {
+							} else if(npc.getWonCombatCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
 							} else {
-								UtilText.nodeContentSB.append(Util.intToString(npc.getStats().getWonCombatCount())+" times.");
+								UtilText.nodeContentSB.append(Util.intToString(npc.getWonCombatCount())+" times.");
 							}
 							UtilText.nodeContentSB.append("</b></p>");
 						
@@ -428,12 +428,12 @@ public class CityPlaces {
 							UtilText.genderParsing(npc,
 									"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with <herPro> <b>"));
 					
-							if(npc.getStats().getSexAsDomCount()==1) {
+							if(npc.getSexAsDomCount()==1) {
 								UtilText.nodeContentSB.append("once.");
-							} else if(npc.getStats().getSexAsDomCount()==2) {
+							} else if(npc.getSexAsDomCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
 							} else {
-								UtilText.nodeContentSB.append(Util.intToString(npc.getStats().getSexAsDomCount())+" times.");
+								UtilText.nodeContentSB.append(Util.intToString(npc.getSexAsDomCount())+" times.");
 							}
 							
 					UtilText.nodeContentSB.append(
@@ -442,12 +442,12 @@ public class CityPlaces {
 									+ "</br>"
 									+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with <herPro> <b>"));
 					
-							if(npc.getStats().getSexAsSubCount()==1) {
+							if(npc.getSexAsSubCount()==1) {
 								UtilText.nodeContentSB.append("once.");
-							} else if(npc.getStats().getSexAsSubCount()==2) {
+							} else if(npc.getSexAsSubCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
 							} else {
-								UtilText.nodeContentSB.append(Util.intToString(npc.getStats().getSexAsSubCount())+" times.");
+								UtilText.nodeContentSB.append(Util.intToString(npc.getSexAsSubCount())+" times.");
 							}
 							UtilText.nodeContentSB.append("</b></p>");
 							
