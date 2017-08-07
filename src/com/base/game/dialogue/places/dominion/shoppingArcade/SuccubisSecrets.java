@@ -37,7 +37,7 @@ public class SuccubisSecrets {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getDialogueFlags().kateIntroduced) {
+			if(!Main.game.getDialogueFlags().kateIntroduced) {
 				return "<p>"
 							+ "You find yourself standing, once again, in the quiet corner of the Shopping Arcade, where the dark, shut-up beauty salon 'Succubi's Secrets' is located."
 							+ " You notice that everyone around you is completely ignoring the uninviting facade, and you smile to yourself as you realise that's exactly what its lazy owner wants."
