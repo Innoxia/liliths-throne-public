@@ -508,19 +508,19 @@ public class InventoryDialogue {
 						@Override
 						public void effects(){
 							int i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
-							while(i>0) {
+							while(i>0  && Main.game.getPlayer().getInventorySlotsTaken() < 24) {
 								Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true);
 								i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
 							}
 							
 							i = Main.game.getPlayerCell().getInventory().getClothingInInventory().size();
-							while(i>0) {
+							while(i>0  && Main.game.getPlayer().getInventorySlotsTaken() < 24) {
 								Main.game.getPlayer().addClothing(Main.game.getPlayerCell().getInventory().getClothingInInventory().get(i-1), true);
 								i = Main.game.getPlayerCell().getInventory().getClothingInInventory().size();
 							}
 							
 							i = Main.game.getPlayerCell().getInventory().getWeaponsInInventory().size();
-							while(i>0) {
+							while(i>0  && Main.game.getPlayer().getInventorySlotsTaken() < 24) {
 								Main.game.getPlayer().addWeapon(Main.game.getPlayerCell().getInventory().getWeaponsInInventory().get(i-1), true);
 								i = Main.game.getPlayerCell().getInventory().getWeaponsInInventory().size();
 							}
