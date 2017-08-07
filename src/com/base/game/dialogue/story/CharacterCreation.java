@@ -1684,6 +1684,9 @@ public class CharacterCreation {
 
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
+						
+						Main.game.getPlayer().addRaceDiscovered(Main.game.getLilaya().getRace());
+						Main.game.getPlayer().addRaceDiscovered(Main.game.getRose().getRace());
 
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
 						
@@ -1872,6 +1875,9 @@ public class CharacterCreation {
 
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
+						
+						Main.game.getPlayer().addRaceDiscovered(Main.game.getLilaya().getRace());
+						Main.game.getPlayer().addRaceDiscovered(Main.game.getRose().getRace());
 						
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
 						
