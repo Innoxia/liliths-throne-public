@@ -636,8 +636,6 @@ public class CharacterCreationDialogue {
 
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
-						Main.game.getPlayer().addRaceDiscovered(Race.DEMON);
-						Main.game.getPlayer().addRaceDiscovered(Race.CAT_MORPH);
 
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
 						
@@ -835,8 +833,6 @@ public class CharacterCreationDialogue {
 
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
-						Main.game.getPlayer().addRaceDiscovered(Race.DEMON);
-						Main.game.getPlayer().addRaceDiscovered(Race.CAT_MORPH);
 						
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
 						
