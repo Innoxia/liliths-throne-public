@@ -380,12 +380,6 @@ public class OptionsDialogue {
 					+"<p>"
 					+ "<b>Font-size:</b>"
 					+ "</br>This cycles the game's base font size. This currently only affects the size of the text in the main dialogue, but in the future I'll expand it to include every display element."
-					+ "</p>"
-					
-					+"<p>"
-					+ "<b>Non-con (non consensual content):</b>"
-					+ "</br>This cycles the availability of non-consensual content in the game's sex scenes.</br>"
-					+ "<b>Warning:</b> This will turn on graphic descriptions of both the player character, as well as NPCs, being raped."
 					+ "</p>";
 					
 //					+ "</br>"
