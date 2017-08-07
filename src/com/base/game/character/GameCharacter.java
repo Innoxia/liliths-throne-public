@@ -1299,14 +1299,6 @@ public class GameCharacter implements Serializable {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	// Combat:
 
 	private List<SpecialAttack> tempListSpecialAttacks;

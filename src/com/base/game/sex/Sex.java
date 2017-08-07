@@ -1038,13 +1038,13 @@ public enum Sex {
 		
 		float playerArousalIncrease = (sexAction.getArousalGainPlayer().getArousalIncreaseValue() + bonusArousalIncreasePlayer);
 		if(sexPacePlayer==SexPace.SUB_RESISTING) {
-			playerArousalIncrease*=0.25f;
+			playerArousalIncrease*=0.5f;
 		}
 		Main.game.getPlayer().incrementArousal(playerArousalIncrease);
 		
 		float partnerArousalIncrease = (sexAction.getArousalGainPartner().getArousalIncreaseValue() + bonusArousalIncreasePartner);
 		if(sexPacePartner==SexPace.SUB_RESISTING && !partner.hasFetish(Fetish.FETISH_NON_CON)) {
-			partnerArousalIncrease*=0.25f;
+			partnerArousalIncrease*=0.5f;
 		}
 		partner.incrementArousal(partnerArousalIncrease);
 
@@ -1058,6 +1058,7 @@ public enum Sex {
 				for(OrificeType ot : sexAction.getPlayerAreasCummedIn()) {
 					areasCummedInPlayer.add(ot);
 					Main.game.getPlayer().incrementCumCount(new SexType(PenetrationType.PENIS_PARTNER, ot));
+					partner.incrementCumCount(new SexType(PenetrationType.PENIS_PARTNER, ot));
 					
 					if(ot==OrificeType.ANUS_PLAYER) {
 						Main.game.getPlayer().addStatusEffect(StatusEffect.CREAMPIE_ANUS, 120+postSexDialogue.getMinutesPassed());
@@ -1075,6 +1076,7 @@ public enum Sex {
 			if(!Main.game.getPlayer().isWearingCondom() || (Main.game.getPlayer().isWearingCondom() && sexAction.ignorePartnerCondom())){
 				for(OrificeType ot : sexAction.getPartnerAreasCummedIn()) {
 					areasCummedInPartner.add(ot);
+					Main.game.getPlayer().incrementCumCount(new SexType(PenetrationType.PENIS_PLAYER, ot));
 					partner.incrementCumCount(new SexType(PenetrationType.PENIS_PLAYER, ot));
 					
 					if(ot==OrificeType.ANUS_PARTNER) {

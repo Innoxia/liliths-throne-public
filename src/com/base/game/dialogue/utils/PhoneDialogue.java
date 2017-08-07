@@ -117,7 +117,9 @@ public class PhoneDialogue {
 				
 			} else if (index == 6) {
 				return new Response(
-						(Main.game.getPlayer().getLevelUpPoints() > 0 || Main.game.getPlayer().getPerkPoints() > 0)
+						((Main.game.getPlayer().getLevelUpPoints() > 0 
+								&& (Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH) + Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE) + Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS))<300)
+								|| Main.game.getPlayer().getPerkPoints() > 0)
 							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Character</span>"
 							:"Character",
 						"View your character page.", CHARACTER_LEVEL_UP){

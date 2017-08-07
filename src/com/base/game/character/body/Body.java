@@ -248,22 +248,22 @@ public class Body implements Serializable {
 						+ "[npc.She] has ");
 		}
 		
-		if (femininity <= Femininity.MASCULINE_STRONG.getMaximumFemininity()) {
+		if (Femininity.valueOf(femininity) == Femininity.MASCULINE_STRONG) {
 			sb.append(
 					UtilText.returnStringAtRandom(
 							"a <span style='color:" + Colour.MASCULINE_PLUS.toWebHexString() + ";'>very masculine</span>",
 							"an <span style='color:" + Colour.MASCULINE_PLUS.toWebHexString() + ";'>extremely handsome</span>"));
 			
-		} else if (femininity <= Femininity.MASCULINE.getMaximumFemininity()) {
+		} else if (Femininity.valueOf(femininity) == Femininity.MASCULINE) {
 			sb.append(
 					UtilText.returnStringAtRandom(
 							"a <span style='color:" + Colour.MASCULINE.toWebHexString() + ";'>masculine</span>",
 							"a <span style='color:" + Colour.MASCULINE.toWebHexString() + ";'>handsome</span>"));
 			
-		} else if (femininity <= Femininity.ANDROGYNOUS.getMaximumFemininity()) {
+		} else if (Femininity.valueOf(femininity) == Femininity.ANDROGYNOUS) {
 			sb.append("an <span style='color:" + Colour.ANDROGYNOUS.toWebHexString() + ";'>androgynous</span>");
 			
-		} else if (femininity <= Femininity.FEMININE.getMaximumFemininity()) {
+		} else if (Femininity.valueOf(femininity) == Femininity.FEMININE) {
 			sb.append(
 					UtilText.returnStringAtRandom(
 							"a <span style='color:" + Colour.FEMININE.toWebHexString() + ";'>pretty</span>",
@@ -2082,16 +2082,18 @@ public class Body implements Serializable {
 				break;
 		}
 		if (isPlayer) {
-			if(owner.getVaginaRawClitorisSizeValue()==0)
+			if(owner.getVaginaRawClitorisSizeValue()==0) {
 				descriptionSB.append(" You have [pc.a_clitSize] clit, which measures less than one inch in length.");
-			else
-				descriptionSB.append(" You have [pc.a_clitSize] clit, which measures [pc.clitSizeInches] inches long.");
+			} else {
+				descriptionSB.append(" You have [pc.a_clitSize] clit, which measures [pc.clitSizeInches] inch"+(owner.getVaginaRawClitorisSizeValue()==1?"":"es")+" long.");
+			}
 			
 		} else {
-			if(owner.getVaginaRawClitorisSizeValue()==0)
+			if(owner.getVaginaRawClitorisSizeValue()==0) {
 				descriptionSB.append(" [npc.She] has [npc.a_clitSize] clit, which measures less than one inch in length.");
-			else
-				descriptionSB.append(" [npc.She] has [npc.a_clitSize] clit, which measures [npc.clitSizeInches] inches long.");
+			} else {
+				descriptionSB.append(" [npc.She] has [npc.a_clitSize] clit, which measures [npc.clitSizeInches] inch"+(owner.getVaginaRawClitorisSizeValue()==1?"":"es")+" long.");
+			}
 		}
 		// Virgin/capacity:
 		if (vagina.isVirgin()) {
@@ -2109,7 +2111,7 @@ public class Body implements Serializable {
 				
 
 				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER))!=null) {
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER))!=null && pt.isTakesVirginity()) {
 						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your virginity to "
 								+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER)) + ".</span>");
 					}

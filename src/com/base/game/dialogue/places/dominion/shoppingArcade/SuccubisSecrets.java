@@ -24,7 +24,7 @@ import com.base.utils.Util;
 
 /**
  * @since 0.1.66
- * @version 0.1.82
+ * @version 0.1.83
  * @author Innoxia
  */
 public class SuccubisSecrets {
@@ -56,7 +56,12 @@ public class SuccubisSecrets {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Enter", "Step inside Succubi's Secrets.", SHOP_BEAUTY_SALON);
+				if(Main.game.getDialogueFlags().kateIntroduced) {
+					return new Response("Enter", "Step inside Succubi's Secrets.", SHOP_BEAUTY_SALON_ENTER);
+					
+				} else {
+					return new Response("Enter", "Step inside Succubi's Secrets.", SHOP_BEAUTY_SALON);
+				}
 				
 			} else {
 				return null;

@@ -6,19 +6,27 @@ import com.base.game.character.body.Penis;
  * Measured in inches of penis size that could fit comfortably within this capacity.
  * 
  * @since 0.1.0
- * @version 0.1.65
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum Capacity {
-	ZERO_IMPENETRABLE("extremely tight", PenisSize.NEGATIVE_UTILITY_VALUE, PenisSize.ZERO_MICROSCOPIC, PenisSize.ZERO_MICROSCOPIC),
-	ONE_EXTREMELY_TIGHT("tight", PenisSize.ZERO_MICROSCOPIC, PenisSize.ONE_TINY, PenisSize.ONE_TINY),
-	TWO_TIGHT("somewhat tight", PenisSize.ZERO_MICROSCOPIC, PenisSize.ONE_TINY, PenisSize.TWO_AVERAGE),
-	THREE_SLIGHTLY_LOOSE("slightly loose", PenisSize.ONE_TINY, PenisSize.TWO_AVERAGE, PenisSize.THREE_LARGE),
-	FOUR_LOOSE("loose", PenisSize.ONE_TINY, PenisSize.THREE_LARGE, PenisSize.FOUR_HUGE),
-	FIVE_ROOMY("very loose", PenisSize.TWO_AVERAGE, PenisSize.FOUR_HUGE, PenisSize.FIVE_ENORMOUS),
-	SIX_STRETCHED_OPEN("stretched open", PenisSize.TWO_AVERAGE, PenisSize.FIVE_ENORMOUS, PenisSize.SIX_GIGANTIC),
-	SEVEN_GAPING("gaping wide", PenisSize.THREE_LARGE, PenisSize.SIX_GIGANTIC, PenisSize.SEVEN_STALLION);
+	ZERO_IMPENETRABLE("extremely tight", PenisSize.NEGATIVE_UTILITY_VALUE, PenisSize.ZERO_MICROSCOPIC, PenisSize.ONE_TINY),
+	
+	ONE_EXTREMELY_TIGHT("tight", PenisSize.ZERO_MICROSCOPIC, PenisSize.ONE_TINY, PenisSize.TWO_AVERAGE),
+	
+	TWO_TIGHT("somewhat tight", PenisSize.ZERO_MICROSCOPIC, PenisSize.TWO_AVERAGE, PenisSize.THREE_LARGE),
+	
+	THREE_SLIGHTLY_LOOSE("slightly loose", PenisSize.ONE_TINY, PenisSize.THREE_LARGE, PenisSize.FOUR_HUGE),
+	
+	FOUR_LOOSE("loose", PenisSize.ONE_TINY, PenisSize.FOUR_HUGE, PenisSize.FIVE_ENORMOUS),
+	
+	FIVE_ROOMY("very loose", PenisSize.TWO_AVERAGE, PenisSize.FIVE_ENORMOUS, PenisSize.SIX_GIGANTIC),
+	
+	SIX_STRETCHED_OPEN("stretched open", PenisSize.TWO_AVERAGE, PenisSize.SIX_GIGANTIC, PenisSize.SEVEN_STALLION),
+	
+	SEVEN_GAPING("gaping wide", PenisSize.THREE_LARGE, PenisSize.SEVEN_STALLION, PenisSize.SEVEN_STALLION);
 
+	
 	private String descriptor;
 	private PenisSize sizeTooSmall, maximumSizeComfortable, maximumSizeComfortableWithLube;
 
@@ -43,45 +51,24 @@ public enum Capacity {
 	}
 
 	public static Capacity getCapacityFromValue(float capacity) {
-		if (capacity <= ZERO_IMPENETRABLE.getMaximumValue())
-			return ZERO_IMPENETRABLE;
-		else if (capacity <= ONE_EXTREMELY_TIGHT.getMaximumValue())
-			return ONE_EXTREMELY_TIGHT;
-		else if (capacity <= TWO_TIGHT.getMaximumValue())
-			return TWO_TIGHT;
-		else if (capacity <= THREE_SLIGHTLY_LOOSE.getMaximumValue())
-			return THREE_SLIGHTLY_LOOSE;
-		else if (capacity <= FOUR_LOOSE.getMaximumValue())
-			return FOUR_LOOSE;
-		else if (capacity <= FIVE_ROOMY.getMaximumValue())
-			return FIVE_ROOMY;
-		else if (capacity <= SIX_STRETCHED_OPEN.getMaximumValue())
-			return SIX_STRETCHED_OPEN;
-		else
-			return SEVEN_GAPING;
+		for(Capacity c : Capacity.values()) {
+			if(capacity>=c.getMinimumValue() && capacity<c.getMaximumValue()) {
+				return c;
+			}
+		}
+		return SEVEN_GAPING;
 	}
 
 	/**
-	 * This should only really be used for calculating what size to stretch a
-	 * demonic orifice to.
+	 * This should only really be used for calculating what size to stretch a demonic orifice to.
 	 */
 	public static Capacity getCapacityToFitPenis(PenisSize size) {
-		if (size == PenisSize.ZERO_MICROSCOPIC)
-			return ONE_EXTREMELY_TIGHT;
-		else if (size == PenisSize.ONE_TINY)
-			return TWO_TIGHT;
-		else if (size == PenisSize.TWO_AVERAGE)
-			return THREE_SLIGHTLY_LOOSE;
-		else if (size == PenisSize.THREE_LARGE)
-			return FOUR_LOOSE;
-		else if (size == PenisSize.FOUR_HUGE)
-			return FIVE_ROOMY;
-		else if (size == PenisSize.FIVE_ENORMOUS)
-			return SIX_STRETCHED_OPEN;
-		else if (size == PenisSize.SIX_GIGANTIC)
-			return SEVEN_GAPING;
-		else
-			return SEVEN_GAPING;
+		for(Capacity c : Capacity.values()) {
+			if(size==c.getMaximumSizeComfortable()) {
+				return c;
+			}
+		}
+		return SEVEN_GAPING;
 	}
 
 	public static boolean isPenisSizeTooSmall(int capacity, int penisSize, boolean twoPenisesInVagina) {

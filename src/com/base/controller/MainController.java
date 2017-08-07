@@ -302,7 +302,7 @@ public class MainController implements Initializable {
 			
 		} else if (!Main.game.getCharactersPresent().isEmpty()) {
 
-			if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL || Main.game.isInCombat())
+			if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL)
 				Main.game.saveDialogueNode();
 
 			CharactersPresentDialogue.resetContent();
@@ -396,7 +396,7 @@ public class MainController implements Initializable {
 //							}
 //							 dir = new File("data/items");
 //								dir.mkdir();
-//							for (ItemType ct : ItemType.availableItems) {
+//							for (ItemType ct : ItemType.values()) {
 //								
 //								
 //								try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data/items/"+ct.getName(false).replaceAll(" ", "_")+".svg"), "utf-8"))) {

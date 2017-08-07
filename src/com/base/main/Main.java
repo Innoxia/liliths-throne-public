@@ -285,7 +285,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Knight-Lord Xander", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("KingofKings", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Max Nobody", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("A. K.", "", 0, 0, 0, 1)); // TODO
+		credits.add(new CreditsSlot("Lexi <3", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("QQQ", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("N.", "", 0, 0, 0, 1)); // TODO
 		credits.add(new CreditsSlot("loveless", "", 0, 0, 0, 1));
@@ -297,7 +297,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("rinoskin", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("CelestialNightmare", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Blue999", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("M. S.", "", 0, 0, 0, 1)); // TODO
+		credits.add(new CreditsSlot("AlphaOneBravo", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Sorter", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Timmybond24", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Rohise", "", 0, 0, 0, 1));
@@ -331,7 +331,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("crashtestdummy", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Shas'O Dal'yth Kauyon Kais Taku", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Blacktouch", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("F. F. 2. M.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("ForeverFree2MeTaMax", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("T. D. Y. K.", "", 0, 0, 1, 0)); // TODO
 		credits.add(new CreditsSlot("B.", "", 0, 0, 1, 0)); // TODO
 		

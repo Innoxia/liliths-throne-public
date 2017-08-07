@@ -322,6 +322,9 @@ public class PartnerTalk {
 					&& takingCock
 					&& !SexFlags.partnerRequestedCreampie
 					&& !SexFlags.partnerRequestedPullOut
+					&& (Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER)==PenetrationType.PENIS_PLAYER
+						?!Sex.getPartner().hasFetish(Fetish.FETISH_CUM_ADDICT)
+						:true)
 					&& (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)==PenetrationType.PENIS_PLAYER
 						?(!Sex.getPartner().hasFetish(Fetish.FETISH_PREGNANCY) && !Sex.getPartner().hasFetish(Fetish.FETISH_BROODMOTHER))
 						:true)

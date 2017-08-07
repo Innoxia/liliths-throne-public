@@ -4,7 +4,7 @@ package com.base.game.character.body.valueEnums;
  * Arbitrary measurements in increments of 1, going from 0 to 7.
  * 
  * @since 0.1.0
- * @version 0.1.66
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum TesticleSize {
@@ -46,22 +46,12 @@ public enum TesticleSize {
 	}
 
 	public static TesticleSize getTesticleSizeFromInt(int inches) {
-		if (inches <= ZERO_VESTIGIAL.value)
-			return ZERO_VESTIGIAL;
-		else if (inches <= ONE_TINY.value)
-			return ONE_TINY;
-		else if (inches <= TWO_AVERAGE.value)
-			return TWO_AVERAGE;
-		else if (inches <= THREE_LARGE.value)
-			return THREE_LARGE;
-		else if (inches <= FOUR_HUGE.value)
-			return FOUR_HUGE;
-		else if (inches <= FIVE_MASSIVE.value)
-			return FIVE_MASSIVE;
-		else if (inches <= SIX_GIGANTIC.value)
-			return SIX_GIGANTIC;
-		else
-			return SEVEN_ABSURD;
+		for(TesticleSize ts : TesticleSize.values()) {
+			if(inches == ts.getValue()) {
+				return ts;
+			}
+		}
+		return SEVEN_ABSURD;
 	}
 
 	/**
