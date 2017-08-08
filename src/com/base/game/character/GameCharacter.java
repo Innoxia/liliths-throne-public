@@ -4776,7 +4776,7 @@ public class GameCharacter implements Serializable {
 			transformationSB.append(isPlayer()
 					? " The feeling goes away almost as quickly as it came, leaving you with a horse-morph's coarse " + getHairColour(BodyCoveringType.HAIR_HORSE_HAIR).getName() + " hair." + "</br>" + "You now have <b style='color:"
 							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>coarse horse-like hair</b>."
-					: UtilText.genderParsing(this, " The transformation is over in a matter of seconds, leaving <herPro> with a horse-morph's coarse " + getHairColour(BodyCoveringType.HAIR_FELINE_FUR).getName() + " hair." + "</br>"
+					: UtilText.genderParsing(this, " The transformation is over in a matter of seconds, leaving <herPro> with a horse-morph's coarse " + getHairColour(BodyCoveringType.HAIR_HORSE_HAIR).getName() + " hair." + "</br>"
 							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>coarse horse-like hair</b>."));
 			break;
 		case HAIR_HARPY:
