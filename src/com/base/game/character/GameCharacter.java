@@ -5665,13 +5665,13 @@ public class GameCharacter implements Serializable {
 				break;
 			case CAT_MORPH:
 				if(isPlayer()) {
-					transformationSB.append(" A layer of " + getSkinColour(BodyCoveringType.LYCAN_FUR).getName() + " fur quickly grows to replace the [pc.legSkin] on your legs as they shift into a new form."
+					transformationSB.append(" A layer of " + getSkinColour(BodyCoveringType.FELINE_FUR).getName() + " fur quickly grows to replace the [pc.legSkin] on your legs as they shift into a new form."
 						+ " As your new fur spreads down to the ends of your toes, your feet start to shift and transform."
 						+ " Your toenails thicken into sharp, retractable claws, and little pink pads grow to cover your soles, leaving you with paw-like feet."
 						+ " As the transformation ends, you see that your new fur smoothly transitions into the [pc.skin] covering the rest of your body at your upper-thigh.</br>"
 						+ "You now have a pair of anthropomorphic [style.boldTfLesser(cat-like legs)].");
 				} else {
-					transformationSB.append(" A layer of " + getSkinColour(BodyCoveringType.LYCAN_FUR).getName() + " fur quickly grows to replace the [npc.legSkin] on [npc.her] legs as they shift into a new form."
+					transformationSB.append(" A layer of " + getSkinColour(BodyCoveringType.FELINE_FUR).getName() + " fur quickly grows to replace the [npc.legSkin] on [npc.her] legs as they shift into a new form."
 								+ " As the new fur spreads down to the ends of [npc.her] toes, [npc.her] feet start to shift and transform."
 								+ " [npc.Her] toenails thicken into sharp, retractable claws, and little pink pads grow to cover [npc.her] soles, leaving [npc.herHim] with paw-like feet."
 								+ " [npc.Her] new fur smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.</br>"
