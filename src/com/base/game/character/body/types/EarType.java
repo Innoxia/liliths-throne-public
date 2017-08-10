@@ -26,7 +26,9 @@ public enum EarType implements BodyPartTypeInterface {
 
 	HARPY(BodyCoveringType.FEATHERS, Race.HARPY),
 
-	SLIME(BodyCoveringType.SLIME, Race.SLIME);
+	SLIME(BodyCoveringType.SLIME, Race.SLIME),
+	
+	FOX_MORPH(BodyCoveringType.VULPINE_FUR, Race.FOX_MORPH);
 
 	private BodyCoveringType skinType;
 	private Race race;
@@ -77,6 +79,8 @@ public enum EarType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "wolf-like");
 			case SLIME:
 				return UtilText.returnStringAtRandom("slimy", "gooey");
+			case FOX_MORPH:
+				return UtilText.returnStringAtRandom("furry", "fur-coated", "fox-like");
 			default:
 				return UtilText.returnStringAtRandom("");
 		}

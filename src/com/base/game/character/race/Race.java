@@ -441,9 +441,34 @@ public enum Race {
 		public boolean isAffectedByFurryPreference() {
 			return false;
 		}
-	};
+	},
+	// VULPINES:
+	FOX_MORPH("fox-morph",
+			"fox-boy",
+			"fox-girl",
+			"fox-boys",
+			"fox-girls",
+
+			  // TODO: Encyclopedia entry
+			"<p>"
+				+ "THIS IS A PLACEHOLDER!"
+			+ "</p>",
+			 
+
+			Colour.RACE_FOX_MORPH,
+			Genus.CANINE,
+			Disposition.SAVAGE,
+			StatusEffect.FOX_MORPH,
+			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
+			true,
+			0.5f,
+			2,
+			6,
+			
+			TFEssence.FOX_MORPH);
 
 	/*
+	 * // 
 	 * // INSECTS: BEE_MORPH("bee-morph",
 	 * 
 	 * "<p>Bee-morphs are one of the many demi-human races now populating the world."

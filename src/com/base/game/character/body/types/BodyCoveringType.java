@@ -214,6 +214,28 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.FEATHERS_RED),
 					new ListValue<Colour>(Colour.FEATHERS_BLACK)),
 			null),
+	
+	VULPINE_FUR(Race.FOX_MORPH,
+		    	"a layer of",
+		    	true,
+		    	"fur",
+		    	"fur",
+		    	"soft",
+		    	Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_WHITE)
+					new ListValue<Colour>(Colour.COVERING_BLONDE),
+					new ListValue<Colour>(Colour.COVERING_SILVER),
+					new ListValue<Colour>(Colour.COVERING_GINGER),
+					new ListValue<Colour>(Colour.COVERING_BROWN),
+					new ListValue<Colour>(Colour.COVERING_BROWN_DARK),
+					new ListValue<Colour>(Colour.COVERING_BLACK)),
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_BLEACH_BLONDE),
+					new ListValue<Colour>(Colour.COVERING_BLUE),
+					new ListValue<Colour>(Colour.COVERING_GREEN),
+					new ListValue<Colour>(Colour.COVERING_PINK),
+					new ListValue<Colour>(Colour.COVERING_PURPLE),
+					new ListValue<Colour>(Colour.COVERING_RED))),
 
 	// MISC:
 
@@ -415,6 +437,28 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.FEATHERS_BLACK)),
 			null),
 
+	HAIR_VULPINE_FUR(Race.FOX_MORPH,
+		    	"a layer of",
+		    	true,
+			"hair",
+			"hair",
+			"fur-like",
+		    	Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_WHITE)
+					new ListValue<Colour>(Colour.COVERING_BLONDE),
+					new ListValue<Colour>(Colour.COVERING_SILVER),
+					new ListValue<Colour>(Colour.COVERING_GINGER),
+					new ListValue<Colour>(Colour.COVERING_BROWN),
+					new ListValue<Colour>(Colour.COVERING_BROWN_DARK),
+					new ListValue<Colour>(Colour.COVERING_BLACK)),
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_BLEACH_BLONDE),
+					new ListValue<Colour>(Colour.COVERING_BLUE),
+					new ListValue<Colour>(Colour.COVERING_GREEN),
+					new ListValue<Colour>(Colour.COVERING_PINK),
+					new ListValue<Colour>(Colour.COVERING_PURPLE),
+					new ListValue<Colour>(Colour.COVERING_RED))),
+	
 	// EYES:
 
 	EYE_HUMAN(Race.HUMAN,
@@ -553,6 +597,23 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.EYE_PINK),
 					new ListValue<Colour>(Colour.EYE_BLACK))),
 
+	EYE_FOX_MORPH(Race.FOX_MORPH
+		    	"a pair of",
+		    	true,
+		    	"eyes",
+		    	"eye",
+		    	"fox-like",
+		    	Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.EYE_YELLOW),
+					new ListValue<Colour>(Colour.EYE_BROWN),
+					new ListValue<Colour>(Colour.EYE_ORANGE),
+					new ListValue<Colour>(Colour.EYE_GREEN)),
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.EYE_BLUE),
+					new ListValue<Colour>(Colour.EYE_RED),
+					new ListValue<Colour>(Colour.EYE_PINK),
+					new ListValue<Colour>(Colour.EYE_BLACK))),
+	
 	EYE_SLIME(Race.SLIME,
 			"a pair of",
 			true,
@@ -566,7 +627,8 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.SLIME_RED),
 					new ListValue<Colour>(Colour.SLIME_BLACK)),
 			null);
-
+					
+	
 	private String determiner, namePlural, nameSingular, descriptor;
 	private List<Colour> naturalColours, dyeColours, allColours;
 	private Race race;

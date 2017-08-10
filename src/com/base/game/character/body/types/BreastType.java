@@ -32,7 +32,9 @@ public enum BreastType implements BodyPartTypeInterface {
 	
 	HARPY("milk", BodyCoveringType.FEATHERS, Race.HARPY),
 
-	SLIME("slime", BodyCoveringType.SLIME, Race.SLIME);
+	SLIME("slime", BodyCoveringType.SLIME, Race.SLIME),
+	
+	FOX_MORPH("milk", BodyCoveringType.VULPINE_FUR, Race.FOX_MORPH);
 
 	
 	private String milkName;

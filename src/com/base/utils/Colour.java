@@ -252,6 +252,7 @@ public enum Colour {
 	COVERING_GINGER(BaseColour.GINGER, "ginger"),
 	COVERING_RED(BaseColour.RED, "red"),
 	COVERING_WHITE(BaseColour.WHITE, "white"),
+	COVERING_SILVER(BaseColour.SILVER, "silver"),
 	COVERING_BLUE(BaseColour.BLUE, "blue"),
 	COVERING_PURPLE(BaseColour.PURPLE, "purple"),
 	COVERING_PINK(BaseColour.PINK_LIGHT, "pink"),
