@@ -1172,7 +1172,7 @@ public class PlayerPenisNipple {
 
 		@Override
 		public String getActionDescription() {
-			return "Try and pull your [npc.breasts+] away from [pc.name]'s [pc.cock+].";
+			return "Try and pull your [pc.breasts+] away from [pc.name]'s [pc.cock+].";
 		}
 
 		@Override

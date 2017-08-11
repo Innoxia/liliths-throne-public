@@ -551,31 +551,57 @@ public class Brax extends NPC {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getDialogueFlags().braxTransformedPlayer) {
-				return "<p>"
-						+ "You can't carry on fighting any longer, and your legs give out from beneath you as you sink down onto your knees."
-						+ " As Brax lets out a deep laugh, you find yourself looking down at the floor, trying to avoid his powerful gaze."
-					+ "</p>"
-					+ "<p>"
-						+ "[brax.speech(Hah! Looks like you're still just a submissive little bitch! Didn't you learn anything from last time?!)]"
-						+ " he growls, stepping forwards and grabbing you by the neck, "
-						+ "[brax.speech(Now lets get you another drink!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "You cry out as Brax roughly drags you across the room to his desk."
-						+ " Fishing about in one of the drawers, he quickly finds what he's looking for, and, with a light clink of glass, places a very familiar-looking bottle on the desk in front of you."
-					+ "</p>"
-					+ "<p>"
-						+ "[brax.speech(I was so pleased with the last one, I got a few more of these potions made!)]"
-						+ " Brax says, pulling out the glass stopper before roughly shoving the bottle's neck down your throat,"
-						+ " [brax.speech(That's right, drink it all down... Good girl!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "With the bottle's contents already pouring out down your throat, you have little option but to do as Brax commands, and quickly start gulping down the sickly sweet liquid."
-						+ " It only takes a matter of seconds before the bottle is empty, and Brax carelessly tosses it to one side before stepping back and grinning hungrily at you."
-						+ " You suddenly start to feel uncontrollably turned on, but before you can make a move on Brax, you let out a desperate cry as the rest of the bottle's contents start to have an effect..."
-					+ "</p>";
-				
+			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+				if(Main.game.getDialogueFlags().braxTransformedPlayer) {
+					return "<p>"
+							+ "You can't carry on fighting any longer, and your legs give out from beneath you as you sink down onto your knees."
+							+ " As Brax lets out a deep laugh, you find yourself looking down at the floor, trying to avoid his powerful gaze."
+						+ "</p>"
+						+ "<p>"
+							+ "[brax.speech(Hah! Looks like you're still just a submissive little bitch! Didn't you learn anything from last time?!)]"
+							+ " he growls, stepping forwards and grabbing you by the neck, "
+							+ "[brax.speech(Now lets get you another drink!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "You cry out as Brax roughly drags you across the room to his desk."
+							+ " Fishing about in one of the drawers, he quickly finds what he's looking for, and, with a light clink of glass, places a very familiar-looking bottle on the desk in front of you."
+						+ "</p>"
+						+ "<p>"
+							+ "[brax.speech(I was so pleased with the last one, I got a few more of these potions made!)]"
+							+ " Brax says, pulling out the glass stopper before roughly shoving the bottle's neck down your throat,"
+							+ " [brax.speech(That's right, drink it all down... Good girl!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "With the bottle's contents already pouring out down your throat, you have little option but to do as Brax commands, and quickly start gulping down the sickly sweet liquid."
+							+ " It only takes a matter of seconds before the bottle is empty, and Brax carelessly tosses it to one side before stepping back and grinning hungrily at you."
+							+ " You suddenly start to feel uncontrollably turned on, but before you can make a move on Brax, you let out a desperate cry as the rest of the bottle's contents start to have an effect..."
+						+ "</p>";
+					
+				} else {
+					return "<p>"
+								+ "You can't carry on fighting any longer, and your legs give out from beneath you as you sink down onto your knees."
+								+ " As Brax lets out a deep laugh, you find yourself looking down at the floor, trying to avoid his powerful gaze."
+							+ "</p>"
+							+ "<p>"
+								+ "[brax.speech(Hah! What a submissive little bitch! I was kinda hoping that you'd put up a better fight than that, but, whatever,)]"
+								+ " he growls, stepping forwards and grabbing you by the neck, "
+								+ "[brax.speech(Now let's talk more about that little punishment I mentioned.)]"
+							+ "</p>"
+							+ "<p>"
+								+ "You cry out as Brax roughly drags you across the room to his desk."
+								+ " Fishing about in one of the drawers, he quickly finds what he's looking for, and, with a light clink of glass, places a very delicate-looking bottle on the desk in front of you."
+							+ "</p>"
+							+ "<p>"
+								+ "[brax.speech(I got this made up for that useless bimbo you saw downstairs, but the ungrateful slut said she didn't want to be a wolf-girl...)]"
+								+ " Brax says, pulling out the glass stopper before roughly shoving the bottle's neck down your throat, "
+								+ "[brax.speech(That's right, drink it all down... Oh fuck, this is gonna be good!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "With the bottle's contents already pouring out down your throat, you have little option but to do as Brax commands, and quickly start gulping down the sickly sweet liquid."
+								+ " It only takes a matter of seconds before the bottle is empty, and Brax carelessly tosses it to one side before stepping back and grinning hungrily at you."
+								+ " You suddenly start to feel uncontrollably turned on, but before you can make a move on Brax, you let out a desperate cry as the rest of the bottle's contents start to have an effect..."
+							+ "</p>";
+				}
 			} else {
 				return "<p>"
 							+ "You can't carry on fighting any longer, and your legs give out from beneath you as you sink down onto your knees."
@@ -588,17 +614,14 @@ public class Brax extends NPC {
 						+ "</p>"
 						+ "<p>"
 							+ "You cry out as Brax roughly drags you across the room to his desk."
-							+ " Fishing about in one of the drawers, he quickly finds what he's looking for, and, with a light clink of glass, places a very delicate-looking bottle on the desk in front of you."
+							+ " Fishing about in one of the drawers, he starts letting out a series of increasingly-annoyed grunts."
+							+ " After several moments, he slams the drawer closed, growling,"
+							+ " [brax.speech(That stupid slut must've hidden it! Whatever, I'll fuck you as you are!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "[brax.speech(I got this made up for that useless bimbo you saw downstairs, but the ungrateful slut said she didn't want to be a wolf-girl...)]"
-							+ " Brax says, pulling out the glass stopper before roughly shoving the bottle's neck down your throat, "
-							+ "[brax.speech(That's right, drink it all down... Oh fuck, this is gonna be good!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "With the bottle's contents already pouring out down your throat, you have little option but to do as Brax commands, and quickly start gulping down the sickly sweet liquid."
-							+ " It only takes a matter of seconds before the bottle is empty, and Brax carelessly tosses it to one side before stepping back and grinning hungrily at you."
-							+ " You suddenly start to feel uncontrollably turned on, but before you can make a move on Brax, you let out a desperate cry as the rest of the bottle's contents start to have an effect..."
+							+ "Hearing Brax's words, you try to make a move towards the exit, but, leaping forwards, the muscular wolf-boy cuts off your escape."
+							+ " Stepping back, you look up to see Brax grinning hungrily down at you, and before you can make a move, he grabs you by the [pc.arms], growling,"
+							+ " [brax.speech(I'm gonna make you squeal, bitch!)]"
 						+ "</p>";
 			}
 		}
@@ -606,44 +629,58 @@ public class Brax extends NPC {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Transformation time", "There's no mistaking it, you're starting to transform!", AFTER_DEFEAT_TRANSFORMATION){
-					@Override
-					public void effects() {
-						Main.game.getDialogueFlags().braxTransformedPlayer = true;
-						
-						Main.game.getPlayer().setArmType(ArmType.LYCAN);
-						Main.game.getPlayer().setAssType(AssType.WOLF_MORPH);
-						Main.game.getPlayer().setBreastType(BreastType.WOLF_MORPH);
-						Main.game.getPlayer().setEarType(EarType.LYCAN);
-						Main.game.getPlayer().setEyeType(BodyCoveringType.EYE_LYCAN);
-						Main.game.getPlayer().setFaceType(FaceType.LYCAN);
-						Main.game.getPlayer().setHairType(BodyCoveringType.LYCAN_FUR);
-						Main.game.getPlayer().setHornType(HornType.NONE);
-						Main.game.getPlayer().setLegType(LegType.LYCAN);
-						Main.game.getPlayer().setPenisType(PenisType.NONE);
-						Main.game.getPlayer().setSkinType(BodyCoveringType.LYCAN_FUR);
-						Main.game.getPlayer().setTailType(TailType.LYCAN);
-						Main.game.getPlayer().setVaginaType(VaginaType.WOLF_MORPH);
-						Main.game.getPlayer().setWingType(WingType.NONE);
-						
-						Main.game.getPlayer().setFemininity(Femininity.FEMININE_STRONG.getMinimumFemininity());
-						Main.game.getPlayer().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
-						if(Main.game.getPlayer().getVaginaWetness().getValue()<Wetness.THREE_WET.getValue())
-							Main.game.getPlayer().setVaginaWetness(Wetness.THREE_WET.getValue());
-						
-						Main.game.getPlayer().setSkinColour(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE);
-						Main.game.getPlayer().setHairColour(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK);
-						Main.game.getPlayer().setEyeColour(Colour.EYE_YELLOW);
-						Main.game.getPlayer().setBreastSize(CupSize.E.getMeasurement());
-						
-						if(Main.getProperties().multiBreasts!=0) {
-							Main.game.getPlayer().setBreastRows(3);
+				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+					return new Response("Transformation time", "There's no mistaking it, you're starting to transform!", AFTER_DEFEAT_TRANSFORMATION){
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().braxTransformedPlayer = true;
+							
+							Main.game.getPlayer().setArmType(ArmType.LYCAN);
+							Main.game.getPlayer().setAssType(AssType.WOLF_MORPH);
+							Main.game.getPlayer().setBreastType(BreastType.WOLF_MORPH);
+							Main.game.getPlayer().setEarType(EarType.LYCAN);
+							Main.game.getPlayer().setEyeType(BodyCoveringType.EYE_LYCAN);
+							Main.game.getPlayer().setFaceType(FaceType.LYCAN);
+							Main.game.getPlayer().setHairType(BodyCoveringType.LYCAN_FUR);
+							Main.game.getPlayer().setHornType(HornType.NONE);
+							Main.game.getPlayer().setLegType(LegType.LYCAN);
+							Main.game.getPlayer().setPenisType(PenisType.NONE);
+							Main.game.getPlayer().setSkinType(BodyCoveringType.LYCAN_FUR);
+							Main.game.getPlayer().setTailType(TailType.LYCAN);
+							Main.game.getPlayer().setVaginaType(VaginaType.WOLF_MORPH);
+							Main.game.getPlayer().setWingType(WingType.NONE);
+							
+							Main.game.getPlayer().setFemininity(Femininity.FEMININE_STRONG.getMinimumFemininity());
+							Main.game.getPlayer().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+							if(Main.game.getPlayer().getVaginaWetness().getValue()<Wetness.THREE_WET.getValue())
+								Main.game.getPlayer().setVaginaWetness(Wetness.THREE_WET.getValue());
+							
+							Main.game.getPlayer().setSkinColour(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE);
+							Main.game.getPlayer().setHairColour(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK);
+							Main.game.getPlayer().setEyeColour(Colour.EYE_YELLOW);
+							Main.game.getPlayer().setBreastSize(CupSize.E.getMeasurement());
+							
+							if(Main.getProperties().multiBreasts!=0) {
+								Main.game.getPlayer().setBreastRows(3);
+							}
+							
+							if(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)<CorruptionLevel.TWO_HORNY.getMinimumValue())
+								Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, CorruptionLevel.TWO_HORNY.getMinimumValue());
 						}
-						
-						if(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)<CorruptionLevel.TWO_HORNY.getMinimumValue())
-							Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, CorruptionLevel.TWO_HORNY.getMinimumValue());
-					}
-				};
+					};
+					
+				} else {
+					return new ResponseSex("Dominated", "Brax is far too strong for you to resist...", EnforcerHQDialogue.EXTERIOR,
+							Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
+							"<p>"
+								+ "Brax spins you around, and with a forceful shove, pushes you down to the ground."
+								+ " You land on all-fours, with your ass raised up towards the dominant wolf-boy."
+								+ " Hearing him let out a deep growl, you make a pitiful little whining noise in response as you realise that you're perfectly presented for Brax to take you, doggy-style."
+							+ "</p>"
+							+ "<p>"
+								+ " Your conqueror stands behind you, grinning, and you know that it's only going to be a matter of seconds before he fills you with his alpha cock..."
+							+ "</p>");
+				}
 				
 			} else {
 				return null;
@@ -725,7 +762,7 @@ public class Brax extends NPC {
 		}
 	};
 
-	public static final DialogueNodeOld AFTER_SUBMISSIVE_SEX = new DialogueNodeOld("Brax is done", "", true) {
+	public static final DialogueNodeOld AFTER_SUBMISSIVE_SEX = new DialogueNodeOld("Brax is done", "Brax has finished having his fun with you.", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override

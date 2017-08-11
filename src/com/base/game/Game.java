@@ -35,6 +35,7 @@ import com.base.game.character.npc.dominion.HarpyNymphoCompanion;
 import com.base.game.character.npc.dominion.Kate;
 import com.base.game.character.npc.dominion.Lilaya;
 import com.base.game.character.npc.dominion.NPCRandomDominion;
+import com.base.game.character.npc.dominion.Nikki;
 import com.base.game.character.npc.dominion.Nyan;
 import com.base.game.character.npc.dominion.Pazu;
 import com.base.game.character.npc.dominion.Pix;
@@ -105,7 +106,8 @@ public class Game implements Serializable {
 		harpyNympho, 			// Nymphomaniac harpy matriarch.
 		harpyNymphoCompanion, 	// Nymphomaniac harpy matriarch's companion.
 		pazu,					// Kumiko's harpy.
-		candiReceptionist;		// Receptionist at the Enforcer HQ.	 
+		candiReceptionist,		// Receptionist at the Enforcer HQ.	 
+		nikki;					// Manager of Slaver Alley's 'Slave Administration'
 	
 	// Generic NPCS:
 	private NPC genericMaleNPC, genericFemaleNPC, genericAndrogynousNPC;
@@ -228,6 +230,7 @@ public class Game implements Serializable {
 		
 		alexa.addRelationship(scarlett, AffectionLevel.NEGATIVE_FOUR_HATE.getMedianValue());
 		scarlett.addRelationship(alexa, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+		scarlett.addRelationship(Main.game.getPlayer(), AffectionLevel.NEGATIVE_TWO_DISLIKE.getMedianValue());
 		
 		harpyBimbo = new HarpyBimbo();
 		NPCList.add(harpyBimbo);
@@ -258,6 +261,9 @@ public class Game implements Serializable {
 		
 		pazu = new Pazu();
 		NPCList.add(pazu);
+		
+		nikki = new Nikki();
+		NPCList.add(nikki);
 		
 		
 		genericMaleNPC = new GenericMaleNPC();
@@ -397,20 +403,18 @@ public class Game implements Serializable {
 			Main.game.setContent(new Response("", "", MiscellaneousDialogue.STATUS_EFFECTS){
 				
 				@Override
-				public QuestLine getQuestLine() {
+				public void effects() {
 					if(!Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().hasNonArcaneEssences()) {
-						return QuestLine.SIDE_ENCHANTMENT_DISCOVERY;
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
 					}
 					
 					if(!Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_JINXED_CLOTHING) && Main.game.getPlayer().hasStatusEffect(StatusEffect.CLOTHING_JINXED)) {
-						return QuestLine.SIDE_JINXED_CLOTHING;
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_JINXED_CLOTHING));
 					}
 					
 					if (!Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) && Main.game.getPlayer().isVisiblyPregnant()) {
-						return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY));
 					}
-					
-					return null;
 				}	
 			});
 			Main.game.getPlayer().getStatusEffectDescriptions().clear();
@@ -1518,6 +1522,10 @@ public class Game implements Serializable {
 	public boolean isDayTime() {
 		return minutesPassed % (24 * 60) >= (60 * 7) && minutesPassed % (24 * 60) < (60 * 21);
 	}
+	
+	public boolean isMorning() {
+		return minutesPassed % (24 * 60) >= 0 && minutesPassed % (24 * 60) < (60 * 12);
+	}
 
 	public int getDayNumber() {
 		return (int) (1 + (getMinutesPassed() / (24 * 60)));
@@ -1639,6 +1647,10 @@ public class Game implements Serializable {
 		return candiReceptionist;
 	}
 	
+	public NPC getNikki() {
+		return nikki;
+	}
+
 	public NPC getGenericMaleNPC() {
 		return genericMaleNPC;
 	}

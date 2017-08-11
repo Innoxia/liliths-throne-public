@@ -8,7 +8,7 @@ import com.base.game.inventory.enchanting.TFEssence;
 
 /**
  * @since 0.1.0
- * @version 0.1.75
+ * @version 0.1.83
  * @author Innoxia
  */
 public class DialogueFlags implements Serializable {
@@ -48,7 +48,10 @@ public class DialogueFlags implements Serializable {
 			accessToEnforcerHQ, braxTransformedPlayer, braxBeaten, seenBraxAfterQuest, feminisedBrax, bimbofiedBrax,
 			
 			// Harpy Nests:
-			hasHarpyNestAccess, bimboEncountered, bimboPacified, dominantEncountered, dominantPacified, nymphoEncountered, nymphoPacified;
+			hasHarpyNestAccess, bimboEncountered, bimboPacified, dominantEncountered, dominantPacified, nymphoEncountered, nymphoPacified,
+			
+			// Slaver Alley:
+			nikkiIntroduced;
 
 	public DialogueFlags() {
 
@@ -99,6 +102,9 @@ public class DialogueFlags implements Serializable {
 		dominantPacified = false;
 		nymphoEncountered = false;
 		nymphoPacified = false;
+
+		// Slaver Alley:
+		nikkiIntroduced = false;
 	}
 
 }

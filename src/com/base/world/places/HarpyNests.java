@@ -7,6 +7,7 @@ import com.base.game.Weather;
 import com.base.game.character.QuestLine;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.encounters.Encounter;
+import com.base.game.dialogue.places.dominion.harpyNests.HarpyNestAlexa;
 import com.base.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.base.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.base.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
@@ -20,7 +21,7 @@ import com.base.world.WorldType;
 
 /**
  * @since 0.1.75
- * @version 0.1.8
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum HarpyNests implements PlaceInterface {
@@ -34,7 +35,7 @@ public enum HarpyNests implements PlaceInterface {
 	},
 
 	// Places:
-	ENTRANCE_ENFORCER_POST("Enforcer post", "dominion/harpyNests/stairsDown", BaseColour.RED, HarpyNestsDialogue.ENTRANCE_ENFORCER_POST, null, true, false){
+	ENTRANCE_ENFORCER_POST("Enforcer post", "dominion/harpyNests/exit", BaseColour.RED, HarpyNestsDialogue.ENTRANCE_ENFORCER_POST, null, true, false){
 
 		@Override
 		public WorldType getLinkedWorldType() {
@@ -46,7 +47,7 @@ public enum HarpyNests implements PlaceInterface {
 		}
 	},
 	
-	ALEXAS_NEST("Alexa's nest", "dominion/harpyNests/nestAlexa", BaseColour.GOLD, HarpyNestsDialogue.ALEXAS_NEST, null, true, false),
+	ALEXAS_NEST("Alexa's nest", "dominion/harpyNests/nestAlexa", BaseColour.GOLD, HarpyNestAlexa.ALEXAS_NEST_EXTERIOR, null, true, false),
 	
 	HARPY_NEST_RED("Harpy nest", "dominion/harpyNests/nestRed", BaseColour.CRIMSON, HarpyNestDominant.HARPY_NEST_DOMINANT, null, true, false),
 	

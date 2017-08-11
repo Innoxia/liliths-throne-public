@@ -233,20 +233,29 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				break;
 		}
 
-		if (colourShade == Colour.CLOTHING_GOLD)
+		if (colourShade == Colour.CLOTHING_GOLD) {
 			runningTotal *= 3;
-		else if (colourShade == Colour.CLOTHING_SILVER)
+			
+		} else if (colourShade == Colour.CLOTHING_SILVER) {
 			runningTotal *= 2;
-
-		if (attributeModifiers != null)
-			for (Integer i : attributeModifiers.values())
-				runningTotal += i * 5;
-
-		if (clothingType.getClothingSet() != null)
-			if (clothingType.getClothingSet().getAssociatedStatusEffect().getAttributeModifiers(Main.game.getPlayer()) != null)
-				for (Float f : clothingType.getClothingSet().getAssociatedStatusEffect().getAttributeModifiers(Main.game.getPlayer()).values())
-					runningTotal += f * 5;
-
+		}
+		
+		if(rarity!=Rarity.EPIC && rarity!=Rarity.LEGENDARY) {
+			if (attributeModifiers != null) {
+				for (Integer i : attributeModifiers.values()) {
+					runningTotal += i * 5;
+				}
+			}
+			
+			if (clothingType.getClothingSet() != null) {
+				if (clothingType.getClothingSet().getAssociatedStatusEffect().getAttributeModifiers(Main.game.getPlayer()) != null) {
+					for (Float f : clothingType.getClothingSet().getAssociatedStatusEffect().getAttributeModifiers(Main.game.getPlayer()).values()) {
+						runningTotal += f * 5;
+					}
+				}
+			}
+		}
+		
 		if (runningTotal <= 0)
 			runningTotal = 1;
 

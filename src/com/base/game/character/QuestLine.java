@@ -1,10 +1,8 @@
 package com.base.game.character;
 
-import com.base.main.Main;
-
 /**
  * @since 0.1.1
- * @version 0.1.62
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum QuestLine {
@@ -18,8 +16,9 @@ public enum QuestLine {
 			Quest.MAIN_1_C_WOLFS_DEN,
 			Quest.MAIN_1_D_SLAVERY,
 			Quest.MAIN_1_E_REPORT_TO_ALEXA,
-			Quest.MAIN_1_F_RESOLVE_SCARLETTS_REQUEST,
-			Quest.MAIN_1_G_GREAT_ESCAPE),
+			Quest.MAIN_1_F_SCARLETTS_FATE,
+			Quest.MAIN_1_G_SLAVERY,
+			Quest.MAIN_1_H_THE_GREAT_ESCAPE),
 
 	// Side quests:
 
@@ -38,22 +37,7 @@ public enum QuestLine {
 			Quest.HARPY_PACIFICATION_ONE,
 			Quest.HARPY_PACIFICATION_TWO,
 			Quest.HARPY_PACIFICATION_THREE,
-			Quest.HARPY_PACIFICATION_REWARD),
-	
-	// Romance quests:
-
-	ROMANCE_AUNT("", "", QuestType.ROMANCE, Quest.AUNT_CLEANUP_1, Quest.AUNT_CLEANUP_2, Quest.AUNT_CLEANUP_3, Quest.AUNT_CLEANUP_4, Quest.AUNT_CLEANUP_5) {
-
-		@Override
-		public String getName() {
-			return Main.game.getLilaya().getName() + " the Maid";
-		}
-
-		@Override
-		public String getCompletedDescription() {
-			return Main.game.getLilaya().getName() + " has become your devoted maid. She will do absolutely anything you ask of her, and will always keep your apartment clean.";
-		}
-	};
+			Quest.HARPY_PACIFICATION_REWARD);
 
 	private String name, completedDescription;
 	private QuestType type;

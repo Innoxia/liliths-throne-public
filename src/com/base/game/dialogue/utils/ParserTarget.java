@@ -81,7 +81,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	NPC_FEALE(Util.newArrayListOfValues(
+	NPC_FEMALE(Util.newArrayListOfValues(
 			new ListValue<>("NPCfemale"),
 			new ListValue<>("femaleNPC")), ""){
 		public String getDescription() {
@@ -335,6 +335,18 @@ public enum ParserTarget {
 		@Override
 		public GameCharacter getCharacter() {
 			return Main.game.getPazu();
+		}
+	},
+	
+	NIKKIE(Util.newArrayListOfValues(
+			new ListValue<>("nikki")), ""){
+		public String getDescription() {
+			return Main.game.getNikki().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter() {
+			return Main.game.getNikki();
 		}
 	},
 	

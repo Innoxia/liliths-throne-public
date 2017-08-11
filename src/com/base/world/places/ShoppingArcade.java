@@ -41,7 +41,7 @@ public enum ShoppingArcade implements PlaceInterface {
 	PIXS_GYM("City Gym", "dominion/shoppingArcade/gym", BaseColour.GOLD, PixsPlayground.GYM_EXTERIOR, null, true, false),
 
 	// Exits & entrances:
-	ARCADE_ENTRANCE("Exit", "dominion/shoppingArcade/entranceGate", BaseColour.RED, ShoppingArcadeDialogue.ENTRY, null, true, false){
+	ARCADE_ENTRANCE("Exit", "dominion/shoppingArcade/exit", BaseColour.RED, ShoppingArcadeDialogue.ENTRY, null, true, false){
 		@Override
 		public WorldType getLinkedWorldType() {
 			return WorldType.DOMINION;

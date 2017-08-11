@@ -100,15 +100,24 @@ public enum Encounter {
 
 			} else if (node == EncounterType.DOMINION_FIND_ITEM) {
 				
-				randomItem = ItemType.generateItem(ItemType.availableItems.get(Util.random.nextInt(ItemType.availableItems.size())));
+				if(Math.random()<0.995f) {
+					randomItem = ItemType.generateItem(ItemType.availableItems.get(Util.random.nextInt(ItemType.availableItems.size())));
+				} else {
+					randomItem = ItemType.generateItem(ItemType.EGGPLANT);
+				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
 				
 			} else if (node == EncounterType.DOMINION_FIND_CLOTHING) {
-				randomClothing = ClothingType.generateClothing(ClothingType.getCommonClothing().get(Util.random.nextInt(ClothingType.getCommonClothing().size())));
-				
-				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(randomClothing);
+				if(Math.random()<0.01f) {
+					randomClothing = ClothingType.generateClothing(ClothingType.MEGA_MILK);
+					Main.game.getPlayerCell().getInventory().addClothing(randomClothing);
+					
+				} else {
+					randomClothing = ClothingType.generateClothing(ClothingType.getCommonClothing().get(Util.random.nextInt(ClothingType.getCommonClothing().size())));
+					Main.game.getPlayerCell().getInventory().addClothing(randomClothing);
+				}
 				return DominionEncounterDialogue.ALLEY_FIND_CLOTHING;
 				
 			} else if (node == EncounterType.DOMINION_FIND_WEAPON) {

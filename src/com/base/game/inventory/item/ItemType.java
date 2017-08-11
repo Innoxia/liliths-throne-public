@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.base.game.character.GameCharacter;
+import com.base.game.character.QuestLine;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.body.types.PenisType;
 import com.base.game.character.race.Race;
@@ -955,10 +956,10 @@ public enum ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
-							+ "Pulling the cork stopper out from the top of the little bottle, you release the arcane essence from its glass prison."
-							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.GENERIC_ARCANE.getName()+" flash, it disappears from sight."
-							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
-						+ "</p>";
+						+ "Pulling the cork stopper out from the top of the little bottle, you release the arcane essence from its glass prison."
+						+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.GENERIC_ARCANE.getName()+" flash, it disappears from sight."
+						+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
+					+ "</p>";
 				
 			} else {
 				return "<p>"
@@ -2032,6 +2033,45 @@ public enum ItemType {
 						+ "Opening the book, you read its contents..."
 					+ "</p>";
 		}
+	},
+	
+	// Why did I make this?
+	EGGPLANT(
+			null,
+			false,
+			"Eggplant",
+			"A delicate, tropical perennial often cultivated as a tender or half-hardy annual in temperate climates. Also it kind of looks like a penis if you squint.",
+			"eggplant",
+			Colour.GENERIC_ARCANE,
+			10,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.EGGPLANT, null, null)))) {
+
+		@Override
+		public boolean canBeSold() {
+			return false;
+		}
+		
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+				return "<p>"
+							+ "You eat the eggplant."
+						+ "</p>";
+				
+			} else {
+				return UtilText.parse(user,
+						"<p>"
+							+ "[npc.Name] eats an eggplant."
+						+ "</p>");
+			}
+		}
 	};
 	
 	
@@ -2346,8 +2386,22 @@ public enum ItemType {
 		for(ItemType t : ItemType.values()){
 			if(t!=ItemType.POTION && t!=ItemType.ELIXIR
 					&& t!=ItemType.HARPY_MARTRIARCH_BIMBO_LOLLIPOP && t!=ItemType.HARPY_MARTRIARCH_DOMINANT_PERFUME && t!=ItemType.HARPY_MARTRIARCH_NYMPHO_LOLLIPOP
-					&& t!=ItemType.BOOK_CAT_MORPH && t!=ItemType.BOOK_DEMON && t!=ItemType.BOOK_DOG_MORPH && t!=ItemType.BOOK_HARPY && t!=ItemType.BOOK_HORSE_MORPH && t!=ItemType.BOOK_HUMAN && t!=ItemType.BOOK_WOLF_MORPH) {
+					&& t!=ItemType.BOOK_CAT_MORPH && t!=ItemType.BOOK_DEMON && t!=ItemType.BOOK_DOG_MORPH && t!=ItemType.BOOK_HARPY && t!=ItemType.BOOK_HORSE_MORPH && t!=ItemType.BOOK_HUMAN && t!=ItemType.BOOK_WOLF_MORPH
+					&& t!=ItemType.BOTTLED_ESSENCE_ARCANE && t!=ItemType.BOTTLED_ESSENCE_CAT_MORPH && t!=ItemType.BOTTLED_ESSENCE_DEMON
+					&& t!=ItemType.BOTTLED_ESSENCE_DOG_MORPH && t!=ItemType.BOTTLED_ESSENCE_HARPY && t!=ItemType.BOTTLED_ESSENCE_HORSE_MORPH
+					&& t!=ItemType.BOTTLED_ESSENCE_HUMAN && t!=ItemType.BOTTLED_ESSENCE_WOLF_MORPH
+					&& t!=ItemType.EGGPLANT) {
 				availableItems.add(t);
+			}
+			
+			if(Main.game.isStarted()) {
+				if(Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+					if(t==ItemType.BOTTLED_ESSENCE_ARCANE || t==ItemType.BOTTLED_ESSENCE_CAT_MORPH || t==ItemType.BOTTLED_ESSENCE_DEMON
+							|| t==ItemType.BOTTLED_ESSENCE_DOG_MORPH || t==ItemType.BOTTLED_ESSENCE_HARPY || t==ItemType.BOTTLED_ESSENCE_HORSE_MORPH
+							|| t==ItemType.BOTTLED_ESSENCE_HUMAN || t==ItemType.BOTTLED_ESSENCE_WOLF_MORPH) {
+						availableItems.add(t);
+					}
+				}
 			}
 		}
 	}

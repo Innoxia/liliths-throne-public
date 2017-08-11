@@ -255,6 +255,24 @@ public class NPCRandomSuccubus extends NPC {
 										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 									+ "</p>";
 						}
+					case EGGPLANT:
+						if(Sex.isPlayerDom()) {
+							return "<p>"
+										+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
+										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+										+ " [npc.speech(W-What are you going to do with th-~Mrph!~)]"
+									+ "</p>"
+									+ "<p>"
+										+ "Not liking the start of [npc.her] response, you quickly shove the eggplant into [npc.her] mouth, grinning as you force [npc.herHim] to eat the purple fruit..."
+									+ "</p>"
+									+Main.game.getPlayer().useItem(item, target, false, true);
+						} else {
+							return "<p>"
+										+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+										+ " [npc.speech(Hah! Did you really think I was going to eat that?!)]</br>"
+										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+									+ "</p>";
+						}
 					default:
 						return "<p>"
 								+ "You try to give [npc.name] "+item.getItemType().getDeterminer()+" "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory."

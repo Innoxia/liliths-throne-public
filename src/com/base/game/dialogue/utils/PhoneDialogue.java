@@ -1831,9 +1831,19 @@ public class PhoneDialogue {
 							int refund = 0;
 							while(it.hasNext()) {
 								Fetish f = it.next();
+								if(f.getFetishesForAutomaticUnlock().isEmpty()) {
+									refund += f.getCost();
+									Main.game.getPlayer().removeFetish(f);
+								}
+							}
+							
+							it = Main.game.getPlayer().getFetishes().iterator();
+							while(it.hasNext()) {
+								Fetish f = it.next();
 								refund += f.getCost();
 								Main.game.getPlayer().removeFetish(f);
 							}
+							
 							Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, refund/2);
 							levelUpFetishes.clear();
 							PhoneDialogue.confirmReset = false;

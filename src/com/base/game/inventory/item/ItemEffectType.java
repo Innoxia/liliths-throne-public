@@ -109,7 +109,7 @@ public enum ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
 			return "<p>"
-					+ "Untying the top of the used condom, you bring it up to your lips and swallow its slimy contents."
+					+ "It tastes salty..." //TODO
 					+ "</p>";
 		}
 	},
@@ -712,6 +712,36 @@ public enum ItemEffectType {
 			return "A sickly wave of corruptive arcane energy washes over you..."
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.CORRUPTION, 1);
+		}
+	},
+	
+	EGGPLANT(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(health)]"),
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldWillpower(willpower)]"),
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldStamina(stamina)]")),
+			Colour.ATTRIBUTE_CORRUPTION) {
+		
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
+			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
+			target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)/20);
+			
+			if(target.isPlayer()) {
+				return "It's kind of tasty.";
+			} else {
+				return "";
+			}
 		}
 	},
 	

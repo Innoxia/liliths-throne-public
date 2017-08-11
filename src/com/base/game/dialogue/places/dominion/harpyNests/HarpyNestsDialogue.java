@@ -15,7 +15,7 @@ import com.base.utils.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.1.8
+ * @version 0.1.83
  * @author Innoxia
  */
 public class HarpyNestsDialogue {
@@ -615,30 +615,6 @@ public class HarpyNestsDialogue {
 			}else {
 				return null;
 			}
-		}
-	};
-	
-	public static final DialogueNodeOld ALEXAS_NEST = new DialogueNodeOld("Alexa's nest", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "TODO Alexa's nest."
-				+ "</p>"
-				+ "<p>"
-					+ "This will include an encounter related to Scarlett's quest. You'll be able to choose a couple of options here, and the next part of the quest will involve Alexa and Scarlett back in slaver alley."
-				+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int index) {
-			return null;
 		}
 	};
 	

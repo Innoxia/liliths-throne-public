@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @since 0.1.0
- * @version 0.1.63
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum PerkTree {
@@ -30,7 +30,8 @@ public enum PerkTree {
 	FITNESS_FEMALE_SEDUCTION(new Perk[] { Perk.FEMALE_ATTRACTION }),
 	FITNESS_MALE_SEDUCTION(new Perk[] { Perk.MALE_ATTRACTION }),
 	NYMPHOMANIAC(new Perk[] { Perk.NYMPHOMANIAC }),
-	FITNESS_SEDUCTION(new Perk[] { Perk.SEDUCTION, Perk.SEDUCTION_2, Perk.SEDUCTION_3 });
+	FITNESS_SEDUCTION(new Perk[] { Perk.SEDUCTION, Perk.SEDUCTION_2, Perk.SEDUCTION_3 }),
+	FITNESS_BARREN(new Perk[] { Perk.BARREN });
 	
 	// Calculating how to display perks in phone menu:
 	private static Perk[][] perkGrid = new Perk[5][16];
