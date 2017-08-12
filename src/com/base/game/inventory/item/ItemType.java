@@ -2118,6 +2118,45 @@ public enum ItemType {
 		}
 	},
 	
+	BOOK_SQUIRREL_MORPH(
+			null,
+			false,
+			"Chasing Squirrels",
+			"A book that details squirrel-morph society.",
+			"book_race_squirrel_morph",
+			Colour.RACE_SQUIRREL_MORPH,
+			10,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_SQUIRREL_MORPH, null, null)))) {
+
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.SQUIRREL_MORPH)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "<p>"
+						+ "Opening the book, you read its contents..."
+					+ "</p>";
+		}
+	},
+	
 	BOOK_WOLF_MORPH(
 			null,
 			false,
