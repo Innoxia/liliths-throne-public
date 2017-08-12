@@ -767,6 +767,52 @@ public enum ItemType {
 		}
 	},
 	
+	RACE_INGREDIENT_SQUIRREL_MORPH(
+			"a",
+			false,
+			"Round Nuts",
+			"A small, bag of round nut meats similar in shape to walnuts."
+					+ " A label on the side shows a greater squirrel-girl devouring a plate of what looks to be this bag's contents; some sort of nut meat.",
+			"raceSquirrelMorphRoundNuts",
+			Colour.RACE_SQUIRREL_MORPH,
+			40,
+			Rarity.RARE,
+			TFEssence.SQUIRREL_MORPH,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ROUND_NUTS, null, null)))) {
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.RACE_SQUIRREL_MORPH;
+		}
+
+		@Override
+		public ItemType getEnchantmentItemType() {
+			return ELIXIR;
+		}
+
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+				return "<p>"
+							+ "You pull at the sides of one end of the bag, and open the package."
+							+ " A rich, earthy smell accompanies the sight of what looks to be nut meat, and you find yourself unable to resist the delicious-looking display."
+							+ " You quickly wolf down the can's contents, finding that it was as delicious as it looked."
+						+ "</p>";
+				
+			} else {
+				return UtilText.parse(target,
+						"<p>"
+						+ "[npc.Name] pulls out a bag of 'Round Nuts', and, opening the bag, quickly devours the contents."
+						+ "</p>");
+			}
+		}
+	},
+	
 	RACE_INGREDIENT_DOG_MORPH(
 			"a",
 			false,
@@ -1074,6 +1120,41 @@ public enum ItemType {
 				return "<p>"
 							+ "Pulling the cork stopper out from the top of the little bottle, you release the demon essence from its glass prison."
 							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_DEMON.getName()+" flash, it disappears from sight."
+							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
+						+ "</p>";
+				
+			} else {
+				return "<p>"
+						+ "(You shouldn't be seeing this. x_x)"//TODO
+					+ "</p>";
+			}
+		}
+	},
+	
+	BOTTLED_ESSENCE_SQUIRREL_MORPH(
+			null,
+			false,
+			"Bottled squirrel-morph Essence",
+			"A small glass bottle, with a little cork stopper wedged firmly in the top."
+					+ " Inside, the swirling "+Colour.RACE_SQUIRREL_MORPH.getName()+" glow of a squirrel-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
+			"bottledEssenceSquirrelMorph",
+			Colour.RACE_SQUIRREL_MORPH,
+			10,
+			Rarity.COMMON,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SQUIRREL_MORPH, null, null)))) {
+
+		@Override
+		public String getUseName() {
+			return "absorb";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user.isPlayer() && target.isPlayer()) {
+				return "<p>"
+							+ "Pulling the cork stopper out from the top of the little bottle, you release the squirrel-morph essence from its glass prison."
+							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_SQUIRREL_MORPH.getName()+" flash, it disappears from sight."
 							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
 						+ "</p>";
 				
