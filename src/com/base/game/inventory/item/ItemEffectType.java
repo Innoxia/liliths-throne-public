@@ -306,6 +306,38 @@ public enum ItemEffectType {
 		}
 	},
 	
+	BOOK_READ_SQUIRREL_MORPH(Util.newArrayListOfValues(
+			new ListValue<>("Adds squirrel-morph encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			Colour.RACE_SQUIRREL_MORPH) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			return Race.SQUIRREL_MORPH.getBasicDescription()
+					+Race.SQUIRREL_MORPH.getAdvancedDescription()
+					+(Main.game.getPlayer().addRaceDiscovered(Race.SQUIRREL_MORPH)
+							?Game.getRaceDiscoveredMessage(Race.SQUIRREL_MORPH)
+							:"")
+					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.SQUIRREL_MORPH)
+							?Game.getRaceAdvancedKnowledgeMessage(Race.SQUIRREL_MORPH)
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
+							:"");
+		}
+	},
+	
 	BOOK_READ_WOLF_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("Adds wolf-morph encyclopedia entry."),
 			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
