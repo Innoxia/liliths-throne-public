@@ -444,7 +444,7 @@ public class NPCRandomDominion extends NPC {
 										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 									+ "</p>";
 						}
-					case RACE_INGREDIENT_CAT_MORPH: case RACE_INGREDIENT_DOG_MORPH: case RACE_INGREDIENT_HARPY: case RACE_INGREDIENT_HORSE_MORPH: case RACE_INGREDIENT_WOLF_MORPH:
+					case RACE_INGREDIENT_CAT_MORPH: case RACE_INGREDIENT_DOG_MORPH: case RACE_INGREDIENT_HARPY: case RACE_INGREDIENT_HORSE_MORPH: case RACE_INGREDIENT_SQUIRREL_MORPH: case RACE_INGREDIENT_WOLF_MORPH:
 						if(Sex.isPlayerDom()) {
 							return "<p>"
 										+ "Taking the "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
@@ -483,7 +483,7 @@ public class NPCRandomDominion extends NPC {
 										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 									+ "</p>";
 						}
-					case COR_INGREDIENT_LILITHS_GIFT: case RACE_INGREDIENT_HUMAN: case RACE_INGREDIENT_DEMON: case FIT_INGREDIENT_CANINE_CRUSH: case INT_INGREDIENT_FELINE_FANCY: case STR_INGREDIENT_EQUINE_CIDER: case STR_INGREDIENT_WOLF_WHISKEY:
+					case COR_INGREDIENT_LILITHS_GIFT: case RACE_INGREDIENT_HUMAN: case RACE_INGREDIENT_DEMON: case FIT_INGREDIENT_CANINE_CRUSH: case FIT_INGREDIENT_SQUIRREL_JAVA: case INT_INGREDIENT_FELINE_FANCY: case STR_INGREDIENT_EQUINE_CIDER: case STR_INGREDIENT_WOLF_WHISKEY:
 						if(Sex.isPlayerDom()) {
 							return "<p>"
 										+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
