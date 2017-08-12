@@ -1055,6 +1055,62 @@ public enum SpecialAttack {
 		}
 	},
 
+	SQUIRREL_SCRATCH(50, "scratch", "scratchIcon", Colour.DAMAGE_TYPE_PHYSICAL, DamageType.PHYSICAL, DamageLevel.NORMAL, DamageVariance.HIGH, SpecialAttackSpellCosts.HIGH,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.VULNERABLE, 4))) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+
+			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+
+			descriptionSB = new StringBuilder();
+			
+			if (caster == Main.game.getPlayer()) {
+				descriptionSB.append(UtilText.genderParsing(target,
+						"<p>" + "You flex the claws on your anthropomorphic squirrel-like hands, and with a quick dash forwards, you attempt to strike at " + target.getName("the") + "."
+								+ (isHit ? " Your sharp claws rake over " + target.getName("the") + "'s body, and <she> lets out a surprised cry as you jump back."
+										: target.getName("The") + " manages to dodge your attack, and you end up swiping at nothing more than thin air.")
+								+ "</p>")
+						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+			} else {
+				descriptionSB.append(UtilText.genderParsing(caster,
+						"<p>" + caster.getName("The") + " flexs the claws on <her> anthropomorphic squirrel-like hands, and with a quick dash forwards, attempts to strike at you."
+								+ (isHit ? " <Her> sharp claws rake over your body, and you let out a surprised cry as <she> quickly jumps back, and smirking at you."
+										: " You see <her> attack coming, and you jump out of the way just in time, leaving <herPro> to swipe at nothing more than thin air.")
+								+ "</p>")
+						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+			}
+			
+			// If attack hits, apply damage and effects:
+			if (isHit) {
+				descriptionSB.append(target.incrementHealth(-damage));
+				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
+					target.addStatusEffect(se.getKey(), se.getValue());
+			}
+
+			caster.incrementStamina(-cost);
+			
+			return descriptionSB.toString();
+			
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer())
+				return "Your anthropomorphic squirrel-like hands have a series of sharp claws. You can use these claws to deliver a scratching attack.";
+			else
+				return UtilText.genderParsing(owner,
+						owner.getName("The") + "'s anthropomorphic squirrel-like hands have a series of sharp claws. <She> can use these claws to deliver a scratching attack.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			if (owner.getArmType() == ArmType.SQUIRREL_MORPH)
+				return true;
+			else
+				return false;
+		}
+	},
+
 	CAT_SCRATCH(50, "scratch", "scratchIcon", Colour.DAMAGE_TYPE_PHYSICAL, DamageType.PHYSICAL, DamageLevel.NORMAL, DamageVariance.HIGH, SpecialAttackSpellCosts.HIGH,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.VULNERABLE, 4))) {
 		@Override
