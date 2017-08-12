@@ -494,6 +494,52 @@ public enum ItemType {
 		}
 	},
 	
+	FIT_INGREDIENT_SQUIRREL_JAVA(
+			"a bottle of",
+			false,
+			"Squirrel Java",
+			"A glass bottle of what looks to be some kind of coffee."
+				+ " A label on the front shows a squirrel-girl lining herself up over a bottle, she seems to be fingering herself into the bottle to provide some cream for the coffee.",
+			"attributeSquirrelMorphDrink",
+			Colour.ATTRIBUTE_FITNESS,
+			25,
+			Rarity.UNCOMMON,
+			TFEssence.SQUIRREL_MORPH,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_SQUIRREL_JAVA, null, null)))) {
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.ATTRIBUTE_FITNESS;
+		}
+
+		@Override
+		public ItemType getEnchantmentItemType() {
+			return POTION;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+				return "<p>"
+							+ "You pop off the cap and start drinking the bottle of 'Squirrel Java'."
+							+ " It doesn't taste anything like any other coffee you've ever drank, and it reminds you more of a sugary energy drink rather than any caffinated beverage."
+							+ " As the last few drops slide down your throat, a strange, sweet aftertaste lingers on your tongue."
+						+ "</p>";
+				
+			} else {
+				return UtilText.parse(target,
+						"<p>"
+							+ "[npc.Name] pulls out a bottle of 'Squirrel Java', and, after quickly popping off the cap, [npc.she] promptly downs the entire bottle."
+						+ "</p>");
+			}
+		}
+	},
+	
 	SEX_INGREDIENT_HARPY_PERFUME(
 			"a bottle of",
 			false,
