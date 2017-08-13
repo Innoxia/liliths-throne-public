@@ -233,7 +233,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				break;
 		}
 
-		if (colourShade == Colour.CLOTHING_GOLD) {
+		if (colourShade == Colour.CLOTHING_PLATINUM) {
+			runningTotal *= 4;
+			
+		} else if (colourShade == Colour.CLOTHING_GOLD) {
 			runningTotal *= 3;
 			
 		} else if (colourShade == Colour.CLOTHING_SILVER) {
