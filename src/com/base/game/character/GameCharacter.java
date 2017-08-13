@@ -3537,6 +3537,20 @@ public class GameCharacter implements Serializable {
 									+ " At <her> upper-biceps, <her> new horse-hair smoothly transitions into the " + getSkinType().getName(this) + " that's covering the rest of <her> body." + "</br>" + "<She> now has anthropomorphic <b style='color:"
 									+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>horse-like arms</b>."));
 			break;
+		case SQUIRREL_MORPH:
+			transformationSB.append(isPlayer()
+					? " A layer of smooth " + getSkinColour(BodyCoveringType.SQUIRREL_FUR).getName() + " fur quickly grows over your arms and hands to replace your old " + getSkinColour(getArmType().getSkinType()).getName() + " "
+							+ getArmType().getSkinType().getName(this) + "." + " As your new fur finishes growing over the backs of your hands, sharp, claws grow to replace your fingernails."
+							+ " Turning your hands over, you see your palms rapidly growing fur, and before you know it, you're left with a pair of anthropomorphic, squirrel-like hands."
+							+ " At your upper-biceps, your new fur smoothly transitions into the " + getSkinType().getName(this) + " that's covering the rest of your body." + "</br>" + "You now have anthropomorphic <b style='color:"
+							+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>squirrel-like arms</b>."
+					: UtilText.genderParsing(this,
+							" A layer of smooth " + getSkinColour(BodyCoveringType.SQUIRREL_FUR).getName() + " fur quickly grows over <her> arms and hands to replace <her> old " + getSkinColour(getArmType().getSkinType()).getName() + " "
+									+ getArmType().getSkinType().getName(this) + "." + " As the new fur finishes growing over the backs of <her> hands, sharp, claws grow to replace <her> fingernails."
+									+ " <She> turns <her> hands over to reveal that <her> palms are rapidly growing fur, and after only a moment, <she>'s left with a pair of anthropomorphic, squirrel-like hands."
+									+ " At <her> upper-biceps, <her> new fur smoothly transitions into the " + getSkinType().getName(this) + " that's covering the rest of <her> body." + "</br>" + "<She> now has anthropomorphic <b style='color:"
+									+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>squirrel-like arms</b>."));
+			break;
 		case HARPY:
 			transformationSB.append(isPlayer()
 					? " A layer of " + getSkinColour(BodyCoveringType.FEATHERS).getName() + " feathers suddenly sprout out all over your arms and hands, quickly replacing your old " + getSkinColour(getArmType().getSkinType()).getName() + " "
@@ -3761,6 +3775,22 @@ public class GameCharacter implements Serializable {
 						+ " Like the rest of [npc.her] body, [npc.her] ass is still covered in [npc.assColour] [npc.assSkin], as the transformation was solely focused on [npc.her] asshole."
 						+ "</br>"
 						+ "[npc.She] now has a [style.boldSex(puffy horse-like asshole)]."
+						+ "</p>"));
+			}
+			break;
+		case SQUIRREL_MORPH:
+			if (isPlayer()) {
+				transformationSB.append(" You discover that your asshole has shifted shape slightly, although it feels very similar to a normal human-shaped one."
+						+ " Like the rest of your body, your ass is still covered in [pc.assColour] [pc.assSkin], and you realise that the transformation was solely focused on your asshole."
+						+ "</br>"
+						+ "You now have a [style.boldSex(squirrel asshole)]."
+						+ "</p>");
+			} else {
+				transformationSB.append(UtilText.parse(this,
+						" [npc.She] soon discovers that [npc.her] asshole has shifted shape slightly, although it looks to be very similar to a normal human-shaped one."
+						+ " Like the rest of [npc.her] body, [npc.her] ass is still covered in [npc.assColour] [npc.assSkin], as the transformation was solely focused on [npc.her] asshole."
+						+ "</br>"
+						+ "[npc.She] now has a [style.boldSex(squirrel asshole)]."
 						+ "</p>"));
 			}
 			break;
@@ -4236,6 +4266,24 @@ public class GameCharacter implements Serializable {
 							+ " Like the rest of your body, your chest is still covered in [pc.breastsColour] [pc.breastsSkin], and you realise that the transformation was solely focused on your nipples."
 							+ "</br>"
 							+ "You now have [style.boldSex(feline nipples)], and when lactating, you will produce [style.boldSex(feline milk)]."
+							+ "</p>");
+				} else {
+					transformationSB.append(UtilText.parse(this,
+							" [npc.Her] nipples shift and change shape to look like regular human ones, but despite their common appearance, a hidden change takes place deep within [npc.her] chest."
+							+ " As [npc.she] feels [npc.her] areolae stop tingling, a little drop of milk beads out from [npc.her] teats, revealing the main effect of the transformation."
+								+ "</br>"
+								+ "[npc.She] now has [style.boldSex(feline nipples)], and when lactating, [npc.she] will produce [style.boldSex(feline milk)]."
+								+ "</p>"));
+				}
+				break;
+			case SQUIRREL_MORPH:
+				if (isPlayer()) {
+					transformationSB.append(
+							" Your nipples shift and change shape to look like regular human ones, but despite their common appearance, you can feel a hidden change taking place deep within your chest."
+							+ " As your areolae finally stop tingling, a little drop of milk beads out from your teats, revealing the main effect of your transformation."
+							+ " Like the rest of your body, your chest is still covered in [pc.breastsColour] [pc.breastsSkin], and you realise that the transformation was solely focused on your nipples."
+							+ "</br>"
+							+ "You now have [style.boldSex(squirrel nipples)], and when lactating, you will produce [style.boldSex(squirrel milk)]."
 							+ "</p>");
 				} else {
 					transformationSB.append(UtilText.parse(this,
@@ -4764,6 +4812,13 @@ public class GameCharacter implements Serializable {
 					: UtilText.genderParsing(this, " The transformation is over in a matter of seconds, leaving <herPro> with a cat-morph's " + getHairColour(BodyCoveringType.HAIR_FELINE_FUR).getName() + ", fur-like hair." + "</br>"
 							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry cat-like hair</b>."));
 			break;
+		case HAIR_SQUIRREL_FUR:
+			transformationSB.append(isPlayer()
+					? " The feeling goes away almost as quickly as it came, leaving you with a squirrel-morph's " + getHairColour(BodyCoveringType.HAIR_SQUIRREL_FUR).getName() + ", fur-like hair." + "</br>" + "You now have <b style='color:"
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry squirrel-like hair</b>."
+					: UtilText.genderParsing(this, " The transformation is over in a matter of seconds, leaving <herPro> with a squirrel-morph's " + getHairColour(BodyCoveringType.HAIR_SQUIRREL_FUR).getName() + ", fur-like hair." + "</br>"
+							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry squirrel-like hair</b>."));
+			break;
 		case HAIR_HORSE_HAIR:
 			transformationSB.append(isPlayer()
 					? " The feeling goes away almost as quickly as it came, leaving you with a horse-morph's coarse " + getHairColour(BodyCoveringType.HAIR_HORSE_HAIR).getName() + " hair." + "</br>" + "You now have <b style='color:"
@@ -4989,6 +5044,16 @@ public class GameCharacter implements Serializable {
 							" <Her> nose and mouth twitch and transform as they push out into an anthropomorphic cat-like muzzle, and <her> tongue flattens and changes into a little pink cat-like tongue." + " A layer of "
 									+ getSkinColour(BodyCoveringType.FELINE_FUR).getName() + " fur quickly grows to cover <her> new face, and as the transformation ends, <she>'s left with the face of a greater cat-morph." + "</br>"
 									+ "<She> now has an <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>anthropomorphic cat-like face</b>."));
+			break;
+		case SQUIRREL_MORPH:
+			transformationSB.append(isPlayer()
+					? " You feel your nose and mouth twitching and transforming as they push out into an anthropomorphic squirrel-like muzzle, and your tongue flattens and changes into a little pink squirrel-like tongue." + " A layer of "
+							+ getSkinColour(BodyCoveringType.SQUIRREL_FUR).getName() + " fur quickly grows to cover your new face, and as the transformation ends, you realise that you've now got the face of a greater squirrel-morph." + "</br>"
+							+ "You now have an <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>anthropomorphic squirrel-like face</b>."
+					: UtilText.genderParsing(this,
+							" <Her> nose and mouth twitch and transform as they push out into an anthropomorphic squirrel-like muzzle, and <her> tongue flattens and changes into a little pink squirrel-like tongue." + " A layer of "
+									+ getSkinColour(BodyCoveringType.SQUIRREL_FUR).getName() + " fur quickly grows to cover <her> new face, and as the transformation ends, <she>'s left with the face of a greater squirrel-morph." + "</br>"
+									+ "<She> now has an <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>anthropomorphic squirrel-like face</b>."));
 			break;
 		case HORSE_MORPH:
 			transformationSB.append(isPlayer()
@@ -5254,6 +5319,13 @@ public class GameCharacter implements Serializable {
 						: UtilText.genderParsing(this, " <Her> pupils slim down and become narrow slits, while <her> irises shift to become slightly larger than those found on a human." + "</br>"
 								+ "<She> now has a pair of anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + ", cat-like eyes</b>."));
 				break;
+			case EYE_SQUIRREL:
+				transformationSB.append(isPlayer()
+						? " Your irises shift to become slightly larger than those found on a human." + "</br>" + "You now have a pair of anthropomorphic <b style='color:"
+								+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + ", squirrel-like eyes</b>."
+						: UtilText.genderParsing(this, " <Her> irises shift to become slightly larger than those found on a human." + "</br>"
+								+ "<She> now has a pair of anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + ", squirrel-like eyes</b>."));
+				break;
 			case EYE_HORSE_MORPH:
 				transformationSB.append(isPlayer()
 						? " Your pupils squash down and become slightly more horizontal, while your irises shift to become slightly larger than those found on a human." + "</br>" + "You now have a pair of anthropomorphic <b style='color:"
@@ -5407,6 +5479,16 @@ public class GameCharacter implements Serializable {
 							" They quickly grow into small, upright points, and shift to sit higher up on <her> head than a normal pair of human ears would." + " A layer of " + getSkinColour(BodyCoveringType.FELINE_FUR).getName()
 									+ " fur grows to cover them, and as the transformation finishes, <she> experimentally twitches <her> new cat-like ears back and forth." + "</br>"
 									+ "<She> now has a pair of pointed, anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>cat-like ears</b>."));
+			break;
+		case SQUIRREL_MORPH:
+			transformationSB.append(isPlayer()
+					? " They quickly grow into small, upright ovals, and shift to sit higher up on your head than a normal pair of human ears would." + " A layer of " + getSkinColour(BodyCoveringType.SQUIRREL_FUR).getName()
+							+ " fur grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new squirrel-like ears back and forth." + "</br>"
+							+ "You now have a pair of pointed, anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>squirrel-like ears</b>."
+					: UtilText.genderParsing(this,
+							" They quickly grow into small, upright ovals, and shift to sit higher up on <her> head than a normal pair of human ears would." + " A layer of " + getSkinColour(BodyCoveringType.SQUIRREL_FUR).getName()
+									+ " fur grows to cover them, and as the transformation finishes, <she> experimentally twitches <her> new squirrel-like ears back and forth." + "</br>"
+									+ "<She> now has a pair of pointed, anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>squirrel-like ears</b>."));
 			break;
 		case HORSE_MORPH:
 			transformationSB.append(isPlayer()
@@ -5678,6 +5760,21 @@ public class GameCharacter implements Serializable {
 								+ "[npc.She] now has a pair of anthropomorphic [style.boldTfLesser(cat-like legs)].");
 				}
 				break;
+			case SQUIRREL_MORPH:
+				if(isPlayer()) {
+					transformationSB.append(" A layer of " + getSkinColour(BodyCoveringType.SQUIRREL_FUR).getName() + " fur quickly grows to replace the [pc.legSkin] on your legs as they shift into a new form."
+						+ " As your new fur spreads down to the ends of your toes, your feet start to shift and transform."
+						+ " Your toenails thicken into sharp claws, and little pink pads grow to cover your soles, leaving you with paw-like feet."
+						+ " As the transformation ends, you see that your new fur smoothly transitions into the [pc.skin] covering the rest of your body at your upper-thigh.</br>"
+						+ "You now have a pair of anthropomorphic [style.boldTfLesser(squirrel-like legs)].");
+				} else {
+					transformationSB.append(" A layer of " + getSkinColour(BodyCoveringType.SQUIRREL_FUR).getName() + " fur quickly grows to replace the [npc.legSkin] on [npc.her] legs as they shift into a new form."
+								+ " As the new fur spreads down to the ends of [npc.her] toes, [npc.her] feet start to shift and transform."
+								+ " [npc.Her] toenails thicken into sharp claws, and little pink pads grow to cover [npc.her] soles, leaving [npc.herHim] with paw-like feet."
+								+ " [npc.Her] new fur smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.</br>"
+								+ "[npc.She] now has a pair of anthropomorphic [style.boldTfLesser(squirrel-like legs)].");
+				}
+				break;
 			case HORSE_MORPH:
 				if(isPlayer()) {
 					transformationSB.append(" A layer of short " + getSkinColour(BodyCoveringType.HORSE_HAIR).getName() + " hair quickly grows to replace the [pc.legSkin] on your legs as they shift into a new form."
@@ -5921,6 +6018,18 @@ public class GameCharacter implements Serializable {
 									+ " Letting out an involuntary moan, <her> penis starts shifting into a new form, and rows of little backwards-facing barbs press out all along <her> shaft."
 									+ " Panting and gasping for air, the transformation finally comes to an end, leaving <herPro> with a barbed cat-like cock." + "</br>" + "<She> now has a <b style='color:"
 									+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>barbed cat-dick</b>."));
+			break;
+		case SQUIRREL:
+			transformationSB.append(isPlayer()
+					? " You squirm and moan as the skin covering your cock quickly turns " + getSkinColour(type.getSkinType()).getName() + ", and as the transformation moves onto the next stage, slimy pre-cum starts leaking from the tip."
+							+ " Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal."
+							+ " Panting and gasping for air, the transformation finally comes to an end, and you discover that your shaft has reshaped itself into s squirrel-like cock." + "</br>" + "You now have a <b style='color:"
+							+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>squirrel-dick</b>."
+					: UtilText.genderParsing(this,
+							" <She> squirms and moans as the skin covering <her> cock quickly turns " + getSkinColour(type.getSkinType()).getName() + ", and as the transformation moves onto the next stage, slimy pre-cum starts leaking from the tip."
+									+ " Letting out an involuntary moan, <her> penis starts shifting into a new form."
+									+ " Panting and gasping for air, the transformation finally comes to an end, leaving <herPro> with a squirrel-like cock." + "</br>" + "<She> now has a <b style='color:"
+									+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>squirrel-dick</b>."));
 			break;
 		case EQUINE:
 			transformationSB.append(isPlayer()
@@ -6441,6 +6550,15 @@ public class GameCharacter implements Serializable {
 									+ " cat-like fur, and <she> lets out a satisfied sigh" + " as the transformation comes to an end and the itching stops. <Her> new fur follows the lines of <her> figure and is extremely smooth and soft." + "</br>"
 									+ "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in cat-like fur</b>."));
 			break;
+		case SQUIRREL_FUR:
+			transformationSB.append(isPlayer() ? " The " + getSkinType().getName(this) + " covering your body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into a layer of " + getSkinColour(skinType).getName()
+					+ " squirrel-like fur, and you let out a satisfied sigh" + " as the transformation comes to an end and the itching stops. Looking at your new fur, you notice that it follows the lines of your figure and is extremely smooth and soft."
+					+ "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in squirrel-like fur</b>."
+					: UtilText.genderParsing(this,
+							" The " + getSkinType().getName(this) + " covering <her> body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into a layer of " + getSkinColour(skinType).getName()
+									+ " squirrel-like fur, and <she> lets out a satisfied sigh" + " as the transformation comes to an end and the itching stops. <Her> new fur follows the lines of <her> figure and is extremely smooth and soft." + "</br>"
+									+ "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in squirrel-like fur</b>."));
+			break;
 		case HORSE_HAIR:
 			transformationSB.append(isPlayer() ? " The " + getSkinType().getName(this) + " covering your body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into a layer of short " + getSkinColour(skinType).getName()
 					+ " horse-hair, and you let out a satisfied sigh" + " as the transformation comes to an end and the itching stops. Your new hair looks very sleek, and helps to show off your figure, although it's a little coarse to the touch."
@@ -6629,6 +6747,16 @@ public class GameCharacter implements Serializable {
 							" A furry " + getSkinColour(BodyCoveringType.FELINE_FUR).getName() + " cat-like tail sprouts from just above <her> ass, rapidly growing in size until it's almost as long as one of <her> legs."
 									+ " It looks like <she> has a decent amount of control over it, and <she> experimentally twists it around <her> leg." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString()
 									+ ";'>cat-like tail</b>."));
+			break;
+		case SQUIRREL_MORPH:
+			transformationSB.append(isPlayer()
+					? " A furry " + getSkinColour(BodyCoveringType.SQUIRREL_FUR).getName() + " squirrel-like tail sprouts from just above your ass, rapidly growing in size until it's almost as long as your body."
+							+ " You quickly realise that you have a minor amount of control over it, and you can find it balances you out so that you are able to move quickly." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString()
+							+ ";'>squirrel-like tail</b>."
+					: UtilText.genderParsing(this,
+							" A furry " + getSkinColour(BodyCoveringType.SQUIRREL_FUR).getName() + " squirrel-like tail sprouts from just above <her> ass, rapidly growing in size until it's almost as long as <her> body."
+									+ " It looks like <she> has a minor amount of control over it, and <she> experimentally curls it along <her> back." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString()
+									+ ";'>squirrel-like tail</b>."));
 			break;
 		case HORSE_MORPH:
 			transformationSB.append(isPlayer()
@@ -7092,6 +7220,42 @@ public class GameCharacter implements Serializable {
 						+ "</p>"
 						+ "<p>"
 							+ "[npc.Name] now has the [style.boldTfSex(female reproductive system of a cat-morph)], complete with an animalistic [style.boldTfSex(feline pussy)]."
+						+ "</p>"));
+				}
+				break;
+			case SQUIRREL_MORPH:
+				if(isPlayer()) {
+					transformationSB.append(
+							" You let out a squeal of excitement as a wave of pleasure runs up from your groin, and you feel your slit shifting and contracting with a mind of its own."
+							+ " Within moments, the feeling fades away, and you discover that your "+getVaginaName(true)+" has shaped itself into a that of a squirrel-morph."
+							+ " Although it looks like a normal human pussy, a short layer of soft "+getSkinColour(type.getSkinType()).getName()+" fur has grown around it, giving your feminine sex a rather animalistic appearance."
+						+ "</p>"
+						+ "<p>"
+							+ "Just as you think that the transformation has come to an end, your pussy involuntarily clenches down,"
+								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
+							+ " Images of squirrel-like cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their potent seed deep into your rodent womb."
+							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
+						+ "</p>"
+						+ "<p>"
+							+ "You now have the [style.boldTfSex(female reproductive system of a squirrel-morph)], complete with an animalistic [style.boldTfSex(squirrel pussy)]."
+						+ "</p>");
+				} else {
+					transformationSB.append(UtilText.parse(this, 
+							" [npc.She] lets out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, and as [npc.she] feels [npc.her] slit shifting and contracting with a mind of its own,"
+									+ " [npc.she] desperately clamps [npc.her] [npc.legs] shut."
+							+ " Within moments, the feeling fades away, and [npc.she] discovers that [npc.her] "+getVaginaName(true)+" has shaped itself into a that of a squirrel-morph."
+							+ " Although it looks like a normal human pussy, a short layer of soft "+getSkinColour(type.getSkinType()).getName()+" fur has grown around it, giving [npc.her] feminine sex a rather animalistic appearance."
+						+ "</p>"
+						+ "<p>"
+							+ "Just as [npc.she] starts think that the transformation has come to an end, [npc.her] pussy involuntarily clenches down,"
+								+ " and a desperate squeal escapes from between [npc.her] [npc.lips+] as a warm, tingling feeling spreads up through [npc.her] lower abdomen."
+							+ " Images of squirrel-like cocks slamming deep into [npc.her] new pussy flash before [npc.her] eyes,"
+								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their potent seed deep into [npc.her] rodent womb."
+							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
+								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
+						+ "</p>"
+						+ "<p>"
+							+ "[npc.Name] now has the [style.boldTfSex(female reproductive system of a squirrel-morph)], complete with an animalistic [style.boldTfSex(squirrel pussy)]."
 						+ "</p>"));
 				}
 				break;

@@ -1734,6 +1734,37 @@ public enum StatusEffect {
 		}
 	},
 
+	// RODENT:
+	SQUIRREL_MORPH(
+			90,
+			"Squirrel-morph",
+			"raceSquirrelMorph",
+			Colour.RACE_SQUIRREL_MORPH,
+			true,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 5f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "Your body is incredibly agile, and you possess lightning reflexes.";
+			else
+				return UtilText.genderParsing(target, target.getName("The")
+						+ "'s body is incredibly agile, and <she> possesses lightning reflexes.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.SQUIRREL_MORPH
+					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+	},
+
 	// EQUINE:
 	HORSE_MORPH(
 			90,

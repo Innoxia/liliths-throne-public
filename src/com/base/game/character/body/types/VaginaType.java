@@ -27,6 +27,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 
 	WOLF_MORPH(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
 
+	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
+	
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 
 	HORSE_MORPH(BodyCoveringType.EQUINE_VAGINA, Race.HORSE_MORPH),

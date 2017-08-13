@@ -127,6 +127,8 @@ public enum Name {
 				break;
 			case WOLF_MORPH:
 				break;
+			case SQUIRREL_MORPH:
+				break;
 		}
 		
 		if(gc.getFemininity() <= Femininity.MASCULINE.getMaximumFemininity()) {
@@ -159,6 +161,8 @@ public enum Name {
 			case SLIME:
 				break;
 			case WOLF_MORPH:
+				break;
+			case SQUIRREL_MORPH:
 				break;
 		}
 		
