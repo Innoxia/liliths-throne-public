@@ -52,9 +52,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		if (attributeModifiers.isEmpty() && allowRandomEnchantment && clothingType.getRarity() == Rarity.COMMON) {
 			int chance = Util.random.nextInt(100) + 1;
 			Attribute rndAtt = Attribute.attributeBonusesForEnchanting.get(Util.random.nextInt(Attribute.attributeBonusesForEnchanting.size()));
-
+			
+			int maximumEnchantStrength = 5 + (5 * clothingType.getIncompatibleSlots().size());
+			
 			if (chance <= 20) {
-				attributeModifiers.put(rndAtt, -(Util.random.nextInt(5)+1));
+				attributeModifiers.put(rndAtt, -(Util.random.nextInt(maximumEnchantStrength)+1));
 				sealed=true;
 				coreEnchantment = rndAtt;
 				badEnchantment = true;
@@ -69,12 +71,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 					}
 					
 					rarity = Rarity.RARE;
-					attributeModifiers.put(rndAtt, Util.random.nextInt(5)+1);
-					attributeModifiers.put(rndAtt2, Util.random.nextInt(5)+1);
+					attributeModifiers.put(rndAtt, Util.random.nextInt(maximumEnchantStrength)+1);
+					attributeModifiers.put(rndAtt2, Util.random.nextInt(maximumEnchantStrength)+1);
 					
 				} else {
 					rarity = Rarity.UNCOMMON;
-					attributeModifiers.put(rndAtt, Util.random.nextInt(5)+1);
+					attributeModifiers.put(rndAtt, Util.random.nextInt(maximumEnchantStrength)+1);
 				}
 				coreEnchantment = rndAtt;
 				badEnchantment = false;

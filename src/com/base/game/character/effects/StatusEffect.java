@@ -1438,7 +1438,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if(!target.getRace().isVulnerableToLilithsLustStorm() && !target.getLocationPlace().isStormImmune()) {
+			if(!target.getRace().isVulnerableToLilithsLustStorm() && target.isPlayer() && !target.getLocationPlace().isStormImmune()) {
 				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM;
 			} else {
 				return false;
@@ -1453,6 +1453,7 @@ public enum StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStorm();
 		}
 	},
+	
 	WEATHER_STORM_VULNERABLE(100,
 			"Arcane storm",
 			"weatherDayStorm",
@@ -1478,7 +1479,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if(target.getRace().isVulnerableToLilithsLustStorm() && !target.getLocationPlace().isStormImmune()) {
+			if(target.getRace().isVulnerableToLilithsLustStorm() && !target.isPlayer() && !target.getLocationPlace().isStormImmune()) {
 				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM;
 			} else {
 				return false;

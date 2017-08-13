@@ -16,14 +16,8 @@ import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisAnus;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisVagina;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerTailAnus;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerTailVagina;
-import com.base.game.sex.sexActions.baseActionsPartner.PartnerTongueMouth;
-import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerNipple;
-import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
-import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
-import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisVagina;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerTailAnus;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerTailVagina;
-import com.base.game.sex.sexActions.baseActionsPlayer.PlayerTongueMouth;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
@@ -43,13 +37,11 @@ import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailMouth;
 import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailNipple;
 import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailVagina;
 import com.base.game.sex.sexActions.universal.GenericOrgasms;
-import com.base.game.sex.sexActions.universal.dom.DomBackToWall;
-import com.base.game.sex.sexActions.universal.sub.SubDoggy;
 
 /**
  * @since 0.1.69
- * @version 0.1.82
- * @author Innoxia
+ * @version 0.1.83
+ * @author Innoxia, BelshazzarII
  */
 public class SMDomSelfDoggy extends SexManagerDefault {
 

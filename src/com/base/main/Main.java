@@ -236,7 +236,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Shas'O Dal'yth Kauyon Kais Taku", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Blacktouch", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("ForeverFree2MeTaMax", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("T. D. Y. K.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("Jordan Aitken", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("B.", "", 0, 0, 1, 0)); // TODO
 		
 		

@@ -11,7 +11,6 @@ import com.base.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerNipple;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerUrethra;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
-import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisAnus;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisVagina;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerTailAnus;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerTailVagina;
@@ -93,7 +92,7 @@ public class SMDomBackToWall extends SexManagerDefault {
 				PartnerFingerNipple.class,
 				PartnerFingerUrethra.class,
 				PartnerFingerVagina.class,
-				PartnerPenisAnus.class,
+//				PartnerPenisAnus.class,
 				PartnerPenisVagina.class,
 				PartnerTailVagina.class,
 				PartnerTailAnus.class,
