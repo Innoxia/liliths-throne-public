@@ -930,7 +930,7 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot more fit..."
+			return "You start to feel a lot fitter..."
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.FITNESS, 3)
 					+ "</br>"
@@ -1079,7 +1079,7 @@ public enum ItemEffectType {
 	},
 	
 	BOTTLED_ESSENCE_SQUIRREL_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldCat(Squirrel-morph)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldSquirrel(Squirrel-morph)] essence")),
 			Colour.RACE_SQUIRREL_MORPH) {
 		
 		@Override
@@ -1095,7 +1095,7 @@ public enum ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
 			target.incrementEssenceCount(TFEssence.SQUIRREL_MORPH, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldCat(Squirrel-morph)] essence!";
+			return "You have absorbed [style.boldGood(+1)] [style.boldSquirrel(Squirrel-morph)] essence!";
 		}
 	},
 	

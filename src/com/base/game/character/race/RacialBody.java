@@ -375,6 +375,8 @@ public enum RacialBody {
 				return RacialBody.WOLF_MORPH;
 			case SLIME:
 				return RacialBody.SLIME;
+			case SQUIRREL_MORPH:
+				return RacialBody.SQUIRREL_MORPH;
 		}
 		return RacialBody.HUMAN;
 	}

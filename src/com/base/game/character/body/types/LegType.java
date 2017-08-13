@@ -6,7 +6,7 @@ import com.base.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.69.9
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum LegType implements BodyPartTypeInterface {
@@ -21,7 +21,7 @@ public enum LegType implements BodyPartTypeInterface {
 	
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
 
-	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.CAT_MORPH),
+	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
 	
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 

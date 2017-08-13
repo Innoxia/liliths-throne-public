@@ -221,6 +221,8 @@ public abstract class NPC extends GameCharacter {
 					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME)));
 				case SLIME:
 					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
+				case SQUIRREL_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)));
 			}
 			
 		} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(getRace())) {
@@ -243,6 +245,8 @@ public abstract class NPC extends GameCharacter {
 					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_HARPY)));
 				case SLIME:
 					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
+				case SQUIRREL_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_SQUIRREL_MORPH)));
 			}
 		
 		} else {
@@ -265,6 +269,8 @@ public abstract class NPC extends GameCharacter {
 					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY)));
 				case SLIME:
 					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
+				case SQUIRREL_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)));
 			}
 		}
 		

@@ -97,7 +97,7 @@ import com.base.world.places.PlaceInterface;
  * The class for all the game's characters. I think this is the biggest class in the game.
  * 
  * @since 0.1.0
- * @version 0.1.82
+ * @version 0.1.83
  * @author Innoxia
  */
 public class GameCharacter implements Serializable {
@@ -3540,13 +3540,15 @@ public class GameCharacter implements Serializable {
 		case SQUIRREL_MORPH:
 			transformationSB.append(isPlayer()
 					? " A layer of smooth " + getSkinColour(BodyCoveringType.SQUIRREL_FUR).getName() + " fur quickly grows over your arms and hands to replace your old " + getSkinColour(getArmType().getSkinType()).getName() + " "
-							+ getArmType().getSkinType().getName(this) + "." + " As your new fur finishes growing over the backs of your hands, sharp, claws grow to replace your fingernails."
+							+ getArmType().getSkinType().getName(this) + "."
+					+ " As your new fur finishes growing over the backs of your hands, sharp, claws grow to replace your fingernails."
 							+ " Turning your hands over, you see your palms rapidly growing fur, and before you know it, you're left with a pair of anthropomorphic, squirrel-like hands."
 							+ " At your upper-biceps, your new fur smoothly transitions into the " + getSkinType().getName(this) + " that's covering the rest of your body." + "</br>" + "You now have anthropomorphic <b style='color:"
 							+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>squirrel-like arms</b>."
 					: UtilText.genderParsing(this,
 							" A layer of smooth " + getSkinColour(BodyCoveringType.SQUIRREL_FUR).getName() + " fur quickly grows over <her> arms and hands to replace <her> old " + getSkinColour(getArmType().getSkinType()).getName() + " "
-									+ getArmType().getSkinType().getName(this) + "." + " As the new fur finishes growing over the backs of <her> hands, sharp, claws grow to replace <her> fingernails."
+									+ getArmType().getSkinType().getName(this) + "."
+									+ " As the new fur finishes growing over the backs of <her> hands, sharp, claws grow to replace <her> fingernails."
 									+ " <She> turns <her> hands over to reveal that <her> palms are rapidly growing fur, and after only a moment, <she>'s left with a pair of anthropomorphic, squirrel-like hands."
 									+ " At <her> upper-biceps, <her> new fur smoothly transitions into the " + getSkinType().getName(this) + " that's covering the rest of <her> body." + "</br>" + "<She> now has anthropomorphic <b style='color:"
 									+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>squirrel-like arms</b>."));
@@ -4290,7 +4292,7 @@ public class GameCharacter implements Serializable {
 							" [npc.Her] nipples shift and change shape to look like regular human ones, but despite their common appearance, a hidden change takes place deep within [npc.her] chest."
 							+ " As [npc.she] feels [npc.her] areolae stop tingling, a little drop of milk beads out from [npc.her] teats, revealing the main effect of the transformation."
 								+ "</br>"
-								+ "[npc.She] now has [style.boldSex(feline nipples)], and when lactating, [npc.she] will produce [style.boldSex(feline milk)]."
+								+ "[npc.She] now has [style.boldSex(squirrel nipples)], and when lactating, [npc.she] will produce [style.boldSex(squirrel milk)]."
 								+ "</p>"));
 				}
 				break;
@@ -6751,7 +6753,8 @@ public class GameCharacter implements Serializable {
 		case SQUIRREL_MORPH:
 			transformationSB.append(isPlayer()
 					? " A furry " + getSkinColour(BodyCoveringType.SQUIRREL_FUR).getName() + " squirrel-like tail sprouts from just above your ass, rapidly growing in size until it's almost as long as your body."
-							+ " You quickly realise that you have a minor amount of control over it, and you can find it balances you out so that you are able to move quickly." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString()
+							+ " You quickly realise that you have a minor amount of control over it, and you find that it balances you out so that you are able to move quickly."
+					+ "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString()
 							+ ";'>squirrel-like tail</b>."
 					: UtilText.genderParsing(this,
 							" A furry " + getSkinColour(BodyCoveringType.SQUIRREL_FUR).getName() + " squirrel-like tail sprouts from just above <her> ass, rapidly growing in size until it's almost as long as <her> body."

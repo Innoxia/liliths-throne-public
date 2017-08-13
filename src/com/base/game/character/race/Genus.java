@@ -12,7 +12,7 @@ public enum Genus {
 	HUMAN("human",
 			Colour.RACE_HUMAN),
 	RODENT("rodent",
-			Colour.RACE_SQUIRREL_MORPH), //TODO
+			Colour.RACE_SQUIRREL_MORPH),
 	SLIME("slime",
 			Colour.RACE_SLIME),
 	CANINE("canine",

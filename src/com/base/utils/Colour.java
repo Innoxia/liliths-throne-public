@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum Colour {

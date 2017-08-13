@@ -499,7 +499,7 @@ public enum ItemType {
 			false,
 			"Squirrel Java",
 			"A glass bottle of what looks to be some kind of coffee."
-				+ " A label on the front shows a squirrel-girl lining herself up over a bottle, she seems to be fingering herself into the bottle to provide some cream for the coffee.",
+				+ " A label on the front shows a squirrel-girl fingering herself over the top of a bottle just like this one; her juices dripping down into the coffee to provide some extra cream.",
 			"attributeSquirrelMorphDrink",
 			Colour.ATTRIBUTE_FITNESS,
 			25,
@@ -526,8 +526,8 @@ public enum ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
 				return "<p>"
-							+ "You pop off the cap and start drinking the bottle of 'Squirrel Java'."
-							+ " It doesn't taste anything like any other coffee you've ever drank, and it reminds you more of a sugary energy drink rather than any caffinated beverage."
+							+ "You unscrew the cap and start drinking the bottle of 'Squirrel Java'."
+							+ " Its taste is quite unlike that of any other coffee you've ever drunk, and it reminds you more of a sugary energy drink rather than any caffeinated beverage."
 							+ " As the last few drops slide down your throat, a strange, sweet aftertaste lingers on your tongue."
 						+ "</p>";
 				
@@ -768,11 +768,10 @@ public enum ItemType {
 	},
 	
 	RACE_INGREDIENT_SQUIRREL_MORPH(
-			"a",
+			"a bag of",
 			false,
 			"Round Nuts",
-			"A small, bag of round nut meats similar in shape to walnuts."
-					+ " A label on the side shows a greater squirrel-girl devouring a plate of what looks to be this bag's contents; some sort of nut meat.",
+			"A small bag of round nuts. A label on one side shows a greater squirrel-girl stuffing a handful of nuts into her mouth.",
 			"raceSquirrelMorphRoundNuts",
 			Colour.RACE_SQUIRREL_MORPH,
 			40,
@@ -800,14 +799,14 @@ public enum ItemType {
 			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
 				return "<p>"
 							+ "You pull at the sides of one end of the bag, and open the package."
-							+ " A rich, earthy smell accompanies the sight of what looks to be nut meat, and you find yourself unable to resist the delicious-looking display."
-							+ " You quickly wolf down the can's contents, finding that it was as delicious as it looked."
+							+ " A rich, earthy smell accompanies the sight of the round nights inside, and you find yourself unable to resist the delicious-looking display."
+							+ " You quickly wolf down the bag's contents, finding that the nuts are as delicious as they look."
 						+ "</p>";
 				
 			} else {
 				return UtilText.parse(target,
 						"<p>"
-						+ "[npc.Name] pulls out a bag of 'Round Nuts', and, opening the bag, quickly devours the contents."
+								+ "[npc.Name] pulls out a bag of 'Round Nuts', and, opening the bag, quickly devours the contents."
 						+ "</p>");
 			}
 		}

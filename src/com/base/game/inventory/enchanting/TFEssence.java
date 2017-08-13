@@ -10,7 +10,7 @@ import com.base.utils.Util;
 
 /**
  * @since 0.1.7
- * @version 0.1.7
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum TFEssence {

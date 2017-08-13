@@ -1754,8 +1754,7 @@ public enum StatusEffect {
 			if (target.isPlayer())
 				return "Your body is incredibly agile, and you possess lightning reflexes.";
 			else
-				return UtilText.genderParsing(target, target.getName("The")
-						+ "'s body is incredibly agile, and <she> possesses lightning reflexes.");
+				return UtilText.parse(target, "[npc.Name]'s body is incredibly agile, and [npc.she] possesses lightning reflexes.");
 		}
 
 		@Override
