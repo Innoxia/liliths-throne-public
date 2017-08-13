@@ -760,6 +760,60 @@ public enum Transformation {
 			}
 		}
 	},
+	STATS_SQUIRREL_MORPH("squirrel-morph stats") {
+		@Override
+		public String applyEffect(GameCharacter target, RacialBody body) {
+			if (target.getBaseAttributeValue(Attribute.STRENGTH) < 10)
+				attributeChanges.add(Attribute.STRENGTH);
+			if (target.getBaseAttributeValue(Attribute.INTELLIGENCE) < 30)
+				attributeChanges.add(Attribute.INTELLIGENCE);
+			if (target.getBaseAttributeValue(Attribute.FITNESS) < 50)
+				attributeChanges.add(Attribute.FITNESS);
+			if (target.getBaseAttributeValue(Attribute.CORRUPTION) < 15)
+				attributeChanges.add(Attribute.CORRUPTION);
+
+			Attribute a = attributeChanges.get(Util.random.nextInt(attributeChanges.size()));
+
+			switch (a) {
+				case STRENGTH:
+					return "<p>"
+								+ "An image of a powerful-looking squirrel-boy flashes through your mind, and you feel your muscles grow as your body tries to compete with his strength."
+							+ "</p>"
+							+ "<p>" + target.incrementAttribute(Attribute.STRENGTH, 1) + "</p>";
+				
+				case INTELLIGENCE:
+					return "<p>"
+								+ "An image of a lesser squirrel-girl flashes through your mind, and as she instructs you on how to behave, you find that your mind starts to feel somehow clearer than it did before."
+							+ "</p>"
+							+ "<p>" + target.incrementAttribute(Attribute.INTELLIGENCE, 1) + "</p>";
+	
+				case FITNESS:
+					return "<p>"
+								+ "For a split second, you find yourself alongside an energetic squirrel-girl, leaping across rooftops under the light of a full moon."
+							+ "</p>"
+							+ "<p>" + target.incrementAttribute(Attribute.FITNESS, 1) + "</p>";
+
+				case CORRUPTION:
+					return "<p>"
+								+ "Your mind suddenly feels foggy, and as you shake your head to try and clear it, a strange image flashes before your eyes."
+								+ " A lesser squirrel-girl is bouncing up and down on a lucky squirrel-boy's cock, in the reverse-cowgirl position."
+								+ " As the thick cock slides in and out of her dripping pussy, she focuses her attention on giving handjobs to the two squirrel-boys that are standing on either side of her."
+								+ " For a brief moment, you suddenly slip into the body of the squirrel-girl, and as the squirrel-boy you're riding pulls you down onto his cock, all three of your partners start to cum."
+								+ " At that moment, your mind instantly clears, and you snap back to reality, feeling a little dirtier than before."
+							+ "</p>"
+							+ "<p>"
+							+ target.incrementAttribute(Attribute.CORRUPTION, 1) + "</p>";
+					
+				default:
+					target.incrementHealth(25);
+					target.incrementMana(25);
+					target.incrementStamina(25);
+					return "<p>" 
+								+ "A surge of energy flows through your body, and you realise that you've been healed by some sort of arcane power."
+							+ "</p>";
+			}
+		}
+	},
 	STATS_HORSE_MORPH("horse-morph stats") {
 		@Override
 		public String applyEffect(GameCharacter target, RacialBody body) {

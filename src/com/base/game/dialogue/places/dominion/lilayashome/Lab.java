@@ -1925,6 +1925,9 @@ public class Lab {
 					case WOLF_MORPH:
 						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a very masculine wolf-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 						break;
+					case SQUIRREL_MORPH:
+						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a very handsome squirrel-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
+						break;
 					default:
 						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strange young man bending down over you, planting a kiss on your cheek and muttering something in your ear before walking out the door...");
 						break;
@@ -1956,6 +1959,9 @@ public class Lab {
 							break;
 						case SLIME:
 							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a slime-boy bending down over you, who plants a wet kiss on your cheek and mutters something in your ear before walking out the door...");
+							break;
+						case SQUIRREL_MORPH:
+							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a very handsome squirrel-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 							break;
 						case WOLF_MORPH:
 							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a very masculine wolf-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
@@ -1992,6 +1998,9 @@ public class Lab {
 					case SLIME:
 						UtilText.nodeContentSB.append("</br></br>A gooey slime-girl slides down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
 						break;
+					case SQUIRREL_MORPH:
+						UtilText.nodeContentSB.append("</br></br>A charming squirrel-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
+						break;
 					case WOLF_MORPH:
 						UtilText.nodeContentSB.append("</br></br>A grinning wolf-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
 						break;
@@ -2025,6 +2034,9 @@ public class Lab {
 							break;
 						case SLIME:
 							UtilText.nodeContentSB.append("</br></br>A gooey slime-girl slides down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
+							break;
+						case SQUIRREL_MORPH:
+							UtilText.nodeContentSB.append("</br></br>A charming squirrel-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
 							break;
 						case WOLF_MORPH:
 							UtilText.nodeContentSB.append("</br></br>A grinning wolf-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
@@ -2458,6 +2470,9 @@ public class Lab {
 					case SLIME:
 						litterSB.append(" bubbly");
 						break;
+					case SQUIRREL_MORPH:
+						litterSB.append(" playful");
+						break;
 					case WOLF_MORPH:
 						litterSB.append(" powerful");
 						break;
@@ -2496,6 +2511,9 @@ public class Lab {
 						break;
 					case SLIME:
 						litterSB.append(" bubbly");
+						break;
+					case SQUIRREL_MORPH:
+						litterSB.append(" playful");
 						break;
 					case WOLF_MORPH:
 						litterSB.append(" powerful");
@@ -2536,6 +2554,9 @@ public class Lab {
 					case SLIME:
 						litterSB.append(" bubbly");
 						break;
+					case SQUIRREL_MORPH:
+						litterSB.append(" wily");
+						break;
 					case WOLF_MORPH:
 						litterSB.append(" grinning");
 						break;
@@ -2574,6 +2595,9 @@ public class Lab {
 						break;
 					case SLIME:
 						litterSB.append(" bubbly");
+						break;
+					case SQUIRREL_MORPH:
+						litterSB.append(" wily");
 						break;
 					case WOLF_MORPH:
 						litterSB.append(" grinning");

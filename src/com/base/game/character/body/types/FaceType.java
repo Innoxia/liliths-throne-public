@@ -22,6 +22,8 @@ public enum FaceType implements BodyPartTypeInterface {
 
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, TongueType.CAT_MORPH, Race.CAT_MORPH),
 
+	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, TongueType.SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
+
 	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, TongueType.HORSE_MORPH, Race.HORSE_MORPH),
 
 	SLIME(BodyCoveringType.SLIME, TongueType.SLIME, Race.SLIME),
@@ -88,6 +90,8 @@ public enum FaceType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("perfect", "flawless", "demonic");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("anthropomorphic dog-like", "dog-like", "canine");
+			case SQUIRREL_MORPH:
+				return UtilText.returnStringAtRandom("anthropomorphic squirrel-like", "squirrel-like", "rodent");
 			case HARPY:
 				return UtilText.returnStringAtRandom("anthropomorphic bird-like", "bird-like");
 			case HORSE_MORPH:

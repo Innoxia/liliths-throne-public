@@ -64,7 +64,9 @@ public enum PenisType implements BodyPartTypeInterface {
 		}
 	},
 
-	AVIAN(BodyCoveringType.HUMAN, Race.HARPY);
+	AVIAN(BodyCoveringType.HUMAN, Race.HARPY),
+	
+	SQUIRREL(BodyCoveringType.HUMAN, Race.SQUIRREL_MORPH);
 
 	
 	private BodyCoveringType skinType;
@@ -106,6 +108,8 @@ public enum PenisType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case SLIME:
 				return UtilText.returnStringAtRandom("slime-cock", "slimy cock", "slime-dick");
+			case SQUIRREL:
+				return UtilText.returnStringAtRandom("squirrel-cock", "rodent cock", "squirrel-like cock", "squirrel-dick");
 			default:
 				return UtilText.returnStringAtRandom("cock", "shaft");
 		}
@@ -132,6 +136,8 @@ public enum PenisType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case SLIME:
 				return UtilText.returnStringAtRandom("slime-cocks", "slimy cocks", "slime-dicks");
+			case SQUIRREL:
+				return UtilText.returnStringAtRandom("squirrel-cocks", "rodent cocks", "squirrel-like cocks", "squirrel-dicks");
 			default:
 				return UtilText.returnStringAtRandom("cocks", "shafts");
 		}
@@ -161,6 +167,8 @@ public enum PenisType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("");
 					case SLIME:
 						return UtilText.returnStringAtRandom("gooey");
+					case SQUIRREL:
+						return UtilText.returnStringAtRandom("");
 					default:
 						return UtilText.returnStringAtRandom("");
 				}

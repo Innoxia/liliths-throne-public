@@ -94,6 +94,20 @@ public enum TransformationEffect {
 		}
 	},
 
+	// RODENT:
+	SQUIRREL_MORPH_MINOR("squirrel-morph transformation", "Weak squirrel-morph transformation.") {
+		@Override
+		public String applyEffect(GameCharacter target) {
+			return genericMinorTransformation(target, RacialBody.SQUIRREL_MORPH, 0.75f, Transformation.STATS_SQUIRREL_MORPH);
+		}
+	},
+	SQUIRREL_MORPH_MAJOR("squirrel-morph major transformation", "Powerful squirrel-morph transformation.") {
+		@Override
+		public String applyEffect(GameCharacter target) {
+			return genericMajorTransformation(target, RacialBody.SQUIRREL_MORPH, 0.75f, Transformation.STATS_SQUIRREL_MORPH);
+		}
+	},
+
 	// EQUINE:
 	HORSE_MORPH_MINOR("horse-morph transformation", "Weak horse-morph transformation.") {
 		@Override
