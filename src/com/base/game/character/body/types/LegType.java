@@ -21,7 +21,7 @@ public enum LegType implements BodyPartTypeInterface {
 	
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
 
-	BOVINE(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
+  BOVINE(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
 	
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
 	

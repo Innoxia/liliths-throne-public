@@ -25,9 +25,9 @@ public enum TailType implements BodyPartTypeInterface {
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
-	
+
 	BOVINE(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
-	
+
 	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH),
 
 	HARPY(BodyCoveringType.FEATHERS, Race.HARPY);

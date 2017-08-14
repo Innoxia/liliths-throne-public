@@ -1158,8 +1158,7 @@ public enum ItemEffectType {
 			target.incrementEssenceCount(TFEssence.CAT_MORPH, 1);
 			return "You have absorbed [style.boldGood(+1)] [style.boldCat(Cat-morph)] essence!";
 		}
-	},
-	
+
 	BOTTLED_ESSENCE_COW_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(+1)] [style.boldCat(Cow-morph)] essence")),
 			Colour.RACE_COW_MORPH) {
@@ -1180,8 +1179,8 @@ public enum ItemEffectType {
 			return "You have absorbed [style.boldGood(+1)] [style.boldCat(Cow-morph)] essence!";
 		}
 	},
-	
-	BOTTLED_ESSENCE_SQUIRREL_MORPH(Util.newArrayListOfValues(
+
+  BOTTLED_ESSENCE_SQUIRREL_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(+1)] [style.boldSquirrel(Squirrel-morph)] essence")),
 			Colour.RACE_SQUIRREL_MORPH) {
 		
@@ -1800,7 +1799,7 @@ public enum ItemEffectType {
 			return getRacialEffect(Race.CAT_MORPH, primaryModifier, secondaryModifier, user, target);
 		}
 	},
-	
+
 	RACE_COW_MORPH(null,
 			Colour.RACE_COW_MORPH) {
 
