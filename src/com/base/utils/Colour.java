@@ -186,7 +186,9 @@ public enum Colour {
 	CLOTHING_COPPER(Util.newColour(0xD46F2B), Util.newColour(0xD46F2B), "copper"),
 	CLOTHING_SILVER(Util.newColour(0xC4C4C4), Util.newColour(0xC4C4C4), "silver"),
 	CLOTHING_GOLD(Util.newColour(0xEBC633), Util.newColour(0xEBC633), "gold"),
-
+	CLOTHING_ROSE_GOLD(Util.newColour(0xE7C1BB), Util.newColour(0xE7C1BB), "rose gold"),
+	CLOTHING_PLATINUM(Util.newColour(0xE4E5E2), Util.newColour(0xE4E5E2), "platinum"),
+	
 	// For special use with rainbow clothing:
 	CLOTHING_MULTICOLOURED(Util.newColour(0xff3030), Util.newColour(0xccffff), "multicoloured"),
 
@@ -311,8 +313,10 @@ public enum Colour {
 			new ListValue<Colour>(CLOTHING_STEEL),
 			new ListValue<Colour>(CLOTHING_COPPER),
 			new ListValue<Colour>(CLOTHING_SILVER),
-			new ListValue<Colour>(CLOTHING_GOLD));
-
+			new ListValue<Colour>(CLOTHING_ROSE_GOLD)),
+			new ListValue<Colour>(CLOTHING_GOLD)),
+			new ListValue<Colour>(CLOTHING_PLATINUM));
+	
 	private Color colour, lightColour;
 	private String name;
 	private List<String> formattingNames;
