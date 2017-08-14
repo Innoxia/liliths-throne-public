@@ -169,7 +169,38 @@ public enum Race {
 		}
 	},
 
-	// CANINES:
+	// BOVINES:
+		COW_MORPH("cow-morph",
+			"cow-boy",
+			"cow-girl",
+			"cow-boys",
+			"cow-girls",
+
+			"<p>"
+					+ "Bovines are a humanoid race most commonly found in the city of Dominion."
+					+ " Bovines are quite stupid and the females are very submissive, and will happily do whatever their friends tell them to do."
+				+ "</p>",
+				
+				"<p>"
+					+ " They are mostly known for their females having gigantic breasts and heavy lactation."
+					+ " Due to this, they are often the target of unwanted attention from the other races."
+				+ "Bovines love to have their breasts milked, and prefer their sexual partners to pay attention to their breasts."
+				+	"</p>"
+				,
+
+				Colour.RACE_COW_MORPH,
+				Genus.BOVINE,
+				Disposition.CIVILIZED,
+				StatusEffect.COW_MORPH,
+				Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
+				true,
+				0.5f,
+				1,
+				2,
+				
+				TFEssence.COW_MORPH),
+
+		// CANINES:
 	DOG_MORPH("dog-morph",
 			"dog-boy",
 			"dog-girl",

@@ -3473,6 +3473,18 @@ public class GameCharacter implements Serializable {
 					: UtilText.genderParsing(this, " Within moments, <her> upper limbs have turned into human arms, complete with regular human hands." + " They're covered in a layer of ordinary "
 							+ getSkinColour(BodyCoveringType.HUMAN).getName() + " skin." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>human arms</b>."));
 			break;
+		case COW_MORPH:
+			transformationSB.append(isPlayer()
+					? " A layer of short " + getSkinColour(BodyCoveringType.BOVINE_FUR).getName() + " cow-hair quickly grows over your arms and hands to replace your old " + getSkinColour(getArmType().getSkinType()).getName() + " "
+							+ getArmType().getSkinType().getName(this) + "." + " As your new hair finishes growing over the backs of your hands, your fingernails grow thicker and transform into tough, hoof-like nails, but despite their appearance,"
+							+ " you're relieved to find that they've lost none of their dexterity." + " At your upper-biceps, your new cow-hair smoothly transitions into the " + getSkinType().getName(this) + " that's covering the rest of your body."
+							+ "</br>" + "You now have anthropomorphic <b style='color:" + Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>cow-like arms</b>."
+					: UtilText.genderParsing(this,
+							" A layer of short " + getSkinColour(BodyCoveringType.BOVINE_FUR).getName() + " cow-hair quickly grows over <her> arms and hands to replace <her> old " + getSkinColour(getArmType().getSkinType()).getName() + " "
+									+ getArmType().getSkinType().getName(this) + "." + " As the new hair finishes growing over the backs of <her> hands, <her> fingernails grow thicker and transform into tough, hoof-like nails."
+									+ " At <her> upper-biceps, <her> new cow-hair smoothly transitions into the " + getSkinType().getName(this) + " that's covering the rest of <her> body." + "</br>" + "<She> now has anthropomorphic <b style='color:"
+									+ Colour.TRANSFORMATION_LESSER.toWebHexString() + ";'>cow-like arms</b>."));
+			break;
 		case DEMON_COMMON:
 			transformationSB.append(isPlayer()
 					? " You feel your upper limbs slimming down to become slender, human-like arms. Your hands similarly transform into more delicate versions of their human counterparts." + " As the transformation finishes, a layer of flawless "
@@ -3695,6 +3707,23 @@ public class GameCharacter implements Serializable {
 								+ "</br>"
 								+ "[npc.She] now has a [style.boldSex(normal human asshole)]."
 								+ "</p>"));
+			}
+			break;
+		case COW_MORPH:
+			if (isPlayer()) {
+				transformationSB.append(" You discover that the rim of your asshole has puffed up and grown larger, and you take a sharp intake of breath as you realise that your black-skinned anus now looks like one you'd find on a cow."
+						+ " Like the rest of your body, your ass is still covered in [pc.assColour] [pc.assSkin], and you realise that the transformation was solely focused on your asshole."
+						+ "</br>"
+						+ "You now have a [style.boldSex(puffy cow-like asshole)]."
+						+ "</p>");
+			} else {
+				transformationSB.append(UtilText.parse(this,
+						" [npc.She] soon discovers that the rim of [npc.her] asshole has puffed up and grown larger,"
+							+ " and [npc.she] takes a sharp intake of breath as [npc.she] realises that [npc.her] black-skinned anus now looks like one found on a cow."
+						+ " Like the rest of [npc.her] body, [npc.her] ass is still covered in [npc.assColour] [npc.assSkin], as the transformation was solely focused on [npc.her] asshole."
+						+ "</br>"
+						+ "[npc.She] now has a [style.boldSex(puffy cow-like asshole)]."
+						+ "</p>"));
 			}
 			break;
 		case DEMON_COMMON:
@@ -4206,6 +4235,23 @@ public class GameCharacter implements Serializable {
 								+ "</p>"));
 				}
 				break;
+			case COW_MORPH:
+				if (isPlayer()) {
+					transformationSB.append(
+							" Your nipples shift and change shape to look like cow teats, and you can feel a hidden change taking place deep within your chest."
+							+ " As your areolae finally stop tingling, a little drop of milk beads out from your teats, revealing the main effect of your transformation."
+							+ " Like the rest of your body, your chest is still covered in [pc.breastsColour] [pc.breastsSkin], and you realise that the transformation was solely focused on your nipples."
+							+ "</br>"
+							+ "You now have [style.boldSex(cow teats)], and when lactating, you will produce [style.boldSex(bovine milk)]."
+							+ "</p>");
+				} else {
+					transformationSB.append(UtilText.parse(this,
+							" [npc.Her] nipples shift and change shape to look like cow teats, and a hidden change takes place deep within [npc.her] chest."
+							+ " As [npc.she] feels [npc.her] areolae stop tingling, a little drop of milk beads out from [npc.her] teats, revealing the main effect of the transformation."
+								+ "</br>"
+								+ "[npc.She] now has [style.boldSex(cow teats)], and when lactating, [npc.she] will produce [style.boldSex(bovine milk)]."
+								+ "</p>"));
+				}
 			case DEMON_COMMON:
 				if (isPlayer()) {
 					transformationSB.append(
@@ -4807,6 +4853,13 @@ public class GameCharacter implements Serializable {
 					: UtilText.genderParsing(this, " The transformation is over in a matter of seconds, leaving <herPro> with a wolf-morph's " + getHairColour(BodyCoveringType.HAIR_LYCAN_FUR).getName() + ", fur-like hair." + "</br>"
 							+ "<She> nwo has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry wolf-like hair</b>."));
 			break;
+		case HAIR_BOVINE_FUR:
+			transformationSB.append(isPlayer()
+					? " The feeling goes away almost as quickly as it came, leaving you with a cow-morph's " + getHairColour(BodyCoveringType.HAIR_BOVINE_FUR).getName() + ", fur-like hair." + "</br>" + "You now have <b style='color:"
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry cow-like hair</b>."
+					: UtilText.genderParsing(this, " The transformation is over in a matter of seconds, leaving <herPro> with a cow-morph's " + getHairColour(BodyCoveringType.HAIR_LYCAN_FUR).getName() + ", fur-like hair." + "</br>"
+							+ "<She> nwo has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry cow-like hair</b>."));
+			break;
 		case HAIR_FELINE_FUR:
 			transformationSB.append(isPlayer()
 					? " The feeling goes away almost as quickly as it came, leaving you with a cat-morph's " + getHairColour(BodyCoveringType.HAIR_FELINE_FUR).getName() + ", fur-like hair." + "</br>" + "You now have <b style='color:"
@@ -5007,6 +5060,16 @@ public class GameCharacter implements Serializable {
 							+ "You now have a <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>human face</b>."
 					: UtilText.genderParsing(this, " Thankfully for <herPro>, the transformation is over within a few moments, leaving <herPro> with a normal human face, covered in "
 							+ getSkinColour(BodyCoveringType.HUMAN).getName() + " skin." + "</br>" + "<She> now has <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>human face</b>."));
+			break;
+		case COW_MORPH:
+			transformationSB.append(isPlayer()
+					? " You feel your nose and mouth twitching and transforming as they push out into an anthropomorphic cow-like muzzle, and your tongue grows longer and stronger, turning into a cow-like tongue." + " A layer of short, "
+							+ getSkinColour(BodyCoveringType.HORSE_HAIR).getName() + " cow-hair quickly grows to cover your new face, and as the transformation ends, you realise that you've now got the face of a greater cow-morph." + "</br>"
+							+ "You now have an <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>anthropomorphic cow-like face</b>."
+					: UtilText.genderParsing(this,
+							" <Her> nose and mouth twitch and transform as they push out into an anthropomorphic cow-like muzzle, and <her> tongue grows longer and stronger, turning into a cow-like tongue." + " A layer of short, "
+									+ getSkinColour(BodyCoveringType.HORSE_HAIR).getName() + " cow-hair quickly grows to cover <her> new face, and as the transformation ends, <she>'s left with the face of a greater cow-morph." + "</br>"
+									+ "<She> now has an <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>anthropomorphic cow-like face</b>."));
 			break;
 		case DEMON_COMMON:
 			transformationSB.append(isPlayer()
@@ -5293,6 +5356,13 @@ public class GameCharacter implements Serializable {
 						: UtilText.genderParsing(this, " By the time <she> opens them again, they've changed into normal human eyes." + "</br>" + "<She> now has a pair of <b style='color:"
 								+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + " human eyes</b>."));
 				break;
+			case EYE_BOVINE:
+				transformationSB.append(isPlayer()
+						? " Your pupils squash down and become slightly more horizontal, while your irises shift to become slightly larger than those found on a human." + "</br>" + "You now have a pair of anthropomorphic <b style='color:"
+								+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + ", cow-like eyes</b>."
+						: UtilText.genderParsing(this, " <Her> pupils squash down and become slightly more horizontal, while <her> irises shift to become slightly larger than those found on a human." + "</br>"
+								+ "<She> now has a pair of anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>" + getEyeColour(type).getName() + ", cow-like eyes</b>."));
+				break;
 			case EYE_DEMON_COMMON:
 				transformationSB.append(isPlayer()
 						? " Your pupils slim down and become narrow slits, while your irises shift to become slightly larger than those found on a human." + "</br>" + "You now have a pair of <b style='color:"
@@ -5441,6 +5511,16 @@ public class GameCharacter implements Serializable {
 							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>human ears</b>."
 					: UtilText.genderParsing(this, " Within moments, they've changed into normal human ears, covered in a layer of " + getSkinColour(getSkinType()).getName() + " skin." + "</br>"
 							+ "<She> now has a pair of <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>human ears</b>."));
+			break;
+		case COW_MORPH:
+			transformationSB.append(isPlayer()
+					? " They quickly grow into long ovals, and shift to flop over on the side of your head vastly different than a normal pair of human ears would." + " A layer of short " + getSkinColour(BodyCoveringType.BOVINE_FUR).getName()
+							+ " hair grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new cow-like ears back and forth." + "</br>"
+							+ "You now have a pair of anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>cow-like ears</b>."
+					: UtilText.genderParsing(this,
+							" They quickly grow into sturdy little upright points, and shift to flop over the side of <her> head vastly different than a normal pair of human ears would." + " A layer of short " + getSkinColour(BodyCoveringType.BOVINE_FUR).getName()
+									+ " hair grows to cover them, and as the transformation finishes, <she> experimentally twitches <her> new cow-like ears back and forth." + "</br>"
+									+ "<She> now has a pair of anthropomorphic <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>cow-like ears</b>."));
 			break;
 		case DEMON_COMMON:
 			transformationSB.append(isPlayer()
@@ -5626,6 +5706,20 @@ public class GameCharacter implements Serializable {
 					: UtilText.genderParsing(this, " A pair of hard nubs push out from <her> upper forehead, and <she> gasps as a pair of short, ridged horns push out and slightly bend back over <her> head." + "</br>"
 							+ "<She> now has a pair of <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>masculine-looking demon horns</b>."));
 			break;
+		case BOVINE_FEMALE:
+			transformationSB.append(isPlayer()
+					? " A pair of hard nubs push out from your upper temples, and you gasp as you feel a pair of short, sleek horns pushing out to curve up the sides of your head." + "</br>" + "You now have a pair of <b style='color:"
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>feminine-looking cow horns</b>."
+					: UtilText.genderParsing(this, " A pair of hard nubs push out from <her> upper temples, and <she> gasps as a pair of short, sleek horns push out to curve up the sides of <her> head."
+							+ "</br>" + "<She> now has a pair of <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>feminine-looking cow horns</b>."));
+			break;
+		case BOVINE_MALE:
+			transformationSB.append(isPlayer()
+					? " A pair of hard nubs push out from your upper forehead, and you gasp as you feel a pair of long, smooth horns push out and curve up the sides of your head." + "</br>" + "You now have a pair of <b style='color:"
+							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>masculine-looking cow horns</b>."
+					: UtilText.genderParsing(this, " A pair of hard nubs push out from <her> upper forehead, and <she> gasps as a pair of long, smooth horns push out and to curve up the sides of <her> head." + "</br>"
+							+ "<She> now has a pair of <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>masculine-looking cow horns</b>."));
+			break;
 		default:
 			transformationSB.append(isPlayer()
 					? " " + Util.capitaliseSentence(hornType.getDeterminer(this)) + " " + hornType.getName(this) + " grow out from the top of your head." + "</br>" + "You now have <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString()
@@ -5702,6 +5796,21 @@ public class GameCharacter implements Serializable {
 				} else {
 					transformationSB.append(" They rapidly shift back into normal-looking human legs and feet, covered in "+getSkinColour(BodyCoveringType.HUMAN).getName()+" skin.</br>"
 								+ "[npc.She] now has a pair of [style.boldTfLesser(human legs)].");
+				}
+				break;
+			case BOVINE:
+				if(isPlayer()) {
+					transformationSB.append(" A layer of short " + getSkinColour(BodyCoveringType.BOVINE_FUR).getName() + " hair quickly grows to replace the [pc.legSkin] on your legs as they shift into a new form."
+								+ " As your new cow-like hair spreads down to the ends of your toes, your feet start to shift and transform."
+								+ " Your toes push together, and you let out a cry as a thick, hoof-like nail grows in their place, quickly transforming to turn your feet into cow-like hooves."
+								+ " As the transformation ends, you see that your new cow-hair smoothly transitions into the [pc.skin] covering the rest of your body at your upper-thigh.</br>"
+								+ "You now have a pair of anthropomorphic [style.boldTfLesser(cow-like legs)], complete with hooves in place of feet.");
+				} else {
+					transformationSB.append(" A layer of short " + getSkinColour(BodyCoveringType.BOVINE_FUR).getName() + " hair quickly grows to replace the [npc.legSkin] on [npc.her] legs as they shift into a new form."
+										+ " As [npc.her] new cow-like hair spreads down to the ends of [npc.her] toes, [npc.her] feet start to shift and transform."
+										+ " [npc.Her] toes push together, and [npc.she] lets out a cry as a thick, hoof-like nail grows in their place, quickly transforming to turn [npc.her] feet into cow-like hooves."
+										+ " [npc.Her] new cow-hair smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.</br>"
+										+ "[npc.She] now has a pair of anthropomorphic [style.boldTfLesser(cow-like legs)], complete with hooves in place of feet.");
 				}
 				break;
 			case DEMON_COMMON:
@@ -5964,6 +6073,19 @@ public class GameCharacter implements Serializable {
 								+ "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>human penis</b>."
 						: UtilText.genderParsing(this, " <She> squirms and moans as <her> cock and balls shift and change, and within moments they've turned into their human counterparts, covered in "
 								+ getSkinColour(type.getSkinType()).getName() + " skin." + "</br>" + "<She> now has a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>human penis</b>."));
+			break;
+		case BOVINE:
+			transformationSB.append(isPlayer()
+					? " You squirm and moan as the skin covering your cock and balls quickly turns " + getSkinColour(type.getSkinType()).getName() + ", and as the transformation moves onto the next stage, slimy pre-cum starts leaking from the tip."
+							+ " Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as your shaft grows wider and the head flattens down."
+							+ " Panting and gasping for air, the transformation finally comes to an end, and you discover that your penis has reshaped itself into a fat bull-like cock, complete with a wide, flared head." + "</br>"
+							+ "You now have a <b style='color:" + Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>flared bull-cock</b>."
+					: UtilText.genderParsing(this,
+							" <She> squirms and moans as the skin covering <her> cock and balls quickly turns " + getSkinColour(type.getSkinType()).getName()
+									+ ", and as the transformation moves onto the next stage, slimy pre-cum starts leaking from the tip."
+									+ " Letting out an involuntary moan, <her> penis starts shifting into a new form, and <her> shaft grows wider as the head flattens down."
+									+ " Panting and gasping for air, the transformation finally comes to an end, leaving <herPro> with a fat bull-like cock, complete with a wide, flared head." + "</br>" + "<She> now has a <b style='color:"
+									+ Colour.TRANSFORMATION_SEXUAL.toWebHexString() + ";'>flared bull-cock</b>."));
 			break;
 		case DEMON_COMMON:
 			transformationSB.append(isPlayer()
@@ -6512,6 +6634,16 @@ public class GameCharacter implements Serializable {
 									+ " human skin, and <she> lets out a satisfied sigh" + " as the transformation comes to an end and the itching stops." + "</br>" + "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString()
 									+ ";'>covered in human skin</b>."));
 			break;
+		case BOVINE_FUR:
+			transformationSB.append(isPlayer() ? " The " + getSkinType().getName(this) + " covering your body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into a layer of short " + getSkinColour(skinType).getName()
+					+ " cow-hair, and you let out a satisfied sigh" + " as the transformation comes to an end and the itching stops. Your new hair looks very sleek, and helps to show off your figure, although it's a little coarse to the touch."
+					+ "</br>" + "You are now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in a short layer of cow-hair</b>."
+					: UtilText.genderParsing(this,
+							" The " + getSkinType().getName(this) + " covering <her> body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into a layer of short " + getSkinColour(skinType).getName()
+									+ " cow-hair, and <she> lets out a satisfied sigh"
+									+ " as the transformation comes to an end and the itching stops. <Her> new hair looks very sleek, and helps to show off <her> figure, although it's a little coarse to the touch." + "</br>"
+									+ "<She> is now <b style='color:" + Colour.TRANSFORMATION_GREATER.toWebHexString() + ";'>covered in a short layer of cow-hair</b>."));
+			break;
 		case DEMON_COMMON:
 			transformationSB.append(isPlayer()
 					? " The " + getSkinType().getName(this) + " covering your body rapidly turn" + (getSkinType() == BodyCoveringType.FEATHERS ? "" : "s") + " into flawless " + getSkinColour(skinType).getName() + " skin, and you let out a satisfied sigh"
@@ -6709,6 +6841,15 @@ public class GameCharacter implements Serializable {
 							+ getTailType().getName(this) + "</b>."
 					: UtilText.genderParsing(this, " <She> gasps as <her> " + getTailType().getName(this) + " shrinks down and disappears into <her> lower back." + "</br>" + "<She> <b style='color:"
 							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>has lost <her> " + getTailType().getName(this) + "</b>."));
+			break;
+		case BOVINE:
+			transformationSB.append(isPlayer()
+					? " A " + getSkinColour(BodyCoveringType.BOVINE_FUR).getName() + " cow-like tail sprouts from just above your ass, rapidly growing in length until it hangs to just over half-way down your legs."
+							+ " You quickly discover that your control over it is limited to swishing it from side to side." + "</br>" + "You now have a <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>cow-like tail</b>."
+					: UtilText.genderParsing(this,
+							" A " + getSkinColour(BodyCoveringType.BOVINE_FUR).getName() + " cow-like tail sprouts from just above <her> ass, rapidly growing in length until it hangs to just over half-way down <her> legs."
+									+ " <She> gives it a few experimental swishes from side to side, which seems to be the limit of <her> control over it." + "</br>" + "<She> now has a <b style='color:"
+									+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>cow-like tail</b>."));
 			break;
 		case DEMON_COMMON:
 			transformationSB.append(isPlayer()
@@ -7076,6 +7217,40 @@ public class GameCharacter implements Serializable {
 						+ "</p>"
 						+ "<p>"
 							+ "[npc.Name] now has the [style.boldTfSex(female reproductive system of a human)], complete with a hot little [style.boldTfSex(human pussy)]."
+						+ "</p>"));
+				}
+				break;
+			case BOVINE:
+				if(isPlayer()) {
+					transformationSB.append(
+							" You let out a squeal of excitement as a wave of pleasure runs up from your groin, and you feel your slit shifting and contracting with a mind of its own."
+							+ " Your pussy lips puff up and darken to a deep black, and you find yourself moaning and squirming as your cunt reshapes itself into a cow-like vagina, giving your feminine sex a very animalistic appearance."
+						+ "</p>"
+						+ "<p>"
+							+ "Just as you think that the transformation has come to an end, your pussy involuntarily clenches down,"
+								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
+							+ " Images of huge, flared bull-cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their hot seed deep into your bovine womb."
+							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
+						+ "</p>"
+						+ "<p>"
+							+ "You now have the [style.boldTfSex(female reproductive system of a cow-morph)], complete with an animalistic [style.boldTfSex(bovine pussy)]."
+						+ "</p>");
+				} else {
+					transformationSB.append(UtilText.parse(this, 
+							" [npc.She] lets out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, and as [npc.she] feels [npc.her] slit shifting and contracting with a mind of its own,"
+									+ " [npc.she] desperately clamps [npc.her] [npc.legs] shut."
+							+ " [npc.Her] pussy lips puff up and darken to a deep black, and [npc.she] starts moaning and squirming as [npc.her] cunt reshapes itself into a cow-like vagina, giving [npc.her] feminine sex a very animalistic appearance."
+						+ "</p>"
+						+ "<p>"
+							+ "Just as [npc.she] starts think that the transformation has come to an end, [npc.her] pussy involuntarily clenches down,"
+								+ " and a desperate squeal escapes from between [npc.her] [npc.lips+] as a warm, tingling feeling spreads up through [npc.her] lower abdomen."
+							+ " Images of huge, flared bull-cocks slamming deep into [npc.her] new pussy flash before [npc.her] eyes,"
+								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their potent seed deep into [npc.her] bovine womb."
+							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
+								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
+						+ "</p>"
+						+ "<p>"
+							+ "[npc.Name] now has the [style.boldTfSex(female reproductive system of a cow-morph)], complete with an animalistic [style.boldTfSex(bovine pussy)]."
 						+ "</p>"));
 				}
 				break;
