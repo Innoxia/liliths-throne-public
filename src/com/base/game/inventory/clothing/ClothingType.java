@@ -119,6 +119,43 @@ public enum ClothingType {
 		}
 	},
 
+	PIERCING_EAR_LIVESTOCK_TAGS("a pair of",
+			true,
+			"livestock tags",
+			"A pair of colored livestock tags.",
+			0,
+			null,
+			InventorySlot.PIERCING_EAR,
+			Rarity.COMMON,
+			null,
+			"piercing_livestock_tag",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
+			null,
+			Colour.allClothingColours) {
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You clip the tags into place.",
+					"You clip [npc.name]'s new tags into place.",
+					null,
+					"[npc.Name] clips [npc.her] tags into place.",
+					"[npc.Name] clips your new tags into place.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You unclip your tags.",
+					"You unclip [npc.name]'s tags.",
+					null,
+					"[npc.Name] unclips [npc.her] tags.",
+					"[npc.Name] unclips your tags.",
+					null);
+		}
+	},
+
 	PIERCING_NOSE_BASIC_RING("a",
 			false,
 			"nose ring",
@@ -1013,7 +1050,54 @@ public enum ClothingType {
 		}
 	},
 	
-	NECK_SCARF("a", false, "scarf", "A unisex scarf, made of a soft, wooly fabric.", 1, null, InventorySlot.NECK, Rarity.COMMON, null, "neck_scarf", null,
+	NECK_COWBELL_COLLAR("a",
+			false,
+			"cowbell collar",
+			"A heavy leather collar, of the type worn by cow.",
+			0,
+			null,
+			InventorySlot.NECK,
+			Rarity.UNCOMMON,
+			null,
+			"neck_cowbell_collar",
+			null,
+			
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
+			
+			null,
+			
+			Colour.allMetalColours) {
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You put on the cowbell collar, fastening the clasp at the back of your neck.";
+			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
+				return UtilText.genderParsing(clothingOwner,
+						Util.capitaliseSentence(clothingOwner.getName("the")) + " puts a " + clothing.getName(true) + " around <her> neck, reaching around" + " to fasten the clasp at the back.");
+			else {
+				if (clothingOwner.isPlayer())
+					return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " fastens " + clothing.getName(true) + " around your neck.");
+				else
+					return UtilText.genderParsing(clothingOwner, "You fasten the cowbell collar around " + clothingOwner.getName("the") + "'s neck.");
+			}
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You unfasten the cowbell collar and take it off.";
+			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
+				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " unfastens <her> cowbell collar and takes it off.");
+			else {
+				if (clothingOwner.isPlayer())
+					return Util.capitaliseSentence(clothingRemover.getName("the")) + " unfastens your cowbell collar and removes it from around your neck.";
+				else
+					return UtilText.genderParsing(clothingOwner, "You unfasten " + clothingOwner.getName("the") + "'s cowbell collar and remove it from <her> neck.");
+
+			}
+		}
+	},
+NECK_SCARF("a", false, "scarf", "A unisex scarf, made of a soft, wooly fabric.", 1, null, InventorySlot.NECK, Rarity.COMMON, null, "neck_scarf", null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 
@@ -6882,6 +6966,10 @@ public enum ClothingType {
 			return Race.HORSE_MORPH;
 		}
 		
+		if (character.getLegType() == LegType.BOVINE && slot == InventorySlot.FOOT) {
+			return Race.COW_MORPH;
+		}
+		
 		if (character.getLegType() == LegType.HARPY && slot == InventorySlot.FOOT) {
 			return Race.HARPY;
 		}
@@ -6908,6 +6996,14 @@ public enum ClothingType {
 			else
 				return UtilText.parse(character,
 						"[npc.Name]'s horse-like hooves prevent [npc.her] from wearing footwear of any kind!");
+		}
+		
+		if (character.getLegType() == LegType.BOVINE && slot == InventorySlot.FOOT) {
+			if(character.isPlayer())
+				return "Your cow-like hooves prevent you from wearing footwear of any kind!";
+			else
+				return UtilText.parse(character,
+						"[npc.Name]'s cow-like hooves prevent [npc.her] from wearing footwear of any kind!");
 		}
 		
 		if (character.getLegType() == LegType.HARPY && slot == InventorySlot.FOOT) {
