@@ -10,6 +10,7 @@ import com.base.game.sex.managers.universal.SMDomDoggy;
 import com.base.game.sex.managers.universal.SMDomFaceToWall;
 import com.base.game.sex.managers.universal.SMDomSelfKneeling;
 import com.base.game.sex.managers.universal.SMDomKneeling;
+import com.base.game.sex.managers.universal.SMDomSelfDoggy;
 import com.base.game.sex.managers.universal.SMDomSixtyNine;
 import com.base.game.sex.managers.universal.SMSubBackToWall;
 import com.base.game.sex.managers.universal.SMSubDoggy;
@@ -70,6 +71,47 @@ public class GenericPositioning {
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SMDomFaceToWall());
+			
+			SexFlags.positioningBlockedPartner = true;
+			SexFlags.resetRequests();
+		}
+	};
+	
+	public static SexAction PLAYER_DOM_POSITION_SELF_DOGGY = new SexAction(
+			SexActionType.PLAYER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& Sex.getPosition() != SexPosition.SELF_DOGGY_PLAYER_ON_ALL_FOURS
+					&& Sex.isPlayerDom();
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Doggy-style(self)";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Push [npc.name] down onto [npc.her] knees and position yourself on all fours in front of [npc.herHim].";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] towards the ground, making [npc.herHim] kneel."
+					+ " You move in front of [npc.herHim] and position yourself on all fours, suggestively shaking your [pc.hips] and softly tracing your finger over your [pc.ass] to entice [npc.herHim]. "
+					+ "[pc.speech(Get to work, [npc.girl]!)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setSexManager(new SMDomSelfDoggy());
 			
 			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();

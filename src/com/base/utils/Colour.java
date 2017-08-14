@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum Colour {
@@ -43,7 +43,8 @@ public enum Colour {
 	RACE_WOLF_MORPH(BaseColour.BLACK, "black", Util.newArrayListOfValues(new ListValue<>("wolfMorph"), new ListValue<>("wolf"))),
 	RACE_HARPY(BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues(new ListValue<>("harpy"))),
 	RACE_SLIME(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("slime"))),
-
+	RACE_SQUIRREL_MORPH(BaseColour.GINGER, "ginger", Util.newArrayListOfValues(new ListValue<>("squirrelMorph"), new ListValue<>("squirrel"))),
+	
 	QUEST_MAIN(BaseColour.PINK, "pink"),
 	QUEST_SIDE(BaseColour.BLUE, "blue"),
 	QUEST_ROMANCE(BaseColour.PINK_LIGHT, "pink"),

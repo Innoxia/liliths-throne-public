@@ -27,6 +27,8 @@ public enum ArmType implements BodyPartTypeInterface {
 
 	SLIME(BodyCoveringType.SLIME, Race.SLIME),
 
+	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
+
 	HARPY(BodyCoveringType.FEATHERS, Race.HARPY);
 
 	private BodyCoveringType skinType;
@@ -77,6 +79,8 @@ public enum ArmType implements BodyPartTypeInterface {
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("slender", "flawless");
 			case DOG_MORPH:
+				return UtilText.returnStringAtRandom("furry", "fur-coated");
+			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated");
 			case HARPY:
 				return UtilText.returnStringAtRandom("feathered", "bird-like");
@@ -138,6 +142,8 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine", "wolf-like", "furry", "paw-like");
 				case SLIME:
 					return UtilText.returnStringAtRandom("slimy", "feminine");
+				case SQUIRREL_MORPH:
+					return UtilText.returnStringAtRandom("soft", "feminine", "squirrel-like", "claw-like", "furry", "rodent");
 				default:
 					return UtilText.returnStringAtRandom("");
 			}
@@ -161,6 +167,8 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("wolf-like", "furry", "paw-like");
 				case SLIME:
 					return UtilText.returnStringAtRandom("slimy");
+				case SQUIRREL_MORPH:
+					return UtilText.returnStringAtRandom("soft", "squirrel-like", "claw-like", "furry", "rodent");
 				default:
 					return UtilText.returnStringAtRandom("");
 			}
@@ -202,6 +210,8 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine", "padded", "wolf-like");
 				case SLIME:
 					return UtilText.returnStringAtRandom("slimy", "feminine");
+				case SQUIRREL_MORPH:
+					return UtilText.returnStringAtRandom("soft", "feminine", "clawed", "rodent");
 				default:
 					return UtilText.returnStringAtRandom("");
 			}
@@ -225,6 +235,8 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("wolf-like", "padded");
 				case SLIME:
 					return UtilText.returnStringAtRandom("slimy");
+				case SQUIRREL_MORPH:
+					return UtilText.returnStringAtRandom("soft", "clawed", "rodent");
 				default:
 					return UtilText.returnStringAtRandom("");
 			}

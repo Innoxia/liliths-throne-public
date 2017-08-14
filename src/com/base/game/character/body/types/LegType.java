@@ -6,7 +6,7 @@ import com.base.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.69.9
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum LegType implements BodyPartTypeInterface {
@@ -21,6 +21,8 @@ public enum LegType implements BodyPartTypeInterface {
 	
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
 
+	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
+	
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 
 	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, Race.HORSE_MORPH),
@@ -74,6 +76,8 @@ public enum LegType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("hooved");
 			case HUMAN:
 				return UtilText.returnStringAtRandom("");
+			case SQUIRREL_MORPH:
+				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic squirrel-like");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic wolf-like");
 			case SLIME:
@@ -130,6 +134,8 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine");
 				case LYCAN:
 					return UtilText.returnStringAtRandom("soft", "feminine", "wolf-like", "furry", "paw-like");
+				case SQUIRREL_MORPH:
+					return UtilText.returnStringAtRandom("soft", "feminine", "squirrel-like", "paw-like", "furry");
 				case SLIME:
 					return UtilText.returnStringAtRandom("slimy", "feminine");
 				default:
@@ -153,6 +159,8 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("");
 				case LYCAN:
 					return UtilText.returnStringAtRandom("wolf-like", "furry", "paw-like");
+				case SQUIRREL_MORPH:
+					return UtilText.returnStringAtRandom("soft", "squirrel-like", "paw-like", "furry");
 				case SLIME:
 					return UtilText.returnStringAtRandom("slimy");
 				default:

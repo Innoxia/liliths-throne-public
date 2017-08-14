@@ -326,6 +326,48 @@ public enum Race {
 			
 			TFEssence.HORSE_MORPH),
 
+	
+	SQUIRREL_MORPH(
+			"squirrel-morph",
+			
+			"squirrel-boy",
+			"squirrel-girl",
+			
+			"squirrel-boys",
+			"squirrel-girls",
+
+			"<p>"
+				+ "Squirrel-morphs are one of the more common anthropomorphic races found in this world."
+				+ " Their long fluffy tails and small round ears are usually enough to identify a squirrel-morph."
+			+ "</p>",
+			
+			"<p>"
+				+ "Squirrel-morphs have a reputation for stunning agility."
+				+ " They are excellent climbers and can scale even the most sheer of walls by launching themselves at it, even from a standstill."
+				+ " Although their personalities can vary greatly, most squirrel-morphs tend to be a bit skittish most of the time."
+			+ "</p>"
+			+ "<p>"
+				+ "Squirrel-morphs, like the other common races, get heavily affected by arcane storms."
+				+ " Being exposed to arcane thunder will make squirrel-boys enter a potent rut, which, when combined with their great speed, makes them a dangerous foe to encounter during an arcane strom."
+				+ " Squirrel-girls will react to arcane thunder by going into heat, and will force themselves on anyone they might come across."
+			+ "</p>"
+			+ "<p>"
+				+ "Squirrel-morphs will give birth to one or two of their own kind, in much the same way that a human pregnancy works."
+			+ "</p>",
+
+			Colour.RACE_SQUIRREL_MORPH,
+			Genus.RODENT,
+			Disposition.CIVILIZED,
+			StatusEffect.SQUIRREL_MORPH,
+			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
+			true,
+			0.25f,
+			1,
+			1,
+			
+			TFEssence.SQUIRREL_MORPH),
+	
+
 	// SLIME:
 	SLIME("slime",
 			
@@ -1419,12 +1461,15 @@ public enum Race {
 			String basicDescription,
 			String advancedDescription,
 
-			Colour colour, Genus genus, Disposition disposition, StatusEffect statusEffect, List<Attack> preferredAttacks, boolean vulnerableToLilithsLustStorm,
+			Colour colour,
+			Genus genus,
+			Disposition disposition,
+			StatusEffect statusEffect,
+			List<Attack> preferredAttacks,
+			boolean vulnerableToLilithsLustStorm,
 			
 			float chanceForMaleOffspring,
 			int numberOfOffspringLow, int numberOfOffspringHigh,
-			
-			
 			
 			TFEssence relatedEssence) {
 		this.name = name;

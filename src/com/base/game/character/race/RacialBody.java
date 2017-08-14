@@ -214,11 +214,31 @@ public enum RacialBody {
 			VaginaType.SLIME, Wetness.SEVEN_DROOLING, Capacity.SEVEN_GAPING, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC,
 			WingType.NONE),
 
-	// AVIAN:
-	HARPY(Util.newHashMapOfValues(
-			new Value<Attribute, Float>(Attribute.STRENGTH, 5f),
-			new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
+	// RODENTS:
+	SQUIRREL_MORPH(Util.newHashMapOfValues(
+			new Value<Attribute, Float>(Attribute.STRENGTH, 10f),
+			new Value<Attribute, Float>(Attribute.INTELLIGENCE, 30f),
 			new Value<Attribute, Float>(Attribute.FITNESS, 50f),
+			new Value<Attribute, Float>(Attribute.CORRUPTION, 15f)),
+			ArmType.SQUIRREL_MORPH,
+			AssType.SQUIRREL_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE,
+			BreastType.SQUIRREL_MORPH, CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, CupSize.D, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE,
+			170, 35, 160, 85,
+			FaceType.SQUIRREL_MORPH, BodyCoveringType.EYE_SQUIRREL, EarType.SQUIRREL_MORPH,
+			BodyCoveringType.HAIR_SQUIRREL_FUR, HairLength.ONE_VERY_SHORT, HairLength.TWO_SHORT,
+			LegType.SQUIRREL_MORPH,
+			BodyCoveringType.SQUIRREL_FUR,
+			HornType.NONE, HornType.NONE,
+			PenisType.SQUIRREL, PenisSize.THREE_LARGE, TesticleSize.THREE_LARGE, 2, CumProduction.THREE_AVERAGE,
+			TailType.SQUIRREL_MORPH,
+			VaginaType.SQUIRREL_MORPH, Wetness.TWO_MOIST, Capacity.FOUR_LOOSE, ClitorisSize.ONE_BIG, OrificeElasticity.FOUR_LIMBER,
+			WingType.NONE),
+
+	// AVIAN:
+		HARPY(Util.newHashMapOfValues(
+				new Value<Attribute, Float>(Attribute.STRENGTH, 5f),
+				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
+				new Value<Attribute, Float>(Attribute.FITNESS, 50f),
 			new Value<Attribute, Float>(Attribute.CORRUPTION, 25f)),
 			ArmType.HARPY,
 			AssType.HARPY, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE,
@@ -355,6 +375,8 @@ public enum RacialBody {
 				return RacialBody.WOLF_MORPH;
 			case SLIME:
 				return RacialBody.SLIME;
+			case SQUIRREL_MORPH:
+				return RacialBody.SQUIRREL_MORPH;
 		}
 		return RacialBody.HUMAN;
 	}

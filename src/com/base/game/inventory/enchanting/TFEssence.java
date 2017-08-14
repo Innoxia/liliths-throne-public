@@ -10,7 +10,7 @@ import com.base.utils.Util;
 
 /**
  * @since 0.1.7
- * @version 0.1.7
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum TFEssence {
@@ -34,6 +34,13 @@ public enum TFEssence {
 			"equine",
 			"essenceHorseMorph",
 			Colour.RACE_HORSE_MORPH,
+			Rarity.COMMON),
+	
+	SQUIRREL_MORPH("Squirrel-morph",
+			"An essence gained from a squirrel-morph.",
+			"squirrel",
+			"essenceSquirrelMorph",
+			Colour.RACE_SQUIRREL_MORPH,
 			Rarity.COMMON),
 	
 	WOLF_MORPH("Wolf-morph",
@@ -157,6 +164,8 @@ public enum TFEssence {
 				return ItemType.BOTTLED_ESSENCE_HORSE_MORPH;
 			case HUMAN:
 				return ItemType.BOTTLED_ESSENCE_HUMAN;
+			case SQUIRREL_MORPH:
+				return ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH;
 			case WOLF_MORPH:
 				return ItemType.BOTTLED_ESSENCE_WOLF_MORPH;
 		}

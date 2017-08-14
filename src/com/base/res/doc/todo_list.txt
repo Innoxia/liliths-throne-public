@@ -17,57 +17,22 @@
 	
 	Patch notes:
 		
-		
 	Gameplay:
-		<b>Added:</b> (Most of) Alexa & Scarlett main quest content.
-		<b>Added:</b> Nikki, the manager of Slaver Alley's new 'Slave Administration' building. (Sells BDSM gear and slave collars once you get a slaver license.)
-		Slightly changed Slaver Alley's map.
-		Added 'Barren' perk.
-		Locked Brax's forced transformation behind the 'Transformation' fetish.
+		<b>Added:</b> Squirrel-morphs. These are mostly going to be found in the Fields area, but there's a chance of encountering them in Dominion as well. (Added by rfpnj. Think you! :3)
+		<b>Added:</b> Squirrel Java, Round Nuts, Chasing Squirrels, and Bottled Squirrel-morph Essence.
+		
+	Sex:
+		<b>Added:</b> Power-bottom doggy-style position. (Added by BelshazzarII. Thank you! :3)
 		
 	Clothing:
-		<b>Added:</b> Bandana (no femininity requirements, mouth slot).
-		<b>Added:</b> Tiara (feminine, head slot).
-		<b>Added:</b> Arm wraps (no femininity requirements, hand slot).
-		<b>Added:</b> Cowboy hat (no femininity requirements, head slot).
-		<b>Added:</b> Mega Milk T-shirt (no femininity requirements, torso slot). Has a 1% chance to spawn in the 'Found clothing' event in alleyway tiles.
-		<b>Added:</b> 'Virgin-killer' sweater (feminine, torso slot).
-		<b>Added:</b> Ball gag (no femininity requirements, mouth slot, BDSM set).
-		<b>Added:</b> Ring gag (no femininity requirements, mouth slot, BDSM set).
-		<b>Added:</b> Tagged Choker (no femininity requirements, neck slot, BDSM set).
-		<b>Added:</b> Wrist restraints (no femininity requirements, wrist slot, BDSM set).
-		<b>Added:</b> Spreader bar (no femininity requirements, ankle slot, BDSM set).
-		<b>Added:</b> Chastity belt (no femininity requirements, groin slot, BDSM set).
-		Added: 'Grey' to available clothing colours.
-		Improved: Circlet's icon.
-		Changed: Basic earrings and ringed barbell no longer have a femininity requirement.
+		<b>Added:</b> Thigh-high socks (feminine, foot slot).
 		
 	Other:
-		<b>Changed:</b> You can now only find bottled essences after starting the 'Enchantments & Essences' quest.
-		Split up and changed the debug menu's money/essence gain option from +100 flames/+1 essence to +1000 flames/+10 essences.
-		Reduced the arousal gain penalty while resisting from -75% to -50%.
-		Added a 0.5% chance to find an Eggplant in the alleyways. (Why did I do this?)
+		Clothing which blocks multiple slots now have more powerful enchantments.
 		
-	AI:
-		NPCs with the pure virgin or lusty maiden status effects should no longer use sex actions that will cause them to lose their virginity.	
-	
 	Bugs:
-		Fixed major bug where you could get stuck in your phone's menu if you opened the 'characters present' window during combat.
-		Fixed some typos.
-		Fixed the cause of the occasional game freeze when pressing 'Take all'. (Thanks sinstrudel.)
-		Fixed 'broken maiden' status effect being applied even if you didn't have the 'lusty maiden' fetish.
-		Cum addicts will no longer ask you to pull out when they're giving you a blowjob.
-		Removed old reference to non-con in options menu.
-		Dominant doggy-style orgasm should now correctly apply pregnancy chances.
-		Sex stats should now correctly track how many loads of cum you've given in each sex type.
-		If you have maximum attribute values (100 in strength, intelligence, and fitness), your phone will no longer highlight if you have attribute points to spend.
-		Fixed some incorrect detection of body part values.
-		Fixed bug where Kate's into scene would repeat every time you entered her store.
-		Fixed duplicate virginity loss descriptions in selfie.
-		Fixed bug where the Jinxed, Enchantments, and Pregnancy quests would sometimes not trigger correctly.
-		Fixed some bugs related to incorrect fur descriptions in TFs. (Thanks Rfpnj.)
-		Fixed bug in sex that would cause you to be unable to choose any action other than 'Use item'. (Thanks strudel.)
-		Fixed bug where fetishes wouldn't reset correctly sometimes.
+		Fixed the more powerful version of the arcane storm debuff being applied to your character.
+		Typo fixes.
 	
 	
 	
@@ -75,6 +40,57 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	Dom self doggy
+	
+	NPCs to gain affection from PC using their fetish-related actions
+	
+	 it seems like it's now impossible to remove harpies from the area without at least initiating sex with them.
+	
+	First row, 1 through 5
+	Second row, shift + 1 through 5
+	Third row, control + 1 through 5
+	
+	they keep wearing more clothes
+	
+	striped socks/underwear
+	
+	spawned with crotchless chaps and no underwear
+		couldn't detect penis until sex?
+		
+	: Yeah I've noticed that as well, any item in the bottom row in the last 3 slots on the right don't have to tool tips pop up like there is something blocking them.
+		
+	ball gag ralph
+	
+	Lilaya's pull out dialogue cna be skipped somehow
+	
+	androgynous males still start with AA boobs
+	
+	for some reason turning Brax into Bree gives you the 6 tiddy
+	
+	but every NPC with tits now has fuckable nipples
+	saying my characters cock can be penetrated
+	
+	
+	Getting tail pegged is not correctly associated with the Butt Slut fetish
+	
+	
+	issues with partners not removing mouthwear to the stack of sex AI problems
+	
+	
+	virli-tea, fertili-tea and virgini-tea
+	
+	If you press buy all on one of the slave collars it gives you 2 unidentified collars
+		Oh iand i cant even identify them when i press the button it does nothing
+		Or just acts super buggy
+	
+	everyone seems to (by default) have fuckable nipples/urethras
 	
 	
 	Finish dialogue
@@ -98,14 +114,16 @@
 	
 	
 	Expand TFs
+		nail polish, lipstick, makeup (generalise it, I don't think I should go too in-depth here)
+		sheath, ribbed, flared, barbed, tentacled
 
 	New sex interface
 	
 	Sex stuff (anal in back-to-wall, then cowgirl)
 	
+	platinum
 	
-	
-	
+	With the preview release, in the clothing section of the encyclopedia, the colour list wraps, but the fields do not extend to accomodate it, so it clips into the next entry's list.
 	
 	Lilaya's LAB_EXIT is unsuitable for pregnancy text
 	
@@ -158,6 +176,7 @@
 		Getting a lot of game-halting bugs when trying to use the finger yourself command when doin the do with Lilaya
 		Some embedded buttons are completely missing
 	
+	some descriptions could maybe change according to your characters orientation because it seems strange that an androphilic character stares and gulps at for example the stylist or other female assets
 	
 	if you have a tail and either suck it or self-tail peg, in the selfie tab the first time is given to your partner.
 	
@@ -166,6 +185,8 @@
 	Please deal with the terrible finger sucking once and for all
 	
 	succubus is still not using her cock; add a preference for cock actions to her
+	
+	When you have the observant perk and examine someone, it shows what they are, but it also shows what they look like. The two statements are useful, but how they're blended (or, rather, not) can be rather jarring.
 	
 	Might be useful to be able to hide one or more sections in the pregnancy stats (ongoing pregs / completed pregs / offsprings list), because after having too many pregs with the seeder fetish, that page became quite long
 	
