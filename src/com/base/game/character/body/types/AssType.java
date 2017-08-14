@@ -19,6 +19,8 @@ public enum AssType implements BodyPartTypeInterface {
 	
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 	
+	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
+	
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
 	
 	WOLF_MORPH(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
@@ -115,6 +117,8 @@ public enum AssType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("demonic", "irresistible");
 			case HORSE_MORPH:
 				return UtilText.returnStringAtRandom("puffy", "horse-like", "puffy-rimmed", "equine");
+			case COW_MORPH:
+				return UtilText.returnStringAtRandom("puffy", "cow-like", "puffy-rimmed", "bovine");
 			case SLIME:
 				return UtilText.returnStringAtRandom("gooey", "slimy");
 			default:

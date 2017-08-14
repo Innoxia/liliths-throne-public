@@ -20,6 +20,8 @@ public enum FaceType implements BodyPartTypeInterface {
 	
 	LYCAN(BodyCoveringType.LYCAN_FUR, TongueType.WOLF_MORPH, Race.WOLF_MORPH),
 
+	COW_MORPH(BodyCoveringType.BOVINE_FUR, TongueType.BOVINE, Race.COW_MORPH),
+	
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, TongueType.CAT_MORPH, Race.CAT_MORPH),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, TongueType.SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
@@ -60,6 +62,8 @@ public enum FaceType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("muzzle", "face");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("muzzle", "face");
+			case COW_MORPH:
+				return UtilText.returnStringAtRandom("muzzle", "face");
 			default:
 				return UtilText.returnStringAtRandom("face");
 		}
@@ -73,6 +77,8 @@ public enum FaceType implements BodyPartTypeInterface {
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("muzzles", "faces");
 			case LYCAN:
+				return UtilText.returnStringAtRandom("muzzles", "faces");
+			case COW_MORPH:
 				return UtilText.returnStringAtRandom("muzzles", "faces");
 			default:
 				return UtilText.returnStringAtRandom("faces");
@@ -90,6 +96,8 @@ public enum FaceType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("perfect", "flawless", "demonic");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("anthropomorphic dog-like", "dog-like", "canine");
+			case COW_MORPH:
+				return UtilText.returnStringAtRandom("anthropomorphic cow-like", "cow-like", "bovine");
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("anthropomorphic squirrel-like", "squirrel-like", "rodent");
 			case HARPY:

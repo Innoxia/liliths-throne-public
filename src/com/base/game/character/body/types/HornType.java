@@ -14,7 +14,11 @@ public enum HornType implements BodyPartTypeInterface {
 
 	DEMON_COMMON_FEMALE("long, swept-back", BodyCoveringType.HORN, Race.DEMON),
 
-	DEMON_COMMON_MALE("short, curved", BodyCoveringType.HORN, Race.DEMON);
+	DEMON_COMMON_MALE("short, curved", BodyCoveringType.HORN, Race.DEMON),
+
+	BOVINE_FEMALE("short, curved", BodyCoveringType.HORN, Race.COW_MORPH),
+
+	BOVINE_MALE("long, curved", BodyCoveringType.HORN, Race.COW_MORPH);
 
 	private BodyCoveringType skinType;
 	private Race race;
@@ -57,6 +61,10 @@ public enum HornType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("long", "swept-back", "sleek");
 			case DEMON_COMMON_MALE:
 				return UtilText.returnStringAtRandom("short", "swept-back");
+			case BOVINE_FEMALE:
+				return UtilText.returnStringAtRandom("short", "sleek");
+			case BOVINE_MALE:
+				return UtilText.returnStringAtRandom("long");
 			case NONE:
 				return UtilText.returnStringAtRandom("");
 			default:

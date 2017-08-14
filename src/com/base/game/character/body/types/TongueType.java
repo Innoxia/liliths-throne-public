@@ -23,6 +23,8 @@ public enum TongueType implements BodyPartTypeInterface {
 
 	HORSE_MORPH(BodyCoveringType.TONGUE, Race.HORSE_MORPH),
 
+	BOVINE(BodyCoveringType.TONGUE, Race.COW_MORPH),
+
 	SLIME(BodyCoveringType.SLIME, Race.SLIME),
 
 	TENGU(BodyCoveringType.TONGUE, Race.HARPY),
@@ -68,6 +70,8 @@ public enum TongueType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("wide", "dog-like");
 			case HORSE_MORPH:
 				return UtilText.returnStringAtRandom("strong", "horse-like", "long");
+			case BOVINE:
+				return UtilText.returnStringAtRandom("strong", "cow-like", "long");
 			case HUMAN:
 				return UtilText.returnStringAtRandom("");
 			case SLIME:
