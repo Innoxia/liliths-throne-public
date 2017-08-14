@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.base.game.character.GameCharacter;
+import com.base.game.character.QuestLine;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.body.types.PenisType;
 import com.base.game.character.race.Race;
@@ -493,6 +494,52 @@ public enum ItemType {
 		}
 	},
 	
+	FIT_INGREDIENT_SQUIRREL_JAVA(
+			"a bottle of",
+			false,
+			"Squirrel Java",
+			"A glass bottle of what looks to be some kind of coffee."
+				+ " A label on the front shows a squirrel-girl fingering herself over the top of a bottle just like this one; her juices dripping down into the coffee to provide some extra cream.",
+			"attributeSquirrelMorphDrink",
+			Colour.ATTRIBUTE_FITNESS,
+			25,
+			Rarity.UNCOMMON,
+			TFEssence.SQUIRREL_MORPH,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_SQUIRREL_JAVA, null, null)))) {
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.ATTRIBUTE_FITNESS;
+		}
+
+		@Override
+		public ItemType getEnchantmentItemType() {
+			return POTION;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+				return "<p>"
+							+ "You unscrew the cap and start drinking the bottle of 'Squirrel Java'."
+							+ " Its taste is quite unlike that of any other coffee you've ever drunk, and it reminds you more of a sugary energy drink rather than any caffeinated beverage."
+							+ " As the last few drops slide down your throat, a strange, sweet aftertaste lingers on your tongue."
+						+ "</p>";
+				
+			} else {
+				return UtilText.parse(target,
+						"<p>"
+							+ "[npc.Name] pulls out a bottle of 'Squirrel Java', and, after quickly popping off the cap, [npc.she] promptly downs the entire bottle."
+						+ "</p>");
+			}
+		}
+	},
+	
 	SEX_INGREDIENT_HARPY_PERFUME(
 			"a bottle of",
 			false,
@@ -715,6 +762,51 @@ public enum ItemType {
 				return UtilText.parse(target,
 						"<p>"
 						+ "[npc.Name] pulls out a can of 'Kitty's Reward', and, peeling off the lid, quickly devours the contents."
+						+ "</p>");
+			}
+		}
+	},
+	
+	RACE_INGREDIENT_SQUIRREL_MORPH(
+			"a bag of",
+			false,
+			"Round Nuts",
+			"A small bag of round nuts. A label on one side shows a greater squirrel-girl stuffing a handful of nuts into her mouth.",
+			"raceSquirrelMorphRoundNuts",
+			Colour.RACE_SQUIRREL_MORPH,
+			40,
+			Rarity.RARE,
+			TFEssence.SQUIRREL_MORPH,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ROUND_NUTS, null, null)))) {
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.RACE_SQUIRREL_MORPH;
+		}
+
+		@Override
+		public ItemType getEnchantmentItemType() {
+			return ELIXIR;
+		}
+
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+				return "<p>"
+							+ "You pull at the sides of one end of the bag, and open the package."
+							+ " A rich, earthy smell accompanies the sight of the round nights inside, and you find yourself unable to resist the delicious-looking display."
+							+ " You quickly wolf down the bag's contents, finding that the nuts are as delicious as they look."
+						+ "</p>";
+				
+			} else {
+				return UtilText.parse(target,
+						"<p>"
+								+ "[npc.Name] pulls out a bag of 'Round Nuts', and, opening the bag, quickly devours the contents."
 						+ "</p>");
 			}
 		}
@@ -955,10 +1047,10 @@ public enum ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
-							+ "Pulling the cork stopper out from the top of the little bottle, you release the arcane essence from its glass prison."
-							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.GENERIC_ARCANE.getName()+" flash, it disappears from sight."
-							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
-						+ "</p>";
+						+ "Pulling the cork stopper out from the top of the little bottle, you release the arcane essence from its glass prison."
+						+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.GENERIC_ARCANE.getName()+" flash, it disappears from sight."
+						+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
+					+ "</p>";
 				
 			} else {
 				return "<p>"
@@ -1027,6 +1119,41 @@ public enum ItemType {
 				return "<p>"
 							+ "Pulling the cork stopper out from the top of the little bottle, you release the demon essence from its glass prison."
 							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_DEMON.getName()+" flash, it disappears from sight."
+							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
+						+ "</p>";
+				
+			} else {
+				return "<p>"
+						+ "(You shouldn't be seeing this. x_x)"//TODO
+					+ "</p>";
+			}
+		}
+	},
+	
+	BOTTLED_ESSENCE_SQUIRREL_MORPH(
+			null,
+			false,
+			"Bottled squirrel-morph Essence",
+			"A small glass bottle, with a little cork stopper wedged firmly in the top."
+					+ " Inside, the swirling "+Colour.RACE_SQUIRREL_MORPH.getName()+" glow of a squirrel-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
+			"bottledEssenceSquirrelMorph",
+			Colour.RACE_SQUIRREL_MORPH,
+			10,
+			Rarity.COMMON,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SQUIRREL_MORPH, null, null)))) {
+
+		@Override
+		public String getUseName() {
+			return "absorb";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user.isPlayer() && target.isPlayer()) {
+				return "<p>"
+							+ "Pulling the cork stopper out from the top of the little bottle, you release the squirrel-morph essence from its glass prison."
+							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_SQUIRREL_MORPH.getName()+" flash, it disappears from sight."
 							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
 						+ "</p>";
 				
@@ -1990,6 +2117,45 @@ public enum ItemType {
 		}
 	},
 	
+	BOOK_SQUIRREL_MORPH(
+			null,
+			false,
+			"Chasing Squirrels",
+			"A book that details squirrel-morph society.",
+			"book_race_squirrel_morph",
+			Colour.RACE_SQUIRREL_MORPH,
+			10,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_SQUIRREL_MORPH, null, null)))) {
+
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.SQUIRREL_MORPH)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "<p>"
+						+ "Opening the book, you read its contents..."
+					+ "</p>";
+		}
+	},
+	
 	BOOK_WOLF_MORPH(
 			null,
 			false,
@@ -2031,6 +2197,45 @@ public enum ItemType {
 			return "<p>"
 						+ "Opening the book, you read its contents..."
 					+ "</p>";
+		}
+	},
+	
+	// Why did I make this?
+	EGGPLANT(
+			null,
+			false,
+			"Eggplant",
+			"A delicate, tropical perennial often cultivated as a tender or half-hardy annual in temperate climates. Also it kind of looks like a penis if you squint.",
+			"eggplant",
+			Colour.GENERIC_ARCANE,
+			10,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.EGGPLANT, null, null)))) {
+
+		@Override
+		public boolean canBeSold() {
+			return false;
+		}
+		
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+				return "<p>"
+							+ "You eat the eggplant."
+						+ "</p>";
+				
+			} else {
+				return UtilText.parse(user,
+						"<p>"
+							+ "[npc.Name] eats an eggplant."
+						+ "</p>");
+			}
 		}
 	};
 	
@@ -2346,8 +2551,22 @@ public enum ItemType {
 		for(ItemType t : ItemType.values()){
 			if(t!=ItemType.POTION && t!=ItemType.ELIXIR
 					&& t!=ItemType.HARPY_MARTRIARCH_BIMBO_LOLLIPOP && t!=ItemType.HARPY_MARTRIARCH_DOMINANT_PERFUME && t!=ItemType.HARPY_MARTRIARCH_NYMPHO_LOLLIPOP
-					&& t!=ItemType.BOOK_CAT_MORPH && t!=ItemType.BOOK_DEMON && t!=ItemType.BOOK_DOG_MORPH && t!=ItemType.BOOK_HARPY && t!=ItemType.BOOK_HORSE_MORPH && t!=ItemType.BOOK_HUMAN && t!=ItemType.BOOK_WOLF_MORPH) {
+					&& t!=ItemType.BOOK_CAT_MORPH && t!=ItemType.BOOK_DEMON && t!=ItemType.BOOK_DOG_MORPH && t!=ItemType.BOOK_HARPY && t!=ItemType.BOOK_HORSE_MORPH && t!=ItemType.BOOK_HUMAN && t!=ItemType.BOOK_WOLF_MORPH
+					&& t!=ItemType.BOTTLED_ESSENCE_ARCANE && t!=ItemType.BOTTLED_ESSENCE_CAT_MORPH && t!=ItemType.BOTTLED_ESSENCE_DEMON
+					&& t!=ItemType.BOTTLED_ESSENCE_DOG_MORPH && t!=ItemType.BOTTLED_ESSENCE_HARPY && t!=ItemType.BOTTLED_ESSENCE_HORSE_MORPH
+					&& t!=ItemType.BOTTLED_ESSENCE_HUMAN && t!=ItemType.BOTTLED_ESSENCE_WOLF_MORPH
+					&& t!=ItemType.EGGPLANT) {
 				availableItems.add(t);
+			}
+			
+			if(Main.game.isStarted()) {
+				if(Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+					if(t==ItemType.BOTTLED_ESSENCE_ARCANE || t==ItemType.BOTTLED_ESSENCE_CAT_MORPH || t==ItemType.BOTTLED_ESSENCE_DEMON
+							|| t==ItemType.BOTTLED_ESSENCE_DOG_MORPH || t==ItemType.BOTTLED_ESSENCE_HARPY || t==ItemType.BOTTLED_ESSENCE_HORSE_MORPH
+							|| t==ItemType.BOTTLED_ESSENCE_HUMAN || t==ItemType.BOTTLED_ESSENCE_WOLF_MORPH) {
+						availableItems.add(t);
+					}
+				}
 			}
 		}
 	}

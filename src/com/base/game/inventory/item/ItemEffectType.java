@@ -109,7 +109,7 @@ public enum ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
 			return "<p>"
-					+ "Untying the top of the used condom, you bring it up to your lips and swallow its slimy contents."
+					+ "It tastes salty..." //TODO
 					+ "</p>";
 		}
 	},
@@ -298,6 +298,38 @@ public enum ItemEffectType {
 							:"")
 					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.HUMAN)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.HUMAN)
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
+							:"");
+		}
+	},
+	
+	BOOK_READ_SQUIRREL_MORPH(Util.newArrayListOfValues(
+			new ListValue<>("Adds squirrel-morph encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			Colour.RACE_SQUIRREL_MORPH) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			return Race.SQUIRREL_MORPH.getBasicDescription()
+					+Race.SQUIRREL_MORPH.getAdvancedDescription()
+					+(Main.game.getPlayer().addRaceDiscovered(Race.SQUIRREL_MORPH)
+							?Game.getRaceDiscoveredMessage(Race.SQUIRREL_MORPH)
+							:"")
+					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.SQUIRREL_MORPH)
+							?Game.getRaceAdvancedKnowledgeMessage(Race.SQUIRREL_MORPH)
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
 								+ "</p>"
@@ -659,6 +691,31 @@ public enum ItemEffectType {
 		}
 	},
 	
+	FIT_SQUIRREL_JAVA(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldStamina(stamina)]"),
+			new ListValue<>("[style.boldGood(+1)] [style.boldFitness(fitness)] to 'potion effects'")),
+			Colour.ATTRIBUTE_FITNESS) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)/20);
+
+			return "A soothing wave of arcane energy washes over you..."
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.FITNESS, 1);
+		}
+	},
+	
 	SEX_HARPY_PERFUME(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldSex(+1)] [style.boldFeminine(femininity)]"),
 			new ListValue<>("[style.boldGood(+1)] [style.boldFitness(fitness)] to 'potion effects'")),
@@ -712,6 +769,36 @@ public enum ItemEffectType {
 			return "A sickly wave of corruptive arcane energy washes over you..."
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.CORRUPTION, 1);
+		}
+	},
+	
+	EGGPLANT(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(health)]"),
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldWillpower(willpower)]"),
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldStamina(stamina)]")),
+			Colour.ATTRIBUTE_CORRUPTION) {
+		
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
+			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
+			target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)/20);
+			
+			if(target.isPlayer()) {
+				return "It's kind of tasty.";
+			} else {
+				return "";
+			}
 		}
 	},
 	
@@ -823,6 +910,31 @@ public enum ItemEffectType {
 					+ target.addPotionEffect(Attribute.INTELLIGENCE, 3)
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.FITNESS, 2);
+		}
+	},
+	
+	RACE_ROUND_NUTS(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(+3)] [style.boldFitness(fitness)] to 'potion effects'"),
+			new ListValue<>("[style.boldGood(+2)] [style.boldIntelligence(intelligence)] to 'potion effects'")),
+			Colour.RACE_SQUIRREL_MORPH) {
+		
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			return "You start to feel a lot fitter..."
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.FITNESS, 3)
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.INTELLIGENCE, 2);
 		}
 	},
 	
@@ -963,6 +1075,27 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
 			target.incrementEssenceCount(TFEssence.CAT_MORPH, 1);
 			return "You have absorbed [style.boldGood(+1)] [style.boldCat(Cat-morph)] essence!";
+		}
+	},
+	
+	BOTTLED_ESSENCE_SQUIRREL_MORPH(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(+1)] [style.boldSquirrel(Squirrel-morph)] essence")),
+			Colour.RACE_SQUIRREL_MORPH) {
+		
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			target.incrementEssenceCount(TFEssence.SQUIRREL_MORPH, 1);
+			return "You have absorbed [style.boldGood(+1)] [style.boldSquirrel(Squirrel-morph)] essence!";
 		}
 	},
 	
@@ -1562,6 +1695,30 @@ public enum ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
 			return getRacialEffect(Race.CAT_MORPH, primaryModifier, secondaryModifier, user, target);
+		}
+	},
+	
+	RACE_SQUIRREL_MORPH(null,
+			Colour.RACE_SQUIRREL_MORPH) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return TFModifier.getTFRacialBodyPartsListList();
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return getRacialSecondaryModifiers(primaryModifier);
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return getRacialEffectDescription(Race.SQUIRREL_MORPH, primaryModifier, secondaryModifier);
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			return getRacialEffect(Race.SQUIRREL_MORPH, primaryModifier, secondaryModifier, user, target);
 		}
 	},
 	

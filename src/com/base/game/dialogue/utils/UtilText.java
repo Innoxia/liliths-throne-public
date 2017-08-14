@@ -20,6 +20,7 @@ import com.base.game.character.effects.PerkInterface;
 import com.base.game.character.gender.Gender;
 import com.base.game.character.gender.GenderPronoun;
 import com.base.game.character.race.Race;
+import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.CoverableArea;
 import com.base.game.sex.OrificeType;
 import com.base.game.sex.Sex;
@@ -262,11 +263,32 @@ public class UtilText {
 		
 		// Apply speech effects:
 		if(Main.game.isInSex()) {
-			if(Sex.isPlayerPenetrated())
+			if(Sex.isPlayerPenetrated()) {
 				modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
+			}
 			
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)!=null)
+			if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)!=null) {
 				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+			} else {
+				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
+					for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
+						if(c.getClothingType().isMufflesSpeech()) {
+							modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+							break;
+						}
+					}
+				}
+			}
+			
+		} else {
+			if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
+				for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
+					if(c.getClothingType().isMufflesSpeech()) {
+						modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+						break;
+					}
+				}
+			}
 		}
 
 		if (Femininity.valueOf(Main.game.getPlayer().getFemininity()) == Femininity.MASCULINE || Femininity.valueOf(Main.game.getPlayer().getFemininity()) == Femininity.MASCULINE_STRONG)
@@ -292,6 +314,15 @@ public class UtilText {
 				}
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)!=null) {
 					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+				} else {
+					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
+						for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+							if(c.getClothingType().isMufflesSpeech()) {
+								modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+								break;
+							}
+						}
+					}
 				}
 				
 			} else {
@@ -301,6 +332,24 @@ public class UtilText {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER)!=null) {
 					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+				} else {
+					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
+						for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+							if(c.getClothingType().isMufflesSpeech()) {
+								modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+								break;
+							}
+						}
+					}
+				}
+			}
+		} else {
+			if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
+				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+					if(c.getClothingType().isMufflesSpeech()) {
+						modifiedSentence = Util.addMuffle(modifiedSentence, 6);
+						break;
+					}
 				}
 			}
 		}

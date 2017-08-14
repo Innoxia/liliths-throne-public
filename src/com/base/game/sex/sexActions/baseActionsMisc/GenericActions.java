@@ -369,7 +369,7 @@ public class GenericActions {
 	
 	
 	public static SexAction PLAYER_STOP_PARTNER_SELF = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.PLAYER_SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
@@ -531,12 +531,13 @@ public class GenericActions {
 	};
 	
 	public static SexAction PARTNER_STOP_PLAYER_SELF = new SexAction(
-			SexActionType.PARTNER_STOP_PENETRATION,
+			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
 			null) {
+		
 		@Override
 		public String getActionTitle() {
 			return "Stop player";
@@ -546,7 +547,7 @@ public class GenericActions {
 		public String getActionDescription() {
 			return "";
 		}
-
+		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPlayerSelfPenetrationHappening()
@@ -604,22 +605,6 @@ public class GenericActions {
 					}
 				}
 			}
-			
-//			if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)!=null)
-//				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER).isPlayer())
-//					Sex.removePenetration(OrificeType.VAGINA_PLAYER);
-//
-//			if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)!=null)
-//				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER).isPlayer())
-//					Sex.removePenetration(OrificeType.ANUS_PLAYER);
-//			
-//			if (Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER)!=null)
-//				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER).isPlayer())
-//					Sex.removePenetration(OrificeType.NIPPLE_PLAYER);
-//			
-//			if (Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)!=null)
-//				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER).isPlayer())
-//					Sex.removePenetration(OrificeType.MOUTH_PLAYER);
 		}
 	};
 	

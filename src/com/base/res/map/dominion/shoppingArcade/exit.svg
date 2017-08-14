@@ -16,12 +16,12 @@
    id="svg4311"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="entranceGate.svg">
+   sodipodi:docname="entranceHall.svg">
   <defs
      id="defs4313">
     <linearGradient
        inkscape:collect="always"
-       id="entranceGateGradient">
+       id="entranceHallGradient">
       <stop
          style="stop-color:#ff5555;stop-opacity:1"
          offset="0"
@@ -33,7 +33,7 @@
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#entranceGateGradient"
+       xlink:href="#entranceHallGradient"
        id="linearGradient15"
        x1="29.499998"
        y1="1025.4872"
@@ -49,9 +49,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568545"
-     inkscape:cx="23.956637"
-     inkscape:cy="15.288653"
+     inkscape:zoom="2.8284273"
+     inkscape:cx="-47.160572"
+     inkscape:cy="25.775735"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -87,10 +87,22 @@
        id="ellipse4146"
        style="display:inline;fill:url(#linearGradient15);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5.4000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:4.84000015;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 17.412171,1038.244 -0.119717,-25.573 c -0.09525,-4.7145 7.74366,-11.3933 15.444081,-11.4722 7.705063,-0.079 15.271666,6.4449 15.274711,11.155 l 0,25.8849"
-       id="path4165"
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 24.157588,1031.0034 0.01634,4.5555 23.583347,0 0.01105,-31.6319 -23.682637,-0.01 0.02771,5.4781"
+       id="path4200"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccscc" />
+       sodipodi:nodetypes="cccccc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 12.838407,1019.3492 c 0.265165,0 22.251766,-0.044 22.251766,-0.044"
+       id="path4202"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 27.356193,1011.9245 8.750446,7.5572 -8.764691,7.0572"
+       id="path4204"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
   </g>
 </svg>

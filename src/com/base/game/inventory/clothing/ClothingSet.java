@@ -9,7 +9,7 @@ import com.base.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.1.0
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum ClothingSet {
@@ -20,7 +20,7 @@ public enum ClothingSet {
 	// Headdress, outfit, gloves, stockings, shoes
 	MAID("Maid", StatusEffect.SET_MAID.getDescription(Main.game.getPlayer()), StatusEffect.SET_MAID, 5, null, null),
 
-	BDSM("BDSM", StatusEffect.SET_BDSM.getDescription(Main.game.getPlayer()), StatusEffect.SET_BDSM, 6, null, null),
+	BDSM("BDSM", StatusEffect.SET_BDSM.getDescription(Main.game.getPlayer()), StatusEffect.SET_BDSM, 4, null, null),
 
 	RAINBOW("Rainbow", StatusEffect.SET_RAINBOW.getDescription(Main.game.getPlayer()), StatusEffect.SET_RAINBOW, 2, null, null);
 

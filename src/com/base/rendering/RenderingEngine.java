@@ -1034,9 +1034,19 @@ public enum RenderingEngine {
 				+ "</div>"
 
 				+ "<div class='quarterContainer'>"
-					+ "<div class='button" + (Main.game.getPlayer().isMainQuestUpdated() || Main.game.getPlayer().isSideQuestUpdated() || Main.game.getPlayer().isRomanceQuestUpdated()
-							|| Main.game.getPlayer().isNewWeaponDiscovered() || Main.game.getPlayer().isNewClothingDiscovered() || Main.game.getPlayer().isNewItemDiscovered() || Main.game.getPlayer().isNewRaceDiscovered()
-							|| Main.game.getPlayer().getPerkPoints()>0 || Main.game.getPlayer().getLevelUpPoints()>0 ? " highlight" : "")
+					+ "<div class='button" + (
+							Main.game.getPlayer().isMainQuestUpdated()
+							|| Main.game.getPlayer().isSideQuestUpdated()
+							|| Main.game.getPlayer().isRomanceQuestUpdated()
+							|| Main.game.getPlayer().isNewWeaponDiscovered()
+							|| Main.game.getPlayer().isNewClothingDiscovered()
+							|| Main.game.getPlayer().isNewItemDiscovered()
+							|| Main.game.getPlayer().isNewRaceDiscovered()
+							|| Main.game.getPlayer().getPerkPoints()>0
+							|| (Main.game.getPlayer().getLevelUpPoints()>0
+									&& (Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH) + Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE) + Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS))<300)
+								?" highlight"
+								:"")
 						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() ? "" : " disabled") + "' id='journal'>" + SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
 						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() ? "" : "<div class='disabledLayer'></div>")
 					+ "</div>"

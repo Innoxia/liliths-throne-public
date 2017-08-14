@@ -4,26 +4,26 @@ package com.base.game.character.body.valueEnums;
  * Measured in inches.
  * 
  * @since 0.1.0
- * @version 0.1.0
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum HairLength {
 	/** Bald */
-	ZERO_BALD("bald", 0, 0),
+	ZERO_BALD("bald", 0, 1),
 	/** Very short */
-	ONE_VERY_SHORT("very short", 1, 2),
+	ONE_VERY_SHORT("very short", 1, 3),
 	/** Short */
-	TWO_SHORT("short", 3, 5),
+	TWO_SHORT("short", 3, 6),
 	/** above the shoulders */
 	THREE_SHOULDER_LENGTH("shoulder-length", 6, 12),
 	/** Reaching down to mid-back */
-	FOUR_MID_BACK("long", 13, 18),
+	FOUR_MID_BACK("long", 12, 18),
 	/** Reaching down to just above the ass */
-	FIVE_ABOVE_ASS("very long", 19, 24),
+	FIVE_ABOVE_ASS("very long", 18, 24),
 	/** Reaching down to below the ass */
-	SIX_BELOW_ASS("incredibly long", 25, 30),
+	SIX_BELOW_ASS("incredibly long", 24, 30),
 	/** Hair so long that it reaches the floor */
-	SEVEN_TO_FLOOR("extremely long", 31, 40);
+	SEVEN_TO_FLOOR("extremely long", 30, 40);
 
 	private int minimumValue, maximumValue;
 	private String descriptor;
@@ -85,22 +85,12 @@ public enum HairLength {
 	}
 
 	public static HairLength getHairLengthFromInt(int hairLength) {
-		if (hairLength <= ZERO_BALD.maximumValue)
-			return ZERO_BALD;
-		else if (hairLength <= ONE_VERY_SHORT.maximumValue)
-			return ONE_VERY_SHORT;
-		else if (hairLength <= TWO_SHORT.maximumValue)
-			return TWO_SHORT;
-		else if (hairLength <= THREE_SHOULDER_LENGTH.maximumValue)
-			return THREE_SHOULDER_LENGTH;
-		else if (hairLength <= FOUR_MID_BACK.maximumValue)
-			return FOUR_MID_BACK;
-		else if (hairLength <= FIVE_ABOVE_ASS.maximumValue)
-			return FIVE_ABOVE_ASS;
-		else if (hairLength <= SIX_BELOW_ASS.maximumValue)
-			return SIX_BELOW_ASS;
-		else
-			return SEVEN_TO_FLOOR;
+		for(HairLength hl : HairLength.values()) {
+			if(hairLength>=hl.getMinimumValue() && hairLength<hl.getMaximumValue()) {
+				return hl;
+			}
+		}
+		return SEVEN_TO_FLOOR;
 	}
 
 	/**

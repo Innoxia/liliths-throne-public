@@ -117,7 +117,9 @@ public class PhoneDialogue {
 				
 			} else if (index == 6) {
 				return new Response(
-						(Main.game.getPlayer().getLevelUpPoints() > 0 || Main.game.getPlayer().getPerkPoints() > 0)
+						((Main.game.getPlayer().getLevelUpPoints() > 0 
+								&& (Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH) + Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE) + Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS))<300)
+								|| Main.game.getPlayer().getPerkPoints() > 0)
 							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Character</span>"
 							:"Character",
 						"View your character page.", CHARACTER_LEVEL_UP){
@@ -1829,9 +1831,19 @@ public class PhoneDialogue {
 							int refund = 0;
 							while(it.hasNext()) {
 								Fetish f = it.next();
+								if(f.getFetishesForAutomaticUnlock().isEmpty()) {
+									refund += f.getCost();
+									Main.game.getPlayer().removeFetish(f);
+								}
+							}
+							
+							it = Main.game.getPlayer().getFetishes().iterator();
+							while(it.hasNext()) {
+								Fetish f = it.next();
 								refund += f.getCost();
 								Main.game.getPlayer().removeFetish(f);
 							}
+							
 							Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, refund/2);
 							levelUpFetishes.clear();
 							PhoneDialogue.confirmReset = false;

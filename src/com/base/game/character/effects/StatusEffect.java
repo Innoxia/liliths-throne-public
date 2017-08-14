@@ -1438,7 +1438,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if(!target.getRace().isVulnerableToLilithsLustStorm() && !target.getLocationPlace().isStormImmune()) {
+			if(!target.getRace().isVulnerableToLilithsLustStorm() && target.isPlayer() && !target.getLocationPlace().isStormImmune()) {
 				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM;
 			} else {
 				return false;
@@ -1453,6 +1453,7 @@ public enum StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStorm();
 		}
 	},
+	
 	WEATHER_STORM_VULNERABLE(100,
 			"Arcane storm",
 			"weatherDayStorm",
@@ -1478,7 +1479,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if(target.getRace().isVulnerableToLilithsLustStorm() && !target.getLocationPlace().isStormImmune()) {
+			if(target.getRace().isVulnerableToLilithsLustStorm() && !target.isPlayer() && !target.getLocationPlace().isStormImmune()) {
 				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM;
 			} else {
 				return false;
@@ -1729,6 +1730,36 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.CAT_MORPH
+					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+	},
+
+	// RODENT:
+	SQUIRREL_MORPH(
+			90,
+			"Squirrel-morph",
+			"raceSquirrelMorph",
+			Colour.RACE_SQUIRREL_MORPH,
+			true,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 5f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "Your body is incredibly agile, and you possess lightning reflexes.";
+			else
+				return UtilText.parse(target, "[npc.Name]'s body is incredibly agile, and [npc.she] possesses lightning reflexes.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.SQUIRREL_MORPH
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
 	},
@@ -2057,37 +2088,44 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			if(!Main.game.getDialogueFlags().jinxedClothingDiscovered) {
-				Main.game.getDialogueFlags().jinxedClothingDiscovered = true;
-				AbstractClothing clothing = null;
-				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-					if(c.isSealed()) {
-						clothing = c;
-						break;
+			if(target.isPlayer()) {
+				if(!Main.game.getDialogueFlags().jinxedClothingDiscovered) {
+					Main.game.getDialogueFlags().jinxedClothingDiscovered = true;
+					AbstractClothing clothing = null;
+					for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+						if(c.isSealed()) {
+							clothing = c;
+							break;
+						}
 					}
+					
+					return "<p>"
+								+ "As you finish fitting the "+clothing.getName()+" in place, you start to feel a strange warmth radiating from "+(clothing.getClothingType().isPlural()?"their":"its")+" surface."
+								+ " Feeling a little uneasy about the manner of arcane enchantment that "+(clothing.getClothingType().isPlural()?"they":"it")+" must contain, you immediately try to take "
+									+(clothing.getClothingType().isPlural()?"they":"it")+" off."
+							+ "</p>"
+							+ "<p>"
+								+ "Taking hold of the "+clothing.getName()+", nothing seems to be wrong at first, but as you try to pull "+(clothing.getClothingType().isPlural()?"they":"it")+" off, you find out that you've made a big mistake."
+								+ " A jolt of arcane energy suddenly flashes up through your body, and as the invasive force shoots its way into your mind, you find yourself unwittingly releasing your grip."
+							+ "</p>"
+							+ "<p>"
+								+ "Gritting your teeth, you try once again to remove the offending article of clothing, only to find yourself instantly letting go as you try to pull it off "
+									+(clothing.getClothingType().isPlural()?"they":"it")+" off."
+								+ " No matter how much you struggle, all you're able to do is move the "+clothing.getName()
+								+" around a little, and whenever it looks to be in danger of being removed, it moves back into its proper position with a mind of its own."
+							+ "</p>"
+							+ "<p>"
+								+ "Eventually giving up, you decide to go and ask Lilaya what's going on with "+(clothing.getClothingType().isPlural()?"these":"this")
+									+" <b style='color:"+Colour.RARITY_JINXED.toWebHexString()+";'>jinxed</b> "+clothing.getName()+"."
+								+ " Maybe she'll know a way to break the seal?"
+							+ "</p>"
+							+Main.game.getPlayer().incrementQuest(QuestLine.SIDE_JINXED_CLOTHING);
+				} else {
+					return "";
 				}
-				return "<p>"
-							+ "As you finish fitting the "+clothing.getName()+" in place, you start to feel a strange warmth radiating from "+(clothing.getClothingType().isPlural()?"their":"its")+" surface."
-							+ " Feeling a little uneasy about the manner of arcane enchantment that "+(clothing.getClothingType().isPlural()?"they":"it")+" must contain, you immediately try to take "
-								+(clothing.getClothingType().isPlural()?"they":"it")+" off."
-						+ "</p>"
-						+ "<p>"
-							+ "Taking hold of the "+clothing.getName()+", nothing seems to be wrong at first, but as you try to pull "+(clothing.getClothingType().isPlural()?"they":"it")+" off, you find out that you've made a big mistake."
-							+ " A jolt of arcane energy suddenly flashes up through your body, and as the invasive force shoots its way into your mind, you find yourself unwittingly releasing your grip."
-						+ "</p>"
-						+ "<p>"
-							+ "Gritting your teeth, you try once again to remove the offending article of clothing, only to find yourself instantly letting go as you try to pull it off "
-								+(clothing.getClothingType().isPlural()?"they":"it")+" off."
-							+ " No matter how much you struggle, all you're able to do is move the "+clothing.getName()
-							+" around a little, and whenever it looks to be in danger of being removed, it moves back into its proper position with a mind of its own."
-						+ "</p>"
-						+ "<p>"
-							+ "Eventually giving up, you decide to go and ask Lilaya what's going on with "+(clothing.getClothingType().isPlural()?"these":"this")
-								+" <b style='color:"+Colour.RARITY_JINXED.toWebHexString()+";'>jinxed</b> "+clothing.getName()+"."
-							+ " Maybe she'll know a way to break the seal?"
-						+ "</p>";
-			} else
+			} else {
 				return "";
+			}
 		}
 
 		@Override
@@ -3420,7 +3458,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.hasFetish(Fetish.FETISH_PURE_VIRGIN) && target.hasVagina() && !target.isVaginaVirgin();
+			return target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN) && target.hasVagina() && !target.isVaginaVirgin();
 		}
 		
 		@Override
@@ -3520,7 +3558,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "What does it mean?";
+			return "Double rainbow... What does it mean?!";
 		}
 
 		@Override

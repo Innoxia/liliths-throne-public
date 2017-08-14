@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum Colour {
@@ -43,7 +43,8 @@ public enum Colour {
 	RACE_WOLF_MORPH(BaseColour.BLACK, "black", Util.newArrayListOfValues(new ListValue<>("wolfMorph"), new ListValue<>("wolf"))),
 	RACE_HARPY(BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues(new ListValue<>("harpy"))),
 	RACE_SLIME(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("slime"))),
-
+	RACE_SQUIRREL_MORPH(BaseColour.GINGER, "ginger", Util.newArrayListOfValues(new ListValue<>("squirrelMorph"), new ListValue<>("squirrel"))),
+	
 	QUEST_MAIN(BaseColour.PINK, "pink"),
 	QUEST_SIDE(BaseColour.BLUE, "blue"),
 	QUEST_ROMANCE(BaseColour.PINK_LIGHT, "pink"),
@@ -178,13 +179,16 @@ public enum Colour {
 	CLOTHING_PINK(Util.newColour(0xD75086), Util.newColour(0xD75086), "pink"),
 	CLOTHING_PINK_LIGHT(Util.newColour(0xF4B3F4), Util.newColour(0xF4B3F4), "light pink"),
 	CLOTHING_BLACK(Util.newColour(0x333333), Util.newColour(0x333333), "black"),
+	CLOTHING_GREY(Util.newColour(0x777777), Util.newColour(0x777777), "grey"),
 	CLOTHING_WHITE(Util.newColour(0xdddddd), Util.newColour(0xdddddd), "white"),
 	CLOTHING_BLACK_STEEL(Util.newColour(0x333333), Util.newColour(0x333333), "black"),
 	CLOTHING_STEEL(Util.newColour(0x969696), Util.newColour(0x969696), "steel"),
 	CLOTHING_COPPER(Util.newColour(0xD46F2B), Util.newColour(0xD46F2B), "copper"),
 	CLOTHING_SILVER(Util.newColour(0xC4C4C4), Util.newColour(0xC4C4C4), "silver"),
 	CLOTHING_GOLD(Util.newColour(0xEBC633), Util.newColour(0xEBC633), "gold"),
-
+	CLOTHING_ROSE_GOLD(Util.newColour(0xE7C1BB), Util.newColour(0xE7C1BB), "rose gold"),
+	CLOTHING_PLATINUM(Util.newColour(0xE4E5E2), Util.newColour(0xE4E5E2), "platinum"),
+	
 	// For special use with rainbow clothing:
 	CLOTHING_MULTICOLOURED(Util.newColour(0xff3030), Util.newColour(0xccffff), "multicoloured"),
 
@@ -271,6 +275,7 @@ public enum Colour {
 	public static List<Colour> allClothingColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(CLOTHING_WHITE),
 			new ListValue<Colour>(CLOTHING_BLACK),
+			new ListValue<Colour>(CLOTHING_GREY),
 			new ListValue<Colour>(CLOTHING_RED),
 			new ListValue<Colour>(CLOTHING_ORANGE),
 			new ListValue<Colour>(CLOTHING_BROWN),
@@ -288,6 +293,7 @@ public enum Colour {
 	public static List<Colour> masculineColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(CLOTHING_WHITE),
 			new ListValue<Colour>(CLOTHING_BLACK),
+			new ListValue<Colour>(CLOTHING_GREY),
 			new ListValue<Colour>(CLOTHING_TURQUOISE),
 			new ListValue<Colour>(CLOTHING_BLUE_LIGHT),
 			new ListValue<Colour>(CLOTHING_BLUE));
@@ -307,8 +313,10 @@ public enum Colour {
 			new ListValue<Colour>(CLOTHING_STEEL),
 			new ListValue<Colour>(CLOTHING_COPPER),
 			new ListValue<Colour>(CLOTHING_SILVER),
-			new ListValue<Colour>(CLOTHING_GOLD));
-
+			new ListValue<Colour>(CLOTHING_ROSE_GOLD)),
+			new ListValue<Colour>(CLOTHING_GOLD)),
+			new ListValue<Colour>(CLOTHING_PLATINUM));
+	
 	private Color colour, lightColour;
 	private String name;
 	private List<String> formattingNames;

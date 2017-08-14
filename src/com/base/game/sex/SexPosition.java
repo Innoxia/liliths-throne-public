@@ -25,6 +25,9 @@ public enum SexPosition {
 	STANDING("Face-to-face", "You're standing face-to-face with [npc.name]."),
 	
 	DOGGY_PLAYER_ON_ALL_FOURS("Doggy-style (on all fours)", "You're down on all fours, presenting yourself to [npc.name], who's kneeling down behind you, eager to take advantage of your submissive position."),
+	
+	SELF_DOGGY_PLAYER_ON_ALL_FOURS("Doggy-style (on all fours)", "You're down on all fours, presenting yourself to [npc.name], who's kneeling down behind you, awaiting for your permission to take advantage of your position."),
+	
 	DOGGY_PARTNER_ON_ALL_FOURS("Doggy-style (kneeling behind)", "[npc.Name] is down on all fours, presenting [npc.herself] to you. You're kneeling down behind [npc.herHim], ready to take advantage of [npc.her] submissive position."),
 	
 	COWGIRL_PARTNER_TOP("Cowgirl (bottom)", "You're lying down on your back as [npc.name] straddles your stomach in the cowgirl position."),

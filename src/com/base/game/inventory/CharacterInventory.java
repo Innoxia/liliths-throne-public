@@ -575,9 +575,14 @@ public class CharacterInventory implements Serializable {
 		// return false;
 		// }
 
-		// Check to see if any of the character's body parts are blockingequipping this item:
+		// Check to see if any of the character's body parts are blocking equipping this item:
 		if (ClothingType.slotBlockedByRace(characterClothingOwner, newClothing.getClothingType().getSlot()) != null) {
 			equipTextSB.append("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" + ClothingType.getCannotBeWornDescription(characterClothingOwner, newClothing.getClothingType().getSlot()) + "</span>");
+			return false;
+		}
+		
+		if (!newClothing.getClothingType().isCanBeEquipped(characterClothingOwner)) {
+			equipTextSB.append("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" + newClothing.getClothingType().getCannotBeEquippedText(characterClothingOwner) + "</span>");
 			return false;
 		}
 
@@ -938,9 +943,10 @@ public class CharacterInventory implements Serializable {
 				equipTextSB.append("</br>You replace your " + Util.clothesToStringList(clothingToBeReplaced) + ".");
 
 			// Check for clothing sets:
-			if (clothing.getClothingType().getClothingSet() != null)
+			if (clothing.getClothingType().getClothingSet() != null) {
 				clothingSetCount.put(clothing.getClothingType().getClothingSet(), clothingSetCount.get(clothing.getClothingType().getClothingSet()) - 1);
-
+			}
+			
 			clothingCurrentlyEquipped.sort(new AbstractClothingRarityComparator());
 
 		}

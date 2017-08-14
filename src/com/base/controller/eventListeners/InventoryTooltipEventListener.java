@@ -111,7 +111,7 @@ public class InventoryTooltipEventListener implements EventListener {
 									:"Standard use"))
 					+ "</div>"
 
-					+ "<div class='description' style='height:104px'>" + item.getDescription() + "</div>"
+					+ "<div class='description' style='height:104px'>" + UtilText.parse(item.getDescription()) + "</div>"
 					
 					
 					+ "<div class='subTitle'>" + "<b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol()
@@ -307,7 +307,7 @@ public class InventoryTooltipEventListener implements EventListener {
 							+ Util.capitaliseSentence(enchantmentModifier.getName())
 					+ "</div>"
 					+ "<div class='description' style='height:48px'>"
-					+ enchantmentModifier.getDescription()
+					+ UtilText.parse(enchantmentModifier.getDescription())
 					+ "</div>"
 					+ "<div class='subTitle'>"
 							+ "Costs: <b style='color:"+EnchantmentDialogue.ingredient.getRelatedEssence().getColour().toWebHexString() + ";'>"
@@ -330,7 +330,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		Main.mainController.setTooltipSize(360, 164);
 		Main.mainController.setTooltipContent(UtilText.parse(
 				"<div class='title'>" + Util.capitaliseSentence(invSlot.getName()) + ": <span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Blocked!</span></div>"
-				+ "<div class='description'>" + description + "</div>"));
+				+ "<div class='description'>" + UtilText.parse(description) + "</div>"));
 	}
 	
 	
@@ -455,7 +455,7 @@ public class InventoryTooltipEventListener implements EventListener {
 
 		tooltipSB.append("</div>"
 
-				+ "<div class='description'>" + absWep.getWeaponType().getDescription() + "</div>");
+				+ "<div class='description'>" + UtilText.parse(absWep.getWeaponType().getDescription()) + "</div>");
 
 		// Bonus attributes and spells granted:
 		tooltipSB.append("<div class='subTitle-half'>");
@@ -523,7 +523,7 @@ public class InventoryTooltipEventListener implements EventListener {
 				+ "<div class='subTitle-half'>"
 				+ (absClothing.getClothingType().getClothingSet() == null ? "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Not part of a set</span>" : absClothing.getClothingType().getClothingSet().getName() + " set") + "</div>"
 
-				+ "<div class='description'>" + absClothing.getClothingType().getDescription() + "</div>");
+				+ "<div class='description'>" + UtilText.parse(absClothing.getClothingType().getDescription()) + "</div>");
 
 		// Bonus attributes and information:
 		tooltipSB.append("<div class='subTitle-half'>");

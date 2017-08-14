@@ -123,6 +123,7 @@ public enum WorldType {
 					new Value<>(new Color(0x808080), SlaverAlley.ALLEY),
 					new Value<>(new Color(0xff0000), SlaverAlley.ALLEY_ENTRANCE),
 					new Value<>(new Color(0xff00ff), SlaverAlley.MARKET_STALL),
+					new Value<>(new Color(0x0000ff), SlaverAlley.SLAVERY_ADMINISTRATION),
 					new Value<>(new Color(0xff0080), SlaverAlley.SCARLETTS_SHOP),
 					new Value<>(new Color(0xffff00), SlaverAlley.AUCTIONING_BLOCK)),
 			

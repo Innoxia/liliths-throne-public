@@ -466,7 +466,7 @@ public class PartnerFingerNipple {
 			switch(Sex.getSexPacePartner()) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Teasing [npc.her] [npc.fingers] over your [npc.breasts+], you let out a gasp as [npc.name] circles around one of your [pc.nipples+], before slowly pushing [npc.her] digits into your inviting orifice.",
+							"Teasing [npc.her] [npc.fingers] over your [pc.breasts+], you let out a gasp as [npc.name] circles around one of your [pc.nipples+], before slowly pushing [npc.her] digits into your inviting orifice.",
 							"[npc.Name] presses [npc.her] [npc.fingers] against one of your [pc.nipples+], and with a slow, steady pressure, [npc.she] gently sinks [npc.her] digits into the flesh of your breast."));
 					break;
 				case DOM_NORMAL:

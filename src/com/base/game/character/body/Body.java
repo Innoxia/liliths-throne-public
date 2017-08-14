@@ -248,22 +248,22 @@ public class Body implements Serializable {
 						+ "[npc.She] has ");
 		}
 		
-		if (femininity <= Femininity.MASCULINE_STRONG.getMaximumFemininity()) {
+		if (Femininity.valueOf(femininity) == Femininity.MASCULINE_STRONG) {
 			sb.append(
 					UtilText.returnStringAtRandom(
 							"a <span style='color:" + Colour.MASCULINE_PLUS.toWebHexString() + ";'>very masculine</span>",
 							"an <span style='color:" + Colour.MASCULINE_PLUS.toWebHexString() + ";'>extremely handsome</span>"));
 			
-		} else if (femininity <= Femininity.MASCULINE.getMaximumFemininity()) {
+		} else if (Femininity.valueOf(femininity) == Femininity.MASCULINE) {
 			sb.append(
 					UtilText.returnStringAtRandom(
 							"a <span style='color:" + Colour.MASCULINE.toWebHexString() + ";'>masculine</span>",
 							"a <span style='color:" + Colour.MASCULINE.toWebHexString() + ";'>handsome</span>"));
 			
-		} else if (femininity <= Femininity.ANDROGYNOUS.getMaximumFemininity()) {
+		} else if (Femininity.valueOf(femininity) == Femininity.ANDROGYNOUS) {
 			sb.append("an <span style='color:" + Colour.ANDROGYNOUS.toWebHexString() + ";'>androgynous</span>");
 			
-		} else if (femininity <= Femininity.FEMININE.getMaximumFemininity()) {
+		} else if (Femininity.valueOf(femininity) == Femininity.FEMININE) {
 			sb.append(
 					UtilText.returnStringAtRandom(
 							"a <span style='color:" + Colour.FEMININE.toWebHexString() + ";'>pretty</span>",
@@ -336,6 +336,15 @@ public class Body implements Serializable {
 							+ " You have a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[pc.eyeColour] [pc.eyes+]</span>" + (face.isPiercedNose() ? " and a pierced nose." : "."));
 				} else {
 					sb.append(", anthropomorphic cat-like face, with a cute little muzzle."
+							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[npc.eyeColour] [npc.eyes+]</span>" + (face.isPiercedNose() ? " and a pierced nose." : "."));
+				}
+				break;
+			case SQUIRREL_MORPH:
+				if (owner.isPlayer()) {
+					sb.append(", anthropomorphic squirrel-like face, with a cute little muzzle."
+							+ " You have a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[pc.eyeColour] [pc.eyes+]</span>" + (face.isPiercedNose() ? " and a pierced nose." : "."));
+				} else {
+					sb.append(", anthropomorphic squirrel-like face, with a cute little muzzle."
 							+ " [npc.She] has a pair of <span style='color:"+owner.getEyeColour().toWebHexString()+";'>[npc.eyeColour] [npc.eyes+]</span>" + (face.isPiercedNose() ? " and a pierced nose." : "."));
 				}
 				break;
@@ -520,6 +529,12 @@ public class Body implements Serializable {
 				else
 					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on [npc.her] head.");
 				break;
+			case SQUIRREL_MORPH:
+				if (owner.isPlayer())
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, squirrel-like ears, which are positioned high up on your head.");
+				else
+					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, squirrel-like ears, which are positioned high up on [npc.her] head.");
+				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer())
 					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, horse-like ears, which are positioned high up on your head.");
@@ -581,6 +596,12 @@ public class Body implements Serializable {
 						sb.append(" [npc.She] has [npc.hairLength], <span style='color:[npc.hairColourHex];'>[npc.hairColour], fur-like hair</span>");
 					break;
 				case HAIR_FELINE_FUR:
+					if (owner.isPlayer())
+						sb.append(" You have [pc.hairLength], <span style='color:[pc.hairColourHex];'>[pc.hairColour], fur-like hair</span>");
+					else
+						sb.append(" [npc.She] has [npc.hairLength], <span style='color:[npc.hairColourHex];'>[npc.hairColour], fur-like hair</span>");
+					break;
+				case HAIR_SQUIRREL_FUR:
 					if (owner.isPlayer())
 						sb.append(" You have [pc.hairLength], <span style='color:[pc.hairColourHex];'>[pc.hairColour], fur-like hair</span>");
 					else
@@ -932,6 +953,14 @@ public class Body implements Serializable {
 					sb.append("[npc.Her] arms are covered in <span style='color:[npc.armColourHex];'>[npc.armColour] [npc.armSkin]</span>,"
 							+ " and [npc.her] hands are formed into anthropomorphic, cat-like hands, complete with retractable claws and pink pads.");
 				break;
+			case SQUIRREL_MORPH:
+				if (owner.isPlayer())
+					sb.append("Your arms are covered in <span style='color:[pc.armColourHex];'>[pc.armColour] [pc.armSkin]</span>,"
+							+ " and your hands are formed into anthropomorphic, squirrel-like hands, complete with claws.");
+				else
+					sb.append("[npc.Her] arms are covered in <span style='color:[npc.armColourHex];'>[npc.armColour] [npc.armSkin]</span>,"
+							+ " and [npc.her] hands are formed into anthropomorphic, squirrel-like hands, complete with claws.");
+				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer())
 					sb.append("Your arms are covered in <span style='color:[pc.armColourHex];'>[pc.armColour] [pc.armSkin]</span>,"
@@ -1001,6 +1030,14 @@ public class Body implements Serializable {
 				else
 					sb.append("[npc.Her] legs are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
 							+ " and [npc.her] feet are formed into anthropomorphic cat-like paws, complete with retractable claws and pink pads.");
+				break;
+			case SQUIRREL_MORPH:
+				if (owner.isPlayer())
+					sb.append("Your legs are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>,"
+							+ " and your feet are formed into anthropomorphic squirrel-like paws, complete with claws and pink pads.");
+				else
+					sb.append("[npc.Her] legs are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
+							+ " and [npc.her] feet are formed into anthropomorphic squirrel-like paws, complete with claws and pink pads.");
 				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer())
@@ -1106,6 +1143,14 @@ public class Body implements Serializable {
 							+ " You can control it well enough to grant you significantly improved balance.");
 				else
 					sb.append(" A furry, <span style='color:[npc.tailColourHex];'>[npc.tailColour], cat-like tail</span> grows out from just above [npc.her] ass."
+							+ " [npc.She] seems to be able to control it enough to grant [npc.her] significantly improved balance.");
+				break;
+			case SQUIRREL_MORPH:
+				if (owner.isPlayer())
+					sb.append(" A fluffy, <span style='color:[pc.tailColourHex];'>[pc.tailColour], squirrel-like tail</span> grows out from just above your ass."
+							+ " You can control it well enough to grant you significantly improved balance.");
+				else
+					sb.append(" A fluffy, <span style='color:[npc.tailColourHex];'>[npc.tailColour], squirrel-like tail</span> grows out from just above [npc.her] ass."
 							+ " [npc.She] seems to be able to control it enough to grant [npc.her] significantly improved balance.");
 				break;
 			case HORSE_MORPH:
@@ -1396,6 +1441,13 @@ public class Body implements Serializable {
 					descriptionSB.append("[npc.She] has a feline asshole, which looks very similar to that of a human's.");
 				break;
 				
+			case SQUIRREL_MORPH:
+				if (isPlayer) 
+					descriptionSB.append("You have a rodent asshole, which looks very similar to that of a human's.");
+				 else
+					descriptionSB.append("[npc.She] has a rodent asshole, which looks very similar to that of a human's.");
+				break;
+				
 			case HORSE_MORPH:
 				if (isPlayer) 
 					descriptionSB.append("Your rear entrance has transformed into a black, puffy, horse-like asshole.");
@@ -1547,6 +1599,14 @@ public class Body implements Serializable {
 					descriptionSB.append("Your feline nipples look very similar to those found on a human, with the main difference being that they produce feline milk when lactating.");
 				} else if (playerKnowledgeOfBreasts) {
 						descriptionSB.append("[npc.Her] feline nipples look very similar to those found on a human, with the main difference being that they produce feline milk when lactating.");
+				}
+				break;
+				
+			case SQUIRREL_MORPH:
+				if (isPlayer) {
+					descriptionSB.append("Your squirrel nipples look very similar to those found on a human, with the main difference being that they produce squirrel milk when lactating.");
+				} else if (playerKnowledgeOfBreasts) {
+						descriptionSB.append("[npc.Her] squirrel nipples look very similar to those found on a human, with the main difference being that they produce squirrel milk when lactating.");
 				}
 				break;
 				
@@ -1731,6 +1791,14 @@ public class Body implements Serializable {
 					descriptionSB.append("[npc.She] has "+(Util.isVowel(penis.getSize().getDescriptor().charAt(0)) ? "an" : "a")+" " + penis.getSize().getDescriptor() + (penis.isPierced()?", pierced":"")  + " cat-like cock, with little backwards-facing barbs running up its length. When erect, it grows to "
 							+ (penis.getRawSizeValue() > 0 ? penis.getRawSizeValue() + " inches long." : "less than an inch in length."));
 				break;
+			case SQUIRREL:
+				if (isPlayer)
+					descriptionSB.append("You have "+(Util.isVowel(penis.getSize().getDescriptor().charAt(0)) ? "an" : "a")+" " + penis.getSize().getDescriptor() + (penis.isPierced()?", pierced":"")  + " squirrel-like cock. When erect, it grows to "
+							+ (penis.getRawSizeValue() > 0 ? penis.getRawSizeValue() + " inches long." : "less than an inch in length."));
+				else
+					descriptionSB.append("[npc.She] has "+(Util.isVowel(penis.getSize().getDescriptor().charAt(0)) ? "an" : "a")+" " + penis.getSize().getDescriptor() + (penis.isPierced()?", pierced":"")  + " squirrel-like cock. When erect, it grows to "
+							+ (penis.getRawSizeValue() > 0 ? penis.getRawSizeValue() + " inches long." : "less than an inch in length."));
+				break;
 			case EQUINE:
 				if (isPlayer)
 					descriptionSB.append("You have "+(Util.isVowel(penis.getSize().getDescriptor().charAt(0)) ? "an" : "a")+" " + penis.getSize().getDescriptor() + (penis.isPierced()?", pierced":"")  + " horse-like cock, with a flat, flared head. When erect, it grows to "
@@ -1791,6 +1859,12 @@ public class Body implements Serializable {
 					descriptionSB.append(" Beneath your cock, you have a cat-like second penis, which is slightly smaller than your main shaft.");
 				else
 					descriptionSB.append(" Beneath [npc.her] cock, [npc.she] has a cat-like second penis, which is slightly smaller than [npc.her] main shaft.");
+				break;
+			case SQUIRREL:
+				if (isPlayer)
+					descriptionSB.append(" Beneath your cock, you have a squirrel-like second penis, which is slightly smaller than your main shaft.");
+				else
+					descriptionSB.append(" Beneath [npc.her] cock, [npc.she] has a squirrel-like second penis, which is slightly smaller than [npc.her] main shaft.");
 				break;
 			case EQUINE:
 				if (isPlayer)
@@ -2056,6 +2130,14 @@ public class Body implements Serializable {
 					descriptionSB.append("[npc.she] has a feline pussy"+(vagina.isPierced()?", which has been pierced":"")+"."
 							+ " Although it looks very much like one found on a human, [npc.her] vagina is surrounded by a short layer of soft [pc.vaginaColour] fur, which gives it a rather animalistic appearance.");
 				break;
+			case SQUIRREL_MORPH:
+				if (isPlayer)
+					descriptionSB.append("you have a squirrel pussy"+(vagina.isPierced()?", which has been pierced":"")+"."
+							+ " Although it looks very much like one found on a human, your vagina is surrounded by a short layer of soft [pc.vaginaColour] fur, which gives it a rather animalistic appearance.");
+				else
+					descriptionSB.append("[npc.she] has a squirrel pussy"+(vagina.isPierced()?", which has been pierced":"")+"."
+							+ " Although it looks very much like one found on a human, [npc.her] vagina is surrounded by a short layer of soft [pc.vaginaColour] fur, which gives it a rather animalistic appearance.");
+				break;
 			case HORSE_MORPH:
 				if (isPlayer)
 					descriptionSB.append("you have an equine pussy"+(vagina.isPierced()?", which has been pierced":"")+"."
@@ -2082,16 +2164,18 @@ public class Body implements Serializable {
 				break;
 		}
 		if (isPlayer) {
-			if(owner.getVaginaRawClitorisSizeValue()==0)
+			if(owner.getVaginaRawClitorisSizeValue()==0) {
 				descriptionSB.append(" You have [pc.a_clitSize] clit, which measures less than one inch in length.");
-			else
-				descriptionSB.append(" You have [pc.a_clitSize] clit, which measures [pc.clitSizeInches] inches long.");
+			} else {
+				descriptionSB.append(" You have [pc.a_clitSize] clit, which measures [pc.clitSizeInches] inch"+(owner.getVaginaRawClitorisSizeValue()==1?"":"es")+" long.");
+			}
 			
 		} else {
-			if(owner.getVaginaRawClitorisSizeValue()==0)
+			if(owner.getVaginaRawClitorisSizeValue()==0) {
 				descriptionSB.append(" [npc.She] has [npc.a_clitSize] clit, which measures less than one inch in length.");
-			else
-				descriptionSB.append(" [npc.She] has [npc.a_clitSize] clit, which measures [npc.clitSizeInches] inches long.");
+			} else {
+				descriptionSB.append(" [npc.She] has [npc.a_clitSize] clit, which measures [npc.clitSizeInches] inch"+(owner.getVaginaRawClitorisSizeValue()==1?"":"es")+" long.");
+			}
 		}
 		// Virgin/capacity:
 		if (vagina.isVirgin()) {
@@ -2109,7 +2193,7 @@ public class Body implements Serializable {
 				
 
 				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER))!=null) {
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER))!=null && pt.isTakesVirginity()) {
 						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your virginity to "
 								+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER)) + ".</span>");
 					}

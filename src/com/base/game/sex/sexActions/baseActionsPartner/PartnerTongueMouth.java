@@ -433,10 +433,10 @@ public class PartnerTongueMouth {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"With [npc.a_moan+], [npc.name] leans in against your [npc.breasts+], before planting a series of passionate kisses on your [pc.lips+].",
+					"With [npc.a_moan+], [npc.name] leans in against your [pc.breasts+], before planting a series of passionate kisses on your [pc.lips+].",
 					"[npc.Name] leans in against you, and you catch a breath of [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")
 						+" as [npc.she] presses [npc.her] [npc.lips+] against yours, encouraging you to pull [npc.herHim] into a passionate kiss.",
-					"[npc.Name] grinds up against your [npc.breasts+], tilting [npc.her] head slightly to one side before passionately pressing [npc.her] [npc.lips+] against yours."));
+					"[npc.Name] grinds up against your [pc.breasts+], tilting [npc.her] head slightly to one side before passionately pressing [npc.her] [npc.lips+] against yours."));
 			
 			switch(Sex.getSexPacePlayer()) {
 				case DOM_GENTLE:

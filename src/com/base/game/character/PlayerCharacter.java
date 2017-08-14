@@ -255,6 +255,10 @@ public class PlayerCharacter extends GameCharacter {
 	public Quest getMainQuestAtIndex(int index) {
 		return mainQuest.getQuestArray()[index];
 	}
+	
+	public boolean isSlaveTrader() {
+		return mainQuestProgress > Quest.MAIN_1_G_SLAVERY.getSortingOrder();
+	}
 
 	// Side quests:
 

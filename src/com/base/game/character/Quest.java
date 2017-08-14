@@ -5,7 +5,7 @@ import com.base.utils.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.1.7
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum Quest {
@@ -121,25 +121,42 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_1_F_RESOLVE_SCARLETTS_REQUEST(6, QuestType.MAIN, 3, 30) {
+	MAIN_1_F_SCARLETTS_FATE(6, QuestType.MAIN, 3, 30) {
 		@Override
 		public String getName() {
-			return "The search for Arthur; Helping Scarlett";
+			return "The search for Arthur; Scarlett's fate";
 		}
 
 		@Override
 		public String getDescription() {
-			return "You need to travel back to Scarlett's shop and see if you can finally get the information you need about where Arthur has ended up.";
+			return "You need to travel back to Scarlett's shop to find out what's become of her. Hopefully Alexa wasn't too hard on her, and she'll be willing to tell you what happened to Arthur now...";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "You found out that Scarlett was forced to sell Arthur to an extremely dangerous demon called Zaranix, who lives in Demon Home."//TODO
-					+ " Apparently, he's one of the few demons who likes to remain in their incubus form.";
+			return "You travelled back to Scarlett's shop, only to discover that Alexa has enslaved her!";
 		}
 	},
+	
+	MAIN_1_G_SLAVERY(7, QuestType.MAIN, 3, 30) {
+		@Override
+		public String getName() {
+			return "The search for Arthur; Slavery";
+		}
 
-	MAIN_1_G_GREAT_ESCAPE(7, QuestType.MAIN, 6, 100) {
+		@Override
+		public String getDescription() {
+			return "Thanks to your relationship with Lilaya, Alexa is willing to transfer both Scarlett and her shop to you, which seems to be the only way you'll get the information you need."
+					+ " You'll need to supply two thousand flames in order to pay for the necessary paperwork.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "Alexa transferred ownership of both Scarlett and her shop to you, which allowed you to order Scarlett to tell you what happened to Arthur.";
+		}
+	},
+	
+	MAIN_1_H_THE_GREAT_ESCAPE(10, QuestType.MAIN, 8, 200) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; The Great Escape";
@@ -147,8 +164,8 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "You'll need to find a way to rescue Arthur from Zaranix."
-					+ " Scarlett provided you with his address in Demon Home, so that's where you'll need to go to find him.";
+			return "It turns out that Arthur was sold to an extremely dangerous demon called Zaranix, who lives in Demon Home."
+					+ " You'll need to travel to demon home and rescue Arthur!";
 		}
 
 		@Override
@@ -365,97 +382,6 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			return "After informing the Enforcers that you've pacified all three of the major harpy nests, they resumed their regular patrols, resulting in the Harpy Nests being safe to travel through!";
-		}
-	},
-	
-	// Romance Quests:
-
-	// Wow, this is some very old stuff from before version 0.1.0...
-	// TODO remove and update
-	
-	AUNT_CLEANUP_1(1, QuestType.ROMANCE, 1, 5) {
-		@Override
-		public String getName() {
-			return "Humble Beginnings";
-		}
-
-		@Override
-		public String getDescription() {
-			return Main.game.getLilaya().getName() + " has promised to clean up her apartment." + " You'll need to supervise her to make sure she actually follows through with her promise."
-					+ " Getting her to tidy up her bedroom should be her first step.";
-		}
-
-		@Override
-		public String getCompletedDescription() {
-			return "You supervised " + Main.game.getLilaya().getName() + " as she tidied up her bedroom." + " After a while, she started to enjoy cleaning, and readily agreed to clean the main area of the apartment.";
-		}
-	},
-	AUNT_CLEANUP_2(2, QuestType.ROMANCE, 1, 10) {
-		@Override
-		public String getName() {
-			return "A Hard Day's Work";
-		}
-
-		@Override
-		public String getDescription() {
-			return Main.game.getLilaya().getName() + " has promised to clean up her apartment." + " After cleaning her bedroom, you now need to supervise her as she cleans the main area of the apartment.";
-		}
-
-		@Override
-		public String getCompletedDescription() {
-			return "You seem to have helped " + Main.game.getLilaya().getName() + " discover a fetish she never knew she had." + " As she cleaned the main area of the apartment, she got more and more aroused at the idea of being a submissive maid,"
-					+ " and enthusiastically agreed to clean the final areas of the apartment.";
-		}
-	},
-	AUNT_CLEANUP_3(3, QuestType.ROMANCE, 1, 15) {
-		@Override
-		public String getName() {
-			return "Dirty Jobs";
-		}
-
-		@Override
-		public String getDescription() {
-			return Main.game.getLilaya().getName() + " has promised to clean up her apartment." + " Under your supervision, she's cleaned up most of the apartment."
-					+ " You've saved the dirtiest jobs for last, and now you need to supervise her as she cleans the bathrooms.";
-		}
-
-		@Override
-		public String getCompletedDescription() {
-			return Main.game.getLilaya().getName() + " has, thanks to your encouragement, become totally obsessed with cleaning, and completely submissive to your every command."
-					+ " After she finished cleaning the bathrooms, she begged you to allow her to attend Dominion's maid training academy.";
-		}
-	},
-	AUNT_CLEANUP_4(4, QuestType.ROMANCE, 1, 20) {
-		@Override
-		public String getName() {
-			return "Maid Training";
-		}
-
-		@Override
-		public String getDescription() {
-			return Main.game.getLilaya().getName() + " has become obsessed with cleaning, and has become totally submissive to your every command."
-					+ " She's begged you to allow her to become a fully-qualified maid, and is hoping for you to enroll her in Dominion's prestigious maid-training academy.";
-		}
-
-		@Override
-		public String getCompletedDescription() {
-			return Main.game.getLilaya().getName() + " has finished her training, and is ready to graduate as a fully qualified maid.";
-		}
-	},
-	AUNT_CLEANUP_5(5, QuestType.ROMANCE, 1, 25) {
-		@Override
-		public String getName() {
-			return "Graduation";
-		}
-
-		@Override
-		public String getDescription() {
-			return "After an intensive regime at the maid-training academy, " + Main.game.getLilaya().getName() + " is ready for graduation." + " The academy will provide food and boarding for her until you decide to collect her.";
-		}
-
-		@Override
-		public String getCompletedDescription() {
-			return "You helped " + Main.game.getLilaya().getName() + " complete her graduation ceremony, and she has happily signed herself into your care as an indentured servant." + " Her sole purpose in life is to make you happy.";
 		}
 	};
 

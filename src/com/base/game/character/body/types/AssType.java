@@ -19,6 +19,8 @@ public enum AssType implements BodyPartTypeInterface {
 	
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 	
+	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
+	
 	WOLF_MORPH(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
 	
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),

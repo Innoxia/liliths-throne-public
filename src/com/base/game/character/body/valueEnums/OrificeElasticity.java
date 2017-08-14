@@ -4,7 +4,7 @@ package com.base.game.character.body.valueEnums;
  * Arbitrary measurements in increments of 1, going from 0 to 7.
  * 
  * @since 0.1.64
- * @version 0.1.64
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum OrificeElasticity {
@@ -52,22 +52,12 @@ public enum OrificeElasticity {
 	}
 
 	public static OrificeElasticity getElasticityFromInt(int value) {
-		if (value <= ZERO_UNYIELDING.value)
-			return ZERO_UNYIELDING;
-		else if (value <= ONE_RIGID.value)
-			return ONE_RIGID;
-		else if (value <= TWO_FIRM.value)
-			return TWO_FIRM;
-		else if (value <= THREE_FLEXIBLE.value)
-			return THREE_FLEXIBLE;
-		else if (value <= FOUR_LIMBER.value)
-			return FOUR_LIMBER;
-		else if (value <= FIVE_STRETCHY.value)
-			return FIVE_STRETCHY;
-		else if (value <= SIX_SUPPLE.value)
-			return SIX_SUPPLE;
-		else
-			return SEVEN_ELASTIC;
+		for(OrificeElasticity oe : OrificeElasticity.values()) {
+			if(value == oe.getValue()) {
+				return oe;
+			}
+		}
+		return SEVEN_ELASTIC;
 	}
 
 	/**

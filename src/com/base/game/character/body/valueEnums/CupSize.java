@@ -1,11 +1,10 @@
 package com.base.game.character.body.valueEnums;
 
 /**
- * Measurements are in inches. Measured in bust to underbust using the UK
- * system.
+ * Measurements are in inches. Measured in bust to underbust using the UK system.
  * 
  * @since 0.1.0
- * @version 0.1.0
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum CupSize {
@@ -47,13 +46,14 @@ public enum CupSize {
 	}
 
 	/**
-	 * @param inches
-	 *            Measurement in inches from bust to underbust.
+	 * @param inches Measurement in inches from bust to underbust.
 	 */
 	public static CupSize getCupSizeFromInt(int inches) {
-		for (CupSize cs : values())
-			if (inches <= cs.measurement)
+		for (CupSize cs : values()) {
+			if (inches <= cs.measurement) {
 				return cs;
+			}
+		}
 		return MAXIMUM;
 	}
 

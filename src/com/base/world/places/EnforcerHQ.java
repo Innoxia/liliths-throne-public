@@ -44,7 +44,7 @@ public enum EnforcerHQ implements PlaceInterface {
 	},
 
 	// Exits & entrances:
-	ENTRANCE("Entranceway", "dominion/enforcerHQ/entranceHall", BaseColour.RED, EnforcerHQDialogue.ENTRANCE, null, true, false){
+	ENTRANCE("Entranceway", "dominion/enforcerHQ/exit", BaseColour.RED, EnforcerHQDialogue.ENTRANCE, null, true, false){
 		@Override
 		public WorldType getLinkedWorldType() {
 			return WorldType.DOMINION;

@@ -1058,6 +1058,10 @@ public class CharacterUtils {
 				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_NON_CON)) // Don't allow the NPC to have a non-con fetish if the player isn't in to it.
 					fetishes.add(f);
 				
+			} else if (f==Fetish.FETISH_BREASTS_SELF) {
+				if(character.hasBreasts())
+					fetishes.add(f);
+				
 			} else if (f.getFetishesForAutomaticUnlock().isEmpty()){
 				fetishes.add(f);
 			}

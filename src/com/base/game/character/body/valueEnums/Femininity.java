@@ -4,14 +4,14 @@ import com.base.utils.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.1.0
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum Femininity {
-	MASCULINE_STRONG(0, 19, Colour.MASCULINE_PLUS),
-	MASCULINE(20, 39, Colour.MASCULINE),
-	ANDROGYNOUS(40, 59, Colour.ANDROGYNOUS),
-	FEMININE(60, 79, Colour.FEMININE),
+	MASCULINE_STRONG(0, 20, Colour.MASCULINE_PLUS),
+	MASCULINE(20, 40, Colour.MASCULINE),
+	ANDROGYNOUS(40, 60, Colour.ANDROGYNOUS),
+	FEMININE(60, 80, Colour.FEMININE),
 	FEMININE_STRONG(80, 100, Colour.FEMININE_PLUS);
 
 	private int minimumFemininity, maximumFemininity;
@@ -32,16 +32,12 @@ public enum Femininity {
 	}
 
 	public static Femininity valueOf(int femininity) {
-		if (femininity <= MASCULINE_STRONG.maximumFemininity)
-			return MASCULINE_STRONG;
-		else if (femininity <= MASCULINE.maximumFemininity)
-			return MASCULINE;
-		else if (femininity <= ANDROGYNOUS.maximumFemininity)
-			return ANDROGYNOUS;
-		else if (femininity <= FEMININE.maximumFemininity)
-			return FEMININE;
-		else
-			return FEMININE_STRONG;
+		for(Femininity f : Femininity.values()) {
+			if(femininity>=f.getMinimumFemininity() && femininity<f.getMaximumFemininity()) {
+				return f;
+			}
+		}
+		return FEMININE_STRONG;
 	}
 	
 	public String getName(boolean withDeterminer) {

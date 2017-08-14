@@ -3,6 +3,7 @@ package com.base.game.sex.sexActions;
 import java.util.List;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.effects.Fetish;
+import com.base.game.character.effects.StatusEffect;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.sex.ArousalIncrease;
 import com.base.game.sex.OrificeType;
@@ -179,7 +180,9 @@ public interface SexActionInterface {
 							}
 							
 						} else { // Partner is performing action:
-							if(!Sex.getSexManager().isConsensualSex() && Sex.isPlayerDom()) {
+							if((!Sex.getSexManager().isConsensualSex() && Sex.isPlayerDom())
+									|| (getAssociatedOrificeType().isVagina() && getAssociatedPenetrationType().isTakesVirginity()
+											&& (Sex.getPartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)) || Sex.getPartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN_LUSTY_MAIDEN))) {
 								return null;
 							}
 						}

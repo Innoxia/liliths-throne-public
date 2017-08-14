@@ -18,10 +18,11 @@ import com.base.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.69
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum Perk implements PerkInterface {
+	
 	// Physical:
 	BRAWLER(20,
 			"brawler",
@@ -44,11 +45,9 @@ public enum Perk implements PerkInterface {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer())
-				return "You're quite competent at fighting."
-						+ " You gain a bonus to your physical damage, as well as minor bonuses to your hit and dodge chances.";
+				return "You're quite competent at fighting. You gain a bonus to your physical damage and resistance.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " is a competent fighter. <She> gains a bonus to <her> physical damage, as well as minor bonuses to <her> hit and dodge chances.");
+				return UtilText.parse(owner, "[npc.Name] is a competent fighter. [npc.She] gains a bonus to [npc.her] physical damage and resistance.");
 		}
 	},
 	ACCURATE(20,
@@ -977,7 +976,35 @@ public enum Perk implements PerkInterface {
 				return UtilText.genderParsing(owner, owner.getName("The")
 						+ " is a walking sex bomb. <Her> every movement drips with suggestive body language, and you can't help but feel extremely aroused just by looking at <herPro>.");
 		}
-	};
+	},
+	
+	BARREN(20,
+			"barren",
+			PerkLevel.LEVEL_ONE,
+			PerkCategory.FITNESS,
+			"fitness_barren",
+			Colour.GENERIC_SEX,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, -100)),
+			null) {
+		@Override
+		public String applyPerkGained(GameCharacter character) {
+			return "";
+		}
+
+		@Override
+		public String applyPerkLost(GameCharacter character) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You are very infertile, and are highly unlikely to ever get pregnant.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] is highly unlikely to get pregnant.");
+			}
+		}
+	},;
 
 	private int renderingPriority;
 	protected String name;

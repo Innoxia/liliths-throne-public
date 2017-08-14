@@ -25,8 +25,10 @@ public enum TongueType implements BodyPartTypeInterface {
 
 	SLIME(BodyCoveringType.SLIME, Race.SLIME),
 
-	TENGU(BodyCoveringType.TONGUE, Race.HARPY);
+	TENGU(BodyCoveringType.TONGUE, Race.HARPY),
 
+	SQUIRREL_MORPH(BodyCoveringType.TONGUE, Race.SQUIRREL_MORPH);
+	
 	private BodyCoveringType skinType;
 	private Race race;
 
@@ -70,6 +72,8 @@ public enum TongueType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case SLIME:
 				return UtilText.returnStringAtRandom("slimy");
+			case SQUIRREL_MORPH:
+				return UtilText.returnStringAtRandom("tiny");
 			case TENGU:
 				return UtilText.returnStringAtRandom("long", "bird-like");
 			default:

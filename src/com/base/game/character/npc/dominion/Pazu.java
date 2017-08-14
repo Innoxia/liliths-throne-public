@@ -35,8 +35,17 @@ public class Pazu extends NPC {
 
 	public Pazu() {
 		super(new NameTriplet("Pazu"),
-				"Pazu is a shy male harpy. While very feminine looking by a human’s standards, for harpy standards he is considered too masculine."
-						+ " His refusal to wear feminine clothing, unlike most male harpies, further accentuates his masculinity.",
+				"Pazu is a harpy matriarch, and a particularly gorgeous one at that. She is new to the job and needs your help in whipping her flock into shape.",
+				/* TODO (Once quest advances)
+				 *  Pazu is a harpy matriarch, and a particularly gorgeous one at that. Despite this, he is actually a male harpy, a fact that he keeps hidden from everyone else for obvious reasons.
+				 *  He has a friendly relationship with you, so you can visit his nest at any time*
+				 * TODO (Once lover)
+				 *  Pazu is a beautiful male harpy, and also your boyfriend. Despite being an ex-matriarch, he can act rather shy and bashful, and is still rather naïve.
+				 *  He adores with all his heart, but due to this, he’s not keen on sharing you with anybody else.
+				 * TODO ( If he opens his candy shop and you're not his lover)
+				 *  Pazu is a beautiful male harpy, and the owner of a candy shop. He used to be a harpy matriarch, but left the oppressing nests in search of a simpler life.
+				 *  (if he opens the shop and is still your lover, his description is the same but with, "He also owns a candy shop in the shopping promenade." at the end)
+				 */
 				1, Gender.MALE, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(1), WorldType.JUNGLE, Jungle.JUNGLE_CLUB, true); //TODO He's in the jungle for now ^^
 
@@ -52,14 +61,14 @@ public class Pazu extends NPC {
 		
 		this.setBreastSize(CupSize.FLAT.getMeasurement());
 		
-		this.setPenisSize(6);
+		this.setPenisSize(7);
 		
-		this.setHeight(156);
+		this.setHeight(185);
 		
-		this.setFemininity(39);
+		this.setFemininity(80);
 		
-		this.setAttribute(Attribute.STRENGTH, 1);
-		this.setAttribute(Attribute.INTELLIGENCE, 22);
+		this.setAttribute(Attribute.STRENGTH, 4);
+		this.setAttribute(Attribute.INTELLIGENCE, 45);
 		this.setAttribute(Attribute.FITNESS, 30);
 		this.setAttribute(Attribute.CORRUPTION, 5);
 

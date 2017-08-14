@@ -10,7 +10,7 @@ import com.base.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.1.69
+ * @version 0.1.83
  * @author Innoxia
  */
 public class CityHall {
@@ -47,16 +47,16 @@ public class CityHall {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "You find yourself standing in a huge entrance hall, with a polished marble floor and huge chandeliers giving the impression of obvious wealth and power."
-					+ " There are a series of rich mahogany desks scatted around the place, with each one seeming to be responsible for rather specific and mundane problems."
-					+ " A helpful map that you find near to the entrance shows the way to some different departments that might be of more use to you."
+						+ "You find yourself standing in a huge entrance hall, with a polished marble floor and huge chandeliers giving the impression of obvious wealth and power."
+						+ " There are a series of rich mahogany desks scattered around the place, with each one seeming to be responsible for rather specific and mundane problems."
+						+ " A helpful map that you find near to the entrance shows the way to some different departments that might be of more use to you."
 					+ "</p>";
 		}
 
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Demographics", "Follow the map's directions to the bureau of demographics, where you can apply to have your name changed.", CITY_HALL_BUREAU_OF_DEMO);
+				return new Response("Demographics", "Follow the map's directions to the 'Bureau of Demographics' office.", CITY_HALL_PUBLIC_ENQUIRIES);
 
 			} else if (index == 0) {
 				return new Response("Leave", "Head back outside.", OUTSIDE);
@@ -66,16 +66,17 @@ public class CityHall {
 			}
 		}
 	};
-	public static final DialogueNodeOld CITY_HALL_BUREAU_OF_DEMO = new DialogueNodeOld("Bureau of demographics", "-", true) {
+	
+	public static final DialogueNodeOld CITY_HALL_PUBLIC_ENQUIRIES = new DialogueNodeOld("Bureau of Demographics", "-", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "Following the directions you obtained from the map in the entrance hall, you soon find yourself entering the office marked 'bureau of demographics'."
-					+ " Shelves fill the stuffy and dimly-lit room, which looks to be more of an archive than a regular office."
-					+ " A bored-looking lesser cat-girl sits behind the front desk, her eyes cast down as she looks over a pile of papers and forms."
-					+ " If she noticed your arrival, she doesn't show it, and seems to be content to carry on reading what's in front of her as she ignores your presence."
+						+ "Following the directions you obtained from the map in the entrance hall, you soon find yourself entering the office marked 'Bureau of Demographics'."
+						+ " Shelves fill the stuffy and dimly-lit room, which looks to be more of an archive than a regular office."
+						+ " A bored-looking lesser cat-girl sits behind the front desk, her eyes cast down as she looks over a pile of papers and forms."
+						+ " If she noticed your arrival, she doesn't show it, and seems to be content to carry on reading what's in front of her as she ignores your presence."
 					+ "</p>";
 		}
 		
@@ -83,7 +84,7 @@ public class CityHall {
 		public Response getResponse(int index) {
 			if (index == 1) {
 				return new Response("Name change", "Ask the cat-girl about changing your name.", CITY_HALL_NAME_CHANGE_FORM);
-
+				
 			} else if (index == 0) {
 				return new Response("Back", "Return to the entrance hall.", CITY_HALL_ENTER);
 
@@ -92,7 +93,8 @@ public class CityHall {
 			}
 		}
 	};
-	public static final DialogueNodeOld CITY_HALL_NAME_CHANGE_FORM = new DialogueNodeOld("Bureau of demographics", "-", true) {
+	
+	public static final DialogueNodeOld CITY_HALL_NAME_CHANGE_FORM = new DialogueNodeOld("Bureau of Demographics", "-", true) {
 		private static final long serialVersionUID = 1L;
 
 		private String nameChangeChoice = "";
@@ -150,11 +152,13 @@ public class CityHall {
 					};
 
 			} else if (index == 0) {
-				return new Response("Back", "Decide not to change your name.", CITY_HALL_BUREAU_OF_DEMO);
+				return new Response("Back", "Decide not to change your name.", CITY_HALL_PUBLIC_ENQUIRIES);
 
 			} else {
 				return null;
 			}
 		}
 	};
+	
+	
 }

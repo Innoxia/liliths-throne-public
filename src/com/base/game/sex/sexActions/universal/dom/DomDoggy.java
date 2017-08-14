@@ -401,19 +401,19 @@ public class DomDoggy {
 						UtilText.nodeContentSB.append(" Unfortunately, you aren't able to produce even one drop of cum, somewhat diminishing the pleasure of your climax.");
 						break;
 					case ONE_TRICKLE:
-						UtilText.nodeContentSB.append(" You feel a small trickle of [pc.cum+] squirting into [npc.name]'s [npc.asshole+], and you [pc.moan] in satisfaction as you empty your tiny load in [npc.her] [npc.pussy].");
+						UtilText.nodeContentSB.append(" You feel a small trickle of [pc.cum+] squirting into [npc.name]'s [npc.pussy+], and you [pc.moan] in satisfaction as you empty your tiny load in [npc.her] [npc.pussy].");
 						break;
 					case TWO_SMALL_AMOUNT:
-						UtilText.nodeContentSB.append(" You feel a small amount of [pc.cum] squirting into [npc.name]'s [npc.asshole+], and you [pc.moan] in satisfaction as you empty your small load in [npc.her] [npc.pussy].");
+						UtilText.nodeContentSB.append(" You feel a small amount of [pc.cum] squirting into [npc.name]'s [npc.pussy+], and you [pc.moan] in satisfaction as you empty your small load in [npc.her] [npc.pussy].");
 						break;
 					case THREE_AVERAGE:
-						UtilText.nodeContentSB.append(" You feel your [pc.cum] squirting into [npc.name]'s [npc.asshole+], and you [pc.moan] in satisfaction as you empty your sticky load in [npc.her] [npc.pussy].");
+						UtilText.nodeContentSB.append(" You feel your [pc.cum] squirting into [npc.name]'s [npc.pussy+], and you [pc.moan] in satisfaction as you empty your sticky load in [npc.her] [npc.pussy].");
 						break;
 					case FOUR_LARGE:
-						UtilText.nodeContentSB.append(" You feel your [pc.cum] shooting into [npc.name]'s [npc.asshole+], and you [pc.moan] in satisfaction as you empty your sticky load in [npc.her] [npc.pussy].");
+						UtilText.nodeContentSB.append(" You feel your [pc.cum] shooting into [npc.name]'s [npc.pussy+], and you [pc.moan] in satisfaction as you empty your sticky load in [npc.her] [npc.pussy].");
 						break;
 					case FIVE_HUGE:
-						UtilText.nodeContentSB.append(" You feel your [pc.cum] pouring into [npc.name]'s [npc.asshole+], and you [pc.moan] in satisfaction as you empty your huge load in [npc.her] [npc.pussy].");
+						UtilText.nodeContentSB.append(" You feel your [pc.cum] pouring into [npc.name]'s [npc.pussy+], and you [pc.moan] in satisfaction as you empty your huge load in [npc.her] [npc.pussy].");
 						break;
 					case SIX_EXTREME:
 						UtilText.nodeContentSB.append(" You feel your huge amount of [pc.cum] pouring into [npc.name]'s [npc.pussy+], and you [pc.moan] in satisfaction as your slimy load overflows,"
@@ -692,11 +692,16 @@ public class DomDoggy {
 			
 			UtilText.nodeContentSB.append("</br></br>"
 					+ "Reaching down, you grab a fistful of [npc.name]'s [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+]."
-					+ " [npc.SHe] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] ass, but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
+					+ " [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] ass, but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
 					+ "</br>"
 					+ "After a minute of using the unfortunate [npc.race] in this manner, you finally release [npc.herHim], and, with a deep gasp, [npc.she] collapses to the floor, completely exhausted from your dominant treatment.");
 
 			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public List<OrificeType> getPartnerAreasCummedIn() {
+			return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS_PARTNER));
 		}
 
 		@Override
@@ -793,11 +798,16 @@ public class DomDoggy {
 			
 			UtilText.nodeContentSB.append("</br></br>"
 					+ "Reaching down, you grab a fistful of [npc.name]'s [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+]."
-					+ " [npc.SHe] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] [npc.pussy], but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
+					+ " [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] [npc.pussy], but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
 					+ "</br>"
 					+ "After a minute of using the unfortunate [npc.race] in this manner, you finally release [npc.herHim], and, with a deep gasp, [npc.she] collapses to the floor, completely exhausted from your dominant treatment.");
 
 			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public List<OrificeType> getPartnerAreasCummedIn() {
+			return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA_PARTNER));
 		}
 
 		@Override
@@ -1473,11 +1483,16 @@ public class DomDoggy {
 			
 			UtilText.nodeContentSB.append("</br></br>"
 					+ "Reaching down, you grab a fistful of [npc.name]'s [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+]."
-					+ " [npc.SHe] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] ass, but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
+					+ " [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] ass, but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
 					+ "</br>"
 					+ "After a minute of using the unfortunate [npc.race] in this manner, you finally release [npc.herHim], and, with a deep gasp, [npc.she] collapses to the floor, completely exhausted from your dominant treatment.");
 
 			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public List<OrificeType> getPartnerAreasCummedIn() {
+			return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS_PARTNER));
 		}
 
 		@Override
@@ -1623,11 +1638,16 @@ public class DomDoggy {
 			
 			UtilText.nodeContentSB.append("</br></br>"
 					+ "Reaching down, you grab a fistful of [npc.name]'s [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+]."
-					+ " [npc.SHe] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] [npc.pussy], but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
+					+ " [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] [npc.pussy], but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
 					+ "</br>"
 					+ "After a minute of using the unfortunate [npc.race] in this manner, you finally release [npc.herHim], and, with a deep gasp, [npc.she] collapses to the floor, completely exhausted from your dominant treatment.");
 
 			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public List<OrificeType> getPartnerAreasCummedIn() {
+			return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA_PARTNER));
 		}
 
 		@Override

@@ -381,13 +381,6 @@ public class OptionsDialogue {
 					+ "<b>Font-size:</b>"
 					+ "</br>This cycles the game's base font size. This currently only affects the size of the text in the main dialogue, but in the future I'll expand it to include every display element."
 					+ "</p>";
-					
-//					+ "</br>"
-//					
-//					+"<p style='text-align:center;'>"
-//					+ "<b>Sexual Orientation</b></br>"
-//					+ CharacterCreationDialogue.getSexualOrientationOption()
-//					+ "</p>";
 		}
 		
 		@Override
@@ -460,42 +453,7 @@ public class OptionsDialogue {
 			} else if (index == 8) {
 				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
 			
-			}
-//			else if (index == 9) {
-//
-//				return new Response("Non-con:", "Toggle non-consensual content.", OPTIONS){
-//					@Override
-//					public String getTitle() {
-//						return "Non-con: "+(Main.getProperties().nonConContent?"[style.boldArcane(ON)]":"[style.boldDisabled(OFF)]");
-//					}
-//					@Override
-//					public void effects() {
-//						Main.getProperties().nonConContent = !Main.getProperties().nonConContent;
-//						Main.saveProperties();
-//					}
-//				};
-//
-//			}
-//			else if (index == 10) {
-//
-//				return new Response("Orientation", "Cycle your sexual orientation. (Hover over the status effect on the left of the screen to see what each orientation means.)", OPTIONS){
-//					@Override
-//					public void effects() {
-//						if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-//							Main.game.getPlayer().setSexualOrientation(SexualOrientation.GYNEPHILIC);
-//							
-//						} else if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC) {
-//							Main.game.getPlayer().setSexualOrientation(SexualOrientation.AMBIPHILIC);
-//							
-//						} else {
-//							Main.game.getPlayer().setSexualOrientation(SexualOrientation.ANDROPHILIC);
-//							
-//						}
-//					}
-//				};
-//
-//			}
-			else if (index == 0) {
+			} else if (index == 0) {
 				return new Response("Back", "Back to the main menu.", MENU);
 
 			} else {

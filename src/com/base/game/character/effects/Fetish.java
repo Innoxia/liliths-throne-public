@@ -812,6 +812,32 @@ public enum Fetish {
 		}
 	},
 	
+//	FETISH_HUMILIATION(60,
+//			"humiliation",
+//			false,
+//			"fetish_humiliation",
+//			Colour.GENERIC_ARCANE,
+//			Util.newHashMapOfValues(
+//					new Value<Attribute, Integer>(Attribute.RESISTANCE_PURE, 10)),
+//			null,
+//			Util.newArrayListOfValues(
+//					new ListValue<>(Fetish.FETISH_EXHIBITIONIST),
+//					new ListValue<>(Fetish.FETISH_MASOCHIST))) {
+//
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			if (owner.isPlayer()) {
+//				return "You love being humiliated and degraded, and if there's a crowd to watch, then that's all the better!";
+//			} else {
+//				return UtilText.parse(owner, "[npc.Name] loves to be publicly humiliated.");
+//			}
+//		}
+//		@Override
+//		public CorruptionLevel getAssociatedCorruptionLevel() {
+//			return CorruptionLevel.THREE_DIRTY;
+//		}
+//	},
+	
 	FETISH_LUSTY_MAIDEN(60,
 			"lusty maiden",
 			false,

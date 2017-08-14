@@ -94,6 +94,7 @@ public class SMDomBackToWall extends SexManagerDefault {
 				PartnerFingerNipple.class,
 				PartnerFingerUrethra.class,
 				PartnerFingerVagina.class,
+//				PartnerPenisAnus.class,
 				PartnerPenisVagina.class,
 				PartnerTailVagina.class,
 				PartnerTailAnus.class,

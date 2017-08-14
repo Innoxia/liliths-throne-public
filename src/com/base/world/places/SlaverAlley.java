@@ -3,9 +3,12 @@ package com.base.world.places;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.base.game.character.Quest;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.encounters.Encounter;
-import com.base.game.dialogue.places.dominion.SlaverAlleyDialogue;
+import com.base.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
+import com.base.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
+import com.base.main.Main;
 import com.base.utils.BaseColour;
 import com.base.utils.Bearing;
 import com.base.utils.Util;
@@ -14,7 +17,7 @@ import com.base.world.WorldType;
 
 /**
  * @since 0.1.75
- * @version 0.1.75
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum SlaverAlley implements PlaceInterface {
@@ -26,11 +29,26 @@ public enum SlaverAlley implements PlaceInterface {
 	MARKET_STALL("Slaver's stall", "dominion/slaverAlley/marketStall", BaseColour.BLACK, SlaverAlleyDialogue.MARKET_STALL, null, true, false),
 	
 	AUCTIONING_BLOCK("Auctioning block", "dominion/slaverAlley/auctionBlock", BaseColour.GOLD, SlaverAlleyDialogue.AUCTION_BLOCK, null, true, false),
+
+	SLAVERY_ADMINISTRATION("Slavery Administration", "dominion/slaverAlley/slaveryAdministration", BaseColour.PURPLE, SlaverAlleyDialogue.SLAVERY_ADMINISTRATION_EXTERIOR, null, true, false),
 	
-	SCARLETTS_SHOP("Scarlett's shop", "dominion/slaverAlley/scarlettsStall", BaseColour.CRIMSON, SlaverAlleyDialogue.SCARLETTS_SHOP, null, true, false),
+	SCARLETTS_SHOP("Scarlett's shop", "dominion/slaverAlley/scarlettsStall", BaseColour.CRIMSON, ScarlettsShop.SCARLETTS_SHOP_EXTERIOR, null, true, false){
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
+			if(Main.game.getPlayer().getMainQuestProgress() < Quest.MAIN_1_F_SCARLETTS_FATE.getSortingOrder()) { // Scarlett owns the shop:
+				return ScarlettsShop.SCARLETTS_SHOP_EXTERIOR;
+				
+			} else if (Main.game.getPlayer().isSlaveTrader()){ // You own the shop:
+				return ScarlettsShop.PLAYERS_SHOP_EXTERIOR;
+				
+			} else { // Alexa owns the shop:
+				return ScarlettsShop.ALEXAS_SHOP_EXTERIOR;
+			}
+		}	
+	},
 
 	// Exits & entrances:
-	ALLEY_ENTRANCE("Gateway", "dominion/slaverAlley/entranceGate", BaseColour.RED, SlaverAlleyDialogue.GATEWAY, null, true, false){
+	ALLEY_ENTRANCE("Gateway", "dominion/slaverAlley/exit", BaseColour.RED, SlaverAlleyDialogue.GATEWAY, null, true, false){
 		@Override
 		public WorldType getLinkedWorldType() {
 			return WorldType.DOMINION;
