@@ -239,6 +239,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		} else if (colourShade == Colour.CLOTHING_GOLD) {
 			runningTotal *= 3;
 			
+		} else if (colourShade == Colour.CLOTHING_ROSE_GOLD) {
+			runningTotal *= 2.5;
+			
 		} else if (colourShade == Colour.CLOTHING_SILVER) {
 			runningTotal *= 2;
 		}
