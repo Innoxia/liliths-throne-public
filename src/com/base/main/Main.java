@@ -133,6 +133,15 @@ public class Main extends Application {
 			+"<ul>Fixed bugs in the 'Buy all' option for clothing, items, and weapons.</ul>"
 			+"<ul>Added correct fetish associations for tail-in-anus actions.</ul>"
 			
+		+"<li>Extra Bugs:</li>"
+			+"<ul>Fixed bug where you'd get stuck in Scarlett's shop at the end of the current main quest's content.</ul>"
+			+"<ul>Fixed bug where main quest couldn't be progressed when starting with an imported character.</ul>"
+			+"<ul>Day of birth stat should now be correctly working for birthed litters.</ul>"
+			+"<ul>Fixed some incorrect descriptions in the dominant doggy-style orgasm scene.</ul>"
+			+"<ul>Fixed some inaccurate descriptions in Lilaya's house.</ul>"
+			+"<ul>Hard-working Maid status effect now also has an NPC-perspective description.</ul>"
+			+"<ul>Fixed some incorrect NPC reactions to having your chest revealed during sex.</ul>"
+			
 		+ "</list>";
 	
 	public static String disclaimer = "<h1 style='text-align:center;'>DISCLAIMER</h1>"
