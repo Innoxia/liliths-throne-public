@@ -20,7 +20,6 @@ import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Util.ListValue;
-import com.base.world.places.Dominion;
 
 public class HarpyNestsAttacker {
 	public static final DialogueNodeOld HARPY_ATTACKS = new DialogueNodeOld("Angry harpy", "An angry harpy swoops down on you!", true) {
@@ -172,7 +171,7 @@ public class HarpyNestsAttacker {
 									+ " Jumping backwards, you ready yourself for a fight; this harpy doesn't look like [npc.she]'ll listen to reason..."
 								+ "</p>";
 							
-						} else if(Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
+						} else if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
 							return 
 									"<p>"
 										+ "Thanks to your efforts, most of the surrounding harpy nests are very calm, and you end up having to travel out of your way in search of a suitably-angry-looking harpy."
@@ -238,7 +237,7 @@ public class HarpyNestsAttacker {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer()) {
+			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
 				return UtilText.parse(Main.game.getCurrentRandomAttacker(),
 						"<p>"
 							+ "[npc.Name] collapses to the floor, completely defeated."
@@ -274,7 +273,7 @@ public class HarpyNestsAttacker {
 		
 		@Override
 		public Response getResponse(int index) {
-			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer()) {
+			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way...", null){
 						@Override
@@ -338,7 +337,7 @@ public class HarpyNestsAttacker {
 									+ " you realise that you couldn't be happier with how things have turned out..."
 							+ "</p>");
 					
-				} else if (index == 6 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
+				} else if (index == 10) {
 					return new Response(
 							"Remove character",
 							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
@@ -412,7 +411,7 @@ public class HarpyNestsAttacker {
 							"You can't submit to [npc.herHim], as [npc.she] has no interest in having sex with you!",
 							null);
 					
-				} else if (index == 6 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
+				} else if (index == 10) {
 					return new Response(
 							"Remove character",
 							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
@@ -594,7 +593,7 @@ public class HarpyNestsAttacker {
 					}
 				};
 				
-			} else if (index == 5) {
+			} else if (index == 10) {
 				return new Response(
 						"Remove character",
 						"Scare "+Main.game.getCurrentRandomAttacker().getName("the")+" away. <b>This will remove "+Main.game.getCurrentRandomAttacker().getName("the")+" from this area, allowing another NPC to move into this tile.</b>",

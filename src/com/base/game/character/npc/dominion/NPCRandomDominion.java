@@ -1,5 +1,8 @@
 package com.base.game.character.npc.dominion;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import com.base.game.character.CharacterUtils;
 import com.base.game.character.GameCharacter;
 import com.base.game.character.Name;
@@ -19,13 +22,14 @@ import com.base.game.inventory.item.AbstractItem;
 import com.base.game.sex.Sex;
 import com.base.main.Main;
 import com.base.utils.Util;
+import com.base.utils.Util.Value;
 import com.base.utils.Vector2i;
 import com.base.world.WorldType;
 import com.base.world.places.Dominion;
 
 /**
  * @since 0.1.66
- * @version 0.1.82
+ * @version 0.1.83
  * @author Innoxia
  */
 public class NPCRandomDominion extends NPC {
@@ -68,18 +72,27 @@ public class NPCRandomDominion extends NPC {
 		}
 		
 		if(Math.random()>humanChance) {
-			int choice = Util.random.nextInt(4) + 1;
-			if (choice == 1) {
-				race = Race.DOG_MORPH;
-				
-			} else if (choice == 2) {
-				race = Race.CAT_MORPH;
-				
-			} else if (choice == 3) {
-				race = Race.HORSE_MORPH;
-				
-			} else if (choice == 4) {
-				race = Race.WOLF_MORPH;
+			Map<Race, Integer> availableRaces = Util.newHashMapOfValues(
+					new Value<>(Race.DOG_MORPH, 3),
+					new Value<>(Race.CAT_MORPH, 3),
+					new Value<>(Race.HORSE_MORPH, 3),
+					new Value<>(Race.WOLF_MORPH, 3),
+					new Value<>(Race.SQUIRREL_MORPH, 1));
+			
+			int total = 0;
+			for(int i : availableRaces.values()) {
+				total+=i;
+			}
+			
+			int choice = Util.random.nextInt(total) + 1;
+			
+			total = 0;
+			for(Entry<Race, Integer> entry : availableRaces.entrySet()) {
+				total+=entry.getValue();
+				if(choice<=total) {
+					race = entry.getKey();
+					break;
+				}
 			}
 			
 			if(gender.isFeminine()) {
@@ -145,7 +158,7 @@ public class NPCRandomDominion extends NPC {
 		resetInventory();
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 
-		CharacterUtils.equipClothing(this, true);
+		CharacterUtils.equipClothing(this, true, false);
 		
 		
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
@@ -245,7 +258,7 @@ public class NPCRandomDominion extends NPC {
 				return UtilText.parse(this, "[npc.Name] is quite clearly turned on by your strong aura. [npc.She]'s willing to fight you in order to claim your body.");
 				
 			} else {
-				return UtilText.parse(this, "Although your strong aura is having an effect on [npc.name], [npc.she]'s only interested in robbing you of your possessions.");
+				return UtilText.parse(this, "Although your strong aura is having an effect on [npc.name], [npc.she]'s only really interested in robbing you of your possessions.");
 				
 			}
 		}
@@ -533,6 +546,5 @@ public class NPCRandomDominion extends NPC {
 			return Sex.getPartner().useItem(item, target, false);
 		}
 	}
-	
 	
 }

@@ -71,7 +71,7 @@ public class NPCRandomHarpy extends NPC {
 		resetInventory();
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
-		CharacterUtils.equipClothing(this, true);
+		CharacterUtils.equipClothing(this, true, false);
 		
 		
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));

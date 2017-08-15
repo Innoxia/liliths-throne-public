@@ -31,7 +31,7 @@ public class ScarlettsShop {
 					+ " While the areas in front of all of the other shops in Slaver Alley are filled with advertisement boards and platforms upon which to display their goods,"
 						+ " the area in front of 'Scarlett's Shop' is noticeably barren; yet further proof that this particular store must have fallen upon hard times."
 				+ "</p>"
-				+ (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_E_REPORT_TO_ALEXA
+				+ (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_E_REPORT_TO_ALEXA
 					?"<p>"
 						+ "You haven't gone to report to Scarlett's matriarch, Alexa, yet, and you don't really want to have to talk to Scarlett until you've done as she's asked."
 						+ " Scarlett said that you can find Alexa up in the Harpy Nests, so you'll need to go there report to her before stepping foot inside this shop again."
@@ -42,7 +42,7 @@ public class ScarlettsShop {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if(Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_E_REPORT_TO_ALEXA) {
+				if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_E_REPORT_TO_ALEXA) {
 					return new Response("Enter", "You should go and find Alexa before entering Scarlett's Shop again.", null);
 					
 				} else {
@@ -60,7 +60,7 @@ public class ScarlettsShop {
 
 		@Override
 		public String getContent() {
-			if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_D_SLAVERY) {
+			if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_D_SLAVERY) {
 				return "<p>"
 						+ "Pushing open the door, you find that the shop's interior is just as bare as you feared."
 						+ " There isn't a single slave for sale in sight, and the only sign of life is a rather defeated-looking harpy slouched down at the shop's front desk."
@@ -91,7 +91,7 @@ public class ScarlettsShop {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_D_SLAVERY) {
+				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_D_SLAVERY) {
 					return new Response("Ask for Arthur", "Ask Scarlett if she's got a slave named Arthur for sale.", SCARLETT_IS_A_BITCH);
 
 				}else {
@@ -213,12 +213,12 @@ public class ScarlettsShop {
 	};
 	
 	
-	public static final DialogueNodeOld ALEXAS_SHOP_EXTERIOR = new DialogueNodeOld("Scarlett's shop", ".", false) {
+	public static final DialogueNodeOld ALEXAS_SHOP_EXTERIOR = new DialogueNodeOld("Alexa's Pet Shop", ".", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
-			if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_F_SCARLETTS_FATE) {
+			if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
 				return  "<p>"
 							+ "Once again, you find yourself standing before Scarlett's shop, but this time, you notice that the surrounding area is a lot quieter than usual."
 							+ " As you walk towards the front entrance, you pass a couple of wolf-girls as they hurry past the shop, and you can't help but overhear a snippet of their whispered conversation,"
@@ -226,7 +226,7 @@ public class ScarlettsShop {
 						+ "</p>"
 						+ "<p>"
 							+ "Stepping forwards, you see that the fancy gold lettering reading 'Scarlett's shop; open for business' has been roughly crossed out in red paint, and beneath,"
-								+ " in the same scarlet hue, you read the new words 'Alexa's pet shop: For Sale'."
+								+ " in the same scarlet hue, you read the new words 'Alexa's pet shop'."
 						+ "</p>"
 						+ "<p>"
 							+ " Curious to find out what's become of Scarlett, you wonder if you should enter the shop now, or come back later."
@@ -235,7 +235,7 @@ public class ScarlettsShop {
 				return  "<p>"
 							+ "Once again, you find yourself standing in the quiet area in front of Scarlett's old shop."
 							+ " Stepping forwards, you see that the fancy gold lettering reading 'Scarlett's shop; open for business' has been roughly crossed out in red paint, and beneath,"
-								+ " in the same scarlet hue, you read the new words 'Alexa's Pet Shop: For Sale'."
+								+ " in the same scarlet hue, you read the words 'Alexa's Pet Shop'."
 						+ "</p>"
 						+ "<p>"
 							+ "You wonder if you should enter Alexa's Pet Shop now, or come back later."
@@ -246,7 +246,7 @@ public class ScarlettsShop {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_F_SCARLETTS_FATE) {
+				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
 					return new Response("Enter", "Enter the shop.", ALEXAS_SHOP) {
 						@Override
 						public void effects() {
@@ -269,12 +269,12 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_SHOP = new DialogueNodeOld("Alexa's pet shop", ".", true, true) {
+	public static final DialogueNodeOld ALEXAS_SHOP = new DialogueNodeOld("Alexa's Pet Shop", ".", true, true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
-			if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_F_SCARLETTS_FATE) {
+			if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
 				return "<p>"
 							+ "Pushing open the front door, you're greeted by the familiar, beautiful figure of Alexa sitting down behind the shop's counter."
 							+ " She throws you a delighted smile as you step inside the shop,"
@@ -304,12 +304,17 @@ public class ScarlettsShop {
 						+ "</p>"
 						+ "<p>"
 							+ "Turning back towards you, the matriarch smiles,"
-							+ " [alexa.speech(As you might have seen from the sign outside, both this shop <i>and</i> its previous owner are now for sale. So, if you were hoping to get some information from Scarlett, you'll have to buy her first!)]"
+							+ " [alexa.speech(As you might have seen from the sign outside, I've decided to re-brand my shop."
+									+ " The previous manager I'd left in charge really let me down, so I've decided that she can pay me back by being the first slave that I sell."
+									+ " So, if you were hoping to get some information from Scarlett here, you'll have to buy her first.)]"
 						+ "</p>"
 						+ "<p>"
 							+ "You suppress a groan as you wonder just how many more hurdles you'll have to overcome before finally finding Arthur."
 							+ " No matter what your views on slavery might be, it looks as though you only have one option."
 							+ " You'll have to buy Scarlett, then demand that she tell you what happened to Arthur."
+						+ "</p>"
+						+ "<p style='text-align:center'>"
+							+ "[style.boldBad(This is as far as I've got! I'll have all Alexa/Scarlett content finished for Friday!!)]"
 						+ "</p>";
 					
 			} else {
@@ -321,6 +326,9 @@ public class ScarlettsShop {
 						+ "<p>"
 							+ "[scarlett.speech(M-Mrph...)]"
 							+ " Scarlett's muffled groan drifts out from the other side of the shop as she hears Alexa talk about selling her."
+						+ "</p>"
+						+ "<p style='text-align:center'>"
+							+ "[style.boldBad(This is as far as I've got! I'll have all Alexa/Scarlett content finished for Friday!!)]"
 						+ "</p>";	
 			}
 		}
@@ -328,8 +336,8 @@ public class ScarlettsShop {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_F_SCARLETTS_FATE) {
-					return new Response("Offer to buy", "Offer to buy Scarlett from Alexa.", ALEXAS_SHOP_FOR_SALE);
+				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
+					return new Response("Offer to buy", "Offer to buy Scarlett from Alexa.", null); //TODO
 					
 				} else {
 					if(Main.game.getPlayer().getMoney() >= 2000) {
@@ -347,7 +355,7 @@ public class ScarlettsShop {
 					
 				}
 
-			} else if (index == 0 && Main.game.getPlayer().getMainQuest().getSortingOrder() > Quest.MAIN_1_F_SCARLETTS_FATE.getSortingOrder()) {
+			} else if (index == 0 && Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() > Quest.MAIN_1_F_SCARLETTS_FATE.getSortingOrder()) {
 				return new Response("Leave", "Leave Alexa's Pet Shop.", ALEXAS_SHOP_EXTERIOR);
 				
 			} else {
@@ -356,12 +364,15 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_SHOP_FOR_SALE = new DialogueNodeOld("Alexa's pet shop", ".", true, true) {
+	public static final DialogueNodeOld ALEXAS_SHOP_FOR_SALE = new DialogueNodeOld("Alexa's Pet Shop", ".", true, true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public String getContent() {
-			return "<p>"
+		public String getContent() {//TODO
+			return "<p style='text-align:center'>"
+						+ "[style.boldBad(This is as far as I've got! Everything past this point will be rewritten for Friday, and may be extremely buggy!)]"
+					+ "</p>"
+					+ "<p>"
 						+ "[pc.speech(If that's what it takes, I'll buy Scarlett,)] you say."
 					+ "</p>"
 					+ "<p>"
@@ -432,7 +443,7 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_SHOP_FOR_SALE_PLAYER_RESERVATION = new DialogueNodeOld("Alexa's pet shop", ".", true, true) {
+	public static final DialogueNodeOld ALEXAS_SHOP_FOR_SALE_PLAYER_RESERVATION = new DialogueNodeOld("Alexa's Pet Shop", ".", true, true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -455,7 +466,7 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_SHOP_BUYING_SCARLETT = new DialogueNodeOld("Alexa's pet shop", ".", true, true) { //TODO
+	public static final DialogueNodeOld ALEXAS_SHOP_BUYING_SCARLETT = new DialogueNodeOld("Alexa's Pet Shop", ".", true, true) { //TODO
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -500,7 +511,7 @@ public class ScarlettsShop {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Intro for Nikki (slavery administraion manager).</br>"
+						+ "Intro for Finch (slavery administration manager).</br>"
 						+ "Alexa and Scarlett arrive, Scarlett walking on all fours.</br>"
 						+ "Alexa's slave license is transferred to you.</br>"
 						+ "Explain that you can buy collars; when used, one of their employees will come and collect the new slave (included in collar's price).</br>"
@@ -597,25 +608,4 @@ public class ScarlettsShop {
 		}
 	};
 	
-	
-	
-	
-	public static final DialogueNodeOld PLAYERS_SHOP_EXTERIOR = new DialogueNodeOld("Your shop", ".", false) { //TODO
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "You own this shop!"
-				+ "</p>"
-				+ "<p>"
-					+ "<i>Slavery content will be added for next week!</i>"
-				+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int index) {
-			return null;
-		}
-	};
 }

@@ -51,7 +51,7 @@ public class DialogueFlags implements Serializable {
 			hasHarpyNestAccess, bimboEncountered, bimboPacified, dominantEncountered, dominantPacified, nymphoEncountered, nymphoPacified,
 			
 			// Slaver Alley:
-			nikkiIntroduced;
+			finchIntroduced;
 
 	public DialogueFlags() {
 
@@ -104,7 +104,7 @@ public class DialogueFlags implements Serializable {
 		nymphoPacified = false;
 
 		// Slaver Alley:
-		nikkiIntroduced = false;
+		finchIntroduced = false;
 	}
 
 }

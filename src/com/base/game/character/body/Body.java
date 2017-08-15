@@ -398,7 +398,8 @@ public class Body implements Serializable {
 				sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You've never given head before, so you don't know what you could fit down your throat</span>.");
 			} else {
 				switch(face.getCapacity().getMaximumSizeComfortableWithLube()) {
-					case NEGATIVE_UTILITY_VALUE: case ZERO_MICROSCOPIC:
+//					case NEGATIVE_UTILITY_VALUE:
+					case ZERO_MICROSCOPIC:
 						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're terrible at giving head</span>, and struggle to fit the tip of even a tiny cock into your mouth without gagging.");
 						break;
 					case ONE_TINY:
@@ -456,7 +457,8 @@ public class Body implements Serializable {
 					sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s never given head before.</span>.");
 				} else {
 					switch(face.getCapacity().getMaximumSizeComfortableWithLube()) {
-					case NEGATIVE_UTILITY_VALUE: case ZERO_MICROSCOPIC:
+//					case NEGATIVE_UTILITY_VALUE:
+					case ZERO_MICROSCOPIC:
 						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s terrible at giving head</span>, and struggles to fit the tip of even the smallest of cocks into [npc.her] mouth without gagging.");
 						break;
 					case ONE_TINY:
@@ -1143,7 +1145,15 @@ public class Body implements Serializable {
 							+ " You can control it well enough to grant you significantly improved balance.");
 				else
 					sb.append(" A furry, <span style='color:[npc.tailColourHex];'>[npc.tailColour], cat-like tail</span> grows out from just above [npc.her] ass."
-							+ " [npc.She] seems to be able to control it enough to grant [npc.her] significantly improved balance.");
+							+ " [npc.She] seems to be able to control it enough to grant [npc.herHim] significantly improved balance.");
+				break;
+			case SQUIRREL_MORPH:
+				if (owner.isPlayer())
+					sb.append(" A fluffy, <span style='color:[pc.tailColourHex];'>[pc.tailColour], squirrel-like tail</span> grows out from just above your ass."
+							+ " You can control it well enough to grant you significantly improved balance.");
+				else
+					sb.append(" A fluffy, <span style='color:[npc.tailColourHex];'>[npc.tailColour], squirrel-like tail</span> grows out from just above [npc.her] ass."
+							+ " [npc.She] seems to be able to control it enough to grant [npc.herHim] significantly improved balance.");
 				break;
 			case SQUIRREL_MORPH:
 				if (owner.isPlayer())
@@ -1159,7 +1169,7 @@ public class Body implements Serializable {
 							+ " You can swipe it from side to side, but other than that, you don't have much control over it.");
 				else
 					sb.append(" A long, <span style='color:[npc.tailColourHex];'>[npc.tailColour], horse-like tail</span> grows out from just above [npc.her] ass."
-							+ " [npc.She] can swipe it from side to side, but other than that, [npc.she] doesn't seem to have much  control over it.");
+							+ " [npc.She] can swipe it from side to side, but other than that, [npc.she] doesn't seem to have much control over it.");
 				break;
 			case HARPY:
 				if (owner.isPlayer())

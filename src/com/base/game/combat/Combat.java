@@ -160,7 +160,7 @@ public enum Combat {
 			
 			if(opponent.getLootEssenceDrops()!=null) {
 				
-				if(!Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 					postCombatStringBuilder.append(
 							UtilText.parse(opponent,
 							"<p>"

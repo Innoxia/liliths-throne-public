@@ -17,7 +17,44 @@
 	
 	Patch notes:
 		
+
+	Engine:
+		Improved quest handling methods.
+		
 	Gameplay:
+		<b>Changed:</b> You can now obtain a slaver license at the very start of the game. Simply go to the Slaver Administration building (in Slaver Alley) and ask about it there. ^^
+		<b>Added:</b> Squirrel-morphs. These are mostly going to be found in the Fields area, but there's a small chance of encountering them in Dominion's alleyways as well. (Added by rfpnj. Think you! :3)
+		<b>Added:</b> Squirrel Java, Round Nuts, Chasing Squirrels, and Bottled Squirrel-morph Essence.
+		<b>Changed:</b> Nikki's name to Finch.
+		
+	Sex:
+		<b>Added:</b> Power-bottom doggy-style position. (Added by BelshazzarII. Thank you! :3)
+		NPCs will now displace and remove mouth-concealing clothing during sex.
+		
+	Clothing:
+		<b>Added:</b> Thigh-high socks (feminine, foot slot).
+		Added two more metal colours (platinum and rose gold). (Added by rfpnj. :3)
+		Ball gags can no longer be displaced by being 'pulled out'. They must be removed to gain access to the wearer's mouth.
+		
+	Other:
+		Clothing which blocks multiple slots now have more powerful enchantments.
+		Choosing to start as an androgynous male will now give you a flat chest instead of AA-cup breasts. (I'm going to give you a lot more control over this when I redo the character creation screen.)
+		Combined the 'Explore' and 'Look for trouble' actions in the harpy nests (after you've completed the Angry Harpies quest).
+		
+	Bugs:
+		<b>Fixed:</b> Bug where nipples and urethras were always being described as being fuckable.
+		Fixed the more powerful version of the arcane storm debuff being applied to your character.
+		Typo fixes.
+		You should now be able to correctly remove harpies from their tiles.
+		NPCs will now stop equipping more and more clothing after each sexual encounter.
+		Fixed bug where NPCs who aren't attracted to you would always choose to have sex after combat. (This was only working correctly before if you had non-con enabled.)
+		Ralph's discount is now unavailable if you're unable to access your mouth. 
+		Fixed bug where turning BRax into Bree would give you multi-breasts instead of her.
+		Fixed a bug where the 'Buy all' option for clothing would freeze the game.
+		Fixed bugs in the 'Buy all' option for clothing, items, and weapons.
+		Added correct fetish associations for tail-in-anus actions.
+
+Gameplay:
 		<b>Added:</b> Squirrel-morphs. These are mostly going to be found in the Fields area, but there's a chance of encountering them in Dominion as well. (Added by rfpnj. Think you! :3)
 		<b>Added:</b> Squirrel Java, Round Nuts, Chasing Squirrels, and Bottled Squirrel-morph Essence.
 		
@@ -33,20 +70,28 @@
 	Bugs:
 		Fixed the more powerful version of the arcane storm debuff being applied to your character.
 		Typo fixes.
+
 	
 	
 	
 	
 	
+	[Alexa & Scarlett]
+	- Intro
+	- Buying
+	- Repeatable shop
+	
+	
+	[TF fetish content]
+	- NPC preference for each part
+	- Give them a potion to force on you on each win
+	
+	Add Paizuri, thigh sex, and hotdogging.
 	
 	
 	
 	
-	
-	
-	
-	
-	
+
 	Dom self doggy
 	
 	NPCs to gain affection from PC using their fetish-related actions
@@ -94,17 +139,26 @@
 	
 	
 	Finish dialogue
+
 	
-	[ ]
-	[ ]
-	[ ]
-	[ ] Add Alexa back at nest, can visit her again.
-	[ ]
-	[ ]
+	vagina elasticity shows as 0 when have no vagina in stats
 	
-	TF fetish content
-		NPC preference for each part
-		Give them a potion to force on you on each win
+	Dom self doggy
+	
+	combined fetish for pure virgins with the deflowering fetish
+	
+	NPCs to gain affection from PC using their fetish-related actions
+	
+	First row, 1 through 5
+	Second row, shift + 1 through 5
+	Third row, control + 1 through 5
+	
+	spawned with crotchless chaps and no underwear
+		couldn't detect penis until sex?
+		
+	Yeah I've noticed that as well, any item in the bottom row in the last 3 slots on the right don't have to tool tips pop up like there is something blocking them.
+		
+	Lilaya's pull out dialogue cna be skipped somehow
 		
 	Dom anal
 	

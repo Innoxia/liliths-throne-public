@@ -339,7 +339,7 @@ public class EnchantmentDialogue {
 						public void effects() {
 							craftItem(ingredient, effects);
 							
-							if(!Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+							if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
 							}
 							

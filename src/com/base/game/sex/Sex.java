@@ -1946,7 +1946,6 @@ public enum Sex {
 				unequipClothingText = Main.game.getPlayer().getUnequipDescription();
 
 			} else {
-
 				player().isAbleToBeDisplaced(clothingBeingRemoved, clothingRemoval.getValue(), true, false, getPartner());
 				unequipClothingText = Main.game.getPlayer().getDisplaceDescription();
 			}
@@ -1963,7 +1962,6 @@ public enum Sex {
 				unequipClothingText = partner.getUnequipDescription();
 
 			} else {
-
 				partner.isAbleToBeDisplaced(clothingBeingRemoved, clothingRemoval.getValue(), true, false, getPartner());
 				unequipClothingText = partner.getDisplaceDescription();
 			}

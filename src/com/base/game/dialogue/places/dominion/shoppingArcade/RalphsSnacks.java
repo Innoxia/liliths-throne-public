@@ -115,12 +115,18 @@ public class RalphsSnacks {
 				};
 				
 			} else if (index == 2) {
-				return new Response("Discount", "Ask Ralph if there's anything you can do to get a discount.", INTERIOR_ASK_FOR_DISCOUNT){
-					@Override
-					public void effects() {
-						Main.game.getDialogueFlags().ralphIntroduced=true;
-					}
-				};
+				if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+					return new Response("Discount", "Ask Ralph if there's anything you can do to get a discount.", INTERIOR_ASK_FOR_DISCOUNT){
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().ralphIntroduced=true;
+						}
+					};
+					
+				} else {
+					return new Response("Discount", "You can only get a discount from Ralph if he's able to gain access to your mouth!", null);
+					
+				}
 
 			} else if (index == 0) {
 				return new Response("Leave", "Leave Ralph's shop.", EXTERIOR){
@@ -150,11 +156,11 @@ public class RalphsSnacks {
 					+ "</p>"
 					+ "<p>"
 						+"A familiar voice suddenly snaps you out of your daydream, "
-						+ UtilText.parseSpeech("Hey, are you alright?", Main.game.getRalph())
+						+ "[ralph.speech(Hey, are you alright?)]"
 					+ "</p>"
 					+ "<p>"
 					 	+ "You were so engrossed in your fantasy that you didn't notice Ralph walking up to you, and you're taken completely off-guard as you blurt out a reply, " 
-						+ UtilText.parsePlayerSpeech("Oh! Yeah... Thanks! I was just thinking... Erm...")
+						+ "[pc.speech(Oh! Yeah... Thanks! I was just thinking... Erm...)]"
 					+ "</p>"
 					+ "<p>"
 						+ "You notice that his eyes have started to roam up and down your body, and you get the feeling that he knows exactly what you were imagining."
@@ -162,24 +168,24 @@ public class RalphsSnacks {
 						+ " As you struggle to contain a happy gasp at the sight of his clear erection, he steps forwards, and you find yourself with your back to the wall as you feel his hot breath on your face once again." 
 					+ "</p>"
 					+ "<p>"
-						+ UtilText.parseSpeech("Want to have another taste?", Main.game.getRalph()) + " he asks, grinning deviously, "
-						+ UtilText.parseSpeech("Let me blow a load down that pretty little throat of yours, and I'll give you twenty-five percent off everything I have in stock for a few days.", Main.game.getRalph())
+						+ "[ralph.speech(Want to have another taste?)] he asks, grinning deviously, "
+						+ "[ralph.speech(Let me blow a load down that pretty little throat of yours, and I'll give you twenty-five percent off everything I have in stock for a few days.)]"
 					+ "</p>"
 					+ "<p>"
 						+ "As he moves even closer, you struggle to get the image of his massive, throbbing black horse-cock out of your mind, and as the tent in his trousers comes into contact with your leg, you blurt out your reply."
 					+ "</p>";
+				
 			}else{
-			
 				return "<p>"
 							+ "You get the feeling that some of these items may be out of your price range."
 							+ " Glancing over to the other side of the shop, you see Ralph giving you a cheerful wave from behind the counter."
 							+ " Encouraged by his disarming smile and friendly face, you decide to ask him if there's any way you can get a discount on some of these transformative items, and start to walk over to him."
 						+ "</p>"
 						+ "<p>"
-							+ "As he sees you approaching, Ralph calls out to you, " + UtilText.parseSpeech("Hello! Is there anything I can help you with?", Main.game.getRalph())
+							+ "As he sees you approaching, Ralph calls out to you, [ralph.speech(Hello! Is there anything I can help you with?)]"
 						+ "</p>"
 						+ "<p>"
-							+ UtilText.parsePlayerSpeech("Hi there, I was wondering if you could show me the prices of some of these items,") + " you reply." 
+							+ "[pc.speech(Hi there, I was wondering if you could show me the prices of some of these items,)] you reply." 
 						+ "</p>"
 						+ "<p>"
 							+ "Ralph cheerfully leads you back over to the special display, and as he informs you of some of the prices, your suspicions prove to be correct."
@@ -187,8 +193,8 @@ public class RalphsSnacks {
 							+ " Looking across at the friendly shopkeeper, you ask him if there's any way he'd drop the prices a little."
 						+ "</p>"
 						+ "<p>"
-							+ UtilText.parseSpeech("Hmm,", Main.game.getRalph()) + " he says, glancing over at you, "
-							+ UtilText.parseSpeech("I suppose we could work something out...", Main.game.getRalph())
+							+ "[ralph.speech(Hmm,)] he says, glancing over at you, "
+							+ "[ralph.speech(I suppose we could work something out...)]"
 						+ "</p>"
 						+ "<p>"
 							+ "You notice that his smile has suddenly lost its friendly appearance, and as his eyes roam up and down your body, you get the feeling that your arcane aura is giving him some dirty thoughts."
@@ -196,8 +202,8 @@ public class RalphsSnacks {
 							+ " As your eyes open wide at the sight of his clear erection, he steps forwards, and you find yourself with your back to the wall as you feel his hot breath on your face." 
 						+ "</p>"
 						+ "<p>"
-							+ UtilText.parseSpeech("Like what you see?", Main.game.getRalph()) + " he asks, grinning deviously, "
-							+ UtilText.parseSpeech("Let me blow a load down that pretty little throat of yours, and I'll give you twenty-five percent off everything I have in stock for a few days.", Main.game.getRalph())
+							+ "[ralph.speech(Like what you see?)] he asks, grinning deviously, "
+							+ "[ralph.speech(Let me blow a load down that pretty little throat of yours, and I'll give you twenty-five percent off everything I have in stock for a few days.)]"
 						+ "</p>"
 						+ "<p>"
 							+ "You gulp as he moves even closer, and as the tent in his trousers comes into contact with your leg, you blurt out your reply."
@@ -237,11 +243,11 @@ public class RalphsSnacks {
 		public String getContent() {
 			if(Main.game.getDialogueFlags().ralphDiscountStartTime>0){
 				return "<p>"
-						+ UtilText.parsePlayerSpeech("No thanks,") + " you force yourself to say, stepping to one side and moving away from the horny shopkeeper."
+						+ "[pc.speech(No thanks,)] you force yourself to say, stepping to one side and moving away from the horny shopkeeper."
 					+ "</p>"
 					+ "<p>"
-						+ UtilText.parseSpeech("Well, if you get a craving, I'm always ready to satisfy it!", Main.game.getRalph()) + " he laughs, turning around and heading back to his counter, "
-						+ UtilText.parseSpeech("If you need anything else, just let me know.", Main.game.getRalph()) 
+						+ "[ralph.speech(Well, if you get a craving, I'm always ready to satisfy it!)] he laughs, turning around and heading back to his counter, "
+						+ "[ralph.speech(If you need anything else, just let me know.)]" 
 					+ "</p>"
 					+ "<p>"
 						+ "You go back to browsing the shop's wares, the images of Ralph's massive black horse-cock refusing to budge from your head."
@@ -249,11 +255,11 @@ public class RalphsSnacks {
 				
 			}else{
 				return "<p>"
-							+ UtilText.parsePlayerSpeech("No thanks,") + " you say, stepping to one side and moving away from the horny shopkeeper."
+							+ "[pc.speech(No thanks,)] you say, stepping to one side and moving away from the horny shopkeeper."
 						+ "</p>"
 						+ "<p>"
-							+ UtilText.parseSpeech("Well, no harm in either of us asking!", Main.game.getRalph()) + " he laughs, turning around and heading back to his counter, "
-							+ UtilText.parseSpeech("If you need anything else, just let me know.", Main.game.getRalph()) 
+							+ "[ralph.speech(Well, no harm in either of us asking!)] he laughs, turning around and heading back to his counter, "
+							+ "[ralph.speech(If you need anything else, just let me know.)]" 
 						+ "</p>"
 						+ "<p>"
 							+ "You go back to browsing the shop's wares, but you find it hard to shake the image of Ralph's massive bulge from your head."

@@ -30,7 +30,7 @@ public enum HarpyNests implements PlaceInterface {
 	WALKWAYS("Walkway", null, BaseColour.BLACK, HarpyNestsDialogue.WALKWAY, Encounter.HARPY_NEST_WALKWAYS, false, true) {
 		@Override
 		public boolean isDangerous() {
-			return !Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION) || Main.game.getCurrentWeather()==Weather.MAGIC_STORM;
+			return !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION) || Main.game.getCurrentWeather()==Weather.MAGIC_STORM;
 		}
 	},
 
