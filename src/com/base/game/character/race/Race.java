@@ -338,7 +338,8 @@ public enum Race {
 
 			"<p>"
 				+ "Squirrel-morphs are one of the more common anthropomorphic races found in this world."
-				+ " Their long fluffy tails and small round ears are usually enough to identify a squirrel-morph."
+				+ " Although they're mostly found in the wooded areas of the Foloi Fields, squirrel-morphs are also a regular sight in Dominion."
+  				+ " Their long fluffy tails and small round ears are usually enough to identify a squirrel-morph."
 			+ "</p>",
 			
 			"<p>"
