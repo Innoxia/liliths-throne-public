@@ -1155,6 +1155,14 @@ public class Body implements Serializable {
 					sb.append(" A fluffy, <span style='color:[npc.tailColourHex];'>[npc.tailColour], squirrel-like tail</span> grows out from just above [npc.her] ass."
 							+ " [npc.She] seems to be able to control it enough to grant [npc.herHim] significantly improved balance.");
 				break;
+			case SQUIRREL_MORPH:
+				if (owner.isPlayer())
+					sb.append(" A fluffy, <span style='color:[pc.tailColourHex];'>[pc.tailColour], squirrel-like tail</span> grows out from just above your ass."
+							+ " You can control it well enough to grant you significantly improved balance.");
+				else
+					sb.append(" A fluffy, <span style='color:[npc.tailColourHex];'>[npc.tailColour], squirrel-like tail</span> grows out from just above [npc.her] ass."
+							+ " [npc.She] seems to be able to control it enough to grant [npc.her] significantly improved balance.");
+				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer())
 					sb.append(" A long, <span style='color:[pc.tailColourHex];'>[pc.tailColour], horse-like tail</span> grows out from just above your ass."
