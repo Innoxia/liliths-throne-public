@@ -169,26 +169,43 @@ public class PhoneDialogue {
 			journalSB = new StringBuilder();
 
 			// Main Quests:
-
 			journalSB.append("<details open>");
 			journalSB.append("<summary class='quest-title' style='color:" + QuestType.MAIN.getColour().toWebHexString() + ";'>" + QuestLine.MAIN.getName() + "</summary>");
 
-			// journalSB.append("<div class='quest-title main'
-			// style='color:"+QuestType.MAIN.getColour().toWebHexString()+";'>"+QuestLine.MAIN.getName()+"</div>");
-			if (!Main.game.getPlayer().isMainQuestCompleted()) {
-				journalSB.append("<div class='quest-box'>" + Quest.getLevelAndExperinceHTML(Main.game.getPlayer().getMainQuest(), true) + "<h6 style='color:" + QuestType.MAIN.getColour().toWebHexString() + ";text-align:center;'>"
-						+ Main.game.getPlayer().getMainQuest().getName() + "</h6>" + "<p style='text-align:center;'>" + Main.game.getPlayer().getMainQuest().getDescription() + "</p>" + "</div>");
+			if (!Main.game.getPlayer().isQuestCompleted(QuestLine.MAIN)) {
+				journalSB.append(
+						"<div class='quest-box'>"
+							+ Quest.getLevelAndExperinceHTML(Main.game.getPlayer().getQuest(QuestLine.MAIN), true)
+							+ "<h6 style='color:" + QuestType.MAIN.getColour().toWebHexString() + ";text-align:center;'>"
+								+ Main.game.getPlayer().getQuest(QuestLine.MAIN).getName()
+							+ "</h6>"
+							+ "<p style='text-align:center;'>"
+								+ Main.game.getPlayer().getQuest(QuestLine.MAIN).getDescription()
+							+ "</p>"
+						+ "</div>");
 			} else {
-				journalSB.append("<div class='quest-box'>" + "<h6 style='color:" + QuestType.MAIN.getColour().toWebHexString() + ";text-align:center;'>" + QuestLine.MAIN.getName() + "</h6>" + "<p style='text-align:center;'>"
-						+ QuestLine.MAIN.getCompletedDescription() + "</p>" + "</div>");
+				journalSB.append(
+						"<div class='quest-box'>"
+							+ "<h6 style='color:" + QuestType.MAIN.getColour().toWebHexString() + ";text-align:center;'>"
+								+ QuestLine.MAIN.getName()
+							+ "</h6>"
+							+ "<p style='text-align:center;'>"
+								+ QuestLine.MAIN.getCompletedDescription()
+							+ "</p>"
+						+ "</div>");
 			}
-
-			if (Main.game.getPlayer().getMainQuestProgress() != 0) {
-
-				for (int i = Main.game.getPlayer().getMainQuestProgress() - 1; i >= 0; i--)
-					journalSB.append("<div class='quest-box'>" + Quest.getLevelAndExperinceHTML(Main.game.getPlayer().getMainQuestAtIndex(i), false) + "<h6 style='color:" + QuestType.MAIN.getColour().getShades()[1]
-							+ ";text-align:center;'><b>Completed - " + Main.game.getPlayer().getMainQuestAtIndex(i).getName() + "</b></h6>" + "<p style='color:" + Colour.TEXT_GREY.toWebHexString() + ";text-align:center;'>"
-							+ Main.game.getPlayer().getMainQuestAtIndex(i).getCompletedDescription() + "</p>" + "</div>");
+			
+			for (int i = Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() - 1; i >= 0; i--) {
+				journalSB.append(
+						"<div class='quest-box'>"
+							+ Quest.getLevelAndExperinceHTML(QuestLine.MAIN.getQuestArray()[i], false)
+							+ "<h6 style='color:" + QuestType.MAIN.getColour().getShades()[1]+ ";text-align:center;'>"
+								+ "<b>Completed - " + QuestLine.MAIN.getQuestArray()[i].getName() + "</b>"
+							+ "</h6>"
+							+ "<p style='color:" + Colour.TEXT_GREY.toWebHexString() + ";text-align:center;'>"
+								+ QuestLine.MAIN.getQuestArray()[i].getCompletedDescription()
+							+ "</p>"
+						+ "</div>");
 			}
 			journalSB.append("</details>");
 
@@ -239,33 +256,62 @@ public class PhoneDialogue {
 		public String getContent() {
 			journalSB = new StringBuilder();
 
+			boolean sideQuestsFound = false;
+			
 			// Side Quests:
-			if (Main.game.getPlayer().getNumberOfSideQuests() != 0) {
-
-				for (QuestLine q : Main.game.getPlayer().getSetOfSideQuests()) {
-
+			for (QuestLine questLine : Main.game.getPlayer().getQuests().keySet()) {
+				if(questLine.getType()==QuestType.SIDE) {
+					sideQuestsFound = true;
+					
 					journalSB.append("<details open>");
+						if (Main.game.getPlayer().isQuestCompleted(questLine)) {
+							journalSB.append(
+									"<summary class='quest-title' style='color:" + questLine.getType().getColour().getShades()[1] + ";'>"
+										+ "Completed - " + questLine.getName()
+									+ "</summary>"
+									+"<div class='quest-box'>"
+										+ "<h6 style='color:" + questLine.getType().getColour().getShades()[1] + "; text-align:center;'>"
+											+ "<b>Side Quest Completed</b>"
+										+ "</h6>"
+										+ "<p style='color:"+ Colour.TEXT_GREY.toWebHexString() + ";text-align:center;'>"
+											+ questLine.getCompletedDescription()
+										+ "</p>"
+									+ "</div>");
+		
+						} else {
+							journalSB.append(
+									"<summary class='quest-title' style='color:" + questLine.getType().getColour().toWebHexString() + ";'>"
+										+ questLine.getName()
+									+ "</summary>"
+									+"<div class='quest-box'>"
+										+ Quest.getLevelAndExperinceHTML(Main.game.getPlayer().getQuest(questLine), true)
+										+ "<h6 style='color:" + questLine.getType().getColour().toWebHexString()+ "; text-align:center;'>"
+											+ "<b>" + Main.game.getPlayer().getQuest(questLine).getName() + "</b>"
+										+ "</h6>"
+										+ "<p style='text-align:center;'>"
+											+ Main.game.getPlayer().getQuest(questLine).getDescription()
+										+ "</p>"
+									+ "</div>");
+		
+						}
 
-					if (q.isCompleted(Main.game.getPlayer().getSideQuestProgress(q))) {
-						journalSB.append("<summary class='quest-title' style='color:" + q.getType().getColour().getShades()[1] + ";'>Completed - " + q.getName() + "</summary>");
-						journalSB.append("<div class='quest-box'>" + "<h6 style='color:" + q.getType().getColour().getShades()[1] + "; text-align:center;'><b>Side Quest Completed</b></h6>" + "<p style='color:"
-								+ Colour.TEXT_GREY.toWebHexString() + ";text-align:center;'>" + q.getCompletedDescription() + "</p>" + "</div>");
-
-					} else {
-						journalSB.append("<summary class='quest-title' style='color:" + q.getType().getColour().toWebHexString() + ";'>" + q.getName() + "</summary>");
-						journalSB.append("<div class='quest-box'>" + Quest.getLevelAndExperinceHTML(q.getQuestArray()[Main.game.getPlayer().getSideQuestProgress(q)], true) + "<h6 style='color:" + q.getType().getColour().toWebHexString()
-								+ "; text-align:center;'><b>" + q.getQuestArray()[Main.game.getPlayer().getSideQuestProgress(q)].getName() + "</b></h6>" + "<p style='text-align:center;'>"
-								+ q.getQuestArray()[Main.game.getPlayer().getSideQuestProgress(q)].getDescription() + "</p>" + "</div>");
-
-					}
-
-					for (int i = 0; (i < Main.game.getPlayer().getSideQuestProgress(q) && i < q.getQuestArray().length); i++)
-						journalSB.append("<div class='quest-box'>" + Quest.getLevelAndExperinceHTML(q.getQuestArray()[i], false) + "<h6 style='color:" + q.getType().getColour().getShades()[1] + ";text-align:center;'><b>Completed - "
-								+ q.getQuestArray()[i].getName() + "</b></h6>" + "<p style='color:" + Colour.TEXT_GREY.toWebHexString() + ";text-align:center;'>" + q.getQuestArray()[i].getCompletedDescription() + "</p>" + "</div>");
-
+						for (int i = Main.game.getPlayer().getQuest(questLine).getSortingOrder() - 1; i >= 0; i--) {
+							journalSB.append(
+										"<div class='quest-box'>"
+											+ Quest.getLevelAndExperinceHTML(questLine.getQuestArray()[i], false)
+											+ "<h6 style='color:" + questLine.getType().getColour().getShades()[1] + ";text-align:center;'>"
+													+ "<b>Completed - "+ questLine.getQuestArray()[i].getName() + "</b>"
+											+ "</h6>"
+											+ "<p style='color:" + Colour.TEXT_GREY.toWebHexString() + ";text-align:center;'>"
+												+ questLine.getQuestArray()[i].getCompletedDescription()
+											+ "</p>" 
+										+ "</div>");
+						}
 					journalSB.append("</details>");
 				}
-			} else {
+			}
+			
+			if(!sideQuestsFound) {
 				journalSB.append("<div class='subTitle'>You haven't got any side quests!</div>");
 			}
 
@@ -306,36 +352,63 @@ public class PhoneDialogue {
 		public String getContent() {
 			journalSB = new StringBuilder();
 
-			// Romance Quests:
-			if (Main.game.getPlayer().getNumberOfRomanceQuests() != 0) {
-
-				for (QuestLine q : Main.game.getPlayer().getSetOfRomanceQuests()) {
-
+			boolean romanceQuestsFound = false;
+			
+			// Side Quests:
+			for (QuestLine questLine : Main.game.getPlayer().getQuests().keySet()) {
+				if(questLine.getType()==QuestType.ROMANCE) {
+					romanceQuestsFound = true;
+					
 					journalSB.append("<details open>");
+						if (Main.game.getPlayer().isQuestCompleted(questLine)) {
+							journalSB.append(
+									"<summary class='quest-title' style='color:" + questLine.getType().getColour().getShades()[1] + ";'>"
+										+ "Completed - " + questLine.getName()
+									+ "</summary>"
+									+"<div class='quest-box'>"
+										+ "<h6 style='color:" + questLine.getType().getColour().getShades()[1] + "; text-align:center;'>"
+											+ "<b>Side Quest Completed</b>"
+										+ "</h6>"
+										+ "<p style='color:"+ Colour.TEXT_GREY.toWebHexString() + ";text-align:center;'>"
+											+ questLine.getCompletedDescription()
+										+ "</p>"
+									+ "</div>");
+		
+						} else {
+							journalSB.append(
+									"<summary class='quest-title' style='color:" + questLine.getType().getColour().toWebHexString() + ";'>"
+										+ questLine.getName()
+									+ "</summary>"
+									+"<div class='quest-box'>"
+										+ Quest.getLevelAndExperinceHTML(Main.game.getPlayer().getQuest(questLine), true)
+										+ "<h6 style='color:" + questLine.getType().getColour().toWebHexString()+ "; text-align:center;'>"
+											+ "<b>" + Main.game.getPlayer().getQuest(questLine).getName() + "</b>"
+										+ "</h6>"
+										+ "<p style='text-align:center;'>"
+											+ Main.game.getPlayer().getQuest(questLine).getDescription()
+										+ "</p>"
+									+ "</div>");
+		
+						}
 
-					if (q.isCompleted(Main.game.getPlayer().getRomanceQuestProgress(q))) {
-						journalSB.append("<summary class='quest-title' style='color:" + q.getType().getColour().getShades()[1] + ";'>" + q.getName() + " - Completed</summary>");
-						journalSB.append("<div class='quest-box'>" + "<h6 style='color:" + q.getType().getColour().toWebHexString() + "; text-align:center;'><b>Romance Quest Completed</b></h6>" + "<p style='text-align:center;'>"
-								+ q.getCompletedDescription() + "</p>" + "</div>");
-
-					} else {
-						journalSB.append("<summary class='quest-title' style='color:" + q.getType().getColour().toWebHexString() + ";'>" + q.getName() + "</summary>");
-						journalSB.append("<div class='quest-box'>" + Quest.getLevelAndExperinceHTML(q.getQuestArray()[Main.game.getPlayer().getRomanceQuestProgress(q)], true) + "<h6 style='color:" + q.getType().getColour().toWebHexString()
-								+ ";text-align:center;'><b>" + q.getQuestArray()[Main.game.getPlayer().getRomanceQuestProgress(q)].getName() + "</b></h6>" + "<p style='text-align:center;'>"
-								+ q.getQuestArray()[Main.game.getPlayer().getRomanceQuestProgress(q)].getDescription() + "</p>" + "</div>");
-
-					}
-
-					for (int i = 0; (i < Main.game.getPlayer().getRomanceQuestProgress(q) && i < q.getQuestArray().length); i++)
-						journalSB.append("<div class='quest-box'>" + Quest.getLevelAndExperinceHTML(q.getQuestArray()[i], false) + "<h6 style='color:" + q.getType().getColour().getShades()[1] + ";text-align:center;'><b>Completed: "
-								+ q.getQuestArray()[i].getName() + "</b></h6>" + "<p style='color:" + Colour.TEXT_GREY.toWebHexString() + ";text-align:center;'>" + q.getQuestArray()[i].getCompletedDescription() + "</p>" + "</div>");
-
+						for (int i = Main.game.getPlayer().getQuest(questLine).getSortingOrder() - 1; i >= 0; i--) {
+							journalSB.append(
+										"<div class='quest-box'>"
+											+ Quest.getLevelAndExperinceHTML(questLine.getQuestArray()[i], false)
+											+ "<h6 style='color:" + questLine.getType().getColour().getShades()[1] + ";text-align:center;'>"
+													+ "<b>Completed - "+ questLine.getQuestArray()[i].getName() + "</b>"
+											+ "</h6>"
+											+ "<p style='color:" + Colour.TEXT_GREY.toWebHexString() + ";text-align:center;'>"
+												+ questLine.getQuestArray()[i].getCompletedDescription()
+											+ "</p>" 
+										+ "</div>");
+						}
 					journalSB.append("</details>");
 				}
-				
-			} else {
+			}
+			
+			if(!romanceQuestsFound) {
 				journalSB.append("<div class='subTitle'>You haven't got any romance quests!</div>");
-				
 			}
 
 			return journalSB.toString();

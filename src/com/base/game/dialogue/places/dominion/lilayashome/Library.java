@@ -90,6 +90,9 @@ public class Library {
 			} else if (index == 10) {
 				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
 
+			} else if (index == 11) {
+				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
+
 			} else {
 				return null;
 			}

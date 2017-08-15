@@ -22,15 +22,27 @@ public enum QuestLine {
 
 	// Side quests:
 
-	SIDE_ITEM_DISCOVERY("Item Discovery", "You have found all the different items that are in this version!", QuestType.SIDE, Quest.SIDE_DISCOVER_ALL_ITEMS),
+	SIDE_ITEM_DISCOVERY("Item Discovery", "You have found all the different items that are in this version!", QuestType.SIDE,
+			Quest.SIDE_DISCOVER_ALL_ITEMS),
 
-	SIDE_RACE_DISCOVERY("Race Discovery", "You have found all the different races that are in this version!", QuestType.SIDE, Quest.SIDE_DISCOVER_ALL_RACES),
+	SIDE_RACE_DISCOVERY("Race Discovery", "You have found all the different races that are in this version!", QuestType.SIDE,
+			Quest.SIDE_DISCOVER_ALL_RACES),
 
-	SIDE_JINXED_CLOTHING("Getting jinxed", "Lilaya told you how to use demonstones to remove jinxed clothing.", QuestType.SIDE, Quest.SIDE_JINXED_LILAYA_HELP, Quest.SIDE_JINX_REMOVE_JINX),
+	SIDE_JINXED_CLOTHING("Getting jinxed", "Lilaya told you how to use demonstones to remove jinxed clothing.", QuestType.SIDE,
+			Quest.SIDE_JINXED_LILAYA_HELP,
+			Quest.SIDE_JINX_REMOVE_JINX),
 
-	SIDE_ENCHANTMENT_DISCOVERY("Enchantments & Essences", "You now know how to create enchanted items!", QuestType.SIDE, Quest.SIDE_ENCHANTMENTS_LILAYA_HELP, Quest.SIDE_ENCHANTMENTS_ENCHANT_SOMETHING),
+	SIDE_ENCHANTMENT_DISCOVERY("Enchantments & Essences", "You now know how to create enchanted items!", QuestType.SIDE,
+			Quest.SIDE_ENCHANTMENTS_LILAYA_HELP,
+			Quest.SIDE_ENCHANTMENTS_ENCHANT_SOMETHING),
 
-	SIDE_FIRST_TIME_PREGNANCY("Knocked up", "With Lilaya's help, you managed to complete your first pregnancy. Perhaps the first of many...", QuestType.SIDE, Quest.SIDE_PREGNANCY_CONSULT_LILAYA, Quest.SIDE_PREGNANCY_LILAYA_THE_MIDWIFE),
+	SIDE_FIRST_TIME_PREGNANCY("Knocked up", "With Lilaya's help, you managed to complete your first pregnancy. Perhaps the first of many...", QuestType.SIDE,
+			Quest.SIDE_PREGNANCY_CONSULT_LILAYA,
+			Quest.SIDE_PREGNANCY_LILAYA_THE_MIDWIFE),
+
+	SIDE_SLAVERY("Slaver", "Thanks to Lilaya's letter of recommendation, you managed to obtain a coveted Slaver License!", QuestType.SIDE,
+			Quest.SIDE_SLAVER_NEED_RECOMMENDATION,
+			Quest.SIDE_SLAVER_RECOMMENDATION_OBTAINED),
 
 
 	SIDE_HARPY_PACIFICATION("Angry harpies", "You managed to calm down all three of the harpy matriarchs, resulting in the Harpy Nests being safe to travel through!", QuestType.SIDE,

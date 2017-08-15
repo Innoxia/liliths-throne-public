@@ -33,9 +33,7 @@ public class PlayerCharacter extends GameCharacter {
 
 	private String title;
 
-	private QuestLine mainQuest;
-	private int mainQuestProgress;
-	private Map<QuestLine, Integer> sideQuests, romanceQuests;
+	private Map<QuestLine, Integer> quests;
 
 	private boolean mainQuestUpdated, sideQuestUpdated, romanceQuestUpdated,
 		newWeaponDiscovered, newClothingDiscovered, newItemDiscovered, newRaceDiscovered;
@@ -63,10 +61,7 @@ public class PlayerCharacter extends GameCharacter {
 		
 		title = "The Human";
 
-		mainQuest = QuestLine.MAIN;
-		mainQuestProgress = 0;
-		sideQuests = new EnumMap<>(QuestLine.class);
-		romanceQuests = new EnumMap<>(QuestLine.class);
+		quests = new EnumMap<>(QuestLine.class);
 
 		mainQuestUpdated = false;
 		sideQuestUpdated = false;
@@ -159,157 +154,76 @@ public class PlayerCharacter extends GameCharacter {
 	 * @return Description of new quest added.
 	 */
 	public String incrementQuest(QuestLine questLine) {
+		
 		if (questLine.getType() == QuestType.MAIN) {
-			if (!isMainQuestCompleted()) {
-				incrementExperience(getMainQuest().getExperienceReward());
-				mainQuestProgress++;
-			}
-
 			setMainQuestUpdated(true);
-
-			if (isMainQuestCompleted()) // The main quest has been completed
-				return "<p style='text-align:center;'><b style='color:" + QuestLine.MAIN.getType().getColour().toWebHexString() + ";'>Quest - " + QuestLine.MAIN.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString()
-						+ ";'>Task Completed</b><b> - " + mainQuest.getQuestArray()[mainQuestProgress - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>+"
-						+ mainQuest.getQuestArray()[mainQuestProgress - 1].getExperienceReward() + " xp</b></br>" + "<b>All Tasks Completed!</b></p>";
-			else
-				return "<p style='text-align:center;'><b style='color:" + QuestLine.MAIN.getType().getColour().toWebHexString() + ";'>Quest - " + QuestLine.MAIN.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString()
-						+ ";'>Task Completed</b><b> - " + mainQuest.getQuestArray()[mainQuestProgress - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>+"
-						+ mainQuest.getQuestArray()[mainQuestProgress - 1].getExperienceReward() + " xp</b></br>" + "<b>New Task - " + mainQuest.getQuestArray()[mainQuestProgress].getName() + "</b></p>";
-
+			
 		} else if (questLine.getType() == QuestType.SIDE) {
-			if (!sideQuests.containsKey(questLine)) {
-				sideQuests.put(questLine, 0);
-
-				setSideQuestUpdated(true);
-
-				return "<p style='text-align:center;'><b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>New Quest - " + questLine.getName() + "</b></br>" + "<b>New Task - " + questLine.getQuestArray()[0].getName()
-						+ "</b></p>";
-			}
-
-			if (!questLine.isCompleted(sideQuests.get(questLine))) {
-				incrementExperience(questLine.getQuestArray()[sideQuests.get(questLine)].getExperienceReward());
-				sideQuests.put(questLine, sideQuests.get(questLine) + 1);
-			}
-
 			setSideQuestUpdated(true);
-
-			if (questLine.isCompleted(sideQuests.get(questLine))) // The side
-																	// quest has
-																	// been
-																	// completed
-				return "<p style='text-align:center;'><b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString()
-						+ ";'>Task Completed</b><b> - " + questLine.getQuestArray()[sideQuests.get(questLine) - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>+"
-						+ questLine.getQuestArray()[sideQuests.get(questLine) - 1].getExperienceReward() + " xp</b></br>" + "<b>Quest Completed!</b></p>";
-			else
-				return "<p style='text-align:center;'><b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString()
-						+ ";'>Task Completed</b><b> - " + questLine.getQuestArray()[sideQuests.get(questLine) - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>+"
-						+ questLine.getQuestArray()[sideQuests.get(questLine) - 1].getExperienceReward() + " xp</b></br>" + "<b>New Task - " + questLine.getQuestArray()[sideQuests.get(questLine)].getName() + "</b></p>";
-
+			
 		} else {
-			if (!romanceQuests.containsKey(questLine)) {
-				romanceQuests.put(questLine, 0);
-
-				setRomanceQuestUpdated(true);
-
-				return "<p style='text-align:center;'><b>New Quest - " + questLine.getName() + "</b></br>" + "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>New Task - " + questLine.getQuestArray()[0].getName()
-						+ "</b></p>";
-			}
-
-			if (!questLine.isCompleted(romanceQuests.get(questLine))) {
-				incrementExperience(questLine.getQuestArray()[romanceQuests.get(questLine)].getExperienceReward());
-				romanceQuests.put(questLine, romanceQuests.get(questLine) + 1);
-			}
-
 			setRomanceQuestUpdated(true);
-
-			if (questLine.isCompleted(romanceQuests.get(questLine))) // The
-																		// romance
-																		// quest
-																		// has
-																		// been
-																		// completed:
-				return "<p style='text-align:center;'><b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString()
-						+ ";'>Task Completed</b><b> - " + questLine.getQuestArray()[romanceQuests.get(questLine) - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>+"
-						+ questLine.getQuestArray()[romanceQuests.get(questLine) - 1].getExperienceReward() + " xp</b></br>" + "<b>Quest Completed!</b></p>";
-			else
-				return "<p style='text-align:center;'><b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b></br>" + "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString()
-						+ ";'>Task Completed</b><b> - " + questLine.getQuestArray()[romanceQuests.get(questLine) - 1].getName() + "</b> " + "<b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>+"
-						+ questLine.getQuestArray()[romanceQuests.get(questLine) - 1].getExperienceReward() + " xp</b></br>" + "<b>New Task - " + questLine.getQuestArray()[romanceQuests.get(questLine)].getName() + "</b></p>";
 		}
+		
+		if(quests.containsKey(questLine)) {
+			int progress = quests.get(questLine)+1;
+			incrementExperience(questLine.getQuestArray()[quests.get(questLine)].getExperienceReward());
+			
+			quests.put(questLine, progress);
+			
+			Quest quest = questLine.getQuestArray()[quests.get(questLine)-1];
+			
+			if (questLine.isCompleted(quests.get(questLine))) {
+				return "<p style='text-align:center;'>"
+						+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b></br>"
+						+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Task Completed</b><b> - "+quest.getName()+"</b> <b style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>+"+quest.getExperienceReward()+" xp</b></br>"
+						+ "<b>All Tasks Completed!</b></p>";
+			} else {
+				return "<p style='text-align:center;'>"
+						+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b></br>"
+						+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Task Completed</b><b> - "+quest.getName()+"</b> <b style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>+"+quest.getExperienceReward()+" xp</b></br>"
+						+ "<b>New Task - " + questLine.getQuestArray()[quests.get(questLine)].getName() + "</b></p>";
+			}
+			
+		} else {
+			quests.put(questLine, 0);
+			
+			return "<p style='text-align:center;'>"
+					+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>New Quest - " + questLine.getName() + "</b></br>"
+					+ "<b>New Task - " + questLine.getQuestArray()[quests.get(questLine)].getName() + "</b></p>";
+		}
+		
+	}
+	
+	public Map<QuestLine, Integer> getQuests() {
+		return quests;
+	}
+	
+	public Quest getQuest(QuestLine questLine) {
+		if(!hasQuest(questLine)) {
+			return null;
+		}
+		
+		if(quests.get(questLine) >= questLine.getQuestArray().length) {
+			return questLine.getQuestArray()[questLine.getQuestArray().length-1];
+		}
+		
+		return questLine.getQuestArray()[quests.get(questLine)];
+	}
+	
+	public boolean hasQuest(QuestLine questLine) {
+		return quests.containsKey(questLine);
 	}
 
-	// Main quest:
-
-	public boolean isMainQuestCompleted() {
-		return mainQuest.isCompleted(mainQuestProgress);
-	}
-
-	public Quest getMainQuest() {
-		return mainQuest.getQuestArray()[mainQuestProgress];
-	}
-
-	public int getMainQuestProgress() {
-		return mainQuestProgress;
-	}
-
-	public Quest getMainQuestAtIndex(int index) {
-		return mainQuest.getQuestArray()[index];
+	public boolean isQuestCompleted(QuestLine questLine) {
+		if (!quests.containsKey(questLine)) {
+			return false;
+		}
+		return questLine.isCompleted(quests.get(questLine));
 	}
 	
 	public boolean isSlaveTrader() {
-		return mainQuestProgress > Quest.MAIN_1_G_SLAVERY.getSortingOrder();
-	}
-
-	// Side quests:
-
-	public boolean hasSideQuest(QuestLine questLine) {
-		return sideQuests.containsKey(questLine);
-	}
-
-	public int getNumberOfSideQuests() {
-		return sideQuests.size();
-	}
-
-	public Set<QuestLine> getSetOfSideQuests() {
-		return sideQuests.keySet();
-	}
-
-	public boolean isSideQuestCompleted(QuestLine questLine) {
-		if (!sideQuests.containsKey(questLine))
-			return false;
-		return questLine.isCompleted(sideQuests.get(questLine));
-	}
-
-	public int getSideQuestProgress(QuestLine questLine) {
-		if (!sideQuests.containsKey(questLine))
-			throw new NullPointerException("The player does not have the side quest: " + questLine.getName());
-		return sideQuests.get(questLine);
-	}
-
-	// Romance quests:
-
-	public boolean hasRomanceQuest(QuestLine questLine) {
-		return romanceQuests.containsKey(questLine);
-	}
-
-	public int getNumberOfRomanceQuests() {
-		return romanceQuests.size();
-	}
-
-	public Set<QuestLine> getSetOfRomanceQuests() {
-		return romanceQuests.keySet();
-	}
-
-	public boolean isRomanceQuestCompleted(QuestLine questLine) {
-		if (!romanceQuests.containsKey(questLine))
-			return false;
-		return questLine.isCompleted(romanceQuests.get(questLine));
-	}
-
-	public int getRomanceQuestProgress(QuestLine questLine) {
-		if (!romanceQuests.containsKey(questLine))
-			throw new NullPointerException("The player does not have the romance quest: " + questLine.getName());
-		return romanceQuests.get(questLine);
+		return isQuestCompleted(QuestLine.SIDE_SLAVERY);
 	}
 
 	// Other stuff:

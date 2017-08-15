@@ -109,6 +109,19 @@ public enum ParserTarget {
 		}
 	},
 	
+	TEST_NPC(Util.newArrayListOfValues(
+			new ListValue<>("testNPC"),
+			new ListValue<>("test")), ""){
+		public String getDescription() {
+			return Main.game.getTestNPC().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter() {
+			return Main.game.getTestNPC();
+		}
+	},
+	
 	LILAYA(Util.newArrayListOfValues(
 			new ListValue<>("lilaya"),
 			new ListValue<>("aunt")), ""){
@@ -338,15 +351,15 @@ public enum ParserTarget {
 		}
 	},
 	
-	NIKKIE(Util.newArrayListOfValues(
-			new ListValue<>("nikki")), ""){
+	FINCH(Util.newArrayListOfValues(
+			new ListValue<>("finch")), ""){
 		public String getDescription() {
-			return Main.game.getNikki().getDescription();
+			return Main.game.getFinch().getDescription();
 		}
 
 		@Override
 		public GameCharacter getCharacter() {
-			return Main.game.getNikki();
+			return Main.game.getFinch();
 		}
 	},
 	

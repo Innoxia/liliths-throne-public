@@ -2560,7 +2560,7 @@ public enum ItemType {
 			}
 			
 			if(Main.game.isStarted()) {
-				if(Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 					if(t==ItemType.BOTTLED_ESSENCE_ARCANE || t==ItemType.BOTTLED_ESSENCE_CAT_MORPH || t==ItemType.BOTTLED_ESSENCE_DEMON
 							|| t==ItemType.BOTTLED_ESSENCE_DOG_MORPH || t==ItemType.BOTTLED_ESSENCE_HARPY || t==ItemType.BOTTLED_ESSENCE_HORSE_MORPH
 							|| t==ItemType.BOTTLED_ESSENCE_HUMAN || t==ItemType.BOTTLED_ESSENCE_WOLF_MORPH) {

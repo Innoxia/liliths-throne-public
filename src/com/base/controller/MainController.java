@@ -48,6 +48,7 @@ import com.base.game.character.gender.Gender;
 import com.base.game.character.gender.GenderPreference;
 import com.base.game.character.gender.GenderPronoun;
 import com.base.game.character.npc.NPC;
+import com.base.game.character.npc.dominion.TestNPC;
 import com.base.game.character.race.Race;
 import com.base.game.character.race.FurryPreference;
 import com.base.game.combat.Combat;
@@ -82,7 +83,9 @@ import com.base.main.Main;
 import com.base.rendering.RenderingEngine;
 import com.base.utils.Colour;
 import com.base.utils.Vector2i;
+import com.base.world.WorldType;
 import com.base.world.places.GenericPlace;
+import com.base.world.places.ShoppingArcade;
 
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
@@ -1371,7 +1374,7 @@ public class MainController implements Initializable {
 								public void effects() {
 									EnchantmentDialogue.craftItem(EnchantmentDialogue.ingredient, EnchantmentDialogue.effects);
 									
-									if(!Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+									if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
 									}
 									
@@ -2238,7 +2241,15 @@ public class MainController implements Initializable {
 		if (lastKeysEqual(KeyCode.B, KeyCode.U, KeyCode.G, KeyCode.G, KeyCode.Y)) {
 			Main.game.setContent(new Response("", "", GenericDialogue.DEBUG_MENU));
 		}
-
+		if (lastKeysEqual(KeyCode.N, KeyCode.O, KeyCode.X, KeyCode.X, KeyCode.X)) {
+			if(Main.game.getPlayer().getLocationPlace()==ShoppingArcade.GENERIC_SHOP)
+				Main.game.setContent(new Response("", "", TestNPC.TEST_DIALOGUE) {
+					@Override
+					public void effects() {
+						Main.game.getTestNPC().setLocation(WorldType.SHOPPING_ARCADE, Main.game.getPlayer().getLocation());
+					}
+				});
+		}
 	}
 
 	private boolean lastKeysEqual(KeyCode one, KeyCode two, KeyCode three, KeyCode four, KeyCode five) {

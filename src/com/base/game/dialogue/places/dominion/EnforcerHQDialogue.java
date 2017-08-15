@@ -43,7 +43,7 @@ import com.base.world.places.EnforcerHQ;
 public class EnforcerHQDialogue {
 	
 	private static boolean isBraxMainQuestComplete() {
-		return Main.game.getPlayer().getMainQuestProgress() > Quest.MAIN_1_C_WOLFS_DEN.getSortingOrder();
+		return Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() > Quest.MAIN_1_C_WOLFS_DEN.getSortingOrder();
 	}
 
 	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Enforcer HQ", "Enforcer HQ", false) {
@@ -573,7 +573,7 @@ public class EnforcerHQDialogue {
 					return null;
 				}
 				
-			} else if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_C_WOLFS_DEN && !Main.game.getDialogueFlags().accessToEnforcerHQ) {
+			} else if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_C_WOLFS_DEN && !Main.game.getDialogueFlags().accessToEnforcerHQ) {
 				if (index == 1) {
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_BIMBO)) {
 						return new Response("Greet Candi", "Like, ohmygosh, she's so pretty and stuff!", INTERIOR_SECRETARY_BIMBO);
@@ -876,7 +876,7 @@ public class EnforcerHQDialogue {
 						Main.game.getBrax().setBreastSize(CupSize.C.getMeasurement());
 						
 						if(Main.getProperties().multiBreasts!=0) {
-							Main.game.getPlayer().setBreastRows(3);
+							Main.game.getBrax().setBreastRows(3);
 						}
 						
 						Main.game.getBrax().setHipSize(HipSize.THREE_GIRLY.getValue());
@@ -892,7 +892,7 @@ public class EnforcerHQDialogue {
 						
 						Main.game.getBrax().setVaginaVirgin(true);
 
-						Main.game.getBrax().equipClothing();
+						Main.game.getBrax().equipClothing(true, true);
 					}
 				};
 				
@@ -1070,7 +1070,7 @@ public class EnforcerHQDialogue {
 						Main.game.getBrax().setHairLength(HairLength.FIVE_ABOVE_ASS.getMedianValue());
 						Main.game.getBrax().setHairColour(Colour.COVERING_BLEACH_BLONDE);
 						
-						Main.game.getBrax().equipClothing();
+						Main.game.getBrax().equipClothing(true, true);
 					}
 				};
 				
@@ -1480,7 +1480,7 @@ public class EnforcerHQDialogue {
 				return new Response("Let him go", "Tell [brax.name] to have fun. From your directions, it'll take at least a couple of hours before he figures out he's been fooled.", INTERIOR_BRAX_LIE_BLUFFING_SUCCESS){
 					@Override
 					public QuestLine getQuestLine() {
-						if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_C_WOLFS_DEN) {
+						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_C_WOLFS_DEN) {
 							return QuestLine.MAIN;
 						} else {
 							return null;
@@ -1631,7 +1631,7 @@ public class EnforcerHQDialogue {
 				return new Response("Read", "Read the piece of paper [brax.name] just have you.", INTERIOR_BRAX_GETTING_TEASED_UH_OH){
 					@Override
 					public QuestLine getQuestLine() {
-						if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_C_WOLFS_DEN)
+						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_C_WOLFS_DEN)
 							return QuestLine.MAIN;
 						else
 							return null;

@@ -429,7 +429,7 @@ public class CharacterCreationDialogue {
 		} else {
 			if (bodyTypeIndex == 0) {
 				Main.game.getPlayer().setAssSize(AssSize.THREE_NORMAL.getValue());
-				Main.game.getPlayer().setBreastSize(CupSize.AA.getMeasurement());
+				Main.game.getPlayer().setBreastSize(CupSize.FLAT.getMeasurement());
 				Main.game.getPlayer().setFemininity(45);
 				Main.game.getPlayer().setPenisSize(PenisSize.ONE_TINY.getMedianValue());
 				Main.game.getPlayer().setTesticleSize(TesticleSize.ONE_TINY.getValue());
@@ -606,6 +606,7 @@ public class CharacterCreationDialogue {
 					@Override
 					public void effects() {
 						applyGameStart();
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 					}
 				};
 				
@@ -639,6 +640,7 @@ public class CharacterCreationDialogue {
 
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
 						
+						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						
 						Main.game.setActiveWorld(

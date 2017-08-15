@@ -1,14 +1,12 @@
 package com.base.game.dialogue.utils;
 
 import java.util.ArrayList;
-import java.util.EnumMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import com.base.game.character.GameCharacter;
 import com.base.game.character.QuestLine;
-import com.base.game.character.attributes.Attribute;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.npc.NPC;
 import com.base.game.character.npc.dominion.Nyan;
@@ -23,13 +21,11 @@ import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.Rarity;
 import com.base.game.inventory.ShopTransaction;
 import com.base.game.inventory.clothing.AbstractClothing;
-import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.enchanting.TFModifier;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
-import com.base.game.inventory.weapon.WeaponType;
 import com.base.game.sex.Sex;
 import com.base.game.sex.sexActions.SexActionUtility;
 import com.base.main.Main;
@@ -39,7 +35,7 @@ import com.base.world.places.Dominion;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.83
  * @author Innoxia
  */
 public class InventoryDialogue {
@@ -861,8 +857,8 @@ public class InventoryDialogue {
 							}
 						};
 						
-					} else if(Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-						if(Main.game.getPlayer().getSideQuestProgress(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)!=0) {
+					} else if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+						if(Main.game.getPlayer().getQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY).getSortingOrder() != 0) {
 							return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 								@Override
 								public void effects() {
@@ -1082,8 +1078,8 @@ public class InventoryDialogue {
 				}
 				
 			} else if (index == 4) {
-				if(Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_JINXED_CLOTHING)){
-					if(Main.game.getPlayer().getSideQuestProgress(QuestLine.SIDE_JINXED_CLOTHING)!=0){
+				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING)){
+					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_JINXED_CLOTHING).getSortingOrder() != 0){
 						return new Response("Remove jinx", "Proceed to the jinxed clothing choice menu.", REMOVE_JINX){
 							@Override
 							public void effects() {
@@ -1757,7 +1753,8 @@ public class InventoryDialogue {
 						return new Response("Buy all (<span style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span>"
 									+ (int) ((clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing)) + "</span>)",
 								"Buy all of the " + clothing.getName() + " for <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
-										+ (int) ((clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing)) + "</b> and add them to your inventory.", INVENTORY_MENU){
+										+ (int) ((clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing)) + "</b> and add them to your inventory.",
+										INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(buyAllClothing(clothing));
@@ -2024,8 +2021,8 @@ public class InventoryDialogue {
 					};
 
 			} else if (index == 4) {
-				if(Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_JINXED_CLOTHING)){
-					if(Main.game.getPlayer().getSideQuestProgress(QuestLine.SIDE_JINXED_CLOTHING)!=0){
+				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING)){
+					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_JINXED_CLOTHING).getSortingOrder() != 0){
 						return new Response("Remove jinx", "Proceed to the jinxed clothing choice menu.", REMOVE_JINX){
 							@Override
 							public void effects() {
@@ -2861,13 +2858,25 @@ public class InventoryDialogue {
 
 		else {
 			int itemCount = Main.game.getDialogueFlags().tradePartner.getItemCount(item);
-			for(int i=0; i<itemCount; i++) {
-				Main.game.getDialogueFlags().tradePartner.removeItem(item);
-				Main.game.getPlayer().addItem(ItemType.generateItem(item.getItemType()), false);
+			
+			Iterator<AbstractItem> it = Main.game.getDialogueFlags().tradePartner.getAllItemsInInventory().iterator();
+			List<AbstractItem> itemsToRemove = new ArrayList<>();
+			while(it.hasNext()) {
+				AbstractItem ai = it.next();
+				
+				if(ai.equals(item)) {
+					itemsToRemove.add(ai);
+					Main.game.getPlayer().addItem(ai, false);
+				}
 			}
 			
+			for(AbstractItem ai : itemsToRemove) {
+				Main.game.getDialogueFlags().tradePartner.removeItem(ai);
+			}
+			
+			
 			Main.game.getPlayer().incrementMoney(-(int) ((item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * itemCount));
-
+			
 			String s = UtilText.parse(Main.game.getDialogueFlags().tradePartner,
 					"<p style='text-align:center;'>"
 							+ "You hand over <b style='color: " + com.base.utils.Colour.CLOTHING_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"
@@ -2947,18 +2956,27 @@ public class InventoryDialogue {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		} else {
-			
 			int clothingCount = Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing);
 			for(int i=0; i<clothingCount; i++) {
-				Main.game.getDialogueFlags().tradePartner.removeClothing(clothing);
 				// Temporary fix! TODO
-				((Nyan)Main.game.getNyan()).removeClothingFromLists(clothing);
-				
-				Map<Attribute, Integer> attributeModifiers = new EnumMap<>(Attribute.class);
-				for(Entry<Attribute, Integer> e : clothing.getAttributeModifiers().entrySet()) {
-					attributeModifiers.put(e.getKey(), e.getValue());
+				if(Main.game.getDialogueFlags().tradePartner == Main.game.getNyan()) {
+					((Nyan)Main.game.getNyan()).removeClothingFromLists(clothing);
 				}
-				Main.game.getPlayer().addClothing(ClothingType.generateClothing(clothing.getClothingType(), clothing.getColour(), attributeModifiers), false);
+				
+				Iterator<AbstractClothing> it = Main.game.getDialogueFlags().tradePartner.getAllClothingInInventory().iterator();
+				List<AbstractClothing> clothingToRemove = new ArrayList<>();
+				while(it.hasNext()) {
+					AbstractClothing ac = it.next();
+					
+					if(ac.equals(clothing)) {
+						clothingToRemove.add(ac);
+						Main.game.getPlayer().addClothing(ac, false);
+					}
+				}
+				
+				for(AbstractClothing ac : clothingToRemove) {
+					Main.game.getDialogueFlags().tradePartner.removeClothing(ac);
+				}
 			}
 			
 			Main.game.getPlayer().incrementMoney(-(int) ((clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * clothingCount));
@@ -2969,7 +2987,7 @@ public class InventoryDialogue {
 							+ (int) ((clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * clothingCount) + "</b>" + " to [npc.name] in exchange for all of the "
 							+ clothing.getName() + " [npc.she] has."
 							+ "</br>"
-							+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Clothing added to inventory:</b> <b>"+clothingCount+"x</b> <b>"+item.getDisplayName(true)+"</b>"
+							+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Clothing added to inventory:</b> <b>"+clothingCount+"x</b> <b>"+clothing.getDisplayName(true)+"</b>"
 					+ "</p>");
 
 			Main.mainController.forceInventoryRender();
@@ -3042,9 +3060,20 @@ public class InventoryDialogue {
 
 		else {
 			int weaponCount = Main.game.getDialogueFlags().tradePartner.getWeaponCount(weapon);
-			for(int i=0; i<weaponCount; i++) {
-				Main.game.getDialogueFlags().tradePartner.removeWeapon(weapon);
-				Main.game.getPlayer().addWeapon(WeaponType.generateWeapon(weapon.getWeaponType(), weapon.getDamageType()), false);
+			
+			Iterator<AbstractWeapon> it = Main.game.getDialogueFlags().tradePartner.getAllWeaponsInInventory().iterator();
+			List<AbstractWeapon> weaponsToRemove = new ArrayList<>();
+			while(it.hasNext()) {
+				AbstractWeapon aw = it.next();
+				
+				if(aw.equals(weapon)) {
+					weaponsToRemove.add(aw);
+					Main.game.getPlayer().addWeapon(aw, false);
+				}
+			}
+			
+			for(AbstractWeapon aw : weaponsToRemove) {
+				Main.game.getDialogueFlags().tradePartner.removeWeapon(aw);
 			}
 			
 			Main.game.getPlayer().incrementMoney(-((int) ((weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier())) * weaponCount));

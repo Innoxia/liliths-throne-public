@@ -5903,11 +5903,6 @@ public enum ClothingType {
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
-							null,
-							null)),
-					new ListValue<BlockedParts>(new BlockedParts(
-							DisplacementType.PULLS_OUT,
-							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.MOUTH)),
 							null))),

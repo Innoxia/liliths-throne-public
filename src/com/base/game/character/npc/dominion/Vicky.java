@@ -107,7 +107,7 @@ public class Vicky extends NPC {
 			primaryMod = TFModifier.getTFRacialBodyPartsListList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsListList().size()));
 		}
 		
-		if(Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 			for(int i=0; i<25+Util.random.nextInt(20);i++)
 				this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_ARCANE), false);
 			for(int i=0; i<25+Util.random.nextInt(20);i++)

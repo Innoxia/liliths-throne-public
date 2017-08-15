@@ -176,7 +176,7 @@ public enum Quest {
 
 	// Side Quests:
 
-	SIDE_DISCOVER_ALL_ITEMS(1, QuestType.SIDE, 1, 100) {
+	SIDE_DISCOVER_ALL_ITEMS(0, QuestType.SIDE, 1, 100) {
 		@Override
 		public String getName() {
 			return "Completionist";
@@ -212,7 +212,7 @@ public enum Quest {
 	
 	// For when you discover a jinxed item:
 	
-	SIDE_JINXED_LILAYA_HELP(1, QuestType.SIDE, 1, 10) {
+	SIDE_JINXED_LILAYA_HELP(0, QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Lilaya knows everything!";
@@ -248,7 +248,7 @@ public enum Quest {
 	
 	// For when you discover your first essence:
 	
-	SIDE_ENCHANTMENTS_LILAYA_HELP(1, QuestType.SIDE, 1, 10) {
+	SIDE_ENCHANTMENTS_LILAYA_HELP(0, QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Ask Lilaya for help";
@@ -286,7 +286,7 @@ public enum Quest {
 
 	// For the first time you get pregnant:
 	
-	SIDE_PREGNANCY_CONSULT_LILAYA(1, QuestType.SIDE, 1, 10) {
+	SIDE_PREGNANCY_CONSULT_LILAYA(0, QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Lilaya knows best";
@@ -302,7 +302,7 @@ public enum Quest {
 			return "Lilaya managed to calm you down, and reassured you that pregnancy in this world isn't as big a deal as it was back home.";
 		}
 	},
-	SIDE_PREGNANCY_LILAYA_THE_MIDWIFE(2, QuestType.SIDE, 1, 20) {
+	SIDE_PREGNANCY_LILAYA_THE_MIDWIFE(1, QuestType.SIDE, 1, 20) {
 		@Override
 		public String getName() {
 			return "Lilaya the midwife";
@@ -318,8 +318,47 @@ public enum Quest {
 			return "Lilaya helped you give birth. She said that if ever you get pregnant again, she can always help out.";
 		}
 	},
+	
+	// Getting a Slaver License:
+	
+	SIDE_SLAVER_NEED_RECOMMENDATION(0, QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Letter of recommendation";
+		}
 
-	HARPY_PACIFICATION_ONE(1, QuestType.SIDE, 6, 25) {
+		@Override
+		public String getDescription() {
+			return "After asking how to obtain a Slaver License at the Slavery Administration building, you discovered that you'll need a letter of recommendation first. Lilaya should be able to help with that.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "Lilaya gave you a letter of recommendation, and what's more, she also offered to let you house your slaves in her mansion.";
+		}
+	},
+	
+	SIDE_SLAVER_RECOMMENDATION_OBTAINED(1, QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Present letter";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Now that you've obtained a letter of recommendation from Lilaya, you should go back to the Slavery Administration building in Slaver Alley and present it to [finch.name].";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You presented the letter of recommendation to [finch.name], and, after paying the 500 flame fee, you obtained a slaver license!";
+		}
+	},
+	
+	
+	// Angry Harpies:
+	
+	HARPY_PACIFICATION_ONE(0, QuestType.SIDE, 6, 25) {
 		@Override
 		public String getName() {
 			return "Nests in chaos";
@@ -336,7 +375,7 @@ public enum Quest {
 			return "You've managed to assume control of one of the harpy nests!";
 		}
 	},
-	HARPY_PACIFICATION_TWO(2, QuestType.SIDE, 6, 25) {
+	HARPY_PACIFICATION_TWO(1, QuestType.SIDE, 6, 25) {
 		@Override
 		public String getName() {
 			return "One down, two to go";
@@ -352,7 +391,7 @@ public enum Quest {
 			return "You've managed to assume control of two of the harpy nests!";
 		}
 	},
-	HARPY_PACIFICATION_THREE(3, QuestType.SIDE, 6, 25) {
+	HARPY_PACIFICATION_THREE(2, QuestType.SIDE, 6, 25) {
 		@Override
 		public String getName() {
 			return "One matriarch left";
@@ -368,7 +407,7 @@ public enum Quest {
 			return "You've managed to assume control of all three of the major harpy nests!";
 		}
 	},
-	HARPY_PACIFICATION_REWARD(4, QuestType.SIDE, 6, 50) {
+	HARPY_PACIFICATION_REWARD(3, QuestType.SIDE, 6, 50) {
 		@Override
 		public String getName() {
 			return "Harpy "+(Main.game.getPlayer().isFeminine()?"queen":"king");
