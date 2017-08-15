@@ -461,7 +461,7 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
-				return "Your intelligence is comparable to a Linin's, or, perhaps more relatably, to the greatest minds in human history.";
+				return "Your intelligence is comparable to a Lilin's, or, perhaps more relatably, to the greatest minds in human history.";
 			else
 				return UtilText.genderParsing(target, target.getName("The") + " is as intelligent as a Lilin.");
 		}
@@ -1314,7 +1314,7 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return "The weather seems to change at a moment's notice, and is currently overcast, with a chance of rain."
-					+ " Although there's no sign of a storm at the moment, you can still feel the effects of the arcane manifesting in the form of an increased libido";
+					+ " Although there's no sign of a storm at the moment, you can still feel the effects of the arcane manifesting in the form of an increased libido.";
 		}
 
 		@Override
@@ -1347,10 +1347,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(Main.game.isDayTime())
 				return "The sudden downpour is a welcome relief from the hot summer sun."
-						+ " Although there's no sign of a storm at the moment, you can still feel the effects of the arcane manifesting in the form of an increased libido";
+						+ " Although there's no sign of a storm at the moment, you can still feel the effects of the arcane manifesting in the form of an increased libido.";
 			else
 				return "The heavy rain clouds overhead have finally burst, and you find yourself out in the middle of a sudden downpour."
-						+ " Although there's no sign of an arcane storm at the moment, you can still feel its effects manifesting in the form of an increased libido";
+						+ " Although there's no sign of an arcane storm at the moment, you can still feel its effects manifesting in the form of an increased libido.";
 		}
 
 		@Override

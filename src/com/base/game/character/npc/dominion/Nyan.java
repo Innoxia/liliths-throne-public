@@ -44,7 +44,7 @@ public class Nyan extends NPC {
 									commonAndrogynousClothing, commonAndrogynousLingerie, commonAndrogynousAccessories;
 
 	public Nyan() {
-		super(new NameTriplet("Nyan"), "Nyan the owner of the store 'Nyan's Clothing Emporium', found in Dominion's shopping arcade."
+		super(new NameTriplet("Nyan"), "Nyan is the owner of the store 'Nyan's Clothing Emporium', found in Dominion's shopping arcade."
 				+ " She's extremely shy, and gets very nervous when having to talk to people.",
 				10, Gender.FEMALE, RacialBody.CAT_MORPH, RaceStage.LESSER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, ShoppingArcade.NYANS_SHOP_CLOTHING, true);
