@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.base.game.character.Quest;
+import com.base.game.character.QuestLine;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.encounters.Encounter;
 import com.base.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
@@ -35,11 +36,8 @@ public enum SlaverAlley implements PlaceInterface {
 	SCARLETTS_SHOP("Scarlett's shop", "dominion/slaverAlley/scarlettsStall", BaseColour.CRIMSON, ScarlettsShop.SCARLETTS_SHOP_EXTERIOR, null, true, false){
 		@Override
 		public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
-			if(Main.game.getPlayer().getMainQuestProgress() < Quest.MAIN_1_F_SCARLETTS_FATE.getSortingOrder()) { // Scarlett owns the shop:
+			if(Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() < Quest.MAIN_1_F_SCARLETTS_FATE.getSortingOrder()) { // Scarlett owns the shop:
 				return ScarlettsShop.SCARLETTS_SHOP_EXTERIOR;
-				
-			} else if (Main.game.getPlayer().isSlaveTrader()){ // You own the shop:
-				return ScarlettsShop.PLAYERS_SHOP_EXTERIOR;
 				
 			} else { // Alexa owns the shop:
 				return ScarlettsShop.ALEXAS_SHOP_EXTERIOR;

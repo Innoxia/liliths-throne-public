@@ -10,7 +10,7 @@ import com.base.game.character.body.Penis;
  * @author Innoxia
  */
 public enum Capacity {
-	ZERO_IMPENETRABLE("extremely tight", PenisSize.NEGATIVE_UTILITY_VALUE, PenisSize.ZERO_MICROSCOPIC, PenisSize.ONE_TINY),
+	ZERO_IMPENETRABLE("extremely tight", PenisSize.NEGATIVE_UTILITY_VALUE, PenisSize.NEGATIVE_UTILITY_VALUE, PenisSize.ONE_TINY),
 	
 	ONE_EXTREMELY_TIGHT("tight", PenisSize.ZERO_MICROSCOPIC, PenisSize.ONE_TINY, PenisSize.TWO_AVERAGE),
 	

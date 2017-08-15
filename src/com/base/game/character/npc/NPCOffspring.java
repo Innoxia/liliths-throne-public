@@ -83,7 +83,7 @@ public class NPCOffspring extends NPC {
 		resetInventory();
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 
-		CharacterUtils.equipClothing(this, true);
+		CharacterUtils.equipClothing(this, true, false);
 		
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -190,7 +190,7 @@ public class NPCOffspring extends NPC {
 				return UtilText.parse(this, "[npc.Name] is quite clearly turned on by your strong aura. [npc.She]'s willing to fight you in order to claim your body.");
 				
 			} else {
-				return UtilText.parse(this, "Although your strong aura is having an effect on [npc.name], [npc.she]'s only interested in robbing you of your possessions.");
+				return UtilText.parse(this, "Although your strong aura is having an effect on [npc.name], [npc.she]'s only really interested in robbing you of your possessions.");
 				
 			}
 		}

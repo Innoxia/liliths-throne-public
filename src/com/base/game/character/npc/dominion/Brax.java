@@ -123,7 +123,7 @@ public class Brax extends NPC {
 	}
 	
 	@Override
-	public void equipClothing() {
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
 		deleteAllEquippedClothing();
 		
 		if(Main.game.getDialogueFlags().braxBeaten) {
@@ -288,7 +288,7 @@ public class Brax extends NPC {
 			return new Response("", "", AFTER_COMBAT_VICTORY){
 				@Override
 				public QuestLine getQuestLine() {
-					if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_C_WOLFS_DEN)
+					if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_C_WOLFS_DEN)
 						return QuestLine.MAIN;
 					else
 						return null;

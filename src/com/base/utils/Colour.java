@@ -313,8 +313,8 @@ public enum Colour {
 			new ListValue<Colour>(CLOTHING_STEEL),
 			new ListValue<Colour>(CLOTHING_COPPER),
 			new ListValue<Colour>(CLOTHING_SILVER),
-			new ListValue<Colour>(CLOTHING_ROSE_GOLD)),
-			new ListValue<Colour>(CLOTHING_GOLD)),
+			new ListValue<Colour>(CLOTHING_ROSE_GOLD),
+			new ListValue<Colour>(CLOTHING_GOLD),
 			new ListValue<Colour>(CLOTHING_PLATINUM));
 	
 	private Color colour, lightColour;

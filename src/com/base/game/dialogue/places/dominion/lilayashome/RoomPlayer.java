@@ -92,7 +92,7 @@ public class RoomPlayer {
 //			if(Main.game.isDebugMode())
 //				return new Response("Enchanting", "Start enchanting.", EnchantmentDialogue.ENCHANTMENT_MENU);
 //			
-//			if(Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+//			if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 //				if(Main.game.getPlayer().getSideQuestProgress(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)!=0) {
 //					return new Response("Enchanting", "Start enchanting.", EnchantmentDialogue.ENCHANTMENT_MENU);
 //				}

@@ -2203,7 +2203,7 @@ public enum StatusEffect {
 			if (target.isPregnant()) {
 				target.addStatusEffect(PREGNANT_1, 60 * (72 + Util.random.nextInt(13)));
 				
-				if (!Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+				if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PREGNANCY)) {
 						return "<p>"
 								+ "For the last few hours, your belly has been gradually swelling."
@@ -2350,7 +2350,7 @@ public enum StatusEffect {
 
 			target.addStatusEffect(PREGNANT_2, 60 * (72 + Util.random.nextInt(13)));
 
-			if (!Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+			if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 				return "<p>"
 							+ "Even though the change has been gradual, you're suddenly hit by the realisation that your belly has swollen massively."
 							+ " You can't resist rubbing your hands over the bump in your abdomen, and you wonder just how big it's going to get."
@@ -2409,7 +2409,7 @@ public enum StatusEffect {
 
 			target.setTimeProgressedToFinalPregnancyStage(Main.game.getMinutesPassed());
 
-			if (!Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+			if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 				return "<p>"
 							+ "By now, your stomach has completely ballooned out in front of you, and you're having to arch your back and support yourself with one hand as you walk around."
 							+ (Main.game.getPlayer().getVaginaType()==VaginaType.HARPY

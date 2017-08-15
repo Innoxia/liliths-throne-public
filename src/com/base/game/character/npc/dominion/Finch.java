@@ -13,7 +13,6 @@ import com.base.game.character.race.RacialBody;
 import com.base.game.combat.Attack;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
-import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.clothing.AbstractClothing;
@@ -28,19 +27,19 @@ import com.base.world.places.SlaverAlley;
  * @version 0.1.83
  * @author Innoxia
  */
-public class Nikki extends NPC {
+public class Finch extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
 	private AbstractClothing groin = ClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_BRIEFS, Colour.CLOTHING_BLACK, false),
 			legs = ClothingType.generateClothing(ClothingType.LEG_CROTCHLESS_CHAPS, Colour.CLOTHING_BLACK, false),
-			torso = ClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false),
+			torso = ClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_BLACK, false),
 			socks = ClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false),
 			shoes = ClothingType.generateClothing(ClothingType.FOOT_WORK_BOOTS, Colour.CLOTHING_BLACK, false);
 	
-	public Nikki() {
-		super(new NameTriplet("Nikki"),
-				"Nikki is the manager of Slaver Alley's 'Slave Administration' building."
+	public Finch() {
+		super(new NameTriplet("Finch"),
+				"Finch is the manager of Slaver Alley's 'Slave Administration' building."
 						+ " Although he acts friendly enough, you can't help but wonder if his disarming disposition is just for show."
 						+ " After all, would the manager of Dominion's 'Slave Administration' really have got to that position just by being nice?",
 				10,
@@ -60,6 +59,7 @@ public class Nikki extends NPC {
 		
 		this.addFetish(Fetish.FETISH_EXHIBITIONIST);
 		this.addFetish(Fetish.FETISH_SADIST);
+		this.addFetish(Fetish.FETISH_DEFLOWERING);
 
 		applyReset();
 	}
@@ -100,11 +100,10 @@ public class Nikki extends NPC {
 
 	@Override
 	public String getTraderDescription() {
-		return UtilText.parse(this,
-				"<p>"
-					+ "[npc.speech(Looking for the good stuff, huh?)] Nikki says, winking at you as he hands you a 'slaver-exclusive' sales brochure,"
-					+ " [npc.speech(Let me know what you fancy!)]"
-				+ "</p>");
+		return "<p>"
+					+ "[finch.speech(Looking for the good stuff, huh?)] [finch.name] says, winking at you as he hands you a 'slaver-exclusive' sales brochure,"
+					+ " [finch.speech(Let me know what you fancy!)]"
+				+ "</p>";
 	}
 
 	@Override

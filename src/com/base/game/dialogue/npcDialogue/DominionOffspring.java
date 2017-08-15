@@ -477,7 +477,7 @@ public class DominionOffspring {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer()) {
+			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
 				return UtilText.parse(Main.game.getCurrentRandomAttacker(),
 						"<p>"
 							+ "[npc.Name] collapses to the floor, completely defeated."
@@ -503,7 +503,7 @@ public class DominionOffspring {
 		
 		@Override
 		public Response getResponse(int index) {
-			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer()) {
+			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way...", null){
 						@Override
@@ -797,7 +797,7 @@ public class DominionOffspring {
 
 		@Override
 		public String getContent() {
-			if(!Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer()) {
+			if(!Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer() && Main.game.isNonConEnabled()) {
 				return UtilText.parse(Main.game.getCurrentRandomAttacker(),
 						"<p>"
 							+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a thankful sob as [npc.she] realises that you've finished."

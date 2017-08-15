@@ -50,7 +50,7 @@ public class InventoryRemoveJinx implements EventListener {
 		Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU){
 			@Override
 			public QuestLine getQuestLine() {
-				if(Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_JINXED_CLOTHING) && !Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_JINXED_CLOTHING)) {
+				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING) && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_JINXED_CLOTHING)) {
 					return QuestLine.SIDE_JINXED_CLOTHING;
 				}
 				return null;
