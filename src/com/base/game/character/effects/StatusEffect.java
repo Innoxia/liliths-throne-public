@@ -3486,7 +3486,17 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "By wearing the entire Maid's Outfit, you are filled with the energy you need in order to be a sexy hard-working maid.";
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By wearing the entire Maid's Outfit, you are filled with the energy you need in order to be a sexy hard-working maid.";
+					
+				} else {
+					return UtilText.parse(target, "By wearing the entire Maid's Outfit, [npc.name] is filled with the energy [npc.she] needs in order to be a sexy hard-working maid.");
+					
+				}
+			} else {
+				return "";
+			}
 		}
 
 		@Override

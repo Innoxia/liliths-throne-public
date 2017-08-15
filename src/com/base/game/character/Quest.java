@@ -146,17 +146,17 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Thanks to your relationship with Lilaya, Alexa is willing to transfer both Scarlett and her shop to you, which seems to be the only way you'll get the information you need."
-					+ " You'll need to supply two thousand flames in order to pay for the necessary paperwork.";
+			return "Alexa is willing to sell Scarlett to you, which seems to be the only way you'll get the information you need."
+					+ " You'll need to have a slaver license in order to buy Scarlett.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "Alexa transferred ownership of both Scarlett and her shop to you, which allowed you to order Scarlett to tell you what happened to Arthur.";
+			return "Alexa sold Scarlett to you, which allowed you to order Scarlett to tell you what happened to Arthur.";
 		}
 	},
 	
-	MAIN_1_H_THE_GREAT_ESCAPE(10, QuestType.MAIN, 8, 200) {
+	MAIN_1_H_THE_GREAT_ESCAPE(8, QuestType.MAIN, 8, 200) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; The Great Escape";

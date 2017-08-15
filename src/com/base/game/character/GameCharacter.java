@@ -1650,6 +1650,7 @@ public class GameCharacter implements Serializable {
 			
 			for(NPC npc: birthedLitter.getOffspring()) {
 				Main.game.getOffspring().add(npc);
+				birthedLitter.setDayOfBirth(Main.game.getDayNumber());
 				npc.setDayOfConception(birthedLitter.getDayOfConception());
 				npc.setDayOfBirth(Main.game.getDayNumber());
 			}
