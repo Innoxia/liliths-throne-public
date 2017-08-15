@@ -68,22 +68,14 @@ public class InventoryDialogue {
 		// Weapons:
 		if (Main.game.getPlayer().getWeaponCount() > 0) {
 			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getMapOfDuplicateWeapons().entrySet()) {
-				inventorySB.append("<div class='item-background"
-						+ (entry.getKey().getRarity() == Rarity.COMMON ? " common" : "")
-						+ (entry.getKey().getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-						+ (entry.getKey().getRarity() == Rarity.RARE ? " rare" : "")
-						+ (entry.getKey().getRarity() == Rarity.EPIC ? " epic" : "")
-						+ (entry.getKey().getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-						+ (entry.getKey().getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>" + entry.getKey().getSVGString()
+				inventorySB.append("<div class='item-background "
+						+ getClassFromRarity(entry.getKey().getRarity()) + "'>" + entry.getKey().getSVGString()
 						+ "<div class='overlay"
 						+ (Main.game.getDialogueFlags().tradePartner!=null 
 							? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "" : " dark")
 							: (Main.game.isInSex() || Main.game.isInCombat()?" disabled":""))
 						+ "' id='WEAPON_" + entry.getKey().hashCode() + "'>"
-						+ (entry.getValue() > 1
-								? "<div class='item-count'><b>x" + entry.getValue()
-										+ "</b></div>"
-								: "")
+						+ getItemCountDiv(entry.getValue())
 						+ (Main.game.getDialogueFlags().tradePartner!=null
 							? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>"
 									+ Main.game.getCurrencySymbol() + "</b><b>" + (int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>" + "</div>" : "")
@@ -94,33 +86,21 @@ public class InventoryDialogue {
 		// Clothing:
 		if (Main.game.getPlayer().getClothingCount() > 0) {
 			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayer().getMapOfDuplicateClothing().entrySet()) {
-				inventorySB.append("<div class='item-background");
-
+				inventorySB.append("<div class='item-background ");
+				
 				if (entry.getKey().isEnchantmentKnown()) {
-					if (entry.getKey().getRarity() == Rarity.COMMON)
-						inventorySB.append(" common'>");
-					else if (entry.getKey().getRarity() == Rarity.UNCOMMON)
-						inventorySB.append(" uncommon'>");
-					else if (entry.getKey().getRarity() == Rarity.RARE)
-						inventorySB.append(" rare'>");
-					else if (entry.getKey().getRarity() == Rarity.EPIC)
-						inventorySB.append(" epic'>");
-					else if (entry.getKey().getRarity() == Rarity.LEGENDARY)
-						inventorySB.append(" legendary'>");
-					else if (entry.getKey().getRarity() == Rarity.JINXED)
-						inventorySB.append(" jinxed'>");
-				} else
-					inventorySB.append(" unknown'>");
+					inventorySB.append(getClassFromRarity(entry.getKey().getRarity()));
+				} else {
+					inventorySB.append("unknown");
+				}
+				inventorySB.append("'>");
 
 				inventorySB.append(entry.getKey().getSVGString() + "<div class='overlay"
 							+ (Main.game.getDialogueFlags().tradePartner!=null
 								? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "" : " dark")
 								: (Main.game.isInSex() || Main.game.isInCombat()?" disabled":""))
 							+ "' id='CLOTHING_" + entry.getKey().hashCode() + "'>"
-							+ (entry.getValue() > 1
-									? "<div class='item-count'><b>x" + entry.getValue()
-											+ "</b></div>"
-									: "")
+							+ getItemCountDiv(entry.getValue())
 							+ (Main.game.getDialogueFlags().tradePartner!=null
 								? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>"
 									+ Main.game.getCurrencySymbol() + "</b><b>" + (!entry.getKey().getAttributeModifiers().isEmpty() && !entry.getKey().isEnchantmentKnown()
@@ -135,23 +115,15 @@ public class InventoryDialogue {
 		// Items:
 		if (Main.game.getPlayer().getItemCount() > 0) {
 			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayer().getMapOfDuplicateItems().entrySet()) {
-				inventorySB.append("<div class='item-background"
-						+ (entry.getKey().getRarity() == Rarity.COMMON ? " common" : "")
-						+ (entry.getKey().getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-						+ (entry.getKey().getRarity() == Rarity.RARE ? " rare" : "")
-						+ (entry.getKey().getRarity() == Rarity.EPIC ? " epic" : "")
-						+ (entry.getKey().getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-						+ (entry.getKey().getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>" + entry.getKey().getSVGString()
+				inventorySB.append("<div class='item-background "
+						+ getClassFromRarity(entry.getKey().getRarity()) + "'>" + entry.getKey().getSVGString()
 						+ "<div class='overlay"
 						+ (Main.game.getDialogueFlags().tradePartner!=null
 										? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? ""
 												: " dark")
 										: ((Main.game.isInSex() && !entry.getKey().getItemType().isAbleToBeUsedInSex()) || (Main.game.isInCombat() && !entry.getKey().getItemType().isAbleToBeUsedInCombat())?" disabled":""))
 						+ "' id='ITEM_" + entry.getKey().hashCode() + "'>"
-						+ (entry.getValue() > 1
-								? "<div class='item-count'><b>x" + entry.getValue()
-										+ "</b></div>"
-								: "")
+						+ getItemCountDiv(entry.getValue())
 						+ (Main.game.getDialogueFlags().tradePartner!=null ? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>"
 								+ Main.game.getCurrencySymbol() + "</b><b>" + (int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>" + "</div>" : "") : "")
 						+ "</div>" + "</div>");
@@ -168,13 +140,7 @@ public class InventoryDialogue {
 		for(TFEssence essence : TFEssence.values()) {
 			inventorySB.append(
 					"<div style='width:28px; display:inline-block; margin:0 4px 0 4px;'>"
-						+ "<div class='item-inline"
-									+ (essence.getRarity() == Rarity.COMMON ? " common" : "")
-									+ (essence.getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-									+ (essence.getRarity() == Rarity.RARE ? " rare" : "")
-									+ (essence.getRarity() == Rarity.EPIC ? " epic" : "")
-									+ (essence.getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-									+ (essence.getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>"
+						+ "<div class='item-inline " + getClassFromRarity(essence.getRarity()) + "'>"
 							+ essence.getSVGString()
 							+ "<div class='overlay no-pointer' id='ESSENCE_"+essence.hashCode()+"'></div>"
 						+ "</div>"
@@ -238,14 +204,8 @@ public class InventoryDialogue {
 						if (Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold() != null) {
 							// Clothing:
 							if (itemBuyback instanceof AbstractClothing) {
-								inventorySB.append("<div class='item-background"
-										+ (itemBuyback.getRarity() == Rarity.COMMON ? " common" : "")
-										+ (itemBuyback.getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-										+ (itemBuyback.getRarity() == Rarity.RARE ? " rare" : "")
-										+ (itemBuyback.getRarity() == Rarity.EPIC ? " epic" : "")
-										+ (itemBuyback.getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-										+ (itemBuyback.getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>"
-										+ ((AbstractClothing) itemBuyback).getSVGString()
+								inventorySB.append("<div class='item-background " + getClassFromRarity(itemBuyback.getRarity()) + "'>"
+										+ itemBuyback.getSVGString()
 										+ "<div class='overlay' id='CLOTHING_BUYBACK_" + i + "'>"
 										+ "<div class='item-price'>"
 											+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + (int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()) + "</b>"
@@ -255,14 +215,8 @@ public class InventoryDialogue {
 	
 							// Weapon:
 							} else if (itemBuyback instanceof AbstractWeapon) {
-								inventorySB.append("<div class='item-background"
-										+ (itemBuyback.getRarity() == Rarity.COMMON ? " common" : "")
-										+ (itemBuyback.getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-										+ (itemBuyback.getRarity() == Rarity.RARE ? " rare" : "")
-										+ (itemBuyback.getRarity() == Rarity.EPIC ? " epic" : "")
-										+ (itemBuyback.getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-										+ (itemBuyback.getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>"
-										+ ((AbstractWeapon) itemBuyback).getSVGString()
+								inventorySB.append("<div class='item-background " + getClassFromRarity(itemBuyback.getRarity()) + "'>"
+										+ itemBuyback.getSVGString()
 										+ "<div class='overlay' id='WEAPON_BUYBACK_" + i + "'>"
 										+ "<div class='item-price'>"
 											+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + (int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()) + "</b>"
@@ -271,14 +225,8 @@ public class InventoryDialogue {
 								
 							// Item:
 							} else {
-								inventorySB.append("<div class='item-background"
-										+ (itemBuyback.getRarity() == Rarity.COMMON ? " common" : "")
-										+ (itemBuyback.getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-										+ (itemBuyback.getRarity() == Rarity.RARE ? " rare" : "")
-										+ (itemBuyback.getRarity() == Rarity.EPIC ? " epic" : "")
-										+ (itemBuyback.getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-										+ (itemBuyback.getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>"
-										+ ((AbstractItem) itemBuyback).getSVGString()
+								inventorySB.append("<div class='item-background " + getClassFromRarity(itemBuyback.getRarity()) + "'>"
+										+ itemBuyback.getSVGString()
 										+ "<div class='overlay' id='ITEM_BUYBACK_" + i + "'>"
 										+ "<div class='item-price'>"
 											+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + (int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()) + "</b>"
@@ -300,18 +248,9 @@ public class InventoryDialogue {
 					// Weapons:
 					if (Main.game.getDialogueFlags().tradePartner.getWeaponCount() > 0) {
 						for (Entry<AbstractWeapon, Integer> entry : Main.game.getDialogueFlags().tradePartner.getMapOfDuplicateWeapons().entrySet()) {
-							inventorySB.append("<div class='item-background"
-									+ (entry.getKey().getRarity() == Rarity.COMMON ? " common" : "")
-									+ (entry.getKey().getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-									+ (entry.getKey().getRarity() == Rarity.RARE ? " rare" : "")
-									+ (entry.getKey().getRarity() == Rarity.EPIC ? " epic" : "")
-									+ (entry.getKey().getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-									+ (entry.getKey().getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>" + entry.getKey().getSVGString());
+							inventorySB.append("<div class='item-background " + getClassFromRarity(entry.getKey().getRarity()) + "'>" + entry.getKey().getSVGString());
 							inventorySB.append("<div class='overlay' id='WEAPON_TRADER_" + entry.getKey().hashCode() + "'>"
-									+ (entry.getValue() > 1
-											? "<div class='item-count'><b>x" + entry.getValue()
-													+ "</b></div>"
-											: "")
+									+ getItemCountDiv(entry.getValue())
 									+ "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>"
 									+ (int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</b>" + "</div>"
 									+ "</div>" + "</div>");
@@ -321,18 +260,9 @@ public class InventoryDialogue {
 					// Clothing:
 					if (Main.game.getDialogueFlags().tradePartner.getClothingCount() > 0) {
 						for (Entry<AbstractClothing, Integer> entry : Main.game.getDialogueFlags().tradePartner.getMapOfDuplicateClothing().entrySet()) {
-							inventorySB.append("<div class='item-background"
-									+ (entry.getKey().getRarity() == Rarity.COMMON ? " common" : "")
-									+ (entry.getKey().getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-									+ (entry.getKey().getRarity() == Rarity.RARE ? " rare" : "")
-									+ (entry.getKey().getRarity() == Rarity.EPIC ? " epic" : "")
-									+ (entry.getKey().getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-									+ (entry.getKey().getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>"
+							inventorySB.append("<div class='item-background " + (entry.getKey().isEnchantmentKnown() ? getClassFromRarity(entry.getKey().getRarity()) : "unknown") + "'>"
 									+ entry.getKey().getSVGString() + "<div class='overlay' id='CLOTHING_TRADER_" + entry.getKey().hashCode() + "'>"
-											+ (entry.getValue() > 1
-													? "<div class='item-count'><b>x" + entry.getValue()
-															+ "</b></div>"
-													: "")
+											+ getItemCountDiv(entry.getValue())
 									+ "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>"
 											+ (!entry.getKey().getAttributeModifiers().isEmpty() && !entry.getKey().isEnchantmentKnown()
 													?5
@@ -343,25 +273,16 @@ public class InventoryDialogue {
 					// Items:
 					if (Main.game.getDialogueFlags().tradePartner.getItemCount() > 0) {
 						for (Entry<AbstractItem, Integer> entry : Main.game.getDialogueFlags().tradePartner.getMapOfDuplicateItems().entrySet()) {
-							inventorySB.append("<div class='item-background"
-											+ (entry.getKey().getRarity() == Rarity.COMMON ? " common" : "")
-											+ (entry.getKey().getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-											+ (entry.getKey().getRarity() == Rarity.RARE ? " rare" : "")
-											+ (entry.getKey().getRarity() == Rarity.EPIC ? " epic" : "")
-											+ (entry.getKey().getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-											+ (entry.getKey().getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>" + entry.getKey().getSVGString()
+							inventorySB.append("<div class='item-background " + getClassFromRarity(entry.getKey().getRarity()) + "'>" + entry.getKey().getSVGString()
 											+ "<div class='overlay' id='ITEM_TRADER_" + entry.getKey().hashCode() + "'>"
-													+ (entry.getValue() > 1
-															? "<div class='item-count'><b>x" + entry.getValue()
-																	+ "</b></div>"
-															: "")
+													+ getItemCountDiv(entry.getValue())
 											+ "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>"
 													+ (int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</b>" + "</div>"
 											+ "</div>" + "</div>");
 						}
 					}
 					// Fill space:
-					for (int i =Main.game.getDialogueFlags().tradePartner.getMaximumInventorySpace(); i > Main.game.getDialogueFlags().tradePartner.getInventorySlotsTaken(); i--) {
+					for (int i = Main.game.getDialogueFlags().tradePartner.getMaximumInventorySpace(); i > Main.game.getDialogueFlags().tradePartner.getInventorySlotsTaken(); i--) {
 						inventorySB.append("<div class='item-background empty'></div>");
 					}
 	
@@ -372,18 +293,9 @@ public class InventoryDialogue {
 				// Weapons:
 				if (Main.game.getPlayerCell().getInventory().getWeaponCount() > 0) {
 					for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
-						inventorySB.append("<div class='item-background"
-								+ (entry.getKey().getRarity() == Rarity.COMMON ? " common" : "")
-								+ (entry.getKey().getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-								+ (entry.getKey().getRarity() == Rarity.RARE ? " rare" : "")
-								+ (entry.getKey().getRarity() == Rarity.EPIC ? " epic" : "")
-								+ (entry.getKey().getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-								+ (entry.getKey().getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>"
+						inventorySB.append("<div class='item-background " + getClassFromRarity(entry.getKey().getRarity()) + "'>"
 								+ entry.getKey().getSVGString() + "<div class='overlay' id='WEAPON_FLOOR_" + entry.getKey().hashCode() + "'>"
-										+ (entry.getValue() > 1
-												? "<div class='item-count'><b>x" + entry.getValue()
-														+ "</b></div>"
-												: "")
+										+ getItemCountDiv(entry.getValue())
 										+ "</div>"
 								+ "</div>");
 					}
@@ -391,29 +303,17 @@ public class InventoryDialogue {
 				// Clothing:
 				if (Main.game.getPlayerCell().getInventory().getClothingCount() > 0) {
 					for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
-						inventorySB.append("<div class='item-background");
-	
+						inventorySB.append("<div class='item-background ");
+						
 						if (entry.getKey().isEnchantmentKnown()) {
-							if (entry.getKey().getRarity() == Rarity.COMMON)
-								inventorySB.append(" common'>");
-							else if (entry.getKey().getRarity() == Rarity.UNCOMMON)
-								inventorySB.append(" uncommon'>");
-							else if (entry.getKey().getRarity() == Rarity.RARE)
-								inventorySB.append(" rare'>");
-							else if (entry.getKey().getRarity() == Rarity.EPIC)
-								inventorySB.append(" epic'>");
-							else if (entry.getKey().getRarity() == Rarity.LEGENDARY)
-								inventorySB.append(" legendary'>");
-							else if (entry.getKey().getRarity() == Rarity.JINXED)
-								inventorySB.append(" jinxed'>");
-						} else
-							inventorySB.append(" unknown'>");
+							inventorySB.append(getClassFromRarity(entry.getKey().getRarity()));
+						} else {
+							inventorySB.append("unknown");
+						}
+						inventorySB.append("'>");
 	
 						inventorySB.append(entry.getKey().getSVGString() + "<div class='overlay' id='CLOTHING_FLOOR_" + entry.getKey().hashCode() + "'>"
-								+ (entry.getValue() > 1
-										? "<div class='item-count'><b>x" + entry.getValue()
-												+ "</b></div>"
-										: "")
+								+ getItemCountDiv(entry.getValue())
 								+ "</div>"
 						+ "</div>");
 					}
@@ -421,19 +321,10 @@ public class InventoryDialogue {
 				// Items:
 				if (Main.game.getPlayerCell().getInventory().getItemCount() > 0) {
 					for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
-						inventorySB.append("<div class='item-background"
-								+ (entry.getKey().getRarity() == Rarity.COMMON ? " common" : "")
-								+ (entry.getKey().getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-								+ (entry.getKey().getRarity() == Rarity.RARE ? " rare" : "")
-								+ (entry.getKey().getRarity() == Rarity.EPIC ? " epic" : "")
-								+ (entry.getKey().getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-								+ (entry.getKey().getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>"
+						inventorySB.append("<div class='item-background " + getClassFromRarity(entry.getKey().getRarity()) + "'>"
 								+ entry.getKey().getSVGString()
 								+ "<div class='overlay' id='ITEM_FLOOR_" + entry.getKey().hashCode() + "'>"
-										+ (entry.getValue() > 1
-												? "<div class='item-count'><b>x" + entry.getValue()
-														+ "</b></div>"
-												: "")
+										+ getItemCountDiv(entry.getValue())
 								+ "</div>" + "</div>");
 					}
 				}
@@ -455,6 +346,20 @@ public class InventoryDialogue {
 		}
 
 		return inventorySB.toString();
+	}
+	
+	private static String getItemCountDiv(int amount) {
+		if (amount > 1) {
+			return "<div class='item-count'><b>x" + amount + "</b></div>";
+		}
+		return "";
+	}
+	
+	private static String getClassFromRarity(Rarity rarity) {
+		if (rarity != null) {
+			return rarity.getName();
+		}
+		return "unknown";
 	}
 
 	/**
