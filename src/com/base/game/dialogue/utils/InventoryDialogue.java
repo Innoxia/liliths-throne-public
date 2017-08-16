@@ -415,26 +415,7 @@ public class InventoryDialogue {
 				}
 
 			} else if (index == 9 && !Main.game.isInSex() && !Main.game.isInCombat()) {
-				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
-						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
-						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				}
-
+				return getQuickTradeResponse();
 			} else {
 				return null;
 			}
@@ -764,26 +745,7 @@ public class InventoryDialogue {
 					}
 
 				} else if (index == 9) {
-					if (Main.game.getDialogueFlags().quickTrade) {
-						return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-								"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
-							+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
-							@Override
-							public void effects(){
-								Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-							}
-						};
-					} else {
-						return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-								"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
-							+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
-							@Override
-							public void effects(){
-								Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-							}
-						};
-					}
-
+					return getQuickTradeResponse();
 				} else if (index == 0) {
 					return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
 						@Override
@@ -980,26 +942,7 @@ public class InventoryDialogue {
 				}
 
 			} else if (index == 9) {
-				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
-						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
-						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				}
-
+				return getQuickTradeResponse();
 			} else if (index == 0) {
 				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
 					@Override
@@ -1213,26 +1156,7 @@ public class InventoryDialogue {
 				}
 
 			} else if (index == 9) {
-				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
-						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
-						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				}
-
+				return getQuickTradeResponse();
 			} else if (index == 0) {
 				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
 					@Override
@@ -1357,26 +1281,7 @@ public class InventoryDialogue {
 				}
 
 			} else if (index == 9) {
-				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
-						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
-						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				}
-
+				return getQuickTradeResponse();
 			} else if (index == 0) {
 				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
 					@Override
@@ -1498,26 +1403,7 @@ public class InventoryDialogue {
 				}
 
 			} else if (index == 9) {
-				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
-						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
-						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				}
-
+				return getQuickTradeResponse();
 			} else if (index == 0) {
 				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
 					@Override
@@ -1643,26 +1529,7 @@ public class InventoryDialogue {
 				}
 
 			} else if (index == 9) {
-				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
-						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
-						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				}
-
+				return getQuickTradeResponse();
 			} else if (index == 0) {
 				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
 					@Override
@@ -1776,26 +1643,7 @@ public class InventoryDialogue {
 				}
 			
 			} else if (index == 9) {
-				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
-						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
-						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				}
-
+				return getQuickTradeResponse();
 			} else if (index == 0) {
 				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
 					@Override
@@ -1895,26 +1743,7 @@ public class InventoryDialogue {
 				return null;
 				
 			} else if (index == 9) {
-				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
-						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
-						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				}
-
+				return getQuickTradeResponse();
 			} else if (index == 0) {
 				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
 					@Override
@@ -1995,26 +1824,7 @@ public class InventoryDialogue {
 					};
 
 			} else if (index == 9) {
-				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
-						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
-						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				}
-
+				return getQuickTradeResponse();
 			} else if (index == 0) {
 				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
 					@Override
@@ -2113,26 +1923,7 @@ public class InventoryDialogue {
 				}
 
 			} else if (index == 9) {
-				if (Main.game.getDialogueFlags().quickTrade) {
-					return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
-						+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				} else {
-					return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-							"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
-						+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-						}
-					};
-				}
-
+				return getQuickTradeResponse();
 			} else if (index == 0) {
 				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
 					@Override
@@ -2402,26 +2193,7 @@ public class InventoryDialogue {
 					}
 
 				} else if (index == 9) {
-					if (Main.game.getDialogueFlags().quickTrade) {
-						return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-								"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
-							+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
-							@Override
-							public void effects(){
-								Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-							}
-						};
-					} else {
-						return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-								"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
-							+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
-							@Override
-							public void effects(){
-								Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-							}
-						};
-					}
-
+					return getQuickTradeResponse();
 				} else if (index == 0) {
 					return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
 						@Override
@@ -2687,6 +2459,28 @@ public class InventoryDialogue {
 	};
 
 	// Utility methods:
+	private static Response getQuickTradeResponse() {
+		if (Main.game.getDialogueFlags().quickTrade) {
+			return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
+					"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+				+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
+				@Override
+				public void effects(){
+					Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
+				}
+			};
+		} else {
+			return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
+					"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+				+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
+				@Override
+				public void effects(){
+					Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
+				}
+			};
+		}
+	}
+	
 	private static String getBuybackItemPanel(AbstractCoreItem itemBuyback, String id, int price) {
 		return "<div class='item-background " + getClassFromRarity(itemBuyback.getRarity()) + "'>"
 				+ itemBuyback.getSVGString()
