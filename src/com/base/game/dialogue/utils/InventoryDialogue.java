@@ -76,10 +76,11 @@ public class InventoryDialogue {
 							: (Main.game.isInSex() || Main.game.isInCombat()?" disabled":""))
 						+ "' id='WEAPON_" + entry.getKey().hashCode() + "'>"
 						+ getItemCountDiv(entry.getValue())
-						+ (Main.game.getDialogueFlags().tradePartner!=null
-							? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>"
-									+ Main.game.getCurrencySymbol() + "</b><b>" + (int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>" + "</div>" : "")
-							: "")
+						+ (Main.game.getDialogueFlags().tradePartner != null ? 
+								(Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? 
+										getItemPriceDiv((int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
+										: "") 
+								: "")
 						+ "</div>" + "</div>");
 			}
 		}
@@ -101,13 +102,12 @@ public class InventoryDialogue {
 								: (Main.game.isInSex() || Main.game.isInCombat()?" disabled":""))
 							+ "' id='CLOTHING_" + entry.getKey().hashCode() + "'>"
 							+ getItemCountDiv(entry.getValue())
-							+ (Main.game.getDialogueFlags().tradePartner!=null
-								? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>"
-									+ Main.game.getCurrencySymbol() + "</b><b>" + (!entry.getKey().getAttributeModifiers().isEmpty() && !entry.getKey().isEnchantmentKnown()
-											?5
-											:(int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()))
-									+ "</b>" + "</div>" : "")
-								: "")
+							+ (Main.game.getDialogueFlags().tradePartner != null ? 
+									(Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? 
+											getItemPriceDiv(!entry.getKey().getAttributeModifiers().isEmpty() && !entry.getKey().isEnchantmentKnown() ? 5
+															:(int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
+											: "") 
+									: "")
 							+ "</div>"
 						+ "</div>");
 			}
@@ -124,8 +124,11 @@ public class InventoryDialogue {
 										: ((Main.game.isInSex() && !entry.getKey().getItemType().isAbleToBeUsedInSex()) || (Main.game.isInCombat() && !entry.getKey().getItemType().isAbleToBeUsedInCombat())?" disabled":""))
 						+ "' id='ITEM_" + entry.getKey().hashCode() + "'>"
 						+ getItemCountDiv(entry.getValue())
-						+ (Main.game.getDialogueFlags().tradePartner!=null ? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>"
-								+ Main.game.getCurrencySymbol() + "</b><b>" + (int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>" + "</div>" : "") : "")
+						+ (Main.game.getDialogueFlags().tradePartner != null ? 
+								(Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? 
+										getItemPriceDiv((int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
+										: "") 
+								: "")
 						+ "</div>" + "</div>");
 			}
 		}
@@ -207,9 +210,7 @@ public class InventoryDialogue {
 								inventorySB.append("<div class='item-background " + getClassFromRarity(itemBuyback.getRarity()) + "'>"
 										+ itemBuyback.getSVGString()
 										+ "<div class='overlay' id='CLOTHING_BUYBACK_" + i + "'>"
-										+ "<div class='item-price'>"
-											+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + (int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()) + "</b>"
-										+ "</div>"
+											+ getItemPriceDiv((int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()))
 										+ "</div>"
 										+ "</div>");
 	
@@ -218,9 +219,7 @@ public class InventoryDialogue {
 								inventorySB.append("<div class='item-background " + getClassFromRarity(itemBuyback.getRarity()) + "'>"
 										+ itemBuyback.getSVGString()
 										+ "<div class='overlay' id='WEAPON_BUYBACK_" + i + "'>"
-										+ "<div class='item-price'>"
-											+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + (int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()) + "</b>"
-										+ "</div>"
+											+ getItemPriceDiv((int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()))
 										+ "</div>" + "</div>");
 								
 							// Item:
@@ -228,9 +227,7 @@ public class InventoryDialogue {
 								inventorySB.append("<div class='item-background " + getClassFromRarity(itemBuyback.getRarity()) + "'>"
 										+ itemBuyback.getSVGString()
 										+ "<div class='overlay' id='ITEM_BUYBACK_" + i + "'>"
-										+ "<div class='item-price'>"
-											+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + (int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()) + "</b>"
-										+ "</div>"
+											+ getItemPriceDiv((int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()))
 										+ "</div>"
 										+ "</div>");
 							}
@@ -251,8 +248,7 @@ public class InventoryDialogue {
 							inventorySB.append("<div class='item-background " + getClassFromRarity(entry.getKey().getRarity()) + "'>" + entry.getKey().getSVGString());
 							inventorySB.append("<div class='overlay' id='WEAPON_TRADER_" + entry.getKey().hashCode() + "'>"
 									+ getItemCountDiv(entry.getValue())
-									+ "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>"
-									+ (int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</b>" + "</div>"
+									+ getItemPriceDiv((int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
 									+ "</div>" + "</div>");
 						}
 					}
@@ -263,10 +259,8 @@ public class InventoryDialogue {
 							inventorySB.append("<div class='item-background " + (entry.getKey().isEnchantmentKnown() ? getClassFromRarity(entry.getKey().getRarity()) : "unknown") + "'>"
 									+ entry.getKey().getSVGString() + "<div class='overlay' id='CLOTHING_TRADER_" + entry.getKey().hashCode() + "'>"
 											+ getItemCountDiv(entry.getValue())
-									+ "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>"
-											+ (!entry.getKey().getAttributeModifiers().isEmpty() && !entry.getKey().isEnchantmentKnown()
-													?5
-													:(int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier())) + "</b>" + "</div>"
+											+ getItemPriceDiv(!entry.getKey().getAttributeModifiers().isEmpty() && !entry.getKey().isEnchantmentKnown() ? 5
+													:(int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
 									+ "</div>" + "</div>");
 						}
 					}
@@ -276,8 +270,7 @@ public class InventoryDialogue {
 							inventorySB.append("<div class='item-background " + getClassFromRarity(entry.getKey().getRarity()) + "'>" + entry.getKey().getSVGString()
 											+ "<div class='overlay' id='ITEM_TRADER_" + entry.getKey().hashCode() + "'>"
 													+ getItemCountDiv(entry.getValue())
-											+ "<div class='item-price'>" + "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>"
-													+ (int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</b>" + "</div>"
+													+ getItemPriceDiv((int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
 											+ "</div>" + "</div>");
 						}
 					}
@@ -353,6 +346,12 @@ public class InventoryDialogue {
 			return "<div class='item-count'><b>x" + amount + "</b></div>";
 		}
 		return "";
+	}
+	
+	private static String getItemPriceDiv(int price) {
+		return "<div class='item-price'>"
+				+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + price + "</b>"
+			+ "</div>";
 	}
 	
 	private static String getClassFromRarity(Rarity rarity) {
