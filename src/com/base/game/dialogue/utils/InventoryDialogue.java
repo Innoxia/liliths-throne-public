@@ -398,22 +398,7 @@ public class InventoryDialogue {
 				}
 				
 			} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
-				if (buyback) {
-					return new Response("Normal trade", "Switch back to the normal trade menu.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							buyback = !buyback;
-						}
-					};
-				} else {
-					return new Response("Buyback", "Switch to viewing the buyback menu.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							buyback = !buyback;
-						}
-					};
-				}
-
+				return getBuybackResponse();
 			} else if (index == 9 && !Main.game.isInSex() && !Main.game.isInCombat()) {
 				return getQuickTradeResponse();
 			} else {
@@ -728,22 +713,7 @@ public class InventoryDialogue {
 					return null;
 					
 				} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
-					if (buyback) {
-						return new Response("Normal trade", "Switch back to the normal trade menu.", INVENTORY_MENU){
-							@Override
-							public void effects(){
-								buyback = !buyback;
-							}
-						};
-					} else {
-						return new Response("Buyback", "Switch to viewing the buyback menu.", INVENTORY_MENU){
-							@Override
-							public void effects(){
-								buyback = !buyback;
-							}
-						};
-					}
-
+					return getBuybackResponse();
 				} else if (index == 9) {
 					return getQuickTradeResponse();
 				} else if (index == 0) {
@@ -925,22 +895,7 @@ public class InventoryDialogue {
 				return null;
 				
 			} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
-				if (buyback) {
-					return new Response("Normal trade", "Switch back to the normal trade menu.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							buyback = !buyback;
-						}
-					};
-				} else {
-					return new Response("Buyback", "Switch to viewing the buyback menu.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							buyback = !buyback;
-						}
-					};
-				}
-
+				return getBuybackResponse();
 			} else if (index == 9) {
 				return getQuickTradeResponse();
 			} else if (index == 0) {
@@ -1139,22 +1094,7 @@ public class InventoryDialogue {
 				}
 
 			} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
-				if (buyback) {
-					return new Response("Normal trade", "Switch back to the normal trade menu.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							buyback = !buyback;
-						}
-					};
-				} else {
-					return new Response("Buyback", "Switch to viewing the buyback menu.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							buyback = !buyback;
-						}
-					};
-				}
-
+				return getBuybackResponse();
 			} else if (index == 9) {
 				return getQuickTradeResponse();
 			} else if (index == 0) {
@@ -1264,22 +1204,7 @@ public class InventoryDialogue {
 				}
 				
 			} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
-				if (buyback) {
-					return new Response("Normal trade", "Switch back to the normal trade menu.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							buyback = !buyback;
-						}
-					};
-				} else {
-					return new Response("Buyback", "Switch to viewing the buyback menu.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							buyback = !buyback;
-						}
-					};
-				}
-
+				return getBuybackResponse();
 			} else if (index == 9) {
 				return getQuickTradeResponse();
 			} else if (index == 0) {
@@ -1386,22 +1311,7 @@ public class InventoryDialogue {
 				}
 				
 			} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
-				if (buyback) {
-					return new Response("Normal trade", "Switch back to the normal trade menu.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							buyback = !buyback;
-						}
-					};
-				} else {
-					return new Response("Buyback", "Switch to viewing the buyback menu.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							buyback = !buyback;
-						}
-					};
-				}
-
+				return getBuybackResponse();
 			} else if (index == 9) {
 				return getQuickTradeResponse();
 			} else if (index == 0) {
@@ -1512,22 +1422,7 @@ public class InventoryDialogue {
 				}
 				
 			} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
-				if (buyback) {
-					return new Response("Normal trade", "Switch back to the normal trade menu.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							buyback = !buyback;
-						}
-					};
-				} else {
-					return new Response("Buyback", "Switch to viewing the buyback menu.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							buyback = !buyback;
-						}
-					};
-				}
-
+				return getBuybackResponse();
 			} else if (index == 9) {
 				return getQuickTradeResponse();
 			} else if (index == 0) {
@@ -2176,22 +2071,7 @@ public class InventoryDialogue {
 					}
 					
 				} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
-					if (buyback) {
-						return new Response("Normal trade", "Switch back to the normal trade menu.", INVENTORY_MENU){
-							@Override
-							public void effects(){
-								buyback = !buyback;
-							}
-						};
-					} else {
-						return new Response("Buyback", "Switch to viewing the buyback menu.", INVENTORY_MENU){
-							@Override
-							public void effects(){
-								buyback = !buyback;
-							}
-						};
-					}
-
+					return getBuybackResponse();
 				} else if (index == 9) {
 					return getQuickTradeResponse();
 				} else if (index == 0) {
@@ -2459,6 +2339,24 @@ public class InventoryDialogue {
 	};
 
 	// Utility methods:
+	private static Response getBuybackResponse() {
+		if (buyback) {
+			return new Response("Normal trade", "Switch back to the normal trade menu.", INVENTORY_MENU){
+				@Override
+				public void effects(){
+					buyback = !buyback;
+				}
+			};
+		} else {
+			return new Response("Buyback", "Switch to viewing the buyback menu.", INVENTORY_MENU){
+				@Override
+				public void effects(){
+					buyback = !buyback;
+				}
+			};
+		}
+	}
+	
 	private static Response getQuickTradeResponse() {
 		if (Main.game.getDialogueFlags().quickTrade) {
 			return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
