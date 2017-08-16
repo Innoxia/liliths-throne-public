@@ -361,13 +361,7 @@ public class InventoryDialogue {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 0) {
-				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
-					@Override
-					public void effects(){
-						Main.game.restoreSavedContent();
-					}
-				};
-				
+				return getCloseInventoryResponse();
 			} else if (index == 1 && Main.game.getDialogueFlags().tradePartner==null) {
 				if(Main.game.getPlayerCell().getInventory().getInventorySlotsTaken()==0 || Main.game.isInCombat() || Main.game.isInSex()) {
 					return new Response("Take all", "Pick up everything on the ground.", null);
@@ -444,13 +438,7 @@ public class InventoryDialogue {
 		public Response getResponse(int index) {
 			if(Main.game.isInSex()){
 				if (index == 0) {
-					return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
-						@Override
-						public void effects(){
-							Main.game.restoreSavedContent();
-						}
-					};
-					
+					return getCloseInventoryResponse();
 				} else if (index == 1) {
 					if (!item.isAbleToBeUsed(Main.game.getPlayer())) {
 						return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
@@ -489,13 +477,7 @@ public class InventoryDialogue {
 				
 			} else if(Main.game.isInCombat()){
 				if (index == 0) {
-					return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
-						@Override
-						public void effects(){
-							Main.game.restoreSavedContent();
-						}
-					};
-					
+					return getCloseInventoryResponse();
 				} else if (index == 1) {
 					if (!item.isAbleToBeUsed(Main.game.getPlayer())) {
 						return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
@@ -717,13 +699,7 @@ public class InventoryDialogue {
 				} else if (index == 9) {
 					return getQuickTradeResponse();
 				} else if (index == 0) {
-					return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
-						@Override
-						public void effects(){
-							Main.game.restoreSavedContent();
-						}
-					};
-					
+					return getCloseInventoryResponse();
 				} else
 					return null;
 			}
@@ -899,13 +875,7 @@ public class InventoryDialogue {
 			} else if (index == 9) {
 				return getQuickTradeResponse();
 			} else if (index == 0) {
-				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
-					@Override
-					public void effects(){
-						Main.game.restoreSavedContent();
-					}
-				};
-				
+				return getCloseInventoryResponse();
 			} else
 				return null;
 		}
@@ -1098,13 +1068,7 @@ public class InventoryDialogue {
 			} else if (index == 9) {
 				return getQuickTradeResponse();
 			} else if (index == 0) {
-				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
-					@Override
-					public void effects(){
-						Main.game.restoreSavedContent();
-					}
-				};
-				
+				return getCloseInventoryResponse();
 			} else
 				return null;
 		}
@@ -1208,13 +1172,7 @@ public class InventoryDialogue {
 			} else if (index == 9) {
 				return getQuickTradeResponse();
 			} else if (index == 0) {
-				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
-					@Override
-					public void effects(){
-						Main.game.restoreSavedContent();
-					}
-				};
-				
+				return getCloseInventoryResponse();
 			} else
 				return null;
 		}
@@ -1315,13 +1273,7 @@ public class InventoryDialogue {
 			} else if (index == 9) {
 				return getQuickTradeResponse();
 			} else if (index == 0) {
-				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
-					@Override
-					public void effects(){
-						Main.game.restoreSavedContent();
-					}
-				};
-				
+				return getCloseInventoryResponse();
 			} else
 				return null;
 		}
@@ -1426,13 +1378,7 @@ public class InventoryDialogue {
 			} else if (index == 9) {
 				return getQuickTradeResponse();
 			} else if (index == 0) {
-				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
-					@Override
-					public void effects(){
-						Main.game.restoreSavedContent();
-					}
-				};
-				
+				return getCloseInventoryResponse();
 			} else
 				return null;
 		}
@@ -1540,13 +1486,7 @@ public class InventoryDialogue {
 			} else if (index == 9) {
 				return getQuickTradeResponse();
 			} else if (index == 0) {
-				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
-					@Override
-					public void effects(){
-						Main.game.restoreSavedContent();
-					}
-				};
-				
+				return getCloseInventoryResponse();
 			} else
 				return null;
 		
@@ -1640,13 +1580,7 @@ public class InventoryDialogue {
 			} else if (index == 9) {
 				return getQuickTradeResponse();
 			} else if (index == 0) {
-				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
-					@Override
-					public void effects(){
-						Main.game.restoreSavedContent();
-					}
-				};
-				
+				return getCloseInventoryResponse();
 			} else
 				return null;
 		}
@@ -1721,13 +1655,7 @@ public class InventoryDialogue {
 			} else if (index == 9) {
 				return getQuickTradeResponse();
 			} else if (index == 0) {
-				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
-					@Override
-					public void effects(){
-						Main.game.restoreSavedContent();
-					}
-				};
-				
+				return getCloseInventoryResponse();
 			} else
 				return null;
 		}
@@ -1820,13 +1748,7 @@ public class InventoryDialogue {
 			} else if (index == 9) {
 				return getQuickTradeResponse();
 			} else if (index == 0) {
-				return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
-					@Override
-					public void effects(){
-						Main.game.restoreSavedContent();
-					}
-				};
-				
+				return getCloseInventoryResponse();
 			} else
 				return null;
 		}
@@ -1961,13 +1883,7 @@ public class InventoryDialogue {
 					}
 					
 				} else if (index == 0){
-					return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
-						@Override
-						public void effects(){
-							Main.game.restoreSavedContent();
-						}
-					};
-					
+					return getCloseInventoryResponse();
 				} else {
 					return null;
 				}
@@ -2075,13 +1991,7 @@ public class InventoryDialogue {
 				} else if (index == 9) {
 					return getQuickTradeResponse();
 				} else if (index == 0) {
-					return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
-						@Override
-						public void effects(){
-							Main.game.restoreSavedContent();
-						}
-					};
-					
+					return getCloseInventoryResponse();
 				} else
 					return null;
 			}
@@ -2339,6 +2249,15 @@ public class InventoryDialogue {
 	};
 
 	// Utility methods:
+	private static ResponseEffectsOnly getCloseInventoryResponse() { 
+		return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
+			@Override
+			public void effects(){
+				Main.game.restoreSavedContent();
+			}
+		};
+	}
+	
 	private static Response getBuybackResponse() {
 		if (buyback) {
 			return new Response("Normal trade", "Switch back to the normal trade menu.", INVENTORY_MENU){
