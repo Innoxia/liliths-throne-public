@@ -1229,7 +1229,7 @@ public class InventoryDialogue {
 						public void effects(){
 							Main.game.getTextStartStringBuilder().append(
 									"<p style='text-align:center;'>" + "You hand over <b style='color: " + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>10</b> to "
-											+Main.game.getDialogueFlags().tradePartner.getName("the")+", who promtly identifies your "+clothing.getName()+"."
+											+Main.game.getDialogueFlags().tradePartner.getName("the")+", who promptly identifies your "+clothing.getName()+"."
 									+ "</p>"
 									+clothing.setEnchantmentKnown(true));
 							Main.game.getPlayer().incrementMoney(-10);
