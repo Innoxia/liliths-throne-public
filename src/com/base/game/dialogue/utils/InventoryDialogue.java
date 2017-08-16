@@ -204,7 +204,7 @@ public class InventoryDialogue {
 						
 						AbstractCoreItem itemBuyback = Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold();
 	
-						if (Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold() != null) {
+						if (itemBuyback != null) {
 							// Clothing:
 							if (itemBuyback instanceof AbstractClothing) {
 								inventorySB.append(getBuybackItemPanel(itemBuyback, "CLOTHING_BUYBACK_" + i, 
