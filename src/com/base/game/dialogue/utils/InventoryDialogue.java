@@ -42,6 +42,8 @@ public class InventoryDialogue {
 	
 	// Welcome to hell!
 	
+	private static final int IDENTIFICATION_PRICE = 10;
+	
 	private static AbstractItem item, itemFloor;
 	private static AbstractClothing clothing, clothingFloor, clothingEquipped;
 	private static AbstractWeapon weapon, weaponFloor, weaponEquipped;
@@ -1219,20 +1221,20 @@ public class InventoryDialogue {
 				if(!Main.game.getDialogueFlags().tradePartner.willBuy(clothing)) {
 					return new Response("Identify", Main.game.getDialogueFlags().tradePartner.getName("The") + " can't identify clothing!", null);
 					
-				} else if(Main.game.getPlayer().getMoney()<10){
-					return new Response("Identify (" + Main.game.getCurrencySymbol() + " 10)", "You don't have enough money!", null);
+				} else if(Main.game.getPlayer().getMoney() < IDENTIFICATION_PRICE){
+					return new Response("Identify (" + Main.game.getCurrencySymbol() + " " + IDENTIFICATION_PRICE + ")", "You don't have enough money!", null);
 					
 				}else {
-					return new Response("Identify (<span style='color: " + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 10)",
-								"Have the " + clothing.getName() + " identified for <span style='color: " + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 10.", INVENTORY_MENU){
+					return new Response("Identify (<span style='color: " + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> " + IDENTIFICATION_PRICE + ")",
+								"Have the " + clothing.getName() + " identified for <span style='color: " + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> " + IDENTIFICATION_PRICE + ".", INVENTORY_MENU){
 						@Override
 						public void effects(){
 							Main.game.getTextStartStringBuilder().append(
-									"<p style='text-align:center;'>" + "You hand over <b style='color: " + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>10</b> to "
+									"<p style='text-align:center;'>" + "You hand over <b style='color: " + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + IDENTIFICATION_PRICE + "</b> to "
 											+Main.game.getDialogueFlags().tradePartner.getName("the")+", who promptly identifies your "+clothing.getName()+"."
 									+ "</p>"
 									+clothing.setEnchantmentKnown(true));
-							Main.game.getPlayer().incrementMoney(-10);
+							Main.game.getPlayer().incrementMoney(-IDENTIFICATION_PRICE);
 						}
 					};
 				}
