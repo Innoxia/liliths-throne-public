@@ -496,8 +496,12 @@ public class InventoryDialogue {
 		@Override
 		public String getContent() {
 			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + item.getDescription() + item.getExtraDescription()
-					+ (Main.game.getDialogueFlags().tradePartner!=null ? "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for <b style='color: " + Colour.CURRENCY.toWebHexString()
-							+ ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>.</p>" : "");
+					+ (Main.game.getDialogueFlags().tradePartner != null ? 
+							Main.game.getDialogueFlags().tradePartner.willBuy(item) ? 
+									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for <b style='color: " + Colour.CURRENCY.toWebHexString()
+							+ ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>.</p>" 
+							: Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this."
+						: "");
 		}
 
 		@Override
@@ -854,8 +858,12 @@ public class InventoryDialogue {
 		@Override
 		public String getContent() {
 			return "<div class='inventoryImage'>" + weapon.getSVGString() + "</div>" + weapon.getDescription()
-					+ (Main.game.getDialogueFlags().tradePartner!=null ? "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for <b style='color: " + Colour.CURRENCY.toWebHexString()
-							+ ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>.</p>" : "");
+					+ (Main.game.getDialogueFlags().tradePartner != null ? 
+							Main.game.getDialogueFlags().tradePartner.willBuy(weapon) ? 
+									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for <b style='color: " + Colour.CURRENCY.toWebHexString()
+							+ ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>.</p>" 
+							: Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this."
+						: "");
 		}
 		
 		@Override
@@ -1069,10 +1077,12 @@ public class InventoryDialogue {
 		@Override
 		public String getContent() {
 			return "<div class='inventoryImage'>" + clothing.getSVGString() + "</div>" + clothing.getDescription() + clothing.clothingExtraInformation(null)
-					+ (Main.game.getDialogueFlags().tradePartner!=null
-							? "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy " + (clothing.getClothingType().isPlural() ? "them" : "it") + " for <b style='color: "
-									+ Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>.</p>"
-							: "");
+					+ (Main.game.getDialogueFlags().tradePartner != null ? 
+							Main.game.getDialogueFlags().tradePartner.willBuy(clothing) ? 
+									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for <b style='color: " + Colour.CURRENCY.toWebHexString()
+							+ ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>.</p>" 
+							: Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this."
+						: "");
 		}
 		
 		@Override
