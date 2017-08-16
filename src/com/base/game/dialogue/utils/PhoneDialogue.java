@@ -1269,10 +1269,14 @@ public class PhoneDialogue {
 
 			for (ClothingType clothing : clothingDiscoveredList) {
 				if (Main.game.getPlayer().getClothingDiscovered().contains(clothing)) {
-					journalSB.append("<div class='phone-item-third slot'>" + Util.capitaliseSentence(clothing.getSlot().getName()) + "</div>");
-					journalSB.append("<div class='phone-item-third name' style='color:" + clothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(clothing.getName()) + "</div>");
+					String sizeClass = ""; //hack to prevent overflow... works for up to 30 colours
+					if (clothing.getAvailableColours().size() > 15){
+						sizeClass = "phone-item-third-large";
+					}
+					journalSB.append("<div class='phone-item-third "+sizeClass+" slot'>" + Util.capitaliseSentence(clothing.getSlot().getName()) + "</div>");
+					journalSB.append("<div class='phone-item-third "+sizeClass+" name' style='color:" + clothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(clothing.getName()) + "</div>");
 
-					journalSB.append("<div class='phone-item-third colours'>");
+					journalSB.append("<div class='phone-item-third "+sizeClass+" colours'>");
 					for (Colour c : clothing.getAvailableColours())
 						journalSB.append("<div class='phone-item-colour' id='" + (clothing.toString() + "_" + c.toString()) + "' style='background-color:" + c.toWebHexString() + ";'></div>");
 					journalSB.append("</div>");
