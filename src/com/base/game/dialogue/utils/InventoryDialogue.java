@@ -207,29 +207,18 @@ public class InventoryDialogue {
 						if (Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold() != null) {
 							// Clothing:
 							if (itemBuyback instanceof AbstractClothing) {
-								inventorySB.append("<div class='item-background " + getClassFromRarity(itemBuyback.getRarity()) + "'>"
-										+ itemBuyback.getSVGString()
-										+ "<div class='overlay' id='CLOTHING_BUYBACK_" + i + "'>"
-											+ getItemPriceDiv((int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()))
-										+ "</div>"
-										+ "</div>");
+								inventorySB.append(getBuybackItemPanel(itemBuyback, "CLOTHING_BUYBACK_" + i, 
+										(int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice())));
 	
 							// Weapon:
 							} else if (itemBuyback instanceof AbstractWeapon) {
-								inventorySB.append("<div class='item-background " + getClassFromRarity(itemBuyback.getRarity()) + "'>"
-										+ itemBuyback.getSVGString()
-										+ "<div class='overlay' id='WEAPON_BUYBACK_" + i + "'>"
-											+ getItemPriceDiv((int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()))
-										+ "</div>" + "</div>");
+								inventorySB.append(getBuybackItemPanel(itemBuyback, "WEAPON_BUYBACK_" + i, 
+										(int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice())));
 								
 							// Item:
 							} else {
-								inventorySB.append("<div class='item-background " + getClassFromRarity(itemBuyback.getRarity()) + "'>"
-										+ itemBuyback.getSVGString()
-										+ "<div class='overlay' id='ITEM_BUYBACK_" + i + "'>"
-											+ getItemPriceDiv((int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice()))
-										+ "</div>"
-										+ "</div>");
+								inventorySB.append(getBuybackItemPanel(itemBuyback, "ITEM_BUYBACK_" + i, 
+										(int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice())));
 							}
 						}
 					}
@@ -339,6 +328,15 @@ public class InventoryDialogue {
 		}
 
 		return inventorySB.toString();
+	}
+	
+	private static String getBuybackItemPanel(AbstractCoreItem itemBuyback, String id, int price) {
+		return "<div class='item-background " + getClassFromRarity(itemBuyback.getRarity()) + "'>"
+				+ itemBuyback.getSVGString()
+				+ "<div class='overlay' id='" + id + "'>"
+					+ getItemPriceDiv(price)
+				+ "</div>"
+				+ "</div>";
 	}
 	
 	private static String getItemCountDiv(int amount) {
