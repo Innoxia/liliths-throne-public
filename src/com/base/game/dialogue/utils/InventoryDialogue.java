@@ -2773,21 +2773,12 @@ public class InventoryDialogue {
 		else {
 			int itemCount = Main.game.getDialogueFlags().tradePartner.getItemCount(item);
 			
-			Iterator<AbstractItem> it = Main.game.getDialogueFlags().tradePartner.getAllItemsInInventory().iterator();
-			List<AbstractItem> itemsToRemove = new ArrayList<>();
-			while(it.hasNext()) {
-				AbstractItem ai = it.next();
-				
-				if(ai.equals(item)) {
-					itemsToRemove.add(ai);
-					Main.game.getPlayer().addItem(ai, false);
-				}
-			}
-			
-			for(AbstractItem ai : itemsToRemove) {
-				Main.game.getDialogueFlags().tradePartner.removeItem(ai);
-			}
-			
+			Main.game.getDialogueFlags().tradePartner.getAllItemsInInventory().stream()
+				.filter(item::equals)
+				.forEach(tradeItem -> {
+					Main.game.getPlayer().addItem(tradeItem, false);
+					Main.game.getDialogueFlags().tradePartner.removeItem(tradeItem);
+				});
 			
 			Main.game.getPlayer().incrementMoney(-(int) ((item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * itemCount));
 			
@@ -2871,27 +2862,19 @@ public class InventoryDialogue {
 
 		} else {
 			int clothingCount = Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing);
-			for(int i=0; i<clothingCount; i++) {
-				// Temporary fix! TODO
-				if(Main.game.getDialogueFlags().tradePartner == Main.game.getNyan()) {
+			if(Main.game.getDialogueFlags().tradePartner == Main.game.getNyan()) {
+				for(int i=0; i<clothingCount; i++) {
+					// Temporary fix! TODO
 					((Nyan)Main.game.getNyan()).removeClothingFromLists(clothing);
 				}
-				
-				Iterator<AbstractClothing> it = Main.game.getDialogueFlags().tradePartner.getAllClothingInInventory().iterator();
-				List<AbstractClothing> clothingToRemove = new ArrayList<>();
-				while(it.hasNext()) {
-					AbstractClothing ac = it.next();
-					
-					if(ac.equals(clothing)) {
-						clothingToRemove.add(ac);
-						Main.game.getPlayer().addClothing(ac, false);
-					}
-				}
-				
-				for(AbstractClothing ac : clothingToRemove) {
-					Main.game.getDialogueFlags().tradePartner.removeClothing(ac);
-				}
 			}
+			
+			Main.game.getDialogueFlags().tradePartner.getAllClothingInInventory().stream()
+				.filter(clothing::equals)
+				.forEach(tradeClothing -> {
+					Main.game.getPlayer().addClothing(tradeClothing, false);
+					Main.game.getDialogueFlags().tradePartner.removeClothing(tradeClothing);
+				});
 			
 			Main.game.getPlayer().incrementMoney(-(int) ((clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * clothingCount));
 
@@ -2975,20 +2958,12 @@ public class InventoryDialogue {
 		else {
 			int weaponCount = Main.game.getDialogueFlags().tradePartner.getWeaponCount(weapon);
 			
-			Iterator<AbstractWeapon> it = Main.game.getDialogueFlags().tradePartner.getAllWeaponsInInventory().iterator();
-			List<AbstractWeapon> weaponsToRemove = new ArrayList<>();
-			while(it.hasNext()) {
-				AbstractWeapon aw = it.next();
-				
-				if(aw.equals(weapon)) {
-					weaponsToRemove.add(aw);
-					Main.game.getPlayer().addWeapon(aw, false);
-				}
-			}
-			
-			for(AbstractWeapon aw : weaponsToRemove) {
-				Main.game.getDialogueFlags().tradePartner.removeWeapon(aw);
-			}
+			Main.game.getDialogueFlags().tradePartner.getAllWeaponsInInventory().stream()
+				.filter(weapon::equals)
+				.forEach(tradeWeapon -> {
+					Main.game.getPlayer().addWeapon(tradeWeapon, false);
+					Main.game.getDialogueFlags().tradePartner.removeWeapon(tradeWeapon);
+				});
 			
 			Main.game.getPlayer().incrementMoney(-((int) ((weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier())) * weaponCount));
 
