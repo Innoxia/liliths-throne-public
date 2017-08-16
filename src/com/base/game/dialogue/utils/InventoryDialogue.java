@@ -331,35 +331,6 @@ public class InventoryDialogue {
 
 		return inventorySB.toString();
 	}
-	
-	private static String getBuybackItemPanel(AbstractCoreItem itemBuyback, String id, int price) {
-		return "<div class='item-background " + getClassFromRarity(itemBuyback.getRarity()) + "'>"
-				+ itemBuyback.getSVGString()
-				+ "<div class='overlay' id='" + id + "'>"
-					+ getItemPriceDiv(price)
-				+ "</div>"
-				+ "</div>";
-	}
-	
-	private static String getItemCountDiv(int amount) {
-		if (amount > 1) {
-			return "<div class='item-count'><b>x" + amount + "</b></div>";
-		}
-		return "";
-	}
-	
-	private static String getItemPriceDiv(int price) {
-		return "<div class='item-price'>"
-				+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + price + "</b>"
-			+ "</div>";
-	}
-	
-	private static String getClassFromRarity(Rarity rarity) {
-		if (rarity != null) {
-			return rarity.getName();
-		}
-		return "unknown";
-	}
 
 	/**
 	 * The main DialogueNode. From here, the player can gain access to all parts
@@ -2741,6 +2712,34 @@ public class InventoryDialogue {
 	};
 
 	// Utility methods:
+	private static String getBuybackItemPanel(AbstractCoreItem itemBuyback, String id, int price) {
+		return "<div class='item-background " + getClassFromRarity(itemBuyback.getRarity()) + "'>"
+				+ itemBuyback.getSVGString()
+				+ "<div class='overlay' id='" + id + "'>"
+					+ getItemPriceDiv(price)
+				+ "</div>"
+				+ "</div>";
+	}
+	
+	private static String getItemCountDiv(int amount) {
+		if (amount > 1) {
+			return "<div class='item-count'><b>x" + amount + "</b></div>";
+		}
+		return "";
+	}
+	
+	private static String getItemPriceDiv(int price) {
+		return "<div class='item-price'>"
+				+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + price + "</b>"
+			+ "</div>";
+	}
+	
+	private static String getClassFromRarity(Rarity rarity) {
+		if (rarity != null) {
+			return rarity.getName();
+		}
+		return "unknown";
+	}
 
 	// Items:
 	public static String buyItem(AbstractItem item) {
