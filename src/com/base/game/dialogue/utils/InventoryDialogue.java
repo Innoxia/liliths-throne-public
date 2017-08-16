@@ -208,19 +208,17 @@ public class InventoryDialogue {
 	
 						if (itemBuyback != null) {
 							// Clothing:
+							int itemPrice = (int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice());
 							if (itemBuyback instanceof AbstractClothing) {
-								inventorySB.append(getBuybackItemPanel(itemBuyback, "CLOTHING_BUYBACK_" + i, 
-										(int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice())));
+								inventorySB.append(getBuybackItemPanel(itemBuyback, "CLOTHING_BUYBACK_" + i, itemPrice));
 	
 							// Weapon:
 							} else if (itemBuyback instanceof AbstractWeapon) {
-								inventorySB.append(getBuybackItemPanel(itemBuyback, "WEAPON_BUYBACK_" + i, 
-										(int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice())));
+								inventorySB.append(getBuybackItemPanel(itemBuyback, "WEAPON_BUYBACK_" + i, itemPrice));
 								
 							// Item:
 							} else {
-								inventorySB.append(getBuybackItemPanel(itemBuyback, "ITEM_BUYBACK_" + i, 
-										(int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice())));
+								inventorySB.append(getBuybackItemPanel(itemBuyback, "ITEM_BUYBACK_" + i, itemPrice));
 							}
 						}
 					}
