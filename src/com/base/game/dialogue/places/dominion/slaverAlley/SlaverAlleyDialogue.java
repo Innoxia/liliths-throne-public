@@ -233,7 +233,7 @@ public class SlaverAlleyDialogue {
 						+ " From what you can gather, it appears as though this is an official government building, in which all matters relating to the ownership of slaves, licenses, and businesses dealing in slave-trading are handled."
 						+ " A little piece of paper has been stuck to the bottom of the board, which reads; 'Slaver Licenses are not being issued!'"
 					+ "</p>"
-					+ (Main.game.getPlayer().isSlaveTrader()
+					+ (Main.game.getPlayer().isHasSlaverLicense()
 						?"<p>"
 							+ "Being in possession of a slaver license yourself, you could enter the Slavery Administration building and make use of its services."
 						+ "</p>"
@@ -260,7 +260,7 @@ public class SlaverAlleyDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().isSlaveTrader()) {
+			if(Main.game.getPlayer().isHasSlaverLicense()) {
 				return "<p>"
 						+ "The heavy oak doors of the 'Slavery Administration' building are wide open, and, stepping through the inviting entranceway, you find yourself standing in a cavernous entrance hall."
 						+ " Rows of marble pillars line the edges of the room, with little wooden benches interspersed between them."
@@ -360,7 +360,7 @@ public class SlaverAlleyDialogue {
 
 		@Override
 		public Response getResponse(int index) {
-			if(Main.game.getPlayer().isSlaveTrader()) {
+			if(Main.game.getPlayer().isHasSlaverLicense()) {
 				if (index == 1) {
 					return new ResponseTrade("Trade", "Buy slavery-related items.", Main.game.getFinch());
 

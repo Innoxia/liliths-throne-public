@@ -3486,7 +3486,17 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "By wearing the entire Maid's Outfit, you are filled with the energy you need in order to be a sexy hard-working maid.";
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By wearing the entire Maid's Outfit, you are filled with the energy you need in order to be a sexy hard-working maid.";
+					
+				} else {
+					return UtilText.parse(target, "By wearing the entire Maid's Outfit, [npc.name] is filled with the energy [npc.she] needs in order to be a sexy hard-working maid.");
+					
+				}
+			} else {
+				return "";
+			}
 		}
 
 		@Override
@@ -3519,13 +3529,16 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
-				if(target.isPlayer())
+				if(target.isPlayer()) {
 					return "By wearing an Enforcer's uniform, you gain the energy and strength you need to fight crime.";
-				else
-					return UtilText.genderParsing(target,
-							target.getName("The")+" is wearing an Enforcer's uniform, granting <herPro> the energy and strength <she> needs to fight crime.");
+					
+				} else {
+					return UtilText.parse(target, "[npc.Name] is wearing an Enforcer's uniform, granting [npc.herHim] the energy and strength [npc.she] needs to fight crime.");
+					
+				}
+			} else {
+				return "";
 			}
-			return "";
 		}
 
 		@Override
@@ -3591,7 +3604,17 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "You have been tied up in bondage gear, and are struggling to move.";
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "You have been tied up in bondage gear, and are struggling to move.";
+					
+				} else {
+					return UtilText.parse(target, "[npc.Name] has been tied up in bondage gear, and is struggling to move.");
+					
+				}
+			} else {
+				return "";
+			}
 		}
 
 		@Override

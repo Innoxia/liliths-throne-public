@@ -119,15 +119,15 @@ public class RoomPlayer {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "Your room is well-furnished, containing a king-sized bed, two sets of drawers and a full-height wardrobe."
-					+ " There's also a well-stocked bookcase sitting to one side of your en-suite's door, and you suppose that you could find out some more information about this strange new world by checking out some of the volumes on display."
-					+ " A row of windows provide a good view of the courtyard garden below, which is flanked on all sides by different wings of Lilaya's house."
+						+ "Your room is well-furnished, containing a king-sized bed, two sets of drawers and a full-height wardrobe."
+						+ " A row of windows provide a good view of the courtyard garden below, which is flanked on all sides by different wings of Lilaya's house."
 					+ "</p>"
 					+ "<p>"
-					+ "Your private en-suite bathroom is accessible from here via a door on one side of the room. The bathroom is considerably larger than any other that you've used before, and is extravagantly decorated in marble and gold."
+						+ "Your private en-suite bathroom is accessible from here via a door on one side of the room."
+						+ " The bathroom is considerably larger than any other that you've used before, and is extravagantly decorated in marble and gold."
 					+ "</p>"
 					+ "<p>"
-					+ "Like everything else that normally would have run on electricity in your world, the lighting, shower, and radiators all appear to be powered by the arcane."
+						+ "Like everything else that normally would have run on electricity in your world, the lighting, shower, and radiators all appear to be powered by the arcane."
 					+ "</p>";
 		}
 
@@ -153,7 +153,7 @@ public class RoomPlayer {
 		public String getContent() {
 			return "<p>"
 					+ "You set your phone's alarm before drawing the curtains, lying on your bed and closing your eyes."
-					+ " You feel extremely safe and comfortable here in Lilaya's home, and as you think about soon drift off to sleep..."
+					+ " You feel extremely safe and comfortable here in Lilaya's home, and soon drift off to sleep, thinking about all the things that have happened to you recently..."
 					+ "</p>"
 					+ "<p>"
 					+ "<i>Beep-beep... beep-beep... bee-</i>"
@@ -195,7 +195,7 @@ public class RoomPlayer {
 		public String getContent() {
 			return "<p>"
 					+ "You set your phone's alarm before drawing the curtains, lying on your bed and closing your eyes."
-					+ " You feel extremely safe and comfortable here in Lilaya's home, and as you think about soon drift off to sleep..."
+					+ " You feel extremely safe and comfortable here in Lilaya's home, and soon drift off to sleep, thinking about all the things that have happened to you recently..."
 					+ "</p>"
 					+ "<p>"
 					+ "<i>Beep-beep... beep-beep... bee-</i>"

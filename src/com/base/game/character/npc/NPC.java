@@ -3926,7 +3926,10 @@ public abstract class NPC extends GameCharacter {
 						}
 						
 					} else {
-						if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
+						if (!Main.game.getPlayer().hasBreasts()) {
+							return "";
+							
+						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 									+ "In a very patronising voice, [npc.name] reacts to your breasts being revealed, "
 									+ UtilText.parseSpeech("Aww, you trying to become a girl?", Sex.getPartner())
@@ -3984,7 +3987,10 @@ public abstract class NPC extends GameCharacter {
 						}
 						
 					} else {
-						if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
+						if (!Main.game.getPlayer().hasBreasts()) {
+							return "";
+							
+						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return (
 									"<p>"
 										+ "In a mocking tone, [npc.name] questions you as your tiny breasts are revealed, "
@@ -4049,7 +4055,10 @@ public abstract class NPC extends GameCharacter {
 						}
 		
 					} else {
-						if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
+						if (!Main.game.getPlayer().hasBreasts()) {
+							return "";
+							
+						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 									+ "[npc.Name] grins at you as your [pc.breastSize] breasts are revealed, "
 									+ UtilText.parseSpeech("Aww, you trying to become a girl?", Sex.getPartner())
@@ -4113,7 +4122,10 @@ public abstract class NPC extends GameCharacter {
 						}
 						
 					} else {
-						if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
+						if (!Main.game.getPlayer().hasBreasts()) {
+							return "";
+							
+						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 										+ "[npc.Name] bursts out laughing as your [pc.breastSize] breasts are revealed, "
 										+ UtilText.parseSpeech("Hahaha, you trying to become a girl?!", Sex.getPartner())

@@ -222,7 +222,7 @@ public class PlayerCharacter extends GameCharacter {
 		return questLine.isCompleted(quests.get(questLine));
 	}
 	
-	public boolean isSlaveTrader() {
+	public boolean isHasSlaverLicense() {
 		return isQuestCompleted(QuestLine.SIDE_SLAVERY);
 	}
 

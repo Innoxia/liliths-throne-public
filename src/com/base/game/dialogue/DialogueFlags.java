@@ -17,7 +17,7 @@ public class DialogueFlags implements Serializable {
 
 	// Discounts:
 	public long ralphDiscountStartTime;
-	public int ralphDiscount;
+	public int ralphDiscount, scarlettPrice;
 	
 	public BodyCoveringType skinTypeSelected;
 
@@ -49,6 +49,7 @@ public class DialogueFlags implements Serializable {
 			
 			// Harpy Nests:
 			hasHarpyNestAccess, bimboEncountered, bimboPacified, dominantEncountered, dominantPacified, nymphoEncountered, nymphoPacified,
+			punishedByAlexa,
 			
 			// Slaver Alley:
 			finchIntroduced;
@@ -65,6 +66,8 @@ public class DialogueFlags implements Serializable {
 		
 		ralphDiscountStartTime=-1;
 		ralphDiscount=0;
+		
+		scarlettPrice = 2000;
 		
 		gymIntroduced = false;
 		gymHadTour = false;
@@ -102,6 +105,8 @@ public class DialogueFlags implements Serializable {
 		dominantPacified = false;
 		nymphoEncountered = false;
 		nymphoPacified = false;
+		
+		punishedByAlexa = false;
 
 		// Slaver Alley:
 		finchIntroduced = false;

@@ -64,6 +64,10 @@ public class Litter implements Serializable {
 		dayOfBirth = dayOfConception += 8;
 		return dayOfBirth;
 	}
+	
+	public void setDayOfBirth(int dayOfBirth) {
+		this.dayOfBirth = dayOfBirth;
+	}
 
 	public GameCharacter getMother() {
 		return mother;
