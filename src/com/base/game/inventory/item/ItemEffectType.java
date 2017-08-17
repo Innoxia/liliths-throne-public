@@ -1180,7 +1180,7 @@ public enum ItemEffectType {
 		}
 	},
 
-  BOTTLED_ESSENCE_SQUIRREL_MORPH(Util.newArrayListOfValues(
+ 	BOTTLED_ESSENCE_SQUIRREL_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(+1)] [style.boldSquirrel(Squirrel-morph)] essence")),
 			Colour.RACE_SQUIRREL_MORPH) {
 		
