@@ -1097,7 +1097,8 @@ public enum ClothingType {
 			}
 		}
 	},
-NECK_SCARF("a", false, "scarf", "A unisex scarf, made of a soft, wooly fabric.", 1, null, InventorySlot.NECK, Rarity.COMMON, null, "neck_scarf", null,
+	
+	NECK_SCARF("a", false, "scarf", "A unisex scarf, made of a soft, wooly fabric.", 1, null, InventorySlot.NECK, Rarity.COMMON, null, "neck_scarf", null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 
