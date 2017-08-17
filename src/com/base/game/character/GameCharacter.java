@@ -4851,14 +4851,14 @@ public class GameCharacter implements Serializable {
 					? " The feeling goes away almost as quickly as it came, leaving you with a wolf-morph's " + getHairColour(BodyCoveringType.HAIR_LYCAN_FUR).getName() + ", fur-like hair." + "</br>" + "You now have <b style='color:"
 							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry wolf-like hair</b>."
 					: UtilText.genderParsing(this, " The transformation is over in a matter of seconds, leaving <herPro> with a wolf-morph's " + getHairColour(BodyCoveringType.HAIR_LYCAN_FUR).getName() + ", fur-like hair." + "</br>"
-							+ "<She> nwo has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry wolf-like hair</b>."));
+							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry wolf-like hair</b>."));
 			break;
 		case HAIR_BOVINE_FUR:
 			transformationSB.append(isPlayer()
 					? " The feeling goes away almost as quickly as it came, leaving you with a cow-morph's " + getHairColour(BodyCoveringType.HAIR_BOVINE_FUR).getName() + ", fur-like hair." + "</br>" + "You now have <b style='color:"
 							+ Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry cow-like hair</b>."
-					: UtilText.genderParsing(this, " The transformation is over in a matter of seconds, leaving <herPro> with a cow-morph's " + getHairColour(BodyCoveringType.HAIR_LYCAN_FUR).getName() + ", fur-like hair." + "</br>"
-							+ "<She> nwo has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry cow-like hair</b>."));
+					: UtilText.genderParsing(this, " The transformation is over in a matter of seconds, leaving <herPro> with a cow-morph's " + getHairColour(BodyCoveringType.HAIR_BOVINE_FUR).getName() + ", fur-like hair." + "</br>"
+							+ "<She> now has <b style='color:" + Colour.TRANSFORMATION_PARTIAL.toWebHexString() + ";'>furry cow-like hair</b>."));
 			break;
 		case HAIR_FELINE_FUR:
 			transformationSB.append(isPlayer()
