@@ -1010,14 +1010,14 @@ public enum SpecialAttack {
 						"<p>" + "With a burst of energy, you leap forwards, trying to ram your horns at " + target.getName("the") + "."
 								+ (isHit ? " Your cow-like horns slam into " + target.getName("the") + "'s body,"
 										+ " and you manage to cause some serious damage with your sharp horns before <she> manages to throw you off of <herPro>."
-										: target.getName("The") + " manages to jump to one side, and there's an audible woosh as your move through the thin air.")
+										: target.getName("The") + " manages to jump to one side, and there's an audible woosh as your horns move through the thin air.")
 								+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.genderParsing(caster,
-						"<p>" + "With a sudden burst of energy, " + caster.getName("the") + " leaps forwards as she tries to gore you."
+						"<p>" + "With a sudden burst of energy, " + caster.getName("the") + " leaps forwards as <she> tries to gore you."
 								+ (isHit ? " <Her> cow-like muzzle slams down on your body,"
-										+ " and <she> shakes <her> head from side-to-side, managing to cause some serious damage with <her> sharp horns before you mange to throw <herPro> off of you."
+										+ " and <she> shakes <her> head from side-to-side, managing to cause some serious damage with <her> sharp horns before you manage to throw <herPro> off of you."
 										: "You jump to one side as you see the attack coming, and there's an audible woosh as <her> horns hit nothing but thin air.")
 								+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
