@@ -1283,7 +1283,7 @@ public enum SpecialAttack {
 	}
 
 	public float getMaximumDamage(GameCharacter caster, GameCharacter target) {
-		float damage = getModifiedDamage(caster, target, getDamage(caster) * (1 + damageVariance.getPercentange()));
+		float damage = getModifiedDamage(caster, target, getDamage(caster) * (1 + damageVariance.getPercentage()));
 
 		// Round float value to nearest 1 decimal place:
 		damage = (Math.round(damage*10))/10f;
@@ -1292,7 +1292,7 @@ public enum SpecialAttack {
 	}
 
 	public float getMinimumDamage(GameCharacter caster, GameCharacter target) {
-		float damage = getModifiedDamage(caster, target, getDamage(caster) * (1 - damageVariance.getPercentange()));
+		float damage = getModifiedDamage(caster, target, getDamage(caster) * (1 - damageVariance.getPercentage()));
 
 		// Round float value to nearest 1 decimal place:
 		damage = (Math.round(damage*10))/10f;
@@ -1380,7 +1380,7 @@ public enum SpecialAttack {
 	}
 	
 	private float getModifiedCost(GameCharacter caster) {
-		float calculatedCost = caster.getLevel() + ((float)caster.getAttributeValue(Attribute.STAMINA_MAXIMUM) * (specialAttackCost.getPercentange())/100f);
+		float calculatedCost = caster.getLevel() + ((float)caster.getAttributeValue(Attribute.STAMINA_MAXIMUM) * (specialAttackCost.getPercentage())/100f);
 		
 		// Round float value to nearest 1 decimal place:
 		calculatedCost = (Math.round(calculatedCost*10))/10f;
