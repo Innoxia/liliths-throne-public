@@ -128,7 +128,7 @@ public class Library {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Sliding the large leather-bound tome out from the bookshelf, you walk back over to your bed and sit down."
+						+ "Sliding the large leather-bound tome out from the bookshelf, you then walk over to sit down on one of the library's comfortable chairs."
 						+ " The spine creaks as you open the cover, and as you start reading, you quickly discover that this book is way above your level of understanding."
 						+ " You decide to persist, and by flipping through the pages and skimming over some of the more intelligible passages, you do manage to discover some things."
 					+ "</p>"
@@ -175,7 +175,7 @@ public class Library {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "You take the hardback book out of the bookshelf and walk over to sit on your bed."
+						+ "You take the hardback book out of the bookshelf and walk over to sit down on one of the library's comfortable chairs."
 						+ " Opening the cover and flipping through the pages reveals that most of this book is taken up by descriptions of trivial events and boring laws."
 						+ " The introduction, however, offers a good insight into how this world is ruled, and you spend a short while reading through the pages as you familiarise yourself with Lilith's dynasty."
 					+ "</p>"
