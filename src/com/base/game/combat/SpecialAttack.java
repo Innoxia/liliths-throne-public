@@ -1389,8 +1389,8 @@ public enum SpecialAttack {
 	}
 
 	protected String getDamageAndCostDescription(GameCharacter caster, GameCharacter target, float cost, float damage, boolean isHit, boolean isCritical) {
-		descriptionSB = new StringBuilder();
-
+		StringBuilder descriptionSB = new StringBuilder();
+		
 		if (caster == Main.game.getPlayer()) {
 			if (isCritical)
 				descriptionSB.append("<p>" + (isHit ? "<b>You <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
