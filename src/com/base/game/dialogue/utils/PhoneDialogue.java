@@ -1324,16 +1324,17 @@ public class PhoneDialogue {
 					journalSB.append("<div class='phone-item-half name' style='color:" + item.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(item.getName(false)) + "</div>");
 
 					journalSB.append("<div class='phone-item-half effects'>");
-					if(item.getEffects().size()==0) {
+					if (item.getEffects().isEmpty()) {
 						journalSB.append("-");
-					}
-					int i=1;
-					for(ItemEffect ie : item.getEffects()) {
-						for(String s : ie.getEffectsDescription()) {
-							journalSB.append(s);
-							if(i != ie.getEffectsDescription().size())
-								journalSB.append("</br>");
-							i++;
+					} else { 
+						int i=1;
+						for(ItemEffect ie : item.getEffects()) {
+							for(String s : ie.getEffectsDescription()) {
+								journalSB.append(s);
+								if(i != ie.getEffectsDescription().size())
+									journalSB.append("</br>");
+								i++;
+							}
 						}
 					}
 					journalSB.append("</div>");
