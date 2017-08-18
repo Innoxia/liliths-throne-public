@@ -34,10 +34,10 @@ public class DemonHome {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if (Main.game.getPlayer().getMainQuest().getSortingOrder() < Quest.MAIN_1_B_DEMON_HOME.getSortingOrder()) {
+				if (Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() < Quest.MAIN_1_B_DEMON_HOME.getSortingOrder()) {
 					return null;
 				} else {
-					if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_B_DEMON_HOME)
+					if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME)
 						return new Response("Arthur's Apartment", "Find Arthur's apartment using the instructions Lilaya gave to you.", DEMON_HOME_ARTHURS_APARTMENT);
 					else
 						return new Response("Arthur's Apartment", "Head over to Arthur's apartment building.", DEMON_HOME_ARTHURS_APARTMENT);
@@ -59,7 +59,7 @@ public class DemonHome {
 
 		@Override
 		public String getContent() {
-			if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_B_DEMON_HOME)
+			if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME)
 				return "<p>" + "Following Lilaya's instructions, you soon find yourself standing outside the building which houses Arthur's apartment."
 						+ " Although it's just as impressive as most of the other buildings in Demon Home, it's nothing compared to Lilaya's house, and as you walk up to the entrance,"
 						+ " you find yourself reflecting on how lucky you were to have ended up living with this universe's version of your aunt Lily." + "</p>" + "<p>"
@@ -79,11 +79,11 @@ public class DemonHome {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_B_DEMON_HOME) {
+				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME) {
 					return new Response("Arthur's Room", "Head up to Arthur's room.", DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM){
 						@Override
 						public QuestLine getQuestLine() {
-							if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_B_DEMON_HOME)
+							if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME)
 								return QuestLine.MAIN;
 							else
 								return null;
@@ -95,7 +95,7 @@ public class DemonHome {
 				}
 				
 			} else if (index == 2) {
-				if (Main.game.getPlayer().getMainQuest().getSortingOrder() > Quest.MAIN_1_B_DEMON_HOME.getSortingOrder())
+				if (Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() > Quest.MAIN_1_B_DEMON_HOME.getSortingOrder())
 					return new Response("Felicity's room", "Head up to Felicity's room.", DEMON_HOME_ARTHURS_APARTMENT_FELICITYS_ROOM);
 				else
 					return null;

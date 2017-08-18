@@ -17,7 +17,6 @@ import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Util.ListValue;
-import com.base.world.places.Dominion;
 
 public class DominionAlleywayAttacker {
 	public static final DialogueNodeOld ALLEY_ATTACK = new DialogueNodeOld("Assaulted!", "A figure jumps out from the shadows!", true) {
@@ -218,7 +217,7 @@ public class DominionAlleywayAttacker {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer()) {
+			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
 				return UtilText.parse(Main.game.getCurrentRandomAttacker(),
 						"<p>"
 							+ "[npc.Name] collapses to the floor, completely defeated."
@@ -253,7 +252,7 @@ public class DominionAlleywayAttacker {
 		
 		@Override
 		public Response getResponse(int index) {
-			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer()) {
+			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way...", null){
 						@Override
@@ -317,7 +316,7 @@ public class DominionAlleywayAttacker {
 									+ " you realise that you couldn't be happier with how things have turned out..."
 							+ "</p>");
 					
-				} else if (index == 6 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
+				} else if (index == 10) {
 					return new Response(
 							"Remove character",
 							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
@@ -391,7 +390,7 @@ public class DominionAlleywayAttacker {
 							"You can't submit to [npc.herHim], as [npc.she] has no interest in having sex with you!",
 							null);
 					
-				} else if (index == 6 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
+				} else if (index == 10) {
 					return new Response(
 							"Remove character",
 							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
@@ -540,7 +539,7 @@ public class DominionAlleywayAttacker {
 
 		@Override
 		public String getContent() {
-			if(!Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer()) {
+			if(!Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer() && Main.game.isNonConEnabled()) {
 				return UtilText.parse(Main.game.getCurrentRandomAttacker(),
 						"<p>"
 							+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a thankful sob as [npc.she] realises that you've finished."
@@ -583,7 +582,7 @@ public class DominionAlleywayAttacker {
 					}
 				};
 				
-			} else if (index == 5 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
+			} else if (index == 10) {
 				return new Response(
 						"Remove character",
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",

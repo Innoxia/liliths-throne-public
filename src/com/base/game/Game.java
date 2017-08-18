@@ -35,13 +35,14 @@ import com.base.game.character.npc.dominion.HarpyNymphoCompanion;
 import com.base.game.character.npc.dominion.Kate;
 import com.base.game.character.npc.dominion.Lilaya;
 import com.base.game.character.npc.dominion.NPCRandomDominion;
-import com.base.game.character.npc.dominion.Nikki;
+import com.base.game.character.npc.dominion.Finch;
 import com.base.game.character.npc.dominion.Nyan;
 import com.base.game.character.npc.dominion.Pazu;
 import com.base.game.character.npc.dominion.Pix;
 import com.base.game.character.npc.dominion.Ralph;
 import com.base.game.character.npc.dominion.Rose;
 import com.base.game.character.npc.dominion.Scarlett;
+import com.base.game.character.npc.dominion.TestNPC;
 import com.base.game.character.npc.dominion.Vicky;
 import com.base.game.character.npc.generic.GenericAndrogynousNPC;
 import com.base.game.character.npc.generic.GenericFemaleNPC;
@@ -88,6 +89,7 @@ public class Game implements Serializable {
 	
 	// Unique NPCs:
 	private NPC
+		testNPC,				// NPC for testing purposes.
 		lilaya,		 			// The player's aunt.
 		rose,		 			// Lilaya's slave.
 		brax,		 			// The enforcer chief.
@@ -107,7 +109,7 @@ public class Game implements Serializable {
 		harpyNymphoCompanion, 	// Nymphomaniac harpy matriarch's companion.
 		pazu,					// Kumiko's harpy.
 		candiReceptionist,		// Receptionist at the Enforcer HQ.	 
-		nikki;					// Manager of Slaver Alley's 'Slave Administration'
+		finch;					// Manager of Slaver Alley's 'Slave Administration'
 	
 	// Generic NPCS:
 	private NPC genericMaleNPC, genericFemaleNPC, genericAndrogynousNPC;
@@ -182,6 +184,9 @@ public class Game implements Serializable {
 		
 		playerOffspring = new ArrayList<>();
 		offspringSpawned = new ArrayList<>();
+		
+		testNPC = new TestNPC();
+		NPCList.add(testNPC);
 		
 		lilaya = new Lilaya();
 		NPCList.add(lilaya);
@@ -262,8 +267,8 @@ public class Game implements Serializable {
 		pazu = new Pazu();
 		NPCList.add(pazu);
 		
-		nikki = new Nikki();
-		NPCList.add(nikki);
+		finch = new Finch();
+		NPCList.add(finch);
 		
 		
 		genericMaleNPC = new GenericMaleNPC();
@@ -322,7 +327,7 @@ public class Game implements Serializable {
 			npc.calculateStatusEffects(turnTime);
 			
 			if(npc.isPendingClothingDressing()) {
-				npc.equipClothing();
+				npc.equipClothing(true, true);
 				npc.setPendingClothingDressing(false);
 			}
 			
@@ -404,15 +409,15 @@ public class Game implements Serializable {
 				
 				@Override
 				public void effects() {
-					if(!Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().hasNonArcaneEssences()) {
+					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().hasNonArcaneEssences()) {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
 					}
 					
-					if(!Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_JINXED_CLOTHING) && Main.game.getPlayer().hasStatusEffect(StatusEffect.CLOTHING_JINXED)) {
+					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING) && Main.game.getPlayer().hasStatusEffect(StatusEffect.CLOTHING_JINXED)) {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_JINXED_CLOTHING));
 					}
 					
-					if (!Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) && Main.game.getPlayer().isVisiblyPregnant()) {
+					if (!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) && Main.game.getPlayer().isVisiblyPregnant()) {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY));
 					}
 				}	
@@ -1571,6 +1576,10 @@ public class Game implements Serializable {
 		this.currentEncounter = currentEncounter;
 	}
 
+	public NPC getTestNPC() {
+		return testNPC;
+	}
+
 	public NPC getLilaya() {
 		return lilaya;
 	}
@@ -1647,8 +1656,8 @@ public class Game implements Serializable {
 		return candiReceptionist;
 	}
 	
-	public NPC getNikki() {
-		return nikki;
+	public NPC getFinch() {
+		return finch;
 	}
 
 	public NPC getGenericMaleNPC() {

@@ -170,7 +170,79 @@ public enum Encounter {
 
 		@Override
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
-			if (node == EncounterType.HARPY_NEST_ATTACK && !Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
+			if (node == EncounterType.HARPY_NEST_ATTACK && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
+
+				for (NPC npc : Main.game.getNPCList()) {
+					if(npc.getLocation().equals(Main.game.getPlayer().getLocation()) && npc.getWorldLocation()==Main.game.getActiveWorld().getWorldType()) {
+						Main.game.setCurrentRandomAttacker(npc);
+						return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
+					}
+				}
+
+				Main.game.setCurrentRandomAttacker(new NPCRandomHarpy(GenderPreference.getGenderFromUserPreferences()));
+				
+				Main.game.getCurrentRandomAttacker().setLocation(Main.game.getPlayer().getLocation());
+				
+				Main.game.addNPC(Main.game.getCurrentRandomAttacker());
+				
+				return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
+			}
+			
+			if (node == EncounterType.HARPY_NEST_ATTACK_STORM) {
+
+				for (NPC npc : Main.game.getNPCList()) {
+					if(npc.getLocation().equals(Main.game.getPlayer().getLocation()) && npc.getWorldLocation()==Main.game.getActiveWorld().getWorldType()) {
+						Main.game.setCurrentRandomAttacker(npc);
+						return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
+					}
+				}
+
+				Main.game.setCurrentRandomAttacker(new NPCRandomHarpy(GenderPreference.getGenderFromUserPreferences()));
+				
+				Main.game.getCurrentRandomAttacker().setLocation(Main.game.getPlayer().getLocation());
+				
+				Main.game.addNPC(Main.game.getCurrentRandomAttacker());
+				
+				return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
+			}
+			
+			if (node == EncounterType.HARPY_NEST_FIND_ITEM) {
+				
+				if(Math.random() < 0.66) {
+					randomItem = ItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
+					
+				} else {
+					randomItem = ItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY);
+				}
+				
+				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);
+				return DominionEncounterDialogue.HARPY_NESTS_FIND_ITEM;
+				
+			}
+			
+			return null;
+		}
+	},
+	
+	HARPY_NEST_LOOK_FOR_TROUBLE(null) {
+		
+		@Override
+		public Map<EncounterType, Float> getDialogues() {
+			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+				return Util.newHashMapOfValues(
+						new Value<EncounterType, Float>(EncounterType.HARPY_NEST_ATTACK_STORM, 12f),
+						new Value<EncounterType, Float>(EncounterType.HARPY_NEST_FIND_ITEM, 4f));
+				
+			} else {
+				return Util.newHashMapOfValues(
+						new Value<EncounterType, Float>(EncounterType.HARPY_NEST_ATTACK, 12f),
+						new Value<EncounterType, Float>(EncounterType.HARPY_NEST_FIND_ITEM, 4f));
+			}
+		}
+
+		@Override
+		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+			if (node == EncounterType.HARPY_NEST_ATTACK) {
 
 				for (NPC npc : Main.game.getNPCList()) {
 					if(npc.getLocation().equals(Main.game.getPlayer().getLocation()) && npc.getWorldLocation()==Main.game.getActiveWorld().getWorldType()) {

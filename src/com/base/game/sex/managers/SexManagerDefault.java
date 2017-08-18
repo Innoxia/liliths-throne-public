@@ -212,7 +212,14 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				
 			if(!Sex.isPartnerCanRemovePlayersClothes()) {
 				if(Sex.isPartnerCanRemoveOwnClothes()) {
-					// Get access to own nipples before anything else:
+					// Get access to own mouth before anything else:
+					if(!Sex.getPartner().isCoverableAreaExposed(CoverableArea.MOUTH)) {
+						if (Sex.getPartner().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+							return Sex.partnerManageClothingToAccessCoverableArea(false, CoverableArea.MOUTH);
+						}
+					}
+					
+					// Get access to own nipples:
 					if (Sex.getPartner().hasBreasts()) {
 						if(!Sex.getPartner().isCoverableAreaExposed(CoverableArea.NIPPLES)) {
 							if (Sex.getPartner().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
@@ -243,6 +250,20 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				}
 				
 			} else {
+				// Get access to player's mouth before their own:
+				if(!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.MOUTH)) {
+					if (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						return Sex.partnerManageClothingToAccessCoverableArea(true, CoverableArea.MOUTH);
+					}
+				}
+				
+				// Get access to own mouth:
+				if(!Sex.getPartner().isCoverableAreaExposed(CoverableArea.MOUTH)) {
+					if (Sex.getPartner().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						return Sex.partnerManageClothingToAccessCoverableArea(false, CoverableArea.MOUTH);
+					}
+				}
+				
 				// Get access to player's nipples before their own:
 				if (Main.game.getPlayer().hasBreasts()) {
 					if(!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.NIPPLES)) {

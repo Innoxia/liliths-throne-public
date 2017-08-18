@@ -47,9 +47,9 @@ public class HarpyNestAlexa {
 						+ "Meeting with Alexa by appointment only.</i>"
 					+ "</p>"
 					+ "<p>"
-						+ (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_E_REPORT_TO_ALEXA
+						+ (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_E_REPORT_TO_ALEXA
 							?"You do have business with Alexa, and you're sure that she'd want to hear about Scarlett as soon as possible, but you'll have to come back after the ongoing storm has passed."
-							:(Main.game.getPlayer().getMainQuest().getSortingOrder() > Quest.MAIN_1_E_REPORT_TO_ALEXA.getSortingOrder()
+							:(Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() > Quest.MAIN_1_E_REPORT_TO_ALEXA.getSortingOrder()
 									?"There's not much point in waiting around for the storm to pass, as Alexa's not even here at the moment."
 									:"There's not much point in waiting around for the storm to pass, as you don't have any business with Alexa."))
 					+ "</p>";
@@ -82,11 +82,11 @@ public class HarpyNestAlexa {
 						+ "Meeting with Alexa by appointment only.</i>"
 					+ "</p>"
 					+ "<p>"
-						+ (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_E_REPORT_TO_ALEXA
+						+ (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_E_REPORT_TO_ALEXA
 							?"Stepping back, you wonder if you should call over one of the nearby harpies."
 								+ " After all, you do have business with Alexa, and you're sure that she'd want to hear about Scarlett as soon as possible."
 							:"Stepping back, you decide against calling over one of the nearby harpies."
-								+(Main.game.getPlayer().getMainQuest().getSortingOrder() > Quest.MAIN_1_E_REPORT_TO_ALEXA.getSortingOrder()
+								+(Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() > Quest.MAIN_1_E_REPORT_TO_ALEXA.getSortingOrder()
 									?" After all, she's not even here at the moment."
 									:" After all, you don't have any business with her."))
 					+ "</p>";
@@ -100,10 +100,10 @@ public class HarpyNestAlexa {
 					return new Response("Meet with Alexa", "Alexa's flock is taking shelter in the buildings below her nest. You'll have to come back after the arcane storm has passed.", null);
 					
 				} else {
-					if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_E_REPORT_TO_ALEXA) {
+					if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_E_REPORT_TO_ALEXA) {
 						return new Response("Meet with Alexa", "Walk over to the tall platform.", ALEXAS_NEST);
 						
-					} else if (Main.game.getPlayer().getMainQuest().getSortingOrder() > Quest.MAIN_1_E_REPORT_TO_ALEXA.getSortingOrder()) {
+					} else if (Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() > Quest.MAIN_1_E_REPORT_TO_ALEXA.getSortingOrder()) {
 						if(Main.game.getAlexa().getLocation().equals(Main.game.getPlayer().getLocation())) {
 							return new Response("Meet with Alexa", "You'll be able to interact with Alexa again later! :3", null);
 							
@@ -256,7 +256,12 @@ public class HarpyNestAlexa {
 				};
 				
 			} else if(index==2) {
-				return new Response("Take punishment", "Offer to take Scarlett's punishment for her.", ALEXAS_NEST_TAKE_PUNISHMENT);
+				return new Response("Take punishment", "Offer to take Scarlett's punishment for her.", ALEXAS_NEST_TAKE_PUNISHMENT) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().punishedByAlexa = true;
+					}
+				};
 				
 			} else {
 				return null;

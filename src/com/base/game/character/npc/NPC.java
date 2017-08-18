@@ -107,8 +107,8 @@ public abstract class NPC extends GameCharacter {
 	
 	public abstract DialogueNodeOld getEncounterDialogue();
 	
-	public void equipClothing() {
-		CharacterUtils.equipClothing(this, true);
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
+		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, onlyAddCoreClothing);
 	}
 	
 	public boolean isClothingStealable() {
@@ -527,6 +527,17 @@ public abstract class NPC extends GameCharacter {
 	}
 	
 	public boolean isWantsToHaveSexWithPlayer() {
+		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) { // If they're vulnerable to arcane storms, they will always be eager during a storm:
+			return true;
+		}
+		
+		if(hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
+				|| (getSexualOrientation()==SexualOrientation.ANDROPHILIC && Main.game.getPlayer().isFeminine())
+				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !Main.game.getPlayer().isFeminine())
+				|| hasFetish(Fetish.FETISH_NON_CON)) {
+			return false;
+		}
+		
 		if(mother!=null && father!=null) {
 			if(mother.isPlayer() || father.isPlayer()) {
 				if (!hasFetish(Fetish.FETISH_INCEST)) {
@@ -535,29 +546,22 @@ public abstract class NPC extends GameCharacter {
 			}
 		}
 		
-		return getSexPaceSubPreference()!=SexPace.SUB_RESISTING;
+		return true;
 	}
 
 	public SexPace getSexPaceSubPreference(){
-		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) { // If they're vulnerable to arcane storms, they will always be eager during a storm:
-			return SexPace.SUB_EAGER;
+		if(!isWantsToHaveSexWithPlayer()) {
+			if(Main.game.isNonConEnabled()) {
+				return SexPace.SUB_RESISTING;
+				
+			} else {
+				return SexPace.SUB_NORMAL;
+				
+			}
 		}
 		
-		if(Main.game.isNonConEnabled()) {
-			if(hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
-					|| (getSexualOrientation()==SexualOrientation.ANDROPHILIC && Main.game.getPlayer().isFeminine())
-					|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !Main.game.getPlayer().isFeminine())
-					|| hasFetish(Fetish.FETISH_NON_CON)) {
-				return SexPace.SUB_RESISTING;
-			}
-			
-			if(mother!=null && father!=null) {
-				if(mother.isPlayer() || father.isPlayer()) {
-					if (!hasFetish(Fetish.FETISH_INCEST)) {
-						return SexPace.SUB_RESISTING;
-					}
-				}
-			}
+		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) { // If they're vulnerable to arcane storms, they will always be eager during a storm:
+			return SexPace.SUB_EAGER;
 		}
 		
 		if (hasFetish(Fetish.FETISH_SUBMISSIVE) // Subs like being sub I guess ^^
@@ -3928,7 +3932,10 @@ public abstract class NPC extends GameCharacter {
 						}
 						
 					} else {
-						if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
+						if (!Main.game.getPlayer().hasBreasts()) {
+							return "";
+							
+						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 									+ "In a very patronising voice, [npc.name] reacts to your breasts being revealed, "
 									+ UtilText.parseSpeech("Aww, you trying to become a girl?", Sex.getPartner())
@@ -3986,7 +3993,10 @@ public abstract class NPC extends GameCharacter {
 						}
 						
 					} else {
-						if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
+						if (!Main.game.getPlayer().hasBreasts()) {
+							return "";
+							
+						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return (
 									"<p>"
 										+ "In a mocking tone, [npc.name] questions you as your tiny breasts are revealed, "
@@ -4051,7 +4061,10 @@ public abstract class NPC extends GameCharacter {
 						}
 		
 					} else {
-						if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
+						if (!Main.game.getPlayer().hasBreasts()) {
+							return "";
+							
+						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 									+ "[npc.Name] grins at you as your [pc.breastSize] breasts are revealed, "
 									+ UtilText.parseSpeech("Aww, you trying to become a girl?", Sex.getPartner())
@@ -4115,7 +4128,10 @@ public abstract class NPC extends GameCharacter {
 						}
 						
 					} else {
-						if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
+						if (!Main.game.getPlayer().hasBreasts()) {
+							return "";
+							
+						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 										+ "[npc.Name] bursts out laughing as your [pc.breastSize] breasts are revealed, "
 										+ UtilText.parseSpeech("Hahaha, you trying to become a girl?!", Sex.getPartner())

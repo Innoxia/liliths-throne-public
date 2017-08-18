@@ -2,10 +2,8 @@ package com.base.game.dialogue.places.dominion.harpyNests;
 
 import com.base.game.character.Quest;
 import com.base.game.character.QuestLine;
-import com.base.game.character.gender.GenderPreference;
-import com.base.game.character.npc.NPC;
-import com.base.game.character.npc.dominion.NPCRandomHarpy;
 import com.base.game.dialogue.DialogueNodeOld;
+import com.base.game.dialogue.encounters.Encounter;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.utils.UtilText;
@@ -177,7 +175,7 @@ public class HarpyNestsDialogue {
 				}
 
 			} else if (index == 3 && Main.game.getDialogueFlags().hasHarpyNestAccess) {
-				if(!Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
+				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new Response("Angry Harpies", "Ask one of the Enforcers about the recent troubles in the Harpy Nests.", ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS) {
 						@Override
 						public QuestLine getQuestLine() {
@@ -186,7 +184,7 @@ public class HarpyNestsDialogue {
 					};
 					
 				} else {
-					if(Main.game.getPlayer().getSideQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION)==3) {
+					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_REWARD) {
 						return new Response("Report back", "Report to the Enforcer that you've calmed the three matriarchs down.", ENTRANCE_ENFORCER_POST_COMPLETED_PACIFICATION) {
 							@Override
 							public QuestLine getQuestLine() {
@@ -198,7 +196,7 @@ public class HarpyNestsDialogue {
 							}
 						};
 						
-					} else if(!Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)){
+					} else if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)){
 						return new Response("Report back", "You haven't calmed the three matriarchs down yet!", null);
 					} else {
 						return null;
@@ -222,7 +220,7 @@ public class HarpyNestsDialogue {
 		@Override
 		public String getContent() {
 
-			if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_E_REPORT_TO_ALEXA) {
+			if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_E_REPORT_TO_ALEXA) {
 				return "<p>"
 						+"As you approach the desk, one of the enforcers, a minor wolf-girl, catches your eye and calls out to you, "
 						+ "[style.speechFeminine(Hey you, yeah <i>you</i>, come here!)]"
@@ -486,7 +484,7 @@ public class HarpyNestsDialogue {
 		}
 
 		@Override
-		public String getContent() {// if(!Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) TODO Also harpy attack
+		public String getContent() {// if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) TODO Also harpy attack
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(
@@ -511,7 +509,7 @@ public class HarpyNestsDialogue {
 								+ " Peering over the side of the railing, you see that the streets below are similarly abandoned, with only the occasional demon to be seen wandering through the area."
 							+ "</p>"
 							+ "<p>"
-								+ (Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
+								+ (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
 									?"Although you've pacified the harpy nests, these walkways are dangerous at the moment, due to the ongoing arcane storm."
 										+ " The harpies should all be taking shelter, you can't help but shake the feeling that you're being watched."
 										+ " An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly duck out of sight."
@@ -529,7 +527,7 @@ public class HarpyNestsDialogue {
 								+ " Peering over the side of the railing, you see that the people walking down the streets below are similarly huddling beneath any shelter they can find, desperate to get out of the rain."
 							+ "</p>"
 							+ "<p>"
-								+ (Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
+								+ (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
 									?"You sometimes see an enforcer patrolling a walkway off in the distance; reminding you that it's now safe for people to be travelling between the nests."
 										+ " Although there's no risk of being attacked, harpies are still quite touchy by nature, and you imagine that it wouldn't be too hard to cause a confrontation if you were to go looking for trouble..."
 									:"As you continue travelling down the walkways, you can't help but shake the feeling that you're being watched."
@@ -557,7 +555,7 @@ public class HarpyNestsDialogue {
 					}
 					UtilText.nodeContentSB.append(
 							"<p>"
-								+ (Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
+								+ (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
 									?"You sometimes see an enforcer patrolling a walkway off in the distance; reminding you that it's now safe for people to be travelling between the nests."
 										+ " Although there's no risk of being attacked, harpies are still quite touchy by nature, and you imagine that it wouldn't be too hard to cause a confrontation if you were to go looking for trouble..."
 									:"As you continue travelling down the walkways, you can't help but shake the feeling that you're being watched."
@@ -571,48 +569,37 @@ public class HarpyNestsDialogue {
 			return UtilText.nodeContentSB.toString();
 		}
 
+		
 		@Override
 		public Response getResponse(int index) {
 			if(index == 6) {
-				return new ResponseEffectsOnly(
-						"Explore",
-						"Explore the walkways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
-							@Override
-							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-								Main.game.setContent(new Response("", "", dn));
-							}
-						};
-			} else if(index == 7) {
-				if(Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
+				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new ResponseEffectsOnly(
 							"Look for trouble",
 							"Although you've pacified the harpy nests, you're sure that you can find a harpy who's looking for a confrontation..."){
 								@Override
 								public void effects() {
-									boolean npcFound = false;
-									
-									for (NPC npc : Main.game.getNPCList()) {
-										if(npc.getLocation().equals(Main.game.getPlayer().getLocation()) && npc.getWorldLocation()==Main.game.getActiveWorld().getWorldType()) {
-											Main.game.setCurrentRandomAttacker(npc);
-											Main.game.setContent(new Response("", "", Main.game.getCurrentRandomAttacker().getEncounterDialogue()));
-											npcFound = true;
-										}
-									}
-									
-									if(!npcFound) {
-										Main.game.setCurrentRandomAttacker(new NPCRandomHarpy(GenderPreference.getGenderFromUserPreferences()));
-										Main.game.getCurrentRandomAttacker().setLocation(Main.game.getPlayer().getLocation());
-										Main.game.addNPC(Main.game.getCurrentRandomAttacker());
-										Main.game.setContent(new Response("", "", Main.game.getCurrentRandomAttacker().getEncounterDialogue()));
+									DialogueNodeOld dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter();
+									if (dn == null) {
+										Main.game.setContent(new Response("", "", WALKWAY));
+									} else {
+										Main.game.setContent(new Response("", "", dn));
 									}
 								}
 							};
+							
 				} else {
-					return null;
+					return new ResponseEffectsOnly(
+							"Explore",
+							"Explore the walkways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+								@Override
+								public void effects() {
+									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+									Main.game.setContent(new Response("", "", dn));
+								}
+							};
 				}
-				
-			}else {
+			} else {
 				return null;
 			}
 		}

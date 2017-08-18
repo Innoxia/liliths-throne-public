@@ -1091,7 +1091,7 @@ public class CharacterUtils {
 		}
 	}
 	
-	public static void equipClothing(GameCharacter character, boolean replaceUnsuitableClothing) {
+	public static void equipClothing(GameCharacter character, boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
 		Colour primaryColour = Colour.allClothingColours.get(Util.random.nextInt(Colour.allClothingColours.size())),
 				secondaryColour = Colour.allClothingColours.get(Util.random.nextInt(Colour.allClothingColours.size())),
 				lingerieColour = Colour.lingerieColours.get(Util.random.nextInt(Colour.lingerieColours.size()));
@@ -1105,7 +1105,6 @@ public class CharacterUtils {
 		}
 		
 		if((character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) || (!character.isFeminine() && character.hasFetish(Fetish.FETISH_CROSS_DRESSER))) {
-				
 			for(InventorySlot slot : inventorySlotsInPriorityOrder) {
 				if(replaceUnsuitableClothing) {
 					if(character.getClothingInSlot(slot)!=null) {
@@ -1115,27 +1114,30 @@ public class CharacterUtils {
 					}
 				}
 				
-				if((slot.isCoreClothing() || Math.random()>0.75f || slot.isJewellery()) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
-					if(!ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot).isEmpty() && (ClothingType.slotBlockedByRace(character, slot) != character.getRace())) {
-						
-						ClothingType ct = getClothingTypeForSlot(character, slot, ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot));
-						
-						if(ct!=null) {
-							character.equipClothingFromNowhere(ClothingType.generateClothing(
-									ct,
-									(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
-											? lingerieColour
-											: (slot.isCoreClothing()
-													?primaryColour
-													:secondaryColour)),
-									false), true, character);
+				if(!slot.isCoreClothing() && onlyAddCoreClothing) {
+					// Don't add clothing if not core
+				} else {
+					if((slot.isCoreClothing() || Math.random()>0.75f || slot.isJewellery()) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
+						if(!ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot).isEmpty() && (ClothingType.slotBlockedByRace(character, slot) != character.getRace())) {
+							
+							ClothingType ct = getClothingTypeForSlot(character, slot, ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot));
+							
+							if(ct!=null) {
+								character.equipClothingFromNowhere(ClothingType.generateClothing(
+										ct,
+										(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
+												? lingerieColour
+												: (slot.isCoreClothing()
+														?primaryColour
+														:secondaryColour)),
+										false), true, character);
+							}
 						}
 					}
 				}
 			}
 			
 		} else {
-				
 			for(InventorySlot slot : inventorySlotsInPriorityOrder) {
 				if(replaceUnsuitableClothing) {
 					if(character.getClothingInSlot(slot)!=null) {
@@ -1145,22 +1147,26 @@ public class CharacterUtils {
 					}
 				}
 				
-				if((slot.isCoreClothing() || Math.random()>0.75f || slot.isJewellery()) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
-					if(!ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot).isEmpty() && (ClothingType.slotBlockedByRace(character, slot) != character.getRace())) {
-						
-						ClothingType ct = getClothingTypeForSlot(character, slot, ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot));
-						
-						if(ct!=null) {
-						character.equipClothingFromNowhere(ClothingType.generateClothing(
-								ct,
-								(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
-										? lingerieColour
-										: (slot.isCoreClothing()
-												?primaryColour
-												:secondaryColour)),
-								false), true, character);
-						}
+				if(!slot.isCoreClothing() && onlyAddCoreClothing) {
+					// Don't add clothing if not core
+				} else {
+					if((slot.isCoreClothing() || Math.random()>0.75f || slot.isJewellery()) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
+						if(!ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot).isEmpty() && (ClothingType.slotBlockedByRace(character, slot) != character.getRace())) {
 							
+							ClothingType ct = getClothingTypeForSlot(character, slot, ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot));
+							
+							if(ct!=null) {
+							character.equipClothingFromNowhere(ClothingType.generateClothing(
+									ct,
+									(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
+											? lingerieColour
+											: (slot.isCoreClothing()
+													?primaryColour
+													:secondaryColour)),
+									false), true, character);
+							}
+								
+						}
 					}
 				}
 			}

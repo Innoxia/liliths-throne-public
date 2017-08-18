@@ -1650,6 +1650,7 @@ public class GameCharacter implements Serializable {
 			
 			for(NPC npc: birthedLitter.getOffspring()) {
 				Main.game.getOffspring().add(npc);
+				birthedLitter.setDayOfBirth(Main.game.getDayNumber());
 				npc.setDayOfConception(birthedLitter.getDayOfConception());
 				npc.setDayOfBirth(Main.game.getDayNumber());
 			}
@@ -1914,6 +1915,13 @@ public class GameCharacter implements Serializable {
 	
 	// -------------------- Items -------------------- //
 	
+	/**
+	 * <b>DO NOT MODIFY!</b>
+	 */
+	public List<AbstractItem> getAllItemsInInventory() {
+		return inventory.getAllItemsInInventory();
+	}
+	
 	public AbstractItem getItem(int index) {
 		return inventory.getItem(index);
 	}
@@ -2016,6 +2024,13 @@ public class GameCharacter implements Serializable {
 
 	
 	// -------------------- Weapons -------------------- //
+	
+	/**
+	 * <b>DO NOT MODIFY!</b>
+	 */
+	public List<AbstractWeapon> getAllWeaponsInInventory() {
+		return inventory.getAllWeaponsInInventory();
+	}
 	
 	public AbstractWeapon getWeapon(int index) {
 		return inventory.getWeapon(index);
@@ -2177,6 +2192,13 @@ public class GameCharacter implements Serializable {
 	
 	
 	// -------------------- Clothing -------------------- //
+	
+	/**
+	 * <b>DO NOT MODIFY!</b>
+	 */
+	public List<AbstractClothing> getAllClothingInInventory() {
+		return inventory.getAllClothingInInventory();
+	}
 	
 	public AbstractClothing getClothing(int index) {
 		return inventory.getClothing(index);

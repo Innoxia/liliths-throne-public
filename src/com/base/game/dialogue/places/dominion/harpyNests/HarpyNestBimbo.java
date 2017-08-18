@@ -95,7 +95,7 @@ public class HarpyNestBimbo {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if(!Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
+				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new Response("Approach [bimboHarpy.name]", "You have no need to talk to the matriarch of this nest.", null);
 					
 				} else if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {

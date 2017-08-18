@@ -683,7 +683,7 @@ public class LilayaHomeGeneric {
 										+ " She lives here in Dominion, in that huge tower that can be seen from miles around."
 										+ " Although she personally rules over Dominion, she allows her daughters, the Lilin, to control other parts of her domain."
 										+ " Surrounding Dominion, there are four different areas of control, each ruled by a different Lilin;"
-										+ " the jungle, ruled by Lyxias; the fields, ruled by Lunette; the desert, ruled by Lisophia; and the endless sea, ruled by Lirecea.", Main.game.getRose())
+										+ " the jungle, ruled by Lyxias; the Foloi Fields, ruled by Lunette; the desert, ruled by Lisophia; and the Endless Sea, ruled by Lirecea.", Main.game.getRose())
 								+ "</p>"
 								+ "<p>"
 								+ "It seems as though every Lilin's name beings with an 'L', and you wonder how Rose is able to remember all these unusual names."

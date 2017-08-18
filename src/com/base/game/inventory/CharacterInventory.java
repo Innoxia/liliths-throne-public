@@ -181,6 +181,13 @@ public class CharacterInventory implements Serializable {
 	
 	// -------------------- Items -------------------- //
 	
+	/**
+	 * <b>DO NOT MODIFY!</b>
+	 */
+	public List<AbstractItem> getAllItemsInInventory() {
+		return itemsInInventory;
+	}
+	
 	public Map<AbstractItem, Integer> getMapOfDuplicateItems() {
 		return itemDuplicates;
 	}
@@ -269,6 +276,13 @@ public class CharacterInventory implements Serializable {
 	
 	
 	// -------------------- Weapons -------------------- //
+	
+	/**
+	 * <b>DO NOT MODIFY!</b>
+	 */
+	public List<AbstractWeapon> getAllWeaponsInInventory() {
+		return weaponsInInventory;
+	}
 	
 	public Map<AbstractWeapon, Integer> getMapOfDuplicateWeapons() {
 		return weaponDuplicates;
@@ -368,6 +382,13 @@ public class CharacterInventory implements Serializable {
 	
 	
 	// -------------------- Clothing -------------------- //
+	
+	/**
+	 * <b>DO NOT MODIFY!</b>
+	 */
+	public List<AbstractClothing> getAllClothingInInventory() {
+		return clothingInInventory;
+	}
 	
 	public Map<AbstractClothing, Integer> getMapOfDuplicateClothing() {
 		return clothingDuplicates;

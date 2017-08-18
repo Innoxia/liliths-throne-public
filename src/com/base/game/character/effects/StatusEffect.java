@@ -2234,7 +2234,7 @@ public enum StatusEffect {
 			if (target.isPregnant()) {
 				target.addStatusEffect(PREGNANT_1, 60 * (72 + Util.random.nextInt(13)));
 				
-				if (!Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+				if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PREGNANCY)) {
 						return "<p>"
 								+ "For the last few hours, your belly has been gradually swelling."
@@ -2381,7 +2381,7 @@ public enum StatusEffect {
 
 			target.addStatusEffect(PREGNANT_2, 60 * (72 + Util.random.nextInt(13)));
 
-			if (!Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+			if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 				return "<p>"
 							+ "Even though the change has been gradual, you're suddenly hit by the realisation that your belly has swollen massively."
 							+ " You can't resist rubbing your hands over the bump in your abdomen, and you wonder just how big it's going to get."
@@ -2440,7 +2440,7 @@ public enum StatusEffect {
 
 			target.setTimeProgressedToFinalPregnancyStage(Main.game.getMinutesPassed());
 
-			if (!Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+			if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 				return "<p>"
 							+ "By now, your stomach has completely ballooned out in front of you, and you're having to arch your back and support yourself with one hand as you walk around."
 							+ (Main.game.getPlayer().getVaginaType()==VaginaType.HARPY
@@ -3517,7 +3517,17 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "By wearing the entire Maid's Outfit, you are filled with the energy you need in order to be a sexy hard-working maid.";
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By wearing the entire Maid's Outfit, you are filled with the energy you need in order to be a sexy hard-working maid.";
+					
+				} else {
+					return UtilText.parse(target, "By wearing the entire Maid's Outfit, [npc.name] is filled with the energy [npc.she] needs in order to be a sexy hard-working maid.");
+					
+				}
+			} else {
+				return "";
+			}
 		}
 
 		@Override
@@ -3550,13 +3560,16 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
-				if(target.isPlayer())
+				if(target.isPlayer()) {
 					return "By wearing an Enforcer's uniform, you gain the energy and strength you need to fight crime.";
-				else
-					return UtilText.genderParsing(target,
-							target.getName("The")+" is wearing an Enforcer's uniform, granting <herPro> the energy and strength <she> needs to fight crime.");
+					
+				} else {
+					return UtilText.parse(target, "[npc.Name] is wearing an Enforcer's uniform, granting [npc.herHim] the energy and strength [npc.she] needs to fight crime.");
+					
+				}
+			} else {
+				return "";
 			}
-			return "";
 		}
 
 		@Override
@@ -3622,7 +3635,17 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "You have been tied up in bondage gear, and are struggling to move.";
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "You have been tied up in bondage gear, and are struggling to move.";
+					
+				} else {
+					return UtilText.parse(target, "[npc.Name] has been tied up in bondage gear, and is struggling to move.");
+					
+				}
+			} else {
+				return "";
+			}
 		}
 
 		@Override

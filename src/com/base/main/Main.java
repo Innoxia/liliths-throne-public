@@ -18,6 +18,7 @@ import com.base.game.Properties;
 import com.base.game.character.CharacterUtils;
 import com.base.game.character.NameTriplet;
 import com.base.game.character.PlayerCharacter;
+import com.base.game.character.QuestLine;
 import com.base.game.character.body.valueEnums.Femininity;
 import com.base.game.character.gender.Gender;
 import com.base.game.character.race.RaceStage;
@@ -60,8 +61,8 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public final static String VERSION_NUMBER = "0.1.83P",
-			VERSION_DESCRIPTION = "Preview"; //TODO Early Alpha
+	public final static String VERSION_NUMBER = "0.1.83PHF",
+			VERSION_DESCRIPTION = "Preview Hotfix"; //TODO Early Alpha
 
 	public final static Image WINDOW_IMAGE = new Image("/com/base/res/images/windowIcon32.png");
 
@@ -86,8 +87,7 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I ended up completely rewriting Alexa's content a couple of times this week, and I'm still not 100% happy with it..."
-			+ " Despite that, I'm going to finish it off as it is over the weekend, so I can move on to all the other targets that I set myself for this version next week."
+			+ "This is just a small hotfix to address the cause of everyone having fuckable urethras and nipples. ^^"
 		+ "</p>"
 			
 		+ "<p>"
@@ -97,56 +97,50 @@ public class Main extends Application {
 		+ "<list>"
 		+ "<h6>Patch Notes - <b>Version " + Main.VERSION_NUMBER + "</b></h6>"
 		
+		+"<li>Engine:</li>"
+			+"<ul>Improved quest handling methods.</ul>"
+		
 		+"<li>Gameplay:</li>"
-			+"<ul><b>Added:</b> (Most of) Alexa & Scarlett main quest content.</ul>"
-			+"<ul><b>Added:</b> Nikki, the manager of Slaver Alley's new 'Slave Administration' building. (Sells BDSM gear and slave collars once you get a slaver license.)</ul>"
-			+"<ul>Slightly changed Slaver Alley's map.</ul>"
-			+"<ul>Added 'Barren' perk.</ul>"
-			+"<ul>Locked Brax's forced transformation behind the 'Transformation' fetish.</ul>"
+			+"<ul><b>Changed:</b> You can now obtain a slaver license at the very start of the game. Simply go to the Slaver Administration building (in Slaver Alley) and ask about it there. ^^</ul>"
+			+"<ul><b>Added:</b> Squirrel-morphs. These are mostly going to be found in the Fields area, but there's a small chance of encountering them in Dominion's alleyways as well. (Added by rfpnj. Think you! :3)</ul>"
+			+"<ul><b>Added:</b> Squirrel Java, Round Nuts, Chasing Squirrels, and Bottled Squirrel-morph Essence.</ul>"
+			+"<ul><b>Changed:</b> Nikki's name to Finch.</ul>"
+		
+		+"<li>Sex:</li>"
+			+"<ul><b>Added:</b> Power-bottom doggy-style position. (Added by BelshazzarII. Thank you! :3)</ul>"
+			+"<ul>NPCs will now displace and remove mouth-concealing clothing during sex.</ul>"
 		
 		+"<li>Clothing:</li>"
-			+"<ul><b>Added:</b> Bandana (no femininity requirements, mouth slot).</ul>"
-			+"<ul><b>Added:</b> Tiara (feminine, head slot).</ul>"
-			+"<ul><b>Added:</b> Arm wraps (no femininity requirements, hand slot).</ul>"
-			+"<ul><b>Added:</b> Cowboy hat (no femininity requirements, head slot).</ul>"
-			+"<ul><b>Added:</b> Mega Milk T-shirt (no femininity requirements, torso slot). Has a 1% chance to spawn in the 'Found clothing' event in alleyway tiles.</ul>"
-			+"<ul><b>Added:</b> 'Virgin-killer' sweater (feminine, torso slot).</ul>"
-			+"<ul><b>Added:</b> Ball gag (no femininity requirements, mouth slot, BDSM set).</ul>"
-			+"<ul><b>Added:</b> Ring gag (no femininity requirements, mouth slot, BDSM set).</ul>"
-			+"<ul><b>Added:</b> Tagged Choker (no femininity requirements, neck slot, BDSM set).</ul>"
-			+"<ul><b>Added:</b> Wrist restraints (no femininity requirements, wrist slot, BDSM set).</ul>"
-			+"<ul><b>Added:</b> Spreader bar (no femininity requirements, ankle slot, BDSM set).</ul>"
-			+"<ul><b>Added:</b> Chastity belt (no femininity requirements, groin slot, BDSM set).</ul>"
-			+"<ul>Added: 'Grey' to available clothing colours.</ul>"
-			+"<ul>Improved: Circlet's icon.</ul>"
-			+"<ul>Changed: Basic earrings and ringed barbell no longer have a femininity requirement.</ul>"
+			+"<ul><b>Added:</b> Thigh-high socks (feminine, foot slot).</ul>"
+			+"<ul>Added two more metal colours (platinum and rose gold). (Added by rfpnj. :3)</ul>"
+			+"<ul>Ball gags can no longer be displaced by being 'pulled out'. They must be removed to gain access to the wearer's mouth.</ul>"
 		
 		+"<li>Other:</li>"
-			+"<ul><b>Changed:</b> You can now only find bottled essences after starting the 'Enchantments & Essences' quest.</ul>"
-			+"<ul>Split up and changed the debug menu's money/essence gain option from +100 flames/+1 essence to +1000 flames/+10 essences.</ul>"
-			+"<ul>Reduced the arousal gain penalty while resisting from -75% to -50%.</ul>"
-			+"<ul>Added a 0.5% chance to find an Eggplant in the alleyways. (Why did I do this?)</ul>"
+			+"<ul>Clothing which blocks multiple slots now have more powerful enchantments.</ul>"
+			+"<ul>Choosing to start as an androgynous male will now give you a flat chest instead of AA-cup breasts. (I'm going to give you a lot more control over this when I redo the character creation screen.)</ul>"
+			+"<ul>Combined the 'Explore' and 'Look for trouble' actions in the harpy nests (after you've completed the Angry Harpies quest).</ul>"
 		
-		+"<li>AI:</li>"
-			+"<ul>NPCs with the pure virgin or lusty maiden status effects should no longer use sex actions that will cause them to lose their virginity.</ul>"
-			
 		+"<li>Bugs:</li>"
-			+"<ul>Fixed major bug where you could get stuck in your phone's menu if you opened the 'characters present' window during combat.</ul>"
-			+"<ul>Fixed some typos.</ul>"
-			+"<ul>Fixed the cause of the occasional game freeze when pressing 'Take all'. (Thanks sinstrudel.)</ul>"
-			+"<ul>Fixed 'broken maiden' status effect being applied even if you didn't have the 'lusty maiden' fetish.</ul>"
-			+"<ul>Cum addicts will no longer ask you to pull out when they're giving you a blowjob.</ul>"
-			+"<ul>Removed old reference to non-con in options menu.</ul>"
-			+"<ul>Dominant doggy-style orgasm should now correctly apply pregnancy chances.</ul>"
-			+"<ul>Sex stats should now correctly track how many loads of cum you've given in each sex type.</ul>"
-			+"<ul>If you have maximum attribute values (100 in strength, intelligence, and fitness), your phone will no longer highlight if you have attribute points to spend.</ul>"
-			+"<ul>Fixed some incorrect detection of body part values.</ul>"
-			+"<ul>Fixed bug where Kate's into scene would repeat every time you entered her store.</ul>"
-			+"<ul>Fixed duplicate virginity loss descriptions in selfie.</ul>"
-			+"<ul>Fixed bug where the Jinxed, Enchantments, and Pregnancy quests would sometimes not trigger correctly.</ul>"
-			+"<ul>Fixed some bugs related to incorrect fur descriptions in TFs. (Thanks Rfpnj.)</ul>"
-			+"<ul>Fixed bug in sex that would cause you to be unable to choose any action other than 'Use item'. (Thanks strudel.)</ul>"
-			+"<ul>Fixed bug where fetishes wouldn't reset correctly sometimes.</ul>"
+			+"<ul><b>Fixed:</b> Bug where nipples and urethras were always being described as being fuckable.</ul>"
+			+"<ul>Fixed the more powerful version of the arcane storm debuff being applied to your character.</ul>"
+			+"<ul>Typo fixes.</ul>"
+			+"<ul>You should now be able to correctly remove harpies from their tiles.</ul>"
+			+"<ul>NPCs will now stop equipping more and more clothing after each sexual encounter.</ul>"
+			+"<ul>Fixed bug where NPCs who aren't attracted to you would always choose to have sex after combat. (This was only working correctly before if you had non-con enabled.)</ul>"
+			+"<ul>Ralph's discount is now unavailable if you're unable to access your mouth. </ul>"
+			+"<ul>Fixed bug where turning BRax into Bree would give you multi-breasts instead of her.</ul>"
+			+"<ul>Fixed a bug where the 'Buy all' option for clothing would freeze the game.</ul>"
+			+"<ul>Fixed bugs in the 'Buy all' option for clothing, items, and weapons.</ul>"
+			+"<ul>Added correct fetish associations for tail-in-anus actions.</ul>"
+			
+		+"<li>Extra Bugs:</li>"
+			+"<ul>Fixed bug where you'd get stuck in Scarlett's shop at the end of the current main quest's content.</ul>"
+			+"<ul>Fixed bug where main quest couldn't be progressed when starting with an imported character.</ul>"
+			+"<ul>Day of birth stat should now be correctly working for birthed litters.</ul>"
+			+"<ul>Fixed some incorrect descriptions in the dominant doggy-style orgasm scene.</ul>"
+			+"<ul>Fixed some inaccurate descriptions in Lilaya's house.</ul>"
+			+"<ul>Hard-working Maid status effect now also has an NPC-perspective description.</ul>"
+			+"<ul>Fixed some incorrect NPC reactions to having your chest revealed during sex.</ul>"
 			
 		+ "</list>";
 	
@@ -472,7 +466,7 @@ public class Main extends Application {
 				properties.level = game.getPlayer().getLevel();
 				properties.money = game.getPlayer().getMoney();
 				properties.race = game.getPlayer().getRace().getName();
-				properties.quest = game.getPlayer().getMainQuest().getName();
+				properties.quest = game.getPlayer().getQuest(QuestLine.MAIN).getName();
 
 				properties.savePropertiesAsXML();
 				

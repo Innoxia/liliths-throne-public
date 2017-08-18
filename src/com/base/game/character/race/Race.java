@@ -369,11 +369,12 @@ public enum Race {
 
 			"<p>"
 				+ "Squirrel-morphs are one of the more common anthropomorphic races found in this world."
+				+ " Although they're mostly found in the wooded areas of the Foloi Fields, squirrel-morphs are also a regular sight in Dominion."
 				+ " Their long fluffy tails and small round ears are usually enough to identify a squirrel-morph."
 			+ "</p>",
 			
 			"<p>"
-				+ "Squirrel-morphs have a reputation for stunning agility."
+				+ "Squirrel-morphs have a reputation for their stunning agility."
 				+ " They are excellent climbers and can scale even the most sheer of walls by launching themselves at it, even from a standstill."
 				+ " Although their personalities can vary greatly, most squirrel-morphs tend to be a bit skittish most of the time."
 			+ "</p>"

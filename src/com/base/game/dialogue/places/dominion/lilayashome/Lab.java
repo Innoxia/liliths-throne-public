@@ -222,7 +222,7 @@ public class Lab {
 				} else {
 					
 					if (index == 1) {
-						if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_A_LILAYAS_TESTS) {
+						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_A_LILAYAS_TESTS) {
 							return new Response("Tests", "Let Lilaya know that you're here to let her run her tests on you.", AUNT_HOME_LABORATORY_TESTING);
 						} else {
 							if (Main.game.getDialogueFlags().hadSexWithLilaya) {
@@ -233,9 +233,9 @@ public class Lab {
 						}
 	
 					} else if(index == 2) {
-						if(Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-							if(Main.game.getPlayer().getSideQuestProgress(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)==0) {
-								if (Main.game.getPlayer().getMainQuestProgress() <= Quest.MAIN_1_A_LILAYAS_TESTS.getSortingOrder()) {
+						if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY).getSortingOrder() == 0) {
+								if (Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() <= Quest.MAIN_1_A_LILAYAS_TESTS.getSortingOrder()) {
 									return new Response("Essences", "You'll need to complete Lilaya's initial tests before you're able to ask her about that strange energy you absorbed.", null);
 									
 								} else {
@@ -254,15 +254,15 @@ public class Lab {
 	
 					} else if (index == 3) {
 						if (Main.game.getPlayer().isVisiblyPregnant()) {
-							if (Main.game.getPlayer().getMainQuestProgress() <= Quest.MAIN_1_A_LILAYAS_TESTS.getSortingOrder()) {
+							if (Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() <= Quest.MAIN_1_A_LILAYAS_TESTS.getSortingOrder()) {
 								return new Response("Pregnancy", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your pregnancy.", null);
 								
 							} else {
 								return new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY){
 									@Override
 									public QuestLine getQuestLine() {
-										if (Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY))
-											if (Main.game.getPlayer().getSideQuestProgress(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == 0)
+										if (Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY))
+											if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY).getSortingOrder() == 0)
 												return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
 											else
 												return null;
@@ -271,7 +271,7 @@ public class Lab {
 									}
 									@Override
 									public void effects() {
-										if (!Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY))
+										if (!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY))
 											Main.game.getPlayer().incrementQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY);
 									}
 								};
@@ -281,9 +281,9 @@ public class Lab {
 						}
 						
 					} else if(index == 4) {
-						if(Main.game.getPlayer().hasSideQuest(QuestLine.SIDE_JINXED_CLOTHING)) {
-							if(Main.game.getPlayer().getSideQuestProgress(QuestLine.SIDE_JINXED_CLOTHING)==0) {
-								if (Main.game.getPlayer().getMainQuestProgress() <= Quest.MAIN_1_A_LILAYAS_TESTS.getSortingOrder()) {
+						if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING)) {
+							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_JINXED_CLOTHING).getSortingOrder() == 0) {
+								if (Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() <= Quest.MAIN_1_A_LILAYAS_TESTS.getSortingOrder()) {
 									return new Response("Jinxed help", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your jinxed clothing.", null);
 									
 								} else {
@@ -293,6 +293,19 @@ public class Lab {
 											return QuestLine.SIDE_JINXED_CLOTHING;
 										}
 									};
+								}
+							}
+						}
+						return null;
+	
+					} else if(index == 5) {
+						if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)) {
+							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_NEED_RECOMMENDATION) {
+								if (Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() <= Quest.MAIN_1_A_LILAYAS_TESTS.getSortingOrder()) {
+									return new Response("Slaver", "You'll need to complete Lilaya's initial tests before you can ask her for a letter of recommendation.", null);
+									
+								} else {
+									return new Response("Slaver", "Ask Lilaya for a letter of recommendation in order to obtain a slaver license.", LILAYA_SLAVER_RECOMMENDATION);
 								}
 							}
 						}
@@ -912,7 +925,7 @@ public class Lab {
 				return new Response("Returning home", "Ask Lilaya if she's found a way to send you back home.", AUNT_HOME_LABORATORY_TESTING_ARTHUR){
 					@Override
 					public QuestLine getQuestLine() {
-						if (Main.game.getPlayer().getMainQuest() == Quest.MAIN_1_A_LILAYAS_TESTS)
+						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_A_LILAYAS_TESTS)
 							return QuestLine.MAIN;
 						else
 							return null;
@@ -1390,6 +1403,116 @@ public class Lab {
 			}
 		}
 	};
+	
+	public static final DialogueNodeOld LILAYA_SLAVER_RECOMMENDATION = new DialogueNodeOld("", "", true, true) {
+		/**
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+				return "<p>"
+							+ "[pc.speech(I was told that in order to get a slaver license, I'd need a letter of recommendation from someone who's already got one,)]"
+							+ " you explain to Lilaya,"
+							+ " [pc.speech(so I was wondering if you could write one for me?)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Lilaya lets out a little sigh and raises her eyebrow,"
+							+ " [lilaya.speech(I'm fine with writing a letter for you, but have you thought about where you're going to keep your slaves?)]"
+						+ "</p>"
+						+ "<p>"
+							+ "[pc.speech(Erm... Well, no...)]"
+							+ " you mumble, realising that you hadn't thought about the logistics of owning slaves."
+						+ "</p>"
+						+ "<p>"
+							+ "[lilaya.speech(I thought not,)] Lilaya responds."
+						+ "</p>"
+						+ "<p>"
+							+ "Walking over to a nearby desk, she sits down and grabs a piece of paper and a pen."
+							+ " As she starts writing your letter, she calls out to you,"
+							+ " [lilaya.speech(You're going to need a place to keep your slaves."
+								+ " No doubt they'll tell you all this when you receive your license, but the Slavery Administration is only for holding your new slaves until their relocation."
+								+ " It's <i>not</i> a permanent place to keep them.)]"
+						+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Accommodation", "Agree with Lilaya's observation that you'll need somewhere to keep your slaves.", LILAYA_SLAVER_RECOMMENDATION_SLAVE_ACCOMMODATION) {
+					@Override
+					public QuestLine getQuestLine() {
+						return QuestLine.SIDE_SLAVERY;
+					}
+				};
+
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld LILAYA_SLAVER_RECOMMENDATION_SLAVE_ACCOMMODATION = new DialogueNodeOld("", "", true, true) {
+		/**
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+				return "<p>"
+							+ "[pc.speech(You're right Lilaya, I didn't think about that...)]"
+							+ " you admit, feeling like you're on the receiving end of yet another of your aunt's scoldings."
+						+ "</p>"
+						+ "<p>"
+							+ "[lilaya.speech(Well, luckily for you, I think I can help,)]"
+							+ " Lilaya responds, standing up from behind her desk with the completed letter of recommendation in her hand,"
+							+ " [lilaya.speech(I'm sure you've noticed, but this house is extremely large, which also means that it's an extremely time-consuming job to keep clean."
+								+ " Isn't that right Rose?)]"
+						+ "</p>"
+						+ "<p>"
+							+ "[rose.speech(Yes mistress!)]"
+							+ " Rose's voice calls out from one side of the room."
+						+ "</p>"
+						+ "<p>"
+							+ "[lilaya.speech(So, I've got a deal to make. I only ever use my lab and my bedroom, and as you've probably seen, all the other rooms in this house are left empty and unused."
+								+ " I'm willing to let you use those empty rooms as accommodation for your slaves, but on two conditions."
+								+ " One, you cover the conversion costs for every room you want to use, and two, you either pay a daily upkeep so that I can hire help for Rose, or you assign some of your slaves to help with the cleaning."
+								+ " Deal?)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Lilaya holds the letter of recommendation behind her back, smiling as she awaits your answer."
+							+ " You think that her deal sounds fair enough, and, nodding in agreement, you reply,"
+							+ " [pc.speech(That sounds more than reasonable, thanks Lilaya. It's a deal.)]"
+						+ "</p>"
+						+ "<p>"
+							+ "[lilaya.speech(Great!)]"
+							+ " Lilaya responds, beaming at you as she gives you the letter,"
+							+ " [lilaya.speech(If you want to use any of the rooms to house slaves, just go into the one you'd like and ring the bell pull."
+								+ " Rose will handle all the necessary arrangements."
+								+ " Oh, and if you'd like to get Rose to manage your slaves for you, she's more than capable!"
+								+ " Just ring the little bell beside her room's door, and she'll come running, won't you Rose?!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "[rose.speech(Yes mistress! I'd love to help!)]"
+							+ " Rose calls out yet again."
+						+ "</p>"
+						+ "<p>"
+							+ "[pc.speech(Thanks Lilaya,)]"
+							+ " you say, smiling at your demonic aunt."
+							+ " She cheerily returns your smile, before backing off to give you some space."
+						+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Continue", "Now that you've got Lilaya's letter of recommendation, you should head back to Slaver Alley and talk to [finch.name].", LAB_EXIT);
+
+			} else {
+				return null;
+			}
+		}
+	};
 
 	public static final DialogueNodeOld LILAYA_ASSISTS_PREGNANCY = new DialogueNodeOld("", "", true, true) {
 		private static final long serialVersionUID = 1L;
@@ -1401,7 +1524,7 @@ public class Lab {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (player.getSideQuestProgress(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == 0) {
+			if (player.getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY).getSortingOrder() == 0) {
 				
 				UtilText.nodeContentSB.append(
 						"<p>"
@@ -1658,7 +1781,7 @@ public class Lab {
 						+ "[pc.speech(I'm ready to give birth now...)]"
 					+ "</p>");
 
-			if (!Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+			if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "A delighted smile crosses her face, but despite her reassuring look, as well as knowing that you're in competent hands, you're still incredibly nervous about what comes next."
@@ -1749,7 +1872,7 @@ public class Lab {
 
 		@Override
 		public String getContent() {
-			if (!Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+			if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 				return "<p>"
 							+ "Taking your hands in hers, she leads you out of the lab and down the hallway."
 							+ " You soon find yourself standing outside one of the many doors that line the corridor, and Lilaya steps forwards and holds it open for you."
@@ -2072,7 +2195,7 @@ public class Lab {
 				return new Response("Pass out", "You have no energy left, and can't stay conscious any longer...", LILAYA_ASSISTS_BIRTHING_FINISHED){
 					@Override
 					public QuestLine getQuestLine() {
-						if (Main.game.getPlayer().getSideQuestProgress(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == 1)
+						if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY).getSortingOrder() == 1)
 							return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
 						else
 							return null;
@@ -2126,7 +2249,7 @@ public class Lab {
 				return new Response("Pass out", "The drink Lilaya gave you goes straight to your head, and you collapse back onto the bed as you lose consciousness.", LILAYA_ASSISTS_BIRTHING_FINISHED){
 					@Override
 					public QuestLine getQuestLine() {
-						if (Main.game.getPlayer().getSideQuestProgress(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == 1)
+						if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY).getSortingOrder() == 1)
 							return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
 						else
 							return null;
@@ -2167,7 +2290,7 @@ public class Lab {
 							+ " Following her in as she pushes open the door, you see that Rose has laid a soft protective covering over your bed, and a few bottles of milk have been placed on your bedside cabinet."
 						+ "</p>");
 
-			if (!Main.game.getPlayer().isSideQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+			if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 				UtilText.nodeContentSB.append("<p>"
 								+ "As Lilaya leads you over to the bed, she explains the situation, "
 								+ "[lilaya.speech(Ok, so I know you haven't done anything like this before, so I'll quickly explain what's going to happen."
@@ -2385,7 +2508,7 @@ public class Lab {
 				return new Response("Some time later", "You eventually wake up from your exhausted slumber...", LILAYA_ASSISTS_BIRTHING_FINISHED){
 					@Override
 					public QuestLine getQuestLine() {
-						if (Main.game.getPlayer().getSideQuestProgress(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == 1)
+						if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY).getSortingOrder() == 1)
 							return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
 						else
 							return null;

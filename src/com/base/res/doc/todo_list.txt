@@ -17,22 +17,30 @@
 	
 	Patch notes:
 		
-	Gameplay:
-		<b>Added:</b> Squirrel-morphs. These are mostly going to be found in the Fields area, but there's a chance of encountering them in Dominion as well. (Added by rfpnj. Think you! :3)
-		<b>Added:</b> Squirrel Java, Round Nuts, Chasing Squirrels, and Bottled Squirrel-morph Essence.
-		
-	Sex:
-		<b>Added:</b> Power-bottom doggy-style position. (Added by BelshazzarII. Thank you! :3)
-		
-	Clothing:
-		<b>Added:</b> Thigh-high socks (feminine, foot slot).
-		
-	Other:
-		Clothing which blocks multiple slots now have more powerful enchantments.
-		
 	Bugs:
-		Fixed the more powerful version of the arcane storm debuff being applied to your character.
-		Typo fixes.
+		Fixed bug where you'd get stuck in Scarlett's shop at the end of the current main quest's content.
+		Fixed bug where main quest couldn't be progressed when starting with an imported character.
+		Day of birth stat should now be correctly working for birthed litters.
+		Fixed some incorrect descriptions in the dominant doggy-style orgasm scene.
+		Fixed some inaccurate descriptions in Lilaya's house.
+		Hard-working Maid status effect now also has an NPC-perspective description.
+		Fixed some incorrect NPC reactions to having your chest revealed during sex.
+	
+	
+	
+	
+	
+	[Alexa & Scarlett]
+	- Intro
+	- Buying
+	- Repeatable shop
+	
+	
+	[TF fetish content]
+	- NPC preference for each part
+	- Give them a potion to force on you on each win
+	
+	Add Paizuri, thigh sex, and hotdogging.
 	
 	
 	
@@ -40,71 +48,36 @@
 	
 	
 	
+	Is how good you are at a blowjob supposed to increase? Because mine doesn't. Ever. Maybe my guy is just that bad lol.
 	
+	Unsure if intended behavior or not, but typing in the name of a save, then hitting the enter key instead of pushing the save button will cause the main UI window to blank and the program to do nothing.
+	  Expected behavior would assume that hitting enter would be the same as pushing the save button, but that may be hard to code in.
 	
+	: I think wearing a chastity belt and then getting fucked by brax while wearing pants has him perpetually masturbate instead of fuck you
+	"I'm going to fuck you senseless" -> masturbates
+	and he wont pull down pants, so the moment you do it, he actually fucks you
 	
+	Is it a bug that NPCs are saying that an 8 inch dick is small or "cute"?
+	(Also for breasts)
 	
-	
-	
+	vagina elasticity shows as 0 when have no vagina in stats
 	
 	Dom self doggy
 	
-	NPCs to gain affection from PC using their fetish-related actions
+	combined fetish for pure virgins with the deflowering fetish
 	
-	 it seems like it's now impossible to remove harpies from the area without at least initiating sex with them.
+	NPCs to gain affection from PC using their fetish-related actions
 	
 	First row, 1 through 5
 	Second row, shift + 1 through 5
 	Third row, control + 1 through 5
 	
-	they keep wearing more clothes
-	
-	striped socks/underwear
-	
 	spawned with crotchless chaps and no underwear
 		couldn't detect penis until sex?
 		
-	: Yeah I've noticed that as well, any item in the bottom row in the last 3 slots on the right don't have to tool tips pop up like there is something blocking them.
+	Yeah I've noticed that as well, any item in the bottom row in the last 3 slots on the right don't have to tool tips pop up like there is something blocking them.
 		
-	ball gag ralph
-	
 	Lilaya's pull out dialogue cna be skipped somehow
-	
-	androgynous males still start with AA boobs
-	
-	for some reason turning Brax into Bree gives you the 6 tiddy
-	
-	but every NPC with tits now has fuckable nipples
-	saying my characters cock can be penetrated
-	
-	
-	Getting tail pegged is not correctly associated with the Butt Slut fetish
-	
-	
-	issues with partners not removing mouthwear to the stack of sex AI problems
-	
-	
-	virli-tea, fertili-tea and virgini-tea
-	
-	If you press buy all on one of the slave collars it gives you 2 unidentified collars
-		Oh iand i cant even identify them when i press the button it does nothing
-		Or just acts super buggy
-	
-	everyone seems to (by default) have fuckable nipples/urethras
-	
-	
-	Finish dialogue
-	
-	[ ]
-	[ ]
-	[ ]
-	[ ] Add Alexa back at nest, can visit her again.
-	[ ]
-	[ ]
-	
-	TF fetish content
-		NPC preference for each part
-		Give them a potion to force on you on each win
 		
 	Dom anal
 	
