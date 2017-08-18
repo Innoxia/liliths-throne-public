@@ -135,7 +135,7 @@ public class PartnerPenisMouth {
 
 		@Override
 		public String getActionDescription() {
-			return "Force [pc.name] to pay some attention to your [npc.balls+]";
+			return "Force [pc.name] to pay some attention to your [npc.balls+].";
 		}
 
 		@Override
