@@ -960,9 +960,9 @@ public enum SpecialAttack {
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.genderParsing(caster,
-						"<p>" + "With a sudden burst of energy, " + caster.getName("the") + " leaps forwards as she tries to bite you."
+						"<p>" + "With a sudden burst of energy, " + caster.getName("the") + " leaps forwards as <she> tries to bite you."
 								+ (isHit ? " <Her> dog-like muzzle clamps down on your " + target.getArmNameSingular() + ","
-										+ " and <she> shakes <her> head from side-to-side, managing to cause some serious damage with <her> sharp canines before you mange to throw <herPro> off of you."
+										+ " and <she> shakes <her> head from side-to-side, managing to cause some serious damage with <her> sharp canines before you manage to throw <herPro> off of you."
 										: "You jump to one side as you see the attack coming, and there's an audible snap as <her> teeth thankfully clamp down on nothing but thin air.")
 								+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
