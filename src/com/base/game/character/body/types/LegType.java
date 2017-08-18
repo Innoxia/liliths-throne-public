@@ -21,6 +21,8 @@ public enum LegType implements BodyPartTypeInterface {
 	
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
 
+  	BOVINE(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
+	
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
 	
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
@@ -70,6 +72,8 @@ public enum LegType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("slender", "flawless");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic dog-like");
+			case BOVINE:
+				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic cow-like");
 			case HARPY:
 				return UtilText.returnStringAtRandom("scaly", "bird-like");
 			case HORSE_MORPH:
@@ -130,6 +134,8 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("clawed", "bird-like");
 				case HORSE_MORPH:
 					return UtilText.returnStringAtRandom("feminine", "horse-like", "equine");
+				case BOVINE:
+					return UtilText.returnStringAtRandom("feminine", "cow-like", "bovine");
 				case HUMAN:
 					return UtilText.returnStringAtRandom("soft", "feminine");
 				case LYCAN:
@@ -155,6 +161,8 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("clawed", "bird-like");
 				case HORSE_MORPH:
 					return UtilText.returnStringAtRandom("horse-like", "equine");
+				case BOVINE:
+					return UtilText.returnStringAtRandom("cow-like", "bovine");
 				case HUMAN:
 					return UtilText.returnStringAtRandom("");
 				case LYCAN:

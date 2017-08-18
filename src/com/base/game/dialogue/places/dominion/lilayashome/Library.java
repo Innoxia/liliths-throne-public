@@ -93,6 +93,9 @@ public class Library {
 			} else if (index == 11) {
 				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
 
+			} else if (index == 12) {
+				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
+
 			} else {
 				return null;
 			}

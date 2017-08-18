@@ -27,6 +27,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 
 	WOLF_MORPH(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
 
+	BOVINE(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
+
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
 	
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
@@ -66,6 +68,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 			switch(this){
 				case HORSE_MORPH:
 					return UtilText.returnStringAtRandom("cherry", "cunt", "kitty", "pussy", "sex", "slit", "twat", "horse-pussy");
+				case BOVINE:
+					return UtilText.returnStringAtRandom("cherry", "cunt", "kitty", "pussy", "sex", "slit", "twat", "cow-pussy");
 				case NONE:
 					return "";
 				default:
@@ -76,6 +80,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 			switch(this){
 				case HORSE_MORPH:
 					return UtilText.returnStringAtRandom("cunt", "kitty", "pussy", "sex", "slit", "twat", "horse-pussy");
+				case BOVINE:
+					return UtilText.returnStringAtRandom("cunt", "kitty", "pussy", "sex", "slit", "twat", "cow-pussy");
 				case NONE:
 					return "";
 				default:
@@ -90,6 +96,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 			switch(this){
 				case HORSE_MORPH:
 					return UtilText.returnStringAtRandom("cherries", "cunts", "kitties", "pussies", "sex", "slits", "twats", "horse-pussies");
+				case BOVINE:
+					return UtilText.returnStringAtRandom("cherries", "cunts", "kitties", "pussies", "sex", "slits", "twats", "cow-pussies");
 				case NONE:
 					return "";
 				default:
@@ -100,6 +108,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 			switch(this){
 				case HORSE_MORPH:
 					return UtilText.returnStringAtRandom("cunts", "kitties", "pussies", "sex", "slits", "twats", "horse-pussies");
+				case BOVINE:
+					return UtilText.returnStringAtRandom("cunts", "kitties", "pussies", "sex", "slits", "twats", "cow-pussies");
 				case NONE:
 					return "";
 				default:
@@ -126,6 +136,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("hot", "animalistic", "cat-like", "feline");
 					case HORSE_MORPH:
 						return UtilText.returnStringAtRandom("puffy", "puffy-lipped", "black-lipped", "equine");
+					case BOVINE:
+						return UtilText.returnStringAtRandom("puffy", "puffy-lipped", "black-lipped", "bovine");
 					case HUMAN:
 						return UtilText.returnStringAtRandom("hot");
 					case NONE:

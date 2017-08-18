@@ -2026,6 +2026,9 @@ public class Lab {
 					case CAT_MORPH:
 						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar cat-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 						break;
+					case COW_MORPH:
+						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a cow-boy bending down over you, who plants a wet kiss on your cheek and mutters something in your ear before walking out the door...");
+						break;
 					case DEMON:
 						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing an excitable imp flutter up to plant a kiss on your cheek."
 								+ " You hear Lilaya shouting somewhere in the background, and the imp lets out a little laugh before darting off out of the room...");
@@ -2063,6 +2066,9 @@ public class Lab {
 							break;
 						case CAT_MORPH:
 							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar cat-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
+							break;
+						case COW_MORPH:
+							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a cow-boy bending down over you, who plants a wet kiss on your cheek and mutters something in your ear before walking out the door...");
 							break;
 						case DEMON:
 							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing an excitable imp flutter up to plant a kiss on your cheek."
@@ -2104,6 +2110,9 @@ public class Lab {
 					case CAT_MORPH:
 						UtilText.nodeContentSB.append("</br></br>A pretty cat-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
 						break;
+					case COW_MORPH:
+						UtilText.nodeContentSB.append("</br></br>A docile cow-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
+						break;
 					case DEMON:
 						break;
 					case DOG_MORPH:
@@ -2140,6 +2149,9 @@ public class Lab {
 							break;
 						case CAT_MORPH:
 							UtilText.nodeContentSB.append("</br></br>A pretty cat-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
+							break;
+						case COW_MORPH:
+							UtilText.nodeContentSB.append("</br></br>A docile cow-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
 							break;
 						case DEMON:
 							break;
@@ -2575,6 +2587,9 @@ public class Lab {
 					case CAT_MORPH:
 						litterSB.append(" good-looking");
 						break;
+					case COW_MORPH:
+						litterSB.append(" strong");
+						break;
 					case DEMON:
 						litterSB.append(" mischievous");
 						break;
@@ -2616,6 +2631,9 @@ public class Lab {
 						break;
 					case CAT_MORPH:
 						litterSB.append(" good-looking");
+						break;
+					case COW_MORPH:
+						litterSB.append(" strong");
 						break;
 					case DEMON:
 						litterSB.append(" mischievous");
@@ -2659,6 +2677,9 @@ public class Lab {
 					case CAT_MORPH:
 						litterSB.append(" pretty");
 						break;
+					case COW_MORPH:
+						litterSB.append(" docile");
+						break;
 					case DEMON:
 						litterSB.append(" cheeky");
 						break;
@@ -2700,6 +2721,9 @@ public class Lab {
 						break;
 					case CAT_MORPH:
 						litterSB.append(" pretty");
+						break;
+					case COW_MORPH:
+						litterSB.append(" docile");
 						break;
 					case DEMON:
 						litterSB.append(" cheeky");

@@ -130,7 +130,28 @@ public enum RacialBody {
 			TailType.DOG_MORPH,
 			VaginaType.DOG_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER,
 			WingType.NONE),
-	
+
+	// BOVINES:
+	COW_MORPH(
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.STRENGTH, 40f),
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
+					new Value<Attribute, Float>(Attribute.FITNESS, 25f),
+					new Value<Attribute, Float>(Attribute.CORRUPTION, 15f)),
+			ArmType.COW_MORPH,
+			AssType.COW_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE,
+			BreastType.COW_MORPH, CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, CupSize.E, 3, Lactation.THREE_DECENT_AMOUNT, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE,
+			180, 30, 170, 70,
+			FaceType.COW_MORPH, BodyCoveringType.EYE_BOVINE, EarType.COW_MORPH,
+			BodyCoveringType.HAIR_BOVINE_FUR, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
+			LegType.BOVINE,
+			BodyCoveringType.BOVINE_FUR,
+			HornType.BOVINE_FEMALE, HornType.BOVINE_MALE,
+			PenisType.BOVINE, PenisSize.THREE_LARGE, TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
+			TailType.BOVINE,
+			VaginaType.BOVINE, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER,
+			WingType.NONE),
+
 	WOLF_MORPH(
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.STRENGTH, 30f),
@@ -365,6 +386,8 @@ public enum RacialBody {
 				return RacialBody.DEMON;
 			case DOG_MORPH:
 				return RacialBody.DOG_MORPH;
+			case COW_MORPH:
+				return RacialBody.COW_MORPH;
 			case HARPY:
 				return RacialBody.HARPY;
 			case HORSE_MORPH:

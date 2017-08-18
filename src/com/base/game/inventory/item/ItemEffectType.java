@@ -146,6 +146,38 @@ public enum ItemEffectType {
 		}
 	},
 	
+	BOOK_READ_COW_MORPH(Util.newArrayListOfValues(
+			new ListValue<>("Adds cow-morph encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			Colour.RACE_COW_MORPH) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			return Race.COW_MORPH.getBasicDescription()
+					+Race.COW_MORPH.getAdvancedDescription()
+					+(Main.game.getPlayer().addRaceDiscovered(Race.COW_MORPH)
+							?Game.getRaceDiscoveredMessage(Race.COW_MORPH)
+							:"")
+					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.COW_MORPH)
+							?Game.getRaceAdvancedKnowledgeMessage(Race.COW_MORPH)
+								+"<p>"
+									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
+								+ "</p>"
+								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
+							:"");
+		}
+	},
+	
 	BOOK_READ_DEMON(Util.newArrayListOfValues(
 			new ListValue<>("Adds demon encyclopedia entry."),
 			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
@@ -587,6 +619,31 @@ public enum ItemEffectType {
 		}
 	},
 
+	STR_BUBBLE_MILK(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(health)]"),
+			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
+			Colour.ATTRIBUTE_STRENGTH) {
+		
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
+
+			return "A powerful wave of arcane energy washes over you..."
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.STRENGTH, 1);
+		}
+	},
+
 	STR_WOLF_WHISKEY(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(health)]"),
 			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
@@ -963,6 +1020,31 @@ public enum ItemEffectType {
 		}
 	},
 	
+	RACE_FRESH_SPROUTS(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'"),
+			new ListValue<>("[style.boldGood(+2)] [style.boldFitness(fitness)] to 'potion effects'")),
+			Colour.RACE_COW_MORPH) {
+		
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			return "You start to feel a lot stronger..."
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.STRENGTH, 3)
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.FITNESS, 2);
+		}
+	},
+	
 	RACE_MEAT_AND_MARROW(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(+5)] [style.boldStrength(strength)] to 'potion effects'"),
 			new ListValue<>("[style.boldGood(+3)] [style.boldCorruption(corruption)] to 'potion effects'")),
@@ -1076,9 +1158,29 @@ public enum ItemEffectType {
 			target.incrementEssenceCount(TFEssence.CAT_MORPH, 1);
 			return "You have absorbed [style.boldGood(+1)] [style.boldCat(Cat-morph)] essence!";
 		}
+
+	BOTTLED_ESSENCE_COW_MORPH(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(+1)] [style.boldCat(Cow-morph)] essence")),
+			Colour.RACE_COW_MORPH) {
+		
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return null;
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return null;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			target.incrementEssenceCount(TFEssence.COW_MORPH, 1);
+			return "You have absorbed [style.boldGood(+1)] [style.boldCat(Cow-morph)] essence!";
+		}
 	},
-	
-	BOTTLED_ESSENCE_SQUIRREL_MORPH(Util.newArrayListOfValues(
+
+ 	BOTTLED_ESSENCE_SQUIRREL_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(+1)] [style.boldSquirrel(Squirrel-morph)] essence")),
 			Colour.RACE_SQUIRREL_MORPH) {
 		
@@ -1695,6 +1797,30 @@ public enum ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
 			return getRacialEffect(Race.CAT_MORPH, primaryModifier, secondaryModifier, user, target);
+		}
+	},
+
+	RACE_COW_MORPH(null,
+			Colour.RACE_COW_MORPH) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return TFModifier.getTFRacialBodyPartsListList();
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return getRacialSecondaryModifiers(primaryModifier);
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return getRacialEffectDescription(Race.COW_MORPH, primaryModifier, secondaryModifier);
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+			return getRacialEffect(Race.COW_MORPH, primaryModifier, secondaryModifier, user, target);
 		}
 	},
 	
