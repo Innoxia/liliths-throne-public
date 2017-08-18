@@ -1311,11 +1311,15 @@ public class PhoneDialogue {
 
 			// All known items:
 			journalSB = new StringBuilder();
+			journalSB.append("<div class='phone-item-half-table'>");
 
+			journalSB.append("<div class='phone-item-half-table-row'>");
 			journalSB.append("<div class='phone-item-half name'>Item</div>");
 			journalSB.append("<div class='phone-item-half effects'>Effects</div>");
+			journalSB.append("</div>");
 
 			for (ItemType item : itemsDiscoveredList) {
+				journalSB.append("<div class='phone-item-half-table-row'>");
 				if (Main.game.getPlayer().getItemsDiscovered().contains(item)) {
 					journalSB.append("<div class='phone-item-half name' style='color:" + item.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(item.getName(false)) + "</div>");
 
@@ -1339,7 +1343,9 @@ public class PhoneDialogue {
 
 					journalSB.append("<div class='phone-item-half effects'>???</div>");
 				}
+				journalSB.append("</div>"); //end table row
 			}
+			journalSB.append("</div>"); //end table
 
 			return journalSB.toString();
 		}
