@@ -24,6 +24,7 @@ import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.story.CharacterCreationDialogue;
 import com.base.main.Main;
+import com.base.rendering.RenderingEngine;
 import com.base.utils.Colour;
 import com.base.utils.CreditsSlot;
 import com.base.utils.Util;
@@ -79,6 +80,13 @@ public class OptionsDialogue {
 							(!Main.game.isStarted()?"New Game":"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Confirm</b>"), "Start a new game.</br></br><b>Remember to save your game first!</b>"){
 						@Override
 						public void effects() {
+							//Fixes a bug where inventory would stay on screen
+							if (Main.game.isStarted()) {
+								Main.game.setInCombat(false);
+								Main.game.setInSex(false);
+								RenderingEngine.ENGINE.renderMapTitle();
+							}
+							
 							Main.mainController.setAttributePanelContent("");
 							Main.mainController.setButtonsContent("");
 							Main.mainController.setMapViewContent("");
