@@ -504,6 +504,11 @@ public class OptionsDialogue {
 					+ getKeybindTableRow(KeyboardAction.RESPOND_7)
 					+ getKeybindTableRow(KeyboardAction.RESPOND_8)
 					+ getKeybindTableRow(KeyboardAction.RESPOND_9)
+					+ getKeybindTableRow(KeyboardAction.RESPOND_10)
+					+ getKeybindTableRow(KeyboardAction.RESPOND_11)
+					+ getKeybindTableRow(KeyboardAction.RESPOND_12)
+					+ getKeybindTableRow(KeyboardAction.RESPOND_13)
+					+ getKeybindTableRow(KeyboardAction.RESPOND_14)
 					+ getKeybindTableRow(KeyboardAction.RESPOND_0)
 					+ "<tr style='height:8px;'></tr>"
 
@@ -559,7 +564,7 @@ public class OptionsDialogue {
 				+ "' id='primary_"
 				+ action
 				+ "'>"
-				+ (Main.getProperties().hotkeyMapPrimary.get(action) == null ? "<span class='option-disabled'>-</span>" : Main.getProperties().hotkeyMapPrimary.get(action).getName())
+				+ (Main.getProperties().hotkeyMapPrimary.get(action) == null ? "<span class='option-disabled'>-</span>" : Main.getProperties().hotkeyMapPrimary.get(action).getFullName())
 				+ "</div>"
 				+ "<div class='bindingClearButton"
 				+ (Main.getProperties().hotkeyMapPrimary.get(action) == null ? " empty" : "")
@@ -574,7 +579,7 @@ public class OptionsDialogue {
 				+ "' id='secondary_"
 				+ action
 				+ "'>"
-				+ (Main.getProperties().hotkeyMapSecondary.get(action) == null ? "<span class='option-disabled'>-</span>" : Main.getProperties().hotkeyMapSecondary.get(action).getName())
+				+ (Main.getProperties().hotkeyMapSecondary.get(action) == null ? "<span class='option-disabled'>-</span>" : Main.getProperties().hotkeyMapSecondary.get(action).getFullName())
 				+ "</div>"
 				+ "<div class='bindingClearButton"
 				+ (Main.getProperties().hotkeyMapSecondary.get(action) == null ? " empty" : "")

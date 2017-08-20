@@ -27,8 +27,6 @@ import com.base.game.character.race.Race;
 import com.base.game.character.race.FurryPreference;
 import com.base.main.Main;
 
-import javafx.scene.input.KeyCode;
-
 /**
  * @since 0.1.0
  * @version 0.1.82
@@ -42,7 +40,7 @@ public class Properties implements Serializable {
 	
 	public AndrogynousIdentification androgynousIdentification = AndrogynousIdentification.CLOTHING_FEMININE;
 
-	public Map<KeyboardAction, KeyCode> hotkeyMapPrimary, hotkeyMapSecondary;
+	public Map<KeyboardAction, KeyCodeWithModifiers> hotkeyMapPrimary, hotkeyMapSecondary;
 	
 	public Map<GenderPronoun, String> genderPronounFemale, genderPronounMale;
 	
@@ -288,12 +286,12 @@ public class Properties implements Serializable {
 					Element e = ((Element)element.getElementsByTagName("binding").item(i));
 					
 					if(e.getAttribute("primaryBind")!="")
-						hotkeyMapPrimary.put(KeyboardAction.valueOf(e.getAttribute("bindName")), KeyCode.valueOf(e.getAttribute("primaryBind")));
+						hotkeyMapPrimary.put(KeyboardAction.valueOf(e.getAttribute("bindName")), KeyCodeWithModifiers.fromString(e.getAttribute("primaryBind")));
 					else
 						hotkeyMapPrimary.put(KeyboardAction.valueOf(e.getAttribute("bindName")), null);
 					
 					if(e.getAttribute("secondaryBind")!="")
-						hotkeyMapSecondary.put(KeyboardAction.valueOf(e.getAttribute("bindName")), KeyCode.valueOf(e.getAttribute("secondaryBind")));
+						hotkeyMapSecondary.put(KeyboardAction.valueOf(e.getAttribute("bindName")), KeyCodeWithModifiers.fromString(e.getAttribute("secondaryBind")));
 					else
 						hotkeyMapSecondary.put(KeyboardAction.valueOf(e.getAttribute("bindName")), null);
 				}

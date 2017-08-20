@@ -896,10 +896,10 @@ public class Game implements Serializable {
 		
 		if (responsePage > 0) {
 			choicesDialogueSB.append("<div class='response-switcher left' id='switch_left'><b class='hotkey-icon'>"
-					+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_PREVIOUS_PAGE) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_PREVIOUS_PAGE).getName()) + "</b>&#60</div>");
+					+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_PREVIOUS_PAGE) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_PREVIOUS_PAGE).getFullName()) + "</b>&#60</div>");
 		} else {
 			choicesDialogueSB.append("<div class='response-switcher left disabled' id='switch_left'><b class='hotkey-icon disabled'>"
-					+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_PREVIOUS_PAGE) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_PREVIOUS_PAGE).getName())
+					+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_PREVIOUS_PAGE) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_PREVIOUS_PAGE).getFullName())
 					+ "</b><span class='option-disabled'>&#60</span></div>");
 		}
 		
@@ -950,11 +950,11 @@ public class Game implements Serializable {
 		
 		if (node.getResponse(((responsePage + 1) * MainController.RESPONSE_COUNT)) != null){
 			choicesDialogueSB.append("<div class='response-switcher right' id='switch_right'><b class='hotkey-icon'>"
-					+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_NEXT_PAGE) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_NEXT_PAGE).getName()) + "</b>" + "&#62</div>");
+					+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_NEXT_PAGE) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_NEXT_PAGE).getFullName()) + "</b>" + "&#62</div>");
 			
 		}else{
 			choicesDialogueSB.append("<div class='response-switcher right disabled' id='switch_right'><b class='hotkey-icon disabled'>"
-					+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_NEXT_PAGE) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_NEXT_PAGE).getName())
+					+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_NEXT_PAGE) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_NEXT_PAGE).getFullName())
 					+ "</b><span class='option-disabled'>&#62</span></div>");
 		}
 		
@@ -1084,98 +1084,21 @@ public class Game implements Serializable {
 	}
 
 	private String getResponseHotkey(int i) {
-		if (i == 0) {
-			if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_0) == null)
-				return "";
-			else
-				return Util.getKeyCodeCharacter(Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_0));
-			
-		} else if (i == 1) {
-			if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_1) == null)
-				return "";
-			else
-				return Util.getKeyCodeCharacter(Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_1));
-			
-		} else if (i == 2) {
-			if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_2) == null)
-				return "";
-			else
-				return Util.getKeyCodeCharacter(Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_2));
-			
-		} else if (i == 3) {
-			if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_3) == null)
-				return "";
-			else
-				return Util.getKeyCodeCharacter(Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_3));
-			
-		} else if (i == 4) {
-			if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_4) == null)
-				return "";
-			else
-				return Util.getKeyCodeCharacter(Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_4));
-			
-		} else if (i == 5) {
-			if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_5) == null)
-				return "";
-			else
-				return Util.getKeyCodeCharacter(Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_5));
-			
-		} else if (i == 6) {
-			if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_6) == null)
-				return "";
-			else
-				return Util.getKeyCodeCharacter(Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_6));
-			
-		} else if (i == 7) {
-			if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_7) == null)
-				return "";
-			else
-				return Util.getKeyCodeCharacter(Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_7));
-			
-		} else if (i == 8) {
-			if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_8) == null)
-				return "";
-			else
-				return Util.getKeyCodeCharacter(Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_8));
-			
-		} else if (i == 9) {
-			if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_9) == null)
-				return "";
-			else
-				return Util.getKeyCodeCharacter(Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_9));
-			
-		} else if (i == 10) {
-			if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_1) == null)
-				return "";
-			else
-				return "Ctrl + "+Util.getKeyCodeCharacter(Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_1));
-			
-		} else if (i == 11) {
-			if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_2) == null)
-				return "";
-			else
-				return "Ctrl + "+Util.getKeyCodeCharacter(Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_2));
-			
-		} else if (i == 12) {
-			if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_3) == null)
-				return "";
-			else
-				return "Ctrl + "+Util.getKeyCodeCharacter(Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_3));
-			
-		} else if (i == 13) {
-			if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_4) == null)
-				return "";
-			else
-				return "Ctrl + "+Util.getKeyCodeCharacter(Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_4));
-			
-		} else if (i == 14) {
-			if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_5) == null)
-				return "";
-			else
-				return "Ctrl + "+Util.getKeyCodeCharacter(Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_5));
-		}
+		if (!(0 <= i && i <= 14)) { return ""; }
 		
-		return "";
+		KeyboardAction[] keyboardActions = 
+			{
+					KeyboardAction.RESPOND_0, KeyboardAction.RESPOND_1, KeyboardAction.RESPOND_2, KeyboardAction.RESPOND_3, KeyboardAction.RESPOND_4,
+					KeyboardAction.RESPOND_5, KeyboardAction.RESPOND_6, KeyboardAction.RESPOND_7, KeyboardAction.RESPOND_8, KeyboardAction.RESPOND_9,
+					KeyboardAction.RESPOND_10, KeyboardAction.RESPOND_11, KeyboardAction.RESPOND_12, KeyboardAction.RESPOND_13, KeyboardAction.RESPOND_14
+			};
+		KeyboardAction currentAction = keyboardActions[i];
+		KeyCodeWithModifiers hotkeyForCurrentAction = Main.getProperties().hotkeyMapPrimary.get(currentAction);
+		if (hotkeyForCurrentAction == null) {
+			return "";
+		} else {
+			return hotkeyForCurrentAction.asHotkey();
+		}
 	}
 	
 
