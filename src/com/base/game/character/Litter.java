@@ -61,7 +61,6 @@ public class Litter implements Serializable {
 	}
 
 	public int getDayOfBirth() {
-		dayOfBirth = dayOfConception += 8;
 		return dayOfBirth;
 	}
 	
