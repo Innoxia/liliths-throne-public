@@ -1,5 +1,6 @@
-
-
+﻿
+	Long hotkeys overflow on the world map
+	It isn't possible to use a hotkey with CTRL in it for map navigation as this will move the response selection cursor instead
 
 	--------
 	
