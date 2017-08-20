@@ -344,7 +344,7 @@ public enum Race {
 			
 			"<p>"
 				+ "Squirrel-morphs have a reputation for their stunning agility."
-    				+ " They are excellent climbers and can scale even the most sheer of walls by launching themselves at it, even from a standstill."
+				+ " They are excellent climbers and can scale even the most sheer of walls by launching themselves at it, even from a standstill."
 				+ " Although their personalities can vary greatly, most squirrel-morphs tend to be a bit skittish most of the time."
 			+ "</p>"
 			+ "<p>"
