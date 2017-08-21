@@ -38,7 +38,7 @@ public class Library {
 				};
 
 			} else if (main == 2) {
-				return new Response("Interact with Slaves", "Not yet implimented", null) {
+				return new Response("Interact with Slaves", "Not yet implemented", null) {
 				};
 
 			} else {
@@ -61,7 +61,7 @@ public class Library {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "Walking down one of the aisles, you see a great deal of organization has gone into the design of the room. It clear that someone has spent a great deal of cleaning the room."
+					+ "Walking down one of the aisles, you see a great deal of organization has gone into the design of the room. It's clear that someone has spent a great deal of cleaning the room."
 					+ " As you walk you scan the titles printed onto the spines of the books, but there's not really much that catches your eye."
 					+ " Only a few shelves really look to be worth your time, and you wonder if you should take some time to do a spot of reading..."
 					+ "</p>";
@@ -71,26 +71,26 @@ public class Library {
 		@Override
 		public Response getResponse(int books) {
 			if (books == 1) {
-				return new Response("General Knowledge", "A section of the library dedicated to books on common subjects", LORE_BOOKS);
+				return new Response("General Knowledge", "A section of the library dedicated to books on common subjects.", LORE_BOOKS);
 
 			}  else if (books == 2) {
-				return new Response("Races of Dominion", "A section of the library dedicated to books on predominate races within the city", DOMINION_RACES) {
+				return new Response("Races of Dominion", "A section of the library dedicated to books on predominate races within the city.", DOMINION_RACES) {
 				};
 
 			} else if (books == 3) {
-				return new Response("The Fields", "A section of the library dedicated to books on the area known as the Foloi Fields", FIELDS_BOOKS) {
+				return new Response("The Fields", "A section of the library dedicated to books on the area known as the Foloi Fields.", FIELDS_BOOKS) {
 				};
 //
 //			} else if (books == 4) {
-//				return new Response("The Seas", "A section of the library dedicated to books on the area known as the Endless Sea", SEA_BOOKS) {
+//				return new Response("The Seas", "A section of the library dedicated to books on the area known as the Endless Sea.", SEA_BOOKS) {
 //				};
 //
 //			} else if (books == 5) {
-//				return new Response("The Jungle", "A section of the library dedicated to books on the area known as the Jungle", JUNGLE_BOOKS) {
+//				return new Response("The Jungle", "A section of the library dedicated to books on the area known as the Jungle.", JUNGLE_BOOKS) {
 //				};
 //
 //			} else if (books == 6) {
-//				return new Response("The Desert", "A section of the library dedicated to books on the area known as the Desert", DESERT_BOOKS) {
+//				return new Response("The Desert", "A section of the library dedicated to books on the area known as the Desert.", DESERT_BOOKS) {
 //				};
 
 			} else {
@@ -113,8 +113,8 @@ public class Library {
 		public String getContent() {
 			return "<p>"
 					+ "Walking down one of the aisles, you see that these shelves have an arcane look to them. The shelves glow and shift before your eyes."
-					+ "The enhanced sight you seem to have gained allows you to see layers of arcane essance has been built up on these shelves. Some of the texts almost look like"
-					+ "they are about to jump off the shelves under their own power."
+					+ " The enhanced sight that you seem to have gained allows you to see layers of arcane essence have built up on these shelves. Some of the texts almost look like"
+					+ " they are about to jump off the shelves under their own power."
 					+ "</p>";
 							
 		}
@@ -154,7 +154,7 @@ public class Library {
 				};
 
 			} else if (lore == 0) {
-				return new Response("Back to the shelves", "Return to strolling the stacks", BROWSE_BOOKS);
+				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
 
 			} else {
 				return null;
@@ -200,7 +200,7 @@ public class Library {
 
 		@Override
 		public Response getResponse(int lore) {
-			return  LIBRARY.getResponse(lore);
+			return LIBRARY.getResponse(lore);
 		}
 		
 	};
@@ -245,7 +245,7 @@ public class Library {
 
 		@Override
 		public Response getResponse(int lore) {
-			return  LIBRARY.getResponse(lore);
+			return LIBRARY.getResponse(lore);
 		}
 	};
 	
@@ -302,14 +302,14 @@ public class Library {
 		public String getContent() {
 			return "<p>"
 					+ "Walking down one of the aisles, you see that these shelves have an urban look to them. The shelves look like they haven been crafted from concrete and iron."
-					+ "These books have the feeling of being about the city and it's people"
+					+ "These books have the general feeling of being about the city and it's people."
 					+ "</p>";
 							
 		}
 
 		@Override
 		public Response getResponse(int city) {
-			if  (city == 1) {
+			if (city == 1) {
 				return bookResponse(ItemType.BOOK_CAT_MORPH, Race.CAT_MORPH);
 
 			} else if (city == 2) {
@@ -331,7 +331,7 @@ public class Library {
 				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
 
 			} else if (city == 0) {
-				return new Response("Back to the shelves", "Return to strolling the stacks", BROWSE_BOOKS);
+				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
 
 			} else {
 				return null;
@@ -354,21 +354,21 @@ public class Library {
 		public String getContent() {
 			return "<p>"
 					+ "Walking down one of the aisles, you see that these shelves have an pastoral look to them. The shelves look like they haven been crafted from blocks of sod supported by pieces of wood."
-					+ " These books have the feeling of being about the fields and it's people"
+					+ " These books have the general feeling of being about the fields and it's people."
 					+ "</p>";
 							
 		}
 
 		@Override
 		public Response getResponse(int field) {
-			if  (field == 1) {
+			if (field == 1) {
 				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
 
 //			} else if (field == 2) {
 //				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
 
 			}  else if (field == 0) {
-				return new Response("Back to the shelves", "Return to strolling the stacks", BROWSE_BOOKS);
+				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
 
 			} else {
 				return null;
@@ -391,21 +391,21 @@ public class Library {
 //		public String getContent() {
 //			return "<p>"
 //					+ "Walking down one of the aisles, you see that these shelves have an oceanic look to them. The shelves look like they haven been crafted from coral and empty shells."
-//					+ "These books have the feeling of being about the sea and its people"
+//					+ "These books have the general feeling of being about the sea and its people."
 //					+ "</p>";
 //							
 //		}
 //
 //		@Override
 //		public Response getResponse(int sea) {
-//			if  (sea == 1) {
+//			if (sea == 1) {
 //				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
 //
 //			} else if (city == 2) {
 //				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
 //
 //			}  else if (sea == 0) {
-//				return new Response("Back to the shelves", "Return to strolling the stacks", BROWSE_BOOKS);
+//				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
 //
 //			} else {
 //				return null;
@@ -428,21 +428,21 @@ public class Library {
 //		public String getContent() {
 //			return "<p>"
 //					+ "Walking down one of the aisles, you see that these shelves have an tropic look to them. The shelves look like they haven been crafted from plaited vines, and broad palms."
-//					+ "These books have the feeling of being about the jungle and its people"
+//					+ "These books have the general feeling of being about the jungle and its people."
 //					+ "</p>";
 //							
 //		}
 //
 //		@Override
 //		public Response getResponse(int jungle) {
-//			if  (jungle == 1) {
+//			if (jungle == 1) {
 //				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
 //
 //			} else if (jungle == 2) {
 //				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
 //
 //			}  else if (jungle == 0) {
-//				return new Response("Back to the shelves", "Return to strolling the stacks", BROWSE_BOOKS);
+//				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
 //
 //			} else {
 //				return null;
@@ -465,21 +465,21 @@ public class Library {
 //		public String getContent() {
 //			return "<p>"
 //					+ "Walking down one of the aisles, you see that these shelves have an earthy look to them. The shelves look like they haven been crafted from blocks of compressed sand, inter-spaced with cacti."
-//					+ "These books have the feeling of being about the city and its people"
+//					+ "These books have the general feeling of being about the desert and its people."
 //					+ "</p>";
 //							
 //		}
 //
 //		@Override
 //		public Response getResponse(int desert) {
-//			if  (desert == 1) {
+//			if (desert == 1) {
 //				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
 //
 //			} else if (desert == 2) {
 //				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
 //
 //			}  else if (desert == 0) {
-//				return new Response("Back to the shelves", "Return to strolling the stacks", BROWSE_BOOKS);
+//				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS.);
 //
 //			} else {
 //				return null;
