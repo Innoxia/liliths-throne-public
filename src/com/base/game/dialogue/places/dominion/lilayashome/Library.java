@@ -285,7 +285,7 @@ public class Library {
 
 		@Override
 		public Response getResponse(int lore) {
-			return  LIBRARY.getResponse(lore);
+			return LIBRARY.getResponse(lore);
 		}
 	};
 	public static final DialogueNodeOld DOMINION_RACES = new DialogueNodeOld("", "", false) {
