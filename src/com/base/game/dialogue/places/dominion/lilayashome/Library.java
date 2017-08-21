@@ -28,16 +28,100 @@ public class Library {
 						+ "Pushing open a heavy wooden door, you find yourself walking into Lilaya's library."
 						+ " Much like her lab, the walls are covered in shelving, holding hundreds upon hundreds of books of all shapes and sizes."
 						+ " Much of the room is taken up by free-standing book cases, although there's a little space on one side of the room, where a couple of comfortable leather-bound chairs flank an ornate fireplace."
-					+ "</p>"
-					+ "<p>"
-						+ "Walking around, you scan the titles printed onto the spines of the books, but there's not really much that catches your eye."
-						+ " Only a few volumes really look to be worth your time, and you wonder if you should take some time to do a spot of reading..."
 					+ "</p>";
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			if (index == 1) {
+		public Response getResponse(int main) {
+			if (main == 1) {
+				return new Response("Browse the Stacks", "Read one of the many books availble in the library.", BROWSE_BOOKS) {
+				};
+
+			} else if (main == 2) {
+				return new Response("Interact with Slaves", "Not yet implemented", null) {
+				};
+
+			} else {
+				return null;
+			}
+		}
+	};
+	
+
+	public static final DialogueNodeOld BROWSE_BOOKS = new DialogueNodeOld("", "", false) {
+		/**
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "Library";
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "Walking down one of the aisles, you see a great deal of organization has gone into the design of the room. It's clear that someone has spent a great deal of cleaning the room."
+					+ " As you walk you scan the titles printed onto the spines of the books, but there's not really much that catches your eye."
+					+ " Only a few shelves really look to be worth your time, and you wonder if you should take some time to do a spot of reading..."
+					+ "</p>";
+							
+		}
+
+		@Override
+		public Response getResponse(int books) {
+			if (books == 1) {
+				return new Response("General Knowledge", "A section of the library dedicated to books on common subjects.", LORE_BOOKS);
+
+			}  else if (books == 2) {
+				return new Response("Races of Dominion", "A section of the library dedicated to books on predominate races within the city.", DOMINION_RACES) {
+				};
+
+			} else if (books == 3) {
+				return new Response("The Fields", "A section of the library dedicated to books on the area known as the Foloi Fields.", FIELDS_BOOKS) {
+				};
+//
+//			} else if (books == 4) {
+//				return new Response("The Seas", "A section of the library dedicated to books on the area known as the Endless Sea.", SEA_BOOKS) {
+//				};
+//
+//			} else if (books == 5) {
+//				return new Response("The Jungle", "A section of the library dedicated to books on the area known as the Jungle.", JUNGLE_BOOKS) {
+//				};
+//
+//			} else if (books == 6) {
+//				return new Response("The Desert", "A section of the library dedicated to books on the area known as the Desert.", DESERT_BOOKS) {
+//				};
+
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld LORE_BOOKS = new DialogueNodeOld("", "", false) {
+		/**
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "Library";
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "Walking down one of the aisles, you see that these shelves have an arcane look to them. The shelves glow and shift before your eyes."
+					+ " The enhanced sight that you seem to have gained allows you to see layers of arcane essence have built up on these shelves. Some of the texts almost look like"
+					+ " they are about to jump off the shelves under their own power."
+					+ "</p>";
+							
+		}
+
+		@Override
+		public Response getResponse(int lore) {
+			if (lore == 1) {
 				return new Response("Arcane Arousal", "A leather-bound tome that seems to offer an insight into how the arcane works.", ARCANE_AROUSAL) {
 					@Override
 					public void effects() {
@@ -48,7 +132,7 @@ public class Library {
 					}
 				};
 
-			} else if (index == 2) {
+			} else if (lore == 2) {
 				return new Response("Lilith's Dynasty", "A hardback book that might give some clues as to who exactly Lilith is.", LILITHS_DYNASTY) {
 					@Override
 					public void effects() {
@@ -59,7 +143,7 @@ public class Library {
 					}
 				};
 
-			} else if (index == 3) {
+			} else if (lore == 3) {
 				return new Response("Dominion's History", "A paperback book describing the events that led to the creation of the city you currently find yourself in.", DOMINION_HISTORY) {
 					@Override
 					public void effects() {
@@ -69,49 +153,15 @@ public class Library {
 					}
 				};
 
-			} else if (index == 4) {
-				return bookResponse(ItemType.BOOK_CAT_MORPH, Race.CAT_MORPH);
-
-			} else if (index == 5) {
-				return bookResponse(ItemType.BOOK_DEMON, Race.DEMON);
-
-			} else if (index == 6) {
-				return bookResponse(ItemType.BOOK_DOG_MORPH, Race.DOG_MORPH);
-
-			} else if (index == 7) {
-				return bookResponse(ItemType.BOOK_HARPY, Race.HARPY);
-
-			} else if (index == 8) {
-				return bookResponse(ItemType.BOOK_HORSE_MORPH, Race.HORSE_MORPH);
-
-			} else if (index == 9) {
-				return bookResponse(ItemType.BOOK_HUMAN, Race.HUMAN);
-
-			} else if (index == 10) {
-				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
-
-			} else if (index == 11) {
-				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
+			} else if (lore == 0) {
+				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
 
 			} else {
 				return null;
 			}
 		}
+	
 	};
-	
-	private static Response bookResponse(ItemType book, Race race) {
-		if(Main.game.getPlayer().getRacesAdvancedKnowledge().contains(race)) {
-			return new Response(book.getName(false), book.getDescription(), LIBRARY) {
-				@Override
-				public void effects() {
-					Main.game.getTextEndStringBuilder().append(book.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer()));
-				}
-			};
-		} else {
-			return new Response(book.getName(false), "You haven't discovered this book yet!", null);
-		}
-	}
-	
 	public static final DialogueNodeOld ARCANE_AROUSAL = new DialogueNodeOld("", "", false) {
 		/**
 		 */
@@ -149,14 +199,10 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			if (index == 1) {
-				return new Response("Arcane Arousal", "A leather-bound tome that seems to offer an insight into how the arcane works.", null);
-
-			} else {
-				return LIBRARY.getResponse(index);
-			}
+		public Response getResponse(int lore) {
+			return LIBRARY.getResponse(lore);
 		}
+		
 	};
 	
 	public static final DialogueNodeOld LILITHS_DYNASTY = new DialogueNodeOld("", "", false) {
@@ -198,13 +244,8 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			if (index == 2) {
-				return new Response("Lilith's Dynasty", "A hardback book that might give some clues as to who exactly Lilith is.", null);
-
-			} else {
-				return LIBRARY.getResponse(index);
-			}
+		public Response getResponse(int lore) {
+			return LIBRARY.getResponse(lore);
 		}
 	};
 	
@@ -243,13 +284,220 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			if (index == 3) {
-				return new Response("Dominion's History", "A paperback book describing the events that led to the creation of the city you currently find yourself in.", null);
-
-			} else {
-				return LIBRARY.getResponse(index);
-			}
+		public Response getResponse(int lore) {
+			return LIBRARY.getResponse(lore);
 		}
 	};
+	public static final DialogueNodeOld DOMINION_RACES = new DialogueNodeOld("", "", false) {
+		/**
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "Library";
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "Walking down one of the aisles, you see that these shelves have an urban look to them. The shelves look like they haven been crafted from concrete and iron."
+					+ "These books have the general feeling of being about the city and it's people."
+					+ "</p>";
+							
+		}
+
+		@Override
+		public Response getResponse(int city) {
+			if (city == 1) {
+				return bookResponse(ItemType.BOOK_CAT_MORPH, Race.CAT_MORPH);
+
+			} else if (city == 2) {
+				return bookResponse(ItemType.BOOK_DEMON, Race.DEMON);
+
+			} else if (city == 3) {
+				return bookResponse(ItemType.BOOK_DOG_MORPH, Race.DOG_MORPH);
+
+			} else if (city == 4) {
+				return bookResponse(ItemType.BOOK_HARPY, Race.HARPY);
+
+			} else if (city == 5) {
+				return bookResponse(ItemType.BOOK_HORSE_MORPH, Race.HORSE_MORPH);
+
+			} else if (city == 6) {
+				return bookResponse(ItemType.BOOK_HUMAN, Race.HUMAN);
+
+			} else if (city == 7) {
+				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
+
+			} else if (city == 0) {
+				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
+
+			} else {
+				return null;
+			}
+		}
+	
+	};
+	
+	public static final DialogueNodeOld FIELDS_BOOKS = new DialogueNodeOld("", "", false) {
+		/**
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "Library";
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "Walking down one of the aisles, you see that these shelves have an pastoral look to them. The shelves look like they haven been crafted from blocks of sod supported by pieces of wood."
+					+ " These books have the general feeling of being about the fields and it's people."
+					+ "</p>";
+							
+		}
+
+		@Override
+		public Response getResponse(int field) {
+			if (field == 1) {
+				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
+
+//			} else if (field == 2) {
+//				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
+
+			}  else if (field == 0) {
+				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
+
+			} else {
+				return null;
+			}
+		}
+	
+	};
+	
+//	public static final DialogueNodeOld SEA_BOOKS = new DialogueNodeOld("", "", false) {
+//		/**
+//		 */
+//		private static final long serialVersionUID = 1L;
+//
+//		@Override
+//		public String getLabel() {
+//			return "Library";
+//		}
+//
+//		@Override
+//		public String getContent() {
+//			return "<p>"
+//					+ "Walking down one of the aisles, you see that these shelves have an oceanic look to them. The shelves look like they haven been crafted from coral and empty shells."
+//					+ "These books have the general feeling of being about the sea and its people."
+//					+ "</p>";
+//							
+//		}
+//
+//		@Override
+//		public Response getResponse(int sea) {
+//			if (sea == 1) {
+//				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
+//
+//			} else if (city == 2) {
+//				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
+//
+//			}  else if (sea == 0) {
+//				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
+//
+//			} else {
+//				return null;
+//			}
+//		}
+//	
+//	};
+//	
+//	public static final DialogueNodeOld JUNGLE_BOOKS = new DialogueNodeOld("", "", false) {
+//		/**
+//		 */
+//		private static final long serialVersionUID = 1L;
+//
+//		@Override
+//		public String getLabel() {
+//			return "Library";
+//		}
+//
+//		@Override
+//		public String getContent() {
+//			return "<p>"
+//					+ "Walking down one of the aisles, you see that these shelves have an tropic look to them. The shelves look like they haven been crafted from plaited vines, and broad palms."
+//					+ "These books have the general feeling of being about the jungle and its people."
+//					+ "</p>";
+//							
+//		}
+//
+//		@Override
+//		public Response getResponse(int jungle) {
+//			if (jungle == 1) {
+//				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
+//
+//			} else if (jungle == 2) {
+//				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
+//
+//			}  else if (jungle == 0) {
+//				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
+//
+//			} else {
+//				return null;
+//			}
+//		}
+//	
+//	};
+//	
+//	public static final DialogueNodeOld DESERT_BOOKS = new DialogueNodeOld("", "", false) {
+//		/**
+//		 */
+//		private static final long serialVersionUID = 1L;
+//
+//		@Override
+//		public String getLabel() {
+//			return "Library";
+//		}
+//
+//		@Override
+//		public String getContent() {
+//			return "<p>"
+//					+ "Walking down one of the aisles, you see that these shelves have an earthy look to them. The shelves look like they haven been crafted from blocks of compressed sand, inter-spaced with cacti."
+//					+ "These books have the general feeling of being about the desert and its people."
+//					+ "</p>";
+//							
+//		}
+//
+//		@Override
+//		public Response getResponse(int desert) {
+//			if (desert == 1) {
+//				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
+//
+//			} else if (desert == 2) {
+//				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
+//
+//			}  else if (desert == 0) {
+//				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS.);
+//
+//			} else {
+//				return null;
+//			}
+//		}
+//	
+//	};
+	
+	private static Response bookResponse(ItemType book, Race race) {
+		if(Main.game.getPlayer().getRacesAdvancedKnowledge().contains(race)) {
+			return new Response(book.getName(false), book.getDescription(), LIBRARY) {
+				@Override
+				public void effects() {
+					Main.game.getTextEndStringBuilder().append(book.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer()));
+				}
+			};
+		} else {
+			return new Response(book.getName(false), "You haven't discovered this book yet!", null);
+		}
+	}
 }
