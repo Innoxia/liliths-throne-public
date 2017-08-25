@@ -84,7 +84,7 @@ public class Mouth implements BodyPartInterface, Serializable {
 		}
 	}
 
-	public void setType(GameCharacter owner, MouthType type) {
+	public void setType(MouthType type) {
 		this.type = type;
 	}
 

@@ -124,7 +124,8 @@ public class Face implements BodyPartInterface, Serializable {
 		UtilText.transformationContentSB.setLength(0);
 		UtilText.transformationContentSB.append(s);
 		this.type = type;
-		
+
+		mouth.setType(type.getMouthType());
 		tongue.setType(type.getTongueType());
 		
 		switch (type) {
