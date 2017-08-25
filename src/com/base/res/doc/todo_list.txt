@@ -23,7 +23,8 @@
 				
 	Engine:
 		Did a lot of tidying up of the GameCharacter class by moving transformation methods into their appropriate classes.
-				
+		Did a huge amount of cleaning up of the InventoryDialogue class (by Pimgd).
+		
 	Gameplay:
 		<b>Important change:</b> I listened to a lot of your feedback on the way the 'Non-con', 'Incest', and 'Transformation' fetishes were being used as content gates, and, after thinking about it, I've decided to move those options back to a proper 'content preferences' screen.
 		This will now enable your content preferences to be carried over to all of your games, so you don't have to worry about taking those fetishes on every new game.
@@ -121,18 +122,35 @@
 			Added gcum flavours.
 			Added gcum modifiers (viscous, sticky, slimy, bubbling, addictive, hallucinogenic).
 			Added support for transformations caused by gcum ingestion.
-		
+	
+	UI:
+		Added control customisation for actions 10-14, as well as for allowing control and shift keys as modifiers (by Pimgd).
 		
 	Bugs:
 		Fixed a cause of a game freeze when passing out after second pregnancy.
 		Nipple bars are now correctly treated as a plural item.
 		Fixed some instances were Bree/Brandi were called Brax.
 		Typo fixes.
-		Fixed bug where dyeing stacked clothes would dye the entire stack (fixed by Pimvgd).
-		Fixed a lot of typos, both in content and in code (by Pimvgd).
-		Fixed formatting issues in the encyclopedia's item page (by Pimvgd).
-		Fixed special attack descriptions not showing when performing the attack (by Pimvgd).
-		Fixed a bug where the player inventory would stay on screen on new game start (by Pimvgd).
+		Fixed bug where dyeing stacked clothes would dye the entire stack (fixed by Pimgd).
+		Fixed a lot of typos, both in content and in code (by Pimgd).
+		Fixed formatting issues in the encyclopedia's item page (by Pimgd).
+		Fixed special attack descriptions not showing when performing the attack (by Pimgd).
+		Fixed a bug where the player inventory would stay on screen on new game start (by Pimgd).
+		Clothing colours in encyclopedia should no longer overlap (by Pimgd).
+	
+	
+	
+	
+	
+	Cowgirl
+	Fetishes
+	Character creation
+	
+	
+	
+	
+	
+	
 	
 	
 	Milk

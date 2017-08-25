@@ -820,11 +820,13 @@ public class Body implements Serializable {
 		sb.append("</p>"
 				+ "<p>");
 		
-		if(Main.game.isBodyHairEnabled()) {
+		if(Main.game.isFacialHairEnabled()) {
 			if(owner.isPlayer()) {
 				switch(owner.getFacialHair()) {
 					case NONE:
-//						sb.append(" There is no trace of any "+owner.getFacialHairType().getFullDescription(owner, true)+" on your face.");
+						if(!owner.isFeminine()) {
+							sb.append(" There is no trace of any "+owner.getFacialHairType().getFullDescription(owner, true)+" on your face.");
+						}
 						break;
 					case MANICURED:
 						sb.append(" You have a small amount of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on your [pc.face].");
@@ -840,7 +842,9 @@ public class Body implements Serializable {
 			} else {
 				switch(owner.getFacialHair()) {
 					case NONE:
-//						sb.append(" There is no trace of any "+owner.getFacialHairType().getFullDescription(owner, true)+" on [npc.her] face.");
+						if(!owner.isFeminine()) {
+							sb.append(" There is no trace of any "+owner.getFacialHairType().getFullDescription(owner, true)+" on [npc.her] face.");
+						}
 						break;
 					case MANICURED:
 						sb.append(" [npc.She] has a small amount of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face].");

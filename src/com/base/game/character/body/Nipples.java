@@ -58,7 +58,7 @@ public class Nipples implements BodyPartInterface, Serializable {
 				name = UtilText.returnStringAtRandom("lipple", "nipple-lip");
 				break;
 			case NORMAL:
-				name = type.getName(owner);
+				name = type.getNameSingular(owner);
 				break;
 			case VAGINA:
 				name = UtilText.returnStringAtRandom("nipple-cunt", "nipple-pussy");
@@ -77,7 +77,7 @@ public class Nipples implements BodyPartInterface, Serializable {
 				name = UtilText.returnStringAtRandom("lipples", "nipple-lips");
 				break;
 			case NORMAL:
-				name = type.getName(owner);
+				name = type.getNamePlural(owner);
 				break;
 			case VAGINA:
 				name = UtilText.returnStringAtRandom("nipple-cunts", "nipple-pussies");

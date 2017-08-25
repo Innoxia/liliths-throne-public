@@ -3356,7 +3356,7 @@ public class GameCharacter implements Serializable {
 	public Covering getPubicHairType() {
 		return getCovering(getBodyHairCoveringType(getSkinType().getRace()));
 	}
-	public String setPubicHair(GameCharacter owner, BodyHair pubicHair) {
+	public String setPubicHair(BodyHair pubicHair) {
 		if(getPubicHair() == pubicHair) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 			
@@ -3365,31 +3365,31 @@ public class GameCharacter implements Serializable {
 			
 			switch(pubicHair) {
 				case NONE:
-					if(owner.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>There is no longer any trace of "+getPubicHairType().getFullDescription(owner, true)+" in your pubic region.</p>");
+					if(this.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>There is no longer any trace of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>There is no longer any trace of "+getPubicHairType().getFullDescription(owner, true)+" in [npc.her] pubic region.</p>"));
+						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>There is no longer any trace of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
 				case MANICURED:
-					if(owner.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>You now have a well-manicured patch of "+getPubicHairType().getFullDescription(owner, true)+" in your pubic region.</p>");
+					if(this.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>You now have a well-manicured patch of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a well-manicured patch of "+getPubicHairType().getFullDescription(owner, true)+" in [npc.her] pubic region.</p>"));
+						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a well-manicured patch of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
 				case TRIMMED:
-					if(owner.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>You now have a trimmed patch of "+getPubicHairType().getFullDescription(owner, true)+" in your pubic region.</p>");
+					if(this.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>You now have a trimmed patch of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a trimmed patch of "+getPubicHairType().getFullDescription(owner, true)+" in [npc.her] pubic region.</p>"));
+						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a trimmed patch of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
 				case BUSHY:
-					if(owner.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>You now have a thick mass of "+getPubicHairType().getFullDescription(owner, true)+" in your pubic region.</p>");
+					if(this.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>You now have a thick mass of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a thick mass of "+getPubicHairType().getFullDescription(owner, true)+" in [npc.her] pubic region.</p>"));
+						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a thick mass of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
 			}

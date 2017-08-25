@@ -30,7 +30,7 @@ public class LilithsTower {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Approach", "Approach the archway and see if you cna enter the tower's grounds.", LILITHS_DISTRICT_APPROACH);
+				return new Response("Approach", "Approach the archway and see if you can enter the tower's grounds.", LILITHS_DISTRICT_APPROACH);
 
 			} else {
 				return null;

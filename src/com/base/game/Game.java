@@ -1753,6 +1753,10 @@ public class Game implements Serializable {
 		return Main.getProperties().forcedTransformationContent;
 	}
 	
+	public boolean isFacialHairEnabled() {
+		return Main.getProperties().facialHairContent;
+	}
+	
 	public boolean isPubicHairEnabled() {
 		return Main.getProperties().pubicHairContent;
 	}

@@ -136,12 +136,15 @@ public enum Colour {
 
 	TRANSFORMATION_SHRINK(BaseColour.RED, "red", Util.newArrayListOfValues(new ListValue<>("tfShrink"), new ListValue<>("shrink"), new ListValue<>("tfShrunk"), new ListValue<>("shrunk"), new ListValue<>("tfShrinking"), new ListValue<>("shrinking"))),
 	TRANSFORMATION_GROW(BaseColour.GREEN, "green", Util.newArrayListOfValues(new ListValue<>("tfGrow"), new ListValue<>("grow"), new ListValue<>("tfGrown"), new ListValue<>("grown"), new ListValue<>("tfGrowth"), new ListValue<>("growth"))),
-	
-	GENERIC_SIZE_FIVE(Util.newColour(0xff0066), Util.newColour(0x8e011e), "magenta"),
-	GENERIC_SIZE_FOUR(Util.newColour(0xff2a7f), Util.newColour(0xa40123), "magenta"),
-	GENERIC_SIZE_THREE(Util.newColour(0xff5599), Util.newColour(0xb21e44), "pink"),
-	GENERIC_SIZE_TWO(Util.newColour(0xff80b2), Util.newColour(0xbc325a), "pink"),
-	GENERIC_SIZE_ONE(Util.newColour(0xffaacc), Util.newColour(0xc44670), "pink"),
+
+	GENERIC_SIZE_ONE(Util.newColour(0xAFE9B3), Util.newColour(0xc44670), "green"),
+	GENERIC_SIZE_TWO(Util.newColour(0xA0E4A3), Util.newColour(0xbc325a), "green"),
+	GENERIC_SIZE_THREE(Util.newColour(0x8FE096), Util.newColour(0xb21e44), "green"),
+	GENERIC_SIZE_FOUR(Util.newColour(0x77DA7F), Util.newColour(0xa40123), "green"),
+	GENERIC_SIZE_FIVE(Util.newColour(0x67D570), Util.newColour(0x8e011e), "green"),
+	GENERIC_SIZE_SIX(Util.newColour(0x57D161), Util.newColour(0x8e011e), "green"),
+	GENERIC_SIZE_SEVEN(Util.newColour(0x47CD52), Util.newColour(0x8e011e), "green"),
+	GENERIC_SIZE_EIGHT(Util.newColour(0x37C843), Util.newColour(0x8e011e), "green"),
 	
 	TRANSFORMATION_GENERIC(BaseColour.GREEN_LIME, "lime", Util.newArrayListOfValues(new ListValue<>("tfGeneric"), new ListValue<>("tfBase"))),
 	TRANSFORMATION_SEXUAL(BaseColour.PINK_LIGHT, "pink", Util.newArrayListOfValues(new ListValue<>("tfSex"), new ListValue<>("tfSexual"))),

@@ -23,7 +23,6 @@ import com.base.game.character.body.valueEnums.AssSize;
 import com.base.game.character.body.valueEnums.BodySize;
 import com.base.game.character.body.valueEnums.CoveringPattern;
 import com.base.game.character.body.valueEnums.CupSize;
-import com.base.game.character.body.valueEnums.LipSize;
 import com.base.game.character.body.valueEnums.Muscle;
 import com.base.game.character.body.valueEnums.OrificeModifier;
 import com.base.game.character.body.valueEnums.PenisSize;
@@ -36,6 +35,8 @@ import com.base.game.combat.DamageType;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
+import com.base.game.dialogue.utils.CharacterModificationUtils;
+import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.ItemType;
@@ -149,7 +150,7 @@ public class CharacterCreation {
 					+ "<b>Note:</b> By default, androgynous bodies appear feminine or masculine based on their clothing. This can be changed in the options after the game starts (by accessing: Menu -> options -> Gender pronouns)."
 					+ "</p>"
 					+ "<p>"
-					+ "<i>Hint: Hover over the part that says 'Level 1 Human' on the left of the screen to see your body's details.</i>"
+					+ "<i>Hint: Hover over the part that says 'Level 1 [pc.Race]' on the left of the screen to see your body's details.</i>"
 					+ "</p>"
 					
 					+ "<p style='text-align:center;'><b>Gender</b></br>"
@@ -343,42 +344,6 @@ public class CharacterCreation {
 		return stringsToSelection(stringsList);
 	}
 
-	private static String getHairOption() {
-		contentSB = new StringBuilder();
-		int i = 0;
-		for (Colour cs : RacialBody.HUMAN.getHairType().getBodyCoveringType().getNaturalColoursPrimary()) {
-			if (Main.game.getPlayer().getCovering(BodyCoveringType.HAIR_HUMAN).getPrimaryColour() == cs) {
-				contentSB.append("<b style='color:" + cs.toWebHexString() + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
-			} else {
-				contentSB.append("<span class='option-disabled'>" + Util.capitaliseSentence(cs.getName()) + "</span>");
-			}
-			
-			if (i + 1 != RacialBody.HUMAN.getHairType().getBodyCoveringType().getNaturalColoursPrimary().size()) {
-				contentSB.append(" | ");
-			}
-			i++;
-		}
-		return contentSB.toString();
-	}
-
-	private static String getEyeOption() {
-		contentSB = new StringBuilder();
-		int i = 0;
-		for (Colour cs : RacialBody.HUMAN.getEyeType().getBodyCoveringType().getNaturalColoursPrimary()) {
-			if (Main.game.getPlayer().getCovering(BodyCoveringType.EYE_HUMAN).getPrimaryColour() == cs) {
-				contentSB.append("<b style='color:" + cs.toWebHexString() + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
-			} else {
-				contentSB.append("<span class='option-disabled'>" + Util.capitaliseSentence(cs.getName()) + "</span>");
-			}
-			
-			if (i + 1 != RacialBody.HUMAN.getEyeType().getBodyCoveringType().getNaturalColoursPrimary().size()) {
-				contentSB.append(" | ");
-			}
-			i++;
-		}
-		return contentSB.toString();
-	}
-
 	private static String getBodyOption() {
 		contentSB = new StringBuilder();
 		for (int j = 0; j < bodyTypeMale.length; j++) {
@@ -418,6 +383,7 @@ public class CharacterCreation {
 		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex), false, Colour.ORIFICE_INTERIOR, false));
 		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.NIPPLES, CoveringPattern.ORIFICE_NIPPLE, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex), false, Colour.ORIFICE_INTERIOR, false));
 		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.MOUTH, CoveringPattern.ORIFICE_MOUTH, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex), false, Colour.ORIFICE_INTERIOR, false));
+		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex), false, Colour.ORIFICE_INTERIOR, false));
 		
 		Main.game.getLilaya().setCovering(new Covering(BodyCoveringType.HUMAN, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex)));
 	}
@@ -553,7 +519,7 @@ public class CharacterCreation {
 					+ "</h4>"
 					+ Main.game.getPlayer().getBodyDescription();
 		}
-
+		
 		@Override
 		public String getContent() {
 			return null;
@@ -570,25 +536,28 @@ public class CharacterCreation {
 				};
 				
 			} else if (index == 2) {
-				return new Response("Face", "", CHOOSE_BODY_ADVANCED_FACE);
+				return new Response("Face", "Enter the customisation menu for aspects related to your face.", CHOOSE_BODY_ADVANCED_FACE);
 				
 			} else if (index == 3) {
-				return new Response("Hair", "", CHOOSE_BODY_ADVANCED);
+				return new Response("Hair", "Enter the customisation menu for your hair.", CHOOSE_BODY_ADVANCED_HAIR);
 				
 			} else if (index == 4) {
-				return new Response("Breasts", "", CHOOSE_BODY_ADVANCED);
+				return new Response("Breasts", "Enter the customisation menu for your breasts.", CHOOSE_BODY_ADVANCED_BREASTS);
 				
 			} else if (index == 5) {
-				return new Response("Ass & Hips", "", CHOOSE_BODY_ADVANCED);
+				return new Response("Ass & Hips", "Enter the customisation menu for aspects related to your ass, hips, and anus.", CHOOSE_BODY_ADVANCED);
 				
 			} else if (index == 6) {
-				return new Response("Genitals", "", CHOOSE_BODY_ADVANCED);
+				return new Response("Genitals", "Enter the customisation menu for aspects related to your penis or vagina.", CHOOSE_BODY_ADVANCED);
 				
 			} else if (index == 7) {
-				return new Response("Piercings", "", CHOOSE_BODY_ADVANCED_PIERCINGS);
+				return new Response("Piercings", "Enter the customisation menu for body piercings.", CHOOSE_BODY_ADVANCED_PIERCINGS);
 				
 			} else if (index == 8) {
-				return new Response("Makeup", "Choose what makeup and piercings you have.", CHOOSE_BODY_ADVANCED_COSMETICS);
+				return new Response("Makeup", "Enter the customisation menu for makeup.", CHOOSE_BODY_ADVANCED_COSMETICS);
+				
+			} else if (index == 9) {
+				return new Response("Extra hair", "Enter the customisation menu for facial, pubic, and body hair.", CHOOSE_BODY_ADVANCED_BODY_HAIR);
 				
 			} else if (index == 0) {
 				return new Response("Back", "Return to the body selection page.", CHOOSE_BODY);
@@ -614,23 +583,22 @@ public class CharacterCreation {
 					+ "</p>"
 					
 					+ "<p style='text-align:center;'><b>Lip size</b></br>"
-						+ getLipSizeOption()
+						+ CharacterModificationUtils.getLipSizeOption()
 					+ "</p>"
 					+ "<p style='text-align:center;'><b>Puffy lips</b></br>"
-						+ getLipPuffyOption(Main.game.getPlayer().hasFaceOrificeModifier(OrificeModifier.PUFFY))
+						+ CharacterModificationUtils.getLipPuffyOption(Main.game.getPlayer().hasFaceOrificeModifier(OrificeModifier.PUFFY))
 					+ "</p>"
 					+ "<p style='text-align:center;'><b>Eye colour</b></br>"
-						+ getPrimaryCoveringOptions(BodyCoveringType.EYE_HUMAN)
+						+ CharacterModificationUtils.getNaturalPrimaryCoveringOptions(BodyCoveringType.EYE_HUMAN)
 					+ "</p>"
 					+ "<p style='text-align:center;'><b>Eye pattern</b></br>"
-						+ getPatternOptions(BodyCoveringType.EYE_HUMAN)
+						+ CharacterModificationUtils.getAllPatternOptions(BodyCoveringType.EYE_HUMAN)
 					+ "</p>"
-					+ "<p style='text-align:center;'><b>Heterochromatic eye colour</b></br>"
-						+ getSecondaryCoveringOptions(BodyCoveringType.EYE_HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.EYE_HUMAN).getPattern()!=CoveringPattern.EYE_IRISES_HETEROCHROMATIC)
-					+ "</p>"
-					
-					// Beard:
-					;
+					+ (Main.game.getPlayer().getCovering(BodyCoveringType.EYE_HUMAN).getPattern()!=CoveringPattern.EYE_IRISES_HETEROCHROMATIC
+						?"<p style='text-align:center;'>[style.boldDisabled(Heterochromatic eye colour)]</br>"
+						:"<p style='text-align:center;'><b>Heterochromatic eye colour</b></br>")
+						+ CharacterModificationUtils.getNaturalSecondaryCoveringOptions(BodyCoveringType.EYE_HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.EYE_HUMAN).getPattern()!=CoveringPattern.EYE_IRISES_HETEROCHROMATIC)
+					+ "</p>";
 		}
 
 		@Override
@@ -644,7 +612,7 @@ public class CharacterCreation {
 				return new Response("Lip size", "Cycle lip size.", CHOOSE_BODY_ADVANCED_FACE) {
 					@Override
 					public void effects() {
-						incrementLipSize();
+						CharacterModificationUtils.incrementLipSize();
 					}
 				};
 				
@@ -664,7 +632,7 @@ public class CharacterCreation {
 				return new Response("Iris colour", "Cycle iris colour.", CHOOSE_BODY_ADVANCED_FACE) {
 					@Override
 					public void effects() {
-						incrementPrimaryCovering(BodyCoveringType.EYE_HUMAN);
+						CharacterModificationUtils.incrementNaturalPrimaryCovering(BodyCoveringType.EYE_HUMAN);
 					}
 				};
 				
@@ -672,7 +640,7 @@ public class CharacterCreation {
 				return new Response("Eye pattern", "Cycle eye pattern.", CHOOSE_BODY_ADVANCED_FACE) {
 					@Override
 					public void effects() {
-						incrementPattern(BodyCoveringType.EYE_HUMAN);
+						CharacterModificationUtils.incrementPatternFromAll(BodyCoveringType.EYE_HUMAN);
 					}
 				};
 				
@@ -681,7 +649,7 @@ public class CharacterCreation {
 					return new Response("Second iris colour", "Cycle the colour of your other eye.", CHOOSE_BODY_ADVANCED_FACE) {
 						@Override
 						public void effects() {
-							incrementSecondaryCovering(BodyCoveringType.EYE_HUMAN);
+							CharacterModificationUtils.incrementNaturalSecondaryCovering(BodyCoveringType.EYE_HUMAN);
 						}
 					};
 				} else {
@@ -697,177 +665,406 @@ public class CharacterCreation {
 		}
 	};
 	
-	private static String getLipSizeOption() {
-		stringsList.clear();
-		for (LipSize value : LipSize.values()) {
-			if (Main.game.getPlayer().getLipSize() == value) {
-				stringsList.add("<b style='color:" + value.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(value.getName()) + "</b>");
-			} else {
-				stringsList.add("<span class='option-disabled'>" + Util.capitaliseSentence(value.getName()) + "</span>");
-			}
+	public static final DialogueNodeOld CHOOSE_BODY_ADVANCED_HAIR = new DialogueNodeOld("", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel() {
+			return "Hair";
 		}
-		return stringsToSelection(stringsList);
-	}
-	private static void incrementLipSize() {
-		switch(Main.game.getPlayer().getLipSize()) {
-			case ZERO_THIN:
-				Main.game.getPlayer().setLipSize(LipSize.ONE_AVERAGE.getValue());
-				break;
-			case ONE_AVERAGE:
-				Main.game.getPlayer().setLipSize(LipSize.TWO_FULL.getValue());
-				break;
-			case TWO_FULL:
-				Main.game.getPlayer().setLipSize(LipSize.THREE_PLUMP.getValue());
-				break;
-			case THREE_PLUMP:
-				Main.game.getPlayer().setLipSize(LipSize.FOUR_HUGE.getValue());
-				break;
-			case FOUR_HUGE:
-				Main.game.getPlayer().setLipSize(LipSize.ZERO_THIN.getValue());
-				break;
+
+		@Override
+		public String getHeaderContent() {
+			return "<p style='text-align:center;'>"
+						+ "<i>All of these options can be changed later on in the game by visiting Kate's shop.</i>"
+					+ "</p>"
+					
+					+ "<p style='text-align:center;'><b>Length</b></br>"
+						+ CharacterModificationUtils.getHairLengthOption()
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Style</b></br>"
+						+ CharacterModificationUtils.getHairStyleOption()
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Colour</b></br>"
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.HAIR_HUMAN)
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Pattern</b></br>"
+						+ CharacterModificationUtils.getAllPatternOptions(BodyCoveringType.HAIR_HUMAN)
+					+ "</p>"
+					+ (Main.game.getPlayer().getCovering(BodyCoveringType.HAIR_HUMAN).getPattern()!=CoveringPattern.NONE
+						?"<p style='text-align:center;'>[style.boldDisabled(Secondary colour)]</br>"
+						:"<p style='text-align:center;'><b>Secondary colour</b></br>")
+						+ CharacterModificationUtils.getAllSecondaryCoveringOptions(BodyCoveringType.HAIR_HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HAIR_HUMAN).getPattern()==CoveringPattern.NONE)
+					+ "</p>";
 		}
-	}
-	private static String getLipPuffyOption(boolean puffy) {
-		stringsList.clear();
-		if(!puffy) {
-			stringsList.add("[style.boldDisabled(Regular)]");
-		} else {
-			stringsList.add("[style.colourDisabled(Regular)]");
-		}	
-		if(puffy) {
-			stringsList.add("[style.boldGood(Puffy)]");
-		} else {
-			stringsList.add("[style.colourDisabled(Puffy)]");
+
+		@Override
+		public String getContent() {
+			return null;
 		}
-		return stringsToSelection(stringsList);
-	}
-	
-	private static String getPrimaryCoveringOptions(BodyCoveringType coveringType) {
-		stringsList.clear();
-		for (Colour cs : coveringType.getNaturalColoursPrimary()) {
-			if (Main.game.getPlayer().getCovering(coveringType).getPrimaryColour() == cs) {
-				if(Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing()) {
-					stringsList.add("<b style='color:"+cs.toWebHexString()+"; text-shadow: 0px 0px 4px "+cs.getShades()[4]+";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
+		
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Hair length", "Cycle hair length.", CHOOSE_BODY_ADVANCED_HAIR) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementHairLength();
+					}
+				};
+				
+			} else if (index == 2) {
+				return new Response("Hair style", "Cycle your hair style.", CHOOSE_BODY_ADVANCED_HAIR) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementHairStyle(Main.game.getPlayer().getHairStyle());
+					}
+				};
+				
+			} if (index == 3) {
+				return new Response("Hair colour", "Cycle hair colour.", CHOOSE_BODY_ADVANCED_HAIR) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.HAIR_HUMAN);
+					}
+				};
+				
+			} else if (index == 4) {
+				return new Response("Hair pattern", "Cycle hair pattern.", CHOOSE_BODY_ADVANCED_HAIR) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementPatternFromAll(BodyCoveringType.HAIR_HUMAN);
+					}
+				};
+				
+			} else if (index == 5) {
+				if(Main.game.getPlayer().getCovering(BodyCoveringType.HAIR_HUMAN).getPattern() != CoveringPattern.NONE) {
+					return new Response("Secondary hair colour", "Cycle the secondary colour of your hair.", CHOOSE_BODY_ADVANCED_HAIR) {
+						@Override
+						public void effects() {
+							CharacterModificationUtils.incrementAllSecondaryCovering(BodyCoveringType.HAIR_HUMAN);
+						}
+					};
 				} else {
-					stringsList.add("<b style='color:" + cs.toWebHexString() + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
+					return new Response("Secondary hair colour", "You can only choose your second hair colour if you have an appropriate pattern.", null);
 				}
+				
+			} else if (index == 0) {
+				return new Response("Back", "Return to the main character creation screen.", CHOOSE_BODY_ADVANCED);
+				
 			} else {
-				stringsList.add("<span class='option-disabled'>" + Util.capitaliseSentence(cs.getName()) + "</span>");
+				return null;
 			}
 		}
-		return stringsToSelection(stringsList);
-	}
-	private static void incrementPrimaryCovering(BodyCoveringType coveringType) {
-		boolean found = false, applied = false;
-		for (Colour cs : coveringType.getNaturalColoursPrimary()) {
-			if(found) {
-				Main.game.getPlayer().setCovering(new Covering(
-						coveringType,
-						Main.game.getPlayer().getCovering(coveringType).getPattern(),
-						cs,
-						Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
-						Main.game.getPlayer().getCovering(coveringType).getSecondaryColour(),
-						Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
-				applied = true;
-				break;
-			}
-			if (Main.game.getPlayer().getCovering(coveringType).getPrimaryColour() == cs) {
-				found = true;
-			}
-		}
-		if(!applied) {
-			Main.game.getPlayer().setCovering(new Covering(
-					coveringType,
-					Main.game.getPlayer().getCovering(coveringType).getPattern(),
-					coveringType.getNaturalColoursPrimary().get(0),
-					Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
-					Main.game.getPlayer().getCovering(coveringType).getSecondaryColour(),
-					Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
-		}
-	}
-	private static String getSecondaryCoveringOptions(BodyCoveringType coveringType, boolean disabled) {
-		stringsList.clear();
-		for (Colour cs : coveringType.getNaturalColoursSecondary()) {
-			if (Main.game.getPlayer().getCovering(coveringType).getSecondaryColour() == cs && !disabled) {
-				if(Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()) {
-					stringsList.add("<b style='color:"+cs.toWebHexString()+"; text-shadow: 0px 0px 4px "+cs.getShades()[4]+";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
-				} else {
-					stringsList.add("<b style='color:" + cs.toWebHexString() + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
-				}
-			} else {
-				stringsList.add("<span class='option-disabled'>" + Util.capitaliseSentence(cs.getName()) + "</span>");
-			}
-		}
-		return stringsToSelection(stringsList);
-	}
-	private static void incrementSecondaryCovering(BodyCoveringType coveringType) {
-		boolean found = false, applied = false;
-		for (Colour cs : coveringType.getNaturalColoursSecondary()) {
-			if(found) {
-				Main.game.getPlayer().setCovering(new Covering(
-						coveringType,
-						Main.game.getPlayer().getCovering(coveringType).getPattern(),
-						Main.game.getPlayer().getCovering(coveringType).getPrimaryColour(),
-						Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
-						cs,
-						Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
-				applied = true;
-				break;
-			}
-			if (Main.game.getPlayer().getCovering(coveringType).getSecondaryColour() == cs) {
-				found = true;
-			}
-		}
-		if(!applied) {
-			Main.game.getPlayer().setCovering(new Covering(
-					coveringType,
-					Main.game.getPlayer().getCovering(coveringType).getPattern(),
-					Main.game.getPlayer().getCovering(coveringType).getPrimaryColour(),
-					Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
-					coveringType.getNaturalColoursSecondary().get(0),
-					Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
-		}
-	}
-	private static String getPatternOptions(BodyCoveringType coveringType) {
-		stringsList.clear();
-		for (CoveringPattern value : coveringType.getAllPatterns()) {
-			if (Main.game.getPlayer().getCovering(coveringType).getPattern() == value) {
-				stringsList.add("<b>" + Util.capitaliseSentence(value.getName()) + "</b>");
-			} else {
-				stringsList.add("<span class='option-disabled'>" + Util.capitaliseSentence(value.getName()) + "</span>");
-			}
-		}
-		return stringsToSelection(stringsList);
-	}
-	private static void incrementPattern(BodyCoveringType coveringType) {
-		boolean found = false, applied = false;
-		for (CoveringPattern value : coveringType.getAllPatterns()) {
-			if(found) {
-				Main.game.getPlayer().setCovering(new Covering(
-						coveringType,
-						value,
-						Main.game.getPlayer().getCovering(coveringType).getPrimaryColour(),
-						Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
-						Main.game.getPlayer().getCovering(coveringType).getSecondaryColour(),
-						Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
-				applied = true;
-				break;
-			}
-			if (Main.game.getPlayer().getCovering(coveringType).getPattern() == value) {
-				found = true;
-			}
-		}
-		if(!applied) {
-			Main.game.getPlayer().setCovering(new Covering(
-					coveringType,
-					coveringType.getAllPatterns().get(0),
-					Main.game.getPlayer().getCovering(coveringType).getPrimaryColour(),
-					Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
-					Main.game.getPlayer().getCovering(coveringType).getSecondaryColour(),
-					Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
-		}
-	}
+	};
 	
+	public static final DialogueNodeOld CHOOSE_BODY_ADVANCED_BREASTS = new DialogueNodeOld("", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel() {
+			return "Breasts";
+		}
+
+		@Override
+		public String getHeaderContent() {
+			return "<p style='text-align:center;'>"
+						+ "<i>All of these options can be changed later on in the game.</i>"
+					+ "</p>"
+					
+					+ "<p style='text-align:center;'><b>Breast size</b></br>"
+						+ CharacterModificationUtils.getBreastSizeOption()
+						+ (!Main.game.getPlayer().isFeminine()?"</br>[style.italicsDisabled(Masculine characters cannot start with breasts larger than 'training'.)]":"")
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Nipple size</b></br>"
+						+ CharacterModificationUtils.getNippleSizeOption()
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Areolae size</b></br>"
+						+ CharacterModificationUtils.getAreolaeSizeOption()
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Lactation</b></br>"
+						+ CharacterModificationUtils.getLactationOption()
+						+ (!Main.game.getPlayer().isFeminine()?"</br>[style.italicsDisabled(Masculine characters cannot start with lactating breasts.)]":"")
+					+ "</p>";
+		}
+
+		@Override
+		public String getContent() {
+			return null;
+		}
+		
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Breast size", "Cycle breast size.", CHOOSE_BODY_ADVANCED_BREASTS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementBreastSize();
+					}
+				};
+				
+			} else if (index == 2) {
+				return new Response("Nipple size", "Cycle your nipple size.", CHOOSE_BODY_ADVANCED_BREASTS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementNippleSize();
+					}
+				};
+				
+			} if (index == 3) {
+				return new Response("Areolae size", "Cycle the size of your areolae.", CHOOSE_BODY_ADVANCED_BREASTS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementAreolaeSize();
+					}
+				};
+				
+			} else if (index == 4) {
+				return new Response("Lactation", "Cycle your starting lactation.", CHOOSE_BODY_ADVANCED_BREASTS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementLactation();
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "Return to the main character creation screen.", CHOOSE_BODY_ADVANCED);
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld CHOOSE_BODY_ADVANCED_ASS_HIPS = new DialogueNodeOld("", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel() {
+			return "Hair";
+		}
+
+		@Override
+		public String getHeaderContent() {
+			return "<p style='text-align:center;'>"
+						+ "<i>All of these options can be changed later on in the game.</i>"
+					+ "</p>"
+					
+					+ "<p style='text-align:center;'><b>Breast size</b></br>"
+						+ CharacterModificationUtils.getBreastSizeOption()
+						+ (!Main.game.getPlayer().isFeminine()?"</br>[style.italicsDisabled(Masculine characters cannot start with breasts larger than 'training'.)]":"")
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Nipple size</b></br>"
+						+ CharacterModificationUtils.getNippleSizeOption()
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Areolae size</b></br>"
+						+ CharacterModificationUtils.getAreolaeSizeOption()
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Lactation</b></br>"
+					+ CharacterModificationUtils.getLactationOption()
+					+ "</p>";
+		}
+
+		@Override
+		public String getContent() {
+			return null;
+		}
+		
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Breast size", "Cycle breast size.", CHOOSE_BODY_ADVANCED_BREASTS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementBreastSize();
+					}
+				};
+				
+			} else if (index == 2) {
+				return new Response("Nipple size", "Cycle your nipple size.", CHOOSE_BODY_ADVANCED_BREASTS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementNippleSize();
+					}
+				};
+				
+			} if (index == 3) {
+				return new Response("Areolae size", "Cycle the size of your areolae.", CHOOSE_BODY_ADVANCED_BREASTS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementAreolaeSize();
+					}
+				};
+				
+			} else if (index == 4) {
+				return new Response("Lactation", "Cycle your starting lactation.", CHOOSE_BODY_ADVANCED_BREASTS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementLactation();
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "Return to the main character creation screen.", CHOOSE_BODY_ADVANCED);
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld CHOOSE_BODY_ADVANCED_BODY_HAIR = new DialogueNodeOld("", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel() {
+			return "Hair";
+		}
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<p style='text-align:center;'>"
+							+ "<i>All of these options can be changed later on in the game by visiting Kate's shop.</i>"
+					+ "</p>");
+			
+			if(Main.game.isPubicHairEnabled() || Main.game.isPubicHairEnabled() || Main.game.isBodyHairEnabled()) {
+				UtilText.nodeContentSB.append(
+						"<p style='text-align:center;'><b>Body hair colour</b></br>"
+							+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.BODY_HAIR_HUMAN)
+						+ "</p>");
+			} else {
+				UtilText.nodeContentSB.append(
+						"<p style='text-align:center;'><b>Body hair colour</b></br>"
+							+ "[style.colourDisabled(All extra body hair options are disabled. You will not see any extra hair content.)]"
+						+ "</p>");
+			}
+			
+			if(Main.game.isFacialHairEnabled()) {
+				UtilText.nodeContentSB.append(
+						"</br>"
+						+ "<p style='text-align:center;'><b>Facial hair</b></br>"
+							+ CharacterModificationUtils.getFacialHairOption()
+							+ (Main.game.getPlayer().isFeminine()?"</br>[style.italicsDisabled(Feminine characters cannot grow facial hair.)]":"")
+						+ "</p>");
+				
+			} else {
+				UtilText.nodeContentSB.append(
+						"</br>"
+						+ "<p style='text-align:center;'><b>Facial hair</b></br>"
+							+ "[style.colourDisabled(Facial hair is currently disabled in the options. You will not see any facial hair content while it is disabled.)]"
+						+ "</p>");
+			}
+			
+			if(Main.game.isPubicHairEnabled()) {
+				UtilText.nodeContentSB.append(
+						"</br>"
+						+ "<p style='text-align:center;'><b>Pubic hair</b></br>"
+							+ CharacterModificationUtils.getPubicHairOption()
+						+ "</p>");
+				
+			} else {
+				UtilText.nodeContentSB.append(
+						"</br>"
+						+ "<p style='text-align:center;'><b>Pubic hair</b></br>"
+							+ "[style.colourDisabled(Pubic hair is currently disabled in the options. You will not see any pubic hair content while it is disabled.)]"
+						+ "</p>");
+			}
+			
+			if(Main.game.isBodyHairEnabled()) {
+				UtilText.nodeContentSB.append(
+						"</br>"
+						+ "<p style='text-align:center;'><b>Underarm hair</b></br>"
+							+ CharacterModificationUtils.getUnderarmHairOption()
+						+ "</p>"
+						+ "<p style='text-align:center;'><b>Ass hair</b></br>"
+							+ CharacterModificationUtils.getAssHairOption()
+						+ "</p>");
+				
+			} else {
+				UtilText.nodeContentSB.append(
+						"</br>"
+						+ "<p style='text-align:center;'><b>Pubic hair</b></br>"
+							+ "[style.colourDisabled(Pubic hair is currently disabled in the options. You will not see any pubic hair content while it is disabled.)]"
+						+ "</p>");
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public String getContent() {
+			return null;
+		}
+		
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Body hair colour", "Cycle body hair colour.", CHOOSE_BODY_ADVANCED_BODY_HAIR) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.BODY_HAIR_HUMAN);
+					}
+				};
+				
+			} else if (index == 2) {
+				if(Main.game.isFacialHairEnabled()) {
+					return new Response("Facial hair", "Cycle your facial hair quantity.", CHOOSE_BODY_ADVANCED_BODY_HAIR) {
+						@Override
+						public void effects() {
+							CharacterModificationUtils.incrementFacialHair(Main.game.getPlayer().getFacialHair());
+						}
+					};
+				} else {
+					return new Response("Facial hair", "Facial hair content is disabled in the options.", null);
+				}
+				
+			} if (index == 3) {
+				if(Main.game.isPubicHairEnabled()) {
+					return new Response("Pubic hair", "Cycle your pubic hair quantity.", CHOOSE_BODY_ADVANCED_BODY_HAIR) {
+						@Override
+						public void effects() {
+							CharacterModificationUtils.incrementPubicHair();
+						}
+					};
+				} else {
+					return new Response("Pubic hair", "Pubic hair content is disabled in the options.", null);
+				}
+				
+			} else if (index == 4) {
+				if(Main.game.isBodyHairEnabled()) {
+					return new Response("Underarm hair", "Cycle your underarm hair quantity.", CHOOSE_BODY_ADVANCED_BODY_HAIR) {
+						@Override
+						public void effects() {
+							CharacterModificationUtils.incrementUnderarmHair();
+						}
+					};
+				} else {
+					return new Response("Underarm hair", "Body hair content is disabled in the options.", null);
+				}
+				
+			} else if (index == 5) {
+				if(Main.game.isBodyHairEnabled()) {
+					return new Response("Ass hair", "Cycle your ass hair quantity.", CHOOSE_BODY_ADVANCED_BODY_HAIR) {
+						@Override
+						public void effects() {
+							CharacterModificationUtils.incrementAssHair();
+						}
+					};
+				} else {
+					return new Response("Ass hair", "Body hair content is disabled in the options.", null);
+				}
+				
+			} else if (index == 0) {
+				return new Response("Back", "Return to the main character creation screen.", CHOOSE_BODY_ADVANCED);
+				
+			} else {
+				return null;
+			}
+		}
+	};
 	
 	public static final DialogueNodeOld CHOOSE_BODY_ADVANCED_PIERCINGS = new DialogueNodeOld("", "", true) {
 		private static final long serialVersionUID = 1L;
@@ -884,28 +1081,28 @@ public class CharacterCreation {
 				+ "</p>"
 				
 				+ "<p style='text-align:center;'><b>Ear piercing</b></br>"
-					+ getPiercingsOptions(Main.game.getPlayer().isPiercedEar())
+					+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedEar())
 				+ "</p>"
 				+ "<p style='text-align:center;'><b>Nose piercing</b></br>"
-					+ getPiercingsOptions(Main.game.getPlayer().isPiercedNose())
+					+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedNose())
 				+ "</p>"
 				+ "<p style='text-align:center;'><b>Lip piercing</b></br>"
-					+ getPiercingsOptions(Main.game.getPlayer().isPiercedLip())
+					+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedLip())
 				+ "</p>"
 				+ "<p style='text-align:center;'><b>Navel piercing</b></br>"
-					+ getPiercingsOptions(Main.game.getPlayer().isPiercedNavel())
+					+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedNavel())
 				+ "</p>"
 				+ "<p style='text-align:center;'><b>Tongue piercing</b></br>"
-					+ getPiercingsOptions(Main.game.getPlayer().isPiercedTongue())
+					+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedTongue())
 				+ "</p>"
 				+ "<p style='text-align:center;'><b>Nipple piercing</b></br>"
-					+ getPiercingsOptions(Main.game.getPlayer().isPiercedNipple())
+					+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedNipple())
 				+ "</p>"
 				+ "<p style='text-align:center;'><b>Penis piercing</b></br>"
-					+ getPiercingsOptions(Main.game.getPlayer().isPiercedPenis())
+					+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedPenis())
 				+ "</p>"
 				+ "<p style='text-align:center;'><b>Vagina piercing</b></br>"
-					+ getPiercingsOptions(Main.game.getPlayer().isPiercedVagina())
+					+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedVagina())
 				+ "</p>";
 			
 			
@@ -999,23 +1196,6 @@ public class CharacterCreation {
 		}
 	};
 	
-	private static String getPiercingsOptions(boolean pierced) {
-		stringsList.clear();
-		
-		if(!pierced) {
-			stringsList.add("[style.boldDisabled(Unpierced)]");
-		} else {
-			stringsList.add("[style.colourDisabled(Unpierced)]");
-		}	
-		if(pierced) {
-			stringsList.add("[style.boldGood(Pierced)]");
-		} else {
-			stringsList.add("[style.colourDisabled(Pierced)]");
-		}
-
-		return stringsToSelection(stringsList);
-	}
-	
 	public static final DialogueNodeOld CHOOSE_BODY_ADVANCED_COSMETICS = new DialogueNodeOld("", "", true) {
 		private static final long serialVersionUID = 1L;
 		
@@ -1031,32 +1211,32 @@ public class CharacterCreation {
 					+ "</p>"
 					
 					+ "<p style='text-align:center;'><b>Blusher</b></br>"
-						+ getCoveringOptions(BodyCoveringType.MAKEUP_BLUSHER)
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.MAKEUP_BLUSHER)
 						+ "</br>"
 						+ getGlowOptions(Main.game.getPlayer().getBlusher().isPrimaryGlowing())
 					+ "</p>"
 					+ "<p style='text-align:center;'><b>Lipstick</b></br>"
-						+ getCoveringOptions(BodyCoveringType.MAKEUP_LIPSTICK)
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.MAKEUP_LIPSTICK)
 						+ "</br>"
 						+ getGlowOptions(Main.game.getPlayer().getLipstick().isPrimaryGlowing())
 					+ "</p>"
 					+ "<p style='text-align:center;'><b>Eyeliner</b></br>"
-						+ getCoveringOptions(BodyCoveringType.MAKEUP_EYE_LINER)
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.MAKEUP_EYE_LINER)
 						+ "</br>"
 						+ getGlowOptions(Main.game.getPlayer().getEyeLiner().isPrimaryGlowing())
 					+ "</p>"
 					+ "<p style='text-align:center;'><b>Eyeshadow</b></br>"
-						+ getCoveringOptions(BodyCoveringType.MAKEUP_EYE_SHADOW)
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.MAKEUP_EYE_SHADOW)
 						+ "</br>"
 						+ getGlowOptions(Main.game.getPlayer().getEyeShadow().isPrimaryGlowing())
 					+ "</p>"
 					+ "<p style='text-align:center;'><b>Nail polish</b></br>"
-						+ getCoveringOptions(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS)
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS)
 						+ "</br>"
 						+ getGlowOptions(Main.game.getPlayer().getHandNailPolish().isPrimaryGlowing())
 					+ "</p>"
 					+ "<p style='text-align:center;'><b>Toenail polish</b></br>"
-						+ getCoveringOptions(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET)
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET)
 						+ "</br>"
 						+ getGlowOptions(Main.game.getPlayer().getFootNailPolish().isPrimaryGlowing())
 					+ "</p>"
@@ -1076,7 +1256,7 @@ public class CharacterCreation {
 				return new Response("Blusher colour", "Cycle blusher colour.", CHOOSE_BODY_ADVANCED_COSMETICS) {
 					@Override
 					public void effects() {
-						incrementCovering(BodyCoveringType.MAKEUP_BLUSHER);
+						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.MAKEUP_BLUSHER);
 					}
 				};
 				
@@ -1096,7 +1276,7 @@ public class CharacterCreation {
 				return new Response("Lipstick colour", "Cycle lipstick colour.", CHOOSE_BODY_ADVANCED_COSMETICS) {
 					@Override
 					public void effects() {
-						incrementCovering(BodyCoveringType.MAKEUP_LIPSTICK);
+						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.MAKEUP_LIPSTICK);
 					}
 				};
 				
@@ -1116,7 +1296,7 @@ public class CharacterCreation {
 				return new Response("Eyeliner colour", "Cycle eyeliner colour.", CHOOSE_BODY_ADVANCED_COSMETICS) {
 					@Override
 					public void effects() {
-						incrementCovering(BodyCoveringType.MAKEUP_EYE_LINER);
+						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.MAKEUP_EYE_LINER);
 					}
 				};
 				
@@ -1136,7 +1316,7 @@ public class CharacterCreation {
 				return new Response("Eyeshadow colour", "Cycle eyeshadow colour.", CHOOSE_BODY_ADVANCED_COSMETICS) {
 					@Override
 					public void effects() {
-						incrementCovering(BodyCoveringType.MAKEUP_EYE_SHADOW);
+						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.MAKEUP_EYE_SHADOW);
 					}
 				};
 				
@@ -1156,7 +1336,7 @@ public class CharacterCreation {
 				return new Response("Nail polish colour", "Cycle nail polish colour.", CHOOSE_BODY_ADVANCED_COSMETICS) {
 					@Override
 					public void effects() {
-						incrementCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS);
+						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS);
 					}
 				};
 				
@@ -1176,7 +1356,7 @@ public class CharacterCreation {
 				return new Response("Toenail polish colour", "Cycle toenail polish colour.", CHOOSE_BODY_ADVANCED_COSMETICS) {
 					@Override
 					public void effects() {
-						incrementCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET);
+						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET);
 					}
 				};
 				
@@ -1201,38 +1381,7 @@ public class CharacterCreation {
 		}
 	};
 	
-	private static String getCoveringOptions(BodyCoveringType coveringType) {
-		stringsList.clear();
-		for (Colour cs : coveringType.getAllColours()) {
-			if (Main.game.getPlayer().getCovering(coveringType).getPrimaryColour() == cs) {
-				if(Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing()) {
-					stringsList.add("<b style='color:"+cs.toWebHexString()+"; text-shadow: 0px 0px 4px "+cs.getShades()[4]+";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
-				} else {
-					stringsList.add("<b style='color:" + cs.toWebHexString() + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
-				}
-			} else {
-				stringsList.add("<span class='option-disabled'>" + Util.capitaliseSentence(cs.getName()) + "</span>");
-			}
-		}
-		return stringsToSelection(stringsList);
-	}
 	
-	private static void incrementCovering(BodyCoveringType coveringType) {
-		boolean found = false, applied = false;
-		for (Colour cs : coveringType.getAllColours()) {
-			if(found) {
-				Main.game.getPlayer().setCovering(new Covering(coveringType, cs));
-				applied = true;
-				break;
-			}
-			if (Main.game.getPlayer().getCovering(coveringType).getPrimaryColour() == cs) {
-				found = true;
-			}
-		}
-		if(!applied) {
-			Main.game.getPlayer().setCovering(new Covering(coveringType, coveringType.getAllColours().get(0)));
-		}
-	}
 	
 	private static String getGlowOptions(boolean glow) {
 		stringsList.clear();
