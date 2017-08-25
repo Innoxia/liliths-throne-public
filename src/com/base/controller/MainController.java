@@ -445,6 +445,23 @@ public class MainController implements Initializable {
 //							 System.out.println("Free memory (bytes) -gc: " + Runtime.getRuntime().freeMemory());
 //							 System.gc();
 //							 System.out.println("Free memory (bytes) +gc: " + Runtime.getRuntime().freeMemory());
+//							 System.out.println("Body sizes:");
+//							 for(BodySize bs : BodySize.values()) {
+//								 System.out.println(bs.getName(false));
+//							 }
+//							 System.out.println("");
+//							 System.out.println("Muscle:");
+//							 for(Muscle m : Muscle.values()) {
+//								 System.out.println(m.getName(false));
+//							 }
+//							 System.out.println("");
+//							 System.out.println("");
+//							 System.out.println("Body shapes:");
+//							 for(BodyShape bs : BodyShape.values()) {
+//								 System.out.println(bs.getRelatedBodySize().getName(false)+" + "+bs.getRelatedMuscle().getName(false)+" = "+bs.getName());
+//							 }
+							 
+							 
 						 }
 						 
 //						 if(event.getCode()==KeyCode.DELETE){

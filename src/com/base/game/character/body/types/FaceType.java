@@ -10,33 +10,34 @@ import com.base.game.dialogue.utils.UtilText;
  * @author Innoxia
  */
 public enum FaceType implements BodyPartTypeInterface {
-	HUMAN(BodyCoveringType.HUMAN, TongueType.HUMAN, Race.HUMAN),
+	HUMAN(BodyCoveringType.HUMAN, MouthType.HUMAN, TongueType.HUMAN, Race.HUMAN),
 
-	ANGEL(BodyCoveringType.HUMAN, TongueType.HUMAN, Race.ANGEL),
+	ANGEL(BodyCoveringType.HUMAN, MouthType.ANGEL, TongueType.HUMAN, Race.ANGEL),
 
-	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, TongueType.DEMON_COMMON, Race.DEMON),
+	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, MouthType.DEMON_COMMON, TongueType.DEMON_COMMON, Race.DEMON),
 
-	DOG_MORPH(BodyCoveringType.CANINE_FUR, TongueType.DOG_MORPH, Race.DOG_MORPH),
+	DOG_MORPH(BodyCoveringType.CANINE_FUR, MouthType.DOG_MORPH, TongueType.DOG_MORPH, Race.DOG_MORPH),
 	
-	LYCAN(BodyCoveringType.LYCAN_FUR, TongueType.WOLF_MORPH, Race.WOLF_MORPH),
+	LYCAN(BodyCoveringType.LYCAN_FUR, MouthType.WOLF_MORPH, TongueType.WOLF_MORPH, Race.WOLF_MORPH),
 
-	CAT_MORPH(BodyCoveringType.FELINE_FUR, TongueType.CAT_MORPH, Race.CAT_MORPH),
+	CAT_MORPH(BodyCoveringType.FELINE_FUR, MouthType.CAT_MORPH, TongueType.CAT_MORPH, Race.CAT_MORPH),
 
-	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, TongueType.SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
+	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, MouthType.SQUIRREL_MORPH, TongueType.SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
 
-	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, TongueType.HORSE_MORPH, Race.HORSE_MORPH),
+	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, MouthType.HORSE_MORPH, TongueType.HORSE_MORPH, Race.HORSE_MORPH),
 
-	SLIME(BodyCoveringType.SLIME, TongueType.SLIME, Race.SLIME),
+	SLIME(BodyCoveringType.SLIME, MouthType.SLIME, TongueType.SLIME, Race.SLIME),
 
-	HARPY(BodyCoveringType.FEATHERS, TongueType.TENGU, Race.HARPY);
+	HARPY(BodyCoveringType.FEATHERS, MouthType.HARPY, TongueType.TENGU, Race.HARPY);
 
 	private BodyCoveringType skinType;
+	private MouthType mouthType;
 	private TongueType tongueType;
 	private Race race;
 
-	private FaceType(BodyCoveringType skinType, TongueType tongueType, Race race) {
+	private FaceType(BodyCoveringType skinType, MouthType mouthType, TongueType tongueType, Race race) {
 		this.skinType = skinType;
-
+		this.mouthType = mouthType;
 		this.tongueType = tongueType;
 		this.race = race;
 	}
@@ -108,7 +109,7 @@ public enum FaceType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getSkinType() {
+	public BodyCoveringType getBodyCoveringType() {
 		return skinType;
 	}
 	
@@ -117,36 +118,14 @@ public enum FaceType implements BodyPartTypeInterface {
 		return race;
 	}
 	
+	public MouthType getMouthType() {
+		return mouthType;
+	}
+
 	public TongueType getTongueType() {
 		return tongueType;
 	}
 	
-	public String getLipsNameSingular(GameCharacter gc) {
-		switch(this){
-			default:
-				return UtilText.returnStringAtRandom("lip");
-		}
-	}
 	
-	public String getLipsNamePlural(GameCharacter gc) {
-		switch(this){
-			default:
-				return UtilText.returnStringAtRandom("lips");
-		}
-	}
-
-	public String getLipsDescriptor(GameCharacter gc) {
-		if (gc.isFeminine()) {
-			switch(this){
-				default:
-					return UtilText.returnStringAtRandom("soft", "plump", "full");
-			}
-		} else {
-			switch(this){
-				default:
-					return UtilText.returnStringAtRandom("");
-			}
-		}
-	}
 
 }

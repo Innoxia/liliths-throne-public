@@ -5,6 +5,7 @@ import com.base.game.character.NameTriplet;
 import com.base.game.character.SexualOrientation;
 import com.base.game.character.attributes.Attribute;
 import com.base.game.character.attributes.CorruptionLevel;
+import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.valueEnums.AssSize;
 import com.base.game.character.body.valueEnums.CupSize;
@@ -51,11 +52,11 @@ public class TestNPC extends NPC {
 				new CharacterInventory(10), WorldType.JUNGLE, Jungle.JUNGLE_CLUB, true); //TODO need to test moving into a 'null' world
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-
-		this.setEyeColour(Colour.EYE_GREEN);
-		this.setHairColour(Colour.COVERING_BROWN);
-		this.setSkinColour(BodyCoveringType.FELINE_FUR, Colour.COVERING_BROWN);
-		this.setSkinColour(BodyCoveringType.HUMAN, Colour.HUMAN_SKIN_LIGHT);
+		
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_GREEN));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BROWN));
+		this.setCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BROWN));
+		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT));
 
 		this.setAttribute(Attribute.STRENGTH, 5);
 		this.setAttribute(Attribute.INTELLIGENCE, 25);
@@ -77,7 +78,7 @@ public class TestNPC extends NPC {
 		this.setPiercedEar(true);
 		
 		this.setAssVirgin(true);
-		this.setBreastVirgin(true);
+		this.setNippleVirgin(true);
 		this.setVaginaVirgin(true);
 		this.setFaceVirgin(true);
 		
@@ -567,7 +568,7 @@ public class TestNPC extends NPC {
 							return "<p>"
 									+ "Holding out a 'Promiscuity pill' to [test.name], you ask [test.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
 									+ " Letting out an annoyed sigh, [test.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [test.she] growls at you,"
-									+ " [test.speech(Fine! I don't care eit[test.her] way, but I kinda like the taste of these things...)]"
+									+ " [test.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
 									+ "</p>";
 						}
 					case VIXENS_VIRILITY:
@@ -582,7 +583,7 @@ public class TestNPC extends NPC {
 							return "<p>"
 									+ "Holding out a 'Vixen's Virility' pill to [test.name], you ask [test.her] to swallow it."
 									+ " Letting out an annoyed sigh, [test.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [test.she] growls at you,"
-									+ " [test.speech(Fine! I don't care eit[test.her] way, but I kinda like the taste of these things...)]"
+									+ " [test.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
 									+ "</p>";
 						}
 					case POTION: case ELIXIR:

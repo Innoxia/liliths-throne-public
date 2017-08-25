@@ -5,6 +5,7 @@ import java.util.List;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.body.types.VaginaType;
 import com.base.game.character.body.valueEnums.CumProduction;
+import com.base.game.character.body.valueEnums.PenisModifier;
 import com.base.game.character.body.valueEnums.PenisSize;
 import com.base.game.character.effects.Fetish;
 import com.base.game.dialogue.utils.UtilText;
@@ -153,10 +154,10 @@ public class SubKneeling {
 				UtilText.nodeContentSB.append("</br></br>"
 						+ "As [npc.she] grinds [npc.her] [npc.pussy+] down against your [pc.lips], [npc.her] other sexual organ starts to react to [npc.her] climax.");
 				
-				if(Sex.getPartner().isPenisKnotted()) {
+				if(Sex.getPartner().hasPenisModifier(PenisModifier.KNOTTED)) {
 					UtilText.nodeContentSB.append(" [npc.She] lets out [npc.a_moan+] as the knot at the base of [npc.her] [npc.cock+] swells up as [npc.she] prepares to cum,");
 					
-				} else if(Sex.getPartner().isPenisFlaredHead()) {
+				} else if(Sex.getPartner().hasPenisModifier(PenisModifier.FLARED)) {
 					UtilText.nodeContentSB.append(" [npc.She] lets out [npc.a_moan+] as the wide, flared head of [npc.her] [pc.cock+] swells up as [npc.she] prepares to cum,");
 					
 				} else {
@@ -248,13 +249,13 @@ public class SubKneeling {
 			
 			UtilText.nodeContentSB.append("You feel [npc.name]'s [npc.cock] start to twitch and throb in your mouth, and before you can react, [npc.she] grabs the sides of your head and slams [npc.her] entire length fully down your throat.");
 			
-			if(Sex.getPartner().isPenisKnotted()) {
+			if(Sex.getPartner().hasPenisModifier(PenisModifier.KNOTTED)) {
 				UtilText.nodeContentSB.append(" Forcing the knot at the base of [npc.her] [npc.cock] past your [pc.lips+], you shuffle around on your knees as it quickly swells up, locking you both in place");
 				
-			} else if(Sex.getPartner().isPenisFlaredHead()) {
+			} else if(Sex.getPartner().hasPenisModifier(PenisModifier.FLARED)) {
 				UtilText.nodeContentSB.append(" You feel it start to twitch and throb, and [npc.she] reaches down to hold your head in position as [npc.her] wide, flared head swells up in your throat.");
 				
-			} else if(Sex.getPartner().isPenisBarbedShaft()) {
+			} else if(Sex.getPartner().hasPenisModifier(PenisModifier.BARBED)) {
 				UtilText.nodeContentSB.append(" You feel it start to twitch and throb, and [npc.she] starts making little thrusting motions into your [pc.face],"
 						+ " raking [npc.her] barbs up and down your throat as [npc.she] brings [npc.herself] to a climax.");
 				
@@ -351,13 +352,13 @@ public class SubKneeling {
 			UtilText.nodeContentSB.append("You feel [npc.name]'s [npc.cock] start to twitch and throb in your mouth, and before you can react, [npc.she] suddenly slides [npc.her] shaft up out of your throat"
 					+ (Sex.getPartner().isWearingCondom()?", sliding [npc.her] condom off as [npc.she] does so.":"."));
 			
-			if(Sex.getPartner().isPenisKnotted()) {
+			if(Sex.getPartner().hasPenisModifier(PenisModifier.KNOTTED)) {
 				UtilText.nodeContentSB.append(" Reaching down to start masturbating over your face, [npc.she] uses your slimy saliva as lubrication as [npc.she] squeezes and fondles [npc.her] thick swollen knot.");
 				
-			} else if(Sex.getPartner().isPenisFlaredHead()) {
+			} else if(Sex.getPartner().hasPenisModifier(PenisModifier.FLARED)) {
 				UtilText.nodeContentSB.append(" Looking down at you, [npc.she] quickly starts masturbating, using your slimy saliva as lubrication as [npc.she] rubs [npc.her] thumb over the top of [npc.her] wide, flared head.");
 				
-			} else if(Sex.getPartner().isPenisBarbedShaft()) {
+			} else if(Sex.getPartner().hasPenisModifier(PenisModifier.BARBED)) {
 				UtilText.nodeContentSB.append(" You let out a desperate wail as [npc.her] barbs rake their way up your throat, but [npc.she] seems oblivious to your discomfort as [npc.she] quickly starts masturbating,"
 							+ " using your slimy saliva as lubrication as [npc.she] rapidly brings [npc.herself] to a climax.");
 				

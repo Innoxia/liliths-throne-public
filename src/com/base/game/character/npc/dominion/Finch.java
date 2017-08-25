@@ -2,6 +2,7 @@ package com.base.game.character.npc.dominion;
 
 import com.base.game.character.NameTriplet;
 import com.base.game.character.SexualOrientation;
+import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.valueEnums.PenisSize;
 import com.base.game.character.body.valueEnums.TesticleSize;
@@ -49,10 +50,11 @@ public class Finch extends NPC {
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
-		this.setEyeColour(Colour.EYE_GREEN);
-		this.setHairColour(Colour.COVERING_BLACK);
-		this.setSkinColour(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLACK);
-		this.setSkinColour(BodyCoveringType.HUMAN, Colour.HUMAN_SKIN_LIGHT);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_GREEN));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLACK));
+		this.setCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLACK));
+		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT));
+		
 		this.setPenisSize(PenisSize.ONE_TINY.getMedianValue());
 		this.setTesticleSize(TesticleSize.ONE_TINY.getValue());
 		this.setFemininity(25);

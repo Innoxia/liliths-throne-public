@@ -14,8 +14,11 @@ import com.base.game.character.NameTriplet;
 import com.base.game.character.QuestLine;
 import com.base.game.character.QuestType;
 import com.base.game.character.SexualOrientation;
+import com.base.game.character.body.Covering;
+import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.types.VaginaType;
 import com.base.game.character.body.valueEnums.AssSize;
+import com.base.game.character.body.valueEnums.CoveringPattern;
 import com.base.game.character.body.valueEnums.CupSize;
 import com.base.game.character.body.valueEnums.PenisSize;
 import com.base.game.character.body.valueEnums.TesticleSize;
@@ -39,7 +42,7 @@ import com.base.world.places.LilayasHome;
 
 /**
  * @since 0.1.0
- * @version 0.1.8
+ * @version 0.1.83
  * @author Innoxia
  */
 public class CharacterCreationDialogue {
@@ -59,11 +62,6 @@ public class CharacterCreationDialogue {
 			} else {
 				return null;
 			}
-		}
-
-		@Override
-		public boolean isOptionsDisabled() {
-			return true;
 		}
 	};
 
@@ -118,11 +116,6 @@ public class CharacterCreationDialogue {
 			} else {
 				return null;
 			}
-		}
-
-		@Override
-		public boolean isOptionsDisabled() {
-			return true;
 		}
 	};
 
@@ -228,9 +221,10 @@ public class CharacterCreationDialogue {
 					@Override
 					public void effects() {
 						skinColourIndex++;
-						if (skinColourIndex >= RacialBody.HUMAN.getSkinType().getNaturalColours().size())
+						if (skinColourIndex >= RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().size()) {
 							skinColourIndex = 0;
-
+						}
+						
 						setSkin();
 					}
 				};
@@ -240,9 +234,10 @@ public class CharacterCreationDialogue {
 					@Override
 					public void effects() {
 						hairColourIndex++;
-						if (hairColourIndex >= RacialBody.HUMAN.getHairType().getNaturalColours().size())
+						if (hairColourIndex >= RacialBody.HUMAN.getHairType().getBodyCoveringType().getNaturalColoursPrimary().size()) {
 							hairColourIndex = 0;
-
+						}
+						
 						setHair();
 					}
 				};
@@ -252,7 +247,7 @@ public class CharacterCreationDialogue {
 					@Override
 					public void effects() {
 						eyeColourIndex++;
-						if (eyeColourIndex > 2)
+						if (eyeColourIndex >= RacialBody.HUMAN.getEyeType().getBodyCoveringType().getNaturalColoursPrimary().size())
 							eyeColourIndex = 0;
 
 						setEyes();
@@ -282,11 +277,6 @@ public class CharacterCreationDialogue {
 				return null;
 			}
 		}
-
-		@Override
-		public boolean isOptionsDisabled() {
-			return true;
-		}
 	};
 
 	private static StringBuilder contentSB = new StringBuilder();
@@ -313,14 +303,17 @@ public class CharacterCreationDialogue {
 	private static String getSkinOption() {
 		contentSB = new StringBuilder();
 		int i = 0;
-		for (Colour cs : RacialBody.HUMAN.getSkinType().getNaturalColours()) {
-			if (Main.game.getPlayer().getSkinColour(RacialBody.HUMAN.getSkinType()) == cs)
+		for (Colour cs : RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary()) {
+			if (Main.game.getPlayer().getCovering(RacialBody.HUMAN.getSkinType().getBodyCoveringType()).getPrimaryColour() == cs) {
 				contentSB.append("<b style='color:" + cs.toWebHexString() + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
-			else
+			} else {
 				contentSB.append("<span class='option-disabled'>" + Util.capitaliseSentence(cs.getName()) + "</span>");
-
-			if (i + 1 != RacialBody.HUMAN.getSkinType().getNaturalColours().size())
+			}
+			
+			if (i + 1 != RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().size()) {
 				contentSB.append(" | ");
+			}
+			
 			i++;
 		}
 		return contentSB.toString();
@@ -329,14 +322,16 @@ public class CharacterCreationDialogue {
 	private static String getHairOption() {
 		contentSB = new StringBuilder();
 		int i = 0;
-		for (Colour cs : RacialBody.HUMAN.getHairType().getNaturalColours()) {
-			if (Main.game.getPlayer().getHairColour() == cs)
+		for (Colour cs : RacialBody.HUMAN.getHairType().getBodyCoveringType().getNaturalColoursPrimary()) {
+			if (Main.game.getPlayer().getCovering(BodyCoveringType.HAIR_HUMAN).getPrimaryColour() == cs) {
 				contentSB.append("<b style='color:" + cs.toWebHexString() + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
-			else
+			} else {
 				contentSB.append("<span class='option-disabled'>" + Util.capitaliseSentence(cs.getName()) + "</span>");
-
-			if (i + 1 != RacialBody.HUMAN.getHairType().getNaturalColours().size())
+			}
+			
+			if (i + 1 != RacialBody.HUMAN.getHairType().getBodyCoveringType().getNaturalColoursPrimary().size()) {
 				contentSB.append(" | ");
+			}
 			i++;
 		}
 		return contentSB.toString();
@@ -345,14 +340,16 @@ public class CharacterCreationDialogue {
 	private static String getEyeOption() {
 		contentSB = new StringBuilder();
 		int i = 0;
-		for (Colour cs : RacialBody.HUMAN.getEyeType().getNaturalColours()) {
-			if (Main.game.getPlayer().getEyeColour() == cs)
+		for (Colour cs : RacialBody.HUMAN.getEyeType().getBodyCoveringType().getNaturalColoursPrimary()) {
+			if (Main.game.getPlayer().getCovering(BodyCoveringType.EYE_HUMAN).getPrimaryColour() == cs) {
 				contentSB.append("<b style='color:" + cs.toWebHexString() + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>");
-			else
+			} else {
 				contentSB.append("<span class='option-disabled'>" + Util.capitaliseSentence(cs.getName()) + "</span>");
-
-			if (i + 1 != RacialBody.HUMAN.getEyeType().getNaturalColours().size())
+			}
+			
+			if (i + 1 != RacialBody.HUMAN.getEyeType().getBodyCoveringType().getNaturalColoursPrimary().size()) {
 				contentSB.append(" | ");
+			}
 			i++;
 		}
 		return contentSB.toString();
@@ -399,16 +396,22 @@ public class CharacterCreationDialogue {
 	}
 
 	private static void setSkin() {
-		Main.game.getPlayer().setSkinColour(RacialBody.HUMAN.getSkinType(), RacialBody.HUMAN.getSkinType().getNaturalColours().get(skinColourIndex));
-		Main.game.getLilaya().setSkinColour(RacialBody.HUMAN.getSkinType(), RacialBody.HUMAN.getSkinType().getNaturalColours().get(skinColourIndex));
+		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.HUMAN, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex)));
+		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex), false, Colour.ORIFICE_INTERIOR, false));
+		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex), false, Colour.ORIFICE_INTERIOR, false));
+		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.NIPPLES, CoveringPattern.ORIFICE_NIPPLE, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex), false, Colour.ORIFICE_INTERIOR, false));
+		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.MOUTH, CoveringPattern.ORIFICE_MOUTH, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex), false, Colour.ORIFICE_INTERIOR, false));
+		
+		Main.game.getLilaya().setCovering(new Covering(BodyCoveringType.HUMAN, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex)));
 	}
 
 	private static void setHair() {
-		Main.game.getPlayer().setHairColour(RacialBody.HUMAN.getHairType().getNaturalColours().get(hairColourIndex));
+		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.HAIR_HUMAN, BodyCoveringType.HAIR_HUMAN.getNaturalColoursPrimary().get(hairColourIndex)));
+		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, BodyCoveringType.HAIR_HUMAN.getNaturalColoursPrimary().get(hairColourIndex)));
 	}
 
 	private static void setEyes() {
-		Main.game.getPlayer().setEyeColour(RacialBody.HUMAN.getEyeType().getNaturalColours().get(eyeColourIndex));
+		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.EYE_HUMAN, BodyCoveringType.EYE_HUMAN.getNaturalColoursPrimary().get(eyeColourIndex)));
 	}
 
 	private static void setBodyType() {
@@ -492,11 +495,6 @@ public class CharacterCreationDialogue {
 				return null;
 			}
 		}
-
-		@Override
-		public boolean isOptionsDisabled() {
-			return true;
-		}
 	};
 
 	private static boolean unsuitableName = false;
@@ -578,11 +576,6 @@ public class CharacterCreationDialogue {
 			} else {
 				return null;
 			}
-		}
-
-		@Override
-		public boolean isOptionsDisabled() {
-			return true;
 		}
 	};
 
@@ -682,11 +675,6 @@ public class CharacterCreationDialogue {
 				return null;
 			}
 		}
-
-		@Override
-		public boolean isOptionsDisabled() {
-			return true;
-		}
 	};
 
 	private static void applyGameStart() {
@@ -757,11 +745,6 @@ public class CharacterCreationDialogue {
 			} else {
 				return null;
 			}
-		}
-
-		@Override
-		public boolean isOptionsDisabled() {
-			return true;
 		}
 	};
 	private static String getImportRow(int i, String name) {
@@ -864,11 +847,6 @@ public class CharacterCreationDialogue {
 			} else {
 				return null;
 			}
-		}
-
-		@Override
-		public boolean isOptionsDisabled() {
-			return true;
 		}
 	};
 	

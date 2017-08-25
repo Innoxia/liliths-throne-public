@@ -16,7 +16,7 @@ import com.base.game.character.body.types.PenisType;
 import com.base.game.character.body.types.VaginaType;
 import com.base.game.character.body.valueEnums.Capacity;
 import com.base.game.character.body.valueEnums.CumProduction;
-import com.base.game.character.body.valueEnums.OrificeElasticity;
+import com.base.game.character.body.valueEnums.OrificePlasticity;
 import com.base.game.character.body.valueEnums.PenisSize;
 import com.base.game.character.effects.Fetish;
 import com.base.game.character.effects.Perk;
@@ -47,7 +47,7 @@ import com.base.utils.Util;
  * startSex(), which returns the starting DialogueNode.
  *
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum Sex {
@@ -341,92 +341,99 @@ public enum Sex {
 
 		// Stretching effects for each of the player's orifices:
 		if (Main.game.getPlayer().getAssRawCapacityValue() != Main.game.getPlayer().getAssStretchedCapacity() && areasStretchedPlayer.contains(OrificeType.ANUS_PLAYER)) {
-			if (Main.game.getPlayer().getAssElasticity() == OrificeElasticity.SEVEN_ELASTIC){
+			if (Main.game.getPlayer().getAssPlasticity() == OrificePlasticity.ZERO_RUBBERY){
 
 				Main.game.getPlayer().setAssStretchedCapacity(Main.game.getPlayer().getAssRawCapacityValue());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your elastic asshole quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your asshole quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
 
 			} else {
 
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				Main.game.getPlayer().incrementAssCapacity((Main.game.getPlayer().getAssStretchedCapacity()-Main.game.getPlayer().getAssRawCapacityValue())*Main.game.getPlayer().getAssElasticity().getCapacityIncreaseModifier());
+				Main.game.getPlayer().incrementAssCapacity((Main.game.getPlayer().getAssStretchedCapacity()-Main.game.getPlayer().getAssRawCapacityValue())*Main.game.getPlayer().getAssPlasticity().getCapacityIncreaseModifier());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + Main.game.getPlayer().getAssElasticity().getDescriptor() + " asshole has been stretched from its ordeal, and is currently "
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + Main.game.getPlayer().getAssPlasticity().getDescriptor() + " asshole has been stretched from its ordeal, and is currently "
 						+ Capacity.getCapacityFromValue(Main.game.getPlayer().getAssStretchedCapacity()).getDescriptor() + "!");
 
-				if(Main.game.getPlayer().getAssElasticity().getCapacityIncreaseModifier()>0)
+				if(Main.game.getPlayer().getAssPlasticity().getCapacityIncreaseModifier()>0) {
 					sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getAssRawCapacityValue()).getDescriptor() + "!</b></p>");
-				else
+				} else {
 					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getAssRawCapacityValue()).getDescriptor() + "!</b></p>");
+				}
 			}
 		}
+		
 		if (Main.game.getPlayer().getVaginaRawCapacityValue() != Main.game.getPlayer().getVaginaStretchedCapacity() && areasStretchedPlayer.contains(OrificeType.VAGINA_PLAYER)) {
-			if (Main.game.getPlayer().getVaginaElasticity() == OrificeElasticity.SEVEN_ELASTIC){
+			if (Main.game.getPlayer().getVaginaPlasticity() == OrificePlasticity.ZERO_RUBBERY){
 
 				Main.game.getPlayer().setVaginaStretchedCapacity(Main.game.getPlayer().getVaginaRawCapacityValue());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your elastic vagina quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your vagina quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
 
 			} else {
 
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				Main.game.getPlayer().incrementVaginaCapacity((Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaElasticity().getCapacityIncreaseModifier());
+				Main.game.getPlayer().incrementVaginaCapacity((Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + Main.game.getPlayer().getVaginaElasticity().getDescriptor() + " pussy has been stretched from its ordeal, and is currently "
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + Main.game.getPlayer().getVaginaPlasticity().getDescriptor() + " pussy has been stretched from its ordeal, and is currently "
 						+ Capacity.getCapacityFromValue(Main.game.getPlayer().getVaginaStretchedCapacity()).getDescriptor() + "!");
 
-				if(Main.game.getPlayer().getVaginaElasticity().getCapacityIncreaseModifier()>0)
+				if(Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier()>0) {
 					sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getVaginaRawCapacityValue()).getDescriptor() + "!</b></p>");
-				else
+				} else {
 					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getVaginaRawCapacityValue()).getDescriptor() + "!</b></p>");
+				}
 			}
 		}
-		if (Main.game.getPlayer().getBreastRawCapacityValue() != Main.game.getPlayer().getBreastStretchedCapacity() && areasStretchedPlayer.contains(OrificeType.NIPPLE_PLAYER)) {
-			if (Main.game.getPlayer().getBreastElasticity() == OrificeElasticity.SEVEN_ELASTIC){
+		
+		if (Main.game.getPlayer().getNippleRawCapacityValue() != Main.game.getPlayer().getNippleStretchedCapacity() && areasStretchedPlayer.contains(OrificeType.NIPPLE_PLAYER)) {
+			if (Main.game.getPlayer().getNipplePlasticity() == OrificePlasticity.ZERO_RUBBERY){
 
-				Main.game.getPlayer().setBreastStretchedCapacity(Main.game.getPlayer().getBreastRawCapacityValue());
+				Main.game.getPlayer().setNippleStretchedCapacity(Main.game.getPlayer().getNippleRawCapacityValue());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your elastic nipple-cunts quickly recover from their ordeal, and instantly return to their original size!</b></p>");
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your [pc.nipples+] quickly recover from their ordeal, and instantly return to their original size!</b></p>");
 
 			} else {
-
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				Main.game.getPlayer().incrementBreastCapacity((Main.game.getPlayer().getBreastStretchedCapacity()-Main.game.getPlayer().getBreastRawCapacityValue())*Main.game.getPlayer().getBreastElasticity().getCapacityIncreaseModifier());
+				Main.game.getPlayer().incrementNippleCapacity((Main.game.getPlayer().getNippleStretchedCapacity()-Main.game.getPlayer().getNippleRawCapacityValue())*Main.game.getPlayer().getNipplePlasticity().getCapacityIncreaseModifier());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + Main.game.getPlayer().getBreastElasticity().getDescriptor() + " nipple-cunts have been stretched from their ordeal, and are currently "
-						+ Capacity.getCapacityFromValue(Main.game.getPlayer().getBreastStretchedCapacity()).getDescriptor() + "!");
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + Main.game.getPlayer().getNipplePlasticity().getDescriptor() + " nipple-cunts have been stretched from their ordeal, and are currently "
+						+ Capacity.getCapacityFromValue(Main.game.getPlayer().getNippleStretchedCapacity()).getDescriptor() + "!");
 
-				if(Main.game.getPlayer().getBreastElasticity().getCapacityIncreaseModifier()>0)
-					sexSB.append(" They will recover some of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getBreastRawCapacityValue()).getDescriptor() + "!</b></p>");
-				else
-					sexSB.append(" They will recover all of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getBreastRawCapacityValue()).getDescriptor() + "!</b></p>");
+				if(Main.game.getPlayer().getNipplePlasticity().getCapacityIncreaseModifier()>0) {
+					sexSB.append(" They will recover some of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getNippleRawCapacityValue()).getDescriptor() + "!</b></p>");
+				} else {
+					sexSB.append(" They will recover all of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getNippleRawCapacityValue()).getDescriptor() + "!</b></p>");
+				}
 			}
 		}
+		
 		if (Main.game.getPlayer().getPenisRawCapacityValue() != Main.game.getPlayer().getPenisStretchedCapacity() && areasStretchedPlayer.contains(OrificeType.URETHRA_PLAYER)) {
-			if (Main.game.getPlayer().getPenisElasticity() == OrificeElasticity.SEVEN_ELASTIC){
+			if (Main.game.getPlayer().getUrethraPlasticity() == OrificePlasticity.ZERO_RUBBERY){
 
 				Main.game.getPlayer().setPenisStretchedCapacity(Main.game.getPlayer().getPenisRawCapacityValue());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your elastic urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
 
 			} else {
 
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				Main.game.getPlayer().incrementPenisCapacity((Main.game.getPlayer().getPenisStretchedCapacity()-Main.game.getPlayer().getPenisRawCapacityValue())*Main.game.getPlayer().getPenisElasticity().getCapacityIncreaseModifier());
+				Main.game.getPlayer().incrementPenisCapacity((Main.game.getPlayer().getPenisStretchedCapacity()-Main.game.getPlayer().getPenisRawCapacityValue())*Main.game.getPlayer().getUrethraPlasticity().getCapacityIncreaseModifier());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + Main.game.getPlayer().getPenisElasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
+				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + Main.game.getPlayer().getUrethraPlasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
 						+ Capacity.getCapacityFromValue(Main.game.getPlayer().getPenisStretchedCapacity()).getDescriptor() + "!");
 
-				if(Main.game.getPlayer().getPenisElasticity().getCapacityIncreaseModifier()>0)
+				if(Main.game.getPlayer().getUrethraPlasticity().getCapacityIncreaseModifier()>0) {
 					sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getPenisRawCapacityValue()).getDescriptor() + "!</b></p>");
-				else
+				} else {
 					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getPenisRawCapacityValue()).getDescriptor() + "!</b></p>");
+				}
 			}
 		}
+		
 		if (Main.game.getPlayer().getFaceRawCapacityValue() != Main.game.getPlayer().getFaceStretchedCapacity() && areasStretchedPlayer.contains(OrificeType.MOUTH_PLAYER)) {
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				Main.game.getPlayer().incrementFaceCapacity((Main.game.getPlayer().getFaceStretchedCapacity()-Main.game.getPlayer().getFaceRawCapacityValue())*Main.game.getPlayer().getFaceElasticity().getCapacityIncreaseModifier());
+				Main.game.getPlayer().incrementFaceCapacity((Main.game.getPlayer().getFaceStretchedCapacity()-Main.game.getPlayer().getFaceRawCapacityValue())*Main.game.getPlayer().getFacePlasticity().getCapacityIncreaseModifier());
 				// Special case for throat, as you aren't stretching it out, merely getting more experienced at sucking cock:
 				Main.game.getPlayer().setFaceStretchedCapacity(Main.game.getPlayer().getFaceRawCapacityValue());
 
@@ -436,119 +443,116 @@ public enum Sex {
 
 		// Stretching effects for each of the partner's orifices:
 		if (partner.getAssRawCapacityValue() != partner.getAssStretchedCapacity() && areasStretchedPartner.contains(OrificeType.ANUS_PARTNER)) {
-			if (partner.getAssElasticity() == OrificeElasticity.SEVEN_ELASTIC){
+			if (partner.getAssPlasticity() == OrificePlasticity.ZERO_RUBBERY){
 
 				partner.setAssStretchedCapacity(partner.getAssRawCapacityValue());
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> elastic asshole quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
+						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> asshole quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
 
 			} else {
 
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				partner.incrementAssCapacity((partner.getAssStretchedCapacity()-partner.getAssRawCapacityValue())*partner.getAssElasticity().getCapacityIncreaseModifier());
+				partner.incrementAssCapacity((partner.getAssStretchedCapacity()-partner.getAssRawCapacityValue())*partner.getAssPlasticity().getCapacityIncreaseModifier());
 
 				sexSB.append(UtilText.genderParsing(partner,
 								"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> " + partner.getAssElasticity().getDescriptor() + " asshole has been stretched from its ordeal, and is currently "
 						+ Capacity.getCapacityFromValue(partner.getAssStretchedCapacity()).getDescriptor() + "!"));
 
-				if(partner.getAssElasticity().getCapacityIncreaseModifier()>0)
+				if(partner.getAssPlasticity().getCapacityIncreaseModifier()>0) {
 					sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(partner.getAssRawCapacityValue()).getDescriptor() + "!</b></p>");
-				else
+				} else {
 					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(partner.getAssRawCapacityValue()).getDescriptor() + "!</b></p>");
+				}
 			}
 		}
+		
 		if (partner.getVaginaRawCapacityValue() != partner.getVaginaStretchedCapacity() && areasStretchedPartner.contains(OrificeType.VAGINA_PARTNER)) {
-			if (partner.getVaginaElasticity() == OrificeElasticity.SEVEN_ELASTIC){
+			if (partner.getVaginaPlasticity() == OrificePlasticity.ZERO_RUBBERY){
 
 				partner.setVaginaStretchedCapacity(partner.getVaginaRawCapacityValue());
 
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> elastic vagina quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
+						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> vagina quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
 
 			} else {
 
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				partner.incrementVaginaCapacity((partner.getVaginaStretchedCapacity()-partner.getVaginaRawCapacityValue())*partner.getVaginaElasticity().getCapacityIncreaseModifier());
+				partner.incrementVaginaCapacity((partner.getVaginaStretchedCapacity()-partner.getVaginaRawCapacityValue())*partner.getVaginaPlasticity().getCapacityIncreaseModifier());
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> " + partner.getVaginaElasticity().getDescriptor() + " pussy has been stretched from its ordeal, and is currently "
+						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> " + partner.getVaginaPlasticity().getDescriptor() + " pussy has been stretched from its ordeal, and is currently "
 						+ Capacity.getCapacityFromValue(partner.getVaginaStretchedCapacity()).getDescriptor() + "!"));
 
-				if(partner.getVaginaElasticity().getCapacityIncreaseModifier()>0)
+				if(partner.getVaginaPlasticity().getCapacityIncreaseModifier()>0) {
 					sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(partner.getVaginaRawCapacityValue()).getDescriptor() + "!</b></p>");
-				else
+				} else {
 					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(partner.getVaginaRawCapacityValue()).getDescriptor() + "!</b></p>");
+				}
 			}
 		}
-		if (partner.getBreastRawCapacityValue() != partner.getBreastStretchedCapacity() && areasStretchedPartner.contains(OrificeType.NIPPLE_PARTNER)) {
-			if (partner.getBreastElasticity() == OrificeElasticity.SEVEN_ELASTIC){
+		
+		if (partner.getNippleRawCapacityValue() != partner.getNippleStretchedCapacity() && areasStretchedPartner.contains(OrificeType.NIPPLE_PARTNER)) {
+			if (partner.getNipplePlasticity() == OrificePlasticity.ZERO_RUBBERY){
 
-				partner.setBreastStretchedCapacity(partner.getBreastRawCapacityValue());
+				partner.setNippleStretchedCapacity(partner.getNippleRawCapacityValue());
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> elastic nipple-cunts quickly recover from their ordeal, and instantly return to their original size!</b></p>"));
+						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> [npc.nipples+] quickly recover from their ordeal, and instantly return to their original size!</b></p>"));
 
 			} else {
 
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				partner.incrementBreastCapacity((partner.getBreastStretchedCapacity()-partner.getBreastRawCapacityValue())*partner.getBreastElasticity().getCapacityIncreaseModifier());
+				partner.incrementNippleCapacity((partner.getNippleStretchedCapacity()-partner.getNippleRawCapacityValue())*partner.getNipplePlasticity().getCapacityIncreaseModifier());
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> " + partner.getBreastElasticity().getDescriptor() + " nipple-cunts have been stretched from their ordeal, and are currently "
-						+ Capacity.getCapacityFromValue(partner.getBreastStretchedCapacity()).getDescriptor() + "!"));
+						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> " + partner.getNipplePlasticity().getDescriptor() + " nipple-cunts have been stretched from their ordeal, and are currently "
+						+ Capacity.getCapacityFromValue(partner.getNippleStretchedCapacity()).getDescriptor() + "!"));
 
-				if(partner.getBreastElasticity().getCapacityIncreaseModifier()>0)
-					sexSB.append(" They will recover some of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(partner.getBreastRawCapacityValue()).getDescriptor() + "!</b></p>");
-				else
-					sexSB.append(" They will recover all of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(partner.getBreastRawCapacityValue()).getDescriptor() + "!</b></p>");
+				if(partner.getNipplePlasticity().getCapacityIncreaseModifier()>0) {
+					sexSB.append(" They will recover some of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(partner.getNippleRawCapacityValue()).getDescriptor() + "!</b></p>");
+				} else {
+					sexSB.append(" They will recover all of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(partner.getNippleRawCapacityValue()).getDescriptor() + "!</b></p>");
+				}
 			}
 		}
+		
 		if (partner.getPenisRawCapacityValue() != partner.getPenisStretchedCapacity() && areasStretchedPartner.contains(OrificeType.URETHRA_PARTNER)) {
-			if (partner.getPenisElasticity() == OrificeElasticity.SEVEN_ELASTIC){
+			if (partner.getUrethraPlasticity() == OrificePlasticity.ZERO_RUBBERY){
 
 				partner.setPenisStretchedCapacity(partner.getPenisRawCapacityValue());
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> elastic urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
+						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
 
 			} else {
 
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				partner.incrementPenisCapacity((partner.getPenisStretchedCapacity()-partner.getPenisRawCapacityValue())*partner.getPenisElasticity().getCapacityIncreaseModifier());
+				partner.incrementPenisCapacity((partner.getPenisStretchedCapacity()-partner.getPenisRawCapacityValue())*partner.getUrethraPlasticity().getCapacityIncreaseModifier());
 
 				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> " + partner.getPenisElasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
+						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> " + partner.getUrethraPlasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
 						+ Capacity.getCapacityFromValue(partner.getPenisStretchedCapacity()).getDescriptor() + "!"));
 
-				if(partner.getPenisElasticity().getCapacityIncreaseModifier()>0)
+				if(partner.getUrethraPlasticity().getCapacityIncreaseModifier()>0) {
 					sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(partner.getPenisRawCapacityValue()).getDescriptor() + "!</b></p>");
-				else
+				} else {
 					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(partner.getPenisRawCapacityValue()).getDescriptor() + "!</b></p>");
+				}
 			}
 		}
+		
 		if (partner.getFaceRawCapacityValue() != partner.getFaceStretchedCapacity() && areasStretchedPartner.contains(OrificeType.MOUTH_PARTNER)) {
-			if (partner.getFaceElasticity() == OrificeElasticity.SEVEN_ELASTIC){
+			// Increment core capacity by the Elasticity's capacityIncreaseModifier:
+			partner.incrementFaceCapacity((partner.getFaceStretchedCapacity()-partner.getFaceRawCapacityValue())*partner.getFacePlasticity().getCapacityIncreaseModifier());
+			// Special case for throat, as you aren't stretching it out, merely getting more experienced at sucking cock:
+			partner.setFaceStretchedCapacity(partner.getFaceRawCapacityValue());
 
-				partner.setFaceStretchedCapacity(partner.getFaceRawCapacityValue());
-
-				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> elastic throat quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
-
-			} else {
-
-				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				partner.incrementFaceCapacity((partner.getFaceStretchedCapacity()-partner.getFaceRawCapacityValue())*partner.getFaceElasticity().getCapacityIncreaseModifier());
-				// Special case for throat, as you aren't stretching it out, merely getting more experienced at sucking cock:
-				partner.setFaceStretchedCapacity(partner.getFaceRawCapacityValue());
-
-				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From <her> oral experience with your " + Main.game.getPlayer().getPenisSize().getDescriptor()
-						+ " cock, <she> is now experienced enough to comfortably suck " + PenisSize.getPenisSizeFromInt((int)partner.getFaceRawCapacityValue()).getDescriptor() + " dicks!</b></p>"));
-			}
+			sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From [npc.her] oral experience with your [pc.cockSize] cock, [npc.she] is now experienced enough to comfortably suck "
+					+ PenisSize.getPenisSizeFromInt((int)Main.game.getPlayer().getFaceRawCapacityValue()).getDescriptor() + " cocks!</b></p>");
 		}
-
+		
 
 		// Player pregnancy:
 		if (!areasCummedInPlayer.isEmpty()) {
@@ -1431,7 +1435,7 @@ public enum Sex {
 				characterPenetrated.setVirginityLoss(relatedSexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
 			}
 		} else if (orifice.isNipple()) {
-			if(characterPenetrated.isBreastVirgin() && penetration.isTakesVirginity()) {
+			if(characterPenetrated.isNippleVirgin() && penetration.isTakesVirginity()) {
 				characterPenetrated.setVirginityLoss(relatedSexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
 			}
 		} else if (orifice.isUrethra()) {
@@ -1558,13 +1562,13 @@ public enum Sex {
 			if (initialPenetrations.contains(OrificeType.NIPPLE_PLAYER)) {
 					sexSB.append(formatInitialPenetration(partner.getPenetrationDescription(true, penetrationType, orifice)));
 					
-					if (Main.game.getPlayer().isBreastVirgin()) {
+					if (Main.game.getPlayer().isNippleVirgin()) {
 						if (penetrationType.isTakesVirginity()) {
 							sexSB.append(partner.getPlayerNippleVirginityLossDescription());
 							if(partner.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								partner.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(partner));
 							}
-							Main.game.getPlayer().setBreastVirgin(false);
+							Main.game.getPlayer().setNippleVirgin(false);
 						}
 					}
 					initialPenetrations.remove(OrificeType.NIPPLE_PLAYER);
@@ -1576,13 +1580,13 @@ public enum Sex {
 			if (initialPenetrations.contains(OrificeType.NIPPLE_PARTNER)) {
 				sexSB.append(formatInitialPenetration(partner.getPenetrationDescription(true, penetrationType, orifice)));
 				
-				if (partner.isBreastVirgin()) {
+				if (partner.isNippleVirgin()) {
 					if (penetrationType.isTakesVirginity()) {
 						sexSB.append(partner.getPartnerNippleVirginityLossDescription());
 						if(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)) {
 							Main.game.getPlayer().incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer()));
 						}
-						partner.setBreastVirgin(false);
+						partner.setNippleVirgin(false);
 					}
 				}
 				initialPenetrations.remove(OrificeType.NIPPLE_PARTNER);
@@ -1731,25 +1735,25 @@ public enum Sex {
 					}
 
 				}else if (orifice == OrificeType.NIPPLE_PLAYER){
-					if (Capacity.isPenisSizeTooBig((int)Main.game.getPlayer().getBreastStretchedCapacity(), personPenetrating.getPenisRawSizeValue(), lubed, twoPenisesInOrifice)){
+					if (Capacity.isPenisSizeTooBig((int)Main.game.getPlayer().getNippleStretchedCapacity(), personPenetrating.getPenisRawSizeValue(), lubed, twoPenisesInOrifice)){
 						sexSB.append(partner.getPlayerBreastsStretchingDescription(penetrationType));
 
 						// Stretch out the orifice by a factor of elasticity's modifier.
-						Main.game.getPlayer().incrementBreastStretchedCapacity((((float)personPenetrating.getPenisRawSizeValue())-Main.game.getPlayer().getBreastStretchedCapacity())*Main.game.getPlayer().getBreastElasticity().getStretchModifier());
-						if(Main.game.getPlayer().getBreastStretchedCapacity()>personPenetrating.getPenisRawSizeValue())
-							Main.game.getPlayer().setBreastStretchedCapacity(personPenetrating.getPenisRawSizeValue());
+						Main.game.getPlayer().incrementNippleStretchedCapacity((((float)personPenetrating.getPenisRawSizeValue())-Main.game.getPlayer().getNippleStretchedCapacity())*Main.game.getPlayer().getNippleElasticity().getStretchModifier());
+						if(Main.game.getPlayer().getNippleStretchedCapacity()>personPenetrating.getPenisRawSizeValue())
+							Main.game.getPlayer().setNippleStretchedCapacity(personPenetrating.getPenisRawSizeValue());
 
 						areasCurrentlyStretchingPlayer.add(OrificeType.NIPPLE_PLAYER);
 
 						// If just stretched out enough to be comfortable, append that description:
-						if(!Capacity.isPenisSizeTooBig((int)Main.game.getPlayer().getBreastStretchedCapacity(), personPenetrating.getPenisRawSizeValue(), lubed, twoPenisesInOrifice)) {
+						if(!Capacity.isPenisSizeTooBig((int)Main.game.getPlayer().getNippleStretchedCapacity(), personPenetrating.getPenisRawSizeValue(), lubed, twoPenisesInOrifice)) {
 							sexSB.append(partner.getPlayerBreastsStretchingFinishedDescription());
 							areasCurrentlyStretchingPlayer.remove(OrificeType.NIPPLE_PLAYER);
 						}
 
 						areasStretchedPlayer.add(OrificeType.NIPPLE_PLAYER);
 
-					}else if(Capacity.isPenisSizeTooSmall((int)Main.game.getPlayer().getBreastStretchedCapacity(), personPenetrating.getPenisRawSizeValue(), twoPenisesInOrifice)){
+					}else if(Capacity.isPenisSizeTooSmall((int)Main.game.getPlayer().getNippleStretchedCapacity(), personPenetrating.getPenisRawSizeValue(), twoPenisesInOrifice)){
 						sexSB.append(partner.getPlayerBreastsTooLooseDescription());
 						areasTooLoosePlayer.add(OrificeType.NIPPLE_PLAYER);
 					}
@@ -1759,7 +1763,7 @@ public enum Sex {
 						sexSB.append(partner.getPlayerPenisStretchingDescription(penetrationType));
 
 						// Stretch out the orifice by a factor of elasticity's modifier.
-						Main.game.getPlayer().incrementPenisStretchedCapacity((((float)personPenetrating.getPenisRawSizeValue())-Main.game.getPlayer().getPenisStretchedCapacity())*Main.game.getPlayer().getPenisElasticity().getStretchModifier());
+						Main.game.getPlayer().incrementPenisStretchedCapacity((((float)personPenetrating.getPenisRawSizeValue())-Main.game.getPlayer().getPenisStretchedCapacity())*Main.game.getPlayer().getUrethraElasticity().getStretchModifier());
 						if(Main.game.getPlayer().getPenisStretchedCapacity()>personPenetrating.getPenisRawSizeValue())
 							Main.game.getPlayer().setPenisStretchedCapacity(personPenetrating.getPenisRawSizeValue());
 
@@ -1853,25 +1857,25 @@ public enum Sex {
 					}
 
 				}else if (orifice == OrificeType.NIPPLE_PARTNER){
-					if (Capacity.isPenisSizeTooBig((int)partner.getBreastStretchedCapacity(), personPenetrating.getPenisRawSizeValue(), lubed, twoPenisesInOrifice)){
+					if (Capacity.isPenisSizeTooBig((int)partner.getNippleStretchedCapacity(), personPenetrating.getPenisRawSizeValue(), lubed, twoPenisesInOrifice)){
 						sexSB.append(partner.getPartnerBreastsStretchingDescription(penetrationType));
 
 						// Stretch out the orifice by a factor of elasticity's modifier.
-						partner.incrementBreastStretchedCapacity((((float)personPenetrating.getPenisRawSizeValue())-partner.getBreastStretchedCapacity())*partner.getBreastElasticity().getStretchModifier());
-						if(partner.getBreastStretchedCapacity()>personPenetrating.getPenisRawSizeValue())
-							partner.setBreastStretchedCapacity(personPenetrating.getPenisRawSizeValue());
+						partner.incrementNippleStretchedCapacity((((float)personPenetrating.getPenisRawSizeValue())-partner.getNippleStretchedCapacity())*partner.getNippleElasticity().getStretchModifier());
+						if(partner.getNippleStretchedCapacity()>personPenetrating.getPenisRawSizeValue())
+							partner.setNippleStretchedCapacity(personPenetrating.getPenisRawSizeValue());
 
 						areasCurrentlyStretchingPartner.add(OrificeType.NIPPLE_PARTNER);
 
 						// If just stretched out enough to be comfortable, append that description:
-						if(!Capacity.isPenisSizeTooBig((int)partner.getBreastStretchedCapacity(), personPenetrating.getPenisRawSizeValue(), lubed, twoPenisesInOrifice)) {
+						if(!Capacity.isPenisSizeTooBig((int)partner.getNippleStretchedCapacity(), personPenetrating.getPenisRawSizeValue(), lubed, twoPenisesInOrifice)) {
 							sexSB.append(partner.getPartnerBreastsStretchingFinishedDescription());
 							areasCurrentlyStretchingPartner.remove(OrificeType.NIPPLE_PARTNER);
 						}
 
 						areasStretchedPartner.add(OrificeType.NIPPLE_PARTNER);
 
-					}else if(Capacity.isPenisSizeTooSmall((int)partner.getBreastStretchedCapacity(), personPenetrating.getPenisRawSizeValue(), twoPenisesInOrifice)){
+					}else if(Capacity.isPenisSizeTooSmall((int)partner.getNippleStretchedCapacity(), personPenetrating.getPenisRawSizeValue(), twoPenisesInOrifice)){
 						sexSB.append(partner.getPartnerBreastsTooLooseDescription());
 						areasTooLoosePartner.add(OrificeType.NIPPLE_PARTNER);
 					}
@@ -1881,7 +1885,7 @@ public enum Sex {
 						sexSB.append(partner.getPartnerPenisStretchingDescription(penetrationType));
 
 						// Stretch out the orifice by a factor of elasticity's modifier.
-						partner.incrementPenisStretchedCapacity((((float)personPenetrating.getPenisRawSizeValue())-partner.getPenisStretchedCapacity())*partner.getPenisElasticity().getStretchModifier());
+						partner.incrementPenisStretchedCapacity((((float)personPenetrating.getPenisRawSizeValue())-partner.getPenisStretchedCapacity())*partner.getUrethraElasticity().getStretchModifier());
 						if(partner.getPenisStretchedCapacity()>personPenetrating.getPenisRawSizeValue())
 							partner.setPenisStretchedCapacity(personPenetrating.getPenisRawSizeValue());
 

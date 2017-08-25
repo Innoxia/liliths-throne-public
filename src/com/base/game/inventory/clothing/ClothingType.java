@@ -272,7 +272,7 @@ public enum ClothingType {
 	},
 
 	PIERCING_NIPPLE_BARS("a pair of",
-			false,
+			true,
 			"nipple bars",
 			"A pair of bars that are designed to fit into nipple piercings.",
 			0,

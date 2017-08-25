@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.base.game.character.NameTriplet;
 import com.base.game.character.SexualOrientation;
+import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.types.PenisType;
 import com.base.game.character.body.valueEnums.CupSize;
@@ -54,15 +55,16 @@ public class Lilaya extends NPC {
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
-		this.setEyeColour(Colour.EYE_YELLOW);
-		this.setHairColour(Colour.COVERING_BLACK);
-		this.setSkinColour(BodyCoveringType.HUMAN, Main.game.getPlayer().getSkinColour(BodyCoveringType.HUMAN));
-		this.setSkinColour(BodyCoveringType.DEMON_COMMON, Colour.DEMON_SKIN_RED);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_YELLOW));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK));
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, Colour.COVERING_BLACK));
+		this.setCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_RED));
+		this.setCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()));
 
 		this.setVaginaVirgin(false);
 		this.setAssVirgin(false);
 		this.setFaceVirgin(false);
-		this.setBreastVirgin(false);
+		this.setNippleVirgin(false);
 		this.setBreastSize(CupSize.E.getMeasurement());
 
 		this.equipClothingFromNowhere(panties, true, this);

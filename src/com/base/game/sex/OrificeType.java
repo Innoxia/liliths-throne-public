@@ -42,7 +42,7 @@ public enum OrificeType {
 	ANUS_PLAYER(true) {
 		@Override
 		public String getName() {
-			return Main.game.getPlayer().getAssholeName(false);
+			return Main.game.getPlayer().getAnusName(false);
 		}
 		@Override
 		public boolean isAnus() { return true; }
@@ -113,7 +113,7 @@ public enum OrificeType {
 	ANUS_PARTNER(false) {
 		@Override
 		public String getName() {
-			return Sex.getPartner().getAssholeName(false);
+			return Sex.getPartner().getAnusName(false);
 		}
 		@Override
 		public boolean isAnus() { return true; }

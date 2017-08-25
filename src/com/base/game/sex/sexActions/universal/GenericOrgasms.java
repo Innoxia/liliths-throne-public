@@ -849,8 +849,7 @@ public class GenericOrgasms {
 							descriptionSB.append(" deep down your throat, and you find yourself making muffled whining noises as you feel the [npc.cum+] sliding down into your stomach.");
 							
 						} else if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
-							descriptionSB.append(" deep into your [pc.breasts+], and you find yourself whining and moaning as you feel the "+Sex.getPartner().getCumName(true)
-									+" deep inside of your [pc.breasts+].");
+							descriptionSB.append(" deep into your [pc.breasts+], and you find yourself whining and moaning as you feel the [npc.cum+] deep inside of your [pc.breasts+].");
 							
 						} else {
 							descriptionSB.append(" out all over the floor.");

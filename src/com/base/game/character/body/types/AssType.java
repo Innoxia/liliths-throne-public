@@ -11,31 +11,33 @@ import com.base.utils.Util;
  * @author Innoxia
  */
 public enum AssType implements BodyPartTypeInterface {
-	HUMAN(BodyCoveringType.HUMAN, Race.HUMAN),
-
-	ANGEL(BodyCoveringType.ANGEL, Race.ANGEL),
-
-	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
+	HUMAN(BodyCoveringType.HUMAN, AnusType.HUMAN, Race.HUMAN),
 	
-	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
+	ANGEL(BodyCoveringType.ANGEL, AnusType.ANGEL, Race.ANGEL),
 	
-	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
+	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, AnusType.DEMON_COMMON, Race.DEMON),
 	
-	WOLF_MORPH(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
+	DOG_MORPH(BodyCoveringType.CANINE_FUR, AnusType.DOG_MORPH, Race.DOG_MORPH),
 	
-	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
-
-	HORSE_MORPH(BodyCoveringType.EQUINE_ASSHOLE, Race.HORSE_MORPH),
+	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, AnusType.SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
 	
-	HARPY(BodyCoveringType.FEATHERS, Race.HARPY),
-
-	SLIME(BodyCoveringType.SLIME, Race.SLIME);
+	WOLF_MORPH(BodyCoveringType.LYCAN_FUR, AnusType.WOLF_MORPH, Race.WOLF_MORPH),
+	
+	CAT_MORPH(BodyCoveringType.FELINE_FUR, AnusType.CAT_MORPH, Race.CAT_MORPH),
+	
+	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, AnusType.HORSE_MORPH, Race.HORSE_MORPH),
+	
+	HARPY(BodyCoveringType.FEATHERS, AnusType.HARPY, Race.HARPY),
+	
+	SLIME(BodyCoveringType.SLIME, AnusType.SLIME, Race.SLIME);
 
 	private BodyCoveringType skinType;
+	private AnusType anusType;
 	private Race race;
 
-	private AssType(BodyCoveringType skinType, Race race) {
+	private AssType(BodyCoveringType skinType, AnusType anusType, Race race) {
 		this.skinType = skinType;
+		this.anusType = anusType;
 		this.race = race;
 	}
 	
@@ -89,7 +91,7 @@ public enum AssType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getSkinType() {
+	public BodyCoveringType getBodyCoveringType() {
 		return skinType;
 	}
 
@@ -97,28 +99,7 @@ public enum AssType implements BodyPartTypeInterface {
 	public Race getRace() {
 		return race;
 	}
-	
-	// Extra methods for asshole:
-	
-	public String getAssholeName() {
-		switch(this){
-			default:
-				return UtilText.returnStringAtRandom("asshole", "back door", "rear entrance");
-		}
-	}
-
-	public String getAssholeDescriptor() {
-		switch(this){
-			case ANGEL:
-				return UtilText.returnStringAtRandom("angelic", "perfect");
-			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("demonic", "irresistible");
-			case HORSE_MORPH:
-				return UtilText.returnStringAtRandom("puffy", "horse-like", "puffy-rimmed", "equine");
-			case SLIME:
-				return UtilText.returnStringAtRandom("gooey", "slimy");
-			default:
-				return UtilText.returnStringAtRandom("");
-		}
+	public AnusType getAnusType() {
+		return anusType;
 	}
 }

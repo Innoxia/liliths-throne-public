@@ -3,6 +3,7 @@ package com.base.game.character.npc.dominion;
 import com.base.game.character.NameTriplet;
 import com.base.game.character.QuestLine;
 import com.base.game.character.SexualOrientation;
+import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.valueEnums.Capacity;
 import com.base.game.character.body.valueEnums.CupSize;
@@ -48,10 +49,10 @@ public class HarpyDominant extends NPC {
 		this.addFetish(Fetish.FETISH_DOMINANT);
 		this.addFetish(Fetish.FETISH_SADIST);
 		
-		this.setEyeColour(Colour.EYE_BROWN);
-		this.setHairColour(Colour.FEATHERS_BLACK);
-		this.setSkinColour(BodyCoveringType.HUMAN, Colour.HUMAN_SKIN_EBONY);
-		this.setSkinColour(BodyCoveringType.FEATHERS, Colour.FEATHERS_RED);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BROWN));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLACK));
+		this.setCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_RED));
+		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY));
 		
 		this.setFemininity(95);
 		

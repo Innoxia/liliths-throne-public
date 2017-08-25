@@ -6,7 +6,7 @@ import com.base.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.69.9
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum WingType implements BodyPartTypeInterface {
@@ -14,7 +14,12 @@ public enum WingType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
 
-	ANGEL(BodyCoveringType.DEMON_COMMON, Race.ANGEL);
+	ANGEL(BodyCoveringType.DEMON_COMMON, Race.ANGEL) {
+		@Override
+		public boolean allowsFlight() {
+			return true;
+		}
+	};
 
 	private BodyCoveringType skinType;
 	private Race race;
@@ -22,6 +27,10 @@ public enum WingType implements BodyPartTypeInterface {
 	private WingType(BodyCoveringType skinType, Race race) {
 		this.skinType = skinType;
 		this.race = race;
+	}
+
+	public boolean allowsFlight() {
+		return false;
 	}
 
 	@Override
@@ -58,7 +67,7 @@ public enum WingType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getSkinType() {
+	public BodyCoveringType getBodyCoveringType() {
 		return skinType;
 	}
 

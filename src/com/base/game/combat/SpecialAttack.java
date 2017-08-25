@@ -960,9 +960,9 @@ public enum SpecialAttack {
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.genderParsing(caster,
-						"<p>" + "With a sudden burst of energy, " + caster.getName("the") + " leaps forwards as she tries to bite you."
+						"<p>" + "With a sudden burst of energy, " + caster.getName("the") + " leaps forwards as <she> tries to bite you."
 								+ (isHit ? " <Her> dog-like muzzle clamps down on your " + target.getArmNameSingular() + ","
-										+ " and <she> shakes <her> head from side-to-side, managing to cause some serious damage with <her> sharp canines before you mange to throw <herPro> off of you."
+										+ " and <she> shakes <her> head from side-to-side, managing to cause some serious damage with <her> sharp canines before you manage to throw <herPro> off of you."
 										: "You jump to one side as you see the attack coming, and there's an audible snap as <her> teeth thankfully clamp down on nothing but thin air.")
 								+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
@@ -1283,7 +1283,7 @@ public enum SpecialAttack {
 	}
 
 	public float getMaximumDamage(GameCharacter caster, GameCharacter target) {
-		float damage = getModifiedDamage(caster, target, getDamage(caster) * (1 + damageVariance.getPercentange()));
+		float damage = getModifiedDamage(caster, target, getDamage(caster) * (1 + damageVariance.getPercentage()));
 
 		// Round float value to nearest 1 decimal place:
 		damage = (Math.round(damage*10))/10f;
@@ -1292,7 +1292,7 @@ public enum SpecialAttack {
 	}
 
 	public float getMinimumDamage(GameCharacter caster, GameCharacter target) {
-		float damage = getModifiedDamage(caster, target, getDamage(caster) * (1 - damageVariance.getPercentange()));
+		float damage = getModifiedDamage(caster, target, getDamage(caster) * (1 - damageVariance.getPercentage()));
 
 		// Round float value to nearest 1 decimal place:
 		damage = (Math.round(damage*10))/10f;
@@ -1380,7 +1380,7 @@ public enum SpecialAttack {
 	}
 	
 	private float getModifiedCost(GameCharacter caster) {
-		float calculatedCost = caster.getLevel() + ((float)caster.getAttributeValue(Attribute.STAMINA_MAXIMUM) * (specialAttackCost.getPercentange())/100f);
+		float calculatedCost = caster.getLevel() + ((float)caster.getAttributeValue(Attribute.STAMINA_MAXIMUM) * (specialAttackCost.getPercentage())/100f);
 		
 		// Round float value to nearest 1 decimal place:
 		calculatedCost = (Math.round(calculatedCost*10))/10f;
@@ -1389,8 +1389,8 @@ public enum SpecialAttack {
 	}
 
 	protected String getDamageAndCostDescription(GameCharacter caster, GameCharacter target, float cost, float damage, boolean isHit, boolean isCritical) {
-		descriptionSB = new StringBuilder();
-
+		StringBuilder descriptionSB = new StringBuilder();
+		
 		if (caster == Main.game.getPlayer()) {
 			if (isCritical)
 				descriptionSB.append("<p>" + (isHit ? "<b>You <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"

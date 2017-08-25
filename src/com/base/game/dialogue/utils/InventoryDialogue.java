@@ -1294,7 +1294,14 @@ public class InventoryDialogue {
 			// Dye:
 			} else if (index == 4) {
 				if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)) {
-					return new Response("Dye", "Use a Dye-brush to dye this item of clothing.", DYE_CLOTHING);
+					boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
+					boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateClothing().get(clothing) > 1;
+					boolean canDye = !(isDyeingStackItem && hasFullInventory);
+					if (canDye) {
+						return new Response("Dye", "Use a Dye-brush to dye this item of clothing.", DYE_CLOTHING);
+					} else {
+						return new Response("Dye", "Your inventory is full, so you can't dye this item of clothing.", null);
+					}
 				} else {
 					if (Main.game.getPlayer().getItemsDiscovered().contains(ItemType.DYE_BRUSH))
 						return new Response("Dye", "You'll need to find another Dye-brush if you want to dye your clothes.", null);
@@ -2698,7 +2705,9 @@ public class InventoryDialogue {
 													+ "</b> Dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(ItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
 											:"You have <b>0</b> Dye-brushes left!")
 								+ "</p>");
+						Main.game.getPlayer().removeClothing(clothing);
 						clothing.setColour(clothing.getClothingType().getAvailableColours().get(index - 1));
+						Main.game.getPlayer().addClothing(clothing, false);
 					}
 				};
 

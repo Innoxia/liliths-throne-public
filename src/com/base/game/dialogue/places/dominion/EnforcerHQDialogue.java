@@ -4,9 +4,12 @@ import com.base.game.character.NameTriplet;
 import com.base.game.character.Quest;
 import com.base.game.character.QuestLine;
 import com.base.game.character.attributes.Attribute;
+import com.base.game.character.body.Covering;
+import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.types.PenisType;
 import com.base.game.character.body.types.VaginaType;
 import com.base.game.character.body.valueEnums.AssSize;
+import com.base.game.character.body.valueEnums.CoveringPattern;
 import com.base.game.character.body.valueEnums.CupSize;
 import com.base.game.character.body.valueEnums.Femininity;
 import com.base.game.character.body.valueEnums.HairLength;
@@ -1068,7 +1071,7 @@ public class EnforcerHQDialogue {
 						Main.game.getBrax().setHeight(162);
 
 						Main.game.getBrax().setHairLength(HairLength.FIVE_ABOVE_ASS.getMedianValue());
-						Main.game.getBrax().setHairColour(Colour.COVERING_BLEACH_BLONDE);
+						Main.game.getBrax().setCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_BLEACH_BLONDE, false, Colour.COVERING_BLEACH_BLONDE, false));
 						
 						Main.game.getBrax().equipClothing(true, true);
 					}
@@ -1437,7 +1440,7 @@ public class EnforcerHQDialogue {
 			return "<p>"
 					+ "You wonder just how gullible this 'Chief of Dominion Operations' really is, and, pushing your luck, you continue bluffing, "
 					+ UtilText.parsePlayerSpeech("You know, I pride myself on the fact that 'The She-wolf's Den' is only known only amongst the most important and influencial people in Dominion."
-							+ " You see, it takes people of that refinement to really appreciate the fact that I only hire only the most beautiful and skillful of wolf-girls.")
+							+ " You see, it takes people of that refinement to really appreciate the fact that I hire only the most beautiful and skillful of wolf-girls.")
 					+ "</p>"
 					+ "<p>"
 					+ "You struggle not to laugh as you see [brax.name]'s eyes glazing over with lust, "

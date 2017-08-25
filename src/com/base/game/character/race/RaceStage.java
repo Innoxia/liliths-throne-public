@@ -140,11 +140,11 @@ public enum RaceStage {
 		}
 		@Override
 		public boolean isAssFurry() {
-			return true;
+			return false;
 		}
 		@Override
 		public boolean isBreastFurry() {
-			return true;
+			return false;
 		}
 		@Override
 		public boolean isEarFurry() {

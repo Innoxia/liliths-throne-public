@@ -21,9 +21,9 @@
 		$partner.getName()'s $partner.getTailName(true) worms its way slowly into your dripping vagina. You're quite wet, and being penetrated by a tail is less extreme an invasion than a penis, so you feel only a little discomfort as your virtue is wiped away by the tail pushing deeply into your body.
 	#end
 	#if($player.hasFetish("FETISH_MASOCHIST"))
-		The unfamiliar stretching you feel inside, and the sting of your torn hymen, send a thrill through your body.
+		The unfamiliar stretching you feel inside, and the sting of your torn hymen, sends a thrill through your body.
 	#else
-		The unfamiliar stretching you feel inside, and the sting of your torn hymen, cause you to squirm uncomfortably.
+		The unfamiliar stretching you feel inside, and the sting of your torn hymen, causes you to squirm uncomfortably.
 	#end
 #else
 	#if($penetratedBy == "PENIS_PARTNER")
@@ -44,7 +44,7 @@
 	#if($player.hasFetish("FETISH_MASOCHIST"))
 		Despite the initial shock, you feel a perverse thrill of anticipation as $partner.name() pulls draws back for another thrust. Your initial cries of pain soften into moans of masochistic pleasure, fueled by the hot, stabbing sensation between your legs; despite the discomfort, you spread yourself wider, welcoming each thrust with gasps and soft moans. You almost feel disappointed as the your body begins to acclimate to being penetrated and the pain begins to fade into a dull ache.
 	#else
-		You desperately try to clench your legs together - anything, to reduce the hot, stabbing sensation between your legs - as $parter.name() draws back for another thrust. It's hard to tell which was worse, the initial penetration, or having your ravaged pussy filled a second time, but slowly the pain begins to fade as you body further acclimates to being penetrated with each thrust.
+		You desperately try to clench your legs together - anything, to reduce the hot, stabbing sensation between your legs - as $parter.name() draws back for another thrust. It's hard to tell which was worse, the initial penetration, or having your ravaged pussy filled a second time, but slowly the pain begins to fade as your body further acclimates to being penetrated with each thrust.
 	#end
 #end
 </p>

@@ -3,6 +3,7 @@ package com.base.game.character.npc.dominion;
 import com.base.game.character.NameTriplet;
 import com.base.game.character.QuestLine;
 import com.base.game.character.SexualOrientation;
+import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.valueEnums.Capacity;
 import com.base.game.character.body.valueEnums.CupSize;
@@ -34,7 +35,7 @@ import com.base.world.places.ShoppingArcade;
 
 /**
  * @since 0.1.0
- * @version 0.1.82
+ * @version 0.1.83
  * @author Innoxia
  */
 public class Vicky extends NPC {
@@ -63,10 +64,10 @@ public class Vicky extends NPC {
 				RacialBody.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.SHOPPING_ARCADE, ShoppingArcade.VICKYS_SHOP_WEAPONS, true);
 		
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		
-		this.setEyeColour(Colour.EYE_YELLOW);
-		this.setHairColour(Colour.COVERING_BLACK);
-		this.setSkinColour(BodyCoveringType.LYCAN_FUR, Colour.COVERING_BLACK);
+
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, Colour.EYE_YELLOW));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK));
+		this.setCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_BLACK));
 
 		this.setVaginaVirgin(false);
 		this.setVaginaCapacity(Capacity.FIVE_ROOMY.getMedianValue());

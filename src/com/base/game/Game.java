@@ -20,7 +20,6 @@ import com.base.game.character.QuestLine;
 import com.base.game.character.attributes.AffectionLevel;
 import com.base.game.character.attributes.Attribute;
 import com.base.game.character.attributes.ObedienceLevel;
-import com.base.game.character.effects.Fetish;
 import com.base.game.character.effects.StatusEffect;
 import com.base.game.character.npc.NPC;
 import com.base.game.character.npc.dominion.Alexa;
@@ -76,7 +75,7 @@ import com.base.world.places.PlaceInterface;
 
 /**
  * @since 0.1.0
- * @version 0.1.8
+ * @version 0.1.83
  * @author Innoxia
  */
 public class Game implements Serializable {
@@ -1820,11 +1819,23 @@ public class Game implements Serializable {
 	}
 	
 	public boolean isNonConEnabled() {
-		return player.hasFetish(Fetish.FETISH_NON_CON);
+		return Main.getProperties().nonConContent;
 	}
 	
 	public boolean isIncestEnabled() {
-		return player.hasFetish(Fetish.FETISH_INCEST);
+		return Main.getProperties().incestContent;
+	}
+	
+	public boolean isForcedTFEnabled() {
+		return Main.getProperties().forcedTransformationContent;
+	}
+	
+	public boolean isPubicHairEnabled() {
+		return Main.getProperties().pubicHairContent;
+	}
+	
+	public boolean isBodyHairEnabled() {
+		return Main.getProperties().bodyHairContent;
 	}
 	
 	public static String getRaceDiscoveredMessage(Race race) {
