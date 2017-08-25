@@ -341,6 +341,49 @@ public enum ItemType {
 		}
 	},
 	
+	STR_INGREDIENT_BUBBLE_MILK(
+			"a bottle of",
+			false,
+			"Bubble Milk",
+			"The thick glass bottle of 'Bubble Milk' appears to contain, much as its name would suggest, a generous helping of some sort of alcoholic milk."
+				+ " A busty greater cow-girl is prominently featured on the label, smiling as she milks her gigantic udder-tits into a metal bucket.",
+			"attributeCowMorphDrink",
+			Colour.ATTRIBUTE_STRENGTH,
+			25,
+			Rarity.UNCOMMON,
+			TFEssence.COW_MORPH,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_BUBBLE_MILK, null, null)))) {
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.ATTRIBUTE_STRENGTH;
+		}
+
+		@Override
+		public ItemType getEnchantmentItemType() {
+			return POTION;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user == Main.game.getPlayer())
+				return "<p>"
+							+ "Unscrewing the lid, you bring the bottle of 'Bubble Milk' to your lips before tilting your head back and quickly gulping down the creamy liquid."
+							+ " As the last few drops slide down your throat, you notice a faint, kick permeating through the sweet liquid, which lingers for some time as a slightly pleasant aftertaste."
+						+ "</p>";
+			else
+				return UtilText.parse(user,
+						"<p>"
+								+ "[npc.Name] pulls out a bottle of 'Bubble Milk', and, after quickly unscrewing the cap, [npc.she] promptly downs the entire bottle."
+						+ "</p>");
+		}
+	},
+	
 	STR_INGREDIENT_WOLF_WHISKEY("a bottle of",
 			false,
 			"Wolf Whiskey",
@@ -796,6 +839,52 @@ public enum ItemType {
 		}
 	},
 	
+	RACE_INGREDIENT_COW_MORPH(
+			"a",
+			false,
+			"Fresh Sprouts",
+			"A small bag of alfalfa sprouts."
+					+ " A label on the side shows a greater cow-girl devouring a plate of what looks to be this bag's contents.",
+			"raceCowMorphFreshSprouts",
+			Colour.RACE_COW_MORPH,
+			40,
+			Rarity.RARE,
+			TFEssence.COW_MORPH,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_FRESH_SPROUTS, null, null)))) {
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.RACE_COW_MORPH;
+		}
+
+		@Override
+		public ItemType getEnchantmentItemType() {
+			return ELIXIR;
+		}
+
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+				return "<p>"
+							+ "You pull at the sides of one end of the bag, and open the package."
+							+ " A fresh smell accompanies the sight of the sprouts inside, and you find yourself unable to resist the delicious-looking display."
+							+ " You quickly wolf down the bag's contents, finding that the sprouts are as delicious as they look."
+						+ "</p>";
+				
+			} else {
+				return UtilText.parse(target,
+						"<p>"
+								+ "[npc.Name] pulls out a bag of 'Fresh Sprouts', and, opening the bag, quickly devours the contents."
+						+ "</p>");
+			}
+		}
+	},
+	
 	RACE_INGREDIENT_SQUIRREL_MORPH(
 			"a bag of",
 			false,
@@ -1113,6 +1202,41 @@ public enum ItemType {
 				return "<p>"
 							+ "Pulling the cork stopper out from the top of the little bottle, you release the cat-morph essence from its glass prison."
 							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_CAT_MORPH.getName()+" flash, it disappears from sight."
+							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
+						+ "</p>";
+				
+			} else {
+				return "<p>"
+						+ "(You shouldn't be seeing this. x_x)"//TODO
+					+ "</p>";
+			}
+		}
+	},
+	
+	BOTTLED_ESSENCE_COW_MORPH(
+			null,
+			false,
+			"Bottled Cow-morph Essence",
+			"A small glass bottle, with a little cork stopper wedged firmly in the top."
+					+ " Inside, the swirling "+Colour.RACE_COW_MORPH.getName()+" glow of a cow-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
+			"bottledEssenceCowMorph",
+			Colour.RACE_COW_MORPH,
+			10,
+			Rarity.COMMON,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_COW_MORPH, null, null)))) {
+
+		@Override
+		public String getUseName() {
+			return "absorb";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user.isPlayer() && target.isPlayer()) {
+				return "<p>"
+							+ "Pulling the cork stopper out from the top of the little bottle, you release the cow-morph essence from its glass prison."
+							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_COW_MORPH.getName()+" flash, it disappears from sight."
 							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
 						+ "</p>";
 				
@@ -1902,6 +2026,45 @@ public enum ItemType {
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.CAT_MORPH)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "<p>"
+						+ "Opening the book, you read its contents..."
+					+ "</p>";
+		}
+	},
+	
+	BOOK_COW_MORPH(
+			null,
+			false,
+			"Milking Cows",
+			"A book that details cow-morph society.",
+			"book_race_cow_morph",
+			Colour.RACE_COW_MORPH,
+			10,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_COW_MORPH, null, null)))) {
+
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.COW_MORPH)) {
 				return true;
 			} else {
 				return false;

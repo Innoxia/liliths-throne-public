@@ -10,6 +10,7 @@ import com.base.game.character.GameCharacter;
 import com.base.game.character.attributes.Attribute;
 import com.base.game.character.body.types.ArmType;
 import com.base.game.character.body.types.FaceType;
+import com.base.game.character.body.types.HornType;
 import com.base.game.character.body.types.LegType;
 import com.base.game.character.effects.Fetish;
 import com.base.game.character.effects.StatusEffect;
@@ -991,6 +992,61 @@ public enum SpecialAttack {
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
 			if (owner.getFaceType() == FaceType.DOG_MORPH)
+				return true;
+			else
+				return false;
+		}
+	},
+
+	COW_GORE(50, "Gore", "HornIcon", Colour.DAMAGE_TYPE_PHYSICAL, DamageType.PHYSICAL, DamageLevel.HIGH, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 4))) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+
+			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+
+			descriptionSB = new StringBuilder();
+			
+			if (caster == Main.game.getPlayer()) {
+				descriptionSB.append(UtilText.genderParsing(target,
+						"<p>" + "With a burst of energy, you leap forwards, trying to ram your horns at " + target.getName("the") + "."
+								+ (isHit ? " Your cow-like horns slam into " + target.getName("the") + "'s body,"
+										+ " and you manage to cause some serious damage with your sharp horns before <she> manages to throw you off of <herPro>."
+										: target.getName("The") + " manages to jump to one side, and there's an audible woosh as your horns move through the thin air.")
+								+ "</p>")
+						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+			} else {
+				descriptionSB.append(UtilText.genderParsing(caster,
+						"<p>" + "With a sudden burst of energy, " + caster.getName("the") + " leaps forwards as <she> tries to gore you."
+								+ (isHit ? " <Her> cow-like muzzle slams down on your body,"
+										+ " and <she> shakes <her> head from side-to-side, managing to cause some serious damage with <her> sharp horns before you manage to throw <herPro> off of you."
+										: "You jump to one side as you see the attack coming, and there's an audible woosh as <her> horns hit nothing but thin air.")
+								+ "</p>")
+						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+			}
+			
+			// If attack hits, apply damage and effects:
+			if (isHit) {
+				descriptionSB.append(target.incrementHealth(-damage));
+				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
+					target.addStatusEffect(se.getKey(), se.getValue());
+			}
+
+			caster.incrementStamina(-cost);
+			
+			return descriptionSB.toString();
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer())
+				return "Your anthropomorphic cow-like horns can be used to deliver a powerful attack.";
+			else
+				return UtilText.genderParsing(owner, owner.getName("The") + "'s anthropomorphic cow-like horns can be used to deliver a powerful attack.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			if (owner.getHornType() == HornType.BOVINE_MALE)
 				return true;
 			else
 				return false;
