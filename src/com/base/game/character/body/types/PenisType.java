@@ -1,6 +1,10 @@
 package com.base.game.character.body.types;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.base.game.character.GameCharacter;
+import com.base.game.character.body.valueEnums.PenisModifier;
 import com.base.game.character.race.Race;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.main.Main;
@@ -8,73 +12,47 @@ import com.base.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum PenisType implements BodyPartTypeInterface {
-	NONE(null, null),
+	NONE(null, TesticleType.NONE, null),
 
-	HUMAN(BodyCoveringType.HUMAN, Race.HUMAN),
+	HUMAN(BodyCoveringType.PENIS, TesticleType.HUMAN, Race.HUMAN),
 
-	ANGEL(BodyCoveringType.ANGEL, Race.ANGEL),
+	ANGEL(BodyCoveringType.PENIS, TesticleType.ANGEL, Race.ANGEL),
 
-	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON) {
-		@Override
-		public boolean isRibbedShaft() {
-			return true;
-		}
-		@Override
-		public boolean isTentacledShaft() {
-			return true;
-		}
-	},
+	DEMON_COMMON(BodyCoveringType.PENIS, TesticleType.DEMON_COMMON, Race.DEMON, PenisModifier.RIBBED, PenisModifier.TENTACLED, PenisModifier.PREHENSILE),
 
-	CANINE(BodyCoveringType.CANINE_PENIS, Race.DOG_MORPH) {
-		@Override
-		public boolean isKnotted() {
-			return true;
-		}
-	},
+	CANINE(BodyCoveringType.PENIS, TesticleType.CANINE, Race.DOG_MORPH, PenisModifier.KNOTTED, PenisModifier.SHEATHED, PenisModifier.TAPERED),
 	
-	LUPINE(BodyCoveringType.CANINE_PENIS, Race.WOLF_MORPH) {
-		@Override
-		public boolean isKnotted() {
-			return true;
-		}
-	},
+	LUPINE(BodyCoveringType.PENIS, TesticleType.LUPINE, Race.WOLF_MORPH, PenisModifier.KNOTTED, PenisModifier.SHEATHED, PenisModifier.TAPERED),
 
-	FELINE(BodyCoveringType.HUMAN, Race.CAT_MORPH){
-		@Override
-		public boolean isBarbedShaft() {
-			return true;
-		}
-	},
+	FELINE(BodyCoveringType.PENIS, TesticleType.FELINE, Race.CAT_MORPH, PenisModifier.BARBED, PenisModifier.SHEATHED),
 
-	EQUINE(BodyCoveringType.EQUINE_PENIS, Race.HORSE_MORPH) {
-		@Override
-		public boolean isFlaredHead() {
-			return true;
-		}
-	},
+	EQUINE(BodyCoveringType.PENIS, TesticleType.EQUINE, Race.HORSE_MORPH, PenisModifier.FLARED, PenisModifier.VEINY, PenisModifier.SHEATHED),
 
-	SLIME(BodyCoveringType.SLIME, Race.SLIME) {
-		@Override
-		public String getCumName(GameCharacter gc) {
-			return "slime";
-		}
-	},
+	SLIME(BodyCoveringType.PENIS, TesticleType.SLIME, Race.SLIME),
 
-	AVIAN(BodyCoveringType.HUMAN, Race.HARPY),
+	AVIAN(BodyCoveringType.PENIS, TesticleType.AVIAN, Race.HARPY, PenisModifier.SHEATHED),
 	
-	SQUIRREL(BodyCoveringType.HUMAN, Race.SQUIRREL_MORPH);
+	SQUIRREL(BodyCoveringType.PENIS, TesticleType.SQUIRREL, Race.SQUIRREL_MORPH, PenisModifier.SHEATHED);
 
 	
 	private BodyCoveringType skinType;
+	private TesticleType testicleType;
 	private Race race;
+	private List<PenisModifier> defaultPenisModifiers;
 
-	private PenisType(BodyCoveringType skinType, Race race) {
+	private PenisType(BodyCoveringType skinType, TesticleType testicleType, Race race, PenisModifier... defaultPenisModifiers) {
 		this.skinType = skinType;
 		this.race = race;
+		this.testicleType=testicleType;
+		
+		this.defaultPenisModifiers = new ArrayList<>();
+		for(PenisModifier pm : defaultPenisModifiers) {
+			this.defaultPenisModifiers.add(pm);
+		}
 	}
 
 	@Override
@@ -150,17 +128,17 @@ public enum PenisType implements BodyPartTypeInterface {
 			case 0:
 				switch(this){
 					case ANGEL:
-						return UtilText.returnStringAtRandom("perfect");
+						return UtilText.returnStringAtRandom("angelic");
 					case AVIAN:
-						return UtilText.returnStringAtRandom("retractable");
+						return UtilText.returnStringAtRandom("avian");
 					case CANINE:
-						return UtilText.returnStringAtRandom("knotted", "red", "tapered", "bestial");
+						return UtilText.returnStringAtRandom("bestial");
 					case DEMON_COMMON:
-						return UtilText.returnStringAtRandom("ribbed", "bumpy");
+						return UtilText.returnStringAtRandom("demonic");
 					case EQUINE:
-						return UtilText.returnStringAtRandom("flared", "bestial", "thick");
+						return UtilText.returnStringAtRandom("bestial", "thick");
 					case FELINE:
-						return UtilText.returnStringAtRandom("barbed");
+						return UtilText.returnStringAtRandom("bestial");
 					case HUMAN:
 						return UtilText.returnStringAtRandom("");
 					case NONE:
@@ -185,29 +163,13 @@ public enum PenisType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getSkinType() {
+	public BodyCoveringType getBodyCoveringType() {
 		return skinType;
 	}
 	
 	@Override
 	public Race getRace() {
 		return race;
-	}
-	
-	public boolean isKnotted() {
-		return false;
-	}
-	public boolean isFlaredHead() {
-		return false;
-	}
-	public boolean isBarbedShaft() {
-		return false;
-	}
-	public boolean isRibbedShaft() {
-		return false;
-	}
-	public boolean isTentacledShaft() {
-		return false;
 	}
 	
 	public String getPenisHeadName(GameCharacter gc) {
@@ -264,6 +226,14 @@ public enum PenisType implements BodyPartTypeInterface {
 			default:
 				return UtilText.returnStringAtRandom("potent", "sticky", "hot", "salty");
 		}
+	}
+
+	public TesticleType getTesticleType() {
+		return testicleType;
+	}
+
+	public List<PenisModifier> getDefaultPenisModifiers() {
+		return defaultPenisModifiers;
 	}
 
 }

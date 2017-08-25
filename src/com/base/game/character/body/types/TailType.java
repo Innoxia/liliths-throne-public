@@ -6,36 +6,34 @@ import com.base.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.82
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum TailType implements BodyPartTypeInterface {
-	NONE(null, null),
+	NONE(null, null, false),
 
-	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON){
-		public boolean isPrehensile() {
-			return true;
-		}
-	},
+	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, true),
 
-	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
+	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false),
 	
-	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
+	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH, false),
 
-	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
+	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true),
 
-	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
+	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, false),
 	
-	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH),
+	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, false),
 
-	HARPY(BodyCoveringType.FEATHERS, Race.HARPY);
+	HARPY(BodyCoveringType.FEATHERS, Race.HARPY, false);
 
 	private BodyCoveringType skinType;
 	private Race race;
+	private boolean prehensile;
 
-	private TailType(BodyCoveringType skinType, Race race) {
+	private TailType(BodyCoveringType skinType, Race race, boolean prehensile) {
 		this.skinType = skinType;
 		this.race = race;
+		this.prehensile = prehensile;
 	}
 	
 	@Override
@@ -109,7 +107,7 @@ public enum TailType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getSkinType() {
+	public BodyCoveringType getBodyCoveringType() {
 		return skinType;
 	}
 
@@ -119,7 +117,7 @@ public enum TailType implements BodyPartTypeInterface {
 	}
 	
 	public boolean isPrehensile() {
-		return false;
+		return prehensile;
 	}
 	
 }

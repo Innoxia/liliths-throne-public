@@ -80,7 +80,7 @@ public class PartnerPenisNipple {
 							" You [pc.moan] in delight as you beg, [pc.speech(Yes! Fuck my breasts! I need you inside of me!)]"));
 					break;
 				case SUB_RESISTING:
-					if(Main.game.getPlayer().isBreastVirgin()) {
+					if(Main.game.getPlayer().isNippleVirgin()) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [pc.A_sob+] bursts out from between your [pc.lips+] at the thought of what's about to happen, [pc.speech(No! Don't! Please! I-I've never done this before! You can't do this!)]",
 								" You let out a desperate [pc.sob], before pleading, [pc.speech(Please! Don't do this! I've never done this before!)]",

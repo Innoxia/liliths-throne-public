@@ -1,6 +1,10 @@
 package com.base.game.character.body.types;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.base.game.character.GameCharacter;
+import com.base.game.character.body.valueEnums.OrificeModifier;
 import com.base.game.character.race.Race;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.sex.OrificeType;
@@ -10,44 +14,47 @@ import com.base.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum VaginaType implements BodyPartTypeInterface {
 
-	NONE(null, null),
+	NONE(null, FluidType.GIRL_CUM_HUMAN, null),
 
-	HUMAN(BodyCoveringType.HUMAN, Race.HUMAN),
+	HUMAN(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_HUMAN, Race.HUMAN),
 
-	ANGEL(BodyCoveringType.ANGEL, Race.ANGEL),
+	ANGEL(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_ANGEL, Race.ANGEL, OrificeModifier.MUSCLE_CONTROL),
 
-	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
+	DEMON_COMMON(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DEMON, Race.DEMON, OrificeModifier.MUSCLE_CONTROL, OrificeModifier.TENTACLED),
 
-	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
+	DOG_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DOG_MORPH, Race.DOG_MORPH),
 
-	WOLF_MORPH(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
+	WOLF_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_WOLF_MORPH, Race.WOLF_MORPH),
 
-	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
+	SQUIRREL_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
 	
-	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
+	CAT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_CAT_MORPH, Race.CAT_MORPH),
 
-	HORSE_MORPH(BodyCoveringType.EQUINE_VAGINA, Race.HORSE_MORPH),
+	HORSE_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_HORSE_MORPH, Race.HORSE_MORPH, OrificeModifier.PUFFY),
 
-	SLIME(BodyCoveringType.SLIME, Race.SLIME) {
-		@Override
-		public String getCumName() {
-			return "slime";
-		}
-	},
+	SLIME(BodyCoveringType.VAGINA_SLIME, FluidType.GIRL_CUM_SLIME, Race.SLIME),
 
-	HARPY(BodyCoveringType.FEATHERS, Race.HARPY);
+	HARPY(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_HARPY, Race.HARPY);
 
 	private BodyCoveringType skinType;
+	private FluidType fluidType;
 	private Race race;
+	private List<OrificeModifier> defaultRacialOrificeModifiers;
 
-	private VaginaType(BodyCoveringType skinType, Race race) {
+	private VaginaType(BodyCoveringType skinType, FluidType fluidType, Race race, OrificeModifier... defaultRacialOrificeModifiers) {
 		this.skinType = skinType;
+		this.fluidType = fluidType;
 		this.race = race;
+		
+		this.defaultRacialOrificeModifiers = new ArrayList<>();
+		for(OrificeModifier om : defaultRacialOrificeModifiers) {
+			this.defaultRacialOrificeModifiers.add(om);
+		}
 	}
 
 	@Override
@@ -117,7 +124,7 @@ public enum VaginaType implements BodyPartTypeInterface {
 					case ANGEL:
 						return UtilText.returnStringAtRandom("perfect");
 					case DEMON_COMMON:
-						return UtilText.returnStringAtRandom("tentacle-lined", "irresistible", "demonic");
+						return UtilText.returnStringAtRandom("irresistible", "demonic");
 					case DOG_MORPH:
 						return UtilText.returnStringAtRandom("hot", "animalistic", "dog-like", "canine");
 					case WOLF_MORPH:
@@ -125,7 +132,7 @@ public enum VaginaType implements BodyPartTypeInterface {
 					case CAT_MORPH:
 						return UtilText.returnStringAtRandom("hot", "animalistic", "cat-like", "feline");
 					case HORSE_MORPH:
-						return UtilText.returnStringAtRandom("puffy", "puffy-lipped", "black-lipped", "equine");
+						return UtilText.returnStringAtRandom("hot", "animalistic", "equine");
 					case HUMAN:
 						return UtilText.returnStringAtRandom("hot");
 					case NONE:
@@ -156,7 +163,7 @@ public enum VaginaType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getSkinType() {
+	public BodyCoveringType getBodyCoveringType() {
 		return skinType;
 	}
 	
@@ -165,12 +172,12 @@ public enum VaginaType implements BodyPartTypeInterface {
 		return race;
 	}
 
-	public String getCumDescriptor() {
-		return UtilText.returnStringAtRandom("slick", "slippery");
+	public FluidType getFluidType() {
+		return fluidType;
 	}
-	
-	public String getCumName() {
-		return UtilText.returnStringAtRandom("girl-cum", "juices");
+
+	public List<OrificeModifier> getDefaultRacialOrificeModifiers() {
+		return defaultRacialOrificeModifiers;
 	}
 	
 }

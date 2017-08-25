@@ -3,6 +3,7 @@ package com.base.game.sex.sexActions.universal.dom;
 import java.util.List;
 
 import com.base.game.character.attributes.CorruptionLevel;
+import com.base.game.character.body.valueEnums.PenisModifier;
 import com.base.game.character.body.valueEnums.PenisSize;
 import com.base.game.character.effects.Fetish;
 import com.base.game.dialogue.utils.UtilText;
@@ -152,10 +153,10 @@ public class DomKneeling {
 				UtilText.nodeContentSB.append("</br></br>"
 						+ "As you grind your [pc.pussy+] down against [npc.her] [npc.lips], you feel your other sexual organ start to react to your climax.");
 				
-				if(Main.game.getPlayer().isPenisKnotted()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.KNOTTED)) {
 					UtilText.nodeContentSB.append(" You let out [pc.a_moan+] as you feel the knot at the base of your [pc.cock+] swelling up as you prepare to cum,");
 					
-				} else if(Main.game.getPlayer().isPenisFlaredHead()) {
+				} else if(Main.game.getPlayer().hasPenisModifier(PenisModifier.FLARED)) {
 					UtilText.nodeContentSB.append(" You let out [pc.a_moan+] as you feel the wide, flared head of your [pc.cock+] swelling up as you prepare to cum,");
 					
 				} else {
@@ -246,13 +247,13 @@ public class DomKneeling {
 			
 			UtilText.nodeContentSB.append("You feel a desperate heat building in your groin, and with a lewd cry, you slam your [pc.cock+] deep down [npc.name]'s throat.");
 			
-			if(Main.game.getPlayer().isPenisKnotted()) {
+			if(Main.game.getPlayer().hasPenisModifier(PenisModifier.KNOTTED)) {
 				UtilText.nodeContentSB.append(" You force the knot at the base of your [pc.cock] past [npc.her] [npc.lips+], and [npc.she] shuffles around on [npc.her] knees as it quickly swells up, locking you both in place");
 				
-			} else if(Main.game.getPlayer().isPenisFlaredHead()) {
+			} else if(Main.game.getPlayer().hasPenisModifier(PenisModifier.FLARED)) {
 				UtilText.nodeContentSB.append(" You feel it start to twitch and throb, and you reach down to hold [npc.her] head in position as your wide, flared head swells up in [npc.her] throat.");
 				
-			} else if(Main.game.getPlayer().isPenisBarbedShaft()) {
+			} else if(Main.game.getPlayer().hasPenisModifier(PenisModifier.BARBED)) {
 				UtilText.nodeContentSB.append(" You feel it start to twitch and throb, and you start making little thrusting motions into [npc.her] [npc.face], raking your barbs up and down [npc.her] throat as you bring yourself to a climax.");
 				
 			} else {
@@ -345,10 +346,10 @@ public class DomKneeling {
 			UtilText.nodeContentSB.append("You feel a desperate heat building in your groin, and with [pc.a_moan+], you pull your [pc.cock] out from [npc.name]'s throat"
 					+ (Main.game.getPlayer().isWearingCondom()?", sliding your condom off as you do so.":"."));
 			
-			if(Main.game.getPlayer().isPenisKnotted()) {
+			if(Main.game.getPlayer().hasPenisModifier(PenisModifier.KNOTTED)) {
 				UtilText.nodeContentSB.append(" The knot at the base of your [pc.cock+] quickly swells up as you rapidly stroke your shaft over [npc.name]'s [npc.face].");
 				
-			} else if(Main.game.getPlayer().isPenisFlaredHead()) {
+			} else if(Main.game.getPlayer().hasPenisModifier(PenisModifier.FLARED)) {
 				UtilText.nodeContentSB.append(" The wide, flared head of your [pc.cock+] quickly swells up as you rapidly stroke your shaft over [npc.name]'s [npc.face].");
 				
 			} else {

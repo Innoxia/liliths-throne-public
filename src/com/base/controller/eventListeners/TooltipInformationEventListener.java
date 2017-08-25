@@ -14,6 +14,7 @@ import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.attributes.FitnessLevel;
 import com.base.game.character.attributes.IntelligenceLevel;
 import com.base.game.character.attributes.StrengthLevel;
+import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.types.HornType;
 import com.base.game.character.body.types.PenisType;
 import com.base.game.character.body.types.TailType;
@@ -24,6 +25,7 @@ import com.base.game.character.effects.Fetish;
 import com.base.game.character.effects.Perk;
 import com.base.game.character.effects.PerkInterface;
 import com.base.game.character.effects.StatusEffect;
+import com.base.game.character.race.Race;
 import com.base.game.combat.Combat;
 import com.base.game.combat.SpecialAttack;
 import com.base.game.combat.Spell;
@@ -36,7 +38,7 @@ import com.base.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.79
+ * @version 0.1.83
  * @author Innoxia
  */
 public class TooltipInformationEventListener implements EventListener {
@@ -57,7 +59,7 @@ public class TooltipInformationEventListener implements EventListener {
 	}
 
 	/*
-	 * I have to manually set tooltip height, as all the JavaFX methods for getting document height are completely broken. (Don't bother wasting any more time with JavaFX crap.)
+	 * I have to manually set tooltip height, as all the JavaFX methods for getting document height are completely broken. (Don't bother wasting any more time with JavaFX crap.) R-Rude...
 	 */
 	
 	@Override
@@ -432,90 +434,48 @@ public class TooltipInformationEventListener implements EventListener {
 				}
 
 				// GREATER:
-				// Face:
-				tooltipSB.append("<div class='subTitle-half body'>" + "Face - <span style='color:" + owner.getFaceRace().getColour().toWebHexString() + ";'>"
-						+ Util.capitaliseSentence(owner.getFaceRace().getName()) + "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getFaceType().getSkinType()).toWebHexString()
-						+ ";'>" + Util.capitaliseSentence(owner.getSkinColour(owner.getFaceType().getSkinType()).getName()) + "</span> " + owner.getFaceType().getSkinType().getName(owner) + "</div>");
-				// Skin:
-				tooltipSB.append("<div class='subTitle-half body'>" + "Body - <span style='color:" + owner.getSkinRace().getColour().toWebHexString() + ";'>"
-						+ Util.capitaliseSentence(owner.getSkinRace().getName()) + "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getSkinType()).toWebHexString() + ";'>"
-						+ Util.capitaliseSentence(owner.getSkinColour(owner.getSkinType()).getName()) + "</span> " + owner.getSkinName() + "</div>");
+				tooltipSB.append(getBodyPartDiv("Face", owner.getFaceRace(), owner.getFaceType().getBodyCoveringType()));
+				tooltipSB.append(getBodyPartDiv("Body", owner.getSkinRace(), owner.getSkinType().getBodyCoveringType()));
+				
 
 				// LESSER:
-				// Arms:
-				tooltipSB.append("<div class='subTitle-half body'>" + "Arms - <span style='color:" + owner.getArmRace().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(owner.getArmRace().getName())
-						+ "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getArmType().getSkinType()).toWebHexString() + ";'>"
-						+ Util.capitaliseSentence(owner.getSkinColour(owner.getArmType().getSkinType()).getName()) + "</span> " + owner.getArmType().getSkinType().getName(owner) + "</div>");
-				// Legs:
-				tooltipSB.append("<div class='subTitle-half body'>" + "Legs - <span style='color:" + owner.getLegRace().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(owner.getLegRace().getName())
-						+ "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getLegType().getSkinType()).toWebHexString() + ";'>"
-						+ Util.capitaliseSentence(owner.getSkinColour(owner.getLegType().getSkinType()).getName()) + "</span> " + owner.getLegType().getSkinType().getName(owner) + "</div>");
-
+				tooltipSB.append(getBodyPartDiv("Arms", owner.getArmRace(), owner.getArmType().getBodyCoveringType()));
+				tooltipSB.append(getBodyPartDiv("Legs", owner.getLegRace(), owner.getLegType().getBodyCoveringType()));
+				
 				// PARTIAL:
-				// Hair:
-				tooltipSB.append("<div class='subTitle-half body'>" + "Hair - <span style='color:" + owner.getHairRace().getColour().toWebHexString() + ";'>"
-						+ Util.capitaliseSentence(owner.getHairRace().getName()) + "</span></br>" + "<span style='color:" + owner.getHairColour().toWebHexString() + ";'>"
-						+ Util.capitaliseSentence(owner.getHairColour().getName()) + "</span> " + owner.getHairType().getName(owner) + "</div>");
-				// Eye:
-				tooltipSB.append("<div class='subTitle-half body'>" + "Eyes - <span style='color:" + owner.getEyeRace().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(owner.getEyeRace().getName())
-						+ "</span></br>" + "<span style='color:" + owner.getEyeColour().toWebHexString() + ";'>" + Util.capitaliseSentence(owner.getEyeColour().getName()) + "</span> "
-						+ owner.getEyeType().getName(owner) + "</div>");
-				// Ear:
-				tooltipSB.append("<div class='subTitle-half body'>" + "Ears - <span style='color:" + owner.getEarRace().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(owner.getEarRace().getName())
-						+ "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getEarType().getSkinType()).toWebHexString() + ";'>"
-						+ Util.capitaliseSentence(owner.getSkinColour(owner.getEarType().getSkinType()).getName()) + "</span> " + owner.getEarType().getSkinType().getName(owner) + "</div>");
-				// Horn:
-				if (owner.getHornType() != HornType.NONE)
-					tooltipSB.append("<div class='subTitle-half body'>" + "Horns - <span style='color:" + owner.getHornRace().getColour().toWebHexString() + ";'>"
-							+ Util.capitaliseSentence(owner.getHornRace().getName()) + "</span></br>" + "<span style='color:"
-							+ owner.getSkinColour(owner.getHornType().getSkinType()).toWebHexString() + ";'>"
-							+ Util.capitaliseSentence(owner.getSkinColour(owner.getHornType().getSkinType()).getName()) + "</span> " + owner.getHornType().getSkinType().getName(owner) + "</div>");
-				else
+				tooltipSB.append(getBodyPartDiv("Hair", owner.getHairRace(), owner.getHairType().getBodyCoveringType()));
+				tooltipSB.append(getBodyPartDiv("Eyes", owner.getEyeRace(), owner.getEyeType().getBodyCoveringType()));
+				tooltipSB.append(getBodyPartDiv("Ears", owner.getEarRace(), owner.getEarType().getBodyCoveringType()));
+				if (owner.getHornType() != HornType.NONE) {
+					tooltipSB.append(getBodyPartDiv("Horns", owner.getHornRace(), owner.getHornType().getBodyCoveringType()));
+				} else {
 					tooltipSB.append("<div class='subTitle-half body'>" + "Horns - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
-				// Wing:
-				if (owner.getWingType() != WingType.NONE)
-					tooltipSB.append("<div class='subTitle-half body'>" + "Wings - <span style='color:" + owner.getWingRace().getColour().toWebHexString() + ";'>"
-							+ Util.capitaliseSentence(owner.getWingRace().getName()) + "</span></br>" + "<span style='color:"
-							+ owner.getSkinColour(owner.getWingType().getSkinType()).toWebHexString() + ";'>"
-							+ Util.capitaliseSentence(owner.getSkinColour(owner.getWingType().getSkinType()).getName()) + "</span> " + owner.getWingType().getSkinType().getName(owner) + "</div>");
-				else
+				}
+				if (owner.getWingType() != WingType.NONE) {
+					tooltipSB.append(getBodyPartDiv("Wings", owner.getWingRace(), owner.getWingType().getBodyCoveringType()));
+				} else {
 					tooltipSB.append("<div class='subTitle-half body'>" + "Wings - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
-				// Tail:
-				if (owner.getTailType() != TailType.NONE)
-					tooltipSB.append("<div class='subTitle-half body'>" + "Tail - <span style='color:" + owner.getTailRace().getColour().toWebHexString() + ";'>"
-							+ Util.capitaliseSentence(owner.getTailRace().getName()) + "</span></br>" + "<span style='color:"
-							+ owner.getSkinColour(owner.getTailType().getSkinType()).toWebHexString() + ";'>"
-							+ Util.capitaliseSentence(owner.getSkinColour(owner.getTailType().getSkinType()).getName()) + "</span> " + owner.getTailType().getSkinType().getName(owner) + "</div>");
-				else
+				}
+				if (owner.getTailType() != TailType.NONE) {
+					tooltipSB.append(getBodyPartDiv("Tail", owner.getTailRace(), owner.getTailType().getBodyCoveringType()));
+				} else {
 					tooltipSB.append("<div class='subTitle-half body'>" + "Tail - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
-
+				}
+				
 				// SEXUAL:
-				// Vagina:
-				if (owner.getVaginaType() != VaginaType.NONE)
-					tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Vagina</span> - " + "<span style='color:" + owner.getVaginaRace().getColour().toWebHexString()
-							+ ";'>" + Util.capitaliseSentence(owner.getVaginaRace().getName()) + "</span></br>" + "<span style='color:"
-							+ owner.getSkinColour(owner.getVaginaType().getSkinType()).toWebHexString() + ";'>"
-							+ Util.capitaliseSentence(owner.getSkinColour(owner.getVaginaType().getSkinType()).getName()) + "</span> " + owner.getVaginaType().getSkinType().getName(owner) + "</div>");
-				else
-					tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Vagina</span> - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
-				// Penis:
-				if (owner.getPenisType() != PenisType.NONE)
-					tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Penis</span> - " + "<span style='color:" + owner.getPenisRace().getColour().toWebHexString()
-							+ ";'>" + Util.capitaliseSentence(owner.getPenisRace().getName()) + "</span></br>" + "<span style='color:"
-							+ owner.getSkinColour(owner.getPenisType().getSkinType()).toWebHexString() + ";'>"
-							+ Util.capitaliseSentence(owner.getSkinColour(owner.getPenisType().getSkinType()).getName()) + "</span> " + owner.getPenisType().getSkinType().getName(owner) + "</div>");
-				else
-					tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Penis</span> - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
-				// Ass:
-				tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Ass</span> - " + "<span style='color:" + owner.getAssRace().getColour().toWebHexString() + ";'>"
-						+ Util.capitaliseSentence(owner.getAssRace().getName()) + "</span></br>" + "<span style='color:" + owner.getSkinColour(owner.getSkinType()).toWebHexString() + ";'>"
-						+ Util.capitaliseSentence(owner.getSkinColour(owner.getSkinType()).getName()) + "</span> " + owner.getSkinType().getName(owner) + "</div>");
-				// Breasts:
-				tooltipSB.append("<div class='subTitle-half body'>" + "<span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>" + (owner.getBreastSize().getMeasurement() > 0 ? "Breasts" : "Chest") + "</span> - "
-						+ "<span style='color:" + owner.getBreastRace().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(owner.getBreastRace().getName()) + "</span></br>" + "<span style='color:"
-						+ owner.getSkinColour(owner.getSkinType()).toWebHexString() + ";'>" + Util.capitaliseSentence(owner.getSkinColour(owner.getSkinType()).getName())
-						+ "</span> " + owner.getSkinType().getName(owner) + "</div>");
-
+				if (owner.getVaginaType() != VaginaType.NONE) {
+					tooltipSB.append(getBodyPartDiv("Vagina", owner.getVaginaRace(), owner.getVaginaType().getBodyCoveringType()));
+				} else {
+					tooltipSB.append("<div class='subTitle-half body'>" + "Vagina - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+				}
+				if (owner.getPenisType() != PenisType.NONE) {
+					tooltipSB.append(getBodyPartDiv("Penis", owner.getPenisRace(), owner.getPenisType().getBodyCoveringType()));
+				} else {
+					tooltipSB.append("<div class='subTitle-half body'>" + "Penis - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+				}
+				tooltipSB.append(getBodyPartDiv("Ass", owner.getAssRace(), owner.getAssType().getBodyCoveringType()));
+				tooltipSB.append(getBodyPartDiv("Breasts", owner.getBreastRace(), owner.getBreastType().getBodyCoveringType()));
+				
 				Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 			} else {
@@ -693,6 +653,15 @@ public class TooltipInformationEventListener implements EventListener {
 		(new Thread(new TooltipUpdateThread())).start();
 		// Main.mainController.getTooltip().show(Main.primaryStage);
 	}
+	
+	private String getBodyPartDiv(String name, Race race, BodyCoveringType covering) {
+		return "<div class='subTitle-half body'>"
+					+ name + " - <span style='color:" + race.getColour().toWebHexString() + ";'>"+ Util.capitaliseSentence(race.getName()) + "</span></br>"
+					+ "<span style='color:" + owner.getCovering(covering).getPrimaryColour().toWebHexString() + ";'>"+ Util.capitaliseSentence(owner.getCovering(covering).getColourDescriptor(false))+ "</span> "
+						+ owner.getCovering(covering).getName(owner)
+				+ "</div>";
+	}
+	
 
 	private String extraAttributeTableRow(GameCharacter owner, String type, Attribute damage, Attribute resist) {
 //		if (owner.isPlayer() || Main.game.getPlayer().getPerks().contains(Perk.OBSERVANT))

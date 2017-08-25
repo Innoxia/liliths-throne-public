@@ -2590,7 +2590,7 @@ public enum StatusEffect {
 				
 			// Nipples:
 			}
-			if (target.getBreastRawCapacityValue()!=target.getBreastStretchedCapacity()){
+			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
 				s = "Recovering Nipples";
 				i++;
 				
@@ -2697,51 +2697,51 @@ public enum StatusEffect {
 			}
 			
 			// Nipples:
-			if (target.getBreastRawCapacityValue()!=target.getBreastStretchedCapacity()){
-				switch(target.getBreastElasticity()){
+			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
+				switch(target.getNippleElasticity()){
 					//Takes 6 hours to recover each inch of capacity:
 					case ZERO_UNYIELDING:
-						target.incrementBreastStretchedCapacity(-(1/6f) * (minutesPassed/60f));
+						target.incrementNippleStretchedCapacity(-(1/6f) * (minutesPassed/60f));
 						break;
 					//Takes 4 hours to recover each inch of capacity:
 					case ONE_RIGID:
-						target.incrementBreastStretchedCapacity(-(1/4f) * (minutesPassed/60f));
+						target.incrementNippleStretchedCapacity(-(1/4f) * (minutesPassed/60f));
 						break;
 					//Takes 2 hours to recover each inch of capacity:
 					case TWO_FIRM:
-						target.incrementBreastStretchedCapacity(-(1/2f) * (minutesPassed/60f));
+						target.incrementNippleStretchedCapacity(-(1/2f) * (minutesPassed/60f));
 						break;
 					//Takes 1 hour to recover each inch of capacity:
 					case THREE_FLEXIBLE:
-						target.incrementBreastStretchedCapacity(-1 * (minutesPassed/60f));
+						target.incrementNippleStretchedCapacity(-1 * (minutesPassed/60f));
 						break;
 					//Takes 1 hour to recover each inch of capacity:
 					case FOUR_LIMBER:
-						target.incrementBreastStretchedCapacity(-1 * (minutesPassed/60f));
+						target.incrementNippleStretchedCapacity(-1 * (minutesPassed/60f));
 						break;
 					//Takes 30 minutes to recover each inch of capacity:
 					case FIVE_STRETCHY:
-						target.incrementBreastStretchedCapacity(-2 * (minutesPassed/60f));
+						target.incrementNippleStretchedCapacity(-2 * (minutesPassed/60f));
 						break;
 					//Takes 15 minutes to recover each inch of capacity:
 					case SIX_SUPPLE:
-						target.incrementBreastStretchedCapacity(-4 * (minutesPassed/60f));
+						target.incrementNippleStretchedCapacity(-4 * (minutesPassed/60f));
 						break;
 					//Should have been instant after sex, this is just a backup:
 					case SEVEN_ELASTIC:
-						target.incrementBreastStretchedCapacity(-100);
+						target.incrementNippleStretchedCapacity(-100);
 						break;
 					default:
 						break;
 				}
 				
-				if(target.getBreastStretchedCapacity()<target.getBreastRawCapacityValue())
-					target.setBreastStretchedCapacity(target.getBreastRawCapacityValue());
+				if(target.getNippleStretchedCapacity()<target.getNippleRawCapacityValue())
+					target.setNippleStretchedCapacity(target.getNippleRawCapacityValue());
 			}
 			
 			// Urethra:
 			if (target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
-				switch(target.getPenisElasticity()){
+				switch(target.getUrethraElasticity()){
 					//Takes 6 hours to recover each inch of capacity:
 					case ZERO_UNYIELDING:
 						target.incrementPenisStretchedCapacity(-(1/6f) * (minutesPassed/60f));
@@ -2801,8 +2801,8 @@ public enum StatusEffect {
 				
 			// Nipples:
 			}
-			if (target.getBreastRawCapacityValue()!=target.getBreastStretchedCapacity()){
-				descriptionSB.append("</br><b>Nipples:</b> From "+Capacity.getCapacityFromValue(target.getBreastStretchedCapacity()).getDescriptor()+" to "+target.getBreastCapacity().getDescriptor()+".");
+			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
+				descriptionSB.append("</br><b>Nipples:</b> From "+Capacity.getCapacityFromValue(target.getNippleStretchedCapacity()).getDescriptor()+" to "+target.getNippleCapacity().getDescriptor()+".");
 				
 			// Urethra:
 			}
@@ -2818,7 +2818,7 @@ public enum StatusEffect {
 			return !Main.game.isInSex() &&
 					((target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity())
 					|| (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity())
-					|| (target.getBreastRawCapacityValue()!=target.getBreastStretchedCapacity())
+					|| (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity())
 					|| (target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()));
 		}
 	},
@@ -2907,12 +2907,16 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer())
+			if(target==null) {
+				return "";
+			}
+			if(target.isPlayer()) {
 				return "As you walk, you can feel slimy cum drooling out of your recently-used asshole."
 						+ " You find it hard to concentrate on anything other than the memory of being creampied.</br>"
 						+ "Perhaps you should take a shower...";
-			else
-				return target.getName("The")+"'s "+target.getAssholeName(true)+" has recently been filled with cum.";
+			} else {
+				return UtilText.parse(target, "[npc.Name]'s [npc.asshole+] has recently been filled with cum.");
+			}
 		}
 		
 		@Override

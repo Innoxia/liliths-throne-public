@@ -1,40 +1,52 @@
 package com.base.game.character.body.types;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.base.game.character.GameCharacter;
+import com.base.game.character.body.valueEnums.TongueModifier;
 import com.base.game.character.race.Race;
 import com.base.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.69.9
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum TongueType implements BodyPartTypeInterface {
 
-	HUMAN(BodyCoveringType.TONGUE, Race.HUMAN),
+	HUMAN(BodyCoveringType.TONGUE, Race.HUMAN, 1),
 
-	DEMON_COMMON(BodyCoveringType.TONGUE, Race.DEMON),
+	DEMON_COMMON(BodyCoveringType.TONGUE, Race.DEMON, 1, TongueModifier.BIFURCATED),
 
-	DOG_MORPH(BodyCoveringType.TONGUE, Race.DOG_MORPH),
+	DOG_MORPH(BodyCoveringType.TONGUE, Race.DOG_MORPH, 1),
 
-	WOLF_MORPH(BodyCoveringType.TONGUE, Race.WOLF_MORPH),
+	WOLF_MORPH(BodyCoveringType.TONGUE, Race.WOLF_MORPH, 1),
 
-	CAT_MORPH(BodyCoveringType.TONGUE, Race.CAT_MORPH),
+	CAT_MORPH(BodyCoveringType.TONGUE, Race.CAT_MORPH, 1),
 
-	HORSE_MORPH(BodyCoveringType.TONGUE, Race.HORSE_MORPH),
+	HORSE_MORPH(BodyCoveringType.TONGUE, Race.HORSE_MORPH, 1),
 
-	SLIME(BodyCoveringType.SLIME, Race.SLIME),
+	SLIME(BodyCoveringType.SLIME, Race.SLIME, 1),
 
-	TENGU(BodyCoveringType.TONGUE, Race.HARPY),
+	TENGU(BodyCoveringType.TONGUE, Race.HARPY, 1),
 
-	SQUIRREL_MORPH(BodyCoveringType.TONGUE, Race.SQUIRREL_MORPH);
+	SQUIRREL_MORPH(BodyCoveringType.TONGUE, Race.SQUIRREL_MORPH, 1);
 	
 	private BodyCoveringType skinType;
 	private Race race;
+	private int defaultTongueLength;
+	private List<TongueModifier> defaultRacialTongueModifiers;
 
-	private TongueType(BodyCoveringType skinType, Race race) {
+	private TongueType(BodyCoveringType skinType, Race race, int defaultTongueLength, TongueModifier... defaultRacialTongueModifiers) {
 		this.skinType = skinType;
 		this.race = race;
+		this.defaultTongueLength = defaultTongueLength;
+		
+		this.defaultRacialTongueModifiers = new ArrayList<>();
+		for(TongueModifier tm : defaultRacialTongueModifiers) {
+			this.defaultRacialTongueModifiers.add(tm);
+		}
 	}
 
 	@Override
@@ -82,13 +94,21 @@ public enum TongueType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getSkinType() {
+	public BodyCoveringType getBodyCoveringType() {
 		return skinType;
 	}
 
 	@Override
 	public Race getRace() {
 		return race;
+	}
+
+	public int getDefaultTongueLength() {
+		return defaultTongueLength;
+	}
+
+	public List<TongueModifier> getDefaultRacialTongueModifiers() {
+		return defaultRacialTongueModifiers;
 	}
 
 }

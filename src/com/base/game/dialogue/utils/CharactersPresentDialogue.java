@@ -285,15 +285,14 @@ public class CharactersPresentDialogue {
 				+ statRow("Femininity", String.valueOf(character.getFemininity()))
 				+ statRow("Height (cm)", String.valueOf(character.getHeight()))
 				+ statRow("Hair length (cm)", String.valueOf(Util.conversionInchesToCentimetres(character.getHairRawLengthValue())))
-				+ statRow("Makeup", String.valueOf(character.getFaceMakeupLevel().getValue()))
 				+ "<tr style='height:8px;'></tr>"
 
 				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Breasts</th></tr>"
 				+ statRow("Cup size", character.getBreastRawSizeValue() == 0 ? "N/A" : Util.capitaliseSentence(character.getBreastSize().getCupSizeName()))
 				+ (character.getPlayerKnowsAreasMap().get(CoverableArea.NIPPLES)
 					?statRow("Milk production (mL)", String.valueOf(character.getBreastRawLactationValue()))
-						+ statRow("Capacity (inches)", String.valueOf(character.getBreastRawCapacityValue()))
-						+ statRow("Elasticity", String.valueOf(character.getBreastElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getBreastElasticity().getDescriptor())+")")
+						+ statRow("Capacity (inches)", String.valueOf(character.getNippleRawCapacityValue()))
+						+ statRow("Elasticity", String.valueOf(character.getNippleElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getNippleElasticity().getDescriptor())+")")
 					:statRow("Milk production (mL)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
 						+ statRow("Capacity (inches)","<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
 						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))

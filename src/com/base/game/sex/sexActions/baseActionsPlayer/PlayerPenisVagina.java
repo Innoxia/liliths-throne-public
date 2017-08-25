@@ -6,6 +6,7 @@ import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.body.types.TailType;
 import com.base.game.character.body.types.VaginaType;
 import com.base.game.character.body.valueEnums.HairLength;
+import com.base.game.character.body.valueEnums.PenisModifier;
 import com.base.game.character.effects.Fetish;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.sex.ArousalIncrease;
@@ -471,27 +472,27 @@ public class PlayerPenisVagina {
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
-				if(Main.game.getPlayer().isPenisBarbedShaft()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.BARBED)) {
 					barbedSpecial="With a soft [pc.moan], you reach down and take hold of [npc.name]'s [npc.hips+], before slowly pushing yourself forwards and sinking your [pc.cock+] deep into [npc.her] [npc.pussy+]."
 										+ " You stay in that position for a moment, pressing yourself up against [npc.herHim], before gently pulling back,"
 										+ " aware that the barbs that line the sides of your cock can be painful if you pull out too fast, before starting to steadily fuck [npc.herHim] against the wall.";
 				}
-				if(Main.game.getPlayer().isPenisFlaredHead()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.FLARED)) {
 					flaredSpecial="With a soft [pc.moan], you reach down and take hold of [npc.name]'s [npc.hips+], before slowly pushing yourself forwards and sinking your [pc.cock+] deep into [npc.her] [npc.pussy+]."
 										+ " You feel your flared head lewdly spreading out [npc.her] inner walls as you carry on gently pressing yourself against [npc.herHim] for a moment,"
 										+ " before pulling back and starting to steadily fuck [npc.herHim] against the wall.";
 				}
-				if(Main.game.getPlayer().isPenisKnotted()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.KNOTTED)) {
 					knottedSpecial="With a soft [pc.moan], you reach down and take hold of [npc.name]'s [npc.hips+], before slowly pushing yourself forwards and sinking your [pc.cock+] deep into [npc.her] [npc.pussy+]."
 										+ " You feel your fat knot lewdly pressing against [npc.her] pussy lips as you carry on gently pressing yourself against [npc.herHim] for a moment,"
 										+ " before pulling back and starting to steadily fuck [npc.herHim] against the wall.";
 				}
-				if(Main.game.getPlayer().isPenisRibbedShaft()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.RIBBED)) {
 					ribbedSpecial="With a soft [pc.moan], you reach down and take hold of [npc.name]'s [npc.hips+], before slowly pushing yourself forwards and sinking your [pc.cock+] deep into [npc.her] [npc.pussy+]."
 										+ " You feel your ribbed shaft bumping up against [npc.her] [npc.clit] as you penetrate [npc.herHim], and, after gently pressing yourself against [npc.herHim] for a moment,"
 										+ " you pull back and start to steadily fuck [npc.herHim] against the wall.";
 				}
-				if(Main.game.getPlayer().isPenisTentacledShaft()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.TENTACLED)) {
 					tentacledSpecial="With a soft [pc.moan], you reach down and take hold of [npc.name]'s [npc.hips+], before slowly pushing yourself forwards and sinking your [pc.cock+] deep into [npc.her] [npc.pussy+]."
 							+ " You feel the little squirming tentacles lining your shaft eagerly massaging the inner walls of [npc.her] pussy, and, after gently pressing yourself against [npc.herHim] for a moment,"
 							+ " you pull back and start to steadily fuck [npc.herHim] against the wall.";
@@ -710,27 +711,27 @@ public class PlayerPenisVagina {
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
-				if(Main.game.getPlayer().isPenisBarbedShaft()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.BARBED)) {
 					barbedSpecial="With a wolfish grin, you reach down and grab [npc.name]'s [npc.hips+], before slamming yourself forwards and burying your [pc.cock+] deep in [npc.her] [npc.pussy+]."
 										+ " You stay in that position for a moment, roughly grinding yourself up against [npc.herHim], before violently pulling back,"
 										+ " roughly raking the barbs that line the sides of your cock against [npc.her] inner walls, before starting to furiously fuck [npc.herHim] against the wall.";
 				}
-				if(Main.game.getPlayer().isPenisFlaredHead()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.FLARED)) {
 					flaredSpecial="With a wolfish grin, you reach down and grab [npc.name]'s [npc.hips+], before slamming yourself forwards and burying your [pc.cock+] deep in [npc.her] [npc.pussy+]."
 										+ " You feel your flared head lewdly spreading out [npc.her] inner walls as you carry on roughly grinding yourself against [npc.herHim] for a moment,"
 										+ " before pulling back and starting to dominantly fuck [npc.herHim] against the wall.";
 				}
-				if(Main.game.getPlayer().isPenisKnotted()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.KNOTTED)) {
 					knottedSpecial="With a wolfish grin, you reach down and grab [npc.name]'s [npc.hips+], before slamming yourself forwards and burying your [pc.cock+] deep in [npc.her] [npc.pussy+]."
 										+ " You feel your fat knot lewdly pressing against [npc.her] pussy lips as you carry on roughly grinding yourself against [npc.herHim] for a moment,"
 										+ " before pulling back and starting to dominantly fuck [npc.herHim] against the wall.";
 				}
-				if(Main.game.getPlayer().isPenisRibbedShaft()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.RIBBED)) {
 					ribbedSpecial="With a wolfish grin, you reach down and grab [npc.name]'s [npc.hips+], before slamming yourself forwards and burying your [pc.cock+] deep in [npc.her] [npc.pussy+]."
 										+ " You feel your ribbed shaft bumping up against [npc.her] [npc.clit] as you penetrate [npc.herHim], and, after roughly grinding yourself against [npc.herHim] for a moment,"
 										+ " you pull back and starting to dominantly fuck [npc.herHim] against the wall.";
 				}
-				if(Main.game.getPlayer().isPenisTentacledShaft()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.TENTACLED)) {
 					tentacledSpecial="With a wolfish grin, you reach down and grab [npc.name]'s [npc.hips+], before slamming yourself forwards and burying your [pc.cock+] deep in [npc.her] [npc.pussy+]."
 							+ " You feel the little squirming tentacles lining your shaft eagerly massaging the inner walls of [npc.her] pussy, and, after roughly grinding yourself against [npc.herHim] for a moment,"
 							+ " you pull back and start to dominantly fuck [npc.herHim] against the wall.";
@@ -1314,25 +1315,25 @@ public class PlayerPenisVagina {
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
-				if(Main.game.getPlayer().isPenisBarbedShaft()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.BARBED)) {
 					barbedSpecial = "With a wolfish grin, [npc.name] reaches up and grabs your shoulders, before slamming [npc.her] [npc.hips] forwards and impaling [npc.her] [npc.pussy+] on your [pc.cock+]."
 										+ " Forcefully pressing you up against the wall and breathing hotly down on your neck,"
 										+ " [npc.she] suddenly thrusts back, roughly raking your cock's barbs against [npc.her] inner walls as [npc.she] starts to aggressively fuck [npc.herself] on your [pc.cock].";
 				}
-				if(Main.game.getPlayer().isPenisFlaredHead()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.FLARED)) {
 					flaredSpecial = "With a wolfish grin, [npc.name] reaches up and grabs your shoulders, before slamming [npc.her] [npc.hips] forwards and impaling [npc.her] [npc.pussy+] on your [pc.cock+]."
 										+ " You feel the wide, flared head of your cock spreading [npc.herHim] out as [npc.she] presses you up against the wall, before thrusting back and starting to roughly fuck [npc.herself] on your [pc.cock+].";
 				}
-				if(Main.game.getPlayer().isPenisKnotted()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.KNOTTED)) {
 					knottedSpecial = "With a wolfish grin, [npc.name] reaches up and grabs your shoulders, before slamming [npc.her] [npc.hips] forwards and impaling [npc.her] [npc.pussy+] on your [pc.cock+]."
 										+ " [npc.She] grinds [npc.her] lips against your fat knot, forcefully pressing you up against the wall and breathing hotly down on your neck,"
 										+ " before thrusting back and starting to roughly fuck [npc.herself] on your [pc.cock].";
 				}
-				if(Main.game.getPlayer().isPenisRibbedShaft()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.RIBBED)) {
 					ribbedSpecial = "With a wolfish grin, [npc.name] reaches up and grabs your shoulders, before slamming [npc.her] [npc.hips] forwards and impaling [npc.her] [npc.pussy+] on your [pc.cock+]."
 										+ " You feel your ribbed cock bumping over [npc.her] [npc.clit+] as [npc.she] presses you up against the wall, before thrusting back and starting to roughly fuck [npc.herself] on your [pc.cock+].";
 				}
-				if(Main.game.getPlayer().isPenisTentacledShaft()) {
+				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.TENTACLED)) {
 					tentacledSpecial = "With a wolfish grin, [npc.name] reaches up and grabs your shoulders, before slamming [npc.her] [npc.hips] forwards and impaling [npc.her] [npc.pussy+] on your [pc.cock+]."
 										+ " You feel the little tentacle-like nodules lining your cock massage and stroke [npc.her] inner walls as [npc.she] forces you up against the wall,"
 										+ " before thrusting back and starting to roughly fuck [npc.herself] on your [pc.cock+].";

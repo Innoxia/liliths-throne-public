@@ -2,6 +2,7 @@ package com.base.game.character.npc.dominion;
 
 import com.base.game.character.NameTriplet;
 import com.base.game.character.SexualOrientation;
+import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.valueEnums.CupSize;
 import com.base.game.character.gender.Gender;
@@ -47,10 +48,10 @@ public class Scarlett extends NPC {
 
 		this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
 		
-		this.setEyeColour(Colour.EYE_BROWN);
-		this.setHairColour(Colour.FEATHERS_RED);
-		this.setSkinColour(BodyCoveringType.HUMAN, Colour.HUMAN_SKIN_LIGHT);
-		this.setSkinColour(BodyCoveringType.FEATHERS, Colour.FEATHERS_PINK);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BROWN));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_RED));
+		this.setCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_PINK));
+		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT));
 
 		this.setAssVirgin(true);
 		this.setFaceVirgin(true);

@@ -38,7 +38,7 @@ public class Properties implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public String lastSaveLocation = "", nameColour = "", name = "", race = "", quest = "", versionNumber="";
 	public int fontSize = 18, level = 1, money = 0, humanEncountersLevel = 1, multiBreasts = 1;
-	public boolean lightTheme = false, overwriteWarning=true;//, nonConContent=false;
+	public boolean lightTheme = false, overwriteWarning = true, nonConContent = false, incestContent = false, forcedTransformationContent = false, pubicHairContent = false, bodyHairContent = false;
 	
 	public AndrogynousIdentification androgynousIdentification = AndrogynousIdentification.CLOTHING_FEMININE;
 
@@ -107,7 +107,11 @@ public class Properties implements Serializable {
 			properties.appendChild(settings);
 			createXMLElementWithValue(doc, settings, "fontSize", String.valueOf(fontSize));
 			createXMLElementWithValue(doc, settings, "lightTheme", String.valueOf(lightTheme));
-//			createXMLElementWithValue(doc, settings, "nonConContent", String.valueOf(nonConContent));
+			createXMLElementWithValue(doc, settings, "nonConContent", String.valueOf(nonConContent));
+			createXMLElementWithValue(doc, settings, "incestContent", String.valueOf(incestContent));
+			createXMLElementWithValue(doc, settings, "forcedTransformationContent", String.valueOf(forcedTransformationContent));
+			createXMLElementWithValue(doc, settings, "pubicHairContent", String.valueOf(pubicHairContent));
+			createXMLElementWithValue(doc, settings, "bodyHairContent", String.valueOf(bodyHairContent));
 			createXMLElementWithValue(doc, settings, "overwriteWarning", String.valueOf(overwriteWarning));
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
@@ -263,7 +267,13 @@ public class Properties implements Serializable {
 				element = (Element) nodes.item(0);
 				fontSize = Integer.valueOf(((Element)element.getElementsByTagName("fontSize").item(0)).getAttribute("value"));
 				lightTheme = ((((Element)element.getElementsByTagName("lightTheme").item(0)).getAttribute("value")).equals("true"));
-//				nonConContent = ((((Element)element.getElementsByTagName("nonConContent").item(0)).getAttribute("value")).equals("true"));
+				
+				nonConContent = ((((Element)element.getElementsByTagName("nonConContent").item(0)).getAttribute("value")).equals("true"));
+				incestContent = ((((Element)element.getElementsByTagName("incestContent").item(0)).getAttribute("value")).equals("true"));
+				forcedTransformationContent = ((((Element)element.getElementsByTagName("forcedTransformationContent").item(0)).getAttribute("value")).equals("true"));
+				pubicHairContent = ((((Element)element.getElementsByTagName("pubicHairContent").item(0)).getAttribute("value")).equals("true"));
+				bodyHairContent = ((((Element)element.getElementsByTagName("bodyHairContent").item(0)).getAttribute("value")).equals("true"));
+				
 				overwriteWarning = ((((Element)element.getElementsByTagName("overwriteWarning").item(0)).getAttribute("value")).equals("true"));
 				if(element.getElementsByTagName("androgynousIdentification").item(0)!=null) {
 					androgynousIdentification = AndrogynousIdentification.valueOf(((Element)element.getElementsByTagName("androgynousIdentification").item(0)).getAttribute("value"));

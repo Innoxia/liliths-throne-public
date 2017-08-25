@@ -66,7 +66,7 @@ public class NPCRandomSuccubus extends NPC {
 		this.setVaginaVirgin(false);
 		this.setAssVirgin(false);
 		this.setFaceVirgin(false);
-		this.setBreastVirgin(false);
+		this.setNippleVirgin(false);
 		
 		setLevel(Util.random.nextInt(3) + 4);
 		

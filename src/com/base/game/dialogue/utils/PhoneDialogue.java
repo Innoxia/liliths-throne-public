@@ -548,12 +548,11 @@ public class PhoneDialogue {
 					+ statRow("Core", "Femininity", String.valueOf(Main.game.getPlayer().getFemininity())) + statRow(null, "Height (cm)", String.valueOf(Main.game.getPlayer().getHeight()))
 
 					+ statRow("Head", "Hair length (cm)", String.valueOf(Util.conversionInchesToCentimetres(Main.game.getPlayer().getHairRawLengthValue())))
-					+ statRow(null, "Makeup", String.valueOf(Main.game.getPlayer().getFaceMakeupLevel().getValue()))
 
 					+ statRow("Chest", "Cup size", Main.game.getPlayer().getBreastRawSizeValue() == 0 ? "N/A" : Util.capitaliseSentence(Main.game.getPlayer().getBreastSize().getCupSizeName()))
 					+ statRow(null, "Milk production (mL)", String.valueOf(Main.game.getPlayer().getBreastRawLactationValue()))
-					+ statRow(null, "Capacity (inches)", String.valueOf(Main.game.getPlayer().getBreastRawCapacityValue()))
-					+ statRow(null, "Elasticity", String.valueOf(Main.game.getPlayer().getBreastElasticity().getValue()) + " ("+Util.capitaliseSentence(Main.game.getPlayer().getBreastElasticity().getDescriptor())+")")
+					+ statRow(null, "Capacity (inches)", String.valueOf(Main.game.getPlayer().getNippleRawCapacityValue()))
+					+ statRow(null, "Elasticity", String.valueOf(Main.game.getPlayer().getNippleElasticity().getValue()) + " ("+Util.capitaliseSentence(Main.game.getPlayer().getNippleElasticity().getDescriptor())+")")
 
 					+ statRow("Penis", "Length (inches)", Main.game.getPlayer().getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(Main.game.getPlayer().getPenisRawSizeValue()))
 					+ statRow(null, "Ball size", Main.game.getPlayer().getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(Main.game.getPlayer().getTesticleSize().getDescriptor()))
@@ -1758,7 +1757,7 @@ public class PhoneDialogue {
 			// Normal fetishes:
 			
 			for(Fetish fetish : Fetish.values()) {
-				if(fetish.getFetishesForAutomaticUnlock().isEmpty() && !fetish.isFetishForGatedContent()) {
+				if(fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					journalSB.append(
 							"<div id='fetishUnlock" + fetish + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
 							? " owned' style='border:4px solid " + PerkCategory.FETISH.getColour().getShades()[1] + ";'>"
@@ -1783,13 +1782,13 @@ public class PhoneDialogue {
 
 					+ "<span style='height:16px;width:800px;float:left;'></span>"
 					
-					+ "<div class='fetish-container-half'>"
+					+ "<div class='fetish-container'>"
 					+ "<p style='width:100%;'>Content Unlock Fetishes</p>");
 			
 			for(Fetish fetish : Fetish.values()) {
-				if(fetish.isFetishForGatedContent()) {
+				if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					journalSB.append(
-							"<div id='fetishUnlock" + fetish + "' class='fetish-icon double" + (Main.game.getPlayer().hasFetish(fetish)
+							"<div id='fetishUnlock" + fetish + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
 							? " owned' style='border:4px solid " + PerkCategory.FETISH.getColour().getShades()[1] + ";'>"
 							: (fetish.isAvailable(Main.game.getPlayer())
 									? " unlocked' style='border:4px solid " + (levelUpFetishes.contains(fetish)
@@ -1807,26 +1806,6 @@ public class PhoneDialogue {
 			}
 			
 			// Free Fetishes:
-			
-			journalSB.append("</div>"
-					
-					+ "<div class='fetish-container-half'>"
-					+ "<p style='width:100%;'>Derived Fetishes</p>");
-
-			for(Fetish fetish : Fetish.values()) {
-				if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
-					journalSB.append(
-							"<div id='fetishUnlock" + fetish + "' class='fetish-icon double" + (Main.game.getPlayer().hasFetish(fetish)
-									? " owned' style='border:4px solid " + PerkCategory.FETISH.getColour().getShades()[1] + ";'>"
-									: " unlocked' style='border:4px solid " + Colour.TEXT_GREY.toWebHexString() + ";'>")
-							+ "<div class='fetish-icon-content'>"+fetish.getSVGString()+"</div>"
-							+ (Main.game.getPlayer().hasFetish(fetish) // Overlay to create disabled effect:
-									? ""
-									: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>")
-							+ "</div>");
-				}
-			}
-			
 			
 			journalSB.append("</div></div>");
 			

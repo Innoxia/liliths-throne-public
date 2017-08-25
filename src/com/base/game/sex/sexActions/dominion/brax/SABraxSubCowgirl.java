@@ -52,7 +52,7 @@ public class SABraxSubCowgirl {
 			
 			if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==(PenetrationType.PENIS_PARTNER)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						"You cry out as you bounce up and down on Brax's "+Sex.getPartner().getPenisName(true)+", ",
+						"You cry out as you bounce up and down on Brax's [npc.penis+], ",
 						"In amongst your moans, you cry down to Brax, "));
 				
 				UtilText.nodeContentSB.append(
@@ -68,7 +68,7 @@ public class SABraxSubCowgirl {
 				
 			} else if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==(PenetrationType.PENIS_PARTNER)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						"You cry out as you bounce up and down on Brax's "+Sex.getPartner().getPenisName(true)+", ",
+						"You cry out as you bounce up and down on Brax's [npc.penis+], ",
 						"In amongst your moans, you cry down to Brax, "));
 				
 				UtilText.nodeContentSB.append(
@@ -172,37 +172,36 @@ public class SABraxSubCowgirl {
 			if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)!=null) {
 				switch(Util.random.nextInt(5)){
 					case 0:
-						return "You sink down onto Brax's "+Sex.getPartner().getPenisName(true)+", letting out a happy squeal as you feel him deep inside your "+Main.game.getPlayer().getAssholeName(true)+"."
+						return "You sink down onto Brax's [npc.penis+], letting out a happy squeal as you feel him deep inside your [pc.asshole+]."
 								+ " Bottoming out on his cock, you lean down, grabbing Brax's head in both hands and pulling him up into a passionate kiss.";
 					case 1:
-						return "With a lewd moan, you slide down onto Brax's "+Sex.getPartner().getPenisName(true)+", leaning forwards into his chest and breathing in his masculine scent before pressing your lips against his.";
+						return "With a lewd moan, you slide down onto Brax's [npc.penis+], leaning forwards into his chest and breathing in his masculine scent before pressing your lips against his.";
 					case 2:
-						return "You let Brax's "+Sex.getPartner().getPenisName(true)+" slip out of your ass for a moment as you lean down and pull him into a desperate kiss."
+						return "You let Brax's [npc.penis+] slip out of your ass for a moment as you lean down and pull him into a desperate kiss."
 						+ " After a few moments of tongue-fucking one another's mouths, you sit back up, and as you lower yourself back down onto Brax's massive cock,"
 						+ " you see a strand of saliva briefly linking your lips before breaking and falling onto his furry chest.";
 					case 3:
-						return "As you lean forwards, Brax props himself up on his elbows, eagerly meeting your lips with his. Your moans are muffled in each other's mouths as Brax's "+Sex.getPartner().getPenisName(true)+" buries itself deep in your "
-								+Main.game.getPlayer().getAssholeName(true)+".";
+						return "As you lean forwards, Brax props himself up on his elbows, eagerly meeting your lips with his. Your moans are muffled in each other's mouths as Brax's [npc.penis+] buries itself deep in your [pc.asshole+].";
 					default:
-						return "Leaning down, you let out a desperate groan as you bury yourself on Brax's "+Sex.getPartner().getPenisName(true)+", before pressing your lips against his and starting to eagerly kiss the masculine wolf-boy.";
+						return "Leaning down, you let out a desperate groan as you bury yourself on Brax's [npc.penis+], before pressing your lips against his and starting to eagerly kiss the masculine wolf-boy.";
 				}
 
 			} else if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)!=null) {
 				switch(Util.random.nextInt(5)){
 					case 0:
-						return "You sink down onto Brax's "+Sex.getPartner().getPenisName(true)+", letting out a happy squeal as you feel him deep inside your "+Main.game.getPlayer().getVaginaName(true)+"."
+						return "You sink down onto Brax's [npc.penis+], letting out a happy squeal as you feel him deep inside your "+Main.game.getPlayer().getVaginaName(true)+"."
 								+ " Bottoming out on his cock, you lean down, grabbing Brax's head in both hands and pulling him up into a passionate kiss.";
 					case 1:
-						return "With a lewd moan, you slide down onto Brax's "+Sex.getPartner().getPenisName(true)+", leaning forwards into his chest and breathing in his masculine scent before pressing your lips against his.";
+						return "With a lewd moan, you slide down onto Brax's [npc.penis+], leaning forwards into his chest and breathing in his masculine scent before pressing your lips against his.";
 					case 2:
-						return "You let Brax's "+Sex.getPartner().getPenisName(true)+" slip out of your pussy for a moment as you lean down and pull him into a desperate kiss."
+						return "You let Brax's [npc.penis+] slip out of your pussy for a moment as you lean down and pull him into a desperate kiss."
 								+ " After a few moments of tongue-fucking one another's mouths, you sit back up, and as you lower yourself back down onto Brax's massive cock,"
 								+ " you see a strand of saliva briefly linking your lips before breaking and falling onto his furry chest.";
 					case 3:
-						return "As you lean forwards, Brax props himself up on his elbows, eagerly meeting your lips with his. Your moans are muffled in each other's mouths as Brax's "+Sex.getPartner().getPenisName(true)+" buries itself deep in your "
+						return "As you lean forwards, Brax props himself up on his elbows, eagerly meeting your lips with his. Your moans are muffled in each other's mouths as Brax's [npc.penis+] buries itself deep in your "
 								+Main.game.getPlayer().getVaginaName(true)+".";
 					default:
-						return "Leaning down, you let out a desperate groan as you bury yourself on Brax's "+Sex.getPartner().getPenisName(true)+", before pressing your lips against his and starting to eagerly kiss the masculine wolf-boy.";
+						return "Leaning down, you let out a desperate groan as you bury yourself on Brax's [npc.penis+], before pressing your lips against his and starting to eagerly kiss the masculine wolf-boy.";
 				}
 
 			} else {
@@ -213,7 +212,7 @@ public class SABraxSubCowgirl {
 					case 1:
 						return "With a grin, you lean down onto Brax's powerful chest, breathing in his masculine scent before pressing your lips against his.";
 					case 2:
-						return "You feel Brax's "+Sex.getPartner().getPenisName(true)+" bumping uselessly against your lower back as you pull him into a desperate kiss."
+						return "You feel Brax's [npc.penis+] bumping uselessly against your lower back as you pull him into a desperate kiss."
 						+ " After a few moments of tongue-fucking one another's mouths, you sit back up, noticing a strand of saliva briefly linking your lips before breaking and falling onto his furry chest.";
 					case 3:
 						return "As you lean forwards, Brax props himself on on his elbows, eagerly meeting your lips with his. Your moans are muffled in each other's mouths as Brax's "+Sex.getPartner().getPenisName(true)
@@ -274,7 +273,7 @@ public class SABraxSubCowgirl {
 				UtilText.nodeContentSB.setLength(0);
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==PenetrationType.TONGUE_PARTNER) {
-					UtilText.nodeContentSB.append("Deciding that you've had enough of Brax's tongue in your "+Main.game.getPlayer().getAssholeName(true)+", you lift yourself up and shuffle backwards until your "
+					UtilText.nodeContentSB.append("Deciding that you've had enough of Brax's tongue in your [pc.asshole+], you lift yourself up and shuffle backwards until your "
 								+Main.game.getPlayer().getVaginaName(true)+" is positioned over his face.");
 					
 				} else {
@@ -289,7 +288,7 @@ public class SABraxSubCowgirl {
 						
 			} else {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==PenetrationType.TONGUE_PARTNER) {
-					return "Deciding that you've had enough of Brax's tongue in your "+Main.game.getPlayer().getAssholeName(true)+", you lift yourself up and shuffle backwards until your "
+					return "Deciding that you've had enough of Brax's tongue in your [pc.asshole+], you lift yourself up and shuffle backwards until your "
 								+Main.game.getPlayer().getVaginaName(true)+" is positioned over his wolf-like muzzle."
 							+ " Lowering yourself down, you let out a pleased moan as you feel Brax's flat tongue greedily start to lick at your sensitive folds, and as your "
 								+Main.game.getPlayer().getVaginaName(true)+" comes to rest over his mouth, Brax starts eagerly eating you out.";
@@ -347,9 +346,9 @@ public class SABraxSubCowgirl {
 		@Override
 		public String getActionDescription() {
 			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CREAMPIE_ANUS))
-				return "Shuffle forwards and sit on Brax's face, getting his tongue to clean the cum out of your "+Main.game.getPlayer().getAssholeName(true)+".";
+				return "Shuffle forwards and sit on Brax's face, getting his tongue to clean the cum out of your [pc.asshole+].";
 			else
-				return "Shuffle forwards and sit on Brax's face, putting his tongue to use on your "+Main.game.getPlayer().getAssholeName(true)+".";
+				return "Shuffle forwards and sit on Brax's face, putting his tongue to use on your [pc.asshole+].";
 		}
 
 		@Override
@@ -363,28 +362,26 @@ public class SABraxSubCowgirl {
 				UtilText.nodeContentSB.setLength(0);
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==PenetrationType.TONGUE_PARTNER) {
-					UtilText.nodeContentSB.append("Deciding that you've had enough of Brax's tongue in your "+Main.game.getPlayer().getVaginaName(true)+", you lift yourself up and shuffle forwards until your "
-								+Main.game.getPlayer().getAssholeName(true)+" is positioned over his face.");
+					UtilText.nodeContentSB.append("Deciding that you've had enough of Brax's tongue in your "+Main.game.getPlayer().getVaginaName(true)+", you lift yourself up and shuffle forwards until your [pc.asshole+] is positioned over his face.");
 					
 				} else {
 					UtilText.nodeContentSB.append("You decide to put Brax's tongue to use, and shuffle forwards until your ass is positioned over his face.");
 				}
 				
-				UtilText.nodeContentSB.append(" You feel a big dollop of slimy cum drip out of your "+Main.game.getPlayer().getAssholeName(true)+", and you let out a giggle as you smush the slimy creampie down onto Brax's wolf-like muzzle."
+				UtilText.nodeContentSB.append(" You feel a big dollop of slimy cum drip out of your [pc.asshole+], and you let out a giggle as you smush the slimy creampie down onto Brax's wolf-like muzzle."
 						+ " You hold the squirming wolf-boy's head still as you press your cum-filled asshole down over his mouth, giving him no choice but to start cleaning you out."
-						+ " After a moment, Brax stops squirming as he realises that it's useless to resist, and you let out a contented sigh as he starts licking out the cum from your creampied "+Main.game.getPlayer().getAssholeName(false)+".");
+						+ " After a moment, Brax stops squirming as he realises that it's useless to resist, and you let out a contented sigh as he starts licking out the cum from your creampied [pc.asshole].");
 				
 				return UtilText.nodeContentSB.toString();
 						
 			} else {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==PenetrationType.TONGUE_PARTNER) {
-					return "Deciding that you've had enough of Brax's tongue in your "+Main.game.getPlayer().getVaginaName(true)+", you lift yourself up and shuffle forwards until your "
-								+Main.game.getPlayer().getAssholeName(true)+" is positioned over his wolf-like muzzle."
-							+ " Lowering yourself down, you let out a pleased moan as you feel Brax's flat tongue obediently start to lick at your "+Main.game.getPlayer().getAssholeName(true)+".";
+					return "Deciding that you've had enough of Brax's tongue in your "+Main.game.getPlayer().getVaginaName(true)+", you lift yourself up and shuffle forwards until your [pc.asshole+] is positioned over his wolf-like muzzle."
+							+ " Lowering yourself down, you let out a pleased moan as you feel Brax's flat tongue obediently start to lick at your [pc.asshole+].";
 					
 				} else {
-					return "You decide to put Brax's tongue to use, and shuffle forwards until your "+Main.game.getPlayer().getAssholeName(true)+" is positioned over his wolf-like muzzle."
-							+ " Lowering yourself down, you let out a pleased moan as you feel Brax's flat tongue obediently start to lick at your "+Main.game.getPlayer().getAssholeName(true)+".";
+					return "You decide to put Brax's tongue to use, and shuffle forwards until your [pc.asshole+] is positioned over his wolf-like muzzle."
+							+ " Lowering yourself down, you let out a pleased moan as you feel Brax's flat tongue obediently start to lick at your [pc.asshole+].";
 				}
 			}
 		}
@@ -463,13 +460,13 @@ public class SABraxSubCowgirl {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"You hold yourself over Brax's mouth, letting out soft little moans as his wolf-like tongue obediently laps at your "+Main.game.getPlayer().getAssholeName(true)+".",
+					"You hold yourself over Brax's mouth, letting out soft little moans as his wolf-like tongue obediently laps at your [pc.asshole+].",
 					
-					"You absent-mindedly stroke the top of Brax's head, moaning happily as he licks away at your "+Main.game.getPlayer().getAssholeName(true)+".",
+					"You absent-mindedly stroke the top of Brax's head, moaning happily as he licks away at your [pc.asshole+].",
 					
-					"Reaching down to playfully stroke Brax's furry wolf-like ears, you let out a contented moan as he buries his tongue deep in your "+Main.game.getPlayer().getAssholeName(true)+".",
+					"Reaching down to playfully stroke Brax's furry wolf-like ears, you let out a contented moan as he buries his tongue deep in your [pc.asshole+].",
 						
-					"Holding yourself over Brax's face, you let out a seris of lewd moans as his wide, wolf-like tongue obediently pushes its way into your "+Main.game.getPlayer().getAssholeName(true)+".");
+					"Holding yourself over Brax's face, you let out a seris of lewd moans as his wide, wolf-like tongue obediently pushes its way into your [pc.asshole+].");
 		}
 		
 		@Override
@@ -510,13 +507,13 @@ public class SABraxSubCowgirl {
 			} else {
 				return UtilText.returnStringAtRandom(
 						"Feeling like taking it up a notch, you collapse down onto Brax's face, completely smothering his mouth with your "+Main.game.getPlayer().getAssName(true)+"."
-								+ " As he starts to whine and squirm, you grind yourself down onto his wolf-like muzzle, letting out a desperate squeal as his tongue is forced deep into your "+Main.game.getPlayer().getAssholeName(true)+".",
+								+ " As he starts to whine and squirm, you grind yourself down onto his wolf-like muzzle, letting out a desperate squeal as his tongue is forced deep into your [pc.asshole+].",
 						
-						"Allowing your legs to give way, you collapse down onto Brax's face, grinding your "+Main.game.getPlayer().getAssholeName(true)+" down hard against his mouth as he squirms and whines beneath you.",
+						"Allowing your legs to give way, you collapse down onto Brax's face, grinding your [pc.asshole+] down hard against his mouth as he squirms and whines beneath you.",
 						
-						"Reaching down to take hold of Brax's furry wolf-like ears, you collapse down onto his face, letting out a delighted squeal as his tongue is forced deep into your "+Main.game.getPlayer().getAssholeName(true)+".",
+						"Reaching down to take hold of Brax's furry wolf-like ears, you collapse down onto his face, letting out a delighted squeal as his tongue is forced deep into your [pc.asshole+].",
 							
-						"Spreading your legs out a little further, you sink down onto Brax's wolf-like muzzle, letting out a desperate moan as you grind your "+Main.game.getPlayer().getAssholeName(true)+" down hard against his eager tongue.");
+						"Spreading your legs out a little further, you sink down onto Brax's wolf-like muzzle, letting out a desperate moan as you grind your [pc.asshole+] down hard against his eager tongue.");
 			}
 		}
 		
@@ -547,13 +544,13 @@ public class SABraxSubCowgirl {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"Feeling like taking it up a notch, you collapse down onto Brax's face, completely smothering his mouth with your "+Main.game.getPlayer().getAssName(true)+"."
-							+ " As he starts to whine and squirm, you grind yourself down onto his wolf-like muzzle, letting out a desperate squeal as his tongue is forced deep into your "+Main.game.getPlayer().getAssholeName(true)+".",
+							+ " As he starts to whine and squirm, you grind yourself down onto his wolf-like muzzle, letting out a desperate squeal as his tongue is forced deep into your [pc.asshole+].",
 					
-					"Allowing your legs to give way, you collapse down onto Brax's face, grinding your "+Main.game.getPlayer().getAssholeName(true)+" down hard against his mouth as he squirms and whines beneath you.",
+					"Allowing your legs to give way, you collapse down onto Brax's face, grinding your [pc.asshole+] down hard against his mouth as he squirms and whines beneath you.",
 					
-					"Reaching down to take hold of Brax's furry wolf-like ears, you collapse down onto his face, letting out a delighted squeal as his tongue is forced deep into your "+Main.game.getPlayer().getAssholeName(true)+".",
+					"Reaching down to take hold of Brax's furry wolf-like ears, you collapse down onto his face, letting out a delighted squeal as his tongue is forced deep into your [pc.asshole+].",
 						
-					"Spreading your legs out a little further, you sink down onto Brax's wolf-like muzzle, letting out a desperate moan as you grind your "+Main.game.getPlayer().getAssholeName(true)+" down hard against his eager tongue.");
+					"Spreading your legs out a little further, you sink down onto Brax's wolf-like muzzle, letting out a desperate moan as you grind your [pc.asshole+] down hard against his eager tongue.");
 		}
 		
 		@Override
@@ -576,7 +573,7 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public String getActionDescription() {
-			return "Slip Brax's "+Sex.getPartner().getPenisName(true)+" into your "+Main.game.getPlayer().getVaginaName(true)+".";
+			return "Slip Brax's [npc.penis+] into your "+Main.game.getPlayer().getVaginaName(true)+".";
 		}
 
 		@Override
@@ -589,10 +586,10 @@ public class SABraxSubCowgirl {
 			UtilText.nodeContentSB.setLength(0);
 
 			if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)!=null)
-				UtilText.nodeContentSB.append("You lift yourself up, letting Brax's pointed dog-cock slip out of your "+Main.game.getPlayer().getAssholeName(true)+". ");
+				UtilText.nodeContentSB.append("You lift yourself up, letting Brax's pointed dog-cock slip out of your [pc.asshole+]. ");
 
-			UtilText.nodeContentSB.append("Reaching down and taking hold of the "+Sex.getPartner().getPenisName(true)+" beneath you, you shuffle around until it's lined up to your "+Main.game.getPlayer().getVaginaName(true)+"."
-					+ " Not wasting another moment, you quickly sink down, feeling the tapered end of Brax's "+Sex.getPartner().getPenisName(true)+" easily slide into you."
+			UtilText.nodeContentSB.append("Reaching down and taking hold of the [npc.penis+] beneath you, you shuffle around until it's lined up to your "+Main.game.getPlayer().getVaginaName(true)+"."
+					+ " Not wasting another moment, you quickly sink down, feeling the tapered end of Brax's [npc.penis+] easily slide into you."
 					+ " With a desperate wail, you sink down, stuffing more and more of the readily widening shaft into your "+Main.game.getPlayer().getVaginaName(true)
 					+", until at last, with a quiver of delight, you feel the swollen knot at the base bump against your pussy lips.");
 
@@ -614,7 +611,7 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public String getActionDescription() {
-			return "Slip Brax's "+Sex.getPartner().getPenisName(true)+" into your "+Main.game.getPlayer().getAssholeName(true)+".";
+			return "Slip Brax's [npc.penis+] into your [pc.asshole+].";
 		}
 
 		@Override
@@ -629,10 +626,9 @@ public class SABraxSubCowgirl {
 			if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)!=null)
 				UtilText.nodeContentSB.append("You lift yourself up, letting Brax's pointed dog-cock slip out of your "+Main.game.getPlayer().getVaginaName(true)+". ");
 
-			UtilText.nodeContentSB.append("Reaching down and taking hold of the "+Sex.getPartner().getPenisName(true)+" beneath you, you shuffle around until it's lined up to your "+Main.game.getPlayer().getAssholeName(true)+"."
-					+ " Not wasting another moment, you quickly sink down, feeling the tapered end of Brax's "+Sex.getPartner().getPenisName(true)+" slide into you."
-					+ " With a desperate wail, you sink down, stuffing more and more of the readily widening shaft into your "+Main.game.getPlayer().getAssholeName(true)
-					+", until at last, with a quiver of delight, you feel the swollen knot at the base bump against your "+Main.game.getPlayer().getAssholeName(true)+".");
+			UtilText.nodeContentSB.append("Reaching down and taking hold of the [npc.penis+] beneath you, you shuffle around until it's lined up to your [pc.asshole+]."
+					+ " Not wasting another moment, you quickly sink down, feeling the tapered end of Brax's [npc.penis+] slide into you."
+					+ " With a desperate wail, you sink down, stuffing more and more of the readily widening shaft into your [pc.ass], until at last, with a quiver of delight, you feel the swollen knot at the base bump against your [pc.asshole+].");
 
 			return UtilText.nodeContentSB.toString();
 		}
@@ -667,7 +663,7 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public String getDescription() {
-			return "You lift yourself up, and, with a disappointed whine from Brax, you allow his "+Sex.getPartner().getPenisName(true)+" to slip out of your "+Main.game.getPlayer().getVaginaName(true)+"."
+			return "You lift yourself up, and, with a disappointed whine from Brax, you allow his [npc.penis+] to slip out of your "+Main.game.getPlayer().getVaginaName(true)+"."
 					+ " With a quick shuffle, you return to sitting on the wolf-boy's toned, fur-covered stomach.";
 		}
 	};
@@ -691,7 +687,7 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public String getDescription() {
-			return "You lift yourself up, and, with a disappointed whine from Brax, you allow his "+Sex.getPartner().getPenisName(true)+" to slip out of your "+Main.game.getPlayer().getAssholeName(true)+"."
+			return "You lift yourself up, and, with a disappointed whine from Brax, you allow his [npc.penis+] to slip out of your [pc.asshole+]."
 					+ " With a quick shuffle, you return to sitting on the wolf-boy's toned, fur-covered stomach.";
 		}
 	};
@@ -749,7 +745,7 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public String getDescription() {
-			return "You lift yourself up, and, with a slightly relieved sigh from Brax, you allow his tongue to slip out of your "+Main.game.getPlayer().getAssholeName(true)+"."
+			return "You lift yourself up, and, with a slightly relieved sigh from Brax, you allow his tongue to slip out of your [pc.asshole+]."
 					+ " With a quick shuffle, you return to sitting on the wolf-boy's toned, fur-covered stomach.";
 		}
 	};
@@ -831,14 +827,14 @@ public class SABraxSubCowgirl {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"Using your legs, you slowly lift yourself up and down, sliding Brax's "+Sex.getPartner().getPenisName(true)+" in and out of your "+Main.game.getPlayer().getVaginaName(true)+" as you both moan and groan in pleasure.",
+					"Using your legs, you slowly lift yourself up and down, sliding Brax's [npc.penis+] in and out of your "+Main.game.getPlayer().getVaginaName(true)+" as you both moan and groan in pleasure.",
 					
-					"Leaning forwards, you use your hands to support some of your weight as you slowly slide up and down on Brax's "+Sex.getPartner().getPenisName(true)+"."
+					"Leaning forwards, you use your hands to support some of your weight as you slowly slide up and down on Brax's [npc.penis+]."
 							+ " As you lower your face towards the submissive wolf-boy, you get a waft of his masculine musk, and you bite your lip as you eagerly breathe in the intoxicating scent.",
 					
-					"Lowering your hands to your knees, you use your legs to slide yourself up and down on Brax's "+Sex.getPartner().getPenisName(true)+", letting out high-pitched moans as you impale yourself on the grinning wolf-boy.",
+					"Lowering your hands to your knees, you use your legs to slide yourself up and down on Brax's [npc.penis+], letting out high-pitched moans as you impale yourself on the grinning wolf-boy.",
 						
-					"You slowly lift yourself up before sliding back down, spearing your "+Main.game.getPlayer().getVaginaName(true)+" on Brax's "+Sex.getPartner().getPenisName(true)+" as you let out a lewd moan.");
+					"You slowly lift yourself up before sliding back down, spearing your "+Main.game.getPlayer().getVaginaName(true)+" on Brax's [npc.penis+] as you let out a lewd moan.");
 			
 		}
 	};
@@ -863,14 +859,14 @@ public class SABraxSubCowgirl {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"Using your legs, you slowly lift yourself up and down, sliding Brax's "+Sex.getPartner().getPenisName(true)+" in and out of your "+Main.game.getPlayer().getAssholeName(true)+" as you both moan and groan in pleasure.",
+					"Using your legs, you slowly lift yourself up and down, sliding Brax's [npc.penis+] in and out of your [pc.asshole+] as you both moan and groan in pleasure.",
 					
-					"Leaning forwards, you use your hands to support some of your weight as you slowly slide up and down on Brax's "+Sex.getPartner().getPenisName(true)+"."
+					"Leaning forwards, you use your hands to support some of your weight as you slowly slide up and down on Brax's [npc.penis+]."
 							+ " As you lower your face towards the submissive wolf-boy, you get a waft of his masculine musk, and you bite your lip as you eagerly breathe in the intoxicating scent.",
 					
-					"Lowering your hands to your knees, you use your legs to slide yourself up and down on Brax's "+Sex.getPartner().getPenisName(true)+", letting out high-pitched moans as you impale yourself on the grinning wolf-boy.",
+					"Lowering your hands to your knees, you use your legs to slide yourself up and down on Brax's [npc.penis+], letting out high-pitched moans as you impale yourself on the grinning wolf-boy.",
 						
-					"You slowly lift yourself up before sliding back down, spearing your "+Main.game.getPlayer().getAssholeName(true)+" on Brax's "+Sex.getPartner().getPenisName(true)+" as you let out a lewd moan.");
+					"You slowly lift yourself up before sliding back down, spearing your [pc.asshole+] on Brax's [npc.penis+] as you let out a lewd moan.");
 		}
 		
 		@Override
@@ -893,16 +889,16 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public String getActionDescription() {
-			return "Quickly bounce up and down on Brax's "+Sex.getPartner().getPenisName(true)+".";
+			return "Quickly bounce up and down on Brax's [npc.penis+].";
 		}
 
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"Using your legs, you start to rapidly bounce yourself up and down, slamming Brax's "+Sex.getPartner().getPenisName(true)+" in and out of your "+Main.game.getPlayer().getVaginaName(true)
+					"Using your legs, you start to rapidly bounce yourself up and down, slamming Brax's [npc.penis+] in and out of your "+Main.game.getPlayer().getVaginaName(true)
 						+" as you squeal and moan in pleasure.",
 					
-					"Leaning forwards, you use Brax's furry, masculine chest to support most of your weight before starting to rapidly buck your hips up and down on his "+Sex.getPartner().getPenisName(true)+"."
+					"Leaning forwards, you use Brax's furry, masculine chest to support most of your weight before starting to rapidly buck your hips up and down on his [npc.penis+]."
 							+ " As your face comes closer to his body, you get a waft of his masculine musk, and you bite your lip as you eagerly breathe in the intoxicating scent.",
 					
 					"Placing your hands down on the floor behind you for support, you start rapidly bouncing yourself up and down on Brax's "+Sex.getPartner().getPenisName(true)
@@ -927,22 +923,21 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public String getActionDescription() {
-			return "Quickly bounce up and down on Brax's "+Sex.getPartner().getPenisName(true)+".";
+			return "Quickly bounce up and down on Brax's [npc.penis+].";
 		}
 
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"Using your legs, you start to rapidly bounce yourself up and down, slamming Brax's "+Sex.getPartner().getPenisName(true)+" in and out of your "+Main.game.getPlayer().getAssholeName(true)
-						+" as you squeal and moan in pleasure.",
+					"Using your legs, you start to rapidly bounce yourself up and down, slamming Brax's [npc.penis+] in and out of your [pc.asshole+] as you squeal and moan in pleasure.",
 					
-					"Leaning forwards, you use Brax's furry, masculine chest to support most of your weight before starting to rapidly buck your hips up and down on his "+Sex.getPartner().getPenisName(true)+"."
+					"Leaning forwards, you use Brax's furry, masculine chest to support most of your weight before starting to rapidly buck your hips up and down on his [npc.penis+]."
 							+ " As your face comes closer to his body, you get a waft of his masculine musk, and you bite your lip as you eagerly breathe in the intoxicating scent.",
 					
 					"Placing your hands down on the floor behind you for support, you start rapidly bouncing yourself up and down on Brax's "+Sex.getPartner().getPenisName(true)
 						+", letting out shuddering high-pitched moans as you repeatedly impale yourself on the grinning wolf-boy.",
 						
-					"Grinning down at Brax, you start enthusiastically sliding up and down, repeatedly spearing your "+Main.game.getPlayer().getAssholeName(true)+" on Brax's "+Sex.getPartner().getPenisName(true)
+					"Grinning down at Brax, you start enthusiastically sliding up and down, repeatedly spearing your [pc.asshole+] on Brax's "+Sex.getPartner().getPenisName(true)
 						+" as you let out a series of desperate groans.");
 		}
 	};
@@ -1088,7 +1083,7 @@ public class SABraxSubCowgirl {
 			
 			if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==(PenetrationType.PENIS_PARTNER)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						"Brax cries out as you bounce up and down on his "+Sex.getPartner().getPenisName(true)+", ",
+						"Brax cries out as you bounce up and down on his [npc.penis+], ",
 						"In amongst his groans, Brax cries up to you, "));
 				
 				UtilText.nodeContentSB.append(
@@ -1104,7 +1099,7 @@ public class SABraxSubCowgirl {
 				
 			} else if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==(PenetrationType.PENIS_PARTNER)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						"Brax cries out as you bounce up and down on his "+Sex.getPartner().getPenisName(true)+", ",
+						"Brax cries out as you bounce up and down on his [npc.penis+], ",
 						"In amongst his groans, Brax cries up to you, "));
 				
 				UtilText.nodeContentSB.append(
@@ -1226,13 +1221,13 @@ public class SABraxSubCowgirl {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"Brax stays still, letting out little groans as he obediently licks away at your "+Main.game.getPlayer().getAssholeName(true)+".",
+					"Brax stays still, letting out little groans as he obediently licks away at your [pc.asshole+].",
 					
-					"As you sit on Brax's face, he stays quite still, letting out little whining noises as he laps dutifully away at your "+Main.game.getPlayer().getAssholeName(true)+".",
+					"As you sit on Brax's face, he stays quite still, letting out little whining noises as he laps dutifully away at your [pc.asshole+].",
 					
 					"Brax groans beneath you, seeming to be quite content to perform anilingus on you like a submissive bitch.",
 						
-					"As Brax licks away at your "+Main.game.getPlayer().getAssholeName(true)+", he remains motionless, letting out low, submissive whines every now and then.");
+					"As Brax licks away at your [pc.asshole+], he remains motionless, letting out low, submissive whines every now and then.");
 		}
 		
 		@Override
@@ -1261,13 +1256,13 @@ public class SABraxSubCowgirl {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"Brax stays still, letting out satisfied little groans as you impale your "+Main.game.getPlayer().getVaginaName(true)+" on his "+Sex.getPartner().getPenisName(true)+".",
+					"Brax stays still, letting out satisfied little groans as you impale your "+Main.game.getPlayer().getVaginaName(true)+" on his [npc.penis+].",
 					
-					"As you carry on riding Brax's "+Sex.getPartner().getPenisName(true)+", he stays quite still, letting out little whining noises every time his knot bumps against your "+Main.game.getPlayer().getVaginaName(true)+".",
+					"As you carry on riding Brax's [npc.penis+], he stays quite still, letting out little whining noises every time his knot bumps against your "+Main.game.getPlayer().getVaginaName(true)+".",
 					
-					"Brax groans beneath you, seeming to be quite content to just lie still and let you ride his "+Sex.getPartner().getPenisName(true)+".",
+					"Brax groans beneath you, seeming to be quite content to just lie still and let you ride his [npc.penis+].",
 						
-					"As you carry on impaling your "+Main.game.getPlayer().getVaginaName(true)+" on Brax's "+Sex.getPartner().getPenisName(true)+", he remains motionless, looking up at you with big, submissive eyes.");
+					"As you carry on impaling your "+Main.game.getPlayer().getVaginaName(true)+" on Brax's [npc.penis+], he remains motionless, looking up at you with big, submissive eyes.");
 		}
 	};
 	
@@ -1291,13 +1286,13 @@ public class SABraxSubCowgirl {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"Brax stays still, letting out satisfied little groans as you impale your "+Main.game.getPlayer().getAssholeName(true)+" on his "+Sex.getPartner().getPenisName(true)+".",
+					"Brax stays still, letting out satisfied little groans as you impale your [pc.asshole+] on his [npc.penis+].",
 					
-					"As you carry on riding Brax's "+Sex.getPartner().getPenisName(true)+", he stays quite still, letting out little whining noises every time his knot bumps against your "+Main.game.getPlayer().getAssholeName(true)+".",
+					"As you carry on riding Brax's [npc.penis+], he stays quite still, letting out little whining noises every time his knot bumps against your [pc.asshole+].",
 					
-					"Brax groans beneath you, seeming to be quite content to just lie still and let you ride his "+Sex.getPartner().getPenisName(true)+".",
+					"Brax groans beneath you, seeming to be quite content to just lie still and let you ride his [npc.penis+].",
 						
-					"As you carry on impaling your "+Main.game.getPlayer().getAssholeName(true)+" on Brax's "+Sex.getPartner().getPenisName(true)+", he remains motionless, looking up at you with big, submissive eyes.");
+					"As you carry on impaling your [pc.asshole+] on Brax's [npc.penis+], he remains motionless, looking up at you with big, submissive eyes.");
 		}
 		
 		@Override
@@ -1328,24 +1323,24 @@ public class SABraxSubCowgirl {
 		public String getDescription() {
 			if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==PenetrationType.TONGUE_PARTNER || Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==PenetrationType.TONGUE_PARTNER) {
 				return UtilText.returnStringAtRandom(
-						"As you carry on using his tongue, Brax reaches down to grab his "+Sex.getPartner().getPenisName(true)+", letting out a series of pathetic whines as he starts jerking himself off.",
+						"As you carry on using his tongue, Brax reaches down to grab his [npc.penis+], letting out a series of pathetic whines as he starts jerking himself off.",
 
-						"With his tongue still buried between your legs, Brax takes hold of his "+Sex.getPartner().getPenisName(true)+", and with a low groan, starts masturbating beneath you.",
+						"With his tongue still buried between your legs, Brax takes hold of his [npc.penis+], and with a low groan, starts masturbating beneath you.",
 						
-						"With his "+Sex.getPartner().getPenisName(true)+" not receiving any attention, Brax reaches down between his legs and starts submissively jerking off.",
+						"With his [npc.penis+] not receiving any attention, Brax reaches down between his legs and starts submissively jerking off.",
 							
-						"As you carry on sitting on his face, Brax reaches down to his groin, and, after spending a moment squeezing and stroking his fat knot, starts submissively stroking his "+Sex.getPartner().getPenisName(true)+".");
+						"As you carry on sitting on his face, Brax reaches down to his groin, and, after spending a moment squeezing and stroking his fat knot, starts submissively stroking his [npc.penis+].");
 			
 			} else {
 				return UtilText.returnStringAtRandom(
-						"You feel Brax's "+Sex.getPartner().getPenisName(true)+" prodding against your lower back as you sit on his stomach, and, with a pleading whining noise, he reaches around and starts submissively jerking himself off.",
+						"You feel Brax's [npc.penis+] prodding against your lower back as you sit on his stomach, and, with a pleading whining noise, he reaches around and starts submissively jerking himself off.",
 
-						"Brax's level of arousal makes itself known as you feel his "+Sex.getPartner().getPenisName(true)+" poking into your lower back."
+						"Brax's level of arousal makes itself known as you feel his [npc.penis+] poking into your lower back."
 								+ " With an amused smirk, you look down at the submissive wolf-boy as he reaches around and starts jerking off behind you.",
 						
-						"With his "+Sex.getPartner().getPenisName(true)+" not receiving any attention, Brax reaches around between his legs and starts submissively masturbating.",
+						"With his [npc.penis+] not receiving any attention, Brax reaches around between his legs and starts submissively masturbating.",
 							
-						"With a patheric whine, Brax reaches around to his groin, and, after spending a moment squeezing and stroking his fat knot, starts submissively stroking his "+Sex.getPartner().getPenisName(true)+".");
+						"With a patheric whine, Brax reaches around to his groin, and, after spending a moment squeezing and stroking his fat knot, starts submissively stroking his [npc.penis+].");
 			}
 		}
 	};
@@ -1370,13 +1365,13 @@ public class SABraxSubCowgirl {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"Brax gently bucks his hips in time with your bounces, helping to impale your "+Main.game.getPlayer().getVaginaName(true)+" on his "+Sex.getPartner().getPenisName(true)+".",
+					"Brax gently bucks his hips in time with your bounces, helping to impale your "+Main.game.getPlayer().getVaginaName(true)+" on his [npc.penis+].",
 					
-					"As you carry on riding him, Brax starts bucking his hips, helping to fill your "+Main.game.getPlayer().getVaginaName(true)+" with his "+Sex.getPartner().getPenisName(true)+".",
+					"As you carry on riding him, Brax starts bucking his hips, helping to fill your "+Main.game.getPlayer().getVaginaName(true)+" with his [npc.penis+].",
 					
-					"With a lewd groan, Brax starts bucking his hips up into you, helping you to ride his "+Sex.getPartner().getPenisName(true)+".",
+					"With a lewd groan, Brax starts bucking his hips up into you, helping you to ride his [npc.penis+].",
 						
-					"As you carry on impaling your "+Main.game.getPlayer().getVaginaName(true)+" on Brax's "+Sex.getPartner().getPenisName(true)+", he starts gently bucking his hips up in time with your bounces.");
+					"As you carry on impaling your "+Main.game.getPlayer().getVaginaName(true)+" on Brax's [npc.penis+], he starts gently bucking his hips up in time with your bounces.");
 		}
 	};
 	
@@ -1400,13 +1395,13 @@ public class SABraxSubCowgirl {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"Brax gently bucks his hips in time with your bounces, helping to impale your "+Main.game.getPlayer().getAssholeName(true)+" on his "+Sex.getPartner().getPenisName(true)+".",
+					"Brax gently bucks his hips in time with your bounces, helping to impale your [pc.asshole+] on his [npc.penis+].",
 					
-					"As you carry on riding him, Brax starts bucking his hips, helping to fill your "+Main.game.getPlayer().getAssholeName(true)+" with his "+Sex.getPartner().getPenisName(true)+".",
+					"As you carry on riding him, Brax starts bucking his hips, helping to fill your [pc.asshole+] with his [npc.penis+].",
 					
-					"With a lewd groan, Brax starts bucking his hips up into you, helping you to ride his "+Sex.getPartner().getPenisName(true)+".",
+					"With a lewd groan, Brax starts bucking his hips up into you, helping you to ride his [npc.penis+].",
 						
-					"As you carry on impaling your "+Main.game.getPlayer().getAssholeName(true)+" on Brax's "+Sex.getPartner().getPenisName(true)+", he starts gently bucking his hips up in time with your bounces.");
+					"As you carry on impaling your [pc.asshole+] on Brax's [npc.penis+], he starts gently bucking his hips up in time with your bounces.");
 		}
 	};
 	
@@ -1615,7 +1610,7 @@ public class SABraxSubCowgirl {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==PenetrationType.TONGUE_PARTNER)
-				UtilText.nodeContentSB.append("As you feel Brax's tongue lapping away at your "+Main.game.getPlayer().getAssholeName(true)+", you realise that you're starting to climax, and with a desperate moan, you brace for your orgasm. ");
+				UtilText.nodeContentSB.append("As you feel Brax's tongue lapping away at your [pc.asshole+], you realise that you're starting to climax, and with a desperate moan, you brace for your orgasm. ");
 			else
 				UtilText.nodeContentSB.append("As you feel Brax's tongue lapping away at your "+Main.game.getPlayer().getVaginaName(true)+", you realise that you're starting to climax, and with a desperate moan, you brace for your orgasm. ");
 
@@ -1735,10 +1730,10 @@ public class SABraxSubCowgirl {
 			UtilText.nodeContentSB.setLength(0);
 
 			if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==PenetrationType.PENIS_PARTNER)
-				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you increase the speed at which you're bouncing up and down on Brax's "+Sex.getPartner().getPenisName(true)+"."
-						+ " Letting out a desperate moan, your mind is overwhelmed by the feeling in your "+Main.game.getPlayer().getAssholeName(true)+", and you brace for your orgasm. ");
+				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you increase the speed at which you're bouncing up and down on Brax's [npc.penis+]."
+						+ " Letting out a desperate moan, your mind is overwhelmed by the feeling in your [pc.asshole+], and you brace for your orgasm. ");
 			else
-				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you increase the speed at which you're bouncing up and down on Brax's "+Sex.getPartner().getPenisName(true)+"."
+				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you increase the speed at which you're bouncing up and down on Brax's [npc.penis+]."
 						+ " Letting out a desperate moan, your mind is overwhelmed by the feeling in your "+Main.game.getPlayer().getVaginaName(true)+", and you brace for your orgasm. ");
 
 			// Penis:
@@ -1882,7 +1877,7 @@ public class SABraxSubCowgirl {
 				
 			} else {
 				return "Brax's groans start getting louder, and you realise that he's about to orgasm."
-						+ " Looking back at his "+Sex.getPartner().getPenisName(true)+", you're suddenly overcome by the desperate need to start stroking it."
+						+ " Looking back at his [npc.penis+], you're suddenly overcome by the desperate need to start stroking it."
 						+ " Shuffling back, so that you're sitting on his thighs, you reach down and grab his massive shaft in both hands."
 						+ " Sliding your grip up and down the entire length, you press down on the fat knot at the base before lifting up to rub the tapered tip."
 						+ " You let out a little cry as you feel the knot swelling up, and point the cock up to Brax's face as you feel it starting to twitch."
@@ -2032,7 +2027,7 @@ public class SABraxSubCowgirl {
 			
 			UtilText.nodeContentSB.append("</br></br>"
 					+ "Watching you orgasm seems to be too much for Brax, and he starts to let out a series of loud groans."
-					+ " Looking back at his "+Sex.getPartner().getPenisName(true)+", you're suddenly overcome by the desperate need to start stroking it."
+					+ " Looking back at his [npc.penis+], you're suddenly overcome by the desperate need to start stroking it."
 					+ " Shuffling back, so that you're sitting on his thighs, you reach down and grab his massive shaft in both hands."
 					+ " Sliding your grip up and down the entire length, you press down on the fat knot at the base before lifting up to rub the tapered tip."
 					+ " You let out a little cry as you feel the knot swelling up, and point the cock up to Brax's face as you feel it starting to twitch."
@@ -2075,7 +2070,7 @@ public class SABraxSubCowgirl {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==PenetrationType.TONGUE_PARTNER)
-				UtilText.nodeContentSB.append("As you feel Brax's tongue lapping away at your "+Main.game.getPlayer().getAssholeName(true)+", you realise that you're starting to climax, and with a desperate moan, you brace for your orgasm. ");
+				UtilText.nodeContentSB.append("As you feel Brax's tongue lapping away at your [pc.asshole+], you realise that you're starting to climax, and with a desperate moan, you brace for your orgasm. ");
 			else
 				UtilText.nodeContentSB.append("As you feel Brax's tongue lapping away at your "+Main.game.getPlayer().getVaginaName(true)+", you realise that you're starting to climax, and with a desperate moan, you brace for your orgasm. ");
 
@@ -2162,7 +2157,7 @@ public class SABraxSubCowgirl {
 
 			UtilText.nodeContentSB.append("</br></br>"
 					+ "Having you orgasm while riding his face seems to be too much for Brax, and he starts to let out a series of loud groans."
-					+ " Looking back at his "+Sex.getPartner().getPenisName(true)+", you're suddenly overcome by the desperate need to start stroking it."
+					+ " Looking back at his [npc.penis+], you're suddenly overcome by the desperate need to start stroking it."
 					+ " Shuffling all the way back, so that you're sitting on his thighs, you reach down and grab his massive shaft in both hands."
 					+ " Sliding your grip up and down the entire length, you press down on the fat knot at the base before lifting up to rub the tapered tip."
 					+ " You let out a little cry as you feel the knot swelling up, and point the cock up to Brax's face as you feel it starting to twitch."
@@ -2205,10 +2200,10 @@ public class SABraxSubCowgirl {
 			UtilText.nodeContentSB.setLength(0);
 
 			if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==PenetrationType.PENIS_PARTNER)
-				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you increase the speed at which you're bouncing up and down on Brax's "+Sex.getPartner().getPenisName(true)+"."
-						+ " Letting out a desperate moan, your mind is overwhelmed by the feeling in your "+Main.game.getPlayer().getAssholeName(true)+", and you brace for your orgasm. ");
+				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you increase the speed at which you're bouncing up and down on Brax's [npc.penis+]."
+						+ " Letting out a desperate moan, your mind is overwhelmed by the feeling in your [pc.asshole+], and you brace for your orgasm. ");
 			else
-				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you increase the speed at which you're bouncing up and down on Brax's "+Sex.getPartner().getPenisName(true)+"."
+				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you increase the speed at which you're bouncing up and down on Brax's [npc.penis+]."
 						+ " Letting out a desperate moan, your mind is overwhelmed by the feeling in your "+Main.game.getPlayer().getVaginaName(true)+", and you brace for your orgasm. ");
 
 			// Penis:

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.base.game.character.NameTriplet;
 import com.base.game.character.SexualOrientation;
+import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.valueEnums.CupSize;
 import com.base.game.character.gender.Gender;
@@ -51,10 +52,10 @@ public class Nyan extends NPC {
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
-		this.setEyeColour(Colour.EYE_BLUE);
-		this.setHairColour(Colour.COVERING_BLONDE);
-		this.setSkinColour(BodyCoveringType.HUMAN, Colour.HUMAN_SKIN_LIGHT);
-		this.setSkinColour(BodyCoveringType.FELINE_FUR, Colour.COVERING_WHITE);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_BLUE));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLONDE));
+		this.setCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_WHITE));
+		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT));
 
 		this.setBreastSize(CupSize.B.getMeasurement());
 		

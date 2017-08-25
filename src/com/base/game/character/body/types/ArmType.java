@@ -6,7 +6,7 @@ import com.base.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.69.9
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum ArmType implements BodyPartTypeInterface {
@@ -29,7 +29,12 @@ public enum ArmType implements BodyPartTypeInterface {
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
 
-	HARPY(BodyCoveringType.FEATHERS, Race.HARPY);
+	HARPY(BodyCoveringType.FEATHERS, Race.HARPY) {
+		@Override
+		public boolean allowsFlight() {
+			return true;
+		}
+	};
 
 	private BodyCoveringType skinType;
 	private Race race;
@@ -38,10 +43,20 @@ public enum ArmType implements BodyPartTypeInterface {
 		this.skinType = skinType;
 		this.race = race;
 	}
+	
+	public boolean allowsFlight() {
+		return false;
+	}
 
 	@Override
 	public String getDeterminer(GameCharacter gc) {
-		return "a pair of";
+		if(gc.getArmRows()==1) {
+			return "a pair of";
+		} else if(gc.getArmRows()==2) {
+			return "two pairs of";
+		} else {
+			return "three pairs of";
+		}
 	}
 
 	@Override
@@ -98,7 +113,7 @@ public enum ArmType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getSkinType() {
+	public BodyCoveringType getBodyCoveringType() {
 		return skinType;
 	}
 

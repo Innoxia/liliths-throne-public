@@ -28,7 +28,6 @@ public enum Fetish {
 	// Sex types:
 	FETISH_ANAL_GIVING(60,
 			"anal",
-			false,
 			"fetish_anal_giving",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -54,7 +53,6 @@ public enum Fetish {
 	
 	FETISH_ANAL_RECEIVING(60,
 			"buttslut",
-			false,
 			"fetish_anal_receiving",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -80,7 +78,6 @@ public enum Fetish {
 	
 	FETISH_ORAL_RECEIVING(60,
 			"oral",
-			false,
 			"fetish_oral_receiving",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -106,7 +103,6 @@ public enum Fetish {
 	
 	FETISH_ORAL_GIVING(60,
 			"oral performer",
-			false,
 			"fetish_oral_giving",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -132,7 +128,6 @@ public enum Fetish {
 	
 	FETISH_BREASTS_OTHERS(60,
 			"breasts lover",
-			false,
 			"fetish_breasts_others",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -158,7 +153,6 @@ public enum Fetish {
 	
 	FETISH_BREASTS_SELF(60,
 			"breasts",
-			false,
 			"fetish_breasts_self",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -184,7 +178,6 @@ public enum Fetish {
 	
 	FETISH_CUM_STUD(60,
 			"cum stud",
-			false,
 			"fetish_cum",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -208,7 +201,6 @@ public enum Fetish {
 	
 	FETISH_CUM_ADDICT(60,
 			"cum addict",
-			false,
 			"fetish_cum_addict",
 			Colour.CLOTHING_WHITE,
 			null,
@@ -233,7 +225,6 @@ public enum Fetish {
 	
 	FETISH_DEFLOWERING(60,
 			"deflowering",
-			false,
 			"fetish_deflowering",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -258,7 +249,6 @@ public enum Fetish {
 	
 	FETISH_PURE_VIRGIN(60,
 			"virginity",
-			false,
 			"fetish_virginity",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -323,7 +313,6 @@ public enum Fetish {
 	
 	FETISH_MASTURBATION(60,
 			"masturbation",
-			false,
 			"fetish_masturbation",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -361,7 +350,6 @@ public enum Fetish {
 	// Effects:
 	FETISH_PREGNANCY(60,
 			"pregnancy",
-			false,
 			"fetish_pregnancy",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 5)),
@@ -387,7 +375,6 @@ public enum Fetish {
 	
 	FETISH_IMPREGNATION(60,
 			"impregnation",
-			false,
 			"fetish_impregnation",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 5)),
@@ -413,7 +400,6 @@ public enum Fetish {
 	
 	FETISH_BROODMOTHER(60,
 			"broodmother",
-			false,
 			"fetish_broodmother",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 10)),
@@ -439,7 +425,6 @@ public enum Fetish {
 	
 	FETISH_SEEDER(60,
 			"seeder",
-			false,
 			"fetish_seeder",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 10)),
@@ -463,7 +448,6 @@ public enum Fetish {
 	
 	FETISH_TRANSFORMATION(60, //TODO
 			"transformation",
-			true,
 			"fetish_transformation",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -492,7 +476,6 @@ public enum Fetish {
 	// Behaviour (organised roughly in active/passive pairs):
 	FETISH_BIMBO(60,
 			"bimbo",
-			false,
 			"fetish_bimbo",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 10)),
@@ -517,7 +500,6 @@ public enum Fetish {
 	
 	FETISH_CROSS_DRESSER(60,
 			"cross dressing",
-			false,
 			"fetish_cross_dresser",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 10)),
@@ -540,7 +522,6 @@ public enum Fetish {
 
 	FETISH_DENIAL(60,
 			"denial",
-			false,
 			"fetish_denial",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -563,7 +544,6 @@ public enum Fetish {
 	},
 	FETISH_DOMINANT(60,
 			"dominant",
-			false,
 			"fetish_dominant",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 5)),
@@ -587,7 +567,6 @@ public enum Fetish {
 	},
 	FETISH_SUBMISSIVE(60,
 			"submissive",
-			false,
 			"fetish_submissive",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STAMINA_MAXIMUM, 5)),
@@ -611,7 +590,6 @@ public enum Fetish {
 	},
 	FETISH_INCEST(60,
 			"incest",
-			true,
 			"fetish_incest",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -634,7 +612,6 @@ public enum Fetish {
 	},
 	FETISH_EXHIBITIONIST(60,
 			"exhibitionist",
-			false,
 			"fetish_exhibitionist",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -658,7 +635,6 @@ public enum Fetish {
 	},
 	FETISH_MASOCHIST(60,
 			"masochist",
-			false,
 			"fetish_masochist",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -681,7 +657,6 @@ public enum Fetish {
 	},
 	FETISH_SADIST(60,
 			"sadist",
-			false,
 			"fetish_sadist",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PURE, 5)),
@@ -706,7 +681,6 @@ public enum Fetish {
 	
 	FETISH_NON_CON(60,
 			"non-consent",
-			true,
 			"fetish_noncon",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -734,7 +708,6 @@ public enum Fetish {
 	
 	FETISH_SWITCH(60,
 			"switch",
-			false,
 			"fetish_switch",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
@@ -760,7 +733,6 @@ public enum Fetish {
 	
 	FETISH_BREEDER(60,
 			"breeder",
-			false,
 			"fetish_breeder",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
@@ -788,7 +760,6 @@ public enum Fetish {
 	
 	FETISH_SADOMASOCHIST(60,
 			"sadomasochist",
-			false,
 			"fetish_sadomasochist",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
@@ -840,7 +811,6 @@ public enum Fetish {
 	
 	FETISH_LUSTY_MAIDEN(60,
 			"lusty maiden",
-			false,
 			"fetish_lusty_maiden",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -870,8 +840,6 @@ public enum Fetish {
 	private int renderingPriority;
 	protected String name;
 	
-	private boolean fetishForGatedContent;
-	
 	private HashMap<Attribute, Integer> attributeModifiers;
 
 	private String SVGString;
@@ -885,7 +853,6 @@ public enum Fetish {
 	private Fetish(
 			int renderingPriority,
 			String name,
-			boolean fetishForGatedContent,
 			String pathName,
 			Colour colourShade,
 			HashMap<Attribute, Integer> attributeModifiers,
@@ -894,8 +861,6 @@ public enum Fetish {
 
 		this.renderingPriority = renderingPriority;
 		this.name = name;
-		
-		this.fetishForGatedContent=fetishForGatedContent;
 		
 		this.attributeModifiers = attributeModifiers;
 
@@ -963,18 +928,10 @@ public enum Fetish {
 		return name;
 	}
 
-	public boolean isFetishForGatedContent() {
-		return fetishForGatedContent;
-	}
-
 	public abstract String getDescription(GameCharacter target);
 
 	public int getCost() {
-		if(isFetishForGatedContent()) {
-			return 0;
-		} else {
-			return 5;
-		}
+		return 5;
 	}
 
 	public List<String> getModifiersAsStringList() {

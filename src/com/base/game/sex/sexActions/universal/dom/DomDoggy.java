@@ -5,6 +5,7 @@ import java.util.List;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.body.types.VaginaType;
 import com.base.game.character.body.valueEnums.CumProduction;
+import com.base.game.character.body.valueEnums.PenisModifier;
 import com.base.game.character.effects.Fetish;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.clothing.CoverableArea;
@@ -208,11 +209,11 @@ public class DomDoggy {
 			
 			String flaredSpecial = "", knottedSpecial = "";
 			
-			if(Sex.getPartner().isPenisKnotted()) {
+			if(Sex.getPartner().hasPenisModifier(PenisModifier.KNOTTED)) {
 				knottedSpecial = " You feel your [pc.cock+] violently throbbing, and, knowing that you're about to cum,"
 						+ " you slam forwards with a violent force, driving your thick knot into [npc.name]'s [npc.asshole] just before it swells up, locking you together.";
 			}
-			if(Sex.getPartner().isPenisFlaredHead()) {
+			if(Sex.getPartner().hasPenisModifier(PenisModifier.FLARED)) {
 				flaredSpecial = " You feel your [pc.cock+] violently throbbing, and, knowing that you're about to cum,"
 						+ " you slam forwards with a violent force, driving your flared head into [npc.name]'s [npc.asshole] as you let out [pc.a_moan+].";
 			}
@@ -347,11 +348,11 @@ public class DomDoggy {
 			
 			String flaredSpecial = "", knottedSpecial = "";
 			
-			if(Sex.getPartner().isPenisKnotted()) {
+			if(Sex.getPartner().hasPenisModifier(PenisModifier.KNOTTED)) {
 				knottedSpecial = " You feel your [pc.cock+] violently throbbing, and, knowing that you're about to cum,"
 						+ " you slam forwards with a violent force, driving your thick knot into [npc.name]'s [npc.pussy] just before it swells up, locking you together.";
 			}
-			if(Sex.getPartner().isPenisFlaredHead()) {
+			if(Sex.getPartner().hasPenisModifier(PenisModifier.FLARED)) {
 				flaredSpecial = " You feel your [pc.cock+] violently throbbing, and, knowing that you're about to cum,"
 						+ " you slam forwards with a violent force, driving your flared head into [npc.name]'s [npc.pussy] as you let out [pc.a_moan+].";
 			}
@@ -491,15 +492,15 @@ public class DomDoggy {
 			
 			String flaredSpecial = "", knottedSpecial = "", barbedSpecial = "";
 			
-			if(Main.game.getPlayer().isPenisKnotted()) {
+			if(Main.game.getPlayer().hasPenisModifier(PenisModifier.KNOTTED)) {
 				knottedSpecial = " Your [pc.cock+] suddenly starts violently throbbing, and you know that you're about to cum."
 										+ " Grabbing your [pc.cock] in one [pc.hand], you point it at [npc.name]'s ass, furiously masturbating as your thick knot swells up.";
 			}
-			if(Main.game.getPlayer().isPenisBarbedShaft()) {
+			if(Main.game.getPlayer().hasPenisModifier(PenisModifier.BARBED)) {
 				barbedSpecial = " Your barbed [pc.cock] suddenly starts violently throbbing, and you know that you're about to cum."
 						+ " Grabbing your [pc.cock] in one hand, you point it at [npc.name]'s ass, furiously masturbating as your hand slides up and down over your sensitive little barbs.";
 			}
-			if(Main.game.getPlayer().isPenisFlaredHead()) {
+			if(Main.game.getPlayer().hasPenisModifier(PenisModifier.FLARED)) {
 				flaredSpecial = " Your flared [pc.cock] suddenly starts violently throbbing, and you know that you're about to cum."
 						+ " Grabbing your [pc.cock] in one [pc.hand], you point it at [npc.name]'s ass, furiously masturbating as your flared head swells up.";
 			}
@@ -850,11 +851,11 @@ public class DomDoggy {
 			
 			String flaredSpecial = "", knottedSpecial = "";
 			
-			if(Sex.getPartner().isPenisKnotted()) {
+			if(Sex.getPartner().hasPenisModifier(PenisModifier.KNOTTED)) {
 				knottedSpecial = " You feel your [pc.cock+] violently throbbing, and, knowing that you're about to cum,"
 						+ " you slam forwards with a violent force, driving your thick knot into [npc.name]'s [npc.asshole] just before it swells up, locking you together.";
 			}
-			if(Sex.getPartner().isPenisFlaredHead()) {
+			if(Sex.getPartner().hasPenisModifier(PenisModifier.FLARED)) {
 				flaredSpecial = " You feel your [pc.cock+] violently throbbing, and, knowing that you're about to cum,"
 						+ " you slam forwards with a violent force, driving your flared head into [npc.name]'s [npc.asshole] as you let out [pc.a_moan+].";
 			}
@@ -1038,11 +1039,11 @@ public class DomDoggy {
 			
 			String flaredSpecial = "", knottedSpecial = "";
 			
-			if(Sex.getPartner().isPenisKnotted()) {
+			if(Sex.getPartner().hasPenisModifier(PenisModifier.KNOTTED)) {
 				knottedSpecial = " You feel your [pc.cock+] violently throbbing, and, knowing that you're about to cum,"
 						+ " you slam forwards with a violent force, driving your thick knot into [npc.name]'s [npc.pussy] just before it swells up, locking you together.";
 			}
-			if(Sex.getPartner().isPenisFlaredHead()) {
+			if(Sex.getPartner().hasPenisModifier(PenisModifier.FLARED)) {
 				flaredSpecial = " You feel your [pc.cock+] violently throbbing, and, knowing that you're about to cum,"
 						+ " you slam forwards with a violent force, driving your flared head into [npc.name]'s [npc.pussy] as you let out [pc.a_moan+].";
 			}
@@ -1184,15 +1185,15 @@ public class DomDoggy {
 			
 			String flaredSpecial = "", knottedSpecial = "", barbedSpecial = "";
 			
-			if(Main.game.getPlayer().isPenisKnotted()) {
+			if(Main.game.getPlayer().hasPenisModifier(PenisModifier.KNOTTED)) {
 				knottedSpecial = " Your [pc.cock+] suddenly starts violently throbbing, and you know that you're about to cum."
 										+ " Grabbing your [pc.cock] in one [pc.hand], you point it at [npc.name]'s ass, furiously masturbating as your thick knot swells up.";
 			}
-			if(Main.game.getPlayer().isPenisBarbedShaft()) {
+			if(Main.game.getPlayer().hasPenisModifier(PenisModifier.BARBED)) {
 				barbedSpecial = " Your barbed [pc.cock] suddenly starts violently throbbing, and you know that you're about to cum."
 						+ " Grabbing your [pc.cock] in one hand, you point it at [npc.name]'s ass, furiously masturbating as your hand slides up and down over your sensitive little barbs.";
 			}
-			if(Main.game.getPlayer().isPenisFlaredHead()) {
+			if(Main.game.getPlayer().hasPenisModifier(PenisModifier.FLARED)) {
 				flaredSpecial = " Your flared [pc.cock] suddenly starts violently throbbing, and you know that you're about to cum."
 						+ " Grabbing your [pc.cock] in one [pc.hand], you point it at [npc.name]'s ass, furiously masturbating as your flared head swells up.";
 			}
