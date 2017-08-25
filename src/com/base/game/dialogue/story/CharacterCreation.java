@@ -545,10 +545,10 @@ public class CharacterCreation {
 				return new Response("Breasts", "Enter the customisation menu for your breasts.", CHOOSE_BODY_ADVANCED_BREASTS);
 				
 			} else if (index == 5) {
-				return new Response("Ass & Hips", "Enter the customisation menu for aspects related to your ass, hips, and anus.", CHOOSE_BODY_ADVANCED);
+				return new Response("Ass & Hips", "Enter the customisation menu for aspects related to your ass, hips, and anus.", CHOOSE_BODY_ADVANCED_ASS_HIPS);
 				
 			} else if (index == 6) {
-				return new Response("Genitals", "Enter the customisation menu for aspects related to your penis or vagina.", CHOOSE_BODY_ADVANCED);
+				return new Response((Main.game.getPlayer().hasPenis()?"Penis":"Vagina"), "Enter the customisation menu for aspects related to your penis or vagina.", CHOOSE_BODY_ADVANCED_GENITALS);
 				
 			} else if (index == 7) {
 				return new Response("Piercings", "Enter the customisation menu for body piercings.", CHOOSE_BODY_ADVANCED_PIERCINGS);
@@ -841,7 +841,7 @@ public class CharacterCreation {
 		
 		@Override
 		public String getLabel() {
-			return "Hair";
+			return "Ass & Hips";
 		}
 
 		@Override
@@ -850,19 +850,18 @@ public class CharacterCreation {
 						+ "<i>All of these options can be changed later on in the game.</i>"
 					+ "</p>"
 					
-					+ "<p style='text-align:center;'><b>Breast size</b></br>"
-						+ CharacterModificationUtils.getBreastSizeOption()
-						+ (!Main.game.getPlayer().isFeminine()?"</br>[style.italicsDisabled(Masculine characters cannot start with breasts larger than 'training'.)]":"")
+					+ "<p style='text-align:center;'><b>Ass size</b></br>"
+						+ CharacterModificationUtils.getAssSizeOption()
 					+ "</p>"
-					+ "<p style='text-align:center;'><b>Nipple size</b></br>"
-						+ CharacterModificationUtils.getNippleSizeOption()
+					+ "<p style='text-align:center;'><b>Hip size</b></br>"
+						+ CharacterModificationUtils.getHipSizeOption()
 					+ "</p>"
-					+ "<p style='text-align:center;'><b>Areolae size</b></br>"
-						+ CharacterModificationUtils.getAreolaeSizeOption()
+					+ "<p style='text-align:center;'><b>Bleached</b></br>"
+						+ CharacterModificationUtils.getAnusBleachedOption()
 					+ "</p>"
-					+ "<p style='text-align:center;'><b>Lactation</b></br>"
-					+ CharacterModificationUtils.getLactationOption()
-					+ "</p>";
+					+ "<p style='text-align:center;'><b>Anus Elasticity</b></br>"
+						+ CharacterModificationUtils.getAnusBleachedOption()
+					+ "</p>"; //TODO plasticity & elasticity
 		}
 
 		@Override
@@ -873,34 +872,26 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Breast size", "Cycle breast size.", CHOOSE_BODY_ADVANCED_BREASTS) {
+				return new Response("Ass size", "Cycle ass size.", CHOOSE_BODY_ADVANCED_ASS_HIPS) {
 					@Override
 					public void effects() {
-						CharacterModificationUtils.incrementBreastSize();
+						CharacterModificationUtils.incrementAssSize();
 					}
 				};
 				
 			} else if (index == 2) {
-				return new Response("Nipple size", "Cycle your nipple size.", CHOOSE_BODY_ADVANCED_BREASTS) {
+				return new Response("Hip size", "Cycle your hip size.", CHOOSE_BODY_ADVANCED_ASS_HIPS) {
 					@Override
 					public void effects() {
-						CharacterModificationUtils.incrementNippleSize();
+						CharacterModificationUtils.incrementHipSize();
 					}
 				};
 				
-			} if (index == 3) {
-				return new Response("Areolae size", "Cycle the size of your areolae.", CHOOSE_BODY_ADVANCED_BREASTS) {
+			} else if (index == 3) {
+				return new Response("Anus bleach", "Cycle whether your anus is bleached or not.", CHOOSE_BODY_ADVANCED_ASS_HIPS) {
 					@Override
 					public void effects() {
-						CharacterModificationUtils.incrementAreolaeSize();
-					}
-				};
-				
-			} else if (index == 4) {
-				return new Response("Lactation", "Cycle your starting lactation.", CHOOSE_BODY_ADVANCED_BREASTS) {
-					@Override
-					public void effects() {
-						CharacterModificationUtils.incrementLactation();
+						Main.game.getPlayer().setAssBleached(!Main.game.getPlayer().isAssBleached());
 					}
 				};
 				
@@ -909,6 +900,115 @@ public class CharacterCreation {
 				
 			} else {
 				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld CHOOSE_BODY_ADVANCED_GENITALS = new DialogueNodeOld("", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel() {
+			if(Main.game.getPlayer().hasPenis()) {
+				return "Penis";
+			} else {
+				return "Vagina";
+			}
+		}
+
+		@Override
+		public String getHeaderContent() {
+			if(Main.game.getPlayer().hasPenis()) {
+				return "<p style='text-align:center;'>"
+							+ "<i>All of these options can be changed later on in the game.</i>"
+						+ "</p>"
+						
+						+ "<p style='text-align:center;'><b>Penis size</b></br>"
+							+ CharacterModificationUtils.getPenisSizeOption()
+						+ "</p>"
+						+ "<p style='text-align:center;'><b>Testicle size</b></br>"
+							+ CharacterModificationUtils.getTesticleSizeOption()
+						+ "</p>"
+						+ "<p style='text-align:center;'><b>Cum production</b></br>"
+							+ CharacterModificationUtils.getCumProductionOption()
+						+ "</p>";
+				
+			} else {
+				return "<p style='text-align:center;'>"
+							+ "<i>All of these options can be changed later on in the game.</i>"
+						+ "</p>"
+						
+						+ "<p style='text-align:center;'><b>Clit size</b></br>"
+							+ CharacterModificationUtils.getClitSizeOption()
+						+ "</p>"
+						+ "<p style='text-align:center;'><b>Capacity</b></br>"
+							+ CharacterModificationUtils.getVaginaCapacityOption()
+						+ "</p>";//TODO plasticity & elasticity
+				
+			}
+		}
+
+		@Override
+		public String getContent() {
+			return null;
+		}
+		
+		@Override
+		public Response getResponse(int index) {
+			if(Main.game.getPlayer().hasPenis()) {
+				if (index == 1) {
+					return new Response("Penis size", "Cycle penis size.", CHOOSE_BODY_ADVANCED_GENITALS) {
+						@Override
+						public void effects() {
+							CharacterModificationUtils.incrementPenisSize();
+						}
+					};
+					
+				} else if (index == 2) {
+					return new Response("Testicle size", "Cycle your testicle size.", CHOOSE_BODY_ADVANCED_GENITALS) {
+						@Override
+						public void effects() {
+							CharacterModificationUtils.incrementTesticleSize();
+						}
+					};
+					
+				} else if (index == 3) {
+					return new Response("Cum production", "Cycle your cum production.", CHOOSE_BODY_ADVANCED_GENITALS) {
+						@Override
+						public void effects() {
+							CharacterModificationUtils.incrementCumProduction();
+						}
+					};
+					
+				} else if (index == 0) {
+					return new Response("Back", "Return to the main character creation screen.", CHOOSE_BODY_ADVANCED);
+					
+				} else {
+					return null;
+				}
+			} else {
+				if (index == 1) {
+					return new Response("Clit size", "Cycle clit size.", CHOOSE_BODY_ADVANCED_GENITALS) {
+						@Override
+						public void effects() {
+							CharacterModificationUtils.incrementClitSize();
+						}
+					};
+					
+				} else if (index == 2) {
+					return new Response("Capacity", "Cycle your vagina's capacity.", CHOOSE_BODY_ADVANCED_GENITALS) {
+						@Override
+						public void effects() {
+							CharacterModificationUtils.incrementVaginaCapacity();
+						}
+					};
+					
+				} else if (index == 0) {
+					return new Response("Back", "Return to the main character creation screen.", CHOOSE_BODY_ADVANCED);
+					
+				} else {
+					return null;
+				}
 			}
 		}
 	};

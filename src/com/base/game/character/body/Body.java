@@ -2219,7 +2219,7 @@ public class Body implements Serializable {
 				descriptionSB.append(" They have been pierced.");
 			}
 			
-			if(owner.getNippleRawCapacityValue()>0) {
+			if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE) {
 				if (breast.isFuckable()) {
 					descriptionSB.append("</br>Your [pc.breasts] have internal, [pc.nippleSecondaryColour(true)] channels, allowing your [pc.breastCapacity] [pc.nipples] to be comfortably penetrated by "
 							+ Capacity.getCapacityFromValue(breast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
@@ -2312,7 +2312,7 @@ public class Body implements Serializable {
 						}
 					}
 				} else {
-					descriptionSB.append(" [style.colourExcellent(You have retained your nipple virginity.)]");
+					descriptionSB.append(" [style.colourGood(You have retained your nipple virginity.)]");
 				}
 			}
 
@@ -2505,7 +2505,7 @@ public class Body implements Serializable {
 						}
 					}
 				} else {
-					descriptionSB.append(" [style.colourExcellent([npc.Name] has retained [npc.her] nipple virginity.)]");
+					descriptionSB.append(" [style.colourGood([npc.Name] has retained [npc.her] nipple virginity.)]");
 				}
 				
 				if (breast.getRawLactationValue() > 0) {

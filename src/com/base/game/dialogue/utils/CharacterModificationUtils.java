@@ -6,14 +6,21 @@ import java.util.List;
 import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.valueEnums.AreolaeSize;
+import com.base.game.character.body.valueEnums.AssSize;
 import com.base.game.character.body.valueEnums.BodyHair;
+import com.base.game.character.body.valueEnums.Capacity;
+import com.base.game.character.body.valueEnums.ClitorisSize;
 import com.base.game.character.body.valueEnums.CoveringPattern;
+import com.base.game.character.body.valueEnums.CumProduction;
 import com.base.game.character.body.valueEnums.CupSize;
 import com.base.game.character.body.valueEnums.HairLength;
 import com.base.game.character.body.valueEnums.HairStyle;
+import com.base.game.character.body.valueEnums.HipSize;
 import com.base.game.character.body.valueEnums.Lactation;
 import com.base.game.character.body.valueEnums.LipSize;
 import com.base.game.character.body.valueEnums.NippleSize;
+import com.base.game.character.body.valueEnums.PenisSize;
+import com.base.game.character.body.valueEnums.TesticleSize;
 import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.utils.Util;
@@ -30,7 +37,10 @@ public class CharacterModificationUtils {
 			
 			contentSB.append(s);
 			
-			if (i + 1 != strings.size()) {
+			if(i==3 && strings.size()>6) {
+				contentSB.append("</br>");
+				
+			} else if (i + 1 != strings.size()) {
 				contentSB.append(" | ");
 			}
 			
@@ -414,6 +424,282 @@ public class CharacterModificationUtils {
 				break;
 		}
 	}
+	
+	
+	
+	// ---------------------- Ass & Hips: ---------------------- //
+
+	public static String getAssSizeOption() {
+		stringsList.clear();
+		for (AssSize value : AssSize.values()) {
+			if (Main.game.getPlayer().getAssSize() == value) {
+				stringsList.add("<b style='color:" + value.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(value.getDescriptor()) + "</b>");
+			} else {
+				stringsList.add("<span class='option-disabled'>" + Util.capitaliseSentence(value.getDescriptor()) + "</span>");
+			}
+		}
+		return stringsToSelection(stringsList);
+	}
+	public static String getHipSizeOption() {
+		stringsList.clear();
+		for (HipSize value : HipSize.values()) {
+			if (Main.game.getPlayer().getHipSize() == value) {
+				stringsList.add("<b style='color:" + value.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(value.getDescriptor()) + "</b>");
+			} else {
+				stringsList.add("<span class='option-disabled'>" + Util.capitaliseSentence(value.getDescriptor()) + "</span>");
+			}
+		}
+		return stringsToSelection(stringsList);
+	}
+	public static String getAnusBleachedOption() {
+		stringsList.clear();
+		if(!Main.game.getPlayer().isAssBleached()) {
+			stringsList.add("[style.boldDisabled(Regular)]");
+		} else {
+			stringsList.add("[style.colourDisabled(Regular)]");
+		}	
+		if(Main.game.getPlayer().isAssBleached()) {
+			stringsList.add("[style.boldGood(Bleached)]");
+		} else {
+			stringsList.add("[style.colourDisabled(Bleached)]");
+		}
+		return stringsToSelection(stringsList);
+	}
+	
+	public static void incrementAssSize() {
+		switch(Main.game.getPlayer().getAssSize()) {
+			case ZERO_FLAT:
+				Main.game.getPlayer().setAssSize(AssSize.ONE_TINY.getValue());
+				break;
+			case ONE_TINY:
+				Main.game.getPlayer().setAssSize(AssSize.TWO_SMALL.getValue());
+				break;
+			case TWO_SMALL:
+				Main.game.getPlayer().setAssSize(AssSize.THREE_NORMAL.getValue());
+				break;
+			case THREE_NORMAL:
+				Main.game.getPlayer().setAssSize(AssSize.FOUR_LARGE.getValue());
+				break;
+			case FOUR_LARGE:
+				Main.game.getPlayer().setAssSize(AssSize.FIVE_HUGE.getValue());
+				break;
+			case FIVE_HUGE:
+				Main.game.getPlayer().setAssSize(AssSize.SIX_MASSIVE.getValue());
+				break;
+			case SIX_MASSIVE:
+				Main.game.getPlayer().setAssSize(AssSize.SEVEN_GIGANTIC.getValue());
+				break;
+			case SEVEN_GIGANTIC:
+				Main.game.getPlayer().setAssSize(AssSize.ZERO_FLAT.getValue());
+				break;
+		}
+	}
+	public static void incrementHipSize() {
+		switch(Main.game.getPlayer().getHipSize()) {
+			case ZERO_NO_HIPS:
+				Main.game.getPlayer().setHipSize(HipSize.ONE_VERY_NARROW.getValue());
+				break;
+			case ONE_VERY_NARROW:
+				Main.game.getPlayer().setHipSize(HipSize.TWO_NARROW.getValue());
+				break;
+			case TWO_NARROW:
+				Main.game.getPlayer().setHipSize(HipSize.THREE_GIRLY.getValue());
+				break;
+			case THREE_GIRLY:
+				Main.game.getPlayer().setHipSize(HipSize.FOUR_WOMANLY.getValue());
+				break;
+			case FOUR_WOMANLY:
+				Main.game.getPlayer().setHipSize(HipSize.FIVE_VERY_WIDE.getValue());
+				break;
+			case FIVE_VERY_WIDE:
+				Main.game.getPlayer().setHipSize(HipSize.SIX_EXTREMELY_WIDE.getValue());
+				break;
+			case SIX_EXTREMELY_WIDE:
+				Main.game.getPlayer().setHipSize(HipSize.SEVEN_ABSURDLY_WIDE.getValue());
+				break;
+			case SEVEN_ABSURDLY_WIDE:
+				Main.game.getPlayer().setHipSize(HipSize.ZERO_NO_HIPS.getValue());
+				break;
+		}
+	}
+	
+	
+	
+	// ---------------------- Penis: ---------------------- //
+	
+	public static String getPenisSizeOption() {
+		stringsList.clear();
+		for (PenisSize value : PenisSize.values()) {
+			if(value.getMedianValue() < PenisSize.FOUR_HUGE.getMinimumValue()) {
+				if (Main.game.getPlayer().getPenisSize() == value) {
+					stringsList.add("<b style='color:" + value.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(value.getDescriptor()) + "</b>");
+				} else {
+					stringsList.add("<span class='option-disabled'>" + Util.capitaliseSentence(value.getDescriptor()) + "</span>");
+				}
+			}
+		}
+		return stringsToSelection(stringsList);
+	}
+	public static String getTesticleSizeOption() {
+		stringsList.clear();
+		for (TesticleSize value : TesticleSize.values()) {
+			if(value.getValue() < TesticleSize.FOUR_HUGE.getValue()) {
+				if (Main.game.getPlayer().getTesticleSize() == value) {
+					stringsList.add("<b style='color:" + value.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(value.getDescriptor()) + "</b>");
+				} else {
+					stringsList.add("<span class='option-disabled'>" + Util.capitaliseSentence(value.getDescriptor()) + "</span>");
+				}
+			}
+		}
+		return stringsToSelection(stringsList);
+	}
+	public static String getCumProductionOption() {
+		stringsList.clear();
+		for (CumProduction value : CumProduction.values()) {
+			if(value.getMedianValue() < CumProduction.FIVE_HUGE.getMinimumValue()) {
+				if (Main.game.getPlayer().getPenisCumProduction() == value) {
+					stringsList.add("<b style='color:" + value.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(value.getDescriptor()) + "</b>");
+				} else {
+					stringsList.add("<span class='option-disabled'>" + Util.capitaliseSentence(value.getDescriptor()) + "</span>");
+				}
+			}
+		}
+		return stringsToSelection(stringsList);
+	}
+
+	public static void incrementPenisSize() {
+		switch(Main.game.getPlayer().getPenisSize()) {
+			case ZERO_MICROSCOPIC:
+				Main.game.getPlayer().setPenisSize(PenisSize.ONE_TINY.getMedianValue());
+				break;
+			case ONE_TINY:
+				Main.game.getPlayer().setPenisSize(PenisSize.ONE_TINY.getMedianValue());
+				break;
+			case TWO_AVERAGE:
+				Main.game.getPlayer().setPenisSize(PenisSize.THREE_LARGE.getMedianValue());
+				break;
+			case THREE_LARGE:
+				Main.game.getPlayer().setPenisSize(PenisSize.ZERO_MICROSCOPIC.getMedianValue());
+				break;
+			default:
+				Main.game.getPlayer().setPenisSize(PenisSize.ZERO_MICROSCOPIC.getMedianValue());
+				break;
+		}
+	}
+	public static void incrementTesticleSize() {
+		switch(Main.game.getPlayer().getTesticleSize()) {
+			case ZERO_VESTIGIAL:
+				Main.game.getPlayer().setTesticleSize(TesticleSize.ONE_TINY.getValue());
+				break;
+			case ONE_TINY:
+				Main.game.getPlayer().setTesticleSize(TesticleSize.TWO_AVERAGE.getValue());
+				break;
+			case TWO_AVERAGE:
+				Main.game.getPlayer().setTesticleSize(TesticleSize.THREE_LARGE.getValue());
+				break;
+			case THREE_LARGE:
+				Main.game.getPlayer().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
+				break;
+			default:
+				Main.game.getPlayer().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
+				break;
+		}
+	}
+	public static void incrementCumProduction() {
+		switch(Main.game.getPlayer().getPenisCumProduction()) {
+			case ZERO_NONE:
+				Main.game.getPlayer().setCumProduction(CumProduction.ONE_TRICKLE.getMedianValue());
+				break;
+			case ONE_TRICKLE:
+				Main.game.getPlayer().setCumProduction(CumProduction.TWO_SMALL_AMOUNT.getMedianValue());
+				break;
+			case TWO_SMALL_AMOUNT:
+				Main.game.getPlayer().setCumProduction(CumProduction.THREE_AVERAGE.getMedianValue());
+				break;
+			case THREE_AVERAGE:
+				Main.game.getPlayer().setCumProduction(CumProduction.FOUR_LARGE.getMedianValue());
+				break;
+			case FOUR_LARGE:
+				Main.game.getPlayer().setCumProduction(CumProduction.ZERO_NONE.getMedianValue());
+				break;
+			default:
+				Main.game.getPlayer().setCumProduction(CumProduction.ZERO_NONE.getMedianValue());
+				break;
+		}
+	}
+	
+	
+	
+	// ---------------------- Lips: ---------------------- //
+	
+	public static String getClitSizeOption() {
+		stringsList.clear();
+		for (ClitorisSize value : ClitorisSize.values()) {
+			if(value.getMedianValue() < ClitorisSize.TWO_LARGE.getMinimumValue()) {
+				if (Main.game.getPlayer().getVaginaClitorisSize() == value) {
+					stringsList.add("<b style='color:" + value.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(value.getDescriptor()) + "</b>");
+				} else {
+					stringsList.add("<span class='option-disabled'>" + Util.capitaliseSentence(value.getDescriptor()) + "</span>");
+				}
+			}
+		}
+		return stringsToSelection(stringsList);
+	}
+	public static String getVaginaCapacityOption() {
+		stringsList.clear();
+		for (Capacity value : Capacity.values()) {
+			if (Main.game.getPlayer().getVaginaCapacity() == value) {
+				stringsList.add("<b style='color:" + value.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(value.getDescriptor()) + "</b>");
+			} else {
+				stringsList.add("<span class='option-disabled'>" + Util.capitaliseSentence(value.getDescriptor()) + "</span>");
+			}
+		}
+		return stringsToSelection(stringsList);
+	}
+	
+	public static void incrementClitSize() {
+		switch(Main.game.getPlayer().getVaginaClitorisSize()) {
+			case ZERO_AVERAGE:
+				Main.game.getPlayer().setVaginaClitorisSize(ClitorisSize.ONE_BIG.getMedianValue());
+				break;
+			case ONE_BIG:
+				Main.game.getPlayer().setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE.getMedianValue());
+				break;
+			default:
+				Main.game.getPlayer().setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE.getMedianValue());
+				break;
+		}
+	}
+	public static void incrementVaginaCapacity() {
+		switch(Main.game.getPlayer().getVaginaCapacity()) {
+			case ZERO_IMPENETRABLE:
+				Main.game.getPlayer().setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT.getMedianValue());
+				break;
+			case ONE_EXTREMELY_TIGHT:
+				Main.game.getPlayer().setVaginaCapacity(Capacity.TWO_TIGHT.getMedianValue());
+				break;
+			case TWO_TIGHT:
+				Main.game.getPlayer().setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue());
+				break;
+			case THREE_SLIGHTLY_LOOSE:
+				Main.game.getPlayer().setVaginaCapacity(Capacity.FOUR_LOOSE.getMedianValue());
+				break;
+			case FOUR_LOOSE:
+				Main.game.getPlayer().setVaginaCapacity(Capacity.FIVE_ROOMY.getMedianValue());
+				break;
+			case FIVE_ROOMY:
+				Main.game.getPlayer().setVaginaCapacity(Capacity.SIX_STRETCHED_OPEN.getMedianValue());
+				break;
+			case SIX_STRETCHED_OPEN:
+				Main.game.getPlayer().setVaginaCapacity(Capacity.SEVEN_GAPING.getMedianValue());
+				break;
+			case SEVEN_GAPING:
+				Main.game.getPlayer().setVaginaCapacity(Capacity.ZERO_IMPENETRABLE.getMedianValue());
+				break;
+		}
+		Main.game.getPlayer().setVaginaStretchedCapacity(Main.game.getPlayer().getVaginaRawCapacityValue());
+	}
+	
 	
 	
 	// ---------------------- Lips: ---------------------- //

@@ -1,35 +1,40 @@
 package com.base.game.character.body.valueEnums;
 
+import com.base.utils.Colour;
+
 /**
  * Arbitrary measurements in increments of 1, going from 0 to 7.
  * 
  * @since 0.1.0
- * @version 0.1.82
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum AssSize {
-	ZERO_FLAT("completely flat", 0),
 	
-	ONE_TINY("tiny", 1),
+	ZERO_FLAT("completely flat", 0, Colour.GENERIC_SIZE_ONE),
 	
-	TWO_SMALL("small", 2),
+	ONE_TINY("tiny", 1, Colour.GENERIC_SIZE_TWO),
 	
-	THREE_NORMAL("normal-sized", 3),
+	TWO_SMALL("small", 2, Colour.GENERIC_SIZE_THREE),
 	
-	FOUR_LARGE("large", 4),
+	THREE_NORMAL("normal-sized", 3, Colour.GENERIC_SIZE_FOUR),
 	
-	FIVE_HUGE("huge", 5),
+	FOUR_LARGE("large", 4, Colour.GENERIC_SIZE_FIVE),
 	
-	SIX_MASSIVE("massive", 6),
+	FIVE_HUGE("huge", 5, Colour.GENERIC_SIZE_SIX),
 	
-	SEVEN_GIGANTIC("gigantic", 7);
+	SIX_MASSIVE("massive", 6, Colour.GENERIC_SIZE_SEVEN),
+	
+	SEVEN_GIGANTIC("gigantic", 7, Colour.GENERIC_SIZE_EIGHT);
 
 	private String descriptor;
 	private int assSize;
+	private Colour colour;
 
-	private AssSize(String descriptor, int assSize) {
+	private AssSize(String descriptor, int assSize, Colour colour) {
 		this.descriptor = descriptor;
 		this.assSize = assSize;
+		this.colour=colour;
 	}
 
 	public static AssSize getAssSizeFromInt(int assSize) {
@@ -50,5 +55,9 @@ public enum AssSize {
 
 	public int getValue() {
 		return assSize;
+	}
+
+	public Colour getColour() {
+		return colour;
 	}
 }

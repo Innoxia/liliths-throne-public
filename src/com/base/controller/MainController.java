@@ -62,7 +62,7 @@ import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.places.dominion.CityHall;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
-import com.base.game.dialogue.story.CharacterCreationDialogue;
+import com.base.game.dialogue.story.CharacterCreation;
 import com.base.game.dialogue.utils.CharactersPresentDialogue;
 import com.base.game.dialogue.utils.EnchantmentDialogue;
 import com.base.game.dialogue.utils.InventoryDialogue;
@@ -536,7 +536,7 @@ public class MainController implements Initializable {
 						
 						boolean allowInput = true;
 						
-						if(Main.game.getCurrentDialogueNode() == CharacterCreationDialogue.CHOOSE_NAME){
+						if(Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement"))
 								allowInput = false;
 						}
@@ -600,7 +600,7 @@ public class MainController implements Initializable {
 						}
 						
 						// For name selection:
-						if (event.getCode() == KeyCode.ENTER && Main.game.getCurrentDialogueNode() == CharacterCreationDialogue.CHOOSE_NAME) {
+						if (event.getCode() == KeyCode.ENTER && Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME) {
 							Main.game.setContent(1);
 						}
 
@@ -1847,7 +1847,7 @@ public class MainController implements Initializable {
 		}
 		
 		// Import:
-		if (Main.game.getCurrentDialogueNode() == CharacterCreationDialogue.IMPORT_CHOOSE) {
+		if (Main.game.getCurrentDialogueNode() == CharacterCreation.IMPORT_CHOOSE) {
 			for (File f : Main.getCharactersForImport()) {
 				if (((EventTarget) document.getElementById("character_import_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )) != null) {
 					((EventTarget) document.getElementById("character_import_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )).addEventListener("click", e -> {

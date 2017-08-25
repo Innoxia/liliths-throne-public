@@ -32,6 +32,7 @@
 		
 		
 		<b>Changed:</b> Split orifice elasticity into elasticity and plasticity. Elasticity determines how quickly you stretch out during sex, while plasticity determines how much your orifice recovers afterwards.
+		Updated character creation screen. This is still not in the final form that I want it to be in, but it does now include more options than before.
 		
 	Body:
 		Improved a huge amount of transformation text, and have moved it into a far more organised structure to make any future editing a lot easier.

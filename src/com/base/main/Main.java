@@ -26,7 +26,7 @@ import com.base.game.character.race.RacialBody;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.responses.Response;
-import com.base.game.dialogue.story.CharacterCreationDialogue;
+import com.base.game.dialogue.story.CharacterCreation;
 import com.base.game.dialogue.utils.OptionsDialogue;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.utils.Colour;
@@ -585,7 +585,7 @@ public class Main extends Application {
 				Main.game.getPlayer().getItemsDiscovered().clear();
 				Main.game.getPlayer().calculateStatusEffects(0);
 
-				Main.game.initNewGame(CharacterCreationDialogue.START_GAME_WITH_IMPORT);
+				Main.game.initNewGame(CharacterCreation.START_GAME_WITH_IMPORT);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}

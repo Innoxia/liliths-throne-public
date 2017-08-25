@@ -1,5 +1,7 @@
 package com.base.game.character.body.valueEnums;
 
+import com.base.utils.Colour;
+
 /**
  * Arbitrary measurements in increments of 1, going from 0 to 7.
  * 
@@ -8,29 +10,32 @@ package com.base.game.character.body.valueEnums;
  * @author Innoxia
  */
 public enum HipSize {
-	ZERO_NO_HIPS("completely straight", 0),
 	
-	ONE_VERY_NARROW("very narrow", 1),
+	ZERO_NO_HIPS("completely straight", 0, Colour.GENERIC_SIZE_ONE),
 	
-	TWO_NARROW("narrow", 2),
+	ONE_VERY_NARROW("very narrow", 1, Colour.GENERIC_SIZE_TWO),
 	
-	THREE_GIRLY("girly", 3),
+	TWO_NARROW("narrow", 2,Colour.GENERIC_SIZE_THREE),
 	
-	FOUR_WOMANLY("womanly", 4),
+	THREE_GIRLY("girly", 3, Colour.GENERIC_SIZE_FOUR),
 	
-	FIVE_VERY_WIDE("very wide", 5),
+	FOUR_WOMANLY("womanly", 4, Colour.GENERIC_SIZE_FIVE),
 	
-	SIX_EXTREMELY_WIDE("extremely wide", 6),
+	FIVE_VERY_WIDE("very wide", 5, Colour.GENERIC_SIZE_SIX),
 	
-	SEVEN_ABSURDLY_WIDE("absurdly wide", 7);
+	SIX_EXTREMELY_WIDE("extremely wide", 6, Colour.GENERIC_SIZE_SEVEN),
+	
+	SEVEN_ABSURDLY_WIDE("absurdly wide", 7, Colour.GENERIC_SIZE_EIGHT);
 
 	
 	private String descriptor;
 	private int hipSize;
+	private Colour colour;
 
-	private HipSize(String descriptor, int hipSize) {
+	private HipSize(String descriptor, int hipSize, Colour colour) {
 		this.descriptor = descriptor;
 		this.hipSize = hipSize;
+		this.colour=colour;
 	}
 
 	public static HipSize getHipSizeFromInt(int hipSize) {
@@ -51,5 +56,9 @@ public enum HipSize {
 
 	public int getValue() {
 		return hipSize;
+	}
+
+	public Colour getColour() {
+		return colour;
 	}
 }
