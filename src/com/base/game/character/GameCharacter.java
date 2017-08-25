@@ -463,10 +463,9 @@ public class GameCharacter implements Serializable {
 		postTransformationCalculation();
 	}
 	
-	//TODO XML export
-//	public void setBodyCoveringForXMLImport(BodyCoveringType bct, Colour c) {
-//		body.getBodyCoveringTypeColours().put(bct, c);
-//	}
+	public void setBodyCoveringForXMLImport(BodyCoveringType bct, CoveringPattern pattern, Colour primary, boolean primaryGlow, Colour secondary, boolean secondaryGlow) {
+		body.getCoverings().put(bct, new Covering(bct, pattern, primary, primaryGlow, secondary, secondaryGlow));
+	}
 
 	public String getName() {
 		if((nameTriplet==null || !playerKnowsName) && !isPlayer()) {
@@ -3845,7 +3844,7 @@ public class GameCharacter implements Serializable {
 	public NippleShape getNippleShape() {
 		return body.getBreast().getNipples().getNippleShape();
 	}
-	public String setAreolaeSize(NippleShape nippleShape) {
+	public String setNippleShape(NippleShape nippleShape) {
 		return body.getBreast().getNipples().setNippleShape(this, nippleShape);
 	}
 	// Nipple size:
@@ -3866,7 +3865,7 @@ public class GameCharacter implements Serializable {
 	public AreolaeShape getAreolaeShape() {
 		return body.getBreast().getNipples().getAreolaeShape();
 	}
-	public String setAreolaeSize(AreolaeShape areolaeShape) {
+	public String setAreolaeShape(AreolaeShape areolaeShape) {
 		return body.getBreast().getNipples().setAreolaeShape(this, areolaeShape);
 	}
 	// Piercing:

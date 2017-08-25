@@ -302,7 +302,7 @@ public class Penis implements BodyPartInterface, Serializable {
 			case AVIAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
-							" Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as it retreats down into a new sheath that's formed at the base."
+							" Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as it retreats down into a new sheath that's formed at the base.</br>"
 							+ "You now have an [style.boldHarpy(avian penis)], covered in [pc.penisFullDescription].</br>"
 							+ "You have [style.boldHarpy([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" avian balls)], covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldHarpy(avian cum)].");
 				} else {

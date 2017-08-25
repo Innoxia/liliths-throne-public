@@ -2635,15 +2635,9 @@ public class UtilText {
 				BodyPartType.TESTICLES){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.getPenisNumberOfTesticles()==2) {
-					return (parseCapitalise
-							?"Pair of"
-							:"pair of");
-				} else {
-					return (parseCapitalise
-							?Util.capitaliseSentence(Util.intToString(character.getPenisNumberOfTesticles()))
-							:Util.intToString(character.getPenisNumberOfTesticles()));
-				}
+				return (parseCapitalise
+						?Util.capitaliseSentence(Util.intToString(character.getPenisNumberOfTesticles()))
+						:Util.intToString(character.getPenisNumberOfTesticles()));
 			}
 		});
 		

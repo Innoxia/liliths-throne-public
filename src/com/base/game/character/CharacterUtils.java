@@ -36,9 +36,17 @@ import com.base.game.character.body.types.SkinType;
 import com.base.game.character.body.types.TailType;
 import com.base.game.character.body.types.VaginaType;
 import com.base.game.character.body.types.WingType;
+import com.base.game.character.body.valueEnums.AreolaeShape;
+import com.base.game.character.body.valueEnums.BodyHair;
 import com.base.game.character.body.valueEnums.Capacity;
+import com.base.game.character.body.valueEnums.CoveringPattern;
 import com.base.game.character.body.valueEnums.CumProduction;
+import com.base.game.character.body.valueEnums.EyeShape;
 import com.base.game.character.body.valueEnums.Femininity;
+import com.base.game.character.body.valueEnums.FluidFlavour;
+import com.base.game.character.body.valueEnums.FluidModifier;
+import com.base.game.character.body.valueEnums.NippleShape;
+import com.base.game.character.body.valueEnums.OrificeModifier;
 import com.base.game.character.body.valueEnums.PenisSize;
 import com.base.game.character.body.valueEnums.TesticleSize;
 import com.base.game.character.effects.Fetish;
@@ -65,7 +73,7 @@ import com.base.world.places.Dominion;
 
 /**
  * @since 0.1.67
- * @version 0.1.82
+ * @version 0.1.83
  * @author Innoxia
  */
 public class CharacterUtils {
@@ -209,58 +217,106 @@ public class CharacterUtils {
 			addAttribute(doc, bodyCore, "piercedStomach", String.valueOf(character.isPiercedNavel()));
 			addAttribute(doc, bodyCore, "height", String.valueOf(character.getRawHeightValue()));
 			addAttribute(doc, bodyCore, "femininity", String.valueOf(character.getFemininity()));
+			addAttribute(doc, bodyCore, "bodySize", String.valueOf(character.getBodySizeValue()));
+			addAttribute(doc, bodyCore, "muscle", String.valueOf(character.getMuscleValue()));
+			addAttribute(doc, bodyCore, "pubicHair", String.valueOf(character.getPubicHair()));
+			
 			for(BodyCoveringType bct : BodyCoveringType.values()) {
 				Element element = doc.createElement("bodyCovering");
 				bodyCore.appendChild(element);
 				
 				addAttribute(doc, element, "type", bct.toString());
-//				addAttribute(doc, element, "colour", character.getSkinColour(bct).toString()); TODO
+				addAttribute(doc, element, "pattern", character.getCovering(bct).getPattern().toString());
+				addAttribute(doc, element, "colourPrimary", character.getCovering(bct).getPrimaryColour().toString());
+				addAttribute(doc, element, "glowPrimary", String.valueOf(character.getCovering(bct).isPrimaryGlowing()));
+				addAttribute(doc, element, "colourSecondary", character.getCovering(bct).getSecondaryColour().toString());
+				addAttribute(doc, element, "glowSecondary", String.valueOf(character.getCovering(bct).isSecondaryGlowing()));
 				addAttribute(doc, element, "discovered", String.valueOf(character.getBodyCoveringTypesDiscovered().contains(bct)));
 			}
 			
 			// Arm:
 			Element bodyArm = doc.createElement("arm");
 			characterBody.appendChild(bodyArm);
-			addAttribute(doc, bodyArm, "type", character.getArmType().toString());
+				addAttribute(doc, bodyArm, "type", character.getArmType().toString());
+				addAttribute(doc, bodyArm, "rows", String.valueOf(character.getArmRows()));
+				addAttribute(doc, bodyArm, "underarmHair", character.getUnderarmHair().toString());
 			
 			// Ass:
 			Element bodyAss = doc.createElement("ass");
 			characterBody.appendChild(bodyAss);
-			addAttribute(doc, bodyAss, "type", character.getAssType().toString());
-			addAttribute(doc, bodyAss, "assSize", String.valueOf(character.getAssSize().getValue()));
-			addAttribute(doc, bodyAss, "hipSize", String.valueOf(character.getHipSize().getValue()));
-			addAttribute(doc, bodyAss, "wetness", String.valueOf(character.getAssWetness().getValue()));
-			addAttribute(doc, bodyAss, "elasticity", String.valueOf(character.getAssElasticity().getValue()));
-			addAttribute(doc, bodyAss, "capacity", String.valueOf(character.getAssRawCapacityValue()));
-			addAttribute(doc, bodyAss, "stretchedCapacity", String.valueOf(character.getAssStretchedCapacity()));
-			addAttribute(doc, bodyAss, "virgin", String.valueOf(character.isAssVirgin()));
-			addAttribute(doc, bodyAss, "bleached", String.valueOf(character.isAssBleached()));
+				addAttribute(doc, bodyAss, "type", character.getAssType().toString());
+				addAttribute(doc, bodyAss, "assSize", String.valueOf(character.getAssSize().getValue()));
+				addAttribute(doc, bodyAss, "hipSize", String.valueOf(character.getHipSize().getValue()));
+
+			Element bodyAnus = doc.createElement("anus");
+			characterBody.appendChild(bodyAnus);
+				addAttribute(doc, bodyAnus, "wetness", String.valueOf(character.getAssWetness().getValue()));
+				addAttribute(doc, bodyAnus, "elasticity", String.valueOf(character.getAssElasticity().getValue()));
+				addAttribute(doc, bodyAnus, "plasticity", String.valueOf(character.getAssPlasticity().getValue()));
+				addAttribute(doc, bodyAnus, "capacity", String.valueOf(character.getAssRawCapacityValue()));
+				addAttribute(doc, bodyAnus, "stretchedCapacity", String.valueOf(character.getAssStretchedCapacity()));
+				addAttribute(doc, bodyAnus, "virgin", String.valueOf(character.isAssVirgin()));
+				addAttribute(doc, bodyAnus, "bleached", String.valueOf(character.isAssBleached()));
+				addAttribute(doc, bodyAnus, "assHair", character.getAssHair().toString());
+				Element anusModifiers = doc.createElement("anusModifiers");
+				bodyAnus.appendChild(anusModifiers);
+				for(OrificeModifier om : OrificeModifier.values()) {
+					addAttribute(doc, anusModifiers, om.toString(), String.valueOf(character.hasAssOrificeModifier(om)));
+				}
 			
 			// Breasts:
 			Element bodyBreast = doc.createElement("breasts");
 			characterBody.appendChild(bodyBreast);
-			addAttribute(doc, bodyBreast, "type", character.getBreastType().toString());
-			addAttribute(doc, bodyBreast, "size", String.valueOf(character.getBreastSize().getMeasurement()));
-			addAttribute(doc, bodyBreast, "lactation", String.valueOf(character.getBreastRawLactationValue()));
-			addAttribute(doc, bodyBreast, "rows", String.valueOf(character.getBreastRows()));
-			addAttribute(doc, bodyBreast, "elasticity", String.valueOf(character.getNippleElasticity().getValue()));
-			addAttribute(doc, bodyBreast, "capacity", String.valueOf(character.getNippleRawCapacityValue()));
-			addAttribute(doc, bodyBreast, "stretchedCapacity", String.valueOf(character.getNippleStretchedCapacity()));
-			addAttribute(doc, bodyBreast, "pierced", String.valueOf(character.isPiercedNipple()));
-			addAttribute(doc, bodyBreast, "virgin", String.valueOf(character.isNippleVirgin()));
+				addAttribute(doc, bodyBreast, "type", character.getBreastType().toString());
+				addAttribute(doc, bodyBreast, "size", String.valueOf(character.getBreastSize().getMeasurement()));
+				addAttribute(doc, bodyBreast, "rows", String.valueOf(character.getBreastRows()));
+				addAttribute(doc, bodyBreast, "lactation", String.valueOf(character.getBreastRawLactationValue()));
+				addAttribute(doc, bodyBreast, "nippleCountPerBreast", String.valueOf(character.getNippleCountPerBreast()));
 
+			Element bodyNipple = doc.createElement("nipples");
+			characterBody.appendChild(bodyNipple);
+				addAttribute(doc, bodyNipple, "elasticity", String.valueOf(character.getNippleElasticity().getValue()));
+				addAttribute(doc, bodyNipple, "plasticity", String.valueOf(character.getNipplePlasticity().getValue()));
+				addAttribute(doc, bodyNipple, "capacity", String.valueOf(character.getNippleRawCapacityValue()));
+				addAttribute(doc, bodyNipple, "stretchedCapacity", String.valueOf(character.getNippleStretchedCapacity()));
+				addAttribute(doc, bodyNipple, "virgin", String.valueOf(character.isNippleVirgin()));
+				addAttribute(doc, bodyNipple, "pierced", String.valueOf(character.isPiercedNipple()));
+				addAttribute(doc, bodyNipple, "nippleSize", String.valueOf(character.getNippleSize().getValue()));
+				addAttribute(doc, bodyNipple, "nippleShape", String.valueOf(character.getNippleShape()));
+				addAttribute(doc, bodyNipple, "areolaeSize", String.valueOf(character.getAreolaeSize().getValue()));
+				addAttribute(doc, bodyNipple, "areolaeShape", String.valueOf(character.getAreolaeShape()));
+				Element nippleModifiers = doc.createElement("nippleModifiers");
+				bodyNipple.appendChild(nippleModifiers);
+				for(OrificeModifier om : OrificeModifier.values()) {
+					addAttribute(doc, nippleModifiers, om.toString(), String.valueOf(character.hasNippleOrificeModifier(om)));
+				}
+				
+			Element bodyMilk = doc.createElement("milk");
+			characterBody.appendChild(bodyMilk);
+				addAttribute(doc, bodyMilk, "flavour", String.valueOf(character.getMilkFlavour()));
+				Element milkModifiers = doc.createElement("milkModifiers");
+				bodyMilk.appendChild(milkModifiers);
+				for(FluidModifier fm : FluidModifier.values()) {
+					addAttribute(doc, milkModifiers, fm.toString(), String.valueOf(character.hasMilkModifier(fm)));
+				}
+				//TODO transformativeEffects;
+				
+				
 			// Ear:
 			Element bodyEar = doc.createElement("ear");
 			characterBody.appendChild(bodyEar);
-			addAttribute(doc, bodyEar, "type", character.getEarType().toString());
-			addAttribute(doc, bodyEar, "pierced", String.valueOf(character.isPiercedEar()));
+				addAttribute(doc, bodyEar, "type", character.getEarType().toString());
+				addAttribute(doc, bodyEar, "pierced", String.valueOf(character.isPiercedEar()));
 
 			// Eye:
 			Element bodyEye = doc.createElement("eye");
 			characterBody.appendChild(bodyEye);
-			addAttribute(doc, bodyEye, "type", character.getEyeType().toString());
+				addAttribute(doc, bodyEye, "type", character.getEyeType().toString());
+				addAttribute(doc, bodyEye, "eyePairs", String.valueOf(character.getEyePairs()));
+				addAttribute(doc, bodyEye, "irisShape", character.getIrisShape().toString());
+				addAttribute(doc, bodyEye, "pupilShape", character.getPupilShape().toString());
 			
-			// Face:
+			// Face:TODO
 			Element bodyFace = doc.createElement("face");
 			characterBody.appendChild(bodyFace);
 			addAttribute(doc, bodyFace, "type", character.getFaceType().toString());
@@ -611,87 +667,183 @@ public class CharacterUtils {
 				// Body:
 				// Core:
 				nodes = doc.getElementsByTagName("body");
-				
 				element = (Element) ((Element) nodes.item(0)).getElementsByTagName("bodyCore").item(0);
-				importedCharacter.setFemininity(Integer.valueOf(element.getAttribute("femininity")));
-				characterImportLog.append("</br>Body: Set femininity: "+Integer.valueOf(element.getAttribute("femininity")));
+					importedCharacter.setFemininity(Integer.valueOf(element.getAttribute("femininity")));
+					characterImportLog.append("</br>Body: Set femininity: "+Integer.valueOf(element.getAttribute("femininity")));
+					
+					importedCharacter.setHeight(Integer.valueOf(element.getAttribute("height")));
+					characterImportLog.append("</br>Body: Set height: "+Integer.valueOf(element.getAttribute("height")));
+					
+					importedCharacter.setPiercedNavel(Boolean.valueOf(element.getAttribute("piercedStomach")));
+					characterImportLog.append("</br>Body: Set piercedStomach: "+Boolean.valueOf(element.getAttribute("piercedStomach")));
+	
+					importedCharacter.setBodySize(Integer.valueOf(element.getAttribute("bodySize")));
+					characterImportLog.append("</br>Body: Set body size: "+Integer.valueOf(element.getAttribute("bodySize")));
+	
+					importedCharacter.setMuscle(Integer.valueOf(element.getAttribute("muscle")));
+					characterImportLog.append("</br>Body: Set muscle: "+Integer.valueOf(element.getAttribute("muscle")));
+	
+					importedCharacter.setPubicHair(BodyHair.valueOf(element.getAttribute("pubicHair")));
+					characterImportLog.append("</br>Body: Set pubicHair: "+importedCharacter.getPubicHair());
 				
-				importedCharacter.setHeight(Integer.valueOf(element.getAttribute("height")));
-				characterImportLog.append("</br>Body: Set height: "+Integer.valueOf(element.getAttribute("height")));
 				
-				importedCharacter.setPiercedNavel(Boolean.valueOf(element.getAttribute("piercedStomach")));
-				characterImportLog.append("</br>Body: Set piercedStomach: "+Boolean.valueOf(element.getAttribute("piercedStomach")));
-				
-				//TODO
-//				for(int i=0; i<element.getElementsByTagName("bodyCovering").getLength(); i++){
-//					Element e = ((Element)element.getElementsByTagName("bodyCovering").item(i));
-//					
-//					try {
-//						importedCharacter.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(e.getAttribute("type")), Colour.valueOf(e.getAttribute("colour")));
-//						if(Boolean.valueOf(e.getAttribute("discovered"))) {
-//							importedCharacter.getBodyCoveringTypesDiscovered().add(BodyCoveringType.valueOf(e.getAttribute("type")));
-//						}
-//						characterImportLog.append("</br>Body: Set bodyCovering: "+e.getAttribute("type")+" "+Colour.valueOf(e.getAttribute("colour"))+" (discovered: "+e.getAttribute("discovered")+")");
-//					}catch(IllegalArgumentException ex){
-//					}
-//				}
+				for(int i=0; i<element.getElementsByTagName("bodyCovering").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("bodyCovering").item(i));
+					
+					try {
+						importedCharacter.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(e.getAttribute("type")), CoveringPattern.valueOf(e.getAttribute("pattern")),
+								Colour.valueOf(e.getAttribute("colourPrimary")), Boolean.valueOf(e.getAttribute("glowPrimary")),
+								Colour.valueOf(e.getAttribute("colourSecondary")), Boolean.valueOf(e.getAttribute("glowSecondary")));
+						
+						if(Boolean.valueOf(e.getAttribute("discovered"))) {
+							importedCharacter.getBodyCoveringTypesDiscovered().add(BodyCoveringType.valueOf(e.getAttribute("type")));
+						}
+						
+						characterImportLog.append("</br>Body: Set bodyCovering: "+e.getAttribute("type") +" pattern:"+CoveringPattern.valueOf(e.getAttribute("pattern"))
+							+" "+Colour.valueOf(e.getAttribute("colourPrimary")) +" glow:"+Boolean.valueOf(e.getAttribute("glowPrimary"))
+							+" | "+Colour.valueOf(e.getAttribute("colourSecondary")) +" glow:"+Boolean.valueOf(e.getAttribute("glowSecondary"))
+							+" (discovered: "+e.getAttribute("discovered")+")");
+					}catch(IllegalArgumentException ex){
+					}
+				}
 				
 				// Body parts:
 				// Arm:
 				try {
-					importedCharacter.setArmType(ArmType.valueOf(((Element)((Element) nodes.item(0)).getElementsByTagName("arm").item(0)).getAttribute("type")));
-					characterImportLog.append("</br></br>Body: Arm:"
-							+ "</br>type: "+importedCharacter.getArmType());
+					Element arm = (Element)((Element) nodes.item(0)).getElementsByTagName("arm").item(0);
+					
+					importedCharacter.setArmType(ArmType.valueOf(arm.getAttribute("type")));
+					characterImportLog.append("</br></br>Body: Arm:"+ "</br>type: "+importedCharacter.getArmType());
+
+					importedCharacter.setArmRows(Integer.valueOf(arm.getAttribute("rows")));
+					characterImportLog.append("</br>rows: "+importedCharacter.getArmRows());
+
+					importedCharacter.setUnderarmHair(BodyHair.valueOf(arm.getAttribute("underarmHair")));
+					characterImportLog.append("</br>underarm hair: "+importedCharacter.getUnderarmHair());
+					
 				}catch(IllegalArgumentException ex){
 				}
+				
 				
 				// Ass:
 				try {
 					Element ass = (Element)((Element) nodes.item(0)).getElementsByTagName("ass").item(0);
 					importedCharacter.setAssType(AssType.valueOf(ass.getAttribute("type")));
 					importedCharacter.setAssSize(Integer.valueOf(ass.getAttribute("assSize")));
-					importedCharacter.setAssBleached(Boolean.valueOf(ass.getAttribute("bleached")));
-					importedCharacter.setAssCapacity(Float.valueOf(ass.getAttribute("capacity")));
-					importedCharacter.setAssElasticity(Integer.valueOf(ass.getAttribute("elasticity")));
 					importedCharacter.setHipSize(Integer.valueOf(ass.getAttribute("hipSize")));
-					importedCharacter.setAssStretchedCapacity(Float.valueOf(ass.getAttribute("stretchedCapacity")));
-					importedCharacter.setAssVirgin(Boolean.valueOf(ass.getAttribute("virgin")));
-					importedCharacter.setAssWetness(Integer.valueOf(ass.getAttribute("wetness")));
+
+					Element anus = (Element)((Element) nodes.item(0)).getElementsByTagName("anus").item(0);
+					importedCharacter.setAssWetness(Integer.valueOf(anus.getAttribute("wetness")));
+					importedCharacter.setAssElasticity(Integer.valueOf(anus.getAttribute("elasticity")));
+					importedCharacter.setAssPlasticity(Integer.valueOf(anus.getAttribute("plasticity")));
+					importedCharacter.setAssCapacity(Float.valueOf(anus.getAttribute("capacity")));
+					importedCharacter.setAssStretchedCapacity(Float.valueOf(anus.getAttribute("stretchedCapacity")));
+					importedCharacter.setAssVirgin(Boolean.valueOf(anus.getAttribute("virgin")));
+					importedCharacter.setAssBleached(Boolean.valueOf(anus.getAttribute("bleached")));
+					importedCharacter.setAssHair(BodyHair.valueOf(anus.getAttribute("assHair")));
+					
 					characterImportLog.append("</br></br>Body: Ass:"
 							+ "</br>type: "+importedCharacter.getAssType()
-							+ "</br>size: "+importedCharacter.getAssSize()
-							+ "</br>bleached: "+importedCharacter.isAssBleached()
-							+ "</br>capacity: "+importedCharacter.getAssCapacity()
-							+ "</br>elasticity: "+importedCharacter.getAssElasticity()
+							+ "</br>assSize: "+importedCharacter.getAssSize()
 							+ "</br>hipSize: "+importedCharacter.getHipSize()
+							
+							+"</br></br>Anus:"
+							+ "</br>wetness: "+importedCharacter.getAssWetness()
+							+ "</br>elasticity: "+importedCharacter.getAssElasticity()
+							+ "</br>elasticity: "+importedCharacter.getAssPlasticity()
+							+ "</br>capacity: "+importedCharacter.getAssCapacity()
 							+ "</br>stretchedCapacity: "+importedCharacter.getAssStretchedCapacity()
 							+ "</br>virgin: "+importedCharacter.isAssVirgin()
-							+ "</br>wetness: "+importedCharacter.getAssWetness());
+							+ "</br>bleached: "+importedCharacter.isAssBleached()
+							+ "</br>assHair: "+importedCharacter.getAssHair()
+							+"</br>Modifiers:");
+					
+					Element anusModifiers = (Element)anus.getElementsByTagName("anusModifiers").item(0);
+					
+					for(OrificeModifier om : OrificeModifier.values()) {
+						if(Boolean.valueOf(anusModifiers.getAttribute(om.toString()))) {
+							importedCharacter.addAssOrificeModifier(om);
+							characterImportLog.append("</br>"+om.toString()+":true");
+						} else {
+							characterImportLog.append("</br>"+om.toString()+":false");
+						}
+					}
+					
 				}catch(IllegalArgumentException ex){
 				}
+				
 				
 				// Breasts:
 				try {
 					Element breasts = (Element)((Element) nodes.item(0)).getElementsByTagName("breasts").item(0);
-					importedCharacter.setBreastType(BreastType.valueOf(breasts.getAttribute("type")));
-					importedCharacter.setNippleCapacity(Float.valueOf(breasts.getAttribute("capacity")));
-					importedCharacter.setNippleElasticity(Integer.valueOf(breasts.getAttribute("elasticity")));
-					importedCharacter.setBreastLactation(Integer.valueOf(breasts.getAttribute("lactation")));
-					importedCharacter.setPiercedNipples(Boolean.valueOf(breasts.getAttribute("pierced")));
-					importedCharacter.setBreastRows(Integer.valueOf(breasts.getAttribute("rows")));
-					importedCharacter.setBreastSize(Integer.valueOf(breasts.getAttribute("size")));
-					importedCharacter.setNippleStretchedCapacity(Float.valueOf(breasts.getAttribute("stretchedCapacity")));
-					importedCharacter.setNippleVirgin(Boolean.valueOf(breasts.getAttribute("virgin")));
+						importedCharacter.setBreastType(BreastType.valueOf(breasts.getAttribute("type")));
+						importedCharacter.setBreastSize(Integer.valueOf(breasts.getAttribute("size")));
+						importedCharacter.setBreastRows(Integer.valueOf(breasts.getAttribute("rows")));
+						importedCharacter.setBreastLactation(Integer.valueOf(breasts.getAttribute("lactation")));
+						importedCharacter.setNippleCountPerBreast(Integer.valueOf(breasts.getAttribute("nippleCountPerBreast")));
+
+					Element nipples = (Element)((Element) nodes.item(0)).getElementsByTagName("nipples").item(0);
+						importedCharacter.setNippleElasticity(Integer.valueOf(nipples.getAttribute("elasticity")));
+						importedCharacter.setNipplePlasticity(Integer.valueOf(nipples.getAttribute("plasticity")));
+						importedCharacter.setNippleCapacity(Float.valueOf(nipples.getAttribute("capacity")));
+						importedCharacter.setNippleStretchedCapacity(Float.valueOf(nipples.getAttribute("stretchedCapacity")));
+						importedCharacter.setNippleVirgin(Boolean.valueOf(nipples.getAttribute("virgin")));
+						importedCharacter.setPiercedNipples(Boolean.valueOf(nipples.getAttribute("pierced")));
+						importedCharacter.setNippleSize(Integer.valueOf(nipples.getAttribute("nippleSize")));
+						importedCharacter.setNippleShape(NippleShape.valueOf(nipples.getAttribute("nippleShape")));
+						importedCharacter.setAreolaeSize(Integer.valueOf(nipples.getAttribute("areolaeSize")));
+						importedCharacter.setAreolaeShape(AreolaeShape.valueOf(nipples.getAttribute("areolaeShape")));
+					
 					characterImportLog.append("</br></br>Body: Breasts:"
 							+ "</br>type: "+importedCharacter.getBreastType()
-							+ "</br>capacity: "+importedCharacter.getNippleRawCapacityValue()
-							+ "</br>elasticity: "+importedCharacter.getNippleElasticity()
-							+ "</br>lactation: "+importedCharacter.getBreastRawLactationValue()
-							+ "</br>pierced: "+importedCharacter.isPiercedNipple()
-							+ "</br>rows: "+importedCharacter.getBreastRows()
 							+ "</br>size: "+importedCharacter.getBreastSize()
+							+ "</br>rows: "+importedCharacter.getBreastRows()
+							+ "</br>lactation: "+importedCharacter.getBreastRawLactationValue()
+							+ "</br>nippleCountPerBreast: "+importedCharacter.getNippleCountPerBreast()
+							
+							+ "</br></br>Nipples:"
+							+ "</br>elasticity: "+importedCharacter.getNippleElasticity()
+							+ "</br>plasticity: "+importedCharacter.getNipplePlasticity()
+							+ "</br>capacity: "+importedCharacter.getNippleRawCapacityValue()
 							+ "</br>stretchedCapacity: "+importedCharacter.getNippleStretchedCapacity()
-							+ "</br>virgin: "+importedCharacter.isNippleVirgin());
+							+ "</br>virgin: "+importedCharacter.isNippleVirgin()
+							+ "</br>pierced: "+importedCharacter.isPiercedNipple()
+							+ "</br>nippleSize: "+importedCharacter.getNippleSize()
+							+ "</br>nippleShape: "+importedCharacter.getNippleShape()
+							+ "</br>areolaeSize: "+importedCharacter.getAreolaeSize()
+							+ "</br>areolaeShape: "+importedCharacter.getAreolaeShape()
+							+"</br>Modifiers:");
+					
+					Element nippleModifiers = (Element)nipples.getElementsByTagName("nippleModifiers").item(0);
+					for(OrificeModifier om : OrificeModifier.values()) {
+						if(Boolean.valueOf(nippleModifiers.getAttribute(om.toString()))) {
+							importedCharacter.addNippleOrificeModifier(om);
+							characterImportLog.append("</br>"+om.toString()+":true");
+						} else {
+							characterImportLog.append("</br>"+om.toString()+":false");
+						}
+					}
+					
+					characterImportLog.append("</br></br>Milk:");
+					
+					Element milk = (Element)((Element) nodes.item(0)).getElementsByTagName("milk").item(0);
+					importedCharacter.setMilkFlavour(FluidFlavour.valueOf(milk.getAttribute("flavour")));
+					
+					characterImportLog.append(
+							" flavour: "+importedCharacter.getMilkFlavour()
+							+ "</br>Modifiers:");
+					
+					Element milkModifiers = (Element)milk.getElementsByTagName("milkModifiers").item(0);
+					for(FluidModifier fm : FluidModifier.values()) {
+						if(Boolean.valueOf(milkModifiers.getAttribute(fm.toString()))) {
+							importedCharacter.addMilkModifier(fm);
+							characterImportLog.append("</br>"+fm.toString()+":true");
+						} else {
+							characterImportLog.append("</br>"+fm.toString()+":false");
+						}
+					}
+					
+					
 				}catch(IllegalArgumentException ex){
 				}
 				
@@ -703,6 +855,7 @@ public class CharacterUtils {
 					characterImportLog.append("</br></br>Body: Ear:"
 							+ "</br>type: "+importedCharacter.getEarType()
 							+ "</br>pierced: "+importedCharacter.isPiercedEar());
+					
 				}catch(IllegalArgumentException ex){
 				}
 				
@@ -710,12 +863,20 @@ public class CharacterUtils {
 				try {
 					Element eye = (Element)((Element) nodes.item(0)).getElementsByTagName("eye").item(0);
 					importedCharacter.setEyeType(EyeType.valueOf(eye.getAttribute("type")));
+					importedCharacter.setEyePairs(Integer.valueOf(eye.getAttribute("eyePairs")));
+					importedCharacter.setIrisShape(EyeShape.valueOf(eye.getAttribute("irisShape")));
+					importedCharacter.setPupilShape(EyeShape.valueOf(eye.getAttribute("pupilShape")));
+					
 					characterImportLog.append("</br></br>Body: Eye:"
-							+ "</br>type: "+importedCharacter.getEyeType());
+							+ "</br>type: "+importedCharacter.getEyeType()
+							+ "</br>pairs: "+importedCharacter.getEyePairs()
+							+ "</br>iris shape: "+importedCharacter.getIrisShape()
+							+ "</br>pupil shape: "+importedCharacter.getPupilShape());
+					
 				}catch(IllegalArgumentException ex){
 				}
 				
-				// Face:
+				// Face://TODO
 				try {
 					Element face = (Element)((Element) nodes.item(0)).getElementsByTagName("face").item(0);
 					importedCharacter.setFaceType(FaceType.valueOf(face.getAttribute("type")));

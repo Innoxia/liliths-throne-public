@@ -936,7 +936,7 @@ public class EnforcerHQDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "[candi.speechNoEffects(Aww Brax! You're, like, so cute!)] Candi squeals, bouncing up and down in excitement,"
-							+ " [candi.speechNoEffects(Ooh! You need a new name! You can be Bree! You like that pet?!)]"
+							+ " [candi.speechNoEffects(Ooh! You need a new name! You can be Bree! You like that, pet?!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Bree lets out a soft whimper, and her hands suddenly dart down between her legs."
