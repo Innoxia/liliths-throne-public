@@ -937,6 +937,10 @@ position:relative;
 	max-height:22px;
 	-webkit-user-select: none;
 }
+.phone-item-third.phone-item-third-large{
+	height:44px;
+	max-height:44px;
+}
 .phone-item-third.slot{
 	width:25vw;
 	max-width:168px;/*320px;*/
