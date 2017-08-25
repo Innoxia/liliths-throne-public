@@ -32,7 +32,7 @@ import com.base.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.8
+ * @version 0.1.83
  * @author Innoxia
  */
 public class OptionsDialogue {

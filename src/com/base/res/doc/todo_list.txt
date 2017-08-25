@@ -128,8 +128,11 @@
 		Nipple bars are now correctly treated as a plural item.
 		Fixed some instances were Bree/Brandi were called Brax.
 		Typo fixes.
-	
-	
+		Fixed bug where dyeing stacked clothes would dye the entire stack (fixed by Pimvgd).
+		Fixed a lot of typos, both in content and in code (by Pimvgd).
+		Fixed formatting issues in the encyclopedia's item page (by Pimvgd).
+		Fixed special attack descriptions not showing when performing the attack (by Pimvgd).
+		Fixed a bug where the player inventory would stay on screen on new game start (by Pimvgd).
 	
 	
 	Milk
