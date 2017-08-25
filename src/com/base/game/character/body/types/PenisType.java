@@ -22,6 +22,8 @@ public enum PenisType implements BodyPartTypeInterface {
 
 	ANGEL(BodyCoveringType.PENIS, TesticleType.ANGEL, Race.ANGEL),
 
+	BOVINE(BodyCoveringType.PENIS, TesticleType.BOVINE, Race.COW_MORPH, PenisModifier.FLARED, PenisModifier.VEINY, PenisModifier.SHEATHED),
+
 	DEMON_COMMON(BodyCoveringType.PENIS, TesticleType.DEMON_COMMON, Race.DEMON, PenisModifier.RIBBED, PenisModifier.TENTACLED, PenisModifier.PREHENSILE),
 
 	CANINE(BodyCoveringType.PENIS, TesticleType.CANINE, Race.DOG_MORPH, PenisModifier.KNOTTED, PenisModifier.SHEATHED, PenisModifier.TAPERED),
@@ -72,6 +74,8 @@ public enum PenisType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("cock", "shaft");
 			case AVIAN:
 				return UtilText.returnStringAtRandom("cock", "shaft");
+			case BOVINE:
+				return UtilText.returnStringAtRandom("bull-cock", "bovine cock", "bull-like cock", "bull-dick");
 			case CANINE:
 				return UtilText.returnStringAtRandom("dog-cock", "canine cock", "dog-like cock", "dog-dick");
 			case DEMON_COMMON:
@@ -100,6 +104,8 @@ public enum PenisType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("cocks", "shafts");
 			case AVIAN:
 				return UtilText.returnStringAtRandom("cocks", "shafts");
+			case BOVINE:
+				return UtilText.returnStringAtRandom("bull-cocks", "bovine cocks", "bull-like cocks", "bull-dicks");
 			case CANINE:
 				return UtilText.returnStringAtRandom("dog-cocks", "canine cocks", "dog-like cocks", "dog-dicks");
 			case DEMON_COMMON:
@@ -131,6 +137,8 @@ public enum PenisType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("angelic");
 					case AVIAN:
 						return UtilText.returnStringAtRandom("avian");
+					case BOVINE:
+						return UtilText.returnStringAtRandom("bestial", "thick");
 					case CANINE:
 						return UtilText.returnStringAtRandom("bestial");
 					case DEMON_COMMON:
@@ -185,6 +193,8 @@ public enum PenisType implements BodyPartTypeInterface {
 	
 	public String getPenisHeadDescriptor(GameCharacter gc) {
 		switch(this){
+			case BOVINE:
+				return UtilText.returnStringAtRandom("wide", "flared", "flat");
 			case CANINE:
 				return UtilText.returnStringAtRandom("tapered", "pointed");
 			case EQUINE:
@@ -200,6 +210,8 @@ public enum PenisType implements BodyPartTypeInterface {
 	
 	public String getCumName(GameCharacter gc) {
 		switch(this){
+			case BOVINE:
+				return UtilText.returnStringAtRandom("bull-cum", "bull-cream", "cow-jism", "bull-jizz", "cow-seed");
 			case CANINE:
 				if(gc.getRace()==Race.WOLF_MORPH) {
 					return UtilText.returnStringAtRandom("wolf-cum", "wolf-cream", "wolf-jism", "wolf-jizz", "wolf-seed");

@@ -1795,6 +1795,37 @@ public enum StatusEffect {
 		}
 	},
 
+	// BOVINE:
+	COW_MORPH(
+			90,
+			"cow-morph",
+			"raceCowMorph",
+			Colour.RACE_COW_MORPH,
+			true,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.INTELLIGENCE, -5f), new Value<Attribute, Float>(Attribute.STRENGTH, 15f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "Your body possesses a great strength, but your mind is considerably slower than it once was.";
+			else
+				return UtilText.genderParsing(target, target.getName("The")
+						+ "'s body possesses a great strength, but <her> mind isn't exactly the quickest.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.COW_MORPH
+					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+	},
+
 	// SLIME:
 	SLIME(
 			90,

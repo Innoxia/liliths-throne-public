@@ -302,6 +302,9 @@ public class Body implements Serializable {
 				case CAT_MORPH:
 					coverings.put(BodyCoveringType.BODY_HAIR_FELINE_FUR, new Covering(BodyCoveringType.BODY_HAIR_FELINE_FUR, coverings.get(BodyCoveringType.HAIR_FELINE_FUR).getPrimaryColour()));
 					break;
+				case COW_MORPH:
+					coverings.put(BodyCoveringType.BODY_HAIR_BOVINE_FUR, new Covering(BodyCoveringType.BODY_HAIR_BOVINE_FUR, coverings.get(BodyCoveringType.HAIR_BOVINE_FUR).getPrimaryColour()));
+					break;
 				case DEMON:
 					coverings.put(BodyCoveringType.BODY_HAIR_DEMON, new Covering(BodyCoveringType.BODY_HAIR_DEMON, coverings.get(BodyCoveringType.HAIR_DEMON).getPrimaryColour()));
 					break;
@@ -517,6 +520,9 @@ public class Body implements Serializable {
 			case CAT_MORPH:
 				sb.append(", anthropomorphic cat-like face, with a cute little muzzle.");
 				break;
+			case COW_MORPH:
+				sb.append(", anthropomorphic cow-like face, with a cute little muzzle.");
+				break;
 			case SQUIRREL_MORPH:
 				sb.append(", anthropomorphic squirrel-like face, with a cute little muzzle.");
 				break;
@@ -576,6 +582,9 @@ public class Body implements Serializable {
 					sb.append(", fur-like hair");
 					break;
 				case CAT_MORPH:
+					sb.append(", fur-like hair");
+					break;
+				case COW_MORPH:
 					sb.append(", fur-like hair");
 					break;
 				case SQUIRREL_MORPH:
@@ -638,6 +647,18 @@ public class Body implements Serializable {
 				else
 					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from [npc.her] upper forehead.");
 				break;
+			case BOVINE_MALE:
+				if (owner.isPlayer())
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from your upper temples.");
+				else
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from [npc.her] upper temples.");
+				break;
+			case BOVINE_FEMALE:
+				if (owner.isPlayer())
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from your upper temples.");
+				else
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from [npc.her] upper temples.");
+				break;
 			default:
 				if (owner.isPlayer())
 					sb.append(" [pc.A_horns+] protrude from your upper forehead.");
@@ -682,6 +703,9 @@ public class Body implements Serializable {
 				break;
 			case CAT_MORPH:
 				sb.append(" cat-like eyes");
+				break;
+			case COW_MORPH:
+				sb.append(" cow-like eyes");
 				break;
 			case DEMON_COMMON:
 				sb.append(" demonic eyes");
@@ -782,6 +806,12 @@ public class Body implements Serializable {
 					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on your head.");
 				else
 					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on [npc.her] head.");
+				break;
+			case COW_MORPH:
+				if (owner.isPlayer())
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"cow-like ears, which are positioned high up on your head.");
+				else
+					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"cow-like ears, which are positioned high up on [npc.her] head.");
 				break;
 			case SQUIRREL_MORPH:
 				if (owner.isPlayer())
@@ -1358,6 +1388,14 @@ public class Body implements Serializable {
 					sb.append("[npc.She] has "+armDeterminer+" arms, which are covered in [npc.armFullDescription(true)]."
 							+ " [npc.Her] hands are formed into anthropomorphic, cat-like hands, complete with retractable claws and pink pads.");
 				break;
+			case COW_MORPH:
+				if (owner.isPlayer())
+					sb.append("You have "+armDeterminer+" arms, which are covered in [pc.armFullDescription(true)]."
+								+ " Your hands, while human in shape, have tough little hoof-like nails.");
+				else
+					sb.append("[npc.She] has "+armDeterminer+" arms, which are covered in [npc.armFullDescription(true)]."
+							+ " [npc.Her] hands, while human in shape, have tough little hoof-like nails.");
+				break;
 			case SQUIRREL_MORPH:
 				if (owner.isPlayer())
 					sb.append("You have "+armDeterminer+" arms, which are covered in [pc.armFullDescription(true)]."
@@ -1507,6 +1545,14 @@ public class Body implements Serializable {
 					sb.append("[npc.Her] legs are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
 							+ " and [npc.her] feet are formed into anthropomorphic horse-like hooves.");
 				break;
+			case COW_MORPH:
+				if (owner.isPlayer())
+					sb.append("Your legs are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>,"
+							+ " and your feet are formed into anthropomorphic cow-like hooves.");
+				else
+					sb.append("[npc.Her] legs are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
+							+ " and [npc.her] feet are formed into anthropomorphic cow-like hooves.");
+				break;
 			case SLIME:
 				if (owner.isPlayer())
 					sb.append("Your legs, although human-shaped, are made out of <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>.");
@@ -1644,6 +1690,14 @@ public class Body implements Serializable {
 								+ " You can swipe it from side to side, but other than that, you don't have much control over it.");
 					else
 						sb.append(" A long, <span style='color:[npc.tailColourHex];'>[npc.tailColour], horse-like tail</span> grows out from just above [npc.her] ass."
+								+ " [npc.She] can swipe it from side to side, but other than that, [npc.she] doesn't seem to have much control over it.");
+					break;
+				case COW_MORPH:
+					if (owner.isPlayer())
+						sb.append(" A long, <span style='color:[pc.tailColourHex];'>[pc.tailColour], cow-like tail</span> grows out from just above your ass."
+								+ " You can swipe it from side to side, but other than that, you don't have much control over it.");
+					else
+						sb.append(" A long, <span style='color:[npc.tailColourHex];'>[npc.tailColour], cow-like tail</span> grows out from just above [npc.her] ass."
 								+ " [npc.She] can swipe it from side to side, but other than that, [npc.she] doesn't seem to have much control over it.");
 					break;
 				case HARPY:
@@ -1961,6 +2015,14 @@ public class Body implements Serializable {
 					descriptionSB.append("You have an equine, [pc.anusFullDescription(true)]");
 				} else {
 					descriptionSB.append("[npc.She] has an equine, [npc.anusFullDescription(true)]");
+				}
+				break;
+				
+			case COW_MORPH:
+				if (isPlayer) {
+					descriptionSB.append("You have an bovine, [pc.anusFullDescription(true)]");
+				} else {
+					descriptionSB.append("[npc.She] has an bovine, [npc.anusFullDescription(true)]");
 				}
 				break;
 				
@@ -2592,6 +2654,9 @@ public class Body implements Serializable {
 			case DEMON_COMMON:
 				descriptionSB.append(" demonic");
 				break;
+			case BOVINE:
+				descriptionSB.append(" bovine");
+				break;
 			case CANINE:
 				descriptionSB.append(" canine");
 				break;
@@ -3071,6 +3136,13 @@ public class Body implements Serializable {
 					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" feline pussy, with [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
 					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" feline pussy, with [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+				}
+				break;
+			case COW_MORPH:
+				if (isPlayer) {
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" bovine pussy, with [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+				} else {
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" bovine pussy, with [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case SQUIRREL_MORPH:

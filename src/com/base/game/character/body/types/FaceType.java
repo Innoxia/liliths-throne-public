@@ -22,6 +22,8 @@ public enum FaceType implements BodyPartTypeInterface {
 
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, MouthType.CAT_MORPH, TongueType.CAT_MORPH, Race.CAT_MORPH),
 
+	COW_MORPH(BodyCoveringType.BOVINE_FUR, MouthType.COW_MORPH, TongueType.COW_MORPH, Race.COW_MORPH),
+
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, MouthType.SQUIRREL_MORPH, TongueType.SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
 
 	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, MouthType.HORSE_MORPH, TongueType.HORSE_MORPH, Race.HORSE_MORPH),
@@ -57,6 +59,8 @@ public enum FaceType implements BodyPartTypeInterface {
 		switch(this){
 			case CAT_MORPH:
 				return UtilText.returnStringAtRandom("muzzle", "face");
+			case COW_MORPH:
+				return UtilText.returnStringAtRandom("muzzle", "face");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("muzzle", "face");
 			case LYCAN:
@@ -70,6 +74,8 @@ public enum FaceType implements BodyPartTypeInterface {
 	public String getNamePlural(GameCharacter gc) {
 		switch(this){
 			case CAT_MORPH:
+				return UtilText.returnStringAtRandom("muzzles", "faces");
+			case COW_MORPH:
 				return UtilText.returnStringAtRandom("muzzles", "faces");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("muzzles", "faces");
@@ -87,6 +93,8 @@ public enum FaceType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("perfect", "flawless", "angelic");
 			case CAT_MORPH:
 				return UtilText.returnStringAtRandom("anthropomorphic cat-like", "cat-like", "feline");
+			case COW_MORPH:
+				return UtilText.returnStringAtRandom("anthropomorphic cow-like", "cow-like", "bovine");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("perfect", "flawless", "demonic");
 			case DOG_MORPH:

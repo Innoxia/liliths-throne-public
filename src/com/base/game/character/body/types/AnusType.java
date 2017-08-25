@@ -20,6 +20,8 @@ public enum AnusType implements BodyPartTypeInterface {
 	
 	DEMON_COMMON(BodyCoveringType.ANUS, Race.DEMON, OrificeModifier.RIBBED, OrificeModifier.TENTACLED, OrificeModifier.MUSCLE_CONTROL),
 	
+	COW_MORPH(BodyCoveringType.ANUS, Race.COW_MORPH),
+	
 	DOG_MORPH(BodyCoveringType.ANUS, Race.DOG_MORPH),
 	
 	SQUIRREL_MORPH(BodyCoveringType.ANUS, Race.SQUIRREL_MORPH),
@@ -87,6 +89,8 @@ public enum AnusType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("demonic", "irresistible");
 			case HORSE_MORPH:
 				return UtilText.returnStringAtRandom("horse-like", "equine");
+			case COW_MORPH:
+				return UtilText.returnStringAtRandom("cow-like", "bovine");
 			case SLIME:
 				return UtilText.returnStringAtRandom("gooey", "slimy");
 			default:

@@ -229,6 +229,25 @@ public class Breast implements BodyPartInterface, Serializable {
 								+ "</p>");
 				}
 				break;
+			case COW_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
+							+ " After a few moments, the feeling starts to fade away, leaving you with bovine breasts, covered in [pc.breastFullDescriptionColour]."
+							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
+							+ "</br>"
+							+ "You now have [style.boldCowMorph(bovine breasts and [pc.nipples])], and when lactating, you will produce [style.boldCowMorph(bovine milk)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
+								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with bovine breasts, covered in [npc.breastFullDescriptionColour]."
+								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
+								+ "</br>"
+								+ "[npc.She] now has [style.boldCowMorph(bovine breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldCowMorph(bovine milk)]."
+								+ "</p>");
+				}
+				break;
 			case SQUIRREL_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
