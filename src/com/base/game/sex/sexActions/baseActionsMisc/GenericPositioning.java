@@ -614,7 +614,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getActionDescription() {
-			return "Lie down on your back and ask [npc.name] to straddle you in teh cowgirl position.";
+			return "Lie down on your back and ask [npc.name] to straddle you in the cowgirl position.";
 		}
 
 		@Override

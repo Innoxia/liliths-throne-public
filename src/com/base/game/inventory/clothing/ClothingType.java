@@ -3321,7 +3321,7 @@ public enum ClothingType {
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You unwrap teh sarashi remove it from your stomach.";
+				return "You unwrap the sarashi remove it from your stomach.";
 			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
 				return UtilText.parse(clothingOwner, "[npc.Name] unwraps the sarashi from around [npc.her] stomach.");
 			} else {

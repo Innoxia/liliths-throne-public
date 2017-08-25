@@ -452,8 +452,7 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>transformation scenes</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>forced transformations</span>"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Increases</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>potency of forced transformations</span>"),
 					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Not yet implemented!</span>")),
 			null) {
 
@@ -594,8 +593,8 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("Unlocks <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>son & daughter encounters</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Partly implemented</span>")),
+					new ListValue<>("Unlocks <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>incesst tease</span>"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Not yet implemented!</span>")),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -685,8 +684,8 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Resist sex pace</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Non-consensual scenes</span>")),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Non-con tease</span>"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Not yet implemented!</span>")),
 			null) {
 
 		@Override

@@ -28,9 +28,7 @@
 	Gameplay:
 		<b>Important change:</b> I listened to a lot of your feedback on the way the 'Non-con', 'Incest', and 'Transformation' fetishes were being used as content gates, and, after thinking about it, I've decided to move those options back to a proper 'content preferences' screen.
 		This will now enable your content preferences to be carried over to all of your games, so you don't have to worry about taking those fetishes on every new game.
-		As part of this, I've also changed the related fetishes in the following ways:
-		
-		
+		<b>As part of this:</b> I'm going to change the non-con and 
 		<b>Changed:</b> Split orifice elasticity into elasticity and plasticity. Elasticity determines how quickly you stretch out during sex, while plasticity determines how much your orifice recovers afterwards.
 		Updated character creation screen. This is still not in the final form that I want it to be in, but it does now include more options than before.
 		
@@ -143,6 +141,9 @@
 		Clothing colours in encyclopedia should no longer overlap (by Pimgd).
 	
 	
+	
+	
+	A lot of the NPCs might have incorrectly configured skin/hair colours.
 	
 	
 	

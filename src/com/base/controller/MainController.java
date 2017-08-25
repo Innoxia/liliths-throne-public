@@ -1916,6 +1916,8 @@ public class MainController implements Initializable {
 				if(a==Attribute.EXPERIENCE) {
 					((EventTarget) documentAttributes.getElementById("PLAYER_"+a.getName())).addEventListener("click", e -> {
 						
+						//TODO block when in character creation
+						
 						if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.PHONE) {
 							if(Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP) {
 								openPhone();

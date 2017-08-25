@@ -731,7 +731,7 @@ public class Body implements Serializable {
 			if(owner.getEyePupilCovering().getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
 				sb.append("and [npc.pupilShape], heterochromatic [npc.pupilPrimaryColour(true)]-and-[npc.pupilSecondaryColour(true)] pupils.");
 			} else {
-				sb.append("and [npc.pupilShape] ,[npc.pupilPrimaryColour(true)] pupils.");
+				sb.append("and [npc.pupilShape], [npc.pupilPrimaryColour(true)] pupils.");
 			}
 		}
 		
@@ -825,7 +825,7 @@ public class Body implements Serializable {
 				switch(owner.getFacialHair()) {
 					case NONE:
 						if(!owner.isFeminine()) {
-							sb.append(" There is no trace of any "+owner.getFacialHairType().getFullDescription(owner, true)+" on your face.");
+							sb.append(" You don't have any trace of facial "+owner.getFacialHairType().getName(owner, true)+".");
 						}
 						break;
 					case MANICURED:
@@ -843,7 +843,7 @@ public class Body implements Serializable {
 				switch(owner.getFacialHair()) {
 					case NONE:
 						if(!owner.isFeminine()) {
-							sb.append(" There is no trace of any "+owner.getFacialHairType().getFullDescription(owner, true)+" on [npc.her] face.");
+							sb.append(" [npc.She] doesn't have any trace of facial "+owner.getFacialHairType().getName(owner, true)+".");
 						}
 						break;
 					case MANICURED:
@@ -1418,7 +1418,7 @@ public class Body implements Serializable {
 			if(owner.isPlayer()) {
 				switch(owner.getUnderarmHair()) {
 					case NONE:
-						sb.append(" There is no trace of any "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in your armpits.");
+						sb.append(" There is no trace of any "+owner.getUnderarmHairType().getName(owner)+" in your armpits.");
 						break;
 					case MANICURED:
 						sb.append(" You have a well-manicured patch of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of your armpits.");
@@ -1434,7 +1434,7 @@ public class Body implements Serializable {
 			} else {
 				switch(owner.getUnderarmHair()) {
 					case NONE:
-						sb.append(" There is no trace of any "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in [npc.her] armpits.");
+						sb.append(" There is no trace of any "+owner.getUnderarmHairType().getName(owner, true)+" in [npc.her] armpits.");
 						break;
 					case MANICURED:
 						sb.append(" [npc.She] has a well-manicured patch of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
@@ -2109,7 +2109,7 @@ public class Body implements Serializable {
 			if(owner.isPlayer()) {
 				switch(ass.getAnus().getAssHair()) {
 					case NONE:
-//						descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getFullDescription(owner, true)+" around your asshole.");
+						descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getName(owner, true)+" around your asshole.");
 						break;
 					case MANICURED:
 						descriptionSB.append(" You have a well-manicured patch of "+owner.getAssHairType().getFullDescription(owner, true)+" around your asshole.");
@@ -2125,7 +2125,7 @@ public class Body implements Serializable {
 			} else {
 				switch(ass.getAnus().getAssHair()) {
 					case NONE:
-//						descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getFullDescription(owner, true)+" around [npc.her] asshole.");
+						descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getName(owner, true)+" around [npc.her] asshole.");
 						break;
 					case MANICURED:
 						descriptionSB.append(" [npc.She] has a well-manicured patch of "+owner.getAssHairType().getFullDescription(owner, true)+" around [npc.her] asshole.");
@@ -2794,9 +2794,9 @@ public class Body implements Serializable {
 			switch(owner.getPubicHair()) {
 				case NONE:
 					if (isPlayer) {
-						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of your cock.");
+						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner, true)+" around the base of your cock.");
 					} else {
-						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of [npc.her] cock.");
+						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner, true)+" around the base of [npc.her] cock.");
 					}
 					break;
 				case MANICURED:
@@ -3123,9 +3123,9 @@ public class Body implements Serializable {
 			switch(owner.getPubicHair()) {
 				case NONE:
 					if (isPlayer) {
-						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getFullDescription(owner, true)+" around your pussy.");
+						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner, true)+" around your pussy.");
 					} else {
-						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] pussy.");
+						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner, true)+" around [npc.her] pussy.");
 					}
 					break;
 				case MANICURED:
