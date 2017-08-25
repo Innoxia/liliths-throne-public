@@ -11,13 +11,13 @@ public enum SpecialAttackSpellCosts {
 	HIGH(5),
 	EXTREME(10);
 
-	private float percentange;
+	private float percentage;
 
-	private SpecialAttackSpellCosts(int percentange) {
-		this.percentange = percentange;
+	private SpecialAttackSpellCosts(int percentage) {
+		this.percentage = percentage;
 	}
 
-	public float getPercentange() {
-		return percentange;
+	public float getPercentage() {
+		return percentage;
 	}
 }

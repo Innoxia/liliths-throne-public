@@ -568,7 +568,7 @@ public class TestNPC extends NPC {
 							return "<p>"
 									+ "Holding out a 'Promiscuity pill' to [test.name], you ask [test.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
 									+ " Letting out an annoyed sigh, [test.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [test.she] growls at you,"
-									+ " [test.speech(Fine! I don't care eit[test.her] way, but I kinda like the taste of these things...)]"
+									+ " [test.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
 									+ "</p>";
 						}
 					case VIXENS_VIRILITY:
@@ -583,7 +583,7 @@ public class TestNPC extends NPC {
 							return "<p>"
 									+ "Holding out a 'Vixen's Virility' pill to [test.name], you ask [test.her] to swallow it."
 									+ " Letting out an annoyed sigh, [test.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [test.she] growls at you,"
-									+ " [test.speech(Fine! I don't care eit[test.her] way, but I kinda like the taste of these things...)]"
+									+ " [test.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
 									+ "</p>";
 						}
 					case POTION: case ELIXIR:

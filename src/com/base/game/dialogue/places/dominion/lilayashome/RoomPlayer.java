@@ -48,7 +48,7 @@ public class RoomPlayer {
 					"Rest for " + (sleepTimer >= 60 ? sleepTimer / 60 + " hours " : " ")
 					+ (sleepTimer % 60 != 0 ? sleepTimer % 60 + " minutes" : "")
 					+ " until " + (Main.game.isDayTime() ? "evening (21:00)." : "morning (07:00).")
-					+ " As well as replenishing your health, willpower and stamina, you will also get the 'Well Rested' status effect", AUNT_HOME_PLAYERS_ROOM_SLEEP_LONG){
+					+ " As well as replenishing your health, willpower and stamina, you will also get the 'Well Rested' status effect.", AUNT_HOME_PLAYERS_ROOM_SLEEP_LONG){
 				@Override
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));

@@ -175,7 +175,7 @@ public class PhoneDialogue {
 			if (!Main.game.getPlayer().isQuestCompleted(QuestLine.MAIN)) {
 				journalSB.append(
 						"<div class='quest-box'>"
-							+ Quest.getLevelAndExperinceHTML(Main.game.getPlayer().getQuest(QuestLine.MAIN), true)
+							+ Quest.getLevelAndExperienceHTML(Main.game.getPlayer().getQuest(QuestLine.MAIN), true)
 							+ "<h6 style='color:" + QuestType.MAIN.getColour().toWebHexString() + ";text-align:center;'>"
 								+ Main.game.getPlayer().getQuest(QuestLine.MAIN).getName()
 							+ "</h6>"
@@ -198,7 +198,7 @@ public class PhoneDialogue {
 			for (int i = Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() - 1; i >= 0; i--) {
 				journalSB.append(
 						"<div class='quest-box'>"
-							+ Quest.getLevelAndExperinceHTML(QuestLine.MAIN.getQuestArray()[i], false)
+							+ Quest.getLevelAndExperienceHTML(QuestLine.MAIN.getQuestArray()[i], false)
 							+ "<h6 style='color:" + QuestType.MAIN.getColour().getShades()[1]+ ";text-align:center;'>"
 								+ "<b>Completed - " + QuestLine.MAIN.getQuestArray()[i].getName() + "</b>"
 							+ "</h6>"
@@ -284,7 +284,7 @@ public class PhoneDialogue {
 										+ questLine.getName()
 									+ "</summary>"
 									+"<div class='quest-box'>"
-										+ Quest.getLevelAndExperinceHTML(Main.game.getPlayer().getQuest(questLine), true)
+										+ Quest.getLevelAndExperienceHTML(Main.game.getPlayer().getQuest(questLine), true)
 										+ "<h6 style='color:" + questLine.getType().getColour().toWebHexString()+ "; text-align:center;'>"
 											+ "<b>" + Main.game.getPlayer().getQuest(questLine).getName() + "</b>"
 										+ "</h6>"
@@ -298,7 +298,7 @@ public class PhoneDialogue {
 						for (int i = Main.game.getPlayer().getQuest(questLine).getSortingOrder() - 1; i >= 0; i--) {
 							journalSB.append(
 										"<div class='quest-box'>"
-											+ Quest.getLevelAndExperinceHTML(questLine.getQuestArray()[i], false)
+											+ Quest.getLevelAndExperienceHTML(questLine.getQuestArray()[i], false)
 											+ "<h6 style='color:" + questLine.getType().getColour().getShades()[1] + ";text-align:center;'>"
 													+ "<b>Completed - "+ questLine.getQuestArray()[i].getName() + "</b>"
 											+ "</h6>"
@@ -380,7 +380,7 @@ public class PhoneDialogue {
 										+ questLine.getName()
 									+ "</summary>"
 									+"<div class='quest-box'>"
-										+ Quest.getLevelAndExperinceHTML(Main.game.getPlayer().getQuest(questLine), true)
+										+ Quest.getLevelAndExperienceHTML(Main.game.getPlayer().getQuest(questLine), true)
 										+ "<h6 style='color:" + questLine.getType().getColour().toWebHexString()+ "; text-align:center;'>"
 											+ "<b>" + Main.game.getPlayer().getQuest(questLine).getName() + "</b>"
 										+ "</h6>"
@@ -394,7 +394,7 @@ public class PhoneDialogue {
 						for (int i = Main.game.getPlayer().getQuest(questLine).getSortingOrder() - 1; i >= 0; i--) {
 							journalSB.append(
 										"<div class='quest-box'>"
-											+ Quest.getLevelAndExperinceHTML(questLine.getQuestArray()[i], false)
+											+ Quest.getLevelAndExperienceHTML(questLine.getQuestArray()[i], false)
 											+ "<h6 style='color:" + questLine.getType().getColour().getShades()[1] + ";text-align:center;'>"
 													+ "<b>Completed - "+ questLine.getQuestArray()[i].getName() + "</b>"
 											+ "</h6>"

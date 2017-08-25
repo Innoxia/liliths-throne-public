@@ -8,13 +8,13 @@ package com.base.game.combat;
 public enum DamageVariance {
 	NONE(0), LOW(0.1f), MEDIUM(0.2f), HIGH(0.5f);
 
-	private float percentange;
+	private float percentage;
 
-	private DamageVariance(float percentange) {
-		this.percentange = percentange;
+	private DamageVariance(float percentage) {
+		this.percentage = percentage;
 	}
 
-	public float getPercentange() {
-		return percentange;
+	public float getPercentage() {
+		return percentage;
 	}
 }

@@ -660,7 +660,7 @@ public class GenericPositioning {
 						case DOM_ROUGH:
 							return "Reaching up and throwing your [pc.arms] off of [npc.her], [npc.name] lets out an angry snarl."
 									+ " Surprisingly, [npc.she] then suddenly drops to [npc.her] knees, and you look down to see [npc.herHim] grinning up at you,"
-									+ " [npc.speech(Luckily for you, this is what I panning all along! Now stay still bitch, you'd better appreciate this!)]";
+									+ " [npc.speech(Luckily for you, this is what I planning all along! Now stay still bitch, you'd better appreciate this!)]";
 						default:
 							return "Reaching up to take hold of your [pc.arms], [npc.name] lets out a little laugh as [npc.she] allows you to push [npc.herHim] down onto [npc.her] knees."
 									+ " Looking down, you see [npc.herHim] grinning up at you,"
