@@ -775,7 +775,7 @@ public enum RenderingEngine {
 									mapSB.append("<div class='place-icon'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div>");
 
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
-										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_NORTH) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_NORTH).getName()) + "</b>");
+										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_NORTH) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_NORTH).getFullName()) + "</b>");
 								
 								appendNPCIcon(x, y);
 								appendItemsInAreaIcon(x, y);
@@ -802,7 +802,7 @@ public enum RenderingEngine {
 									mapSB.append("<div class='place-icon'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div>");
 
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
-										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_SOUTH) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_SOUTH).getName()) + "</b>");
+										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_SOUTH) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_SOUTH).getFullName()) + "</b>");
 
 								appendNPCIcon(x, y);
 								appendItemsInAreaIcon(x, y);
@@ -829,7 +829,7 @@ public enum RenderingEngine {
 									mapSB.append("<div class='place-icon'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div>");
 
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
-										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_WEST) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_WEST).getName()) + "</b>");
+										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_WEST) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_WEST).getFullName()) + "</b>");
 
 								appendNPCIcon(x, y);
 								appendItemsInAreaIcon(x, y);
@@ -856,7 +856,7 @@ public enum RenderingEngine {
 									mapSB.append("<div class='place-icon'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div>");
 
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
-										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_EAST) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_EAST).getName()) + "</b>");
+										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_EAST) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_EAST).getFullName()) + "</b>");
 
 								appendNPCIcon(x, y);
 								appendItemsInAreaIcon(x, y);
