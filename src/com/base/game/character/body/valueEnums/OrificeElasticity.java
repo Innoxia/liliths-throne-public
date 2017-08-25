@@ -11,44 +11,43 @@ public enum OrificeElasticity {
 
 	/*-------RIGID:---------*/
 
-	/**Is extremely resistant to being stretched out, and will only recover about 25% of its original size after sex.*/
-	ZERO_UNYIELDING("rigid", 0, 0.05f, 0.75f),
+	/**Is extremely resistant to being stretched out.*/
+	ZERO_UNYIELDING("rigid", 0, 0.05f),
 	
-	/**Is very resistant to being stretched out, and will only recover about 50% of its original size after sex.*/
-	ONE_RIGID("stiff", 1, 0.1f, 0.5f),
+	/**Is very resistant to being stretched out.*/
+	ONE_RIGID("stiff", 1, 0.1f),
 	
-	/**Is resistant to being stretched out, and will only recover about 75% of its original size after sex.*/
-	TWO_FIRM("firm", 2, 0.15f, 0.25f),
+	/**Is resistant to being stretched out.*/
+	TWO_FIRM("firm", 2, 0.15f),
 
 	/*-------NORMAL:---------*/
 	
-	/**Normal value, along with FOUR_LIMBER. Is quite resistant to being stretched out, but will very slowly return to starting value after sex.*/
-	THREE_FLEXIBLE("flexible", 3, 0.2f, 0),
+	/**Normal value, along with FOUR_LIMBER. Is quite resistant to being stretched out.*/
+	THREE_FLEXIBLE("flexible", 3, 0.2f),
 
-	/**Normal value, along with THREE_FLEXIBLE. Is somewhat resistant to being stretched out, but will slowly return to starting value after sex.*/
-	FOUR_LIMBER("limber", 4, 0.25f, 0),
+	/**Normal value, along with THREE_FLEXIBLE. Is somewhat resistant to being stretched out.*/
+	FOUR_LIMBER("limber", 4, 0.25f),
 
 	/*-------STRECHY:---------*/
 	
-	/**Stretches out fairly quickly, returns to starting value after sex.*/
-	FIVE_STRETCHY("stretchy", 5, 0.3f, 0),
+	/**Stretches out fairly quickly.*/
+	FIVE_STRETCHY("stretchy", 5, 0.3f),
 
-	/**Easily stretches out, quickly returns to starting value after sex.*/
-	SIX_SUPPLE("supple", 6, 0.4f, 0),
+	/**Easily stretches out.*/
+	SIX_SUPPLE("supple", 6, 0.4f),
 	
-	/**Very quickly stretches out, instantly returns to starting value after sex.*/
-	SEVEN_ELASTIC("elastic", 7, 0.5f, 0);
+	/**Very quickly stretches out.*/
+	SEVEN_ELASTIC("elastic", 7, 0.5f);
 
 	
 	private String descriptor;
 	private int value;
-	private float stretchModifier, capacityIncreaseModifier; 
+	private float stretchModifier; 
 
-	private OrificeElasticity(String descriptor, int value, float stretchModifier, float capacityIncreaseModifier) {
+	private OrificeElasticity(String descriptor, int value, float stretchModifier) {
 		this.descriptor = descriptor;
 		this.value = value;
 		this.stretchModifier = stretchModifier;
-		this.capacityIncreaseModifier = capacityIncreaseModifier;
 	}
 
 	public static OrificeElasticity getElasticityFromInt(int value) {
@@ -73,10 +72,6 @@ public enum OrificeElasticity {
 
 	public float getStretchModifier() {
 		return stretchModifier;
-	}
-	
-	public float getCapacityIncreaseModifier() {
-		return capacityIncreaseModifier;
 	}
 
 }

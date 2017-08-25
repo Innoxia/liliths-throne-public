@@ -35,6 +35,7 @@ import com.base.controller.eventListeners.buttons.ButtonMoveSouthEventListener;
 import com.base.controller.eventListeners.buttons.ButtonMoveWestEventListener;
 import com.base.controller.eventListeners.buttons.ButtonZoomEventListener;
 import com.base.controller.eventListeners.information.CopyInfoEventListener;
+import com.base.game.KeyCodeWithModifiers;
 import com.base.game.KeyboardAction;
 import com.base.game.character.CharacterChangeEventListener;
 import com.base.game.character.GameCharacter;
@@ -324,35 +325,53 @@ public class MainController implements Initializable {
 	private void setUpButtons() {
 		// HOTKEYS:
 		actionKeyPressed = new EventHandler<KeyEvent>() {
+			
+			private Map.Entry<KeyboardAction, KeyCodeWithModifiers> findExistingBinding(Map<KeyboardAction, KeyCodeWithModifiers> bindings, KeyEvent lookingFor){
+				return bindings.entrySet()
+					.stream()
+					.filter(entry -> entry.getValue() != null)
+					.filter(entry -> entry.getValue().matches(lookingFor))
+					.findFirst().orElse(null);
+			}
+			
+			private void printAlreadyExistingBinding(String primarySecondary, String actionName, String eventCodeName) {
+				Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>The key '" + eventCodeName
+						+ "' is already the " + primarySecondary + " bind for the action '" + actionName + "'!</b>" + "</p>");
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}
+			
+			private boolean handleExistingBindings(Map<KeyboardAction, KeyCodeWithModifiers> bindings, KeyEvent lookingFor, String primarySecondary) {
+				Map.Entry<KeyboardAction, KeyCodeWithModifiers> existingBinding = findExistingBinding(bindings, lookingFor);
+				boolean hasExistingBinding = existingBinding != null;
+				if (hasExistingBinding) {
+					actionToBind = null;
+					printAlreadyExistingBinding(primarySecondary, existingBinding.getKey().getName(), existingBinding.getValue().getFullName());
+				}
+				return hasExistingBinding;
+			}
+			
 			public void handle(KeyEvent event) {
 				if (allowInput) {
 					// Hotkey bindings:
 					if (Main.game.getCurrentDialogueNode() == OptionsDialogue.KEYBINDS) {
 						if (actionToBind != null) {
-							// System.out.println(event.getCode().getName()+"
-							// "+actionToBind);
-
-							for (Entry<KeyboardAction, KeyCode> entry : Main.getProperties().hotkeyMapPrimary.entrySet())
-								if (entry.getValue() == event.getCode()) {
-									actionToBind = null;
-									Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>The key '" + event.getCode().getName()
-											+ "' is already the primary bind for the action '" + entry.getKey().getName() + "'!</b>" + "</p>");
-									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-									return;
-								}
-							for (Entry<KeyboardAction, KeyCode> entry : Main.getProperties().hotkeyMapSecondary.entrySet())
-								if (entry.getValue() == event.getCode()) {
-									actionToBind = null;
-									Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>The key '" + event.getCode().getName()
-											+ "' is already the secondary bind for the action '" + entry.getKey().getName() + "'!</b>" + "</p>");
-									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-									return;
-								}
-
+							KeyCode eventCode = event.getCode();
+							
+							//System.out.println(eventCode.getName()+" "+actionToBind);
+							
+							if (eventCode == KeyCode.SHIFT || eventCode == KeyCode.CONTROL) {
+								return; // these are explicitly blocked to allow SHIFT + key and CTRL + key
+							}
+							
+							if (handleExistingBindings(Main.getProperties().hotkeyMapPrimary, event, "primary")
+								|| handleExistingBindings(Main.getProperties().hotkeyMapSecondary, event, "secondary")) {
+								return; //such a binding already exists
+							}
+							KeyCodeWithModifiers newBinding = new KeyCodeWithModifiers(eventCode, event.isControlDown(), event.isShiftDown()); 
 							if (primaryBinding)
-								Main.getProperties().hotkeyMapPrimary.put(actionToBind, event.getCode());
+								Main.getProperties().hotkeyMapPrimary.put(actionToBind, newBinding);
 							else
-								Main.getProperties().hotkeyMapSecondary.put(actionToBind, event.getCode());
+								Main.getProperties().hotkeyMapSecondary.put(actionToBind, newBinding);
 							actionToBind = null;
 							Main.saveProperties();
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -445,6 +464,23 @@ public class MainController implements Initializable {
 //							 System.out.println("Free memory (bytes) -gc: " + Runtime.getRuntime().freeMemory());
 //							 System.gc();
 //							 System.out.println("Free memory (bytes) +gc: " + Runtime.getRuntime().freeMemory());
+//							 System.out.println("Body sizes:");
+//							 for(BodySize bs : BodySize.values()) {
+//								 System.out.println(bs.getName(false));
+//							 }
+//							 System.out.println("");
+//							 System.out.println("Muscle:");
+//							 for(Muscle m : Muscle.values()) {
+//								 System.out.println(m.getName(false));
+//							 }
+//							 System.out.println("");
+//							 System.out.println("");
+//							 System.out.println("Body shapes:");
+//							 for(BodyShape bs : BodyShape.values()) {
+//								 System.out.println(bs.getRelatedBodySize().getName(false)+" + "+bs.getRelatedMuscle().getName(false)+" = "+bs.getName());
+//							 }
+							 
+							 
 						 }
 						 
 //						 if(event.getCode()==KeyCode.DELETE){
@@ -457,32 +493,32 @@ public class MainController implements Initializable {
 						 
 
 						// Escape Menu:
-						if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MENU) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.MENU) == event.getCode())
+						if (keyEventMatchesBindings(KeyboardAction.MENU, event))
 							openOptions();
 
 						// Movement:
-						if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_NORTH) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.MOVE_NORTH) == event.getCode()) {
+						if (keyEventMatchesBindings(KeyboardAction.MOVE_NORTH, event)) {
 							if (!Main.game.getCurrentDialogueNode().isTravelDisabled() && !event.isControlDown()) {
 								moveNorth();
 							} else {
 								Main.game.responseNavigationUp();
 							}
 						}
-						if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_WEST) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.MOVE_WEST) == event.getCode()) {
+						if (keyEventMatchesBindings(KeyboardAction.MOVE_WEST, event)) {
 							if (!Main.game.getCurrentDialogueNode().isTravelDisabled() && !event.isControlDown()) {
 								moveWest();
 							} else {
 								Main.game.responseNavigationLeft();
 							}
 						}
-						if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_SOUTH) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.MOVE_SOUTH) == event.getCode()) {
+						if (keyEventMatchesBindings(KeyboardAction.MOVE_SOUTH, event)) {
 							if (!Main.game.getCurrentDialogueNode().isTravelDisabled() && !event.isControlDown()) {
 								moveSouth();
 							} else {
 								Main.game.responseNavigationDown();
 							}
 						}
-						if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_EAST) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.MOVE_EAST) == event.getCode()) {
+						if (keyEventMatchesBindings(KeyboardAction.MOVE_EAST, event)) {
 							if (!Main.game.getCurrentDialogueNode().isTravelDisabled() && !event.isControlDown()) {
 								moveEast();
 							} else {
@@ -491,10 +527,10 @@ public class MainController implements Initializable {
 						}
 
 						// Game stuff:
-						if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.QUICKSAVE) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.QUICKSAVE) == event.getCode()) {
+						if (keyEventMatchesBindings(KeyboardAction.QUICKSAVE, event)) {
 							Main.quickSaveGame();
 						}
-						if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.QUICKLOAD) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.QUICKLOAD) == event.getCode()) {
+						if (keyEventMatchesBindings(KeyboardAction.QUICKLOAD, event)) {
 							Main.quickLoadGame();
 						}
 						
@@ -529,62 +565,35 @@ public class MainController implements Initializable {
 						}
 						
 						if(allowInput){
-							if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.INVENTORY) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.INVENTORY) == event.getCode())
+							if (keyEventMatchesBindings(KeyboardAction.INVENTORY, event))
 								openInventory();
-							if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.JOURNAL) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.JOURNAL) == event.getCode())
+							if (keyEventMatchesBindings(KeyboardAction.JOURNAL, event))
 								openPhone();
-							if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.CHARACTERS) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.CHARACTERS) == event.getCode())
+							if (keyEventMatchesBindings(KeyboardAction.CHARACTERS, event))
 								openCharactersPresent();
-							if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.ZOOM) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.ZOOM) == event.getCode())
+							if (keyEventMatchesBindings(KeyboardAction.ZOOM, event))
 								zoomMap();
 	
-							if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.SCROLL_UP) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.SCROLL_UP) == event.getCode())
+							if (keyEventMatchesBindings(KeyboardAction.SCROLL_UP, event))
 								Main.mainController.getWebEngine().executeScript("document.getElementById('main-content').scrollTop -= 50");
-							if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.SCROLL_DOWN) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.SCROLL_DOWN) == event.getCode())
+							if (keyEventMatchesBindings(KeyboardAction.SCROLL_DOWN, event))
 								Main.mainController.getWebEngine().executeScript("document.getElementById('main-content').scrollTop += 50");
 							
-						
 							// Responses:
-							if(!event.isControlDown()) {
-								if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_1) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_1) == event.getCode())
-									processResponse(1);
-								if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_2) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_2) == event.getCode())
-									processResponse(2);
-								if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_3) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_3) == event.getCode())
-									processResponse(3);
-								if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_4) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_4) == event.getCode())
-									processResponse(4);
-								if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_5) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_5) == event.getCode())
-									processResponse(5);
-								if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_6) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_6) == event.getCode())
-									processResponse(6);
-								if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_7) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_7) == event.getCode())
-									processResponse(7);
-								if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_8) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_8) == event.getCode())
-									processResponse(8);
-								if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_9) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_9) == event.getCode())
-									processResponse(9);
-								if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_0) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_0) == event.getCode())
-									processResponse(0);
-								
-								
-							} else {
+							KeyboardAction[] keyboardActionsForResponses = 
+								{
+										KeyboardAction.RESPOND_0, KeyboardAction.RESPOND_1, KeyboardAction.RESPOND_2, KeyboardAction.RESPOND_3, KeyboardAction.RESPOND_4,
+										KeyboardAction.RESPOND_5, KeyboardAction.RESPOND_6, KeyboardAction.RESPOND_7, KeyboardAction.RESPOND_8, KeyboardAction.RESPOND_9,
+										KeyboardAction.RESPOND_10, KeyboardAction.RESPOND_11, KeyboardAction.RESPOND_12, KeyboardAction.RESPOND_13, KeyboardAction.RESPOND_14
+								};
 							
-								if ((Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_1) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_1) == event.getCode()))
-									processResponse(10);
-								if ((Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_2) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_2) == event.getCode()))
-									processResponse(11);
-								if ((Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_3) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_3) == event.getCode()))
-									processResponse(12);
-								if ((Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_4) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_4) == event.getCode()))
-									processResponse(13);
-								if ((Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_5) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_5) == event.getCode()))
-									processResponse(14);
-								
-								
+							for (int i = 0; i < keyboardActionsForResponses.length; i++) {
+								if (keyEventMatchesBindings(keyboardActionsForResponses[i], event)) {
+									processResponse(i);
+								}
 							}
 							
-							if (event.getCode() == Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MENU_SELECT) || event.getCode() == Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.MENU_SELECT)) {
+							if (keyEventMatchesBindings(KeyboardAction.MENU_SELECT, event)) {
 								Main.game.setContent(Main.game.getResponsePointer());
 							}
 							
@@ -596,16 +605,18 @@ public class MainController implements Initializable {
 						}
 
 						// Next/Previous response page:
-						if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_NEXT_PAGE) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_NEXT_PAGE) == event.getCode())
+						if (keyEventMatchesBindings(KeyboardAction.RESPOND_NEXT_PAGE, event)) {
 							if (Main.game.isHasNextResponsePage()) {
 								Main.game.setResponsePage(Main.game.getResponsePage() + 1);
 								Main.game.setResponses(Main.game.getCurrentDialogueNode());
 							}
-						if (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_PREVIOUS_PAGE) == event.getCode() || Main.getProperties().hotkeyMapSecondary.get(KeyboardAction.RESPOND_PREVIOUS_PAGE) == event.getCode())
+						}
+						if (keyEventMatchesBindings(KeyboardAction.RESPOND_PREVIOUS_PAGE, event)) {
 							if (Main.game.getResponsePage() != 0) {
 								Main.game.setResponsePage(Main.game.getResponsePage() - 1);
 								Main.game.setResponses(Main.game.getCurrentDialogueNode());
 							}
+						}
 					}
 				}
 			}
@@ -2232,6 +2243,12 @@ public class MainController implements Initializable {
 		} else {
 			webEngineResponse.loadContent(content);
 		}
+	}
+	
+	private boolean keyEventMatchesBindings(KeyboardAction binding, KeyEvent keyEvent) {
+		KeyCodeWithModifiers primary = Main.getProperties().hotkeyMapPrimary.get(binding);
+		KeyCodeWithModifiers secondary = Main.getProperties().hotkeyMapSecondary.get(binding);
+		return (primary != null && primary.matches(keyEvent)) || (secondary != null && secondary.matches(keyEvent));
 	}
 	
 	/**

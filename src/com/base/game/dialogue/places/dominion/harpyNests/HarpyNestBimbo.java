@@ -151,7 +151,7 @@ public class HarpyNestBimbo {
 										+ " [bimboHarpy.speechNoEffects(We've all been, like, super chilled out and stuff, right girls?!)]"
 							+ "</p>"
 							+ "<p>"
-								+ "A chorus of eager voices cry out in agreement, and you cna't help but smile down at [bimboHarpy.name] as she shuffles a little closer to you."
+								+ "A chorus of eager voices cry out in agreement, and you can't help but smile down at [bimboHarpy.name] as she shuffles a little closer to you."
 							+ "</p>"
 							+ "<p>"
 								+ "[bimboHarpy.speechNoEffects(Like, erm, I wanna, like, show my girls how good I am!)] she moans, barely able to contain the excitement in her voice,"
@@ -588,7 +588,7 @@ public class HarpyNestBimbo {
 				return new Response("Punished", "[bimboHarpy.Name] proceeds with her punishment...", HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT){
 					@Override
 					public void effects() {
-						if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+						if(Main.game.isForcedTFEnabled()) {
 							Main.game.getTextEndStringBuilder().append(ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, Main.game.getHarpyBimbo(), Main.game.getPlayer()));
 						}
 					}
@@ -667,7 +667,7 @@ public class HarpyNestBimbo {
 				return new Response("Punished", "[bimboHarpy.Name] proceeds with her punishment...", HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT){
 					@Override
 					public void effects() {
-						if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+						if(Main.game.isForcedTFEnabled()) {
 							Main.game.getTextEndStringBuilder().append(ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, Main.game.getHarpyBimbo(), Main.game.getPlayer()));
 						}
 					}
@@ -766,7 +766,7 @@ public class HarpyNestBimbo {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+			if(Main.game.isForcedTFEnabled()) {
 				return "<p>"
 						+ "[bimboHarpy.speechNoEffects(Y'know, I think I understand why, like, you're so angry and rude and stuff!)]"
 						+ " [bimboHarpy.name] giggles, stepping forwards to tower over you,"
@@ -822,7 +822,7 @@ public class HarpyNestBimbo {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+				if(Main.game.isForcedTFEnabled()) {
 					return new Response("Transformed...", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_BIMBO) {
 						@Override
 						public void effects() {

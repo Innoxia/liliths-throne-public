@@ -2,6 +2,7 @@ package com.base.game.character.npc.dominion;
 
 import com.base.game.character.NameTriplet;
 import com.base.game.character.SexualOrientation;
+import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.valueEnums.AssSize;
 import com.base.game.character.body.valueEnums.Capacity;
@@ -56,10 +57,10 @@ public class CandiReceptionist extends NPC {
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
-		this.setEyeColour(Colour.EYE_BLUE);
-		this.setHairColour(Colour.COVERING_BLEACH_BLONDE);
-		this.setSkinColour(BodyCoveringType.HUMAN, Colour.HUMAN_SKIN_OLIVE);
-		this.setSkinColour(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLEACH_BLONDE);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_BLUE));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLEACH_BLONDE));
+		this.setCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLEACH_BLONDE));
+		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE));
 
 		this.addFetish(Fetish.FETISH_BIMBO);
 		this.addFetish(Fetish.FETISH_ORAL_GIVING);

@@ -6,19 +6,25 @@ import java.util.List;
 import com.base.game.Game;
 import com.base.game.character.GameCharacter;
 import com.base.game.character.attributes.Attribute;
+import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.ArmType;
 import com.base.game.character.body.types.AssType;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.types.BreastType;
 import com.base.game.character.body.types.EarType;
+import com.base.game.character.body.types.EyeType;
 import com.base.game.character.body.types.FaceType;
+import com.base.game.character.body.types.HairType;
 import com.base.game.character.body.types.HornType;
 import com.base.game.character.body.types.LegType;
 import com.base.game.character.body.types.PenisType;
+import com.base.game.character.body.types.SkinType;
 import com.base.game.character.body.types.TailType;
 import com.base.game.character.body.types.VaginaType;
 import com.base.game.character.body.types.WingType;
 import com.base.game.character.body.valueEnums.AssSize;
+import com.base.game.character.body.valueEnums.BodyHair;
+import com.base.game.character.body.valueEnums.CoveringPattern;
 import com.base.game.character.body.valueEnums.CumProduction;
 import com.base.game.character.body.valueEnums.CupSize;
 import com.base.game.character.body.valueEnums.HipSize;
@@ -43,6 +49,28 @@ import com.base.utils.Util.ListValue;
  * @author Innoxia
  */
 public enum ItemEffectType {
+	
+	TESTING(Util.newArrayListOfValues(
+			new ListValue<>("Test item.")),
+		Colour.GENERIC_ARCANE) {
+
+	@Override
+	public List<TFModifier> getPrimaryModifiers() {
+		return null;
+	}
+
+	@Override
+	public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		return null;
+	}
+	
+	@Override
+	public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+		return target.incrementMuscle(-25)
+				+ target.incrementBodySize(25)
+				+ target.setUnderarmHair(BodyHair.BUSHY);
+	}
+},
 	
 	DYE_BRUSH(Util.newArrayListOfValues(
 				new ListValue<>("Recolours a piece of clothing.")),
@@ -1270,23 +1298,24 @@ public enum ItemEffectType {
 			if(target.getHipSize().getValue()<HipSize.FOUR_WOMANLY.getValue()) {
 				sb.append("</br>" + target.setHipSize(HipSize.FOUR_WOMANLY.getValue()));
 			}
-			if(target.getHairType()!=BodyCoveringType.HAIR_HARPY)
-				sb.append("</br>" + target.setHairColour(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLEACH_BLONDE));
-
-			if(target.getSkinType()!=BodyCoveringType.FEATHERS)
-				sb.append("</br>" + target.setSkinColour(BodyCoveringType.FEATHERS, Colour.FEATHERS_BLEACH_BLONDE));
+			if(target.getHairType()!=HairType.HARPY) {
+				sb.append("</br>" + target.setCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, Colour.FEATHERS_BLEACH_BLONDE, false, Colour.FEATHERS_BLEACH_BLONDE, false)));
+			}
+			if(target.getSkinType()!=SkinType.HARPY) {
+				sb.append("</br>" + target.setCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.FEATHERS_BLEACH_BLONDE, false, Colour.FEATHERS_BLEACH_BLONDE, false)));
+			}
 			
 			// Harpy TFs:
 			if(target.getFaceType()!=FaceType.HUMAN)
 				sb.append("</br>" + target.setFaceType(FaceType.HUMAN));
 			if(target.getEarType()!=EarType.HARPY)
 				sb.append("</br>" + target.setEarType(EarType.HARPY));
-			if(target.getEyeType()!=BodyCoveringType.EYE_HARPY)
-				sb.append("</br>" + target.setEyeType(BodyCoveringType.EYE_HARPY));
-			if(target.getHairType()!=BodyCoveringType.HAIR_HARPY)
-				sb.append("</br>" + target.setHairType(BodyCoveringType.HAIR_HARPY));
-			if(target.getSkinType()!=BodyCoveringType.HUMAN)
-				sb.append("</br>" + target.setSkinType(BodyCoveringType.HUMAN));
+			if(target.getEyeType()!=EyeType.HARPY)
+				sb.append("</br>" + target.setEyeType(EyeType.HARPY));
+			if(target.getHairType()!=HairType.HARPY)
+				sb.append("</br>" + target.setHairType(HairType.HARPY));
+			if(target.getSkinType()!=SkinType.HUMAN)
+				sb.append("</br>" + target.setSkinType(SkinType.HUMAN));
 
 			if(target.getWingType()!=WingType.NONE)
 				sb.append("</br>" + target.setWingType(WingType.NONE));
@@ -1358,23 +1387,24 @@ public enum ItemEffectType {
 			if(target.getHipSize().getValue()<HipSize.THREE_GIRLY.getValue()) {
 				sb.append("</br>" + target.setHipSize(HipSize.THREE_GIRLY.getValue()));
 			}
-			if(target.getHairType()!=BodyCoveringType.HAIR_HARPY)
-				sb.append("</br>" + target.setHairColour(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_PINK));
-
-			if(target.getSkinType()!=BodyCoveringType.FEATHERS)
-				sb.append("</br>" + target.setSkinColour(BodyCoveringType.FEATHERS, Colour.FEATHERS_PINK));
+			if(target.getHairType()!=HairType.HARPY) {
+				sb.append("</br>" + target.setCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, Colour.FEATHERS_PINK, false, Colour.FEATHERS_PINK, false)));
+			}
+			if(target.getSkinType()!=SkinType.HARPY) {
+				sb.append("</br>" + target.setCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.FEATHERS_PINK, false, Colour.FEATHERS_PINK, false)));
+			}
 			
 			// Harpy TFs:
 			if(target.getFaceType()!=FaceType.HUMAN)
 				sb.append("</br>" + target.setFaceType(FaceType.HUMAN));
 			if(target.getEarType()!=EarType.HARPY)
 				sb.append("</br>" + target.setEarType(EarType.HARPY));
-			if(target.getEyeType()!=BodyCoveringType.EYE_HARPY)
-				sb.append("</br>" + target.setEyeType(BodyCoveringType.EYE_HARPY));
-			if(target.getHairType()!=BodyCoveringType.HAIR_HARPY)
-				sb.append("</br>" + target.setHairType(BodyCoveringType.HAIR_HARPY));
-			if(target.getSkinType()!=BodyCoveringType.HUMAN)
-				sb.append("</br>" + target.setSkinType(BodyCoveringType.HUMAN));
+			if(target.getEyeType()!=EyeType.HARPY)
+				sb.append("</br>" + target.setEyeType(EyeType.HARPY));
+			if(target.getHairType()!=HairType.HARPY)
+				sb.append("</br>" + target.setHairType(HairType.HARPY));
+			if(target.getSkinType()!=SkinType.HUMAN)
+				sb.append("</br>" + target.setSkinType(SkinType.HUMAN));
 
 			if(target.getWingType()!=WingType.NONE)
 				sb.append("</br>" + target.setWingType(WingType.NONE));
@@ -1455,23 +1485,24 @@ public enum ItemEffectType {
 			if(target.getHipSize().getValue()<HipSize.THREE_GIRLY.getValue()) {
 				sb.append("</br>" + target.setHipSize(HipSize.THREE_GIRLY.getValue()));
 			}
-			if(target.getHairType()!=BodyCoveringType.HAIR_HARPY)
-				sb.append("</br>" + target.setHairColour(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLACK));
-
-			if(target.getSkinType()!=BodyCoveringType.FEATHERS)
-				sb.append("</br>" + target.setSkinColour(BodyCoveringType.FEATHERS, Colour.FEATHERS_RED));
+			if(target.getHairType()!=HairType.HARPY) {
+				sb.append("</br>" + target.setCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, Colour.FEATHERS_BLACK, false, Colour.FEATHERS_BLACK, false)));
+			}
+			if(target.getSkinType()!=SkinType.HARPY) {
+				sb.append("</br>" + target.setCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.FEATHERS_RED, false, Colour.FEATHERS_RED, false)));
+			}
 			
 			// Harpy TFs:
 			if(target.getFaceType()!=FaceType.HUMAN)
 				sb.append("</br>" + target.setFaceType(FaceType.HUMAN));
 			if(target.getEarType()!=EarType.HARPY)
 				sb.append("</br>" + target.setEarType(EarType.HARPY));
-			if(target.getEyeType()!=BodyCoveringType.EYE_HARPY)
-				sb.append("</br>" + target.setEyeType(BodyCoveringType.EYE_HARPY));
-			if(target.getHairType()!=BodyCoveringType.HAIR_HARPY)
-				sb.append("</br>" + target.setHairType(BodyCoveringType.HAIR_HARPY));
-			if(target.getSkinType()!=BodyCoveringType.HUMAN)
-				sb.append("</br>" + target.setSkinType(BodyCoveringType.HUMAN));
+			if(target.getEyeType()!=EyeType.HARPY)
+				sb.append("</br>" + target.setEyeType(EyeType.HARPY));
+			if(target.getHairType()!=HairType.HARPY)
+				sb.append("</br>" + target.setHairType(HairType.HARPY));
+			if(target.getSkinType()!=SkinType.HUMAN)
+				sb.append("</br>" + target.setSkinType(SkinType.HUMAN));
 
 			if(target.getWingType()!=WingType.NONE)
 				sb.append("</br>" + target.setWingType(WingType.NONE));
@@ -2651,13 +2682,13 @@ public enum ItemEffectType {
 			case TF_BREASTS:
 				switch(secondaryModifier) {
 					case TF_MOD_CAPACITY_DECREASE:
-						return target.incrementBreastCapacity(-normalValue);
+						return target.incrementNippleCapacity(-normalValue);
 					case TF_MOD_CAPACITY_INCREASE:
-						return target.incrementBreastCapacity(normalValue);
+						return target.incrementNippleCapacity(normalValue);
 					case TF_MOD_ELASTICITY_DECREASE:
-						return target.incrementBreastElasticity(-normalValue);
+						return target.incrementNippleElasticity(-normalValue);
 					case TF_MOD_ELASTICITY_INCREASE:
-						return target.incrementBreastElasticity(normalValue);
+						return target.incrementNippleElasticity(normalValue);
 					case TF_MOD_SIZE_GROW:
 						return target.incrementBreastSize(normalValue);
 					case TF_MOD_SIZE_SHRINK:
@@ -2672,13 +2703,13 @@ public enum ItemEffectType {
 						return target.incrementBreastRows(normalValue);
 						
 					case TF_MOD_CAPACITY_DECREASE_STRONG:
-						return target.incrementBreastCapacity(-largeValue);
+						return target.incrementNippleCapacity(-largeValue);
 					case TF_MOD_CAPACITY_INCREASE_STRONG:
-						return target.incrementBreastCapacity(largeValue);
+						return target.incrementNippleCapacity(largeValue);
 					case TF_MOD_ELASTICITY_DECREASE_STRONG:
-						return target.incrementBreastElasticity(-largeValue);
+						return target.incrementNippleElasticity(-largeValue);
 					case TF_MOD_ELASTICITY_INCREASE_STRONG:
-						return target.incrementBreastElasticity(largeValue);
+						return target.incrementNippleElasticity(largeValue);
 					case TF_MOD_SIZE_GROW_STRONG:
 						return target.incrementBreastSize(largeValue);
 					case TF_MOD_SIZE_SHRINK_STRONG:

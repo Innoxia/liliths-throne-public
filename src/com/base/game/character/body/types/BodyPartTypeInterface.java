@@ -5,7 +5,7 @@ import com.base.game.character.race.Race;
 
 /**
  * @since 0.1.0
- * @version 0.1.69.9
+ * @version 0.1.83
  * @author Innoxia
  */
 public interface BodyPartTypeInterface {
@@ -14,10 +14,11 @@ public interface BodyPartTypeInterface {
 
 	/** @return Pronoun for this body part. (They, it) */
 	public default String getPronoun(){
-		if(isDefaultPlural())
+		if(isDefaultPlural()) {
 			return "they";
-		else
+		} else {
 			return "it";
+		}
 	}
 	
 	/**
@@ -27,10 +28,11 @@ public interface BodyPartTypeInterface {
 
 	/** @return The default name of this body part. */
 	public default String getName(GameCharacter gc){
-		if(isDefaultPlural())
+		if(isDefaultPlural()) {
 			return getNamePlural(gc);
-		else
+		} else {
 			return getNameSingular(gc);
+		}
 	}
 	
 	/** @return The singular name of this body part. */
@@ -48,7 +50,7 @@ public interface BodyPartTypeInterface {
 	public String getDescriptor(GameCharacter gc);
 
 	/** @return The type of skin that is covering this body part. */
-	public BodyCoveringType getSkinType();
+	public BodyCoveringType getBodyCoveringType();
 
 	public Race getRace();
 }

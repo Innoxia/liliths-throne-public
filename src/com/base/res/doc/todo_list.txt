@@ -16,19 +16,154 @@
 	
 	
 	Patch notes:
+		In an attempt to make save games compatible, I ended up adding functionality for all the transformations I plan to have in the game.
+				
+	Current end of main quest content:
+		Alexa's shop in Slaver Alley.
+				
+	Engine:
+		Did a lot of tidying up of the GameCharacter class by moving transformation methods into their appropriate classes.
+				
+	Gameplay:
+		<b>Important change:</b> I listened to a lot of your feedback on the way the 'Non-con', 'Incest', and 'Transformation' fetishes were being used as content gates, and, after thinking about it, I've decided to move those options back to a proper 'content preferences' screen.
+		This will now enable your content preferences to be carried over to all of your games, so you don't have to worry about taking those fetishes on every new game.
+		As part of this, I've also changed the related fetishes in the following ways:
+		
+		
+		<b>Changed:</b> Split orifice elasticity into elasticity and plasticity. Elasticity determines how quickly you stretch out during sex, while plasticity determines how much your orifice recovers afterwards.
+		
+	Body:
+		Improved a huge amount of transformation text, and have moved it into a far more organised structure to make any future editing a lot easier.
+		Improved body description (the selfie text) to take into account all of the additions to the new body system.
+		Added more realistic colour groups for skin/fur/feather/eye combinations, instead of it being 100% random.
+		
+		Antennae:
+			Added support for antennae. (Not yet implemented in-game.)
+			Added multiple rows of antennae (up to three rows, so six antennae in total).
+			
+		Arm:
+			Added nail polish for hands.
+			Added support for multiple arms rows. (Not yet implemented in-game.)
+			Added underarm hair. (Content-gated, and is off by default!)
+			
+		Ass:
+			Skin/fur covering ass and hips is now separate from torso skin/fur.
+			Added special transformation modifiers for asshole (ribbed, puffy, muscled, tentacled).
+			Added anal bleaching.
+			Added ass hair. (Content-gated, and is off by default!)
+		
+		Body Material:
+			Added support for body material, for when I implement slimes. (Will also enable things like being made out of fire/ice/rubber/etc.)
+		
+		Breasts & Milk:
+			Skin/fur covering breasts is now separate from torso skin/fur.
+			Added nipple colourings (plus nipple interior colouring, for fuckable nipples).
+			Added nipple size.
+			Added nipple shape (normal, vagina-like, or lipples).
+			Added areolae size.
+			Added areolae shape (normal, hearts, or stars).
+			Added nipples-per-breast count (up to four per breast).
+			Added special transformation modifiers for nipples (internally-ribbed, puffy, internal-muscles, internal-tentacles).
+			Added milk as a separate transformable fluid.
+			Added flavours.
+			Added modifiers (viscous, sticky, slimy, bubbling, addictive, hallucinogenic).
+			Added support for transformations caused by milk ingestion.
+		
+		Core:
+			Added 'muscle' and 'body size' values, which together determine a character's body type.
+			Tweaked the availability of some colours.
+			Added body-part colour patterns (normal, mottled, spotted, striped, hair highlights).
+			Added glowing colours. (All colours can have the 'glowing' modifier applied to them.)
+			Added pubic hair. (Not yet implemented fully.)
+			
+		Eyes:
+			Added support for multiple pairs of eyes (up to four pairs, so eight eyes in total).
+			Added shapes for iris and pupil (round, horizontal, vertical, hearts, stars).
+			Added heterochromatic iris and pupil support.
+			Added eye shadow and eye liner.
+			
+		Face:
+			Added lip and tongue colours.
+			Added lipstick and blusher.
+			Added special transformation modifiers for throat (internally-ribbed, puffy, internal-muscles, internal-tentacles).
+			Added beards. (Content-gated, and is off by default!)
+			
+		Hair:
+			Added hair styles (natural, loose, curly, straight, wavy, ponytail, twintails, braided).
+			Doubled maximum hair length from 40 to 80 inches.
+			
+		Horn:
+			Added multiple rows of horns (up to three rows, so six horns in total).
+			
+		Legs:
+			Added toenail polish.
+			
+		Penis & cum:
+			Added fully customisable penis. You can now apply the following transformations to any penis: sheathed, ribbed, tentacled, knotted, tapered, flared, barbed, veiny, prehensile.
+			Added special transformation modifiers for urethra (internally-ribbed, puffy, internal-muscles, internal-tentacles).
+			Added cum as a separate transformable fluid.
+			Added multiple testicle support (between 2 and 8).
+			Added an internal testicle TF.
+			Added support for second penis (may still take some time to implement fully into the game).
+			Added cum flavours.
+			Added cum modifiers (viscous, sticky, slimy, bubbling, addictive, hallucinogenic).
+			Added support for transformations caused by cum ingestion.
+			
+		Tail:
+			Added multiple tail support.
+			
+		Tongue:
+			Added tongue length.
+			Added tongue modifiers (ribbed, tentacled, bifurcated).
+			
+		Vagina & girl-cum:
+			Added special transformation modifiers (ribbed, puffy, muscled, tentacled).
+			Added gcum flavours.
+			Added gcum modifiers (viscous, sticky, slimy, bubbling, addictive, hallucinogenic).
+			Added support for transformations caused by gcum ingestion.
+		
 		
 	Bugs:
-		Fixed bug where you'd get stuck in Scarlett's shop at the end of the current main quest's content.
-		Fixed bug where main quest couldn't be progressed when starting with an imported character.
-		Day of birth stat should now be correctly working for birthed litters.
-		Fixed some incorrect descriptions in the dominant doggy-style orgasm scene.
-		Fixed some inaccurate descriptions in Lilaya's house.
-		Hard-working Maid status effect now also has an NPC-perspective description.
-		Fixed some incorrect NPC reactions to having your chest revealed during sex.
+		Fixed a cause of a game freeze when passing out after second pregnancy.
+		Nipple bars are now correctly treated as a plural item.
+		Fixed some instances were Bree/Brandi were called Brax.
+		Typo fixes.
+		Fixed bug where dyeing stacked clothes would dye the entire stack (fixed by Pimvgd).
+		Fixed a lot of typos, both in content and in code (by Pimvgd).
+		Fixed formatting issues in the encyclopedia's item page (by Pimvgd).
+		Fixed special attack descriptions not showing when performing the attack (by Pimvgd).
+		Fixed a bug where the player inventory would stay on screen on new game start (by Pimvgd).
+	
+	
+	Milk
+		Transformative effects
+	
+	
+	
+	Ass descriptor
+	
+	Character-specific option overrides
 	
 	
 	
 	
+	Character creation:
+		Hair style
+		
+	Kate:
+		Hair style
+		Eye shapes.
+	
+	tattoos
+	
+	Gate options in screen again
+		Tidy up fetishes:
+		non-con tease
+		incest tease
+		For PC, makes forced TFs do more, for NPCs, makes them TF you more and maybe gives special dialogue for when you TF them
+	
+	
+	Ear tags (cow)
 	
 	[Alexa & Scarlett]
 	- Intro
@@ -47,6 +182,34 @@
 	
 	
 	
+	(I think I fixed, but check)
+	Seems to be a bug where the second time a character gives birth the "pass out" button (and its knocked out equivalent) doesnt progress the scene, leaving you stuck there.
+	
+	a crash bug, if in you'r room, you put objects, and have to much objects, if you take all and don't have engout space in your invotory, the game crash
+	
+	: if the room is full, you can't drop other objec, but with Quick-manage: he say he safely store objec and the object no linger existe
+	
+	 I think something's up with gender pronouns in the latest hotfix. Either that or traps are no longer called traps and are just called "Man" regardless of settings or feminity level.
+	  Not sure, I'm out of town so haven't really been able to give this release a good stress test, hence why I'm not even signed in.
+
+	Maybe the change to starting body breast size for androgynous males did that since they no start with a flat chest?
+	 Either way, manually modifying the custom pronouns for players seems to change nothing, which might be a bigger problem if it's just not working at all like it should. Just FYI.
+	
+	found a bug that happens when you get pregnant from brax and then feminize him you get stuck in delivering scene
+		it actually gets stuck because father is bree/brandi: Stanley Brandisson (horse-morph) Father:Brandi Mother:Carlos
+	
+	you fixed the player getting the more severe arcane storm effect but now while the player is outside it does not give any indicator that the arcane storm is happening at all in the status screen, although it does show you arcane storm protected status while indoors
+	
+	It appears that the chasing squirrels book is still on the drop table for random encounters even if you have already read it
+	
+	it seems dying items acts etremely oddly with stacks
+	i dyed a stack of 2 rose gold collars platinum and then it showed i had 2 platinum collars but i had only used 1 dye brush then when i dyed another item it updated to 1 platinum collar and one rose gold collar
+	Finally when i dyed the second rose gold collar platinum it did not stack with the other one immediatly
+	Actually its just not letting me select it period
+	Ok if i mess with the stacks a bunch it fixes it but that code definitely needs sanity checks
+	Yeah so if you dye an item that is stackable to the same colour as another in your inventory it breaks one of them preventing you from interacting with it directly
+	
+	the "Report back" option doesn't disappear after reporting back once, although it doesn't do anything
 	
 	Is how good you are at a blowjob supposed to increase? Because mine doesn't. Ever. Maybe my guy is just that bad lol.
 	
@@ -57,6 +220,8 @@
 	"I'm going to fuck you senseless" -> masturbates
 	and he wont pull down pants, so the moment you do it, he actually fucks you
 	
+	brax loop for letting him impregnate you and then feminize him (gets looped in delivering scene)
+	
 	Is it a bug that NPCs are saying that an 8 inch dick is small or "cute"?
 	(Also for breasts)
 	
@@ -65,6 +230,8 @@
 	Dom self doggy
 	
 	combined fetish for pure virgins with the deflowering fetish
+	
+	Save/Load button is locked in combat and sex
 	
 	NPCs to gain affection from PC using their fetish-related actions
 	
@@ -85,6 +252,8 @@
 	
 	Save NPCs
 	
+	possible bug with buying and selling, the rounding occurs after tallying all the item values
+		so for certain percentages, you could essentially get like 1 each if sold independantly, but, say, 5 for 4 items if sold as a group
 	
 	Expand TFs
 		nail polish, lipstick, makeup (generalise it, I don't think I should go too in-depth here)
@@ -419,6 +588,8 @@
 	
 	cum onto face/breasts/stomach/pussy/ass/back
 	
+	At this point I would probably suggest giving some category tabs to other stores than just Nyan's. 
+		Vicky's for example is getting kinda cramped with the new additions, and will get even more so if things keep going at this rate.
 	
 	AI are trying to remove all pen before orgasming? :s
 		": Diana basically removed my finger from her ass, pulled off my dick from her throat, stopped fingering my pussy and then came"
@@ -857,6 +1028,8 @@ Also noticed the Stop partner self action option disappears.
 		Parser "hand" and "finger"/"fingers" commands for harpy
 	
 	Allow unique NPCs to wear condoms, drink MM, take pills, etc.
+	
+	"Buy all I can afford" option instead of buy all when you can't afford all items in a stack
 	
 	Insemination orgasm (requires free cock, free pussy)
 	
@@ -1999,7 +2172,6 @@ Will there be more advanced "testing"?
 	- Level 2 freezing opaque deamonstone seems to cast slam instead of ice shard. The chill effect is still triggered though.
 - The option menu does not work from the inventory : you are forced to go on another menu before.
 - Wearing too masculine clothing when you have a feminine body does not seem to trigger any stat reduction like it would do with a male wearing too feminine clothing (intended ?). However, it does trigger and remain once you had non-consensual sex (lose a fight).
-- Are furry related transformation items supposed to have both a male and female counterpart ? In that case, I think the furry transformation items are glitched, always giving transformations related to your current appearance (feminine body = feminine transformation, masculine body = masculine transformation).
 
 That's all I could find for now.
 
@@ -2040,20 +2212,12 @@ I would also suggest the following addition :
 	- Also apply "recently orgasmed" status effect, which increases willpower resistance
 	- Also after sex, need to reset mana to max
 	
-	- Well rested status effect
-	
 	- Make all encounters & places
 	
 	
 	- Make consumables give core stats (main attributes only from legendaries)
 	
 	- Weapons, items & perk pictures will need gradient names changed
-	
-	-TODO Sex class!
-	- Move sex descriptions into SexManager. Have generic descriptions for different cock types and orifices. Also for orgasms -> cocks & orifices.
-	- Sex descriptions need to take into account sexual body parts (e.g. "The barbs on his cat-like cock rake your vaginal walls on every thrust, causing you to squeal in pleasure."
-	"He buries his dog-cock deep in your pussy, and you feel the fat knot at the abse swell, trapping his cock in your vagina. Continue description of cumming...")
-	- If no lubrication and too big, lowers arousal for sub.
 	
 	Extremely High wetness should soak panties instantly
 	Move wetness methods & tracking from sex into character
@@ -2101,53 +2265,13 @@ I would also suggest the following addition :
 			- Gang ambush (dog, wolf, cat, horse) males & females
 			- Girl getting mugged (can intervene, she runs off shouting thanks behind her)
 		
-	-TODO instead of new perk/status effect text, make the icon light up for one turn. (still add "You have gained the xxx perk" to stringEnd)
-	
-	Implement New game in options menu
-	
-	When first discovering a new place/tile, block movement and give initial description.
-	
-	Story all done in draft form, with DialogueNodes containing drafts.
-	Encounters & places all done in draft form.
-	NPCs finished.
-	
-	Write story, NPCs, transformation descriptions and encounters.
-	Vicky's sex scenes.
-	Clothing: Final touches.
-	
-	Chastity cage
-	
-	Sort out and check transformations & items (7 transformations in total. Need weak TF, strong TF, extreme TF, lewd TF)
 	Make a special description when you become a complete race.
-	Make a semi-perk for when you are a greater race.
-	Vicky is alchemist, she can refine things you bring to her into potions. (e.g. need 5 dog biscuits, then she asks you what you want out of it, give a list of options "dog ears" "dog tail" "energy")
-	
-	
-	Make Special attacks for racial body parts
 	
 	Slimes should get clothes dirty instantly.
 	
 	Races page in journal should show race's average stats & body (like combat revamp will be)
 	
 	Like health and mana, make all attributes floats.
-	
-	Harpy nest:
-	If you want to prove yourself, you can fight:
-	Have to fight males, then lesser females, then greater females, then full females, then the queen
-	This should be part of a romance quest to romance the queen
-	At -100, you can turn her into a male that gets used by the flock, and the rest of the flock treat you as the leader.
-	At +100, you can help her take over a rival flock and double-penetrate their queen. Turn their queen into your slutty slave.
-	
-	Story:
-	human resistance is what the whole game is about
-	The more someone transforms, the more they lose themselves to animalistic desires.
-	find out later Ashley's leader is organising resistance
-	The whole game main quest should be about gaining their trust and defeating Lilith
-	FIRST PART IS MANUFACTURING A MONSTER_REVERSION SERUM.
-	Can also get human transformation item "Angel's tears"
-	Can upgrade the demon's factory production.
-	Changes % population of Dominion HUMAN|PARTIAL|LESSER|GREATER
-	Starts at 20%|40%|20%|15%|5%
 	
 	Make NPCs
 	

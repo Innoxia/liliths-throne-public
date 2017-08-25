@@ -261,13 +261,15 @@ public class Lab {
 								return new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY){
 									@Override
 									public QuestLine getQuestLine() {
-										if (Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY))
-											if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY).getSortingOrder() == 0)
+										if (Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+											if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY).getSortingOrder() == 0) {
 												return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
-											else
+											} else {
 												return null;
-										else
+											}
+										} else {
 											return null;
+										}
 									}
 									@Override
 									public void effects() {
@@ -1045,9 +1047,7 @@ public class Lab {
 								+ "</p>"
 
 								+ "<p>"
-								+ "You look up at her "
-								+ Main.game.getLilaya().getEyeColour().getName()
-								+ " snake-like eyes, and she gives you a seductive smile before taking your head"
+								+ "You look up at her [lilaya.eyes+], and she gives you a seductive smile before taking your head"
 								+ " in both hands and pressing her lips against yours."
 								+ " Her tongue slips out of her mouth, and, parting your lips, you allow it to slide into yours."
 								+ " You reach up and pull her close, passionately making out with one another as you both give in to your lust."
@@ -1289,9 +1289,7 @@ public class Lab {
 								+ "</p>"
 
 								+ "<p>"
-								+ "You look up at her "
-								+ Main.game.getLilaya().getEyeColour().getName()
-								+ " snake-like eyes, and she gives you a seductive smile before taking your head"
+								+ "You look up at her [lilaya.eyes], and she gives you a seductive smile before taking your head"
 								+ " in both hands and pressing her lips against yours."
 								+ " Her tongue slips out of her mouth, and, parting your lips, you allow it to slide into yours."
 								+ " You reach up and pull her close, passionately making out with one another as you both give in to your lust."
@@ -1959,7 +1957,7 @@ public class Lab {
 						Main.game.getPlayer().setStamina(0);
 
 						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity((Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaElasticity().getCapacityIncreaseModifier());
+						Main.game.getPlayer().incrementVaginaCapacity((Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier());
 					}
 				};
 
@@ -1973,7 +1971,7 @@ public class Lab {
 						Main.game.getPlayer().setStamina(0);
 
 						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity((Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaElasticity().getCapacityIncreaseModifier());
+						Main.game.getPlayer().incrementVaginaCapacity((Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier());
 					}
 				};
 
@@ -2183,10 +2181,11 @@ public class Lab {
 				return new Response("Pass out", "You have no energy left, and can't stay conscious any longer...", LILAYA_ASSISTS_BIRTHING_FINISHED){
 					@Override
 					public QuestLine getQuestLine() {
-						if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY).getSortingOrder() == 1)
+						if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 							return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
-						else
+						} else {
 							return null;
+						}
 					}
 					@Override
 					public void effects() {
@@ -2237,10 +2236,11 @@ public class Lab {
 				return new Response("Pass out", "The drink Lilaya gave you goes straight to your head, and you collapse back onto the bed as you lose consciousness.", LILAYA_ASSISTS_BIRTHING_FINISHED){
 					@Override
 					public QuestLine getQuestLine() {
-						if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY).getSortingOrder() == 1)
+						if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 							return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
-						else
+						} else {
 							return null;
+						}
 					}
 					@Override
 					public void effects() {
@@ -2334,7 +2334,7 @@ public class Lab {
 						Main.game.getPlayer().setStamina(0);
 
 						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity((Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaElasticity().getCapacityIncreaseModifier());
+						Main.game.getPlayer().incrementVaginaCapacity((Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier());
 					}
 				};
 
@@ -2496,10 +2496,11 @@ public class Lab {
 				return new Response("Some time later", "You eventually wake up from your exhausted slumber...", LILAYA_ASSISTS_BIRTHING_FINISHED){
 					@Override
 					public QuestLine getQuestLine() {
-						if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY).getSortingOrder() == 1)
+						if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 							return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
-						else
+						} else {
 							return null;
+						}
 					}
 					@Override
 					public void effects() {

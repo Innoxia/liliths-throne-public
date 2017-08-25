@@ -23,7 +23,7 @@ public enum HairLength {
 	/** Reaching down to below the ass */
 	SIX_BELOW_ASS("incredibly long", 24, 30),
 	/** Hair so long that it reaches the floor */
-	SEVEN_TO_FLOOR("extremely long", 30, 40);
+	SEVEN_TO_FLOOR("extremely long", 30, 80);
 
 	private int minimumValue, maximumValue;
 	private String descriptor;

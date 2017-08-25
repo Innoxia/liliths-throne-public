@@ -20,7 +20,7 @@ import javafx.scene.paint.Color;
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.1.7
+ * @version 0.1.83
  * @author Innoxia
  */
 public class Util {
@@ -36,7 +36,20 @@ public class Util {
 			return s.useDelimiter("\\A").hasNext() ? s.next() : "";
 		}
 	}
-
+	
+	public static Color midpointColor(Color first, Color second) {
+		
+		double r = (first.getRed() + second.getRed())/2,
+				g = (first.getGreen() + second.getGreen())/2,
+					b = (first.getBlue() + second.getBlue())/2;
+		
+		return newColour(r*255, g*255, b*255);
+	}
+	
+	public static String toWebHexString(Color colour) {
+		return colour.toString().substring(2, 8);
+	}
+	
 	public static Color newColour(double r, double g, double b) {
 		return Color.color(r / 255, g / 255, b / 255);
 	}

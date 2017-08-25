@@ -484,7 +484,7 @@ public enum Spell {
 	}
 
 	public float getMaximumDamage(GameCharacter caster, GameCharacter target, int spellLevel) {
-		float damage = getModifiedDamage(caster, target, getDamage(caster, spellLevel) * (1 + damageVariance.getPercentange()));
+		float damage = getModifiedDamage(caster, target, getDamage(caster, spellLevel) * (1 + damageVariance.getPercentage()));
 
 		// Round float value to nearest 1 decimal place:
 		damage = (Math.round(damage*10))/10f;
@@ -493,7 +493,7 @@ public enum Spell {
 	}
 
 	public float getMinimumDamage(GameCharacter caster, GameCharacter target, int spellLevel) {
-		float damage = getModifiedDamage(caster, target, getDamage(caster, spellLevel) * (1 - damageVariance.getPercentange()));
+		float damage = getModifiedDamage(caster, target, getDamage(caster, spellLevel) * (1 - damageVariance.getPercentage()));
 
 		// Round float value to nearest 1 decimal place:
 		damage = (Math.round(damage*10))/10f;
@@ -585,7 +585,7 @@ public enum Spell {
 	}
 	
 	private float getModifiedCost(GameCharacter caster, int level) {
-		float calculatedCost = level + ((float)caster.getAttributeValue(Attribute.MANA_MAXIMUM) * (spellCost.getPercentange())/100f);
+		float calculatedCost = level + ((float)caster.getAttributeValue(Attribute.MANA_MAXIMUM) * (spellCost.getPercentage())/100f);
 		
 		calculatedCost *= ((100 - caster.getAttributeValue(Attribute.SPELL_COST_MODIFIER)) / 100f);
 		
