@@ -20,6 +20,7 @@ public class Tail implements BodyPartInterface, Serializable {
 
 	public Tail(TailType type) {
 		this.type = type;
+		tailCount = 1;
 	}
 
 	@Override

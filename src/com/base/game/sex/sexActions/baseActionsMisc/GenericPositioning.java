@@ -65,7 +65,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you push [npc.her] up against a nearby wall."
+			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] up against a nearby wall."
 					+ " Grinding your body up against [npc.her] back, you [pc.moan] into [npc.her] [npc.ear], "
 					+ "[pc.speech(Be a good [npc.girl] and hold still while I fuck you!)]";
 		}
@@ -310,7 +310,7 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you push [npc.her] down onto [npc.her] back."
+			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] down onto [npc.her] back."
 					+ " You then lower yourself down onto all fours over the top of [npc.herHim], lowering your crotch down to [npc.her] face as you similarly position your own head over [npc.her] groin."
 					+ " Looking back beneath you, you [pc.moan], "
 					+ "[pc.speech(Good [npc.girl]! Now let's have some fun!)]";
@@ -350,8 +350,8 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			return "Taking hold of [npc.name]'s shoulders, you push [npc.her] down onto [npc.her] back."
-					+ " You then lower yourself down over the top of [npc.herHim], bringing your crotch down to [npc.hers] as you straddle [npc.herHim] in the cowgirl position."
+			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] down onto [npc.her] back."
+					+ " You then lower yourself down on top of [npc.herHim], bringing your crotch down to [npc.hers] as you straddle [npc.herHim] in the cowgirl position."
 					+ " Once you've made yourself comfortable, you grin down at [npc.name], "
 					+ "[pc.speech(Good [npc.girl]! Now let's have some fun!)]";
 			
@@ -1125,7 +1125,7 @@ public class GenericPositioning {
 		@Override
 		public String getDescription() {
 			return "Taking hold of your shoulders, [npc.name] pushes you down onto your back."
-					+ " [npc.She] then lowers [npc.herself] down over the top of you, bringing [npc.her] crotch down to yours as [npc.she] straddles you in the cowgirl position."
+					+ " [npc.She] then lowers [npc.herself] down on top of you, bringing [npc.her] crotch down to yours as [npc.she] straddles you in the cowgirl position."
 					+ " Once [npc.she]'s made [npc.herself] comfortable, [npc.she] grins down at you, "
 					+ "[npc.speech(Good [pc.girl]! Now let's have some fun!)]";
 		}
