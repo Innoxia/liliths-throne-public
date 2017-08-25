@@ -47,7 +47,10 @@ public enum SexPosition {
 	FACING_WALL_PARTNER("Face-to-wall (behind partner)", "You're standing behind [npc.name] as you push [npc.herHim] into the wall."),
 	
 	SIXTY_NINE_PARTNER_TOP("Sixty-nine (bottom)", "You're lying beneath [npc.name], who's down on all fours over the top of you. [npc.Her] crotch is positioned over your face, while [npc.her] own head is similarly positioned over your groin."),
-	SIXTY_NINE_PLAYER_TOP("Sixty-nine (top)", "You're on all fours over the top of [npc.name]. Your crotch is positioned over [npc.her] [npc.face+], while you're looking down at [npc.her] groin.");
+	SIXTY_NINE_PLAYER_TOP("Sixty-nine (top)", "You're on all fours over the top of [npc.name]. Your crotch is positioned over [npc.her] [npc.face+], while you're looking down at [npc.her] groin."),
+	
+	MISSIONARY_PARTNER_IN_CHARGE("Missionary (bottom)", "You're lying down on your back, with [npc.name] on [npc.her] knees between your legs. [npc.Her] crotch is positioned infront of yours, with [hermim] looking at you possessively."),
+	MISSIONARY_PLAYER_IN_CHARGE("Missionary (top)", "You're kneeling in between [npc.name]'s legs, as [npc.she] is lying down on their back, with your croch positioned infront of [npc.hers].  ");
 	
 	private String name, description;
 

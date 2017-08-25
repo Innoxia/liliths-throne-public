@@ -2938,6 +2938,8 @@ public enum ItemEffectType {
 				secondaryModifiers.add(TFModifier.TF_MOD_WETNESS_INCREASE);
 				secondaryModifiers.add(TFModifier.TF_MOD_TESTICLE_SIZE_INCREASE);
 				secondaryModifiers.add(TFModifier.TF_MOD_TESTICLE_SIZE_DECREASE);
+				secondaryModifiers.add(TFModifier.TF_MOD_TESTICLE_INTERNAL);
+				secondaryModifiers.add(TFModifier.TF_MOD_TESTICLE_EXTERNAL);
 				secondaryModifiers.add(TFModifier.REMOVAL);
 				break;
 			case TF_VAGINA:

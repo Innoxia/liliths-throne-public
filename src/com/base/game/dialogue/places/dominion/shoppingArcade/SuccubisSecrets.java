@@ -37,7 +37,7 @@ public class SuccubisSecrets {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getDialogueFlags().kateIntroduced) {
+			if(!Main.game.getDialogueFlags().kateIntroduced) {
 				return "<p>"
 							+ "You find yourself standing, once again, in the quiet corner of the Shopping Arcade, where the dark, shut-up beauty salon 'Succubi's Secrets' is located."
 							+ " You notice that everyone around you is completely ignoring the uninviting facade, and you smile to yourself as you realise that's exactly what its lazy owner wants."
@@ -631,7 +631,7 @@ public class SuccubisSecrets {
 				
 				} else if(Main.game.getPlayer().getHairLength()==HairLength.SEVEN_TO_FLOOR) {
 					return new Response("Lengthen (" + Main.game.getCurrencySymbol() + " " +(Main.game.getPlayer().getHairRawLengthValue()*5) +")",
-							"You don't have enough money to get your hair cut!", null);
+							"Your hair is already reaching the floor, so there is no need to get your hair lengthened!", null);
 				
 				} else {
 					return new Response("Lengthen (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> " +(Main.game.getPlayer().getHairRawLengthValue()*5) +")",

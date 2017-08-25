@@ -133,7 +133,7 @@ public class ClothingEmporium {
 					+ "</p>"
 					+ "<p>"
 						+ "You turn around to see Nyan looking down at her feet as she shuffles them about on the shop's laminate flooring, "
-						+ "[pc.speech(Hi Nyan, how are y-)]"
+						+ "[pc.speech(Hi Nyan, how are you-)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[nyan.speech(I-I'm fine! T-thanks for asking,)] Nyan bursts out, interrupting you in her haste to answer, "

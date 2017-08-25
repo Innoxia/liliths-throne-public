@@ -139,7 +139,7 @@ public class ShoppingArcadeDialogue {
 				};
 
 			} if (index == 10) {
-				return new ResponseEffectsOnly("City Gym", "Fast travel to the City Gym."){
+				return new ResponseEffectsOnly("Pix's Playground", "Fast travel to Pix's Playground."){
 					@Override
 					public void effects() {
 						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), ShoppingArcade.PIXS_GYM, true);
