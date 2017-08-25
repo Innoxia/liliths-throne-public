@@ -22,8 +22,8 @@
 		Alexa's shop in Slaver Alley.
 				
 	Engine:
-		Did a lot of tidying up of the GameCharacter class by moving transformation methods into their appropriate classes.
-		Did a huge amount of cleaning up of the InventoryDialogue class (by Pimgd).
+		Did a huge amount of tidying up of the GameCharacter class by moving transformation methods into their appropriate classes.
+		Cleaned up a <i>lot</i> of the InventoryDialogue class (by Pimgd).
 		
 	Gameplay:
 		<b>Important change:</b> I listened to a lot of your feedback on the way the 'Non-con', 'Incest', and 'Transformation' fetishes were being used as content gates, and, after thinking about it, I've decided to move those options back to a proper 'content preferences' screen.
@@ -124,6 +124,9 @@
 			Added gcum modifiers (viscous, sticky, slimy, bubbling, addictive, hallucinogenic).
 			Added support for transformations caused by gcum ingestion.
 	
+	Sex:
+		<b>Added:</b> Cowgirl framework. The cowgirl position is now available, but I haven't had time to add in position-specific descriptions yet. I'll add those (as well as some for self-kneeling and self-doggystyle) within the next couple of weeks.
+	
 	UI:
 		Added control customisation for actions 10-14, as well as for allowing control and shift keys as modifiers (by Pimgd).
 		
@@ -143,10 +146,8 @@
 	
 	
 	
-	Cowgirl
 	Fetishes
-	Character creation
-	
+	Export
 	
 	
 	

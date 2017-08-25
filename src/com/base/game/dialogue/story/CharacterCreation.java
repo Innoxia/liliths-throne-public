@@ -782,6 +782,9 @@ public class CharacterCreation {
 					+ "<p style='text-align:center;'><b>Areolae size</b></br>"
 						+ CharacterModificationUtils.getAreolaeSizeOption()
 					+ "</p>"
+					+ "<p style='text-align:center;'><b>Puffy nipples</b></br>"
+						+ CharacterModificationUtils.getNipplePuffyOption(Main.game.getPlayer().hasNippleOrificeModifier(OrificeModifier.PUFFY))
+					+ "</p>"
 					+ "<p style='text-align:center;'><b>Lactation</b></br>"
 						+ CharacterModificationUtils.getLactationOption()
 						+ (!Main.game.getPlayer().isFeminine()?"</br>[style.italicsDisabled(Masculine characters cannot start with lactating breasts.)]":"")
@@ -819,7 +822,19 @@ public class CharacterCreation {
 					}
 				};
 				
-			} else if (index == 4) {
+			} if (index == 4) {
+				return new Response("Puffy nipples", "Cycle whether your nipples are extra puffy.", CHOOSE_BODY_ADVANCED_BREASTS) {
+					@Override
+					public void effects() {
+						if(Main.game.getPlayer().hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
+							Main.game.getPlayer().removeNippleOrificeModifier(OrificeModifier.PUFFY);
+						} else {
+							Main.game.getPlayer().addNippleOrificeModifier(OrificeModifier.PUFFY);
+						}
+					}
+				};
+				
+			} else if (index == 5) {
 				return new Response("Lactation", "Cycle your starting lactation.", CHOOSE_BODY_ADVANCED_BREASTS) {
 					@Override
 					public void effects() {
@@ -857,9 +872,6 @@ public class CharacterCreation {
 						+ CharacterModificationUtils.getHipSizeOption()
 					+ "</p>"
 					+ "<p style='text-align:center;'><b>Bleached</b></br>"
-						+ CharacterModificationUtils.getAnusBleachedOption()
-					+ "</p>"
-					+ "<p style='text-align:center;'><b>Anus Elasticity</b></br>"
 						+ CharacterModificationUtils.getAnusBleachedOption()
 					+ "</p>"; //TODO plasticity & elasticity
 		}

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.base.game.character.GameCharacter;
 import com.base.game.character.body.types.BreastType;
+import com.base.game.character.body.valueEnums.Capacity;
 import com.base.game.character.body.valueEnums.CupSize;
 import com.base.game.character.body.valueEnums.Lactation;
 import com.base.game.character.body.valueEnums.NippleShape;
@@ -548,7 +549,7 @@ public class Breast implements BodyPartInterface, Serializable {
 	}
 
 	public boolean isFuckable() {
-		return nipples.getOrificeNipples().getRawCapacityValue() > 0 && size >= CupSize.C.getMeasurement();
+		return nipples.getOrificeNipples().getCapacity() != Capacity.ZERO_IMPENETRABLE && size >= CupSize.C.getMeasurement();
 	}
 
 

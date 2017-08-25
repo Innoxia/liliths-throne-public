@@ -2314,6 +2314,11 @@ public class Body implements Serializable {
 				} else {
 					descriptionSB.append(" [style.colourGood(You have retained your nipple virginity.)]");
 				}
+				
+			} else {
+				if(owner.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
+					descriptionSB.append(" Your [pc.nipples] have swollen up to be exceptionally plump and puffy.");
+				}
 			}
 
 			if (breast.getRawLactationValue() > 0) {
@@ -2412,7 +2417,7 @@ public class Body implements Serializable {
 				descriptionSB.append(" They have been pierced.");
 			}
 			
-			if(owner.getNippleRawCapacityValue()>0) {
+			if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE) {
 				if (breast.isFuckable()) {
 					descriptionSB.append("</br>[npc.Her] [npc.breasts] have internal, [npc.nippleSecondaryColour(true)] channels, allowing [npc.her] [npc.breastCapacity] [npc.nipples] to be comfortably penetrated by "
 							+ Capacity.getCapacityFromValue(breast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
@@ -2571,6 +2576,10 @@ public class Body implements Serializable {
 					
 				} else {
 					descriptionSB.append("</br>[npc.She] is not producing any milk.");
+				}
+			} else {
+				if(owner.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
+					descriptionSB.append(" Your [pc.nipples] have swollen up to be exceptionally plump and puffy.");
 				}
 			}
 		}

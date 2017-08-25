@@ -425,6 +425,21 @@ public class CharacterModificationUtils {
 		}
 	}
 	
+	public static String getNipplePuffyOption(boolean puffy) {
+		stringsList.clear();
+		if(!puffy) {
+			stringsList.add("[style.boldDisabled(Regular)]");
+		} else {
+			stringsList.add("[style.colourDisabled(Regular)]");
+		}	
+		if(puffy) {
+			stringsList.add("[style.boldGood(Puffy)]");
+		} else {
+			stringsList.add("[style.colourDisabled(Puffy)]");
+		}
+		return stringsToSelection(stringsList);
+	}
+	
 	
 	
 	// ---------------------- Ass & Hips: ---------------------- //
@@ -530,7 +545,7 @@ public class CharacterModificationUtils {
 	public static String getPenisSizeOption() {
 		stringsList.clear();
 		for (PenisSize value : PenisSize.values()) {
-			if(value.getMedianValue() < PenisSize.FOUR_HUGE.getMinimumValue()) {
+			if(value.getMedianValue() < PenisSize.FOUR_HUGE.getMinimumValue() && value != PenisSize.NEGATIVE_UTILITY_VALUE) {
 				if (Main.game.getPlayer().getPenisSize() == value) {
 					stringsList.add("<b style='color:" + value.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(value.getDescriptor()) + "</b>");
 				} else {
@@ -558,9 +573,9 @@ public class CharacterModificationUtils {
 		for (CumProduction value : CumProduction.values()) {
 			if(value.getMedianValue() < CumProduction.FIVE_HUGE.getMinimumValue()) {
 				if (Main.game.getPlayer().getPenisCumProduction() == value) {
-					stringsList.add("<b style='color:" + value.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(value.getDescriptor()) + "</b>");
+					stringsList.add("<b style='color:" + value.getColour().toWebHexString() + ";'>" + value.getMedianValue() + "mL</b>");
 				} else {
-					stringsList.add("<span class='option-disabled'>" + Util.capitaliseSentence(value.getDescriptor()) + "</span>");
+					stringsList.add("<span class='option-disabled'>" + value.getMedianValue() + "mL</span>");
 				}
 			}
 		}
@@ -573,7 +588,7 @@ public class CharacterModificationUtils {
 				Main.game.getPlayer().setPenisSize(PenisSize.ONE_TINY.getMedianValue());
 				break;
 			case ONE_TINY:
-				Main.game.getPlayer().setPenisSize(PenisSize.ONE_TINY.getMedianValue());
+				Main.game.getPlayer().setPenisSize(PenisSize.TWO_AVERAGE.getMedianValue());
 				break;
 			case TWO_AVERAGE:
 				Main.game.getPlayer().setPenisSize(PenisSize.THREE_LARGE.getMedianValue());
@@ -771,6 +786,8 @@ public class CharacterModificationUtils {
 
 		return stringsToSelection(stringsList);
 	}
+	
+	
 	
 	// ---------------------- Coverings: ---------------------- //
 	
