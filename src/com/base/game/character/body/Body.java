@@ -2846,31 +2846,31 @@ public class Body implements Serializable {
 					if (isPlayer)
 						descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
 					else
-						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
+						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
 					break;
 				case FOUR_HUGE:
 					if (isPlayer)
 						descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
 					else
-						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
+						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
 					break;
 				case FIVE_MASSIVE:
 					if (isPlayer)
 						descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
 					else
-						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
+						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
 					break;
 				case SIX_GIGANTIC:
 					if (isPlayer)
 						descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
 					else
-						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
+						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
 					break;
 				case SEVEN_ABSURD:
 					if (isPlayer)
 						descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
 					else
-						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
+						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
 					break;
 			}
 		}
