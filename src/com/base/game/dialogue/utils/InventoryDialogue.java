@@ -3,6 +3,7 @@ package com.base.game.dialogue.utils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import com.base.game.character.GameCharacter;
 import com.base.game.character.QuestLine;
@@ -2380,12 +2381,14 @@ public class InventoryDialogue {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
-			Main.game.getDialogueFlags().tradePartner.getAllItemsInInventory().stream()
+			List<AbstractItem> items = Main.game.getDialogueFlags().tradePartner.getAllItemsInInventory().stream()
 				.filter(item::equals)
-				.forEach(tradeItem -> {
-					Main.game.getPlayer().addItem(tradeItem, false);
-					Main.game.getDialogueFlags().tradePartner.removeItem(tradeItem);
-				});
+				.collect(Collectors.toList());
+				
+			items.stream().forEach(tradeItem -> {
+				Main.game.getPlayer().addItem(tradeItem, false);
+				Main.game.getDialogueFlags().tradePartner.removeItem(tradeItem);
+			});
 			
 			Main.game.getPlayer().incrementMoney(-totalPrice);
 			
@@ -2478,12 +2481,14 @@ public class InventoryDialogue {
 				}
 			}
 			
-			Main.game.getDialogueFlags().tradePartner.getAllClothingInInventory().stream()
-				.filter(clothing::equals)
-				.forEach(tradeClothing -> {
-					Main.game.getPlayer().addClothing(tradeClothing, false);
-					Main.game.getDialogueFlags().tradePartner.removeClothing(tradeClothing);
-				});
+			List<AbstractClothing> clothingItems = Main.game.getDialogueFlags().tradePartner.getAllClothingInInventory().stream()
+					.filter(item::equals)
+					.collect(Collectors.toList());
+					
+			clothingItems.stream().forEach(tradeClothing -> {
+				Main.game.getPlayer().addClothing(tradeClothing, false);
+				Main.game.getDialogueFlags().tradePartner.removeClothing(tradeClothing);
+			});
 			
 			Main.game.getPlayer().incrementMoney(-totalPrice);
 
@@ -2566,12 +2571,14 @@ public class InventoryDialogue {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
-			Main.game.getDialogueFlags().tradePartner.getAllWeaponsInInventory().stream()
+			List<AbstractWeapon> weapons = Main.game.getDialogueFlags().tradePartner.getAllWeaponsInInventory().stream()
 				.filter(weapon::equals)
-				.forEach(tradeWeapon -> {
-					Main.game.getPlayer().addWeapon(tradeWeapon, false);
-					Main.game.getDialogueFlags().tradePartner.removeWeapon(tradeWeapon);
-				});
+				.collect(Collectors.toList());
+			
+			weapons.forEach(tradeWeapon -> {
+				Main.game.getPlayer().addWeapon(tradeWeapon, false);
+				Main.game.getDialogueFlags().tradePartner.removeWeapon(tradeWeapon);
+			});
 			
 			Main.game.getPlayer().incrementMoney(-totalPrice);
 
