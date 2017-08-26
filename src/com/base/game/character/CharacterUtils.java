@@ -612,10 +612,11 @@ public class CharacterUtils {
 				importedCharacter.setPerkPoints((Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")))-1);
 				characterImportLog.append("</br>Set perkPoints: (TEMP FIX) " + (Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value"))-1));
 				
+				String importSavefileVersion = "";
 				int extraLevelUpPoints=0;
 				// If there is a version number, attributes should be working correctly:
 				if(element.getElementsByTagName("version").item(0)!=null) {
-					
+					importSavefileVersion = ((Element) element.getElementsByTagName("version").item(0)).getAttribute("value");
 					nodes = doc.getElementsByTagName("attributes");
 					element = (Element) nodes.item(0);
 					for(int i=0; i<element.getElementsByTagName("attribute").getLength(); i++){
@@ -956,7 +957,22 @@ public class CharacterUtils {
 				// Eye:
 				try {
 					Element eye = (Element)((Element) nodes.item(0)).getElementsByTagName("eye").item(0);
-					importedCharacter.setEyeType(EyeType.valueOf(eye.getAttribute("type")));
+					String eyeTypeFromSave = eye.getAttribute("type");
+					if (importSavefileVersion.startsWith("0.1.82") || importSavefileVersion.startsWith("0.1.83P") || importSavefileVersion.isEmpty()) { //TODO replace with proper version checks!
+						Map<String, String> eyeTypeConverterMap = new HashMap<>();
+						eyeTypeConverterMap.put("EYE_HUMAN", "HUMAN");
+						eyeTypeConverterMap.put("EYE_ANGEL", "ANGEL");
+						eyeTypeConverterMap.put("EYE_DEMON_COMMON", "DEMON_COMMON");
+						eyeTypeConverterMap.put("EYE_DOG_MORPH", "DOG_MORPH");
+						eyeTypeConverterMap.put("EYE_LYCAN", "LYCAN");
+						eyeTypeConverterMap.put("EYE_FELINE", "CAT_MORPH");
+						eyeTypeConverterMap.put("EYE_SQUIRREL", "SQUIRREL_MORPH");
+						eyeTypeConverterMap.put("EYE_HORSE_MORPH", "HORSE_MORPH");
+						eyeTypeConverterMap.put("EYE_HARPY", "HARPY");
+						eyeTypeConverterMap.put("EYE_SLIME", "SLIME");
+						eyeTypeFromSave = eyeTypeConverterMap.get(eyeTypeFromSave);
+					}
+					importedCharacter.setEyeType(EyeType.valueOf(eyeTypeFromSave));
 					importedCharacter.setEyePairs(Integer.valueOf(eye.getAttribute("eyePairs")));
 					importedCharacter.setIrisShape(EyeShape.valueOf(eye.getAttribute("irisShape")));
 					importedCharacter.setPupilShape(EyeShape.valueOf(eye.getAttribute("pupilShape")));
@@ -1039,9 +1055,24 @@ public class CharacterUtils {
 				// Hair:
 				try {
 					Element hair = (Element)((Element) nodes.item(0)).getElementsByTagName("hair").item(0);
-						importedCharacter.setHairType(HairType.valueOf(hair.getAttribute("type")));
-						importedCharacter.setHairLength(Integer.valueOf(hair.getAttribute("length")));
-						importedCharacter.setHairStyle(HairStyle.valueOf(hair.getAttribute("hairStyle")));
+					String hairTypeFromSave = hair.getAttribute("type");
+					if (importSavefileVersion.startsWith("0.1.82") || importSavefileVersion.startsWith("0.1.83P") || importSavefileVersion.isEmpty()) { //TODO replace with proper version checks!
+						Map<String, String> hairTypeConverterMap = new HashMap<>();
+						hairTypeConverterMap.put("HAIR_HUMAN", "HUMAN");
+						hairTypeConverterMap.put("HAIR_ANGEL", "ANGEL");
+						hairTypeConverterMap.put("HAIR_DEMON", "DEMON_COMMON");
+						hairTypeConverterMap.put("HAIR_CANINE_FUR", "DOG_MORPH");
+						hairTypeConverterMap.put("HAIR_LYCAN_FUR", "LYCAN");
+						hairTypeConverterMap.put("HAIR_FELINE_FUR", "CAT_MORPH");
+						hairTypeConverterMap.put("HAIR_HORSE_HAIR", "HORSE_MORPH");
+						hairTypeConverterMap.put("HAIR_SQUIRREL_FUR", "SQUIRREL_MORPH");
+						hairTypeConverterMap.put("HAIR_SLIME", "SLIME");
+						hairTypeConverterMap.put("HAIR_HARPY", "HARPY");
+						hairTypeFromSave = hairTypeConverterMap.get(hairTypeFromSave);
+					}
+					importedCharacter.setHairType(HairType.valueOf(hairTypeFromSave));
+					importedCharacter.setHairLength(Integer.valueOf(hair.getAttribute("length")));
+					importedCharacter.setHairStyle(HairStyle.valueOf(hair.getAttribute("hairStyle")));
 						
 					
 					characterImportLog.append("</br></br>Body: Hair: "
@@ -1160,8 +1191,22 @@ public class CharacterUtils {
 				// Skin:
 				try {
 					Element skin = (Element)((Element) nodes.item(0)).getElementsByTagName("skin").item(0);
-					importedCharacter.setSkinType(SkinType.valueOf(skin.getAttribute("type")));
-					
+					String skinTypeFromSave = skin.getAttribute("type");
+					if (importSavefileVersion.startsWith("0.1.82") || importSavefileVersion.startsWith("0.1.83P") || importSavefileVersion.isEmpty()) { //TODO replace with proper version checks!
+						Map<String, String> skinTypeConverterMap = new HashMap<>();
+						skinTypeConverterMap.put("HUMAN", "HUMAN");
+						skinTypeConverterMap.put("ANGEL", "ANGEL");
+						skinTypeConverterMap.put("DEMON_COMMON", "DEMON_COMMON");
+						skinTypeConverterMap.put("CANINE_FUR", "DOG_MORPH");
+						skinTypeConverterMap.put("LYCAN_FUR", "LYCAN");
+						skinTypeConverterMap.put("FELINE_FUR", "CAT_MORPH");
+						skinTypeConverterMap.put("SQUIRREL_FUR", "SQUIRREL_MORPH");
+						skinTypeConverterMap.put("HORSE_HAIR", "HORSE_MORPH");
+						skinTypeConverterMap.put("SLIME", "SLIME");
+						skinTypeConverterMap.put("FEATHERS", "HARPY");
+						skinTypeFromSave = skinTypeConverterMap.get(skinTypeFromSave);
+					}
+					importedCharacter.setSkinType(SkinType.valueOf(skinTypeFromSave));
 					characterImportLog.append("</br></br>Body: Skin: "
 							+ "</br>type: "+importedCharacter.getSkinType());
 				}catch(IllegalArgumentException ex){
