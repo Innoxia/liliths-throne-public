@@ -1004,7 +1004,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			true,
 			"eyes",
 			"eye",
-			"horse-like",
+			"cow-like",
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES)),
 			Util.newArrayListOfValues(
