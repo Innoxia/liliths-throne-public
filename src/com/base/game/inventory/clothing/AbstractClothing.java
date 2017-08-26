@@ -581,6 +581,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	public void removeBadEnchantment() {
 		this.badEnchantment = false;
 		this.rarity = Rarity.COMMON;
+		this.coreEnchantment = null;
 	}
 
 	public boolean isSealed() {
