@@ -1103,9 +1103,10 @@ public class InventoryDialogue {
 		@Override
 		public Response getResponse(int index) {
 			// Use item:
+			boolean noSlotForItem = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item);
 			if (index == 1) {
 				if (buyback) {
-					if (Main.game.getPlayer().isInventoryFull()) {
+					if (noSlotForItem) {
 						return new Response("Buy-back", "Your inventory is full, so you can't buy back the " + item.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < buyBackPrice) {
@@ -1123,7 +1124,7 @@ public class InventoryDialogue {
 					
 				} else {
 					int itemPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
-					if (Main.game.getPlayer().isInventoryFull()) {
+					if (noSlotForItem) {
 						return new Response("Buy", "Your inventory is full, so you can't buy the " + item.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < itemPrice) {
@@ -1143,7 +1144,7 @@ public class InventoryDialogue {
 			} else if (index == 2 && Main.game.getDialogueFlags().tradePartner.getItemCount(item)>1) {
 				if (!buyback) {
 					int totalPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getItemCount(item);
-					if (Main.game.getPlayer().isInventoryFull()) {
+					if (noSlotForItem) {
 						return new Response("Buy all", "Your inventory is full, so you can't buy the " + item.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < totalPrice) {
@@ -1204,9 +1205,10 @@ public class InventoryDialogue {
 		@Override
 		public Response getResponse(int index) {
 			// Use item:
+			boolean noSlotForItem = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon);
 			if (index == 1) {
 				if (buyback) {
-					if (Main.game.getPlayer().isInventoryFull()) {
+					if (noSlotForItem) {
 						return new Response("Buy-back", "Your inventory is full, so you can't buy back the " + weapon.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < buyBackPrice) {
@@ -1224,7 +1226,7 @@ public class InventoryDialogue {
 					
 				} else {
 					int itemPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
-					if (Main.game.getPlayer().isInventoryFull()) {
+					if (noSlotForItem) {
 						return new Response("Buy", "Your inventory is full, so you can't buy the " + weapon.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < itemPrice) {
@@ -1244,7 +1246,7 @@ public class InventoryDialogue {
 			} else if (index == 2 && Main.game.getDialogueFlags().tradePartner.getWeaponCount(weapon)>1) {
 				if (!buyback) {
 					int totalPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getWeaponCount(weapon);
-					if (Main.game.getPlayer().isInventoryFull()) {
+					if (noSlotForItem) {
 						return new Response("Buy all", "Your inventory is full, so you can't buy the " + weapon.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < totalPrice) {
@@ -1308,9 +1310,10 @@ public class InventoryDialogue {
 		@Override
 		public Response getResponse(int index) {
 			// Use item:
+			boolean noSlotForItem = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing);
 			if (index == 1) {
 				if (buyback) {
-					if (Main.game.getPlayer().isInventoryFull()) {
+					if (noSlotForItem) {
 						return new Response("Buy-back", "Your inventory is full, so you can't buy back the " + clothing.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < buyBackPrice) {
@@ -1328,7 +1331,7 @@ public class InventoryDialogue {
 					
 				} else {
 					int itemPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
-					if (Main.game.getPlayer().isInventoryFull()) {
+					if (noSlotForItem) {
 						return new Response("Buy", "Your inventory is full, so you can't buy the " + clothing.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < itemPrice) {
@@ -1348,7 +1351,7 @@ public class InventoryDialogue {
 			} else if (index == 2 && Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing)>1) {
 				if (!buyback) {
 					int totalPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing);
-					if (Main.game.getPlayer().isInventoryFull()) {
+					if (noSlotForItem) {
 						return new Response("Buy all", "Your inventory is full, so you can't buy the " + clothing.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < totalPrice) {
@@ -2339,7 +2342,7 @@ public class InventoryDialogue {
 		if (Main.game.getPlayer().getMoney() < itemPrice)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		else if (Main.game.getPlayer().isInventoryFull())
+		else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item))
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
@@ -2361,7 +2364,7 @@ public class InventoryDialogue {
 		if (Main.game.getPlayer().getMoney() < totalPrice)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		else if (Main.game.getPlayer().isInventoryFull())
+		else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item))
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
@@ -2394,7 +2397,7 @@ public class InventoryDialogue {
 		if (Main.game.getPlayer().getMoney() < price)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		else if (Main.game.getPlayer().isInventoryFull())
+		else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item))
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
@@ -2429,7 +2432,7 @@ public class InventoryDialogue {
 		if (Main.game.getPlayer().getMoney() < itemPrice) {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		} else if (Main.game.getPlayer().isInventoryFull()) {
+		} else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing)) {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		} else {
@@ -2453,7 +2456,7 @@ public class InventoryDialogue {
 		if (Main.game.getPlayer().getMoney() < totalPrice) {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		} else if (Main.game.getPlayer().isInventoryFull()) {
+		} else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing)) {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		} else {
@@ -2494,7 +2497,7 @@ public class InventoryDialogue {
 		if (Main.game.getPlayer().getMoney() < price)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		else if (Main.game.getPlayer().isInventoryFull())
+		else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing))
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
@@ -2529,7 +2532,7 @@ public class InventoryDialogue {
 		if (Main.game.getPlayer().getMoney() < itemPrice)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		else if (Main.game.getPlayer().isInventoryFull())
+		else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon))
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
@@ -2551,7 +2554,7 @@ public class InventoryDialogue {
 		if (Main.game.getPlayer().getMoney() < totalPrice)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		else if (Main.game.getPlayer().isInventoryFull())
+		else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon))
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
@@ -2584,7 +2587,7 @@ public class InventoryDialogue {
 		if (Main.game.getPlayer().getMoney() < price)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		else if (Main.game.getPlayer().isInventoryFull())
+		else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon))
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
