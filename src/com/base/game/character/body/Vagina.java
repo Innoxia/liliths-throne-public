@@ -76,26 +76,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 
 	@Override
 	public String getDescriptor(GameCharacter owner) {
-		// I'm sure I could have done this a better way.
-		String muscleControl = "", puffy = "", ribbed = "", tentacled = "";
-		
-		for(OrificeModifier om : OrificeModifier.values()) {
-			switch(om) {
-				case MUSCLE_CONTROL:
-					muscleControl = om.getName();
-					break;
-				case PUFFY:
-					puffy = om.getName();
-					break;
-				case RIBBED:
-					ribbed = om.getName();
-					break;
-				case TENTACLED:
-					tentacled = om.getName();
-					break;
-			}
-		}
-		
+
 		String wetnessDescriptor = orificeVagina.getWetness(owner).getDescriptor();
 		if(Main.game.isInSex()) {
 			if(owner.isPlayer() && !Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PLAYER).isEmpty()) {
@@ -106,10 +87,10 @@ public class Vagina implements BodyPartInterface, Serializable {
 		}
 		
 		return UtilText.returnStringAtRandom(
-				muscleControl,
-				puffy,
-				ribbed,
-				tentacled,
+				(orificeVagina.hasOrificeModifier(OrificeModifier.MUSCLE_CONTROL)?OrificeModifier.MUSCLE_CONTROL.getName():""),
+				(orificeVagina.hasOrificeModifier(OrificeModifier.RIBBED)?OrificeModifier.RIBBED.getName():""),
+				(orificeVagina.hasOrificeModifier(OrificeModifier.TENTACLED)?OrificeModifier.TENTACLED.getName():""),
+				(orificeVagina.hasOrificeModifier(OrificeModifier.PUFFY)?OrificeModifier.PUFFY.getName():""),
 				wetnessDescriptor,
 				((owner.getPubicHair()==BodyHair.BUSHY || owner.getPubicHair()==BodyHair.TRIMMED) && Main.game.isBodyHairEnabled() ? "hairy" :""),
 				type.getDescriptor(owner),
