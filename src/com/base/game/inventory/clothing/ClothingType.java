@@ -1053,7 +1053,7 @@ public enum ClothingType {
 	NECK_COWBELL_COLLAR("a",
 			false,
 			"cowbell collar",
-			"A heavy leather collar, of the type worn by cow.",
+			"A heavy leather collar, of the type worn by a cow.",
 			0,
 			null,
 			InventorySlot.NECK,
@@ -1073,7 +1073,7 @@ public enum ClothingType {
 				return "You put on the cowbell collar, fastening the clasp at the back of your neck.";
 			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
 				return UtilText.genderParsing(clothingOwner,
-						Util.capitaliseSentence(clothingOwner.getName("the")) + " puts a " + clothing.getName(true) + " around <her> neck, reaching around" + " to fasten the clasp at the back.");
+						Util.capitaliseSentence(clothingOwner.getName("the")) + " puts a " + clothing.getName(true) + " around <her> neck, reaching around to fasten the clasp at the back.");
 			else {
 				if (clothingOwner.isPlayer())
 					return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " fastens " + clothing.getName(true) + " around your neck.");
