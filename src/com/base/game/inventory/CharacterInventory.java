@@ -230,13 +230,17 @@ public class CharacterInventory implements Serializable {
 	 * @return true if added, false if inventory was full.
 	 */
 	public boolean addItem(AbstractItem item) {
-		if (!isInventoryFull() || hasItem(item)){
+		if (canAddItem(item)) {
 			itemsInInventory.add(item);
 			recalculateMapOfDuplicateItems();
 			return true;
 		}
 		
 		return false;
+	}
+	
+	public boolean canAddItem(AbstractItem item) {
+		return !isInventoryFull() || hasItem(item);
 	}
 	
 	public boolean removeItem(AbstractItem item) {
@@ -327,13 +331,17 @@ public class CharacterInventory implements Serializable {
 	 * @return true if added, false if inventory was full.
 	 */
 	public boolean addWeapon(AbstractWeapon weapon) {
-		if (!isInventoryFull() || hasWeapon(weapon)){
+		if (canAddWeapon(weapon)) {
 			weaponsInInventory.add(weapon);
 			recalculateMapOfDuplicateWeapons();
 			return true;
 		}
 		
 		return false;
+	}
+	
+	public boolean canAddWeapon(AbstractWeapon weapon) {
+		return !isInventoryFull() || hasWeapon(weapon);
 	}
 	
 	public boolean removeWeapon(AbstractWeapon weapon) {
@@ -443,12 +451,16 @@ public class CharacterInventory implements Serializable {
 	 */
 	
 	public boolean addClothing(AbstractClothing clothing) {
-		if (!isInventoryFull() || hasClothing(clothing)) {
+		if (canAddClothing(clothing)) {
 			clothingInInventory.add(clothing);
 			recalculateMapOfDuplicateClothing();
 			return true;
 		} else
 			return false;
+	}
+	
+	public boolean canAddClothing(AbstractClothing clothing) {
+		return !isInventoryFull() || hasClothing(clothing);
 	}
 	
 	public boolean hasClothing(AbstractClothing clothing) {
