@@ -165,7 +165,7 @@ public class Ear implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" They quickly grow into long ovals, and shift to flop over on the side of your head vastly different than a normal pair of human ears would."
-								+ " A layer of [pc.earFullDescriptionColour] grows to cover them, and as the transformation finishes,  discover that you can easily twitch your new cow-like ears back and forth."
+								+ " A layer of [pc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new cow-like ears back and forth."
 								+ "</br>"
 								+ "You now have [style.boldCowMorph(anthropomorphic, cow-like ears)]."
 							+ "</p>");
