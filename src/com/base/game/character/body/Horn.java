@@ -140,7 +140,7 @@ public class Horn implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 								" Hard nubs push out from [npc.her] upper temples, and [npc.she] gasps as [npc.she] feels "+getDeterminer(owner)+" short, sleek horns pushing out to curve up the sides of [npc.her] head."
 								+ "</br>"
-								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldDemon(feminine-looking bovine horns)]."
+								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldCowMorph(feminine-looking bovine horns)]."
 								+ "</p>");
 				}
 				break;
