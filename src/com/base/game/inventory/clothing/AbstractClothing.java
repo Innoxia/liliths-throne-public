@@ -158,6 +158,17 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		result = 31 * result + displacedList.hashCode();
 		return result;
 	}
+	
+	/**
+	 * @return the name of a css class to use as a displayed rarity in inventory screens
+	 */
+	@Override
+	public String getDisplayRarity() {
+		if (!enchantmentKnown) {
+			return "unknown";
+		}
+		return super.getDisplayRarity();
+	}
 
 	private StringBuilder descriptionSB;
 
