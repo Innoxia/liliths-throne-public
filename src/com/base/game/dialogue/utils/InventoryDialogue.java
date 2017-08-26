@@ -303,7 +303,8 @@ public class InventoryDialogue {
 			inventorySB.append("</div>");
 			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace() != Dominion.CITY_AUNTS_HOME
 					&& Main.game.getPlayerCell().getPlace().isItemsDisappear()
-					&& Main.game.getPlayerCell().getInventory().getInventorySlotsTaken() > 0)
+					&& Main.game.getPlayerCell().getInventory().getInventorySlotsTaken() > 0
+					&& Main.game.getDialogueFlags().tradePartner == null)
 				inventorySB.append("<p style='text-align: center; height:48px;'>" + "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>These items will disappear when you leave the area.</b>" + "</p>");
 			else
 				inventorySB.append("<p style='text-align: center; height:48px;'>-</p>");
