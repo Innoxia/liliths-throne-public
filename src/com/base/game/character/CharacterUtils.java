@@ -21,6 +21,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.base.game.character.attributes.Attribute;
+import com.base.game.character.body.types.AntennaType;
 import com.base.game.character.body.types.ArmType;
 import com.base.game.character.body.types.AssType;
 import com.base.game.character.body.types.BodyCoveringType;
@@ -236,6 +237,13 @@ public class CharacterUtils {
 				addAttribute(doc, element, "glowSecondary", String.valueOf(character.getCovering(bct).isSecondaryGlowing()));
 				addAttribute(doc, element, "discovered", String.valueOf(character.getBodyCoveringTypesDiscovered().contains(bct)));
 			}
+			
+
+			// Antennae:
+			Element bodyAntennae = doc.createElement("antennae");
+			characterBody.appendChild(bodyAntennae);
+				addAttribute(doc, bodyAntennae, "type", character.getAntennaType().toString());
+				addAttribute(doc, bodyAntennae, "rows", String.valueOf(character.getAntennaRows()));
 			
 			// Arm:
 			Element bodyArm = doc.createElement("arm");
@@ -742,15 +750,21 @@ public class CharacterUtils {
 					
 					importedCharacter.setPiercedNavel(Boolean.valueOf(element.getAttribute("piercedStomach")));
 					characterImportLog.append("</br>Body: Set piercedStomach: "+Boolean.valueOf(element.getAttribute("piercedStomach")));
-	
-					importedCharacter.setBodySize(Integer.valueOf(element.getAttribute("bodySize")));
-					characterImportLog.append("</br>Body: Set body size: "+Integer.valueOf(element.getAttribute("bodySize")));
-	
-					importedCharacter.setMuscle(Integer.valueOf(element.getAttribute("muscle")));
-					characterImportLog.append("</br>Body: Set muscle: "+Integer.valueOf(element.getAttribute("muscle")));
-	
-					importedCharacter.setPubicHair(BodyHair.valueOf(element.getAttribute("pubicHair")));
-					characterImportLog.append("</br>Body: Set pubicHair: "+importedCharacter.getPubicHair());
+					
+					if(element.getAttribute("bodySize")!=null && element.getAttribute("bodySize").length()>0) {
+						importedCharacter.setBodySize(Integer.valueOf(element.getAttribute("bodySize")));
+						characterImportLog.append("</br>Body: Set body size: "+Integer.valueOf(element.getAttribute("bodySize")));
+					}
+					
+					if(element.getAttribute("muscle")!=null && element.getAttribute("muscle").length()>0) {
+						importedCharacter.setMuscle(Integer.valueOf(element.getAttribute("muscle")));
+						characterImportLog.append("</br>Body: Set muscle: "+Integer.valueOf(element.getAttribute("muscle")));
+					}
+
+					if(element.getAttribute("pubicHair")!=null && element.getAttribute("pubicHair").length()>0) {
+						importedCharacter.setPubicHair(BodyHair.valueOf(element.getAttribute("pubicHair")));
+						characterImportLog.append("</br>Body: Set pubicHair: "+importedCharacter.getPubicHair());
+					}
 				
 				
 				for(int i=0; i<element.getElementsByTagName("bodyCovering").getLength(); i++){
@@ -774,6 +788,20 @@ public class CharacterUtils {
 				}
 				
 				// Body parts:
+
+				// Antenna:
+				try {
+					Element antennae = (Element)((Element) nodes.item(0)).getElementsByTagName("antennae").item(0);
+					
+					importedCharacter.setAntennaType(AntennaType.valueOf(antennae.getAttribute("type")));
+					characterImportLog.append("</br></br>Body: Antennae:"+ "</br>type: "+importedCharacter.getAntennaType());
+
+					importedCharacter.setAntennaRows(Integer.valueOf(antennae.getAttribute("rows")));
+					characterImportLog.append("</br>rows: "+importedCharacter.getAntennaRows());
+					
+				}catch(IllegalArgumentException ex){
+				}
+				
 				// Arm:
 				try {
 					Element arm = (Element)((Element) nodes.item(0)).getElementsByTagName("arm").item(0);
@@ -797,7 +825,7 @@ public class CharacterUtils {
 					importedCharacter.setAssType(AssType.valueOf(ass.getAttribute("type")));
 					importedCharacter.setAssSize(Integer.valueOf(ass.getAttribute("assSize")));
 					importedCharacter.setHipSize(Integer.valueOf(ass.getAttribute("hipSize")));
-
+					
 					Element anus = (Element)((Element) nodes.item(0)).getElementsByTagName("anus").item(0);
 					importedCharacter.setAssWetness(Integer.valueOf(anus.getAttribute("wetness")));
 					importedCharacter.setAssElasticity(Integer.valueOf(anus.getAttribute("elasticity")));
