@@ -5555,7 +5555,7 @@ public abstract class NPC extends GameCharacter {
 							case AVIAN:
 								break;
 							case BOVINE:
-								return "You let out [pc.a_moan+] as you feel [npc.name]'s COW-like cock push into your [pc.pussy+].";
+								return "You let out [pc.a_moan+] as you feel [npc.name]'s cow-like cock push into your [pc.pussy+].";
 							case CANINE:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.pussy+].";
 							case LUPINE:
