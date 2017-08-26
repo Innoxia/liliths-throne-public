@@ -16,143 +16,45 @@
 	
 	
 	Patch notes:
-		In an attempt to make save games compatible, I ended up adding functionality for all the transformations I plan to have in the game.
-				
-	Current end of main quest content:
-		Alexa's shop in Slaver Alley.
-				
-	Engine:
-		Did a huge amount of tidying up of the GameCharacter class by moving transformation methods into their appropriate classes.
-		Cleaned up a <i>lot</i> of the InventoryDialogue class (by Pimgd).
-		
-	Gameplay:
-		<b>Important change:</b> I listened to a lot of your feedback on the way the 'Non-con', 'Incest', and 'Transformation' fetishes were being used as content gates, and, after thinking about it, I've decided to move those options back to a proper 'content preferences' screen.
-		This will now enable your content preferences to be carried over to all of your games, so you don't have to worry about taking those fetishes on every new game.
-		<b>As part of this:</b> I'm going to change the non-con and 
-		<b>Changed:</b> Split orifice elasticity into elasticity and plasticity. Elasticity determines how quickly you stretch out during sex, while plasticity determines how much your orifice recovers afterwards.
-		Updated character creation screen. This is still not in the final form that I want it to be in, but it does now include more options than before.
-		
-	Body:
-		Improved a huge amount of transformation text, and have moved it into a far more organised structure to make any future editing a lot easier.
-		Improved body description (the selfie text) to take into account all of the additions to the new body system.
-		Added more realistic colour groups for skin/fur/feather/eye combinations, instead of it being 100% random.
-		
-		Antennae:
-			Added support for antennae. (Not yet implemented in-game.)
-			Added multiple rows of antennae (up to three rows, so six antennae in total).
-			
-		Arm:
-			Added nail polish for hands.
-			Added support for multiple arms rows. (Not yet implemented in-game.)
-			Added underarm hair. (Content-gated, and is off by default!)
-			
-		Ass:
-			Skin/fur covering ass and hips is now separate from torso skin/fur.
-			Added special transformation modifiers for asshole (ribbed, puffy, muscled, tentacled).
-			Added anal bleaching.
-			Added ass hair. (Content-gated, and is off by default!)
-		
-		Body Material:
-			Added support for body material, for when I implement slimes. (Will also enable things like being made out of fire/ice/rubber/etc.)
-		
-		Breasts & Milk:
-			Skin/fur covering breasts is now separate from torso skin/fur.
-			Added nipple colourings (plus nipple interior colouring, for fuckable nipples).
-			Added nipple size.
-			Added nipple shape (normal, vagina-like, or lipples).
-			Added areolae size.
-			Added areolae shape (normal, hearts, or stars).
-			Added nipples-per-breast count (up to four per breast).
-			Added special transformation modifiers for nipples (internally-ribbed, puffy, internal-muscles, internal-tentacles).
-			Added milk as a separate transformable fluid.
-			Added flavours.
-			Added modifiers (viscous, sticky, slimy, bubbling, addictive, hallucinogenic).
-			Added support for transformations caused by milk ingestion.
-		
-		Core:
-			Added 'muscle' and 'body size' values, which together determine a character's body type.
-			Tweaked the availability of some colours.
-			Added body-part colour patterns (normal, mottled, spotted, striped, hair highlights).
-			Added glowing colours. (All colours can have the 'glowing' modifier applied to them.)
-			Added pubic hair. (Not yet implemented fully.)
-			
-		Eyes:
-			Added support for multiple pairs of eyes (up to four pairs, so eight eyes in total).
-			Added shapes for iris and pupil (round, horizontal, vertical, hearts, stars).
-			Added heterochromatic iris and pupil support.
-			Added eye shadow and eye liner.
-			
-		Face:
-			Added lip and tongue colours.
-			Added lipstick and blusher.
-			Added special transformation modifiers for throat (internally-ribbed, puffy, internal-muscles, internal-tentacles).
-			Added beards. (Content-gated, and is off by default!)
-			
-		Hair:
-			Added hair styles (natural, loose, curly, straight, wavy, ponytail, twintails, braided).
-			Doubled maximum hair length from 40 to 80 inches.
-			
-		Horn:
-			Added multiple rows of horns (up to three rows, so six horns in total).
-			
-		Legs:
-			Added toenail polish.
-			
-		Penis & cum:
-			Added fully customisable penis. You can now apply the following transformations to any penis: sheathed, ribbed, tentacled, knotted, tapered, flared, barbed, veiny, prehensile.
-			Added special transformation modifiers for urethra (internally-ribbed, puffy, internal-muscles, internal-tentacles).
-			Added cum as a separate transformable fluid.
-			Added multiple testicle support (between 2 and 8).
-			Added an internal testicle TF.
-			Added support for second penis (may still take some time to implement fully into the game).
-			Added cum flavours.
-			Added cum modifiers (viscous, sticky, slimy, bubbling, addictive, hallucinogenic).
-			Added support for transformations caused by cum ingestion.
-			
-		Tail:
-			Added multiple tail support.
-			
-		Tongue:
-			Added tongue length.
-			Added tongue modifiers (ribbed, tentacled, bifurcated).
-			
-		Vagina & girl-cum:
-			Added special transformation modifiers (ribbed, puffy, muscled, tentacled).
-			Added gcum flavours.
-			Added gcum modifiers (viscous, sticky, slimy, bubbling, addictive, hallucinogenic).
-			Added support for transformations caused by gcum ingestion.
 	
-	Sex:
-		<b>Added:</b> Cowgirl framework. The cowgirl position is now available, but I haven't had time to add in position-specific descriptions yet. I'll add those (as well as some for self-kneeling and self-doggystyle) within the next couple of weeks.
-	
-	UI:
-		Added control customisation for actions 10-14, as well as for allowing control and shift keys as modifiers (by Pimgd).
-		
 	Bugs:
-		Fixed a cause of a game freeze when passing out after second pregnancy.
-		Nipple bars are now correctly treated as a plural item.
-		Fixed some instances were Bree/Brandi were called Brax.
-		Typo fixes.
-		Fixed bug where dyeing stacked clothes would dye the entire stack (fixed by Pimgd).
-		Fixed a lot of typos, both in content and in code (by Pimgd).
-		Fixed formatting issues in the encyclopedia's item page (by Pimgd).
-		Fixed special attack descriptions not showing when performing the attack (by Pimgd).
-		Fixed a bug where the player inventory would stay on screen on new game start (by Pimgd).
-		Clothing colours in encyclopedia should no longer overlap (by Pimgd).
+		Fixed incorrect breast size descriptors showing up.
+		Fixed bugs related to incorrect adjectives being applied to vagina (by Pimgd).
+		Fixed buy all game freeze bug (by Pimgd).
+		Fixed the display size of jinxed equipped piercings (by Pimgd).
 	
 	
 	
 	
-	A lot of the NPCs might have incorrectly configured skin/hair colours.
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	also the collect reward button is bugged for the harpy sidequest and you can click it as many times as you want and itll give you money, the money counter updates when you move
+	
+	It would probably be best if the player gets prompted with an option to go into said content settings during character creation.
 	
 	Fetishes
-	Export
 	
+	Furry tails in sex
 	
+	Tails in mouth AI
 	
+	"woman cum" instead of cum...
 	
+	The Sadism fetish note in combat doesn't take gender into account, always referring to "his sadist fetish".
+	
+	Not actually sure if its a bug but lilaya doesnt actually produce cum anymore
+	
+	deep into your small tits...
 	
 	
 	
