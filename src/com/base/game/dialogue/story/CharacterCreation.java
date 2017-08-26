@@ -1042,7 +1042,7 @@ public class CharacterCreation {
 							+ "<i>All of these options can be changed later on in the game by visiting Kate's shop.</i>"
 					+ "</p>");
 			
-			if(Main.game.isPubicHairEnabled() || Main.game.isPubicHairEnabled() || Main.game.isBodyHairEnabled()) {
+			if(Main.game.isPubicHairEnabled() || Main.game.isFacialHairEnabled() || Main.game.isBodyHairEnabled()) {
 				UtilText.nodeContentSB.append(
 						"<p style='text-align:center;'><b>Body hair colour</b></br>"
 							+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.BODY_HAIR_HUMAN)
