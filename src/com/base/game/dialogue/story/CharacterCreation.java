@@ -1114,12 +1114,16 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Body hair colour", "Cycle body hair colour.", CHOOSE_BODY_ADVANCED_BODY_HAIR) {
-					@Override
-					public void effects() {
-						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.BODY_HAIR_HUMAN);
-					}
-				};
+				if(Main.game.isPubicHairEnabled() || Main.game.isFacialHairEnabled() || Main.game.isBodyHairEnabled()) {
+					return new Response("Body hair colour", "Cycle body hair colour.", CHOOSE_BODY_ADVANCED_BODY_HAIR) {
+						@Override
+						public void effects() {
+							CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.BODY_HAIR_HUMAN);
+						}
+					};
+				} else {
+					return new Response("Body hair colour", "All extra body hair options are disabled.", null);
+				}
 				
 			} else if (index == 2) {
 				if(Main.game.isFacialHairEnabled()) {
