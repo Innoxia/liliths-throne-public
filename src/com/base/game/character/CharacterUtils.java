@@ -573,9 +573,12 @@ public class CharacterUtils {
 		return characterImportLog.toString();
 	}
 	// This is a complete mess...
-	public static PlayerCharacter loadCharacterFromXML(File xmlFile){
-		
+	public static PlayerCharacter startLoadingCharacterFromXML(){
 		PlayerCharacter importedCharacter = new PlayerCharacter(new NameTriplet("Player"), "", 1, Gender.MALE, RacialBody.HUMAN, RaceStage.HUMAN, null, WorldType.DOMINION, Dominion.CITY_AUNTS_HOME);
+		return importedCharacter;
+	}
+	public static PlayerCharacter loadCharacterFromXML(File xmlFile, PlayerCharacter importedCharacter){
+		
 		characterImportLog = new StringBuilder();
 		
 		if (xmlFile.exists()) {
@@ -795,12 +798,12 @@ public class CharacterUtils {
 				// Antenna:
 				try {
 					Element antennae = (Element)((Element) nodes.item(0)).getElementsByTagName("antennae").item(0);
-					
+					if (antennae != null){
 					importedCharacter.setAntennaType(AntennaType.valueOf(antennae.getAttribute("type")));
 					characterImportLog.append("</br></br>Body: Antennae:"+ "</br>type: "+importedCharacter.getAntennaType());
 
 					importedCharacter.setAntennaRows(Integer.valueOf(antennae.getAttribute("rows")));
-					characterImportLog.append("</br>rows: "+importedCharacter.getAntennaRows());
+					characterImportLog.append("</br>rows: "+importedCharacter.getAntennaRows());}
 					
 				}catch(IllegalArgumentException ex){
 				}
@@ -830,42 +833,45 @@ public class CharacterUtils {
 					importedCharacter.setHipSize(Integer.valueOf(ass.getAttribute("hipSize")));
 					
 					Element anus = (Element)((Element) nodes.item(0)).getElementsByTagName("anus").item(0);
-					importedCharacter.setAssWetness(Integer.valueOf(anus.getAttribute("wetness")));
-					importedCharacter.setAssElasticity(Integer.valueOf(anus.getAttribute("elasticity")));
-					importedCharacter.setAssPlasticity(Integer.valueOf(anus.getAttribute("plasticity")));
-					importedCharacter.setAssCapacity(Float.valueOf(anus.getAttribute("capacity")));
-					importedCharacter.setAssStretchedCapacity(Float.valueOf(anus.getAttribute("stretchedCapacity")));
-					importedCharacter.setAssVirgin(Boolean.valueOf(anus.getAttribute("virgin")));
-					importedCharacter.setAssBleached(Boolean.valueOf(anus.getAttribute("bleached")));
-					importedCharacter.setAssHair(BodyHair.valueOf(anus.getAttribute("assHair")));
+					if (anus != null){
+						importedCharacter.setAssWetness(Integer.valueOf(anus.getAttribute("wetness")));
+						importedCharacter.setAssElasticity(Integer.valueOf(anus.getAttribute("elasticity")));
+						importedCharacter.setAssPlasticity(Integer.valueOf(anus.getAttribute("plasticity")));
+						importedCharacter.setAssCapacity(Float.valueOf(anus.getAttribute("capacity")));
+						importedCharacter.setAssStretchedCapacity(Float.valueOf(anus.getAttribute("stretchedCapacity")));
+						importedCharacter.setAssVirgin(Boolean.valueOf(anus.getAttribute("virgin")));
+						importedCharacter.setAssBleached(Boolean.valueOf(anus.getAttribute("bleached")));
+						importedCharacter.setAssHair(BodyHair.valueOf(anus.getAttribute("assHair")));
+					}
+					
 					
 					characterImportLog.append("</br></br>Body: Ass:"
 							+ "</br>type: "+importedCharacter.getAssType()
 							+ "</br>assSize: "+importedCharacter.getAssSize()
-							+ "</br>hipSize: "+importedCharacter.getHipSize()
-							
-							+"</br></br>Anus:"
-							+ "</br>wetness: "+importedCharacter.getAssWetness()
-							+ "</br>elasticity: "+importedCharacter.getAssElasticity()
-							+ "</br>elasticity: "+importedCharacter.getAssPlasticity()
-							+ "</br>capacity: "+importedCharacter.getAssCapacity()
-							+ "</br>stretchedCapacity: "+importedCharacter.getAssStretchedCapacity()
-							+ "</br>virgin: "+importedCharacter.isAssVirgin()
-							+ "</br>bleached: "+importedCharacter.isAssBleached()
-							+ "</br>assHair: "+importedCharacter.getAssHair()
-							+"</br>Modifiers:");
+							+ "</br>hipSize: "+importedCharacter.getHipSize());
 					
-					Element anusModifiers = (Element)anus.getElementsByTagName("anusModifiers").item(0);
-					
-					for(OrificeModifier om : OrificeModifier.values()) {
-						if(Boolean.valueOf(anusModifiers.getAttribute(om.toString()))) {
-							importedCharacter.addAssOrificeModifier(om);
-							characterImportLog.append("</br>"+om.toString()+":true");
-						} else {
-							characterImportLog.append("</br>"+om.toString()+":false");
+					if (anus != null) {
+						characterImportLog.append("</br></br>Anus:"
+								+ "</br>wetness: "+importedCharacter.getAssWetness()
+								+ "</br>elasticity: "+importedCharacter.getAssElasticity()
+								+ "</br>elasticity: "+importedCharacter.getAssPlasticity()
+								+ "</br>capacity: "+importedCharacter.getAssCapacity()
+								+ "</br>stretchedCapacity: "+importedCharacter.getAssStretchedCapacity()
+								+ "</br>virgin: "+importedCharacter.isAssVirgin()
+								+ "</br>bleached: "+importedCharacter.isAssBleached()
+								+ "</br>assHair: "+importedCharacter.getAssHair()
+								+"</br>Modifiers:");
+						Element anusModifiers = (Element)anus.getElementsByTagName("anusModifiers").item(0);
+						
+						for(OrificeModifier om : OrificeModifier.values()) {
+							if(Boolean.valueOf(anusModifiers.getAttribute(om.toString()))) {
+								importedCharacter.addAssOrificeModifier(om);
+								characterImportLog.append("</br>"+om.toString()+":true");
+							} else {
+								characterImportLog.append("</br>"+om.toString()+":false");
+							}
 						}
 					}
-					
 				}catch(IllegalArgumentException ex){
 				}
 				
@@ -1123,13 +1129,14 @@ public class CharacterUtils {
 					
 					Element penisModifiers = (Element)penis.getElementsByTagName("penisModifiers").item(0);
 					for(PenisModifier pm : PenisModifier.values()) {
-						if(Boolean.valueOf(penisModifiers.getAttribute(pm.toString()))) {
+						if(penisModifiers != null && Boolean.valueOf(penisModifiers.getAttribute(pm.toString()))) {
 							importedCharacter.addPenisModifier(pm);
 							characterImportLog.append("</br>"+pm.toString()+":true");
 						} else {
 							characterImportLog.append("</br>"+pm.toString()+":false");
 						}
 					}
+					
 					
 					importedCharacter.setUrethraElasticity(Integer.valueOf(penis.getAttribute("elasticity")));
 					importedCharacter.setUrethraPlasticity(Integer.valueOf(penis.getAttribute("plasticity")));
