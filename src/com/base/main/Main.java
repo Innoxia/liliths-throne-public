@@ -89,7 +89,12 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "This is just a small hotfix to address the cause of everyone having fuckable urethras and nipples. ^^"
+			+ "I've done my very best to get the new body stuff incorporated into the game, but there's still so much to do... :("
+		+ "</p>"
+			
+		+ "<p>"
+			+ "I know it sucks, but I'd strongly advise treating this version as another preview, and continue playing on the stable version 0.1.82 until this is finished."
+			+ " I know I normally write more than this here, but I've been working on this all week, 12+ hours every day. I feel like I'm about to faint, so I'll package it up and release it now. ^^"
 		+ "</p>"
 			
 		+ "<p>"
@@ -222,7 +227,7 @@ public class Main extends Application {
 		+"<ul>Improved body description (the selfie text) to take into account all of the additions to the new body system.</ul>"
 		+"<ul>Added more realistic colour groups for skin/fur/feather/eye combinations, instead of it being 100% random.</ul>"
 
-		+"<ul>Antennae:</li>"
+		+"<li>Antennae:</li>"
 		+"<ul>Added support for antennae. (Not yet implemented in-game.)</ul>"
 		+"<ul>Added multiple rows of antennae (up to three rows, so six antennae in total).</ul>"
 
