@@ -1045,11 +1045,14 @@ public class InventoryDialogue {
 								"Have the " + clothing.getName() + " identified for " + formatAsMoney(IDENTIFICATION_PRICE, "span") + ".", INVENTORY_MENU){
 						@Override
 						public void effects(){
+							Main.game.getPlayer().removeClothing(clothing);
 							Main.game.getTextStartStringBuilder().append(
 									"<p style='text-align:center;'>" + "You hand over " + formatAsMoney(IDENTIFICATION_PRICE) + " to "
 											+Main.game.getDialogueFlags().tradePartner.getName("the")+", who promptly identifies your "+clothing.getName()+"."
 									+ "</p>"
 									+clothing.setEnchantmentKnown(true));
+							
+							Main.game.getPlayer().addClothing(clothing, false);
 							Main.game.getPlayer().incrementMoney(-IDENTIFICATION_PRICE);
 						}
 					};
