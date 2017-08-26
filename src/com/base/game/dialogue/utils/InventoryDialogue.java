@@ -79,7 +79,7 @@ public class InventoryDialogue {
 						+ getItemCountDiv(entry.getValue())
 						+ (Main.game.getDialogueFlags().tradePartner != null ? 
 								(Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? 
-										getItemPriceDiv((int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
+										getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
 										: "") 
 								: "")
 						+ "</div>" + "</div>");
@@ -98,8 +98,7 @@ public class InventoryDialogue {
 							+ getItemCountDiv(entry.getValue())
 							+ (Main.game.getDialogueFlags().tradePartner != null ? 
 									(Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? 
-											getItemPriceDiv(!entry.getKey().getAttributeModifiers().isEmpty() && !entry.getKey().isEnchantmentKnown() ? 5
-															:(int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
+											getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
 											: "") 
 									: "")
 							+ "</div>"
@@ -120,7 +119,7 @@ public class InventoryDialogue {
 						+ getItemCountDiv(entry.getValue())
 						+ (Main.game.getDialogueFlags().tradePartner != null ? 
 								(Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? 
-										getItemPriceDiv((int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
+										getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier()))
 										: "") 
 								: "")
 						+ "</div>" + "</div>");
@@ -229,7 +228,7 @@ public class InventoryDialogue {
 							inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString());
 							inventorySB.append("<div class='overlay' id='WEAPON_TRADER_" + entry.getKey().hashCode() + "'>"
 									+ getItemCountDiv(entry.getValue())
-									+ getItemPriceDiv((int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
+									+ getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()))
 									+ "</div>" + "</div>");
 						}
 					}
@@ -240,8 +239,7 @@ public class InventoryDialogue {
 							inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>"
 									+ entry.getKey().getSVGString() + "<div class='overlay' id='CLOTHING_TRADER_" + entry.getKey().hashCode() + "'>"
 											+ getItemCountDiv(entry.getValue())
-											+ getItemPriceDiv(!entry.getKey().getAttributeModifiers().isEmpty() && !entry.getKey().isEnchantmentKnown() ? 5
-													:(int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
+											+ getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()))
 									+ "</div>" + "</div>");
 						}
 					}
@@ -251,7 +249,7 @@ public class InventoryDialogue {
 							inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString()
 											+ "<div class='overlay' id='ITEM_TRADER_" + entry.getKey().hashCode() + "'>"
 													+ getItemCountDiv(entry.getValue())
-													+ getItemPriceDiv((int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
+													+ getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()))
 											+ "</div>" + "</div>");
 						}
 					}
