@@ -370,7 +370,7 @@ public class CharacterUtils {
 			characterBody.appendChild(bodyLeg);
 				addAttribute(doc, bodyLeg, "type", character.getLegType().toString());
 			
-			// Penis:TODO
+			// Penis:
 			Element bodyPenis = doc.createElement("penis");
 			characterBody.appendChild(bodyPenis);
 				addAttribute(doc, bodyPenis, "type", character.getPenisType().toString());
@@ -399,6 +399,15 @@ public class CharacterUtils {
 				addAttribute(doc, bodyTesticle, "numberOfTesticles", String.valueOf(character.getPenisNumberOfTesticles()));
 				addAttribute(doc, bodyTesticle, "internal", String.valueOf(character.isInternalTesticles()));
 			
+			Element bodyCum = doc.createElement("cum");
+			characterBody.appendChild(bodyCum);
+				addAttribute(doc, bodyCum, "flavour", String.valueOf(character.getMilkFlavour()));
+				Element cumModifiers = doc.createElement("cumModifiers");
+				bodyCum.appendChild(cumModifiers);
+				for(FluidModifier fm : FluidModifier.values()) {
+					addAttribute(doc, cumModifiers, fm.toString(), String.valueOf(character.hasCumModifier(fm)));
+				}
+				//TODO transformativeEffects;
 			
 			
 			// Skin:
@@ -409,19 +418,33 @@ public class CharacterUtils {
 			// Tail:
 			Element bodyTail = doc.createElement("tail");
 			characterBody.appendChild(bodyTail);
-			addAttribute(doc, bodyTail, "type", character.getTailType().toString());
+				addAttribute(doc, bodyTail, "type", character.getTailType().toString());
+				addAttribute(doc, bodyTail, "count", String.valueOf(character.getTailCount()));
 			
-			// Vagina:
+			// Vagina:TODO
 			Element bodyVagina = doc.createElement("vagina");
 			characterBody.appendChild(bodyVagina);
-			addAttribute(doc, bodyVagina, "type", character.getVaginaType().toString());
-			addAttribute(doc, bodyVagina, "wetness", String.valueOf(character.getVaginaWetness().getValue()));
-			addAttribute(doc, bodyVagina, "clitSize", String.valueOf(character.getVaginaRawClitorisSizeValue()));
-			addAttribute(doc, bodyVagina, "elasticity", String.valueOf(character.getVaginaElasticity().getValue()));
-			addAttribute(doc, bodyVagina, "capacity", String.valueOf(character.getVaginaRawCapacityValue()));
-			addAttribute(doc, bodyVagina, "stretchedCapacity", String.valueOf(character.getVaginaStretchedCapacity()));
-			addAttribute(doc, bodyVagina, "virgin", String.valueOf(character.isVaginaVirgin()));
-			addAttribute(doc, bodyVagina, "pierced", String.valueOf(character.isPiercedVagina()));
+				addAttribute(doc, bodyVagina, "type", character.getVaginaType().toString());
+				addAttribute(doc, bodyVagina, "clitSize", String.valueOf(character.getVaginaRawClitorisSizeValue()));
+				addAttribute(doc, bodyVagina, "pierced", String.valueOf(character.isPiercedVagina()));
+				
+				addAttribute(doc, bodyVagina, "wetness", String.valueOf(character.getVaginaWetness().getValue()));
+				addAttribute(doc, bodyVagina, "elasticity", String.valueOf(character.getVaginaElasticity().getValue()));
+				addAttribute(doc, bodyVagina, "plasticity", String.valueOf(character.getVaginaPlasticity().getValue()));
+				addAttribute(doc, bodyVagina, "capacity", String.valueOf(character.getVaginaRawCapacityValue()));
+				addAttribute(doc, bodyVagina, "stretchedCapacity", String.valueOf(character.getVaginaStretchedCapacity()));
+				addAttribute(doc, bodyVagina, "virgin", String.valueOf(character.isVaginaVirgin()));
+				
+			Element bodyGirlcum = doc.createElement("girlcum");
+			characterBody.appendChild(bodyGirlcum);
+				addAttribute(doc, bodyGirlcum, "flavour", String.valueOf(character.getGirlcumFlavour()));
+				Element girlcumModifiers = doc.createElement("girlcumModifiers");
+				bodyGirlcum.appendChild(girlcumModifiers);
+				for(FluidModifier fm : FluidModifier.values()) {
+					addAttribute(doc, girlcumModifiers, fm.toString(), String.valueOf(character.hasGirlcumModifier(fm)));
+				}
+				//TODO transformativeEffects;
+				
 			
 			// Wing:
 			Element bodyWing = doc.createElement("wing");
@@ -1055,7 +1078,7 @@ public class CharacterUtils {
 
 					characterImportLog.append(
 							"</br>elasticity: "+importedCharacter.getUrethraElasticity()
-							+ "</br>elasticity: "+importedCharacter.getUrethraPlasticity()
+							+ "</br>plasticity: "+importedCharacter.getUrethraPlasticity()
 							+ "</br>capacity: "+importedCharacter.getPenisCapacity()
 							+ "</br>stretchedCapacity: "+importedCharacter.getPenisStretchedCapacity()
 							+ "</br>virgin: "+importedCharacter.isUrethraVirgin()
@@ -1083,6 +1106,26 @@ public class CharacterUtils {
 							+ "</br>testicleSize: "+importedCharacter.getTesticleSize()
 							+ "</br>internal: "+importedCharacter.isInternalTesticles());
 					
+					
+					characterImportLog.append("</br></br>Cum:");
+					
+					Element cum = (Element)((Element) nodes.item(0)).getElementsByTagName("cum").item(0);
+					importedCharacter.setCumFlavour(FluidFlavour.valueOf(cum.getAttribute("flavour")));
+					
+					characterImportLog.append(
+							" flavour: "+importedCharacter.getCumFlavour()
+							+ "</br>Modifiers:");
+					
+					Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
+					for(FluidModifier fm : FluidModifier.values()) {
+						if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
+							importedCharacter.addCumModifier(fm);
+							characterImportLog.append("</br>"+fm.toString()+":true");
+						} else {
+							characterImportLog.append("</br>"+fm.toString()+":false");
+						}
+					}
+					
 				}catch(IllegalArgumentException ex){
 				}
 				
@@ -1090,44 +1133,76 @@ public class CharacterUtils {
 				try {
 					Element skin = (Element)((Element) nodes.item(0)).getElementsByTagName("skin").item(0);
 					importedCharacter.setSkinType(SkinType.valueOf(skin.getAttribute("type")));
+					
 					characterImportLog.append("</br></br>Body: Skin: "
 							+ "</br>type: "+importedCharacter.getSkinType());
 				}catch(IllegalArgumentException ex){
 				}
 				
-				// Tail: TODO
+				// Tail:
 				try {
 					Element tail = (Element)((Element) nodes.item(0)).getElementsByTagName("tail").item(0);
 					importedCharacter.setTailType(TailType.valueOf(tail.getAttribute("type")));
+					importedCharacter.setTailCount(Integer.valueOf(tail.getAttribute("count")));
+					
 					characterImportLog.append("</br></br>Body: Tail: "
-							+ "</br>type: "+importedCharacter.getTailType());
+							+ "</br>type: "+importedCharacter.getTailType()
+							+ "</br>count: "+importedCharacter.getTailCount());
 				}catch(IllegalArgumentException ex){
 				}
+				
 				
 				// Vagina:
 				try {
 					Element vagina = (Element)((Element) nodes.item(0)).getElementsByTagName("vagina").item(0);
 					importedCharacter.setVaginaType(VaginaType.valueOf(vagina.getAttribute("type")));
-					importedCharacter.setVaginaCapacity(Float.valueOf(vagina.getAttribute("capacity")));
 					importedCharacter.setVaginaClitorisSize(Integer.valueOf(vagina.getAttribute("clitSize")));
-					importedCharacter.setVaginaElasticity(Integer.valueOf(vagina.getAttribute("elasticity")));
 					importedCharacter.setPiercedVagina(Boolean.valueOf(vagina.getAttribute("pierced")));
+
+					importedCharacter.setVaginaWetness(Integer.valueOf(vagina.getAttribute("wetness")));
+					importedCharacter.setVaginaElasticity(Integer.valueOf(vagina.getAttribute("elasticity")));
+					importedCharacter.setVaginaPlasticity(Integer.valueOf(vagina.getAttribute("plasticity")));
+					importedCharacter.setVaginaCapacity(Float.valueOf(vagina.getAttribute("capacity")));
 					importedCharacter.setVaginaStretchedCapacity(Float.valueOf(vagina.getAttribute("stretchedCapacity")));
 					importedCharacter.setVaginaVirgin(Boolean.valueOf(vagina.getAttribute("virgin")));
-					importedCharacter.setVaginaWetness(Integer.valueOf(vagina.getAttribute("wetness")));
+					
+
 					characterImportLog.append("</br></br>Body: Vagina: "
 							+ "</br>type: "+importedCharacter.getVaginaType()
-							+ "</br>capacity: "+importedCharacter.getVaginaCapacity()
 							+ "</br>clitSize: "+importedCharacter.getVaginaClitorisSize()
-							+ "</br>elasticity: "+importedCharacter.getVaginaElasticity()
 							+ "</br>pierced: "+importedCharacter.isPiercedVagina()
+
+							+ "</br>wetness: "+importedCharacter.getVaginaWetness()
+							+ "</br>elasticity: "+importedCharacter.getVaginaElasticity()
+							+ "</br>plasticity: "+importedCharacter.getVaginaPlasticity()
+							+ "</br>capacity: "+importedCharacter.getVaginaCapacity()
 							+ "</br>stretchedCapacity: "+importedCharacter.getVaginaStretchedCapacity()
 							+ "</br>virgin: "+importedCharacter.isVaginaVirgin()
-							+ "</br>wetness: "+importedCharacter.getVaginaWetness());
+							
+							+ "</br></br>Girlcum:");
+					
+					Element girlcum = (Element)((Element) nodes.item(0)).getElementsByTagName("girlcum").item(0);
+					importedCharacter.setGirlcumFlavour(FluidFlavour.valueOf(girlcum.getAttribute("flavour")));
+					
+					characterImportLog.append(
+							" flavour: "+importedCharacter.getGirlcumFlavour()
+							+ "</br>Modifiers:");
+					
+					Element girlcumModifiers = (Element)girlcum.getElementsByTagName("girlcumModifiers").item(0);
+					for(FluidModifier fm : FluidModifier.values()) {
+						if(Boolean.valueOf(girlcumModifiers.getAttribute(fm.toString()))) {
+							importedCharacter.addGirlcumModifier(fm);
+							characterImportLog.append("</br>"+fm.toString()+":true");
+						} else {
+							characterImportLog.append("</br>"+fm.toString()+":false");
+						}
+					}
+					
+					
 				}catch(IllegalArgumentException ex){
 				}
 				
-				// Wing:
+				// Wing: TODO
 				try {
 					Element wing = (Element)((Element) nodes.item(0)).getElementsByTagName("wing").item(0);
 					importedCharacter.setWingType(WingType.valueOf(wing.getAttribute("type")));

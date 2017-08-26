@@ -5119,6 +5119,32 @@ public class GameCharacter implements Serializable {
 		return body.getVagina().getOrificeVagina().removeOrificeModifier(this, modifier);
 	}
 	
+	// Girlcum:
+	
+	public String getGirlcumName() {
+		return body.getVagina().getGirlcum().getName(this);
+	}
+	// Flavour:
+	public FluidFlavour getGirlcumFlavour() {
+		return body.getVagina().getGirlcum().getFlavour();
+	}
+	public String setGirlcumFlavour(FluidFlavour flavour) {
+		return body.getVagina().getGirlcum().setFlavour(this, flavour);
+	}
+	// Modifiers:
+	public boolean hasGirlcumModifier(FluidModifier fluidModifier) {
+		return body.getVagina().getGirlcum().hasFluidModifier(fluidModifier);
+	}
+	public String addGirlcumModifier(FluidModifier fluidModifier) {
+		return body.getVagina().getGirlcum().addFluidModifier(this, fluidModifier);
+	}
+	public String removeGirlcumModifier(FluidModifier fluidModifier) {
+		return body.getVagina().getGirlcum().removeFluidModifier(this, fluidModifier);
+	}
+	// Transformations:
+	public List<ItemEffect> getGirlcumTransformativeEffects() {
+		return body.getVagina().getGirlcum().getTransformativeEffects();
+	}
 	
 	
 	// ------------------------------ Wings: ------------------------------ //
