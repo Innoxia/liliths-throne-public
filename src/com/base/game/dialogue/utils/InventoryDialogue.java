@@ -1118,7 +1118,7 @@ public class InventoryDialogue {
 						
 					} else {
 						return new Response("Buy-back",
-								"Buy back the " + item.getName() + " for " + formatAsMoney(buyBackPrice) + " and add it to your inventory.", ITEM_TRADER){
+								"Buy back the " + item.getName() + " for " + formatAsMoney(buyBackPrice) + " and add it to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(buyBackItem(item, buyBackPrice, buyBackIndex));
@@ -1219,7 +1219,7 @@ public class InventoryDialogue {
 						
 					} else {
 						return new Response("Buy-back",
-								"Buy back the " + weapon.getName() + " for " + formatAsMoney(buyBackPrice) + " and add it to your inventory.", WEAPON_TRADER){
+								"Buy back the " + weapon.getName() + " for " + formatAsMoney(buyBackPrice) + " and add it to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(buyBackWeapon(weapon, buyBackPrice, buyBackIndex));
@@ -1323,7 +1323,7 @@ public class InventoryDialogue {
 						
 					} else {
 						return new Response("Buy-back",
-								"Buy back the " + clothing.getName() + " for " + formatAsMoney(buyBackPrice) + " and add it to your inventory.", CLOTHING_TRADER){
+								"Buy back the " + clothing.getName() + " for " + formatAsMoney(buyBackPrice) + " and add it to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(buyBackClothing(clothing, buyBackPrice, buyBackIndex));
