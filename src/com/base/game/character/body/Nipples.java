@@ -1,6 +1,9 @@
 package com.base.game.character.body;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.base.game.character.GameCharacter;
 import com.base.game.character.body.types.BodyPartTypeInterface;
 import com.base.game.character.body.types.NippleType;
@@ -89,7 +92,11 @@ public class Nipples implements BodyPartInterface, Serializable {
 
 	@Override
 	public String getDescriptor(GameCharacter owner) {
-		// Randomly give a capacity, wetness or type-specific descriptor:
+		List<String> descriptorList = new ArrayList<String>();
+		
+		for(OrificeModifier om : orificeNipples.getOrificeModifiers()) {
+			descriptorList.add(om.getName());
+		}
 		
 		String wetnessDescriptor = owner.getBreastLactation().getAssociatedWetness().getDescriptor();
 		if(Main.game.isInSex()) {
@@ -99,19 +106,11 @@ public class Nipples implements BodyPartInterface, Serializable {
 				wetnessDescriptor = "wet";
 			}
 		}
+		descriptorList.add(wetnessDescriptor);
+		descriptorList.add(type.getDescriptor(owner));
+		descriptorList.add(orificeNipples.getCapacity().getDescriptor());
 		
-		return UtilText.returnStringAtRandom(
-				(orificeNipples.hasOrificeModifier(OrificeModifier.MUSCLE_CONTROL)?OrificeModifier.MUSCLE_CONTROL.getName():""),
-				(orificeNipples.hasOrificeModifier(OrificeModifier.RIBBED)?OrificeModifier.RIBBED.getName():""),
-				(orificeNipples.hasOrificeModifier(OrificeModifier.TENTACLED)?OrificeModifier.TENTACLED.getName():""),
-				(orificeNipples.hasOrificeModifier(OrificeModifier.PUFFY)?OrificeModifier.PUFFY.getName():""),
-				
-				type.getDescriptor(owner),
-				
-				wetnessDescriptor,
-				
-				orificeNipples.getCapacity().getDescriptor());
-		
+		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}
 
 	@Override

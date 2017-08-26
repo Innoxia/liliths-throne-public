@@ -3,6 +3,7 @@ package com.base.game.character.body;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.base.game.character.GameCharacter;
@@ -82,52 +83,14 @@ public class Penis implements BodyPartInterface, Serializable {
 
 	@Override
 	public String getDescriptor(GameCharacter owner) {
-		// I'm sure I could have done this a better way.
-		String barbed = "", flared = "", knotted = "", prehensile = "", ribbed = "", sheathed = "", tapered = "", tentacled = "", veiny = "";
-		
+		List<String> list = new ArrayList<String>();
+        
 		for(PenisModifier pm : penisModifiers) {
-			switch(pm) {
-				case BARBED:
-					barbed = pm.getName();
-					break;
-				case FLARED:
-					flared = pm.getName();
-					break;
-				case KNOTTED:
-					knotted = pm.getName();
-					break;
-				case PREHENSILE:
-					prehensile = pm.getName();
-					break;
-				case RIBBED:
-					ribbed = pm.getName();
-					break;
-				case SHEATHED:
-					sheathed = pm.getName();
-					break;
-				case TAPERED:
-					tapered = pm.getName();
-					break;
-				case TENTACLED:
-					tentacled = pm.getName();
-					break;
-				case VEINY:
-					veiny = pm.getName();
-					break;
-			}
+			list.add(pm.getName());
 		}
+		list.add(type.getDescriptor(owner));
 		
-		return UtilText.returnStringAtRandom(
-				barbed,
-				flared,
-				knotted,
-				prehensile,
-				ribbed,
-				sheathed,
-				tapered,
-				tentacled,
-				veiny,
-				type.getDescriptor(owner));
+        return UtilText.returnStringAtRandom(list.toArray(new String[]{}));
 	}
 	
 	public String setType(GameCharacter owner, PenisType type) {

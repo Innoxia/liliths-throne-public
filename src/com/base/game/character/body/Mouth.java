@@ -1,6 +1,9 @@
 package com.base.game.character.body;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.base.game.character.GameCharacter;
 import com.base.game.character.body.types.MouthType;
 import com.base.game.character.body.valueEnums.LipSize;
@@ -58,14 +61,14 @@ public class Mouth implements BodyPartInterface, Serializable {
 
 	@Override
 	public String getDescriptor(GameCharacter owner) {
-		return UtilText.returnStringAtRandom(
-				(orificeMouth.hasOrificeModifier(OrificeModifier.MUSCLE_CONTROL)?OrificeModifier.MUSCLE_CONTROL.getName():""),
-				(orificeMouth.hasOrificeModifier(OrificeModifier.RIBBED)?OrificeModifier.RIBBED.getName():""),
-				(orificeMouth.hasOrificeModifier(OrificeModifier.TENTACLED)?OrificeModifier.TENTACLED.getName():""),
-				(orificeMouth.hasOrificeModifier(OrificeModifier.PUFFY)?OrificeModifier.PUFFY.getName():""),
-				
-				type.getDescriptor(owner));
+		List<String> descriptorList = new ArrayList<String>();
 		
+		for(OrificeModifier om : orificeMouth.getOrificeModifiers()) {
+			descriptorList.add(om.getName());
+		}
+		descriptorList.add(type.getDescriptor(owner));
+		
+		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}
 	
 	public String getLipsNameSingular(GameCharacter gc) {
