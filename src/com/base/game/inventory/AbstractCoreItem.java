@@ -128,6 +128,10 @@ public abstract class AbstractCoreItem implements Serializable {
 	public abstract String getDescription();
 
 	public abstract int getValue();
+	
+	public int getPrice(float modifier) {
+		return (int) (getValue() * modifier);
+	}
 
 	public Rarity getRarity() {
 		return rarity;

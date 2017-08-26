@@ -280,6 +280,14 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 		return runningTotal;
 	}
+	
+	@Override
+	public int getPrice(float modifier) {
+		if (!enchantmentKnown) {
+			return 5;
+		}
+		return super.getPrice(modifier);
+	}
 
 	/**
 	 * @param withDeterminer
