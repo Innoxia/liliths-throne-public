@@ -19,7 +19,6 @@ import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.InventorySlot;
-import com.base.game.inventory.Rarity;
 import com.base.game.inventory.ShopTransaction;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.enchanting.TFEssence;
@@ -71,7 +70,7 @@ public class InventoryDialogue {
 		if (Main.game.getPlayer().getWeaponCount() > 0) {
 			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getMapOfDuplicateWeapons().entrySet()) {
 				inventorySB.append("<div class='item-background "
-						+ getClassFromRarity(entry.getKey().getRarity()) + "'>" + entry.getKey().getSVGString()
+						+ entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString()
 						+ "<div class='overlay"
 						+ (Main.game.getDialogueFlags().tradePartner!=null 
 							? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "" : " dark")
@@ -89,14 +88,7 @@ public class InventoryDialogue {
 		// Clothing:
 		if (Main.game.getPlayer().getClothingCount() > 0) {
 			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayer().getMapOfDuplicateClothing().entrySet()) {
-				inventorySB.append("<div class='item-background ");
-				
-				if (entry.getKey().isEnchantmentKnown()) {
-					inventorySB.append(getClassFromRarity(entry.getKey().getRarity()));
-				} else {
-					inventorySB.append("unknown");
-				}
-				inventorySB.append("'>");
+				inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>");
 
 				inventorySB.append(entry.getKey().getSVGString() + "<div class='overlay"
 							+ (Main.game.getDialogueFlags().tradePartner!=null
@@ -118,7 +110,7 @@ public class InventoryDialogue {
 		if (Main.game.getPlayer().getItemCount() > 0) {
 			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayer().getMapOfDuplicateItems().entrySet()) {
 				inventorySB.append("<div class='item-background "
-						+ getClassFromRarity(entry.getKey().getRarity()) + "'>" + entry.getKey().getSVGString()
+						+ entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString()
 						+ "<div class='overlay"
 						+ (Main.game.getDialogueFlags().tradePartner!=null
 										? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? ""
@@ -145,7 +137,7 @@ public class InventoryDialogue {
 		for(TFEssence essence : TFEssence.values()) {
 			inventorySB.append(
 					"<div style='width:28px; display:inline-block; margin:0 4px 0 4px;'>"
-						+ "<div class='item-inline " + getClassFromRarity(essence.getRarity()) + "'>"
+						+ "<div class='item-inline " + essence.getRarity().getName() + "'>"
 							+ essence.getSVGString()
 							+ "<div class='overlay no-pointer' id='ESSENCE_"+essence.hashCode()+"'></div>"
 						+ "</div>"
@@ -234,7 +226,7 @@ public class InventoryDialogue {
 					// Weapons:
 					if (Main.game.getDialogueFlags().tradePartner.getWeaponCount() > 0) {
 						for (Entry<AbstractWeapon, Integer> entry : Main.game.getDialogueFlags().tradePartner.getMapOfDuplicateWeapons().entrySet()) {
-							inventorySB.append("<div class='item-background " + getClassFromRarity(entry.getKey().getRarity()) + "'>" + entry.getKey().getSVGString());
+							inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString());
 							inventorySB.append("<div class='overlay' id='WEAPON_TRADER_" + entry.getKey().hashCode() + "'>"
 									+ getItemCountDiv(entry.getValue())
 									+ getItemPriceDiv((int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
@@ -245,7 +237,7 @@ public class InventoryDialogue {
 					// Clothing:
 					if (Main.game.getDialogueFlags().tradePartner.getClothingCount() > 0) {
 						for (Entry<AbstractClothing, Integer> entry : Main.game.getDialogueFlags().tradePartner.getMapOfDuplicateClothing().entrySet()) {
-							inventorySB.append("<div class='item-background " + (entry.getKey().isEnchantmentKnown() ? getClassFromRarity(entry.getKey().getRarity()) : "unknown") + "'>"
+							inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>"
 									+ entry.getKey().getSVGString() + "<div class='overlay' id='CLOTHING_TRADER_" + entry.getKey().hashCode() + "'>"
 											+ getItemCountDiv(entry.getValue())
 											+ getItemPriceDiv(!entry.getKey().getAttributeModifiers().isEmpty() && !entry.getKey().isEnchantmentKnown() ? 5
@@ -256,7 +248,7 @@ public class InventoryDialogue {
 					// Items:
 					if (Main.game.getDialogueFlags().tradePartner.getItemCount() > 0) {
 						for (Entry<AbstractItem, Integer> entry : Main.game.getDialogueFlags().tradePartner.getMapOfDuplicateItems().entrySet()) {
-							inventorySB.append("<div class='item-background " + getClassFromRarity(entry.getKey().getRarity()) + "'>" + entry.getKey().getSVGString()
+							inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString()
 											+ "<div class='overlay' id='ITEM_TRADER_" + entry.getKey().hashCode() + "'>"
 													+ getItemCountDiv(entry.getValue())
 													+ getItemPriceDiv((int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
@@ -275,7 +267,7 @@ public class InventoryDialogue {
 				// Weapons:
 				if (Main.game.getPlayerCell().getInventory().getWeaponCount() > 0) {
 					for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
-						inventorySB.append("<div class='item-background " + getClassFromRarity(entry.getKey().getRarity()) + "'>"
+						inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>"
 								+ entry.getKey().getSVGString() + "<div class='overlay' id='WEAPON_FLOOR_" + entry.getKey().hashCode() + "'>"
 										+ getItemCountDiv(entry.getValue())
 										+ "</div>"
@@ -285,14 +277,7 @@ public class InventoryDialogue {
 				// Clothing:
 				if (Main.game.getPlayerCell().getInventory().getClothingCount() > 0) {
 					for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
-						inventorySB.append("<div class='item-background ");
-						
-						if (entry.getKey().isEnchantmentKnown()) {
-							inventorySB.append(getClassFromRarity(entry.getKey().getRarity()));
-						} else {
-							inventorySB.append("unknown");
-						}
-						inventorySB.append("'>");
+						inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>");
 	
 						inventorySB.append(entry.getKey().getSVGString() + "<div class='overlay' id='CLOTHING_FLOOR_" + entry.getKey().hashCode() + "'>"
 								+ getItemCountDiv(entry.getValue())
@@ -303,7 +288,7 @@ public class InventoryDialogue {
 				// Items:
 				if (Main.game.getPlayerCell().getInventory().getItemCount() > 0) {
 					for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
-						inventorySB.append("<div class='item-background " + getClassFromRarity(entry.getKey().getRarity()) + "'>"
+						inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>"
 								+ entry.getKey().getSVGString()
 								+ "<div class='overlay' id='ITEM_FLOOR_" + entry.getKey().hashCode() + "'>"
 										+ getItemCountDiv(entry.getValue())
@@ -2312,7 +2297,7 @@ public class InventoryDialogue {
 	}
 	
 	private static String getBuybackItemPanel(AbstractCoreItem itemBuyback, String id, int price) {
-		return "<div class='item-background " + getClassFromRarity(itemBuyback.getRarity()) + "'>"
+		return "<div class='item-background " + itemBuyback.getDisplayRarity() + "'>"
 				+ itemBuyback.getSVGString()
 				+ "<div class='overlay' id='" + id + "'>"
 					+ getItemPriceDiv(price)
@@ -2331,13 +2316,6 @@ public class InventoryDialogue {
 		return "<div class='item-price'>"
 				+ formatAsItemPrice(price)
 			+ "</div>";
-	}
-	
-	private static String getClassFromRarity(Rarity rarity) {
-		if (rarity != null) {
-			return rarity.getName();
-		}
-		return "unknown";
 	}
 	
 	private static String formatAsMoney(int money) {
