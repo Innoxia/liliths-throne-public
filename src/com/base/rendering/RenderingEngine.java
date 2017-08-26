@@ -219,7 +219,7 @@ public enum RenderingEngine {
 									+ (clothing.getRarity() == Rarity.EPIC ? " epic" : "")
 									+ (clothing.getRarity() == Rarity.LEGENDARY ? " legendary" : "")
 									+ (clothing.getRarity() == Rarity.JINXED ? " jinxed" : "") + "'"
-									+ (clothing.isSealed() ? "style='height:16vw;width:16vw;border-width:1vw;border-color:#" + Colour.SEALED.toWebHexString() + ";border-style:solid;'" : "") + ">"
+									+ (clothing.isSealed() ? "style='height:10vw;width:10vw;border-width:1vw;border-color:#" + Colour.SEALED.toWebHexString() + ";border-style:solid;'" : "") + ">"
 									// If clothing is displaced:
 									+ (!clothing.getDisplacedList().isEmpty() ? "<div class='displacedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDisplacedIcon() + "</div>" : "")
 									// If clothing is cummed in:
