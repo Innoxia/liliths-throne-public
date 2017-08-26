@@ -553,8 +553,9 @@ public class InventoryDialogue {
 						}
 						
 					} else {
+						boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasItem(item);
 						if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-							if(Main.game.isPlayerTileFull()) {
+							if(areaFull) {
 								return new Response("Drop", "This area is full, so you can't drop your " + item.getName() + " here!", null);
 							} else {
 								return new Response("Drop", "Drop your " + item.getName() + ".", INVENTORY_MENU){
@@ -565,7 +566,7 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(Main.game.isPlayerTileFull()) {
+							if(areaFull) {
 								return new Response("Store", "This area is full, so you can't store your " + item.getName() + " here!", null);
 							} else {
 								return new Response("Store", "Store the " + item.getName() + " in this area.", INVENTORY_MENU){
@@ -604,8 +605,9 @@ public class InventoryDialogue {
 						}
 						
 					} else {
+						boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasItem(item);
 						if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-							if(Main.game.isPlayerTileFull()) {
+							if(areaFull) {
 								return new Response("Drop all", "This area is full, so you can't drop your " + item.getName() + " here!", null);
 							} else {
 								return new Response("Drop all", "Drop all of your " + item.getName() + (item.getItemType().isPlural()?"":"s")+".", INVENTORY_MENU){
@@ -620,7 +622,7 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(Main.game.isPlayerTileFull()) {
+							if(areaFull) {
 								return new Response("Store all", "This area is full, so you can't store your " + item.getName() + " here!", null);
 							} else {
 								return new Response("Store all", "Store all of your " + item.getName() + (item.getItemType().isPlural()?"":"s")+" in this area.", INVENTORY_MENU){
@@ -766,8 +768,9 @@ public class InventoryDialogue {
 					}
 					
 				} else {
+					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasWeapon(weapon);
 					if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
 						} else {
 							return new Response("Drop", "Drop your " + weapon.getName() + ".", INVENTORY_MENU){
@@ -779,7 +782,7 @@ public class InventoryDialogue {
 						}
 						
 					} else {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Store", "This area is full, so you can't store your " + weapon.getName() + " here!", null);
 						} else {
 							return new Response("Store", "Store your " + weapon.getName() + " in this area.", INVENTORY_MENU){
@@ -818,8 +821,9 @@ public class InventoryDialogue {
 					}
 					
 				} else {
+					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasWeapon(weapon);
 					if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Drop all", "This area is full, so you can't drop your " + weapon.getName() + "s here!", null);
 						} else {
 							return new Response("Drop all", "Drop all of your " + weapon.getName() + "s.", INVENTORY_MENU){
@@ -835,7 +839,7 @@ public class InventoryDialogue {
 						}
 						
 					} else {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Store all", "This area is full, so you can't store your " + weapon.getName() + "s here!", null);
 						} else {
 							return new Response("Store all", "Store all of your " + weapon.getName() + "s in this area.", INVENTORY_MENU){
@@ -938,8 +942,9 @@ public class InventoryDialogue {
 					}
 					
 				} else {
+					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasClothing(clothing);
 					if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Drop", "This area is full, so you can't drop your " + clothing.getName() + " here!", null);
 						} else {
 							return new Response("Drop", "Drop your " + clothing.getName() + ".", INVENTORY_MENU){
@@ -951,7 +956,7 @@ public class InventoryDialogue {
 						}
 						
 					} else {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Store", "This area is full, so you can't store your " + clothing.getName() + " here!", null);
 						} else {
 							return new Response("Store", "Store your " + clothing.getName() + " in this area.", INVENTORY_MENU){
@@ -990,8 +995,9 @@ public class InventoryDialogue {
 					}
 					
 				} else {
+					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasClothing(clothing);
 					if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Drop all", "This area is full, so you can't drop your " + clothing.getName() + " here!", null);
 						} else {
 							return new Response("Drop all", "Drop all of your " + clothing.getName() + "s.", INVENTORY_MENU){
@@ -1007,7 +1013,7 @@ public class InventoryDialogue {
 						}
 						
 					} else {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Store all", "This area is full, so you can't store your " + clothing.getName() + " here!", null);
 						} else {
 							return new Response("Store all", "Store all of your " + clothing.getName() + "s in this area.", INVENTORY_MENU){
@@ -1713,8 +1719,9 @@ public class InventoryDialogue {
 
 			// Drop item:
 			} else if (index == 2) {
+				boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasWeapon(weaponEquipped);
 				if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-					if(Main.game.isPlayerTileFull()) {
+					if(areaFull) {
 						return new Response("Drop", "This area is full, so you can't drop your " + weaponEquipped.getName() + " here!", null);
 					} else {
 						return new Response("Drop", "Drop your " + weaponEquipped.getName() + ".", INVENTORY_MENU){
@@ -1731,7 +1738,7 @@ public class InventoryDialogue {
 					}
 					
 				} else {
-					if(Main.game.isPlayerTileFull()) {
+					if(areaFull) {
 						return new Response("Store", "This area is full, so you can't store your " + weaponEquipped.getName() + " here!", null);
 					} else {
 						return new Response("Store", "Store your " + weaponEquipped.getName() + " in this area.", INVENTORY_MENU){
@@ -1912,6 +1919,7 @@ public class InventoryDialogue {
 					}
 					
 				} else if (index == 2) {
+					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasClothing(clothingEquipped);
 					if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
 						if (clothingEquipped.isSealed()) {
 							return new Response("Drop",
@@ -1919,7 +1927,7 @@ public class InventoryDialogue {
 									+ " because " + (clothingEquipped.getClothingType().isPlural() ? "they've" : "it's")
 									+ " been jinxed!</span>", null);
 							
-						} else if(Main.game.isPlayerTileFull()) {
+						} else if(areaFull) {
 							return new Response("Drop", "This area is full, so you can't drop your " + clothingEquipped.getName() + " here!", null);
 							
 						} else {
@@ -1939,7 +1947,7 @@ public class InventoryDialogue {
 									+ " because " + (clothingEquipped.getClothingType().isPlural() ? "they've" : "it's")
 									+ " been jinxed!</span>", null);
 							
-						} else if(Main.game.isPlayerTileFull()) {
+						} else if(areaFull) {
 							return new Response("Store", "This area is full, so you can't store your " + clothingEquipped.getName() + " here!", null);
 							
 						} else {
