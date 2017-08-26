@@ -3,6 +3,7 @@ package com.base.game.character;
 import java.io.Serializable;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -310,7 +311,7 @@ public class GameCharacter implements Serializable {
 		return UtilText.parseThought(text, this);
 	}
 	public String getName(String determiner) {
-		if (Character.isUpperCase(getName().charAt(0)) || determiner=="") {
+		if (Character.isUpperCase(getName().charAt(0)) || determiner.isEmpty()) {
 			return getName();
 			
 		} else {
@@ -504,7 +505,7 @@ public class GameCharacter implements Serializable {
 	}
 	
 	public String getPlayerPetName() {
-		if(playerPetName=="") {
+		if(playerPetName.isEmpty()) {
 			return Main.game.getPlayer().getName();
 		} else {
 			return playerPetName;
@@ -805,9 +806,9 @@ public class GameCharacter implements Serializable {
 
 		// For handling health, mana and stamina changes as a result of an
 		// attribute being changed:
-		float healthPercetage = getHealthPercentage();
-		float manaPercetage = getManaPercentage();
-		float staminaPercetage = getStaminaPercentage();
+		float healthPercentage = getHealthPercentage();
+		float manaPercentage = getManaPercentage();
+		float staminaPercentage = getStaminaPercentage();
 
 		// Core attribute values are bound between 0 and 100
 		if (att == Attribute.STRENGTH || att == Attribute.INTELLIGENCE || att == Attribute.FITNESS || att == Attribute.CORRUPTION) {
@@ -819,9 +820,9 @@ public class GameCharacter implements Serializable {
 		attributes.put(att, value);
 
 		// Increment health, mana and stamina based on the change:
-		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM) * healthPercetage);
-		setMana(getAttributeValue(Attribute.MANA_MAXIMUM) * manaPercetage);
-		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM) * staminaPercetage);
+		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM) * healthPercentage);
+		setMana(getAttributeValue(Attribute.MANA_MAXIMUM) * manaPercentage);
+		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM) * staminaPercentage);
 
 		updateAttributeListeners();
 
@@ -832,18 +833,18 @@ public class GameCharacter implements Serializable {
 	public void incrementBonusAttribute(Attribute att, float increment) {
 		float value = bonusAttributes.get(att) + increment;
 
-		float healthPercetage = getHealthPercentage();
-		float manaPercetage = getManaPercentage();
-		float staminaPercetage = getStaminaPercentage();
+		float healthPercentage = getHealthPercentage();
+		float manaPercentage = getManaPercentage();
+		float staminaPercentage = getStaminaPercentage();
 
 		// Bonus attributes can be literally anything (well, maybe not past
 		// Integer.MAX_VALUE or Integer.MIN_VALUE, but that'll never happen,
 		// right?)
 		bonusAttributes.put(att, value);
 
-		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM) * healthPercetage);
-		setMana(getAttributeValue(Attribute.MANA_MAXIMUM) * manaPercetage);
-		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM) * staminaPercetage);
+		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM) * healthPercentage);
+		setMana(getAttributeValue(Attribute.MANA_MAXIMUM) * manaPercentage);
+		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM) * staminaPercentage);
 
 		updateAttributeListeners();
 	}
@@ -918,20 +919,17 @@ public class GameCharacter implements Serializable {
 
 	// Perks:
 
-	private List<Perk> tempPerkList;
-	private List<Fetish> tempFetishList;
-
 	/**The returned list is ordered by rendering priority.*/
 	public List<Perk> getPerks() {
-		tempPerkList = new ArrayList<>(perks);
-		tempPerkList.sort((PerkInterface o1, PerkInterface o2) -> ((Integer) o2.getRenderingPriority()).compareTo(((Integer) o1.getRenderingPriority())));
+		List<Perk> tempPerkList = new ArrayList<>(perks);
+		tempPerkList.sort(Comparator.comparingInt(PerkInterface::getRenderingPriority));
 		return tempPerkList;
 	}
 
 	/**The returned list is ordered by rendering priority.*/
 	public List<Fetish> getFetishes() {
-		tempFetishList = new ArrayList<>(fetishes);
-		tempFetishList.sort((Fetish o1, Fetish o2) -> ((Integer) o2.getRenderingPriority()).compareTo(((Integer) o1.getRenderingPriority())));
+		List<Fetish> tempFetishList = new ArrayList<>(fetishes);
+		tempFetishList.sort(Comparator.comparingInt(Fetish::getRenderingPriority));
 		return tempFetishList;
 	}
 	
@@ -1086,8 +1084,8 @@ public class GameCharacter implements Serializable {
 	 */
 
 	public List<StatusEffect> getStatusEffects() {
-		List<StatusEffect> tempListStatusEffects = new ArrayList<StatusEffect>(statusEffects.keySet());
-		tempListStatusEffects.sort((StatusEffect o1, StatusEffect o2) -> ((Integer) o2.getRenderingPriority()).compareTo(((Integer) o1.getRenderingPriority())));
+		List<StatusEffect> tempListStatusEffects = new ArrayList<>(statusEffects.keySet());
+		tempListStatusEffects.sort(Comparator.comparingInt(StatusEffect::getRenderingPriority));
 		return tempListStatusEffects;
 	}
 
@@ -1200,14 +1198,14 @@ public class GameCharacter implements Serializable {
 		sexAsSubCount=0;
 		sexAsDomCount=0;
 		
-		sexPartnerMap = new HashMap<GameCharacter, Map<SexType, Integer>>();
+		sexPartnerMap = new HashMap<>();
 		
 		sexCountMap = new HashMap<>();
 		cumCountMap = new HashMap<>();
 		virginityLossMap = new HashMap<>();
 		
-	};
-	
+	}
+
 	public Map<SexType, Integer> getSexPartnerStats(GameCharacter c) {
 		return sexPartnerMap.get(c);
 	}
@@ -1217,15 +1215,10 @@ public class GameCharacter implements Serializable {
 	}
 	
 	public void addSexPartner(GameCharacter partner, SexType sexType) {
-		if(this.sexPartnerMap.get(partner) == null) {
-			Map<SexType, Integer> n = new HashMap<>();
-			this.sexPartnerMap.put(partner, n);
-		}
+		this.sexPartnerMap.computeIfAbsent(partner, k -> new HashMap<>());
 		
 		Map <SexType, Integer> sp = this.sexPartnerMap.get(partner);
-		if(sp.get(sexType) == null) {
-			sp.put(sexType, 0);
-		}
+		sp.putIfAbsent(sexType, 0);
 		
 		sp.put(sexType, sp.get(sexType) + 1);
 	}
@@ -1281,18 +1274,10 @@ public class GameCharacter implements Serializable {
 	
 	// Sex:
 	public void incrementSexCount(SexType sexType) {
-		if(sexCountMap.get(sexType)==null) {
-			sexCountMap.put(sexType, 1);
-		} else {
-			sexCountMap.put(sexType, sexCountMap.get(sexType) + 1);
-		}
+		sexCountMap.merge(sexType, 1, (a, b) -> a + b);
 	}
 	public void setSexCount(SexType sexType, int integer) {
-		if(sexCountMap.get(sexType)==null) {
-			sexCountMap.put(sexType, integer);
-		} else {
-			sexCountMap.put(sexType, integer);
-		}
+		sexCountMap.put(sexType, integer);
 	}
 	public int getSexCount(SexType sexType) {
 		if(sexCountMap.get(sexType)==null) {
@@ -1304,18 +1289,10 @@ public class GameCharacter implements Serializable {
 
 	// Cum:
 	public void incrementCumCount(SexType sexType) {
-		if(cumCountMap.get(sexType)==null) {
-			cumCountMap.put(sexType, 1);
-		} else {
-			cumCountMap.put(sexType, cumCountMap.get(sexType) + 1);
-		}
+		cumCountMap.merge(sexType, 1, (a, b) -> a + b);
 	}
 	public void setCumCount(SexType sexType, int integer) {
-		if(cumCountMap.get(sexType)==null) {
-			cumCountMap.put(sexType, integer);
-		} else {
-			cumCountMap.put(sexType, integer);
-		}
+		cumCountMap.put(sexType, integer);
 	}
 	public int getCumCount(SexType sexType) {
 		if(cumCountMap.get(sexType)==null) {
@@ -1340,15 +1317,13 @@ public class GameCharacter implements Serializable {
 	
 	// Combat:
 
-	private List<SpecialAttack> tempListSpecialAttacks;
-
 	/**
 	 * The returned list is ordered by rendering priority.
 	 */
 
 	public List<SpecialAttack> getSpecialAttacks() {
-		tempListSpecialAttacks = new ArrayList<SpecialAttack>(specialAttacks);
-		tempListSpecialAttacks.sort((SpecialAttack o1, SpecialAttack o2) -> ((Integer) o2.getRenderingPriority()).compareTo(((Integer) o1.getRenderingPriority())));
+		List<SpecialAttack> tempListSpecialAttacks = new ArrayList<>(specialAttacks);
+		tempListSpecialAttacks.sort(Comparator.comparingInt(SpecialAttack::getRenderingPriority));
 		return tempListSpecialAttacks;
 	}
 
@@ -1363,13 +1338,11 @@ public class GameCharacter implements Serializable {
 		updateAttributeListeners();
 	}
 
-	private List<Spell> tempListSpells;
-
 	/**
 	 * Includes spells from weapons.
 	 */
 	public List<Spell> getSpells() {
-		tempListSpells = new ArrayList<Spell>(spells);
+		List<Spell> tempListSpells = new ArrayList<>(spells);
 		
 		if(getMainWeapon()!=null)
 			if(getMainWeapon().getSpells()!=null)
@@ -1599,10 +1572,8 @@ public class GameCharacter implements Serializable {
 			PregnancyPossibility pregPoss = new PregnancyPossibility(this, partner, pregnancyChance);
 			
 			potentialPartnersAsMother.add(pregPoss);
-			if(partner!=null) {
-				partner.getPotentialPartnersAsFather().add(pregPoss);
-			}
-			
+			partner.getPotentialPartnersAsFather().add(pregPoss);
+
 			if (pregnancyChance <= 0)
 				s = PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner);
 			else if(pregnancyChance<=0.15f)
@@ -2663,22 +2634,22 @@ public class GameCharacter implements Serializable {
 					// Assume female, as penis is not visible:
 					if(isPlayer()) {
 						return new GenderAppearance("As your [pc.vagina] is exposed, and your [pc.penis] remains concealed, everyone assumes that you're "
-								+UtilText.generateSingluarDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+" on first glance.", Gender.FEMALE);
+								+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+" on first glance.", Gender.FEMALE);
 					} else {
 						return new GenderAppearance(UtilText.parse(this,
 								"Due to the fact that [npc.her] [npc.vagina] is exposed, everyone assumes that [npc.she]'s "
-										+UtilText.generateSingluarDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+" on first glance."), Gender.FEMALE);
+										+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+" on first glance."), Gender.FEMALE);
 					}
 					
 				} else {
 					// Correctly assume female:
 					if(isPlayer()) {
 						return new GenderAppearance("Due to the fact that your [pc.vagina] is exposed, everyone correctly assumes that you're "
-								+UtilText.generateSingluarDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+" on first glance.", Gender.FEMALE);
+								+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+" on first glance.", Gender.FEMALE);
 					} else {
 						return new GenderAppearance(UtilText.parse(this,
 								"Due to the fact that [npc.her] [npc.vagina] is exposed, everyone assumes that [npc.she]'s "
-										+UtilText.generateSingluarDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+" on first glance."), Gender.FEMALE);
+										+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+" on first glance."), Gender.FEMALE);
 					}
 				}
 				
@@ -2710,22 +2681,22 @@ public class GameCharacter implements Serializable {
 						// Assume female, as penis is not visible:
 						if(isPlayer()) {
 							return new GenderAppearance("Your [pc.penis] is concealed, so, due to your feminine appearance, strangers assume that you're "
-									+UtilText.generateSingluarDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+".", Gender.FEMALE);
+									+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+".", Gender.FEMALE);
 						} else {
 							return new GenderAppearance(UtilText.parse(this,
 									"Due to [npc.her] feminine appearance, [npc.she] appears to be "
-											+UtilText.generateSingluarDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+"."), Gender.FEMALE);
+											+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+"."), Gender.FEMALE);
 						}
 						
 					} else if(hasVagina()) {
 						// Correctly assume female:
 						if(isPlayer()) {
 							return new GenderAppearance("Your feminine appearance leads everyone to correctly assume that you're "
-									+UtilText.generateSingluarDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+".", Gender.FEMALE);
+									+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+".", Gender.FEMALE);
 						} else {
 							return new GenderAppearance(UtilText.parse(this,
 									"Due to [npc.her] feminine appearance, [npc.she] appears to be "
-											+UtilText.generateSingluarDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+"."), Gender.FEMALE);
+											+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+"."), Gender.FEMALE);
 						}
 						
 					} else {
@@ -2734,20 +2705,20 @@ public class GameCharacter implements Serializable {
 							if(isPlayer()) {
 								if(isFeminine()) {
 									return new GenderAppearance("Your genderless mound is exposed, so, due to your feminine appearance, strangers treat you like "
-											+UtilText.generateSingluarDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+".", Gender.GENDERLESS_FEMININE);
+											+UtilText.generateSingularDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+".", Gender.GENDERLESS_FEMININE);
 								} else {
 									return new GenderAppearance("Your genderless mound is exposed, so, due to your masculine appearance, strangers treat you like "
-											+UtilText.generateSingluarDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+".", Gender.GENDERLESS_MASCULINE);
+											+UtilText.generateSingularDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+".", Gender.GENDERLESS_MASCULINE);
 								}
 							} else {
 								if(isFeminine()) {
 									return new GenderAppearance(UtilText.parse(this,
 											"Due to [npc.her] genderless mound being exposed, everyone can tell that [npc.she]'s "
-													+UtilText.generateSingluarDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+"."), Gender.GENDERLESS_FEMININE);
+													+UtilText.generateSingularDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+"."), Gender.GENDERLESS_FEMININE);
 								} else {
 									return new GenderAppearance(UtilText.parse(this,
 											"Due to [npc.her] genderless mound being exposed, everyone can tell that [npc.she]'s "
-													+UtilText.generateSingluarDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+"."), Gender.GENDERLESS_MASCULINE);
+													+UtilText.generateSingularDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+"."), Gender.GENDERLESS_MASCULINE);
 								}
 							}
 							
@@ -2755,11 +2726,11 @@ public class GameCharacter implements Serializable {
 							// Correctly assume doll:
 							if(isPlayer()) {
 								return new GenderAppearance("Your genderless mound is concealed, so, due to your feminine appearance, strangers assume that you're "
-										+UtilText.generateSingluarDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+".", Gender.FEMALE);
+										+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+".", Gender.FEMALE);
 							} else {
 								return new GenderAppearance(UtilText.parse(this,
 										"Due to [npc.her] feminine appearance, [npc.she] appears to be "
-												+UtilText.generateSingluarDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+"."), Gender.FEMALE);
+												+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+"."), Gender.FEMALE);
 							}
 						}
 					}
@@ -2798,22 +2769,22 @@ public class GameCharacter implements Serializable {
 					// Assume cuntboy, as penis is not visible:
 					if(isPlayer()) {
 						return new GenderAppearance("As your [pc.vagina] is exposed, and your [pc.penis] remains concealed, everyone assumes that you're "
-								+UtilText.generateSingluarDeterminer(Gender.CUNT_BOY.getName())+" "+Gender.CUNT_BOY.getName()+" on first glance.", Gender.CUNT_BOY);
+								+UtilText.generateSingularDeterminer(Gender.CUNT_BOY.getName())+" "+Gender.CUNT_BOY.getName()+" on first glance.", Gender.CUNT_BOY);
 					} else {
 						return new GenderAppearance(UtilText.parse(this,
 								"Due to the fact that [npc.her] [npc.vagina] is exposed, everyone assumes that [npc.she]'s "
-										+UtilText.generateSingluarDeterminer(Gender.CUNT_BOY.getName())+" "+Gender.CUNT_BOY.getName()+" on first glance."), Gender.CUNT_BOY);
+										+UtilText.generateSingularDeterminer(Gender.CUNT_BOY.getName())+" "+Gender.CUNT_BOY.getName()+" on first glance."), Gender.CUNT_BOY);
 					}
 					
 				} else {
 					// Correctly assume cuntboy:
 					if(isPlayer()) {
 						return new GenderAppearance("Due to the fact that your [pc.vagina] is exposed, everyone correctly assumes that you're "
-								+UtilText.generateSingluarDeterminer(Gender.CUNT_BOY.getName())+" "+Gender.CUNT_BOY.getName()+" on first glance.", Gender.CUNT_BOY);
+								+UtilText.generateSingularDeterminer(Gender.CUNT_BOY.getName())+" "+Gender.CUNT_BOY.getName()+" on first glance.", Gender.CUNT_BOY);
 					} else {
 						return new GenderAppearance(UtilText.parse(this,
 								"Due to the fact that [npc.her] [npc.vagina] is exposed, everyone assumes that [npc.she]'s "
-										+UtilText.generateSingluarDeterminer(Gender.CUNT_BOY.getName())+" "+Gender.CUNT_BOY.getName()+" on first glance."), Gender.CUNT_BOY);
+										+UtilText.generateSingularDeterminer(Gender.CUNT_BOY.getName())+" "+Gender.CUNT_BOY.getName()+" on first glance."), Gender.CUNT_BOY);
 					}
 				}
 				
@@ -2845,22 +2816,22 @@ public class GameCharacter implements Serializable {
 						// Assume male, as penis is not visible:
 						if(isPlayer()) {
 							return new GenderAppearance("Your [pc.penis] is concealed, so, due to your masculine appearance, strangers assume that you're "
-									+UtilText.generateSingluarDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+".", Gender.MALE);
+									+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+".", Gender.MALE);
 						} else {
 							return new GenderAppearance(UtilText.parse(this,
 									"Due to [npc.her] masculine appearance, [npc.she] appears to be "
-											+UtilText.generateSingluarDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+"."), Gender.MALE);
+											+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+"."), Gender.MALE);
 						}
 						
 					} else if(hasVagina()) {
 						// Assume male:
 						if(isPlayer()) {
 							return new GenderAppearance("Your masculine appearance leads everyone to assume that you're "
-									+UtilText.generateSingluarDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+".", Gender.MALE);
+									+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+".", Gender.MALE);
 						} else {
 							return new GenderAppearance(UtilText.parse(this,
 									"Due to [npc.her] masculine appearance, [npc.she] appears to be "
-											+UtilText.generateSingluarDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+"."), Gender.MALE);
+											+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+"."), Gender.MALE);
 						}
 						
 					} else {
@@ -2869,20 +2840,20 @@ public class GameCharacter implements Serializable {
 							if(isPlayer()) {
 								if(isFeminine()) {
 									return new GenderAppearance("Your genderless mound is exposed, so strangers treat you like "
-											+UtilText.generateSingluarDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+".", Gender.GENDERLESS_FEMININE);
+											+UtilText.generateSingularDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+".", Gender.GENDERLESS_FEMININE);
 								} else {
 									return new GenderAppearance("Your genderless mound is exposed, so strangers treat you like "
-											+UtilText.generateSingluarDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+".", Gender.GENDERLESS_MASCULINE);
+											+UtilText.generateSingularDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+".", Gender.GENDERLESS_MASCULINE);
 								}
 							} else {
 								if(isFeminine()) {
 									return new GenderAppearance(UtilText.parse(this,
 											"Due to [npc.her] genderless mound being exposed, everyone can tell that [npc.she]'s "
-													+UtilText.generateSingluarDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+"."), Gender.GENDERLESS_FEMININE);
+													+UtilText.generateSingularDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+"."), Gender.GENDERLESS_FEMININE);
 								} else {
 									return new GenderAppearance(UtilText.parse(this,
 											"Due to [npc.her] genderless mound being exposed, everyone can tell that [npc.she]'s "
-													+UtilText.generateSingluarDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+"."), Gender.GENDERLESS_MASCULINE);
+													+UtilText.generateSingularDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+"."), Gender.GENDERLESS_MASCULINE);
 								}
 							}
 							
@@ -2890,11 +2861,11 @@ public class GameCharacter implements Serializable {
 							// Correctly assume doll:
 							if(isPlayer()) {
 								return new GenderAppearance("Your genderless mound is concealed, so, due to your masculine appearance, strangers assume that you're "
-										+UtilText.generateSingluarDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+".", Gender.MALE);
+										+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+".", Gender.MALE);
 							} else {
 								return new GenderAppearance(UtilText.parse(this,
 										"Due to [npc.her] masculine appearance, [npc.she] appears to be "
-												+UtilText.generateSingluarDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+"."), Gender.MALE);
+												+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+"."), Gender.MALE);
 							}
 						}
 					}
@@ -2918,14 +2889,10 @@ public class GameCharacter implements Serializable {
 					isFeminine = true;
 					break;
 				case CLOTHING_FEMININE:
-					isFeminine = true;
-					if(getClothingAverageFemininity()<50)
-						isFeminine = false;
+					isFeminine = getClothingAverageFemininity() >= 50;
 					break;
 				case CLOTHING_MASCULINE:
-					isFeminine = false;
-					if(getClothingAverageFemininity()>50)
-						isFeminine = true;
+					isFeminine = getClothingAverageFemininity() > 50;
 					break;
 				case MASCULINE:
 					isFeminine = false;
@@ -3001,12 +2968,11 @@ public class GameCharacter implements Serializable {
 		return body.getWing().getType().getRace();
 	}
 
-	private StringBuilder postTFSB;
 	public String postTransformationCalculation() {
 		return postTransformationCalculation(true);
 	}
 	public String postTransformationCalculation(boolean displayColourDiscovered) {
-		postTFSB = new StringBuilder();
+		StringBuilder postTFSB = new StringBuilder();
 		// If this is the first time getting this covering type:
 		for(BodyPartInterface bp : body.getAllBodyParts()) {
 			if(!body.getBodyCoveringTypesDiscovered().contains(bp.getType().getBodyCoveringType())) {
@@ -3410,7 +3376,7 @@ public class GameCharacter implements Serializable {
 	 */
 	public String setPiercedNavel(boolean pierced) {
 		if (!isPiercedNavel() && pierced) {
-			body.setPiercedStomach(pierced);
+			body.setPiercedStomach(true);
 			if(isPlayer()) {
 				return "<p>"
 							+ "Your navel is now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
@@ -3423,7 +3389,7 @@ public class GameCharacter implements Serializable {
 			}
 			
 		} else if (isPiercedNavel() && !pierced) {
-			body.setPiercedStomach(pierced);
+			body.setPiercedStomach(false);
 			if(isPlayer()) {
 				return "<p>"
 							+ "Your navel is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."

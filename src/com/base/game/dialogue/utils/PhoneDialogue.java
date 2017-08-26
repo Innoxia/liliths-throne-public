@@ -1,7 +1,8 @@
 package com.base.game.dialogue.utils;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -820,10 +821,9 @@ public class PhoneDialogue {
 				+ (loadsReceived < 0 ? "<span class='option-disabled'>-</span>" : loadsReceived) + "</div>";
 	}
 
-	private static StringBuilder contentSB;
 	private static String pregnancyDetails() {
-		contentSB = new StringBuilder();
-		
+		StringBuilder contentSB = new StringBuilder();
+
 		// Mothered children:
 		
 		boolean noPregnancies=true;
@@ -845,7 +845,7 @@ public class PhoneDialogue {
 				if(pp.getFather()!=null) {
 					contentSB.append(UtilText.parse(pp.getFather(),
 							"<b>[npc.Name(A)] (</b>"
-								+ (pp.getFather().getRaceStage().getName()!=""
+								+ (!pp.getFather().getRaceStage().getName().isEmpty()
 										?"<b style='color:"+pp.getFather().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getFather().getRaceStage().getName())+"</b> "
 										:"")
 								+ "<b style='color:"+pp.getFather().getRace().getColour().toWebHexString()+";'>"
@@ -920,7 +920,7 @@ public class PhoneDialogue {
 							+ "[style.boldBad(Ongoing pregnancy)]"
 							+ "</br>"
 							+"<b>[npc.Name(A)] (</b>"
-								+ (pp.getMother().getRaceStage().getName()!=""
+								+ (!pp.getMother().getRaceStage().getName().isEmpty()
 										?"<b style='color:"+pp.getMother().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getMother().getRaceStage().getName())+"</b> "
 										:"")
 								+ "<b style='color:"+pp.getMother().getRace().getColour().toWebHexString()+";'>"
@@ -999,7 +999,7 @@ public class PhoneDialogue {
 	}
 
 	private static String statRow(String left, String centre, String right) {
-		return "<div class='extraAttribute-third'" + (left == "" || left == null ? " style='height:24px;background:transparent;'" : "") + ">" + (left != null ? left : "") + "</div>" + "<div class='extraAttribute-third'>" + centre + "</div>"
+		return "<div class='extraAttribute-third'" + (left == null || left.isEmpty() ? " style='height:24px;background:transparent;'" : "") + ">" + (left != null ? left : "") + "</div>" + "<div class='extraAttribute-third'>" + centre + "</div>"
 				+ "<div class='extraAttribute-third'>" + right + "</div>";
 	}
 
@@ -1073,9 +1073,10 @@ public class PhoneDialogue {
 	public static void resetContentForContacts() {
 		CharactersPresentDialogue.characterViewed = Main.game.getPlayer().getCharactersEncountered().get(0);
 		title = "Contacts";
-		content = "<p>You have encountered the following characters in your travels:</p>";
+		StringBuilder contentSB = new StringBuilder("<p>You have encountered the following characters in your travels:</p>");
 		for (int i = 0; i < Main.game.getPlayer().getCharactersEncountered().size(); i++)
-			content += "<p>" + Main.game.getPlayer().getCharactersEncountered().get(i).getName() + "</p>";
+			contentSB.append("<p>" + Main.game.getPlayer().getCharactersEncountered().get(i).getName() + "</p>");
+		content = contentSB.toString();
 	}
 
 	public static final DialogueNodeOld CONTACTS = new DialogueNodeOld("Contacts", "Look at your contacts.", true) {
@@ -1189,16 +1190,13 @@ public class PhoneDialogue {
 	private static List<WeaponType> weaponsDiscoveredList = new ArrayList<>();
 	private static List<ClothingType> clothingDiscoveredList = new ArrayList<>();
 	static {
-		for (ItemType item : ItemType.availableItems)
-			itemsDiscoveredList.add(item);
+		itemsDiscoveredList.addAll(ItemType.availableItems);
 		itemsDiscoveredList.sort(new ItemRarityComparator());
 
-		for (WeaponType weapon : WeaponType.values())
-			weaponsDiscoveredList.add(weapon);
+		weaponsDiscoveredList.addAll(Arrays.asList(WeaponType.values()));
 		weaponsDiscoveredList.sort(new WeaponRarityComparator());
 
-		for (ClothingType clothing : ClothingType.values())
-			clothingDiscoveredList.add(clothing);
+		clothingDiscoveredList.addAll(Arrays.asList(ClothingType.values()));
 		clothingDiscoveredList.sort(new ClothingRarityComparator());
 
 	}
@@ -1372,10 +1370,11 @@ public class PhoneDialogue {
 
 	public static void resetContentForRaces() {
 		title = "Races";
-		content = "<p style='text-align:center;'>You have encountered the following races in your travels:</p>";
+		StringBuilder contentSB = new StringBuilder("<p style='text-align:center;'>You have encountered the following races in your travels:</p>");
 		
 		for (Race r : Main.game.getPlayer().getRacesDiscovered())
-			content += "<p style='text-align:center;'><b style='color:"+r.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(r.getName()) + "</b></p>";
+			contentSB.append("<p style='text-align:center;'><b style='color:"+r.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(r.getName()) + "</b></p>");
+		content = contentSB.toString();
 	}
 
 	public static final DialogueNodeOld RACES = new DialogueNodeOld("Discovered races", "View discovered races", true) {
@@ -1619,11 +1618,10 @@ public class PhoneDialogue {
 								journalSB.append("<td class='perkCell'></td>");
 
 						} else { // Arrow icon
-							if (i < 8) {
-								if (PerkTree.getArrowGrid()[i / 2][j - 1] == true) {
-									journalSB.append("<td class='arrowCell'>" + SVGImages.SVG_IMAGE_PROVIDER.getPerkTreeArrow() + "</td>");
-								} else
-									journalSB.append("<td class='arrowCell'></td>");
+							if (PerkTree.getArrowGrid()[i / 2][j - 1]) {
+								journalSB.append("<td class='arrowCell'>" + SVGImages.SVG_IMAGE_PROVIDER.getPerkTreeArrow() + "</td>");
+							} else {
+								journalSB.append("<td class='arrowCell'></td>");
 							}
 						}
 					}
@@ -1666,7 +1664,7 @@ public class PhoneDialogue {
 							fitnessPoints = 0;
 
 							// Add perks in level order:
-							Collections.sort(levelUpPerks, (a, b) -> a.getRequiredLevel().getLevel() - b.getRequiredLevel().getLevel());
+							levelUpPerks.sort(Comparator.comparing(a -> a.getRequiredLevel().getLevel()));
 
 							for (PerkInterface p : levelUpPerks) {
 								Main.game.getPlayer().addPerk((Perk)p);

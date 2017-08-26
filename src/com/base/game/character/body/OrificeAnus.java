@@ -75,14 +75,14 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "Your [pc.eyes] widen as you feel moisture beading around your asshole, and you let out [pc.a_moan+] as you realise that your rear entrance is lubricating itself and [style.boldGrow(getting wetter)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " asshole)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name]'s [npc.eyes] widen as [npc.she] feels moisture beading around [npc.her] asshole,"
 								+ " and [npc.she] lets out [npc.a_moan+] as [npc.she] realises that [npc.her] rear entrance is lubricating itself and [style.boldGrow(getting wetter)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " asshole)]!"
 						+ "</p>");
 			}
 			
@@ -90,13 +90,13 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You shift about uncomfortably and let out a frustrated groan as you feel your rear entrance [style.boldShrink(getting drier)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " asshole)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] shifts about uncomfortably and lets out a frustrated groan as [npc.she] feels [npc.her] rear entrance [style.boldShrink(getting drier)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " asshole)]!"
 						+ "</p>");
 			}
 		}
@@ -146,13 +146,13 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a shocked gasp as you feel your asshole dilate and stretch out as its internal [style.boldGrow(capacity increases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(capacityDescriptor) + " " + capacityDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " asshole)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a shocked gasp as [npc.she] feels [npc.her] asshole dilate and stretch out as its internal [style.boldGrow(capacity increases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(capacityDescriptor) + " " + capacityDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " asshole)]!"
 						+ "</p>");
 			}
 			
@@ -160,13 +160,13 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a cry as you feel your asshole uncontrollably tighten and clench as its internal [style.boldShrink(capacity decreases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(capacityDescriptor) + " " + capacityDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " asshole)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a cry as [npc.she] feels [npc.her] asshole uncontrollably tighten and clench as its internal [style.boldShrink(capacity decreases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(capacityDescriptor) + " " + capacityDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " asshole)]!"
 						+ "</p>");
 			}
 		}
@@ -237,13 +237,13 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange slackening sensation pulsating deep within your ass as your asshole's [style.boldGrow(elasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange slackening sensation pulsating deep within [npc.her] ass as [npc.her] asshole's [style.boldGrow(elasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
 						+ "</p>");
 			}
 			
@@ -251,13 +251,13 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange clenching sensation pulsating deep within your ass as your asshole's [style.boldShrink(elasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange clenching sensation pulsating deep within [npc.her] ass as [npc.her] asshole's [style.boldShrink(elasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
 						+ "</p>");
 			}
 		}
@@ -302,13 +302,13 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange moulding sensation pulsating deep within your ass as your asshole's [style.boldGrow(plasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange moulding sensation pulsating deep within [npc.her] ass as [npc.her] asshole's [style.boldGrow(plasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
 						+ "</p>");
 			}
 			
@@ -316,13 +316,13 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange softening sensation pulsating deep within your ass as your asshole's [style.boldShrink(plasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange softening sensation pulsating deep within [npc.her] ass as [npc.her] asshole's [style.boldShrink(plasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
 						+ "</p>");
 			}
 		}

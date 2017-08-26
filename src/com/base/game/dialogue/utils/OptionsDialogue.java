@@ -7,7 +7,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
+import java.util.Comparator;
+
 import com.base.game.Game;
 import com.base.game.KeyboardAction;
 import com.base.game.character.CharacterUtils;
@@ -62,7 +63,7 @@ public class OptionsDialogue {
 					+ "</p>"
 					+ getJavaVersionInformation()
 					+ "</br>"
-					+ (Main.game.isStarted() || Main.getProperties().name==""
+					+ (Main.game.isStarted() || Main.getProperties().name.isEmpty()
 							?""
 							:"<h4 style='text-align:center;'>Last save:</h4>"
 								+ "<h5 style='color:" + Main.getProperties().nameColour + ";text-align:center;'>" + Main.getProperties().name + "</h5>"
@@ -226,8 +227,7 @@ public class OptionsDialogue {
 		
 		return sb.toString();
 	}
-	
-	private static StringBuilder saveLoadSB;
+
 	public static String loadConfirmationName = "", overwriteConfirmationName = "", deleteConfirmationName = "";
 	public static final DialogueNodeOld SAVE_LOAD = new DialogueNodeOld("Save game files", "", true) {
 		private static final long serialVersionUID = 1L;
@@ -239,7 +239,7 @@ public class OptionsDialogue {
 		
 		@Override
 		public String getHeaderContent(){
-			saveLoadSB = new StringBuilder();
+			StringBuilder saveLoadSB = new StringBuilder();
 
 			saveLoadSB.append("<p'>"
 					+ "<b>Please Note:</b></br>"
@@ -258,7 +258,7 @@ public class OptionsDialogue {
 					+ "<th></th>"
 					+ "</tr>");
 			
-			Collections.sort(Main.getSavedGames(), (e1, e2)->{return e1.lastModified()>e2.lastModified()?1:(e1.lastModified()==e2.lastModified()?0:-1);});
+			Main.getSavedGames().sort(Comparator.comparingLong(File::lastModified));
 			
 			for(File f : Main.getSavedGames()){
 				try {

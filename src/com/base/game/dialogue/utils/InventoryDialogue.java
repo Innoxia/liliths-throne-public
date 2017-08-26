@@ -59,7 +59,7 @@ public class InventoryDialogue {
 
 	private static String inventoryView() {
 //		System.out.println(System.nanoTime()+": rendered");
-		inventorySB = new StringBuilder("");
+		inventorySB = new StringBuilder();
 
 		inventorySB.append("<div class='inventory-contents'>");
 		inventorySB.append("<p style='text-align: center;'>" + "<b>Your inventory ("+Main.game.getPlayer().getInventorySlotsTaken()+"/"+Main.game.getPlayer().getMaximumInventorySpace()+")</b>"

@@ -222,13 +222,13 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange slackening sensation pulsating deep within your [pc.breasts] as your [pc.nipples]' [style.boldGrow(elasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [pc.nipples])]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [pc.nipples])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange slackening sensation pulsating deep within [npc.her] [npc.breasts] as your [npc.nipples]' [style.boldGrow(elasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [npc.nipples])]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [npc.nipples])]!"
 						+ "</p>");
 			}
 			
@@ -236,13 +236,13 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange clenching sensation pulsating deep within your [pc.breasts] as your [pc.nipples]' [style.boldShrink(elasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [pc.nipples])]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [pc.nipples])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange clenching sensation pulsating deep within [npc.her] [npc.breasts] as your [npc.nipples]' [style.boldShrink(elasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [npc.nipples])]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [npc.nipples])]!"
 						+ "</p>");
 			}
 		}
@@ -287,13 +287,13 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange moulding sensation pulsating deep within your [pc.breasts] as your [pc.nipples]' [style.boldGrow(plasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [pc.nipples])]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [pc.nipples])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange moulding sensation pulsating deep within [npc.her] [npc.breasts] as your [npc.nipples]' [style.boldGrow(plasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [npc.nipples])]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [npc.nipples])]!"
 						+ "</p>");
 			}
 			
@@ -301,13 +301,13 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange softening sensation pulsating deep within your [pc.breasts] as your [pc.nipples]' [style.boldShrink(plasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [pc.nipples])]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [pc.nipples])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange softening sensation pulsating deep within [npc.her] [npc.breasts] as your [npc.nipples]' [style.boldShrink(plasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [npc.nipples])]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [npc.nipples])]!"
 						+ "</p>");
 			}
 		}
