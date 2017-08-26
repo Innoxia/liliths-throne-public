@@ -370,22 +370,24 @@ public class InventoryDialogue {
 					return new Response("Take all", "Pick up everything on the ground.", INVENTORY_MENU){
 						@Override
 						public void effects(){
+							//TODO if this starts printing it will complain about the player's inventory being full
+							//TODO optimize (what if someone stores a thousand panties somewhere?)
 							int i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
-							while(i>0 && !Main.game.getPlayer().isInventoryFull()) {
+							while(i > 0) {
 								Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true);
-								i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
+								i--;
 							}
 							
 							i = Main.game.getPlayerCell().getInventory().getClothingInInventory().size();
-							while(i>0 && !Main.game.getPlayer().isInventoryFull()) {
+							while(i > 0) {
 								Main.game.getPlayer().addClothing(Main.game.getPlayerCell().getInventory().getClothingInInventory().get(i-1), true);
-								i = Main.game.getPlayerCell().getInventory().getClothingInInventory().size();
+								i--;
 							}
 							
 							i = Main.game.getPlayerCell().getInventory().getWeaponsInInventory().size();
-							while(i>0 && !Main.game.getPlayer().isInventoryFull()) {
+							while(i > 0) {
 								Main.game.getPlayer().addWeapon(Main.game.getPlayerCell().getInventory().getWeaponsInInventory().get(i-1), true);
-								i = Main.game.getPlayerCell().getInventory().getWeaponsInInventory().size();
+								i--;
 							}
 						}
 					};
