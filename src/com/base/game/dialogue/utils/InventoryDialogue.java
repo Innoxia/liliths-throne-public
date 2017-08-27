@@ -1692,7 +1692,7 @@ public class InventoryDialogue {
 		public Response getResponse(int index) {
 			// Unequip item:
 			if (index == 1) {
-				if (Main.game.getPlayer().isInventoryFull())
+				if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weaponEquipped))
 					return new Response("Unequip", "Your inventory is full, so you can't unequip the " + weaponEquipped.getName() + " into your inventory!", null);
 				else
 					return new Response("Unequip", "Unequip the " + weaponEquipped.getName() + ".", INVENTORY_MENU){
@@ -1896,7 +1896,7 @@ public class InventoryDialogue {
 								"<span style='color:" + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>You can't unequip the " + clothingEquipped.getName() + " because " + (clothingEquipped.getClothingType().isPlural() ? "they've" : "it's")
 								+ " been jinxed!</span>", null);
 						
-					} else if (Main.game.getPlayer().isInventoryFull()) {
+					} else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothingEquipped)) {
 						return new Response("Unequip", "Your inventory is full, so you can't unequip the " + clothingEquipped.getName() + " into your inventory!", null);
 					} else {
 						return new Response("Unequip", "Unequip the " + clothingEquipped.getName() + " and add " + (clothingEquipped.getClothingType().isPlural() ? "them" : "it") + " to your inventory.", INVENTORY_MENU){
