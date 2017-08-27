@@ -568,7 +568,7 @@ public class CharacterInventory implements Serializable {
 		if (tempSB.length() != 0)
 			tempSB.append("</br></br>");
 		tempSB.append("</br><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"+description+"</span>");
-		if (isInventoryFull()) {
+		if (isInventoryFull() && !hasClothing(c)) {
 			Main.game.getActiveWorld().getCell(character.getLocation()).getInventory().addClothing(c);
 			tempSB.append("</br>" + character.droppedItemText(c));
 		} else {
