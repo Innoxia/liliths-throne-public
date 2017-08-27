@@ -2,6 +2,7 @@ package com.base.game.dialogue.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -68,62 +69,15 @@ public class InventoryDialogue {
 
 		// Weapons:
 		if (Main.game.getPlayer().getWeaponCount() > 0) {
-			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getMapOfDuplicateWeapons().entrySet()) {
-				inventorySB.append("<div class='item-background "
-						+ entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString()
-						+ "<div class='overlay"
-						+ (Main.game.getDialogueFlags().tradePartner!=null 
-							? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "" : " dark")
-							: (Main.game.isInSex() || Main.game.isInCombat()?" disabled":""))
-						+ "' id='WEAPON_" + entry.getKey().hashCode() + "'>"
-						+ getItemCountDiv(entry.getValue())
-						+ (Main.game.getDialogueFlags().tradePartner != null ? 
-								(Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? 
-										getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
-										: "") 
-								: "")
-						+ "</div>" + "</div>");
-			}
+			appendDivsForItemsToInventory(Main.game.getPlayer().getMapOfDuplicateWeapons(), "WEAPON_");
 		}
 		// Clothing:
 		if (Main.game.getPlayer().getClothingCount() > 0) {
-			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayer().getMapOfDuplicateClothing().entrySet()) {
-				inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>");
-
-				inventorySB.append(entry.getKey().getSVGString() + "<div class='overlay"
-							+ (Main.game.getDialogueFlags().tradePartner!=null
-								? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "" : " dark")
-								: (Main.game.isInSex() || Main.game.isInCombat()?" disabled":""))
-							+ "' id='CLOTHING_" + entry.getKey().hashCode() + "'>"
-							+ getItemCountDiv(entry.getValue())
-							+ (Main.game.getDialogueFlags().tradePartner != null ? 
-									(Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? 
-											getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
-											: "") 
-									: "")
-							+ "</div>"
-						+ "</div>");
-			}
+			appendDivsForItemsToInventory(Main.game.getPlayer().getMapOfDuplicateClothing(), "CLOTHING_");
 		}
 		// Items:
 		if (Main.game.getPlayer().getItemCount() > 0) {
-			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayer().getMapOfDuplicateItems().entrySet()) {
-				inventorySB.append("<div class='item-background "
-						+ entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString()
-						+ "<div class='overlay"
-						+ (Main.game.getDialogueFlags().tradePartner!=null
-										? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? ""
-												: " dark")
-										: ((Main.game.isInSex() && !entry.getKey().getItemType().isAbleToBeUsedInSex()) || (Main.game.isInCombat() && !entry.getKey().getItemType().isAbleToBeUsedInCombat())?" disabled":""))
-						+ "' id='ITEM_" + entry.getKey().hashCode() + "'>"
-						+ getItemCountDiv(entry.getValue())
-						+ (Main.game.getDialogueFlags().tradePartner != null ? 
-								(Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? 
-										getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier()))
-										: "") 
-								: "")
-						+ "</div>" + "</div>");
-			}
+			appendDivsForItemsToInventory(Main.game.getPlayer().getMapOfDuplicateItems(), "ITEM_");
 		}
 		// Fill space:
 		for (int i = Main.game.getPlayer().getMaximumInventorySpace(); i > Main.game.getPlayer().getInventorySlotsTaken(); i--) {
@@ -2298,6 +2252,25 @@ public class InventoryDialogue {
 					Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
 				}
 			};
+		}
+	}
+	
+	private static void appendDivsForItemsToInventory(Map<? extends AbstractCoreItem, Integer> map, String idPrefix) {
+		for (Entry<? extends AbstractCoreItem, Integer> entry : map.entrySet()) {
+			inventorySB.append("<div class='item-background "
+					+ entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString()
+					+ "<div class='overlay"
+					+ (Main.game.getDialogueFlags().tradePartner!=null 
+						? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "" : " dark")
+						: (Main.game.isInSex() || Main.game.isInCombat()?" disabled":""))
+					+ "' id='" + idPrefix + entry.getKey().hashCode() + "'>"
+					+ getItemCountDiv(entry.getValue())
+					+ (Main.game.getDialogueFlags().tradePartner != null ? 
+							(Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? 
+									getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
+									: "") 
+							: "")
+					+ "</div>" + "</div>");
 		}
 	}
 	
