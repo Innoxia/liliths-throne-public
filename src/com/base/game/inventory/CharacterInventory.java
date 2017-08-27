@@ -810,7 +810,10 @@ public class CharacterInventory implements Serializable {
 						equipTextSB.append("</br>" + characterClothingOwner.addedItemToInventoryText(c));
 					else
 						equipTextSB.append("</br>" + characterClothingOwner.droppedItemText(c));
+					String oldEquipText = equipTextSB.toString();// this is a hack to fix the string builder being overwritten
 					characterClothingOwner.unequipClothingIntoInventory(c, true, characterClothingEquipper);
+					equipTextSB.setLength(0);
+					equipTextSB.append(oldEquipText);
 				}
 
 				// Clear the new clothing's displacement list as a precaution:
