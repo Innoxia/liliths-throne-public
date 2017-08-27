@@ -4994,7 +4994,7 @@ public enum ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] pulls down [npc.her] " + clothing.getName(true) + " before before kicking them off [npc.her] [npc.feet].");
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingRemover, "[npc.Name] pulls down your before before sliding them off your [pc.feet].");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls down your briefs before sliding them off your [pc.feet].");
 				} else {
 					return UtilText.parse(clothingOwner, "You pull [npc.name]'s briefs down before before sliding them off [npc.her] [npc.feet].");
 				}
@@ -6780,9 +6780,9 @@ public enum ClothingType {
 		} else {
 			if (clothingOwner.isPlayer()) {
 				if(rough && npcEquippingPlayerRough!=null) {
-					return UtilText.parse(clothingOwner, npcEquippingPlayerRough);
+					return UtilText.parse(clothingEquipper, npcEquippingPlayerRough);
 				} else {
-					return UtilText.parse(clothingOwner, npcEquippingPlayer);
+					return UtilText.parse(clothingEquipper, npcEquippingPlayer);
 				}
 			} else {
 				return UtilText.parse(clothingOwner, npcEquipping);

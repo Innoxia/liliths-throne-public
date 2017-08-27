@@ -1410,7 +1410,7 @@ public class GameCharacter implements Serializable {
 					Combat.getOpponent().incrementMana(manaLoss);
 					setHealth(getHealth() + increment);
 					
-					return (UtilText.parse(this,
+					return (UtilText.parse(Combat.getOpponent(),
 							"<p>"
 								+ "Due to [npc.her] <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>sadist fetish</b>, [npc.she] suffers 10% of dealt damage as willpower damage, causing [npc.herHim] to take"
 								+ " <b>"+-(manaLoss)+"</b> <b style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</b> as [npc.she] struggles to control [npc.her] arousal!"
