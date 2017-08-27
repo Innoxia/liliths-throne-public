@@ -1548,7 +1548,7 @@ public class InventoryDialogue {
 
 			} else if (index == 3 && Main.game.getPlayerCell().getInventory().getWeaponCount(weaponFloor)>1) {
 				
-				if (Main.game.getPlayer().isInventoryFull())
+				if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weaponFloor))
 					return new Response("Take all", "Your inventory is full, so you can't take the " + weaponFloor.getName() + "!", null);
 				else
 					return new Response("Take all", "Take the " + weaponFloor.getName() + ".", INVENTORY_MENU){
@@ -1637,7 +1637,7 @@ public class InventoryDialogue {
 				
 			} else if (index == 3 && Main.game.getPlayerCell().getInventory().getClothingCount(clothingFloor)>1) {
 				
-				if (Main.game.getPlayer().isInventoryFull())
+				if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothingFloor))
 					return new Response("Take all", "Your inventory is full, so you can't take the " + clothingFloor.getName() + "!", null);
 				else
 					return new Response("Take all", "Take the " + clothingFloor.getName() + ".", INVENTORY_MENU){
