@@ -258,7 +258,7 @@ public class OptionsDialogue {
 					+ "<th></th>"
 					+ "</tr>");
 			
-			Main.getSavedGames().sort(Comparator.comparingLong(File::lastModified));
+			Main.getSavedGames().sort(Comparator.comparingLong(File::lastModified).reversed());
 			
 			for(File f : Main.getSavedGames()){
 				try {

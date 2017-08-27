@@ -723,7 +723,7 @@ public class Main extends Application {
 			}
 		}
 
-		filesList.sort(Comparator.comparingLong(File::lastModified));
+		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
 		
 		return filesList;
 	}
@@ -742,7 +742,7 @@ public class Main extends Application {
 			}
 		}
 
-		filesList.sort(Comparator.comparingLong(File::lastModified));
+		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
 		
 		return filesList;
 	}
