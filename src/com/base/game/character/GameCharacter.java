@@ -2129,7 +2129,7 @@ public class GameCharacter implements Serializable {
 				addWeapon(getMainWeapon(), false);
 				s = getMainWeapon().getWeaponType().unequipText(this) + "<p style='text-align:center;'>" + addedItemToInventoryText(getMainWeapon())+"</p>";
 			}
-			inventory.unequipMainWEapon();
+			inventory.unequipMainWeapon();
 			updateInventoryListeners();
 			
 			return s;

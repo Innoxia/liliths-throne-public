@@ -374,7 +374,7 @@ public class CharacterInventory implements Serializable {
 	public void equipMainWeapon(AbstractWeapon weapon) {
 		mainWeapon = weapon;
 	}
-	public void unequipMainWEapon() {
+	public void unequipMainWeapon() {
 		mainWeapon = null;
 	}
 	
