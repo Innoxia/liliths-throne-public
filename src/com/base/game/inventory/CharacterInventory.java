@@ -822,7 +822,10 @@ public class CharacterInventory implements Serializable {
 						equipTextSB.append("</br>" + characterClothingOwner.addedItemToInventoryText(getClothingInSlot(newClothing.getClothingType().getSlot())));
 					else
 						equipTextSB.append("</br>" + characterClothingOwner.droppedItemText(getClothingInSlot(newClothing.getClothingType().getSlot())));
+					String oldEquipText = equipTextSB.toString();// this is a hack to fix the string builder being overwritten
 					characterClothingOwner.unequipClothingIntoInventory(getClothingInSlot(newClothing.getClothingType().getSlot()), true, characterClothingEquipper);
+					equipTextSB.setLength(0);
+					equipTextSB.append(oldEquipText);
 				}
 
 				// Actually equip the newClothing:
