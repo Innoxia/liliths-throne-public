@@ -806,7 +806,7 @@ public class CharacterInventory implements Serializable {
 
 				// Remove all clothing that is incompatible with newClothing using the owner's accessor method.
 				for (AbstractClothing c : incompatibleRemovableClothing) {
-					if (!characterClothingOwner.isInventoryFull())
+					if (!characterClothingOwner.isInventoryFull() || characterClothingOwner.hasClothing(c))
 						equipTextSB.append("</br>" + characterClothingOwner.addedItemToInventoryText(c));
 					else
 						equipTextSB.append("</br>" + characterClothingOwner.droppedItemText(c));
