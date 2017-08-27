@@ -3,6 +3,7 @@ package com.base.game.sex.sexActions.baseActionsPartner;
 import java.util.List;
 
 import com.base.game.character.attributes.CorruptionLevel;
+import com.base.game.character.body.valueEnums.PenisModifier;
 import com.base.game.character.effects.Fetish;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.clothing.CoverableArea;
@@ -135,7 +136,7 @@ public class PartnerPenisMouth {
 
 		@Override
 		public String getActionDescription() {
-			return "Force [pc.name] to pay some attention to your [npc.balls+]";
+			return "Force [pc.name] to pay some attention to your [npc.balls+].";
 		}
 
 		@Override
@@ -342,11 +343,11 @@ public class PartnerPenisMouth {
 			
 			String barbedSpecial = "", flaredSpecial = "";
 			
-			if(Sex.getPartner().isPenisBarbedShaft()) {
+			if(Sex.getPartner().hasPenisModifier(PenisModifier.BARBED)) {
 				barbedSpecial = "You slide your head back, letting out a muffled [pc.moan] as you feel the barbs lining [npc.name]'s [npc.cock] rake their way up your throat."
 									+ " Leaving just the [npc.cockHead+] pushed past your [pc.lips+], you then start to passionately kiss and suck the tip of [npc.her] [npc.cock+].";
 			}
-			if(Sex.getPartner().isPenisFlaredHead()) {
+			if(Sex.getPartner().hasPenisModifier(PenisModifier.FLARED)) {
 				flaredSpecial = "Sliding your head back, you allow [npc.name]'s [npc.cock+] to slip almost completely out of your mouth,"
 									+ " leaving just the wide, flared head pushed past your [pc.lips+], which you start to passionately kiss and lick.";
 			}
@@ -837,17 +838,17 @@ public class PartnerPenisMouth {
 				
 				String knottedSpecial = "", barbedSpecial = "", flaredSpecial = "";
 				
-				if(Sex.getPartner().isPenisKnotted()) {
+				if(Sex.getPartner().hasPenisModifier(PenisModifier.KNOTTED)) {
 					knottedSpecial = "With a sudden, violent thrust forwards, [npc.name] buries [npc.her] [npc.cock+] deep down your throat."
 									+ " Holding your head in place with both [npc.hands], [npc.she] then proceeds to start roughly fucking your [pc.face],"
 									+ " and you feel tears streaming from your [pc.eyes] as [npc.she] slams [npc.her] knot repeatedly against your [pc.lips+].";
 				}
-				if(Sex.getPartner().isPenisBarbedShaft()) {
+				if(Sex.getPartner().hasPenisModifier(PenisModifier.BARBED)) {
 					barbedSpecial = "With a sudden, violent thrust forwards, [npc.name] buries [npc.her] [npc.cock+] deep down your throat."
 									+ " Holding your head in place with both [npc.hands], [npc.she] then proceeds to start roughly fucking your [pc.face],"
 									+ " and you feel tears streaming from your [pc.eyes] as you feel the barbs lining [npc.her] shaft repeatedly raking up the sides of your throat.";
 				}
-				if(Sex.getPartner().isPenisFlaredHead()) {
+				if(Sex.getPartner().hasPenisModifier(PenisModifier.FLARED)) {
 					flaredSpecial = "With a sudden, violent thrust forwards, [npc.name] buries [npc.her] [npc.cock+] deep down your throat."
 									+ " Holding your head in place with both [npc.hands], [npc.she] then proceeds to start roughly fucking your [pc.face],"
 									+ " and you feel tears streaming from your [pc.eyes] as [npc.her] wide, flared head forces its way up and down your throat.";
@@ -872,19 +873,19 @@ public class PartnerPenisMouth {
 				
 				String knottedSpecial = "", barbedSpecial = "", flaredSpecial = "";
 				
-				if(Sex.getPartner().isPenisKnotted()) {
+				if(Sex.getPartner().hasPenisModifier(PenisModifier.KNOTTED)) {
 					knottedSpecial = "Spreading [npc.her] knees out on either side of your head, [npc.name] violently thrusts downwards, burying [npc.her] [npc.cock+] deep down your throat."
 										+ " Grinding [npc.her] fat knot against your [pc.lips+] for moment, [npc.she] then proceeds to start roughly fucking your face,"
 										+ " and you find yourself [pc.moaning] in desperation as you struggle to breathe,"
 										+ " your pitiful cries being accompanied by the wet slapping sounds that [npc.her] fat knot makes at it repeatedly slams against your [pc.lips].";
 				}
-				if(Sex.getPartner().isPenisBarbedShaft()) {
+				if(Sex.getPartner().hasPenisModifier(PenisModifier.BARBED)) {
 					barbedSpecial = "Spreading [npc.her] knees out on either side of your head, [npc.name] violently thrusts downwards, burying [npc.her] [npc.cock+] deep down your throat."
 										+ " Grinding the base against your [pc.lips+] for moment, [npc.she] then proceeds to start roughly fucking your face,"
 										+ " and you find yourself [pc.moaning] in desperation as you struggle to breathe,"
 										+ " squirming about beneath [npc.herHim] as you feel your throat being stretched out by the wide, flared head of [npc.her] [npc.cock+].";
 				}
-				if(Sex.getPartner().isPenisFlaredHead()) {
+				if(Sex.getPartner().hasPenisModifier(PenisModifier.FLARED)) {
 					flaredSpecial = "Spreading [npc.her] knees out on either side of your head, [npc.name] violently thrusts downwards, burying [npc.her] [npc.cock+] deep down your throat."
 										+ " Grinding the base against your [pc.lips+] for moment, [npc.she] then proceeds to start roughly fucking your face,"
 										+ " and you find yourself [pc.moaning] in desperation as you struggle to breathe,"

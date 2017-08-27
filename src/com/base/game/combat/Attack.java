@@ -144,11 +144,11 @@ public enum Attack {
 		
 		if (attackType == MAIN) {
 			damage = getModifiedDamage(attacker, defender, attackType, (attacker.getMainWeapon() == null ? DamageType.PHYSICAL : attacker.getMainWeapon().getDamageType()),
-						getMeleeDamage(attacker) * (attacker.getMainWeapon() == null ? 1 - DamageVariance.MEDIUM.getPercentange() : 1f - attacker.getMainWeapon().getWeaponType().getDamageVariance().getPercentange()));
+						getMeleeDamage(attacker) * (attacker.getMainWeapon() == null ? 1 - DamageVariance.MEDIUM.getPercentage() : 1f - attacker.getMainWeapon().getWeaponType().getDamageVariance().getPercentage()));
 		
 		} else if (attackType == OFFHAND) {
 			damage = getModifiedDamage(attacker, defender, attackType, (attacker.getOffhandWeapon() == null ? DamageType.PHYSICAL : attacker.getOffhandWeapon().getDamageType()),
-					getMeleeDamage(attacker) * (attacker.getOffhandWeapon() == null ? 1 - DamageVariance.MEDIUM.getPercentange() : 1f - attacker.getOffhandWeapon().getWeaponType().getDamageVariance().getPercentange()));
+					getMeleeDamage(attacker) * (attacker.getOffhandWeapon() == null ? 1 - DamageVariance.MEDIUM.getPercentage() : 1f - attacker.getOffhandWeapon().getWeaponType().getDamageVariance().getPercentage()));
 	
 		} else {
 			damage =  (getModifiedDamage(attacker, defender, attackType, DamageType.MANA, getSeductionDamage(attacker) * 0.8f));
@@ -179,11 +179,11 @@ public enum Attack {
 		
 		if (attackType == MAIN) {
 			damage = (getModifiedDamage(attacker, defender, attackType, (attacker.getMainWeapon() == null ? DamageType.PHYSICAL : attacker.getMainWeapon().getDamageType()),
-					getMeleeDamage(attacker) * (attacker.getMainWeapon() == null ? 1 + DamageVariance.MEDIUM.getPercentange() : 1f + attacker.getMainWeapon().getWeaponType().getDamageVariance().getPercentange())));
+					getMeleeDamage(attacker) * (attacker.getMainWeapon() == null ? 1 + DamageVariance.MEDIUM.getPercentage() : 1f + attacker.getMainWeapon().getWeaponType().getDamageVariance().getPercentage())));
 
 		}  else if (attackType == OFFHAND) {
 			damage = getModifiedDamage(attacker, defender, attackType, (attacker.getOffhandWeapon() == null ? DamageType.PHYSICAL : attacker.getOffhandWeapon().getDamageType()),
-					getMeleeDamage(attacker) * (attacker.getOffhandWeapon() == null ? 1 + DamageVariance.MEDIUM.getPercentange() : 1f + attacker.getOffhandWeapon().getWeaponType().getDamageVariance().getPercentange()));
+					getMeleeDamage(attacker) * (attacker.getOffhandWeapon() == null ? 1 + DamageVariance.MEDIUM.getPercentage() : 1f + attacker.getOffhandWeapon().getWeaponType().getDamageVariance().getPercentage()));
 	
 		} else {
 			damage = (getModifiedDamage(attacker, defender, attackType, DamageType.MANA, getSeductionDamage(attacker) * 1.2f));

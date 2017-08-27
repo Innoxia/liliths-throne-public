@@ -23,6 +23,7 @@ public class SexFlags implements Serializable {
 	mutualOrgasmsAllowed,
 	
 	// Position requests:
+	requestedCowgirl,
 	requested69,
 	requestedDoggy,
 	requestedBackToWall,
@@ -80,6 +81,7 @@ public class SexFlags implements Serializable {
 	}
 	
 	public static void resetRequests() {
+		requestedCowgirl = false;
 		requested69 = false;
 		requestedDoggy = false;
 		requestedBackToWall = false;

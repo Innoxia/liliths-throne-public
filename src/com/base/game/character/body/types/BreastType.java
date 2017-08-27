@@ -4,7 +4,6 @@ import com.base.game.character.GameCharacter;
 import com.base.game.character.body.valueEnums.CupSize;
 import com.base.game.character.race.Race;
 import com.base.game.dialogue.utils.UtilText;
-import com.base.utils.Util;
 
 /**
  * BreastType is only really a change of nipple type. Breasts always look
@@ -12,38 +11,39 @@ import com.base.utils.Util;
  * body skin.
  * 
  * @since 0.1.0
- * @version 0.1.8
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum BreastType implements BodyPartTypeInterface {
-	HUMAN("milk", BodyCoveringType.HUMAN, Race.HUMAN),
+	HUMAN(NippleType.HUMAN, FluidType.MILK_HUMAN, BodyCoveringType.HUMAN, Race.HUMAN),
 
-	ANGEL("milk", BodyCoveringType.ANGEL, Race.ANGEL),
+	ANGEL(NippleType.ANGEL, FluidType.MILK_ANGEL, BodyCoveringType.ANGEL, Race.ANGEL),
 
-	DEMON_COMMON("milk", BodyCoveringType.DEMON_COMMON, Race.DEMON),
+	DEMON_COMMON(NippleType.DEMON_COMMON, FluidType.MILK_DEMON_COMMON, BodyCoveringType.DEMON_COMMON, Race.DEMON),
 
-	DOG_MORPH("milk", BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
+	DOG_MORPH(NippleType.DOG_MORPH, FluidType.MILK_DOG_MORPH, BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 	
-	WOLF_MORPH("milk", BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
+	WOLF_MORPH(NippleType.WOLF_MORPH, FluidType.MILK_WOLF_MORPH, BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
 	
-	CAT_MORPH("milk", BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
+	CAT_MORPH(NippleType.CAT_MORPH, FluidType.MILK_CAT_MORPH, BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 	
-	SQUIRREL_MORPH("milk", BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
+	SQUIRREL_MORPH(NippleType.SQUIRREL_MORPH, FluidType.MILK_SQUIRREL_MORPH, BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
 	
-	HORSE_MORPH("milk", BodyCoveringType.HORSE_HAIR, Race.HORSE_MORPH),
+	HORSE_MORPH(NippleType.HORSE_MORPH, FluidType.MILK_HORSE_MORPH, BodyCoveringType.HORSE_HAIR, Race.HORSE_MORPH),
 	
-	HARPY("milk", BodyCoveringType.FEATHERS, Race.HARPY),
+	HARPY(NippleType.HARPY, FluidType.MILK_HARPY, BodyCoveringType.FEATHERS, Race.HARPY),
 
-	SLIME("slime", BodyCoveringType.SLIME, Race.SLIME);
+	SLIME(NippleType.SLIME, FluidType.MILK_SLIME, BodyCoveringType.SLIME, Race.SLIME);
 
-	
-	private String milkName;
+	private NippleType nippleType;
+	private FluidType fluidType;
 	private BodyCoveringType skinType;
 	private Race race;
 
-	private BreastType(String milkName, BodyCoveringType skinType, Race race) {
+	private BreastType(NippleType nippleType, FluidType fluidType, BodyCoveringType skinType, Race race) {
+		this.nippleType = nippleType;
+		this.fluidType = fluidType;
 		this.skinType = skinType;
-		this.milkName = milkName;
 		this.race = race;
 	}
 
@@ -65,8 +65,10 @@ public enum BreastType implements BodyPartTypeInterface {
 
 	@Override
 	public String getNameSingular(GameCharacter gc) {
-		if(gc.getBreastSize()==CupSize.FLAT)
+		if(gc.getBreastSize()==CupSize.FLAT) {
 			return "pec";
+		}
+		
 		switch(this){
 			default:
 				return UtilText.returnStringAtRandom("breast", "boob", "tit");
@@ -75,8 +77,10 @@ public enum BreastType implements BodyPartTypeInterface {
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
-		if(gc.getBreastSize()==CupSize.FLAT)
+		if(gc.getBreastSize()==CupSize.FLAT) {
 			return "chest";
+		}
+		
 		switch(this){
 			default:
 				return UtilText.returnStringAtRandom("breasts", "boobs", "mammaries", "tits");
@@ -93,8 +97,12 @@ public enum BreastType implements BodyPartTypeInterface {
 		}
 	}
 	
+	public NippleType getNippleType() {
+		return nippleType;
+	}
+
 	@Override
-	public BodyCoveringType getSkinType() {
+	public BodyCoveringType getBodyCoveringType() {
 		return skinType;
 	}
 
@@ -102,66 +110,8 @@ public enum BreastType implements BodyPartTypeInterface {
 	public Race getRace() {
 		return race;
 	}
-	
-	public String getMilkName() {
-		return milkName;
-	}
-	
-	// Extra methods for nipples:
-	
-	public String getNippleName() {
-		String name[];
-		
-		// Names:
-		switch(this){
-			case DEMON_COMMON:
-				name = new String[] {  "nipple-cunts", "nipples", "teats" };
-				break;
-			default:
-				name = new String[] {  "nipples", "teats" };
-				break;
-		}
-		
-		return name[Util.random.nextInt(name.length)];
-	}
-	
-	public String getNippleNameSingular() {
-		String name[];
-		
-		// Names:
-		switch(this){
-			case DEMON_COMMON:
-				name = new String[] {  "nipple-cunt", "nipple", "teat" };
-				break;
-			default:
-				name = new String[] {  "nipple", "teat" };
-				break;
-		}
-		
-		return name[Util.random.nextInt(name.length)];
-	}
 
-	public String getNippleDescriptor() {
-		String descriptor[];
-		
-		switch(this){
-			case ANGEL:
-				descriptor = new String[] { "flawless", "perky" };
-				break;
-			case DEMON_COMMON:
-				descriptor = new String[] { "demonic", "irresistible" };
-				break;
-			case HUMAN:
-				descriptor = new String[] { "" };
-				break;
-			case SLIME:
-				descriptor = new String[] { "gooey" };
-				break;
-			default:
-				descriptor = new String[] { "" };
-				break;
-		}
-		
-		return descriptor[Util.random.nextInt(descriptor.length)];
+	public FluidType getFluidType() {
+		return fluidType;
 	}
 }

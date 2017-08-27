@@ -3,6 +3,7 @@ package com.base.game.character.npc.dominion;
 import com.base.game.character.GameCharacter;
 import com.base.game.character.NameTriplet;
 import com.base.game.character.SexualOrientation;
+import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.effects.Fetish;
 import com.base.game.character.gender.Gender;
@@ -75,10 +76,10 @@ public class Ralph extends NPC {
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
-		this.setEyeColour(Colour.EYE_BROWN);
-		this.setHairColour(Colour.COVERING_BLACK);
-		this.setSkinColour(BodyCoveringType.HUMAN, Colour.HUMAN_SKIN_EBONY);
-		this.setSkinColour(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BLACK);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, Colour.EYE_BROWN));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BLACK));
+		this.setCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BLACK));
+		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY));
 
 		this.equipClothingFromNowhere(underwear, true, this);
 		this.equipClothingFromNowhere(legs, true, this);

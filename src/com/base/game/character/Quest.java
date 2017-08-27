@@ -436,7 +436,7 @@ public enum Quest {
 		this.experienceReward = experienceReward;
 	}
 
-	public static String getLevelAndExperinceHTML(Quest q, boolean active) {
+	public static String getLevelAndExperienceHTML(Quest q, boolean active) {
 		if (active) {
 			if(q.getLevel() <= Main.game.getPlayer().getLevel() - 3) {
 				return "<b class='quest-extra level' style='color:"+  Colour.GENERIC_GOOD + ";'>Level " + q.getLevel()+ "</b>"

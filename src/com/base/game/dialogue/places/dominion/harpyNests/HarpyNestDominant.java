@@ -638,7 +638,7 @@ public class HarpyNestDominant {
 				return new Response("Punished", "[harpyDominant.Name] proceeds with her punishment...", HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT){
 					@Override
 					public void effects() {
-						if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+						if(Main.game.isForcedTFEnabled()) {
 							Main.game.getTextEndStringBuilder().append(ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, Main.game.getHarpyDominant(), Main.game.getPlayer()));
 						}
 					}
@@ -717,7 +717,7 @@ public class HarpyNestDominant {
 				return new Response("Punished", "[dominantHarpy.Name] proceeds with her punishment...", HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT){
 					@Override
 					public void effects() {
-						if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+						if(Main.game.isForcedTFEnabled()) {
 							Main.game.getTextEndStringBuilder().append(ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, Main.game.getHarpyDominant(), Main.game.getPlayer()));
 						}
 					}
@@ -824,7 +824,7 @@ public class HarpyNestDominant {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+			if(Main.game.isForcedTFEnabled()) {
 				return "<p>"
 						+ "[harpyDominant.speech(Fucking bitch! I know just what you need!)]"
 						+ " [harpyDominant.name] laughs, stepping forwards to tower over you,"
@@ -881,7 +881,7 @@ public class HarpyNestDominant {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+				if(Main.game.isForcedTFEnabled()) {
 					return new Response("Transformed...", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_DOMINANT) {
 						@Override
 						public void effects() {

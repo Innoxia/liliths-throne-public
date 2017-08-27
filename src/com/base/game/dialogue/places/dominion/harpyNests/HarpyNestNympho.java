@@ -3,7 +3,6 @@ package com.base.game.dialogue.places.dominion.harpyNests;
 import com.base.game.Weather;
 import com.base.game.character.QuestLine;
 import com.base.game.character.body.valueEnums.Femininity;
-import com.base.game.character.effects.Fetish;
 import com.base.game.character.effects.Perk;
 import com.base.game.character.effects.StatusEffect;
 import com.base.game.dialogue.DialogueNodeOld;
@@ -632,7 +631,7 @@ public class HarpyNestNympho {
 				return new Response("Punished", "[harpyNympho.Name] proceeds with her punishment...", HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT){
 					@Override
 					public void effects() {
-						if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+						if(Main.game.isForcedTFEnabled()) {
 							Main.game.getTextEndStringBuilder().append(ItemEffectType.NYMPHO_LOLLIPOP.applyEffect(null, null, Main.game.getHarpyNympho(), Main.game.getPlayer()));
 						}
 					}
@@ -710,7 +709,7 @@ public class HarpyNestNympho {
 				return new Response("Punished", "[harpyNympho.Name] proceeds with her punishment...", HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT){
 					@Override
 					public void effects() {
-						if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+						if(Main.game.isForcedTFEnabled()) {
 							Main.game.getTextEndStringBuilder().append(ItemEffectType.NYMPHO_LOLLIPOP.applyEffect(null, null, Main.game.getHarpyNympho(), Main.game.getPlayer()));
 						}
 					}
@@ -812,7 +811,7 @@ public class HarpyNestNympho {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+			if(Main.game.isForcedTFEnabled()) {
 				return "<p>"
 						+ "[harpyNympho.speech([harpyNymphoCompanion.name], fetch me one of my lollipops!)]"
 						+ " [harpyNympho.name] laughs, stepping forwards to tower over you,"
@@ -871,7 +870,7 @@ public class HarpyNestNympho {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+				if(Main.game.isForcedTFEnabled()) {
 					return new Response("Transformed...", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_NYMPHO) {
 						@Override
 						public void effects() {

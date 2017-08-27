@@ -1,5 +1,7 @@
 package com.base.game.character.body.valueEnums;
 
+import com.base.utils.Colour;
+
 /**
  * Arbitrary measurements in increments of 1, going from 0 to 7.
  * 
@@ -10,35 +12,37 @@ package com.base.game.character.body.valueEnums;
 public enum TesticleSize {
 
 	/**Little bumps under the skin.*/
-	ZERO_VESTIGIAL("vestigial", 0),
+	ZERO_VESTIGIAL("vestigial", 0, Colour.GENERIC_SIZE_ONE),
 
 	/**Small for a human.*/
-	ONE_TINY("tiny", 1),
+	ONE_TINY("tiny", 1, Colour.GENERIC_SIZE_TWO),
 	
 	/**Average for a human.*/
-	TWO_AVERAGE("average-sized", 2),
+	TWO_AVERAGE("average-sized", 2, Colour.GENERIC_SIZE_THREE),
 
 	/**Large for a human. Average for a dog or wolf-morph.*/
-	THREE_LARGE("large", 3),
+	THREE_LARGE("large", 3, Colour.GENERIC_SIZE_FOUR),
 
 	/**Unrealistically large for a human. Average for a horse-morph.*/
-	FOUR_HUGE("huge", 4),
+	FOUR_HUGE("huge", 4, Colour.GENERIC_SIZE_FIVE),
 
 	/**Large for a horse-morph.*/
-	FIVE_MASSIVE("massive", 5),
+	FIVE_MASSIVE("massive", 5, Colour.GENERIC_SIZE_SIX),
 
 	/**Getting pretty absurd.*/
-	SIX_GIGANTIC("gigantic", 6),
+	SIX_GIGANTIC("gigantic", 6, Colour.GENERIC_SIZE_SEVEN),
 
 	/**"Extreme proportion" content.*/
-	SEVEN_ABSURD("absurdly enormous", 7);
+	SEVEN_ABSURD("absurdly enormous", 7, Colour.GENERIC_SIZE_EIGHT);
 
 	private int value;
 	private String descriptor;
+	private Colour colour;
 
-	private TesticleSize(String descriptor, int value) {
+	private TesticleSize(String descriptor, int value, Colour colour) {
 		this.descriptor = descriptor;
 		this.value = value;
+		this.colour=colour;
 	}
 
 	public int getValue() {
@@ -59,5 +63,9 @@ public enum TesticleSize {
 	 */
 	public String getDescriptor() {
 		return descriptor;
+	}
+
+	public Colour getColour() {
+		return colour;
 	}
 }

@@ -1,6 +1,7 @@
 package com.base.game.character.body.valueEnums;
 
 import com.base.game.character.body.Penis;
+import com.base.utils.Colour;
 
 /**
  * Measured in inches of penis size that could fit comfortably within this capacity.
@@ -10,32 +11,34 @@ import com.base.game.character.body.Penis;
  * @author Innoxia
  */
 public enum Capacity {
-	ZERO_IMPENETRABLE("extremely tight", PenisSize.NEGATIVE_UTILITY_VALUE, PenisSize.NEGATIVE_UTILITY_VALUE, PenisSize.ONE_TINY),
+	ZERO_IMPENETRABLE("extremely tight", PenisSize.NEGATIVE_UTILITY_VALUE, PenisSize.ZERO_MICROSCOPIC, PenisSize.ONE_TINY, Colour.GENERIC_SIZE_ONE),
 	
-	ONE_EXTREMELY_TIGHT("tight", PenisSize.ZERO_MICROSCOPIC, PenisSize.ONE_TINY, PenisSize.TWO_AVERAGE),
+	ONE_EXTREMELY_TIGHT("tight", PenisSize.ZERO_MICROSCOPIC, PenisSize.ONE_TINY, PenisSize.TWO_AVERAGE, Colour.GENERIC_SIZE_TWO),
 	
-	TWO_TIGHT("somewhat tight", PenisSize.ZERO_MICROSCOPIC, PenisSize.TWO_AVERAGE, PenisSize.THREE_LARGE),
+	TWO_TIGHT("somewhat tight", PenisSize.ZERO_MICROSCOPIC, PenisSize.TWO_AVERAGE, PenisSize.THREE_LARGE, Colour.GENERIC_SIZE_THREE),
 	
-	THREE_SLIGHTLY_LOOSE("slightly loose", PenisSize.ONE_TINY, PenisSize.THREE_LARGE, PenisSize.FOUR_HUGE),
+	THREE_SLIGHTLY_LOOSE("slightly loose", PenisSize.ONE_TINY, PenisSize.THREE_LARGE, PenisSize.FOUR_HUGE, Colour.GENERIC_SIZE_FOUR),
 	
-	FOUR_LOOSE("loose", PenisSize.ONE_TINY, PenisSize.FOUR_HUGE, PenisSize.FIVE_ENORMOUS),
+	FOUR_LOOSE("loose", PenisSize.ONE_TINY, PenisSize.FOUR_HUGE, PenisSize.FIVE_ENORMOUS, Colour.GENERIC_SIZE_FIVE),
 	
-	FIVE_ROOMY("very loose", PenisSize.TWO_AVERAGE, PenisSize.FIVE_ENORMOUS, PenisSize.SIX_GIGANTIC),
+	FIVE_ROOMY("very loose", PenisSize.TWO_AVERAGE, PenisSize.FIVE_ENORMOUS, PenisSize.SIX_GIGANTIC, Colour.GENERIC_SIZE_SIX),
 	
-	SIX_STRETCHED_OPEN("stretched open", PenisSize.TWO_AVERAGE, PenisSize.SIX_GIGANTIC, PenisSize.SEVEN_STALLION),
+	SIX_STRETCHED_OPEN("stretched open", PenisSize.TWO_AVERAGE, PenisSize.SIX_GIGANTIC, PenisSize.SEVEN_STALLION, Colour.GENERIC_SIZE_SEVEN),
 	
-	SEVEN_GAPING("gaping wide", PenisSize.THREE_LARGE, PenisSize.SEVEN_STALLION, PenisSize.SEVEN_STALLION);
+	SEVEN_GAPING("gaping wide", PenisSize.THREE_LARGE, PenisSize.SEVEN_STALLION, PenisSize.SEVEN_STALLION, Colour.GENERIC_SIZE_EIGHT);
 
 	
 	private String descriptor;
 	private PenisSize sizeTooSmall, maximumSizeComfortable, maximumSizeComfortableWithLube;
+	private Colour colour;
 
-	private Capacity(String descriptor, PenisSize sizeTooSmall, PenisSize maximumSizeComfortable, PenisSize maximumSizeComfortableWithLube) {
+	private Capacity(String descriptor, PenisSize sizeTooSmall, PenisSize maximumSizeComfortable, PenisSize maximumSizeComfortableWithLube, Colour colour) {
 		this.descriptor = descriptor;
 
 		this.sizeTooSmall = sizeTooSmall;
 		this.maximumSizeComfortable = maximumSizeComfortable;
 		this.maximumSizeComfortableWithLube = maximumSizeComfortableWithLube;
+		this.colour=colour;
 	}
 
 	public int getMinimumValue() {
@@ -43,11 +46,11 @@ public enum Capacity {
 	}
 
 	public int getMaximumValue() {
-		return maximumSizeComfortableWithLube.getMaximumValue();
+		return maximumSizeComfortable.getMaximumValue();
 	}
 
 	public int getMedianValue() {
-		return maximumSizeComfortable.getMinimumValue() + (maximumSizeComfortable.getMaximumValue() - maximumSizeComfortable.getMinimumValue()) / 2;
+		return maximumSizeComfortable.getMedianValue();//.getMinimumValue() + (maximumSizeComfortable.getMaximumValue() - maximumSizeComfortable.getMinimumValue()) / 2;
 	}
 
 	public static Capacity getCapacityFromValue(float capacity) {
@@ -104,6 +107,10 @@ public enum Capacity {
 
 	public PenisSize getMaximumSizeComfortableWithLube() {
 		return maximumSizeComfortableWithLube;
+	}
+
+	public Colour getColour() {
+		return colour;
 	}
 
 }

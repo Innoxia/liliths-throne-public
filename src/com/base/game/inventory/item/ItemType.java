@@ -263,7 +263,36 @@ public enum ItemType {
 	// }
 	// },
 	
-	
+	TEST_ITEM(
+			"a bottle of",
+			false,
+			"testing fluids",
+			"You shouldn't be able to find this. x_x",
+			"attributeHorseMorphDrink",
+			Colour.ATTRIBUTE_STRENGTH,
+			25,
+			Rarity.UNCOMMON,
+			TFEssence.HORSE_MORPH,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.TESTING, null, null)))) {
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user == Main.game.getPlayer())
+				return "<p>"
+							+ "You drink the testing fluid."
+						+ "</p>";
+			else
+				return UtilText.parse(user,
+						"<p>"
+								+ "[npc.Name] drinks the testing fluid."
+						+ "</p>");
+		}
+	},
 	
 	// Crafting:
 	
@@ -2555,7 +2584,8 @@ public enum ItemType {
 					&& t!=ItemType.BOTTLED_ESSENCE_ARCANE && t!=ItemType.BOTTLED_ESSENCE_CAT_MORPH && t!=ItemType.BOTTLED_ESSENCE_DEMON
 					&& t!=ItemType.BOTTLED_ESSENCE_DOG_MORPH && t!=ItemType.BOTTLED_ESSENCE_HARPY && t!=ItemType.BOTTLED_ESSENCE_HORSE_MORPH
 					&& t!=ItemType.BOTTLED_ESSENCE_HUMAN && t!=ItemType.BOTTLED_ESSENCE_WOLF_MORPH
-					&& t!=ItemType.EGGPLANT) {
+					&& t!=ItemType.EGGPLANT
+					&& t!=ItemType.TEST_ITEM) {
 				availableItems.add(t);
 			}
 			

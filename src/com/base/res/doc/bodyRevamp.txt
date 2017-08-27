@@ -1,0 +1,159 @@
+The "Orifice stats" is:
+	Capacity
+	[Fluid capacity]
+	Wetness
+	Elasticity
+	Virgin
+	
+"Fluids" have the following stats:
+	Special Effects (Applies TF, Applies addiction)
+	Maximum amount
+	Replenish rate
+	Viscosity
+	Taste
+	Smell
+	
+DONE Colour
+	fluorescent
+	striped, spotted, mottled
+	
+	
+DONE Arm
+	{Content lock} [Underarm hair]
+	[Nail polish]
+	[Arm rows]
+	[allows flight]
+
+DONE Ass
+	Size
+	Hipsize
+	[Asshole]
+		Orifice stats
+		[Interior colour]
+		[Rim colour]
+		[Puffyness]
+		[Internal tentacles]
+		[Internally ribbed]
+		[Muscle control]
+		[Bleached]
+		{Content lock} [Hair]
+
+DONE Body
+	Femininity
+	Height
+	[Muscle definition]
+	[Body fat]
+
+DONE Breast
+	Size
+	Rows
+	[Nipples]
+		Pierced
+		[lipple, pussy, normal]
+		[Nipple count per breast]
+		[Areolae size]
+		[Areolae shape]
+		[Nipple length]
+		Orifice stats
+		[Interior colour]
+		[Areolae colour]
+		[Puffyness]
+		[Internal tentacles]
+		[Internally ribbed]
+	[Fluid milk] (Type derived from breast type)
+
+DONE Ear
+	Pierced
+
+DONE Eye
+	[Shape e.g. enchanted to look like little pink hearts]
+	[count]
+	[Iris colour]
+	[Pupil colour]
+
+DONE Face
+	Orifice stats
+	Pierced nose
+	Pierced lips
+	[Lip size]
+	[Makeup level]
+	[Makeup colour]
+	[Beard]
+	
+DONE Hair
+	Colour
+	Length
+	Style
+
+DONE Horn
+	[size]
+	[rows]
+
+DONE [Antennae]
+	[size]
+	[rows]
+
+DONE Leg
+	[Nail polish]
+
+DONE Penis
+	Length
+	[sheathed or cloaca-like slit]
+	[Tentacle lining]
+	[Ribbed]
+	veiny
+	[Knotted]
+	[Flared head]
+	[Barbed]
+	[Prehensile]
+	[ovipositor]
+	[colour]
+	[Fluid cum] (Type derived from penis type)
+	[Fluid urine] (Type derived from penis type)
+	Testicle size
+	Testicle count
+	[internal testicles]
+	{Content lock} [Hair]
+	{Content gate}
+		Orifice stats
+		[Internal tentacles]
+		[Internally ribbed]
+		
+[Second penis]
+	Same as first
+		
+DONE Skin
+	[Primary colour]
+	[Secondary colour]
+	[Colour pattern]
+
+DONE Tail
+	[ovipositor]
+	[isOrifice]
+	Orifice stats
+	[Fluid cum] (Type derived from tail type)
+	
+DONE Tongue
+	Pierced
+	[bifurcated]
+	[Length]
+	[Prehensile]
+
+DONE Vagina
+	{Content lock} [Hair] [style]
+	[Girl cum] (Type derived from vagina type)
+	[Fluid urine] (Type derived from vagina type)
+	Clit size
+	[Clit colour]
+	Orifice stats
+		[Puffyness]
+		[Internal tentacles]
+		[Internally ribbed]
+		[Expert muscle control]
+		[Interior colour]
+		[Labia colour]
+
+DONE Wing
+	[allows flight]
+
+	

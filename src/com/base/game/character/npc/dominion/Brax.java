@@ -9,15 +9,19 @@ import com.base.game.character.QuestLine;
 import com.base.game.character.SexualOrientation;
 import com.base.game.character.attributes.Attribute;
 import com.base.game.character.attributes.CorruptionLevel;
+import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.ArmType;
 import com.base.game.character.body.types.AssType;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.types.BreastType;
 import com.base.game.character.body.types.EarType;
+import com.base.game.character.body.types.EyeType;
 import com.base.game.character.body.types.FaceType;
+import com.base.game.character.body.types.HairType;
 import com.base.game.character.body.types.HornType;
 import com.base.game.character.body.types.LegType;
 import com.base.game.character.body.types.PenisType;
+import com.base.game.character.body.types.SkinType;
 import com.base.game.character.body.types.TailType;
 import com.base.game.character.body.types.VaginaType;
 import com.base.game.character.body.types.WingType;
@@ -81,9 +85,10 @@ public class Brax extends NPC {
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
-		this.setEyeColour(Colour.EYE_YELLOW);
-		this.setHairColour(Colour.COVERING_BLACK);
-		this.setSkinColour(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, Colour.EYE_YELLOW));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK));
+		this.setCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE));
+		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE));
 
 		this.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
 
@@ -551,7 +556,7 @@ public class Brax extends NPC {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+			if(Main.game.isForcedTFEnabled()) {
 				if(Main.game.getDialogueFlags().braxTransformedPlayer) {
 					return "<p>"
 							+ "You can't carry on fighting any longer, and your legs give out from beneath you as you sink down onto your knees."
@@ -629,7 +634,7 @@ public class Brax extends NPC {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+				if(Main.game.isForcedTFEnabled()) {
 					return new Response("Transformation time", "There's no mistaking it, you're starting to transform!", AFTER_DEFEAT_TRANSFORMATION){
 						@Override
 						public void effects() {
@@ -639,25 +644,27 @@ public class Brax extends NPC {
 							Main.game.getPlayer().setAssType(AssType.WOLF_MORPH);
 							Main.game.getPlayer().setBreastType(BreastType.WOLF_MORPH);
 							Main.game.getPlayer().setEarType(EarType.LYCAN);
-							Main.game.getPlayer().setEyeType(BodyCoveringType.EYE_LYCAN);
+							Main.game.getPlayer().setEyeType(EyeType.LYCAN);
 							Main.game.getPlayer().setFaceType(FaceType.LYCAN);
-							Main.game.getPlayer().setHairType(BodyCoveringType.LYCAN_FUR);
+							Main.game.getPlayer().setHairType(HairType.LYCAN);
 							Main.game.getPlayer().setHornType(HornType.NONE);
 							Main.game.getPlayer().setLegType(LegType.LYCAN);
 							Main.game.getPlayer().setPenisType(PenisType.NONE);
-							Main.game.getPlayer().setSkinType(BodyCoveringType.LYCAN_FUR);
+							Main.game.getPlayer().setSkinType(SkinType.LYCAN);
 							Main.game.getPlayer().setTailType(TailType.LYCAN);
 							Main.game.getPlayer().setVaginaType(VaginaType.WOLF_MORPH);
 							Main.game.getPlayer().setWingType(WingType.NONE);
 							
 							Main.game.getPlayer().setFemininity(Femininity.FEMININE_STRONG.getMinimumFemininity());
 							Main.game.getPlayer().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
-							if(Main.game.getPlayer().getVaginaWetness().getValue()<Wetness.THREE_WET.getValue())
+							if(Main.game.getPlayer().getVaginaWetness().getValue()<Wetness.THREE_WET.getValue()) {
 								Main.game.getPlayer().setVaginaWetness(Wetness.THREE_WET.getValue());
+							}
 							
-							Main.game.getPlayer().setSkinColour(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE);
-							Main.game.getPlayer().setHairColour(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK);
-							Main.game.getPlayer().setEyeColour(Colour.EYE_YELLOW);
+							Main.game.getPlayer().setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, Colour.EYE_YELLOW));
+							Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK));
+							Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE));
+							
 							Main.game.getPlayer().setBreastSize(CupSize.E.getMeasurement());
 							
 							if(Main.getProperties().multiBreasts!=0) {
@@ -914,7 +921,7 @@ public class Brax extends NPC {
 			if (Main.game.getPlayer().isFeminine()) {
 				if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 					return "<p>"
-							+ "Brax lets out a surprised grunt as your tiny "
+							+ "[brax.name] lets out a surprised grunt as your tiny "
 							+ Main.game.getPlayer().getPenisName(false)
 							+ " is revealed, "
 							+ UtilText.parseSpeech("Wait, what?! I thought you were a girl!", Sex.getPartner())
@@ -922,7 +929,7 @@ public class Brax extends NPC {
 
 				} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 					return "<p>"
-							+ "Brax lets out a surprised grunt as your "
+							+ "[brax.name] lets out a surprised grunt as your "
 							+ Main.game.getPlayer().getPenisSize().getDescriptor()
 							+ " "
 							+ Main.game.getPlayer().getPenisName(false)
@@ -934,7 +941,7 @@ public class Brax extends NPC {
 
 				} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 					return "<p>"
-							+ "Brax lets out a surprised grunt as your "
+							+ "[brax.name] lets out a surprised grunt as your "
 							+ Main.game.getPlayer().getPenisSize().getDescriptor()
 							+ " "
 							+ Main.game.getPlayer().getPenisName(false)
@@ -944,7 +951,7 @@ public class Brax extends NPC {
 
 				} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 					return "<p>"
-							+ "Brax lets out a surprised grunt as your "
+							+ "[brax.name] lets out a surprised grunt as your "
 							+ Main.game.getPlayer().getPenisSize().getDescriptor()
 							+ " "
 							+ Main.game.getPlayer().getPenisName(false)
@@ -978,7 +985,7 @@ public class Brax extends NPC {
 			return super.getPlayerPenisRevealReaction(isPlayerDom);
 		} else {
 			return "<p>"
-					+ "Brax lets out an amused grunt as he sees your doll-like crotch, "
+					+ "[brax.name] lets out an amused grunt as he sees your doll-like crotch, "
 					+ UtilText.parseSpeech("Hah! Guess I'll have to be using your ass then...", Sex.getPartner())
 					+ "</p>";
 		}
@@ -993,42 +1000,42 @@ public class Brax extends NPC {
 				if(orifice == OrificeType.VAGINA_PLAYER) {
 					if(penetrationType == PenetrationType.PENIS_PARTNER) {
 						return UtilText.returnStringAtRandom(
-								"You keep bouncing up and down, slamming Brax's "+Sex.getPartner().getPenisName(true)+" in and out of your "+Main.game.getPlayer().getVaginaName(true)+".",
-								"With lewd little moans, you continue bouncing up and down on Brax's "+Sex.getPartner().getPenisName(true)+".",
-								"You feel Brax's "+Sex.getPartner().getPenisName(true)+" lewdly spreading out your "+Main.game.getPlayer().getVaginaName(true)+" as you ride him.",
-								"You let out a gasp as you carry on spearing your "+Main.game.getPlayer().getVaginaName(true)+" on Brax's "+Sex.getPartner().getPenisName(true)+".");
+								"You keep bouncing up and down, slamming [brax.name]'s [npc.penis+] in and out of your [pc.pussy+].",
+								"With lewd little moans, you continue bouncing up and down on [brax.name]'s [npc.penis+].",
+								"You feel [brax.name]'s [npc.penis+] lewdly spreading out your [pc.pussy+] as you ride him.",
+								"You let out a gasp as you carry on spearing your [pc.pussy+] on [brax.name]'s [npc.penis+].");
 					} else if(penetrationType == PenetrationType.TONGUE_PARTNER) {
 						return UtilText.returnStringAtRandom(
-								"You hold the top of Brax's head, moaning softly as he carries on eating you out.",
-								"With a little giggle, you grind your "+Main.game.getPlayer().getVaginaName(true)+" down on Brax's wolf-like muzzle.",
-								"You feel Brax's tongue eagerly lapping away at your "+Main.game.getPlayer().getVaginaName(true)+".",
-								"You sink down a little further onto Brax's face, letting out a delighted sigh as you feel his tongue spearing deep into your "+Main.game.getPlayer().getVaginaName(true)+".");
+								"You hold the top of [brax.name]'s head, moaning softly as he carries on eating you out.",
+								"With a little giggle, you grind your [pc.pussy+] down on [brax.name]'s wolf-like muzzle.",
+								"You feel [brax.name]'s tongue eagerly lapping away at your [pc.pussy+].",
+								"You sink down a little further onto [brax.name]'s face, letting out a delighted sigh as you feel his tongue spearing deep into your [pc.pussy+].");
 					}
 				}
 				
 				if(orifice == OrificeType.ANUS_PLAYER) {
 					if(penetrationType == PenetrationType.PENIS_PARTNER) {
 						return UtilText.returnStringAtRandom(
-								"You keep bouncing up and down, slamming Brax's "+Sex.getPartner().getPenisName(true)+" in and out of your "+Main.game.getPlayer().getAssholeName(true)+".",
-								"With lewd little moans, you continue bouncing up and down on Brax's "+Sex.getPartner().getPenisName(true)+".",
-								"You feel Brax's "+Sex.getPartner().getPenisName(true)+" lewdly spreading out your "+Main.game.getPlayer().getAssholeName(true)+" as you ride him.",
-								"You let out a gasp as you carry on spearing your "+Main.game.getPlayer().getAssholeName(true)+" on Brax's "+Sex.getPartner().getPenisName(true)+".");
+								"You keep bouncing up and down, slamming [brax.name]'s [npc.penis+] in and out of your [pc.asshole+].",
+								"With lewd little moans, you continue bouncing up and down on [brax.name]'s [npc.penis+].",
+								"You feel [brax.name]'s [npc.penis+] lewdly spreading out your [pc.asshole+] as you ride him.",
+								"You let out a gasp as you carry on spearing your [pc.asshole+] on [brax.name]'s [npc.penis+].");
 					} else {
 						return UtilText.returnStringAtRandom(
-								"You hold the top of Brax's head, moaning softly as he carries on licking your "+Main.game.getPlayer().getAssholeName(true)+".",
-								"With a little giggle, you grind your "+Main.game.getPlayer().getAssholeName(true)+" down on Brax's wolf-like muzzle.",
-								"You feel Brax's tongue eagerly lapping away at your "+Main.game.getPlayer().getAssholeName(true)+".",
-								"You sink down a little further onto Brax's face, letting out a delighted sigh as you feel his tongue spearing deep into your "+Main.game.getPlayer().getAssholeName(true)+".");
+								"You hold the top of [brax.name]'s head, moaning softly as he carries on licking your [pc.asshole+].",
+								"With a little giggle, you grind your [pc.asshole+] down on [brax.name]'s wolf-like muzzle.",
+								"You feel [brax.name]'s tongue eagerly lapping away at your [pc.asshole+].",
+								"You sink down a little further onto [brax.name]'s face, letting out a delighted sigh as you feel his tongue spearing deep into your [pc.asshole+].");
 					}
 				}
 			}
 			
 			if(penetrationType == PenetrationType.PENIS_PLAYER && orifice == OrificeType.ANUS_PARTNER) {
 				return UtilText.returnStringAtRandom(
-						"You carry on slamming your "+Main.game.getPlayer().getPenisName(true)+" into Brax's "+Sex.getPartner().getAssholeName(true)+".",
-						"Holding his hips, you carry on fucking Brax's "+Sex.getPartner().getAssholeName(true)+".",
-						"You feel Brax's "+Sex.getPartner().getAssholeName(true)+" lewdly spreading out around your "+Main.game.getPlayer().getPenisName(true)+" as you thrust into him.",
-						"Brax gasps and groans as you carry on spearing your "+Main.game.getPlayer().getPenisName(true)+" into his "+Sex.getPartner().getAssholeName(true)+".");
+						"You carry on slamming your [pc.penis+] into [brax.name]'s [npc.asshole+].",
+						"Holding his hips, you carry on fucking [brax.name]'s [npc.asshole+].",
+						"You feel [brax.name]'s [npc.asshole+] lewdly spreading out around your [pc.penis+] as you thrust into him.",
+						"[brax.name] gasps and groans as you carry on spearing your [pc.penis+] into his [npc.asshole+].");
 			}
 		}
 		

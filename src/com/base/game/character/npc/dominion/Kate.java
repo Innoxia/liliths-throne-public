@@ -6,6 +6,7 @@ import java.util.List;
 import com.base.game.character.GameCharacter;
 import com.base.game.character.NameTriplet;
 import com.base.game.character.SexualOrientation;
+import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.types.PenisType;
 import com.base.game.character.body.valueEnums.CupSize;
@@ -54,14 +55,14 @@ public class Kate extends NPC {
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 
-		this.setEyeColour(Colour.EYE_GREEN);
-		this.setHairColour(Colour.COVERING_BLACK);
-		this.setSkinColour(BodyCoveringType.DEMON_COMMON, Colour.DEMON_SKIN_PINK);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_GREEN));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK));
+		this.setCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PINK));
 
 		this.setBreastSize(CupSize.F.getMeasurement());
 		
 		this.setAssVirgin(false);
-		this.setBreastVirgin(false);
+		this.setNippleVirgin(false);
 		this.setVaginaVirgin(false);
 		this.setFaceVirgin(false);
 		

@@ -2,6 +2,7 @@ package com.base.game.character.npc.dominion;
 
 import com.base.game.character.NameTriplet;
 import com.base.game.character.SexualOrientation;
+import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.valueEnums.Capacity;
 import com.base.game.character.body.valueEnums.CupSize;
@@ -46,10 +47,10 @@ public class Pix extends NPC {
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
-		this.setEyeColour(Colour.EYE_BROWN);
-		this.setHairColour(Colour.COVERING_BROWN_DARK);
-		this.setSkinColour(BodyCoveringType.CANINE_FUR, Colour.COVERING_BROWN);
-		this.setSkinColour(BodyCoveringType.HUMAN, Colour.HUMAN_SKIN_OLIVE);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DOG_MORPH, Colour.EYE_BROWN));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_CANINE_FUR, Colour.COVERING_BROWN_DARK));
+		this.setCovering(new Covering(BodyCoveringType.CANINE_FUR, Colour.COVERING_BROWN));
+		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE));
 
 		this.setVaginaVirgin(false);
 		this.setVaginaCapacity(Capacity.FOUR_LOOSE.getMedianValue());

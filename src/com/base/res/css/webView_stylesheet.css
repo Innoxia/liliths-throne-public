@@ -937,6 +937,10 @@ position:relative;
 	max-height:22px;
 	-webkit-user-select: none;
 }
+.phone-item-third.phone-item-third-large{
+	height:44px;
+	max-height:44px;
+}
 .phone-item-third.slot{
 	width:25vw;
 	max-width:168px;/*320px;*/
@@ -961,9 +965,15 @@ position:relative;
 	background-color: #333333;
 	-webkit-user-select: none;
 }
-.phone-item-half{
-	float:left;
-	position:relative;
+.phone-item-half-table {
+	display: table;
+	border-spacing: 16px 5px;
+}
+.phone-item-half-table-row {
+	display: table-row;
+}
+.phone-item-half-table-row .phone-item-half{
+	display: table-cell;
 	background-color: transparent;
 	background:#222222;
 	border-radius:5px;

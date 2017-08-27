@@ -272,7 +272,7 @@ public enum ClothingType {
 	},
 
 	PIERCING_NIPPLE_BARS("a pair of",
-			false,
+			true,
 			"nipple bars",
 			"A pair of bars that are designed to fit into nipple piercings.",
 			0,
@@ -3321,7 +3321,7 @@ public enum ClothingType {
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You unwrap teh sarashi remove it from your stomach.";
+				return "You unwrap the sarashi remove it from your stomach.";
 			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
 				return UtilText.parse(clothingOwner, "[npc.Name] unwraps the sarashi from around [npc.her] stomach.");
 			} else {
