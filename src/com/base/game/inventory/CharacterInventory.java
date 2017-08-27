@@ -818,7 +818,7 @@ public class CharacterInventory implements Serializable {
 
 				// Remove the old clothing in this slot using the owner's accessor method:
 				if (getClothingInSlot(newClothing.getClothingType().getSlot()) != null) {
-					if (!characterClothingOwner.isInventoryFull())
+					if (!characterClothingOwner.isInventoryFull() || characterClothingOwner.hasClothing(getClothingInSlot(newClothing.getClothingType().getSlot())))
 						equipTextSB.append("</br>" + characterClothingOwner.addedItemToInventoryText(getClothingInSlot(newClothing.getClothingType().getSlot())));
 					else
 						equipTextSB.append("</br>" + characterClothingOwner.droppedItemText(getClothingInSlot(newClothing.getClothingType().getSlot())));
