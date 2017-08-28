@@ -2482,7 +2482,7 @@ public class InventoryDialogue {
 			}
 			
 			List<AbstractClothing> clothingItems = Main.game.getDialogueFlags().tradePartner.getAllClothingInInventory().stream()
-					.filter(item::equals)
+					.filter(clothing::equals)
 					.collect(Collectors.toList());
 					
 			clothingItems.stream().forEach(tradeClothing -> {

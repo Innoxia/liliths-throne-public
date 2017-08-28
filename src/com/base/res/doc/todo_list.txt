@@ -18,6 +18,7 @@
 	Patch notes:
 	
 	Bugs:
+		Fixed some bugs in the inventory/shop interactions.
 		Fixed incorrect breast size descriptors showing up.
 		Fixed bugs related to incorrect adjectives being applied to vagina (by Pimgd).
 		Fixed buy all game freeze bug (by Pimgd).
@@ -35,8 +36,15 @@
 	
 	
 	
+	on an imported character I couldn't access Lilaya's pregnancy talk, the tooltip kept saying I needed to finish her tests even though I had
+	Not sure if thats related to something being carried over on import
 	
-	
+	cum production import not working
+	my skin/fur/feather colors are all wonky
+	I am now virgin in every hole
+	Asshole dried up, lost its elasticity and looseness
+	Cum production tanked
+	my dick is now prehensile, and my cum is sticky, slimy, and oily
 	
 	also the collect reward button is bugged for the harpy sidequest and you can click it as many times as you want and itll give you money, the money counter updates when you move
 	
@@ -44,19 +52,19 @@
 	
 	Fetishes
 	
-	Furry tails in sex
-	
-	Tails in mouth AI
-	
 	"woman cum" instead of cum...
 	
 	The Sadism fetish note in combat doesn't take gender into account, always referring to "his sadist fetish".
 	
 	Not actually sure if its a bug but lilaya doesnt actually produce cum anymore
 	
-	deep into your small tits...
+	Furry tails in sex
+	Tails in mouth AI
+	now that cat tails are considered prehensile, there are lots of catgirls taking all of their own virginities with them.
 	
+	 succubus with 3 pair of knockers that are H, GG and G in size according to the descripction part, and the in-game text during the transformation said she only has 1 pair of E boobs
 	
+	quitting sex after starting it gives you the frustrated status despite having little arousal.
 	
 	Milk
 		Transformative effects
