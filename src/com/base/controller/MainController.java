@@ -391,6 +391,8 @@ public class MainController implements Initializable {
 //						 System.out.println(event.getCode());
 						 if(event.getCode()==KeyCode.END){
 							 
+							 System.out.println(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
+							 
 //							 webViewMain = new WebView();
 //							 webViewAttributes = new WebView(); 
 //							 webViewInventory = new WebView();

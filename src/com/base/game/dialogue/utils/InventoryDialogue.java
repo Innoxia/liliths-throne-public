@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.base.game.character.GameCharacter;
+import com.base.game.character.Quest;
 import com.base.game.character.QuestLine;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.npc.NPC;
@@ -677,7 +678,7 @@ public class InventoryDialogue {
 						};
 						
 					} else if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-						if(Main.game.getPlayer().getQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY).getSortingOrder() != 0) {
+						if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_ENCHANTMENT_DISCOVERY, Quest.SIDE_ENCHANTMENTS_LILAYA_HELP)) {
 							return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 								@Override
 								public void effects() {
@@ -858,7 +859,7 @@ public class InventoryDialogue {
 				
 			} else if (index == 4) {
 				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING)){
-					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_JINXED_CLOTHING).getSortingOrder() != 0){
+					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_JINXED_CLOTHING, Quest.SIDE_JINXED_LILAYA_HELP)){
 						return new Response("Remove jinx", "Proceed to the jinxed clothing choice menu.", REMOVE_JINX){
 							@Override
 							public void effects() {
@@ -1572,7 +1573,7 @@ public class InventoryDialogue {
 
 			} else if (index == 4) {
 				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING)){
-					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_JINXED_CLOTHING).getSortingOrder() != 0){
+					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_JINXED_CLOTHING, Quest.SIDE_JINXED_LILAYA_HELP)){
 						return new Response("Remove jinx", "Proceed to the jinxed clothing choice menu.", REMOVE_JINX){
 							@Override
 							public void effects() {

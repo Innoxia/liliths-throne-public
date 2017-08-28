@@ -46,7 +46,7 @@ import com.base.world.places.EnforcerHQ;
 public class EnforcerHQDialogue {
 	
 	private static boolean isBraxMainQuestComplete() {
-		return Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() > Quest.MAIN_1_C_WOLFS_DEN.getSortingOrder();
+		return Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN);
 	}
 
 	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Enforcer HQ", "Enforcer HQ", false) {

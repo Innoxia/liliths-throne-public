@@ -20,6 +20,7 @@
 	Bugs:
 		Fixed some bugs in the inventory/shop interactions.
 		Fixed incorrect breast size descriptors showing up.
+		Fixed incorrect description of toenail colour (by Rfpnj).
 		Fixed bugs related to incorrect adjectives being applied to vagina (by Pimgd).
 		Fixed buy all game freeze bug (by Pimgd).
 		Fixed the display size of jinxed equipped piercings (by Pimgd).
@@ -38,6 +39,12 @@
 	
 	on an imported character I couldn't access Lilaya's pregnancy talk, the tooltip kept saying I needed to finish her tests even though I had
 	Not sure if thats related to something being carried over on import
+	
+	currently lilaya can only grow a 0 inch penis
+	
+	also a bug that the demons all grew teeny tiny balls
+	
+	lilaya nolonger ejaculates
 	
 	cum production import not working
 	my skin/fur/feather colors are all wonky

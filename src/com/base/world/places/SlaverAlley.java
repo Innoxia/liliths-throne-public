@@ -36,7 +36,7 @@ public enum SlaverAlley implements PlaceInterface {
 	SCARLETTS_SHOP("Scarlett's shop", "dominion/slaverAlley/scarlettsStall", BaseColour.CRIMSON, ScarlettsShop.SCARLETTS_SHOP_EXTERIOR, null, true, false){
 		@Override
 		public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
-			if(Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() < Quest.MAIN_1_F_SCARLETTS_FATE.getSortingOrder()) { // Scarlett owns the shop:
+			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) { // Scarlett owns the shop:
 				return ScarlettsShop.SCARLETTS_SHOP_EXTERIOR;
 				
 			} else { // Alexa owns the shop:
