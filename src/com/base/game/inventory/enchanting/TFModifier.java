@@ -12,7 +12,7 @@ import com.base.utils.Util;
 
 /**
  * @since 0.1.7
- * @version 0.1.8
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum TFModifier {
@@ -26,50 +26,19 @@ public enum TFModifier {
 	
 	// Pos/Neg
 	
-	NEGATIVE_WEAK("minor negative",
-			"Applies a minor negative effect.",
-			"reduced",
-			"modifier_circle_negative",
-			Colour.GENERIC_BAD,
+	ARCANE_BOOST("arcane booster",
+			"Applies a more powerful effect in relation to the primary essence.",
+			"boosted",
+			"modifier_circle_arcane",
+			Colour.GENERIC_ARCANE,
 			Rarity.COMMON),
-	NEGATIVE_AVERAGE("average negative",
-			"Applies a negative effect.",
-			"reduced",
-			"modifier_circle_negative",
-			Colour.GENERIC_BAD,
-			Rarity.UNCOMMON),
-	NEGATIVE_STRONG("major negative",
-			"Applies a major negative effect.",
-			"reduced",
-			"modifier_circle_negative",
-			Colour.GENERIC_BAD,
-			Rarity.RARE),
-	
-	POSITIVE_WEAK("minor positive",
-			"Applies a minor positive effect.",
-			"boosted",
-			"modifier_circle_positive",
-			Colour.GENERIC_GOOD,
-			Rarity.COMMON),
-	POSITIVE_AVERAGE("average positive",
-			"Applies a positive effect.",
-			"boosted",
-			"modifier_circle_positive",
-			Colour.GENERIC_GOOD,
-			Rarity.UNCOMMON),
-	POSITIVE_STRONG("major positive",
-			"Applies a major positive effect.",
-			"boosted",
-			"modifier_circle_positive",
-			Colour.GENERIC_GOOD,
-			Rarity.RARE),
 
 	REMOVAL("removal",
 			"Applies an effect such that the primary modifier's body part is removed.",
 			"vanishing",
 			"modifier_circle_removal",
 			Colour.GENERIC_TERRIBLE,
-			Rarity.RARE),
+			Rarity.UNCOMMON),
 	
 	// Attributes:
 	
@@ -242,23 +211,12 @@ public enum TFModifier {
 	
 	// Racial parts:
 	
-	/*
-	 * Arm
-	 * Ass
-	 * Breast
-	 * Ear
-	 * Eye
-	 * Face
-	 * Hair
-	 * Horn
-	 * Leg
-	 * Penis
-	 * Skin
-	 * Tail
-	 * Tongue
-	 * Vagina
-	 * Wing
-	 */
+	TF_ANTENNA("antennae",
+			"Applies a transformative effect to your antennae.",
+			"antennae",
+			"modifier_circle_tf_antenna",
+			Colour.TRANSFORMATION_PARTIAL,
+			Rarity.UNCOMMON),
 	
 	TF_ARMS("arms",
 			"Applies a transformative effect to your arms.",
@@ -284,7 +242,7 @@ public enum TFModifier {
 	TF_CORE("core",
 			"Applies a transformative effect to your body.",
 			"core",
-			"modifier_circle",
+			"modifier_circle_tf_core",
 			Colour.TRANSFORMATION_GREATER,
 			Rarity.RARE),
 	
@@ -340,7 +298,7 @@ public enum TFModifier {
 	TF_SKIN("skin",
 			"Applies a transformative effect to your skin.",
 			"skin",
-			"modifier_circle",
+			"modifier_circle_tf_skin",
 			Colour.TRANSFORMATION_GREATER,
 			Rarity.EPIC),
 	
@@ -365,232 +323,416 @@ public enum TFModifier {
 			Colour.TRANSFORMATION_PARTIAL,
 			Rarity.UNCOMMON),
 	
+	TF_MILK("milk",
+			"Applies a transformative effect to your milk.",
+			"milk",
+			"modifier_circle_tf_milk",
+			Colour.TRANSFORMATION_SEXUAL,
+			Rarity.UNCOMMON),
+	
+	TF_CUM("cum",
+			"Applies a transformative effect to your cum.",
+			"cum",
+			"modifier_circle_tf_cum",
+			Colour.TRANSFORMATION_SEXUAL,
+			Rarity.UNCOMMON),
+	
+	TF_GIRLCUM("girlcum",
+			"Applies a transformative effect to your girlcum.",
+			"girlcum",
+			"modifier_circle_tf_girlcum",
+			Colour.TRANSFORMATION_SEXUAL,
+			Rarity.UNCOMMON),
+	
+	
 	// Body part modifiers:
 	
-	/*
-	 * Size +/-
-	 * Capacity +/-
-	 * Wetness +/-
-	 * Elasticity +/-
-	 * 
-	 * Special:
-	 *  Femininity +/-
-	 *  
-	 */
-	
-	TF_MOD_SIZE_GROW("growth",
-			"Applies an effect related to the growth of a certain body part.",
-			"growing",
-			"modifier_circle_size_increase",
-			Colour.GENERIC_GOOD,
-			Rarity.COMMON),
-	
-	TF_MOD_SIZE_SHRINK("shrink",
-			"Applies an effect related to shrinking a certain body part.",
-			"shrinking",
-			"modifier_circle_size_decrease",
-			Colour.GENERIC_BAD,
-			Rarity.COMMON),
-	
-	TF_MOD_CAPACITY_INCREASE("loosen",
-			"Applies an effect related to loosening an orifice.",
-			"loosening",
-			"modifier_circle_capacity_increase",
-			Colour.CLOTHING_PINK,
-			Rarity.COMMON),
-	
-	TF_MOD_CAPACITY_DECREASE("tighten",
-			"Applies an effect related to tightening an orifice.",
-			"tightening",
-			"modifier_circle_capacity_decrease",
-			Colour.CLOTHING_PINK_LIGHT,
-			Rarity.COMMON),
-	
-	TF_MOD_WETNESS_INCREASE("wetness",
-			"Applies an effect related to increasing the wetness of an orifice, or the fluid production of a body part.",
-			"wet",
-			"modifier_circle_wetness_increase",
-			Colour.CLOTHING_BLUE,
-			Rarity.COMMON),
-	
-	TF_MOD_WETNESS_DECREASE("dryness",
-			"Applies an effect related to decreasing the wetness of an orifice, or the fluid production of a body part.",
-			"dry",
-			"modifier_circle_wetness_decrease",
-			Colour.CLOTHING_TAN,
-			Rarity.COMMON),
-	
-	TF_MOD_ELASTICITY_INCREASE("elasticity",
-			"Applies an effect related to increasing the elasticity of an orifice.",
-			"elastic",
-			"modifier_circle_elasticity_increase",
-			Colour.GENERIC_GOOD,
-			Rarity.COMMON),
-	
-	TF_MOD_ELASTICITY_DECREASE("rigidity",
-			"Applies an effect related to decreasing the elasticity of an orifice.",
-			"rigid",
-			"modifier_circle_elasticity_decrease",
-			Colour.GENERIC_BAD,
-			Rarity.COMMON),
-	
-	// More powerful variants:
-	
-	TF_MOD_SIZE_GROW_STRONG("major growth",
-			"Applies a very strong effect related to the growth of a certain body part.",
-			"growing",
-			"modifier_circle_size_increase",
-			Colour.GENERIC_GOOD,
-			Rarity.UNCOMMON),
-	
-	TF_MOD_SIZE_SHRINK_STRONG("major shrink",
-			"Applies a very strong effect related to shrinking a certain body part.",
-			"shrinking",
-			"modifier_circle_size_decrease",
-			Colour.GENERIC_BAD,
-			Rarity.UNCOMMON),
-	
-	TF_MOD_CAPACITY_INCREASE_STRONG("major loosen",
-			"Applies a very strong effect related to loosening an orifice.",
-			"loosening",
-			"modifier_circle_capacity_increase",
-			Colour.CLOTHING_PINK,
-			Rarity.UNCOMMON),
-	
-	TF_MOD_CAPACITY_DECREASE_STRONG("major tighten",
-			"Applies a very strong effect related to tightening an orifice.",
-			"tightening",
-			"modifier_circle_capacity_decrease",
-			Colour.CLOTHING_PINK_LIGHT,
-			Rarity.UNCOMMON),
-	
-	TF_MOD_WETNESS_INCREASE_STRONG("major wetness",
-			"Applies a very strong effect related to increasing the wetness of an orifice, or the fluid production of a body part.",
-			"wet",
-			"modifier_circle_wetness_increase",
-			Colour.CLOTHING_BLUE,
-			Rarity.UNCOMMON),
-	
-	TF_MOD_WETNESS_DECREASE_STRONG("major dryness",
-			"Applies a very strong effect related to decreasing the wetness of an orifice, or the fluid production of a body part.",
-			"dry",
-			"modifier_circle_wetness_decrease",
-			Colour.CLOTHING_TAN,
-			Rarity.UNCOMMON),
-	
-	TF_MOD_ELASTICITY_INCREASE_STRONG("major elasticity",
-			"Applies a very strong effect related to increasing the elasticity of an orifice.",
-			"elastic",
-			"modifier_circle_elasticity_increase",
-			Colour.GENERIC_GOOD,
-			Rarity.UNCOMMON),
-	
-	TF_MOD_ELASTICITY_DECREASE_STRONG("major rigidity",
-			"Applies a very strong effect related to decreasing the elasticity of an orifice.",
-			"rigid",
-			"modifier_circle_elasticity_decrease",
-			Colour.GENERIC_BAD,
-			Rarity.UNCOMMON),
-	
-	
-	// Specials:
-	
-	TF_MOD_HIP_SIZE_INCREASE("larger hips",
-			"Applies an effect such that the user's hips are widened.",
-			"big hips",
-			"modifier_circle_positive",
-			Colour.GENERIC_GOOD,
-			Rarity.COMMON){
-		public boolean isSoloDescriptor() {
-			return true;
-		}
-	},
-	
-	TF_MOD_HIP_SIZE_DECREASE("smaller hips",
-			"Applies an effect such that the user's hips are narrowed.",
-			"small hips",
-			"modifier_circle_negative",
-			Colour.GENERIC_BAD,
-			Rarity.COMMON){
-		public boolean isSoloDescriptor() {
-			return true;
-		}
-	},
-	
-	TF_MOD_BREAST_ROWS_INCREASE("add breast row",
-			"Applies an effect such that the user grows an extra row of breasts.",
-			"multi-breasts",
-			"modifier_circle_positive",
-			Colour.GENERIC_GOOD,
-			Rarity.EPIC){
-		public boolean isSoloDescriptor() {
-			return true;
-		}
-	},
-	
-	TF_MOD_BREAST_ROWS_DECREASE("remove breast row",
-			"Applies an effect such that the user loses one of their extra rows of breasts.",
-			"less breasts",
-			"modifier_circle_negative",
-			Colour.GENERIC_BAD,
-			Rarity.COMMON){
-		public boolean isSoloDescriptor() {
-			return true;
-		}
-	},
-	
-	TF_MOD_TESTICLE_SIZE_INCREASE("larger testicles",
-			"Applies an effect such that the user's testicles grow in size.",
-			"bigger balls",
-			"modifier_circle_positive",
-			Colour.GENERIC_GOOD,
-			Rarity.COMMON){
-		public boolean isSoloDescriptor() {
-			return true;
-		}
-	},
-	
-	TF_MOD_TESTICLE_SIZE_DECREASE("smaller testicles",
-			"Applies an effect such that the user's testicles shrink.",
-			"smaller balls",
-			"modifier_circle_negative",
-			Colour.GENERIC_BAD,
-			Rarity.COMMON){
-		public boolean isSoloDescriptor() {
-			return true;
-		}
-	},
-	
-	TF_MOD_FEMININITY_INCREASE("femininity",
-			"Applies an effect such that the user becomes more feminine.",
+	TF_MOD_FEMININITY("femininity",
+			"Applies an effect to change the user's femininity.",
 			"feminine",
 			"modifier_circle_femininity",
-			Colour.FEMININE,
+			Colour.ANDROGYNOUS,
 			Rarity.COMMON),
 	
-	TF_MOD_FEMININITY_DECREASE("masculinity",
-			"Applies an effect such that the user becomes more masculine.",
-			"masculine",
-			"modifier_circle_masculinity",
-			Colour.MASCULINE,
+	TF_MOD_COUNT("count",
+			"Applies an effect related to adding or removing extra body parts.",
+			"counting",
+			"modifier_circle_count",
+			Colour.BASE_AQUA,
+			Rarity.COMMON),
+	
+	TF_MOD_COUNT_SECONDARY("secondary count",
+			"Applies an effect related to adding or removing extra body parts.",
+			"counting",
+			"modifier_circle_count_secondary",
+			Colour.BASE_TEAL,
+			Rarity.COMMON),
+	
+	TF_MOD_BODY_HAIR("hairiness",
+			"Applies an effect related to adding or removing body hair.",
+			"hairy",
+			"modifier_circle_bodyHair",
+			Colour.BASE_TAN,
+			Rarity.COMMON),
+	
+	TF_MOD_INTERNAL("internal",
+			"Applies an effect related to making a body part internal.",
+			"internal",
+			"modifier_circle_internal",
+			Colour.BASE_BLUE_STEEL,
+			Rarity.COMMON),
+	
+	TF_MOD_SIZE("size",
+			"Applies an effect related to the change in size of a certain body part.",
+			"resizing",
+			"modifier_circle_size",
+			Colour.BASE_LILAC,
+			Rarity.COMMON),
+	
+	TF_MOD_SIZE_SECONDARY("secondary size",
+			"Applies an effect related to the change in size of a different body part.",
+			"resizing",
+			"modifier_circle_size_secondary",
+			Colour.BASE_LILAC_LIGHT,
 			Rarity.COMMON),
 
-	// More powerful variants:
+	TF_MOD_SIZE_TERTIARY("tertiary size",
+			"Applies an effect related to the change in size of yet another body part.",
+			"resizing",
+			"modifier_circle_size_tertiary",
+			Colour.BASE_ROSE,
+			Rarity.COMMON),
 	
-	TF_MOD_FEMININITY_INCREASE_STRONG("major femininity",
-			"Applies a very strong effect such that the user becomes more feminine.",
-			"feminine",
-			"modifier_circle_femininity",
-			Colour.FEMININE,
-			Rarity.UNCOMMON),
+	// Orifices:
 	
-	TF_MOD_FEMININITY_DECREASE_STRONG("major masculinity",
-			"Applies a very strong effect such that the user becomes more masculine.",
-			"masculine",
-			"modifier_circle_masculinity",
-			Colour.MASCULINE,
-			Rarity.UNCOMMON)
+	TF_MOD_CAPACITY("capacity",
+			"Applies an effect related to changing an orifice's capacity.",
+			"capacity",
+			"modifier_circle_capacity",
+			Colour.BASE_PINK_LIGHT,
+			Rarity.COMMON),
 	
+	TF_MOD_WETNESS("wetness",
+			"Applies an effect related to changing the wetness of an orifice, or the fluid production of a body part.",
+			"wet",
+			"modifier_circle_wetness",
+			Colour.BASE_BLUE_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_ELASTICITY("elasticity",
+			"Applies an effect related to changing the elasticity of an orifice.",
+			"elastic",
+			"modifier_circle_elasticity",
+			Colour.BASE_AQUA,
+			Rarity.COMMON),
+	
+	TF_MOD_PLASTICITY("plasticity",
+			"Applies an effect related to changing the plasticity of an orifice.",
+			"plastic",
+			"modifier_circle_plasticity",
+			Colour.BASE_TEAL,
+			Rarity.COMMON),
+	
+	// modifiers:
+	
+	TF_MOD_ORIFICE_PUFFY("puffyness",
+			"Applies an effect related to making an orifice puffy.",
+			"puffy",
+			"modifier_circle_orifice_puffy",
+			Colour.BASE_BLUE_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_ORIFICE_RIBBED("ribbing",
+			"Applies an effect related to making an orifice internally-ribbed.",
+			"ribbed",
+			"modifier_circle_orifice_ribbed",
+			Colour.BASE_PINK_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_ORIFICE_TENTACLED("tentacled",
+			"Applies an effect related to making an orifice internally-tentacled.",
+			"tentacled",
+			"modifier_circle_orifice_tentacled",
+			Colour.BASE_CRIMSON,
+			Rarity.COMMON),
+	
+	TF_MOD_ORIFICE_MUSCLED("muscled",
+			"Applies an effect related to making an orifice internally-muscled.",
+			"muscled",
+			"modifier_circle_orifice_muscled",
+			Colour.BASE_MAGENTA,
+			Rarity.COMMON),
+	
+	// nipple shapes:
+	
+	TF_MOD_NIPPLE_NORMAL("normal nipples",
+			"Applies an effect related to making nipples look normal.",
+			"normal nipples",
+			"modifier_circle_nipple_normal",
+			Colour.BASE_PURPLE_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_NIPPLE_VAGINA("nipple cunts",
+			"Applies an effect related to making nipples look like pussies.",
+			"nipple cunts",
+			"modifier_circle_nipple_vagina",
+			Colour.BASE_PINK_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_NIPPLE_LIPS("lipples",
+			"Applies an effect related to making nipples look like a pair of lips.",
+			"lipples",
+			"modifier_circle_nipple_lips",
+			Colour.BASE_MAGENTA,
+			Rarity.COMMON),
+	
+	// areolae shapes:
+	
+	TF_MOD_AREOLAE_CIRCLE("circular areolae",
+			"Applies an effect related to making areolae shaped like normal circles.",
+			"circular areolae",
+			"modifier_circle_areolae_normal",
+			Colour.BASE_PURPLE,
+			Rarity.COMMON),
+	
+	TF_MOD_AREOLAE_HEART("heart-shaped areolae",
+			"Applies an effect related to making areolae shaped like hearts.",
+			"heart-shaped areolae",
+			"modifier_circle_areolae_heart",
+			Colour.BASE_PINK,
+			Rarity.COMMON),
+	
+	TF_MOD_AREOLAE_STAR("star-shaped areolae",
+			"Applies an effect related to making areolae shaped like stars.",
+			"star-shaped areolae",
+			"modifier_circle_areolae_star",
+			Colour.BASE_YELLOW,
+			Rarity.COMMON),
+	
+	// tongue modifiers:
+	
+	TF_MOD_TONGUE_RIBBED("ribbing",
+			"Applies an effect related to adding ribbing to a tongue.",
+			"ribbed",
+			"modifier_circle_orifice_ribbed",
+			Colour.BASE_PINK,
+			Rarity.COMMON),
+	
+	TF_MOD_TONGUE_TENTACLED("tentacled",
+			"Applies an effect related to adding tentacles to a tongue.",
+			"tentacled",
+			"modifier_circle_orifice_tentacled",
+			Colour.BASE_VIOLET,
+			Rarity.COMMON),
+	
+	TF_MOD_TONGUE_BIFURCATED("bifurcated",
+			"Applies an effect related to making a tongue bifurcated.",
+			"bifurcated",
+			"modifier_circle_tongue_bifurcated",
+			Colour.BASE_CRIMSON,
+			Rarity.COMMON),
+	
+	// penis modifiers:
+	
+	TF_MOD_PENIS_SHEATHED("sheathing",
+			"Applies an effect related to making a penis sheathed.",
+			"sheathed",
+			"modifier_circle_penis_sheathed",
+			Colour.BASE_ORANGE,
+			Rarity.COMMON),
+	
+	TF_MOD_PENIS_RIBBED("ribbing",
+			"Applies an effect related to making a penis ribbed.",
+			"ribbed",
+			"modifier_circle_penis_ribbed",
+			Colour.BASE_PINK,
+			Rarity.COMMON),
+	
+	TF_MOD_PENIS_TENTACLED("tentacled",
+			"Applies an effect related to making a penis tentacled.",
+			"tentacled",
+			"modifier_circle_orifice_tentacled",
+			Colour.BASE_VIOLET,
+			Rarity.COMMON),
+	
+	TF_MOD_PENIS_KNOTTED("knotting",
+			"Applies an effect related to making a penis knotted.",
+			"knotted",
+			"modifier_circle_penis_knotted",
+			Colour.BASE_CRIMSON,
+			Rarity.COMMON),
+	
+	TF_MOD_PENIS_TAPERED("tapering",
+			"Applies an effect related to making a penis tapered.",
+			"tapered",
+			"modifier_circle_penis_tapered",
+			Colour.BASE_LILAC,
+			Rarity.COMMON),
+	
+	TF_MOD_PENIS_FLARED("flaring",
+			"Applies an effect related to making a penis flared.",
+			"flared",
+			"modifier_circle_penis_flared",
+			Colour.BASE_BROWN,
+			Rarity.COMMON),
+	
+	TF_MOD_PENIS_BARBED("barbing",
+			"Applies an effect related to making a penis barbed.",
+			"barbed",
+			"modifier_circle_penis_barbed",
+			Colour.BASE_RED,
+			Rarity.COMMON),
+	
+	TF_MOD_PENIS_VEINY("veins",
+			"Applies an effect related to making a penis veiny.",
+			"veiny",
+			"modifier_circle_penis_veiny",
+			Colour.BASE_VIOLET,
+			Rarity.COMMON),
+	
+	TF_MOD_PENIS_PREHENSILE("prehensile",
+			"Applies an effect related to making a penis prehensile.",
+			"prehensile",
+			"modifier_circle_penis_prehensile",
+			Colour.BASE_TEAL,
+			Rarity.COMMON),
+	
+	// fluid modifiers:
+	
+	TF_MOD_FLUID_MUSKY("musky",
+			"Applies an effect related to changing a fluid.",
+			"musk",
+			"modifier_circle_wetness",
+			Colour.BASE_BROWN,
+			Rarity.COMMON),
+	
+	TF_MOD_FLUID_VISCOUS("viscous",
+			"Applies an effect related to changing a fluid.",
+			"viscous",
+			"modifier_circle_wetness",
+			Colour.BASE_BLACK,
+			Rarity.COMMON),
+	
+	TF_MOD_FLUID_STICKY("sticky",
+			"Applies an effect related to changing a fluid.",
+			"sticky",
+			"modifier_circle_wetness",
+			Colour.BASE_YELLOW_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_FLUID_SLIMY("slimy",
+			"Applies an effect related to changing a fluid.",
+			"slimy",
+			"modifier_circle_wetness",
+			Colour.BASE_BLUE_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_FLUID_BUBBLING("bubbling",
+			"Applies an effect related to changing a fluid.",
+			"bubbling",
+			"modifier_circle_wetness",
+			Colour.BASE_AQUA,
+			Rarity.COMMON),
+	
+	TF_MOD_FLUID_ALCOHOLIC("alcoholic",
+			"Applies an effect related to changing a fluid.",
+			"alcoholic",
+			"modifier_circle_wetness",
+			Colour.BASE_ORANGE,
+			Rarity.COMMON),
+	
+	TF_MOD_FLUID_ADDICTIVE("addictive",
+			"Applies an effect related to changing a fluid.",
+			"addictive",
+			"modifier_circle_wetness",
+			Colour.BASE_PINK_DEEP,
+			Rarity.COMMON),
+	
+	TF_MOD_FLUID_HALLUCINOGENIC("hallucinogenic",
+			"Applies an effect related to changing a fluid.",
+			"hallucinogenic",
+			"modifier_circle_wetness",
+			Colour.BASE_MAGENTA,
+			Rarity.COMMON),
+	
+	// fluid flavours:
+	
+	TF_MOD_FLAVOUR_CUM("cum-flavour",
+			"Applies an effect related to changing a fluid's flavour.",
+			"cum-flavour",
+			"modifier_circle_flavour",
+			Colour.BASE_YELLOW_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_FLAVOUR_MILK("milk-flavour",
+			"Applies an effect related to changing a fluid's flavour.",
+			"milk-flavour",
+			"modifier_circle_flavour",
+			Colour.BASE_WHITE,
+			Rarity.COMMON),
+	
+	TF_MOD_FLAVOUR_GIRLCUM("girlcum-flavour",
+			"Applies an effect related to changing a fluid's flavour.",
+			"milk-flavour",
+			"modifier_circle_flavour",
+			Colour.BASE_PINK_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_FLAVOUR_SLIME("slime-flavour",
+			"Applies an effect related to changing a fluid's flavour.",
+			"slime-flavour",
+			"modifier_circle_flavour",
+			Colour.BASE_BLUE_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_FLAVOUR_BEER("beer-flavour",
+			"Applies an effect related to changing a fluid's flavour.",
+			"beer-flavour",
+			"modifier_circle_flavour",
+			Colour.BASE_ORANGE,
+			Rarity.COMMON),
+	
+	TF_MOD_FLAVOUR_VANILLA("vanilla-flavour",
+			"Applies an effect related to changing a fluid's flavour.",
+			"vanilla-flavour",
+			"modifier_circle_flavour",
+			Colour.BASE_YELLOW,
+			Rarity.COMMON),
+	
+	TF_MOD_FLAVOUR_STRAWBERRY("strawberry-flavour",
+			"Applies an effect related to changing a fluid's flavour.",
+			"strawberry-flavour",
+			"modifier_circle_flavour",
+			Colour.BASE_RED,
+			Rarity.COMMON),
+	
+	TF_MOD_FLAVOUR_CHOCOLATE("chocolate-flavour",
+			"Applies an effect related to changing a fluid's flavour.",
+			"chocolate-flavour",
+			"modifier_circle_flavour",
+			Colour.BASE_BROWN_DARK,
+			Rarity.COMMON),
+	
+	TF_MOD_FLAVOUR_PINEAPPLE("pineapple-flavour",
+			"Applies an effect related to changing a fluid's flavour.",
+			"pineapple-flavour",
+			"modifier_circle_flavour",
+			Colour.BASE_YELLOW_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_FLAVOUR_HONEY("honey-flavour",
+			"Applies an effect related to changing a fluid's flavour.",
+			"honey-flavour",
+			"modifier_circle_flavour",
+			Colour.BASE_ORANGE,
+			Rarity.COMMON),
+	
+	TF_MOD_FLAVOUR_MINT("mint-flavour",
+			"Applies an effect related to changing a fluid's flavour.",
+			"mint-flavour",
+			"modifier_circle_flavour",
+			Colour.BASE_GREEN_LIME,
+			Rarity.COMMON)
 	;
 
 	
@@ -600,7 +742,7 @@ public enum TFModifier {
 		TFModFitnessList = new ArrayList<>(),
 		TFModCorruptionList = new ArrayList<>(),
 		TFModSexualList = new ArrayList<>(),
-		TFModNegPosList = new ArrayList<>(),
+		TFAttributeList = new ArrayList<>(),
 		TFRacialBodyPartsList = new ArrayList<>();
 	
 	static {
@@ -649,6 +791,7 @@ public enum TFModifier {
 		TFRacialBodyPartsList.add(TF_EARS);
 		TFRacialBodyPartsList.add(TF_EYES);
 		TFRacialBodyPartsList.add(TF_HAIR);
+		TFRacialBodyPartsList.add(TF_ANTENNA);
 		TFRacialBodyPartsList.add(TF_HORNS);
 		TFRacialBodyPartsList.add(TF_TAIL);
 		TFRacialBodyPartsList.add(TF_WINGS);
@@ -658,13 +801,12 @@ public enum TFModifier {
 		TFRacialBodyPartsList.add(TF_PENIS);
 		TFRacialBodyPartsList.add(TF_VAGINA);
 		
-		TFModNegPosList.add(NONE);
-		TFModNegPosList.add(NEGATIVE_WEAK);
-		TFModNegPosList.add(NEGATIVE_AVERAGE);
-		TFModNegPosList.add(NEGATIVE_STRONG);
-		TFModNegPosList.add(POSITIVE_WEAK);
-		TFModNegPosList.add(POSITIVE_AVERAGE);
-		TFModNegPosList.add(POSITIVE_STRONG);
+		TFRacialBodyPartsList.add(TF_MILK);
+		TFRacialBodyPartsList.add(TF_CUM);
+		TFRacialBodyPartsList.add(TF_GIRLCUM);
+		
+		TFAttributeList.add(NONE);
+		TFAttributeList.add(ARCANE_BOOST);
 		
 	}
 	
@@ -815,11 +957,11 @@ public enum TFModifier {
 		return TFModSexualList;
 	}
 
-	public static List<TFModifier> getTFModNegPosList() {
-		return TFModNegPosList;
+	public static List<TFModifier> getTFRacialBodyPartsList() {
+		return TFRacialBodyPartsList;
 	}
 
-	public static List<TFModifier> getTFRacialBodyPartsListList() {
-		return TFRacialBodyPartsList;
+	public static List<TFModifier> getTFAttributeList() {
+		return TFAttributeList;
 	}
 }

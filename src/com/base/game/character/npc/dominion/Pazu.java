@@ -53,9 +53,9 @@ public class Pazu extends NPC {
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_PINK));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_LILAC));
-		this.setCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_LILAC));
-		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_LILAC), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_LILAC), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
 
 		this.setAssVirgin(true);
 		this.setFaceVirgin(true);

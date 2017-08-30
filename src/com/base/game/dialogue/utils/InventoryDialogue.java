@@ -23,7 +23,6 @@ import com.base.game.inventory.Rarity;
 import com.base.game.inventory.ShopTransaction;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.enchanting.TFEssence;
-import com.base.game.inventory.enchanting.TFModifier;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
@@ -427,7 +426,7 @@ public class InventoryDialogue {
 		
 		@Override
 		public String getContent() {
-			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + item.getDescription() + item.getExtraDescription()
+			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + item.getDescription() + item.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer())
 					+ (Main.game.getDialogueFlags().tradePartner != null ? 
 							Main.game.getDialogueFlags().tradePartner.willBuy(item) ? 
 									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + formatAsMoney((int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
@@ -669,11 +668,8 @@ public class InventoryDialogue {
 							@Override
 							public void effects() {
 								EnchantmentDialogue.effects.clear();
+								EnchantmentDialogue.resetEnchantmentVariables();
 								EnchantmentDialogue.ingredient = item;
-								EnchantmentDialogue.primaryMod = TFModifier.NONE;
-								EnchantmentDialogue.secondaryMod = TFModifier.NONE;
-								EnchantmentDialogue.previousPrimaryMod = TFModifier.NONE;
-								EnchantmentDialogue.previousSecondaryMod = TFModifier.NONE;
 							}
 						};
 						
@@ -683,11 +679,8 @@ public class InventoryDialogue {
 								@Override
 								public void effects() {
 									EnchantmentDialogue.effects.clear();
+									EnchantmentDialogue.resetEnchantmentVariables();
 									EnchantmentDialogue.ingredient = item;
-									EnchantmentDialogue.primaryMod = TFModifier.NONE;
-									EnchantmentDialogue.secondaryMod = TFModifier.NONE;
-									EnchantmentDialogue.previousPrimaryMod = TFModifier.NONE;
-									EnchantmentDialogue.previousSecondaryMod = TFModifier.NONE;
 								}
 							};
 						}
@@ -1108,7 +1101,7 @@ public class InventoryDialogue {
 		@Override
 		public String getContent() {
 			int itemPrice = buyback ? buyBackPrice : (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier());
-			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + "<p>" + item.getDescription() + "</p>" + item.getExtraDescription() + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The")
+			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + "<p>" + item.getDescription() + "</p>" + item.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer()) + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The")
 					+ " will sell it to you for " + formatAsMoney(itemPrice) + "." + "</p>";
 		}
 		
@@ -1417,7 +1410,7 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
-			return "<div class='inventoryImage'>" + itemFloor.getSVGString() + "</div>" + itemFloor.getDescription() + itemFloor.getExtraDescription();
+			return "<div class='inventoryImage'>" + itemFloor.getSVGString() + "</div>" + itemFloor.getDescription() + itemFloor.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer());
 		}
 		
 		@Override

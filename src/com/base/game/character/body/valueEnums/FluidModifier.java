@@ -12,6 +12,7 @@ public enum FluidModifier {
 	STICKY("sticky"),
 	SLIMY("slimy"),
 	BUBBLING("bubbling"),
+	ALCOHOLIC("alcoholic"),
 	ADDICTIVE("addictive"),
 	HALLUCINOGENIC("hallucinogenic");
 	

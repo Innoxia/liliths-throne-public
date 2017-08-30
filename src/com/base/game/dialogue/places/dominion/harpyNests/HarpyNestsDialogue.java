@@ -184,7 +184,7 @@ public class HarpyNestsDialogue {
 					};
 					
 				} else {
-					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_REWARD) {//Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION) TODO
+					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_REWARD && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
 						return new Response("Report back", "Report to the Enforcer that you've calmed the three matriarchs down.", ENTRANCE_ENFORCER_POST_COMPLETED_PACIFICATION) {
 							@Override
 							public QuestLine getQuestLine() {

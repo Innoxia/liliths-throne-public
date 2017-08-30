@@ -378,14 +378,8 @@ public class CharacterCreation {
 	}
 
 	private static void setSkin() {
-		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.HUMAN, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex)));
-		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex), false, Colour.ORIFICE_INTERIOR, false));
-		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex), false, Colour.ORIFICE_INTERIOR, false));
-		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.NIPPLES, CoveringPattern.ORIFICE_NIPPLE, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex), false, Colour.ORIFICE_INTERIOR, false));
-		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.MOUTH, CoveringPattern.ORIFICE_MOUTH, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex), false, Colour.ORIFICE_INTERIOR, false));
-		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex), false, Colour.ORIFICE_INTERIOR, false));
-		
-		Main.game.getLilaya().setCovering(new Covering(BodyCoveringType.HUMAN, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex)));
+		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.HUMAN, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex)), true);
+		Main.game.getLilaya().setSkinCovering(new Covering(BodyCoveringType.HUMAN, RacialBody.HUMAN.getSkinType().getBodyCoveringType().getNaturalColoursPrimary().get(skinColourIndex)), true);
 	}
 	
 	private static void incrementMuscle() {
@@ -444,12 +438,11 @@ public class CharacterCreation {
 	
 	
 	private static void setHair() {
-		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.HAIR_HUMAN, BodyCoveringType.HAIR_HUMAN.getNaturalColoursPrimary().get(hairColourIndex)));
-		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, BodyCoveringType.HAIR_HUMAN.getNaturalColoursPrimary().get(hairColourIndex)));
+		Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, BodyCoveringType.HAIR_HUMAN.getNaturalColoursPrimary().get(hairColourIndex)), true);
 	}
 
 	private static void setEyes() {
-		Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.EYE_HUMAN, BodyCoveringType.EYE_HUMAN.getNaturalColoursPrimary().get(eyeColourIndex)));
+		Main.game.getPlayer().setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, BodyCoveringType.EYE_HUMAN.getNaturalColoursPrimary().get(eyeColourIndex)));
 	}
 
 	private static void setBodyType() {

@@ -1475,6 +1475,7 @@ public class CharacterUtils {
 	}
 	
 	public static void addFetishes(GameCharacter character) {
+		
 		List<Fetish> fetishes = new ArrayList<>();
 		for(Fetish f : Fetish.values()) {
 			if (f==Fetish.FETISH_PURE_VIRGIN) {
@@ -1636,11 +1637,14 @@ public class CharacterUtils {
 				canEquip = false;
 				
 			} else if(character.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+				
 				for(BlockedParts bp : ct.getBlockedPartsList()) {
-					if(bp.blockedBodyParts.contains(CoverableArea.ANUS)
-							|| (bp.blockedBodyParts.contains(CoverableArea.NIPPLES) && character.hasBreasts())
-							|| (bp.blockedBodyParts.contains(CoverableArea.PENIS) && character.hasPenis())
-							|| (bp.blockedBodyParts.contains(CoverableArea.VAGINA) && character.hasVagina())) {
+					boolean leavesAnusExposed = character.isCoverableAreaExposed(CoverableArea.ANUS) && !bp.blockedBodyParts.contains(CoverableArea.ANUS),
+							leavesNipplesExposed = character.hasBreasts()?(character.isCoverableAreaExposed(CoverableArea.NIPPLES) && !bp.blockedBodyParts.contains(CoverableArea.NIPPLES)):true,
+							leavesPenisExposed = character.hasPenis()?(character.isCoverableAreaExposed(CoverableArea.PENIS) && !bp.blockedBodyParts.contains(CoverableArea.PENIS)):true,
+							leavesVaginaExposed = character.hasVagina()?(character.isCoverableAreaExposed(CoverableArea.VAGINA) && !bp.blockedBodyParts.contains(CoverableArea.VAGINA)):true;
+					//TODO
+					if(!leavesNipplesExposed || (!leavesAnusExposed || !leavesPenisExposed && !leavesVaginaExposed)) {
 						canEquip = false;
 					}
 				}

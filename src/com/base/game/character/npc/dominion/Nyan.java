@@ -53,9 +53,9 @@ public class Nyan extends NPC {
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_BLUE));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLONDE));
-		this.setCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_WHITE));
-		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLONDE), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_WHITE), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
 
 		this.setBreastSize(CupSize.B.getMeasurement());
 		

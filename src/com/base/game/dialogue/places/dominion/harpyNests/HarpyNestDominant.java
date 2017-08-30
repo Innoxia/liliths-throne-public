@@ -639,7 +639,7 @@ public class HarpyNestDominant {
 					@Override
 					public void effects() {
 						if(Main.game.isForcedTFEnabled()) {
-							Main.game.getTextEndStringBuilder().append(ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, Main.game.getHarpyDominant(), Main.game.getPlayer()));
+							Main.game.getTextEndStringBuilder().append(ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, null, 0, Main.game.getHarpyDominant(), Main.game.getPlayer()));
 						}
 					}
 				};
@@ -718,7 +718,7 @@ public class HarpyNestDominant {
 					@Override
 					public void effects() {
 						if(Main.game.isForcedTFEnabled()) {
-							Main.game.getTextEndStringBuilder().append(ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, Main.game.getHarpyDominant(), Main.game.getPlayer()));
+							Main.game.getTextEndStringBuilder().append(ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, null, 0, Main.game.getHarpyDominant(), Main.game.getPlayer()));
 						}
 					}
 				};

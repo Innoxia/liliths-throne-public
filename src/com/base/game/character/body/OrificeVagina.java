@@ -255,7 +255,7 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange clenching sensation pulsating deep within [npc.her] [npc.pussy] a its [style.boldShrink(elasticity decreases)].</br>"
+							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange clenching sensation pulsating deep within [npc.her] [npc.pussy] as its [style.boldShrink(elasticity decreases)].</br>"
 							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " pussy)]!"
 						+ "</p>");
 			}
@@ -314,7 +314,7 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		} else {
 			if (owner.isPlayer()) {
 				return "<p>"
-							+ "You let out a little gasp as you feel a strange softening sensation pulsating deep within your [pc.pussy] its [style.boldShrink(plasticity decreases)].</br>"
+							+ "You let out a little gasp as you feel a strange softening sensation pulsating deep within your [pc.pussy] as its [style.boldShrink(plasticity decreases)].</br>"
 							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " pussy)]!"
 						+ "</p>";
 			} else {

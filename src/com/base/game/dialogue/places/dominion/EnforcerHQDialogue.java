@@ -1071,7 +1071,7 @@ public class EnforcerHQDialogue {
 						Main.game.getBrax().setHeight(162);
 
 						Main.game.getBrax().setHairLength(HairLength.FIVE_ABOVE_ASS.getMedianValue());
-						Main.game.getBrax().setCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_BLEACH_BLONDE, false, Colour.COVERING_BLEACH_BLONDE, false));
+						Main.game.getBrax().setSkinCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_BLEACH_BLONDE, false, Colour.COVERING_BLEACH_BLONDE, false), true);
 						
 						Main.game.getBrax().equipClothing(true, true);
 					}

@@ -811,13 +811,14 @@ public class CharacterModificationUtils {
 		boolean found = false, applied = false;
 		for (Colour cs : coveringType.getAllPrimaryColours()) {
 			if(found) {
-				Main.game.getPlayer().setCovering(new Covering(
+				Main.game.getPlayer().setSkinCovering(new Covering(
 						coveringType,
 						Main.game.getPlayer().getCovering(coveringType).getPattern(),
 						cs,
 						cs==Colour.COVERING_NONE?false:Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
 						Main.game.getPlayer().getCovering(coveringType).getSecondaryColour(),
-						Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
+						Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()),
+						false);
 				applied = true;
 				break;
 			}
@@ -826,13 +827,14 @@ public class CharacterModificationUtils {
 			}
 		}
 		if(!applied) {
-			Main.game.getPlayer().setCovering(new Covering(
+			Main.game.getPlayer().setSkinCovering(new Covering(
 					coveringType,
 					Main.game.getPlayer().getCovering(coveringType).getPattern(),
 					coveringType.getAllPrimaryColours().get(0),
 					coveringType.getAllPrimaryColours().get(0)==Colour.COVERING_NONE?false:Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
 					Main.game.getPlayer().getCovering(coveringType).getSecondaryColour(),
-					Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
+					Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()),
+					false);
 		}
 	}
 	
@@ -856,13 +858,14 @@ public class CharacterModificationUtils {
 		boolean found = false, applied = false;
 		for (Colour cs : coveringType.getNaturalColoursPrimary()) {
 			if(found) {
-				Main.game.getPlayer().setCovering(new Covering(
+				Main.game.getPlayer().setSkinCovering(new Covering(
 						coveringType,
 						Main.game.getPlayer().getCovering(coveringType).getPattern(),
 						cs,
 						cs==Colour.COVERING_NONE?false:Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
 						Main.game.getPlayer().getCovering(coveringType).getSecondaryColour(),
-						Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
+						Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()),
+						false);
 				applied = true;
 				break;
 			}
@@ -871,13 +874,14 @@ public class CharacterModificationUtils {
 			}
 		}
 		if(!applied) {
-			Main.game.getPlayer().setCovering(new Covering(
+			Main.game.getPlayer().setSkinCovering(new Covering(
 					coveringType,
 					Main.game.getPlayer().getCovering(coveringType).getPattern(),
 					coveringType.getNaturalColoursPrimary().get(0),
 					coveringType.getNaturalColoursPrimary().get(0)==Colour.COVERING_NONE?false:Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
 					Main.game.getPlayer().getCovering(coveringType).getSecondaryColour(),
-					Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
+					Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()),
+					false);
 		}
 	}
 	
@@ -901,13 +905,14 @@ public class CharacterModificationUtils {
 		boolean found = false, applied = false;
 		for (Colour cs : coveringType.getAllSecondaryColours()) {
 			if(found) {
-				Main.game.getPlayer().setCovering(new Covering(
+				Main.game.getPlayer().setSkinCovering(new Covering(
 						coveringType,
 						Main.game.getPlayer().getCovering(coveringType).getPattern(),
 						Main.game.getPlayer().getCovering(coveringType).getPrimaryColour(),
 						Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
 						cs,
-						cs==Colour.COVERING_NONE?false:Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
+						cs==Colour.COVERING_NONE?false:Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()),
+						false);
 				applied = true;
 				break;
 			}
@@ -916,13 +921,14 @@ public class CharacterModificationUtils {
 			}
 		}
 		if(!applied) {
-			Main.game.getPlayer().setCovering(new Covering(
+			Main.game.getPlayer().setSkinCovering(new Covering(
 					coveringType,
 					Main.game.getPlayer().getCovering(coveringType).getPattern(),
 					Main.game.getPlayer().getCovering(coveringType).getPrimaryColour(),
 					Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
 					coveringType.getAllSecondaryColours().get(0),
-					coveringType.getAllSecondaryColours().get(0)==Colour.COVERING_NONE?false:Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
+					coveringType.getAllSecondaryColours().get(0)==Colour.COVERING_NONE?false:Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()),
+					false);
 		}
 	}
 	
@@ -946,13 +952,14 @@ public class CharacterModificationUtils {
 		boolean found = false, applied = false;
 		for (Colour cs : coveringType.getNaturalColoursSecondary()) {
 			if(found) {
-				Main.game.getPlayer().setCovering(new Covering(
+				Main.game.getPlayer().setSkinCovering(new Covering(
 						coveringType,
 						Main.game.getPlayer().getCovering(coveringType).getPattern(),
 						Main.game.getPlayer().getCovering(coveringType).getPrimaryColour(),
 						Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
 						cs,
-						cs==Colour.COVERING_NONE?false:Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
+						cs==Colour.COVERING_NONE?false:Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()),
+						false);
 				applied = true;
 				break;
 			}
@@ -961,13 +968,14 @@ public class CharacterModificationUtils {
 			}
 		}
 		if(!applied) {
-			Main.game.getPlayer().setCovering(new Covering(
+			Main.game.getPlayer().setSkinCovering(new Covering(
 					coveringType,
 					Main.game.getPlayer().getCovering(coveringType).getPattern(),
 					Main.game.getPlayer().getCovering(coveringType).getPrimaryColour(),
 					Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
 					coveringType.getNaturalColoursSecondary().get(0),
-					coveringType.getNaturalColoursSecondary().get(0)==Colour.COVERING_NONE?false:Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
+					coveringType.getNaturalColoursSecondary().get(0)==Colour.COVERING_NONE?false:Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()),
+					false);
 		}
 	}
 	
@@ -987,13 +995,14 @@ public class CharacterModificationUtils {
 		boolean found = false, applied = false;
 		for (CoveringPattern value : coveringType.getAllPatterns()) {
 			if(found) {
-				Main.game.getPlayer().setCovering(new Covering(
+				Main.game.getPlayer().setSkinCovering(new Covering(
 						coveringType,
 						value,
 						Main.game.getPlayer().getCovering(coveringType).getPrimaryColour(),
 						Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
 						Main.game.getPlayer().getCovering(coveringType).getSecondaryColour(),
-						Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
+						Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()),
+						false);
 				applied = true;
 				break;
 			}
@@ -1002,13 +1011,14 @@ public class CharacterModificationUtils {
 			}
 		}
 		if(!applied) {
-			Main.game.getPlayer().setCovering(new Covering(
+			Main.game.getPlayer().setSkinCovering(new Covering(
 					coveringType,
 					coveringType.getAllPatterns().get(0),
 					Main.game.getPlayer().getCovering(coveringType).getPrimaryColour(),
 					Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing(),
 					Main.game.getPlayer().getCovering(coveringType).getSecondaryColour(),
-					Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()));
+					Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()),
+					false);
 		}
 	}
 }

@@ -17,6 +17,11 @@
 	
 	Patch notes:
 	
+	Gameplay:
+		<b>Added:</b> New enchanting options for all the new body parts.
+		Improved and reworked enchanting system to add transformation potency and limits.
+		Added some more fluid flavours (vanilla and beer), and fluid modifier (alcholic).
+	
 	Bugs:
 		Fixed some bugs in the inventory/shop interactions.
 		Fixed incorrect breast size descriptors showing up.
@@ -24,27 +29,36 @@
 		Fixed bugs related to incorrect adjectives being applied to vagina (by Pimgd).
 		Fixed buy all game freeze bug (by Pimgd).
 		Fixed the display size of jinxed equipped piercings (by Pimgd).
+		Fixed the bug where you could repeatedly click the 'collect reward' action for the harpy sidequest to farm money.
+		Fixed cum being described as 'woman cum' in selfie screen.
+		Fixed bugs related to changing Penis type. (This fixed the bug that was causing Lilaya and Kate to grow microscopic cocks with no cum production.)
+		Fixed some inconsistent skin and hair/body hair colourings on NPCs.
+		
 	
 	
 	
+	GATE HAIR
 	
 	
+	so apparently if you're sitting on Brax's face when he cums, the system thinks that you were sitting on his dick
+		just confirmed it does the same thing with vaginal
+		doesn't count as penetration for the sake of virginity though, as my character is a """pure""" virgin and did not get broken by it
 	
+	REMOVE Penis/Vagina when less than 0 size/capacity
 	
+	exhibitionist clothing equipping
 	
+	remove all clothing button? or a strip button?
 	
+	So apparently if you import a character over from a new version and go through the prologue, then knock up Lilaya in the first encounter it won't progress since it ends differently.
+		Going in for tests again lets you bone irregardless, but it won't let you do other sidequests that involve her, or progress the story along. I take it there's a catch missing, or that knocking her up isn't fully implemented?
 	
+	Oh inno did you see the one about tailpegging being enabled for cat tails now but no toggle exists yet?
+		Also she stood there behind me sucking on her tail the whole time and did not even fuck me it was like finger sucking all over again
 	
+	Gate fat/obese
 	
-	
-	on an imported character I couldn't access Lilaya's pregnancy talk, the tooltip kept saying I needed to finish her tests even though I had
-	Not sure if thats related to something being carried over on import
-	
-	currently lilaya can only grow a 0 inch penis
-	
-	also a bug that the demons all grew teeny tiny balls
-	
-	lilaya nolonger ejaculates
+	account-wide encyclopedia
 	
 	cum production import not working
 	my skin/fur/feather colors are all wonky
@@ -53,15 +67,11 @@
 	Cum production tanked
 	my dick is now prehensile, and my cum is sticky, slimy, and oily
 	
-	also the collect reward button is bugged for the harpy sidequest and you can click it as many times as you want and itll give you money, the money counter updates when you move
-	
 	It would probably be best if the player gets prompted with an option to go into said content settings during character creation.
 	
 	Fetishes
 	
-	"woman cum" instead of cum...
-	
-	The Sadism fetish note in combat doesn't take gender into account, always referring to "his sadist fetish".
+	add a 'cloaca' transformation
 	
 	Not actually sure if its a bug but lilaya doesnt actually produce cum anymore
 	
@@ -69,20 +79,25 @@
 	Tails in mouth AI
 	now that cat tails are considered prehensile, there are lots of catgirls taking all of their own virginities with them.
 	
-	 succubus with 3 pair of knockers that are H, GG and G in size according to the descripction part, and the in-game text during the transformation said she only has 1 pair of E boobs
+	succubus with 3 pair of knockers that are H, GG and G in size according to the descripction part, and the in-game text during the transformation said she only has 1 pair of E boobs
+	
 	
 	quitting sex after starting it gives you the frustrated status despite having little arousal.
 	
 	Milk
 		Transformative effects
 	
+	backless panties for exhibs
 	
+	cowgirl Brax and select orgasm at the end when you both cum, you won't actually get the creampie/impregnation chance
 	
 	Ass descriptor
 	
 	Character-specific option overrides
 	
 	
+	
+	Change sex actions to use generic parts, not orifice and penetrator
 	
 	
 	Character creation:

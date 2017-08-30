@@ -2670,7 +2670,7 @@ public class UtilText {
 				BodyPartType.PENIS){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return character.getPenisType().getPenisHeadName(character);
+				return character.getBody().getPenis().getPenisHeadName(character);
 			}
 		});
 		
@@ -2689,7 +2689,7 @@ public class UtilText {
 				BodyPartType.PENIS){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return applyDescriptor(character.getPenisType().getPenisHeadDescriptor(character), character.getPenisType().getPenisHeadName(character));
+				return applyDescriptor(character.getBody().getPenis().getPenisHeadDescriptor(character), character.getBody().getPenis().getPenisHeadName(character));
 			}
 		});
 		
@@ -2754,7 +2754,7 @@ public class UtilText {
 				BodyPartType.PENIS){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return character.getSecondPenisType().getPenisHeadName(character);
+				return character.getBody().getSecondPenis().getPenisHeadName(character);
 			}
 		});
 		
@@ -2779,7 +2779,7 @@ public class UtilText {
 				BodyPartType.PENIS){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return applyDescriptor(character.getSecondPenisType().getPenisHeadDescriptor(character), character.getSecondPenisType().getPenisHeadName(character));
+				return applyDescriptor(character.getBody().getSecondPenis().getPenisHeadDescriptor(character), character.getBody().getSecondPenis().getPenisHeadName(character));
 			}
 		});
 		
