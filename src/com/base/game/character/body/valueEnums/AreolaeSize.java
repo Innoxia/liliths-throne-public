@@ -11,7 +11,7 @@ public enum AreolaeSize {
 
 	ZERO_TINY(0, "tiny", Colour.GENERIC_SIZE_ONE),
 	ONE_SMALL(1, "small", Colour.GENERIC_SIZE_TWO),
-	TWO_BIG(2, "big", Colour.GENERIC_SIZE_THREE),
+	TWO_BIG(2, "average-sized", Colour.GENERIC_SIZE_THREE),
 	THREE_LARGE(3, "large", Colour.GENERIC_SIZE_FOUR),
 	FOUR_MASSIVE(4, "massive", Colour.GENERIC_SIZE_FIVE);
 	

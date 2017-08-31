@@ -463,6 +463,78 @@ public enum TFModifier {
 			Colour.BASE_MAGENTA,
 			Rarity.COMMON),
 	
+	// eye shapes:
+	
+	TF_MOD_EYE_IRIS_CIRCLE("circular irises",
+			"Applies an effect related to making irises shaped like normal circles.",
+			"circular irises",
+			"modifier_circle_eye_iris_normal",
+			Colour.BASE_PURPLE,
+			Rarity.COMMON),
+	
+	TF_MOD_EYE_IRIS_HORIZONTAL("horizontal irises",
+			"Applies an effect related to making irises take a more horizontal shape.",
+			"horizontal irises",
+			"modifier_circle_eye_iris_horizontal",
+			Colour.BASE_LILAC_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_EYE_IRIS_VERTICAL("vertical irises",
+			"Applies an effect related to making irises take a more vertical shape.",
+			"vertical irises",
+			"modifier_circle_eye_iris_vertical",
+			Colour.BASE_PURPLE_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_EYE_IRIS_HEART("heart-shaped irises",
+			"Applies an effect related to making irises shaped like hearts.",
+			"heart-shaped irises",
+			"modifier_circle_eye_iris_heart",
+			Colour.BASE_PINK,
+			Rarity.COMMON),
+	
+	TF_MOD_EYE_IRIS_STAR("star-shaped irises",
+			"Applies an effect related to making irises shaped like stars.",
+			"star-shaped irises",
+			"modifier_circle_eye_iris_star",
+			Colour.BASE_YELLOW,
+			Rarity.COMMON),
+	
+	TF_MOD_EYE_PUPIL_CIRCLE("circular pupils",
+			"Applies an effect related to making pupils shaped like normal circles.",
+			"circular pupils",
+			"modifier_circle_eye_iris_normal",
+			Colour.BASE_BLACK,
+			Rarity.COMMON),
+	
+	TF_MOD_EYE_PUPIL_HORIZONTAL("horizontal pupils",
+			"Applies an effect related to making pupils take a more horizontal shape.",
+			"horizontal pupils",
+			"modifier_circle_eye_iris_horizontal",
+			Colour.BASE_AQUA,
+			Rarity.COMMON),
+	
+	TF_MOD_EYE_PUPIL_VERTICAL("vertical pupils",
+			"Applies an effect related to making pupils take a more vertical shape.",
+			"vertical pupils",
+			"modifier_circle_eye_iris_vertical",
+			Colour.BASE_TEAL,
+			Rarity.COMMON),
+	
+	TF_MOD_EYE_PUPIL_HEART("heart-shaped pupils",
+			"Applies an effect related to making pupils shaped like hearts.",
+			"heart-shaped pupils",
+			"modifier_circle_eye_iris_heart",
+			Colour.BASE_BLUE_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_EYE_PUPIL_STAR("star-shaped pupils",
+			"Applies an effect related to making pupils shaped like stars.",
+			"star-shaped pupils",
+			"modifier_circle_eye_iris_star",
+			Colour.BASE_BLUE,
+			Rarity.COMMON),
+	
 	// nipple shapes:
 	
 	TF_MOD_NIPPLE_NORMAL("normal nipples",

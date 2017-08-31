@@ -22,6 +22,9 @@
 		Improved and reworked enchanting system to add transformation potency and limits.
 		Added some more fluid flavours (vanilla and beer), and fluid modifier (alcholic).
 	
+	Other:
+		Added toggle for furry tail penetration in the content preferences screen.
+	
 	Bugs:
 		Fixed some bugs in the inventory/shop interactions.
 		Fixed incorrect breast size descriptors showing up.
@@ -33,11 +36,12 @@
 		Fixed cum being described as 'woman cum' in selfie screen.
 		Fixed bugs related to changing Penis type. (This fixed the bug that was causing Lilaya and Kate to grow microscopic cocks with no cum production.)
 		Fixed some inconsistent skin and hair/body hair colourings on NPCs.
+		Fixed some other very minor bugs, but I forgot to add them in here, and now I can't remember which ones they were.
 		
 	
 	
 	
-	GATE HAIR
+	GATE HAIR PROPERLY
 	
 	
 	so apparently if you're sitting on Brax's face when he cums, the system thinks that you were sitting on his dick
