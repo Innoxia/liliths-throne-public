@@ -18,7 +18,8 @@
 	Patch notes:
 	
 	Gameplay:
-		<b>Added:</b> New enchanting options for all the new body parts.
+		<b>Added:</b> New enchanting options for all the new body parts. (Removal of penis/vagina is now done by reducing size/capacity past the minimum value.)
+		<b>Re-added:</b> Kate's options. (Very basic at the moment!)
 		Improved and reworked enchanting system to add transformation potency and limits.
 		Added some more fluid flavours (vanilla and beer), and fluid modifier (alcholic).
 	
@@ -41,14 +42,12 @@
 	
 	
 	
-	GATE HAIR PROPERLY
+	GATE HAIR PROPERLY FOR TFS
 	
 	
 	so apparently if you're sitting on Brax's face when he cums, the system thinks that you were sitting on his dick
 		just confirmed it does the same thing with vaginal
 		doesn't count as penetration for the sake of virginity though, as my character is a """pure""" virgin and did not get broken by it
-	
-	REMOVE Penis/Vagina when less than 0 size/capacity
 	
 	exhibitionist clothing equipping
 	
@@ -57,8 +56,7 @@
 	So apparently if you import a character over from a new version and go through the prologue, then knock up Lilaya in the first encounter it won't progress since it ends differently.
 		Going in for tests again lets you bone irregardless, but it won't let you do other sidequests that involve her, or progress the story along. I take it there's a catch missing, or that knocking her up isn't fully implemented?
 	
-	Oh inno did you see the one about tailpegging being enabled for cat tails now but no toggle exists yet?
-		Also she stood there behind me sucking on her tail the whole time and did not even fuck me it was like finger sucking all over again
+	Also she stood there behind me sucking on her tail the whole time and did not even fuck me it was like finger sucking all over again
 	
 	Gate fat/obese
 	
@@ -77,9 +75,6 @@
 	
 	add a 'cloaca' transformation
 	
-	Not actually sure if its a bug but lilaya doesnt actually produce cum anymore
-	
-	Furry tails in sex
 	Tails in mouth AI
 	now that cat tails are considered prehensile, there are lots of catgirls taking all of their own virginities with them.
 	

@@ -1021,4 +1021,34 @@ public class CharacterModificationUtils {
 					false);
 		}
 	}
+	
+	public static String getGlowOptions(boolean glow, boolean disabled) {
+		stringsList.clear();
+		
+		if(disabled) {
+			if(!glow) {
+				stringsList.add("[style.colourDisabled(Regular)]");
+			} else {
+				stringsList.add("[style.colourDisabled(Regular)]");
+			}	
+			if(glow) {
+				stringsList.add("[style.colourDisabled(Glowing)]");
+			} else {
+				stringsList.add("[style.colourDisabled(Glowing)]");
+			}
+		} else {
+			if(!glow) {
+				stringsList.add("[style.boldDisabled(Regular)]");
+			} else {
+				stringsList.add("[style.colourDisabled(Regular)]");
+			}	
+			if(glow) {
+				stringsList.add("[style.boldGood(Glowing)]");
+			} else {
+				stringsList.add("[style.colourDisabled(Glowing)]");
+			}
+		}
+		
+		return stringsToSelection(stringsList);
+	}
 }

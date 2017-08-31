@@ -767,6 +767,19 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("races")),
+				true,
+				true,
+				"",//TODO
+				"Description of method"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return getRaceNamePlural(character.getRace());
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("raceStage")),
 				true,
 				true,
@@ -3644,6 +3657,16 @@ public class UtilText {
 			return race.getSingularFemaleName();
 		} else {
 			return race.getSingularMaleName();
+		}
+	}
+	
+	private static String getRaceNamePlural(Race race) {
+		if(race==null)
+			return "";
+		if (character.isFeminine()) {
+			return race.getPluralFemaleName();
+		} else {
+			return race.getPluralMaleName();
 		}
 	}
 	

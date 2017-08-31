@@ -621,7 +621,7 @@ public class CharacterCreation {
 					}
 				};
 				
-			} if (index == 3) {
+			} else if (index == 3) {
 				return new Response("Iris colour", "Cycle iris colour.", CHOOSE_BODY_ADVANCED_FACE) {
 					@Override
 					public void effects() {
@@ -1213,8 +1213,6 @@ public class CharacterCreation {
 				+ "<p style='text-align:center;'><b>Vagina piercing</b></br>"
 					+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedVagina())
 				+ "</p>";
-			
-			
 		}
 
 		@Override
