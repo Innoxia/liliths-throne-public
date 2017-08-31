@@ -12,19 +12,19 @@ import com.base.game.dialogue.utils.UtilText;
 public enum TailType implements BodyPartTypeInterface {
 	NONE(null, null, false, false),
 
-	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, true, false),
+	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, true, true),
 
-	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false, true),
+	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false, false),
 	
-	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH, false, true),
+	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH, false, false),
 
-	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true, true),
+	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true, false),
 
-	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, false, true),
+	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, false, false),
 	
-	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, false, true),
+	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, false, false),
 
-	HARPY(BodyCoveringType.FEATHERS, Race.HARPY, false, true);
+	HARPY(BodyCoveringType.FEATHERS, Race.HARPY, false, false);
 
 	private BodyCoveringType skinType;
 	private Race race;

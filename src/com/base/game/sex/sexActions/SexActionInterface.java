@@ -478,22 +478,18 @@ public interface SexActionInterface {
 					break;
 				case TAIL_PARTNER:
 					if(!Sex.getPartner().getTailType().isPrehensile()) {
-						if(!Main.getProperties().furryTailPenetrationContent) {
-							return Sex.getPartner().getTailType().isSuitableForPenetration();
-						} else {
-							return true;
-						}
+						return false;
+						
+					} else if(!Sex.getPartner().getTailType().isSuitableForPenetration() && !Main.getProperties().furryTailPenetrationContent) {
+						return false;
 					}
-					break;
 				case TAIL_PLAYER:
 					if(!Main.game.getPlayer().getTailType().isPrehensile()) {
-						if(!Main.getProperties().furryTailPenetrationContent) {
-							return Main.game.getPlayer().getTailType().isSuitableForPenetration();
-						} else {
-							return true;
-						}
+						return false;
+						
+					} else if(!Main.game.getPlayer().getTailType().isSuitableForPenetration() && !Main.getProperties().furryTailPenetrationContent) {
+						return false;
 					}
-					break;
 				case TENTACLE_PARTNER:
 					break;
 				case TENTACLE_PLAYER:
