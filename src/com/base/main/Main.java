@@ -61,7 +61,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public final static String VERSION_NUMBER = "0.1.83",
+	public final static String VERSION_NUMBER = "0.1.83.1",
 			VERSION_DESCRIPTION = "Early Alpha"; //TODO Preview
 
 	public final static Image WINDOW_IMAGE = new Image("/com/base/res/images/windowIcon32.png");
@@ -73,8 +73,6 @@ public class Main extends Application {
 		"<h1 style='text-align:center;'>Version " + Main.VERSION_NUMBER + "</h1>"
 //		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>This is a preview release, and contains half-finished content!</b></h6>"
 		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha release!</b></h6>"
-
-		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>THIS VERSION IS VERY BUGGY!</b></h6>"
 		
 		+ "<p><b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Important information:</b> <i>If you don't see a mini-map in the bottom-left corner of the screen after starting the game, please update your java!</i></p>"
 		
@@ -89,14 +87,11 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I've done my very best to get the new body stuff incorporated into the game, but there's still so much to do... :("
+			+ "This is the 'real' release of 0.1.83, with the added enchantments and (basic) Kate's shop options. I'm going to write up Kate's shop properly for the next full release, as it's very placeholder at the moment."
+			+ " I hope you enjoy the new transformations! :3"
 		+ "</p>"
 			
-		+ "<p>"
-			+ "I know it sucks, but I'd strongly advise treating this version as another preview, and continue playing on the stable version 0.1.82 until this is finished."
-			+ " I know I normally write more than this here, but I've been working on this all week, 12+ hours every day. I feel like I'm about to faint, so I'll package it up and release it now. ^^"
-		+ "</p>"
-			
+		
 		+ "<p>"
 			+ "If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
 		+ "</p>"
@@ -330,8 +325,34 @@ public class Main extends Application {
 		+"<ul>Fixed a bug where the player inventory would stay on screen on new game start (by Pimgd).</ul>"
 		+"<ul>Clothing colours in encyclopedia should no longer overlap (by Pimgd).</ul>"
 		+ "</list>"
+
 		
+		+ "<list>"
 		
+		+ "<h6>Patch Notes - <b>Hotfix</b></h6>"
+		
+		+"<li>Gameplay:</li>"
+		+"<ul><b>Added:</b> New enchanting options for all the new body parts. (Removal of penis/vagina is now done by reducing size/capacity past the minimum value.)</ul>"
+		+"<ul><b>Re-added:</b> Kate's options. (Very basic at the moment!)</ul>"
+		+"<ul>Improved and reworked enchanting system to add transformation potency and limits.</ul>"
+		+"<ul>Added some more fluid flavours (vanilla and beer), and fluid modifier (alcholic).</ul>"
+			
+		+"<li>Other:</li>"
+		+"<ul>Added toggle for furry tail penetration in the content preferences screen.</ul>"
+			
+		+"<li>Bugs:</li>"
+		+"<ul>Fixed some bugs in the inventory/shop interactions.</ul>"
+		+"<ul>Fixed incorrect breast size descriptors showing up.</ul>"
+		+"<ul>Fixed incorrect description of toenail colour (by Rfpnj).</ul>"
+		+"<ul>Fixed bugs related to incorrect adjectives being applied to vagina (by Pimgd).</ul>"
+		+"<ul>Fixed buy all game freeze bug (by Pimgd).</ul>"
+		+"<ul>Fixed the display size of jinxed equipped piercings (by Pimgd).</ul>"
+		+"<ul>Fixed the bug where you could repeatedly click the 'collect reward' action for the harpy sidequest to farm money.</ul>"
+		+"<ul>Fixed cum being described as 'woman cum' in selfie screen.</ul>"
+		+"<ul>Fixed bugs related to changing Penis type. (This fixed the bug that was causing Lilaya and Kate to grow microscopic cocks with no cum production.)</ul>"
+		+"<ul>Fixed some inconsistent skin and hair/body hair colourings on NPCs.</ul>"
+		+"<ul>Fixed some other very minor bugs, but I forgot to add them in here, and now I can't remember which ones they were.</ul>"
+		+ "</list>"
 		;
 	
 	public static String disclaimer = "<h1 style='text-align:center;'>DISCLAIMER</h1>"
