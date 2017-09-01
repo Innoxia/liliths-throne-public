@@ -2,6 +2,7 @@ package com.base.game.inventory.clothing;
 
 import java.util.List;
 
+import com.base.game.character.GameCharacter;
 import com.base.game.character.effects.StatusEffect;
 import com.base.game.combat.SpecialAttack;
 import com.base.game.combat.Spell;
@@ -38,6 +39,16 @@ public enum ClothingSet {
 		this.specialAttacks = specialAttacks;
 		this.spells = spells;
 		this.associatedStatusEffect = associatedStatusEffect;
+	}
+	
+	public boolean isCharacterWearingCompleteSet(GameCharacter target) {
+		int setCount = 0;
+
+		for (AbstractClothing c : target.getClothingCurrentlyEquipped())
+			if (c.getClothingType().getClothingSet() == this)
+				setCount++;
+
+		return setCount >= this.getNumberRequiredForCompleteSet();
 	}
 
 	public String getName() {

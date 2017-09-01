@@ -3505,16 +3505,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int setCount = 0;
-
-			for (AbstractClothing c : target.getClothingCurrentlyEquipped())
-				if (c.getClothingType().getClothingSet() == ClothingSet.MAID)
-					setCount++;
-
-			if (setCount >= ClothingSet.MAID.getNumberRequiredForCompleteSet())
-				return true;
-			else
-				return false;
+			return ClothingSet.MAID.isCharacterWearingCompleteSet(target);
 		}
 	},
 	
@@ -3548,16 +3539,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int setCount = 0;
-
-			for (AbstractClothing c : target.getClothingCurrentlyEquipped())
-				if (c.getClothingType().getClothingSet() == ClothingSet.MILK_MAID)
-					setCount++;
-
-			if (setCount >= ClothingSet.MILK_MAID.getNumberRequiredForCompleteSet())
-				return true;
-			else
-				return false;
+			return ClothingSet.MILK_MAID.isCharacterWearingCompleteSet(target);
 		}
 	},
 	
@@ -3591,16 +3573,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int setCount = 0;
-
-			for (AbstractClothing c : target.getClothingCurrentlyEquipped())
-				if (c.getClothingType().getClothingSet() == ClothingSet.ENFORCER)
-					setCount++;
-
-			if (setCount >= ClothingSet.ENFORCER.getNumberRequiredForCompleteSet())
-				return true;
-			else
-				return false;
+			return ClothingSet.ENFORCER.isCharacterWearingCompleteSet(target);
 		}
 	},
 	
@@ -3625,16 +3598,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int setCount = 0;
-
-			for (AbstractClothing c : target.getClothingCurrentlyEquipped())
-				if (c.getClothingType().getClothingSet() == ClothingSet.RAINBOW)
-					setCount++;
-
-			if (setCount >= ClothingSet.RAINBOW.getNumberRequiredForCompleteSet())
-				return true;
-			else
-				return false;
+			return ClothingSet.RAINBOW.isCharacterWearingCompleteSet(target);
 		}
 	},
 	
@@ -3669,16 +3633,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int setCount = 0;
-
-			for (AbstractClothing c : target.getClothingCurrentlyEquipped())
-				if (c.getClothingType().getClothingSet() == ClothingSet.BDSM)
-					setCount++;
-
-			if (setCount >= ClothingSet.BDSM.getNumberRequiredForCompleteSet())
-				return true;
-			else
-				return false;
+			return ClothingSet.BDSM.isCharacterWearingCompleteSet(target);
 		}
 	},
 	
