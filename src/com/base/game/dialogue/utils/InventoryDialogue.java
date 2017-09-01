@@ -153,7 +153,7 @@ public class InventoryDialogue {
 	
 						if (itemBuyback != null) {
 							// Clothing:
-							int itemPrice = (int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice());
+							int itemPrice = Main.game.getPlayer().getBuybackStack().get(i).getPrice();
 							if (itemBuyback instanceof AbstractClothing) {
 								inventorySB.append(getBuybackItemPanel(itemBuyback, "CLOTHING_BUYBACK_" + i, itemPrice));
 	
@@ -795,15 +795,13 @@ public class InventoryDialogue {
 				}
 				
 			} else if (index == 4) {
-				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING)){
-					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_JINXED_CLOTHING, Quest.SIDE_JINXED_LILAYA_HELP)){
-						return new Response("Remove jinx", "Proceed to the jinxed clothing choice menu.", REMOVE_JINX){
-							@Override
-							public void effects() {
-								jinxRemovalFromFloor=false;
-							}
-						};
-					}
+				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING) && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_JINXED_CLOTHING, Quest.SIDE_JINXED_LILAYA_HELP)){
+					return new Response("Remove jinx", "Proceed to the jinxed clothing choice menu.", REMOVE_JINX){
+						@Override
+						public void effects() {
+							jinxRemovalFromFloor = false;
+						}
+					};
 				}
 				
 				return null;
@@ -1967,7 +1965,7 @@ public class InventoryDialogue {
 
 		inventorySB.append("<div class='inventory-container'>");
 
-		if (jinxedClothing.size() > 0) {
+		if (!jinxedClothing.isEmpty()) {
 			for (int i = 0; i < jinxedClothing.size(); i++) {
 				inventorySB.append("<div class='item-background jinxed'>" + jinxedClothing.get(i).getSVGString());
 				inventorySB.append("<div class='overlay' id='JINXED_" + i + "'></div>" + "</div>");
