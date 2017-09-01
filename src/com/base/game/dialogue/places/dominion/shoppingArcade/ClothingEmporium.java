@@ -147,7 +147,7 @@ public class ClothingEmporium {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new ResponseTrade("Female Clothing", "Call over the cat-girl and ask her what female clothing is available.", Main.game.getNyan()){
+				return new ResponseTrade("Female Clothing", "Ask her what female clothing is available.", Main.game.getNyan()){
 					@Override
 					public void effects() {
 						Main.game.getNyan().clearNonEquippedInventory();
@@ -158,7 +158,7 @@ public class ClothingEmporium {
 				};
 				
 			} else if (index == 2) {
-				return new ResponseTrade("Female Lingerie", "Call over the cat-girl and ask her what female lingerie is available.", Main.game.getNyan()){
+				return new ResponseTrade("Female Lingerie", "Ask her what female lingerie is available.", Main.game.getNyan()){
 					@Override
 					public void effects() {
 						Main.game.getNyan().clearNonEquippedInventory();
@@ -169,7 +169,7 @@ public class ClothingEmporium {
 				};
 				
 			} else if (index == 3) {
-				return new ResponseTrade("Female Accessories", "Call over the cat-girl and ask her what female accessories are available.", Main.game.getNyan()){
+				return new ResponseTrade("Female Accessories", "Ask her what female accessories are available.", Main.game.getNyan()){
 					@Override
 					public void effects() {
 						Main.game.getNyan().clearNonEquippedInventory();
@@ -180,7 +180,7 @@ public class ClothingEmporium {
 				};
 				
 			} else if (index == 4) {
-				return new ResponseTrade("Male Clothing", "Call over the cat-girl and ask her what male clothing is available.", Main.game.getNyan()){
+				return new ResponseTrade("Male Clothing", "Ask her what male clothing is available.", Main.game.getNyan()){
 					@Override
 					public void effects() {
 						Main.game.getNyan().clearNonEquippedInventory();
@@ -191,7 +191,7 @@ public class ClothingEmporium {
 				};
 				
 			} else if (index == 5) {
-				return new ResponseTrade("Male Underwear", "Call over the cat-girl and ask her what male underwear is available.", Main.game.getNyan()){
+				return new ResponseTrade("Male Underwear", "Ask her what male underwear is available.", Main.game.getNyan()){
 					@Override
 					public void effects() {
 						Main.game.getNyan().clearNonEquippedInventory();
@@ -202,7 +202,7 @@ public class ClothingEmporium {
 				};
 				
 			} else if (index == 6) {
-				return new ResponseTrade("Male Accessories", "Call over the cat-girl and ask her what male accessories are is available.", Main.game.getNyan()){
+				return new ResponseTrade("Male Accessories", "Ask her what male accessories are is available.", Main.game.getNyan()){
 					@Override
 					public void effects() {
 						Main.game.getNyan().clearNonEquippedInventory();
@@ -213,7 +213,7 @@ public class ClothingEmporium {
 				};
 				
 			} else if (index == 7) {
-				return new ResponseTrade("Unisex Clothing", "Call over the cat-girl and ask her what unisex clothing is available.", Main.game.getNyan()){
+				return new ResponseTrade("Unisex Clothing", "Ask her what unisex clothing is available.", Main.game.getNyan()){
 					@Override
 					public void effects() {
 						Main.game.getNyan().clearNonEquippedInventory();
@@ -224,7 +224,7 @@ public class ClothingEmporium {
 				};
 				
 			} else if (index == 8) {
-				return new ResponseTrade("Unisex Underwear", "Call over the cat-girl and ask her what unisex underwear is available.", Main.game.getNyan()){
+				return new ResponseTrade("Unisex Underwear", "Ask her what unisex underwear is available.", Main.game.getNyan()){
 					@Override
 					public void effects() {
 						Main.game.getNyan().clearNonEquippedInventory();
@@ -235,12 +235,23 @@ public class ClothingEmporium {
 				};
 				
 			} else if (index == 9) {
-				return new ResponseTrade("Unisex Accessories", "Call over the cat-girl and ask her what unisex accessories are is available.", Main.game.getNyan()){
+				return new ResponseTrade("Unisex Accessories", "Ask her what unisex accessories are is available.", Main.game.getNyan()){
 					@Override
 					public void effects() {
 						Main.game.getNyan().clearNonEquippedInventory();
 
 						for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonAndrogynousAccessories())
+							Main.game.getNyan().addClothing(c, false);
+					}
+				};
+				
+			} else if (index == 10) {
+				return new ResponseTrade("Specials", "Ask her if she has anything special.", Main.game.getNyan()){
+					@Override
+					public void effects() {
+						Main.game.getNyan().clearNonEquippedInventory();
+
+						for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getSpecials())
 							Main.game.getNyan().addClothing(c, false);
 					}
 				};

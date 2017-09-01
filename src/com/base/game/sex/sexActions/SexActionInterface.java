@@ -483,6 +483,7 @@ public interface SexActionInterface {
 					} else if(!Sex.getPartner().getTailType().isSuitableForPenetration() && !Main.getProperties().furryTailPenetrationContent) {
 						return false;
 					}
+					break;
 				case TAIL_PLAYER:
 					if(!Main.game.getPlayer().getTailType().isPrehensile()) {
 						return false;
@@ -490,6 +491,7 @@ public interface SexActionInterface {
 					} else if(!Main.game.getPlayer().getTailType().isSuitableForPenetration() && !Main.getProperties().furryTailPenetrationContent) {
 						return false;
 					}
+					break;
 				case TENTACLE_PARTNER:
 					break;
 				case TENTACLE_PLAYER:

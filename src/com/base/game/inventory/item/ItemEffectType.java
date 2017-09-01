@@ -1920,6 +1920,7 @@ public enum ItemEffectType {
 				
 			case TF_PENIS:
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_BARBED, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_FLARED, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
@@ -1956,6 +1957,7 @@ public enum ItemEffectType {
 				
 			case TF_VAGINA:
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
@@ -2040,7 +2042,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Removes a large amount of underarm hair.") { @Override public String applyEffect() { return target.incrementUnderarmHair(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Removes some underarm hair.") { @Override public String applyEffect() { return target.incrementUnderarmHair(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds some underarm hair.") { @Override public String applyEffect() { return target.incrementUnderarmHair(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Adds a large amount of underarm hair.") { @Override public String applyEffect() { return target.incrementUnderarmHair(2); } };
@@ -2061,7 +2063,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in ass size.") { @Override public String applyEffect() { return target.incrementAssSize(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in ass size.") { @Override public String applyEffect() { return target.incrementAssSize(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in ass size.") { @Override public String applyEffect() { return target.incrementAssSize(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in ass size.") { @Override public String applyEffect() { return target.incrementAssSize(2); } };
@@ -2076,7 +2078,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in hip size.") { @Override public String applyEffect() { return target.incrementHipSize(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in hip size.") { @Override public String applyEffect() { return target.incrementHipSize(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in hip size.") { @Override public String applyEffect() { return target.incrementHipSize(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in hip size.") { @Override public String applyEffect() { return target.incrementHipSize(2); } };
@@ -2092,7 +2094,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Removes a large amount of ass hair.") { @Override public String applyEffect() { return target.incrementAssHair(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Removes some ass hair.") { @Override public String applyEffect() { return target.incrementAssHair(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds some ass hair.") { @Override public String applyEffect() { return target.incrementAssHair(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Adds a large amount of ass hair.") { @Override public String applyEffect() { return target.incrementAssHair(2); } };
@@ -2108,7 +2110,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(-5); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(5); } };
@@ -2123,7 +2125,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in anal elasticity.") { @Override public String applyEffect() { return target.incrementAssElasticity(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in anal elasticity.") { @Override public String applyEffect() { return target.incrementAssElasticity(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in anal elasticity.") { @Override public String applyEffect() { return target.incrementAssElasticity(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in anal elasticity.") { @Override public String applyEffect() { return target.incrementAssElasticity(2); } };
@@ -2138,7 +2140,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in anal plasticity.") { @Override public String applyEffect() { return target.incrementAssPlasticity(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in anal plasticity.") { @Override public String applyEffect() { return target.incrementAssPlasticity(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in anal plasticity.") { @Override public String applyEffect() { return target.incrementAssPlasticity(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in anal plasticity.") { @Override public String applyEffect() { return target.incrementAssPlasticity(2); } };
@@ -2153,7 +2155,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in natural anal lubrication.") { @Override public String applyEffect() { return target.incrementAssWetness(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in natural anal lubrication.") { @Override public String applyEffect() { return target.incrementAssWetness(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in natural anal lubrication.") { @Override public String applyEffect() { return target.incrementAssWetness(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in natural anal lubrication.") { @Override public String applyEffect() { return target.incrementAssWetness(2); } };
@@ -2218,7 +2220,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in breast size.") { @Override public String applyEffect() { return target.incrementBreastSize(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in breast size.") { @Override public String applyEffect() { return target.incrementBreastSize(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in breast size.") { @Override public String applyEffect() { return target.incrementBreastSize(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in breast size.") { @Override public String applyEffect() { return target.incrementBreastSize(2); } };
@@ -2235,7 +2237,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in nipple size.") { @Override public String applyEffect() { return target.incrementNippleSize(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in nipple size.") { @Override public String applyEffect() { return target.incrementNippleSize(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in nipple size.") { @Override public String applyEffect() { return target.incrementNippleSize(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in nipple size.") { @Override public String applyEffect() { return target.incrementNippleSize(2); } };
@@ -2257,7 +2259,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in areolae size.") { @Override public String applyEffect() { return target.incrementAreolaeSize(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in areolae size.") { @Override public String applyEffect() { return target.incrementAreolaeSize(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in areolae size.") { @Override public String applyEffect() { return target.incrementAreolaeSize(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in areolae size.") { @Override public String applyEffect() { return target.incrementAreolaeSize(2); } };
@@ -2279,7 +2281,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(-5); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(5); } };
@@ -2294,7 +2296,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in nipple elasticity.") { @Override public String applyEffect() { return target.incrementNippleElasticity(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in nipple elasticity.") { @Override public String applyEffect() { return target.incrementNippleElasticity(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in nipple elasticity.") { @Override public String applyEffect() { return target.incrementNippleElasticity(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in nipple elasticity.") { @Override public String applyEffect() { return target.incrementNippleElasticity(2); } };
@@ -2309,7 +2311,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in nipple plasticity.") { @Override public String applyEffect() { return target.incrementNipplePlasticity(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in nipple plasticity.") { @Override public String applyEffect() { return target.incrementNipplePlasticity(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in nipple plasticity.") { @Override public String applyEffect() { return target.incrementNipplePlasticity(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in nipple plasticity.") { @Override public String applyEffect() { return target.incrementNipplePlasticity(2); } };
@@ -2324,7 +2326,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in lactation.") { @Override public String applyEffect() { return target.incrementBreastLactation(-15); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in lactation.") { @Override public String applyEffect() { return target.incrementBreastLactation(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in lactation.") { @Override public String applyEffect() { return target.incrementBreastLactation(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in lactation.") { @Override public String applyEffect() { return target.incrementBreastLactation(15); } };
@@ -2375,7 +2377,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in height.") { @Override public String applyEffect() { return target.incrementHeight(-5); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in height.") { @Override public String applyEffect() { return target.incrementHeight(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in height.") { @Override public String applyEffect() { return target.incrementHeight(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in height.") { @Override public String applyEffect() { return target.incrementHeight(5); } };
@@ -2390,7 +2392,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in muscle mass.") { @Override public String applyEffect() { return target.incrementMuscle(-5); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in muscle mass.") { @Override public String applyEffect() { return target.incrementMuscle(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in muscle mass.") { @Override public String applyEffect() { return target.incrementMuscle(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in muscle mass.") { @Override public String applyEffect() { return target.incrementMuscle(5); } };
@@ -2405,7 +2407,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in body size.") { @Override public String applyEffect() { return target.incrementBodySize(-5); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in body size.") { @Override public String applyEffect() { return target.incrementBodySize(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in body size.") { @Override public String applyEffect() { return target.incrementBodySize(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in body size.") { @Override public String applyEffect() { return target.incrementBodySize(5); } };
@@ -2420,7 +2422,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in femininity.") { @Override public String applyEffect() { return target.incrementFemininity(-5); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in femininity.") { @Override public String applyEffect() { return target.incrementFemininity(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in femininity.") { @Override public String applyEffect() { return target.incrementFemininity(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in femininity.") { @Override public String applyEffect() { return target.incrementFemininity(5); } };
@@ -2435,7 +2437,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Removes a large amount of pubic hair.") { @Override public String applyEffect() { return target.incrementPubicHair(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Removes some pubic hair.") { @Override public String applyEffect() { return target.incrementPubicHair(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds some pubic hair.") { @Override public String applyEffect() { return target.incrementPubicHair(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Adds a large amount of pubic hair.") { @Override public String applyEffect() { return target.incrementPubicHair(2); } };
@@ -2503,7 +2505,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in lip size.") { @Override public String applyEffect() { return target.incrementLipSize(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in lip size.") { @Override public String applyEffect() { return target.incrementLipSize(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in lip size.") { @Override public String applyEffect() { return target.incrementLipSize(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in lip size.") { @Override public String applyEffect() { return target.incrementLipSize(2); } };
@@ -2548,7 +2550,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in tongue length.") { @Override public String applyEffect() { return target.incrementTongueLength(-5); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in tongue length.") { @Override public String applyEffect() { return target.incrementTongueLength(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in tongue length.") { @Override public String applyEffect() { return target.incrementTongueLength(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in tongue length.") { @Override public String applyEffect() { return target.incrementTongueLength(5); } };
@@ -2585,7 +2587,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Removes a large amount of facial hair.") { @Override public String applyEffect() { return target.incrementFacialHair(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Removes some facial hair.") { @Override public String applyEffect() { return target.incrementFacialHair(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds some facial hair.") { @Override public String applyEffect() { return target.incrementFacialHair(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Adds a large amount of facial hair.") { @Override public String applyEffect() { return target.incrementFacialHair(2); } };
@@ -2607,7 +2609,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in hair length.") { @Override public String applyEffect() { return target.incrementHairLength(-5); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in hair length.") { @Override public String applyEffect() { return target.incrementHairLength(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in hair length.") { @Override public String applyEffect() { return target.incrementHairLength(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in hair length.") { @Override public String applyEffect() { return target.incrementHairLength(5); } };
@@ -2658,13 +2660,16 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in penis size.") { @Override public String applyEffect() { return target.incrementPenisSize(-5); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in penis size.") { @Override public String applyEffect() { return target.incrementPenisSize(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in penis size.") { @Override public String applyEffect() { return target.incrementPenisSize(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in penis size.") { @Override public String applyEffect() { return target.incrementPenisSize(5); } };
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("Huge increase in penis size.") { @Override public String applyEffect() { return target.incrementPenisSize(15); } };
 						}
+					case REMOVAL:
+							return new RacialEffectUtil("Removes penis.") { @Override public String applyEffect() { return target.setPenisType(PenisType.NONE); } };
+								
 					case TF_MOD_PENIS_BARBED:
 						switch(potency) {
 							case MINOR_DRAIN:
@@ -2737,7 +2742,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in testicle size.") { @Override public String applyEffect() { return target.incrementTesticleSize(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in testicle size.") { @Override public String applyEffect() { return target.incrementTesticleSize(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in testicle size.") { @Override public String applyEffect() { return target.incrementTesticleSize(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in testicle size.") { @Override public String applyEffect() { return target.incrementTesticleSize(2); } };
@@ -2759,7 +2764,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in cum production.") { @Override public String applyEffect() { return target.incrementPenisCumProduction(-15); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in cum production.") { @Override public String applyEffect() { return target.incrementPenisCumProduction(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in cum production.") { @Override public String applyEffect() { return target.incrementPenisCumProduction(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in cum production.") { @Override public String applyEffect() { return target.incrementPenisCumProduction(15); } };
@@ -2782,7 +2787,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(-5); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(5); } };
@@ -2797,7 +2802,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in urethra elasticity.") { @Override public String applyEffect() { return target.incrementUrethraElasticity(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in urethra elasticity.") { @Override public String applyEffect() { return target.incrementUrethraElasticity(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in urethra elasticity.") { @Override public String applyEffect() { return target.incrementUrethraElasticity(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in urethra elasticity.") { @Override public String applyEffect() { return target.incrementUrethraElasticity(2); } };
@@ -2812,7 +2817,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in urethra plasticity.") { @Override public String applyEffect() { return target.incrementUrethraPlasticity(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in urethra plasticity.") { @Override public String applyEffect() { return target.incrementUrethraPlasticity(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in urethra plasticity.") { @Override public String applyEffect() { return target.incrementUrethraPlasticity(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in urethra plasticity.") { @Override public String applyEffect() { return target.incrementUrethraPlasticity(2); } };
@@ -2883,13 +2888,15 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in clitoris size.") { @Override public String applyEffect() { return target.incrementVaginaClitorisSize(-5); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in clitoris size.") { @Override public String applyEffect() { return target.incrementVaginaClitorisSize(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in clitoris size.") { @Override public String applyEffect() { return target.incrementVaginaClitorisSize(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in clitoris size.") { @Override public String applyEffect() { return target.incrementVaginaClitorisSize(5); } };
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("Huge increase in clitoris size.") { @Override public String applyEffect() { return target.incrementVaginaClitorisSize(15); } };
 						}
+					case REMOVAL:
+							return new RacialEffectUtil("Removes vagina.") { @Override public String applyEffect() { return target.setVaginaType(VaginaType.NONE); } };
 						
 					case TF_MOD_CAPACITY:
 						switch(potency) {
@@ -2899,7 +2906,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(-5); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(5); } };
@@ -2914,7 +2921,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in vagina elasticity.") { @Override public String applyEffect() { return target.incrementVaginaElasticity(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in vagina elasticity.") { @Override public String applyEffect() { return target.incrementVaginaElasticity(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in vagina elasticity.") { @Override public String applyEffect() { return target.incrementVaginaElasticity(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in vagina elasticity.") { @Override public String applyEffect() { return target.incrementVaginaElasticity(2); } };
@@ -2929,7 +2936,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in vagina plasticity.") { @Override public String applyEffect() { return target.incrementVaginaPlasticity(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in vagina plasticity.") { @Override public String applyEffect() { return target.incrementVaginaPlasticity(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in vagina plasticity.") { @Override public String applyEffect() { return target.incrementVaginaPlasticity(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in vagina plasticity.") { @Override public String applyEffect() { return target.incrementVaginaPlasticity(2); } };
@@ -2944,7 +2951,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Decrease in natural vaginal lubrication.") { @Override public String applyEffect() { return target.incrementVaginaWetness(-2); } };
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Small decrease in natural vaginal lubrication.") { @Override public String applyEffect() { return target.incrementVaginaWetness(-1); } };
-							case MINOR_BOOST:
+							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Small increase in natural vaginal lubrication.") { @Override public String applyEffect() { return target.incrementVaginaWetness(1); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in natural vaginal lubrication.") { @Override public String applyEffect() { return target.incrementVaginaWetness(2); } };

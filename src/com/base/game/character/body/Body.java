@@ -1485,60 +1485,125 @@ public class Body implements Serializable {
 				default:
 					break;
 			}
+			
 			// Tail:
-			switch (tail.getType()) {
-				case DEMON_COMMON:
-					if (owner.isPlayer())
-						sb.append(" A long, thin, spaded tail grows out from just above your ass. You have complete control over it, and you can easily use it to grip and hold objects.");
-					else
-						sb.append(" A long, thin, spaded tail grows out from just above [npc.her] ass. [npc.She] appears to have complete control over it, and could easily use it to grip and hold objects.");
-					break;
-				case DOG_MORPH:
-					if (owner.isPlayer())
-						sb.append(" A furry, <span style='color:[pc.tailColourHex];'>[pc.tailColour], dog-like tail</span> grows out from just above your ass. It wags uncontrollably when you get excited.");
-					else
-						sb.append(" A furry, <span style='color:[npc.tailColourHex];'>[npc.tailColour], dog-like tail</span> grows out from just above [npc.her] ass. It wags uncontrollably when [npc.she] gets excited.");
-					break;
-				case LYCAN:
-					if (owner.isPlayer())
-						sb.append(" A furry, <span style='color:[pc.tailColourHex];'>[pc.tailColour], wolf-like tail</span> grows out from just above your ass.");
-					else
-						sb.append(" A furry, <span style='color:[npc.tailColourHex];'>[npc.tailColour], wolf-like tail</span> tail grows out from just above [npc.her] ass.");
-					break;
-				case CAT_MORPH:
-					if (owner.isPlayer())
-						sb.append(" A furry, <span style='color:[pc.tailColourHex];'>[pc.tailColour], cat-like tail</span> grows out from just above your ass."
-								+ " You can control it well enough to grant you significantly improved balance.");
-					else
-						sb.append(" A furry, <span style='color:[npc.tailColourHex];'>[npc.tailColour], cat-like tail</span> grows out from just above [npc.her] ass."
-								+ " [npc.She] seems to be able to control it enough to grant [npc.herHim] significantly improved balance.");
-					break;
-				case SQUIRREL_MORPH:
-					if (owner.isPlayer())
-						sb.append(" A fluffy, <span style='color:[pc.tailColourHex];'>[pc.tailColour], squirrel-like tail</span> grows out from just above your ass."
-								+ " You can control it well enough to grant you significantly improved balance.");
-					else
-						sb.append(" A fluffy, <span style='color:[npc.tailColourHex];'>[npc.tailColour], squirrel-like tail</span> grows out from just above [npc.her] ass."
-								+ " [npc.She] seems to be able to control it enough to grant [npc.herHim] significantly improved balance.");
-					break;
-				case HORSE_MORPH:
-					if (owner.isPlayer())
-						sb.append(" A long, <span style='color:[pc.tailColourHex];'>[pc.tailColour], horse-like tail</span> grows out from just above your ass."
-								+ " You can swipe it from side to side, but other than that, you don't have much control over it.");
-					else
-						sb.append(" A long, <span style='color:[npc.tailColourHex];'>[npc.tailColour], horse-like tail</span> grows out from just above [npc.her] ass."
-								+ " [npc.She] can swipe it from side to side, but other than that, [npc.she] doesn't seem to have much control over it.");
-					break;
-				case HARPY:
-					if (owner.isPlayer())
-						sb.append(" A beautiful <span style='color:[pc.tailColourHex];'> plume of [pc.tailColour] tail-feathers</span> grows out from just above your ass."
-								+ " You can rapidly move it up and down to help you keep your balance and to control your path when in flight.");
-					else
-						sb.append(" A beautiful <span style='color:[npc.tailColourHex];'> plume of [npc.tailColour] tail-feathers</span> grows out from just above [npc.her] ass."
-								+ " [npc.She] can rapidly move it up and down to help [npc.herHim] keep [npc.her] balance and to control [npc.her] path when in flight.");
-					break;
-				default:
-					break;
+			if(tail.getType()!=TailType.NONE) {
+				if (owner.isPlayer()) {
+					sb.append(" Growing out from just above your ass, you have ");
+				} else {
+					sb.append(" Growing out from just above [npc.her] ass, [npc.she] has ");
+				}
+			}
+			
+			if(owner.getTailCount()==1) {
+				switch(owner.getTailType()){
+					case CAT_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("a furry, [pc.tailColour(true)] cat-like tail, which you can control well enough to grant you significantly improved balance.");
+						} else {
+							sb.append("a furry, [npc.tailColour(true)] cat-like tail, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance.");
+						}
+						break;
+					case DEMON_COMMON:
+						if (owner.isPlayer()) {
+							sb.append("a spaded, [pc.tailColour(true)] demonic tail, over which you have complete control, and you can easily use it to grip and hold objects.");
+						} else {
+							sb.append("a spaded, [npc.tailColour(true)] demonic tail, over which [npc.she] has complete control, and [npc.she] can easily use it to grip and hold objects.");
+						}
+						break;
+					case DOG_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("a furry, [pc.tailColour(true)] dog-like tail, which wags uncontrollably when you get excited.");
+						} else {
+							sb.append("a furry, [npc.tailColour(true)] dog-like tail, which wags uncontrollably when [npc.she] gets excited.");
+						}
+						break;
+					case HARPY:
+						if (owner.isPlayer()) {
+							sb.append("a plume of beautiful, [pc.tailColour(true)] tail-feathers, which you can rapidly move up and down to help you keep your balance and to control your path when in flight.");
+						} else {
+							sb.append("a plume of beautiful, [npc.tailColour(true)] tail-feathers, which [npc.she] can rapidly move up and down to help [npc.herHim] keep [npc.her] balance and to control [npc.her] path when in flight.");
+						}
+						break;
+					case HORSE_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("a long, [pc.tailColour(true)] horse-like tail, which you can swipe from side to side, but other than that, you don't have much control over it.");
+						} else {
+							sb.append("a long, [npc.tailColour(true)] horse-like tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it.");
+						}
+						break;
+					case LYCAN:
+						if (owner.isPlayer()) {
+							sb.append("a furry, [pc.tailColour(true)] wolf-like tail.");
+						} else {
+							sb.append("a furry, [npc.tailColour(true)] wolf-like tail.");
+						}
+						break;
+					case SQUIRREL_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("a fluffy, [pc.tailColour(true)] squirrel-like tail, which you can control well enough to grant you significantly improved balance.");
+						} else {
+							sb.append("a fluffy, [npc.tailColour(true)] squirrel-like tail, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance.");
+						}
+						break;
+					case NONE:
+						break;
+				}
+			} else {
+				sb.append(Util.intToString(owner.getTailCount())+" ");
+				switch(owner.getTailType()){
+					case CAT_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("furry, [pc.tailColour(true)] cat-like tails, which you can control well enough to grant you significantly improved balance.");
+						} else {
+							sb.append("furry, [npc.tailColour(true)] cat-like tails, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance.");
+						}
+						break;
+					case DEMON_COMMON:
+						if (owner.isPlayer()) {
+							sb.append("spaded, [pc.tailColour(true)] demonic tails, over which you have complete control, and you can easily use them to grip and hold objects.");
+						} else {
+							sb.append("spaded, [npc.tailColour(true)] demonic tails, over which [npc.she] has complete control, and [npc.she] can easily use them to grip and hold objects.");
+						}
+						break;
+					case DOG_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("furry, [pc.tailColour(true)] dog-like tails, which wag uncontrollably when you get excited.");
+						} else {
+							sb.append("furry, [npc.tailColour(true)] dog-like tails, which wag uncontrollably when [npc.she] gets excited.");
+						}
+						break;
+					case HARPY:
+						if (owner.isPlayer()) {
+							sb.append("plumes of beautiful, [pc.tailColour(true)] tail-feathers, which you can rapidly move up and down to help you keep your balance and to control your path when in flight.");
+						} else {
+							sb.append("plumes of beautiful, [npc.tailColour(true)] tail-feathers, which [npc.she] can rapidly move up and down to help [npc.herHim] keep [npc.her] balance and to control [npc.her] path when in flight.");
+						}
+						break;
+					case HORSE_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("long, [pc.tailColour(true)] horse-like tails, which you can swipe from side to side, but other than that, you don't have much control over them.");
+						} else {
+							sb.append("long, [npc.tailColour(true)] horse-like tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them.");
+						}
+						break;
+					case LYCAN:
+						if (owner.isPlayer()) {
+							sb.append("furry, [pc.tailColour(true)] wolf-like tails.");
+						} else {
+							sb.append("furry, [npc.tailColour(true)] wolf-like tails.");
+						}
+						break;
+					case SQUIRREL_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("fluffy, [pc.tailColour(true)] squirrel-like tails, which you can control well enough to grant you significantly improved balance.");
+						} else {
+							sb.append("fluffy, [npc.tailColour(true)] squirrel-like tails, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance.");
+						}
+						break;
+					case NONE:
+						break;
+				}
 			}
 	
 			sb.append("</p>");

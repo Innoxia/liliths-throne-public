@@ -640,7 +640,7 @@ public class SuccubisSecrets {
 									Main.game.getPlayer().getHairCovering().getType(),
 									Main.game.getPlayer().getCovering(Main.game.getPlayer().getHairCovering().getType()).getPattern()==CoveringPattern.NONE)
 							+ "</br><b>Glow:</b></br>"
-							+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getHairCovering().isPrimaryGlowing(),
+							+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getHairCovering().isSecondaryGlowing(),
 									Main.game.getPlayer().getCovering(Main.game.getPlayer().getHairCovering().getType()).getPattern()==CoveringPattern.NONE)
 						+ "</p>");
 
@@ -743,12 +743,16 @@ public class SuccubisSecrets {
 				}
 				
 			} else if (index == 7) {
-				return new Response("Secondary colour glow", "Cycle whether your secondary [pc.hair] colour is glowing.", SHOP_BEAUTY_SALON_HAIR) {
-					@Override
-					public void effects() {
-						Main.game.getPlayer().getHairCovering().setSecondaryGlowing(!Main.game.getPlayer().getHairCovering().isSecondaryGlowing());
-					}
-				};
+				if(Main.game.getPlayer().getCovering(Main.game.getPlayer().getHairCovering().getType()).getPattern() != CoveringPattern.NONE) {
+					return new Response("Secondary colour glow", "Cycle whether your secondary [pc.hair] colour is glowing.", SHOP_BEAUTY_SALON_HAIR) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().getHairCovering().setSecondaryGlowing(!Main.game.getPlayer().getHairCovering().isSecondaryGlowing());
+						}
+					};
+				} else {
+					return new Response("Secondary colour glow", "You can only choose your secondary colour glow if you have an appropriate pattern.", null);
+				}
 				
 			} else {
 				return null;
@@ -911,7 +915,7 @@ public class SuccubisSecrets {
 			
 			return "<p>"
 						+ "There's a page near the front of the brochure which displays all the different eye colourings that Kate has on offer."
-						+ " There's separate section for each race, but the only one that applies to you is the page for [pc.races]."
+						+ " There's separate section for each race, but the only one that applies to you is the page for [pc.eyeRaces]."
 					+ "</p>"
 					+ "<p style='text-align:center;'><b>Iris colour</b></br>"
 						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(eyeType)
@@ -932,9 +936,6 @@ public class SuccubisSecrets {
 					
 					+ "<p>"
 						+ "A small paragraph at the bottom of the page informs you that Kate uses a special arcane power to change your eye colour."
-						+ " Apparently, it's extremely draining on her aura, so eye colouring is just as expensive as skin colouring.</p>"
-						+ "<p style='text-align:center;'>"
-						+ "All eye recolouring costs <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
 					+ "</p>";
 		}
 		
@@ -1012,7 +1013,7 @@ public class SuccubisSecrets {
 			
 			return "<p>"
 						+ "There's a page near the front of the brochure which displays all the different eye colourings that Kate has on offer."
-						+ " There's separate section for each race, but the only one that applies to you is the page for [pc.races]."
+						+ " There's separate section for each race, but the only one that applies to you is the page for [pc.eyeRaces]."
 					+ "</p>"
 						
 					+ "<p style='text-align:center;'><b>Pupil colour</b></br>"
@@ -1034,9 +1035,6 @@ public class SuccubisSecrets {
 					
 					+ "<p>"
 						+ "A small paragraph at the bottom of the page informs you that Kate uses a special arcane power to change your eye colour."
-						+ " Apparently, it's extremely draining on her aura, so eye colouring is just as expensive as skin colouring.</p>"
-						+ "<p style='text-align:center;'>"
-						+ "All eye recolouring costs <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
 					+ "</p>";
 		}
 		
@@ -1243,11 +1241,7 @@ public class SuccubisSecrets {
 
 		@Override
 		public String getHeaderContent() {
-			return "<p style='text-align:center;'>"
-						+ "<i>All of these options can be changed later on in the game, by visiting Kate's shop.</i>"
-					+ "</p>"
-					
-					+ "<p style='text-align:center;'><b>Blusher</b></br>"
+			return "<p style='text-align:center;'><b>Blusher</b></br>"
 						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.MAKEUP_BLUSHER)
 						+ "</br>"
 						+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getBlusher().isPrimaryGlowing(), Main.game.getPlayer().getBlusher().getPrimaryColour()!=Colour.COVERING_NONE)

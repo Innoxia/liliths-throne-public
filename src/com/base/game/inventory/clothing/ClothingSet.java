@@ -16,9 +16,10 @@ public enum ClothingSet {
 
 	// Hat, gloves, shirt, skirt/shorts, thigh-high boots
 	ENFORCER("Enforcer", StatusEffect.SET_ENFORCER.getDescription(Main.game.getPlayer()), StatusEffect.SET_ENFORCER, 2, null, null),
-
-	// Headdress, outfit, gloves, stockings, shoes
+	
 	MAID("Maid", StatusEffect.SET_MAID.getDescription(Main.game.getPlayer()), StatusEffect.SET_MAID, 5, null, null),
+	
+	MILK_MAID("Milk Maid", StatusEffect.SET_MILK_MAID.getDescription(Main.game.getPlayer()), StatusEffect.SET_MILK_MAID, 2, null, null),
 
 	BDSM("BDSM", StatusEffect.SET_BDSM.getDescription(Main.game.getPlayer()), StatusEffect.SET_BDSM, 4, null, null),
 

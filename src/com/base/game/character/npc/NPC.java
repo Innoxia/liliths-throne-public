@@ -5505,6 +5505,7 @@ public abstract class NPC extends GameCharacter {
 							case SLIME:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5529,6 +5530,7 @@ public abstract class NPC extends GameCharacter {
 							default:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5571,6 +5573,7 @@ public abstract class NPC extends GameCharacter {
 							case SLIME:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5595,6 +5598,7 @@ public abstract class NPC extends GameCharacter {
 							default:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5637,6 +5641,7 @@ public abstract class NPC extends GameCharacter {
 							case SLIME:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5661,6 +5666,7 @@ public abstract class NPC extends GameCharacter {
 							default:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5703,6 +5709,7 @@ public abstract class NPC extends GameCharacter {
 							case SLIME:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5748,6 +5755,7 @@ public abstract class NPC extends GameCharacter {
 							case SLIME:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5954,7 +5962,7 @@ public abstract class NPC extends GameCharacter {
 		if(Sex.getPartner().hasFetish(Fetish.FETISH_DEFLOWERING)) {
 			StringBuilderSB.append(
 					"<p>"
-						+ "[npc.speech(Oh, yes!)] she cries, [npc.speech(Good [pc.girl], saving your anal virginity for me!"
+						+ "[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me!"
 							+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the the one that turned you into "+(Main.game.getPlayer().isFeminine()?"a horny buttslut":"a little fucktoy")+"!)]"
 					+ "</p>");
 		}
@@ -6033,7 +6041,7 @@ public abstract class NPC extends GameCharacter {
 		if(Sex.getPartner().hasFetish(Fetish.FETISH_DEFLOWERING)) {
 			StringBuilderSB.append(
 					"<p>"
-						+ "[npc.speech(Oh, yes!)] she cries, [npc.speech(Good [pc.girl], saving your virginity for me!"
+						+ "[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your virginity for me!"
 							+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the the one that broke you in!)]"
 					+ "</p>");
 		}

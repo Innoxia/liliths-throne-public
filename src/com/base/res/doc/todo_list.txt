@@ -18,47 +18,65 @@
 	Patch notes:
 	
 	Gameplay:
-		<b>Added:</b> New enchanting options for all the new body parts. (Removal of penis/vagina is now done by reducing size/capacity past the minimum value.)
-		<b>Re-added:</b> Kate's options. (Very basic at the moment!)
-		Improved and reworked enchanting system to add transformation potency and limits.
-		Added some more fluid flavours (vanilla and beer), and fluid modifier (alcholic).
+		Reverted penis/vagina loss when shrinking past minimum size/capacity respectively. You now remove a penis or vagina by adding the 'remove' effect to a potion.
+		Ralph now stocks squirrel-morph consumables.
+	
+	Clothing:
+		<b>Temporarily added:</b> Special clothing to Nyan's store, allowing you to buy the rainbow, Maid, and Milk Maid clothing. (I'm going to change this in the future!)
+		Added: 'Milk Maid' Set, requires Milk Maid's Dress and Kerchief to be worn. (I'll change the set's effects to increase lactation when I convert the attributes over to the new system.)
+		Added: Milk Maid's Dress (Feminine, Torso slot). (Created by Blue999)
+		Added: Kerchief (No femininity restrictions, head slot).
+		Added: Nursing bra (Feminine, Chest slot). (Created by Blue999)
+		Added: Crotchless thong (Feminine, groin slot).
+		Added: Keyhole sweater (Feminine, torso slot).
 	
 	Other:
-		Added toggle for furry tail penetration in the content preferences screen.
+		Testicle-related actions are now correctly disabled if they are internal.
+		Added correct descriptions for multiple tails in the character view screen.
 	
 	Bugs:
-		Fixed some bugs in the inventory/shop interactions.
-		Fixed incorrect breast size descriptors showing up.
-		Fixed incorrect description of toenail colour (by Rfpnj).
-		Fixed bugs related to incorrect adjectives being applied to vagina (by Pimgd).
-		Fixed buy all game freeze bug (by Pimgd).
-		Fixed the display size of jinxed equipped piercings (by Pimgd).
-		Fixed the bug where you could repeatedly click the 'collect reward' action for the harpy sidequest to farm money.
-		Fixed cum being described as 'woman cum' in selfie screen.
-		Fixed bugs related to changing Penis type. (This fixed the bug that was causing Lilaya and Kate to grow microscopic cocks with no cum production.)
-		Fixed some inconsistent skin and hair/body hair colourings on NPCs.
-		Fixed some other very minor bugs, but I forgot to add them in here, and now I can't remember which ones they were.
-		
+		Fixed some typos.
+		Fixed some incorrect gender pronouns.
+		Fixed some minor UI issues in Kate's shop.
 	
 	
 	
-	4ch and fen forums
 	
-	Bug. The game thinks my character has a vagina, and is getting tail fucked in a non-existent hole, screwing up the scene.
-	 Also the option to turn off tail pegging doesn't seem to work, and npcs still tail peg both my character and themselves during sex.
-	 He's also managed to do it to himself
+	
+	
+	male
+	leg and ankle wraps to make full set
+	
+	
+	
+	Make human encounters effect human furiness races too
+	
+	
+	Hmm. Being pushed down into submissive cowgirl by a gynephilic victor that believes you to be female seems like it is probably not intended behavior?
+	
+	Also, there seems to be a continuity issue with NPCs' fetishes and their physical traits, such as a large number of girls I'm running into that like giving anal despite not actually having a penis themselves or guys who like being impregnated.
+	
+	my characters completely dry asshole is now being lubricated for some reason despite it being dry. It also only shows up when arousal is above 80
 	
 	1. The foot revamp where you have three foot styles (Talon, Foot/paw, Hoof) which is then used to figure blocked feet for clothing.
 	 2. cloaca descriptions so that any avian/reptiles are given proper descriptions, as they look doll-like most of the time. 
 	
-	getting more balls has actully reduced my output by 1000mLs
+	
+	-Default to a different hair colour than white.
+	-Body hair should default to the same colour as head hair, with a setting that specifically says, "Same as hair".
+	  Once the game starts, then it makes sense to have that be set to a normal hair colour for transformation effects.  If it isn't already, body hair colour should probably also be fur colour.
+	[21:41] DarkMaster: .
+	Fetish suggestions: 
+	-If a specific content type is completely disabled (like incest and non-con), then that fetish should not appear on the fetish screen at all and characters should not spawn with that fetish.
+	-Content types that are partially disabled (like forced TFs) should either prevent the PC from being able to take those kinks, or prevent random NPCs from spawning with them, depending on what part is actually disabled.
+	-Additionally/alternatively, enabling specific content partially unlocks that content (such as allowing the Lilaya scene and Brax's forced TF) but taking the fetish makes the content more likely (kids spawning in alleys and random NPCs TFing the player).
+	
 	
 	GATE HAIR PROPERLY FOR TFS
 	
 	Gate obesity
 	
 	Good point, I'll add fuckable nipples (and urethras) behind option gates.
-	
 	
 	so apparently if you're sitting on Brax's face when he cums, the system thinks that you were sitting on his dick
 		just confirmed it does the same thing with vaginal
@@ -74,6 +92,8 @@
 	Also she stood there behind me sucking on her tail the whole time and did not even fuck me it was like finger sucking all over again
 	
 	Gate fat/obese
+	
+	Kate's shop!
 	
 	account-wide encyclopedia
 	

@@ -239,7 +239,7 @@ public enum Colour {
 	// Standard colours used for clothing:
 	CLOTHING_RED(Util.newColour(0xD84646), Util.newColour(0xD84646), "red"),
 	CLOTHING_ORANGE(Util.newColour(0xE79F6F), Util.newColour(0xE79F6F), "orange"),
-	CLOTHING_TAN(BaseColour.TAN, "tan"),//TODO Not used yet
+	CLOTHING_TAN(BaseColour.TAN, "tan"),
 	CLOTHING_BROWN(Util.newColour(0xC87137), Util.newColour(0xC87137), "brown"),
 	CLOTHING_YELLOW(Util.newColour(0xE2C360), Util.newColour(0xE2C360), "yellow"),
 	CLOTHING_GREEN_LIME(Util.newColour(0xD0E37D), Util.newColour(0xD0E37D), "lime green"),

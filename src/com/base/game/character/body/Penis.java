@@ -428,28 +428,6 @@ public class Penis implements BodyPartInterface, Serializable {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		if(size<0) {
-			owner.setPenisType(PenisType.NONE);
-			if (owner.isPlayer()) {
-				return "</p>"
-							+ "You let out a groan as you feel a deep throbbing sensation building up at the base of your cock."
-							+ " Your cheeks flush red as the feeling works its way up your shaft, and as a trickle of pre-cum leaks out from the head of your now-hard member, you realise that your cock has [style.boldShrink(shrunk)].</br>"
-							+ "Your cock has shrunk so much that it's [style.boldShrink(disappeared entirely)]!</br>"
-							+ "You [style.boldSex(no longer have a penis)]!"
-						+ "</p>";
-			} else {
-				return UtilText.genderParsing(owner,
-						"</p>"
-							+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
-							+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] shaft, and as a trickle of pre-cum leaks out from the head of [npc.her] now-hard member,"
-								+ " [npc.she] realises that [npc.her] cock has [style.boldShrink(shrunk)].</br>"
-							+ "[npc.Her] cock has shrunk so much that it's [style.boldShrink(disappeared entirely)]!</br>"
-							+ "[npc.Name] [style.boldSex(no longer has a penis)]!"
-						+ "</p>");
-			}
-		}
-		
-		
 		int sizeChange = 0;
 		
 		if (size <= 0) {

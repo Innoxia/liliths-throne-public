@@ -30,11 +30,7 @@ public class Tail implements BodyPartInterface, Serializable {
 	
 	@Override
 	public String getDeterminer(GameCharacter gc) {
-		if(gc.getTailCount()==1) {
-			return "";
-		} else {
-			return Util.intToString(gc.getTailCount());
-		}
+		return type.getDeterminer(gc);
 	}
 
 	@Override

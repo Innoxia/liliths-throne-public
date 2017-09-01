@@ -42,7 +42,8 @@ public class Nyan extends NPC {
 
 	private List<AbstractClothing> commonFemaleClothing, commonFemaleLingerie, commonFemaleAccessories,
 									commonMaleClothing, commonMaleLingerie, commonMaleAccessories,
-									commonAndrogynousClothing, commonAndrogynousLingerie, commonAndrogynousAccessories;
+									commonAndrogynousClothing, commonAndrogynousLingerie, commonAndrogynousAccessories,
+									specials;
 
 	public Nyan() {
 		super(new NameTriplet("Nyan"), "Nyan is the owner of the store 'Nyan's Clothing Emporium', found in Dominion's shopping arcade."
@@ -68,6 +69,7 @@ public class Nyan extends NPC {
 		commonAndrogynousClothing = new ArrayList<>();
 		commonAndrogynousLingerie = new ArrayList<>();
 		commonAndrogynousAccessories = new ArrayList<>();
+		specials = new ArrayList<>();
 
 		applyReset();
 	}
@@ -96,6 +98,8 @@ public class Nyan extends NPC {
 		commonAndrogynousClothing.clear();
 		commonAndrogynousLingerie.clear();
 		commonAndrogynousAccessories.clear();
+		
+		specials.clear();
 
 		// Female:
 		for(ClothingType ct : ClothingType.getCommonFemaleClothing()) {
@@ -107,8 +111,8 @@ public class Nyan extends NPC {
 		for(ClothingType ct : ClothingType.getCommonFemaleLingerie()) {
 			commonFemaleLingerie.add(ClothingType.generateClothing(ct, false));
 		}
-		for (int i = 0; i < 3; i++)
-			commonFemaleLingerie.add(ClothingType.generateClothingWithEnchantment(ClothingType.getCommonFemaleLingerie().get(Util.random.nextInt(ClothingType.getCommonFemaleLingerie().size()))));
+//		for (int i = 0; i < 1; i++)
+//			commonFemaleLingerie.add(ClothingType.generateClothingWithEnchantment(ClothingType.getCommonFemaleLingerie().get(Util.random.nextInt(ClothingType.getCommonFemaleLingerie().size()))));
 		
 		for(ClothingType ct : ClothingType.getCommonFemaleAccessories()) {
 			commonFemaleAccessories.add(ClothingType.generateClothing(ct, false));
@@ -157,6 +161,20 @@ public class Nyan extends NPC {
 			commonAndrogynousAccessories.add(ClothingType.generateClothingWithEnchantment(ClothingType.getCommonAndrogynousAccessories().get(Util.random.nextInt(ClothingType.getCommonAndrogynousAccessories().size()))));
 		
 		
+		// Specials:
+		specials.add(ClothingType.generateClothing(ClothingType.SOCK_RAINBOW_STOCKINGS));
+		specials.add(ClothingType.generateClothing(ClothingType.HAND_RAINBOW_FINGERLESS_GLOVES));
+
+		specials.add(ClothingType.generateClothing(ClothingType.MILK_MAID_KERCHIEF));
+		specials.add(ClothingType.generateClothing(ClothingType.MILK_MAID_TORSO_DRESS));
+
+		specials.add(ClothingType.generateClothing(ClothingType.MAID_DRESS));
+		specials.add(ClothingType.generateClothing(ClothingType.MAID_HEADPIECE));
+		specials.add(ClothingType.generateClothing(ClothingType.MAID_HEELS));
+		specials.add(ClothingType.generateClothing(ClothingType.MAID_SLEEVES));
+		specials.add(ClothingType.generateClothing(ClothingType.MAID_STOCKINGS));
+
+		specials.add(ClothingType.generateClothing(ClothingType.MEGA_MILK));
 		
 		for(AbstractClothing c : commonFemaleClothing) {
 			c.setEnchantmentKnown(true);
@@ -199,6 +217,8 @@ public class Nyan extends NPC {
 		commonAndrogynousClothing.remove(clothing);
 		commonAndrogynousLingerie.remove(clothing);
 		commonAndrogynousAccessories.remove(clothing);
+		
+		specials.remove(clothing);
 	}
 	
 	@Override
@@ -275,6 +295,10 @@ public class Nyan extends NPC {
 
 	public List<AbstractClothing> getCommonAndrogynousAccessories() {
 		return commonAndrogynousAccessories;
+	}
+
+	public List<AbstractClothing> getSpecials() {
+		return specials;
 	}
 
 	// Combat (you never fight Nyan):

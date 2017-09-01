@@ -593,7 +593,7 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("Unlocks <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>incesst tease</span>"),
+					new ListValue<>("Unlocks <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>incest tease</span>"),
 					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Not yet implemented!</span>")),
 			null) {
 		@Override

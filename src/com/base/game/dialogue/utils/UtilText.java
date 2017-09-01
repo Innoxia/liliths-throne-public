@@ -3341,7 +3341,6 @@ public class UtilText {
 	 */
 	private static void addStandardParsingCommands(List<String> tags, List<String> tagsPlural, BodyPartType bodyPart) {
 		
-		// Check for race: hornRace | hornsRace
 		commandsList.add(new ParserCommand(
 				getModifiedTags(tags, tagsPlural, "Race"),
 				true,
@@ -3354,8 +3353,20 @@ public class UtilText {
 				return getRaceName(getBodyPartFromType(bodyPart).getType().getRace());
 			}
 		});
+		
+		commandsList.add(new ParserCommand(
+				getModifiedTags(tags, tagsPlural, "Races"),
+				true,
+				true,
+				"",
+				"Returns the plural name of the race that's associated with this body part. Race is gender-specific (e.g. will return either 'wolf-boys' or 'wolf-girls').",
+				bodyPart){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return getRaceName(getBodyPartFromType(bodyPart).getType().getRace());
+			}
+		});
 
-		// Check for skin. hornSkin | hornsSkin
 		commandsList.add(new ParserCommand(
 				getModifiedTags(tags, tagsPlural, "Skin"),
 				true,
@@ -3369,7 +3380,6 @@ public class UtilText {
 			}
 		});
 		
-		// Check for skin with descriptor. hornSkin+ | hornSkinD | hornsSkin+ | hornsSkinD
 		commandsList.add(new ParserCommand(
 				getModifiedTags(tags, tagsPlural, "Skin+", "SkinD"),
 				true,
@@ -3414,7 +3424,6 @@ public class UtilText {
 			}
 		});
 		
-		// Check for colour. hornColour | hornColor | hornsColor | hornsColour 
 		commandsList.add(new ParserCommand(
 				getModifiedTags(tags, tagsPlural, "Colour", "Color"),
 				true,
@@ -3482,7 +3491,6 @@ public class UtilText {
 			}
 		});
 		
-		// Check for singular version of base name. horn
 		commandsList.add(new ParserCommand(
 				tags,
 				true,
@@ -3496,7 +3504,6 @@ public class UtilText {
 			}
 		});
 
-		// Check for plural version of base name. horns
 		commandsList.add(new ParserCommand(
 				tagsPlural,
 				true,
@@ -3516,7 +3523,6 @@ public class UtilText {
 			}
 		});
 
-		// Check for singular version of base name with descriptor. horn+ | hornD
 		commandsList.add(new ParserCommand(
 				getModifiedTags(tags, null, "+", "D"),
 				true,
@@ -3530,7 +3536,6 @@ public class UtilText {
 			}
 		});
 
-		// Check for plural version of base name with descriptor. horns+ | hornsD
 		commandsList.add(new ParserCommand(
 				getModifiedTags(null, tagsPlural, "+", "D"),
 				true,

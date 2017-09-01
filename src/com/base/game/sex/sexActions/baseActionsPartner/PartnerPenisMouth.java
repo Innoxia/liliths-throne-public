@@ -21,7 +21,7 @@ import com.base.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
- * @version 0.1.79
+ * @version 0.1.84
  * @author Innoxia
  */
 public class PartnerPenisMouth {
@@ -126,7 +126,7 @@ public class PartnerPenisMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPacePartner()!=SexPace.SUB_RESISTING;
+			return !Sex.getPartner().isInternalTesticles() && Sex.getSexPacePartner()!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override
@@ -243,7 +243,7 @@ public class PartnerPenisMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING;
+			return !Sex.getPartner().isInternalTesticles() && Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override

@@ -3,6 +3,7 @@ package com.base.game.character.body.types;
 import com.base.game.character.GameCharacter;
 import com.base.game.character.race.Race;
 import com.base.game.dialogue.utils.UtilText;
+import com.base.utils.Util;
 
 /**
  * @since 0.1.0
@@ -44,7 +45,22 @@ public enum TailType implements BodyPartTypeInterface {
 
 	@Override
 	public String getDeterminer(GameCharacter gc) {
-		return "";
+		if(gc.getTailCount()==1) {
+			switch(this){
+				case HARPY:
+					return "a plume of";
+				default:
+					return "";
+			}
+		} else {
+			switch(this){
+				case HARPY:
+					return Util.intToString(gc.getTailCount())+" plumes of";
+				default:
+					return Util.intToString(gc.getTailCount());
+			}
+		}
+		
 	}
 	
 	@Override
