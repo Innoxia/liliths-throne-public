@@ -25,10 +25,11 @@
 		<b>Temporarily added:</b> Special clothing to Nyan's store, allowing you to buy the rainbow, Maid, and Milk Maid clothing. (I'm going to change this in the future!)
 		Added: 'Milk Maid' Set, requires Milk Maid's Dress and Kerchief to be worn. (I'll change the set's effects to increase lactation when I convert the attributes over to the new system.)
 		Added: Milk Maid's Dress (Feminine, Torso slot). (Created by Blue999)
-		Added: Kerchief (No femininity restrictions, head slot).
+		Added: Kerchief (Unisex, head slot).
 		Added: Nursing bra (Feminine, Chest slot). (Created by Blue999)
 		Added: Crotchless thong (Feminine, groin slot).
 		Added: Keyhole sweater (Feminine, torso slot).
+		Added: Jeans (Unisex, leg slot).
 	
 	Other:
 		Testicle-related actions are now correctly disabled if they are internal.
@@ -43,8 +44,10 @@
 	
 	
 	
-	
-	male
+
+
+
+
 	leg and ankle wraps to make full set
 	
 	
