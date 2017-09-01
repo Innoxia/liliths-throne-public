@@ -51,9 +51,9 @@ public class Finch extends NPC {
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_GREEN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLACK));
-		this.setCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLACK));
-		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
 		
 		this.setPenisSize(PenisSize.ONE_TINY.getMedianValue());
 		this.setTesticleSize(TesticleSize.ONE_TINY.getValue());

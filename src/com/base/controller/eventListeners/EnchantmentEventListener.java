@@ -7,11 +7,12 @@ import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.utils.EnchantmentDialogue;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.enchanting.TFModifier;
+import com.base.game.inventory.enchanting.TFPotency;
 import com.base.main.Main;
 
 /**
  * @since 0.1.7
- * @version 0.1.8
+ * @version 0.1.83
  * @author Innoxia
  */
 public class EnchantmentEventListener implements EventListener {
@@ -23,19 +24,25 @@ public class EnchantmentEventListener implements EventListener {
 		
 		if (itemToEnchant != null) {
 			if(itemToEnchant.getEnchantmentEffect()!=null) {
-				EnchantmentDialogue.primaryMod = TFModifier.NONE;
-				EnchantmentDialogue.secondaryMod = TFModifier.NONE;
+				EnchantmentDialogue.resetEnchantmentVariables();
 				EnchantmentDialogue.ingredient = itemToEnchant;
 			}
 			
 		} else if(primaryModifier != null) {
 			EnchantmentDialogue.primaryMod = primaryModifier;
-			if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(primaryModifier).contains(EnchantmentDialogue.secondaryMod))
-				EnchantmentDialogue.secondaryMod = TFModifier.NONE;
 			
 		} else if(secondaryModifier != null) {
 			EnchantmentDialogue.secondaryMod = secondaryModifier;
-			
+		}
+		
+		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.primaryMod).contains(EnchantmentDialogue.secondaryMod)) {
+			EnchantmentDialogue.secondaryMod = TFModifier.NONE;
+		}
+		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPotencyModifiers(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod).contains(EnchantmentDialogue.potency)) {
+			EnchantmentDialogue.potency = TFPotency.MINOR_BOOST;
+		}
+		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod).contains(EnchantmentDialogue.limit)) {
+			EnchantmentDialogue.limit = 0;
 		}
 		
 		Main.game.setContent(new Response("Enchanting", "Start enchanting.", EnchantmentDialogue.ENCHANTMENT_MENU));

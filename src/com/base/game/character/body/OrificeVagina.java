@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.base.game.character.GameCharacter;
 import com.base.game.character.body.types.OrificeInterface;
+import com.base.game.character.body.types.VaginaType;
 import com.base.game.character.body.valueEnums.Capacity;
 import com.base.game.character.body.valueEnums.OrificeElasticity;
 import com.base.game.character.body.valueEnums.OrificeModifier;
@@ -114,6 +115,33 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 	@Override
 	public String setCapacity(GameCharacter owner, float capacity) {
 		float capacityChange = 0;
+		
+		if (!owner.hasVagina()) {
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourDisabled(You lack a vagina, so nothing happens...)]</p>";
+				
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] lacks a vagina, so nothing happens...)]</p>");
+			}
+		}
+		
+		if(capacity<0) {
+			owner.setVaginaType(VaginaType.NONE);
+			if (owner.isPlayer()) {
+					return "<p>"
+							+ "You let out a cry as you feel your pussy uncontrollably tighten and clench as its internal [style.boldShrink(capacity decreases)].</br>"
+							+ "Your pussy has tightened so much that it's [style.boldShrink(disappeared entirely)]!</br>"
+							+ "You [style.boldSex(no longer have a vagina)]!"
+						+ "</p>";
+			} else {
+				return UtilText.parse(owner, 
+						"<p>"
+							+ "[npc.Name] lets out a cry as [npc.she] feels [npc.her] pussy uncontrollably tighten and clench as its internal [style.boldShrink(capacity decreases)].</br>"
+							+ "[npc.Her] pussy has tightened so much that it's [style.boldShrink(disappeared entirely)]!</br>"
+							+ "[npc.Name] [style.boldSex(no longer has a vagina)]!"
+						+ "</p>");
+			}
+		}
 		
 		if (capacity <= 0) {
 			if (this.capacity != 0) {
@@ -255,7 +283,7 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange clenching sensation pulsating deep within [npc.her] [npc.pussy] a its [style.boldShrink(elasticity decreases)].</br>"
+							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange clenching sensation pulsating deep within [npc.her] [npc.pussy] as its [style.boldShrink(elasticity decreases)].</br>"
 							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " pussy)]!"
 						+ "</p>");
 			}
@@ -314,7 +342,7 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		} else {
 			if (owner.isPlayer()) {
 				return "<p>"
-							+ "You let out a little gasp as you feel a strange softening sensation pulsating deep within your [pc.pussy] its [style.boldShrink(plasticity decreases)].</br>"
+							+ "You let out a little gasp as you feel a strange softening sensation pulsating deep within your [pc.pussy] as its [style.boldShrink(plasticity decreases)].</br>"
 							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " pussy)]!"
 						+ "</p>";
 			} else {

@@ -7,16 +7,14 @@ import com.base.game.character.body.BodyPartInterface;
 import com.base.game.character.body.Hair;
 import com.base.game.character.body.Eye;
 import com.base.game.character.body.types.BodyCoveringType;
-import com.base.game.character.body.types.PenisType;
-import com.base.game.character.body.types.VaginaType;
-import com.base.game.character.body.valueEnums.HairLength;
+import com.base.game.character.body.valueEnums.CoveringPattern;
 import com.base.game.character.npc.dominion.Kate;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseSex;
 import com.base.game.dialogue.responses.ResponseTrade;
+import com.base.game.dialogue.utils.CharacterModificationUtils;
 import com.base.game.dialogue.utils.UtilText;
-import com.base.game.inventory.InventorySlot;
 import com.base.game.sex.managers.universal.consensual.SMChairTop;
 import com.base.main.Main;
 import com.base.utils.Colour;
@@ -369,7 +367,7 @@ public class SuccubisSecrets {
 						+ " Out of the corner of your eye, you see her tail snaking its way up beneath her skirt, and her snores start being punctuated by lewd moans..."
 						+ "</p>"
 						+ "<p style='text-align:center;'>"
-							+ "[style.boldBad(Customisation options are being ported over to the new body system! They will be available in the next version!)]"
+							+ "[style.boldBad(Customisation options are still being worked on! They will be improved for the next version!)]"
 						+ "</p>";//TODO;
 				
 			} else {
@@ -398,7 +396,7 @@ public class SuccubisSecrets {
 						+ " Out of the corner of your eye, you see her tail snaking its way up beneath her skirt, and her snores start being punctuated by lewd moans..."
 						+ "</p>"
 						+ "<p style='text-align:center;'>"
-							+ "[style.boldBad(Customisation options are being ported over to the new body system! They will be available in the next version!)]"
+							+ "[style.boldBad(Customisation options are still being worked on! They will be improved for the next version!)]"
 						+ "</p>";//TODO;
 			}
 		}
@@ -428,7 +426,7 @@ public class SuccubisSecrets {
 						+ " Out of the corner of your eye, you see her tail snaking its way up beneath her skirt, and her snores start being punctuated by lewd moans..."
 						+ "</p>"
 						+ "<p style='text-align:center;'>"
-							+ "[style.boldBad(Customisation options are being ported over to the new body system! They will be available in the next version!)]"
+							+ "[style.boldBad(Customisation options are still being worked on! They will be improved for the next version!)]"
 						+ "</p>");//TODO
 			
 			return descriptionSB.toString();
@@ -446,26 +444,92 @@ public class SuccubisSecrets {
 				};
 				
 			} else if (index == 2) {
-				return new Response("Hair length", "The brochure states that Kate is able to use the arcane in order to lengthen a client's hair. She can also just use regular scissors if your hair needs a cut.", null){//SHOP_BEAUTY_SALON_HAIR_LENGTH
-					@Override
-					public void effects() {
-						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy)
-							Main.game.getDialogueFlags().reactedToKatePregnancy = true;
-					}
-				};
+				if(Main.game.getPlayer().getMoney()>=50) {
+					return new Response("Makeup (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 50)",
+							"Kate offers a wide range of different cosmetic services.", SHOP_BEAUTY_SALON_COSMETICS){
+						@Override
+						public void effects() {
+							if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy) {
+								Main.game.getDialogueFlags().reactedToKatePregnancy = true;
+							}
+							Main.game.getPlayer().incrementMoney(-50);
+						}
+					};
+				} else {
+					return new Response("Piercings ("+ Main.game.getCurrencySymbol() + " 50)", "You don't have enough money!", null);
+				}
 
 			} else if (index == 3) {
-				return new Response("Hair colour", "There's a double-page spread of all the different dyes Kate has in stock, allowing her to recolour your hair in a wide variety of shades.", null){//SHOP_BEAUTY_SALON_HAIR_COLOUR
-					@Override
-					public void effects() {
-						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy)
-							Main.game.getDialogueFlags().reactedToKatePregnancy = true;
-					}
-				};
+				if(Main.game.getPlayer().getMoney()>=100) {
+					return new Response("Hair (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 100)",
+							"There's a double-page spread of all the different dyes, styles, and lengths of hair that Kate's able to work with.", SHOP_BEAUTY_SALON_HAIR){
+						@Override
+						public void effects() {
+							if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy) {
+								Main.game.getDialogueFlags().reactedToKatePregnancy = true;
+							}
+							Main.game.getPlayer().incrementMoney(-100);
+						}
+					};
+				} else {
+					return new Response("Hair ("+ Main.game.getCurrencySymbol() + " 100)", "You don't have enough money!", null);
+				}
 
 			} else if (index == 4) {
-				return new Response("Skin/fur colour", "There's a special page in the middle of the brochure, advertising Kate's special ability to harness the arcane in order to recolour a person's skin or fur."
-						+ " Apparently, this is quite demanding on her aura, and is therefore very expensive.", null){//SHOP_BEAUTY_SALON_SKIN_COLOUR
+				if(Main.game.getPlayer().getMoney()>=100) {
+					return new Response("Piercings (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 100)",
+							"Kate offers a wide range of different piercings.", SHOP_BEAUTY_SALON_PIERCINGS){
+						@Override
+						public void effects() {
+							if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy) {
+								Main.game.getDialogueFlags().reactedToKatePregnancy = true;
+							}
+							Main.game.getPlayer().incrementMoney(-100);
+						}
+					};
+				} else {
+					return new Response("Piercings ("+ Main.game.getCurrencySymbol() + " 100)", "You don't have enough money!", null);
+				}
+
+			} else if (index == 5) {
+				if(Main.game.getPlayer().getMoney()>=100) {
+					return new Response("Irises (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 100)",
+							"There's a special page near the front of the brochure, advertising Kate's ability to recolour a person's eyes."
+							+ " Just like skin recolourings, this is quite demanding on her aura, and is therefore very expensive.", SHOP_BEAUTY_SALON_IRISES){
+						@Override
+						public void effects() {
+							if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy) {
+								Main.game.getDialogueFlags().reactedToKatePregnancy = true;
+							}
+							Main.game.getPlayer().incrementMoney(-100);
+						}
+					};
+				} else {
+					return new Response("Irises ("+ Main.game.getCurrencySymbol() + " 100)", "You don't have enough money!", null);
+				}
+
+			} else if (index == 6) {
+				if(Main.game.getPlayer().getMoney()>=100) {
+					return new Response("Pupils (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 100)",
+							"There's a special page near the front of the brochure, advertising Kate's ability to recolour a person's eyes."
+							+ " Just like skin recolourings, this is quite demanding on her aura, and is therefore very expensive.", SHOP_BEAUTY_SALON_PUPILS){
+						@Override
+						public void effects() {
+							if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy) {
+								Main.game.getDialogueFlags().reactedToKatePregnancy = true;
+							}
+							Main.game.getPlayer().incrementMoney(-100);
+						}
+					};
+				} else {
+					return new Response("Pupils ("+ Main.game.getCurrencySymbol() + " 100)", "You don't have enough money!", null);
+				}
+
+			} else if (index == 7) {
+				if(Main.game.getPlayer().getMoney()>=500) {
+				return new Response("Coverings (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 500)",
+						"There's a special page in the middle of the brochure, advertising Kate's special ability to harness the arcane in order to recolour a person's skin or fur."
+						+ " Apparently, this is quite demanding on her aura, and is therefore very expensive.", SHOP_BEAUTY_SALON_SKIN_COLOUR){
 					@Override
 					public void effects() {
 						skins = new ArrayList<>();
@@ -477,37 +541,30 @@ public class SuccubisSecrets {
 									&& !(bp instanceof Eye))
 								skins.add(bp.getType().getBodyCoveringType());
 						}
+						skins.add(BodyCoveringType.ANUS);
+						skins.add(BodyCoveringType.MOUTH);
+						skins.add(BodyCoveringType.NIPPLES);
+						skins.add(BodyCoveringType.TONGUE);
+						if(Main.game.isBodyHairEnabled() || Main.game.isPubicHairEnabled() || Main.game.isFacialHairEnabled()) {
+							skins.add(Main.game.getPlayer().getUnderarmHairType().getType());
+						}
 
-						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy)
+						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy) {
 							Main.game.getDialogueFlags().reactedToKatePregnancy = true;
+						}
+						Main.game.getPlayer().incrementMoney(-500);
 					}
 				};
+				} else {
+					return new Response("Coverings ("+ Main.game.getCurrencySymbol() + " 500)", "You don't have enough money!", null);
+				}
 
-			} else if (index == 5) {
-				return new Response("Eye colour", "There's a special page near the front of the brochure, advertising Kate's ability to recolour a person's eyes."
-						+ " Just like skin recolourings, this is quite demanding on her aura, and is therefore very expensive.", null){ //SHOP_BEAUTY_SALON_EYE_COLOUR
-					@Override
-					public void effects() {
-						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy)
-							Main.game.getDialogueFlags().reactedToKatePregnancy = true;
-					}
-				};
-
-			} else if (index == 6) {
-				return new Response("Piercings", "Kate offers a wide range of different piercings.", null){//SHOP_BEAUTY_SALON_PIERCINGS
-					@Override
-					public void effects() {
-						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy)
-							Main.game.getDialogueFlags().reactedToKatePregnancy = true;
-					}
-				};
-
-			} else if (index == 7) {
+			} else if (index == 8) {
 				return new Response("Tattoos", "Most of the brochure is taken up with drawings and photographs displaying Kate's considerable artistic talents."
 						+ " She's even able to apply arcane-enchanted tattoos, but they look to be very expensive...</br>"
 						+ "<b>Will be done as soon as possible!</b>", null);
 
-			} else if (index == 8) {
+			} else if (index == 9) {
 				return new ResponseSex("Sex", "You roll your eyes as you reach the end of the brochure. On a double-page spread, there's an extremely lewd collection of pictures of Kate inserting her tail into her various orifices,"
 						+ " with the suggestive caption 'Don't make me do it myself...'", null,
 						Main.game.getKate(), new SMChairTop(), Kate.AFTER_SEX_REPEATED,
@@ -554,121 +611,39 @@ public class SuccubisSecrets {
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_HAIR_LENGTH = new DialogueNodeOld("Succubi's Secrets", "-", true) {
+	public static final DialogueNodeOld SHOP_BEAUTY_SALON_HAIR = new DialogueNodeOld("Succubi's Secrets", "-", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public String getContent() {
+		public String getHeaderContent() {
 			descriptionSB = new StringBuilder();
 			
-			descriptionSB.append("<p>"
-									+ "The front half of the brochure is filled with images of different hair styles and colourings."
-									+ " A picture of a surprisingly energetic Kate adorns one of the double-page spreads."
-									+ " She's holding her arms out to one side, drawing attention to a series of pictures, each showing a different length of hair."
-									+ " A little speech bubble, drawn coming out of her mouth, reads; "
-									+ UtilText.parseSpeech("Just let me know how long you want it!", Main.game.getKate())
-								+ "</p>"
-								
-								+ "<h6 style='text-align:center;'>"
-									+ "Hair lengths"
-								+"</h6>"
-								+ "<p style='text-align:center;'>"
-									+ "Your current length is <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>highlighted</b>."
-								+ "</p>"
-								+ "<p style='text-align:center;'>");
-								
-			for(HairLength length : HairLength.values()){
-				if(Main.game.getPlayer().getHairLength()==length)
-					descriptionSB.append("<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+Util.capitaliseSentence(length.getDescriptor())+"</b></br>");
-				else
-					descriptionSB.append(Util.capitaliseSentence(length.getDescriptor())+"</br>");
-			}
-									
-			descriptionSB.append("</p>"
-								+ "<p style='text-align:center;'>"
-								+ "A small paragraph at the bottom of the page informs you that Kate needs to use more arcane power the longer your hair is."
-								+ " As a result, the price of hair lengthening is more expensive the longer your hair gets."
-								+ " At its current length, Kate will charge you:</br>"
-								+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>30</b> for a hair cut.</br>"
-								+ "<b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" +(Main.game.getPlayer().getHairRawLengthValue()*5) +"</b> for a permanent hair extension."
-								+ "</p>");
-			
-			return descriptionSB.toString();
-		}
-		
-		@Override
-		public Response getResponse(int index) {
-			if (index == 1) {
-				if(Main.game.getPlayer().getMoney()<30) {
-					return new Response("Cut (" + Main.game.getCurrencySymbol() + " 30)", "You don't have enough money to get your hair cut!", null);
-				
-				}else if(Main.game.getPlayer().getHairLength()==HairLength.ZERO_BALD) {
-					return new Response("Cut (" + Main.game.getCurrencySymbol() + " 30)", "You are already bald, so there's nothing for Kate to cut!", null);
-				
-				} else {
-					return new Response("Cut (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 30)",
-							"Ask Kate to cut your hair a little shorter. This will shorten your hair from <b>"+Main.game.getPlayer().getHairLength().getDescriptor()+"</b> to <b>"
-								+HairLength.getShorter(Main.game.getPlayer().getHairRawLengthValue()).getDescriptor()+"</b>", SHOP_BEAUTY_SALON_HAIR_LENGTH){
-						@Override
-						public void effects() {
-							Main.game.getPlayer().incrementMoney(-30);
-							Main.game.getPlayer().setHairLength(HairLength.getShorter(Main.game.getPlayer().getHairRawLengthValue()).getMedianValue());
-							Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-									+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>30</b>."
-									+ "</p>"
-									+ "<p style='text-align:center;'>"
-									+ "With a fair amount of skill, she snips away at your "+Main.game.getPlayer().getHairName()+" with a pair of scissors, leaving you with:</br>"
-										+"<b>"+Main.game.getPlayer().getHairLength().getDescriptor()+" "+Main.game.getPlayer().getHairName()+"</b>."
-									+ "</p>");
-						}
-					};
-				}
-				
-			} else if (index == 2) {
-				if(Main.game.getPlayer().getMoney()<(Main.game.getPlayer().getHairRawLengthValue()*5)) {
-					return new Response("Lengthen (" + Main.game.getCurrencySymbol() + " " +(Main.game.getPlayer().getHairRawLengthValue()*5) +")",
-							"You don't have enough money to get your hair lengthened!", null);
-				
-				} else if(Main.game.getPlayer().getHairLength()==HairLength.SEVEN_TO_FLOOR) {
-					return new Response("Lengthen (" + Main.game.getCurrencySymbol() + " " +(Main.game.getPlayer().getHairRawLengthValue()*5) +")",
-							"You don't have enough money to get your hair cut!", null);
-				
-				} else {
-					return new Response("Lengthen (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> " +(Main.game.getPlayer().getHairRawLengthValue()*5) +")",
-							"Ask Kate to lengthen your hair. This will lengthen your hair from <b>"+Main.game.getPlayer().getHairLength().getDescriptor()+"</b> to <b>"
-									+HairLength.getLonger(Main.game.getPlayer().getHairRawLengthValue()).getDescriptor()+"</b>",
-							SHOP_BEAUTY_SALON_HAIR_LENGTH){
-						@Override
-						public void effects() {
-							int cost = (Main.game.getPlayer().getHairRawLengthValue()*5);
-							Main.game.getPlayer().incrementMoney(-cost);
-							Main.game.getPlayer().setHairLength(HairLength.getLonger(Main.game.getPlayer().getHairRawLengthValue()).getMedianValue());
-							Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-									+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+cost+"</b>."
-									+ "</p>"
-									+ "<p style='text-align:center;'>"
-									+ "With a bright pink flash, Kate harnesses her arcane aura, channelling its power into your "+Main.game.getPlayer().getHairName()+". As you open your eyes, you see that she's left you with:</br>"
-										+"<b>"+Main.game.getPlayer().getHairLength().getDescriptor()+" "+Main.game.getPlayer().getHairName()+"</b>."
-									+ "</p>");
-						}
-					};
-				}
-				
-			} else if (index == 0) {
-				return new Response("Back", "Tell Kate that you want a different service.", SHOP_BEAUTY_SALON_MAIN);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_HAIR_COLOUR = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+			descriptionSB.append(
+					"<p style='text-align:center;'><b>Length</b></br>"
+							+ CharacterModificationUtils.getHairLengthOption()
+						+ "</p>"
+						+ "<p style='text-align:center;'><b>Style</b></br>"
+							+ CharacterModificationUtils.getHairStyleOption()
+						+ "</p>"
+						+ "<p style='text-align:center;'><b>Colour</b></br>"
+							+ CharacterModificationUtils.getAllPrimaryCoveringOptions(Main.game.getPlayer().getHairCovering().getType())
+							+ "</br><b>Glow:</b></br>"
+							+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getHairCovering().isPrimaryGlowing(), false)
+						+ "</p>"
+						+ "<p style='text-align:center;'><b>Pattern</b></br>"
+							+ CharacterModificationUtils.getAllPatternOptions(Main.game.getPlayer().getHairCovering().getType())
+						+ "</p>"
+						+ (Main.game.getPlayer().getCovering(Main.game.getPlayer().getHairCovering().getType()).getPattern()!=CoveringPattern.NONE
+							?"<p style='text-align:center;'>[style.boldDisabled(Secondary colour)]</br>"
+							:"<p style='text-align:center;'><b>Secondary colour</b></br>")
+							+ CharacterModificationUtils.getAllSecondaryCoveringOptions(
+									Main.game.getPlayer().getHairCovering().getType(),
+									Main.game.getPlayer().getCovering(Main.game.getPlayer().getHairCovering().getType()).getPattern()==CoveringPattern.NONE)
+							+ "</br><b>Glow:</b></br>"
+							+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getHairCovering().isPrimaryGlowing(),
+									Main.game.getPlayer().getCovering(Main.game.getPlayer().getHairCovering().getType()).getPattern()==CoveringPattern.NONE)
+						+ "</p>");
 
-		@Override
-		public String getContent() {
-			descriptionSB = new StringBuilder();
-			
 			descriptionSB.append("<p>"
 									+ "There's a large section near the front of the brochure which shows all the different hair colours that Kate has on offer."
 									+ " It appears as though there's a separate page for each race, but the only one that applies to you is the page for ");
@@ -691,35 +666,23 @@ public class SuccubisSecrets {
 								+ " You find yourself humming and wondering if you should get your "+Main.game.getPlayer().getHairName()+" colour changed."
 						+ "</p>");
 			}
-			//TODO
-//			descriptionSB.append("<h6 style='text-align:center;'>"
-//					+ Util.capitaliseSentence(Main.game.getPlayer().getHairName())+" colours for "
-//					+ (Main.game.getPlayer().isFeminine()?Main.game.getPlayer().getHairType().getRace().getPluralFemaleName():Main.game.getPlayer().getHairType().getRace().getPluralMaleName())
-//				+"</h6>"
-//				+ "<p style='text-align:center;'>"
-//					+ "Your current colour is <b>*</b> <b>highlighted</b> <b>*</b>."
-//				+ "</p>"
-//				+ "<p style='text-align:center;'>");
-//				
-//				for(Colour colour : Main.game.getPlayer().getHairType().getAllColours()){
-//					if(Main.game.getPlayer().getHairColour()==colour)
-//						descriptionSB.append(
-//								"<b>*</b>"
-//								+" <b style='color:"+colour.toWebHexString()+";'>"+Util.capitaliseSentence(colour.getName())+"</b> "
-//								+"<b>*</b></br>");
-//					else
-//						descriptionSB.append("<span style='color:"+colour.toWebHexString()+";'>"+Util.capitaliseSentence(colour.getName())+"</span></br>");
-//				};
-				
-			descriptionSB.append("</p>"
-					+ "<p>"
-					+ "A small paragraph at the bottom of the page informs you that Kate uses a special arcane power to change your hair colour."
-					+ " It seems to be trying to emphasise the fact that this isn't a temporary dye, and will permanently change your natural colouring.</p>"
-					+ "<p style='text-align:center;'>"
-					+ "All hair recolouring costs <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>30</b>."
-					+ "</p>");
 			
+			descriptionSB.append(
+					"<p>"
+						+ " A picture of a surprisingly energetic Kate is located in the bottom-right of the double-page spread."
+						+ " She's holding her arms out to one side, drawing attention to a series of pictures, each showing a different length of hair."
+						+ " A little speech bubble, drawn coming out of her mouth, reads; "
+						+ UtilText.parseSpeech("Just let me know how long you want it!", Main.game.getKate())
+						+ "</br>Just beneath this, a small paragraph informs you that Kate uses a special arcane power to change her client's hair colouring."
+						+ " It seems to be trying to emphasise the fact that this isn't a temporary dye, and will permanently change your natural colouring."
+					+ "</p>");
+				
 			return descriptionSB.toString();
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
 		}
 		
 		@Override
@@ -727,43 +690,67 @@ public class SuccubisSecrets {
 			if (index == 0) {
 				return new Response("Back", "Tell Kate that you want a different service.", SHOP_BEAUTY_SALON_MAIN);
 				
-			}
-			//TODO
-//			else if (index-1 < Main.game.getPlayer().getHairType().getAllColours().size()) {
-//				if(Main.game.getPlayer().getMoney()<30) {
-//					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getHairType().getAllColours().get(index-1).getName())+" ("+ Main.game.getCurrencySymbol() + " 30)",
-//							"You don't have enough money to get your hair coloured!", null);
-//				
-//				}else if(Main.game.getPlayer().getHairColour()==Main.game.getPlayer().getHairType().getAllColours().get(index-1)) {
-//					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getHairType().getAllColours().get(index-1).getName())+" ("+ Main.game.getCurrencySymbol() + " 30)",
-//							"Your "+Main.game.getPlayer().getHairName()+" is already "+Main.game.getPlayer().getHairType().getAllColours().get(index-1).getName()+"!", null);
-//				
-//				} else {
-//					return new Response(
-//							Util.capitaliseSentence(Main.game.getPlayer().getHairType().getAllColours().get(index-1).getName())
-//								+" (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 30)",
-//							"Ask Kate to change your natural hair colour to "+Main.game.getPlayer().getHairType().getAllColours().get(index-1).getName()+".",
-//							SHOP_BEAUTY_SALON_HAIR_COLOUR){
-//						@Override
-//						public void effects() {
-//							Main.game.getPlayer().incrementMoney(-30);
-//							Main.game.getPlayer().setHairColour(Main.game.getPlayer().getHairType().getAllColours().get(index-1));
-//							
-//							Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-//									+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>30</b>."
-//									+ "</p>"
-//									+ "<p style='text-align:center;'>"
-//									+ "She runs her delicate fingertips down your scalp as she starts to massage your head."
-//									+ " A bright crackle of pink arcane energy suddenly leaps down from her hand, and your eyes open wide as you see your "+Main.game.getPlayer().getHairName()+" changing colour."
-//									+ " Within seconds, you're left with:</br>"
-//									+"<b style='color:"+Main.game.getPlayer().getHairColour().toWebHexString()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getHairColour().getName())+"</b> <b>"+Main.game.getPlayer().getHairName()+"</b>."
-//									+ "</p>");
-//						}
-//					};
-//				}
-//				
-//			}
-			else {
+			} if (index == 1) {
+				return new Response("[pc.Hair] length", "Cycle [pc.hair] length.", SHOP_BEAUTY_SALON_HAIR) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementHairLength();
+					}
+				};
+				
+			} else if (index == 2) {
+				return new Response("[pc.Hair] style", "Cycle your [pc.hair] style.", SHOP_BEAUTY_SALON_HAIR) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementHairStyle(Main.game.getPlayer().getHairStyle());
+					}
+				};
+				
+			} if (index == 3) {
+				return new Response("[pc.Hair] colour", "Cycle [pc.hair] colour.", SHOP_BEAUTY_SALON_HAIR) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementAllPrimaryCovering(Main.game.getPlayer().getHairCovering().getType());
+					}
+				};
+				
+			} else if (index == 4) {
+				return new Response("Primary colour glow", "Cycle whether your primary [pc.hair] colour is glowing.", SHOP_BEAUTY_SALON_HAIR) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().getHairCovering().setPrimaryGlowing(!Main.game.getPlayer().getHairCovering().isPrimaryGlowing());
+					}
+				};
+				
+			} else if (index == 5) {
+				return new Response("[pc.Hair] pattern", "Cycle [pc.hair] pattern.", SHOP_BEAUTY_SALON_HAIR) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementPatternFromAll(Main.game.getPlayer().getHairCovering().getType());
+					}
+				};
+				
+			} else if (index == 6) {
+				if(Main.game.getPlayer().getCovering(Main.game.getPlayer().getHairCovering().getType()).getPattern() != CoveringPattern.NONE) {
+					return new Response("Secondary [pc.hair] colour", "Cycle the secondary colour of your [pc.hair].", SHOP_BEAUTY_SALON_HAIR) {
+						@Override
+						public void effects() {
+							CharacterModificationUtils.incrementAllSecondaryCovering(Main.game.getPlayer().getHairCovering().getType());
+						}
+					};
+				} else {
+					return new Response("Secondary [pc.hair] colour", "You can only choose your second [pc.hair] colour if you have an appropriate pattern.", null);
+				}
+				
+			} else if (index == 7) {
+				return new Response("Secondary colour glow", "Cycle whether your secondary [pc.hair] colour is glowing.", SHOP_BEAUTY_SALON_HAIR) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().getHairCovering().setSecondaryGlowing(!Main.game.getPlayer().getHairCovering().isSecondaryGlowing());
+					}
+				};
+				
+			} else {
 				return null;
 			}
 		}
@@ -785,11 +772,11 @@ public class SuccubisSecrets {
 			+ "<p style='text-align:center;'>");
 			
 			//TODO
-//			for(BodyCoveringType st : skins){
-//				descriptionSB.append("<b style='color:"+Main.game.getPlayer().getSkinColour(st).toWebHexString()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getSkinColour(st).getName())
-//										+"</b> <b>"+st.getName(Main.game.getPlayer())+" ("+st.getRace().getName()+")</b>"
-//										+ "</br>");
-//			};
+			int i = 1;
+			for(BodyCoveringType st : skins){
+				descriptionSB.append("<b>"+i+".</b> "+Main.game.getPlayer().getCovering(st).getFullDescription(Main.game.getPlayer(), true)+ "</br>");
+				i++;
+			}
 			
 			descriptionSB.append("</p>"
 				+ "<p style='text-align:center;'>"
@@ -826,38 +813,33 @@ public class SuccubisSecrets {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public String getHeaderContent() {
+			BodyCoveringType st = Main.game.getDialogueFlags().skinTypeSelected;
+			
+			return "<p>"
+						+ "Turning the page to where all the different colours of "+Main.game.getDialogueFlags().skinTypeSelected.getName(Main.game.getPlayer())+" are displayed, you wonder if you should wake Kate and ask her for her services..."
+					+ "</p>"
+					+ "<h6 style='text-align:center;'>"
+						+Util.capitaliseSentence(Main.game.getDialogueFlags().skinTypeSelected.getName(Main.game.getPlayer()))+" colours"
+					+"</h6>"
+					+ "<p style='text-align:center;'><b>"+Util.capitaliseSentence(st.getName(Main.game.getPlayer()))+" colour</b></br>"
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(st)
+						+ "</br><b>Glow:</b></br>"
+						+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getCovering(st).isPrimaryGlowing(), false)
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>"+Util.capitaliseSentence(st.getName(Main.game.getPlayer()))+" pattern</b></br>"
+						+ CharacterModificationUtils.getAllPatternOptions(st)
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Secondary "+st.getName(Main.game.getPlayer())+" colour</b></br>"
+						+ CharacterModificationUtils.getAllSecondaryCoveringOptions(st, Main.game.getDialogueFlags().skinTypeSelected.getAllSecondaryColours().isEmpty())
+						+ "</br><b>Glow:</b></br>"
+						+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getCovering(st).isSecondaryGlowing(), Main.game.getDialogueFlags().skinTypeSelected.getAllSecondaryColours().isEmpty())
+					+ "</p>";
+		}
+		
+		@Override
 		public String getContent() {
-			descriptionSB = new StringBuilder();
-			
-			descriptionSB.append("<p>"
-									+ "Turning the page to where all the different colours of "+Main.game.getDialogueFlags().skinTypeSelected.getName(Main.game.getPlayer())+" are displayed, you wonder if you should wake Kate and ask her for her services..."
-								+ "</p>");
-			
-			descriptionSB.append("<h6 style='text-align:center;'>"
-					+Util.capitaliseSentence(Main.game.getDialogueFlags().skinTypeSelected.getName(Main.game.getPlayer()))+" colours"
-				+"</h6>"
-				+ "<p style='text-align:center;'>"
-					+ "Your current colour is <b>*</b> <b>highlighted</b> <b>*</b>."
-				+ "</p>"
-				+ "<p style='text-align:center;'>");
-				
-			//TODO
-//				for(Colour colour : Main.game.getDialogueFlags().skinTypeSelected.getAllColours()){
-//					if(Main.game.getPlayer().getSkinColour(Main.game.getDialogueFlags().skinTypeSelected)==colour)
-//						descriptionSB.append(
-//								"<b>*</b>"
-//								+" <b style='color:"+colour.toWebHexString()+";'>"+Util.capitaliseSentence(colour.getName())+"</b> "
-//								+"<b>*</b></br>");
-//					else
-//						descriptionSB.append("<span style='color:"+colour.toWebHexString()+";'>"+Util.capitaliseSentence(colour.getName())+"</span></br>");
-//				};
-				
-			descriptionSB.append("</p>"
-					+ "<p style='text-align:center;'>"
-					+ "All skin and fur recolouring costs <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
-					+ "</p>");
-			
-			return descriptionSB.toString();
+			return "";
 		}
 		
 		@Override
@@ -865,45 +847,54 @@ public class SuccubisSecrets {
 			if (index == 0) {
 				return new Response("Back", "Return to the previous page.", SHOP_BEAUTY_SALON_SKIN_COLOUR);
 				
-			} else if(index-1 < Main.game.getDialogueFlags().skinTypeSelected.getAllColours().size()) {
-				if(Main.game.getPlayer().getMoney()<200) {
-					return new Response(Util.capitaliseSentence(Main.game.getDialogueFlags().skinTypeSelected.getAllColours().get(index-1).getName())+" ("+ Main.game.getCurrencySymbol() + " 200)",
-							"You don't have enough money to get your "+ Main.game.getDialogueFlags().skinTypeSelected.getName(Main.game.getPlayer())+" recoloured!", null);
+			} else if (index == 1) {
+				return new Response("Primary colour", "Cycle primary colour.", SHOP_BEAUTY_SALON_SKIN_COLOUR_CHOICES) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementAllPrimaryCovering(Main.game.getDialogueFlags().skinTypeSelected);
+					}
+				};
 				
+			} else if (index == 2) {
+				return new Response("Primary glow", "Cycle whether your primary colour is glowing.", SHOP_BEAUTY_SALON_SKIN_COLOUR_CHOICES) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().getCovering(Main.game.getDialogueFlags().skinTypeSelected).setPrimaryGlowing(!Main.game.getPlayer().getCovering(Main.game.getDialogueFlags().skinTypeSelected).isPrimaryGlowing());
+					}
+				};
+				
+			} else if (index == 3) {
+				return new Response("Pattern", "Cycle covering pattern.", SHOP_BEAUTY_SALON_SKIN_COLOUR_CHOICES) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementPatternFromAll(Main.game.getDialogueFlags().skinTypeSelected);
+					}
+				};
+				
+			} else if (index == 4) {
+				if(!Main.game.getDialogueFlags().skinTypeSelected.getAllSecondaryColours().isEmpty()) {
+					return new Response("Secondary colour", "Cycle the secondary colour.", SHOP_BEAUTY_SALON_SKIN_COLOUR_CHOICES) {
+						@Override
+						public void effects() {
+							CharacterModificationUtils.incrementAllSecondaryCovering(Main.game.getDialogueFlags().skinTypeSelected);
+						}
+					};
+				} else {
+					return new Response("Secondary colour", "There are no secondary colour options.", null);
 				}
-				//TODO
-				return null;
-//				else if(Main.game.getPlayer().getSkinColour(Main.game.getDialogueFlags().skinTypeSelected)==Main.game.getDialogueFlags().skinTypeSelected.getAllColours().get(index-1)) {
-//					return new Response(Util.capitaliseSentence(Main.game.getDialogueFlags().skinTypeSelected.getAllColours().get(index-1).getName())+" ("+ Main.game.getCurrencySymbol() + " 200)",
-//							"Your "+Main.game.getDialogueFlags().skinTypeSelected.getName(Main.game.getPlayer())+" is already "+Main.game.getDialogueFlags().skinTypeSelected.getAllColours().get(index-1).getName()+"!", null);
-//				
-//				}
-//				else {
-//					return new Response(
-//							Util.capitaliseSentence(Main.game.getDialogueFlags().skinTypeSelected.getAllColours().get(index-1).getName())
-//								+" (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 200)",
-//							"Ask Kate to change your natural "+Main.game.getDialogueFlags().skinTypeSelected.getName(Main.game.getPlayer())+" colour to "+Main.game.getDialogueFlags().skinTypeSelected.getAllColours().get(index-1).getName()+".",
-//							SHOP_BEAUTY_SALON_SKIN_COLOUR_CHOICES){
-//						@Override
-//						public void effects() {
-//							Main.game.getPlayer().incrementMoney(-200);
-//							Main.game.getPlayer().setSkinColour(Main.game.getDialogueFlags().skinTypeSelected, Main.game.getDialogueFlags().skinTypeSelected.getAllColours().get(index-1));
-//							
-//							Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-//									+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
-//									+ "</p>"
-//									+ "<p style='text-align:center;'>"
-//									+ "She runs her delicate fingertips all over your body, and you notice that her touch lingers longer at your groin and chest than elsewhere."
-//									+ " Before you get the chance to point this out to her, a bright crackle of pink arcane energy suddenly leaps from her hands, and your eyes open wide as you see your "
-//										+Main.game.getDialogueFlags().skinTypeSelected.getName(Main.game.getPlayer())+" changing colour."
-//									+ " Within seconds, you're left with:</br>"
-//									+"<b style='color:"+Main.game.getPlayer().getSkinColour(Main.game.getDialogueFlags().skinTypeSelected).toWebHexString()+";'>"
-//										+Util.capitaliseSentence(Main.game.getPlayer().getSkinColour(Main.game.getDialogueFlags().skinTypeSelected).getName())
-//										+"</b> <b>"+Main.game.getDialogueFlags().skinTypeSelected.getName(Main.game.getPlayer())+"</b>."
-//									+ "</p>");
-//						}
-//					};
-//				}
+				
+			} else if (index == 5) {
+				if(!Main.game.getDialogueFlags().skinTypeSelected.getAllSecondaryColours().isEmpty()) {
+					return new Response("Secondary glow", "Cycle whether your secondary colour is glowing.", SHOP_BEAUTY_SALON_SKIN_COLOUR_CHOICES) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().getCovering(Main.game.getDialogueFlags().skinTypeSelected).setSecondaryGlowing(
+									!Main.game.getPlayer().getCovering(Main.game.getDialogueFlags().skinTypeSelected).isSecondaryGlowing());
+						}
+					};
+				} else {
+					return new Response("Secondary colour", "There are no secondary colour options.", null);
+				}
 				
 			} else {
 				return null;
@@ -911,59 +902,45 @@ public class SuccubisSecrets {
 		}
 	};
 
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_EYE_COLOUR = new DialogueNodeOld("Succubi's Secrets", "-", true) {
+	public static final DialogueNodeOld SHOP_BEAUTY_SALON_IRISES = new DialogueNodeOld("Succubi's Secrets", "-", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public String getContent() {
-			descriptionSB = new StringBuilder();
+		public String getHeaderContent() {
+			BodyCoveringType eyeType = Main.game.getPlayer().getEyeType().getBodyCoveringType();
 			
-			descriptionSB.append("<p>"
-									+ "There's a page near the front of the brochure which displays all the different eye colourings that Kate has on offer."
-									+ " There's separate section for each race, but the only one that applies to you is the page for ");
-			
-			if(Main.game.getPlayer().isFeminine()) {
-				descriptionSB.append(Main.game.getPlayer().getEyeType().getRace().getPluralFemaleName()+"."
-									+ "</p>");
-				
-			} else {
-				descriptionSB.append(Main.game.getPlayer().getEyeType().getRace().getPluralMaleName()+"."
-						+ "</p>");
-			}
-			
-			descriptionSB.append("<p>"
-					+ "Looking through all the different colours on offer, you wonder if you should wake Kate and ask to have your eye colour changed..."
-					+ "</p>");
-			
-			descriptionSB.append("<h6 style='text-align:center;'>"
-					+ Util.capitaliseSentence(Main.game.getPlayer().getEyeName())+" colours for "
-					+ (Main.game.getPlayer().isFeminine()?Main.game.getPlayer().getEyeType().getRace().getPluralFemaleName():Main.game.getPlayer().getEyeType().getRace().getPluralMaleName())
-				+"</h6>"
-				+ "<p style='text-align:center;'>"
-					+ "Your current colour is <b>*</b> <b>highlighted</b> <b>*</b>."
-				+ "</p>"
-				+ "<p style='text-align:center;'>");
-				
-			//TODO
-//				for(Colour colour : Main.game.getPlayer().getEyeType().getAllColours()){
-//					if(Main.game.getPlayer().getEyeColour()==colour)
-//						descriptionSB.append(
-//								"<b>*</b>"
-//								+" <b style='color:"+colour.toWebHexString()+";'>"+Util.capitaliseSentence(colour.getName())+"</b> "
-//								+"<b>*</b></br>");
-//					else
-//						descriptionSB.append("<span style='color:"+colour.toWebHexString()+";'>"+Util.capitaliseSentence(colour.getName())+"</span></br>");
-//				};
-				
-			descriptionSB.append("</p>"
+			return "<p>"
+						+ "There's a page near the front of the brochure which displays all the different eye colourings that Kate has on offer."
+						+ " There's separate section for each race, but the only one that applies to you is the page for [pc.races]."
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Iris colour</b></br>"
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(eyeType)
+						+ "</br><b>Glow:</b></br>"
+						+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getCovering(Main.game.getPlayer().getEyeType().getBodyCoveringType()).isPrimaryGlowing(), false)
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Iris pattern</b></br>"
+						+ CharacterModificationUtils.getAllPatternOptions(eyeType)
+					+ "</p>"
+					+ (Main.game.getPlayer().getCovering(eyeType).getPattern()!=CoveringPattern.EYE_IRISES_HETEROCHROMATIC
+						?"<p style='text-align:center;'>[style.boldDisabled(Heterochromatic iris colour)]</br>"
+						:"<p style='text-align:center;'><b>Heterochromatic iris colour</b></br>")
+						+ CharacterModificationUtils.getAllSecondaryCoveringOptions(eyeType, Main.game.getPlayer().getCovering(eyeType).getPattern()!=CoveringPattern.EYE_IRISES_HETEROCHROMATIC)
+						+ "</br><b>Glow:</b></br>"
+						+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getCovering(Main.game.getPlayer().getEyeType().getBodyCoveringType()).isSecondaryGlowing(),
+								Main.game.getPlayer().getCovering(eyeType).getPattern()!=CoveringPattern.EYE_IRISES_HETEROCHROMATIC)
+					+ "</p>"
+					
 					+ "<p>"
-					+ "A small paragraph at the bottom of the page informs you that Kate uses a special arcane power to change your eye colour."
-					+ " Apparently, it's extremely draining on her aura, so eye colouring is just as expensive as skin colouring.</p>"
-					+ "<p style='text-align:center;'>"
-					+ "All eye recolouring costs <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
-					+ "</p>");
-			
-			return descriptionSB.toString();
+						+ "A small paragraph at the bottom of the page informs you that Kate uses a special arcane power to change your eye colour."
+						+ " Apparently, it's extremely draining on her aura, so eye colouring is just as expensive as skin colouring.</p>"
+						+ "<p style='text-align:center;'>"
+						+ "All eye recolouring costs <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
+					+ "</p>";
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
 		}
 		
 		@Override
@@ -971,426 +948,282 @@ public class SuccubisSecrets {
 			if (index == 0) {
 				return new Response("Back", "Tell Kate that you want a different service.", SHOP_BEAUTY_SALON_MAIN);
 				
-			}
-//			else if(index-1 < Main.game.getPlayer().getEyeType().getAllColours().size()) {
-//				if(Main.game.getPlayer().getMoney()<200) {
-//					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getEyeType().getAllColours().get(index-1).getName())+" ("+ Main.game.getCurrencySymbol() + " 200)</span>",
-//							"You don't have enough money to get your [pc.eyes] recoloured!", null);
-//				
-//				}else if(Main.game.getPlayer().getEyeType().getAllColours().get(index-1) == Main.game.getPlayer().getEyeColour()) {
-//					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getEyeType().getAllColours().get(index-1).getName())+" ("+ Main.game.getCurrencySymbol() + " 200)</span>",
-//							"Your [pc.eyes] are already "+Main.game.getPlayer().getEyeType().getAllColours().get(index-1).getName()+"!", null);
-//				
-//				} else {
-//					return new Response(
-//							Util.capitaliseSentence(Main.game.getPlayer().getEyeType().getAllColours().get(index-1).getName())+" (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 200)",
-//							"Ask Kate to change your natural eye colour to "+Main.game.getPlayer().getEyeType().getAllColours().get(index-1).getName()+".",
-//							SHOP_BEAUTY_SALON_EYE_COLOUR){
-//						@Override
-//						public void effects() {
-//							Main.game.getPlayer().incrementMoney(-200);
-//							Main.game.getPlayer().setEyeColour(Main.game.getPlayer().getEyeType().getAllColours().get(index-1));
-//							
-//							Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
-//									+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
-//									+ "</p>"
-//									+ "<p style='text-align:center;'>"
-//									+ "She runs her delicate fingertips over the contours of your cheeks, slowly moving up to gently rub at your lower eyelids."
-//									+ " A bright crackle of pink arcane energy suddenly flashes across your vision, and as Kate steps back, you look into the mirror in front of you to see that your "+Main.game.getPlayer().getEyeName()+" have changed colour."
-//									+ " You now have:</br>"
-//									+"<b style='color:"+Main.game.getPlayer().getEyeColour().toWebHexString()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getEyeColour().getName())+"</b> <b>"+Main.game.getPlayer().getEyeName()+"</b>."
-//									+ "</p>");
-//						}
-//					};
-//				}
-//				
-//			}
-			else {
+			} else if (index == 1) {
+				return new Response("Iris colour", "Cycle iris colour.", SHOP_BEAUTY_SALON_IRISES) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementAllPrimaryCovering(Main.game.getPlayer().getEyeType().getBodyCoveringType());
+					}
+				};
+				
+			} else if (index == 2) {
+				return new Response("Primary iris glow", "Cycle whether your primary iris colour is glowing.", SHOP_BEAUTY_SALON_IRISES) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().getCovering(Main.game.getPlayer().getEyeType().getBodyCoveringType()).setPrimaryGlowing(!Main.game.getPlayer().getCovering(Main.game.getPlayer().getEyeType().getBodyCoveringType()).isPrimaryGlowing());
+					}
+				};
+				
+			} else if (index == 3) {
+				return new Response("Iris pattern", "Cycle iris pattern.", SHOP_BEAUTY_SALON_IRISES) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementPatternFromAll(Main.game.getPlayer().getEyeType().getBodyCoveringType());
+					}
+				};
+				
+			} else if (index == 4) {
+				if(Main.game.getPlayer().getCovering(Main.game.getPlayer().getEyeType().getBodyCoveringType()).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
+					return new Response("Second iris colour", "Cycle the colour of your other iris.", SHOP_BEAUTY_SALON_IRISES) {
+						@Override
+						public void effects() {
+							CharacterModificationUtils.incrementAllSecondaryCovering(Main.game.getPlayer().getEyeType().getBodyCoveringType());
+						}
+					};
+				} else {
+					return new Response("Second iris colour", "You can only choose your second iris colour if you are heterochromatic.", null);
+				}
+				
+			} else if (index == 5) {
+				if(Main.game.getPlayer().getCovering(Main.game.getPlayer().getEyeType().getBodyCoveringType()).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
+					return new Response("Secondary iris glow", "Cycle whether your secondary iris colour is glowing.", SHOP_BEAUTY_SALON_IRISES) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().getCovering(Main.game.getPlayer().getEyeType().getBodyCoveringType()).setSecondaryGlowing(
+									!Main.game.getPlayer().getCovering(Main.game.getPlayer().getEyeType().getBodyCoveringType()).isSecondaryGlowing());
+						}
+					};
+				} else {
+					return new Response("Secondary iris glow", "You can only cycle your secondary iris glow if you are heterochromatic.", null);
+				}
+				
+			} else {
 				return null;
 			}
 		}
 	};
 	
-	
-	private static int
-		earPiercingCost=15, earRemovalCost=30,
-		nosePiercingCost=15, noseRemovalCost=30,
-		lipsPiercingCost=25, lipsRemovalCost=50,
-		tonguePiercingCost=25, tongueRemovalCost=50,
-		navelPiercingCost=40, navelRemovalCost=80,
-		nipplePiercingCost=60, nippleRemovalCost=120,
-		vaginaPiercingCost=100, vaginaRemovalCost=200,
-		penisPiercingCost=100, penisRemovalCost=200;
-	
-	private static String pierceTableRow(String partName, int price, int priceRemoval){
-		return "<tr>"
-				+ "<td>"+partName+"</td>"
-				+ "<td><span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+"</td>"
-				+ "<td><span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+priceRemoval+"</td>"
-			+ "</tr>";
-	}
-	private static String pierceReponseTitle(String partName, int price){
-		if(Main.game.getPlayer().getMoney()<price)
-			return "<span class='option-disabled'>"+partName +" (<b>P</b>: " + Main.game.getCurrencySymbol() +" "+price+")</span>";
-		else
-			return partName +" (<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>P</b>: "+"<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+")";
-	}
-	private static String removalReponseTitle(String partName, int price){
-		if(Main.game.getPlayer().getMoney()<price)
-			return "<span class='option-disabled'>"+partName +" (<b>R</b>: " + Main.game.getCurrencySymbol() +" "+price+")</span>";
-		else
-			return partName +" (<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>R</b>: "+"<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+")";
-	}
-	private static String pierceReponseDescription(String partName, int price){
-		if(Main.game.getPlayer().getMoney()<price)
-			return "You don't have enough money to get your "+partName+" pierced!</br></br>"
-					+ "It costs <span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+", but you only have"
-							+ " <span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+Main.game.getPlayer().getMoney()+"</span>!";
-		else
-			return "Ask Kate to pierce your "+partName +". This will cost <span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+".";
-	}
-	private static String removalReponseDescription(String partName, int price){
-		if(Main.game.getPlayer().getMoney()<price)
-			return "You don't have enough money to remove the piercing from your "+partName+"!</br></br>"
-					+ "It costs <span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+", but you only have"
-							+ " <span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> <span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+Main.game.getPlayer().getMoney()+"</span>!";
-		else
-			return "Ask Kate to remove the piercing from your "+partName +". This will cost <span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+price+".";
-	}
-	
-	
+	public static final DialogueNodeOld SHOP_BEAUTY_SALON_PUPILS = new DialogueNodeOld("Succubi's Secrets", "-", true) {
+		private static final long serialVersionUID = 1L;
 
-	
-	//TODO finish all normal and masochistic piercing descriptions
-	/*
-	 * If masochist, you ask her to make it hurt.
-	 * She says she understands, she likes rough stuff as well
-	 * Painfully twists your part (to test your pain threshold)
-	 * Then doesn't use any anesthetic and it really fucking hurts
-	 * Afterwards, she says it'll only be sore for a few minutes, so she won't get another opportunity to do this
-	 * Then twists and pinches your new piercing (but you like that... right? Why else would you have taken masochism...)
-	 */
-	
-	private static StringBuilder piercingSB;
-	private static String getPiercingDescription(InventorySlot slot, int payment){
-		Main.game.getPlayer().incrementMoney(-payment);
-		
-		piercingSB = new StringBuilder();
-		
-		piercingSB.append("<p>"
-								+ "Putting the brochure down to one side, you turn to Kate and ask if she's awake."
-								+ " She lets out a huge yawn, and with blinking eyes, looks around for the source of the noise."
-								+ " Seeing that you want something, she sits up in her chair, "
-								+ UtilText.parseSpeech("Oh heya! So, you've decided on something you want?", Main.game.getKate())
-							+ "</p>");
-		
-//		if(!Main.game.getPlayer().isMasochist()) {
-			switch(slot){
-				case PIERCING_EAR:
-					return "<span style='text-align:center;'>"
-							+ "<p>"
-					+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
+		@Override
+		public String getHeaderContent() {
+			BodyCoveringType pupils = BodyCoveringType.EYE_PUPILS;
+			
+			return "<p>"
+						+ "There's a page near the front of the brochure which displays all the different eye colourings that Kate has on offer."
+						+ " There's separate section for each race, but the only one that applies to you is the page for [pc.races]."
 					+ "</p>"
-					+Main.game.getPlayer().setPiercedEar(true)
-					+"</span>";
-					// Removed for now to keep consistency with descriptions (I didn't have time to write them all!!!)
-//					piercingSB.append("<p>"
-//											+ "You tell Kate that you'd like to get your ears pierced."
-//											+ " With a happy cry, she jumps up out of her chair and steps over to you."
-//											+ " You look up at her reflection in the mirror in front of you, and as she reaches down to stroke your "+Main.game.getPlayer().getEarDescriptor()
-//											+" ears, you see a pink flicker of arcane energy crackling around her hand."
-//										+ "</p>"
-//										+ "<p>"
-//										+ GenericSentence.parsePlayerSpeech("Is this going to hurt?")
-//										+" you ask, shuffling nervously in your seat."
-//										+ "</p>"
-//										+"<p>"
-//										+ "Kate carries on softly stroking your ears as she reassures you, "
-//											+ GenericSentence.parseSpeech("No, no, no! I'm very, <i>very</i> good at this. You won't feel a thing, I promise!", Main.game.getBeautySalonOwner())
-//										+ "</p>"
-//										+ "<p>"
-//										+ "Kate steps back, and a look of deep concentration settles on her face."
-//										+ " As you watch, a sharp needle of arcane energy suddenly shoots out from her outstretched index finger, and she lets out a satisfied sigh as she visibly relaxes, "
-//										+ GenericSentence.parseSpeech("All done!", Main.game.getBeautySalonOwner())
-//										+ "</p>"
-//										+ "<p>"
-//										+ "You reach up to feel your ears, and, sure enough, you discover that they've been pierced!"
-//										+ " Turning back to Kate, you see that she's already collapsed back into her chair, and her low snores start to fill the room once more."
-//										+ " Letting out a disapproving sigh at how lazy she is, you end up having to leave her payment on the little table beside you."
-//										+ "</p>"
-//										+ "<p>"
-//										+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-//										+ "</p>"
-//										+Main.game.getPlayer().setPiercedEar(true));
-//					break;
-				case PIERCING_LIP:
-					return "<span style='text-align:center;'>"
-							+ "<p>"
-							+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-							+ "</p>"
-							+Main.game.getPlayer().setPiercedLip(true)
-							+"</span>";
-				case PIERCING_NIPPLE:
-					return "<span style='text-align:center;'>"
-							+ "<p>"
-							+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-							+ "</p>"
-							//TODO
-//							+Main.game.getPlayer().setPiercedNipple(true)
-							+"</span>";
-				case PIERCING_NOSE:
-					return "<span style='text-align:center;'>"
-							+ "<p>"
-							+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-							+ "</p>"
-							+Main.game.getPlayer().setPiercedNose(true)
-							+"</span>";
-				case PIERCING_PENIS:
-					return "<span style='text-align:center;'>"
-							+ "<p>"
-							+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-							+ "</p>"
-							+Main.game.getPlayer().setPiercedPenis(true)
-							+"</span>";
-				case PIERCING_STOMACH:
-					return "<span style='text-align:center;'>"
-							+ "<p>"
-							+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-							+ "</p>"
-							+Main.game.getPlayer().setPiercedNavel(true)
-							+"</span>";
-				case PIERCING_TONGUE:
-					return "<span style='text-align:center;'>"
-							+ "<p>"
-							+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-							+ "</p>"
-							+Main.game.getPlayer().setPiercedTongue(true)
-							+"</span>";
-				case PIERCING_VAGINA:
-					return "<span style='text-align:center;'>"
-							+ "<p>"
-							+ "You pay Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-							+ "</p>"
-							+Main.game.getPlayer().setPiercedVagina(true)
-							+"</span>";
-				default:
-					return "";
-			}
-//		}
-		
-//		return piercingSB.toString();
-	}
-	private static String getRemovalDescription(InventorySlot slot, int payment){
-		Main.game.getPlayer().incrementMoney(-payment);
-		
-		switch(slot){
-			case PIERCING_EAR:
-				return "<span style='text-align:center;'>"
-						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-						+ "</p>"
-						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_EAR)==null?""
-								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_EAR), true, Main.game.getKate()))
-						+Main.game.getPlayer().setPiercedEar(false)
-						+"</span>";
-			case PIERCING_LIP:
-				return "<span style='text-align:center;'>"
-						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-						+ "</p>"
-						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_LIP)==null?""
-								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_LIP), true, Main.game.getKate()))
-						+Main.game.getPlayer().setPiercedLip(false)
-						+"</span>";
-			case PIERCING_NIPPLE:
-				return "<span style='text-align:center;'>"
-						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-						+ "</p>"
-						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NIPPLE)==null?""
-								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NIPPLE), true, Main.game.getKate()))
-						//TODO
-//						+Main.game.getPlayer().setPiercedNipple(false)
-						+"</span>";
-			case PIERCING_NOSE:
-				return "<span style='text-align:center;'>"
-						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-						+ "</p>"
-						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NOSE)==null?""
-								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NOSE), true, Main.game.getKate()))
-						+Main.game.getPlayer().setPiercedNose(false)
-						+"</span>";
-			case PIERCING_PENIS:
-				return "<span style='text-align:center;'>"
-						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-						+ "</p>"
-						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_PENIS)==null?""
-								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_PENIS), true, Main.game.getKate()))
-						+Main.game.getPlayer().setPiercedPenis(false)
-						+"</span>";
-			case PIERCING_STOMACH:
-				return "<span style='text-align:center;'>"
-						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-						+ "</p>"
-						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_STOMACH)==null?""
-								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_STOMACH), true, Main.game.getKate()))
-						+Main.game.getPlayer().setPiercedNavel(false)
-						+"</span>";
-			case PIERCING_TONGUE:
-				return "<span style='text-align:center;'>"
-						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-						+ "</p>"
-						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_TONGUE)==null?""
-								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_TONGUE), true, Main.game.getKate()))
-						+Main.game.getPlayer().setPiercedTongue(false)
-						+"</span>";
-			case PIERCING_VAGINA:
-				return "<span style='text-align:center;'>"
-						+ "<p>"
-						+ "You paid Kate <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>"+payment+"</b>."
-						+ "</p>"
-						+(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_VAGINA)==null?""
-								:Main.game.getPlayer().unequipClothingIntoInventory(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_VAGINA), true, Main.game.getKate()))
-						+Main.game.getPlayer().setPiercedVagina(false)
-						+"</span>";
-			default:
-				return "";
+						
+					+ "<p style='text-align:center;'><b>Pupil colour</b></br>"
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(pupils)
+						+ "</br><b>Glow:</b></br>"
+						+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getCovering(Main.game.getPlayer().getEyeType().getBodyCoveringType()).isPrimaryGlowing(), false)
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Pupil pattern</b></br>"
+						+ CharacterModificationUtils.getAllPatternOptions(pupils)
+					+ "</p>"
+					+ (Main.game.getPlayer().getCovering(pupils).getPattern()!=CoveringPattern.EYE_PUPILS_HETEROCHROMATIC
+						?"<p style='text-align:center;'>[style.boldDisabled(Heterochromatic pupil colour)]</br>"
+						:"<p style='text-align:center;'><b>Heterochromatic pupil colour</b></br>")
+						+ CharacterModificationUtils.getAllSecondaryCoveringOptions(pupils, Main.game.getPlayer().getCovering(pupils).getPattern()!=CoveringPattern.EYE_PUPILS_HETEROCHROMATIC)
+						+ "</br><b>Glow:</b></br>"
+						+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getCovering(Main.game.getPlayer().getEyeType().getBodyCoveringType()).isSecondaryGlowing(),
+								Main.game.getPlayer().getCovering(pupils).getPattern()!=CoveringPattern.EYE_PUPILS_HETEROCHROMATIC)
+					+ "</p>"
+					
+					+ "<p>"
+						+ "A small paragraph at the bottom of the page informs you that Kate uses a special arcane power to change your eye colour."
+						+ " Apparently, it's extremely draining on her aura, so eye colouring is just as expensive as skin colouring.</p>"
+						+ "<p style='text-align:center;'>"
+						+ "All eye recolouring costs <b style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>200</b>."
+					+ "</p>";
 		}
-	}
-	
-	private static Response getPiercingRemovalResponse(String bodypartName, int removalCost, InventorySlot slot){
-		if(Main.game.getPlayer().getMoney()<removalCost)
-			return new Response(removalReponseTitle(bodypartName, removalCost), removalReponseDescription(bodypartName, removalCost), null);
-		else
-			return new Response(removalReponseTitle(bodypartName, removalCost), removalReponseDescription(bodypartName, removalCost), SHOP_BEAUTY_SALON_PIERCINGS){
-				@Override
-				public void effects() {
-					Main.game.getTextEndStringBuilder().append(getRemovalDescription(slot, removalCost));
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int index) {
+			if (index == 0) {
+				return new Response("Back", "Tell Kate that you want a different service.", SHOP_BEAUTY_SALON_MAIN);
+				
+			} else if (index == 1) {
+				return new Response("Pupil colour", "Cycle pupil colour.", SHOP_BEAUTY_SALON_PUPILS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.EYE_PUPILS);
+					}
+				};
+				
+			} else if (index == 2) {
+				return new Response("Primary pupil glow", "Cycle whether your primary pupil colour is glowing.", SHOP_BEAUTY_SALON_PUPILS) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().getCovering(BodyCoveringType.EYE_PUPILS).setPrimaryGlowing(!Main.game.getPlayer().getCovering(BodyCoveringType.EYE_PUPILS).isPrimaryGlowing());
+					}
+				};
+				
+			} else if (index == 3) {
+				return new Response("Pupil pattern", "Cycle pupil pattern.", SHOP_BEAUTY_SALON_PUPILS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementPatternFromAll(BodyCoveringType.EYE_PUPILS);
+					}
+				};
+				
+			} else if (index == 4) {
+				if(Main.game.getPlayer().getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
+					return new Response("Second pupil colour", "Cycle the colour of your other pupil.", SHOP_BEAUTY_SALON_PUPILS) {
+						@Override
+						public void effects() {
+							CharacterModificationUtils.incrementAllSecondaryCovering(BodyCoveringType.EYE_PUPILS);
+						}
+					};
+				} else {
+					return new Response("Second pupil colour", "You can only choose your second pupil colour if you are heterochromatic.", null);
 				}
-			};
-	}
-	private static Response getPiercingPierceResponse(String bodypartName, int removalCost, InventorySlot slot){
-		if(Main.game.getPlayer().getMoney()<removalCost)
-			return new Response(pierceReponseTitle(bodypartName, removalCost), pierceReponseDescription(bodypartName, removalCost), null);
-		else
-			return new Response(pierceReponseTitle(bodypartName, removalCost), pierceReponseDescription(bodypartName, removalCost), SHOP_BEAUTY_SALON_PIERCINGS){
-				@Override
-				public void effects() {
-					Main.game.getTextEndStringBuilder().append(getPiercingDescription(slot, removalCost));
+				
+			} else if (index == 5) {
+				if(Main.game.getPlayer().getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
+					return new Response("Secondary pupil glow", "Cycle whether your secondary pupil colour is glowing.", SHOP_BEAUTY_SALON_PUPILS) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().getCovering(BodyCoveringType.EYE_PUPILS).setSecondaryGlowing(
+									!Main.game.getPlayer().getCovering(BodyCoveringType.EYE_PUPILS).isSecondaryGlowing());
+						}
+					};
+				} else {
+					return new Response("Secondary pupil glow", "You can only cycle your secondary pupil glow if you are heterochromatic.", null);
 				}
-			};
-	}
+				
+			} else {
+				return null;
+			}
+		}
+	};
 	
 	public static final DialogueNodeOld SHOP_BEAUTY_SALON_PIERCINGS = new DialogueNodeOld("Succubi's Secrets", "-", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public String getContent() {
+		public String getHeaderContent() {
 			descriptionSB = new StringBuilder();
 			
-			descriptionSB.append("<p>"
+			descriptionSB.append("<p style='text-align:center;'><b>Ear piercing</b></br>"
+									+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedEar())
+								+ "</p>"
+								+ "<p style='text-align:center;'><b>Nose piercing</b></br>"
+									+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedNose())
+								+ "</p>"
+								+ "<p style='text-align:center;'><b>Lip piercing</b></br>"
+									+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedLip())
+								+ "</p>"
+								+ "<p style='text-align:center;'><b>Navel piercing</b></br>"
+									+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedNavel())
+								+ "</p>"
+								+ "<p style='text-align:center;'><b>Tongue piercing</b></br>"
+									+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedTongue())
+								+ "</p>"
+								+ "<p style='text-align:center;'><b>Nipple piercing</b></br>"
+									+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedNipple())
+								+ "</p>"
+								+ "<p style='text-align:center;'><b>Penis piercing</b></br>"
+									+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedPenis())
+								+ "</p>"
+								+ "<p style='text-align:center;'><b>Vagina piercing</b></br>"
+									+ CharacterModificationUtils.getPiercingsOptions(Main.game.getPlayer().isPiercedVagina())
+								+ "</p>"
+								+"<p>"
 									+ "You flip back to the piercings section of the brochure."
 									+ " There's a very professional-looking picture of Kate on one side of the double-page spread, bending down over a faceless client as she pierces their navel."
 									+ " On the opposite side of the page, there's a table of all the available piercings that Kate's able to provide."
-								+ "</p>"
-								+ "<p style='text-align:center;'>"
-	
-									+ "<b>Standard piercings:</b>"
-									+"<table style='font-size:1em; text-align:center; margin: 0 auto;'>"
-									+ "<tr>"
-										+ "<th style='padding:0 8px 0 8px;'>Part</th>"
-										+ "<th style='padding:0 8px 0 8px; color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Pierce</th>"
-										+ "<th style='padding:0 8px 0 8px; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Removal</th>"
-									+ "</tr>"
-									+ pierceTableRow("Ears", earPiercingCost, earRemovalCost)
-									+ pierceTableRow("Nose", nosePiercingCost, noseRemovalCost)
-									+ pierceTableRow("Lips", lipsPiercingCost, lipsRemovalCost)
-									+ pierceTableRow("Tongue", tonguePiercingCost, tongueRemovalCost)
-									+ pierceTableRow("Navel", navelPiercingCost, navelRemovalCost)
-									+ "</table>"
-									
-									+ "</br></br><b>Special piercings:</b>"
-									+"<table style='font-size:1em; text-align:center; margin: 0 auto;'>"
-									+ "<tr>"
-										+ "<th style='padding:0 8px 0 8px;'>Part</th>"
-										+ "<th style='padding:0 8px 0 8px; color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Pierce</th>"
-										+ "<th style='padding:0 8px 0 8px; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Removal</th>"
-									+ "</tr>"
-									+ pierceTableRow("Nipples", nipplePiercingCost, nippleRemovalCost)
-									+ pierceTableRow("Vagina", vaginaPiercingCost, vaginaRemovalCost)
-									+ pierceTableRow("Penis", penisPiercingCost, penisRemovalCost)
-									+ "</table>"
 								+ "</p>");
 			
 			return descriptionSB.toString();
+		}
+
+		@Override
+		public String getContent() {
+			return "";
 		}
 		
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if(Main.game.getPlayer().isPiercedEar()) {
-					return getPiercingRemovalResponse("Ears", earRemovalCost, InventorySlot.PIERCING_EAR);
-				} else {
-					return getPiercingPierceResponse("Ears", earPiercingCost, InventorySlot.PIERCING_EAR);
-				}
-
+				return new Response("Ear Piercing", "Cycle ear piercing.", SHOP_BEAUTY_SALON_PIERCINGS) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setPiercedEar(!Main.game.getPlayer().isPiercedEar());
+					}
+				};
+				
 			} else if (index == 2) {
-				if(Main.game.getPlayer().isPiercedNose()) {
-					return getPiercingRemovalResponse("Nose", noseRemovalCost, InventorySlot.PIERCING_NOSE);
-				} else {
-					return getPiercingPierceResponse("Nose", nosePiercingCost, InventorySlot.PIERCING_NOSE);
-				}
-
+				return new Response("Nose Piercing", "Cycle nose piercing.", SHOP_BEAUTY_SALON_PIERCINGS) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setPiercedNose(!Main.game.getPlayer().isPiercedNose());
+					}
+				};
+				
 			} else if (index == 3) {
-				if(Main.game.getPlayer().isPiercedLip()) {
-					return getPiercingRemovalResponse("Lips", lipsRemovalCost, InventorySlot.PIERCING_LIP);
-				} else {
-					return getPiercingPierceResponse("Lips", lipsPiercingCost, InventorySlot.PIERCING_LIP);
-				}
-
+				return new Response("Lip Piercing", "Cycle lip piercing.", SHOP_BEAUTY_SALON_PIERCINGS) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setPiercedLip(!Main.game.getPlayer().isPiercedLip());
+					}
+				};
+				
 			} else if (index == 4) {
-				if(Main.game.getPlayer().isPiercedTongue()) {
-					return getPiercingRemovalResponse("Tongue", tongueRemovalCost, InventorySlot.PIERCING_TONGUE);
-				} else {
-					return getPiercingPierceResponse("Tongue", tonguePiercingCost, InventorySlot.PIERCING_TONGUE);
-				}
-
+				return new Response("Navel Piercing", "Cycle navel piercing.", SHOP_BEAUTY_SALON_PIERCINGS) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setPiercedNavel(!Main.game.getPlayer().isPiercedNavel());
+					}
+				};
+				
 			} else if (index == 5) {
-				if(Main.game.getPlayer().isPiercedNavel()) {
-					return getPiercingRemovalResponse("Navel", navelRemovalCost, InventorySlot.PIERCING_STOMACH);
-				} else {
-					return getPiercingPierceResponse("Navel", navelPiercingCost, InventorySlot.PIERCING_STOMACH);
-				}
-
+				return new Response("Tongue Piercing", "Cycle tongue piercing.", SHOP_BEAUTY_SALON_PIERCINGS) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setPiercedTongue(!Main.game.getPlayer().isPiercedTongue());
+					}
+				};
+				
 			} else if (index == 6) {
-				if(Main.game.getPlayer().isPiercedNipple()) {
-					return getPiercingRemovalResponse("Nipples", nippleRemovalCost, InventorySlot.PIERCING_NIPPLE);
-				} else {
-					return getPiercingPierceResponse("Nipples", nipplePiercingCost, InventorySlot.PIERCING_NIPPLE);
-				}
-
+				return new Response("Nipple Piercings", "Cycle nipple piercings.", SHOP_BEAUTY_SALON_PIERCINGS) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setPiercedNipples(!Main.game.getPlayer().isPiercedNipple());
+					}
+				};
+				
 			} else if (index == 7) {
-				if(Main.game.getPlayer().getVaginaType()==VaginaType.NONE) {
-					return new Response("Vagina (<b>P</b>: " + Main.game.getCurrencySymbol() +" "+vaginaPiercingCost+")", "You don't have a vagina, so it would be pretty hard for Kate to do this!", null);
-				} else if(Main.game.getPlayer().isPiercedVagina()) {
-					return getPiercingRemovalResponse("Vagina", vaginaRemovalCost, InventorySlot.PIERCING_VAGINA);
+				if(Main.game.getPlayer().hasPenis()) {
+					return new Response("Penis Piercing", "Cycle penis piercings.", SHOP_BEAUTY_SALON_PIERCINGS) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setPiercedPenis(!Main.game.getPlayer().isPiercedPenis());
+						}
+					};
 				} else {
-					return getPiercingPierceResponse("Vagina", vaginaPiercingCost, InventorySlot.PIERCING_VAGINA);
+					return new Response("Penis Piercing", "You don't have a penis to pierce.", null);
 				}
-
+				
 			} else if (index == 8) {
-				if(Main.game.getPlayer().getPenisType()==PenisType.NONE) {
-					return new Response("Penis (<b>P</b>: " + Main.game.getCurrencySymbol() +" "+penisPiercingCost+")", "You don't have a penis, so it would be pretty hard for Kate to do this!", null);
-				} else if(Main.game.getPlayer().isPiercedPenis()) {
-					return getPiercingRemovalResponse("Penis", penisRemovalCost, InventorySlot.PIERCING_PENIS);
+				if(Main.game.getPlayer().hasVagina()) {
+					return new Response("Vagina Piercing", "Cycle vagina piercings.", SHOP_BEAUTY_SALON_PIERCINGS) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setPiercedVagina(!Main.game.getPlayer().isPiercedVagina());
+						}
+					};
 				} else {
-					return getPiercingPierceResponse("Penis", penisPiercingCost, InventorySlot.PIERCING_PENIS);
+					return new Response("Vagina Piercing", "You don't have a vagina to pierce.", null);
 				}
-
+				
 			} else if (index == 0) {
 				return new Response("Back", "Tell Kate that you want a different service.", SHOP_BEAUTY_SALON_MAIN);
 
@@ -1399,6 +1232,202 @@ public class SuccubisSecrets {
 			}
 		}
 	};
+	
+	public static final DialogueNodeOld SHOP_BEAUTY_SALON_COSMETICS = new DialogueNodeOld("", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel() {
+			return "Cosmetics";
+		}
+
+		@Override
+		public String getHeaderContent() {
+			return "<p style='text-align:center;'>"
+						+ "<i>All of these options can be changed later on in the game, by visiting Kate's shop.</i>"
+					+ "</p>"
+					
+					+ "<p style='text-align:center;'><b>Blusher</b></br>"
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.MAKEUP_BLUSHER)
+						+ "</br>"
+						+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getBlusher().isPrimaryGlowing(), Main.game.getPlayer().getBlusher().getPrimaryColour()!=Colour.COVERING_NONE)
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Lipstick</b></br>"
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.MAKEUP_LIPSTICK)
+						+ "</br>"
+						+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getLipstick().isPrimaryGlowing(), Main.game.getPlayer().getLipstick().getPrimaryColour()!=Colour.COVERING_NONE)
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Eyeliner</b></br>"
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.MAKEUP_EYE_LINER)
+						+ "</br>"
+						+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getEyeLiner().isPrimaryGlowing(), Main.game.getPlayer().getEyeLiner().getPrimaryColour()!=Colour.COVERING_NONE)
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Eyeshadow</b></br>"
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.MAKEUP_EYE_SHADOW)
+						+ "</br>"
+						+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getEyeShadow().isPrimaryGlowing(), Main.game.getPlayer().getEyeShadow().getPrimaryColour()!=Colour.COVERING_NONE)
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Nail polish</b></br>"
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS)
+						+ "</br>"
+						+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getHandNailPolish().isPrimaryGlowing(), Main.game.getPlayer().getHandNailPolish().getPrimaryColour()!=Colour.COVERING_NONE)
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Toenail polish</b></br>"
+						+ CharacterModificationUtils.getAllPrimaryCoveringOptions(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET)
+						+ "</br>"
+						+ CharacterModificationUtils.getGlowOptions(Main.game.getPlayer().getFootNailPolish().isPrimaryGlowing(), Main.game.getPlayer().getFootNailPolish().getPrimaryColour()!=Colour.COVERING_NONE)
+					+ "</p>"
+					+ "<p style='text-align:center;'><b>Anal Bleaching</b></br>"
+						+ CharacterModificationUtils.getAnusBleachedOption()
+					+ "</p>";
+			
+			
+		}
+
+		@Override
+		public String getContent() {
+			return null;
+		}
+		
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Blusher colour", "Cycle blusher colour.", SHOP_BEAUTY_SALON_COSMETICS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.MAKEUP_BLUSHER);
+					}
+				};
+				
+			} if (index == 2) {
+				if(Main.game.getPlayer().getBlusher().getPrimaryColour()!=Colour.COVERING_NONE) {
+					return new Response("Blusher glow", "Cycle blusher glow.", SHOP_BEAUTY_SALON_COSMETICS) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().getBlusher().setPrimaryGlowing(!Main.game.getPlayer().getBlusher().isPrimaryGlowing());
+						}
+					};
+				} else {
+					return new Response("Blusher glow", "You can't make your blusher glow if you aren't wearing any!", null);
+				}
+				
+			} if (index == 3) {
+				return new Response("Lipstick colour", "Cycle lipstick colour.", SHOP_BEAUTY_SALON_COSMETICS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.MAKEUP_LIPSTICK);
+					}
+				};
+				
+			} if (index == 4) {
+				if(Main.game.getPlayer().getLipstick().getPrimaryColour()!=Colour.COVERING_NONE) {
+					return new Response("Lipstick glow", "Cycle lipstick glow.", SHOP_BEAUTY_SALON_COSMETICS) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().getLipstick().setPrimaryGlowing(!Main.game.getPlayer().getLipstick().isPrimaryGlowing());
+						}
+					};
+				} else {
+					return new Response("Lipstick glow", "You can't make your lipstick glow if you aren't wearing any!", null);
+				}
+				
+			} if (index == 5) {
+				return new Response("Eyeliner colour", "Cycle eyeliner colour.", SHOP_BEAUTY_SALON_COSMETICS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.MAKEUP_EYE_LINER);
+					}
+				};
+				
+			} if (index == 6) {
+				if(Main.game.getPlayer().getEyeLiner().getPrimaryColour()!=Colour.COVERING_NONE) {
+					return new Response("Eyeliner glow", "Cycle eyeliner glow.", SHOP_BEAUTY_SALON_COSMETICS) {
+						@Override
+						public void effects() {
+								Main.game.getPlayer().getEyeLiner().setPrimaryGlowing(!Main.game.getPlayer().getEyeLiner().isPrimaryGlowing());
+						}
+					};
+				} else {
+					return new Response("Eyeliner glow", "You can't make your eyeliner glow if you aren't wearing any!", null);
+				}
+				
+			} if (index == 7) {
+				return new Response("Eyeshadow colour", "Cycle eyeshadow colour.", SHOP_BEAUTY_SALON_COSMETICS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.MAKEUP_EYE_SHADOW);
+					}
+				};
+				
+			} if (index == 8) {
+				if(Main.game.getPlayer().getEyeShadow().getPrimaryColour()!=Colour.COVERING_NONE) {
+					return new Response("Eyeshadow glow", "Cycle eyeshadow glow.", SHOP_BEAUTY_SALON_COSMETICS) {
+						@Override
+						public void effects() {
+								Main.game.getPlayer().getEyeShadow().setPrimaryGlowing(!Main.game.getPlayer().getEyeShadow().isPrimaryGlowing());
+						}
+					};
+				} else {
+					return new Response("Eyeshadow glow", "You can't make your eyeshadow glow if you aren't wearing any!", null);
+				}
+				
+			} if (index == 9) {
+				return new Response("Nail polish colour", "Cycle nail polish colour.", SHOP_BEAUTY_SALON_COSMETICS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS);
+					}
+				};
+				
+			} if (index == 10) {
+				if(Main.game.getPlayer().getHandNailPolish().getPrimaryColour()!=Colour.COVERING_NONE) {
+					return new Response("Nail polish glow", "Cycle nail polish glow.", SHOP_BEAUTY_SALON_COSMETICS) {
+						@Override
+						public void effects() {
+								Main.game.getPlayer().getHandNailPolish().setPrimaryGlowing(!Main.game.getPlayer().getHandNailPolish().isPrimaryGlowing());
+						}
+					};
+				} else {
+					return new Response("Nail polish glow", "You can't make your nail polish glow if you aren't wearing any!", null);
+				}
+				
+			} if (index == 11) {
+				return new Response("Toenail polish colour", "Cycle toenail polish colour.", SHOP_BEAUTY_SALON_COSMETICS) {
+					@Override
+					public void effects() {
+						CharacterModificationUtils.incrementAllPrimaryCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET);
+					}
+				};
+				
+			} if (index == 12) {
+				if(Main.game.getPlayer().getFootNailPolish().getPrimaryColour()!=Colour.COVERING_NONE) {
+					return new Response("Toenail polish glow", "Cycle toenail polish glow.", SHOP_BEAUTY_SALON_COSMETICS) {
+						@Override
+						public void effects() {
+								Main.game.getPlayer().getFootNailPolish().setPrimaryGlowing(!Main.game.getPlayer().getFootNailPolish().isPrimaryGlowing());
+						}
+					};
+				} else {
+					return new Response("Toenail polish glow", "You can't make your toenail polish glow if you aren't wearing any!", null);
+				}
+				
+			} else if (index == 13) {
+				return new Response("Anal bleach", "Cycle whether your anus is bleached or not.", SHOP_BEAUTY_SALON_COSMETICS) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setAssBleached(!Main.game.getPlayer().isAssBleached());
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "Tell Kate that you want a different service.", SHOP_BEAUTY_SALON_MAIN);
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
 	public static final DialogueNodeOld SHOP_BEAUTY_SALON_TATTOOS = new DialogueNodeOld("Succubi's Secrets", "-", true) {
 		private static final long serialVersionUID = 1L;
 

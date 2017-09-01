@@ -234,8 +234,8 @@ public class Lab {
 	
 					} else if(index == 2) {
 						if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY).getSortingOrder() == 0) {
-								if (Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() <= Quest.MAIN_1_A_LILAYAS_TESTS.getSortingOrder()) {
+							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) == Quest.SIDE_ENCHANTMENTS_LILAYA_HELP) {
+								if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
 									return new Response("Essences", "You'll need to complete Lilaya's initial tests before you're able to ask her about that strange energy you absorbed.", null);
 									
 								} else {
@@ -254,7 +254,7 @@ public class Lab {
 	
 					} else if (index == 3) {
 						if (Main.game.getPlayer().isVisiblyPregnant()) {
-							if (Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() <= Quest.MAIN_1_A_LILAYAS_TESTS.getSortingOrder()) {
+							if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
 								return new Response("Pregnancy", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your pregnancy.", null);
 								
 							} else {
@@ -262,7 +262,7 @@ public class Lab {
 									@Override
 									public QuestLine getQuestLine() {
 										if (Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
-											if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY).getSortingOrder() == 0) {
+											if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_CONSULT_LILAYA) {
 												return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
 											} else {
 												return null;
@@ -284,8 +284,8 @@ public class Lab {
 						
 					} else if(index == 4) {
 						if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING)) {
-							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_JINXED_CLOTHING).getSortingOrder() == 0) {
-								if (Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() <= Quest.MAIN_1_A_LILAYAS_TESTS.getSortingOrder()) {
+							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_JINXED_CLOTHING) == Quest.SIDE_JINXED_LILAYA_HELP) {
+								if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
 									return new Response("Jinxed help", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your jinxed clothing.", null);
 									
 								} else {
@@ -303,7 +303,7 @@ public class Lab {
 					} else if(index == 5) {
 						if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)) {
 							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_NEED_RECOMMENDATION) {
-								if (Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() <= Quest.MAIN_1_A_LILAYAS_TESTS.getSortingOrder()) {
+								if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
 									return new Response("Slaver", "You'll need to complete Lilaya's initial tests before you can ask her for a letter of recommendation.", null);
 									
 								} else {
@@ -1522,7 +1522,7 @@ public class Lab {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (player.getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY).getSortingOrder() == 0) {
+			if (player.getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_CONSULT_LILAYA) {
 				
 				UtilText.nodeContentSB.append(
 						"<p>"

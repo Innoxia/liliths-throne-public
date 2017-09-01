@@ -15,7 +15,7 @@
    id="svg4311"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="modifier_circle_size_decrease.svg">
+   sodipodi:docname="modifier_circle_internal.svg">
   <defs
      id="defs4313">
     <pattern
@@ -34,8 +34,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="11.313708"
-     inkscape:cx="14.166954"
-     inkscape:cy="21.309185"
+     inkscape:cx="35.446406"
+     inkscape:cy="33.109106"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -53,7 +53,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -70,6 +70,13 @@
        cy="1021.1718"
        rx="23.947079"
        ry="23.607878" />
+    <ellipse
+       style="fill:#ff5555;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4157"
+       cx="31.819807"
+       cy="1021.1168"
+       rx="11.755651"
+       ry="11.534679" />
     <path
        style="fill:#f9f9f9;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 33.182662,1000.6875 c 8.461942,1.1166 16.42753,3.7425 20.24587,18.9804 -11.689625,-16.7044 -13.195655,-13.7536 -20.24587,-18.9804 z"
@@ -82,35 +89,12 @@
        id="path4283"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccc" />
-    <g
-       id="g4141"
-       transform="matrix(-1,0,0,-1,63.26157,2042.7842)">
-      <ellipse
-         ry="3.9204726"
-         rx="4.1079726"
-         cy="1027.8622"
-         cx="22.9375"
-         id="path4156"
-         style="fill:#ff2a2a;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none" />
-      <ellipse
-         ry="9.865859"
-         rx="10.115859"
-         cy="1017.8622"
-         cx="36.437504"
-         id="path4156-6"
-         style="display:inline;fill:#ffaaaa;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none" />
-      <path
-         sodipodi:nodetypes="cc"
-         inkscape:connector-curvature="0"
-         id="path4173"
-         d="m 27.948224,1012.462 -8.401348,13.1033"
-         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.5, 1;stroke-dashoffset:0;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="cc"
-         inkscape:connector-curvature="0"
-         id="path4175"
-         d="m 24.093751,1031.6122 15.639785,-4.4002"
-         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.5, 1;stroke-dashoffset:0;stroke-opacity:1" />
-    </g>
+    <ellipse
+       style="fill:#ffaaaa;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4155"
+       cx="31.775614"
+       cy="1020.8959"
+       rx="5.0823302"
+       ry="4.8613591" />
   </g>
 </svg>

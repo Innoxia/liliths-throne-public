@@ -4,7 +4,7 @@ import com.base.main.Main;
 
 /**
  * @since 0.1.6?
- * @version 0.1.78
+ * @version 0.1.83
  * @author Innoxia
  */
 public enum LubricationType {
@@ -46,14 +46,14 @@ public enum LubricationType {
 	PLAYER_CUM(false) {
 		@Override
 		public String getName() {
-			return "your "+Main.game.getPlayer().getPenisType().getCumName(Main.game.getPlayer());
+			return "your "+Main.game.getPlayer().getCumName();
 		}
 	},
 	PARTNER_CUM(false) {
 		@Override
 		public String getName() {
 			if(Sex.getPartner()!=null) {
-				return Sex.getPartner().getName("the")+"'s "+Sex.getPartner().getPenisType().getCumName(Sex.getPartner());
+				return Sex.getPartner().getName("the")+"'s "+Sex.getPartner().getCumName();
 			} else {
 				return "cum";
 			}

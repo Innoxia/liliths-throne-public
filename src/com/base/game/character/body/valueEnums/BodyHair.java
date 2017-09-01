@@ -23,7 +23,7 @@ public enum BodyHair {
 		this.descriptor = descriptor;
 		this.colour=colour;
 	}
-
+	
 	public int getValue() {
 		return value;
 	}
@@ -34,5 +34,14 @@ public enum BodyHair {
 
 	public Colour getColour() {
 		return colour;
+	}
+	
+	public static BodyHair getBodyHairFromValue(int value) {
+		for(BodyHair bh : BodyHair.values()) {
+			if(bh.getValue() == value) {
+				return bh;
+			}
+		}
+		return NONE;
 	}
 }

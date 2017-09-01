@@ -19,7 +19,7 @@ public enum FluidFlavour {
 	
 	MILK("milk", BaseColour.WHITE,
 			Util.newArrayListOfValues(
-					new ListValue<>(""))),
+					new ListValue<>("creamy"))),
 	
 	GIRL_CUM("girl-cum", BaseColour.WHITE,
 			Util.newArrayListOfValues(
@@ -29,6 +29,16 @@ public enum FluidFlavour {
 			Util.newArrayListOfValues(
 					new ListValue<>("sweet"))),
 	
+	
+	BEER("beer", BaseColour.TAN,
+			Util.newArrayListOfValues(
+					new ListValue<>("yeasty"),
+					new ListValue<>("beer-flavoured"))),
+	
+	VANILLA("vanilla", BaseColour.YELLOW_LIGHT,
+			Util.newArrayListOfValues(
+					new ListValue<>("sweet"),
+					new ListValue<>("vanilla-flavoured"))),
 	
 	STRAWBERRY("strawberries", BaseColour.ROSE,
 			Util.newArrayListOfValues(

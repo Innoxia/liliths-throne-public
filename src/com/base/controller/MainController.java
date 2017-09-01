@@ -391,6 +391,8 @@ public class MainController implements Initializable {
 //						 System.out.println(event.getCode());
 						 if(event.getCode()==KeyCode.END){
 							 
+							 System.out.println(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
+							 
 //							 webViewMain = new WebView();
 //							 webViewAttributes = new WebView(); 
 //							 webViewInventory = new WebView();
@@ -1359,9 +1361,7 @@ public class MainController implements Initializable {
 					Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
 						@Override
 						public void effects() {
-							EnchantmentDialogue.ingredient = null;
-							EnchantmentDialogue.primaryMod = TFModifier.NONE;
-							EnchantmentDialogue.secondaryMod = TFModifier.NONE;
+							EnchantmentDialogue.resetEnchantmentVariables();
 						}
 					});
 				}, false);
@@ -1413,13 +1413,13 @@ public class MainController implements Initializable {
 			if (((EventTarget) document.getElementById("ENCHANT_ADD_BUTTON")) != null) {
 				
 				((EventTarget) document.getElementById("ENCHANT_ADD_BUTTON")).addEventListener("click", e -> {
-					if(EnchantmentDialogue.ingredient.getEnchantmentEffect().getEffectsDescription(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)==null) {
+					if(EnchantmentDialogue.ingredient.getEnchantmentEffect().getEffectsDescription(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod, EnchantmentDialogue.potency, EnchantmentDialogue.limit, Main.game.getPlayer(), Main.game.getPlayer())==null) {
 						
 					} else {
 						Main.game.setContent(new Response("Add", "Add the effect.", EnchantmentDialogue.ENCHANTMENT_MENU){
 							@Override
 							public void effects() {
-								EnchantmentDialogue.effects.add(new ItemEffect(EnchantmentDialogue.ingredient.getEnchantmentEffect(), EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod));
+								EnchantmentDialogue.effects.add(new ItemEffect(EnchantmentDialogue.ingredient.getEnchantmentEffect(), EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod, EnchantmentDialogue.potency, EnchantmentDialogue.limit));
 							}
 						});
 					}

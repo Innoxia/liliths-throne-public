@@ -48,9 +48,9 @@ public class Pix extends NPC {
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DOG_MORPH, Colour.EYE_BROWN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_CANINE_FUR, Colour.COVERING_BROWN_DARK));
-		this.setCovering(new Covering(BodyCoveringType.CANINE_FUR, Colour.COVERING_BROWN));
-		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_CANINE_FUR, Colour.COVERING_BROWN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.CANINE_FUR, Colour.COVERING_BROWN), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
 
 		this.setVaginaVirgin(false);
 		this.setVaginaCapacity(Capacity.FOUR_LOOSE.getMedianValue());

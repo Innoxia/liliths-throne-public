@@ -49,9 +49,9 @@ public class Scarlett extends NPC {
 		this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
 		
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BROWN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_RED));
-		this.setCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_PINK));
-		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_RED), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_PINK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
 
 		this.setAssVirgin(true);
 		this.setFaceVirgin(true);

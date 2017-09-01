@@ -1016,12 +1016,13 @@ public class OptionsDialogue {
 						+ "These options determine what content is enabled in the game."
 						+"</br>"
 						+ "</br><b style='color:"+BaseColour.CRIMSON.toWebHexString()+";'>Non-con:</b> This enables the 'resist' pace in sex scenes, which contains some more extreme non-consensual descriptions."
-						+ "</br></br><b style='color:"+BaseColour.ROSE.toWebHexString()+";'>Incest:</b> This enables you to randomly encounter your offspring in Dominion's alleyways."
-						+ "</br></br><b style='color:"+BaseColour.GREEN_LIGHT.toWebHexString()+";'>Forced TF:</b> This enables special forced transformation scenes, as well as random NPCs transforming you if you lose combat to them."
-						+ "</br></br><b style='color:"+BaseColour.LILAC_LIGHT.toWebHexString()+";'>Facial hair:</b> This enables facial hair descriptions."
-						+ "</br></br><b style='color:"+BaseColour.LILAC.toWebHexString()+";'>Pubic hair:</b> This enables pubic hair descriptions."
-						+ "</br></br><b style='color:"+BaseColour.PURPLE.toWebHexString()+";'>Full body hair:</b> This enables body hair descriptions for all character's armpits and assholes."
+						+ "</br><b style='color:"+BaseColour.ROSE.toWebHexString()+";'>Incest:</b> This enables you to randomly encounter your offspring in Dominion's alleyways."
+						+ "</br><b style='color:"+BaseColour.GREEN_LIGHT.toWebHexString()+";'>Forced TF:</b> This enables special forced transformation scenes, as well as random NPCs transforming you if you lose combat to them."
+						+ "</br><b style='color:"+BaseColour.LILAC_LIGHT.toWebHexString()+";'>Facial hair:</b> This enables facial hair descriptions."
+						+ "</br><b style='color:"+BaseColour.LILAC.toWebHexString()+";'>Pubic hair:</b> This enables pubic hair descriptions."
+						+ "</br><b style='color:"+BaseColour.PURPLE.toWebHexString()+";'>Full body hair:</b> This enables body hair descriptions for all character's armpits and assholes."
 								+ " (You'll still need to enable 'Pubic hair' to see hairy genitals.)"
+						+ "</br><b style='color:"+BaseColour.MAGENTA.toWebHexString()+";'>Furry tail penetrations:</b> This enables furry tails to engage in penetrative actions in sex."
 					+ "</div>"
 							
 					+ "<span style='height:16px;width:800px;float:left;'></span>"
@@ -1034,6 +1035,7 @@ public class OptionsDialogue {
 							+ "<tr><td><b style='color:"+BaseColour.LILAC_LIGHT.toWebHexString()+";'>Facial hair:</b></td><td>"+(Main.getProperties().facialHairContent?"[style.boldGood(ON)]":"[style.boldBad(OFF)]")+"</td></tr>"
 							+ "<tr><td><b style='color:"+BaseColour.LILAC.toWebHexString()+";'>Pubic hair:</b></td><td>"+(Main.getProperties().pubicHairContent?"[style.boldGood(ON)]":"[style.boldBad(OFF)]")+"</td></tr>"
 							+ "<tr><td><b style='color:"+BaseColour.PURPLE.toWebHexString()+";'>Full body hair:</b></td><td>"+(Main.getProperties().bodyHairContent?"[style.boldGood(ON)]":"[style.boldBad(OFF)]")+"</td></tr>"
+							+ "<tr><td><b style='color:"+BaseColour.MAGENTA.toWebHexString()+";'>Furry tail penetrations:</b></td><td>"+(Main.getProperties().furryTailPenetrationContent?"[style.boldGood(ON)]":"[style.boldBad(OFF)]")+"</td></tr>"
 						+ "</table>"
 					+ "</div>");
 			
@@ -1097,6 +1099,15 @@ public class OptionsDialogue {
 					@Override
 					public void effects() {
 						Main.getProperties().bodyHairContent = !Main.getProperties().bodyHairContent;
+						Main.saveProperties();
+					}
+				};
+				
+			} else if (index == 7) {
+				return new Response("Furry tail pen.", "Toggle furry tail penetrations on or off.", CONTENT_PREFERENCE) {
+					@Override
+					public void effects() {
+						Main.getProperties().furryTailPenetrationContent = !Main.getProperties().furryTailPenetrationContent;
 						Main.saveProperties();
 					}
 				};

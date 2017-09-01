@@ -77,9 +77,9 @@ public class Ralph extends NPC {
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, Colour.EYE_BROWN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BLACK));
-		this.setCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BLACK));
-		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
 
 		this.equipClothingFromNowhere(underwear, true, this);
 		this.equipClothingFromNowhere(legs, true, this);

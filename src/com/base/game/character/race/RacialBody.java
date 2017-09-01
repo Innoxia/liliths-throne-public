@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.base.game.character.SexualOrientation;
 import com.base.game.character.attributes.Attribute;
+import com.base.game.character.body.types.AntennaType;
 import com.base.game.character.body.types.ArmType;
 import com.base.game.character.body.types.AssType;
 import com.base.game.character.body.types.BreastType;
@@ -54,6 +55,7 @@ public enum RacialBody {
 				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
 				new Value<Attribute, Float>(Attribute.FITNESS, 10f),
 				new Value<Attribute, Float>(Attribute.CORRUPTION, 5f)),
+			AntennaType.NONE,
 			ArmType.HUMAN, 1,
 			AssType.HUMAN, AssSize.TWO_SMALL, AssSize.FOUR_LARGE, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.HUMAN,
@@ -81,6 +83,7 @@ public enum RacialBody {
 				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 80f),
 				new Value<Attribute, Float>(Attribute.FITNESS, 80f),
 				new Value<Attribute, Float>(Attribute.CORRUPTION, 0f)),
+			AntennaType.NONE,
 			ArmType.ANGEL, 1,
 			AssType.ANGEL, AssSize.TWO_SMALL, AssSize.TWO_SMALL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.ANGEL,
@@ -114,6 +117,7 @@ public enum RacialBody {
 				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 80f),
 				new Value<Attribute, Float>(Attribute.FITNESS, 80f),
 				new Value<Attribute, Float>(Attribute.CORRUPTION, 100f)),
+			AntennaType.NONE,
 			ArmType.DEMON_COMMON, 1,
 			AssType.DEMON_COMMON, AssSize.TWO_SMALL, AssSize.FOUR_LARGE, Wetness.FOUR_SLIMY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
 			BreastType.DEMON_COMMON,
@@ -148,6 +152,7 @@ public enum RacialBody {
 					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 20f),
 					new Value<Attribute, Float>(Attribute.FITNESS, 20f),
 					new Value<Attribute, Float>(Attribute.CORRUPTION, 25f)),
+			AntennaType.NONE,
 			ArmType.DOG_MORPH, 1,
 			AssType.DOG_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.DOG_MORPH,
@@ -175,6 +180,7 @@ public enum RacialBody {
 					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 20f),
 					new Value<Attribute, Float>(Attribute.FITNESS, 20f),
 					new Value<Attribute, Float>(Attribute.CORRUPTION, 50f)),
+			AntennaType.NONE,
 			ArmType.LYCAN, 1,
 			AssType.WOLF_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.WOLF_MORPH,
@@ -203,6 +209,7 @@ public enum RacialBody {
 					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 20f),
 					new Value<Attribute, Float>(Attribute.FITNESS, 30f),
 					new Value<Attribute, Float>(Attribute.CORRUPTION, 25f)),
+			AntennaType.NONE,
 			ArmType.CAT_MORPH, 1,
 			AssType.CAT_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.CAT_MORPH,
@@ -231,6 +238,7 @@ public enum RacialBody {
 					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 15f),
 					new Value<Attribute, Float>(Attribute.FITNESS, 20f),
 					new Value<Attribute, Float>(Attribute.CORRUPTION, 25f)),
+			AntennaType.NONE,
 			ArmType.HORSE_MORPH, 1,
 			AssType.HORSE_MORPH, AssSize.TWO_SMALL, AssSize.FIVE_HUGE, Wetness.ZERO_DRY, Capacity.THREE_SLIGHTLY_LOOSE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.HORSE_MORPH,
@@ -258,6 +266,7 @@ public enum RacialBody {
 				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 5f),
 				new Value<Attribute, Float>(Attribute.FITNESS, 5f),
 				new Value<Attribute, Float>(Attribute.CORRUPTION, 50f)),
+			AntennaType.NONE,
 			ArmType.SLIME, 1,
 			AssType.SLIME, AssSize.FIVE_HUGE, AssSize.FIVE_HUGE, Wetness.SEVEN_DROOLING, Capacity.SEVEN_GAPING, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
 			BreastType.SLIME,
@@ -285,6 +294,7 @@ public enum RacialBody {
 				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 30f),
 				new Value<Attribute, Float>(Attribute.FITNESS, 50f),
 				new Value<Attribute, Float>(Attribute.CORRUPTION, 15f)),
+			AntennaType.NONE,
 			ArmType.SQUIRREL_MORPH, 1,
 			AssType.SQUIRREL_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.SQUIRREL_MORPH,
@@ -312,6 +322,7 @@ public enum RacialBody {
 				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
 				new Value<Attribute, Float>(Attribute.FITNESS, 50f),
 				new Value<Attribute, Float>(Attribute.CORRUPTION, 25f)),
+			AntennaType.NONE,
 			ArmType.HARPY, 1,
 			AssType.HARPY, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.HARPY,
@@ -347,6 +358,7 @@ public enum RacialBody {
 	// Attributes modified by this Trait:
 	private HashMap<Attribute, Float> attributeModifiers;
 
+	private AntennaType antennaType;
 	private ArmType armType;
 	private AssType assType;
 	private BreastType breastType;
@@ -381,6 +393,7 @@ public enum RacialBody {
 			breastCountFemale, testicleQuantity;
 
 	private RacialBody(HashMap<Attribute, Float> attributeModifiers,
+			AntennaType antennaType,
 			ArmType armType, int armRows,
 			AssType assType, AssSize maleAssSize, AssSize femaleAssSize, Wetness anusWetness, Capacity anusCapacity, OrificeElasticity anusElasticity, OrificePlasticity anusPlasticity,
 			BreastType breastType,
@@ -406,6 +419,7 @@ public enum RacialBody {
 
 		this.attributeModifiers = attributeModifiers;
 		
+		this.antennaType = antennaType;
 		this.armType = armType;
 		this.armRows = armRows;
 		
@@ -537,6 +551,10 @@ public enum RacialBody {
 
 	public HashMap<Attribute, Float> getAttributeModifiers() {
 		return attributeModifiers;
+	}
+
+	public AntennaType getAntennaType() {
+		return antennaType;
 	}
 
 	public ArmType getArmType() {
