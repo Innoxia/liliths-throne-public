@@ -585,7 +585,7 @@ public enum Spell {
 	}
 	
 	private float getModifiedCost(GameCharacter caster, int level) {
-		float calculatedCost = level + ((float)caster.getAttributeValue(Attribute.MANA_MAXIMUM) * (spellCost.getPercentage())/100f);
+		float calculatedCost = level + (caster.getAttributeValue(Attribute.MANA_MAXIMUM) * (spellCost.getPercentage())/100f);
 		
 		calculatedCost *= ((100 - caster.getAttributeValue(Attribute.SPELL_COST_MODIFIER)) / 100f);
 		

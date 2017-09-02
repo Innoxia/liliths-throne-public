@@ -1380,7 +1380,7 @@ public enum SpecialAttack {
 	}
 	
 	private float getModifiedCost(GameCharacter caster) {
-		float calculatedCost = caster.getLevel() + ((float)caster.getAttributeValue(Attribute.STAMINA_MAXIMUM) * (specialAttackCost.getPercentage())/100f);
+		float calculatedCost = caster.getLevel() + (caster.getAttributeValue(Attribute.STAMINA_MAXIMUM) * (specialAttackCost.getPercentage())/100f);
 		
 		// Round float value to nearest 1 decimal place:
 		calculatedCost = (Math.round(calculatedCost*10))/10f;

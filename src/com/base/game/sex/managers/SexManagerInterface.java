@@ -2,7 +2,6 @@ package com.base.game.sex.managers;
 
 import java.util.List;
 
-import com.base.game.character.npc.NPC;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.clothing.CoverableArea;
 import com.base.game.sex.Sex;
@@ -68,23 +67,23 @@ public interface SexManagerInterface {
 
 	// Player:
 	public default String getPlayerAssRevealReaction(boolean isSub) {
-		return ((NPC)Sex.getPartner()).getPlayerAssRevealReaction(isSub);
+		return Sex.getPartner().getPlayerAssRevealReaction(isSub);
 	}
 
 	public default String getPlayerVaginaRevealReaction(boolean isSub) {
-		return ((NPC)Sex.getPartner()).getPlayerVaginaRevealReaction(isSub);
+		return Sex.getPartner().getPlayerVaginaRevealReaction(isSub);
 	}
 
 	public default String getPlayerBreastsRevealReaction(boolean isSub) {
-		return ((NPC)Sex.getPartner()).getPlayerBreastsRevealReaction(isSub);
+		return Sex.getPartner().getPlayerBreastsRevealReaction(isSub);
 	}
 
 	public default String getPlayerPenisRevealReaction(boolean isSub) {
-		return ((NPC)Sex.getPartner()).getPlayerPenisRevealReaction(isSub);
+		return Sex.getPartner().getPlayerPenisRevealReaction(isSub);
 	}
 
 	public default String getPlayerMoundRevealReaction(boolean isSub) {
-		return ((NPC)Sex.getPartner()).getPlayerMoundRevealReaction(isSub);
+		return Sex.getPartner().getPlayerMoundRevealReaction(isSub);
 	}
 
 	// Partner:
@@ -94,7 +93,7 @@ public interface SexManagerInterface {
 		String s = "<p>"
 				+ UtilText.genderParsing(Sex.getPartner(), Sex.getPartner().getAssDescription())
 				+ "</p>"
-				+ ((NPC) Sex.getPartner()).getPartnerAssRevealReaction(isSub);
+				+ Sex.getPartner().getPartnerAssRevealReaction(isSub);
 		
 		return s;
 	}
@@ -105,7 +104,7 @@ public interface SexManagerInterface {
 		String s = "<p>"
 				+ UtilText.genderParsing(Sex.getPartner(), Sex.getPartner().getBreastDescription())
 				+ "</p>"
-				+ ((NPC) Sex.getPartner()).getPartnerBreastsRevealReaction(isSub);
+				+ Sex.getPartner().getPartnerBreastsRevealReaction(isSub);
 		
 		return s;
 	}
@@ -116,7 +115,7 @@ public interface SexManagerInterface {
 		String s = "<p>"
 				+ UtilText.genderParsing(Sex.getPartner(), Sex.getPartner().getPenisDescription())
 				+ "</p>"
-				+ ((NPC) Sex.getPartner()).getPartnerPenisRevealReaction(isSub);
+				+ Sex.getPartner().getPartnerPenisRevealReaction(isSub);
 		
 		return s;
 	}
@@ -127,7 +126,7 @@ public interface SexManagerInterface {
 		String s = "<p>"
 				+ UtilText.genderParsing(Sex.getPartner(), Sex.getPartner().getVaginaDescription())
 				+ "</p>"
-				+ ((NPC) Sex.getPartner()).getPartnerVaginaRevealReaction(isSub);
+				+ Sex.getPartner().getPartnerVaginaRevealReaction(isSub);
 		
 		return s;
 	}
@@ -139,7 +138,7 @@ public interface SexManagerInterface {
 		String s = "<p>"
 				+ UtilText.genderParsing(Sex.getPartner(), Sex.getPartner().getMoundDescription())
 				+ "</p>"
-				+ ((NPC) Sex.getPartner()).getPartnerMoundRevealReaction(isSub);
+				+ Sex.getPartner().getPartnerMoundRevealReaction(isSub);
 		
 		return s;
 	}

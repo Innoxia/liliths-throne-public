@@ -628,7 +628,7 @@ public enum RenderingEngine {
 						
 						+ "<div class='full-width-container' style='margin:0;padding:0;'>"
 							+ "<div class='imageIcon'>" + Attribute.HEALTH_MAXIMUM.getSVGString() + "</div>" + "<div class='barBackgroundAtt'>" + "<div style='width:"
-							+ (((float) Main.game.getPlayer().getHealth()) / (Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM))) * 65 + "vw; height:5vw; background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString()
+							+ (Main.game.getPlayer().getHealth() / Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)) * 65 + "vw; height:5vw; background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString()
 							+ "; float:left; border-radius: 2;'></div>" + "</div>" + "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
 							+ (renderedHealthValue < Main.game.getPlayer().getHealth() ? Colour.GENERIC_GOOD.toWebHexString() : renderedHealthValue > Main.game.getPlayer().getHealth() ? (Colour.GENERIC_BAD.toWebHexString()) : "default") + ";'>"
 							+ (int) Math.ceil(Main.game.getPlayer().getHealth()) + "</p>" + "<div class='overlay' id='PLAYER_" + Attribute.HEALTH_MAXIMUM.getName() + "'></div>"
@@ -636,7 +636,7 @@ public enum RenderingEngine {
 	
 						+ "<div class='full-width-container' style='margin:0;padding:0;'>"
 							+ "<div class='imageIcon'>" + Attribute.MANA_MAXIMUM.getSVGString() + "</div>" + "<div class='barBackgroundAtt'>" + "<div style='width:"
-							+ (((float) Main.game.getPlayer().getMana()) / (Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM))) * 65 + "vw; height:5vw; background:" + Colour.ATTRIBUTE_MANA.toWebHexString()
+							+ (Main.game.getPlayer().getMana() / Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM)) * 65 + "vw; height:5vw; background:" + Colour.ATTRIBUTE_MANA.toWebHexString()
 							+ "; float:left; border-radius: 2;'></div>" + "</div>" + "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
 							+ (renderedManaValue < Main.game.getPlayer().getMana() ? (Colour.GENERIC_GOOD.toWebHexString()) : (renderedManaValue > Main.game.getPlayer().getMana() ? (Colour.GENERIC_BAD.toWebHexString()) : "default")) + ";'>"
 							+ (int) Math.ceil(Main.game.getPlayer().getMana()) + "</p>" + "<div class='overlay' id='PLAYER_" + Attribute.MANA_MAXIMUM.getName() + "'></div>"
