@@ -18,7 +18,8 @@ public class Ass implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private AssType type;
-	private int assSize, hipSize;
+	private int assSize;
+	private int hipSize;
 	
 	private Anus anus;
 
@@ -234,26 +235,11 @@ public class Ass implements BodyPartInterface, Serializable {
 	 * @return Description of the change.
 	 */
 	public String setAssSize(GameCharacter owner, int assSize) {
-		int sizeChange = 0;
+		int oldSize = this.assSize;
+		this.assSize = Math.max(0, Math.min(assSize, AssSize.SEVEN_GIGANTIC.getValue()));
+		int sizeChange = this.assSize - oldSize;
 		
-		if (assSize <= 0) {
-			if (this.assSize != 0) {
-				sizeChange = 0 - this.assSize;
-				this.assSize = 0;
-			}
-		} else if (assSize >= AssSize.SEVEN_GIGANTIC.getValue()) {
-			if (this.assSize != AssSize.SEVEN_GIGANTIC.getValue()) {
-				sizeChange = AssSize.SEVEN_GIGANTIC.getValue() - this.assSize;
-				this.assSize = AssSize.SEVEN_GIGANTIC.getValue();
-			}
-		} else {
-			if (this.assSize != assSize) {
-				sizeChange = assSize - this.assSize;
-				this.assSize = assSize;
-			}
-		}
-		
-		if(sizeChange == 0) {
+		if (sizeChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The size of your ass doesn't change...)]</p>";
 			} else {
@@ -304,26 +290,11 @@ public class Ass implements BodyPartInterface, Serializable {
 	 * @return Description of the change.
 	 */
 	public String setHipSize(GameCharacter owner, int hipSize) {
-		int sizeChange = 0;
+		int oldSize = this.hipSize;
+		this.hipSize = Math.max(0, Math.min(hipSize, HipSize.SEVEN_ABSURDLY_WIDE.getValue()));
+		int sizeChange = this.hipSize - oldSize;
 		
-		if (hipSize <= 0) {
-			if (this.hipSize != 0) {
-				sizeChange = 0 - this.hipSize;
-				this.hipSize = 0;
-			}
-		} else if (hipSize >= HipSize.SEVEN_ABSURDLY_WIDE.getValue()) {
-			if (this.hipSize != HipSize.SEVEN_ABSURDLY_WIDE.getValue()) {
-				sizeChange = HipSize.SEVEN_ABSURDLY_WIDE.getValue() - this.hipSize;
-				this.hipSize = HipSize.SEVEN_ABSURDLY_WIDE.getValue();
-			}
-		} else {
-			if (this.hipSize != hipSize) {
-				sizeChange = hipSize - this.hipSize;
-				this.hipSize = hipSize;
-			}
-		}
-		
-		if(sizeChange == 0) {
+		if (sizeChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The size of your hips doesn't change...)]</p>";
 			} else {
@@ -331,31 +302,31 @@ public class Ass implements BodyPartInterface, Serializable {
 			}
 		}
 		
-		String sizeDescriptor = getHipSize().getDescriptor();
+		String styledSizeDescriptor = "[style.boldSex("+ getHipSize().getDescriptor() + " hips)]";
 		if (sizeChange > 0) {
 			if (owner.isPlayer()) {
 				return "</p>"
 							+ "You inhale sharply in surprise as you feel your hips reshape themselves, pushing out and [style.boldGrow(growing wider)].</br>"
-							+ "You now have [style.boldSex(" + sizeDescriptor + " hips)]!"
+							+ "You now have " + styledSizeDescriptor + "!"
 						+ "</p>";
 			} else {
 				return UtilText.genderParsing(owner,
 						"</p>"
 							+ "[npc.Name] inhales sharply in surprise as [npc.she] feels [npc.her] hips reshape themselves, pushing out and [style.boldGrow(growing wider)].</br>"
-							+ "[npc.She] now has [style.boldSex(" + sizeDescriptor + " hips)]!"
+							+ "[npc.She] now has " + styledSizeDescriptor + "!"
 						+ "</p>");
 			}
 		} else {
 			if (owner.isPlayer()) {
 				return "</p>"
 							+ "You inhale sharply in surprise as you feel your hips collapse inwards and reshape themselves as they get [style.boldShrink(narrower)].</br>"
-							+ "You now have [style.boldSex(" + sizeDescriptor + " hips)]!"
+							+ "You now have " + styledSizeDescriptor + "!"
 						+ "</p>";
 			} else {
 				return UtilText.genderParsing(owner,
 						"</p>"
 							+ "[pc.Name] inhales sharply in surprise as [npc.she] feels [npc.her] hips collapse inwards and reshape themselves as they get [style.boldShrink(narrower)].</br>"
-							+ "[npc.She] now has [style.boldSex(" + sizeDescriptor + " hips)]!"
+							+ "[npc.She] now has " + styledSizeDescriptor + "!"
 						+ "</p>");
 			}
 		}
