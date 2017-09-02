@@ -2272,10 +2272,7 @@ public class MainController implements Initializable {
 	}
 
 	private boolean lastKeysEqual(KeyCode one, KeyCode two, KeyCode three, KeyCode four, KeyCode five) {
-		if (lastKeys[0] == five && lastKeys[1] == four && lastKeys[2] == three && lastKeys[3] == two && lastKeys[4] == one)
-			return true;
-		else
-			return false;
+		return lastKeys[0] == five && lastKeys[1] == four && lastKeys[2] == three && lastKeys[3] == two && lastKeys[4] == one;
 	}
 
 	/**

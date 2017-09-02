@@ -179,16 +179,12 @@ public class Response {
 	
 	public boolean isAbleToBypass(){
 		if(!isAvailable()) {
-			if(isBlockedFromPerks()
+			return !(isBlockedFromPerks()
 					|| !isFemininityInRange()
 					|| !isRequiredRace()
 					|| !isPenetrationTypeAvailable()
 					|| !isOrificeTypeAvailable()
-					|| (corruptionBypass==null && fetishesRequired!=null)) {
-				return false;
-			} else {
-				return true;
-			}
+					|| (corruptionBypass==null && fetishesRequired!=null));
 		}
 		
 		return false;
@@ -458,13 +454,7 @@ public class Response {
 	}
 
 	public boolean isCorruptionWithinRange() {
-		if(corruptionBypass==null)
-			return false;
-		
-		if(corruptionBypass.getMinimumValue()<=Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION))
-			return true;
-		else
-			return false;
+		return corruptionBypass != null && corruptionBypass.getMinimumValue() <= Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION);
 	}
 	
 	public boolean isAvailableFromFetishes() {

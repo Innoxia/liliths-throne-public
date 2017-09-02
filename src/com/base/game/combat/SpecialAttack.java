@@ -990,10 +990,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			if (owner.getFaceType() == FaceType.DOG_MORPH)
-				return true;
-			else
-				return false;
+			return owner.getFaceType() == FaceType.DOG_MORPH;
 		}
 	},
 
@@ -1048,10 +1045,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			if (owner.getFaceType() == FaceType.LYCAN)
-				return true;
-			else
-				return false;
+			return owner.getFaceType() == FaceType.LYCAN;
 		}
 	},
 
@@ -1104,10 +1098,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			if (owner.getArmType() == ArmType.SQUIRREL_MORPH)
-				return true;
-			else
-				return false;
+			return owner.getArmType() == ArmType.SQUIRREL_MORPH;
 		}
 	},
 
@@ -1160,10 +1151,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			if (owner.getArmType() == ArmType.CAT_MORPH)
-				return true;
-			else
-				return false;
+			return owner.getArmType() == ArmType.CAT_MORPH;
 		}
 	},
 
@@ -1212,10 +1200,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			if (owner.getLegType() == LegType.HORSE_MORPH)
-				return true;
-			else
-				return false;
+			return owner.getLegType() == LegType.HORSE_MORPH;
 		}
 	};
 

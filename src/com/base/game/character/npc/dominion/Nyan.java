@@ -245,10 +245,7 @@ public class Nyan extends NPC {
 
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
-		if(item instanceof AbstractClothing)
-			return true;
-		
-		return false;
+		return item instanceof AbstractClothing;
 	}
 
 	@Override
