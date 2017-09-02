@@ -314,31 +314,16 @@ public class Breast implements BodyPartInterface, Serializable {
 	 * Sets the raw size value. Value is bound to >=0 && <=CupSize.MAXIMUM.getMeasurement()
 	 * 
 	 * @param size Value to set size to.
-	 * @return True if size was changed.
+	 * @return description of size change
 	 */
 	public String setSize(GameCharacter owner, int size) {
 		boolean hadBreasts = hasBreasts();
 		
-		int sizeChange = 0;
+		int oldSize = this.size;
+		this.size = Math.max(0, Math.min(size, CupSize.MAXIMUM.getMeasurement()));
+		int sizeChange = this.size - oldSize;
 		
-		if (size <= 0) {
-			if (this.size != 0) {
-				sizeChange = 0 - this.size;
-				this.size = 0;
-			}
-		} else if (size >= CupSize.MAXIMUM.getMeasurement()) {
-			if (this.size != CupSize.MAXIMUM.getMeasurement()) {
-				sizeChange = CupSize.MAXIMUM.getMeasurement() - this.size;
-				this.size = CupSize.MAXIMUM.getMeasurement();
-			}
-		} else {
-			if (this.size != size) {
-				sizeChange = size - this.size;
-				this.size = size;
-			}
-		}
-		
-		if(sizeChange == 0) {
+		if (sizeChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.breasts] doesn't change...)]</p>";
 			} else {
@@ -354,7 +339,7 @@ public class Breast implements BodyPartInterface, Serializable {
 							+ (hadBreasts
 									? "[pc.breasts] swell up and [style.boldGrow(grown larger)].</br>"
 									: "chest swells up, and before you know what's happening, a pair of breasts have [style.boldGrow(grown)] out of your previously-flat torso.</br>")
-							+ "You now have [style.boldSex(" + sizeDescriptor + (getSize().getMeasurement()>CupSize.AA.getMeasurement()?", "+getSize().getCupSizeName()+"-cup ":"") + "breasts)]!"
+							+ "You now have [style.boldSex(" + sizeDescriptor + (getSize().getMeasurement()>CupSize.AA.getMeasurement()?", "+getSize().getCupSizeName()+"-cup":"") + " breasts)]!"
 						+ "</p>";
 			} else {
 				return UtilText.genderParsing(owner,
@@ -363,7 +348,7 @@ public class Breast implements BodyPartInterface, Serializable {
 							+ (hadBreasts
 									? "[npc.breasts] swell up and [style.boldGrow(grown larger)].</br>"
 									: "chest swells up, and before [npc.she] knows what's happening, a pair of breasts have [style.boldGrow(grown)] out of [npc.her] previously-flat torso.</br>")
-							+ "[npc.Name] now has [style.boldSex(" + sizeDescriptor + (getSize().getMeasurement()>CupSize.AA.getMeasurement()?", "+getSize().getCupSizeName()+"-cup ":"") + "breasts)]!"
+							+ "[npc.Name] now has [style.boldSex(" + sizeDescriptor + (getSize().getMeasurement()>CupSize.AA.getMeasurement()?", "+getSize().getCupSizeName()+"-cup":"") + " breasts)]!"
 						+ "</p>");
 			}
 		} else {
@@ -372,16 +357,16 @@ public class Breast implements BodyPartInterface, Serializable {
 						+ "You feel a tingling heat quickly spreading throughout your torso, and you can't help but let out a frustrated [pc.moan] as your [pc.breasts] shrink down and [style.boldShrink(get smaller)].</br>"
 						+ (this.size==0
 							? "You now have [style.boldSex(a completely flat chest)]!"
-							:"You now have [style.boldSex(" + sizeDescriptor + (getSize().getMeasurement()>CupSize.AA.getMeasurement()?", "+getSize().getCupSizeName()+"-cup ":"") + "breasts)]!")
+							:"You now have [style.boldSex(" + sizeDescriptor + (getSize().getMeasurement()>CupSize.AA.getMeasurement()?", "+getSize().getCupSizeName()+"-cup":"") + " breasts)]!")
 					+ "</p>";
-		} else {
-			return UtilText.genderParsing(owner,
-					"</p>"
-						+ "[npc.Name] feels a tingling heat quickly spreading throughout [npc.her] torso, and [npc.she] can't help but let out a frustrated [npc.moan] as [npc.her] [npc.breasts] shrink down and [style.boldShrink(get smaller)].</br>"
-						+ (this.size==0
-							? "[npc.Name] now has [style.boldSex(a completely flat chest)]!"
-							: "[npc.Name] now has [style.boldSex(" + sizeDescriptor + (getSize().getMeasurement()>CupSize.AA.getMeasurement()?", "+getSize().getCupSizeName()+"-cup ":"") + "breasts)]!")
-					+ "</p>");
+			} else {
+				return UtilText.genderParsing(owner,
+						"</p>"
+							+ "[npc.Name] feels a tingling heat quickly spreading throughout [npc.her] torso, and [npc.she] can't help but let out a frustrated [npc.moan] as [npc.her] [npc.breasts] shrink down and [style.boldShrink(get smaller)].</br>"
+							+ (this.size==0
+								? "[npc.Name] now has [style.boldSex(a completely flat chest)]!"
+								: "[npc.Name] now has [style.boldSex(" + sizeDescriptor + (getSize().getMeasurement()>CupSize.AA.getMeasurement()?", "+getSize().getCupSizeName()+"-cup":"") + " breasts)]!")
+						+ "</p>");
 			}
 		}
 	}
@@ -400,26 +385,11 @@ public class Breast implements BodyPartInterface, Serializable {
 	 * Sets the lactation. Value is bound to >=0 && <=Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()
 	 */
 	public String setLactation(GameCharacter owner, int lactation) {
-		int lactationChange = 0;
+		int oldLactation = this.lactation;
+		this.lactation = Math.max(0, Math.min(lactation, Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()));
+		int lactationChange = this.lactation - oldLactation;
 		
-		if (lactation <= 0) {
-			if (this.lactation != 0) {
-				lactationChange = 0 - this.lactation;
-				this.lactation = 0;
-			}
-		} else if (lactation >= Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()) {
-			if (this.lactation != Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()) {
-				lactationChange = Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue() - this.lactation;
-				this.lactation = Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue();
-			}
-		} else {
-			if (this.lactation != lactation) {
-				lactationChange = lactation - this.lactation;
-				this.lactation = lactation;
-			}
-		}
-		
-		if(lactationChange == 0) {
+		if (lactationChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The amount of [pc.milk] that you're producing doesn't change...)]</p>";
 			} else {
@@ -465,12 +435,7 @@ public class Breast implements BodyPartInterface, Serializable {
 	}
 
 	public String setRows(GameCharacter owner, int rows) {
-		
-		if(rows<=0) {
-			rows = 1;
-		} else if (rows>3) {
-			rows=3;
-		}
+		rows = Math.max(0, Math.min(rows, 3));
 		
 		if(rows == getRows()) {
 			if(owner.isPlayer()) {
@@ -537,13 +502,7 @@ public class Breast implements BodyPartInterface, Serializable {
 			}
 		}
 
-		if (rows <= 0) {
-			this.rows = 1;
-		} else if (rows > 3) {
-			this.rows = 3;
-		} else {
-			this.rows = rows;
-		}
+		this.rows = rows;
 
 		return transformation;
 	}
@@ -561,19 +520,13 @@ public class Breast implements BodyPartInterface, Serializable {
 	 * Minimum 1, maximum MAXIMUM_NIPPLES_PER_BREAST
 	 */
 	public String setNippleCountPerBreast(GameCharacter owner, int nippleCountPerBreast) {
-		
-		if(nippleCountPerBreast <= 0) {
-			nippleCountPerBreast = 1;
-			
-		} else if (nippleCountPerBreast > MAXIMUM_NIPPLES_PER_BREAST) {
-			nippleCountPerBreast = MAXIMUM_NIPPLES_PER_BREAST;
-		}
+		nippleCountPerBreast = Math.max(1, Math.min(nippleCountPerBreast, MAXIMUM_NIPPLES_PER_BREAST));
 		
 		if (this.nippleCountPerBreast == nippleCountPerBreast) {
 			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(The number of [pc.nipples] on each of your ...)]</p>";
+				return "<p style='text-align:center;'>[style.colourDisabled(The number of [pc.nipples] on each of your " + (hasBreasts() ? "breasts" : "pecs") + " doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The number of breast rows [npc.name] has doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The number of [npc.nipples] [npc.name] has doesn't change...)]</p>");
 			}
 		}
 		
@@ -615,13 +568,7 @@ public class Breast implements BodyPartInterface, Serializable {
 			}
 		}
 		
-		if (nippleCountPerBreast <= 0) {
-			this.nippleCountPerBreast = 1;
-		} else if (nippleCountPerBreast > MAXIMUM_NIPPLES_PER_BREAST) {
-			this.nippleCountPerBreast = MAXIMUM_NIPPLES_PER_BREAST;
-		} else {
-			this.nippleCountPerBreast = nippleCountPerBreast;
-		}
+		this.nippleCountPerBreast = nippleCountPerBreast;
 
 		return transformation;
 	}
