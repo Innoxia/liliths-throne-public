@@ -280,17 +280,17 @@ public class Face implements BodyPartInterface, Serializable {
 		
 		if(piercedNose) {
 			if(owner.isPlayer()) {
-				return "<p>Your [pc.lips] are now [style.boldGrow(pierced)]!</p>";
+				return "<p>Your [pc.nose] is now [style.boldGrow(pierced)]!</p>";
 			} else {
 				return UtilText.parse(owner,
-						"<p>[npc.Name]'s [npc.lips] are now [style.boldGrow(pierced)]!</p>");
+						"<p>[npc.Name]'s [npc.nose] is now [style.boldGrow(pierced)]!</p>");
 			}
 		} else {
 			if(owner.isPlayer()) {
-				return "<p>Your [pc.lips] are [style.boldShrink(no longer pierced)]!</p>";
+				return "<p>Your [pc.nose] is [style.boldShrink(no longer pierced)]!</p>";
 			} else {
 				return UtilText.parse(owner,
-						"<p>[npc.Name]'s [npc.lips] are [style.boldShrink(no longer pierced)]!</p>");
+						"<p>[npc.Name]'s [npc.nose] is [style.boldShrink(no longer pierced)]!</p>");
 			}
 		}
 	}
