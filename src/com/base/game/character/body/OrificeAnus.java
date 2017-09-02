@@ -47,7 +47,7 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 		this.wetness = Math.max(0, Math.min(wetness, Wetness.SEVEN_DROOLING.getValue()));
 		int wetnessChange = this.wetness - oldWetness;
 		
-		if(wetnessChange == 0) {
+		if (wetnessChange == 0) {
 			if(owner.isPlayer()) {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Your [pc.asshole]'s wetness doesn't change...)]</p>");
 			} else {
@@ -161,28 +161,13 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 
 	@Override
 	public String setElasticity(GameCharacter owner, int elasticity) {
-		float elasticityChange = 0;
+		int oldElasticity = this.elasticity;
+		this.elasticity = Math.max(0, Math.min(elasticity, OrificeElasticity.SEVEN_ELASTIC.getValue()));
+		int elasticityChange = this.elasticity - oldElasticity;
 		
-		if (elasticity <= 0) {
-			if (this.elasticity != 0) {
-				elasticityChange = 0 - this.elasticity;
-				this.elasticity = 0;
-			}
-		} else if (elasticity >= OrificeElasticity.SEVEN_ELASTIC.getValue()) {
-			if (this.elasticity != OrificeElasticity.SEVEN_ELASTIC.getValue()) {
-				elasticityChange = OrificeElasticity.SEVEN_ELASTIC.getValue() - this.elasticity;
-				this.elasticity = OrificeElasticity.SEVEN_ELASTIC.getValue();
-			}
-		} else {
-			if (this.elasticity != elasticity) {
-				elasticityChange = elasticity - this.elasticity;
-				this.elasticity = elasticity;
-			}
-		}
-		
-		if(elasticityChange == 0) {
+		if (elasticityChange == 0) {
 			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(Your [pc.asshole]'s elasticity doesn't change...)]</p>";
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Your [pc.asshole]'s elasticity doesn't change...)]</p>");
 			} else {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The elasticity of [npc.name]'s [npc.asshole] doesn't change...)]</p>");
 			}
@@ -191,10 +176,10 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 		String elasticityDescriptor = getElasticity().getDescriptor();
 		if (elasticityChange > 0) {
 			if (owner.isPlayer()) {
-				return "<p>"
+				return UtilText.parse(owner, "<p>"
 							+ "You let out a little gasp as you feel a strange slackening sensation pulsating deep within your ass as your asshole's [style.boldGrow(elasticity increases)].</br>"
 							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
-						+ "</p>";
+						+ "</p>");
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
@@ -205,10 +190,10 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			
 		} else {
 			if (owner.isPlayer()) {
-				return "<p>"
+				return UtilText.parse(owner, "<p>"
 							+ "You let out a little gasp as you feel a strange clenching sensation pulsating deep within your ass as your asshole's [style.boldShrink(elasticity decreases)].</br>"
 							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
-						+ "</p>";
+						+ "</p>");
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
@@ -226,28 +211,13 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 
 	@Override
 	public String setPlasticity(GameCharacter owner, int plasticity) {
-		float plasticityChange = 0;
+		int oldPlasticity = this.plasticity;
+		this.plasticity = Math.max(0, Math.min(plasticity, OrificePlasticity.SEVEN_MOULDABLE.getValue()));
+		int plasticityChange = this.plasticity - oldPlasticity;
 		
-		if (plasticity <= 0) {
-			if (this.plasticity != 0) {
-				plasticityChange = 0 - this.plasticity;
-				this.plasticity = 0;
-			}
-		} else if (plasticity >= OrificePlasticity.SEVEN_MOULDABLE.getValue()) {
-			if (this.plasticity != OrificePlasticity.SEVEN_MOULDABLE.getValue()) {
-				plasticityChange = OrificePlasticity.SEVEN_MOULDABLE.getValue() - this.plasticity;
-				this.plasticity = OrificePlasticity.SEVEN_MOULDABLE.getValue();
-			}
-		} else {
-			if (this.plasticity != plasticity) {
-				plasticityChange = plasticity - this.plasticity;
-				this.plasticity = plasticity;
-			}
-		}
-		
-		if(plasticityChange == 0) {
+		if (plasticityChange == 0) {
 			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(Your [pc.asshole]'s plasticity doesn't change...)]</p>";
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Your [pc.asshole]'s plasticity doesn't change...)]</p>");
 			} else {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The plasticity of [npc.name]'s [npc.asshole] doesn't change...)]</p>");
 			}
@@ -256,10 +226,10 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 		String plasticityDescriptor = getPlasticity().getDescriptor();
 		if (plasticityChange > 0) {
 			if (owner.isPlayer()) {
-				return "<p>"
+				return UtilText.parse(owner, "<p>"
 							+ "You let out a little gasp as you feel a strange moulding sensation pulsating deep within your ass as your asshole's [style.boldGrow(plasticity increases)].</br>"
 							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
-						+ "</p>";
+						+ "</p>");
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
@@ -270,10 +240,10 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			
 		} else {
 			if (owner.isPlayer()) {
-				return "<p>"
+				return UtilText.parse(owner, "<p>"
 							+ "You let out a little gasp as you feel a strange softening sensation pulsating deep within your ass as your asshole's [style.boldShrink(plasticity decreases)].</br>"
 							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
-						+ "</p>";
+						+ "</p>");
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
