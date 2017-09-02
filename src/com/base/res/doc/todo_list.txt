@@ -17,57 +17,127 @@
 	
 	Patch notes:
 	
+	Gameplay:
+		Reverted penis/vagina loss when shrinking past minimum size/capacity respectively. You now remove a penis or vagina by adding the 'remove' effect to a potion.
+		Ralph now stocks squirrel-morph consumables.
+	
+	Sex:
+		Converted the following actions into the new cowgirl position for both sub and dom positions: Starting kiss, penetrating anus, penetrating vagina.
+	
+	Clothing:
+		<b>Temporarily added:</b> Special clothing to Nyan's store, allowing you to buy the rainbow, Maid, and Milk Maid clothing. (I'm going to change this in the future!)
+		Added: 'Milk Maid' Set, requires Milk Maid's Dress and Kerchief to be worn. (I'll change the set's effects to increase lactation when I convert the attributes over to the new system.)
+		Added: Milk Maid's Dress (Feminine, Torso slot). (Created by Blue999)
+		Added: Kerchief (Unisex, head slot).
+		Added: Nursing bra (Feminine, Chest slot). (Created by Blue999)
+		Added: Crotchless thong (Feminine, groin slot).
+		Added: Keyhole sweater (Feminine, torso slot).
+		Added: Jeans (Unisex, leg slot).
+	
+	Other:
+		Testicle-related actions are now correctly disabled if they are internal.
+		Added correct descriptions for multiple tails in the character view screen.
+	
 	Bugs:
-		Fixed incorrect breast size descriptors showing up.
-		Fixed bugs related to incorrect adjectives being applied to vagina (by Pimgd).
-		Fixed buy all game freeze bug (by Pimgd).
-		Fixed the display size of jinxed equipped piercings (by Pimgd).
+		Fixed some typos.
+		Fixed some incorrect gender pronouns.
+		Fixed some minor UI issues in Kate's shop.
 	
 	
 	
 	
 	
+
+
+
+
+	leg and ankle wraps to make full set
 	
 	
 	
+	Make human encounters effect human furiness races too
 	
 	
+	Hmm. Being pushed down into submissive cowgirl by a gynephilic victor that believes you to be female seems like it is probably not intended behavior?
+	
+	Also, there seems to be a continuity issue with NPCs' fetishes and their physical traits, such as a large number of girls I'm running into that like giving anal despite not actually having a penis themselves or guys who like being impregnated.
+	
+	my characters completely dry asshole is now being lubricated for some reason despite it being dry. It also only shows up when arousal is above 80
+	
+	1. The foot revamp where you have three foot styles (Talon, Foot/paw, Hoof) which is then used to figure blocked feet for clothing.
+	 2. cloaca descriptions so that any avian/reptiles are given proper descriptions, as they look doll-like most of the time. 
 	
 	
+	-Default to a different hair colour than white.
+	-Body hair should default to the same colour as head hair, with a setting that specifically says, "Same as hair".
+	  Once the game starts, then it makes sense to have that be set to a normal hair colour for transformation effects.  If it isn't already, body hair colour should probably also be fur colour.
+	[21:41] DarkMaster: .
+	Fetish suggestions: 
+	-If a specific content type is completely disabled (like incest and non-con), then that fetish should not appear on the fetish screen at all and characters should not spawn with that fetish.
+	-Content types that are partially disabled (like forced TFs) should either prevent the PC from being able to take those kinks, or prevent random NPCs from spawning with them, depending on what part is actually disabled.
+	-Additionally/alternatively, enabling specific content partially unlocks that content (such as allowing the Lilaya scene and Brax's forced TF) but taking the fetish makes the content more likely (kids spawning in alleys and random NPCs TFing the player).
 	
 	
+	GATE HAIR PROPERLY FOR TFS
 	
+	Gate obesity
 	
-	also the collect reward button is bugged for the harpy sidequest and you can click it as many times as you want and itll give you money, the money counter updates when you move
+	Good point, I'll add fuckable nipples (and urethras) behind option gates.
+	
+	so apparently if you're sitting on Brax's face when he cums, the system thinks that you were sitting on his dick
+		just confirmed it does the same thing with vaginal
+		doesn't count as penetration for the sake of virginity though, as my character is a """pure""" virgin and did not get broken by it
+	
+	exhibitionist clothing equipping
+	
+	remove all clothing button? or a strip button?
+	
+	So apparently if you import a character over from a new version and go through the prologue, then knock up Lilaya in the first encounter it won't progress since it ends differently.
+		Going in for tests again lets you bone irregardless, but it won't let you do other sidequests that involve her, or progress the story along. I take it there's a catch missing, or that knocking her up isn't fully implemented?
+	
+	Also she stood there behind me sucking on her tail the whole time and did not even fuck me it was like finger sucking all over again
+	
+	Gate fat/obese
+	
+	Kate's shop!
+	
+	account-wide encyclopedia
+	
+	cum production import not working
+	my skin/fur/feather colors are all wonky
+	I am now virgin in every hole
+	Asshole dried up, lost its elasticity and looseness
+	Cum production tanked
+	my dick is now prehensile, and my cum is sticky, slimy, and oily
 	
 	It would probably be best if the player gets prompted with an option to go into said content settings during character creation.
 	
 	Fetishes
 	
-	Furry tails in sex
+	add a 'cloaca' transformation
 	
 	Tails in mouth AI
+	now that cat tails are considered prehensile, there are lots of catgirls taking all of their own virginities with them.
 	
-	"woman cum" instead of cum...
-	
-	The Sadism fetish note in combat doesn't take gender into account, always referring to "his sadist fetish".
-	
-	Not actually sure if its a bug but lilaya doesnt actually produce cum anymore
-	
-	deep into your small tits...
+	succubus with 3 pair of knockers that are H, GG and G in size according to the descripction part, and the in-game text during the transformation said she only has 1 pair of E boobs
 	
 	
+	quitting sex after starting it gives you the frustrated status despite having little arousal.
 	
 	Milk
 		Transformative effects
 	
+	backless panties for exhibs
 	
+	cowgirl Brax and select orgasm at the end when you both cum, you won't actually get the creampie/impregnation chance
 	
 	Ass descriptor
 	
 	Character-specific option overrides
 	
 	
+	
+	Change sex actions to use generic parts, not orifice and penetrator
 	
 	
 	Character creation:

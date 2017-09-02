@@ -325,7 +325,7 @@ public class Eye implements BodyPartInterface, Serializable {
 		
 		UtilText.transformationContentSB.setLength(0);
 		
-		owner.setCovering(covering);
+		owner.getBody().getCoverings().put(covering.getType(), covering);
 		
 		if (owner.isPlayer()) {
 			UtilText.transformationContentSB.append(

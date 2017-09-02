@@ -2,6 +2,7 @@ package com.base.game.inventory.clothing;
 
 import java.util.List;
 
+import com.base.game.character.GameCharacter;
 import com.base.game.character.effects.StatusEffect;
 import com.base.game.combat.SpecialAttack;
 import com.base.game.combat.Spell;
@@ -16,9 +17,10 @@ public enum ClothingSet {
 
 	// Hat, gloves, shirt, skirt/shorts, thigh-high boots
 	ENFORCER("Enforcer", StatusEffect.SET_ENFORCER.getDescription(Main.game.getPlayer()), StatusEffect.SET_ENFORCER, 2, null, null),
-
-	// Headdress, outfit, gloves, stockings, shoes
+	
 	MAID("Maid", StatusEffect.SET_MAID.getDescription(Main.game.getPlayer()), StatusEffect.SET_MAID, 5, null, null),
+	
+	MILK_MAID("Milk Maid", StatusEffect.SET_MILK_MAID.getDescription(Main.game.getPlayer()), StatusEffect.SET_MILK_MAID, 2, null, null),
 
 	BDSM("BDSM", StatusEffect.SET_BDSM.getDescription(Main.game.getPlayer()), StatusEffect.SET_BDSM, 4, null, null),
 
@@ -37,6 +39,18 @@ public enum ClothingSet {
 		this.specialAttacks = specialAttacks;
 		this.spells = spells;
 		this.associatedStatusEffect = associatedStatusEffect;
+	}
+	
+	public boolean isCharacterWearingCompleteSet(GameCharacter target) {
+		int setCount = 0;
+
+		for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+			if (c.getClothingType().getClothingSet() == this) {
+				setCount++;
+			}
+		}
+		
+		return setCount >= this.getNumberRequiredForCompleteSet();
 	}
 
 	public String getName() {

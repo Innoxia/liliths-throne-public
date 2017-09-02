@@ -758,11 +758,11 @@ public class GenericPositioning {
 					switch(Sex.getSexPacePartner()) {
 						case DOM_ROUGH:
 							return "Jumping down onto all fours, [npc.name] lowers [npc.herself] down over the top of you, bringing [npc.her] crotch down to your face as [npc.she] drops [npc.her] head down between your [pc.legs]."
-									+ " Turning [npc.her] head back to look at you, she growls, "
+									+ " Turning [npc.her] head back to look at you, [npc.she] growls, "
 									+ "[npc.speech(Good idea slut! Now <i>stay still</i> so I can use you properly!)]";
 						default:
 							return "Jumping down onto all fours, [npc.name] lowers [npc.herself] down over the top of you, bringing [npc.her] crotch down to your face as [npc.she] drops [npc.her] head down between your [pc.legs]."
-									+ " Turning [npc.her] head back to look at you, she grins, "
+									+ " Turning [npc.her] head back to look at you, [npc.she] grins, "
 									+ "[npc.speech(Good [pc.girl]! This is gonna be fun!)]";
 					}
 					
@@ -776,11 +776,11 @@ public class GenericPositioning {
 					switch(Sex.getSexPacePartner()) {
 						case DOM_ROUGH:
 							return "Jumping down over the top of you, [npc.name] lowers [npc.herself] down over your groin, bringing [npc.her] crotch down to yours as [npc.she] straddles you in the cowgirl position."
-									+ " Leaning forwards a little, she growls down at you, "
+									+ " Leaning forwards a little, [npc.she] growls down at you, "
 									+ "[npc.speech(Good idea slut! Now <i>stay still</i> so I can use you properly!)]";
 						default:
 							return "Jumping down over the top of you, [npc.name] lowers [npc.herself] down over your groin, bringing [npc.her] crotch down to yours as [npc.she] straddles you in the cowgirl position."
-									+ " Leaning forwards a little, she grins down at you, "
+									+ " Leaning forwards a little, [npc.she] grins down at you, "
 									+ "[npc.speech(Good [pc.girl]! This is gonna be fun!)]";
 					}
 					

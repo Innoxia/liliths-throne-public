@@ -54,9 +54,9 @@ public class HarpyNympho extends NPC {
 		this.addFetish(Fetish.FETISH_EXHIBITIONIST);
 		
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_GREEN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_PINK));
-		this.setCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_WHITE));
-		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_PINK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_WHITE), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
 		
 		this.setFemininity(95);
 		

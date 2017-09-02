@@ -51,7 +51,6 @@ public class NPCRandomDominion extends NPC {
 		// Set random level from 1 to 3:
 		setLevel(Util.random.nextInt(3) + 1);
 		
-		
 		// RACE & NAME:
 		
 		Race race = Race.DOG_MORPH;

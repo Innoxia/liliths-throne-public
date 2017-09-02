@@ -45,9 +45,9 @@ public class HarpyDominantCompanion extends NPC {
 		this.addFetish(Fetish.FETISH_MASOCHIST);
 		
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BROWN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_GINGER));
-		this.setCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_GINGER));
-		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_GINGER), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_GINGER), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
 		
 		this.setFemininity(90);
 		

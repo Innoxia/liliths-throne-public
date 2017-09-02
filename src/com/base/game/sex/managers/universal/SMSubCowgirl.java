@@ -13,6 +13,7 @@ import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerUrethra;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerTailAnus;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerTailVagina;
+import com.base.game.sex.sexActions.baseActionsPartner.PartnerTongueMouth;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerNipple;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
@@ -85,7 +86,8 @@ public class SMSubCowgirl extends SexManagerDefault {
 				PlayerPenisAnus.class,
 				PlayerTailVagina.class,
 				PlayerTailAnus.class,
-				
+
+				PartnerTongueMouth.class,
 				PartnerFingerNipple.class,
 				PartnerFingerUrethra.class,
 				PartnerFingerVagina.class,

@@ -171,62 +171,6 @@ public enum PenisType implements BodyPartTypeInterface {
 	public Race getRace() {
 		return race;
 	}
-	
-	public String getPenisHeadName(GameCharacter gc) {
-		switch(this){
-			case EQUINE:
-				return UtilText.returnStringAtRandom("head");
-			case NONE:
-				return UtilText.returnStringAtRandom("");
-			default:
-				return UtilText.returnStringAtRandom("head", "tip");
-		}
-	}
-	
-	public String getPenisHeadDescriptor(GameCharacter gc) {
-		switch(this){
-			case CANINE:
-				return UtilText.returnStringAtRandom("tapered", "pointed");
-			case EQUINE:
-				return UtilText.returnStringAtRandom("wide", "flared", "flat");
-			case FELINE:
-				return UtilText.returnStringAtRandom("");
-			case NONE:
-				return UtilText.returnStringAtRandom("");
-			default:
-				return UtilText.returnStringAtRandom("");
-		}
-	}
-	
-	public String getCumName(GameCharacter gc) {
-		switch(this){
-			case CANINE:
-				if(gc.getRace()==Race.WOLF_MORPH) {
-					return UtilText.returnStringAtRandom("wolf-cum", "wolf-cream", "wolf-jism", "wolf-jizz", "wolf-seed");
-				} else {
-					return UtilText.returnStringAtRandom("dog-cum", "dog-cream", "dog-jism", "dog-jizz", "dog-seed");
-				}
-			case EQUINE:
-				return UtilText.returnStringAtRandom("horse-cum", "horse-cream", "horse-jism", "horse-jizz", "horse-seed");
-			case FELINE:
-				return UtilText.returnStringAtRandom("cat-cum", "cat-cream", "cat-jism", "cat-jizz", "cat-seed");
-			case NONE:
-				return UtilText.returnStringAtRandom("");
-			default:
-				return UtilText.returnStringAtRandom("cum", "cream", "jism", "jizz", "load", "seed", "spooge");
-		}
-	}
-	
-	public String getCumDescriptor() {
-		switch(this){
-			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("corruptive", "corrupted", "potent", "sticky", "hot", "salty");
-			case NONE:
-				return UtilText.returnStringAtRandom("");
-			default:
-				return UtilText.returnStringAtRandom("potent", "sticky", "hot", "salty");
-		}
-	}
 
 	public TesticleType getTesticleType() {
 		return testicleType;

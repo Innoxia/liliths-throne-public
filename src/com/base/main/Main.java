@@ -61,8 +61,8 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public final static String VERSION_NUMBER = "0.1.83",
-			VERSION_DESCRIPTION = "Early Alpha"; //TODO Preview
+	public final static String VERSION_NUMBER = "0.1.83.5",
+			VERSION_DESCRIPTION = "Early Alpha";
 
 	public final static Image WINDOW_IMAGE = new Image("/com/base/res/images/windowIcon32.png");
 
@@ -71,267 +71,57 @@ public class Main extends Application {
 	public static String patchNotes =
 			
 		"<h1 style='text-align:center;'>Version " + Main.VERSION_NUMBER + "</h1>"
-//		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>This is a preview release, and contains half-finished content!</b></h6>"
 		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha release!</b></h6>"
-
-		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>THIS VERSION IS VERY BUGGY!</b></h6>"
 		
 		+ "<p><b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Important information:</b> <i>If you don't see a mini-map in the bottom-left corner of the screen after starting the game, please update your java!</i></p>"
 		
-//		+ "<p>"
-//		+ "This is just a preview release, so <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>only play it if you're prepared to encounter some serious bugs and half-written content!</b>"
-//		+ " The full, polished version of this release will be out on Friday!"
-//		+ "</p>"
-		
 		//TODO
 		+ "<p>"
-			+ "Hello again! ^^"
+			+ "Hello! ^^"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I've done my very best to get the new body stuff incorporated into the game, but there's still so much to do... :("
+			+ "This preview is a lot smaller than usual, due to having spent the first few days of this week working on getting the 0.1.83 hotfix out."
+			+ " I also spent the entire of Thursday (finally) getting the new wiki sorted out, which only left me with Friday in which to make this preview."
+			+ " I'm going to try and merge some fun pull requests off the github over the weekend, so I might update this preview with some more content on Monday! :3"
 		+ "</p>"
 			
-		+ "<p>"
-			+ "I know it sucks, but I'd strongly advise treating this version as another preview, and continue playing on the stable version 0.1.82 until this is finished."
-			+ " I know I normally write more than this here, but I've been working on this all week, 12+ hours every day. I feel like I'm about to faint, so I'll package it up and release it now. ^^"
-		+ "</p>"
-			
+		
 		+ "<p>"
 			+ "If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
 		+ "</p>"
-		
-		
-		+"<list>"
-		+"<h3>Version 0.1.83P:</h3>"
-		+"<li>Gameplay:</li>"
-		+"<ul><b>Added:</b> (Most of) Alexa & Scarlett main quest content.</ul>"
-		+"<ul><b>Added:</b> Nikki, the manager of Slaver Alley's new 'Slave Administration' building. (Sells BDSM gear and slave collars once you get a slaver license.)</ul>"
-		+"<ul>Slightly changed Slaver Alley's map.</ul>"
-		+"<ul>Added 'Barren' perk.</ul>"
-		+"<ul>Locked Brax's forced transformation behind the 'Transformation' fetish.</ul>"
-		
-		+"<li>Clothing:</li>"
-		+"<ul><b>Added:</b> Bandana (no femininity requirements, mouth slot).</ul>"
-		+"<ul><b>Added:</b> Tiara (feminine, head slot).</ul>"
-		+"<ul><b>Added:</b> Arm wraps (no femininity requirements, hand slot).</ul>"
-		+"<ul><b>Added:</b> Cowboy hat (no femininity requirements, head slot).</ul>"
-		+"<ul><b>Added:</b> Mega Milk T-shirt (no femininity requirements, torso slot). Has a 1% chance to spawn in the 'Found clothing' event in alleyway tiles.</ul>"
-		+"<ul><b>Added:</b> 'Virgin-killer' sweater (feminine, torso slot).</ul>"
-		+"<ul><b>Added:</b> Ball gag (no femininity requirements, mouth slot, BDSM set).</ul>"
-		+"<ul><b>Added:</b> Ring gag (no femininity requirements, mouth slot, BDSM set).</ul>"
-		+"<ul><b>Added:</b> Tagged Choker (no femininity requirements, neck slot, BDSM set).</ul>"
-		+"<ul><b>Added:</b> Wrist restraints (no femininity requirements, wrist slot, BDSM set).</ul>"
-		+"<ul><b>Added:</b> Spreader bar (no femininity requirements, ankle slot, BDSM set).</ul>"
-		+"<ul><b>Added:</b> Chastity belt (no femininity requirements, groin slot, BDSM set).</ul>"
-		+"<ul>Added: 'Grey' to available clothing colours.</ul>"
-		+"<ul>Improved: Circlet's icon.</ul>"
-		+"<ul>Changed: Basic earrings and ringed barbell no longer have a femininity requirement.</ul>"
-		
-		+"<li>Other:</li>"
-		+"<ul><b>Changed:</b> You can now only find bottled essences after starting the 'Enchantments & Essences' quest.</ul>"
-		+"<ul>Split up and changed the debug menu's money/essence gain option from +100 flames/+1 essence to +1000 flames/+10 essences.</ul>"
-		+"<ul>Reduced the arousal gain penalty while resisting from -75% to -50%.</ul>"
-		+"<ul>Added a 0.5% chance to find an Eggplant in the alleyways. (Why did I do this?)</ul>"
-		
-		+"<li>AI:</li>"
-		+"<ul>NPCs with the pure virgin or lusty maiden status effects should no longer use sex actions that will cause them to lose their virginity.</ul>"
-		 
-		+"<li>Bugs:</li>"
-		+"<ul>Fixed major bug where you could get stuck in your phone's menu if you opened the 'characters present' window during combat.</ul>"
-		+"<ul>Fixed some typos.</ul>"
-		+"<ul>Fixed the cause of the occasional game freeze when pressing 'Take all'. (Thanks sinstrudel.)</ul>"
-		+"<ul>Fixed 'broken maiden' status effect being applied even if you didn't have the 'lusty maiden' fetish.</ul>"
-		+"<ul>Cum addicts will no longer ask you to pull out when they're giving you a blowjob.</ul>"
-		+"<ul>Removed old reference to non-con in options menu.</ul>"
-		+"<ul>Dominant doggy-style orgasm should now correctly apply pregnancy chances.</ul>"
-		+"<ul>Sex stats should now correctly track how many loads of cum you've given in each sex type.</ul>"
-		+"<ul>If you have maximum attribute values (100 in strength, intelligence, and fitness), your phone will no longer highlight if you have attribute points to spend.</ul>"
-		+"<ul>Fixed some incorrect detection of body part values.</ul>"
-		+"<ul>Fixed bug where Kate's into scene would repeat every time you entered her store.</ul>"
-		+"<ul>Fixed duplicate virginity loss descriptions in selfie.</ul>"
-		+"<ul>Fixed bug where the Jinxed, Enchantments, and Pregnancy quests would sometimes not trigger correctly.</ul>"
-		+"<ul>Fixed some bugs related to incorrect fur descriptions in TFs. (Thanks Rfpnj.)</ul>"
-		+"<ul>Fixed bug in sex that would cause you to be unable to choose any action other than 'Use item'. (Thanks strudel.)</ul>"
-		+"<ul>Fixed bug where fetishes wouldn't reset correctly sometimes.</ul>"
-		+"</list>"
-		
-		+ "<list>"
-		+ "<h6>Patch Notes - <b>Version 0.1.83PHF</b></h6>"
-		
-		+"<li>Engine:</li>"
-			+"<ul>Improved quest handling methods.</ul>"
-		
-		+"<li>Gameplay:</li>"
-			+"<ul><b>Changed:</b> You can now obtain a slaver license at the very start of the game. Simply go to the Slaver Administration building (in Slaver Alley) and ask about it there. ^^</ul>"
-			+"<ul><b>Added:</b> Squirrel-morphs. These are mostly going to be found in the Fields area, but there's a small chance of encountering them in Dominion's alleyways as well. (Added by rfpnj. Think you! :3)</ul>"
-			+"<ul><b>Added:</b> Squirrel Java, Round Nuts, Chasing Squirrels, and Bottled Squirrel-morph Essence.</ul>"
-			+"<ul><b>Changed:</b> Nikki's name to Finch.</ul>"
-		
-		+"<li>Sex:</li>"
-			+"<ul><b>Added:</b> Power-bottom doggy-style position. (Added by BelshazzarII. Thank you! :3)</ul>"
-			+"<ul>NPCs will now displace and remove mouth-concealing clothing during sex.</ul>"
-		
-		+"<li>Clothing:</li>"
-			+"<ul><b>Added:</b> Thigh-high socks (feminine, foot slot).</ul>"
-			+"<ul>Added two more metal colours (platinum and rose gold). (Added by rfpnj. :3)</ul>"
-			+"<ul>Ball gags can no longer be displaced by being 'pulled out'. They must be removed to gain access to the wearer's mouth.</ul>"
-		
-		+"<li>Other:</li>"
-			+"<ul>Clothing which blocks multiple slots now have more powerful enchantments.</ul>"
-			+"<ul>Choosing to start as an androgynous male will now give you a flat chest instead of AA-cup breasts. (I'm going to give you a lot more control over this when I redo the character creation screen.)</ul>"
-			+"<ul>Combined the 'Explore' and 'Look for trouble' actions in the harpy nests (after you've completed the Angry Harpies quest).</ul>"
-		
-		+"<li>Bugs:</li>"
-			+"<ul><b>Fixed:</b> Bug where nipples and urethras were always being described as being fuckable.</ul>"
-			+"<ul>Fixed the more powerful version of the arcane storm debuff being applied to your character.</ul>"
-			+"<ul>Typo fixes.</ul>"
-			+"<ul>You should now be able to correctly remove harpies from their tiles.</ul>"
-			+"<ul>NPCs will now stop equipping more and more clothing after each sexual encounter.</ul>"
-			+"<ul>Fixed bug where NPCs who aren't attracted to you would always choose to have sex after combat. (This was only working correctly before if you had non-con enabled.)</ul>"
-			+"<ul>Ralph's discount is now unavailable if you're unable to access your mouth. </ul>"
-			+"<ul>Fixed bug where turning BRax into Bree would give you multi-breasts instead of her.</ul>"
-			+"<ul>Fixed a bug where the 'Buy all' option for clothing would freeze the game.</ul>"
-			+"<ul>Fixed bugs in the 'Buy all' option for clothing, items, and weapons.</ul>"
-			+"<ul>Added correct fetish associations for tail-in-anus actions.</ul>"
-			
-		+"<li>Extra Bugs:</li>"
-			+"<ul>Fixed bug where you'd get stuck in Scarlett's shop at the end of the current main quest's content.</ul>"
-			+"<ul>Fixed bug where main quest couldn't be progressed when starting with an imported character.</ul>"
-			+"<ul>Day of birth stat should now be correctly working for birthed litters.</ul>"
-			+"<ul>Fixed some incorrect descriptions in the dominant doggy-style orgasm scene.</ul>"
-			+"<ul>Fixed some inaccurate descriptions in Lilaya's house.</ul>"
-			+"<ul>Hard-working Maid status effect now also has an NPC-perspective description.</ul>"
-			+"<ul>Fixed some incorrect NPC reactions to having your chest revealed during sex.</ul>"
-			
-		+ "</list>"
-		
-		
 		
 		+ "<list>"
 		
 		+ "<h6>Patch Notes - <b>Version " + Main.VERSION_NUMBER + "</b></h6>"
 		
-		+"<li>Engine:</li>"
-		+"<ul>Did a huge amount of tidying up of the GameCharacter class by moving transformation methods into their appropriate classes.</ul>"
-		+"<ul>Cleaned up a <i>lot</i> of the InventoryDialogue class (by Pimgd).</ul>"
-
 		+"<li>Gameplay:</li>"
-		+"<ul><b>Important change:</b> I listened to a lot of your feedback on the way the 'Non-con', 'Incest', and 'Transformation' fetishes were being used as content gates, and, after thinking about it, I've decided to move those options back to a proper 'content preferences' screen.</br>"
-		+"This will now enable your content preferences to be carried over to all of your games, so you don't have to worry about taking those fetishes on every new game.</ul>"
-		+"<ul><b>Changed:</b> Split orifice elasticity into elasticity and plasticity. Elasticity determines how quickly you stretch out during sex, while plasticity determines how much your orifice recovers afterwards.</ul>"
-		+"<ul>Updated character creation screen. This is still not in the final form that I want it to be in, but it does now include more options than before.</ul>"
-
-		+"<li>Body:</li>"
-		+"<ul>Improved a huge amount of transformation text, and have moved it into a far more organised structure to make any future editing a lot easier.</ul>"
-		+"<ul>Improved body description (the selfie text) to take into account all of the additions to the new body system.</ul>"
-		+"<ul>Added more realistic colour groups for skin/fur/feather/eye combinations, instead of it being 100% random.</ul>"
-
-		+"<li>Antennae:</li>"
-		+"<ul>Added support for antennae. (Not yet implemented in-game.)</ul>"
-		+"<ul>Added multiple rows of antennae (up to three rows, so six antennae in total).</ul>"
-
-		+"<li>Arm:</li>"
-		+"<ul>Added nail polish for hands.</ul>"
-		+"<ul>Added support for multiple arms rows. (Not yet implemented in-game.)</ul>"
-		+"<ul>Added underarm hair. (Content-gated, and is off by default!)</ul>"
-
-		+"<li>Ass:</li>"
-		+"<ul>Skin/fur covering ass and hips is now separate from torso skin/fur.</ul>"
-		+"<ul>Added special transformation modifiers for asshole (ribbed, puffy, muscled, tentacled).</ul>"
-		+"<ul>Added anal bleaching.</ul>"
-		+"<ul>Added ass hair. (Content-gated, and is off by default!)</ul>"
-
-		+"<li>Body Material:</li>"
-		+"<ul>Added support for body material, for when I implement slimes. (Will also enable things like being made out of fire/ice/rubber/etc.)</ul>"
-
-		+"<li>Breasts & Milk:</li>"
-		+"<ul>Skin/fur covering breasts is now separate from torso skin/fur.</ul>"
-		+"<ul>Added nipple colourings (plus nipple interior colouring, for fuckable nipples).</ul>"
-		+"<ul>Added nipple size.</ul>"
-		+"<ul>Added nipple shape (normal, vagina-like, or lipples).</ul>"
-		+"<ul>Added areolae size.</ul>"
-		+"<ul>Added areolae shape (normal, hearts, or stars).</ul>"
-		+"<ul>Added nipples-per-breast count (up to four per breast).</ul>"
-		+"<ul>Added special transformation modifiers for nipples (internally-ribbed, puffy, internal-muscles, internal-tentacles).</ul>"
-		+"<ul>Added milk as a separate transformable fluid.</ul>"
-		+"<ul>Added flavours.</ul>"
-		+"<ul>Added modifiers (viscous, sticky, slimy, bubbling, addictive, hallucinogenic).</ul>"
-		+"<ul>Added support for transformations caused by milk ingestion.</ul>"
-
-		+"<li>Core:</li>"
-		+"<ul>Added 'muscle' and 'body size' values, which together determine a character's body type.</ul>"
-		+"<ul>Tweaked the availability of some colours.</ul>"
-		+"<ul>Added body-part colour patterns (normal, mottled, spotted, striped, hair highlights).</ul>"
-		+"<ul>Added glowing colours. (All colours can have the 'glowing' modifier applied to them.)</ul>"
-		+"<ul>Added pubic hair. (Not yet implemented fully.)</ul>"
-
-		+"<li>Eyes:</li>"
-		+"<ul>Added support for multiple pairs of eyes (up to four pairs, so eight eyes in total).</ul>"
-		+"<ul>Added shapes for iris and pupil (round, horizontal, vertical, hearts, stars).</ul>"
-		+"<ul>Added heterochromatic iris and pupil support.</ul>"
-		+"<ul>Added eye shadow and eye liner.</ul>"
-
-		+"<li>Face:</li>"
-		+"<ul>Added lip and tongue colours.</ul>"
-		+"<ul>Added lipstick and blusher.</ul>"
-		+"<ul>Added special transformation modifiers for throat (internally-ribbed, puffy, internal-muscles, internal-tentacles).</ul>"
-		+"<ul>Added beards. (Content-gated, and is off by default!)</ul>"
-
-		+"<li>Hair:</li>"
-		+"<ul>Added hair styles (natural, loose, curly, straight, wavy, ponytail, twintails, braided).</ul>"
-		+"<ul>Doubled maximum hair length from 40 to 80 inches.</ul>"
-
-		+"<li>Horn:</li>"
-		+"<ul>Added multiple rows of horns (up to three rows, so six horns in total).</ul>"
-
-		+"<li>Legs:</li>"
-		+"<ul>Added toenail polish.</ul>"
-
-		+"<li>Penis & cum:</li>"
-		+"<ul>Added fully customisable penis. You can now apply the following transformations to any penis: sheathed, ribbed, tentacled, knotted, tapered, flared, barbed, veiny, prehensile.</ul>"
-		+"<ul>Added special transformation modifiers for urethra (internally-ribbed, puffy, internal-muscles, internal-tentacles).</ul>"
-		+"<ul>Added cum as a separate transformable fluid.</ul>"
-		+"<ul>Added multiple testicle support (between 2 and 8).</ul>"
-		+"<ul>Added an internal testicle TF.</ul>"
-		+"<ul>Added support for second penis (may still take some time to implement fully into the game).</ul>"
-		+"<ul>Added cum flavours.</ul>"
-		+"<ul>Added cum modifiers (viscous, sticky, slimy, bubbling, addictive, hallucinogenic).</ul>"
-		+"<ul>Added support for transformations caused by cum ingestion.</ul>"
-
-		+"<li>Tail:</li>"
-		+"<ul>Added multiple tail support.</ul>"
-
-		+"<li>Tongue:</li>"
-		+"<ul>Added tongue length.</ul>"
-		+"<ul>Added tongue modifiers (ribbed, tentacled, bifurcated).</ul>"
-
-		+"<li>Vagina & girl-cum:</li>"
-		+"<ul>Added special transformation modifiers (ribbed, puffy, muscled, tentacled).</ul>"
-		+"<ul>Added gcum flavours.</ul>"
-		+"<ul>Added gcum modifiers (viscous, sticky, slimy, bubbling, addictive, hallucinogenic).</ul>"
-		+"<ul>Added support for transformations caused by gcum ingestion.</ul>"
+		+"<ul>Reverted penis/vagina loss when shrinking past minimum size/capacity respectively. You now remove a penis or vagina by adding the 'remove' effect to a potion.</ul>"
+		+"<ul>Ralph now stocks squirrel-morph consumables.</ul>"
 			
 		+"<li>Sex:</li>"
-		+"<ul><b>Added:</b> Cowgirl framework. The cowgirl position is now available, but I haven't had time to add in position-specific descriptions yet. I'll add those (as well as some for self-kneeling and self-doggystyle) within the next couple of weeks.</ul>"
+		+"<ul>Converted the following actions into the new cowgirl position for both sub and dom positions: Starting kiss, penetrating anus, penetrating vagina.</ul>"
 			
-		+"<li>UI:</li>"
-		+"<ul>Added control customisation for actions 10-14, as well as for allowing control and shift keys as modifiers (by Pimgd).</ul>"
-
+		+"<li>Clothing:</li>"
+		+"<ul><b>Temporarily added:</b> Special clothing to Nyan's store, allowing you to buy the rainbow, Maid, and Milk Maid clothing. (I'm going to change this in the future!)</ul>"
+		+"<ul>Added: 'Milk Maid' Set, requires Milk Maid's Dress and Kerchief to be worn. (I'll change the set's effects to increase lactation when I convert the attributes over to the new system.)</ul>"
+		+"<ul>Added: Milk Maid's Dress (Feminine, Torso slot). (Created by Blue999)</ul>"
+		+"<ul>Added: Kerchief (Unisex, head slot).</ul>"
+		+"<ul>Added: Nursing bra (Feminine, Chest slot). (Created by Blue999)</ul>"
+		+"<ul>Added: Crotchless thong (Feminine, groin slot).</ul>"
+		+"<ul>Added: Keyhole sweater (Feminine, torso slot).</ul>"
+		+"<ul>Added: Jeans (Unisex, leg slot).</ul>"
+			
+		+"<li>Other:</li>"
+		+"<ul>Testicle-related actions are now correctly disabled if they are internal.</ul>"
+		+"<ul>Added correct descriptions for multiple tails in the character view screen.</ul>"
+			
 		+"<li>Bugs:</li>"
-		+"<ul>Fixed a cause of a game freeze when passing out after second pregnancy.</ul>"
-		+"<ul>Nipple bars are now correctly treated as a plural item.</ul>"
-		+"<ul>Fixed some instances were Bree/Brandi were called Brax.</ul>"
-		+"<ul>Typo fixes.</ul>"
-		+"<ul>Fixed bug where dyeing stacked clothes would dye the entire stack (fixed by Pimgd).</ul>"
-		+"<ul>Fixed a lot of typos, both in content and in code (by Pimgd).</ul>"
-		+"<ul>Fixed formatting issues in the encyclopedia's item page (by Pimgd).</ul>"
-		+"<ul>Fixed special attack descriptions not showing when performing the attack (by Pimgd).</ul>"
-		+"<ul>Fixed a bug where the player inventory would stay on screen on new game start (by Pimgd).</ul>"
-		+"<ul>Clothing colours in encyclopedia should no longer overlap (by Pimgd).</ul>"
+		+"<ul>Fixed some typos.</ul>"
+		+"<ul>Fixed some incorrect gender pronouns.</ul>"
+		+"<ul>Fixed some minor UI issues in Kate's shop.</ul>"
+		
 		+ "</list>"
-		
-		
 		;
 	
 	public static String disclaimer = "<h1 style='text-align:center;'>DISCLAIMER</h1>"

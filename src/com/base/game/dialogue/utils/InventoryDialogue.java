@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.base.game.character.GameCharacter;
+import com.base.game.character.Quest;
 import com.base.game.character.QuestLine;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.npc.NPC;
@@ -22,7 +23,6 @@ import com.base.game.inventory.Rarity;
 import com.base.game.inventory.ShopTransaction;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.enchanting.TFEssence;
-import com.base.game.inventory.enchanting.TFModifier;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
@@ -426,7 +426,7 @@ public class InventoryDialogue {
 		
 		@Override
 		public String getContent() {
-			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + item.getDescription() + item.getExtraDescription()
+			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + item.getDescription() + item.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer())
 					+ (Main.game.getDialogueFlags().tradePartner != null ? 
 							Main.game.getDialogueFlags().tradePartner.willBuy(item) ? 
 									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + formatAsMoney((int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
@@ -668,25 +668,19 @@ public class InventoryDialogue {
 							@Override
 							public void effects() {
 								EnchantmentDialogue.effects.clear();
+								EnchantmentDialogue.resetEnchantmentVariables();
 								EnchantmentDialogue.ingredient = item;
-								EnchantmentDialogue.primaryMod = TFModifier.NONE;
-								EnchantmentDialogue.secondaryMod = TFModifier.NONE;
-								EnchantmentDialogue.previousPrimaryMod = TFModifier.NONE;
-								EnchantmentDialogue.previousSecondaryMod = TFModifier.NONE;
 							}
 						};
 						
 					} else if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-						if(Main.game.getPlayer().getQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY).getSortingOrder() != 0) {
+						if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_ENCHANTMENT_DISCOVERY, Quest.SIDE_ENCHANTMENTS_LILAYA_HELP)) {
 							return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 								@Override
 								public void effects() {
 									EnchantmentDialogue.effects.clear();
+									EnchantmentDialogue.resetEnchantmentVariables();
 									EnchantmentDialogue.ingredient = item;
-									EnchantmentDialogue.primaryMod = TFModifier.NONE;
-									EnchantmentDialogue.secondaryMod = TFModifier.NONE;
-									EnchantmentDialogue.previousPrimaryMod = TFModifier.NONE;
-									EnchantmentDialogue.previousSecondaryMod = TFModifier.NONE;
 								}
 							};
 						}
@@ -858,7 +852,7 @@ public class InventoryDialogue {
 				
 			} else if (index == 4) {
 				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING)){
-					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_JINXED_CLOTHING).getSortingOrder() != 0){
+					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_JINXED_CLOTHING, Quest.SIDE_JINXED_LILAYA_HELP)){
 						return new Response("Remove jinx", "Proceed to the jinxed clothing choice menu.", REMOVE_JINX){
 							@Override
 							public void effects() {
@@ -1107,7 +1101,7 @@ public class InventoryDialogue {
 		@Override
 		public String getContent() {
 			int itemPrice = buyback ? buyBackPrice : (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier());
-			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + "<p>" + item.getDescription() + "</p>" + item.getExtraDescription() + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The")
+			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + "<p>" + item.getDescription() + "</p>" + item.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer()) + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The")
 					+ " will sell it to you for " + formatAsMoney(itemPrice) + "." + "</p>";
 		}
 		
@@ -1416,7 +1410,7 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
-			return "<div class='inventoryImage'>" + itemFloor.getSVGString() + "</div>" + itemFloor.getDescription() + itemFloor.getExtraDescription();
+			return "<div class='inventoryImage'>" + itemFloor.getSVGString() + "</div>" + itemFloor.getDescription() + itemFloor.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer());
 		}
 		
 		@Override
@@ -1572,7 +1566,7 @@ public class InventoryDialogue {
 
 			} else if (index == 4) {
 				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING)){
-					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_JINXED_CLOTHING).getSortingOrder() != 0){
+					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_JINXED_CLOTHING, Quest.SIDE_JINXED_LILAYA_HELP)){
 						return new Response("Remove jinx", "Proceed to the jinxed clothing choice menu.", REMOVE_JINX){
 							@Override
 							public void effects() {
@@ -2482,7 +2476,7 @@ public class InventoryDialogue {
 			}
 			
 			List<AbstractClothing> clothingItems = Main.game.getDialogueFlags().tradePartner.getAllClothingInInventory().stream()
-					.filter(item::equals)
+					.filter(clothing::equals)
 					.collect(Collectors.toList());
 					
 			clothingItems.stream().forEach(tradeClothing -> {

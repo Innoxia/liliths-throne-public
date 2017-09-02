@@ -158,14 +158,14 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 		return itemType.getValue()+additionalValue;
 	}
 	
-	public String getExtraDescription() {
+	public String getExtraDescription(GameCharacter user, GameCharacter target) {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("<p>"
 					+ "<b>Effects:</b></br>");
 		
 		for(ItemEffect ie : getItemEffects()) {
-			for(String s : ie.getEffectsDescription()) {
+			for(String s : ie.getEffectsDescription(user, target)) {
 				sb.append(s+"</br>");
 			}
 		}

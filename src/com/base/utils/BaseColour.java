@@ -40,7 +40,7 @@ public enum BaseColour {
 	
 	GREEN_LIME(Util.newColour(0xB4D987), Util.newColour(0x83BE3C)),
 	GREEN_LIGHT(Util.newColour(0x8fefbf), Util.newColour(0x1DB96B)),
-	GREEN(Util.newColour(0x1DB96B), Util.newColour(0x0D683B)),
+	GREEN(Util.newColour(0x57DB7E), Util.newColour(0x0D683B)),
 	
 	AQUA(Util.newColour(0x61FFFF), Util.newColour(0x009999)), // Ne, Kazuma...
 	TEAL(Util.newColour(0x6CBCB1), Util.newColour(0x439389)),

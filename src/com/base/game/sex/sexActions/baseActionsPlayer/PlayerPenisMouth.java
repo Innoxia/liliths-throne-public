@@ -22,7 +22,7 @@ import com.base.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
- * @version 0.1.79
+ * @version 0.1.84
  * @author Innoxia
  */
 public class PlayerPenisMouth {
@@ -125,7 +125,7 @@ public class PlayerPenisMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING;
+			return !Main.game.getPlayer().isInternalTesticles() && Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override
@@ -239,10 +239,10 @@ public class PlayerPenisMouth {
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS_PLAYER,
 			OrificeType.MOUTH_PARTNER) {
-
+		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPacePartner()!=SexPace.SUB_RESISTING;
+			return !Main.game.getPlayer().isInternalTesticles() && Sex.getSexPacePartner()!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override

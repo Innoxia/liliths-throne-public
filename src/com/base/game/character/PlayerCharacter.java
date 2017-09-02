@@ -225,6 +225,48 @@ public class PlayerCharacter extends GameCharacter {
 	public boolean isHasSlaverLicense() {
 		return isQuestCompleted(QuestLine.SIDE_SLAVERY);
 	}
+	
+	public boolean isQuestProgressGreaterThan(QuestLine questLine, Quest quest) {
+		boolean questInArray = false;
+		for(Quest q : questLine.getQuestArray()) {
+			if(quest == q) {
+				questInArray = true;
+				break;
+			}
+		}
+		if(!questInArray) {
+			System.err.println("Quest "+quest.toString()+" was not in QuestLine!");
+			return false;
+		}
+		
+		if(getQuest(questLine)==null) {
+			System.err.println("Player does not have Quest: "+quest.toString());
+			return false;
+		}
+		
+		return getQuest(questLine).getSortingOrder() > quest.getSortingOrder();
+	}
+	
+	public boolean isQuestProgressLessThan(QuestLine questLine, Quest quest) {
+		boolean questInArray = false;
+		for(Quest q : questLine.getQuestArray()) {
+			if(quest == q) {
+				questInArray = true;
+				break;
+			}
+		}
+		if(!questInArray) {
+			System.err.println("Quest "+quest.toString()+" was not in QuestLine!");
+			return false;
+		}
+		
+		if(getQuest(questLine)==null) {
+			System.err.println("Player does not have Quest: "+quest.toString());
+			return false;
+		}
+		
+		return getQuest(questLine).getSortingOrder() < quest.getSortingOrder();
+	}
 
 	// Other stuff:
 

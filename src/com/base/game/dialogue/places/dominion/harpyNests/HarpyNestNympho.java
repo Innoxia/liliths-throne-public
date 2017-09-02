@@ -632,7 +632,7 @@ public class HarpyNestNympho {
 					@Override
 					public void effects() {
 						if(Main.game.isForcedTFEnabled()) {
-							Main.game.getTextEndStringBuilder().append(ItemEffectType.NYMPHO_LOLLIPOP.applyEffect(null, null, Main.game.getHarpyNympho(), Main.game.getPlayer()));
+							Main.game.getTextEndStringBuilder().append(ItemEffectType.NYMPHO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyNympho(), Main.game.getPlayer()));
 						}
 					}
 				};
@@ -710,7 +710,7 @@ public class HarpyNestNympho {
 					@Override
 					public void effects() {
 						if(Main.game.isForcedTFEnabled()) {
-							Main.game.getTextEndStringBuilder().append(ItemEffectType.NYMPHO_LOLLIPOP.applyEffect(null, null, Main.game.getHarpyNympho(), Main.game.getPlayer()));
+							Main.game.getTextEndStringBuilder().append(ItemEffectType.NYMPHO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyNympho(), Main.game.getPlayer()));
 						}
 					}
 				};

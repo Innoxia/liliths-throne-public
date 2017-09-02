@@ -3477,7 +3477,7 @@ public enum StatusEffect {
 	SET_MAID(
 			70,
 			"Hard-working Maid",
-			"maidIcon",
+			"set_maid",
 			Colour.CLOTHING_BLACK,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 10f), new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 10f)),
@@ -3505,22 +3505,48 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int setCount = 0;
-
-			for (AbstractClothing c : target.getClothingCurrentlyEquipped())
-				if (c.getClothingType().getClothingSet() == ClothingSet.MAID)
-					setCount++;
-
-			if (setCount >= ClothingSet.MAID.getNumberRequiredForCompleteSet())
-				return true;
-			else
-				return false;
+			return ClothingSet.MAID.isCharacterWearingCompleteSet(target);
 		}
 	},
+	
+	SET_MILK_MAID(
+			70,
+			"Milk Maid",
+			"set_milk_maid",
+			Colour.BASE_WHITE,
+			true,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 10f), new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 10f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By wearing the entire Milk Maid's outfit, you're filled with the energy you need in order to perform all of your milking duties!";
+				} else {
+					return UtilText.parse(target, "By wearing the entire Milk Maid's outfit, [npc.name] is filled with the energy [npc.she] needs in order to perform all of [npc.her] milking duties.");
+				}
+				
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.MILK_MAID.isCharacterWearingCompleteSet(target);
+		}
+	},
+	
 	SET_ENFORCER(
 			70,
 			"enforcer's uniform",
-			"enforcerIcon",
+			"set_enforcer",
 			Colour.CLOTHING_WHITE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.STRENGTH, 10f), new Value<Attribute, Float>(Attribute.FITNESS, 5f), new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f)), null) {
@@ -3547,22 +3573,14 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int setCount = 0;
-
-			for (AbstractClothing c : target.getClothingCurrentlyEquipped())
-				if (c.getClothingType().getClothingSet() == ClothingSet.ENFORCER)
-					setCount++;
-
-			if (setCount >= ClothingSet.ENFORCER.getNumberRequiredForCompleteSet())
-				return true;
-			else
-				return false;
+			return ClothingSet.ENFORCER.isCharacterWearingCompleteSet(target);
 		}
 	},
+	
 	SET_RAINBOW(
 			70,
 			"double rainbow",
-			"rainbowIcon",
+			"set_rainbow",
 			Colour.CLOTHING_WHITE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 5f)),
@@ -3580,22 +3598,14 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int setCount = 0;
-
-			for (AbstractClothing c : target.getClothingCurrentlyEquipped())
-				if (c.getClothingType().getClothingSet() == ClothingSet.RAINBOW)
-					setCount++;
-
-			if (setCount >= ClothingSet.RAINBOW.getNumberRequiredForCompleteSet())
-				return true;
-			else
-				return false;
+			return ClothingSet.RAINBOW.isCharacterWearingCompleteSet(target);
 		}
 	},
+	
 	SET_BDSM(
 			70,
 			"BDSM",
-			"bdsmIcon",
+			"set_bdsm",
 			Colour.CLOTHING_WHITE,
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, -15f), new Value<Attribute, Float>(Attribute.STRENGTH, -15f)),
@@ -3623,16 +3633,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int setCount = 0;
-
-			for (AbstractClothing c : target.getClothingCurrentlyEquipped())
-				if (c.getClothingType().getClothingSet() == ClothingSet.BDSM)
-					setCount++;
-
-			if (setCount >= ClothingSet.BDSM.getNumberRequiredForCompleteSet())
-				return true;
-			else
-				return false;
+			return ClothingSet.BDSM.isCharacterWearingCompleteSet(target);
 		}
 	},
 	

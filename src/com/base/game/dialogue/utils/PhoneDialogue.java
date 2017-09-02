@@ -1332,9 +1332,9 @@ public class PhoneDialogue {
 					} else { 
 						int i=1;
 						for(ItemEffect ie : item.getEffects()) {
-							for(String s : ie.getEffectsDescription()) {
+							for(String s : ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
 								journalSB.append(s);
-								if(i != ie.getEffectsDescription().size())
+								if(i != ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size())
 									journalSB.append("</br>");
 								i++;
 							}

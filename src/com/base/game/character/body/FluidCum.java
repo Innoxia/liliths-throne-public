@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.base.game.character.GameCharacter;
+import com.base.game.character.attributes.Attribute;
 import com.base.game.character.body.types.BodyPartTypeInterface;
 import com.base.game.character.body.types.FluidType;
 import com.base.game.character.body.valueEnums.FluidFlavour;
 import com.base.game.character.body.valueEnums.FluidModifier;
+import com.base.game.character.race.Race;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.item.ItemEffect;
 import com.base.utils.Util;
@@ -44,7 +46,20 @@ public class FluidCum implements BodyPartInterface, Serializable {
 
 	@Override
 	public String getName(GameCharacter gc) {
-		return type.getName(gc);
+		switch(type){
+			case CUM_DOG_MORPH:
+				if(gc.getRace()==Race.WOLF_MORPH) {
+					return UtilText.returnStringAtRandom("wolf-cum", "wolf-cream", "wolf-jism", "wolf-jizz", "wolf-seed");
+				} else {
+					return UtilText.returnStringAtRandom("dog-cum", "dog-cream", "dog-jism", "dog-jizz", "dog-seed");
+				}
+			case CUM_HORSE_MORPH:
+				return UtilText.returnStringAtRandom("horse-cum", "horse-cream", "horse-jism", "horse-jizz", "horse-seed");
+			case CUM_CAT_MORPH:
+				return UtilText.returnStringAtRandom("cat-cum", "cat-cream", "cat-jism", "cat-jizz", "cat-seed");
+			default:
+				return UtilText.returnStringAtRandom("cum", "cream", "jism", "jizz", "load", "seed", "spooge");
+		}
 	}
 	
 	@Override
@@ -63,8 +78,10 @@ public class FluidCum implements BodyPartInterface, Serializable {
 		if(!fluidModifiers.isEmpty()) {
 			modifierDescriptor = fluidModifiers.get(Util.random.nextInt(fluidModifiers.size())).getName();
 		}
-		
+
 		return UtilText.returnStringAtRandom(
+				(gc.getAttributeValue(Attribute.VIRILITY)>=20?"potent":""),
+				"hot",
 				modifierDescriptor,
 				flavour.getRandomFlavourDescriptor(),
 				type.getDescriptor(gc));
@@ -127,6 +144,19 @@ public class FluidCum implements BodyPartInterface, Serializable {
 							"<p>"
 								+ "A strange, pulsating heat takes root deep within [npc.name]'s [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].</br>"
 								+ "[npc.Name]'s [npc.cum] is now [style.boldGrow(addictive)]!"
+							+ "</p>");
+				}
+			case ALCOHOLIC:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a strange, soothing warmth deep within your [pc.balls], causing you to let out [pc.a_moan+].</br>"
+								+ "Your [pc.cum] is now [style.boldGrow(alcoholic)]!"
+							+ "</p>";
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A strange, soothing warmth takes root deep within [npc.name]'s [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].</br>"
+								+ "[npc.Name]'s [npc.cum] is now [style.boldGrow(alcoholic)]!"
 							+ "</p>");
 				}
 			case BUBBLING:
@@ -231,6 +261,19 @@ public class FluidCum implements BodyPartInterface, Serializable {
 							"<p>"
 								+ "A soft coolness spreads up into [npc.name]'s [npc.balls], causing [npc.herHim] to let out a gentle sigh.</br>"
 								+ "[npc.Name]'s [npc.cum] is [style.boldShrink(no longer addictive)]!"
+							+ "</p>");
+				}
+			case ALCOHOLIC:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a soft coolness spreading up into your [pc.balls], causing you to let out a gentle sigh.</br>"
+								+ "Your [pc.cum] is [style.boldShrink(no longer alcoholic)]!"
+							+ "</p>";
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A soft coolness spreads up into [npc.name]'s [npc.balls], causing [npc.herHim] to let out a gentle sigh.</br>"
+								+ "[npc.Name]'s [npc.cum] is [style.boldShrink(no longer alcoholic)]!"
 							+ "</p>");
 				}
 			case BUBBLING:

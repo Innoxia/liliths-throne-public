@@ -74,7 +74,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			
 			if(item.getItemEffects().size()>0) {
 				for(ItemEffect ie : item.getItemEffects()) {
-					yIncrease += ie.getEffectsDescription().size();
+					yIncrease += ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size();
 				}
 			}
 			
@@ -90,10 +90,10 @@ public class InventoryTooltipEventListener implements EventListener {
 					if(ieCount>0)
 						tooltipSB.append("</br>");
 					ieCount++;
-					for(int i=0; i<ie.getEffectsDescription().size(); i++) {
+					for(int i=0; i<ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size(); i++) {
 						if(i!=0)
 							tooltipSB.append("</br>");
-						tooltipSB.append(ie.getEffectsDescription().get(i));
+						tooltipSB.append(ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).get(i));
 					}
 				}
 				tooltipSB.append("</div>");

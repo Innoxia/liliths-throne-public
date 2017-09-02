@@ -34,7 +34,7 @@ public class DemonHome {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if (Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() < Quest.MAIN_1_B_DEMON_HOME.getSortingOrder()) {
+				if (Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
 					return null;
 				} else {
 					if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME)
@@ -95,10 +95,11 @@ public class DemonHome {
 				}
 				
 			} else if (index == 2) {
-				if (Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() > Quest.MAIN_1_B_DEMON_HOME.getSortingOrder())
+				if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
 					return new Response("Felicity's room", "Head up to Felicity's room.", DEMON_HOME_ARTHURS_APARTMENT_FELICITYS_ROOM);
-				else
+				} else {
 					return null;
+				}
 				
 			} else if (index == 0) {
 				return new Response("Leave", "Leave the building and head back out into Demon Home.", DEMON_HOME_STREET);

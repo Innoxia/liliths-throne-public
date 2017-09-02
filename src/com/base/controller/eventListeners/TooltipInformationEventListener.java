@@ -655,10 +655,8 @@ public class TooltipInformationEventListener implements EventListener {
 	}
 	
 	private String getBodyPartDiv(String name, Race race, BodyCoveringType covering) {
-		return "<div class='subTitle-half body'>"
-					+ name + " - <span style='color:" + race.getColour().toWebHexString() + ";'>"+ Util.capitaliseSentence(race.getName()) + "</span></br>"
-					+ "<span style='color:" + owner.getCovering(covering).getPrimaryColour().toWebHexString() + ";'>"+ Util.capitaliseSentence(owner.getCovering(covering).getColourDescriptor(false))+ "</span> "
-						+ owner.getCovering(covering).getName(owner)
+		return "<div class='subTitle-half body'>"+ name + " - <span style='color:" + race.getColour().toWebHexString() + ";'>"+ Util.capitaliseSentence(race.getName()) + "</span></br>"
+					+ Util.capitaliseSentence(owner.getCovering(covering).getColourDescriptor(true))+ " "+ owner.getCovering(covering).getName(owner)
 				+ "</div>";
 	}
 	

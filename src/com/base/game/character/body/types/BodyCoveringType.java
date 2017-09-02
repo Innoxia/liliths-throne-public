@@ -386,9 +386,9 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"fleshy",
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.TONGUE)),
+			Util.newArrayListOfValues(new ListValue<Colour>(Colour.ORIFICE_INTERIOR)),
 			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.TONGUE)),
+			Colour.orificeInteriors,
 			null),
 
 	// HAIR:

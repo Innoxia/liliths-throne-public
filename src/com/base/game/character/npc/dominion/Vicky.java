@@ -21,6 +21,7 @@ import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.EnchantingUtils;
 import com.base.game.inventory.enchanting.TFModifier;
+import com.base.game.inventory.enchanting.TFPotency;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.item.ItemEffect;
 import com.base.game.inventory.item.ItemType;
@@ -66,8 +67,8 @@ public class Vicky extends NPC {
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, Colour.EYE_YELLOW));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK));
-		this.setCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_BLACK));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_BLACK), true);
 
 		this.setVaginaVirgin(false);
 		this.setVaginaCapacity(Capacity.FIVE_ROOMY.getMedianValue());
@@ -97,15 +98,15 @@ public class Vicky extends NPC {
 		this.addWeapon(WeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC), false);
 		
 		AbstractCoreItem ingredient = ItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
-		TFModifier primaryMod = TFModifier.getTFRacialBodyPartsListList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsListList().size()));
+		TFModifier primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
 		for(int i=0; i<8;i++) {
-			if(ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, TFModifier.NONE)!=null) {
-				this.addItem(EnchantingUtils.craftItem(ingredient, Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ingredient.getEnchantmentEffect(), primaryMod, TFModifier.NONE)))), false);
+			if(ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, TFModifier.NONE, TFPotency.MINOR_BOOST, 0, Main.game.getPlayer(), Main.game.getPlayer())!=null) {
+				this.addItem(EnchantingUtils.craftItem(ingredient, Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ingredient.getEnchantmentEffect(), primaryMod, TFModifier.NONE, TFPotency.MINOR_BOOST, 0)))), false);
 				
 			}
 			
 			ingredient = ItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
-			primaryMod = TFModifier.getTFRacialBodyPartsListList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsListList().size()));
+			primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
 		}
 		
 		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
