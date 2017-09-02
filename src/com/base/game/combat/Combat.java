@@ -545,7 +545,7 @@ public enum Combat {
 
 	private static StringBuilder tempSB;
 	
-	public final static DialogueNodeOld SPELL_SELECTION = new DialogueNodeOld("Combat", "Use a spell.", true) {
+	public static final DialogueNodeOld SPELL_SELECTION = new DialogueNodeOld("Combat", "Use a spell.", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -611,7 +611,7 @@ public enum Combat {
 		}
 	};
 
-	public final static DialogueNodeOld SPECIAL_ATTACK_SELECTION = new DialogueNodeOld("Combat", "Use a special attack.", true) {
+	public static final DialogueNodeOld SPECIAL_ATTACK_SELECTION = new DialogueNodeOld("Combat", "Use a special attack.", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -676,7 +676,7 @@ public enum Combat {
 		}
 	};
 
-	public final static DialogueNodeOld ITEM_USED = new DialogueNodeOld("Combat", "Use the item.", true) {
+	public static final DialogueNodeOld ITEM_USED = new DialogueNodeOld("Combat", "Use the item.", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -725,7 +725,7 @@ public enum Combat {
 		}
 	};
 
-	public final static DialogueNodeOld SUBMIT = new DialogueNodeOld("Combat", "Submit", true) {
+	public static final DialogueNodeOld SUBMIT = new DialogueNodeOld("Combat", "Submit", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -773,7 +773,7 @@ public enum Combat {
 			return MapDisplay.NORMAL;
 		}
 	};
-	public final static DialogueNodeOld SUBMIT_CONFIRM = new DialogueNodeOld("Combat", "Submit", true) {
+	public static final DialogueNodeOld SUBMIT_CONFIRM = new DialogueNodeOld("Combat", "Submit", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -813,7 +813,7 @@ public enum Combat {
 		}
 	};
 
-	public final static DialogueNodeOld ESCAPE = new DialogueNodeOld("Combat", "Escape", true) {
+	public static final DialogueNodeOld ESCAPE = new DialogueNodeOld("Combat", "Escape", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -858,7 +858,7 @@ public enum Combat {
 		}
 	};
 
-	public final static DialogueNodeOld ENEMY_ATTACK = new DialogueNodeOld("Combat", "The enemy strikes back at you.", true) {
+	public static final DialogueNodeOld ENEMY_ATTACK = new DialogueNodeOld("Combat", "The enemy strikes back at you.", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override

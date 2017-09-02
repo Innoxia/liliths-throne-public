@@ -60,10 +60,10 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public final static String VERSION_NUMBER = "0.1.83.5",
+	public static final String VERSION_NUMBER = "0.1.83.5",
 			VERSION_DESCRIPTION = "Early Alpha";
 
-	public final static Image WINDOW_IMAGE = new Image("/com/base/res/images/windowIcon32.png");
+	public static final Image WINDOW_IMAGE = new Image("/com/base/res/images/windowIcon32.png");
 
 	private static Properties properties;
 	
