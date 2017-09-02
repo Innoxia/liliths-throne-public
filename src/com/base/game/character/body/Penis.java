@@ -83,7 +83,7 @@ public class Penis implements BodyPartInterface, Serializable {
 
 	@Override
 	public String getDescriptor(GameCharacter owner) {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
         
 		for(PenisModifier pm : penisModifiers) {
 			list.add(pm.getName());
@@ -94,7 +94,7 @@ public class Penis implements BodyPartInterface, Serializable {
 	}
 	
 	public String getPenisHeadName(GameCharacter gc) {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		list.add("head");
         
 		if(penisModifiers.contains(PenisModifier.TAPERED)) {
@@ -105,7 +105,7 @@ public class Penis implements BodyPartInterface, Serializable {
 	}
 	
 	public String getPenisHeadDescriptor(GameCharacter gc) {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
         
 		if(penisModifiers.contains(PenisModifier.TAPERED)) {
 			list.add("tapered");
