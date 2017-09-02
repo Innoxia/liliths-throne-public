@@ -302,7 +302,7 @@ public class Library {
 		public String getContent() {
 			return "<p>"
 					+ "Walking down one of the aisles, you see that these shelves have an urban look to them. The shelves look like they haven been crafted from concrete and iron."
-					+ "These books have the general feeling of being about the city and its people."
+					+ "These books have the general feeling of being about the city and it's people."
 					+ "</p>";
 							
 		}
@@ -354,8 +354,9 @@ public class Library {
 		public String getContent() {
 			return "<p>"
 					+ "Walking down one of the aisles, you see that these shelves have an pastoral look to them. The shelves look like they haven been crafted from blocks of sod supported by pieces of wood."
-					+ " These books have the general feeling of being about the fields and its people."
-					+ "</p>";
+
+					+ " These books have the general feeling of being about the fields and it's people."
+				+ "</p>";
 							
 		}
 
