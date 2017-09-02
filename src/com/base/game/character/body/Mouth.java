@@ -61,7 +61,7 @@ public class Mouth implements BodyPartInterface, Serializable {
 
 	@Override
 	public String getDescriptor(GameCharacter owner) {
-		List<String> descriptorList = new ArrayList<String>();
+		List<String> descriptorList = new ArrayList<>();
 		
 		for(OrificeModifier om : orificeMouth.getOrificeModifiers()) {
 			descriptorList.add(om.getName());
