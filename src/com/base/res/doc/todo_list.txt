@@ -21,6 +21,9 @@
 		Reverted penis/vagina loss when shrinking past minimum size/capacity respectively. You now remove a penis or vagina by adding the 'remove' effect to a potion.
 		Ralph now stocks squirrel-morph consumables.
 	
+	Sex:
+		Converted the following actions into the new cowgirl position for both sub and dom positions: Starting kiss, penetrating anus, penetrating vagina.
+	
 	Clothing:
 		<b>Temporarily added:</b> Special clothing to Nyan's store, allowing you to buy the rainbow, Maid, and Milk Maid clothing. (I'm going to change this in the future!)
 		Added: 'Milk Maid' Set, requires Milk Maid's Dress and Kerchief to be worn. (I'll change the set's effects to increase lactation when I convert the attributes over to the new system.)

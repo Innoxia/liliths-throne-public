@@ -20,6 +20,7 @@ import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerTailAnus;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerTailVagina;
+import com.base.game.sex.sexActions.baseActionsPlayer.PlayerTongueMouth;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
@@ -78,6 +79,7 @@ public class SMDomCowgirl extends SexManagerDefault {
 				
 				// Scene-specific:
 
+				PlayerTongueMouth.class,
 				PlayerFingerNipple.class,
 				PlayerFingerUrethra.class,
 				PlayerFingerVagina.class,

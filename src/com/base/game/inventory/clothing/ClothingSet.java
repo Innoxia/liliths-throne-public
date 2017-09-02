@@ -44,10 +44,12 @@ public enum ClothingSet {
 	public boolean isCharacterWearingCompleteSet(GameCharacter target) {
 		int setCount = 0;
 
-		for (AbstractClothing c : target.getClothingCurrentlyEquipped())
-			if (c.getClothingType().getClothingSet() == this)
+		for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+			if (c.getClothingType().getClothingSet() == this) {
 				setCount++;
-
+			}
+		}
+		
 		return setCount >= this.getNumberRequiredForCompleteSet();
 	}
 
