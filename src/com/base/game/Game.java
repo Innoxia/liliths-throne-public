@@ -3,7 +3,7 @@ package com.base.game;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -845,11 +845,7 @@ public class Game implements Serializable {
 	/**
 	 * Sets the content of the main WebView based on a DialogueNode.
 	 * 
-	 * @param node
-	 *            The DialogueNode to set the content of.
-	 * @param isRestore
-	 *            True if this is a restoration after using inventory-like
-	 *            dialogue.
+	 * @param response
 	 */
 	public void setContent(Response response) {
 		setContent(response, true, null, null);
@@ -1348,7 +1344,7 @@ public class Game implements Serializable {
 			}
 		}
 		
-		Collections.sort(charactersPresent, (a, b)->{return a.getName().compareTo(b.getName());});
+		charactersPresent.sort(Comparator.comparing(GameCharacter::getName));
 		
 		return charactersPresent;
 	}
@@ -1642,10 +1638,7 @@ public class Game implements Serializable {
 	}
 
 	public void unlockClothing(ClothingType clothing, Colour colour) {
-		if (unlockedClothes.get(clothing) == null)
-			unlockedClothes.put(clothing, new HashSet<>());
-
-		unlockedClothes.get(clothing).add(colour);
+		unlockedClothes.computeIfAbsent(clothing, k -> new HashSet<>()).add(colour);
 	}
 
 	public List<WeaponType> getUnlockedWeapons() {

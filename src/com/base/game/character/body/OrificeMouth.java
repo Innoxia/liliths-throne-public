@@ -75,13 +75,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "Your throat suddenly fills with saliva, and you gulp as you realise that it's permanently [style.boldGrow(got wetter)].</br>"
-							+ "You now have [style.boldSex(" + UtilText.generateSingluarDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
+							+ "You now have [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name]'s throat suddenly fills with saliva, and [npc.she] gulps as [npc.she] realises that it's permanently [style.boldGrow(got wetter)].</br>"
-							+ "[npc.Name] now has [style.boldSex(" + UtilText.generateSingluarDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
+							+ "[npc.Name] now has [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
 						+ "</p>");
 			}
 			
@@ -89,13 +89,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You shift about uncomfortably as you feel your throat [style.boldShrink(getting drier)].</br>"
-							+ "You now have [style.boldSex(" + UtilText.generateSingluarDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
+							+ "You now have [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] shifts about uncomfortably as [npc.she] feels [npc.her] throat [style.boldShrink(getting drier)].</br>"
-							+ "[npc.Name] now has [style.boldSex(" + UtilText.generateSingluarDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
+							+ "[npc.Name] now has [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
 						+ "</p>");
 			}
 		}
@@ -145,13 +145,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You feel your throat's [style.boldGrow(capacity increasing)] as it relaxes and stretches out with a mind of its own.</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] feels [npc.her] throat's [style.boldGrow(capacity increasing)] as it relaxes and stretches out with a mind of its own.</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
 						+ "</p>");
 			}
 			
@@ -159,13 +159,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a cry as you feel your throat close up and tighten as its internal [style.boldShrink(capacity decreases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a cry as [npc.she] feels [npc.her] throat close up and tighten as its internal [style.boldShrink(capacity decreases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
 						+ "</p>");
 			}
 		}
@@ -236,13 +236,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange slackening sensation pulsating deep within your throat as its [style.boldGrow(elasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange slackening sensation pulsating deep within [npc.her] throat as its [style.boldGrow(elasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
 						+ "</p>");
 			}
 			
@@ -250,13 +250,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange clenching sensation pulsating deep within your throat as its [style.boldShrink(elasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange clenching sensation pulsating deep within [npc.her] throat as its [style.boldShrink(elasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
 						+ "</p>");
 			}
 		}
@@ -301,13 +301,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange moulding sensation pulsating deep within your throat as its [style.boldGrow(plasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange moulding sensation pulsating deep within [npc.her] throat as its [style.boldGrow(plasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
 						+ "</p>");
 			}
 			
@@ -315,13 +315,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange softening sensation pulsating deep within your throat as its [style.boldShrink(plasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange softening sensation pulsating deep within [npc.her] throat as its [style.boldShrink(plasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
 						+ "</p>");
 			}
 		}

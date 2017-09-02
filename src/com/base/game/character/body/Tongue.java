@@ -148,19 +148,19 @@ public class Tongue implements BodyPartInterface, Serializable {
 		if(this.tongueLength > tongueLength) {
 			if(owner.isPlayer()) {
 				return "<p>A soothing coolness rises up into your [pc.tongue], causing you to let out a surprised gasp as you feel it [style.boldShrink(getting shorter)].</br>"
-						+ "You now have "+UtilText.generateSingluarDeterminer(Util.intToString(tongueLength))+" [style.boldTfGeneric("+tongueLength+"-inch [pc.tongue])]!</p>";
+						+ "You now have "+UtilText.generateSingularDeterminer(Util.intToString(tongueLength))+" [style.boldTfGeneric("+tongueLength+"-inch [pc.tongue])]!</p>";
 			} else {
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a soothing coolness rise up into [npc.her] [npc.tongue], before it suddenly [style.boldShrink(gets shorter)].</br>"
-						+ "[npc.Name] now has "+UtilText.generateSingluarDeterminer(Util.intToString(tongueLength))+" [style.boldTfGeneric("+tongueLength+"-inch [npc.tongue])]!</p>");
+						+ "[npc.Name] now has "+UtilText.generateSingularDeterminer(Util.intToString(tongueLength))+" [style.boldTfGeneric("+tongueLength+"-inch [npc.tongue])]!</p>");
 			}
 			
 		} else {
 			if(owner.isPlayer()) {
 				return "<p>A pulsating warmth rises up into your [pc.tongue], causing you to let out a surprised gasp as you feel it [style.boldGrow(growing longer)].</br>"
-						+ "You now have "+UtilText.generateSingluarDeterminer(Util.intToString(tongueLength))+" [style.boldTfGeneric("+tongueLength+"-inch [pc.tongue])]!</p>";
+						+ "You now have "+UtilText.generateSingularDeterminer(Util.intToString(tongueLength))+" [style.boldTfGeneric("+tongueLength+"-inch [pc.tongue])]!</p>";
 			} else {
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a pulsating warmth rise up into [npc.her] [npc.tongue], before it suddenly [style.boldGrow(grows longer)].</br>"
-						+ "[npc.Name] now has "+UtilText.generateSingluarDeterminer(Util.intToString(tongueLength))+" [style.boldTfGeneric("+tongueLength+"-inch [npc.tongue])]!</p>");
+						+ "[npc.Name] now has "+UtilText.generateSingularDeterminer(Util.intToString(tongueLength))+" [style.boldTfGeneric("+tongueLength+"-inch [npc.tongue])]!</p>");
 			}
 		}
 	}

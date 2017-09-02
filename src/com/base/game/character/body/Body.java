@@ -1041,7 +1041,7 @@ public class Body implements Serializable {
 								sb.append("a training bra.");
 							} else {
 								String cupSize = CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-1).getCupSizeName();
-								sb.append(UtilText.generateSingluarDeterminer(cupSize)+" "+cupSize+"-cup bra.");
+								sb.append(UtilText.generateSingularDeterminer(cupSize)+" "+cupSize+"-cup bra.");
 							}
 						}
 						break;
@@ -1061,7 +1061,7 @@ public class Body implements Serializable {
 								sb.append("a training bra,");
 							} else {
 								String cupSize = CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-1).getCupSizeName();
-								sb.append(UtilText.generateSingluarDeterminer(cupSize)+" "+cupSize+"-cup bra,");
+								sb.append(UtilText.generateSingularDeterminer(cupSize)+" "+cupSize+"-cup bra,");
 							}
 							if (breast.getSize().getMeasurement()-2 == 0) {
 								sb.append(" and your third, lowest pair are completely flat.");
@@ -1071,7 +1071,7 @@ public class Body implements Serializable {
 									sb.append("a training bra.");
 								} else {
 									String cupSize = CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-2).getCupSizeName();
-									sb.append(UtilText.generateSingluarDeterminer(cupSize)+" "+cupSize+"-cup bra.");
+									sb.append(UtilText.generateSingularDeterminer(cupSize)+" "+cupSize+"-cup bra.");
 								}
 							}
 						}
@@ -1126,7 +1126,7 @@ public class Body implements Serializable {
 								sb.append("a training bra.");
 							} else {
 								String cupSize = CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-1).getCupSizeName();
-								sb.append(UtilText.generateSingluarDeterminer(cupSize)+" "+cupSize+"-cup bra.");
+								sb.append(UtilText.generateSingularDeterminer(cupSize)+" "+cupSize+"-cup bra.");
 							}
 						}
 						break;
@@ -1146,7 +1146,7 @@ public class Body implements Serializable {
 								sb.append("a training bra,");
 							} else {
 								String cupSize = CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-1).getCupSizeName();
-								sb.append(UtilText.generateSingluarDeterminer(cupSize)+" "+cupSize+"-cup bra,");
+								sb.append(UtilText.generateSingularDeterminer(cupSize)+" "+cupSize+"-cup bra,");
 							}
 							if (breast.getSize().getMeasurement()-2 == 0) {
 								sb.append(" and [npc.her] third, lowest pair are completely flat.");
@@ -1156,7 +1156,7 @@ public class Body implements Serializable {
 									sb.append("a training bra.");
 								} else {
 									String cupSize = CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-2).getCupSizeName();
-									sb.append(UtilText.generateSingluarDeterminer(cupSize)+" "+cupSize+"-cup bra.");
+									sb.append(UtilText.generateSingularDeterminer(cupSize)+" "+cupSize+"-cup bra.");
 								}
 							}
 						}

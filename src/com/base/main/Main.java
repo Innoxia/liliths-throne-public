@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -214,11 +213,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("B.", "", 0, 0, 1, 0)); // TODO
 		
 		
-		Collections.sort(credits, new Comparator<CreditsSlot>() {
-			public int compare(CreditsSlot left, CreditsSlot right) {
-		    	return left.getName().toLowerCase().compareTo(right.getName().toLowerCase());
-			}
-		});
+		credits.sort(Comparator.comparing((CreditsSlot a) -> a.getName().toLowerCase()));
 		
 		
 		Main.primaryStage = primaryStage;
@@ -229,7 +224,7 @@ public class Main extends Application {
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/base/res/fxml/main.fxml"));
 
-		Pane pane = (Pane) loader.load();
+		Pane pane = loader.load();
 
 		mainScene = new Scene(pane);
 
@@ -239,7 +234,7 @@ public class Main extends Application {
 			mainScene.getStylesheets().add("/com/base/res/css/stylesheet.css");
 		}
 
-		mainController = loader.<MainController> getController();
+		mainController = loader.getController();
 
 		Main.primaryStage.setScene(mainScene);
 		
@@ -247,17 +242,15 @@ public class Main extends Application {
 		
 		try {
 			Main.game = new Game();
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
+		} catch (ClassNotFoundException | IOException e1) {
 			e1.printStackTrace();
 		}
-				
+
 		loader = new FXMLLoader(getClass().getResource("/com/base/res/fxml/main.fxml"));
 		try {
 			if (Main.mainScene == null) {
-				pane = (Pane) loader.load();
-				Main.mainController = loader.<MainController> getController();
+				pane = loader.load();
+				Main.mainController = loader.getController();
 
 				Main.mainScene = new Scene(pane);
 				if (Main.getProperties().lightTheme)
@@ -308,9 +301,7 @@ public class Main extends Application {
 	public static void startNewGame(DialogueNodeOld startingDialogueNode) {
 		try {
 			Main.game = new Game();
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
+		} catch (ClassNotFoundException | IOException e1) {
 			e1.printStackTrace();
 		}
 //		Main.game.setPlayer(new PlayerCharacter("Player", "", 1, Gender.MALE, RacialBody.HUMAN, RaceStage.HUMAN, null, WorldType.CITY, Dominion.CITY_AUNTS_HOME));
@@ -331,8 +322,8 @@ public class Main extends Application {
 				Pane pane;
 				try {
 					if (Main.mainScene == null) {
-						pane = (Pane) loader.load();
-						Main.mainController = loader.<MainController> getController();
+						pane = loader.load();
+						Main.mainController = loader.getController();
 
 						Main.mainScene = new Scene(pane);
 						if (Main.getProperties().lightTheme)
@@ -395,7 +386,7 @@ public class Main extends Application {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Name too long!");
 			return;
 		}
-		if (!name.matches("[a-zA-Z0-9]+[a-zA-Z0-9' '_]*")) {
+		if (!name.matches("[a-zA-Z0-9]+[a-zA-Z0-9' _]*")) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Incompatible characters!");
 			return;
 		}
@@ -431,29 +422,27 @@ public class Main extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		if (file != null) {
-			try {
-				   
-			    try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
-			      oos.writeObject(Main.game);
-			      oos.close();
-			    }
 
-				properties.lastSaveLocation = name;//"data/saves/"+name+".lts";
-				properties.nameColour = Femininity.valueOf(game.getPlayer().getFemininity()).getColour().toWebHexString();
-				properties.name = game.getPlayer().getName();
-				properties.level = game.getPlayer().getLevel();
-				properties.money = game.getPlayer().getMoney();
-				properties.race = game.getPlayer().getRace().getName();
-				properties.quest = game.getPlayer().getQuest(QuestLine.MAIN).getName();
+		try {
 
-				properties.savePropertiesAsXML();
-				
-
-			} catch (Exception ex) {
-				ex.printStackTrace();
+			try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
+			  oos.writeObject(Main.game);
+			  oos.close();
 			}
+
+			properties.lastSaveLocation = name;//"data/saves/"+name+".lts";
+			properties.nameColour = Femininity.valueOf(game.getPlayer().getFemininity()).getColour().toWebHexString();
+			properties.name = game.getPlayer().getName();
+			properties.level = game.getPlayer().getLevel();
+			properties.money = game.getPlayer().getMoney();
+			properties.race = game.getPlayer().getRace().getName();
+			properties.quest = game.getPlayer().getQuest(QuestLine.MAIN).getName();
+
+			properties.savePropertiesAsXML();
+
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 		
 		if(Main.game.getCurrentDialogueNode() == OptionsDialogue.SAVE_LOAD) {
@@ -523,9 +512,8 @@ public class Main extends Application {
 				}
 			}
 		}
-		
-//		Collections.sort(filesList, (a, b) -> b.getName().compareTo(a.getName()));
-		Collections.sort(filesList, (e1, e2)->{return e1.lastModified()>e2.lastModified()?-1:(e1.lastModified()==e2.lastModified()?0:1);});
+
+		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
 		
 		return filesList;
 	}
@@ -543,8 +531,8 @@ public class Main extends Application {
 				}
 			}
 		}
-		
-		Collections.sort(filesList, (a, b) -> b.lastModified() > a.lastModified() ? 1 : -1);
+
+		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
 		
 		return filesList;
 	}

@@ -49,7 +49,7 @@ public enum BodySize {
 	
 	public String getName(boolean withDeterminer) {
 		if(withDeterminer) {
-			return UtilText.generateSingluarDeterminer(name) + " " + name;
+			return UtilText.generateSingularDeterminer(name) + " " + name;
 		} else {
 			return name;
 		}

@@ -26,7 +26,7 @@ public class KeyCodeWithModifiers {
 		boolean usesShiftModifier = false;
 		boolean usesControlModifier = false;
 		KeyCode keyCode = null;
-		if (source != "+" && source.contains("+")) {
+		if (!source.equals("+") && source.contains("+")) {
 			String[] splitted = source.split(Pattern.quote("+"));
 			for (int i = 0; i < splitted.length - 1; i++) {
 				if ("SHIFT".equals(splitted[i])) {
@@ -90,13 +90,9 @@ public class KeyCodeWithModifiers {
 		if (getClass() != obj.getClass())
 			return false;
 		KeyCodeWithModifiers other = (KeyCodeWithModifiers) obj;
-		if (controlModifier != other.controlModifier)
-			return false;
-		if (keyCode != other.keyCode)
-			return false;
-		if (shiftModifier != other.shiftModifier)
-			return false;
-		return true;
+		return keyCode == other.keyCode &&
+				shiftModifier == other.shiftModifier &&
+				controlModifier == other.controlModifier;
 	}
 
 	@Override

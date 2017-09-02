@@ -1464,7 +1464,7 @@ public enum SpecialAttack {
 				descriptionSB.append(
 						"<p>"
 							+ "[npc.Name] can't bring [npc.herself] to look away, and as [npc.she] lets out a desperate whine, you realise that [npc.she] has "
-							+ UtilText.generateSingluarDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>, and your display is"
+							+ UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>, and your display is"
 							+ " <b style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>massively turning [npc.herHim] on</b>!</br></br>"
 							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>!"
 						+ "</p>");
@@ -1480,7 +1480,7 @@ public enum SpecialAttack {
 				descriptionSB.append(
 						"<p>"
 							+ "Because you have "
-							+UtilText.generateSingluarDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
+							+UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
 							+ " you find yourself unable to look away from [npc.name]'s enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning you on</b>!</br></br>"
 							+ "<b>You lose " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>!"
 						+ "</p>");

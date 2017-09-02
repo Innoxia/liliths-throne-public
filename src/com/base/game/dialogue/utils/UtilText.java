@@ -1,7 +1,7 @@
 package com.base.game.dialogue.utils;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -79,11 +79,10 @@ public class UtilText {
 	 * <p>
 	 * she (second person)
 	 * 
-	 * @param gender
+	 * @param character
 	 *            to change tags to.
 	 * @param text
 	 *            to parse
-	 * @return
 	 */
 	public static String genderParsing(GameCharacter character, String text) {
 		modifiedSentence = text;
@@ -96,14 +95,10 @@ public class UtilText {
 					isFeminine = true;
 					break;
 				case CLOTHING_FEMININE:
-					isFeminine = true;
-					if(character.getClothingAverageFemininity()<50)
-						isFeminine = false;
+					isFeminine = character.getClothingAverageFemininity() >= 50;
 					break;
 				case CLOTHING_MASCULINE:
-					isFeminine = false;
-					if(character.getClothingAverageFemininity()>50)
-						isFeminine = true;
+					isFeminine = character.getClothingAverageFemininity() > 50;
 					break;
 				case MASCULINE:
 					isFeminine = false;
@@ -509,7 +504,7 @@ public class UtilText {
 		return "AEIOUaeiou".indexOf(c) != -1;
 	}
 
-	public static String generateSingluarDeterminer(String word) {
+	public static String generateSingularDeterminer(String word) {
 		if (isVowel(word.charAt(0)))
 			return "an";
 		else
@@ -560,7 +555,7 @@ public class UtilText {
 		randomStrings.clear();
 		
 		for(String s : strings)
-			if(s!="" && s!=null)
+			if(s!=null && !s.isEmpty())
 				randomStrings.add(s);
 		
 		if(randomStrings.size()!=0)
@@ -3229,17 +3224,7 @@ public class UtilText {
 			}
 		});
 		
-		Collections.sort(commandsList, (ParserCommand e1, ParserCommand e2) -> {
-			if(e1.getRelatedBodyPart() == null && e2.getRelatedBodyPart() == null)
-				return 0;
-				
-			if(e1.getRelatedBodyPart() == null)
-				return -1;
-			if(e2.getRelatedBodyPart() == null)
-				return 1;
-			return e1.getRelatedBodyPart().compareTo(e2.getRelatedBodyPart());
-			});
-		
+		commandsList.sort(Comparator.nullsLast(Comparator.comparing(ParserCommand::getRelatedBodyPart)));
 		
 		for(BodyPartType bpt : BodyPartType.values()) {
 			commandsMap.put(bpt, new ArrayList<>());
