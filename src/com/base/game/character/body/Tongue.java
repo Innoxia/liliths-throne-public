@@ -118,24 +118,9 @@ public class Tongue implements BodyPartInterface, Serializable {
 	}
 
 	public String setTongueLength(GameCharacter owner, int tongueLength) {
-		int sizeChange = 0;
-		
-		if (tongueLength <= 0) {
-			if (this.tongueLength != 0) {
-				sizeChange = 0 - this.tongueLength;
-				this.tongueLength = 0;
-			}
-		} else if (tongueLength >= TongueLength.FOUR_ABSURDLY_LONG.getMaximumValue()) {
-			if (this.tongueLength != TongueLength.FOUR_ABSURDLY_LONG.getMaximumValue()) {
-				sizeChange = TongueLength.FOUR_ABSURDLY_LONG.getMaximumValue() - this.tongueLength;
-				this.tongueLength = TongueLength.FOUR_ABSURDLY_LONG.getMaximumValue();
-			}
-		} else {
-			if (this.tongueLength != tongueLength) {
-				sizeChange = tongueLength - this.tongueLength;
-				this.tongueLength = tongueLength;
-			}
-		}
+		int oldTongueLength = this.tongueLength;
+		this.tongueLength = Math.max(0, Math.min(tongueLength, TongueLength.FOUR_ABSURDLY_LONG.getMaximumValue()));
+		int sizeChange = this.tongueLength - oldTongueLength;
 		
 		if(sizeChange == 0) {
 			if(owner.isPlayer()) {
@@ -145,22 +130,22 @@ public class Tongue implements BodyPartInterface, Serializable {
 			}
 		}
 		
-		if(this.tongueLength > tongueLength) {
+		if(sizeChange < 0) {
 			if(owner.isPlayer()) {
 				return "<p>A soothing coolness rises up into your [pc.tongue], causing you to let out a surprised gasp as you feel it [style.boldShrink(getting shorter)].</br>"
-						+ "You now have "+UtilText.generateSingluarDeterminer(Util.intToString(tongueLength))+" [style.boldTfGeneric("+tongueLength+"-inch [pc.tongue])]!</p>";
+						+ "You now have "+UtilText.generateSingluarDeterminer(Util.intToString(this.tongueLength))+" [style.boldTfGeneric("+this.tongueLength+"-inch [pc.tongue])]!</p>";
 			} else {
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a soothing coolness rise up into [npc.her] [npc.tongue], before it suddenly [style.boldShrink(gets shorter)].</br>"
-						+ "[npc.Name] now has "+UtilText.generateSingluarDeterminer(Util.intToString(tongueLength))+" [style.boldTfGeneric("+tongueLength+"-inch [npc.tongue])]!</p>");
+						+ "[npc.Name] now has "+UtilText.generateSingluarDeterminer(Util.intToString(this.tongueLength))+" [style.boldTfGeneric("+this.tongueLength+"-inch [npc.tongue])]!</p>");
 			}
 			
 		} else {
 			if(owner.isPlayer()) {
 				return "<p>A pulsating warmth rises up into your [pc.tongue], causing you to let out a surprised gasp as you feel it [style.boldGrow(growing longer)].</br>"
-						+ "You now have "+UtilText.generateSingluarDeterminer(Util.intToString(tongueLength))+" [style.boldTfGeneric("+tongueLength+"-inch [pc.tongue])]!</p>";
+						+ "You now have "+UtilText.generateSingluarDeterminer(Util.intToString(this.tongueLength))+" [style.boldTfGeneric("+this.tongueLength+"-inch [pc.tongue])]!</p>";
 			} else {
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a pulsating warmth rise up into [npc.her] [npc.tongue], before it suddenly [style.boldGrow(grows longer)].</br>"
-						+ "[npc.Name] now has "+UtilText.generateSingluarDeterminer(Util.intToString(tongueLength))+" [style.boldTfGeneric("+tongueLength+"-inch [npc.tongue])]!</p>");
+						+ "[npc.Name] now has "+UtilText.generateSingluarDeterminer(Util.intToString(this.tongueLength))+" [style.boldTfGeneric("+this.tongueLength+"-inch [npc.tongue])]!</p>");
 			}
 		}
 	}
