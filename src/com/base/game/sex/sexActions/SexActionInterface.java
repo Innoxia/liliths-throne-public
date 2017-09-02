@@ -108,12 +108,12 @@ public interface SexActionInterface {
 		}
 		
 		applyEffects();
-	};
+	}
 
 	public default void applyEffects(){
 	}
 	
-	public default boolean isBaseRequirementsMet() { return true; };
+	public default boolean isBaseRequirementsMet() { return true; }
 	
 	/**
 	 * Used for determining how likely an NPC is to use this action.

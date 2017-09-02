@@ -71,7 +71,7 @@ public class PartnerSelfTailAnus {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isPlayerDom();
-		};
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -115,7 +115,7 @@ public class PartnerSelfTailAnus {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isPlayerDom();
-		};
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -159,7 +159,7 @@ public class PartnerSelfTailAnus {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isPlayerDom();
-		};
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -203,7 +203,7 @@ public class PartnerSelfTailAnus {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPlayerDom();
-		};
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -247,7 +247,7 @@ public class PartnerSelfTailAnus {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPlayerDom();
-		};
+		}
 		
 		@Override
 		public String getActionTitle() {

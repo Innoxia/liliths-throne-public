@@ -35,7 +35,7 @@ import com.base.utils.InventoryItemComparator;
 import com.base.utils.InventoryWeaponComparator;
 import com.base.utils.ReverseClothingZLayerComparator;
 import com.base.utils.Util;
-import com.base.utils.Vector2i;;
+import com.base.utils.Vector2i;
 
 /**
  * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.
@@ -123,7 +123,7 @@ public class CharacterInventory implements Serializable {
 			this.money = 0;
 		else
 			this.money = money;
-	};
+	}
 	
 	/**
 	 * Does not allow money to fall below 0.
