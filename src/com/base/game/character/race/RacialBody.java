@@ -145,6 +145,34 @@ public enum RacialBody {
 		}
 	},
 
+	// BOVINES:
+	COW_MORPH(
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.STRENGTH, 40f),
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
+					new Value<Attribute, Float>(Attribute.FITNESS, 25f),
+					new Value<Attribute, Float>(Attribute.CORRUPTION, 15f)),
+			ArmType.COW_MORPH, 1,
+			AssType.COW_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT,
+			BreastType.COW_MORPH,
+			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+			CupSize.E, 3, Lactation.THREE_DECENT_AMOUNT, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT, NippleSize.THREE_LARGE, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 4,
+			180, 30, BodySize.THREE_LARGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			170, 70, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
+			EarType.COW_MORPH, 
+			EyeType.COW_MORPH,
+			FaceType.COW_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+			HairType.COW_MORPH, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
+			LegType.COW_MORPH,
+			SkinType.COW_MORPH, BodyMaterial.FLESH,
+			HornType.BOVINE_FEMALE, HornType.BOVINE_MALE,
+			PenisType.BOVINE, PenisSize.THREE_LARGE,
+			PenisType.NONE, PenisSize.TWO_AVERAGE,
+			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
+			TailType.COW_MORPH,
+			VaginaType.COW_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			WingType.NONE),
+
 	// CANINES:
 	DOG_MORPH(
 			Util.newHashMapOfValues(
@@ -506,6 +534,8 @@ public enum RacialBody {
 				return RacialBody.ANGEL;
 			case CAT_MORPH:
 				return RacialBody.CAT_MORPH;
+			case COW_MORPH:
+				return RacialBody.COW_MORPH;
 			case DEMON:
 				return RacialBody.DEMON;
 			case DOG_MORPH:

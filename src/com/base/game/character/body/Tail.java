@@ -252,6 +252,33 @@ public class Tail implements BodyPartInterface, Serializable {
 							);
 				}
 				break;
+			case COW_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A cow-like tail sprouts from just above your ass, rapidly growing in length until it hangs to just over half-way down your legs."
+									+ " You quickly discover that your control over it is limited to swishing it from side to side."
+									+ "</br>"
+									+ "You now have a [style.boldCowMorph(cow-like tail)]"
+								:" Cow-like tails sprout from just above your ass, rapidly growing in length until they hang to just over half-way down your legs."
+									+ " You quickly discover that your control over them is limited to swishing them from side to side."
+									+ "</br>"
+									+ "You now have [pc.tailCount] [style.boldCowMorph(cow-like tails)]")
+							);
+				} else {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A cow-like tail sprouts from just above [npc.her] ass, rapidly growing in length until it hangs to just over half-way down [npc.her] legs."
+									+ " [npc.She] quickly discovers that [npc.her] control over it is limited to swishing it from side to side."
+									+ "</br>"
+									+ "[npc.Name] now has a [style.boldCowMorph(cow-like tail)]"
+								:" Cow-like tails sprout from just above [npc.her] ass, rapidly growing in length until they hang to just over half-way down [npc.her] legs."
+									+ " [npc.She] quickly discovers that [npc.her] control over them is limited to swishing them from side to side."
+									+ "</br>"
+									+ "[npc.Name] now has [npc.tailCount] [style.boldCowMorph(cow-like tails)]")
+							);
+				}
+				break;
 			case LYCAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

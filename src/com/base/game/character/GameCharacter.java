@@ -3051,6 +3051,8 @@ public class GameCharacter implements Serializable {
 				return BodyCoveringType.BODY_HAIR_ANGEL;
 			case CAT_MORPH:
 				return BodyCoveringType.BODY_HAIR_FELINE_FUR;
+			case COW_MORPH:
+				return BodyCoveringType.BODY_HAIR_BOVINE_FUR;
 			case DEMON:
 				return BodyCoveringType.BODY_HAIR_DEMON;
 			case DOG_MORPH:

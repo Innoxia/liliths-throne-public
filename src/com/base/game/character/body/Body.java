@@ -289,7 +289,52 @@ public class Body implements Serializable {
 					secondary, false));
 		}
 		
+
+		
+		/* I added this (weird and probably terrible) method to make sure I don't miss any races ^^
+		 * To:
+		 * Make all body hair colour the same as hair colour
+		 */
+		for(Race r : Race.values()) {
+			switch(r) {
+				case ANGEL:
+					coverings.put(BodyCoveringType.BODY_HAIR_ANGEL, new Covering(BodyCoveringType.BODY_HAIR_ANGEL, coverings.get(BodyCoveringType.HAIR_ANGEL).getPrimaryColour()));
+					break;
+				case CAT_MORPH:
+					coverings.put(BodyCoveringType.BODY_HAIR_FELINE_FUR, new Covering(BodyCoveringType.BODY_HAIR_FELINE_FUR, coverings.get(BodyCoveringType.HAIR_FELINE_FUR).getPrimaryColour()));
+					break;
+				case COW_MORPH:
+					coverings.put(BodyCoveringType.BODY_HAIR_BOVINE_FUR, new Covering(BodyCoveringType.BODY_HAIR_BOVINE_FUR, coverings.get(BodyCoveringType.HAIR_BOVINE_FUR).getPrimaryColour()));
+					break;
+				case DEMON:
+					coverings.put(BodyCoveringType.BODY_HAIR_DEMON, new Covering(BodyCoveringType.BODY_HAIR_DEMON, coverings.get(BodyCoveringType.HAIR_DEMON).getPrimaryColour()));
+					break;
+				case DOG_MORPH:
+					coverings.put(BodyCoveringType.BODY_HAIR_CANINE_FUR, new Covering(BodyCoveringType.BODY_HAIR_CANINE_FUR, coverings.get(BodyCoveringType.HAIR_CANINE_FUR).getPrimaryColour()));
+					break;
+				case HARPY:
+					coverings.put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, coverings.get(BodyCoveringType.HAIR_HARPY).getPrimaryColour()));
+					break;
+				case HORSE_MORPH:
+					coverings.put(BodyCoveringType.BODY_HAIR_HORSE_HAIR, new Covering(BodyCoveringType.BODY_HAIR_HORSE_HAIR, coverings.get(BodyCoveringType.HAIR_HORSE_HAIR).getPrimaryColour()));
+					break;
+				case HUMAN:
+					coverings.put(BodyCoveringType.BODY_HAIR_HUMAN, new Covering(BodyCoveringType.BODY_HAIR_HUMAN, coverings.get(BodyCoveringType.HAIR_HUMAN).getPrimaryColour()));
+					break;
+				case SLIME:
+					coverings.put(BodyCoveringType.BODY_HAIR_SLIME, new Covering(BodyCoveringType.BODY_HAIR_SLIME, coverings.get(BodyCoveringType.HAIR_SLIME).getPrimaryColour()));
+					break;
+				case SQUIRREL_MORPH:
+					coverings.put(BodyCoveringType.BODY_HAIR_SQUIRREL_FUR, new Covering(BodyCoveringType.BODY_HAIR_SQUIRREL_FUR, coverings.get(BodyCoveringType.HAIR_SQUIRREL_FUR).getPrimaryColour()));
+					break;
+				case WOLF_MORPH:
+					coverings.put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, coverings.get(BodyCoveringType.HAIR_LYCAN_FUR).getPrimaryColour()));
+					break;
+			}
+		}
+
 		updateBodyHairColour();
+
 
 		updateAllSkinCoverings();
 	}
@@ -396,6 +441,9 @@ public class Body implements Serializable {
 			case CAT_MORPH:
 				sb.append(", anthropomorphic cat-like face, with a cute little muzzle.");
 				break;
+			case COW_MORPH:
+				sb.append(", anthropomorphic cow-like face, with a cute little muzzle.");
+				break;
 			case SQUIRREL_MORPH:
 				sb.append(", anthropomorphic squirrel-like face, with a cute little muzzle.");
 				break;
@@ -455,6 +503,9 @@ public class Body implements Serializable {
 					sb.append(", fur-like hair");
 					break;
 				case CAT_MORPH:
+					sb.append(", fur-like hair");
+					break;
+				case COW_MORPH:
 					sb.append(", fur-like hair");
 					break;
 				case SQUIRREL_MORPH:
@@ -517,6 +568,18 @@ public class Body implements Serializable {
 				else
 					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from [npc.her] upper forehead.");
 				break;
+			case BOVINE_MALE:
+				if (owner.isPlayer())
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from your upper temples.");
+				else
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from [npc.her] upper temples.");
+				break;
+			case BOVINE_FEMALE:
+				if (owner.isPlayer())
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from your upper temples.");
+				else
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from [npc.her] upper temples.");
+				break;
 			default:
 				if (owner.isPlayer())
 					sb.append(" [pc.A_horns+] protrude from your upper forehead.");
@@ -561,6 +624,9 @@ public class Body implements Serializable {
 				break;
 			case CAT_MORPH:
 				sb.append(" cat-like eyes");
+				break;
+			case COW_MORPH:
+				sb.append(" cow-like eyes");
 				break;
 			case DEMON_COMMON:
 				sb.append(" demonic eyes");
@@ -661,6 +727,12 @@ public class Body implements Serializable {
 					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on your head.");
 				else
 					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on [npc.her] head.");
+				break;
+			case COW_MORPH:
+				if (owner.isPlayer())
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"cow-like ears, which are positioned high up on your head.");
+				else
+					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"cow-like ears, which are positioned high up on [npc.her] head.");
 				break;
 			case SQUIRREL_MORPH:
 				if (owner.isPlayer())
@@ -1241,6 +1313,14 @@ public class Body implements Serializable {
 					sb.append("[npc.She] has "+armDeterminer+" arms, which are covered in [npc.armFullDescription(true)]."
 							+ " [npc.Her] hands are formed into anthropomorphic, cat-like hands, complete with retractable claws and pink pads.");
 				break;
+			case COW_MORPH:
+				if (owner.isPlayer())
+					sb.append("You have "+armDeterminer+" arms, which are covered in [pc.armFullDescription(true)]."
+								+ " Your hands, while human in shape, have tough little hoof-like nails.");
+				else
+					sb.append("[npc.She] has "+armDeterminer+" arms, which are covered in [npc.armFullDescription(true)]."
+							+ " [npc.Her] hands, while human in shape, have tough little hoof-like nails.");
+				break;
 			case SQUIRREL_MORPH:
 				if (owner.isPlayer())
 					sb.append("You have "+armDeterminer+" arms, which are covered in [pc.armFullDescription(true)]."
@@ -1390,6 +1470,14 @@ public class Body implements Serializable {
 					sb.append("[npc.Her] legs are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
 							+ " and [npc.her] feet are formed into anthropomorphic horse-like hooves.");
 				break;
+			case COW_MORPH:
+				if (owner.isPlayer())
+					sb.append("Your legs are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>,"
+							+ " and your feet are formed into anthropomorphic cow-like hooves.");
+				else
+					sb.append("[npc.Her] legs are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
+							+ " and [npc.her] feet are formed into anthropomorphic cow-like hooves.");
+				break;
 			case SLIME:
 				if (owner.isPlayer())
 					sb.append("Your legs, although human-shaped, are made out of <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>.");
@@ -1414,6 +1502,11 @@ public class Body implements Serializable {
 					sb.append(" The claws on your talons have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
 				} else if(owner.getLegType()==LegType.HORSE_MORPH) {
 					sb.append(" Your hooves have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
+
+				} else if(owner.getLegType()==LegType.COW_MORPH) {
+					sb.append(" Your hooves have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
+
+
 				} else {
 					sb.append(" Your toenails have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
 				}
@@ -1424,6 +1517,11 @@ public class Body implements Serializable {
 					sb.append(" The claws on [npc.her] talons have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
 				} else if(owner.getLegType()==LegType.HORSE_MORPH) {
 					sb.append(" [npc.Her] hooves have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
+
+				} else if(owner.getLegType()==LegType.COW_MORPH) {
+					sb.append(" [npc.Her] hooves have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
+
+
 				} else {
 					sb.append(" [npc.Her] toenails have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
 				}
@@ -1487,6 +1585,69 @@ public class Body implements Serializable {
 			}
 			
 			// Tail:
+
+			switch (tail.getType()) {
+				case DEMON_COMMON:
+					if (owner.isPlayer())
+						sb.append(" A long, thin, spaded tail grows out from just above your ass. You have complete control over it, and you can easily use it to grip and hold objects.");
+					else
+						sb.append(" A long, thin, spaded tail grows out from just above [npc.her] ass. [npc.She] appears to have complete control over it, and could easily use it to grip and hold objects.");
+					break;
+				case DOG_MORPH:
+					if (owner.isPlayer())
+						sb.append(" A furry, <span style='color:[pc.tailColourHex];'>[pc.tailColour], dog-like tail</span> grows out from just above your ass. It wags uncontrollably when you get excited.");
+					else
+						sb.append(" A furry, <span style='color:[npc.tailColourHex];'>[npc.tailColour], dog-like tail</span> grows out from just above [npc.her] ass. It wags uncontrollably when [npc.she] gets excited.");
+					break;
+				case LYCAN:
+					if (owner.isPlayer())
+						sb.append(" A furry, <span style='color:[pc.tailColourHex];'>[pc.tailColour], wolf-like tail</span> grows out from just above your ass.");
+					else
+						sb.append(" A furry, <span style='color:[npc.tailColourHex];'>[npc.tailColour], wolf-like tail</span> tail grows out from just above [npc.her] ass.");
+					break;
+				case CAT_MORPH:
+					if (owner.isPlayer())
+						sb.append(" A furry, <span style='color:[pc.tailColourHex];'>[pc.tailColour], cat-like tail</span> grows out from just above your ass."
+								+ " You can control it well enough to grant you significantly improved balance.");
+					else
+						sb.append(" A furry, <span style='color:[npc.tailColourHex];'>[npc.tailColour], cat-like tail</span> grows out from just above [npc.her] ass."
+								+ " [npc.She] seems to be able to control it enough to grant [npc.herHim] significantly improved balance.");
+					break;
+				case SQUIRREL_MORPH:
+					if (owner.isPlayer())
+						sb.append(" A fluffy, <span style='color:[pc.tailColourHex];'>[pc.tailColour], squirrel-like tail</span> grows out from just above your ass."
+								+ " You can control it well enough to grant you significantly improved balance.");
+					else
+						sb.append(" A fluffy, <span style='color:[npc.tailColourHex];'>[npc.tailColour], squirrel-like tail</span> grows out from just above [npc.her] ass."
+								+ " [npc.She] seems to be able to control it enough to grant [npc.herHim] significantly improved balance.");
+					break;
+				case HORSE_MORPH:
+					if (owner.isPlayer())
+						sb.append(" A long, <span style='color:[pc.tailColourHex];'>[pc.tailColour], horse-like tail</span> grows out from just above your ass."
+								+ " You can swipe it from side to side, but other than that, you don't have much control over it.");
+					else
+						sb.append(" A long, <span style='color:[npc.tailColourHex];'>[npc.tailColour], horse-like tail</span> grows out from just above [npc.her] ass."
+								+ " [npc.She] can swipe it from side to side, but other than that, [npc.she] doesn't seem to have much control over it.");
+					break;
+				case COW_MORPH:
+					if (owner.isPlayer())
+						sb.append(" A long, <span style='color:[pc.tailColourHex];'>[pc.tailColour], cow-like tail</span> grows out from just above your ass."
+								+ " You can swipe it from side to side, but other than that, you don't have much control over it.");
+					else
+						sb.append(" A long, <span style='color:[npc.tailColourHex];'>[npc.tailColour], cow-like tail</span> grows out from just above [npc.her] ass."
+								+ " [npc.She] can swipe it from side to side, but other than that, [npc.she] doesn't seem to have much control over it.");
+					break;
+				case HARPY:
+					if (owner.isPlayer())
+						sb.append(" A beautiful <span style='color:[pc.tailColourHex];'> plume of [pc.tailColour] tail-feathers</span> grows out from just above your ass."
+								+ " You can rapidly move it up and down to help you keep your balance and to control your path when in flight.");
+					else
+						sb.append(" A beautiful <span style='color:[npc.tailColourHex];'> plume of [npc.tailColour] tail-feathers</span> grows out from just above [npc.her] ass."
+								+ " [npc.She] can rapidly move it up and down to help [npc.herHim] keep [npc.her] balance and to control [npc.her] path when in flight.");
+					break;
+				default:
+					break;
+
 			if(tail.getType()!=TailType.NONE) {
 				if (owner.isPlayer()) {
 					sb.append(" Growing out from just above your ass, you have ");
@@ -1604,6 +1765,7 @@ public class Body implements Serializable {
 					case NONE:
 						break;
 				}
+
 			}
 	
 			sb.append("</p>");
@@ -1909,6 +2071,14 @@ public class Body implements Serializable {
 					descriptionSB.append("You have an equine, [pc.anusFullDescription(true)]");
 				} else {
 					descriptionSB.append("[npc.She] has an equine, [npc.anusFullDescription(true)]");
+				}
+				break;
+				
+			case COW_MORPH:
+				if (isPlayer) {
+					descriptionSB.append("You have an bovine, [pc.anusFullDescription(true)]");
+				} else {
+					descriptionSB.append("[npc.She] has an bovine, [npc.anusFullDescription(true)]");
 				}
 				break;
 				
@@ -2567,6 +2737,9 @@ public class Body implements Serializable {
 			case DEMON_COMMON:
 				descriptionSB.append(" demonic");
 				break;
+			case BOVINE:
+				descriptionSB.append(" bovine");
+				break;
 			case CANINE:
 				descriptionSB.append(" canine");
 				break;
@@ -3055,6 +3228,13 @@ public class Body implements Serializable {
 					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" feline pussy, with [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
 					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" feline pussy, with [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+				}
+				break;
+			case COW_MORPH:
+				if (isPlayer) {
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" bovine pussy, with [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+				} else {
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" bovine pussy, with [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case SQUIRREL_MORPH:

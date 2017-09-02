@@ -24,7 +24,7 @@ public enum Genus {
 	VULPINE("vulpine",
 			Colour.CLOTHING_RED), //TODO
 	BOVINE("bovine",
-			Colour.CLOTHING_RED), //TODO
+			Colour.RACE_COW_MORPH), //TODO
 	INSECT("insectoid",
 			Colour.CLOTHING_RED), //TODO
 	ARACHNID("arachnoid",
