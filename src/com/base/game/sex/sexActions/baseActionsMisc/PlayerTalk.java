@@ -28,7 +28,7 @@ import com.base.utils.Util.ListValue;
  */
 public class PlayerTalk {
 	
-	public static SexAction PLAYER_DIRTY_TALK = new SexAction(
+	public static final SexAction PLAYER_DIRTY_TALK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -187,7 +187,7 @@ public class PlayerTalk {
 		}
 	};
 	
-	public static SexAction PLAYER_ASK_FOR_CREAMPIE = new SexAction(
+	public static final SexAction PLAYER_ASK_FOR_CREAMPIE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -285,7 +285,7 @@ public class PlayerTalk {
 		}
 	};
 	
-	public static SexAction PLAYER_ASK_FOR_PULL_OUT = new SexAction(
+	public static final SexAction PLAYER_ASK_FOR_PULL_OUT = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -348,7 +348,7 @@ public class PlayerTalk {
 		}
 	};
 	
-	public static SexAction PLAYER_REQUEST_VAGINAL = new SexAction(
+	public static final SexAction PLAYER_REQUEST_VAGINAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -388,7 +388,7 @@ public class PlayerTalk {
 		}
 	};
 	
-	public static SexAction PLAYER_REQUEST_ANAL = new SexAction(
+	public static final SexAction PLAYER_REQUEST_ANAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -443,7 +443,7 @@ public class PlayerTalk {
 		}
 	};
 	
-	public static SexAction PLAYER_REQUEST_ORAL = new SexAction(
+	public static final SexAction PLAYER_REQUEST_ORAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -492,7 +492,7 @@ public class PlayerTalk {
 		}
 	};
 	
-	public static SexAction PLAYER_REQUEST_NIPPLE = new SexAction(
+	public static final SexAction PLAYER_REQUEST_NIPPLE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,

@@ -29,7 +29,7 @@ public class SABraxSubCowgirl {
 
 	// Player's actions:
 
-	public static SexAction PLAYER_DIRTY_TALK = new SexAction(
+	public static final SexAction PLAYER_DIRTY_TALK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -150,7 +150,7 @@ public class SABraxSubCowgirl {
 	};
 	
 
-	public static SexAction PLAYER_COWGIRL_KISS = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_KISS = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -228,7 +228,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_FACESIT_PUSSY = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_FACESIT_PUSSY = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
@@ -320,7 +320,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_FACESIT_ASS = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_FACESIT_ASS = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
@@ -405,7 +405,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_FACESIT_PASSIVE = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_FACESIT_PASSIVE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
@@ -440,7 +440,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_FACESIT_PASSIVE_ANAL = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_FACESIT_PASSIVE_ANAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
@@ -475,7 +475,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_FACESIT_GRIND = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_FACESIT_GRIND = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
@@ -523,7 +523,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_FACESIT_GRIND_ANAL = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_FACESIT_GRIND_ANAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
@@ -559,7 +559,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 
-	public static SexAction PLAYER_COWGIRL_PENETRATE_PUSSY = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_PENETRATE_PUSSY = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -597,7 +597,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_PENETRATE_ASS = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_PENETRATE_ASS = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
@@ -639,7 +639,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_STOP_RIDING = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_STOP_RIDING = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -668,7 +668,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_STOP_RIDING_ANAL = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_STOP_RIDING_ANAL = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -692,7 +692,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_STOP_TONGUE_RIDING = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_STOP_TONGUE_RIDING = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -721,7 +721,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_STOP_TONGUE_RIDING_ANAL = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_STOP_TONGUE_RIDING_ANAL = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -750,7 +750,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_BRAXS_HANDS_ON_TITS = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_BRAXS_HANDS_ON_TITS = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -807,7 +807,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_SLOW = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_SLOW = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -839,7 +839,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_SLOW_ANAL = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_SLOW_ANAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -875,7 +875,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_FAST = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_FAST = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -909,7 +909,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_FAST_ANAL = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_FAST_ANAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -942,7 +942,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_CUM_KISS = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_CUM_KISS = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -999,7 +999,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_FEED_CUM = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_FEED_CUM = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -1060,7 +1060,7 @@ public class SABraxSubCowgirl {
 
 	// Partner's actions:
 
-	public static SexAction PARTNER_TALK_DIRTY = new SexAction(
+	public static final SexAction PARTNER_TALK_DIRTY = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -1166,7 +1166,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PARTNER_COWGIRL_TAKE_IT_CUNNILINGUS = new SexAction(
+	public static final SexAction PARTNER_COWGIRL_TAKE_IT_CUNNILINGUS = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -1201,7 +1201,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PARTNER_COWGIRL_TAKE_IT_ANAILINGUS = new SexAction(
+	public static final SexAction PARTNER_COWGIRL_TAKE_IT_ANAILINGUS = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -1236,7 +1236,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PARTNER_COWGIRL_TAKE_IT_RIDING = new SexAction(
+	public static final SexAction PARTNER_COWGIRL_TAKE_IT_RIDING = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -1266,7 +1266,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PARTNER_COWGIRL_TAKE_IT = new SexAction(
+	public static final SexAction PARTNER_COWGIRL_TAKE_IT = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -1302,7 +1302,7 @@ public class SABraxSubCowgirl {
 		
 	};
 	
-	public static SexAction PARTNER_COWGIRL_MASTURBATE = new SexAction(
+	public static final SexAction PARTNER_COWGIRL_MASTURBATE = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
@@ -1345,7 +1345,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PARTNER_COWGIRL_BOUNCE = new SexAction(
+	public static final SexAction PARTNER_COWGIRL_BOUNCE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -1375,7 +1375,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PARTNER_COWGIRL_BOUNCE_ANAL = new SexAction(
+	public static final SexAction PARTNER_COWGIRL_BOUNCE_ANAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -1405,7 +1405,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PARTNER_COWGIRL_GROPE_BREASTS = new SexAction(
+	public static final SexAction PARTNER_COWGIRL_GROPE_BREASTS = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -1466,7 +1466,7 @@ public class SABraxSubCowgirl {
 	
 	// Player's orgasms:
 
-	public static SexAction PLAYER_COWGIRL_ORGASM_NO_PEN = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_ORGASM_NO_PEN = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FIVE_EXTREME,
@@ -1583,7 +1583,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 
-	public static SexAction PLAYER_COWGIRL_ORGASM_FACESITTING = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_ORGASM_FACESITTING = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FIVE_EXTREME,
@@ -1703,7 +1703,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction PLAYER_COWGIRL_ORGASM_RIDING_COCK = new SexAction(
+	public static final SexAction PLAYER_COWGIRL_ORGASM_RIDING_COCK = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FIVE_EXTREME,
@@ -1833,7 +1833,7 @@ public class SABraxSubCowgirl {
 
 	// Partner's orgasms:
 
-	public static SexAction PARTNER_COWGIRL_ORGASM = new SexAction(
+	public static final SexAction PARTNER_COWGIRL_ORGASM = new SexAction(
 			SexActionType.PARTNER_ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -1916,7 +1916,7 @@ public class SABraxSubCowgirl {
 	
 	// Mutual orgasms:
 	
-	public static SexAction MUTUAL_COWGIRL_ORGASM_NO_PEN = new SexAction(
+	public static final SexAction MUTUAL_COWGIRL_ORGASM_NO_PEN = new SexAction(
 			SexActionType.MUTUAL_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FIVE_EXTREME,
@@ -2043,7 +2043,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 
-	public static SexAction MUTUAL_COWGIRL_ORGASM_FACESITTING = new SexAction(
+	public static final SexAction MUTUAL_COWGIRL_ORGASM_FACESITTING = new SexAction(
 			SexActionType.MUTUAL_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FIVE_EXTREME,
@@ -2173,7 +2173,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static SexAction MUTUAL_COWGIRL_ORGASM_RIDING_COCK = new SexAction(
+	public static final SexAction MUTUAL_COWGIRL_ORGASM_RIDING_COCK = new SexAction(
 			SexActionType.MUTUAL_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FIVE_EXTREME,

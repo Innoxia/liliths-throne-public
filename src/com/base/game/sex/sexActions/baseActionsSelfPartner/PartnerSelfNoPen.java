@@ -22,7 +22,7 @@ import com.base.utils.Util.ListValue;
  */
 public class PartnerSelfNoPen {
 	
-	public static SexAction PARTNER_STROKE_VAGINA = new SexAction(
+	public static final SexAction PARTNER_STROKE_VAGINA = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
@@ -70,7 +70,7 @@ public class PartnerSelfNoPen {
 	
 	
 	
-	public static SexAction PARTNER_STROKE_PENIS = new SexAction(
+	public static final SexAction PARTNER_STROKE_PENIS = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
@@ -118,7 +118,7 @@ public class PartnerSelfNoPen {
 	
 	
 	
-	public static SexAction PARTNER_STROKE_MOUND = new SexAction(
+	public static final SexAction PARTNER_STROKE_MOUND = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,

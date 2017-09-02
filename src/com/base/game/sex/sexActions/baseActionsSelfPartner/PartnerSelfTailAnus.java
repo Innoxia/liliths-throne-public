@@ -22,7 +22,7 @@ import com.base.utils.Util.ListValue;
  */
 public class PartnerSelfTailAnus {
 	
-	public static SexAction PARTNER_SELF_TAIL_ANUS_PENETRATION = new SexAction(
+	public static final SexAction PARTNER_SELF_TAIL_ANUS_PENETRATION = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
@@ -58,7 +58,7 @@ public class PartnerSelfTailAnus {
 		}
 	};
 	
-	public static SexAction DOM_PARTNER_SELF_TAIL_ANUS_GENTLE = new SexAction(
+	public static final SexAction DOM_PARTNER_SELF_TAIL_ANUS_GENTLE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
@@ -102,7 +102,7 @@ public class PartnerSelfTailAnus {
 		}
 	};
 	
-	public static SexAction DOM_PARTNER_SELF_TAIL_ANUS_NORMAL = new SexAction(
+	public static final SexAction DOM_PARTNER_SELF_TAIL_ANUS_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
@@ -146,7 +146,7 @@ public class PartnerSelfTailAnus {
 		}
 	};
 	
-	public static SexAction DOM_PARTNER_SELF_TAIL_ANUS_ROUGH = new SexAction(
+	public static final SexAction DOM_PARTNER_SELF_TAIL_ANUS_ROUGH = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
@@ -190,7 +190,7 @@ public class PartnerSelfTailAnus {
 		}
 	};
 	
-	public static SexAction SUB_PARTNER_SELF_TAIL_ANUS_NORMAL = new SexAction(
+	public static final SexAction SUB_PARTNER_SELF_TAIL_ANUS_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
@@ -234,7 +234,7 @@ public class PartnerSelfTailAnus {
 		}
 	};
 	
-	public static SexAction SUB_PARTNER_SELF_TAIL_ANUS_EAGER = new SexAction(
+	public static final SexAction SUB_PARTNER_SELF_TAIL_ANUS_EAGER = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
@@ -278,7 +278,7 @@ public class PartnerSelfTailAnus {
 		}
 	};
 	
-	public static SexAction PARTNER_SELF_TAIL_ANUS_STOP_PENETRATION = new SexAction(
+	public static final SexAction PARTNER_SELF_TAIL_ANUS_STOP_PENETRATION = new SexAction(
 			SexActionType.PARTNER_STOP_PENETRATION,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,

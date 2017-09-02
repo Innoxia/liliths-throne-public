@@ -33,7 +33,7 @@ public class SARoseHands {
 	 * 
 	 */
 	
-	public static SexAction PLAYER_HAND_MASSAGE = new SexAction(
+	public static final SexAction PLAYER_HAND_MASSAGE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -65,7 +65,7 @@ public class SARoseHands {
 		}
 	};
 	
-	public static SexAction PLAYER_INTERLOCKING_FINGERS = new SexAction(
+	public static final SexAction PLAYER_INTERLOCKING_FINGERS = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -97,7 +97,7 @@ public class SARoseHands {
 		}
 	};
 	
-	public static SexAction PLAYER_NAIL_FOCUS = new SexAction(
+	public static final SexAction PLAYER_NAIL_FOCUS = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -129,7 +129,7 @@ public class SARoseHands {
 		}
 	};
 	
-	public static SexAction FINGER_PLAYER_STROKING = new SexAction(
+	public static final SexAction FINGER_PLAYER_STROKING = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -161,7 +161,7 @@ public class SARoseHands {
 		}
 	};
 	
-	public static SexAction PLAYER_LICK_PALM = new SexAction(
+	public static final SexAction PLAYER_LICK_PALM = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -193,7 +193,7 @@ public class SARoseHands {
 		}
 	};
 	
-	public static SexAction PLAYER_START_SUCKING = new SexAction(
+	public static final SexAction PLAYER_START_SUCKING = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -221,7 +221,7 @@ public class SARoseHands {
 		}
 	};
 	
-	public static SexAction PLAYER_GENTLE_SUCK = new SexAction(
+	public static final SexAction PLAYER_GENTLE_SUCK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -246,7 +246,7 @@ public class SARoseHands {
 		}
 	};
 	
-	public static SexAction PLAYER_INTENSE_SUCK = new SexAction(
+	public static final SexAction PLAYER_INTENSE_SUCK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -271,7 +271,7 @@ public class SARoseHands {
 		}
 	};
 	
-	public static SexAction PLAYER_STOP_SUCKING = new SexAction(
+	public static final SexAction PLAYER_STOP_SUCKING = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -296,7 +296,7 @@ public class SARoseHands {
 	
 	// Rose:
 	
-	public static SexAction PARTNER_MOAN = new SexAction(
+	public static final SexAction PARTNER_MOAN = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -333,7 +333,7 @@ public class SARoseHands {
 		}
 	};
 	
-	public static SexAction PARTNER_PANTING = new SexAction(
+	public static final SexAction PARTNER_PANTING = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -358,7 +358,7 @@ public class SARoseHands {
 		}
 	};
 	
-	public static SexAction PARTNER_TABLE_BRACE = new SexAction(
+	public static final SexAction PARTNER_TABLE_BRACE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -383,7 +383,7 @@ public class SARoseHands {
 		}
 	};
 	
-	public static SexAction PARTNER_SLIDE_FINGERS = new SexAction(
+	public static final SexAction PARTNER_SLIDE_FINGERS = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -408,7 +408,7 @@ public class SARoseHands {
 		}
 	};
 	
-	public static SexAction PARTNER_STOP_SEX = new SexAction(
+	public static final SexAction PARTNER_STOP_SEX = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,

@@ -24,7 +24,7 @@ import com.base.utils.Util.ListValue;
  */
 public class PartnerTailVagina {
 	
-	public static SexAction PARTNER_TEASE_TAIL_OVER_PUSSY = new SexAction(
+	public static final SexAction PARTNER_TEASE_TAIL_OVER_PUSSY = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -120,7 +120,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_FORCE_TAIL_OVER_PUSSY = new SexAction(
+	public static final SexAction PLAYER_FORCE_TAIL_OVER_PUSSY = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -211,7 +211,7 @@ public class PartnerTailVagina {
 	};
 	
 	
-	public static SexAction PARTNER_FUCKING_START = new SexAction(
+	public static final SexAction PARTNER_FUCKING_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -304,7 +304,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_FUCKING_DOM_GENTLE = new SexAction(
+	public static final SexAction PARTNER_FUCKING_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -364,7 +364,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_FUCKING_DOM_NORMAL = new SexAction(
+	public static final SexAction PARTNER_FUCKING_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -425,7 +425,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_FUCKING_DOM_ROUGH = new SexAction(
+	public static final SexAction PARTNER_FUCKING_DOM_ROUGH = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -495,7 +495,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_FUCKING_SUB_NORMAL = new SexAction(
+	public static final SexAction PARTNER_FUCKING_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -555,7 +555,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_FUCKING_SUB_EAGER = new SexAction(
+	public static final SexAction PARTNER_FUCKING_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -619,7 +619,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_FUCKING_SUB_RESIST = new SexAction(
+	public static final SexAction PARTNER_FUCKING_SUB_RESIST = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
@@ -683,7 +683,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_FUCKING_STOP = new SexAction(
+	public static final SexAction PARTNER_FUCKING_STOP = new SexAction(
 			SexActionType.PARTNER_STOP_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -744,7 +744,7 @@ public class PartnerTailVagina {
 	
 	// Player actions:
 	
-	public static SexAction PLAYER_USING_TAIL_START = new SexAction(
+	public static final SexAction PLAYER_USING_TAIL_START = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -851,7 +851,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_RIDING_TAIL_DOM_GENTLE = new SexAction(
+	public static final SexAction PLAYER_RIDING_TAIL_DOM_GENTLE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -889,7 +889,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_RIDING_TAIL_DOM_NORMAL = new SexAction(
+	public static final SexAction PLAYER_RIDING_TAIL_DOM_NORMAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -927,7 +927,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_RIDING_TAIL_DOM_ROUGH = new SexAction(
+	public static final SexAction PLAYER_RIDING_TAIL_DOM_ROUGH = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -965,7 +965,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_RIDING_TAIL_SUB_NORMAL = new SexAction(
+	public static final SexAction PLAYER_RIDING_TAIL_SUB_NORMAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -1003,7 +1003,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_RIDING_TAIL_SUB_EAGER = new SexAction(
+	public static final SexAction PLAYER_RIDING_TAIL_SUB_EAGER = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -1041,7 +1041,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_FUCKED_SUB_RESIST = new SexAction(
+	public static final SexAction PLAYER_FUCKED_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
@@ -1113,7 +1113,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_FUCKED_STOP = new SexAction(
+	public static final SexAction PLAYER_FUCKED_STOP = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -1171,7 +1171,7 @@ public class PartnerTailVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_PUSSY_CONTROL = new SexAction(
+	public static final SexAction PLAYER_PUSSY_CONTROL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FIVE_EXTREME,

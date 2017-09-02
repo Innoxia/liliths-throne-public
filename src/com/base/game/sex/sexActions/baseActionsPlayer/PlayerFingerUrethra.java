@@ -25,7 +25,7 @@ public class PlayerFingerUrethra {
 	
 	//TODO grope cock
 	
-	public static SexAction PLAYER_MASTURBATE_PARTNERS_COCK = new SexAction(
+	public static final SexAction PLAYER_MASTURBATE_PARTNERS_COCK = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -142,7 +142,7 @@ public class PlayerFingerUrethra {
 		}
 	};
 	
-	public static SexAction PLAYER_FONDLE_BALLS = new SexAction(
+	public static final SexAction PLAYER_FONDLE_BALLS = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,

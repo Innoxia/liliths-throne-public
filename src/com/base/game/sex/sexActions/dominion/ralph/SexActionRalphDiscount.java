@@ -30,7 +30,7 @@ public class SexActionRalphDiscount {
 
 	// Player actions:
 
-	public static SexAction PLAYER_START_ORAL = new SexAction(
+	public static final SexAction PLAYER_START_ORAL = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
@@ -89,7 +89,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 			
-	public static SexAction PLAYER_STAY_QUIET = new SexAction(
+	public static final SexAction PLAYER_STAY_QUIET = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -118,7 +118,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PLAYER_STAY_QUIET_TEASE = new SexAction(
+	public static final SexAction PLAYER_STAY_QUIET_TEASE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
@@ -155,7 +155,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PLAYER_SUCK_COCK = new SexAction(
+	public static final SexAction PLAYER_SUCK_COCK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FIVE_EXTREME,
@@ -204,7 +204,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PLAYER_FONDLE_BALLS = new SexAction(
+	public static final SexAction PLAYER_FONDLE_BALLS = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
@@ -251,7 +251,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PLAYER_DEEP_THROAT = new SexAction(
+	public static final SexAction PLAYER_DEEP_THROAT = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
@@ -299,7 +299,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 
-	public static SexAction PLAYER_BIG_DISCOUNT = new SexAction(
+	public static final SexAction PLAYER_BIG_DISCOUNT = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -364,7 +364,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PLAYER_ANAL_BIG_DISCOUNT = new SexAction(
+	public static final SexAction PLAYER_ANAL_BIG_DISCOUNT = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -430,7 +430,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 
-	public static SexAction PLAYER_TAKE_IT = new SexAction(
+	public static final SexAction PLAYER_TAKE_IT = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
@@ -459,7 +459,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PLAYER_TAKE_IT_ANAL = new SexAction(
+	public static final SexAction PLAYER_TAKE_IT_ANAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
@@ -494,7 +494,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 
-	public static SexAction PLAYER_DIRTY_TALK = new SexAction(
+	public static final SexAction PLAYER_DIRTY_TALK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -542,7 +542,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PLAYER_DIRTY_TALK_ANAL = new SexAction(
+	public static final SexAction PLAYER_DIRTY_TALK_ANAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -593,7 +593,7 @@ public class SexActionRalphDiscount {
 	
 	// Partner actions:
 
-	public static SexAction PARTNER_CUSTOMER = new SexAction(
+	public static final SexAction PARTNER_CUSTOMER = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -624,7 +624,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_DIRTY_TALK = new SexAction(
+	public static final SexAction PARTNER_DIRTY_TALK = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -681,7 +681,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_DIRTY_TALK_VAGINAL = new SexAction(
+	public static final SexAction PARTNER_DIRTY_TALK_VAGINAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -733,7 +733,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_DIRTY_TALK_ANAL = new SexAction(
+	public static final SexAction PARTNER_DIRTY_TALK_ANAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -790,7 +790,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_COMMAND_START_ORAL = new SexAction(
+	public static final SexAction PARTNER_COMMAND_START_ORAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -848,7 +848,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_START_ORAL = new SexAction(
+	public static final SexAction PARTNER_START_ORAL = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
@@ -905,7 +905,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_PASSIVE = new SexAction(
+	public static final SexAction PARTNER_PASSIVE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -949,7 +949,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_PASSIVE_VAGINAL = new SexAction(
+	public static final SexAction PARTNER_PASSIVE_VAGINAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -992,7 +992,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_PASSIVE_ANAL = new SexAction(
+	public static final SexAction PARTNER_PASSIVE_ANAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -1035,7 +1035,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_DEEP_THROAT = new SexAction(
+	public static final SexAction PARTNER_DEEP_THROAT = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
@@ -1084,7 +1084,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_REDUCES_DISCOUNT = new SexAction(
+	public static final SexAction PARTNER_REDUCES_DISCOUNT = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -1127,7 +1127,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_PENETRATES = new SexAction(
+	public static final SexAction PARTNER_PENETRATES = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
@@ -1224,7 +1224,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_PENETRATES_ANUS = new SexAction(
+	public static final SexAction PARTNER_PENETRATES_ANUS = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
@@ -1316,7 +1316,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_ROUGH_FUCK = new SexAction(
+	public static final SexAction PARTNER_ROUGH_FUCK = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
@@ -1353,7 +1353,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_ROUGH_FUCK_ANAL = new SexAction(
+	public static final SexAction PARTNER_ROUGH_FUCK_ANAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
@@ -1385,7 +1385,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_NORMAL_FUCK = new SexAction(
+	public static final SexAction PARTNER_NORMAL_FUCK = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
@@ -1419,7 +1419,7 @@ public class SexActionRalphDiscount {
 		}
 	};
 	
-	public static SexAction PARTNER_NORMAL_FUCK_ANAL = new SexAction(
+	public static final SexAction PARTNER_NORMAL_FUCK_ANAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,

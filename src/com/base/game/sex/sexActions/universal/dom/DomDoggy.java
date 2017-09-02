@@ -27,7 +27,7 @@ import com.base.utils.Util.ListValue;
  */
 public class DomDoggy {
 	
-	public static SexAction PARTNER_LOOK_BACK = new SexAction(
+	public static final SexAction PARTNER_LOOK_BACK = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -57,7 +57,7 @@ public class DomDoggy {
 	
 	// Player's methods:
 	
-	public static SexAction PLAYER_SLAP_ASS = new SexAction(
+	public static final SexAction PLAYER_SLAP_ASS = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -182,7 +182,7 @@ public class DomDoggy {
 	
 	// Player's orgasms:
 
-	public static SexAction PLAYER_DOGGY_CREAMPIE_ORGASM = new SexAction(
+	public static final SexAction PLAYER_DOGGY_CREAMPIE_ORGASM = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -321,7 +321,7 @@ public class DomDoggy {
 		}
 	};
 	
-	public static SexAction PLAYER_DOGGY_CREAMPIE_ORGASM_PUSSY = new SexAction(
+	public static final SexAction PLAYER_DOGGY_CREAMPIE_ORGASM_PUSSY = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -460,7 +460,7 @@ public class DomDoggy {
 		}
 	};
 	
-	public static SexAction PLAYER_DOGGY_OVER_BACK_ORGASM = new SexAction(
+	public static final SexAction PLAYER_DOGGY_OVER_BACK_ORGASM = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
@@ -610,7 +610,7 @@ public class DomDoggy {
 		}
 	};
 	
-	public static SexAction PLAYER_DOGGY_DOMINANT_ORGASM = new SexAction(
+	public static final SexAction PLAYER_DOGGY_DOMINANT_ORGASM = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
@@ -716,7 +716,7 @@ public class DomDoggy {
 		}
 	};
 	
-	public static SexAction PLAYER_DOGGY_DOMINANT_ORGASM_PUSSY = new SexAction(
+	public static final SexAction PLAYER_DOGGY_DOMINANT_ORGASM_PUSSY = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
@@ -824,7 +824,7 @@ public class DomDoggy {
 	
 	// Mutual orgasms:
 	
-	public static SexAction MUTUAL_DOGGY_CREAMPIE_ORGASM = new SexAction(
+	public static final SexAction MUTUAL_DOGGY_CREAMPIE_ORGASM = new SexAction(
 			SexActionType.MUTUAL_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -1012,7 +1012,7 @@ public class DomDoggy {
 		}
 	};
 	
-	public static SexAction MUTUAL_DOGGY_CREAMPIE_ORGASM_PUSSY = new SexAction(
+	public static final SexAction MUTUAL_DOGGY_CREAMPIE_ORGASM_PUSSY = new SexAction(
 			SexActionType.MUTUAL_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -1152,7 +1152,7 @@ public class DomDoggy {
 		}
 	};
 	
-	public static SexAction MUTUAL_DOGGY_OVER_BACK_ORGASM = new SexAction(
+	public static final SexAction MUTUAL_DOGGY_OVER_BACK_ORGASM = new SexAction(
 			SexActionType.MUTUAL_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
@@ -1352,7 +1352,7 @@ public class DomDoggy {
 		}
 	};
 	
-	public static SexAction MUTUAL_DOGGY_DOMINANT_ORGASM = new SexAction(
+	public static final SexAction MUTUAL_DOGGY_DOMINANT_ORGASM = new SexAction(
 			SexActionType.MUTUAL_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
@@ -1507,7 +1507,7 @@ public class DomDoggy {
 		}
 	};
 	
-	public static SexAction MUTUAL_DOGGY_DOMINANT_ORGASM_PUSSY = new SexAction(
+	public static final SexAction MUTUAL_DOGGY_DOMINANT_ORGASM_PUSSY = new SexAction(
 			SexActionType.MUTUAL_ORGASM,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,

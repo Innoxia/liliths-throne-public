@@ -20,7 +20,7 @@ public class HarpyPositioning {
 
 	// Dom position changes:
 	
-	public static SexAction PLAYER_FORCE_POSITION_DOGGY = new SexAction(
+	public static final SexAction PLAYER_FORCE_POSITION_DOGGY = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -62,7 +62,7 @@ public class HarpyPositioning {
 		}
 	};
 	
-	public static SexAction PLAYER_FORCE_POSITION_KNEELING = new SexAction(
+	public static final SexAction PLAYER_FORCE_POSITION_KNEELING = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -103,7 +103,7 @@ public class HarpyPositioning {
 		}
 	};
 	
-	public static SexAction PLAYER_FORCE_POSITION_SIXTY_NINE = new SexAction(
+	public static final SexAction PLAYER_FORCE_POSITION_SIXTY_NINE = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,

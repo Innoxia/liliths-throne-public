@@ -22,7 +22,7 @@ import com.base.utils.Util.ListValue;
  */
 public class SubSelfKneeling {
 
-	public static SexAction PARTNER_MOUND_SNOG = new SexAction(
+	public static final SexAction PARTNER_MOUND_SNOG = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -69,7 +69,7 @@ public class SubSelfKneeling {
 		}
 	};
 	
-	public static SexAction PARTNER_MOUND_KISSING = new SexAction(
+	public static final SexAction PARTNER_MOUND_KISSING = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,

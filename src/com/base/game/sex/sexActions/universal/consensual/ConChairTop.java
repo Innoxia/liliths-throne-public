@@ -37,7 +37,7 @@ public class ConChairTop {
 
 	private static StringBuilder descriptionSB = new StringBuilder();
 	
-	public static SexAction PLAYER_KISS = new SexAction(
+	public static final SexAction PLAYER_KISS = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -73,7 +73,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_GRIND_GROIN = new SexAction(
+	public static final SexAction PLAYER_GRIND_GROIN = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -109,7 +109,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_FEEL_BREASTS = new SexAction(
+	public static final SexAction PLAYER_FEEL_BREASTS = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -173,7 +173,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_PINCH_NIPPLES = new SexAction(
+	public static final SexAction PLAYER_PINCH_NIPPLES = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -257,7 +257,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction FINGER_PLAYER_NIPPLES = new SexAction(
+	public static final SexAction FINGER_PLAYER_NIPPLES = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
@@ -332,7 +332,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_KISS_NIPPLES = new SexAction(
+	public static final SexAction PLAYER_KISS_NIPPLES = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -410,7 +410,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_STOP_FINGER_NIPPLES = new SexAction(
+	public static final SexAction PLAYER_STOP_FINGER_NIPPLES = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
@@ -433,7 +433,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_DIRTY_TALK = new SexAction(
+	public static final SexAction PLAYER_DIRTY_TALK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -464,7 +464,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_ROUGH_TALK = new SexAction(
+	public static final SexAction PLAYER_ROUGH_TALK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -523,7 +523,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_PENETRATE = new SexAction(
+	public static final SexAction PLAYER_PENETRATE = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -574,7 +574,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_NORMAL_FUCK = new SexAction(
+	public static final SexAction PLAYER_NORMAL_FUCK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -606,7 +606,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_ROUGH_FUCK = new SexAction(
+	public static final SexAction PLAYER_ROUGH_FUCK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
@@ -655,7 +655,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_PENETRATE_ANAL = new SexAction(
+	public static final SexAction PLAYER_PENETRATE_ANAL = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -716,7 +716,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_NORMAL_ANAL_FUCK = new SexAction(
+	public static final SexAction PLAYER_NORMAL_ANAL_FUCK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -758,7 +758,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_ROUGH_ANAL_FUCK = new SexAction(
+	public static final SexAction PLAYER_ROUGH_ANAL_FUCK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
@@ -807,7 +807,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_PENETRATE_BREASTS = new SexAction(
+	public static final SexAction PLAYER_PENETRATE_BREASTS = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -848,7 +848,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_NORMAL_NIPPLE_FUCK = new SexAction(
+	public static final SexAction PLAYER_NORMAL_NIPPLE_FUCK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -890,7 +890,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_ROUGH_NIPPLE_FUCK = new SexAction(
+	public static final SexAction PLAYER_ROUGH_NIPPLE_FUCK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
@@ -934,7 +934,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_STOP_FUCK = new SexAction(
+	public static final SexAction PLAYER_STOP_FUCK = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
@@ -957,7 +957,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_STOP_ANAL_FUCK = new SexAction(
+	public static final SexAction PLAYER_STOP_ANAL_FUCK = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
@@ -980,7 +980,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_STOP_NIPPLE_FUCK = new SexAction(
+	public static final SexAction PLAYER_STOP_NIPPLE_FUCK = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
@@ -1004,7 +1004,7 @@ public class ConChairTop {
 	};
 	
 	
-	public static SexAction PLAYER_RIDE_PARTNERS_COCK = new SexAction(
+	public static final SexAction PLAYER_RIDE_PARTNERS_COCK = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -1034,7 +1034,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_NORMAL_RIDE = new SexAction(
+	public static final SexAction PLAYER_NORMAL_RIDE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -1064,7 +1064,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_ROUGH_RIDE = new SexAction(
+	public static final SexAction PLAYER_ROUGH_RIDE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
@@ -1110,7 +1110,7 @@ public class ConChairTop {
 	};
 	
 	
-	public static SexAction PLAYER_RIDE_ANAL_PARTNERS_COCK = new SexAction(
+	public static final SexAction PLAYER_RIDE_ANAL_PARTNERS_COCK = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -1151,7 +1151,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_NORMAL_ANAL_RIDE = new SexAction(
+	public static final SexAction PLAYER_NORMAL_ANAL_RIDE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -1191,7 +1191,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_ROUGH_ANAL_RIDE = new SexAction(
+	public static final SexAction PLAYER_ROUGH_ANAL_RIDE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
@@ -1236,7 +1236,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_STOP_RIDING = new SexAction(
+	public static final SexAction PLAYER_STOP_RIDING = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
@@ -1259,7 +1259,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_STOP_ANAL_RIDING = new SexAction(
+	public static final SexAction PLAYER_STOP_ANAL_RIDING = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
@@ -1283,7 +1283,7 @@ public class ConChairTop {
 	};
 	
 	
-	public static SexAction PLAYER_GET_PEGGED = new SexAction(
+	public static final SexAction PLAYER_GET_PEGGED = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -1320,7 +1320,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_GET_TAIL_FUCKED = new SexAction(
+	public static final SexAction PLAYER_GET_TAIL_FUCKED = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
@@ -1345,7 +1345,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PLAYER_GET_PARTNER_TO_GROW_PENIS = new SexAction(
+	public static final SexAction PLAYER_GET_PARTNER_TO_GROW_PENIS = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.TWO_LOW,
@@ -1394,7 +1394,7 @@ public class ConChairTop {
 	
 	// Partner actions:
 
-	public static SexAction PARTNER_KISS = new SexAction(
+	public static final SexAction PARTNER_KISS = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -1430,7 +1430,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_TALK_DIRTY = new SexAction(
+	public static final SexAction PARTNER_TALK_DIRTY = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -1462,7 +1462,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_SUBMISSIVE_TALK = new SexAction(
+	public static final SexAction PARTNER_SUBMISSIVE_TALK = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -1521,7 +1521,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_ASKS_FOR_ROUGH_SEX = new SexAction(
+	public static final SexAction PARTNER_ASKS_FOR_ROUGH_SEX = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -1573,7 +1573,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_FEEL_BREASTS = new SexAction(
+	public static final SexAction PARTNER_FEEL_BREASTS = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -1636,7 +1636,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_PINCH_NIPPLES = new SexAction(
+	public static final SexAction PARTNER_PINCH_NIPPLES = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -1714,7 +1714,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_KISS_NIPPLES = new SexAction(
+	public static final SexAction PARTNER_KISS_NIPPLES = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -1797,7 +1797,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction TAIL_PARTNER_HELPS_PLAYER = new SexAction(
+	public static final SexAction TAIL_PARTNER_HELPS_PLAYER = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -1832,7 +1832,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_PEGGING_FUN = new SexAction(
+	public static final SexAction PARTNER_PEGGING_FUN = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
@@ -1873,7 +1873,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction TAIL_PARTNERFUCKING_FUN = new SexAction(
+	public static final SexAction TAIL_PARTNERFUCKING_FUN = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
@@ -1904,7 +1904,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_SMOULDERING_LOOK = new SexAction(
+	public static final SexAction PARTNER_SMOULDERING_LOOK = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.THREE_NORMAL,
@@ -1945,7 +1945,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_PENETRATES = new SexAction(
+	public static final SexAction PARTNER_PENETRATES = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -2008,7 +2008,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_PENETRATES_ANAL = new SexAction(
+	public static final SexAction PARTNER_PENETRATES_ANAL = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -2077,7 +2077,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_STARTS_PLAYER_RIDE = new SexAction(
+	public static final SexAction PARTNER_STARTS_PLAYER_RIDE = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -2143,7 +2143,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_LOCKS_PLAYER = new SexAction(
+	public static final SexAction PARTNER_LOCKS_PLAYER = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -2180,7 +2180,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_SPREADS_LEGS = new SexAction(
+	public static final SexAction PARTNER_SPREADS_LEGS = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -2210,7 +2210,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_BOUNCES = new SexAction(
+	public static final SexAction PARTNER_BOUNCES = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -2240,7 +2240,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_ROUGH_BOUNCES = new SexAction(
+	public static final SexAction PARTNER_ROUGH_BOUNCES = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -2285,7 +2285,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_ANAL_BOUNCES = new SexAction(
+	public static final SexAction PARTNER_ANAL_BOUNCES = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -2325,7 +2325,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_ROUGH_ANAL_BOUNCES = new SexAction(
+	public static final SexAction PARTNER_ROUGH_ANAL_BOUNCES = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -2370,7 +2370,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_BUCKS_BACK = new SexAction(
+	public static final SexAction PARTNER_BUCKS_BACK = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -2404,7 +2404,7 @@ public class ConChairTop {
 		}
 	};
 	
-	public static SexAction PARTNER_BUCKS_BACK_ANAL= new SexAction(
+	public static final SexAction PARTNER_BUCKS_BACK_ANAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,

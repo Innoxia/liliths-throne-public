@@ -13,7 +13,7 @@ import com.base.game.sex.sexActions.SexActionType;
  * @author Innoxia
  */
 public class PartnerSelfFingerMouth {
-	public static SexAction PARTNER_SELF_FINGER_MOUTH_PENETRATION = new SexAction(
+	public static final SexAction PARTNER_SELF_FINGER_MOUTH_PENETRATION = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ZERO_NONE,
@@ -37,7 +37,7 @@ public class PartnerSelfFingerMouth {
 		}
 	};
 	
-	public static SexAction PARTNER_SELF_FINGER_MOUTH_STOP_PENETRATION = new SexAction(
+	public static final SexAction PARTNER_SELF_FINGER_MOUTH_STOP_PENETRATION = new SexAction(
 			SexActionType.PARTNER_STOP_PENETRATION,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,

@@ -38,7 +38,7 @@ public class GenericPositioning {
 
 	// Dom position changes:
 	
-	public static SexAction PLAYER_FORCE_POSITION_STANDING_FACE_TO_WALL = new SexAction(
+	public static final SexAction PLAYER_FORCE_POSITION_STANDING_FACE_TO_WALL = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -79,7 +79,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PLAYER_DOM_POSITION_SELF_DOGGY = new SexAction(
+	public static final SexAction PLAYER_DOM_POSITION_SELF_DOGGY = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -120,7 +120,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PLAYER_FORCE_POSITION_STANDING_BACK_TO_WALL = new SexAction(
+	public static final SexAction PLAYER_FORCE_POSITION_STANDING_BACK_TO_WALL = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -161,7 +161,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PLAYER_FORCE_POSITION_DOGGY = new SexAction(
+	public static final SexAction PLAYER_FORCE_POSITION_DOGGY = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -203,7 +203,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PLAYER_FORCE_POSITION_KNEELING = new SexAction(
+	public static final SexAction PLAYER_FORCE_POSITION_KNEELING = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -244,7 +244,7 @@ public class GenericPositioning {
 		}
 	};
 
-	public static SexAction PLAYER_FORCE_POSITION_SELF_KNEELING = new SexAction(
+	public static final SexAction PLAYER_FORCE_POSITION_SELF_KNEELING = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -283,7 +283,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PLAYER_FORCE_POSITION_SIXTY_NINE = new SexAction(
+	public static final SexAction PLAYER_FORCE_POSITION_SIXTY_NINE = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -323,7 +323,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PLAYER_FORCE_POSITION_COW_GIRL = new SexAction(
+	public static final SexAction PLAYER_FORCE_POSITION_COW_GIRL = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -366,7 +366,7 @@ public class GenericPositioning {
 	
 	// Sub position changes with associated partner response:
 	
-	public static SexAction PLAYER_POSITION_REQUEST_STANDING_FACE_TO_WALL = new SexAction(
+	public static final SexAction PLAYER_POSITION_REQUEST_STANDING_FACE_TO_WALL = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -404,7 +404,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PLAYER_POSITION_REQUEST_STANDING_BACK_TO_WALL = new SexAction(
+	public static final SexAction PLAYER_POSITION_REQUEST_STANDING_BACK_TO_WALL = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -442,7 +442,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PLAYER_POSITION_REQUEST_DOGGY = new SexAction(
+	public static final SexAction PLAYER_POSITION_REQUEST_DOGGY = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -479,7 +479,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PLAYER_POSITION_REQUEST_KNEELING = new SexAction(
+	public static final SexAction PLAYER_POSITION_REQUEST_KNEELING = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -516,7 +516,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PLAYER_POSITION_REQUEST_SELF_KNEELING = new SexAction(
+	public static final SexAction PLAYER_POSITION_REQUEST_SELF_KNEELING = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -553,7 +553,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PLAYER_POSITION_REQUEST_SIXTY_NINE = new SexAction(
+	public static final SexAction PLAYER_POSITION_REQUEST_SIXTY_NINE = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -591,7 +591,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PLAYER_POSITION_REQUEST_COWGIRL = new SexAction(
+	public static final SexAction PLAYER_POSITION_REQUEST_COWGIRL = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -629,7 +629,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PARTNER_POSITION_RESPONSE = new SexAction(
+	public static final SexAction PARTNER_POSITION_RESPONSE = new SexAction(
 			SexActionType.PARTNER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -833,7 +833,7 @@ public class GenericPositioning {
 	// Partner positioning:
 	
 	
-	public static SexAction PARTNER_FORCE_POSITION_STANDING_FACE_TO_WALL = new SexAction(
+	public static final SexAction PARTNER_FORCE_POSITION_STANDING_FACE_TO_WALL = new SexAction(
 			SexActionType.PARTNER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -877,7 +877,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PARTNER_FORCE_POSITION_STANDING_BACK_TO_WALL = new SexAction(
+	public static final SexAction PARTNER_FORCE_POSITION_STANDING_BACK_TO_WALL = new SexAction(
 			SexActionType.PARTNER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -920,7 +920,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PARTNER_FORCE_POSITION_DOGGY = new SexAction(
+	public static final SexAction PARTNER_FORCE_POSITION_DOGGY = new SexAction(
 			SexActionType.PARTNER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -965,7 +965,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PARTNER_FORCE_POSITION_KNEELING = new SexAction(
+	public static final SexAction PARTNER_FORCE_POSITION_KNEELING = new SexAction(
 			SexActionType.PARTNER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -1008,7 +1008,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PARTNER_FORCE_POSITION_SELF_KNEELING = new SexAction(
+	public static final SexAction PARTNER_FORCE_POSITION_SELF_KNEELING = new SexAction(
 			SexActionType.PARTNER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -1051,7 +1051,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PARTNER_FORCE_POSITION_SIXTY_NINE = new SexAction(
+	public static final SexAction PARTNER_FORCE_POSITION_SIXTY_NINE = new SexAction(
 			SexActionType.PARTNER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -1096,7 +1096,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	public static SexAction PARTNER_FORCE_POSITION_COWGIRL = new SexAction(
+	public static final SexAction PARTNER_FORCE_POSITION_COWGIRL = new SexAction(
 			SexActionType.PARTNER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,

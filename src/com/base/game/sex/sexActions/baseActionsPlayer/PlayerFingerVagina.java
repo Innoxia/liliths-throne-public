@@ -44,7 +44,7 @@ public class PlayerFingerVagina {
 	 * 
 	 */
 	
-	public static SexAction PLAYER_STROKE_PUSSY = new SexAction(
+	public static final SexAction PLAYER_STROKE_PUSSY = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -249,7 +249,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_CLIT_PLAY = new SexAction(
+	public static final SexAction PLAYER_CLIT_PLAY = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
@@ -364,7 +364,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_CLIT_FOCUS = new SexAction(
+	public static final SexAction PLAYER_CLIT_FOCUS = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
@@ -483,7 +483,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_FINGERING_START = new SexAction(
+	public static final SexAction PLAYER_FINGERING_START = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -586,7 +586,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_FINGERING_DOM_GENTLE = new SexAction(
+	public static final SexAction PLAYER_FINGERING_DOM_GENTLE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -656,7 +656,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_FINGERING_DOM_NORMAL = new SexAction(
+	public static final SexAction PLAYER_FINGERING_DOM_NORMAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -726,7 +726,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_FINGERING_DOM_ROUGH = new SexAction(
+	public static final SexAction PLAYER_FINGERING_DOM_ROUGH = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -797,7 +797,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_FINGERING_SUB_NORMAL = new SexAction(
+	public static final SexAction PLAYER_FINGERING_SUB_NORMAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -866,7 +866,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_FINGERING_SUB_EAGER = new SexAction(
+	public static final SexAction PLAYER_FINGERING_SUB_EAGER = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -935,7 +935,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_FINGERING_STOP = new SexAction(
+	public static final SexAction PLAYER_FINGERING_STOP = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -995,7 +995,7 @@ public class PlayerFingerVagina {
 	
 	// Partner actions:
 	
-	public static SexAction PARTNER_FINGERING_START = new SexAction(
+	public static final SexAction PARTNER_FINGERING_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1102,7 +1102,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_FINGERED_DOM_GENTLE = new SexAction(
+	public static final SexAction PARTNER_FINGERED_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1150,7 +1150,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_FINGERED_DOM_NORMAL = new SexAction(
+	public static final SexAction PARTNER_FINGERED_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1199,7 +1199,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_FINGERED_DOM_ROUGH = new SexAction(
+	public static final SexAction PARTNER_FINGERED_DOM_ROUGH = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1247,7 +1247,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_FINGERED_SUB_NORMAL = new SexAction(
+	public static final SexAction PARTNER_FINGERED_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1296,7 +1296,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_FINGERED_SUB_EAGER = new SexAction(
+	public static final SexAction PARTNER_FINGERED_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1345,7 +1345,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_FINGERING_SUB_RESIST = new SexAction(
+	public static final SexAction PARTNER_FINGERING_SUB_RESIST = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ONE_MINIMUM,
@@ -1416,7 +1416,7 @@ public class PlayerFingerVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_FINGERING_STOP = new SexAction(
+	public static final SexAction PARTNER_FINGERING_STOP = new SexAction(
 			SexActionType.PARTNER_STOP_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
