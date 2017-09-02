@@ -218,12 +218,7 @@ public class Eye implements BodyPartInterface, Serializable {
 	}
 
 	public String setEyePairs(GameCharacter owner, int eyePairs) {
-		
-		if(eyePairs<=0) {
-			eyePairs = 1;
-		} else if (eyePairs>4) {
-			eyePairs=4;
-		}
+		eyePairs = Math.max(1, Math.min(eyePairs, 4));
 		
 		if(owner.getEyePairs() == eyePairs) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
@@ -278,11 +273,11 @@ public class Eye implements BodyPartInterface, Serializable {
 		this.irisShape = irisShape;
 		
 		if(owner.isPlayer()) {
-			return
+			return UtilText.parse(owner, 
 					"<p>"
 						+ "An irritable itchy feeling rises up into your [pc.eyes], but, much to your relief, it passes even before you're able to reach up and rub at them.</br>"
 						+ "You now have [style.boldTfGeneric([pc.irisShape] irises)]!"
-					+ "</p>";
+					+ "</p>");
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
@@ -304,11 +299,11 @@ public class Eye implements BodyPartInterface, Serializable {
 		this.pupilShape = pupilShape;
 		
 		if(owner.isPlayer()) {
-			return
+			return UtilText.parse(owner, 
 					"<p>"
 						+ "An irritable itchy feeling rises up into your [pc.eyes], but, much to your relief, it passes even before you're able to reach up and rub at them.</br>"
 						+ "You now have [style.boldTfGeneric([pc.pupilShape] pupils)]!"
-					+ "</p>";
+					+ "</p>");
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
