@@ -62,7 +62,7 @@ import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.places.dominion.CityHall;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
-import com.base.game.dialogue.story.CharacterCreationDialogue;
+import com.base.game.dialogue.story.CharacterCreation;
 import com.base.game.dialogue.utils.CharactersPresentDialogue;
 import com.base.game.dialogue.utils.EnchantmentDialogue;
 import com.base.game.dialogue.utils.InventoryDialogue;
@@ -391,6 +391,8 @@ public class MainController implements Initializable {
 //						 System.out.println(event.getCode());
 						 if(event.getCode()==KeyCode.END){
 							 
+//							 System.out.println(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
+							 
 //							 webViewMain = new WebView();
 //							 webViewAttributes = new WebView(); 
 //							 webViewInventory = new WebView();
@@ -536,7 +538,7 @@ public class MainController implements Initializable {
 						
 						boolean allowInput = true;
 						
-						if(Main.game.getCurrentDialogueNode() == CharacterCreationDialogue.CHOOSE_NAME){
+						if(Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement"))
 								allowInput = false;
 						}
@@ -600,7 +602,7 @@ public class MainController implements Initializable {
 						}
 						
 						// For name selection:
-						if (event.getCode() == KeyCode.ENTER && Main.game.getCurrentDialogueNode() == CharacterCreationDialogue.CHOOSE_NAME) {
+						if (event.getCode() == KeyCode.ENTER && Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME) {
 							Main.game.setContent(1);
 						}
 
@@ -1359,9 +1361,7 @@ public class MainController implements Initializable {
 					Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
 						@Override
 						public void effects() {
-							EnchantmentDialogue.ingredient = null;
-							EnchantmentDialogue.primaryMod = TFModifier.NONE;
-							EnchantmentDialogue.secondaryMod = TFModifier.NONE;
+							EnchantmentDialogue.resetEnchantmentVariables();
 						}
 					});
 				}, false);
@@ -1413,13 +1413,13 @@ public class MainController implements Initializable {
 			if (((EventTarget) document.getElementById("ENCHANT_ADD_BUTTON")) != null) {
 				
 				((EventTarget) document.getElementById("ENCHANT_ADD_BUTTON")).addEventListener("click", e -> {
-					if(EnchantmentDialogue.ingredient.getEnchantmentEffect().getEffectsDescription(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)==null) {
+					if(EnchantmentDialogue.ingredient.getEnchantmentEffect().getEffectsDescription(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod, EnchantmentDialogue.potency, EnchantmentDialogue.limit, Main.game.getPlayer(), Main.game.getPlayer())==null) {
 						
 					} else {
 						Main.game.setContent(new Response("Add", "Add the effect.", EnchantmentDialogue.ENCHANTMENT_MENU){
 							@Override
 							public void effects() {
-								EnchantmentDialogue.effects.add(new ItemEffect(EnchantmentDialogue.ingredient.getEnchantmentEffect(), EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod));
+								EnchantmentDialogue.effects.add(new ItemEffect(EnchantmentDialogue.ingredient.getEnchantmentEffect(), EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod, EnchantmentDialogue.potency, EnchantmentDialogue.limit));
 							}
 						});
 					}
@@ -1847,7 +1847,7 @@ public class MainController implements Initializable {
 		}
 		
 		// Import:
-		if (Main.game.getCurrentDialogueNode() == CharacterCreationDialogue.IMPORT_CHOOSE) {
+		if (Main.game.getCurrentDialogueNode() == CharacterCreation.IMPORT_CHOOSE) {
 			for (File f : Main.getCharactersForImport()) {
 				if (((EventTarget) document.getElementById("character_import_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )) != null) {
 					((EventTarget) document.getElementById("character_import_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )).addEventListener("click", e -> {
@@ -1915,6 +1915,8 @@ public class MainController implements Initializable {
 				
 				if(a==Attribute.EXPERIENCE) {
 					((EventTarget) documentAttributes.getElementById("PLAYER_"+a.getName())).addEventListener("click", e -> {
+						
+						//TODO block when in character creation
 						
 						if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.PHONE) {
 							if(Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP) {

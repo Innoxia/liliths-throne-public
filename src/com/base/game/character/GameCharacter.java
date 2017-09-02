@@ -463,10 +463,9 @@ public class GameCharacter implements Serializable {
 		postTransformationCalculation();
 	}
 	
-	//TODO XML export
-//	public void setBodyCoveringForXMLImport(BodyCoveringType bct, Colour c) {
-//		body.getBodyCoveringTypeColours().put(bct, c);
-//	}
+	public void setBodyCoveringForXMLImport(BodyCoveringType bct, CoveringPattern pattern, Colour primary, boolean primaryGlow, Colour secondary, boolean secondaryGlow) {
+		body.getCoverings().put(bct, new Covering(bct, pattern, primary, primaryGlow, secondary, secondaryGlow));
+	}
 
 	public String getName() {
 		if((nameTriplet==null || !playerKnowsName) && !isPlayer()) {
@@ -1424,10 +1423,10 @@ public class GameCharacter implements Serializable {
 									+ " <b>"+-(manaLoss)+"</b> <b style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</b> as you struggle to control your arousal!"
 							+ "</p>");
 				} else {
-					return (UtilText.genderParsing(this,
+					return (UtilText.parse(this,
 							"<p>"
-								+ "Due to <her> <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>masochist fetish</b>, incoming damage is reduced by 40%, but in turn, <she> takes"
-								+ " <b>"+-(manaLoss)+"</b> <b style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</b> as <she> struggles to control <her> arousal!"
+								+ "Due to [npc.her] <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>masochist fetish</b>, incoming damage is reduced by 40%, but in turn, [npc.she] takes"
+								+ " <b>"+-(manaLoss)+"</b> <b style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</b> as [npc.she] struggles to control [npc.her] arousal!"
 							+ "</p>"));
 				}
 			// Sadist:
@@ -3358,7 +3357,7 @@ public class GameCharacter implements Serializable {
 	public Covering getPubicHairType() {
 		return getCovering(getBodyHairCoveringType(getSkinType().getRace()));
 	}
-	public String setPubicHair(GameCharacter owner, BodyHair pubicHair) {
+	public String setPubicHair(BodyHair pubicHair) {
 		if(getPubicHair() == pubicHair) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 			
@@ -3367,31 +3366,31 @@ public class GameCharacter implements Serializable {
 			
 			switch(pubicHair) {
 				case NONE:
-					if(owner.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>There is no longer any trace of "+getPubicHairType().getFullDescription(owner, true)+" in your pubic region.</p>");
+					if(this.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>There is no longer any trace of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>There is no longer any trace of "+getPubicHairType().getFullDescription(owner, true)+" in [npc.her] pubic region.</p>"));
+						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>There is no longer any trace of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
 				case MANICURED:
-					if(owner.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>You now have a well-manicured patch of "+getPubicHairType().getFullDescription(owner, true)+" in your pubic region.</p>");
+					if(this.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>You now have a well-manicured patch of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a well-manicured patch of "+getPubicHairType().getFullDescription(owner, true)+" in [npc.her] pubic region.</p>"));
+						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a well-manicured patch of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
 				case TRIMMED:
-					if(owner.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>You now have a trimmed patch of "+getPubicHairType().getFullDescription(owner, true)+" in your pubic region.</p>");
+					if(this.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>You now have a trimmed patch of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a trimmed patch of "+getPubicHairType().getFullDescription(owner, true)+" in [npc.her] pubic region.</p>"));
+						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a trimmed patch of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
 				case BUSHY:
-					if(owner.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>You now have a thick mass of "+getPubicHairType().getFullDescription(owner, true)+" in your pubic region.</p>");
+					if(this.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>You now have a thick mass of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a thick mass of "+getPubicHairType().getFullDescription(owner, true)+" in [npc.her] pubic region.</p>"));
+						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a thick mass of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
 			}
@@ -3400,6 +3399,18 @@ public class GameCharacter implements Serializable {
 		body.setPubicHair(pubicHair);
 
 		return UtilText.transformationContentSB.toString();
+	}
+	public String setPubicHair(int value) {
+		return setPubicHair(BodyHair.getBodyHairFromValue(value));
+	}
+	public String incrementPubicHair(int increment) {
+		int value = getPubicHair().getValue() + increment;
+		if(value < 0) {
+			value = 0;
+		} else if(value > 3) {
+			value = 3;
+		}
+		return setPubicHair(BodyHair.getBodyHairFromValue(value));
 	}
 	
 	// Piercings:
@@ -3487,6 +3498,9 @@ public class GameCharacter implements Serializable {
 	public String setAntennaRows(int rows) {
 		return body.getAntenna().setAntennaRows(this, rows);
 	}
+	public String incrementAntennaRows(int increment) {
+		return body.getAntenna().setAntennaRows(this, getAntennaRows()+increment);
+	}
 	
 	
 	
@@ -3533,7 +3547,7 @@ public class GameCharacter implements Serializable {
 		return getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS);
 	}
 	public String setHandNailPolish(Covering nailPolish) {
-		setCovering(nailPolish);
+		body.getCoverings().put(nailPolish.getType(), nailPolish);
 		if(isPlayer()) {
 			if(nailPolish.getPattern()==CoveringPattern.NONE) {
 				return "<p>"
@@ -3566,6 +3580,18 @@ public class GameCharacter implements Serializable {
 	}
 	public String setUnderarmHair(BodyHair underarmHair) {
 		return body.getArm().setUnderarmHair(this, underarmHair);
+	}
+	public String setUnderarmHair(int value) {
+		return body.getArm().setUnderarmHair(this, BodyHair.getBodyHairFromValue(value));
+	}
+	public String incrementUnderarmHair(int increment) {
+		int value = getUnderarmHair().getValue() + increment;
+		if(value < 0) {
+			value = 0;
+		} else if(value > 3) {
+			value = 3;
+		}
+		return body.getArm().setUnderarmHair(this, BodyHair.getBodyHairFromValue(value));
 	}
 	
 	
@@ -3649,6 +3675,18 @@ public class GameCharacter implements Serializable {
 	}
 	public String setAssHair(BodyHair assHair) {
 		return body.getAss().getAnus().setAssHair(this, assHair);
+	}
+	public String setAssHair(int value) {
+		return body.getAss().getAnus().setAssHair(this, BodyHair.getBodyHairFromValue(value));
+	}
+	public String incrementAssHair(int increment) {
+		int value = getAssHair().getValue() + increment;
+		if(value < 0) {
+			value = 0;
+		} else if(value > 3) {
+			value = 3;
+		}
+		return body.getAss().getAnus().setAssHair(this, BodyHair.getBodyHairFromValue(value));
 	}
 	// Orifice stats:
 	// Wetness:
@@ -3843,11 +3881,14 @@ public class GameCharacter implements Serializable {
 	public String setNippleCountPerBreast(int count) {
 		return body.getBreast().setNippleCountPerBreast(this, count);
 	}
+	public String incrementNippleCountPerBreast(int increment) {
+		return body.getBreast().setNippleCountPerBreast(this, getNippleCountPerBreast() + increment);
+	}
 	// Nipple Shape:
 	public NippleShape getNippleShape() {
 		return body.getBreast().getNipples().getNippleShape();
 	}
-	public String setAreolaeSize(NippleShape nippleShape) {
+	public String setNippleShape(NippleShape nippleShape) {
 		return body.getBreast().getNipples().setNippleShape(this, nippleShape);
 	}
 	// Nipple size:
@@ -3857,6 +3898,9 @@ public class GameCharacter implements Serializable {
 	public String setNippleSize(int nippleSize) {
 		return body.getBreast().getNipples().setNippleSize(this, nippleSize);
 	}
+	public String incrementNippleSize(int increment) {
+		return body.getBreast().getNipples().setNippleSize(this, getNippleSize().getValue() + increment);
+	}
 	// Areolae size:
 	public AreolaeSize getAreolaeSize() {
 		return body.getBreast().getNipples().getAreolaeSize();
@@ -3864,11 +3908,14 @@ public class GameCharacter implements Serializable {
 	public String setAreolaeSize(int areolaeSize) {
 		return body.getBreast().getNipples().setAreolaeSize(this, areolaeSize);
 	}
+	public String incrementAreolaeSize(int increment) {
+		return body.getBreast().getNipples().setAreolaeSize(this, getAreolaeSize().getValue() + increment);
+	}
 	// Areolae Shape:
 	public AreolaeShape getAreolaeShape() {
 		return body.getBreast().getNipples().getAreolaeShape();
 	}
-	public String setAreolaeSize(AreolaeShape areolaeShape) {
+	public String setAreolaeShape(AreolaeShape areolaeShape) {
 		return body.getBreast().getNipples().setAreolaeShape(this, areolaeShape);
 	}
 	// Piercing:
@@ -4053,7 +4100,7 @@ public class GameCharacter implements Serializable {
 		return getCovering(BodyCoveringType.MAKEUP_EYE_LINER);
 	}
 	public String setEyeLiner(Covering eyeLiner) {
-		setCovering(eyeLiner);
+		body.getCoverings().put(eyeLiner.getType(), eyeLiner);
 		if(isPlayer()) {
 			if(eyeLiner.getPattern()==CoveringPattern.NONE) {
 				return "<p>"
@@ -4081,7 +4128,7 @@ public class GameCharacter implements Serializable {
 		return getCovering(BodyCoveringType.MAKEUP_EYE_SHADOW);
 	}
 	public String setEyeShadow(Covering eyeShadow) {
-		setCovering(eyeShadow);
+		body.getCoverings().put(eyeShadow.getType(), eyeShadow);
 		if(isPlayer()) {
 			if(eyeShadow.getPattern()==CoveringPattern.NONE) {
 				return "<p>"
@@ -4111,6 +4158,9 @@ public class GameCharacter implements Serializable {
 	}
 	public String setEyePairs(int eyePairs) {
 		return body.getEye().setEyePairs(this, eyePairs);
+	}
+	public String incrementEyePairs(int increment) {
+		return body.getEye().setEyePairs(this, getEyePairs() + increment);
 	}
 	// Shapes:
 	public EyeShape getIrisShape() {
@@ -4208,7 +4258,7 @@ public class GameCharacter implements Serializable {
 		return getCovering(BodyCoveringType.MAKEUP_LIPSTICK);
 	}
 	public String setLipstick(Covering lipstick) {
-		setCovering(lipstick);
+		body.getCoverings().put(lipstick.getType(), lipstick);
 		if(isPlayer()) {
 			if(lipstick.getPattern()==CoveringPattern.NONE) {
 				return "<p>"
@@ -4236,7 +4286,7 @@ public class GameCharacter implements Serializable {
 		return getCovering(BodyCoveringType.MAKEUP_BLUSHER);
 	}
 	public String setBlusher(Covering blusher) {
-		setCovering(blusher);
+		body.getCoverings().put(blusher.getType(), blusher);
 		if(isPlayer()) {
 			if(blusher.getPattern()==CoveringPattern.NONE) {
 				return "<p>"
@@ -4269,6 +4319,18 @@ public class GameCharacter implements Serializable {
 	}
 	public String setFacialHair(BodyHair facialHair) {
 		return body.getFace().setFacialHair(this, facialHair);
+	}
+	public String setFacialHair(int value) {
+		return body.getFace().setFacialHair(this, BodyHair.getBodyHairFromValue(value));
+	}
+	public String incrementFacialHair(int increment) {
+		int value = getFacialHair().getValue() + increment;
+		if(value < 0) {
+			value = 0;
+		} else if(value > 3) {
+			value = 3;
+		}
+		return body.getFace().setFacialHair(this, BodyHair.getBodyHairFromValue(value));
 	}
 	// Orifice stats:
 	// Wetness:
@@ -4392,9 +4454,14 @@ public class GameCharacter implements Serializable {
 	public Covering getHairCovering() {
 		return body.getCoverings().get(body.getHair().getType().getBodyCoveringType());
 	}
-	public String setHairCovering(Covering covering) {
+	public String setHairCovering(Covering covering, boolean updateBodyHair) {
 		if(!getHairCovering().equals(covering)) {
 			body.getCoverings().put(covering.getType(), covering);
+			
+			if(updateBodyHair) {
+				body.updateBodyHairColour();
+			}
+			
 			if (isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as your [pc.hair] "+(getHairType().isDefaultPlural()?"change":"changes")+" colour.</br>"
@@ -4453,6 +4520,9 @@ public class GameCharacter implements Serializable {
 	public String setHornRows(int rows) {
 		return body.getHorn().setHornRows(this, rows);
 	}
+	public String incrementHornRows(int increment) {
+		return body.getHorn().setHornRows(this, getHornRows() + increment);
+	}
 	
 	
 	
@@ -4486,7 +4556,7 @@ public class GameCharacter implements Serializable {
 		return getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET);
 	}
 	public String setFootNailPolish(Covering nailPolish) {
-		setCovering(nailPolish);
+		body.getCoverings().put(nailPolish.getType(), nailPolish);
 		if(isPlayer()) {
 			if(nailPolish.getPattern()==CoveringPattern.NONE) {
 				return "<p>"
@@ -4552,6 +4622,9 @@ public class GameCharacter implements Serializable {
 	}
 	public String setTongueLength(int tongueLength) {
 		return body.getFace().getTongue().setTongueLength(this, tongueLength);
+	}
+	public String incrementTongueLength(int increment) {
+		return body.getFace().getTongue().setTongueLength(this, getTongueLengthValue() + increment);
 	}
 	// Pierced:
 	public boolean isPiercedTongue() {
@@ -4857,6 +4930,9 @@ public class GameCharacter implements Serializable {
 	public String setTesticleCount(int count) {
 		return body.getPenis().getTesticle().setTesticleCount(this, count);
 	}
+	public String incrementTesticleCount(int increment) {
+		return body.getPenis().getTesticle().setTesticleCount(this, getTesticleCount() + increment);
+	}
 	// Internal:
 	public boolean isInternalTesticles() {
 		return body.getPenis().getTesticle().isInternal();
@@ -4926,12 +5002,16 @@ public class GameCharacter implements Serializable {
 	/**
 	 * @return Formatted description of skin colour change.
 	 */
-	public String setCovering(Covering covering) {
+	public String setSkinCovering(Covering covering, boolean updateAllSkinColours) {
 		if(!getCovering(getSkinType().getBodyCoveringType()).equals(covering)) {
 
 			BodyCoveringType coveringType = covering.getType();
 			
 			body.getCoverings().put(coveringType, covering);
+			
+			if(updateAllSkinColours) {
+				body.updateAllSkinCoverings();
+			}
 			
 			List<String> affectedParts = new ArrayList<>();
 			for (BodyPartInterface part : body.getAllBodyParts()) {
@@ -4998,6 +5078,9 @@ public class GameCharacter implements Serializable {
 	}
 	public String setTailCount(int tailCount) {
 		return body.getTail().setTailCount(this, tailCount);
+	}
+	public String incrementTailCount(int increment) {
+		return body.getTail().setTailCount(this, getTailCount() + increment);
 	}
 	
 	
@@ -5122,6 +5205,32 @@ public class GameCharacter implements Serializable {
 		return body.getVagina().getOrificeVagina().removeOrificeModifier(this, modifier);
 	}
 	
+	// Girlcum:
+	
+	public String getGirlcumName() {
+		return body.getVagina().getGirlcum().getName(this);
+	}
+	// Flavour:
+	public FluidFlavour getGirlcumFlavour() {
+		return body.getVagina().getGirlcum().getFlavour();
+	}
+	public String setGirlcumFlavour(FluidFlavour flavour) {
+		return body.getVagina().getGirlcum().setFlavour(this, flavour);
+	}
+	// Modifiers:
+	public boolean hasGirlcumModifier(FluidModifier fluidModifier) {
+		return body.getVagina().getGirlcum().hasFluidModifier(fluidModifier);
+	}
+	public String addGirlcumModifier(FluidModifier fluidModifier) {
+		return body.getVagina().getGirlcum().addFluidModifier(this, fluidModifier);
+	}
+	public String removeGirlcumModifier(FluidModifier fluidModifier) {
+		return body.getVagina().getGirlcum().removeFluidModifier(this, fluidModifier);
+	}
+	// Transformations:
+	public List<ItemEffect> getGirlcumTransformativeEffects() {
+		return body.getVagina().getGirlcum().getTransformativeEffects();
+	}
 	
 	
 	// ------------------------------ Wings: ------------------------------ //

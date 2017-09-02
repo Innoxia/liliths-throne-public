@@ -6,7 +6,7 @@ package com.base.game.character.body.valueEnums;
  * @author Innoxia
  */
 public enum PenisModifier {
-	
+
 	SHEATHED("sheathed"),
 	RIBBED("ribbed"),
 	TENTACLED("tentacled"),

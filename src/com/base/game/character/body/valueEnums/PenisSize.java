@@ -1,5 +1,7 @@
 package com.base.game.character.body.valueEnums;
 
+import com.base.utils.Colour;
+
 /**
  * Sizes in inches.
  * 
@@ -9,39 +11,41 @@ package com.base.game.character.body.valueEnums;
  */
 public enum PenisSize {
 	/**Utility*/
-	NEGATIVE_UTILITY_VALUE("N/A", -1, -1),
+	NEGATIVE_UTILITY_VALUE("N/A", -1, -1, Colour.GENERIC_SIZE_ONE),
 
 	/**Barely even anything there. (0-1 inches)*/
-	ZERO_MICROSCOPIC("microscopic", 0, 2),
+	ZERO_MICROSCOPIC("microscopic", 0, 2, Colour.GENERIC_SIZE_TWO),
 
 	/**Average size for a harpy. (2-3 inches)*/
-	ONE_TINY("tiny", 2, 4),
+	ONE_TINY("tiny", 2, 4, Colour.GENERIC_SIZE_TWO),
 
 	/**Average size for a cat-morph or human. (4-7 inches)*/
-	TWO_AVERAGE("average-sized", 4, 8),
+	TWO_AVERAGE("average-sized", 4, 8, Colour.GENERIC_SIZE_THREE),
 
 	/**Average size for a dog or wolf morph. (8-11 inches)*/
-	THREE_LARGE("large", 8, 12),
+	THREE_LARGE("large", 8, 12, Colour.GENERIC_SIZE_FOUR),
 
 	/**Average size for a horse morph. (12-15 inches)*/
-	FOUR_HUGE("huge", 12, 16),
+	FOUR_HUGE("huge", 12, 16, Colour.GENERIC_SIZE_FIVE),
 
 	/**Straying into the bounds of "world record for a human". Large for a horse morph. (16-19 inches)*/
-	FIVE_ENORMOUS("enormous", 16, 20),
+	FIVE_ENORMOUS("enormous", 16, 20, Colour.GENERIC_SIZE_SIX),
 
 	/**This is just ridiculous... World record for a horse-morph. (20-24 inches)*/
-	SIX_GIGANTIC("gigantic", 20, 25),
+	SIX_GIGANTIC("gigantic", 20, 25, Colour.GENERIC_SIZE_SEVEN),
 
 	/**And this is for "extreme proportion" content. (25-40 inches)*/
-	SEVEN_STALLION("stallion-sized", 25, 40);
+	SEVEN_STALLION("stallion-sized", 25, 40, Colour.GENERIC_SIZE_EIGHT);
 
 	private int minimumValue, maximumValue;
 	private String descriptor;
+	private Colour colour;
 
-	private PenisSize(String descriptor, int minimumValue, int maximumValue) {
+	private PenisSize(String descriptor, int minimumValue, int maximumValue, Colour colour) {
 		this.descriptor = descriptor;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
+		this.colour=colour;
 	}
 
 	public int getMinimumValue() {
@@ -71,5 +75,9 @@ public enum PenisSize {
 	 */
 	public String getDescriptor() {
 		return descriptor;
+	}
+
+	public Colour getColour() {
+		return colour;
 	}
 }

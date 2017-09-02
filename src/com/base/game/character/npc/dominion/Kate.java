@@ -56,8 +56,8 @@ public class Kate extends NPC {
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_GREEN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK));
-		this.setCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PINK));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PINK), true);
 
 		this.setBreastSize(CupSize.F.getMeasurement());
 		

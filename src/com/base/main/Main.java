@@ -26,7 +26,7 @@ import com.base.game.character.race.RacialBody;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.responses.Response;
-import com.base.game.dialogue.story.CharacterCreationDialogue;
+import com.base.game.dialogue.story.CharacterCreation;
 import com.base.game.dialogue.utils.OptionsDialogue;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.utils.Colour;
@@ -61,8 +61,8 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public final static String VERSION_NUMBER = "0.1.83PHF",
-			VERSION_DESCRIPTION = "Preview Hotfix"; //TODO Early Alpha
+	public final static String VERSION_NUMBER = "0.1.83.5",
+			VERSION_DESCRIPTION = "Early Alpha";
 
 	public final static Image WINDOW_IMAGE = new Image("/com/base/res/images/windowIcon32.png");
 
@@ -71,78 +71,58 @@ public class Main extends Application {
 	public static String patchNotes =
 			
 		"<h1 style='text-align:center;'>Version " + Main.VERSION_NUMBER + "</h1>"
-		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>This is a preview release, and contains half-finished content!</b></h6>"
-//		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha release!</b></h6>"
+		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha release!</b></h6>"
 		
 		+ "<p><b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Important information:</b> <i>If you don't see a mini-map in the bottom-left corner of the screen after starting the game, please update your java!</i></p>"
 		
+		//TODO
 		+ "<p>"
-		+ "This is just a preview release, so <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>only play it if you're prepared to encounter some serious bugs and half-written content!</b>"
-		+ " The full, polished version of this release will be out on Friday!"
-		+ "</p>"
-		
-		
-		+ "<p>"
-			+ "Hello again! ^^"
+			+ "Hello! ^^"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "This is just a small hotfix to address the cause of everyone having fuckable urethras and nipples. ^^"
+			+ "This preview is a lot smaller than usual, due to having spent the first few days of this week working on getting the 0.1.83 hotfix out."
+			+ " I also spent the entire of Thursday (finally) getting the new wiki sorted out, which only left me with Friday in which to make this preview."
+			+ " I'm going to try and merge some fun pull requests off the github over the weekend, so I might update this preview with some more content on Monday! :3"
 		+ "</p>"
 			
+		
 		+ "<p>"
 			+ "If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
 		+ "</p>"
 		
 		+ "<list>"
+		
 		+ "<h6>Patch Notes - <b>Version " + Main.VERSION_NUMBER + "</b></h6>"
 		
-		+"<li>Engine:</li>"
-			+"<ul>Improved quest handling methods.</ul>"
-		
 		+"<li>Gameplay:</li>"
-			+"<ul><b>Changed:</b> You can now obtain a slaver license at the very start of the game. Simply go to the Slaver Administration building (in Slaver Alley) and ask about it there. ^^</ul>"
-			+"<ul><b>Added:</b> Squirrel-morphs. These are mostly going to be found in the Fields area, but there's a small chance of encountering them in Dominion's alleyways as well. (Added by rfpnj. Think you! :3)</ul>"
-			+"<ul><b>Added:</b> Squirrel Java, Round Nuts, Chasing Squirrels, and Bottled Squirrel-morph Essence.</ul>"
-			+"<ul><b>Changed:</b> Nikki's name to Finch.</ul>"
-		
+		+"<ul>Reverted penis/vagina loss when shrinking past minimum size/capacity respectively. You now remove a penis or vagina by adding the 'remove' effect to a potion.</ul>"
+		+"<ul>Ralph now stocks squirrel-morph consumables.</ul>"
+			
 		+"<li>Sex:</li>"
-			+"<ul><b>Added:</b> Power-bottom doggy-style position. (Added by BelshazzarII. Thank you! :3)</ul>"
-			+"<ul>NPCs will now displace and remove mouth-concealing clothing during sex.</ul>"
-		
+		+"<ul>Converted the following actions into the new cowgirl position for both sub and dom positions: Starting kiss, penetrating anus, penetrating vagina.</ul>"
+			
 		+"<li>Clothing:</li>"
-			+"<ul><b>Added:</b> Thigh-high socks (feminine, foot slot).</ul>"
-			+"<ul>Added two more metal colours (platinum and rose gold). (Added by rfpnj. :3)</ul>"
-			+"<ul>Ball gags can no longer be displaced by being 'pulled out'. They must be removed to gain access to the wearer's mouth.</ul>"
-		
+		+"<ul><b>Temporarily added:</b> Special clothing to Nyan's store, allowing you to buy the rainbow, Maid, and Milk Maid clothing. (I'm going to change this in the future!)</ul>"
+		+"<ul>Added: 'Milk Maid' Set, requires Milk Maid's Dress and Kerchief to be worn. (I'll change the set's effects to increase lactation when I convert the attributes over to the new system.)</ul>"
+		+"<ul>Added: Milk Maid's Dress (Feminine, Torso slot). (Created by Blue999)</ul>"
+		+"<ul>Added: Kerchief (Unisex, head slot).</ul>"
+		+"<ul>Added: Nursing bra (Feminine, Chest slot). (Created by Blue999)</ul>"
+		+"<ul>Added: Crotchless thong (Feminine, groin slot).</ul>"
+		+"<ul>Added: Keyhole sweater (Feminine, torso slot).</ul>"
+		+"<ul>Added: Jeans (Unisex, leg slot).</ul>"
+			
 		+"<li>Other:</li>"
-			+"<ul>Clothing which blocks multiple slots now have more powerful enchantments.</ul>"
-			+"<ul>Choosing to start as an androgynous male will now give you a flat chest instead of AA-cup breasts. (I'm going to give you a lot more control over this when I redo the character creation screen.)</ul>"
-			+"<ul>Combined the 'Explore' and 'Look for trouble' actions in the harpy nests (after you've completed the Angry Harpies quest).</ul>"
-		
+		+"<ul>Testicle-related actions are now correctly disabled if they are internal.</ul>"
+		+"<ul>Added correct descriptions for multiple tails in the character view screen.</ul>"
+			
 		+"<li>Bugs:</li>"
-			+"<ul><b>Fixed:</b> Bug where nipples and urethras were always being described as being fuckable.</ul>"
-			+"<ul>Fixed the more powerful version of the arcane storm debuff being applied to your character.</ul>"
-			+"<ul>Typo fixes.</ul>"
-			+"<ul>You should now be able to correctly remove harpies from their tiles.</ul>"
-			+"<ul>NPCs will now stop equipping more and more clothing after each sexual encounter.</ul>"
-			+"<ul>Fixed bug where NPCs who aren't attracted to you would always choose to have sex after combat. (This was only working correctly before if you had non-con enabled.)</ul>"
-			+"<ul>Ralph's discount is now unavailable if you're unable to access your mouth. </ul>"
-			+"<ul>Fixed bug where turning BRax into Bree would give you multi-breasts instead of her.</ul>"
-			+"<ul>Fixed a bug where the 'Buy all' option for clothing would freeze the game.</ul>"
-			+"<ul>Fixed bugs in the 'Buy all' option for clothing, items, and weapons.</ul>"
-			+"<ul>Added correct fetish associations for tail-in-anus actions.</ul>"
-			
-		+"<li>Extra Bugs:</li>"
-			+"<ul>Fixed bug where you'd get stuck in Scarlett's shop at the end of the current main quest's content.</ul>"
-			+"<ul>Fixed bug where main quest couldn't be progressed when starting with an imported character.</ul>"
-			+"<ul>Day of birth stat should now be correctly working for birthed litters.</ul>"
-			+"<ul>Fixed some incorrect descriptions in the dominant doggy-style orgasm scene.</ul>"
-			+"<ul>Fixed some inaccurate descriptions in Lilaya's house.</ul>"
-			+"<ul>Hard-working Maid status effect now also has an NPC-perspective description.</ul>"
-			+"<ul>Fixed some incorrect NPC reactions to having your chest revealed during sex.</ul>"
-			
-		+ "</list>";
+		+"<ul>Fixed some typos.</ul>"
+		+"<ul>Fixed some incorrect gender pronouns.</ul>"
+		+"<ul>Fixed some minor UI issues in Kate's shop.</ul>"
+		
+		+ "</list>"
+		;
 	
 	public static String disclaimer = "<h1 style='text-align:center;'>DISCLAIMER</h1>"
 			+"<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
@@ -572,7 +552,8 @@ public class Main extends Application {
 	public static void importCharacter(File file) {
 		if (file != null) {
 			try {
-				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file));
+				Main.game.setPlayer(CharacterUtils.startLoadingCharacterFromXML());
+				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file, Main.game.getPlayer()));
 				
 				Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.LEG_SHORTS, false), true, Main.game.getPlayer());
 				Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.TORSO_HOODIE, false), true, Main.game.getPlayer());
@@ -585,7 +566,7 @@ public class Main extends Application {
 				Main.game.getPlayer().getItemsDiscovered().clear();
 				Main.game.getPlayer().calculateStatusEffects(0);
 
-				Main.game.initNewGame(CharacterCreationDialogue.START_GAME_WITH_IMPORT);
+				Main.game.initNewGame(CharacterCreation.START_GAME_WITH_IMPORT);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}

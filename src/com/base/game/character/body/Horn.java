@@ -20,6 +20,7 @@ public class Horn implements BodyPartInterface, Serializable {
 	
 	public Horn(HornType type) {
 		this.type = type;
+		rows = 1;
 	}
 
 	@Override

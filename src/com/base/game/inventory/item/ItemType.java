@@ -273,7 +273,7 @@ public enum ItemType {
 			25,
 			Rarity.UNCOMMON,
 			TFEssence.HORSE_MORPH,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.TESTING, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.TESTING, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -309,7 +309,7 @@ public enum ItemType {
 			25,
 			Rarity.UNCOMMON,
 			TFEssence.HORSE_MORPH,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_EQUINE_CIDER, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_EQUINE_CIDER, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -394,7 +394,7 @@ public enum ItemType {
 			25,
 			Rarity.UNCOMMON,
 			TFEssence.WOLF_MORPH,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_WOLF_WHISKEY, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_WOLF_WHISKEY, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -439,7 +439,7 @@ public enum ItemType {
 			25,
 			Rarity.UNCOMMON,
 			TFEssence.CAT_MORPH,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.INT_FELINE_FANCY, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.INT_FELINE_FANCY, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -484,7 +484,7 @@ public enum ItemType {
 			25,
 			Rarity.UNCOMMON,
 			TFEssence.HUMAN,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.INT_VANILLA_WATER, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.INT_VANILLA_WATER, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -531,7 +531,7 @@ public enum ItemType {
 			25,
 			Rarity.UNCOMMON,
 			TFEssence.DOG_MORPH,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_CANINE_CRUSH, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_CANINE_CRUSH, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -577,7 +577,7 @@ public enum ItemType {
 			25,
 			Rarity.UNCOMMON,
 			TFEssence.SQUIRREL_MORPH,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_SQUIRREL_JAVA, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_SQUIRREL_JAVA, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -623,7 +623,7 @@ public enum ItemType {
 			25,
 			Rarity.UNCOMMON,
 			TFEssence.HARPY,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_HARPY_PERFUME, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_HARPY_PERFUME, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -670,7 +670,7 @@ public enum ItemType {
 			50,
 			Rarity.UNCOMMON,
 			TFEssence.DEMON,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.COR_LILITHS_GIFT, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.COR_LILITHS_GIFT, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -715,7 +715,7 @@ public enum ItemType {
 			500,
 			Rarity.LEGENDARY,
 			TFEssence.DEMON,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_INNOXIAS_GIFT, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_INNOXIAS_GIFT, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -759,7 +759,7 @@ public enum ItemType {
 			75,
 			Rarity.RARE,
 			TFEssence.HUMAN,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ANGELS_TEARS, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ANGELS_TEARS, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -804,7 +804,7 @@ public enum ItemType {
 			40,
 			Rarity.RARE,
 			TFEssence.CAT_MORPH,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_KITTYS_REWARD, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_KITTYS_REWARD, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -895,7 +895,7 @@ public enum ItemType {
 			40,
 			Rarity.RARE,
 			TFEssence.SQUIRREL_MORPH,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ROUND_NUTS, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ROUND_NUTS, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -940,7 +940,7 @@ public enum ItemType {
 			40,
 			Rarity.RARE,
 			TFEssence.DOG_MORPH,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_CANINE_CRUNCH, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_CANINE_CRUNCH, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -984,7 +984,7 @@ public enum ItemType {
 			40,
 			Rarity.RARE,
 			TFEssence.HORSE_MORPH,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_SUGAR_CARROT_CUBE, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_SUGAR_CARROT_CUBE, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -1028,7 +1028,7 @@ public enum ItemType {
 			40,
 			Rarity.RARE,
 			TFEssence.WOLF_MORPH,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_MEAT_AND_MARROW, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_MEAT_AND_MARROW, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -1074,7 +1074,7 @@ public enum ItemType {
 			60,
 			Rarity.RARE,
 			TFEssence.HARPY,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_LOLIPOP, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_LOLIPOP, null, null, null, 0)))) {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -1121,7 +1121,7 @@ public enum ItemType {
 //			50,
 //			Rarity.LEGENDARY,
 //			null,
-//			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ANGEL, null, null)))) {
+//			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ANGEL, null, null, null, 0)))) {
 //
 //		@Override
 //		public String getUseName() {
@@ -1154,7 +1154,7 @@ public enum ItemType {
 			50,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ARCANE, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ARCANE, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1189,7 +1189,7 @@ public enum ItemType {
 			10,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_CAT_MORPH, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_CAT_MORPH, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1259,7 +1259,7 @@ public enum ItemType {
 			40,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DEMON, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DEMON, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1294,7 +1294,7 @@ public enum ItemType {
 			10,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SQUIRREL_MORPH, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SQUIRREL_MORPH, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1329,7 +1329,7 @@ public enum ItemType {
 			10,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DOG_MORPH, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DOG_MORPH, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1364,7 +1364,7 @@ public enum ItemType {
 			20,
 			Rarity.UNCOMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HARPY, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HARPY, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1399,7 +1399,7 @@ public enum ItemType {
 			10,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HORSE_MORPH, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HORSE_MORPH, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1434,7 +1434,7 @@ public enum ItemType {
 			10,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HUMAN, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HUMAN, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1469,7 +1469,7 @@ public enum ItemType {
 			10,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_WOLF_MORPH, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_WOLF_MORPH, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1508,7 +1508,7 @@ public enum ItemType {
 			500,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BIMBO_LOLLIPOP, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BIMBO_LOLLIPOP, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1543,7 +1543,7 @@ public enum ItemType {
 			500,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.NYMPHO_LOLLIPOP, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.NYMPHO_LOLLIPOP, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1578,7 +1578,7 @@ public enum ItemType {
 			500,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.DOMINANT_PERFUME, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.DOMINANT_PERFUME, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1774,7 +1774,7 @@ public enum ItemType {
 			50,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.DYE_BRUSH, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.DYE_BRUSH, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1816,7 +1816,7 @@ public enum ItemType {
 			5,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.APPLY_CONDOM, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.APPLY_CONDOM, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1883,7 +1883,7 @@ public enum ItemType {
 			0,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.USED_CONDOM_DRINK, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.USED_CONDOM_DRINK, null, null, null, 0)))) {
 		
 		@Override
 		public String getUseName() {
@@ -1926,7 +1926,7 @@ public enum ItemType {
 			5,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.VIXENS_VIRILITY, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.VIXENS_VIRILITY, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1959,7 +1959,7 @@ public enum ItemType {
 			5,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.PROMISCUITY_PILL, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.PROMISCUITY_PILL, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -1990,7 +1990,7 @@ public enum ItemType {
 			5,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.MOTHERS_MILK, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.MOTHERS_MILK, null, null, null, 0)))) {
 
 		@Override
 		public String getUseName() {
@@ -2021,7 +2021,7 @@ public enum ItemType {
 			10,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_CAT_MORPH, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_CAT_MORPH, null, null, null, 0)))) {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2099,7 +2099,7 @@ public enum ItemType {
 			10,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_DEMON, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_DEMON, null, null, null, 0)))) {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2143,7 +2143,7 @@ public enum ItemType {
 			10,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_DOG_MORPH, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_DOG_MORPH, null, null, null, 0)))) {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2187,7 +2187,7 @@ public enum ItemType {
 			10,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HARPY, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HARPY, null, null, null, 0)))) {
 		
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2231,7 +2231,7 @@ public enum ItemType {
 			10,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HORSE_MORPH, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HORSE_MORPH, null, null, null, 0)))) {
 		
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2275,7 +2275,7 @@ public enum ItemType {
 			10,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HUMAN, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HUMAN, null, null, null, 0)))) {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2319,7 +2319,7 @@ public enum ItemType {
 			10,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_SQUIRREL_MORPH, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_SQUIRREL_MORPH, null, null, null, 0)))) {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2358,7 +2358,7 @@ public enum ItemType {
 			10,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_WOLF_MORPH, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_WOLF_MORPH, null, null, null, 0)))) {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2403,7 +2403,7 @@ public enum ItemType {
 			10,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.EGGPLANT, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.EGGPLANT, null, null, null, 0)))) {
 
 		@Override
 		public boolean canBeSold() {

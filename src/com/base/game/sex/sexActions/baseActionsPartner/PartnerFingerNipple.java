@@ -584,6 +584,7 @@ public class PartnerFingerNipple {
 							" A delighted [pc.moan] bursts out from between your [pc.lips], and you start eagerly thrusting your chest out against [npc.her] touch as you beg [npc.herHim] to continue fingering your [pc.nipples+].",
 							" [pc.Moaning] in delight, you push out your chest,"
 									+ " eagerly imploring [npc.herHim] to continue fingering your [pc.breasts] as your movements cause [npc.herHim] to sink [npc.her] [npc.fingers] deep into your [pc.nipple+]"));
+					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Failing to recoil your chest away from [npc.her] touch, you let out [pc.a_sob+] as you weakly try to push [npc.herHim] away from you.",
@@ -654,6 +655,7 @@ public class PartnerFingerNipple {
 							" A delighted [pc.moan] bursts out from between your [pc.lips], and you start eagerly thrusting your chest out against [npc.her] touch as you beg [npc.herHim] to continue fingering your [pc.nipples+].",
 							" [pc.Moaning] in delight, you push out your chest,"
 									+ " eagerly imploring [npc.herHim] to continue fingering your [pc.breasts] as your movements cause [npc.herHim] to sink [npc.her] [npc.fingers] deep into your [pc.nipple+]"));
+					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Failing to recoil your chest away from [npc.her] unwanted touch, you let out [pc.a_sob+] as you weakly try to push [npc.herHim] away from you.",
@@ -724,6 +726,7 @@ public class PartnerFingerNipple {
 							" A delighted [pc.moan] bursts out from between your [pc.lips], and you start eagerly thrusting your chest out against [npc.her] touch as you beg [npc.herHim] to continue fingering your [pc.nipples+].",
 							" [pc.Moaning] in delight, you push out your chest,"
 									+ " eagerly imploring [npc.herHim] to continue fingering your [pc.breasts] as your movements cause [npc.herHim] to sink [npc.her] [npc.fingers] deep into your [pc.nipple+]"));
+					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Failing to recoil your chest away from [npc.her] dominant touch, you let out [pc.a_sob+] as you weakly try to push [npc.herHim] away from you.",
@@ -793,6 +796,7 @@ public class PartnerFingerNipple {
 							" A delighted [pc.moan] bursts out from between your [pc.lips], and you start gently pushing your chest out against [npc.her] touch as you beg [npc.herHim] to continue fingering your [pc.nipples+].",
 							" [pc.Moaning] in delight, you gently push out your chest,"
 									+ " imploring [npc.herHim] to continue fingering your [pc.breasts] as your movements cause [npc.herHim] to sink [npc.her] [npc.fingers] deep into your [pc.nipple+]"));
+					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You push your chest out in response, letting out a delighted [pc.moan] as you start commanding [npc.herHim] to continue fingering your [pc.breasts].",
@@ -866,6 +870,7 @@ public class PartnerFingerNipple {
 							" A delighted [pc.moan] bursts out from between your [pc.lips], and you start gently pushing your chest out against [npc.her] touch as you beg [npc.herHim] to continue fingering your [pc.nipples+].",
 							" [pc.Moaning] in delight, you gently push out your chest,"
 									+ " imploring [npc.herHim] to continue fingering your [pc.breasts] as your movements cause [npc.herHim] to sink [npc.her] [npc.fingers] deep into your [pc.nipple+]"));
+					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You push your chest out in response, letting out a delighted [pc.moan] as you start commanding [npc.herHim] to continue fingering your [pc.breasts].",
@@ -992,6 +997,7 @@ public class PartnerFingerNipple {
 							" [npc.She] lets out a soothing [npc.moan], ignoring your weak protests as [npc.she] continues gently sliding [npc.her] [npc.fingers+] in and out of your [pc.nipple+].",
 							" With a soft [npc.moan], [npc.she] gently slides [npc.her] [npc.fingers+] even deeper into your [pc.nipple+], drawing yet another [pc.sob] from between your [pc.lips+] as [npc.she] ignores your protestations.",
 							" Pressing [npc.herself] against you, and totally ignoring your weak protests, [npc.she] gently slides [npc.her] [npc.fingers+] deep into your [pc.nipple], causing you to let out yet another [pc.sob+]."));
+					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.She] lets out an angry growl, ignoring your weak protests as [npc.she] seeks to punish your reluctance by continuing to ruthlessly slam [npc.her] [npc.fingers+] in and out of your [pc.nipple+].",

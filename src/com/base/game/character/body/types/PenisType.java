@@ -179,6 +179,7 @@ public enum PenisType implements BodyPartTypeInterface {
 	public Race getRace() {
 		return race;
 	}
+
 	
 	public String getPenisHeadName(GameCharacter gc) {
 		switch(this){
@@ -239,6 +240,7 @@ public enum PenisType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("potent", "sticky", "hot", "salty");
 		}
 	}
+
 
 	public TesticleType getTesticleType() {
 		return testicleType;

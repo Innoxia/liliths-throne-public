@@ -402,9 +402,9 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"fleshy",
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.TONGUE)),
+			Util.newArrayListOfValues(new ListValue<Colour>(Colour.ORIFICE_INTERIOR)),
 			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.TONGUE)),
+			Colour.orificeInteriors,
 			null),
 
 	// HAIR:
@@ -418,8 +418,6 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.HAIR_HIGHLIGHTS),
-					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
-					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
@@ -435,8 +433,6 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.HAIR_HIGHLIGHTS),
-					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
-					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
@@ -452,8 +448,6 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.HAIR_HIGHLIGHTS),
-					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
-					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
@@ -469,8 +463,6 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.HAIR_HIGHLIGHTS),
-					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
-					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
@@ -486,8 +478,6 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.HAIR_HIGHLIGHTS),
-					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
-					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
@@ -503,8 +493,6 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.HAIR_HIGHLIGHTS),
-					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
-					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
@@ -520,8 +508,6 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.HAIR_HIGHLIGHTS),
-					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
-					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
@@ -553,8 +539,6 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.HAIR_HIGHLIGHTS),
-					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
-					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
@@ -1284,7 +1268,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			null);
 	
 	private String determiner, namePlural, nameSingular, descriptor;
-	private List<Colour> naturalColoursPrimary, dyeColoursPrimary, naturalColoursSecondary, dyeColoursSecondary, allColours;
+	private List<Colour> naturalColoursPrimary, dyeColoursPrimary, naturalColoursSecondary, dyeColoursSecondary, allColours, allPrimaryColours, allSecondaryColours;
 	private List<CoveringPattern> naturalPatterns, dyePatterns, allPatterns;
 	private Race race;
 	private boolean isDeafultPlural;
@@ -1361,17 +1345,23 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 		}
 		
 		allColours = new ArrayList<>();
+		allPrimaryColours = new ArrayList<>();
+		allSecondaryColours = new ArrayList<>();
 		for(Colour c : this.naturalColoursPrimary) {
 			allColours.add(c);
+			allPrimaryColours.add(c);
 		}
 		for(Colour c : this.dyeColoursPrimary) {
 			allColours.add(c);
+			allPrimaryColours.add(c);
 		}
 		for(Colour c : this.naturalColoursSecondary) {
 			allColours.add(c);
+			allSecondaryColours.add(c);
 		}
 		for(Colour c : this.dyeColoursSecondary) {
 			allColours.add(c);
+			allSecondaryColours.add(c);
 		}
 		
 		this.race = race;
@@ -1432,6 +1422,14 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 
 	public List<Colour> getAllColours() {
 		return allColours;
+	}
+	
+	public List<Colour> getAllPrimaryColours() {
+		return allPrimaryColours;
+	}
+	
+	public List<Colour> getAllSecondaryColours() {
+		return allSecondaryColours;
 	}
 
 	public BodyCoveringType getBodyCoveringType() {

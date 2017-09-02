@@ -1332,9 +1332,9 @@ public class PhoneDialogue {
 					} else { 
 						int i=1;
 						for(ItemEffect ie : item.getEffects()) {
-							for(String s : ie.getEffectsDescription()) {
+							for(String s : ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
 								journalSB.append(s);
-								if(i != ie.getEffectsDescription().size())
+								if(i != ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size())
 									journalSB.append("</br>");
 								i++;
 							}
@@ -1713,7 +1713,7 @@ public class PhoneDialogue {
 			journalSB = new StringBuilder(
 					"<div class='statsDescriptionBox'>"
 						+ "You can unlock fetishes by using <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>arcane essences</b> (gained from from orgasming in sex)."
-						+ " Fetishes cost <b>five</b> arcane essences each, except for the 'Content Unlock Fetishes', which are <b>free</b>."
+						+ " Fetishes cost <b>five</b> arcane essences each."
 						+ " Derived fetishes cannot be directly unlocked, but are instead automatically unlocked when you meet their requirements."
 					+ "</div>"
 						
@@ -1794,7 +1794,7 @@ public class PhoneDialogue {
 					+ "<span style='height:16px;width:800px;float:left;'></span>"
 					
 					+ "<div class='fetish-container'>"
-					+ "<p style='width:100%;'>Content Unlock Fetishes</p>");
+					+ "<p style='width:100%;'>Derived Fetishes</p>");
 			
 			for(Fetish fetish : Fetish.values()) {
 				if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {

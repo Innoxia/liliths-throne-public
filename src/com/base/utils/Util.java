@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -131,6 +132,16 @@ public class Util {
 	@SafeVarargs
 	public static <U> ArrayList<U> newArrayListOfValues(ListValue<U>... values) {
 		ArrayList<U> list = new ArrayList<>();
+
+		for (ListValue<U> v : values)
+			list.add(v.value);
+
+		return list;
+	}
+	
+	@SafeVarargs
+	public static <U> HashSet<U> newHashSetOfValues(ListValue<U>... values) {
+		HashSet<U> list = new HashSet<>();
 
 		for (ListValue<U> v : values)
 			list.add(v.value);

@@ -1,6 +1,9 @@
 package com.base.game.character.body;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.base.game.character.GameCharacter;
 import com.base.game.character.body.types.AnusType;
 import com.base.game.character.body.valueEnums.BodyHair;
@@ -56,7 +59,11 @@ public class Anus implements BodyPartInterface, Serializable {
 
 	@Override
 	public String getDescriptor(GameCharacter owner) {
-		// Randomly give a capacity, wetness or type-specific descriptor:
+		List<String> descriptorList = new ArrayList<String>();
+		
+		for(OrificeModifier om : orificeAnus.getOrificeModifiers()) {
+			descriptorList.add(om.getName());
+		}
 		
 		String wetnessDescriptor = orificeAnus.getWetness(owner).getDescriptor();
 		if(Main.game.isInSex()) {
@@ -66,21 +73,14 @@ public class Anus implements BodyPartInterface, Serializable {
 				wetnessDescriptor = "wet";
 			}
 		}
+		descriptorList.add(wetnessDescriptor);
+		if((owner.getAssHair()==BodyHair.BUSHY || owner.getAssHair()==BodyHair.TRIMMED) && Main.game.isBodyHairEnabled()) {
+			descriptorList.add("hairy");
+		}
+		descriptorList.add(type.getDescriptor(owner));
+		descriptorList.add(orificeAnus.getCapacity().getDescriptor());
 		
-		return UtilText.returnStringAtRandom(
-				(orificeAnus.hasOrificeModifier(OrificeModifier.MUSCLE_CONTROL)?OrificeModifier.MUSCLE_CONTROL.getName():""),
-				(orificeAnus.hasOrificeModifier(OrificeModifier.RIBBED)?OrificeModifier.RIBBED.getName():""),
-				(orificeAnus.hasOrificeModifier(OrificeModifier.TENTACLED)?OrificeModifier.TENTACLED.getName():""),
-				(orificeAnus.hasOrificeModifier(OrificeModifier.PUFFY)?OrificeModifier.PUFFY.getName():""),
-				
-				((assHair==BodyHair.BUSHY || assHair==BodyHair.TRIMMED) && Main.game.isBodyHairEnabled() ? "hairy" :""),
-				
-				type.getDescriptor(owner),
-				
-				wetnessDescriptor,
-				
-				orificeAnus.getCapacity().getDescriptor());
-		
+		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}
 
 	@Override

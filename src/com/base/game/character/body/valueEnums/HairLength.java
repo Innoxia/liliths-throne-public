@@ -1,5 +1,7 @@
 package com.base.game.character.body.valueEnums;
 
+import com.base.utils.Colour;
+
 /**
  * Measured in inches.
  * 
@@ -9,29 +11,31 @@ package com.base.game.character.body.valueEnums;
  */
 public enum HairLength {
 	/** Bald */
-	ZERO_BALD("bald", 0, 1),
+	ZERO_BALD("bald", 0, 1, Colour.GENERIC_SIZE_ONE),
 	/** Very short */
-	ONE_VERY_SHORT("very short", 1, 3),
+	ONE_VERY_SHORT("very short", 1, 3, Colour.GENERIC_SIZE_TWO),
 	/** Short */
-	TWO_SHORT("short", 3, 6),
+	TWO_SHORT("short", 3, 6, Colour.GENERIC_SIZE_THREE),
 	/** above the shoulders */
-	THREE_SHOULDER_LENGTH("shoulder-length", 6, 12),
+	THREE_SHOULDER_LENGTH("shoulder-length", 6, 12, Colour.GENERIC_SIZE_FOUR),
 	/** Reaching down to mid-back */
-	FOUR_MID_BACK("long", 12, 18),
+	FOUR_MID_BACK("long", 12, 18, Colour.GENERIC_SIZE_FIVE),
 	/** Reaching down to just above the ass */
-	FIVE_ABOVE_ASS("very long", 18, 24),
+	FIVE_ABOVE_ASS("very long", 18, 24, Colour.GENERIC_SIZE_SIX),
 	/** Reaching down to below the ass */
-	SIX_BELOW_ASS("incredibly long", 24, 30),
+	SIX_BELOW_ASS("incredibly long", 24, 30, Colour.GENERIC_SIZE_SEVEN),
 	/** Hair so long that it reaches the floor */
-	SEVEN_TO_FLOOR("extremely long", 30, 80);
+	SEVEN_TO_FLOOR("extremely long", 30, 80, Colour.GENERIC_SIZE_EIGHT);
 
 	private int minimumValue, maximumValue;
 	private String descriptor;
+	private Colour colour;
 
-	private HairLength(String descriptor, int minimumValue, int maximumValue) {
+	private HairLength(String descriptor, int minimumValue, int maximumValue, Colour colour) {
 		this.descriptor = descriptor;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
+		this.colour = colour;
 	}
 
 	public int getMinimumValue() {
@@ -98,5 +102,9 @@ public enum HairLength {
 	 */
 	public String getDescriptor() {
 		return descriptor;
+	}
+
+	public Colour getColour() {
+		return colour;
 	}
 }

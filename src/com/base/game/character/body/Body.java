@@ -289,6 +289,7 @@ public class Body implements Serializable {
 					secondary, false));
 		}
 		
+
 		
 		/* I added this (weird and probably terrible) method to make sure I don't miss any races ^^
 		 * To:
@@ -332,90 +333,10 @@ public class Body implements Serializable {
 			}
 		}
 
-		// Make all orifice colours the same as their surroundings:
-		switch(ass.getType().getRace()) {
-			case ANGEL:
-				coverings.put(BodyCoveringType.ANUS, new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, coverings.get(BodyCoveringType.ANGEL).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-				coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.ANGEL).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-				break;
-			case DEMON:
-				coverings.put(BodyCoveringType.ANUS, new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-				coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-				break;
-			case SLIME:
-				coverings.put(BodyCoveringType.ANUS, new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(),
-						false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-				coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(),
-						false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-				break;
-			default:
-				coverings.put(BodyCoveringType.ANUS, new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-				coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-				break;
-		}
-		switch(breast.getType().getRace()) {
-			case ANGEL:
-				coverings.put(BodyCoveringType.NIPPLES, new Covering(BodyCoveringType.NIPPLES, CoveringPattern.ORIFICE_NIPPLE, coverings.get(BodyCoveringType.ANGEL).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-				break;
-			case DEMON:
-				coverings.put(BodyCoveringType.NIPPLES, new Covering(BodyCoveringType.NIPPLES, CoveringPattern.ORIFICE_NIPPLE, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-				break;
-			case SLIME:
-				coverings.put(BodyCoveringType.NIPPLES_SLIME, new Covering(BodyCoveringType.NIPPLES_SLIME, CoveringPattern.ORIFICE_NIPPLE, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(),
-						false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-				break;
-			default:
-				coverings.put(BodyCoveringType.NIPPLES, new Covering(BodyCoveringType.NIPPLES, CoveringPattern.ORIFICE_NIPPLE, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-				break;
-		}
-		switch(face.getType().getRace()) {
-			case ANGEL:
-				coverings.put(BodyCoveringType.MOUTH, new Covering(BodyCoveringType.MOUTH, CoveringPattern.ORIFICE_MOUTH, coverings.get(BodyCoveringType.ANGEL).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-				break;
-			case DEMON:
-				coverings.put(BodyCoveringType.MOUTH, new Covering(BodyCoveringType.MOUTH, CoveringPattern.ORIFICE_MOUTH, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-				break;
-			case SLIME:
-				coverings.put(BodyCoveringType.MOUTH_SLIME, new Covering(BodyCoveringType.MOUTH_SLIME, CoveringPattern.ORIFICE_MOUTH, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(),
-						false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-				break;
-			default:
-				coverings.put(BodyCoveringType.MOUTH, new Covering(BodyCoveringType.MOUTH, CoveringPattern.ORIFICE_MOUTH, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-				break;
-		}
-		if(vagina.getType().getRace()!=null) {
-			switch(vagina.getType().getRace()) {
-				case ANGEL:
-					coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.ANGEL).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-					break;
-				case DEMON:
-					coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-					break;
-				case SLIME:
-					coverings.put(BodyCoveringType.VAGINA_SLIME, new Covering(BodyCoveringType.VAGINA_SLIME, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(),
-							false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-					break;
-				default:
-					coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-					break;
-			}
-		}
-		if(penis.getType().getRace()!=null) {
-			switch(penis.getType().getRace()) {
-				case ANGEL:
-					coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.ANGEL).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-					break;
-				case DEMON:
-					coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-					break;
-				case SLIME:
-					coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-					break;
-				default:
-					coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-					break;
-			}
-		}
+		updateBodyHairColour();
+
+
+		updateAllSkinCoverings();
 	}
 	
 	
@@ -755,7 +676,7 @@ public class Body implements Serializable {
 			if(owner.getEyePupilCovering().getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
 				sb.append("and [npc.pupilShape], heterochromatic [npc.pupilPrimaryColour(true)]-and-[npc.pupilSecondaryColour(true)] pupils.");
 			} else {
-				sb.append("and [npc.pupilShape] ,[npc.pupilPrimaryColour(true)] pupils.");
+				sb.append("and [npc.pupilShape], [npc.pupilPrimaryColour(true)] pupils.");
 			}
 		}
 		
@@ -850,11 +771,13 @@ public class Body implements Serializable {
 		sb.append("</p>"
 				+ "<p>");
 		
-		if(Main.game.isBodyHairEnabled()) {
+		if(Main.game.isFacialHairEnabled()) {
 			if(owner.isPlayer()) {
 				switch(owner.getFacialHair()) {
 					case NONE:
-//						sb.append(" There is no trace of any "+owner.getFacialHairType().getFullDescription(owner, true)+" on your face.");
+						if(!owner.isFeminine()) {
+							sb.append(" You don't have any trace of facial "+owner.getFacialHairType().getName(owner, true)+".");
+						}
 						break;
 					case MANICURED:
 						sb.append(" You have a small amount of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on your [pc.face].");
@@ -870,7 +793,9 @@ public class Body implements Serializable {
 			} else {
 				switch(owner.getFacialHair()) {
 					case NONE:
-//						sb.append(" There is no trace of any "+owner.getFacialHairType().getFullDescription(owner, true)+" on [npc.her] face.");
+						if(!owner.isFeminine()) {
+							sb.append(" [npc.She] doesn't have any trace of facial "+owner.getFacialHairType().getName(owner, true)+".");
+						}
 						break;
 					case MANICURED:
 						sb.append(" [npc.She] has a small amount of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face].");
@@ -1124,11 +1049,11 @@ public class Body implements Serializable {
 		if (owner.isPlayer()) {
 			sb.append(" You have <span style='color:"+ owner.getBodySize().getColour().toWebHexString() + ";'>[pc.a_bodySize]</span>, "
 							+ "<span style='color:"+ owner.getMuscle().getColour().toWebHexString() + ";'>[pc.muscle]</span>"
-									+ " body, which gives you <span style='color:"+ owner.getBodyShape().toWebHexStringColour() + ";'>[pc.a_bodyShape]</span> appearance.");
+									+ " body, which gives you <span style='color:"+ owner.getBodyShape().toWebHexStringColour() + ";'>[pc.a_bodyShape]</span> body shape.");
 		} else {
 			sb.append(" [npc.She] has <span style='color:"+ BodySize.valueOf(getBodySize()).getColour().toWebHexString() + ";'>" + BodySize.valueOf(getBodySize()).getName(true) + "</span>, "
 							+ "<span style='color:"+ Muscle.valueOf(getMuscle()).getColour().toWebHexString() + ";'>" +Muscle.valueOf(getMuscle()).getName(false) + "</span>"
-								+ " body, giving [npc.her] <span style='color:"+ owner.getBodyShape().toWebHexStringColour() + ";'>[npc.a_bodyShape]</span> appearance.");
+								+ " body, giving [npc.her] <span style='color:"+ owner.getBodyShape().toWebHexStringColour() + ";'>[npc.a_bodyShape]</span> body shape.");
 		}
 		
 		// Pregnancy:
@@ -1452,7 +1377,7 @@ public class Body implements Serializable {
 			if(owner.isPlayer()) {
 				switch(owner.getUnderarmHair()) {
 					case NONE:
-						sb.append(" There is no trace of any "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in your armpits.");
+						sb.append(" There is no trace of any "+owner.getUnderarmHairType().getName(owner)+" in your armpits.");
 						break;
 					case MANICURED:
 						sb.append(" You have a well-manicured patch of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of your armpits.");
@@ -1468,7 +1393,7 @@ public class Body implements Serializable {
 			} else {
 				switch(owner.getUnderarmHair()) {
 					case NONE:
-						sb.append(" There is no trace of any "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in [npc.her] armpits.");
+						sb.append(" There is no trace of any "+owner.getUnderarmHairType().getName(owner, true)+" in [npc.her] armpits.");
 						break;
 					case MANICURED:
 						sb.append(" [npc.She] has a well-manicured patch of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
@@ -1577,8 +1502,11 @@ public class Body implements Serializable {
 					sb.append(" The claws on your talons have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
 				} else if(owner.getLegType()==LegType.HORSE_MORPH) {
 					sb.append(" Your hooves have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
+
 				} else if(owner.getLegType()==LegType.COW_MORPH) {
 					sb.append(" Your hooves have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
+
+
 				} else {
 					sb.append(" Your toenails have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
 				}
@@ -1589,8 +1517,11 @@ public class Body implements Serializable {
 					sb.append(" The claws on [npc.her] talons have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
 				} else if(owner.getLegType()==LegType.HORSE_MORPH) {
 					sb.append(" [npc.Her] hooves have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
+
 				} else if(owner.getLegType()==LegType.COW_MORPH) {
 					sb.append(" [npc.Her] hooves have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
+
+
 				} else {
 					sb.append(" [npc.Her] toenails have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
 				}
@@ -1652,7 +1583,9 @@ public class Body implements Serializable {
 				default:
 					break;
 			}
+			
 			// Tail:
+
 			switch (tail.getType()) {
 				case DEMON_COMMON:
 					if (owner.isPlayer())
@@ -1714,6 +1647,125 @@ public class Body implements Serializable {
 					break;
 				default:
 					break;
+
+			if(tail.getType()!=TailType.NONE) {
+				if (owner.isPlayer()) {
+					sb.append(" Growing out from just above your ass, you have ");
+				} else {
+					sb.append(" Growing out from just above [npc.her] ass, [npc.she] has ");
+				}
+			}
+			
+			if(owner.getTailCount()==1) {
+				switch(owner.getTailType()){
+					case CAT_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("a furry, [pc.tailColour(true)] cat-like tail, which you can control well enough to grant you significantly improved balance.");
+						} else {
+							sb.append("a furry, [npc.tailColour(true)] cat-like tail, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance.");
+						}
+						break;
+					case DEMON_COMMON:
+						if (owner.isPlayer()) {
+							sb.append("a spaded, [pc.tailColour(true)] demonic tail, over which you have complete control, and you can easily use it to grip and hold objects.");
+						} else {
+							sb.append("a spaded, [npc.tailColour(true)] demonic tail, over which [npc.she] has complete control, and [npc.she] can easily use it to grip and hold objects.");
+						}
+						break;
+					case DOG_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("a furry, [pc.tailColour(true)] dog-like tail, which wags uncontrollably when you get excited.");
+						} else {
+							sb.append("a furry, [npc.tailColour(true)] dog-like tail, which wags uncontrollably when [npc.she] gets excited.");
+						}
+						break;
+					case HARPY:
+						if (owner.isPlayer()) {
+							sb.append("a plume of beautiful, [pc.tailColour(true)] tail-feathers, which you can rapidly move up and down to help you keep your balance and to control your path when in flight.");
+						} else {
+							sb.append("a plume of beautiful, [npc.tailColour(true)] tail-feathers, which [npc.she] can rapidly move up and down to help [npc.herHim] keep [npc.her] balance and to control [npc.her] path when in flight.");
+						}
+						break;
+					case HORSE_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("a long, [pc.tailColour(true)] horse-like tail, which you can swipe from side to side, but other than that, you don't have much control over it.");
+						} else {
+							sb.append("a long, [npc.tailColour(true)] horse-like tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it.");
+						}
+						break;
+					case LYCAN:
+						if (owner.isPlayer()) {
+							sb.append("a furry, [pc.tailColour(true)] wolf-like tail.");
+						} else {
+							sb.append("a furry, [npc.tailColour(true)] wolf-like tail.");
+						}
+						break;
+					case SQUIRREL_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("a fluffy, [pc.tailColour(true)] squirrel-like tail, which you can control well enough to grant you significantly improved balance.");
+						} else {
+							sb.append("a fluffy, [npc.tailColour(true)] squirrel-like tail, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance.");
+						}
+						break;
+					case NONE:
+						break;
+				}
+			} else {
+				sb.append(Util.intToString(owner.getTailCount())+" ");
+				switch(owner.getTailType()){
+					case CAT_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("furry, [pc.tailColour(true)] cat-like tails, which you can control well enough to grant you significantly improved balance.");
+						} else {
+							sb.append("furry, [npc.tailColour(true)] cat-like tails, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance.");
+						}
+						break;
+					case DEMON_COMMON:
+						if (owner.isPlayer()) {
+							sb.append("spaded, [pc.tailColour(true)] demonic tails, over which you have complete control, and you can easily use them to grip and hold objects.");
+						} else {
+							sb.append("spaded, [npc.tailColour(true)] demonic tails, over which [npc.she] has complete control, and [npc.she] can easily use them to grip and hold objects.");
+						}
+						break;
+					case DOG_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("furry, [pc.tailColour(true)] dog-like tails, which wag uncontrollably when you get excited.");
+						} else {
+							sb.append("furry, [npc.tailColour(true)] dog-like tails, which wag uncontrollably when [npc.she] gets excited.");
+						}
+						break;
+					case HARPY:
+						if (owner.isPlayer()) {
+							sb.append("plumes of beautiful, [pc.tailColour(true)] tail-feathers, which you can rapidly move up and down to help you keep your balance and to control your path when in flight.");
+						} else {
+							sb.append("plumes of beautiful, [npc.tailColour(true)] tail-feathers, which [npc.she] can rapidly move up and down to help [npc.herHim] keep [npc.her] balance and to control [npc.her] path when in flight.");
+						}
+						break;
+					case HORSE_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("long, [pc.tailColour(true)] horse-like tails, which you can swipe from side to side, but other than that, you don't have much control over them.");
+						} else {
+							sb.append("long, [npc.tailColour(true)] horse-like tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them.");
+						}
+						break;
+					case LYCAN:
+						if (owner.isPlayer()) {
+							sb.append("furry, [pc.tailColour(true)] wolf-like tails.");
+						} else {
+							sb.append("furry, [npc.tailColour(true)] wolf-like tails.");
+						}
+						break;
+					case SQUIRREL_MORPH:
+						if (owner.isPlayer()) {
+							sb.append("fluffy, [pc.tailColour(true)] squirrel-like tails, which you can control well enough to grant you significantly improved balance.");
+						} else {
+							sb.append("fluffy, [npc.tailColour(true)] squirrel-like tails, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance.");
+						}
+						break;
+					case NONE:
+						break;
+				}
+
 			}
 	
 			sb.append("</p>");
@@ -2171,7 +2223,7 @@ public class Body implements Serializable {
 			if(owner.isPlayer()) {
 				switch(ass.getAnus().getAssHair()) {
 					case NONE:
-//						descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getFullDescription(owner, true)+" around your asshole.");
+						descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getName(owner, true)+" around your asshole.");
 						break;
 					case MANICURED:
 						descriptionSB.append(" You have a well-manicured patch of "+owner.getAssHairType().getFullDescription(owner, true)+" around your asshole.");
@@ -2187,7 +2239,7 @@ public class Body implements Serializable {
 			} else {
 				switch(ass.getAnus().getAssHair()) {
 					case NONE:
-//						descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getFullDescription(owner, true)+" around [npc.her] asshole.");
+						descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getName(owner, true)+" around [npc.her] asshole.");
 						break;
 					case MANICURED:
 						descriptionSB.append(" [npc.She] has a well-manicured patch of "+owner.getAssHairType().getFullDescription(owner, true)+" around [npc.her] asshole.");
@@ -2281,7 +2333,7 @@ public class Body implements Serializable {
 				descriptionSB.append(" They have been pierced.");
 			}
 			
-			if(owner.getNippleRawCapacityValue()>0) {
+			if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE) {
 				if (breast.isFuckable()) {
 					descriptionSB.append("</br>Your [pc.breasts] have internal, [pc.nippleSecondaryColour(true)] channels, allowing your [pc.breastCapacity] [pc.nipples] to be comfortably penetrated by "
 							+ Capacity.getCapacityFromValue(breast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
@@ -2374,7 +2426,12 @@ public class Body implements Serializable {
 						}
 					}
 				} else {
-					descriptionSB.append(" [style.colourExcellent(You have retained your nipple virginity.)]");
+					descriptionSB.append(" [style.colourGood(You have retained your nipple virginity.)]");
+				}
+				
+			} else {
+				if(owner.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
+					descriptionSB.append(" Your [pc.nipples] have swollen up to be exceptionally plump and puffy.");
 				}
 			}
 
@@ -2409,6 +2466,12 @@ public class Body implements Serializable {
 					case STRAWBERRY:
 						descriptionSB.append(", which tastes of strawberries.");
 						break;
+					case BEER:
+						descriptionSB.append(", which tastes like beer.");
+						break;
+					case VANILLA:
+						descriptionSB.append(", which tastes of vanilla.");
+						break;
 				}
 				
 				for(FluidModifier fm : FluidModifier.values()) {
@@ -2434,6 +2497,9 @@ public class Body implements Serializable {
 								break;
 							case VISCOUS:
 								descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
+								break;
+							case ALCOHOLIC:
+								descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
 								break;
 						}
 					}
@@ -2474,7 +2540,7 @@ public class Body implements Serializable {
 				descriptionSB.append(" They have been pierced.");
 			}
 			
-			if(owner.getNippleRawCapacityValue()>0) {
+			if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE) {
 				if (breast.isFuckable()) {
 					descriptionSB.append("</br>[npc.Her] [npc.breasts] have internal, [npc.nippleSecondaryColour(true)] channels, allowing [npc.her] [npc.breastCapacity] [npc.nipples] to be comfortably penetrated by "
 							+ Capacity.getCapacityFromValue(breast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
@@ -2567,7 +2633,7 @@ public class Body implements Serializable {
 						}
 					}
 				} else {
-					descriptionSB.append(" [style.colourExcellent([npc.Name] has retained [npc.her] nipple virginity.)]");
+					descriptionSB.append(" [style.colourGood([npc.Name] has retained [npc.her] nipple virginity.)]");
 				}
 				
 				if (breast.getRawLactationValue() > 0) {
@@ -2601,6 +2667,12 @@ public class Body implements Serializable {
 						case STRAWBERRY:
 							descriptionSB.append(", which tastes of strawberries.");
 							break;
+						case BEER:
+							descriptionSB.append(", which tastes like beer.");
+							break;
+						case VANILLA:
+							descriptionSB.append(", which tastes of vanilla.");
+							break;
 					}
 					
 					for(FluidModifier fm : FluidModifier.values()) {
@@ -2627,12 +2699,19 @@ public class Body implements Serializable {
 								case VISCOUS:
 									descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
 									break;
+								case ALCOHOLIC:
+									descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
+									break;
 							}
 						}
 					}
 					
 				} else {
 					descriptionSB.append("</br>[npc.She] is not producing any milk.");
+				}
+			} else {
+				if(owner.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
+					descriptionSB.append(" Your [pc.nipples] have swollen up to be exceptionally plump and puffy.");
 				}
 			}
 		}
@@ -2850,9 +2929,9 @@ public class Body implements Serializable {
 			switch(owner.getPubicHair()) {
 				case NONE:
 					if (isPlayer) {
-						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of your cock.");
+						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner, true)+" around the base of your cock.");
 					} else {
-						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of [npc.her] cock.");
+						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner, true)+" around the base of [npc.her] cock.");
 					}
 					break;
 				case MANICURED:
@@ -2915,38 +2994,38 @@ public class Body implements Serializable {
 					if (isPlayer)
 						descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
 					else
-						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
+						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
 					break;
 				case FOUR_HUGE:
 					if (isPlayer)
 						descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
 					else
-						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
+						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
 					break;
 				case FIVE_MASSIVE:
 					if (isPlayer)
 						descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
 					else
-						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
+						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
 					break;
 				case SIX_GIGANTIC:
 					if (isPlayer)
 						descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
 					else
-						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
+						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
 					break;
 				case SEVEN_ABSURD:
 					if (isPlayer)
 						descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath your [pc.cock].");
 					else
-						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [pc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
+						descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] are covered in [npc.ballFullDescription(true)], and hang down beneath [npc.her] [npc.cock].");
 					break;
 			}
 		}
 		
-		String cumRace = "[npc.cumRace]";
+		String cumName = "[npc.cum+]";
 		if(owner.isPlayer()) {
-			cumRace = "[pc.cumRace]";
+			cumName = "[pc.cum+]";
 		}
 		switch (penis.getTesticle().getCumProduction()) {
 			case ZERO_NONE:
@@ -2955,7 +3034,7 @@ public class Body implements Serializable {
 				} else {
 					descriptionSB.append(" They");
 				}
-				descriptionSB.append(" don't produce any "+cumRace+" cum at all.");
+				descriptionSB.append(" don't produce any "+cumName+" at all.");
 				break;
 			case ONE_TRICKLE:
 				if (penis.getTesticle().getTesticleSize().getValue() > TesticleSize.TWO_AVERAGE.getValue()) {
@@ -2963,7 +3042,7 @@ public class Body implements Serializable {
 				} else {
 					descriptionSB.append(" They");
 				}
-				descriptionSB.append(" only produce a tiny trickle of "+cumRace+" cum at each orgasm.");
+				descriptionSB.append(" only produce a tiny trickle of "+cumName+" at each orgasm.");
 				break;
 			case TWO_SMALL_AMOUNT:
 				if (penis.getTesticle().getTesticleSize().getValue() > TesticleSize.THREE_LARGE.getValue()) {
@@ -2971,7 +3050,7 @@ public class Body implements Serializable {
 				} else {
 					descriptionSB.append(" They");
 				}
-				descriptionSB.append(" only produce a small amount of "+cumRace+" cum at each orgasm.");
+				descriptionSB.append(" only produce a small amount of "+cumName+" at each orgasm.");
 				break;
 			case THREE_AVERAGE:
 				if (penis.getTesticle().getTesticleSize().getValue() > TesticleSize.FOUR_HUGE.getValue()) {
@@ -2979,7 +3058,7 @@ public class Body implements Serializable {
 				} else {
 					descriptionSB.append(" They");
 				}
-				descriptionSB.append(" produce an average amount of "+cumRace+" cum at each orgasm.");
+				descriptionSB.append(" produce an average amount of "+cumName+" at each orgasm.");
 				break;
 			case FOUR_LARGE:
 				if (penis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
@@ -2987,7 +3066,7 @@ public class Body implements Serializable {
 				} else {
 					descriptionSB.append(" They");
 				}
-				descriptionSB.append(" produce a large amount of "+cumRace+" cum at each orgasm.");
+				descriptionSB.append(" produce a large amount of "+cumName+" at each orgasm.");
 				break;
 			case FIVE_HUGE:
 				if (penis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
@@ -2995,7 +3074,7 @@ public class Body implements Serializable {
 				} else {
 					descriptionSB.append(" They");
 				}
-				descriptionSB.append(" produce a huge amount of "+cumRace+" cum at each orgasm.");
+				descriptionSB.append(" produce a huge amount of "+cumName+" at each orgasm.");
 				break;
 			case SIX_EXTREME:
 				if (penis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
@@ -3003,7 +3082,7 @@ public class Body implements Serializable {
 				} else {
 					descriptionSB.append(" They");
 				}
-				descriptionSB.append(" produce an extreme amount of "+cumRace+" cum at each orgasm.");
+				descriptionSB.append(" produce an extreme amount of "+cumName+" at each orgasm.");
 				break;
 			case SEVEN_MONSTROUS:
 				if (penis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
@@ -3011,7 +3090,7 @@ public class Body implements Serializable {
 				} else {
 					descriptionSB.append(" They");
 				}
-				descriptionSB.append(" produce a monstrous amount of "+cumRace+" cum at each orgasm.");
+				descriptionSB.append(" produce a monstrous amount of "+cumName+" at each orgasm.");
 				break;
 		}
 		
@@ -3049,6 +3128,12 @@ public class Body implements Serializable {
 			case STRAWBERRY:
 				descriptionSB.append(" tastes of strawberries.");
 				break;
+			case BEER:
+				descriptionSB.append(", which tastes like beer.");
+				break;
+			case VANILLA:
+				descriptionSB.append(", which tastes of vanilla.");
+				break;
 		}
 		
 		for(FluidModifier fm : FluidModifier.values()) {
@@ -3074,6 +3159,9 @@ public class Body implements Serializable {
 						break;
 					case VISCOUS:
 						descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
+						break;
+					case ALCOHOLIC:
+						descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
 						break;
 				}
 			}
@@ -3186,9 +3274,9 @@ public class Body implements Serializable {
 			switch(owner.getPubicHair()) {
 				case NONE:
 					if (isPlayer) {
-						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getFullDescription(owner, true)+" around your pussy.");
+						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner, true)+" around your pussy.");
 					} else {
-						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] pussy.");
+						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner, true)+" around [npc.her] pussy.");
 					}
 					break;
 				case MANICURED:
@@ -3816,6 +3904,125 @@ public class Body implements Serializable {
 
 	public Set<BodyCoveringType> getBodyCoveringTypesDiscovered() {
 		return coveringsDiscovered;
+	}
+	
+	public void updateBodyHairColour() {
+		for(Race r : Race.values()) {
+			switch(r) {
+				case ANGEL:
+					coverings.put(BodyCoveringType.BODY_HAIR_ANGEL, new Covering(BodyCoveringType.BODY_HAIR_ANGEL, coverings.get(BodyCoveringType.HAIR_ANGEL).getPrimaryColour()));
+					break;
+				case CAT_MORPH:
+					coverings.put(BodyCoveringType.BODY_HAIR_FELINE_FUR, new Covering(BodyCoveringType.BODY_HAIR_FELINE_FUR, coverings.get(BodyCoveringType.HAIR_FELINE_FUR).getPrimaryColour()));
+					break;
+				case DEMON:
+					coverings.put(BodyCoveringType.BODY_HAIR_DEMON, new Covering(BodyCoveringType.BODY_HAIR_DEMON, coverings.get(BodyCoveringType.HAIR_DEMON).getPrimaryColour()));
+					break;
+				case DOG_MORPH:
+					coverings.put(BodyCoveringType.BODY_HAIR_CANINE_FUR, new Covering(BodyCoveringType.BODY_HAIR_CANINE_FUR, coverings.get(BodyCoveringType.HAIR_CANINE_FUR).getPrimaryColour()));
+					break;
+				case HARPY:
+					coverings.put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, coverings.get(BodyCoveringType.HAIR_HARPY).getPrimaryColour()));
+					break;
+				case HORSE_MORPH:
+					coverings.put(BodyCoveringType.BODY_HAIR_HORSE_HAIR, new Covering(BodyCoveringType.BODY_HAIR_HORSE_HAIR, coverings.get(BodyCoveringType.HAIR_HORSE_HAIR).getPrimaryColour()));
+					break;
+				case HUMAN:
+					coverings.put(BodyCoveringType.BODY_HAIR_HUMAN, new Covering(BodyCoveringType.BODY_HAIR_HUMAN, coverings.get(BodyCoveringType.HAIR_HUMAN).getPrimaryColour()));
+					break;
+				case SLIME:
+					coverings.put(BodyCoveringType.BODY_HAIR_SLIME, new Covering(BodyCoveringType.BODY_HAIR_SLIME, coverings.get(BodyCoveringType.HAIR_SLIME).getPrimaryColour()));
+					break;
+				case SQUIRREL_MORPH:
+					coverings.put(BodyCoveringType.BODY_HAIR_SQUIRREL_FUR, new Covering(BodyCoveringType.BODY_HAIR_SQUIRREL_FUR, coverings.get(BodyCoveringType.HAIR_SQUIRREL_FUR).getPrimaryColour()));
+					break;
+				case WOLF_MORPH:
+					coverings.put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, coverings.get(BodyCoveringType.HAIR_LYCAN_FUR).getPrimaryColour()));
+					break;
+			}
+		}
+	}
+	
+	public void updateAllSkinCoverings() {
+		// Make all orifice colours the same as their surroundings:
+		switch(ass.getType().getRace()) {
+			case ANGEL:
+				coverings.put(BodyCoveringType.ANUS, new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, coverings.get(BodyCoveringType.ANGEL).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+				break;
+			case DEMON:
+				coverings.put(BodyCoveringType.ANUS, new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+				break;
+			case SLIME:
+				coverings.put(BodyCoveringType.ANUS, new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(),
+						false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
+				break;
+			default:
+				coverings.put(BodyCoveringType.ANUS, new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+				break;
+		}
+		switch(breast.getType().getRace()) {
+			case ANGEL:
+				coverings.put(BodyCoveringType.NIPPLES, new Covering(BodyCoveringType.NIPPLES, CoveringPattern.ORIFICE_NIPPLE, coverings.get(BodyCoveringType.ANGEL).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+				break;
+			case DEMON:
+				coverings.put(BodyCoveringType.NIPPLES, new Covering(BodyCoveringType.NIPPLES, CoveringPattern.ORIFICE_NIPPLE, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+				break;
+			case SLIME:
+				coverings.put(BodyCoveringType.NIPPLES_SLIME, new Covering(BodyCoveringType.NIPPLES_SLIME, CoveringPattern.ORIFICE_NIPPLE, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(),
+						false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
+				break;
+			default:
+				coverings.put(BodyCoveringType.NIPPLES, new Covering(BodyCoveringType.NIPPLES, CoveringPattern.ORIFICE_NIPPLE, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+				break;
+		}
+		switch(face.getType().getRace()) {
+			case ANGEL:
+				coverings.put(BodyCoveringType.MOUTH, new Covering(BodyCoveringType.MOUTH, CoveringPattern.ORIFICE_MOUTH, coverings.get(BodyCoveringType.ANGEL).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+				break;
+			case DEMON:
+				coverings.put(BodyCoveringType.MOUTH, new Covering(BodyCoveringType.MOUTH, CoveringPattern.ORIFICE_MOUTH, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+				break;
+			case SLIME:
+				coverings.put(BodyCoveringType.MOUTH_SLIME, new Covering(BodyCoveringType.MOUTH_SLIME, CoveringPattern.ORIFICE_MOUTH, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(),
+						false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
+				break;
+			default:
+				coverings.put(BodyCoveringType.MOUTH, new Covering(BodyCoveringType.MOUTH, CoveringPattern.ORIFICE_MOUTH, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+				break;
+		}
+		if(vagina.getType().getRace()!=null) {
+			switch(vagina.getType().getRace()) {
+				case ANGEL:
+					coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.ANGEL).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+					break;
+				case DEMON:
+					coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+					break;
+				case SLIME:
+					coverings.put(BodyCoveringType.VAGINA_SLIME, new Covering(BodyCoveringType.VAGINA_SLIME, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(),
+							false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
+					break;
+				default:
+					coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+					break;
+			}
+		}
+		if(penis.getType().getRace()!=null) {
+			switch(penis.getType().getRace()) {
+				case ANGEL:
+					coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.ANGEL).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+					break;
+				case DEMON:
+					coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+					break;
+				case SLIME:
+					coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
+					break;
+				default:
+					coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+					break;
+			}
+		}
 	}
 	
 	public boolean isAbleToFly() {

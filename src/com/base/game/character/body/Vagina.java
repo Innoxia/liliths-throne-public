@@ -1,6 +1,9 @@
 package com.base.game.character.body;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.base.game.character.GameCharacter;
 import com.base.game.character.body.types.PenisType;
 import com.base.game.character.body.types.VaginaType;
@@ -76,24 +79,10 @@ public class Vagina implements BodyPartInterface, Serializable {
 
 	@Override
 	public String getDescriptor(GameCharacter owner) {
-		// I'm sure I could have done this a better way.
-		String muscleControl = "", puffy = "", ribbed = "", tentacled = "";
+		List<String> descriptorList = new ArrayList<String>();
 		
-		for(OrificeModifier om : OrificeModifier.values()) {
-			switch(om) {
-				case MUSCLE_CONTROL:
-					muscleControl = om.getName();
-					break;
-				case PUFFY:
-					puffy = om.getName();
-					break;
-				case RIBBED:
-					ribbed = om.getName();
-					break;
-				case TENTACLED:
-					tentacled = om.getName();
-					break;
-			}
+		for(OrificeModifier om : orificeVagina.getOrificeModifiers()) {
+			descriptorList.add(om.getName());
 		}
 		
 		String wetnessDescriptor = orificeVagina.getWetness(owner).getDescriptor();
@@ -104,16 +93,14 @@ public class Vagina implements BodyPartInterface, Serializable {
 				wetnessDescriptor = "wet";
 			}
 		}
+		descriptorList.add(wetnessDescriptor);
+		if((owner.getPubicHair()==BodyHair.BUSHY || owner.getPubicHair()==BodyHair.TRIMMED) && Main.game.isBodyHairEnabled()) {
+			descriptorList.add("hairy");
+		}
+		descriptorList.add(type.getDescriptor(owner));
+		descriptorList.add(orificeVagina.getCapacity().getDescriptor());
 		
-		return UtilText.returnStringAtRandom(
-				muscleControl,
-				puffy,
-				ribbed,
-				tentacled,
-				wetnessDescriptor,
-				((owner.getPubicHair()==BodyHair.BUSHY || owner.getPubicHair()==BodyHair.TRIMMED) && Main.game.isBodyHairEnabled() ? "hairy" :""),
-				type.getDescriptor(owner),
-				orificeVagina.getCapacity().getDescriptor());
+		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}
 	
 	public String setType(GameCharacter owner, VaginaType type) {

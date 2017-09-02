@@ -47,6 +47,7 @@ public class Ralph extends NPC {
 			ItemType.RACE_INGREDIENT_HARPY,
 			ItemType.RACE_INGREDIENT_HORSE_MORPH,
 			ItemType.RACE_INGREDIENT_WOLF_MORPH,
+			ItemType.RACE_INGREDIENT_SQUIRREL_MORPH,
 			ItemType.RACE_INGREDIENT_HUMAN,
 			ItemType.RACE_INGREDIENT_DEMON,
 
@@ -56,6 +57,7 @@ public class Ralph extends NPC {
 			ItemType.FIT_INGREDIENT_CANINE_CRUSH,
 			ItemType.SEX_INGREDIENT_HARPY_PERFUME,
 			ItemType.COR_INGREDIENT_LILITHS_GIFT,
+			ItemType.FIT_INGREDIENT_SQUIRREL_JAVA,
 
 			ItemType.DYE_BRUSH,
 			ItemType.CONDOM,
@@ -77,9 +79,9 @@ public class Ralph extends NPC {
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, Colour.EYE_BROWN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BLACK));
-		this.setCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BLACK));
-		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
 
 		this.equipClothingFromNowhere(underwear, true, this);
 		this.equipClothingFromNowhere(legs, true, this);

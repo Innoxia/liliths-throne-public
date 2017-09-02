@@ -46,7 +46,7 @@ import com.base.world.places.EnforcerHQ;
 public class EnforcerHQDialogue {
 	
 	private static boolean isBraxMainQuestComplete() {
-		return Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() > Quest.MAIN_1_C_WOLFS_DEN.getSortingOrder();
+		return Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN);
 	}
 
 	public static final DialogueNodeOld EXTERIOR = new DialogueNodeOld("Enforcer HQ", "Enforcer HQ", false) {
@@ -936,7 +936,7 @@ public class EnforcerHQDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "[candi.speechNoEffects(Aww Brax! You're, like, so cute!)] Candi squeals, bouncing up and down in excitement,"
-							+ " [candi.speechNoEffects(Ooh! You need a new name! You can be Bree! You like that pet?!)]"
+							+ " [candi.speechNoEffects(Ooh! You need a new name! You can be Bree! You like that, pet?!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Bree lets out a soft whimper, and her hands suddenly dart down between her legs."
@@ -1071,7 +1071,7 @@ public class EnforcerHQDialogue {
 						Main.game.getBrax().setHeight(162);
 
 						Main.game.getBrax().setHairLength(HairLength.FIVE_ABOVE_ASS.getMedianValue());
-						Main.game.getBrax().setCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_BLEACH_BLONDE, false, Colour.COVERING_BLEACH_BLONDE, false));
+						Main.game.getBrax().setSkinCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_BLEACH_BLONDE, false, Colour.COVERING_BLEACH_BLONDE, false), true);
 						
 						Main.game.getBrax().equipClothing(true, true);
 					}

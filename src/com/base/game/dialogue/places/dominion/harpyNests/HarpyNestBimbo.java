@@ -589,7 +589,7 @@ public class HarpyNestBimbo {
 					@Override
 					public void effects() {
 						if(Main.game.isForcedTFEnabled()) {
-							Main.game.getTextEndStringBuilder().append(ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, Main.game.getHarpyBimbo(), Main.game.getPlayer()));
+							Main.game.getTextEndStringBuilder().append(ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer()));
 						}
 					}
 				};
@@ -668,7 +668,7 @@ public class HarpyNestBimbo {
 					@Override
 					public void effects() {
 						if(Main.game.isForcedTFEnabled()) {
-							Main.game.getTextEndStringBuilder().append(ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, Main.game.getHarpyBimbo(), Main.game.getPlayer()));
+							Main.game.getTextEndStringBuilder().append(ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer()));
 						}
 					}
 				};

@@ -245,6 +245,21 @@ public class Hair implements BodyPartInterface, Serializable {
 			}
 		}
 		
+		String styleChange = "";
+		if(length < owner.getHairStyle().getMinimumLengthRequired()) {
+			if(owner.isPlayer()) {
+				styleChange = "<p>"
+								+ "Your [pc.hair] "+(owner.getHairType().isDefaultPlural()?"are":"is")+" too short for your current hair style!"
+							+ "</p>"
+							+ owner.setHairStyle(HairStyle.NONE);
+			} else {
+				styleChange = "<p>"
+						+ "[npc.Her] [npc.hair] "+(owner.getHairType().isDefaultPlural()?"are":"is")+" too short for [npc.her] current hair style!"
+					+ "</p>"
+					+ owner.setHairStyle(HairStyle.NONE);
+			}
+		}
+		
 		if(sizeChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The length of your [pc.hair] doesn't change...)]</p>";
@@ -256,19 +271,23 @@ public class Hair implements BodyPartInterface, Serializable {
 		if(this.length > length) {
 			if(owner.isPlayer()) {
 				return "<p>Your scalp itches for a moment as you feel your [pc.hair] [style.boldShrink(getting shorter)].</br>"
-						+ "You now have [style.boldTfGeneric([pc.hairLength], "+length+"-inch [pc.hair])]!</p>";
+						+ "You now have [style.boldTfGeneric([pc.hairLength], "+length+"-inch [pc.hair])]!</p>"
+						+ styleChange;
 			} else {
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry and rubs at [npc.her] scalp as [npc.her] [npc.hair] [style.boldShrink(gets shorter)].</br>"
-						+ "[npc.She] now has [style.boldTfGeneric([npc.hairLength], "+length+"-inch [npc.hair])]!</p>");
+						+ "[npc.She] now has [style.boldTfGeneric([npc.hairLength], "+length+"-inch [npc.hair])]!</p>"
+						+ styleChange);
 			}
 			
 		} else {
 			if(owner.isPlayer()) {
 				return "<p>Your scalp itches for a moment as you feel your [pc.hair] [style.boldGrow(growing longer)].</br>"
-						+ "You now have [style.boldTfGeneric([pc.hairLength], "+length+"-inch [pc.hair])]!</p>";
+						+ "You now have [style.boldTfGeneric([pc.hairLength], "+length+"-inch [pc.hair])]!</p>"
+						+ styleChange;
 			} else {
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry and rubs at [npc.her] scalp as [npc.her] [npc.hair] [style.boldGrow(grows longer)].</br>"
-						+ "[npc.She] now has [style.boldTfGeneric([npc.hairLength], "+length+"-inch [npc.hair])]!</p>");
+						+ "[npc.She] now has [style.boldTfGeneric([npc.hairLength], "+length+"-inch [npc.hair])]!</p>"
+						+ styleChange);
 			}
 		}
 	}

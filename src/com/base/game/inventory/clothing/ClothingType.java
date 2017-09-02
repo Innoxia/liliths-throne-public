@@ -1647,6 +1647,39 @@ public enum ClothingType {
 			}
 		}
 	},
+
+	TORSO_KEYHOLE_SWEATER("a",
+			false,
+			"keyhole sweater",
+			"A feminine sweater, with a section at the front cut out to reveal the wearer's cleavage.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO,
+			Rarity.COMMON,
+			null,
+			"torso_keyhole_sweater",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(
+							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
+
+			null,
+			Colour.allClothingColours) {
+	},
 	
 	TORSO_TSHIRT("a", false, "T-shirt", "A plain T-shirt that would look good on any figure.", 1, null, InventorySlot.TORSO, Rarity.COMMON, null, "torso_tshirt", null,
 
@@ -3055,6 +3088,89 @@ public enum ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> bra back up to cover <her> chest.");
 		}
 	},
+
+	CHEST_NURSING_BRA("a",
+			false,
+			"nursing bra",
+			"This nursing bra provides additional support to lactating breasts, and has specially designed cups which can be opened to expose the wearer's nipples.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.CHEST,
+			Rarity.COMMON,
+			null,
+			"chest_nursing_bra",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_STAMINA, 3),
+					new Value<Attribute, Integer>(Attribute.FITNESS, 3)),
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(
+							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
+									null,
+									null)),
+					new ListValue<BlockedParts>(
+							new BlockedParts(DisplacementType.PULLS_DOWN,
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST))
+									))
+					),
+			null,
+			Colour.lingerieColours) {
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You place the bra over your chest before fastening the straps at your back.",
+					"You place the bra over [npc.name]'s chest before fastening the straps at [npc.her] back.",
+					null,
+					"[npc.Name] places the bra over [npc.her] chest before fastening the straps at [npc.her] back.",
+					"[npc.Name] places the bra over your chest before fastening the straps at your back.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You unclasp the bra and take it off.",
+					"You unclasp [npc.name]'s bra and take it off.",
+					null,
+					"[npc.Name] unclasps [npc.her] bra and takes it off.",
+					"[npc.Name] unclasps your bra and takes it off.",
+					null);
+		}
+
+		@Override
+		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
+				return "You unclip your nursing bra's cups and pull them down, exposing your [pc.nipples+].";
+				
+			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
+				return UtilText.parse(clothingRemover, "[npc.Name] unclips [npc.her] nursing bra's cups and pull them down, exposing [npc.her] [npc.nipples+].");
+				
+			} else {
+				if (clothingOwner.isPlayer()) {
+					return UtilText.parse(clothingRemover, "[npc.Name] unclips your nursing bra's cups and pull them down, exposing your [pc.nipples+].");
+				} else {
+					return UtilText.parse(clothingRemover, "You unclip the cups on [npc.name]'s nursing bra and pull them down, exposing [npc.her] [npc.nipples+].");
+				}
+			}
+		}
+
+		@Override
+		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
+				return "You clips your nursing bra's cups back up to cover your [pc.nipples].";
+			} else {
+				return UtilText.parse(clothingRemover, "[npc.Name] clips [npc.her] nursing bra's cups back up to cover [npc.her] [npc.nipples+].");
+			}
+		}
+	},
+	
 	CHEST_BIKINI("a", false, "bikini top", "A triangle-shaped bikini top. It uses loose strings tied at the back to keep it in place.", 1, Femininity.FEMININE, InventorySlot.CHEST, Rarity.COMMON, null, "chest_bikini", null,
 
 			Util.newArrayListOfValues(
@@ -3406,7 +3522,7 @@ public enum ClothingType {
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You unwrap teh sarashi remove it from your stomach.";
+				return "You unwrap the sarashi remove it from your stomach.";
 			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
 				return UtilText.parse(clothingOwner, "[npc.Name] unwraps the sarashi from around [npc.her] stomach.");
 			} else {
@@ -4214,19 +4330,101 @@ public enum ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> hotpants back up.");
 		}
 	},
-	LEG_TIGHT_TROUSERS("a pair of", true, "tight jeans", "A pair of tight jeans that hug the wearer's legs.", 1, null, InventorySlot.LEG, Rarity.COMMON, null, "leg_tight_jeans", null,
-
+	
+	LEG_TIGHT_TROUSERS("a pair of",
+			true,
+			"tight jeans",
+			"A pair of tight jeans that hug the wearer's legs.",
+			1,
+			null,
+			InventorySlot.LEG,
+			Rarity.COMMON,
+			null,
+			"leg_tight_jeans",
+			null,
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
 							null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_DOWN, null,
 							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-
 			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLUE),
+					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
+					new ListValue<Colour>(Colour.CLOTHING_WHITE),
+					new ListValue<Colour>(Colour.CLOTHING_BLACK))) {
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You step into the jeans before pulling them up to your waist.";
+			else
+				return UtilText.genderParsing(clothingOwner,
+						Util.capitaliseSentence(clothingOwner.getName("the")) + " steps into " + clothing.getName(true) + " before pulling them up to <her> waist.");
+		}
 
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT), new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE), new ListValue<Colour>(Colour.CLOTHING_BLACK))) {
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You pull down your jeans and kick them off your feet.";
+			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
+				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> jeans, kicking them off <her> feet.");
+			else {
+				if (clothingOwner.isPlayer())
+					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your jeans down and slides them off your feet.";
+				else
+					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s jeans down and slide them off <her> feet.");
+			}
+		}
+
+		@Override
+		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You pull down your jeans.";
+			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
+				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> jeans.");
+			else {
+				if (clothingOwner.isPlayer())
+					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your jeans down.";
+				else
+					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s jeans down.");
+			}
+		}
+
+		@Override
+		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You pull your jeans back up.";
+			else
+				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> jeans back up.");
+		}
+	},
+	
+	LEG_JEANS("a pair of",
+			true,
+			"jeans",
+			"A pair of unisex jeans.",
+			1,
+			null,
+			InventorySlot.LEG,
+			Rarity.COMMON,
+			null,
+			"leg_jeans",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+							null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_DOWN, null,
+							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLUE),
+					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
+					new ListValue<Colour>(Colour.CLOTHING_WHITE),
+					new ListValue<Colour>(Colour.CLOTHING_BLACK))) {
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
@@ -4730,6 +4928,7 @@ public enum ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " moves <her> panties back into their proper place.");
 		}
 	},
+	
 	GROIN_CROTCHLESS_PANTIES("a pair of",
 			true,
 			"crotchless panties",
@@ -4776,29 +4975,56 @@ public enum ClothingType {
 					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s panties down and slide them off <her> feet.");
 			}
 		}
+	},
+	
+	GROIN_CROTCHLESS_THONG("a",
+			true,
+			"crotchless thong",
+			"This thong has a strip of fabric missing in the most vital area, leaving their wearer's genitalia completely exposed."
+					+ " The tiny string at the back does nothing to conceal the wearer's asshole, effectively leaving that exposed as well.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.GROIN,
+			Rarity.COMMON,
+			null,
+			"groin_crotchless_thong",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(
+							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
+									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+							null, null))),
 
+			null,
+
+			Colour.allClothingColours) {
+		
 		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You shift your panties to one side.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " shifts <her> panties to one side.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " shifts your panties to one side.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You shift " + clothingOwner.getName("the") + "'s panties to one side.");
-			}
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the thong, before pulling it up around your waist.",
+					"You put the thong on [npc.name].",
+					null,
+					"[npc.Name] steps into the thong, before pulling it up around [npc.her] waist.",
+					"[npc.Name] puts the thong on you.",
+					null);
 		}
 
 		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You move your panties back into their proper place.";
-			else
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " moves <her> panties back into their proper place.");
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your thong.",
+					"You take off [npc.name]'s thong.",
+					null,
+					"[npc.Name] takes [npc.her] thong off.",
+					"[npc.Name] takes your thong off.",
+					null);
 		}
 	},
+	
 	GROIN_VSTRING("a pair of", true, "v-string panties", "A pair of v-string panties made from thin cotton.", 1, Femininity.FEMININE, InventorySlot.GROIN, Rarity.COMMON, null, "groin_vstring", null,
 
 			Util.newArrayListOfValues(
@@ -6502,6 +6728,92 @@ public enum ClothingType {
 		}
 	},
 	
+	MILK_MAID_TORSO_DRESS("a",
+			false,
+			"Milk Maid's dress",
+			"A milk maid's dress; consisting of shirt, skirt, and corset. The shirt is made of a light, comfortable material, which gets very transparent when wet."
+					+ " The corset, just like the skirt, is made of a soft fabric, and its strings can be pulled tight to flatter the wearer's figure and push their breasts slighter closer together.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO,
+			Rarity.EPIC,
+			ClothingSet.MILK_MAID,
+			"milk_maid_dress",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_STAMINA, 5),
+					new Value<Attribute, Integer>(Attribute.FITNESS, 5)),
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							Util.newArrayListOfValues(new ListValue<ClothingAccess>(
+									ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.ANUS),
+									new ListValue<CoverableArea>(CoverableArea.PENIS),
+									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
+					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+					new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
+					new ListValue<Colour>(Colour.CLOTHING_GREEN),
+					new ListValue<Colour>(Colour.CLOTHING_TAN),
+					new ListValue<Colour>(Colour.CLOTHING_BROWN),
+					new ListValue<Colour>(Colour.CLOTHING_BLACK))) {
+	},
+	
+	MILK_MAID_KERCHIEF("a",
+			false,
+			"kerchief",
+			"A triangular piece of cloth that covers the top of the wearer's head.",
+			1,
+			null,
+			InventorySlot.HEAD,
+			Rarity.EPIC,
+			ClothingSet.MILK_MAID,
+			"milk_maid_kerchief",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_STAMINA, 2),
+					new Value<Attribute, Integer>(Attribute.FITNESS, 2)),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
+			null,
+			Colour.lingerieColours) {
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You place the kerchief on your head, before tying up the strings beneath your chin.",
+					"You place the kerchief on [npc.name]'s head, before tying up the strings beneath [npc.her] chin.",
+					null,
+					"[npc.Name] places the kerchief on [npc.her] head, before tying up the strings beneath [npc.her] chin.",
+					"[npc.Name] places the kerchief on your head, before tying up the strings beneath your chin.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your kerchief.",
+					"You take off [npc.name]'s kerchief.",
+					null,
+					"[npc.Name] takes [npc.her] kerchief off.",
+					"[npc.Name] takes your kerchief off.",
+					null);
+		}
+	},
+	
 	MEGA_MILK("a",
 			false,
 			"Mega Milk T-shirt",
@@ -6865,12 +7177,12 @@ public enum ClothingType {
 		} else {
 			if (clothingOwner.isPlayer()) {
 				if(rough && npcEquippingPlayerRough!=null) {
-					return UtilText.parse(clothingOwner, npcEquippingPlayerRough);
+					return UtilText.parse(clothingEquipper, npcEquippingPlayerRough);
 				} else {
-					return UtilText.parse(clothingOwner, npcEquippingPlayer);
+					return UtilText.parse(clothingEquipper, npcEquippingPlayer);
 				}
 			} else {
-				return UtilText.parse(clothingOwner, npcEquipping);
+				return UtilText.parse(clothingEquipper, npcEquipping);
 			}
 		}
 	}

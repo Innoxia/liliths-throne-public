@@ -1104,79 +1104,130 @@ public class PlayerPenisVagina {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
-				case DOM_GENTLE:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Pressing [npc.herself] against you, [npc.name] slowly slides your [pc.cock+] over [npc.her] outer labia,"
-									+ " letting out a little [npc.moan] before gently bucking [npc.her] [npc.hips] forwards and forcing you to penetrate [npc.her] [npc.pussy+].",
-							"Lining [npc.her] [npc.pussy+] up to your [pc.cock+], [npc.name] slowly pushes [npc.her] [npc.hips] forwards,"
-									+ " drawing a soft [npc.moan] from between [npc.her] [npc.lips] as [npc.she] penetrates [npc.herself] on your [pc.cock+]."));
-					break;
-				case DOM_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Pressing [npc.herself] against you, [npc.name] eagerly guides your [pc.cock+] up to [npc.her] outer labia,"
-									+ " letting out [npc.a_moan+] before suddenly bucking [npc.her] [npc.hips] forwards and forcing you to penetrate [npc.her] [npc.pussy+].",
-							"Lining [npc.her] [npc.pussy+] up to your [pc.cock+], [npc.name] eagerly pushes [npc.her] [npc.hips] forwards,"
-									+ " drawing [npc.a_moan+] from between [npc.her] [npc.lips] as [npc.she] happily penetrates [npc.herself] on your [pc.cock+]."));
-					break;
-				case DOM_ROUGH:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Forcefully grinding [npc.herself] against you, [npc.name] guides your [pc.cock+] up to [npc.her] outer labia,"
-									+ " letting out [npc.a_moan+] before roughly slamming [npc.her] [npc.hips] forwards, forcing you to penetrate [npc.her] [npc.pussy+].",
-							"Lining [npc.her] [npc.pussy+] up to your [pc.cock+], [npc.name] violently slams [npc.her] [npc.hips] forwards,"
-									+ " drawing [npc.a_moan+] from between [npc.her] [npc.lips] as [npc.she] roughly starts fucking [npc.herself] on your [pc.cock+]."));
-					break;
-				case SUB_EAGER:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Pressing [npc.herself] against you, [npc.name] eagerly guides your [pc.cock+] up to [npc.her] outer labia,"
-									+ " letting out [npc.a_moan+] before suddenly bucking [npc.her] [npc.hips] forwards and forcing you to penetrate [npc.her] [npc.pussy+].",
-							"Lining [npc.her] [npc.pussy+] up to your [pc.cock+], [npc.name] eagerly pushes [npc.her] [npc.hips] forwards,"
-									+ " drawing [npc.a_moan+] from between [npc.her] [npc.lips] as [npc.she] happily penetrates [npc.herself] on your [pc.cock+]."));
-					break;
-				case SUB_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Pressing [npc.herself] against you, [npc.name] guides your [pc.cock+] up to [npc.her] outer labia,"
-									+ " letting out [npc.a_moan+] before bucking [npc.her] [npc.hips] forwards and forcing you to penetrate [npc.her] [npc.pussy+].",
-							"Lining [npc.her] [npc.pussy+] up to your [pc.cock+], [npc.name] pushes [npc.her] [npc.hips] forwards,"
-									+ " drawing [npc.a_moan+] from between [npc.her] [npc.lips] as [npc.she] penetrates [npc.herself] on your [pc.cock+]."));
-					break;
-				default:
-					break;
-			}
+			if(Sex.getPosition()==SexPosition.COWGIRL_PARTNER_TOP) {
+				
+				switch(Sex.getSexPacePartner()) {
+					case DOM_GENTLE:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"[npc.Name] reaches down to take hold of your [pc.cock+], before shuffling around to get into a good position."
+										+ " After taking a moment to tease the [pc.cockHead+] between [npc.her] outer labia, [npc.she] lets out a little [npc.moan] as [npc.she] slowly drops down and penetrates [npc.her] [npc.pussy+] on your [pc.cock+].",
+								"Shuffling around into a better position, [npc.name] lines the [pc.cockHead+] of your [pc.cock+] up between [npc.her] [npc.legs+], and with a slow, steady movement, [npc.she] gently drops down,"
+										+ " penetrating [npc.her] [npc.pussy+] on your [pc.cock+]."));
+						break;
+					case DOM_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"[npc.Name] reaches down to take a firm hold of your [pc.cock+], before shuffling around to get into a good position."
+										+ " After taking a moment to tease the [pc.cockHead+] between [npc.her] outer labia, [npc.she] lets out [npc.a_moan+] as [npc.she] eagerly drops down and penetrates [npc.her] [npc.pussy+] on your [pc.cock+].",
+								"Shuffling around into a better position, [npc.name] lines the [pc.cockHead+] of your [pc.cock+] up between [npc.her] [npc.legs+], and with a single movement, [npc.she] eagerly drops down,"
+										+ " penetrating [npc.her] [npc.pussy+] on your [pc.cock+]."));
+						break;
+					case DOM_ROUGH:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"[npc.Name] reaches down and roughly grabs your [pc.cock+], before shuffling around to get into a good position."
+										+ " After taking a moment to tease the [pc.cockHead+] between [npc.her] outer labia, [npc.she] lets out [npc.a_moan+] as [npc.she] forcefully drops down and penetrates [npc.her] [npc.pussy+] on your [pc.cock+].",
+								"Shuffling around into a better position, [npc.name] lines the [pc.cockHead+] of your [pc.cock+] up between [npc.her] [npc.legs+], and with a single movement, [npc.she] roughly drops down,"
+										+ " penetrating [npc.her] [npc.pussy+] on your [pc.cock+]."));
+						break;
+					default:
+						break;
+				}
+				switch(Sex.getSexPacePlayer()) {
+					case SUB_EAGER:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You let out [pc.a_moan+] as you enter [npc.herHim], eagerly bucking your [pc.hips] up as you start fucking [npc.her] [npc.pussy+].",
+								" With [pc.a_moan+], you eagerly thrust your [pc.hips] up into [npc.her] groin, sinking your [pc.cock+] into [npc.her] [npc.pussy+] as you start energetically fucking [npc.herHim]."));
+						break;
+					case SUB_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You let out [pc.a_moan+] as you enter [npc.herHim], bucking your [pc.hips] up as you start fucking [npc.her] [npc.pussy+].",
+								" With [pc.a_moan+], you thrust your [pc.hips] up into [npc.her] groin, sinking your [pc.cock+] into [npc.her] [npc.pussy+] as you start fucking [npc.herHim]."));
+						break;
+					case SUB_RESISTING:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You let out [pc.a_sob+] as [npc.she] forces your [pc.cock] inside of [npc.herHim], and, struggling against [npc.herHim] in vain, you desperately try to push [npc.herHim] off of you.",
+								" With [pc.a_sob+], you struggle against [npc.name] as [npc.she] forces your [pc.cock] deep into [npc.her] [npc.pussy+]."));
+						break;
+					default:
+						break;
+				}
+				
+			} else {
 			
-			switch(Sex.getSexPacePlayer()) {
-				case DOM_GENTLE:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" You let out a soft [pc.moan] as you enter [npc.herHim], gently bucking your [pc.hips] as you start to fuck [npc.her] [npc.pussy+].",
-							" With a soft [pc.moan], you gently thrust your [pc.hips] into [npc.her] groin, sinking your [pc.cock+] into [npc.her] [npc.pussy+] as you start fucking [npc.herHim]."));
-					break;
-				case DOM_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" You let out [pc.a_moan+] as you enter [npc.herHim], eagerly bucking your [pc.hips] as you start fucking [npc.her] [npc.pussy+].",
-							" With [pc.a_moan+], you eagerly thrust your [pc.hips] into [npc.her] groin, sinking your [pc.cock+] into [npc.her] [npc.pussy+] as you start energetically fucking [npc.herHim]."));
-					break;
-				case DOM_ROUGH:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" You let out [pc.a_moan+] as you enter [npc.herHim], and, seeking to remind [npc.herHim] who's in charge, you roughly slam your [pc.hips] forwards, before starting to ruthlessly fuck [npc.her] [npc.pussy+].",
-							" With [pc.a_moan+], you roughly slam your [pc.hips] into [npc.her] groin, seeking to remind [npc.name] who's in charge as you start ruthlessly fucking [npc.her] [npc.pussy+]."));
-					break;
-				case SUB_EAGER:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" You let out [pc.a_moan+] as you enter [npc.herHim], eagerly bucking your [pc.hips] as you start fucking [npc.her] [npc.pussy+].",
-							" With [pc.a_moan+], you eagerly thrust your [pc.hips] into [npc.her] groin, sinking your [pc.cock+] into [npc.her] [npc.pussy+] as you start energetically fucking [npc.herHim]."));
-					break;
-				case SUB_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" You let out [pc.a_moan+] as you enter [npc.herHim], bucking your [pc.hips] as you start fucking [npc.her] [npc.pussy+].",
-							" With [pc.a_moan+], you thrust your [pc.hips] into [npc.her] groin, sinking your [pc.cock+] into [npc.her] [npc.pussy+] as you start fucking [npc.herHim]."));
-					break;
-				case SUB_RESISTING:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" You let out [pc.a_sob+] as [npc.she] forces your [pc.cock] inside of [npc.herHim], and, struggling against [npc.herHim] in vain, you desperately try to pull your [pc.cock] free from [npc.her] [npc.pussy].",
-							" With [pc.a_sob+], you struggle against [npc.name] as [npc.she] forces your [pc.cock] deep into [npc.her] [npc.pussy+]."));
-					break;
-				default:
-					break;
+				switch(Sex.getSexPacePartner()) {
+					case DOM_GENTLE:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Pressing [npc.herself] against you, [npc.name] slowly slides your [pc.cock+] over [npc.her] outer labia,"
+										+ " letting out a little [npc.moan] before gently bucking [npc.her] [npc.hips] forwards and forcing you to penetrate [npc.her] [npc.pussy+].",
+								"Lining [npc.her] [npc.pussy+] up to your [pc.cock+], [npc.name] slowly pushes [npc.her] [npc.hips] forwards,"
+										+ " drawing a soft [npc.moan] from between [npc.her] [npc.lips] as [npc.she] penetrates [npc.herself] on your [pc.cock+]."));
+						break;
+					case DOM_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Pressing [npc.herself] against you, [npc.name] eagerly guides your [pc.cock+] up to [npc.her] outer labia,"
+										+ " letting out [npc.a_moan+] before suddenly bucking [npc.her] [npc.hips] forwards and forcing you to penetrate [npc.her] [npc.pussy+].",
+								"Lining [npc.her] [npc.pussy+] up to your [pc.cock+], [npc.name] eagerly pushes [npc.her] [npc.hips] forwards,"
+										+ " drawing [npc.a_moan+] from between [npc.her] [npc.lips] as [npc.she] happily penetrates [npc.herself] on your [pc.cock+]."));
+						break;
+					case DOM_ROUGH:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Forcefully grinding [npc.herself] against you, [npc.name] guides your [pc.cock+] up to [npc.her] outer labia,"
+										+ " letting out [npc.a_moan+] before roughly slamming [npc.her] [npc.hips] forwards, forcing you to penetrate [npc.her] [npc.pussy+].",
+								"Lining [npc.her] [npc.pussy+] up to your [pc.cock+], [npc.name] violently slams [npc.her] [npc.hips] forwards,"
+										+ " drawing [npc.a_moan+] from between [npc.her] [npc.lips] as [npc.she] roughly starts fucking [npc.herself] on your [pc.cock+]."));
+						break;
+					case SUB_EAGER:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Pressing [npc.herself] against you, [npc.name] eagerly guides your [pc.cock+] up to [npc.her] outer labia,"
+										+ " letting out [npc.a_moan+] before suddenly bucking [npc.her] [npc.hips] forwards and forcing you to penetrate [npc.her] [npc.pussy+].",
+								"Lining [npc.her] [npc.pussy+] up to your [pc.cock+], [npc.name] eagerly pushes [npc.her] [npc.hips] forwards,"
+										+ " drawing [npc.a_moan+] from between [npc.her] [npc.lips] as [npc.she] happily penetrates [npc.herself] on your [pc.cock+]."));
+						break;
+					case SUB_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Pressing [npc.herself] against you, [npc.name] guides your [pc.cock+] up to [npc.her] outer labia,"
+										+ " letting out [npc.a_moan+] before bucking [npc.her] [npc.hips] forwards and forcing you to penetrate [npc.her] [npc.pussy+].",
+								"Lining [npc.her] [npc.pussy+] up to your [pc.cock+], [npc.name] pushes [npc.her] [npc.hips] forwards,"
+										+ " drawing [npc.a_moan+] from between [npc.her] [npc.lips] as [npc.she] penetrates [npc.herself] on your [pc.cock+]."));
+						break;
+					default:
+						break;
+				}
+				
+				switch(Sex.getSexPacePlayer()) {
+					case DOM_GENTLE:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You let out a soft [pc.moan] as you enter [npc.herHim], gently bucking your [pc.hips] as you start to fuck [npc.her] [npc.pussy+].",
+								" With a soft [pc.moan], you gently thrust your [pc.hips] into [npc.her] groin, sinking your [pc.cock+] into [npc.her] [npc.pussy+] as you start fucking [npc.herHim]."));
+						break;
+					case DOM_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You let out [pc.a_moan+] as you enter [npc.herHim], eagerly bucking your [pc.hips] as you start fucking [npc.her] [npc.pussy+].",
+								" With [pc.a_moan+], you eagerly thrust your [pc.hips] into [npc.her] groin, sinking your [pc.cock+] into [npc.her] [npc.pussy+] as you start energetically fucking [npc.herHim]."));
+						break;
+					case DOM_ROUGH:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You let out [pc.a_moan+] as you enter [npc.herHim], and, seeking to remind [npc.herHim] who's in charge, you roughly slam your [pc.hips] forwards, before starting to ruthlessly fuck [npc.her] [npc.pussy+].",
+								" With [pc.a_moan+], you roughly slam your [pc.hips] into [npc.her] groin, seeking to remind [npc.name] who's in charge as you start ruthlessly fucking [npc.her] [npc.pussy+]."));
+						break;
+					case SUB_EAGER:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You let out [pc.a_moan+] as you enter [npc.herHim], eagerly bucking your [pc.hips] as you start fucking [npc.her] [npc.pussy+].",
+								" With [pc.a_moan+], you eagerly thrust your [pc.hips] into [npc.her] groin, sinking your [pc.cock+] into [npc.her] [npc.pussy+] as you start energetically fucking [npc.herHim]."));
+						break;
+					case SUB_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You let out [pc.a_moan+] as you enter [npc.herHim], bucking your [pc.hips] as you start fucking [npc.her] [npc.pussy+].",
+								" With [pc.a_moan+], you thrust your [pc.hips] into [npc.her] groin, sinking your [pc.cock+] into [npc.her] [npc.pussy+] as you start fucking [npc.herHim]."));
+						break;
+					case SUB_RESISTING:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You let out [pc.a_sob+] as [npc.she] forces your [pc.cock] inside of [npc.herHim], and, struggling against [npc.herHim] in vain, you desperately try to pull your [pc.cock] free from [npc.her] [npc.pussy].",
+								" With [pc.a_sob+], you struggle against [npc.name] as [npc.she] forces your [pc.cock] deep into [npc.her] [npc.pussy+]."));
+						break;
+					default:
+						break;
+				}
+			
 			}
 			
 			return UtilText.nodeContentSB.toString();

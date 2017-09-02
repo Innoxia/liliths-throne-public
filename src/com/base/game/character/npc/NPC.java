@@ -503,6 +503,10 @@ public abstract class NPC extends GameCharacter {
 				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
 			}
 			
+			if(hasFetish(Fetish.FETISH_ANAL_RECEIVING) && playerCanUsePenis() && canUseAnus()) {
+				sexPositionPreferences.add(SexPosition.COWGIRL_PARTNER_TOP);
+			}
+			
 			if((hasFetish(Fetish.FETISH_IMPREGNATION) || hasFetish(Fetish.FETISH_SEEDER)) && canUsePenis() && playerCanUseVagina()) {
 				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
 				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
@@ -511,6 +515,7 @@ public abstract class NPC extends GameCharacter {
 			
 			if((hasFetish(Fetish.FETISH_PREGNANCY) || hasFetish(Fetish.FETISH_BROODMOTHER)) && playerCanUsePenis() && canUseVagina()) {
 				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
+				sexPositionPreferences.add(SexPosition.COWGIRL_PARTNER_TOP);
 			}
 			
 			if(sexPositionPreferences.isEmpty()) { // If no preferences found, add 'standard' positions
@@ -519,6 +524,7 @@ public abstract class NPC extends GameCharacter {
 				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
 				sexPositionPreferences.add(SexPosition.KNEELING_PLAYER_PERFORMING_ORAL);
 				sexPositionPreferences.add(SexPosition.SIXTY_NINE_PARTNER_TOP);
+				sexPositionPreferences.add(SexPosition.COWGIRL_PARTNER_TOP);
 			}
 			
 		}
@@ -5507,6 +5513,7 @@ public abstract class NPC extends GameCharacter {
 							case SLIME:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5531,6 +5538,7 @@ public abstract class NPC extends GameCharacter {
 							default:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5575,6 +5583,7 @@ public abstract class NPC extends GameCharacter {
 							case SLIME:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5599,6 +5608,7 @@ public abstract class NPC extends GameCharacter {
 							default:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5643,6 +5653,7 @@ public abstract class NPC extends GameCharacter {
 							case SLIME:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5667,6 +5678,7 @@ public abstract class NPC extends GameCharacter {
 							default:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5711,6 +5723,7 @@ public abstract class NPC extends GameCharacter {
 							case SLIME:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5758,6 +5771,7 @@ public abstract class NPC extends GameCharacter {
 							case SLIME:
 								break;
 						}
+						break;
 					
 					default:
 						break;
@@ -5964,7 +5978,7 @@ public abstract class NPC extends GameCharacter {
 		if(Sex.getPartner().hasFetish(Fetish.FETISH_DEFLOWERING)) {
 			StringBuilderSB.append(
 					"<p>"
-						+ "[npc.speech(Oh, yes!)] she cries, [npc.speech(Good [pc.girl], saving your anal virginity for me!"
+						+ "[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me!"
 							+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the the one that turned you into "+(Main.game.getPlayer().isFeminine()?"a horny buttslut":"a little fucktoy")+"!)]"
 					+ "</p>");
 		}
@@ -6043,7 +6057,7 @@ public abstract class NPC extends GameCharacter {
 		if(Sex.getPartner().hasFetish(Fetish.FETISH_DEFLOWERING)) {
 			StringBuilderSB.append(
 					"<p>"
-						+ "[npc.speech(Oh, yes!)] she cries, [npc.speech(Good [pc.girl], saving your virginity for me!"
+						+ "[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your virginity for me!"
 							+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the the one that broke you in!)]"
 					+ "</p>");
 		}

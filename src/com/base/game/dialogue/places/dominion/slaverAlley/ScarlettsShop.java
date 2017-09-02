@@ -388,7 +388,7 @@ public class ScarlettsShop {
 					return new Response("Trade", "Not yet implemented.", null);
 				}
 
-			} else if (index == 0 && Main.game.getPlayer().getQuest(QuestLine.MAIN).getSortingOrder() > Quest.MAIN_1_F_SCARLETTS_FATE.getSortingOrder()) {
+			} else if (index == 0 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
 				return new Response("Leave", "Leave Alexa's Pet Shop.", ALEXAS_SHOP_EXTERIOR);
 				
 			} else {

@@ -326,7 +326,7 @@ public enum SpecialAttack {
 			if (owner.isPlayer()) {
 				return "Due to your "+Fetish.FETISH_ORAL_RECEIVING.getName(owner)+" fetish, you're able to use a special tease attack!";
 			} else {
-				return UtilText.parse(owner, "[npc.name] is able to use a special "+Fetish.FETISH_ORAL_RECEIVING.getName(owner)+" tease attack!");
+				return UtilText.parse(owner, "[npc.Name] is able to use a special "+Fetish.FETISH_ORAL_RECEIVING.getName(owner)+" tease attack!");
 			}
 		}
 
@@ -398,7 +398,7 @@ public enum SpecialAttack {
 			if (owner.isPlayer()) {
 				return "Due to your "+Fetish.FETISH_ORAL_GIVING.getName(owner)+" fetish, you're able to use a special tease attack!";
 			} else {
-				return UtilText.parse(owner, "[npc.name] is able to use a special "+Fetish.FETISH_ORAL_GIVING.getName(owner)+" tease attack!");
+				return UtilText.parse(owner, "[npc.Name] is able to use a special "+Fetish.FETISH_ORAL_GIVING.getName(owner)+" tease attack!");
 			}
 		}
 
@@ -466,7 +466,7 @@ public enum SpecialAttack {
 			if (owner.isPlayer()) {
 				return "Due to your "+Fetish.FETISH_BREASTS_OTHERS.getName(owner)+" fetish, you're able to use a special tease attack!";
 			} else {
-				return UtilText.parse(owner, "[npc.name] is able to use a special "+Fetish.FETISH_BREASTS_OTHERS.getName(owner)+" tease attack!");
+				return UtilText.parse(owner, "[npc.Name] is able to use a special "+Fetish.FETISH_BREASTS_OTHERS.getName(owner)+" tease attack!");
 			}
 		}
 

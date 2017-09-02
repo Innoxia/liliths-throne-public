@@ -20,7 +20,7 @@ import com.base.utils.Util.ListValue;
  * Designed for kissing when the player is dom.
  * 
  * @since 0.1.79
- * @version 0.1.79
+ * @version 0.1.83
  * @author Innoxia
  */
 public class PlayerTongueMouth {
@@ -47,7 +47,57 @@ public class PlayerTongueMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPosition.FACING_WALL_PARTNER) {// Face-to-wall penetration descriptions:
+			if(Sex.getPosition()==SexPosition.COWGIRL_PLAYER_TOP) {
+				
+				if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"You sink down onto [npc.name]'s [npc.penis+], letting out a happy squeal as you feel [npc.herHim] sink deep inside your [pc.asshole+]."
+										+ " Bottoming out on [npc.her] [npc.cock], you lean down and grab [npc.her] head in both hands, before pulling [npc.herHim] up into a passionate kiss.",
+							"With [pc.a_moan+], you slide down onto [npc.name]'s [npc.penis+], leaning down into [npc.her] [npc.breasts] and breathing in [npc.her] [npc.scent] before pressing your [pc.lips+] against [npc.hers].",
+							"You let [npc.name]'s [npc.penis+] slide even deeper into your [pc.asshole+] as you lean down and pull [npc.herHim] into a desperate kiss.",
+							"Leaning down, you let out [pc.a_moan+] as you bury yourself on [npc.name]'s [npc.penis+], before leaning forwards and pressing your [pc.lips+] against [npc.hers]."));
+					
+				} else if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"You sink down onto [npc.name]'s [npc.penis+], letting out a happy squeal as you feel [npc.herHim] sink deep inside your [pc.pussy+]."
+										+ " Bottoming out on [npc.her] [npc.cock], you lean down and grab [npc.her] head in both hands, before pulling [npc.herHim] up into a passionate kiss.",
+							"With [pc.a_moan+], you slide down onto [npc.name]'s [npc.penis+], leaning down into [npc.her] [npc.breasts] and breathing in [npc.her] [npc.scent] before pressing your [pc.lips+] against [npc.hers].",
+							"You let [npc.name]'s [npc.penis+] slide even deeper into your [pc.pussy+] as you lean down and pull [npc.herHim] into a desperate kiss.",
+							"Leaning down, you let out [pc.a_moan+] as you bury yourself on [npc.name]'s [npc.penis+], before leaning forwards and pressing your [pc.lips+] against [npc.hers]."));
+					
+				} else {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"You lean down, grabbing [npc.name]'s head in both hands and pulling [npc.herHim] up into a passionate kiss.",
+							"With a grin, you lean down into [npc.name]'s [npc.breasts], breathing in [npc.her] [npc.scent] before pressing your [pc.lips+] against [npc.hers].",
+							"Leaning down, you let out [pc.a_moan+] as you press your [pc.lips+] against [npc.hers] and start to eagerly kiss [npc.herHim]."));
+				}
+				
+				switch(Sex.getSexPacePartner()) {
+					case SUB_EAGER:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc.Name] happily pushes [npc.her] [npc.tongue] deep into your mouth,"
+										+ " eagerly pressing [npc.her] [npc.lips+] back against yours and [npc.moaning] in delight as [npc.she] greedily returns your display of affection.",
+								" With an eager [npc.moan], [npc.she] desperately grinds back against you, muffling [npc.her] [npc.moans] into your mouth as [npc.she] desperately thrusts [npc.her] [npc.tongue] past your [pc.lips+].",
+								" [npc.Moaning] in delight, [npc.she] desperately grinds [npc.herself] back against you,"
+										+ " eagerly pressing [npc.her] [npc.lips+] firmly against yours as [npc.she] happily pushes [npc.her] [npc.tongue] into your mouth."));
+						break;
+					case SUB_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc.Name] pushes [npc.her] [npc.tongue] into your mouth, pressing [npc.her] [npc.lips+] back against yours as [npc.she] eagerly returns your display of affection.",
+								" With [npc.a_moan], [npc.she] leans back against you, muffling [npc.her] [npc.moans] into your mouth as [npc.she] eagerly thrusts [npc.her] [npc.tongue] past your [pc.lips+].",
+								" [npc.Moaning] in delight, [npc.she] leans back against you, pressing [npc.her] [npc.lips+] against yours as [npc.she] happily slides [npc.her] [npc.tongue] into your mouth."));
+						break;
+					case SUB_RESISTING:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc.Name] tries to pull away, [npc.sobbing] and squirming in discomfort as you force yourself on [npc.herHim].",
+								" [npc.Name]'s [npc.sob+] is muffled into your mouth as [npc.she] tries to pull away, squirming in discomfort as you force yourself on [npc.herHim].",
+								" With [npc.a_sob+], [npc.name] tries, in vain, to pull away from you, protesting and squirming in discomfort as you force your [pc.tongue] past [npc.her] reluctant [npc.lips]."));
+						break;
+					default:
+						break;
+				}
+			
+			} else if(Sex.getPosition()==SexPosition.FACING_WALL_PARTNER) {// Face-to-wall penetration descriptions:
 				
 				switch(Sex.getSexPacePlayer()) {
 					case DOM_GENTLE:

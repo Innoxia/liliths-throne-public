@@ -50,11 +50,13 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 				wetnessChange = 0 - this.wetness;
 				this.wetness = 0;
 			}
+			
 		} else if (wetness >= Wetness.SEVEN_DROOLING.getValue()) {
 			if (this.wetness != Wetness.SEVEN_DROOLING.getValue()) {
 				wetnessChange = Wetness.SEVEN_DROOLING.getValue() - this.wetness;
 				this.wetness = Wetness.SEVEN_DROOLING.getValue();
 			}
+			
 		} else {
 			if (this.wetness != wetness) {
 				wetnessChange = wetness - this.wetness;
@@ -482,6 +484,10 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 		
 		// Catch:
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+	}
+
+	public Set<OrificeModifier> getOrificeModifiers() {
+		return orificeModifiers;
 	}
 
 }

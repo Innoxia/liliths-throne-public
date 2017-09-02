@@ -468,4 +468,8 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 	}
 
+	public Set<OrificeModifier> getOrificeModifiers() {
+		return orificeModifiers;
+	}
+
 }

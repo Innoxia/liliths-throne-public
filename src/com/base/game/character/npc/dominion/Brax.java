@@ -86,9 +86,9 @@ public class Brax extends NPC {
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, Colour.EYE_YELLOW));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK));
-		this.setCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE));
-		this.setCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
 
 		this.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
 
@@ -662,8 +662,8 @@ public class Brax extends NPC {
 							}
 							
 							Main.game.getPlayer().setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, Colour.EYE_YELLOW));
-							Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK));
-							Main.game.getPlayer().setCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE));
+							Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK), true);
+							Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE), true);
 							
 							Main.game.getPlayer().setBreastSize(CupSize.E.getMeasurement());
 							

@@ -1,7 +1,9 @@
 package com.base.game.character.body;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.base.game.character.GameCharacter;
@@ -62,29 +64,14 @@ public class Tongue implements BodyPartInterface, Serializable {
 	}
 	
 	public String getDescriptor(GameCharacter owner) {
-		// I'm sure I could have done this a better way.
-		String bifurcated = "", ribbed = "", tentacled = "";
-		
+		List<String> list = new ArrayList<String>();
+        
 		for(TongueModifier tm : tongueModifiers) {
-			switch(tm) {
-				case BIFURCATED:
-					bifurcated = tm.getName();
-					break;
-				case RIBBED:
-					ribbed = tm.getName();
-					break;
-				case TENTACLED:
-					tentacled = tm.getName();
-					break;
-			}
+			list.add(tm.getName());
 		}
+		list.add(type.getDescriptor(owner));
 		
-		return UtilText.returnStringAtRandom(
-				bifurcated,
-				ribbed,
-				tentacled,
-				type.getDescriptor(owner));
-		
+        return UtilText.returnStringAtRandom(list.toArray(new String[]{}));
 	}
 	
 	/**
