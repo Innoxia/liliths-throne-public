@@ -1260,7 +1260,7 @@ public class PartnerPenisVagina {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Reaching down to gently take hold of [npc.name]'s hips, you start bucking back and forth, pressing [npc.herHim] against the wall as you repeatedly impale your [pc.pussy+] on [npc.her] [npc.cock+].",
 						"Gently pressing [npc.name] back against the wall, you start to gently buck your [pc.hips] into [npc.her] groin, [pc.moaning] softly into [npc.her] [npc.ear] as you slowly fuck yourself on [npc.her] [pc.cock+].",
-						"With a soft [pc.moan], you push your [npc.hips] forwards, impaling your [pc.pussy+] on [npc.name]'s [pc.cock+], before gently sliding back and starting to fuck [npc.herHim] against the wall.",
+						"With a soft [pc.moan], you push your [npc.hips] forwards, impaling your [pc.pussy+] on [npc.name]'s [npc.cock+], before gently sliding back and starting to fuck [npc.herHim] against the wall.",
 						"Leaning in and breathing hotly down on [npc.name]'s neck, you start to buck your [pc.hips] back and forth, gently fucking yourself on [npc.her] [npc.cock+] as you [pc.moan] hotly into [npc.her] [npc.ear]."));
 				
 			} else { // Default descriptions:

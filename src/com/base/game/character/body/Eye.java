@@ -237,7 +237,7 @@ public class Eye implements BodyPartInterface, Serializable {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "A tingling feeling spreads over [npc.name]'s [pc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
+							+ "A tingling feeling spreads over [npc.name]'s [npc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
 							+ " [npc.She] scrunches them shut and lets out a little cry as [npc.she] feels some of them [style.boldShrink(disappearing)] into the [npc.faceSkin] above [npc.her] main pair.</br>"
 							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric([npc.a_eyes])]."
 						+ "</p>");
@@ -253,7 +253,7 @@ public class Eye implements BodyPartInterface, Serializable {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "A tingling feeling spreads over [npc.name]'s [pc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
+							+ "A tingling feeling spreads over [npc.name]'s [npc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
 							+ " [npc.She] scrunches them shut and lets out a little cry as [npc.she] feels the strange sensation of new [npc.eyes] [style.boldGrow(growing)] out of the [npc.faceSkin] above [npc.her] main pair.</br>"
 							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric([npc.a_eyes])]."
 						+ "</p>");

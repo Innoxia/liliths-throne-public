@@ -99,7 +99,7 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "A soothing warmth spreads up through [npc.name]'s [npc.breasts], causing [npc.herHim] to let out a contented little sigh.</br>"
-						+ "[npc.Name]'s [pc.milk] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
+						+ "[npc.Name]'s [npc.milk] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
 					+ "</p>");
 		}
 	}

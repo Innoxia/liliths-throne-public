@@ -1247,7 +1247,7 @@ public class PlayerPenisMouth {
 
 		@Override
 		public String getActionDescription() {
-			return "Take [pc.name]'s [pc.cock+] into your mouth and start sucking [npc.herHim] off.";
+			return "Take [pc.name]'s [pc.cock+] into your mouth and start sucking [pc.herHim] off.";
 		}
 
 		@Override
