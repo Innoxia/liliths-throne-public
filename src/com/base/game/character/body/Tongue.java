@@ -32,10 +32,7 @@ public class Tongue implements BodyPartInterface, Serializable {
 		
 		tongueLength = type.getDefaultTongueLength();
 		
-		this.tongueModifiers = new HashSet<>();
-		for(TongueModifier tm : type.getDefaultRacialTongueModifiers()) {
-			this.tongueModifiers.add(tm);
-		}
+		this.tongueModifiers = new HashSet<>(type.getDefaultRacialTongueModifiers());
 	}
 
 	@Override
@@ -64,7 +61,7 @@ public class Tongue implements BodyPartInterface, Serializable {
 	}
 	
 	public String getDescriptor(GameCharacter owner) {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
         
 		for(TongueModifier tm : tongueModifiers) {
 			list.add(tm.getName());
