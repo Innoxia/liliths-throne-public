@@ -140,17 +140,6 @@ public class Penis implements BodyPartInterface, Serializable {
 		} else {
 			UtilText.transformationContentSB.setLength(0);
 			
-			if (owner.isPlayer()) {
-				UtilText.transformationContentSB.append("<p>"
-						+ "Your [pc.ass] starts to noticeably soften and become very sensitive, and you let out a lewd moan as the transformation moves down into your [pc.asshole] as well."
-						+ " Panting and sighing, you continue letting out the occasional [pc.moan] as your [pc.ass] finishes shifting into a new form.</br>");
-			} else {
-				UtilText.transformationContentSB.append(
-						"<p>"
-						+ "[npc.Name]'s [npc.ass] starts to soften and become very sensitive, and [npc.she] lets out [npc.a_moan+] as the transformation moves down into [npc.her] [npc.asshole] as well."
-						+ " Panting and sighing, [npc.she] continues letting out the occasional [npc.moan] as [npc.her] [npc.ass] finishes shifting into a new form.</br>");
-			}
-			
 			if (owner.getPenisType() == PenisType.NONE) {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -164,14 +153,14 @@ public class Penis implements BodyPartInterface, Serializable {
 									+ (owner.hasVagina()
 										? "to bump against your pussy, you feel [pc.a_balls] growing within your groin,"
 										: "between your legs, you feel [pc.a_balls] growing within your groin,")
-								+ " and you let out an unwitting [pc.moan] as your new sexual organ finishes growing.");
+								+ " and you let out an unwitting [pc.moan] as your new sexual organ finishes growing.</br>");
 					} else {
 						UtilText.transformationContentSB.append(
 								" As your new cock flops down "
 									+ (owner.hasVagina()
 										? "to bump against your pussy, you feel [pc.a_balls] pushing out between your two sexes,"
 										: "between your legs, you feel [pc.a_balls] push out underneath the base of your new shaft,")
-								+ " and you let out an unwitting [pc.moan] as your new sexual organ finishes growing.");
+								+ " and you let out an unwitting [pc.moan] as your new sexual organ finishes growing.</br>");
 					}
 					
 				} else {
@@ -187,14 +176,14 @@ public class Penis implements BodyPartInterface, Serializable {
 									+ (owner.hasVagina()
 										? "to bump against [npc.her] pussy, [npc.she] feels [npc.a_balls] growing within [npc.her] groin,"
 										: "between [npc.her] legs, [npc.she] feels [npc.a_balls] growing within [npc.her] groin,")
-								+ " and [npc.she] lets out an unwitting [npc.moan] as [npc.her] new sexual organ finishes growing.");
+								+ " and [npc.she] lets out an unwitting [npc.moan] as [npc.her] new sexual organ finishes growing.</br>");
 					} else {
 						UtilText.transformationContentSB.append(
 								" As [npc.her] new cock flops down "
 									+ (owner.hasVagina()
 										? "to bump against [npc.her] pussy, [npc.she] feels [npc.a_balls] pushing out between [npc.her] two sexes,"
 										: "between [npc.her] legs, [npc.she] feels [npc.a_balls] push out underneath the base of [npc.her] new shaft,")
-								+ " and [npc.she] lets out an unwitting [npc.moan] as [npc.her] new sexual organ finishes growing.");
+								+ " and [npc.she] lets out an unwitting [npc.moan] as [npc.her] new sexual organ finishes growing.</br>");
 					}
 				}
 				
