@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.Function;
 
 import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.clothing.AbstractClothing;
@@ -57,17 +59,6 @@ public class Util {
 
 	public static Color newColour(int hex) {
 		return newColour((hex & 0xFF0000) >> 16, (hex & 0xFF00) >> 8, (hex & 0xFF));
-	}
-	
-	public static String getFileExtention(String fileName) {
-		String extension = "";
-
-		int i = fileName.lastIndexOf('.');
-		if (i > 0) {
-			extension = fileName.substring(i + 1);
-		}
-
-		return extension;
 	}
 
 	public static class Value<T, S> {
@@ -369,9 +360,11 @@ public class Util {
 	 * "How far i-is it to the t-town hall?"
 	 * 
 	 * @param sentence
+	 *            sentence to apply stutters
 	 * @param frequency
 	 *            of stutter words (i.e. 4 would be 1 in 4 words are stutters)
 	 * @return
+	 *            modified sentence
 	 */
 	public static String addStutter(String sentence, int frequency) {
 		splitSentence = sentence.split(" ");
@@ -408,13 +401,15 @@ public class Util {
 	 * "How, like, far is it to the town, uh, hall and stuff?"</br>
 	 * "How far is, like, it to the, um, town hall and stuff?"</br>
 	 * "Like, How far is it to the, like, town hall?"</br>
-	 * Used in conjuntion with addStutter(): "L-Like, How far is it t-to the, like, town hall?"
+	 * Used in conjunction with addStutter(): "L-Like, How far is it t-to the, like, town hall?"
 	 * 
 	 * @param sentence
+	 *            sentence to apply bimbo modifications
 	 * @param frequency
-	 *            of bimbo interjections (i.e. 4 would be 1 in 4 words havea
+	 *            of bimbo interjections (i.e. 4 would be 1 in 4 words have a
 	 *            bimbo interjection)
 	 * @return
+	 *            modified sentence
 	 */
 	public static String addBimbo(String sentence, int frequency) {
 		splitSentence = sentence.split(" ");
@@ -449,8 +444,8 @@ public class Util {
 			// +j)<splitSentence.length);j++)
 			// sb.append(splitSentence[i*frequency +j]+" ");
 		}
-		for (int i = 0; i < splitSentence.length; i++)
-			utilitiesStringBuilder.append(splitSentence[i] + " ");
+		for (String word : splitSentence)
+			utilitiesStringBuilder.append(word + " ");
 		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
 
 		// 1/3 chance of having a bimbo sentence ending:
@@ -480,15 +475,17 @@ public class Util {
 	 * "How ~Mrph~ far is it ~Mmm~ to the town ~Mrph~ hall?"</br>
 	 * 
 	 * @param sentence
+	 *            sentence to apply muffles
 	 * @param frequency
 	 *            of muffled words (i.e. 4 would be 1 in 4 words are muffled)
 	 * @return
+	 *            modified sentence
 	 */
 	public static String addMuffle(String sentence, int frequency) {
 		splitSentence = sentence.split(" ");
 		utilitiesStringBuilder.setLength(0);
 
-		// 1 in "frequency" words are bimbo interjections, with a minimum of 1.
+		// 1 in "frequency" words are muffled interjections, with a minimum of 1.
 		int wordsToMuffle = splitSentence.length / frequency + 1;
 
 		int offset = 0;
@@ -500,8 +497,8 @@ public class Util {
 			splitSentence[offset] = muffledSounds[random.nextInt(muffledSounds.length)] + splitSentence[offset];
 			
 		}
-		for (int i = 0; i < splitSentence.length; i++)
-			utilitiesStringBuilder.append(splitSentence[i] + " ");
+		for (String word : splitSentence)
+			utilitiesStringBuilder.append(word + " ");
 		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
 
 		return utilitiesStringBuilder.toString();
@@ -515,15 +512,17 @@ public class Util {
 	 * "How ~Aah!~ far is it ~Mmm!~ to the town ~Aah!~ hall?"</br>
 	 * 
 	 * @param sentence
+	 *            sentence to apply sexy modifications
 	 * @param frequency
 	 *            of sex sounds (i.e. 4 would be 1 in 4 words are sexy)
 	 * @return
+	 *            modified sentence
 	 */
 	public static String addSexSounds(String sentence, int frequency) {
 		splitSentence = sentence.split(" ");
 		utilitiesStringBuilder.setLength(0);
 
-		// 1 in "frequency" words are bimbo interjections, with a minimum of 1.
+		// 1 in "frequency" words are sexy interjections, with a minimum of 1.
 		int wordsToMuffle = splitSentence.length / frequency + 1;
 
 		int offset = 0;
@@ -531,96 +530,80 @@ public class Util {
 			offset = random.nextInt(frequency);
 			offset = ((i * frequency + offset) >= splitSentence.length ? splitSentence.length - 1 : (i * frequency + offset));
 			
-			// Add the muffled sound to this word:
+			// Add the sexy sound to this word:
 			splitSentence[offset] = sexSounds[random.nextInt(sexSounds.length)] + splitSentence[offset];
 			
 		}
-		for (int i = 0; i < splitSentence.length; i++)
-			utilitiesStringBuilder.append(splitSentence[i] + " ");
+		for (String word : splitSentence)
+			utilitiesStringBuilder.append(word + " ");
 		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
 
 		return utilitiesStringBuilder.toString();
 	}
 
-	// What a mess :^)
-	public static String clothesToStringList(Collection<AbstractClothing> clothingSet) {
+	/**
+	 * Builds a string representing the list of items in a collection.
+	 *
+	 * If there is one item, that string will be returned:
+	 * <code>"something"</code>.
+	 * If there are two items, they are combined with the combining word:
+	 * <code>"something and nothing"</code>.
+	 * If there are three or more items, all will be combined with commas, except the last two will use the combining word:
+	 * <code>"something, nothing and everything"</code>.
+	 *
+	 * @param items a {@link Collection} of items to turn into a pretty list
+	 * @param stringExtractor the function used to get the strings out of the objects in the collection
+	 * @param combiningWord the word used to combine the last two items
+	 * @param <T> the type of the objects in the collection
+	 * @return a pretty string list representing the collection
+	 */
+	private static <T> String toStringList(Collection<T> items, Function<T, String> stringExtractor, String combiningWord) {
+		Iterator<T> itemIterator = items.iterator();
+		T currentItem = itemIterator.next();
+
 		utilitiesStringBuilder.setLength(0);
-		int i = 0;
-		for (AbstractClothing clothing : clothingSet) {
-			i++;
-			utilitiesStringBuilder.append((utilitiesStringBuilder.length() != 0 ? (i == clothingSet.size() ? " and " : ", ") : "") + Util.capitaliseSentence(clothing.getClothingType().getName()));
+		utilitiesStringBuilder.append(stringExtractor.apply(currentItem));
+		if (itemIterator.hasNext()) { // If more than one item, enter the loop
+			currentItem = itemIterator.next();
+			while (itemIterator.hasNext()) { // Use commas until we're on the last item
+				utilitiesStringBuilder.append(", " + stringExtractor.apply(currentItem));
+				currentItem = itemIterator.next();
+			}
+			utilitiesStringBuilder.append(" " + combiningWord + " " + stringExtractor.apply(currentItem));
 		}
 		return utilitiesStringBuilder.toString();
+	}
+
+	public static String clothesToStringList(Collection<AbstractClothing> clothingSet) {
+		return Util.toStringList(clothingSet, (AbstractClothing o) -> Util.capitaliseSentence(o.getClothingType().getName()), "and");
 	}
 
 	public static String setToStringListCoverableArea(Set<CoverableArea> coverableAreaSet) {
-		utilitiesStringBuilder.setLength(0);
-		int i = 0;
-		for (CoverableArea coverableArea : coverableAreaSet) {
-			i++;
-			utilitiesStringBuilder.append((utilitiesStringBuilder.length() != 0 ? (i == coverableAreaSet.size() ? " and " : ", ") : "") + Util.capitaliseSentence(coverableArea.getName()));
-		}
-		return utilitiesStringBuilder.toString();
+		return Util.toStringList(coverableAreaSet, (CoverableArea o) -> Util.capitaliseSentence(o.getName()), "and");
 	}
 
 	public static String stringsToStringList(List<String> list, boolean capitalise) {
-		utilitiesStringBuilder.setLength(0);
-		int i = 0;
-		for (String s : list) {
-			i++;
-			utilitiesStringBuilder.append((utilitiesStringBuilder.length() != 0 ? (i == list.size() ? " and " : ", ") : "") + (capitalise?Util.capitaliseSentence(s):s));
-		}
-		return utilitiesStringBuilder.toString();
+		return Util.toStringList(list, (String o) -> capitalise?Util.capitaliseSentence(o):o, "and");
 	}
 
 	public static String stringsToStringChoice(List<String> list) {
-		utilitiesStringBuilder.setLength(0);
-		int i = 0;
-		for (String s : list) {
-			i++;
-			utilitiesStringBuilder.append((utilitiesStringBuilder.length() != 0 ? (i == list.size() ? " or " : ", ") : "") + Util.capitaliseSentence(s));
-		}
-		return utilitiesStringBuilder.toString();
+		return Util.toStringList(list, Util::capitaliseSentence, "or");
 	}
 
 	public static String colourSetToStringList(Set<Colour> colourSet) {
-		utilitiesStringBuilder.setLength(0);
-		int i = 0;
-		for (Colour colour : colourSet) {
-			i++;
-			utilitiesStringBuilder.append((utilitiesStringBuilder.length() != 0 ? (i == colourSet.size() ? " and " : ", ") : "") + colour.getName());
-		}
-		return utilitiesStringBuilder.toString();
+		return Util.toStringList(colourSet, Colour::getName, "and");
 	}
 
 	public static String coverableAreaListToStringList(List<CoverableArea> coverableAreaCollection) {
-		utilitiesStringBuilder.setLength(0);
-		int i = 0;
-		for (CoverableArea coverableArea : coverableAreaCollection) {
-			i++;
-			utilitiesStringBuilder.append((utilitiesStringBuilder.length() != 0 ? (i == coverableAreaCollection.size() ? " and " : ", ") : "") + coverableArea.getName());
-		}
-		return utilitiesStringBuilder.toString();
+		return Util.toStringList(coverableAreaCollection, CoverableArea::getName, "and");
 	}
 
 	public static String inventorySlotsToStringList(List<InventorySlot> inventorySlots) {
-		utilitiesStringBuilder.setLength(0);
-		int i = 0;
-		for (InventorySlot invSlot : inventorySlots) {
-			i++;
-			utilitiesStringBuilder.append((utilitiesStringBuilder.length() != 0 ? (i == inventorySlots.size() ? " and " : ", ") : "") + invSlot.getName());
-		}
-		return utilitiesStringBuilder.toString();
+		return Util.toStringList(inventorySlots, InventorySlot::getName, "and");
 	}
 
 	public static String displacementTypesToStringList(List<DisplacementType> displacedList) {
-		utilitiesStringBuilder.setLength(0);
-		int i = 0;
-		for (DisplacementType invSlot : displacedList) {
-			i++;
-			utilitiesStringBuilder.append((utilitiesStringBuilder.length() != 0 ? (i == displacedList.size() ? " and " : ", ") : "") + invSlot.getDescriptionPast());
-		}
-		return utilitiesStringBuilder.toString();
+		return Util.toStringList(displacedList, DisplacementType::getDescriptionPast, "and");
 	}
 
 }
