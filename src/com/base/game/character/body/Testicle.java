@@ -17,10 +17,13 @@ public class Testicle implements BodyPartInterface, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	public static final int MIN_TESTICLE_COUNT = 2, MAX_TESTICLE_COUNT = 8;
+	public static final int MIN_TESTICLE_COUNT = 2;
+	public static final int MAX_TESTICLE_COUNT = 8;
 	
 	private TesticleType type;
-	private int testicleSize, cumProduction, testicleCount;
+	private int testicleSize;
+	private int cumProduction;
+	private int testicleCount;
 	private boolean internal;
 	
 	private FluidCum cum;
@@ -30,13 +33,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 		this.testicleSize = testicleSize;
 		this.cumProduction = cumProduction;
 		
-		if(testicleCount < MIN_TESTICLE_COUNT) {
-			this.testicleCount = MIN_TESTICLE_COUNT;
-		} else if(testicleCount > MAX_TESTICLE_COUNT) {
-			this.testicleCount = MAX_TESTICLE_COUNT;
-		} else {
-			this.testicleCount = testicleCount;
-		}
+		this.testicleCount = Math.max(MIN_TESTICLE_COUNT, Math.min(testicleCount, MAX_TESTICLE_COUNT));
 		
 		internal = type.isInternal();
 		
@@ -97,34 +94,17 @@ public class Testicle implements BodyPartInterface, Serializable {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		int sizeChange = 0;
+		int oldSize = this.testicleSize;
+		this.testicleSize = Math.max(0, Math.min(testicleSize, TesticleSize.SEVEN_ABSURD.getValue()));
+		int sizeChange = this.testicleSize - oldSize;
 		
-		if (testicleSize <= 0) {
-			if (this.testicleSize != 0) {
-				sizeChange = 0 - this.testicleSize;
-				this.testicleSize = 0;
-			}
-		} else if (testicleSize >= TesticleSize.SEVEN_ABSURD.getValue()) {
-			if (this.testicleSize != TesticleSize.SEVEN_ABSURD.getValue()) {
-				sizeChange = TesticleSize.SEVEN_ABSURD.getValue() - this.testicleSize;
-				this.testicleSize = TesticleSize.SEVEN_ABSURD.getValue();
-			}
-		} else {
-			if (this.testicleSize != testicleSize) {
-				sizeChange = testicleSize - this.testicleSize;
-				this.testicleSize = testicleSize;
-			}
-		}
-		
-		if(sizeChange == 0) {
+		if (sizeChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.balls] doesn't change...)]</p>";
 			} else {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s [npc.balls] doesn't change...)]</p>");
 			}
-		}
-		
-		if (sizeChange > 0) {
+		} else if (sizeChange > 0) {
 			if (owner.isPlayer()) {
 				return "</p>"
 							+ "You let out a lewd moan as you feel your [pc.balls] suddenly swell and [style.boldGrow(grow larger)].</br>"
@@ -231,12 +211,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 	}
 
 	public String setTesticleCount(GameCharacter owner, int testicleCount) {
-		
-		if(testicleCount < MIN_TESTICLE_COUNT) {
-			testicleCount = MIN_TESTICLE_COUNT;
-		} else if(testicleCount > MAX_TESTICLE_COUNT){
-			testicleCount = MAX_TESTICLE_COUNT;
-		}
+		testicleCount = Math.max(MIN_TESTICLE_COUNT, Math.min(testicleCount, MAX_TESTICLE_COUNT));
 		
 		if(owner.getTesticleCount() == testicleCount || !owner.hasPenis()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
