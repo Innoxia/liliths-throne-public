@@ -17,31 +17,18 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Reverted penis/vagina loss when shrinking past minimum size/capacity respectively. You now remove a penis or vagina by adding the 'remove' effect to a potion.
-		Ralph now stocks squirrel-morph consumables.
+	Contributors:
 	
-	Sex:
-		Converted the following actions into the new cowgirl position for both sub and dom positions: Starting kiss, penetrating anus, penetrating vagina.
-	
-	Clothing:
-		<b>Temporarily added:</b> Special clothing to Nyan's store, allowing you to buy the rainbow, Maid, and Milk Maid clothing. (I'm going to change this in the future!)
-		Added: 'Milk Maid' Set, requires Milk Maid's Dress and Kerchief to be worn. (I'll change the set's effects to increase lactation when I convert the attributes over to the new system.)
-		Added: Milk Maid's Dress (Feminine, Torso slot). (Created by Blue999)
-		Added: Kerchief (Unisex, head slot).
-		Added: Nursing bra (Feminine, Chest slot). (Created by Blue999)
-		Added: Crotchless thong (Feminine, groin slot).
-		Added: Keyhole sweater (Feminine, torso slot).
-		Added: Jeans (Unisex, leg slot).
-	
-	Other:
-		Testicle-related actions are now correctly disabled if they are internal.
-		Added correct descriptions for multiple tails in the character view screen.
-	
-	Bugs:
-		Fixed some typos.
-		Fixed some incorrect gender pronouns.
-		Fixed some minor UI issues in Kate's shop.
+	CognitiveMist:
+		Code cleanup, involving:
+			List sorting uses comparator class
+			Use addAll instead of for loops
+			String comparison don't use ==
+			Javadoc stuff
+			Spelling
+			Change some variables to local, that were only used in one spot
+			Eliminated some dead/constant logic
+			Any other cleanup that I could find
 	
 	
 	
@@ -50,12 +37,32 @@
 
 
 
+1. The latest preview did not find my exported character from 1.83 but from the HF
+2. The hair/skin/eye colors got changed all to brown, possibly due to color change in code
+3. Testicles changed from vestigal to average
+4. Cum amt changed from an extreme amount to average
+5. My demonic ears lost their color. Were Lilac, now color isn't being mentioned
+
+once you've selected to have glowing eyes, if you were to cycle back to regular the selected text doesn't shift to regular
+
+skin toggle works
+[05:11] Sorter: you can check the skin glow switch and see where it got messed up
+[05:12] Sorter: my ears apparently still are lilac but it's not mentioned in the selfie. It used to
+
+anybody else having issues with imported characters unable to extract essences?
+[06:42] Def: since Lilaya's 1st quest doesnt resolve
 
 	leg and ankle wraps to make full set
 	
-	
+	NPC's with broodmother fetish do not try to get pregnant. This has also something to do with the first problem I've mentioned.
 	
 	Make human encounters effect human furiness races too
+	
+	
+	Minor bug report: Gaining more testicles seems to be bugged. I created a potion to take a character from 2 to 8, and I got this message 3 times:"A tingling feeling spreads down into your testicles, and you let out a little cry as you feel some of them shrinking away and disappearing.
+
+After a few moments, you're left with eight balls."
+When it should be an indication that I'm gaining testicles, and the three messages should have given different amounts (first should have said 4, second 6, third 8). 
 	
 	
 	Hmm. Being pushed down into submissive cowgirl by a gynephilic victor that believes you to be female seems like it is probably not intended behavior?
