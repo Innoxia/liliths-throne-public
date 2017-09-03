@@ -149,26 +149,11 @@ public class Testicle implements BodyPartInterface, Serializable {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		int cumProductionChange = 0;
+		int oldCumProduction = this.cumProduction;
+		this.cumProduction = Math.max(0, Math.min(cumProduction, CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
+		int cumProductionChange = this.cumProduction - oldCumProduction;
 		
-		if (cumProduction <= 0) {
-			if (this.cumProduction != 0) {
-				cumProductionChange = 0 - this.cumProduction;
-				this.cumProduction = 0;
-			}
-		} else if (cumProduction >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()) {
-			if (this.cumProduction != CumProduction.SEVEN_MONSTROUS.getMaximumValue()) {
-				cumProductionChange = CumProduction.SEVEN_MONSTROUS.getMaximumValue() - this.cumProduction;
-				this.cumProduction = CumProduction.SEVEN_MONSTROUS.getMaximumValue();
-			}
-		} else {
-			if (this.cumProduction != cumProduction) {
-				cumProductionChange = cumProduction - this.cumProduction;
-				this.cumProduction = cumProduction;
-			}
-		}
-		
-		if(cumProductionChange == 0) {
+		if (cumProductionChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The amount of [pc.cum] that you're producing doesn't change...)]</p>";
 			} else {
@@ -217,15 +202,15 @@ public class Testicle implements BodyPartInterface, Serializable {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		boolean removingTesticles = this.testicleCount < testicleCount;
+		boolean removingTesticles = this.testicleCount > testicleCount;
 		this.testicleCount = testicleCount;
 		
 		if(removingTesticles) {
 			if(owner.isPlayer()) {
-				return "<p>"
+				return UtilText.parse(owner, "<p>"
 							+ "A tingling feeling spreads down into your [pc.balls], and you let out a little cry as you feel some of them shrinking away and [style.boldShrink(disappearing)].</br>"
 							+ "After a few moments, you're left with [style.boldTfGeneric([pc.a_balls])]."
-						+ "</p>";
+						+ "</p>");
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
@@ -236,10 +221,10 @@ public class Testicle implements BodyPartInterface, Serializable {
 			
 		} else {
 			if(owner.isPlayer()) {
-				return "<p>"
+				return UtilText.parse(owner, "<p>"
 							+ "A tingling feeling spreads down into your [pc.balls], and you let out a little cry as you feel them [style.boldGrow(multiplying)].</br>"
 							+ "After a few moments, you're left with [style.boldTfGeneric([pc.a_balls])]."
-						+ "</p>";
+						+ "</p>");
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
