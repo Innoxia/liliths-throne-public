@@ -27,6 +27,7 @@ import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.story.CharacterCreation;
 import com.base.game.dialogue.utils.OptionsDialogue;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.utils.Colour;
 import com.base.utils.CreditsSlot;
@@ -424,11 +425,15 @@ public class Main extends Application {
 		}
 
 		try {
-
+//			long timeStart = System.nanoTime();
+//			System.out.println(timeStart);
+			
 			try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
 			  oos.writeObject(Main.game);
 			  oos.close();
 			}
+			
+//			System.out.println("Difference: "+(System.nanoTime()-timeStart)/1000000000f);
 
 			properties.lastSaveLocation = name;//"data/saves/"+name+".lts";
 			properties.nameColour = Femininity.valueOf(game.getPlayer().getFemininity()).getColour().toWebHexString();
@@ -543,8 +548,8 @@ public class Main extends Application {
 				Main.game.setPlayer(CharacterUtils.startLoadingCharacterFromXML());
 				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file, Main.game.getPlayer()));
 				
-				Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.LEG_SHORTS, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.TORSO_HOODIE, false), true, Main.game.getPlayer());
+				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_SHORTS, false), true, Main.game.getPlayer());
+				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_HOODIE, false), true, Main.game.getPlayer());
 				Main.game.setRenderAttributesSection(true);
 				Main.game.clearTextStartStringBuilder();
 				Main.game.clearTextEndStringBuilder();

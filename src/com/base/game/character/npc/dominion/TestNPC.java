@@ -21,6 +21,7 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseSex;
 import com.base.game.inventory.CharacterInventory;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.sex.Sex;
@@ -99,13 +100,13 @@ public class TestNPC extends NPC {
 		this.addFetish(Fetish.FETISH_TRANSFORMATION);
 		
 
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.TORSO_HOODIE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_HOODIE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK, false), true, this);
 	}
 
 	@Override

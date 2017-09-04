@@ -1,6 +1,7 @@
 package com.base.game.dialogue.responses;
 
 import java.util.List;
+
 import com.base.game.character.GameCharacter;
 import com.base.game.character.QuestLine;
 import com.base.game.character.attributes.Attribute;

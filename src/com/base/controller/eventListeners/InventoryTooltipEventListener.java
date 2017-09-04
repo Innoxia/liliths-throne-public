@@ -20,7 +20,7 @@ import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.clothing.AbstractClothing;
-import com.base.game.inventory.clothing.ClothingType;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.enchanting.TFModifier;
 import com.base.game.inventory.item.AbstractItem;
@@ -37,7 +37,7 @@ import com.base.utils.Util;
  * Shows the tooltip at the given element's position.
  * 
  * @since 0.1.0
- * @version 0.1.8
+ * @version 0.1.84
  * @author Innoxia
  */
 public class InventoryTooltipEventListener implements EventListener {
@@ -50,7 +50,7 @@ public class InventoryTooltipEventListener implements EventListener {
 	private DamageType dt;
 	private AbstractClothing clothing;
 	private Colour colour;
-	private ClothingType genericClothing;
+	private AbstractClothingType genericClothing;
 	private InventorySlot invSlot;
 	private TFModifier enchantmentModifier;
 	private TFEssence essence;
@@ -219,8 +219,8 @@ public class InventoryTooltipEventListener implements EventListener {
 						if (!clothingBlockingThisSlot.isEmpty()) {
 							setBlockedTooltipContent("This slot is currently <b style='color:" + Colour.SEALED.toWebHexString() + ";'>blocked</b> by your " + Util.stringsToStringList(clothingBlockingThisSlot, false) + ".");
 							
-						} else if (ClothingType.slotBlockedByRace(equippedToCharacter, invSlot) != null) {
-							setBlockedTooltipContent(ClothingType.getCannotBeWornDescription(equippedToCharacter, invSlot));
+						} else if (invSlot.slotBlockedByRace(equippedToCharacter) != null) {
+							setBlockedTooltipContent(invSlot.getCannotBeWornDescription(equippedToCharacter));
 							
 						} else {
 							
@@ -364,7 +364,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		return this;
 	}
 
-	public InventoryTooltipEventListener setGenericClothing(ClothingType genericClothing, Colour colour) {
+	public InventoryTooltipEventListener setGenericClothing(AbstractClothingType genericClothing, Colour colour) {
 		resetVariables();
 		this.genericClothing = genericClothing;
 		this.colour = colour;

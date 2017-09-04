@@ -18,6 +18,7 @@ import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.EnchantingUtils;
 import com.base.game.inventory.enchanting.TFModifier;
@@ -43,12 +44,12 @@ public class Vicky extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	private AbstractClothing panties = ClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_PINK_LIGHT, false),
-			skirt = ClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_PINK, false),
-			bra = ClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_PINK_LIGHT, false),
-			torso = ClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_WHITE, false),
-			socks = ClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false),
-			shoes = ClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false);
+	private AbstractClothing panties = AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_PINK_LIGHT, false),
+			skirt = AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_PINK, false),
+			bra = AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_PINK_LIGHT, false),
+			torso = AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_WHITE, false),
+			socks = AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false),
+			shoes = AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false);
 
 	private ItemType[] availableIngredients = new ItemType[] {
 			ItemType.RACE_INGREDIENT_CAT_MORPH,

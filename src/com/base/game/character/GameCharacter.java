@@ -131,6 +131,13 @@ public class GameCharacter implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	public String test = "hello!";
+	public String getTest() {
+		if(test==null)
+			return "NULL";
+		return test;
+	}
+	
 	/** Calculation description as used in getAttributeValue() */
 	public static final String HEALTH_CALCULATION = "Level*10 + STR + Bonus HP";
 	/** Calculation description as used in getAttributeValue() */
@@ -2296,7 +2303,7 @@ public class GameCharacter implements Serializable {
 			updateInventoryListeners();
 
 			if (isPlayer()) {
-				if (Main.game.getPlayer().getClothingDiscovered().add(newClothing.getClothingType())) {
+				if (Main.game.getPlayer().getClothingDiscovered().add(newClothing.getClothingType().toString())) {
 					Main.game.getPlayer().setNewClothingDiscovered(true);
 					Main.game.getTextEndStringBuilder().append(
 							"<p style='text-align:center;'>"
@@ -2328,7 +2335,7 @@ public class GameCharacter implements Serializable {
 			updateInventoryListeners();
 
 			if (isPlayer()) {
-				if (Main.game.getPlayer().getClothingDiscovered().add(newClothing.getClothingType())) {
+				if (Main.game.getPlayer().getClothingDiscovered().add(newClothing.getClothingType().toString())) {
 					Main.game.getPlayer().setNewClothingDiscovered(true);
 					Main.game.getTextEndStringBuilder().append(
 							"<p style='text-align:center;'>"
@@ -2361,7 +2368,7 @@ public class GameCharacter implements Serializable {
 			updateInventoryListeners();
 
 			if (isPlayer()) {
-				if (Main.game.getPlayer().getClothingDiscovered().add(newClothing.getClothingType())) {
+				if (Main.game.getPlayer().getClothingDiscovered().add(newClothing.getClothingType().toString())) {
 					Main.game.getPlayer().setNewClothingDiscovered(true);
 					Main.game.getTextEndStringBuilder().append(
 							"<p style='text-align:center;'>"

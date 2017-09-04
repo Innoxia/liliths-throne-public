@@ -37,6 +37,7 @@ import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.utils.CharacterModificationUtils;
 import com.base.game.dialogue.utils.UtilText;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.ItemType;
@@ -87,8 +88,8 @@ public class CharacterCreation {
 				return new Response("Start", "Proceed to character creation.", CHOOSE_BODY){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.LEG_SHORTS, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.TORSO_HOODIE, false), true, Main.game.getPlayer());
+						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_SHORTS, false), true, Main.game.getPlayer());
+						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_HOODIE, false), true, Main.game.getPlayer());
 						Main.game.setRenderAttributesSection(true);
 						Main.game.getPlayer().setName(new NameTriplet("Hero", "Heroine", "Heroine"));
 						setSkin();
@@ -1669,13 +1670,13 @@ public class CharacterCreation {
 						Main.game.getPlayer().setMoney(40);
 						Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 5);
 
-						Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
+						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
 						if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE)
-							Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.CHEST_SPORTS_BRA, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.LEG_YOGA_PANTS, Colour.CLOTHING_PINK_LIGHT, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.TORSO_HOODIE, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_PINK, false), true, Main.game.getPlayer());
+							Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_SPORTS_BRA, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
+						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_YOGA_PANTS, Colour.CLOTHING_PINK_LIGHT, false), true, Main.game.getPlayer());
+						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_HOODIE, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
+						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
+						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_PINK, false), true, Main.game.getPlayer());
 
 						Main.game.getPlayer().equipMainWeapon(WeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE), false);
 
@@ -1860,13 +1861,13 @@ public class CharacterCreation {
 						Main.game.getPlayer().setMoney(40);
 						Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 5);
 						
-						Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
+						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
 						if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE)
-							Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.CHEST_SPORTS_BRA, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.LEG_YOGA_PANTS, Colour.CLOTHING_PINK_LIGHT, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.TORSO_HOODIE, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_PINK, false), true, Main.game.getPlayer());
+							Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_SPORTS_BRA, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
+						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_YOGA_PANTS, Colour.CLOTHING_PINK_LIGHT, false), true, Main.game.getPlayer());
+						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_HOODIE, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
+						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
+						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_PINK, false), true, Main.game.getPlayer());
 
 						Main.game.getPlayer().equipMainWeapon(WeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE), false);
 

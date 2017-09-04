@@ -1,5 +1,6 @@
 package com.base.game.inventory.clothing;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,9 @@ import java.util.List;
  * @version 0.1.78
  * @author Innoxia
  */
-public class BlockedParts {
+public class BlockedParts implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	public DisplacementType displacementType;
 	public List<ClothingAccess> clothingAccessRequired;
 	public List<CoverableArea> blockedBodyParts;

@@ -5,7 +5,6 @@ import com.base.game.character.GameCharacter;
 import com.base.game.character.Name;
 import com.base.game.character.attributes.Attribute;
 import com.base.game.character.gender.Gender;
-import com.base.game.character.npc.NPC;
 import com.base.game.character.race.Race;
 import com.base.game.character.race.RaceStage;
 import com.base.game.character.race.RacialBody;

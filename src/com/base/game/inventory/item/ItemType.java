@@ -12,7 +12,7 @@ import com.base.game.character.body.types.PenisType;
 import com.base.game.character.race.Race;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.Rarity;
-import com.base.game.inventory.clothing.ClothingType;
+import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.CoverableArea;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.main.Main;
@@ -2777,13 +2777,13 @@ public enum ItemType {
 		return "This item cannot be used in this way!";
 	}
 	
-	public String getDyeBrushEffects(ClothingType clothingType, Colour colour) {
+	public String getDyeBrushEffects(AbstractClothing clothing, Colour colour) {
 		return "<p>"
 					+ "As you take hold of the Dye-brush, you see the purple glow around the tip growing in strength."
-					+ " The closer you move it to your " + clothingType.getName()
+					+ " The closer you move it to your " + clothing.getName()
 					+ ", the brighter the glow becomes, until suddenly, images of different colours start flashing through your mind."
-					+ " As you touch the bristles to the " + clothingType.getName() + "'s surface, the Dye-brush instantly evaporates!"
-					+ " You see that the arcane enchantment has dyed the " + clothingType.getName() + " " + colour.getName() + "."
+					+ " As you touch the bristles to the " + clothing.getName() + "'s surface, the Dye-brush instantly evaporates!"
+					+ " You see that the arcane enchantment has dyed the " + clothing.getName() + " " + colour.getName() + "."
 				+ "</p>";
 	}
 

@@ -50,14 +50,14 @@ import com.base.game.character.gender.GenderPreference;
 import com.base.game.character.gender.GenderPronoun;
 import com.base.game.character.npc.NPC;
 import com.base.game.character.npc.dominion.TestNPC;
-import com.base.game.character.race.Race;
 import com.base.game.character.race.FurryPreference;
+import com.base.game.character.race.Race;
 import com.base.game.combat.Combat;
 import com.base.game.combat.DamageType;
 import com.base.game.combat.SpecialAttack;
 import com.base.game.combat.Spell;
-import com.base.game.dialogue.GenericDialogue;
 import com.base.game.dialogue.DialogueNodeOld;
+import com.base.game.dialogue.GenericDialogue;
 import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.places.dominion.CityHall;
 import com.base.game.dialogue.responses.Response;
@@ -71,6 +71,7 @@ import com.base.game.dialogue.utils.PhoneDialogue;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.EnchantingUtils;
 import com.base.game.inventory.enchanting.TFEssence;
@@ -391,7 +392,8 @@ public class MainController implements Initializable {
 //						 System.out.println(event.getCode());
 						 if(event.getCode()==KeyCode.END){
 							 
-//							 System.out.println(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
+							 System.out.println(Main.game.getPlayer().test);
+							 System.out.println(Main.game.getPlayer().getTest());
 							 
 //							 webViewMain = new WebView();
 //							 webViewAttributes = new WebView(); 
@@ -1466,7 +1468,7 @@ public class MainController implements Initializable {
 			// -------------------- Phone listeners -------------------- // TODO track listeners
 			
 			// Phone item viewer:
-			for (ClothingType clothing : ClothingType.values())
+			for (AbstractClothingType clothing : ClothingType.getAllClothing())
 				for (Colour c : clothing.getAvailableColours()) {
 					if ((EventTarget) document.getElementById(clothing.toString() + "_" + c.toString()) != null) {
 						addEventListener(document, clothing.toString() + "_" + c.toString(), "mousemove", moveTooltipListener, false);

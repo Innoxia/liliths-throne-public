@@ -26,7 +26,7 @@ public class Library {
 		public String getContent() {
 			return "<p>"
 					+ "Pushing open the heavy wooden door, you find yourself walking into Lilaya's library."
-					+ " Much like her lab, all four walls are covered in shelving, stacked full of what must be thousands of books of all shapes and sizes."
+					+ " Much like her lab, all four walls are covered in shelving; stacked full of what must be thousands of books of all shapes and sizes."
 					+ " Much of the room is taken up by free-standing book cases, although there's a little space on one side of the room, where a couple of comfortable leather-bound chairs flank an ornate fireplace."
 				+ "</p>";
 		}
@@ -359,7 +359,7 @@ public class Library {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "As you walk down one of the library's many aisles, you notice that the air somehow seems fresher than normal."
+						+ "As you walk down one of the library's many aisles, you notice that the air feels somehow fresher than normal."
 						+ " Realising that it must be an arcane enchantment of some sort, you take a closer look at some of the shelves around you."
 					+ "</p>"
 					+ "<p>"

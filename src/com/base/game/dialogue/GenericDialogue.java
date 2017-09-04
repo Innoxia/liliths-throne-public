@@ -24,6 +24,7 @@ import com.base.game.dialogue.utils.ParserCommand;
 import com.base.game.dialogue.utils.ParserTarget;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.ItemType;
@@ -319,9 +320,9 @@ public class GenericDialogue {
 		}
 	};
 
-	private static List<ClothingType> clothingTotal = new ArrayList<>();
+	private static List<AbstractClothingType> clothingTotal = new ArrayList<>();
 	static {
-		for (ClothingType c : ClothingType.values())
+		for (AbstractClothingType c : ClothingType.getAllClothing())
 			clothingTotal.add(c);
 	}
 	public static final DialogueNodeOld SPAWN_CLOTHING_MENU = new DialogueNodeOld("Spawn clothing on the floor", "Spawn clothing on the floor.", false) {
@@ -338,7 +339,7 @@ public class GenericDialogue {
 				return new Response(clothingTotal.get(index - 1).getName(), "", SPAWN_CLOTHING_MENU){
 					@Override
 					public void effects() {
-						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(ClothingType.generateClothing(clothingTotal.get(index - 1)));
+						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(AbstractClothingType.generateClothing(clothingTotal.get(index - 1)));
 						Main.game.getTextEndStringBuilder().append("<b>Spawned " + clothingTotal.get(index - 1).getName() + "!</b>");
 						
 					}
@@ -887,8 +888,8 @@ public class GenericDialogue {
 	private static String clothingCollage() {
 		clothingCollageSB = new StringBuilder("<div style='position:inline-block;width:90vw;float:left;'>");
 
-		for (ClothingType c : ClothingType.values()) {
-			AbstractClothing ac = ClothingType.generateClothing(c);
+		for (AbstractClothingType c : ClothingType.getAllClothing()) {
+			AbstractClothing ac = AbstractClothingType.generateClothing(c);
 			clothingCollageSB.append("<html><div style='width:10vw;height:10vw;float:left;all: unset;'>" + ac.getSVGString() + "</div></html>");
 		}
 

@@ -2109,7 +2109,7 @@ public class InventoryDialogue {
 						Main.game.getPlayer().useItem(ItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
 						Main.game.getTextEndStringBuilder().append(
 								"<p style='text-align:center;'>"
-									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing.getClothingType(), clothing.getClothingType().getAvailableColours().get(index - 1))
+									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, clothing.getClothingType().getAvailableColours().get(index - 1))
 								+ "</p>"
 								+ "<p>"
 									+ "<b>Your " + clothing.getName() + " " + (clothing.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b> <b style='color:"
@@ -2165,7 +2165,7 @@ public class InventoryDialogue {
 						Main.game.getPlayer().useItem(ItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
 						Main.game.getTextEndStringBuilder().append(
 								"<p style='text-align:center;'>"
-									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothingEquipped.getClothingType(), clothingEquipped.getClothingType().getAvailableColours().get(index - 1))
+									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothingEquipped, clothingEquipped.getClothingType().getAvailableColours().get(index - 1))
 								+ "</p>"
 								+ "<p>"
 									+ "<b>Your " + clothingEquipped.getName() + " " + (clothingEquipped.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b> <b style='color:"
@@ -2220,7 +2220,7 @@ public class InventoryDialogue {
 						Main.game.getPlayer().useItem(ItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
 						Sex.setDyeClothingText(
 								"<p style='text-align:center;'>"
-									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothingEquipped.getClothingType(), clothingEquipped.getClothingType().getAvailableColours().get(index - 1))
+									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothingEquipped, clothingEquipped.getClothingType().getAvailableColours().get(index - 1))
 								+ "</p>"
 								+ "<p>"
 									+ "<b>"+(ownerInSex.isPlayer()?"Your":"[npc.Name]'s")+" " + clothingEquipped.getName() + " " + (clothingEquipped.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b> <b style='color:"

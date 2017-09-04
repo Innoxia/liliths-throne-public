@@ -49,8 +49,6 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				
 					Field[] fields = container.getFields();
 					
-					
-		
 					for(Field f : fields){
 						
 						if (SexAction.class.isAssignableFrom(f.getType())) {

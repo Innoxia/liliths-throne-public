@@ -34,6 +34,7 @@ import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.inventory.Rarity;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.ItemEffect;
@@ -1188,17 +1189,14 @@ public class PhoneDialogue {
 
 	private static List<ItemType> itemsDiscoveredList = new ArrayList<>();
 	private static List<WeaponType> weaponsDiscoveredList = new ArrayList<>();
-	private static List<ClothingType> clothingDiscoveredList = new ArrayList<>();
 	static {
 		itemsDiscoveredList.addAll(ItemType.availableItems);
 		itemsDiscoveredList.sort(new ItemRarityComparator());
 
 		weaponsDiscoveredList.addAll(Arrays.asList(WeaponType.values()));
 		weaponsDiscoveredList.sort(new WeaponRarityComparator());
-
-		clothingDiscoveredList.addAll(Arrays.asList(ClothingType.values()));
-		clothingDiscoveredList.sort(new ClothingRarityComparator());
-
+		
+		ClothingType.getAllClothing().sort(new ClothingRarityComparator());
 	}
 	public static final DialogueNodeOld WEAPON_CATALOGUE = new DialogueNodeOld("Discovered Weapons", "", true) {
 		private static final long serialVersionUID = 1L;
@@ -1264,8 +1262,8 @@ public class PhoneDialogue {
 			journalSB.append("<div class='phone-item-third name'>Clothing</div>");
 			journalSB.append("<div class='phone-item-third colours'>Colours <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
 
-			for (ClothingType clothing : clothingDiscoveredList) {
-				if (Main.game.getPlayer().getClothingDiscovered().contains(clothing)) {
+			for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
+				if (Main.game.getPlayer().getClothingDiscovered().contains(clothing.toString())) {
 					String sizeClass = ""; //hack to prevent overflow... works for up to 30 colours
 					if (clothing.getAvailableColours().size() > 15){
 						sizeClass = "phone-item-third-large";

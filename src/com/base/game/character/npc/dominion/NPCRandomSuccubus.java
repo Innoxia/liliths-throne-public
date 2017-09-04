@@ -23,6 +23,7 @@ import com.base.game.dialogue.npcDialogue.DominionSuccubus;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.CharacterInventory;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItem;
@@ -81,29 +82,29 @@ public class NPCRandomSuccubus extends NPC {
 		
 		// CLOTHING:
 		
-		List<ClothingType> clothingChoices = new ArrayList<>();
+		List<AbstractClothingType> clothingChoices = new ArrayList<>();
 		
 		clothingChoices.add(ClothingType.GROIN_THONG);
 		clothingChoices.add(ClothingType.GROIN_VSTRING);
-		equipClothingFromNowhere(ClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
+		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
 		
 		clothingChoices.clear();
 		clothingChoices.add(ClothingType.CHEST_PLUNGE_BRA);
-		equipClothingFromNowhere(ClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
+		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
 		
 		clothingChoices.clear();
 		clothingChoices.add(ClothingType.TORSO_BODYCONZIP_DRESS);
 		clothingChoices.add(ClothingType.TORSO_SKATER_DRESS);
 		clothingChoices.add(ClothingType.TORSO_PLUNGE_DRESS);
-		equipClothingFromNowhere(ClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
+		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
 		
 		clothingChoices.clear();
 		clothingChoices.add(ClothingType.SOCK_TIGHTS);
-		equipClothingFromNowhere(ClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
+		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
 		
 		clothingChoices.clear();
 		clothingChoices.add(ClothingType.FOOT_HEELS);
-		equipClothingFromNowhere(ClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
+		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
 
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
