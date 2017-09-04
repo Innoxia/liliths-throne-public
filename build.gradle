@@ -1,0 +1,9 @@
+plugins {
+	id 'java'
+}
+
+jar {
+	manifest {
+		attributes 'Main-Class': 'com.base.main.Main'
+	}
+}
