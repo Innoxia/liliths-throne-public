@@ -8,6 +8,7 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseCombat;
 import com.base.game.dialogue.responses.ResponseSex;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemEffectType;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.sex.Sex;
@@ -274,7 +275,7 @@ public class HarpyNestBimbo {
 						public void effects() {
 							Main.game.getDialogueFlags().bimboEncountered = true;
 							Main.game.getDialogueFlags().bimboPacified = true;
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(ItemType.generateItem(ItemType.HARPY_MARTRIARCH_BIMBO_LOLLIPOP), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MARTRIARCH_BIMBO_LOLLIPOP), false));
 						}
 						@Override
 						public QuestLine getQuestLine() {
@@ -351,7 +352,7 @@ public class HarpyNestBimbo {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().bimboPacified = true;
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(ItemType.generateItem(ItemType.HARPY_MARTRIARCH_BIMBO_LOLLIPOP), false));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MARTRIARCH_BIMBO_LOLLIPOP), false));
 					}
 					@Override
 					public QuestLine getQuestLine() {

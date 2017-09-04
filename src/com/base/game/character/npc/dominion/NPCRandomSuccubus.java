@@ -27,6 +27,7 @@ import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.ItemType;
 import com.base.game.sex.OrificeType;
 import com.base.game.sex.PenetrationType;
 import com.base.game.sex.Sex;
@@ -178,8 +179,7 @@ public class NPCRandomSuccubus extends NPC {
 				
 			// Player uses item on NPC:
 			}else{
-				switch(item.getItemType()){
-					case CONDOM:
+				if(item.getItemType().equals(ItemType.CONDOM)) {
 						if(Sex.isPlayerDom()) {
 							if(target.isWearingCondom()) {
 								return "<p>"
@@ -206,7 +206,9 @@ public class NPCRandomSuccubus extends NPC {
 								+ "[npc.speech(Hah! I don't think so!)]"
 							+ "</p>";
 						}
-					case PROMISCUITY_PILL:
+
+				} else if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
+					
 						Main.game.getPlayer().useItem(item, target, false);
 						if(Sex.isPlayerDom()) {
 							return "<p>"
@@ -221,7 +223,9 @@ public class NPCRandomSuccubus extends NPC {
 									+ " [npc.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
 									+ "</p>";
 						}
-					case VIXENS_VIRILITY:
+						
+				} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+
 						Main.game.getPlayer().useItem(item, target, false);
 						if(Sex.isPlayerDom()) {
 							return "<p>"
@@ -236,7 +240,9 @@ public class NPCRandomSuccubus extends NPC {
 									+ " [npc.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
 									+ "</p>";
 						}
-					case POTION: case ELIXIR:
+						
+				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR)) {
+					
 						if(Sex.isPlayerDom()) {
 							Main.game.getPlayer().removeItem(item);
 							return "<p>"
@@ -256,7 +262,8 @@ public class NPCRandomSuccubus extends NPC {
 										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 									+ "</p>";
 						}
-					case EGGPLANT:
+						
+				} else if(item.getItemType().equals(ItemType.EGGPLANT)) {
 						if(Sex.isPlayerDom()) {
 							return "<p>"
 										+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
@@ -274,10 +281,11 @@ public class NPCRandomSuccubus extends NPC {
 										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 									+ "</p>";
 						}
-					default:
-						return "<p>"
+						
+				} else {
+					return "<p>"
 								+ "You try to give [npc.name] "+item.getItemType().getDeterminer()+" "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory."
-								+ "</p>";
+							+ "</p>";
 				}
 			}
 			

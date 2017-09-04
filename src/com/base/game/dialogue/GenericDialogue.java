@@ -27,6 +27,7 @@ import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.main.Main;
@@ -388,9 +389,9 @@ public class GenericDialogue {
 		}
 	};
 	
-	private static List<ItemType> itemsTotal = new ArrayList<>();
+	private static List<AbstractItemType> itemsTotal = new ArrayList<>();
 	static {
-		for (ItemType c : ItemType.values())
+		for (AbstractItemType c : ItemType.allItems)
 			itemsTotal.add(c);
 	}
 	public static final DialogueNodeOld SPAWN_ITEM_MENU = new DialogueNodeOld("Spawn items on the floor", "Spawn items on the floor.", false) {
@@ -407,7 +408,7 @@ public class GenericDialogue {
 				return new Response(itemsTotal.get(index - 1).getName(false), "", SPAWN_ITEM_MENU){
 					@Override
 					public void effects() {
-						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(ItemType.generateItem(itemsTotal.get(index - 1)));
+						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(AbstractItemType.generateItem(itemsTotal.get(index - 1)));
 						Main.game.getTextEndStringBuilder().append("<b>Spawned " + itemsTotal.get(index - 1).getName(false) + "!</b>");
 						
 					}

@@ -21,6 +21,7 @@ import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.sex.SexPace;
 import com.base.main.Main;
@@ -228,7 +229,7 @@ public class HarpyDominant extends NPC {
 				@Override
 				public void effects() {
 					Main.game.getDialogueFlags().dominantPacified = true;
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(ItemType.generateItem(ItemType.HARPY_MARTRIARCH_DOMINANT_PERFUME), false));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MARTRIARCH_DOMINANT_PERFUME), false));
 				}
 				@Override
 				public QuestLine getQuestLine() {

@@ -17,6 +17,7 @@ import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
 import com.base.game.inventory.weapon.WeaponType;
@@ -102,9 +103,9 @@ public enum Encounter {
 			} else if (node == EncounterType.DOMINION_FIND_ITEM) {
 				
 				if(Math.random()<0.995f) {
-					randomItem = ItemType.generateItem(ItemType.availableItems.get(Util.random.nextInt(ItemType.availableItems.size())));
+					randomItem = AbstractItemType.generateItem(ItemType.commonItems.get(Util.random.nextInt(ItemType.commonItems.size())));
 				} else {
-					randomItem = ItemType.generateItem(ItemType.EGGPLANT);
+					randomItem = AbstractItemType.generateItem(ItemType.EGGPLANT);
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);
@@ -210,10 +211,10 @@ public enum Encounter {
 			if (node == EncounterType.HARPY_NEST_FIND_ITEM) {
 				
 				if(Math.random() < 0.66) {
-					randomItem = ItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
+					randomItem = AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
 					
 				} else {
-					randomItem = ItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY);
+					randomItem = AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY);
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);
@@ -282,10 +283,10 @@ public enum Encounter {
 			if (node == EncounterType.HARPY_NEST_FIND_ITEM) {
 				
 				if(Math.random() < 0.66) {
-					randomItem = ItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
+					randomItem = AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
 					
 				} else {
-					randomItem = ItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY);
+					randomItem = AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY);
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);

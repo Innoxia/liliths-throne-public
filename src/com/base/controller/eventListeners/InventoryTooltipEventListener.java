@@ -24,8 +24,8 @@ import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.enchanting.TFModifier;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemEffect;
-import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.main.Main;
@@ -44,7 +44,7 @@ public class InventoryTooltipEventListener implements EventListener {
 	private GameCharacter owner, equippedToCharacter;
 	private AbstractCoreItem coreItem;
 	private AbstractItem item;
-	private ItemType genericItem;
+	private AbstractItemType genericItem;
 	private AbstractWeapon weapon;
 	private WeaponType genericWeapon;
 	private DamageType dt;
@@ -350,7 +350,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		return this;
 	}
 	
-	public InventoryTooltipEventListener setGenericItem(ItemType genericItem) {
+	public InventoryTooltipEventListener setGenericItem(AbstractItemType genericItem) {
 		resetVariables();
 		this.genericItem = genericItem;
 		return this;

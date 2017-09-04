@@ -4,6 +4,7 @@ import com.base.game.character.attributes.Attribute;
 import com.base.game.character.race.Race;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
 import com.base.main.Main;
 
@@ -498,7 +499,7 @@ public class Library {
 //	
 //	};
 	
-	private static Response bookResponse(ItemType book, Race race) {
+	private static Response bookResponse(AbstractItemType book, Race race) {
 		if(Main.game.getPlayer().getRacesAdvancedKnowledge().contains(race)) {
 			return new Response(book.getName(false), book.getDescription(), LIBRARY) {
 				@Override

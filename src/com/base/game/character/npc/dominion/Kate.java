@@ -26,6 +26,7 @@ import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.ItemType;
 import com.base.game.sex.Sex;
 import com.base.main.Main;
 import com.base.utils.Colour;
@@ -268,8 +269,7 @@ public class Kate extends NPC {
 		if(user.isPlayer()){
 			// Player uses item on themselves:
 			if(target.isPlayer()){
-				switch(item.getItemType()){
-					case CONDOM:
+				if(item.getItemType().equals(ItemType.CONDOM)) {
 							Main.game.getPlayer().removeItem(item);
 							return "<p>"
 								+ "As you pull out a condom, a worried frown flashes across Kate's face, "
@@ -279,23 +279,22 @@ public class Kate extends NPC {
 								+ " She laughs at your shocked reaction, "
 								+ UtilText.parseSpeech("It's no fun if I don't get any cum!", Main.game.getKate())
 							+ "</p>";
-					default:
+				} else {
 						return Main.game.getPlayer().useItem(item, target, false);
 				}
 				
 			// Player uses item on NPC:
 			}else{
-				switch(item.getItemType()){
-					case VIXENS_VIRILITY:
-						Main.game.getPlayer().useItem(item, target, false);
-							return "<p>"
-								+ "Producing a Vixen's Virility pill from your inventory, you pop it out of its plastic wrapper before pushing it into Kate's mouth."
-								+ " She giggles as she happily swallows the little pink pill, knowing that it's going to make her womb far more fertile."
-							+ "</p>";
-					default:
-							return "<p>"
-								+ "You start to pull "+item.getItemType().getDeterminer()+" "+item.getName()+" out from your inventory, but Kate quickly kicks your hand away and frowns at you."
-							+ "</p>";
+				if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+					Main.game.getPlayer().useItem(item, target, false);
+						return "<p>"
+							+ "Producing a Vixen's Virility pill from your inventory, you pop it out of its plastic wrapper before pushing it into Kate's mouth."
+							+ " She giggles as she happily swallows the little pink pill, knowing that it's going to make her womb far more fertile."
+						+ "</p>";
+				} else {
+					return "<p>"
+						+ "You start to pull "+item.getItemType().getDeterminer()+" "+item.getName()+" out from your inventory, but Kate quickly kicks your hand away and frowns at you."
+					+ "</p>";
 				}
 			}
 			

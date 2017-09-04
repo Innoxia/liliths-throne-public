@@ -23,7 +23,7 @@ import com.base.game.inventory.clothing.CoverableArea;
 import com.base.game.inventory.clothing.DisplacementType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItem;
-import com.base.game.inventory.item.ItemType;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
 import com.base.main.Main;
 import com.base.utils.AbstractClothingRarityComparator;
@@ -40,7 +40,7 @@ import com.base.utils.Vector2i;;
  * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.
  * 
  * @since 0.1.0
- * @version 0.1.7
+ * @version 0.1.84
  * @author Innoxia
  */
 public class CharacterInventory implements Serializable {
@@ -254,9 +254,9 @@ public class CharacterInventory implements Serializable {
 	/**
 	 * @return true if one of the items in this inventory has the same type as the Item provided.
 	 */
-	public boolean hasItemType(ItemType item) {
+	public boolean hasItemType(AbstractItemType item) {
 		for(AbstractItem abstractItem : itemsInInventory)
-			if(abstractItem.getItemType() == item)
+			if(abstractItem.getItemType().equals(item))
 				return true;
 		
 		return false;

@@ -24,6 +24,7 @@ import com.base.game.inventory.ShopTransaction;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
 import com.base.game.sex.Sex;
@@ -2106,7 +2107,7 @@ public class InventoryDialogue {
 							+ ". This action is permanent, and you'll need another Dye-brush if you want to change its colour again.", INVENTORY_MENU){
 					@Override
 					public void effects(){
-						Main.game.getPlayer().useItem(ItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
+						Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
 						Main.game.getTextEndStringBuilder().append(
 								"<p style='text-align:center;'>"
 									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, clothing.getClothingType().getAvailableColours().get(index - 1))
@@ -2117,8 +2118,8 @@ public class InventoryDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
-											?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(ItemType.generateItem(ItemType.DYE_BRUSH))
-													+ "</b> Dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(ItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+											?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+													+ "</b> Dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
 											:"You have <b>0</b> Dye-brushes left!")
 								+ "</p>");
 						Main.game.getPlayer().removeClothing(clothing);
@@ -2162,7 +2163,7 @@ public class InventoryDialogue {
 						+ ". This action is permanent, and you'll need another Dye-brush if you want to change its colour again.", CLOTHING_EQUIPPED){
 					@Override
 					public void effects(){
-						Main.game.getPlayer().useItem(ItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
+						Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
 						Main.game.getTextEndStringBuilder().append(
 								"<p style='text-align:center;'>"
 									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothingEquipped, clothingEquipped.getClothingType().getAvailableColours().get(index - 1))
@@ -2173,8 +2174,8 @@ public class InventoryDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
-											?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(ItemType.generateItem(ItemType.DYE_BRUSH))
-													+ "</b> Dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(ItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+											?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+													+ "</b> Dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
 											:"You have <b>0</b> Dye-brushes left!")
 								+ "</p>");
 						clothingEquipped.setColour(clothingEquipped.getClothingType().getAvailableColours().get(index - 1));
@@ -2217,7 +2218,7 @@ public class InventoryDialogue {
 						+ ". This action is permanent, and you'll need another Dye-brush if you want to change its colour again.",  Sex.SEX_DIALOGUE){
 					@Override
 					public void effects(){
-						Main.game.getPlayer().useItem(ItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
+						Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
 						Sex.setDyeClothingText(
 								"<p style='text-align:center;'>"
 									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothingEquipped, clothingEquipped.getClothingType().getAvailableColours().get(index - 1))
@@ -2228,8 +2229,8 @@ public class InventoryDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
-											?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(ItemType.generateItem(ItemType.DYE_BRUSH))
-													+ "</b> Dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(ItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+											?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+													+ "</b> Dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
 											:"You have <b>0</b> Dye-brushes left!")
 								+ "</p>");
 						clothingEquipped.setColour(clothingEquipped.getClothingType().getAvailableColours().get(index - 1));

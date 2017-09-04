@@ -17,28 +17,31 @@
 	
 	Patch notes:
 	
+	Engine:
+		Moved ClothingTypes from Enum values over to static classes.
+	
 	Contributors:
 	
-	Rfpnj:
-		Expanded and reorganised the Library in Lilaya's house.
-	
-	CognitiveMist:
-		Code cleanup, involving:
-			List sorting uses comparator class
-			Use addAll instead of for loops
-			String comparison don't use ==
-			Javadoc stuff
-			Spelling
-			Change some variables to local, that were only used in one spot
-			Eliminated some dead/constant logic
-			Any other cleanup that I could find
-	
-	
+		Rfpnj:
+			Expanded and reorganised the Library in Lilaya's house.
+		
+		CognitiveMist:
+			Code cleanup, involving:
+				List sorting uses comparator class
+				Use addAll instead of for loops
+				String comparison don't use ==
+				Javadoc stuff
+				Spelling
+				Change some variables to local, that were only used in one spot
+				Eliminated some dead/constant logic
+				Any other cleanup that I could find
 	
 	
 	
 	
 	
+	
+	Override equals pls in Types
 	
 	
 	

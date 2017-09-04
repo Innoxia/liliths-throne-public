@@ -37,6 +37,7 @@ import com.base.game.inventory.Rarity;
 import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemEffect;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.WeaponType;
@@ -1187,15 +1188,11 @@ public class PhoneDialogue {
 		}
 	};
 
-	private static List<ItemType> itemsDiscoveredList = new ArrayList<>();
 	private static List<WeaponType> weaponsDiscoveredList = new ArrayList<>();
 	static {
-		itemsDiscoveredList.addAll(ItemType.availableItems);
-		itemsDiscoveredList.sort(new ItemRarityComparator());
-
+		ItemType.allItems.sort(new ItemRarityComparator());
 		weaponsDiscoveredList.addAll(Arrays.asList(WeaponType.values()));
 		weaponsDiscoveredList.sort(new WeaponRarityComparator());
-		
 		ClothingType.getAllClothing().sort(new ClothingRarityComparator());
 	}
 	public static final DialogueNodeOld WEAPON_CATALOGUE = new DialogueNodeOld("Discovered Weapons", "", true) {
@@ -1263,7 +1260,7 @@ public class PhoneDialogue {
 			journalSB.append("<div class='phone-item-third colours'>Colours <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
 
 			for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
-				if (Main.game.getPlayer().getClothingDiscovered().contains(clothing.toString())) {
+				if (Main.game.getPlayer().getClothingDiscovered().contains(clothing)) {
 					String sizeClass = ""; //hack to prevent overflow... works for up to 30 colours
 					if (clothing.getAvailableColours().size() > 15){
 						sizeClass = "phone-item-third-large";
@@ -1317,7 +1314,7 @@ public class PhoneDialogue {
 			journalSB.append("<div class='phone-item-half effects'>Effects</div>");
 			journalSB.append("</div>");
 
-			for (ItemType item : itemsDiscoveredList) {
+			for (AbstractItemType item : ItemType.allItems) {
 				journalSB.append("<div class='phone-item-half-table-row'>");
 				if (Main.game.getPlayer().getItemsDiscovered().contains(item)) {
 					journalSB.append("<div class='phone-item-half name' style='color:" + item.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(item.getName(false)) + "</div>");

@@ -19,7 +19,7 @@ import com.base.game.inventory.Rarity;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.CoverableArea;
 import com.base.game.inventory.enchanting.TFEssence;
-import com.base.game.inventory.item.ItemType;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.game.sex.managers.dominion.lilaya.SMChairBottomLilaya;
 import com.base.main.Main;
@@ -704,7 +704,7 @@ public class Lab {
 							+"</b> <b style='color:"+Main.game.getDialogueFlags().focusedEssence.getColour().toWebHexString()+";'>"+Main.game.getDialogueFlags().focusedEssence.getName()+"</b> essences."
 					+ "</p>");
 			
-			if(Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(ItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)))) {
+			if(Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)))) {
 				UtilText.nodeContentSB.append(
 						"<p style='text-align:center;'>"
 							+ "<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You don't have any space left in your inventory, so you can't extract essences right now!</b>"
@@ -718,12 +718,12 @@ public class Lab {
 		public Response getResponse(int index) {
 			
 			if(index == 1) {
-				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(ItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence))))) {
+				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence))))) {
 					if(Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence)>=1) {
 						return new Response("Extract (1)", "Extract one of your "+Main.game.getDialogueFlags().focusedEssence.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLING) {
 							@Override
 							public void effects() {
-								Main.game.getPlayer().addItem(ItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)), false);
+								Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)), false);
 								
 								Main.game.getTextEndStringBuilder().append(
 										"<p>"
@@ -747,13 +747,13 @@ public class Lab {
 				
 				
 			} else if(index == 2) {
-				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(ItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence))))) {
+				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence))))) {
 					if(Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence)>=5) {
 						return new Response("Extract (5)", "Extract five of your "+Main.game.getDialogueFlags().focusedEssence.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLING) {
 							@Override
 							public void effects() {
 								for(int i =0; i<5; i++) {
-									Main.game.getPlayer().addItem(ItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)), false);
+									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)), false);
 								}
 								Main.game.getTextEndStringBuilder().append(
 										"<p>"
@@ -779,13 +779,13 @@ public class Lab {
 				}
 				
 			} else if(index == 3) {
-				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(ItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence))))) {
+				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence))))) {
 					if(Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence)>=25) {
 						return new Response("Extract (25)", "Extract twenty-five of your "+Main.game.getDialogueFlags().focusedEssence.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLING) {
 							@Override
 							public void effects() {
 								for(int i =0; i<25; i++) {
-									Main.game.getPlayer().addItem(ItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)), false);
+									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)), false);
 								}
 								Main.game.getTextEndStringBuilder().append(
 										"<p>"
@@ -811,13 +811,13 @@ public class Lab {
 				}
 				
 			} else if(index == 4) {
-				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(ItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence))))) {
+				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence))))) {
 					if(Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence)>=1) {
 						return new Response("Extract (all)", "Extract all of your "+Main.game.getDialogueFlags().focusedEssence.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLING) {
 							@Override
 							public void effects() {
 								for(int i =0; i<Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence); i++) {
-									Main.game.getPlayer().addItem(ItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)), false);
+									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)), false);
 								}
 								Main.game.getTextEndStringBuilder().append(
 										"<p>"

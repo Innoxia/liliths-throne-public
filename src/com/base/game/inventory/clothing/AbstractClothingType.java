@@ -13,6 +13,7 @@ import com.base.game.character.GameCharacter;
 import com.base.game.character.attributes.Attribute;
 import com.base.game.character.body.valueEnums.Femininity;
 import com.base.game.dialogue.utils.UtilText;
+import com.base.game.inventory.AbstractCoreType;
 import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.Rarity;
 import com.base.utils.Colour;
@@ -23,7 +24,7 @@ import com.base.utils.Util;
  * @version 0.1.84
  * @author Innoxia
  */
-public abstract class AbstractClothingType implements Serializable {
+public abstract class AbstractClothingType extends AbstractCoreType implements Serializable {
 
 	protected static final long serialVersionUID = 1L;
 	
