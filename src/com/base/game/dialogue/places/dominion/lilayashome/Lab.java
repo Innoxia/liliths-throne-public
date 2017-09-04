@@ -20,6 +20,7 @@ import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.CoverableArea;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItemType;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.game.sex.managers.dominion.lilaya.SMChairBottomLilaya;
 import com.base.main.Main;
@@ -1392,7 +1393,7 @@ public class Lab {
 				return new Response("Continue", "Now to see about removing this jinxed clothing...", LAB_EXIT){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().addWeapon(WeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE), false);
+						Main.game.getPlayer().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE), false);
 					}
 				};
 

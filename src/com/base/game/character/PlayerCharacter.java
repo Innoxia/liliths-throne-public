@@ -16,7 +16,7 @@ import com.base.game.inventory.ShopTransaction;
 import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.CoverableArea;
 import com.base.game.inventory.item.AbstractItemType;
-import com.base.game.inventory.weapon.WeaponType;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.utils.Colour;
 import com.base.utils.SizedStack;
 import com.base.world.WorldType;
@@ -43,7 +43,7 @@ public class PlayerCharacter extends GameCharacter {
 
 	// Gameplay stats:
 	private Set<AbstractItemType> itemsDiscovered;
-	private Set<WeaponType> weaponsDiscovered;
+	private Set<AbstractWeaponType> weaponsDiscovered;
 	private Set<AbstractClothingType> clothingDiscovered;
 	private List<GameCharacter> charactersEncountered;
 	private List<Race> racesDiscovered, racesAdvancedKnowledge;
@@ -298,7 +298,7 @@ public class PlayerCharacter extends GameCharacter {
 		return itemsDiscovered;
 	}
 
-	public Set<WeaponType> getWeaponsDiscovered() {
+	public Set<AbstractWeaponType> getWeaponsDiscovered() {
 		return weaponsDiscovered;
 	}
 

@@ -79,6 +79,7 @@ import com.base.game.inventory.enchanting.TFModifier;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.item.ItemEffect;
 import com.base.game.inventory.weapon.AbstractWeapon;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.game.sex.Sex;
 import com.base.main.Main;
@@ -1478,7 +1479,7 @@ public class MainController implements Initializable {
 						addEventListener(document, clothing.toString() + "_" + c.toString(), "mouseenter", el2, false);
 					}
 				}
-			for (WeaponType weapon : WeaponType.values())
+			for (AbstractWeaponType weapon : WeaponType.allweapons)
 				for (DamageType dt : weapon.getAvailableDamageTypes()) {
 					if ((EventTarget) document.getElementById(weapon.toString() + "_" + dt.toString()) != null) {
 						addEventListener(document, weapon.toString() + "_" + dt.toString(), "mousemove", moveTooltipListener, false);

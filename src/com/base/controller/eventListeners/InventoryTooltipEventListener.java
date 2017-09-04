@@ -27,7 +27,7 @@ import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemEffect;
 import com.base.game.inventory.weapon.AbstractWeapon;
-import com.base.game.inventory.weapon.WeaponType;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.main.Main;
 import com.base.rendering.RenderingEngine;
 import com.base.utils.Colour;
@@ -46,7 +46,7 @@ public class InventoryTooltipEventListener implements EventListener {
 	private AbstractItem item;
 	private AbstractItemType genericItem;
 	private AbstractWeapon weapon;
-	private WeaponType genericWeapon;
+	private AbstractWeaponType genericWeapon;
 	private DamageType dt;
 	private AbstractClothing clothing;
 	private Colour colour;
@@ -371,7 +371,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		return this;
 	}
 
-	public InventoryTooltipEventListener setGenericWeapon(WeaponType genericWeapon, DamageType dt) {
+	public InventoryTooltipEventListener setGenericWeapon(AbstractWeaponType genericWeapon, DamageType dt) {
 		resetVariables();
 		this.genericWeapon = genericWeapon;
 		this.dt = dt;

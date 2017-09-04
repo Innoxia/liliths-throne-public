@@ -29,6 +29,7 @@ import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.main.Main;
 import com.base.utils.BaseColour;
@@ -355,10 +356,11 @@ public class GenericDialogue {
 		}
 	};
 
-	private static List<WeaponType> weaponsTotal = new ArrayList<>();
+	private static List<AbstractWeaponType> weaponsTotal = new ArrayList<>();
 	static {
-		for (WeaponType c : WeaponType.values())
+		for (AbstractWeaponType c : WeaponType.allweapons) {
 			weaponsTotal.add(c);
+		}
 	}
 	public static final DialogueNodeOld SPAWN_WEAPON_MENU = new DialogueNodeOld("Spawn weapons on the floor", "Spawn weapons on the floor.", false) {
 		private static final long serialVersionUID = 1L;
@@ -374,7 +376,7 @@ public class GenericDialogue {
 				return new Response(weaponsTotal.get(index - 1).getName(), "", SPAWN_WEAPON_MENU){
 					@Override
 					public void effects() {
-						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(WeaponType.generateWeapon(weaponsTotal.get(index - 1)));
+						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(AbstractWeaponType.generateWeapon(weaponsTotal.get(index - 1)));
 						Main.game.getTextEndStringBuilder().append("<b>Spawned " + weaponsTotal.get(index - 1).getName() + "!</b>");
 						
 					}

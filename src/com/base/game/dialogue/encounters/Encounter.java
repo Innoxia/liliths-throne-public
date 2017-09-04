@@ -20,6 +20,7 @@ import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.main.Main;
 import com.base.utils.Util;
@@ -123,7 +124,7 @@ public enum Encounter {
 				return DominionEncounterDialogue.ALLEY_FIND_CLOTHING;
 				
 			} else if (node == EncounterType.DOMINION_FIND_WEAPON) {
-				randomWeapon = WeaponType.generateWeapon(WeaponType.getRareWeapons().get(Util.random.nextInt(WeaponType.getRareWeapons().size())));
+				randomWeapon = AbstractWeaponType.generateWeapon(WeaponType.rareWeapons.get(Util.random.nextInt(WeaponType.rareWeapons.size())));
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(randomWeapon);
 				return DominionEncounterDialogue.ALLEY_FIND_WEAPON;

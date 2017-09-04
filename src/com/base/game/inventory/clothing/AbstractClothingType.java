@@ -392,7 +392,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 					String s = Util.inputStreamToString(is);
 
 					for (int i = 0; i <= 14; i++)
-						s = s.replaceAll("linearGradient" + i, this + colour.toString() + "linearGradient" + i);
+						s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + "linearGradient" + i);
 					s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
 					s = s.replaceAll("#ff5555", colour.getShades()[1]);
 					s = s.replaceAll("#ff8080", colour.getShades()[2]);

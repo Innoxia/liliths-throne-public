@@ -1,7 +1,6 @@
 package com.base.game.dialogue.utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -40,6 +39,7 @@ import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemEffect;
 import com.base.game.inventory.item.ItemType;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.game.sex.OrificeType;
 import com.base.game.sex.PenetrationType;
@@ -55,7 +55,7 @@ import com.base.utils.WeaponRarityComparator;
 
 /**
  * @since 0.1.0
- * @version 0.1.82
+ * @version 0.1.84
  * @author Innoxia
  */
 public class PhoneDialogue {
@@ -1188,12 +1188,20 @@ public class PhoneDialogue {
 		}
 	};
 
-	private static List<WeaponType> weaponsDiscoveredList = new ArrayList<>();
+	private static List<AbstractItemType> itemsDiscoveredList = new ArrayList<>();
+	private static List<AbstractClothingType> clothingDiscoveredList = new ArrayList<>();
+	private static List<AbstractWeaponType> weaponsDiscoveredList = new ArrayList<>();
+	
 	static {
-		ItemType.allItems.sort(new ItemRarityComparator());
-		weaponsDiscoveredList.addAll(Arrays.asList(WeaponType.values()));
+		
+		itemsDiscoveredList.addAll(ItemType.allItems);
+		itemsDiscoveredList.sort(new ItemRarityComparator());
+		
+		weaponsDiscoveredList.addAll(WeaponType.allweapons);
 		weaponsDiscoveredList.sort(new WeaponRarityComparator());
-		ClothingType.getAllClothing().sort(new ClothingRarityComparator());
+		
+		clothingDiscoveredList.addAll(ClothingType.getAllClothing());
+		clothingDiscoveredList.sort(new ClothingRarityComparator());
 	}
 	public static final DialogueNodeOld WEAPON_CATALOGUE = new DialogueNodeOld("Discovered Weapons", "", true) {
 		private static final long serialVersionUID = 1L;
@@ -1209,7 +1217,7 @@ public class PhoneDialogue {
 			journalSB.append("<div class='phone-item-third name'>Weapon</div>");
 			journalSB.append("<div class='phone-item-third colours'>Damage types <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
 
-			for (WeaponType weapon : weaponsDiscoveredList) {
+			for (AbstractWeaponType weapon : weaponsDiscoveredList) {
 				if (Main.game.getPlayer().getWeaponsDiscovered().contains(weapon)) {
 					journalSB.append("<div class='phone-item-third slot'>" + Util.capitaliseSentence(weapon.getSlot().getName()) + "</div>");
 					journalSB.append("<div class='phone-item-third name' style='color:" + weapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(weapon.getName()) + "</div>");
@@ -1259,7 +1267,7 @@ public class PhoneDialogue {
 			journalSB.append("<div class='phone-item-third name'>Clothing</div>");
 			journalSB.append("<div class='phone-item-third colours'>Colours <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
 
-			for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
+			for (AbstractClothingType clothing : clothingDiscoveredList) {
 				if (Main.game.getPlayer().getClothingDiscovered().contains(clothing)) {
 					String sizeClass = ""; //hack to prevent overflow... works for up to 30 colours
 					if (clothing.getAvailableColours().size() > 15){
@@ -1314,7 +1322,7 @@ public class PhoneDialogue {
 			journalSB.append("<div class='phone-item-half effects'>Effects</div>");
 			journalSB.append("</div>");
 
-			for (AbstractItemType item : ItemType.allItems) {
+			for (AbstractItemType item : itemsDiscoveredList) {
 				journalSB.append("<div class='phone-item-half-table-row'>");
 				if (Main.game.getPlayer().getItemsDiscovered().contains(item)) {
 					journalSB.append("<div class='phone-item-half name' style='color:" + item.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(item.getName(false)) + "</div>");

@@ -28,6 +28,7 @@ import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemEffect;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.main.Main;
 import com.base.utils.Colour;
@@ -93,11 +94,11 @@ public class Vicky extends NPC {
 		this.equipClothingFromNowhere(shoes, true, this);
 
 		for(int i=0;i<3;i++){
-			this.addWeapon(WeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_RARE), false);
-			this.addWeapon(WeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE), false);
+			this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_RARE), false);
+			this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE), false);
 		}
-		this.addWeapon(WeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_EPIC), false);
-		this.addWeapon(WeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC), false);
+		this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_EPIC), false);
+		this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC), false);
 		
 		AbstractCoreItem ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
 		TFModifier primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));

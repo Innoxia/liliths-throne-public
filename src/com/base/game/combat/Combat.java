@@ -29,7 +29,7 @@ import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.weapon.AbstractWeapon;
-import com.base.game.inventory.weapon.WeaponType;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.main.Main;
 import com.base.rendering.RenderingEngine;
 import com.base.utils.Colour;
@@ -40,7 +40,7 @@ import com.base.utils.Util;
  * Call initialiseCombat() before using.
  *
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.84
  * @author Innoxia
  */
 public enum Combat {
@@ -1152,7 +1152,7 @@ public enum Combat {
 		if(Main.game.getPlayer().getMainWeapon()!= null) {
 			attack = Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), opponent);
 		} else {
-			attack = WeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent);
+			attack = AbstractWeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent);
 		}
 
 		return (opponent.isVisiblyPregnant()
@@ -1197,7 +1197,7 @@ public enum Combat {
 		if(Main.game.getPlayer().getOffhandWeapon()!= null) {
 			attack = Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), opponent);
 		} else {
-			attack = WeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent);
+			attack = AbstractWeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent);
 		}
 
 		return (opponent.isVisiblyPregnant()
@@ -1250,7 +1250,7 @@ public enum Combat {
 		} else if(Main.game.getPlayer().getOffhandWeapon()!= null) {
 			attack = Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), opponent);
 		} else {
-			attack = WeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent);
+			attack = AbstractWeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent);
 		}
 
 		return (opponent.isVisiblyPregnant()
