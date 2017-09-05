@@ -1,6 +1,7 @@
 package com.base.game.character.body;
 
 import java.io.Serializable;
+
 import com.base.game.character.GameCharacter;
 import com.base.game.character.body.types.TesticleType;
 import com.base.game.character.body.valueEnums.CumProduction;

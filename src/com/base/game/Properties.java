@@ -23,8 +23,8 @@ import org.w3c.dom.NodeList;
 import com.base.game.character.gender.AndrogynousIdentification;
 import com.base.game.character.gender.Gender;
 import com.base.game.character.gender.GenderPronoun;
-import com.base.game.character.race.Race;
 import com.base.game.character.race.FurryPreference;
+import com.base.game.character.race.Race;
 import com.base.main.Main;
 
 /**

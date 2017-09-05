@@ -15,6 +15,7 @@ import com.base.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.main.Main;
 import com.base.utils.Colour;
@@ -30,13 +31,13 @@ public class Rose extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	private AbstractClothing underwear = ClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_BLACK, false),
-			bra = ClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false),
-			dress = ClothingType.generateClothing(ClothingType.MAID_DRESS, Colour.CLOTHING_BLACK, false),
-			headpiece = ClothingType.generateClothing(ClothingType.MAID_HEADPIECE, Colour.CLOTHING_BLACK, false),
-			heels = ClothingType.generateClothing(ClothingType.MAID_HEELS, Colour.CLOTHING_BLACK, false),
-			sleeves = ClothingType.generateClothing(ClothingType.MAID_SLEEVES, Colour.CLOTHING_BLACK, false),
-			stockings = ClothingType.generateClothing(ClothingType.MAID_STOCKINGS, Colour.CLOTHING_BLACK, false);
+	private AbstractClothing underwear = AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_BLACK, false),
+			bra = AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false),
+			dress = AbstractClothingType.generateClothing(ClothingType.MAID_DRESS, Colour.CLOTHING_BLACK, false),
+			headpiece = AbstractClothingType.generateClothing(ClothingType.MAID_HEADPIECE, Colour.CLOTHING_BLACK, false),
+			heels = AbstractClothingType.generateClothing(ClothingType.MAID_HEELS, Colour.CLOTHING_BLACK, false),
+			sleeves = AbstractClothingType.generateClothing(ClothingType.MAID_SLEEVES, Colour.CLOTHING_BLACK, false),
+			stockings = AbstractClothingType.generateClothing(ClothingType.MAID_STOCKINGS, Colour.CLOTHING_BLACK, false);
 
 	public Rose() {
 		super(new NameTriplet("Rose"),

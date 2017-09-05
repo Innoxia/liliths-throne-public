@@ -5,15 +5,15 @@ import java.util.List;
 
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemEffect;
-import com.base.game.inventory.item.ItemType;
 import com.base.rendering.SVGImages;
 import com.base.utils.Colour;
 import com.base.utils.Util;
 
 /**
  * @since 0.1.75
- * @version 0.1.8
+ * @version 0.1.84
  * @author Innoxia
  */
 public class EnchantingUtils {
@@ -22,7 +22,7 @@ public class EnchantingUtils {
 
 		AbstractItem craftedItem = null;
 		
-		craftedItem = ItemType.generateItem(ingredient.getEnchantmentItemType());
+		craftedItem = AbstractItemType.generateItem((AbstractItemType) ingredient.getEnchantmentItemType());
 		
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
 		for(ItemEffect ie : effects)
@@ -39,7 +39,7 @@ public class EnchantingUtils {
 	
 	public static String getPotionName(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		
-		String potionName = ingredient.getEnchantmentItemType().getName(false), potionDescriptor = "", potionSuffix = "", potionPreSuffix = ""; // it was either PreSuffix or PrefixSuffix...
+		String potionName = ((AbstractItemType) ingredient.getEnchantmentItemType()).getName(false), potionDescriptor = "", potionSuffix = "", potionPreSuffix = ""; // it was either PreSuffix or PrefixSuffix...
 		
 		switch(ingredient.getEnchantmentEffect()) {
 			case ATTRIBUTE_CORRUPTION:
@@ -127,7 +127,7 @@ public class EnchantingUtils {
 		
 		SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getRefinedBackgroundMap().get(ingredient.getEnchantmentEffect().getColour())+"</div>");
 		
-		String s = ingredient.getEnchantmentItemType().getSVGString();
+		String s = ((AbstractItemType) ingredient.getEnchantmentItemType()).getSVGString();
 		
 		Colour colour = Colour.CLOTHING_BLUE_LIGHT;
 		

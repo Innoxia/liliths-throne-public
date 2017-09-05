@@ -24,9 +24,10 @@ import com.base.game.character.race.RaceStage;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseCombat;
-import com.base.game.dialogue.responses.ResponseSex;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
+import com.base.game.dialogue.responses.ResponseSex;
 import com.base.game.dialogue.utils.UtilText;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.sex.managers.dominion.brax.SMBraxDom;
 import com.base.game.sex.managers.dominion.brax.SMBraxSubStart;
@@ -1491,8 +1492,8 @@ public class EnforcerHQDialogue {
 					}
 					@Override
 					public void effects(){
-						Main.game.getPlayer().addClothing(ClothingType.generateClothing(ClothingType.ENFORCER_SHIRT), false);
-						Main.game.getPlayer().addClothing(ClothingType.generateClothing(ClothingType.ENFORCER_SHORTS), false);
+						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT), false);
+						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS), false);
 					}
 				};
 					
@@ -1641,8 +1642,8 @@ public class EnforcerHQDialogue {
 					}
 					@Override
 					public void effects(){
-						Main.game.getPlayer().addClothing(ClothingType.generateClothing(ClothingType.ENFORCER_SHIRT), false);
-						Main.game.getPlayer().addClothing(ClothingType.generateClothing(ClothingType.ENFORCER_SHORTS), false);
+						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT), false);
+						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS), false);
 					}
 				};
 					

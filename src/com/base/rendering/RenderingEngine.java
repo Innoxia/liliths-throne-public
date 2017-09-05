@@ -7,8 +7,8 @@ import java.util.Set;
 
 import com.base.game.KeyboardAction;
 import com.base.game.character.GameCharacter;
-import com.base.game.character.attributes.Attribute;
 import com.base.game.character.attributes.ArousalLevel;
+import com.base.game.character.attributes.Attribute;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.attributes.FitnessLevel;
 import com.base.game.character.attributes.IntelligenceLevel;
@@ -24,7 +24,6 @@ import com.base.game.dialogue.MapDisplay;
 import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.Rarity;
 import com.base.game.inventory.clothing.AbstractClothing;
-import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.sex.Sex;
 import com.base.main.Main;
 import com.base.utils.Colour;
@@ -34,7 +33,7 @@ import com.base.world.places.GenericPlace;
 
 /**
  * @since 0.1.0
- * @version 0.1.79
+ * @version 0.1.84
  * @author Innoxia
  */
 public enum RenderingEngine {
@@ -126,10 +125,10 @@ public enum RenderingEngine {
 					// add to content:
 					if (blockedSlots.contains(invSlot))
 						inventorySB.append("<div class='equipSlot'><div class='overlay disabled' id='" + invSlot.toString() + "Slot'></div></div>");
-					else if (ClothingType.slotBlockedByRace(charactersInventoryToRender, invSlot) != null)
+					else if (invSlot.slotBlockedByRace(charactersInventoryToRender) != null)
 						inventorySB.append("<div class='equipSlot'>"
 										+"<div class='overlay disabled' id='" + invSlot.toString() + "Slot'></div>"
-										+ "<div class='raceBlockIcon'>" + ClothingType.slotBlockedByRace(charactersInventoryToRender, invSlot).getStatusEffect().getSVGString(charactersInventoryToRender) + "</div>"
+										+ "<div class='raceBlockIcon'>" + invSlot.slotBlockedByRace(charactersInventoryToRender).getStatusEffect().getSVGString(charactersInventoryToRender) + "</div>"
 										+ "</div>");
 					else
 						inventorySB.append("<div class='equipSlot' id='" + invSlot.toString() + "Slot'></div>");

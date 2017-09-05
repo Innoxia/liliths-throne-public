@@ -18,8 +18,10 @@ import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.sex.OrificeType;
 import com.base.game.sex.PenetrationType;
@@ -41,7 +43,7 @@ public class Ralph extends NPC {
 
 	private static StringBuilder descriptionSB = new StringBuilder();
 
-	private ItemType[] itemsForSale = new ItemType[] {
+	private AbstractItemType[] itemsForSale = new AbstractItemType[] {
 			ItemType.RACE_INGREDIENT_CAT_MORPH,
 			ItemType.RACE_INGREDIENT_DOG_MORPH,
 			ItemType.RACE_INGREDIENT_HARPY,
@@ -65,11 +67,11 @@ public class Ralph extends NPC {
 			ItemType.PROMISCUITY_PILL,
 			ItemType.MOTHERS_MILK };
 
-	private AbstractClothing underwear = ClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false),
-			legs = ClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false),
-			torso = ClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false),
-			socks = ClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false),
-			shoes = ClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false);
+	private AbstractClothing underwear = AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false),
+			legs = AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false),
+			torso = AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false),
+			socks = AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false),
+			shoes = AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false);
 
 	public Ralph() {
 		super(new NameTriplet("Ralph"), "Ralph is the owner of the shop 'Ralph's Snacks'. There's an air of confidence in the way he holds himself, and he behaves in a professional manner at all times.",
@@ -93,10 +95,10 @@ public class Ralph extends NPC {
 
 		// Items:
 		for(int i=0;i<5;i++)
-			this.addItem(ItemType.generateItem(ItemType.DYE_BRUSH), false);
-		for (ItemType item : itemsForSale) {
+			this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), false);
+		for (AbstractItemType item : itemsForSale) {
 			for (int i = 0; i < (Util.random.nextInt(5) + 1); i++) {
-				this.addItem(ItemType.generateItem(item), false);
+				this.addItem(AbstractItemType.generateItem(item), false);
 			}
 		}
 	}
@@ -125,10 +127,10 @@ public class Ralph extends NPC {
 		this.equipClothingFromNowhere(shoes, true, this);
 
 		for(int i=0;i<5;i++)
-			this.addItem(ItemType.generateItem(ItemType.DYE_BRUSH), false);
-		for (ItemType item : itemsForSale) {
+			this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), false);
+		for (AbstractItemType item : itemsForSale) {
 			for (int i = 0; i < (Util.random.nextInt(5) + 1); i++)
-				this.addItem(ItemType.generateItem(item), false);
+				this.addItem(AbstractItemType.generateItem(item), false);
 		}
 	}
 	
@@ -346,8 +348,7 @@ public class Ralph extends NPC {
 				
 			// Player uses item on NPC:
 			}else{
-				switch(item.getItemType()){
-					case CONDOM:
+				if(item.getItemType().equals(ItemType.CONDOM)) {
 						Main.game.getPlayer().useItem(item, target, false);
 						if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==(PenetrationType.PENIS_PARTNER))
 							return "<p>"
@@ -378,7 +379,9 @@ public class Ralph extends NPC {
 										+ " With a sigh, he takes the condom from you, and, tearing the package open, quickly rolls the condom down the length of his massive shaft."
 										+ " You thank him for doing as you asked, and he replies that he's happy to respect your request."
 							+ "</p>";
-					case VIXENS_VIRILITY:
+
+				} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+					
 						Main.game.getPlayer().useItem(item, target, false);
 						if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==(PenetrationType.PENIS_PARTNER))
 							return "<p>"
@@ -412,7 +415,8 @@ public class Ralph extends NPC {
 										+ " He looks down at you, letting out a little laugh and shrugging his shoulders as he sees what you're trying to give him."
 										+ " Quickly popping the pill out of its plastic container, he swallows it, and you let out a happy giggle, knowing that his sperm just got a lot more potent."
 							+ "</p>";
-					default:
+						
+				} else {
 						if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)!=null)
 							return "<p>"
 									+ "You pull out "+item.getItemType().getDeterminer()+" "+item.getName()+" from your inventory, and, making a muffled questioning sound, hold it up to Ralph."

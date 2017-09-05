@@ -17,6 +17,7 @@ import com.base.game.dialogue.responses.Response;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingSet;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.utils.Colour;
@@ -32,11 +33,11 @@ public class Finch extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	private AbstractClothing groin = ClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_BRIEFS, Colour.CLOTHING_BLACK, false),
-			legs = ClothingType.generateClothing(ClothingType.LEG_CROTCHLESS_CHAPS, Colour.CLOTHING_BLACK, false),
-			torso = ClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_BLACK, false),
-			socks = ClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false),
-			shoes = ClothingType.generateClothing(ClothingType.FOOT_WORK_BOOTS, Colour.CLOTHING_BLACK, false);
+	private AbstractClothing groin = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_BRIEFS, Colour.CLOTHING_BLACK, false),
+			legs = AbstractClothingType.generateClothing(ClothingType.LEG_CROTCHLESS_CHAPS, Colour.CLOTHING_BLACK, false),
+			torso = AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_BLACK, false),
+			socks = AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false),
+			shoes = AbstractClothingType.generateClothing(ClothingType.FOOT_WORK_BOOTS, Colour.CLOTHING_BLACK, false);
 	
 	public Finch() {
 		super(new NameTriplet("Finch"),
@@ -79,13 +80,13 @@ public class Finch extends NPC {
 		this.equipClothingFromNowhere(shoes, true, this);
 
 		for(int i = 0; i<6; i++) {
-			this.addClothing(ClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), false);
+			this.addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), false);
 		}
 		
-		for(ClothingType clothing : ClothingType.values()) {
+		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			if(clothing.getClothingSet() == ClothingSet.BDSM) {
 				for(int i = 0; i<2; i++) {
-					this.addClothing(ClothingType.generateClothing(clothing), false);
+					this.addClothing(AbstractClothingType.generateClothing(clothing), false);
 				}
 			}
 		}

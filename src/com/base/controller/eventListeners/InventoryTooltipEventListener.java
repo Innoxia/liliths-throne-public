@@ -20,14 +20,14 @@ import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.clothing.AbstractClothing;
-import com.base.game.inventory.clothing.ClothingType;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.enchanting.TFModifier;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemEffect;
-import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
-import com.base.game.inventory.weapon.WeaponType;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.main.Main;
 import com.base.rendering.RenderingEngine;
 import com.base.utils.Colour;
@@ -37,20 +37,20 @@ import com.base.utils.Util;
  * Shows the tooltip at the given element's position.
  * 
  * @since 0.1.0
- * @version 0.1.8
+ * @version 0.1.84
  * @author Innoxia
  */
 public class InventoryTooltipEventListener implements EventListener {
 	private GameCharacter owner, equippedToCharacter;
 	private AbstractCoreItem coreItem;
 	private AbstractItem item;
-	private ItemType genericItem;
+	private AbstractItemType genericItem;
 	private AbstractWeapon weapon;
-	private WeaponType genericWeapon;
+	private AbstractWeaponType genericWeapon;
 	private DamageType dt;
 	private AbstractClothing clothing;
 	private Colour colour;
-	private ClothingType genericClothing;
+	private AbstractClothingType genericClothing;
 	private InventorySlot invSlot;
 	private TFModifier enchantmentModifier;
 	private TFEssence essence;
@@ -219,8 +219,8 @@ public class InventoryTooltipEventListener implements EventListener {
 						if (!clothingBlockingThisSlot.isEmpty()) {
 							setBlockedTooltipContent("This slot is currently <b style='color:" + Colour.SEALED.toWebHexString() + ";'>blocked</b> by your " + Util.stringsToStringList(clothingBlockingThisSlot, false) + ".");
 							
-						} else if (ClothingType.slotBlockedByRace(equippedToCharacter, invSlot) != null) {
-							setBlockedTooltipContent(ClothingType.getCannotBeWornDescription(equippedToCharacter, invSlot));
+						} else if (invSlot.slotBlockedByRace(equippedToCharacter) != null) {
+							setBlockedTooltipContent(invSlot.getCannotBeWornDescription(equippedToCharacter));
 							
 						} else {
 							
@@ -350,7 +350,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		return this;
 	}
 	
-	public InventoryTooltipEventListener setGenericItem(ItemType genericItem) {
+	public InventoryTooltipEventListener setGenericItem(AbstractItemType genericItem) {
 		resetVariables();
 		this.genericItem = genericItem;
 		return this;
@@ -364,14 +364,14 @@ public class InventoryTooltipEventListener implements EventListener {
 		return this;
 	}
 
-	public InventoryTooltipEventListener setGenericClothing(ClothingType genericClothing, Colour colour) {
+	public InventoryTooltipEventListener setGenericClothing(AbstractClothingType genericClothing, Colour colour) {
 		resetVariables();
 		this.genericClothing = genericClothing;
 		this.colour = colour;
 		return this;
 	}
 
-	public InventoryTooltipEventListener setGenericWeapon(WeaponType genericWeapon, DamageType dt) {
+	public InventoryTooltipEventListener setGenericWeapon(AbstractWeaponType genericWeapon, DamageType dt) {
 		resetVariables();
 		this.genericWeapon = genericWeapon;
 		this.dt = dt;

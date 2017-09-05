@@ -23,8 +23,10 @@ import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.ItemType;
 import com.base.game.sex.Sex;
 import com.base.main.Main;
 import com.base.utils.Colour;
@@ -42,10 +44,10 @@ public class Kate extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	private AbstractClothing
-			skirt = ClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_PINK, false),
-			torso = ClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_PINK, false),
-			socks = ClothingType.generateClothing(ClothingType.SOCK_KNEEHIGH_SOCKS, Colour.CLOTHING_WHITE, false),
-			shoes = ClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_PINK, false);
+			skirt = AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_PINK, false),
+			torso = AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_PINK, false),
+			socks = AbstractClothingType.generateClothing(ClothingType.SOCK_KNEEHIGH_SOCKS, Colour.CLOTHING_WHITE, false),
+			shoes = AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_PINK, false);
 
 	public Kate() {
 		super(new NameTriplet("Kate"), "Kate is a demon who owns the beauty salon 'Succubi's Secrets'."
@@ -86,15 +88,15 @@ public class Kate extends NPC {
 		
 		int iterations = 3 + Util.random.nextInt(3);
 		for (int i = 0; i < iterations; i++)
-			this.addClothing(ClothingType.generateClothingWithEnchantment(ClothingType.getCommonJewellery().get(Util.random.nextInt(ClothingType.getCommonJewellery().size()))), false);
+			this.addClothing(AbstractClothingType.generateClothingWithEnchantment(ClothingType.getCommonJewellery().get(Util.random.nextInt(ClothingType.getCommonJewellery().size()))), false);
 		
 		for(int i=0; i<getClothingCount(); i++)
 			getClothing(i).setEnchantmentKnown(true);
 		
-		for (ClothingType ct : ClothingType.getCommonJewellery()) {
+		for (AbstractClothingType ct : ClothingType.getCommonJewellery()) {
 			iterations = 1 + Util.random.nextInt(2);
 			for(int i=0; i<iterations; i++)
-				this.addClothing(ClothingType.generateClothing(ct, false), false);
+				this.addClothing(AbstractClothingType.generateClothing(ct, false), false);
 		}
 		
 	}
@@ -267,8 +269,7 @@ public class Kate extends NPC {
 		if(user.isPlayer()){
 			// Player uses item on themselves:
 			if(target.isPlayer()){
-				switch(item.getItemType()){
-					case CONDOM:
+				if(item.getItemType().equals(ItemType.CONDOM)) {
 							Main.game.getPlayer().removeItem(item);
 							return "<p>"
 								+ "As you pull out a condom, a worried frown flashes across Kate's face, "
@@ -278,23 +279,22 @@ public class Kate extends NPC {
 								+ " She laughs at your shocked reaction, "
 								+ UtilText.parseSpeech("It's no fun if I don't get any cum!", Main.game.getKate())
 							+ "</p>";
-					default:
+				} else {
 						return Main.game.getPlayer().useItem(item, target, false);
 				}
 				
 			// Player uses item on NPC:
 			}else{
-				switch(item.getItemType()){
-					case VIXENS_VIRILITY:
-						Main.game.getPlayer().useItem(item, target, false);
-							return "<p>"
-								+ "Producing a Vixen's Virility pill from your inventory, you pop it out of its plastic wrapper before pushing it into Kate's mouth."
-								+ " She giggles as she happily swallows the little pink pill, knowing that it's going to make her womb far more fertile."
-							+ "</p>";
-					default:
-							return "<p>"
-								+ "You start to pull "+item.getItemType().getDeterminer()+" "+item.getName()+" out from your inventory, but Kate quickly kicks your hand away and frowns at you."
-							+ "</p>";
+				if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+					Main.game.getPlayer().useItem(item, target, false);
+						return "<p>"
+							+ "Producing a Vixen's Virility pill from your inventory, you pop it out of its plastic wrapper before pushing it into Kate's mouth."
+							+ " She giggles as she happily swallows the little pink pill, knowing that it's going to make her womb far more fertile."
+						+ "</p>";
+				} else {
+					return "<p>"
+						+ "You start to pull "+item.getItemType().getDeterminer()+" "+item.getName()+" out from your inventory, but Kate quickly kicks your hand away and frowns at you."
+					+ "</p>";
 				}
 			}
 			
