@@ -2129,15 +2129,16 @@ public class GameCharacter implements Serializable {
 				for (Entry<Attribute, Integer> e : getMainWeapon().getAttributeModifiers().entrySet())
 					incrementBonusAttribute(e.getKey(), -e.getValue());
 
+			boolean mustDropToFloor = isInventoryFull() && !hasWeapon(getMainWeapon());
 			String s;
-			if (isInventoryFull() || dropToFloor) {
+			if (mustDropToFloor || dropToFloor) {
 				Main.game.getActiveWorld().getCell(location).getInventory().addWeapon(getMainWeapon());
-				s = getMainWeapon().getWeaponType().unequipText(this) + (isInventoryFull() && !dropToFloor ? inventoryFullText() : "") + droppedItemText(getMainWeapon());
+				s = getMainWeapon().getWeaponType().unequipText(this) + (mustDropToFloor && !dropToFloor ? inventoryFullText() : "") + droppedItemText(getMainWeapon());
 			} else {
 				addWeapon(getMainWeapon(), false);
 				s = getMainWeapon().getWeaponType().unequipText(this) + "<p style='text-align:center;'>" + addedItemToInventoryText(getMainWeapon())+"</p>";
 			}
-			inventory.unequipMainWEapon();
+			inventory.unequipMainWeapon();
 			updateInventoryListeners();
 			
 			return s;
@@ -2191,10 +2192,12 @@ public class GameCharacter implements Serializable {
 			if (getOffhandWeapon().getAttributeModifiers() != null)
 				for (Entry<Attribute, Integer> e : getOffhandWeapon().getAttributeModifiers().entrySet())
 					incrementBonusAttribute(e.getKey(), -e.getValue());
+			
+			boolean mustDropToFloor = isInventoryFull() && !hasWeapon(getOffhandWeapon());
 			String s;
-			if (isInventoryFull() || dropToFloor) {
+			if (mustDropToFloor || dropToFloor) {
 				Main.game.getActiveWorld().getCell(location).getInventory().addWeapon(getOffhandWeapon());
-				s = getOffhandWeapon().getWeaponType().unequipText(this) + (isInventoryFull() && !dropToFloor ? inventoryFullText() : "") + droppedItemText(getOffhandWeapon());
+				s = getOffhandWeapon().getWeaponType().unequipText(this) + (mustDropToFloor && !dropToFloor ? inventoryFullText() : "") + droppedItemText(getOffhandWeapon());
 			} else {
 				addWeapon(getOffhandWeapon(), false);
 				s = getOffhandWeapon().getWeaponType().unequipText(this) + "<p style='text-align:center;'>" + addedItemToInventoryText(getOffhandWeapon())+"</p>";
@@ -2405,9 +2408,11 @@ public class GameCharacter implements Serializable {
 			for (Entry<Attribute, Integer> e : clothing.getAttributeModifiers().entrySet()) {
 				incrementBonusAttribute(e.getKey(), -e.getValue());
 			}
+			
+			boolean fitsIntoInventory = !isInventoryFull() || hasClothing(clothing);
 
 			// Place the clothing into inventory:
-			if (!isInventoryFull())
+			if (fitsIntoInventory)
 				addClothing(clothing, false);
 			else
 				Main.game.getActiveWorld().getCell(location).getInventory().addClothing(clothing);
@@ -2417,7 +2422,7 @@ public class GameCharacter implements Serializable {
 			return "<p style='text-align:center;'>"
 				+inventory.getEquipDescription()
 				+"</br>"
-				+ (isInventoryFull()
+				+ (!fitsIntoInventory
 						? droppedItemText(clothing)
 						: addedItemToInventoryText(clothing))
 				+ "</p>";

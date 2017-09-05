@@ -229,13 +229,17 @@ public class CharacterInventory implements Serializable {
 	 * @return true if added, false if inventory was full.
 	 */
 	public boolean addItem(AbstractItem item) {
-		if (!isInventoryFull() || hasItem(item)){
+		if (canAddItem(item)) {
 			itemsInInventory.add(item);
 			recalculateMapOfDuplicateItems();
 			return true;
 		}
 		
 		return false;
+	}
+	
+	public boolean canAddItem(AbstractItem item) {
+		return !isInventoryFull() || hasItem(item);
 	}
 	
 	public boolean removeItem(AbstractItem item) {
@@ -326,13 +330,17 @@ public class CharacterInventory implements Serializable {
 	 * @return true if added, false if inventory was full.
 	 */
 	public boolean addWeapon(AbstractWeapon weapon) {
-		if (!isInventoryFull() || hasWeapon(weapon)){
+		if (canAddWeapon(weapon)) {
 			weaponsInInventory.add(weapon);
 			recalculateMapOfDuplicateWeapons();
 			return true;
 		}
 		
 		return false;
+	}
+	
+	public boolean canAddWeapon(AbstractWeapon weapon) {
+		return !isInventoryFull() || hasWeapon(weapon);
 	}
 	
 	public boolean removeWeapon(AbstractWeapon weapon) {
@@ -365,7 +373,7 @@ public class CharacterInventory implements Serializable {
 	public void equipMainWeapon(AbstractWeapon weapon) {
 		mainWeapon = weapon;
 	}
-	public void unequipMainWEapon() {
+	public void unequipMainWeapon() {
 		mainWeapon = null;
 	}
 	
@@ -442,12 +450,16 @@ public class CharacterInventory implements Serializable {
 	 */
 	
 	public boolean addClothing(AbstractClothing clothing) {
-		if (!isInventoryFull() || hasClothing(clothing)) {
+		if (canAddClothing(clothing)) {
 			clothingInInventory.add(clothing);
 			recalculateMapOfDuplicateClothing();
 			return true;
 		} else
 			return false;
+	}
+	
+	public boolean canAddClothing(AbstractClothing clothing) {
+		return !isInventoryFull() || hasClothing(clothing);
 	}
 	
 	public boolean hasClothing(AbstractClothing clothing) {
@@ -555,7 +567,7 @@ public class CharacterInventory implements Serializable {
 		if (tempSB.length() != 0)
 			tempSB.append("</br></br>");
 		tempSB.append("</br><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"+description+"</span>");
-		if (isInventoryFull()) {
+		if (isInventoryFull() && !hasClothing(c)) {
 			Main.game.getActiveWorld().getCell(character.getLocation()).getInventory().addClothing(c);
 			tempSB.append("</br>" + character.droppedItemText(c));
 		} else {
@@ -793,11 +805,14 @@ public class CharacterInventory implements Serializable {
 
 				// Remove all clothing that is incompatible with newClothing using the owner's accessor method.
 				for (AbstractClothing c : incompatibleRemovableClothing) {
-					if (!characterClothingOwner.isInventoryFull())
+					if (!characterClothingOwner.isInventoryFull() || characterClothingOwner.hasClothing(c))
 						equipTextSB.append("</br>" + characterClothingOwner.addedItemToInventoryText(c));
 					else
 						equipTextSB.append("</br>" + characterClothingOwner.droppedItemText(c));
+					String oldEquipText = equipTextSB.toString();// this is a hack to fix the string builder being overwritten
 					characterClothingOwner.unequipClothingIntoInventory(c, true, characterClothingEquipper);
+					equipTextSB.setLength(0);
+					equipTextSB.append(oldEquipText);
 				}
 
 				// Clear the new clothing's displacement list as a precaution:
@@ -805,11 +820,14 @@ public class CharacterInventory implements Serializable {
 
 				// Remove the old clothing in this slot using the owner's accessor method:
 				if (getClothingInSlot(newClothing.getClothingType().getSlot()) != null) {
-					if (!characterClothingOwner.isInventoryFull())
+					if (!characterClothingOwner.isInventoryFull() || characterClothingOwner.hasClothing(getClothingInSlot(newClothing.getClothingType().getSlot())))
 						equipTextSB.append("</br>" + characterClothingOwner.addedItemToInventoryText(getClothingInSlot(newClothing.getClothingType().getSlot())));
 					else
 						equipTextSB.append("</br>" + characterClothingOwner.droppedItemText(getClothingInSlot(newClothing.getClothingType().getSlot())));
+					String oldEquipText = equipTextSB.toString();// this is a hack to fix the string builder being overwritten
 					characterClothingOwner.unequipClothingIntoInventory(getClothingInSlot(newClothing.getClothingType().getSlot()), true, characterClothingEquipper);
+					equipTextSB.setLength(0);
+					equipTextSB.append(oldEquipText);
 				}
 
 				// Actually equip the newClothing:

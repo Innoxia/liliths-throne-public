@@ -157,6 +157,17 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		result = 31 * result + displacedList.hashCode();
 		return result;
 	}
+	
+	/**
+	 * @return the name of a css class to use as a displayed rarity in inventory screens
+	 */
+	@Override
+	public String getDisplayRarity() {
+		if (!enchantmentKnown) {
+			return "unknown";
+		}
+		return super.getDisplayRarity();
+	}
 
 	private StringBuilder descriptionSB;
 
@@ -267,6 +278,14 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			runningTotal = 1;
 
 		return runningTotal;
+	}
+	
+	@Override
+	public int getPrice(float modifier) {
+		if (!enchantmentKnown) {
+			return 5;
+		}
+		return super.getPrice(modifier);
 	}
 
 	/**
@@ -580,6 +599,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	public void removeBadEnchantment() {
 		this.badEnchantment = false;
 		this.rarity = Rarity.COMMON;
+		this.coreEnchantment = null;
 	}
 
 	public boolean isSealed() {

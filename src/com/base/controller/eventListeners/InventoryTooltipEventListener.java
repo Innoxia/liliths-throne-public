@@ -16,9 +16,11 @@ import com.base.game.combat.Attack;
 import com.base.game.combat.DamageType;
 import com.base.game.combat.Spell;
 import com.base.game.dialogue.utils.EnchantmentDialogue;
+import com.base.game.dialogue.utils.InventoryDialogue;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.InventorySlot;
+import com.base.game.inventory.ShopTransaction;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
@@ -121,13 +123,19 @@ public class InventoryTooltipEventListener implements EventListener {
 				if (owner.isPlayer()) {
 					if (Main.game.getDialogueFlags().tradePartner.willBuy(item))
 						tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " offers " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
-								+ Main.game.getCurrencySymbol() + "</b> <b>" + ((int) (Main.game.getDialogueFlags().tradePartner.getBuyModifier() * item.getValue())) + "</b>" + "</div>");
+								+ Main.game.getCurrencySymbol() + "</b> <b>" + item.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>" + "</div>");
 					else
 						tooltipSB.append(
 								"<div class='subTitle'>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will not buy this</span>" + "</div>");
 				} else {
-					tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " wants " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
-							+ Main.game.getCurrencySymbol() + "</b> <b>" + ((int) (Main.game.getDialogueFlags().tradePartner.getSellModifier() * item.getValue())) + "</b>" + "</div>");
+					if (InventoryDialogue.isBuyback()) {
+						tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " wants " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
+								+ Main.game.getCurrencySymbol() + "</b> <b>" + getBuybackPriceFor(item) + "</b>" + "</div>");
+					} else {
+						tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " wants " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
+								+ Main.game.getCurrencySymbol() + "</b> <b>" + item.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</b>" + "</div>");
+					}
+					
 				}
 			}
 
@@ -484,12 +492,18 @@ public class InventoryTooltipEventListener implements EventListener {
 			if (owner.isPlayer()) {
 				if (Main.game.getDialogueFlags().tradePartner.willBuy(absWep))
 					tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " offers " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
-							+ Main.game.getCurrencySymbol() + "</b> <b>" + ((int) (Main.game.getDialogueFlags().tradePartner.getBuyModifier() * absWep.getValue())) + "</b>" + "</div>");
+							+ Main.game.getCurrencySymbol() + "</b> <b>" + absWep.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>" + "</div>");
 				else
 					tooltipSB.append("<div class='subTitle'>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will not buy this</span>" + "</div>");
 			} else {
-				tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " wants " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
-						+ Main.game.getCurrencySymbol() + "</b> <b>" + ((int) (Main.game.getDialogueFlags().tradePartner.getSellModifier() * absWep.getValue())) + "</b>" + "</div>");
+				if (InventoryDialogue.isBuyback()) {
+					tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " wants " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
+							+ Main.game.getCurrencySymbol() + "</b> <b>" + getBuybackPriceFor(absWep) + "</b>" + "</div>");
+				} else {
+					tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " wants " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
+							+ Main.game.getCurrencySymbol() + "</b> <b>" + absWep.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</b>" + "</div>");
+				}
+				
 			}
 		}
 
@@ -566,15 +580,29 @@ public class InventoryTooltipEventListener implements EventListener {
 			if (owner.isPlayer()) {
 				if (Main.game.getDialogueFlags().tradePartner.willBuy(absClothing))
 					tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " offers " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
-							+ Main.game.getCurrencySymbol() + "</b> <b>" + (absClothing.isEnchantmentKnown() ? (int) (Main.game.getDialogueFlags().tradePartner.getBuyModifier() * absClothing.getValue()) : 5) + "</b>" + "</div>");
+							+ Main.game.getCurrencySymbol() + "</b> <b>" + absClothing.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier()) + "</b>" + "</div>");
 				else
 					tooltipSB.append("<div class='subTitle'>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will not buy this</span>" + "</div>");
 			} else {
-				tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " wants " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
-						+ Main.game.getCurrencySymbol() + "</b> <b>" + (absClothing.isEnchantmentKnown() ? (int) (Main.game.getDialogueFlags().tradePartner.getSellModifier() * absClothing.getValue()) : 5) + "</b>" + "</div>");
+				if (InventoryDialogue.isBuyback()) {
+					tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " wants " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
+							+ Main.game.getCurrencySymbol() + "</b> <b>" + getBuybackPriceFor(absClothing) + "</b>" + "</div>");
+				} else {
+					tooltipSB.append("<div class='subTitle'>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " wants " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
+							+ Main.game.getCurrencySymbol() + "</b> <b>" + absClothing.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) + "</b>" + "</div>");
+				}
 			}
 		}
 
 		Main.mainController.setTooltipContent(tooltipSB.toString());
+	}
+	
+	private int getBuybackPriceFor(AbstractCoreItem item) {
+	    for (ShopTransaction s : Main.game.getPlayer().getBuybackStack()) {
+	        if (s.getAbstractItemSold() == item) {
+	            return s.getPrice();
+	        }
+	    }
+	    throw new IllegalArgumentException("That's not a buyback item");
 	}
 }
