@@ -30,7 +30,8 @@ public class Nipples implements BodyPartInterface, Serializable {
 	private OrificeNipples orificeNipples;
 	private NippleShape nippleShape;
 	private AreolaeShape areolaeShape;
-	private int areolaeSize, nippleSize;
+	private int areolaeSize;
+	private int nippleSize;
 	private boolean pierced;
 
 	public Nipples(NippleType type, int nippleSize, NippleShape nippleShape, int areolaeSize, int wetness, int capacity, int elasticity, int plasticity, boolean virgin) {
@@ -92,7 +93,7 @@ public class Nipples implements BodyPartInterface, Serializable {
 
 	@Override
 	public String getDescriptor(GameCharacter owner) {
-		List<String> descriptorList = new ArrayList<String>();
+		List<String> descriptorList = new ArrayList<>();
 		
 		for(OrificeModifier om : orificeNipples.getOrificeModifiers()) {
 			descriptorList.add(om.getName());
@@ -131,17 +132,18 @@ public class Nipples implements BodyPartInterface, Serializable {
 	}
 
 	public String setNippleSize(GameCharacter owner, int nippleSize) {
-		if(this.nippleSize == nippleSize) {
+		int boundNippleSize = Math.max(0, Math.min(nippleSize, NippleSize.FOUR_MASSIVE.getValue()));
+		if(this.nippleSize == boundNippleSize) {
 			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.nipples] doesn't change...)]</p>";
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.nipples] doesn't change...)]</p>");
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s [pc.nipples] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s [npc.nipples] doesn't change...)]</p>");
 			}
 		}
 		
 		String transformation = "";
 		
-		if(this.nippleSize > nippleSize) {
+		if(this.nippleSize > boundNippleSize) {
 			if(owner.isPlayer()) {
 				transformation = "<p>A soothing coolness rises up into your [pc.nipples], causing you to let out a surprised gasp as you feel them [style.boldShrink(shrinking)].</br>";
 			} else {
@@ -156,11 +158,10 @@ public class Nipples implements BodyPartInterface, Serializable {
 			}
 		}
 		
-		this.nippleSize = nippleSize;
+		this.nippleSize = boundNippleSize;
 
 		if(owner.isPlayer()) {
-			return transformation
-				+ "You now have [style.boldSex([pc.nippleSize] [pc.nipples])]!</p>";
+			return UtilText.parse(owner, transformation + "You now have [style.boldSex([pc.nippleSize] [pc.nipples])]!</p>");
 		} else {
 			return transformation
 					+ UtilText.parse(owner, "[npc.Name] now has [style.boldSex([npc.nippleSize] [npc.nipples])]!</p>");
@@ -175,7 +176,7 @@ public class Nipples implements BodyPartInterface, Serializable {
 		
 		if(this.nippleShape == nippleShape) {
 			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(The shape of your [pc.nipples] doesn't change...)]</p>";
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The shape of your [pc.nipples] doesn't change...)]</p>");
 			} else {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The shape of [npc.name]'s [npc.nipples] doesn't change...)]</p>");
 			}
@@ -227,7 +228,7 @@ public class Nipples implements BodyPartInterface, Serializable {
 		
 		this.nippleShape = nippleShape;
 		
-		return transformation;
+		return UtilText.parse(owner, transformation);
 	}
 	
 	public AreolaeShape getAreolaeShape() {
@@ -238,7 +239,7 @@ public class Nipples implements BodyPartInterface, Serializable {
 		
 		if(this.areolaeShape == areolaeShape) {
 			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(The shape of your areolae doesn't change...)]</p>";
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The shape of your areolae doesn't change...)]</p>");
 			} else {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The shape of [npc.name]'s areolae doesn't change...)]</p>");
 			}
@@ -246,34 +247,38 @@ public class Nipples implements BodyPartInterface, Serializable {
 
 		this.areolaeShape = areolaeShape;
 		
+		String transformation = "";
 		switch(areolaeShape) {
 			case NORMAL:
 				if(owner.isPlayer()) {
-					return "<p>Your [pc.nipples] suddenly start to tingle, and you gasp as you feel your areolae shift and transform into regular-looking circles.</br>"
+					transformation = "<p>Your [pc.nipples] suddenly start to tingle, and you gasp as you feel your areolae shift and transform into regular-looking circles.</br>"
 								+ "Your areolae are now shaped like [style.boldSex(circles)]!";
 				} else {
-					return "<p>[npc.Name]'s [npc.nipples] suddenly start to tingle, and [npc.she] gasps as [npc.she] feels [npc.her] areolae shift and transform into regular-looking circles.</br>"
+					transformation = "<p>[npc.Name]'s [npc.nipples] suddenly start to tingle, and [npc.she] gasps as [npc.she] feels [npc.her] areolae shift and transform into regular-looking circles.</br>"
 							+ "[npc.Name]'s areolae are now shaped like [style.boldSex(circles)]!";
 				}
+				break;
 			case HEART:
 				if(owner.isPlayer()) {
-					return "<p>Your [pc.nipples] suddenly start to tingle, and you gasp as you feel your areolae shift and transform into the shape of hearts.</br>"
+					transformation = "<p>Your [pc.nipples] suddenly start to tingle, and you gasp as you feel your areolae shift and transform into the shape of hearts.</br>"
 							+ "Your areolae are now shaped like [style.boldSex(hearts)]!";
 				} else {
-					return "<p>[npc.Name]'s [npc.nipples] suddenly start to tingle, and [npc.she] gasps as [npc.she] feels [npc.her] areolae shift and transform into the shape of hearts.</br>"
+					transformation = "<p>[npc.Name]'s [npc.nipples] suddenly start to tingle, and [npc.she] gasps as [npc.she] feels [npc.her] areolae shift and transform into the shape of hearts.</br>"
 							+ "[npc.Name]'s areolae are now shaped like [style.boldSex(hearts)]!";
 				}
+				break;
 			case STAR:
 				if(owner.isPlayer()) {
-					return "<p>Your [pc.nipples] suddenly start to tingle, and you gasp as you feel your areolae shift and transform into the shape of stars.</br>"
+					transformation = "<p>Your [pc.nipples] suddenly start to tingle, and you gasp as you feel your areolae shift and transform into the shape of stars.</br>"
 							+ "Your areolae are now shaped like [style.boldSex(stars)]!";
 				} else {
-					return "<p>[npc.Name]'s [npc.nipples] suddenly start to tingle, and [npc.she] gasps as [npc.she] feels [npc.her] areolae shift and transform into the shape of stars.</br>"
+					transformation = "<p>[npc.Name]'s [npc.nipples] suddenly start to tingle, and [npc.she] gasps as [npc.she] feels [npc.her] areolae shift and transform into the shape of stars.</br>"
 							+ "[npc.Name]'s areolae are now shaped like [style.boldSex(stars)]!";
 				}
+				break;
 		}
 		
-		return "";
+		return UtilText.parse(owner, transformation);
 	}
 
 	public OrificeNipples getOrificeNipples() {
@@ -289,9 +294,10 @@ public class Nipples implements BodyPartInterface, Serializable {
 	}
 
 	public String setAreolaeSize(GameCharacter owner, int areolaeSize) {
-		if(this.areolaeSize == areolaeSize) {
+		int boundAreolaeSize = Math.max(0, Math.min(areolaeSize, AreolaeSize.FOUR_MASSIVE.getValue()));
+		if (this.areolaeSize == boundAreolaeSize) {
 			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(The size of your areolae doesn't change...)]</p>";
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of your areolae doesn't change...)]</p>");
 			} else {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s areolae doesn't change...)]</p>");
 			}
@@ -299,7 +305,7 @@ public class Nipples implements BodyPartInterface, Serializable {
 		
 		String transformation = "";
 		
-		if(this.areolaeSize > areolaeSize) {
+		if (this.areolaeSize > boundAreolaeSize) {
 			if(owner.isPlayer()) {
 				transformation = "<p>You feel a strange tingling sensation suddenly build up around your [pc.nipples], and you let out a little cry as you feel your areolae [style.boldShrink(shrinking)].</br>";
 			} else {
@@ -314,11 +320,11 @@ public class Nipples implements BodyPartInterface, Serializable {
 			}
 		}
 		
-		this.areolaeSize = areolaeSize;
+		this.areolaeSize = boundAreolaeSize;
 
 		if(owner.isPlayer()) {
-			return transformation
-				+ "You now have [style.boldSex([pc.areolaeSize] [pc.nipples])]!</p>";
+			return UtilText.parse(owner, transformation
+				+ "You now have [style.boldSex([pc.areolaeSize] [pc.nipples])]!</p>");
 		} else {
 			return transformation
 					+ UtilText.parse(owner, "[npc.Name] now has [style.boldSex([npc.areolaeSize] [npc.nipples])]!</p>");

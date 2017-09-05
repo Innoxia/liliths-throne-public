@@ -15,7 +15,7 @@ public enum HipSize {
 	
 	ONE_VERY_NARROW("very narrow", 1, Colour.GENERIC_SIZE_TWO),
 	
-	TWO_NARROW("narrow", 2,Colour.GENERIC_SIZE_THREE),
+	TWO_NARROW("narrow", 2, Colour.GENERIC_SIZE_THREE),
 	
 	THREE_GIRLY("girly", 3, Colour.GENERIC_SIZE_FOUR),
 	
@@ -29,12 +29,12 @@ public enum HipSize {
 
 	
 	private String descriptor;
-	private int hipSize;
+	private int size;
 	private Colour colour;
 
 	private HipSize(String descriptor, int hipSize, Colour colour) {
 		this.descriptor = descriptor;
-		this.hipSize = hipSize;
+		this.size = hipSize;
 		this.colour=colour;
 	}
 
@@ -55,7 +55,7 @@ public enum HipSize {
 	}
 
 	public int getValue() {
-		return hipSize;
+		return size;
 	}
 
 	public Colour getColour() {

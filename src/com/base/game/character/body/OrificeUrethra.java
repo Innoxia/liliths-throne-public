@@ -17,8 +17,11 @@ import com.base.game.dialogue.utils.UtilText;
 public class OrificeUrethra implements OrificeInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private int wetness, elasticity, plasticity;
-	private float capacity, stretchedCapacity;
+	private int wetness;
+	private int elasticity;
+	private int plasticity;
+	private float capacity;
+	private float stretchedCapacity;
 	private boolean virgin;
 	private Set<OrificeModifier> orificeModifiers;
 
@@ -30,10 +33,7 @@ public class OrificeUrethra implements OrificeInterface, Serializable {
 		this.plasticity = plasticity;
 		this.virgin = virgin;
 		
-		this.orificeModifiers = new HashSet<>();
-		for(OrificeModifier om : orificeModifiers) {
-			this.orificeModifiers.add(om);
-		}
+		this.orificeModifiers = new HashSet<>(orificeModifiers);
 	}
 	
 	@Override
@@ -47,26 +47,11 @@ public class OrificeUrethra implements OrificeInterface, Serializable {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		int wetnessChange = 0;
+		int oldWetness = this.wetness;
+		this.wetness = Math.max(0, Math.min(wetness, Wetness.SEVEN_DROOLING.getValue()));
+		int wetnessChange = this.wetness - oldWetness;
 		
-		if (wetness <= 0) {
-			if (this.wetness != 0) {
-				wetnessChange = 0 - this.wetness;
-				this.wetness = 0;
-			}
-		} else if (wetness >= Wetness.SEVEN_DROOLING.getValue()) {
-			if (this.wetness != Wetness.SEVEN_DROOLING.getValue()) {
-				wetnessChange = Wetness.SEVEN_DROOLING.getValue() - this.wetness;
-				this.wetness = Wetness.SEVEN_DROOLING.getValue();
-			}
-		} else {
-			if (this.wetness != wetness) {
-				wetnessChange = wetness - this.wetness;
-				this.wetness = wetness;
-			}
-		}
-		
-		if(wetnessChange == 0) {
+		if (wetnessChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your precum production doesn't change...)]</p>";
 			} else {
@@ -117,26 +102,11 @@ public class OrificeUrethra implements OrificeInterface, Serializable {
 
 	@Override
 	public String setCapacity(GameCharacter owner, float capacity) {
-		float capacityChange = 0;
+		float oldCapacity = this.capacity;
+		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue()));
+		float capacityChange = this.capacity - oldCapacity;
 		
-		if (capacity <= 0) {
-			if (this.capacity != 0) {
-				capacityChange = 0 - this.capacity;
-				this.capacity = 0;
-			}
-		} else if (capacity >= Capacity.SEVEN_GAPING.getMaximumValue()) {
-			if (this.capacity != Capacity.SEVEN_GAPING.getMaximumValue()) {
-				capacityChange = Capacity.SEVEN_GAPING.getMaximumValue() - this.capacity;
-				this.capacity = Capacity.SEVEN_GAPING.getMaximumValue();
-			}
-		} else {
-			if (this.capacity != capacity) {
-				capacityChange = capacity - this.capacity;
-				this.capacity = capacity;
-			}
-		}
-		
-		if(capacityChange == 0) {
+		if (capacityChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your urethra's capacity doesn't change...)]</p>";
 			} else {
@@ -182,23 +152,9 @@ public class OrificeUrethra implements OrificeInterface, Serializable {
 
 	@Override
 	public boolean setStretchedCapacity(float stretchedCapacity) {
-		if (stretchedCapacity <= 0) {
-			if (this.stretchedCapacity != 0) {
-				this.stretchedCapacity = 0;
-				return true;
-			}
-		} else if (stretchedCapacity >= Capacity.SEVEN_GAPING.getMaximumValue()) {
-			if (this.stretchedCapacity != Capacity.SEVEN_GAPING.getMaximumValue()) {
-				this.stretchedCapacity = Capacity.SEVEN_GAPING.getMaximumValue();
-				return true;
-			}
-		} else {
-			if (this.stretchedCapacity != stretchedCapacity) {
-				this.stretchedCapacity = stretchedCapacity;
-				return true;
-			}
-		}
-		return false;
+		float oldStretchedCapacity = this.stretchedCapacity;
+		this.stretchedCapacity = Math.max(0, Math.min(stretchedCapacity, Capacity.SEVEN_GAPING.getMaximumValue()));
+		return oldStretchedCapacity != this.stretchedCapacity;
 	}
 
 	@Override
@@ -208,26 +164,11 @@ public class OrificeUrethra implements OrificeInterface, Serializable {
 
 	@Override
 	public String setElasticity(GameCharacter owner, int elasticity) {
-		float elasticityChange = 0;
+		int oldElasticity = this.elasticity;
+		this.elasticity = Math.max(0, Math.min(elasticity, OrificeElasticity.SEVEN_ELASTIC.getValue()));
+		int elasticityChange = this.elasticity - oldElasticity;
 		
-		if (elasticity <= 0) {
-			if (this.elasticity != 0) {
-				elasticityChange = 0 - this.elasticity;
-				this.elasticity = 0;
-			}
-		} else if (elasticity >= OrificeElasticity.SEVEN_ELASTIC.getValue()) {
-			if (this.elasticity != OrificeElasticity.SEVEN_ELASTIC.getValue()) {
-				elasticityChange = OrificeElasticity.SEVEN_ELASTIC.getValue() - this.elasticity;
-				this.elasticity = OrificeElasticity.SEVEN_ELASTIC.getValue();
-			}
-		} else {
-			if (this.elasticity != elasticity) {
-				elasticityChange = elasticity - this.elasticity;
-				this.elasticity = elasticity;
-			}
-		}
-		
-		if(elasticityChange == 0) {
+		if (elasticityChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your urethra's elasticity doesn't change...)]</p>";
 			} else {
@@ -273,26 +214,11 @@ public class OrificeUrethra implements OrificeInterface, Serializable {
 
 	@Override
 	public String setPlasticity(GameCharacter owner, int plasticity) {
-		float plasticityChange = 0;
+		int oldPlasticity = this.plasticity;
+		this.plasticity = Math.max(0, Math.min(plasticity, OrificePlasticity.SEVEN_MOULDABLE.getValue()));
+		int plasticityChange = this.plasticity - oldPlasticity;
 		
-		if (plasticity <= 0) {
-			if (this.plasticity != 0) {
-				plasticityChange = 0 - this.plasticity;
-				this.plasticity = 0;
-			}
-		} else if (plasticity >= OrificePlasticity.SEVEN_MOULDABLE.getValue()) {
-			if (this.plasticity != OrificePlasticity.SEVEN_MOULDABLE.getValue()) {
-				plasticityChange = OrificePlasticity.SEVEN_MOULDABLE.getValue() - this.plasticity;
-				this.plasticity = OrificePlasticity.SEVEN_MOULDABLE.getValue();
-			}
-		} else {
-			if (this.plasticity != plasticity) {
-				plasticityChange = plasticity - this.plasticity;
-				this.plasticity = plasticity;
-			}
-		}
-		
-		if(plasticityChange == 0) {
+		if (plasticityChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your urethra's plasticity doesn't change...)]</p>";
 			} else {
