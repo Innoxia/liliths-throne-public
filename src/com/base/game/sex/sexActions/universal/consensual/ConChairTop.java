@@ -10,7 +10,6 @@ import com.base.game.character.body.valueEnums.CumProduction;
 import com.base.game.character.body.valueEnums.CupSize;
 import com.base.game.character.body.valueEnums.PenisSize;
 import com.base.game.character.effects.Fetish;
-import com.base.game.character.npc.NPC;
 import com.base.game.character.race.Race;
 import com.base.game.character.race.RaceStage;
 import com.base.game.dialogue.utils.UtilText;
@@ -458,7 +457,7 @@ public class ConChairTop {
 					"You grin down at [npc.name] as [npc.she] [npc.moansVerb] beneath you, ",
 					"[npc.name(The)] bites [npc.her] [npc.lip] and looks up at you as you speak down to [npc.herHim], "));
 			
-			descriptionSB.append(((NPC)Sex.getPartner()).getPlayerDirtyTalk(Sex.isPlayerDom()));
+			descriptionSB.append(Sex.getPartner().getPlayerDirtyTalk(Sex.isPlayerDom()));
 			
 			return descriptionSB.toString(); 
 		}
@@ -1456,7 +1455,7 @@ public class ConChairTop {
 					"[npc.Name] makes a show of biting [npc.her] [npc.lip] as [npc.she] looks up at you, ",
 					"Gazing up at you, [npc.name] lets out [npc.a_moan+], "));
 			
-			descriptionSB.append(((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom()));
+			descriptionSB.append(Sex.getPartner().getDirtyTalk(Sex.isPlayerDom()));
 			
 			return descriptionSB.toString();
 		}

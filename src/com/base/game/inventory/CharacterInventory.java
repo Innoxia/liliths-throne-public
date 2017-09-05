@@ -1329,7 +1329,7 @@ public class CharacterInventory implements Serializable {
 
 		average /= count;
 		
-		return (int) average;
+		return average;
 	}
 
 	/**
