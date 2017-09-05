@@ -1854,10 +1854,8 @@ public class GameCharacter implements Serializable {
 	}
 	
 	public void incrementEssenceCount(TFEssence essence, int increment) {
-		if(getEssenceCount(essence)+increment < 0)
-			getEssenceMap().put(essence, 0);
-		else
-			getEssenceMap().put(essence, getEssenceCount(essence)+increment);
+		int newValue = Math.max(0, getEssenceCount(essence)+increment);
+		getEssenceMap().put(essence, newValue);
 	}
 	
 	public boolean hasEssences() {

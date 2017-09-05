@@ -1037,16 +1037,8 @@ public class CharacterModificationUtils {
 		stringsList.clear();
 		
 		if(disabled) {
-			if(!glow) {
-				stringsList.add("[style.colourDisabled(Regular)]");
-			} else {
-				stringsList.add("[style.colourDisabled(Regular)]");
-			}	
-			if(glow) {
-				stringsList.add("[style.colourDisabled(Glowing)]");
-			} else {
-				stringsList.add("[style.colourDisabled(Glowing)]");
-			}
+			stringsList.add("[style.colourDisabled(Regular)]");
+			stringsList.add("[style.colourDisabled(Glowing)]");
 		} else {
 			if(!glow) {
 				stringsList.add("[style.boldDisabled(Regular)]");

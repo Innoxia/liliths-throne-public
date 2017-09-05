@@ -1440,7 +1440,6 @@ public enum Combat {
 					break;
 					
 				case MAIN:
-					damage = 0;
 					combatStringBuilder = new StringBuilder(opponent.getAttackDescription(opponentAttack, true));
 					damage = Attack.calculateDamage(opponent, Main.game.getPlayer(), opponentAttack, critical);
 					combatStringBuilder.append("<p>"
@@ -1460,7 +1459,6 @@ public enum Combat {
 					break;
 					
 				case OFFHAND:
-					damage = 0;
 					combatStringBuilder = new StringBuilder(opponent.getAttackDescription(opponentAttack, true));
 					damage = Attack.calculateDamage(opponent, Main.game.getPlayer(), opponentAttack, critical);
 					combatStringBuilder.append("<p>"
@@ -1476,7 +1474,6 @@ public enum Combat {
 					break;
 					
 				case SEDUCTION:
-					damage = 0;
 					combatStringBuilder = new StringBuilder(opponent.getAttackDescription(opponentAttack, true));
 					damage = Attack.calculateDamage(opponent, Main.game.getPlayer(), opponentAttack, critical);
 					combatStringBuilder.append(UtilText.genderParsing(opponent,

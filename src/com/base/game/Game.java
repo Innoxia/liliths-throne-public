@@ -370,7 +370,8 @@ public class Game implements Serializable {
 		}
 
 		// At the stroke of midnight (sort of):
-		if ((int) (minutesPassed / (60 * 24)) != (int) (((minutesPassed - turnTime) / (60 * 24)))) {
+		int minutesInADay = 60 * 24;
+		if ((int) (minutesPassed / minutesInADay) != (int) ((minutesPassed - turnTime) / minutesInADay)) {
 			// Reset all shops:
 			ralph.applyReset();
 			nyan.applyReset();
@@ -1133,7 +1134,7 @@ public class Game implements Serializable {
 			}
 			
 		} else {
-			int minIndex = ((responsePointer/5))*5;
+			int minIndex = (responsePointer/5)*5;
 			
 			if(responsePointer > minIndex) {
 				responsePointer--;

@@ -504,7 +504,7 @@ public class Main extends Application {
 //		Main.game.setPlayer(new PlayerCharacter("Player", "", 1, Gender.MALE, RacialBody.HUMAN, RaceStage.HUMAN, null, WorldType.CITY, Dominion.CITY_AUNTS_HOME));
 
 		// Generate world:
-		if (!(gen == null))
+		if (gen != null)
 			if (gen.isRunning()) {
 				gen.cancel();
 			}

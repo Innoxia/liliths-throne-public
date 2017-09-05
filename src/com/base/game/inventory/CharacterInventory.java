@@ -1346,10 +1346,9 @@ public class CharacterInventory implements Serializable {
 			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList())
 				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
 					// Replace if ZLayer is lower than previous found clothing:
-					if (c == null)
+					if (c == null || clothing.getClothingType().getzLayer() < c.getClothingType().getzLayer()) {
 						c = clothing;
-					else if (clothing.getClothingType().getzLayer() < c.getClothingType().getzLayer())
-						c = clothing;
+					}
 				}
 		}
 
@@ -1370,10 +1369,9 @@ public class CharacterInventory implements Serializable {
 			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList())
 				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
 					// Replace if ZLayer is higher than previous found clothing:
-					if (c == null)
+					if (c == null || clothing.getClothingType().getzLayer() > c.getClothingType().getzLayer()) {
 						c = clothing;
-					else if (clothing.getClothingType().getzLayer() > c.getClothingType().getzLayer())
-						c = clothing;
+					}
 				}
 		}
 

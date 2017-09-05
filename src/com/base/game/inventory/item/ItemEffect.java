@@ -69,15 +69,13 @@ public class ItemEffect implements Serializable {
 	
 	public int getCost() {
 		int cost = 1;
-		if(getPrimaryModifier()!=null) {
-			if(getPrimaryModifier()!=TFModifier.NONE) {
-				cost+=getPrimaryModifier().getValue();
-			}
+		TFModifier primary = getPrimaryModifier();
+		if (primary != null && primary != TFModifier.NONE) {
+			cost += primary.getValue();
 		}
-		if(getSecondaryModifier()!=null) {
-			if(getSecondaryModifier()!=TFModifier.NONE) {
-				cost+=getSecondaryModifier().getValue();
-			}
+		TFModifier secondary = getSecondaryModifier();
+		if (secondary != null && secondary != TFModifier.NONE) {
+			cost += secondary.getValue();
 		}
 		if(getPotency()!=null) {
 			cost+=getPotency().getValue();

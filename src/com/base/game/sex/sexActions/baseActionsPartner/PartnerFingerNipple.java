@@ -6,6 +6,7 @@ import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.body.valueEnums.Lactation;
 import com.base.game.character.effects.Fetish;
 import com.base.game.dialogue.utils.UtilText;
+import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.CoverableArea;
 import com.base.game.sex.ArousalIncrease;
 import com.base.game.sex.OrificeType;
@@ -279,8 +280,9 @@ public class PartnerFingerNipple {
 		@Override
 		public void applyEffects(){
 			if(!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.NIPPLES) && Main.game.getPlayer().getBreastLactation().getMinimumValue()>=Lactation.ONE_TRICKLE.getMinimumValue()){
-				if(Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.NIPPLES)!=null) {
-					Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(true);
+				AbstractClothing underwear = Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.NIPPLES);
+				if (underwear != null) {
+					underwear.setDirty(true);
 				}
 			}
 		}

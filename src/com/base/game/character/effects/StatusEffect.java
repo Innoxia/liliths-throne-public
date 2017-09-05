@@ -2867,13 +2867,12 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			if(target.getLowestZLayerCoverableArea(CoverableArea.VAGINA)!=null){
-				if(!target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).isDirty()){
-					target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).setDirty(true);
-					return "<p>"
-							+ "Cum leaks out of your creampied pussy, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
-							+ "</p>";
-				}
+			AbstractClothing underwear = target.getLowestZLayerCoverableArea(CoverableArea.VAGINA);
+			if (underwear != null && !underwear.isDirty()){
+				underwear.setDirty(true);
+				return "<p>"
+						+ "Cum leaks out of your creampied pussy, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+underwear.getName()+"!"
+						+ "</p>";
 			}
 			return "";
 		}
@@ -2985,13 +2984,13 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			if(target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES)!=null){
-				if(!target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).isDirty()){
-					target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(true);
-					return "<p>"
-							+ "Cum leaks out of your creampied nipples, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).getName()+"!"
-							+ "</p>";
-				}
+			AbstractClothing underwear = target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES);
+			if (underwear != null && !underwear.isDirty()){
+				
+				underwear.setDirty(true);
+				return "<p>"
+						+ "Cum leaks out of your creampied nipples, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+underwear.getName()+"!"
+						+ "</p>";
 			}
 			
 			return "";
@@ -3042,13 +3041,12 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			if(target.getLowestZLayerCoverableArea(CoverableArea.PENIS)!=null){
-				if(!target.getLowestZLayerCoverableArea(CoverableArea.PENIS).isDirty()){
-					target.getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
-					return "<p>"
-							+ "Cum leaks out of your creampied urethra, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()+"!"
-							+ "</p>";
-				}
+			AbstractClothing underwear = target.getLowestZLayerCoverableArea(CoverableArea.PENIS);
+			if (underwear != null && !underwear.isDirty()){
+				underwear.setDirty(true);
+				return "<p>"
+						+ "Cum leaks out of your creampied urethra, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+underwear.getName()+"!"
+						+ "</p>";
 			}
 			
 			return "";
