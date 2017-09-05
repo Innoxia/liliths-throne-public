@@ -44,8 +44,11 @@
 				Improvement: Deduplicate printing items now that weapon/clothing/item is similar.
 				The overlay display "Vendor wants x" in the buyback shows the wrong price.
 			Simplified a lot of if statements.
+			Removed a lot of empty statements (i.e. removing a ton of unnecessary semi-colons).
+			Removed a lot of unnecessary casts.
+			Made all public static SexActions final.
+			Reordered modifiers to comply with java language specification.
 			
-
 		Rfpnj:
 			Expanded and reorganised the Library in Lilaya's house.
 		
