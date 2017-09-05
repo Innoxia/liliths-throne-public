@@ -70,6 +70,10 @@
 				Change some variables to local, that were only used in one spot
 				Eliminated some dead/constant logic
 				Any other cleanup that I could find
+			Util methods cleanup:
+				Removed Util.getFileExtention, replaced by a FilenameFilter
+				Fleshed out / fixed up some Javadocs
+				Did some witchcraftery on the stringList functions :)
 	
 	
 	
