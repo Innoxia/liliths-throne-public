@@ -364,12 +364,7 @@ public class EnchantmentDialogue {
 	};
 	
 	public static boolean canAffordCost(AbstractCoreItem ingredient, List<ItemEffect> itemEffects) {
-		if(Main.game.getPlayer().getEssenceCount(ingredient.getRelatedEssence()) >= EnchantingUtils.getCost(ingredient, itemEffects)) {
-			return true;
-			
-		} else {
-			return false;
-		}
+		return Main.game.getPlayer().getEssenceCount(ingredient.getRelatedEssence()) >= EnchantingUtils.getCost(ingredient, itemEffects);
 	}
 	
 	public static void craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects) {

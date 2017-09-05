@@ -1868,10 +1868,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			if(target.getPenisType()!=PenisType.NONE && target.isCoverableAreaExposed(CoverableArea.PENIS) && !target.isWearingCondom())
-				return true;
-			else
-				return false;
+			return target.getPenisType()!=PenisType.NONE && target.isCoverableAreaExposed(CoverableArea.PENIS) && !target.isWearingCondom();
 		}
 
 		@Override
@@ -2085,11 +2082,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.CAT_MORPH)) {
-				return true;
-			} else {
-				return false;
-			}
+			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.CAT_MORPH);
 		}
 
 		@Override
@@ -2129,11 +2122,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.DEMON)) {
-				return true;
-			} else {
-				return false;
-			}
+			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.DEMON);
 		}
 
 		@Override
@@ -2178,11 +2167,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.DOG_MORPH)) {
-				return true;
-			} else {
-				return false;
-			}
+			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.DOG_MORPH);
 		}
 
 		@Override
@@ -2227,11 +2212,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.HARPY)) {
-				return true;
-			} else {
-				return false;
-			}
+			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.HARPY);
 		}
 
 		@Override
@@ -2276,11 +2257,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.HORSE_MORPH)) {
-				return true;
-			} else {
-				return false;
-			}
+			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.HORSE_MORPH);
 		}
 
 		@Override
@@ -2325,11 +2302,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.HUMAN)) {
-				return true;
-			} else {
-				return false;
-			}
+			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.HUMAN);
 		}
 
 		@Override
@@ -2374,11 +2347,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.SQUIRREL_MORPH)) {
-				return true;
-			} else {
-				return false;
-			}
+			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.SQUIRREL_MORPH);
 		}
 
 		@Override
@@ -2418,11 +2387,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.WOLF_MORPH)) {
-				return true;
-			} else {
-				return false;
-			}
+			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.WOLF_MORPH);
 		}
 
 		@Override

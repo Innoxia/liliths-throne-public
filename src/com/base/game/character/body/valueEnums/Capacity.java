@@ -73,20 +73,19 @@ public enum Capacity {
 		}
 		return SEVEN_GAPING;
 	}
+	
+	private static float calculatePenisSizeUsed(int penisSize, boolean twoPenisesInVagina) {
+		return twoPenisesInVagina ? penisSize * Penis.TWO_PENIS_SIZE_MULTIPLIER : penisSize;
+	}
 
 	public static boolean isPenisSizeTooSmall(int capacity, int penisSize, boolean twoPenisesInVagina) {
-		if ((twoPenisesInVagina ? penisSize * Penis.TWO_PENIS_SIZE_MULTIPLIER : penisSize) <= Capacity.getCapacityFromValue(capacity).getSizeTooSmall().getMaximumValue())
-			return true;
-		else
-			return false;
+		return calculatePenisSizeUsed(penisSize, twoPenisesInVagina) <= Capacity.getCapacityFromValue(capacity).getSizeTooSmall().getMaximumValue();
 	}
 
 	public static boolean isPenisSizeTooBig(int capacity, int penisSize, boolean lubed, boolean twoPenises) {
-		if ((lubed && (twoPenises ? penisSize * Penis.TWO_PENIS_SIZE_MULTIPLIER : penisSize) > Capacity.getCapacityFromValue(capacity).getMaximumSizeComfortableWithLube().getMaximumValue())
-				|| (!lubed && (twoPenises ? penisSize * Penis.TWO_PENIS_SIZE_MULTIPLIER : penisSize) > Capacity.getCapacityFromValue(capacity).getMaximumSizeComfortable().getMaximumValue()))
-			return true;
-		else
-			return false;
+		float penisSizeUsed = calculatePenisSizeUsed(penisSize, twoPenises);
+		return (lubed && penisSizeUsed > Capacity.getCapacityFromValue(capacity).getMaximumSizeComfortableWithLube().getMaximumValue())
+				|| (!lubed && penisSizeUsed > Capacity.getCapacityFromValue(capacity).getMaximumSizeComfortable().getMaximumValue());
 	}
 
 	/**
