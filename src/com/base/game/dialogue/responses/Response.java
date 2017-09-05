@@ -454,7 +454,11 @@ public class Response {
 	}
 
 	public boolean isCorruptionWithinRange() {
-		return corruptionBypass != null && corruptionBypass.getMinimumValue() <= Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION);
+		if(corruptionBypass == null) {
+			return false;	
+		}
+		
+		return corruptionBypass.getMinimumValue() <= Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION);
 	}
 	
 	public boolean isAvailableFromFetishes() {
