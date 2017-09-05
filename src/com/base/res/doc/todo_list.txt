@@ -21,7 +21,31 @@
 		Moved ClothingTypes from Enum values over to static classes.
 	
 	Contributors:
-	
+		
+		Pimgd:
+			Inventory-related bugs fixed:
+				Take all from floor doesn't handle stackables well if your inventory is full.
+				Take all weapon doesn't work if inventory is full.
+				Jinxed items don't stack when unjinxed.
+				You can't store stackables if the area is full.
+				Unidentified items will show their state in the buyback menu.
+				Jinxed items can't be selected if you're carrying a dye brush and just identified them.
+				Unidentified items will sell for their real value and not the fixed value you get for an unidentified item.
+				That includes the "vendor will buy for x" text (not overlay) and the button.
+				"These items will disappear when you leave the area" when trading on a tile with dropped stuff.
+				Can't buy/buyback a stackable with full inventory? Check item/weapon/clothing!
+				Can't unequip weapons/clothing even although they would stack if you have a full inventory.
+				Unequipping clothing (weapons too?) causing your inventory to be full claims it gets dropped when it doesn't.
+				Equipping clothing (weapons too?) when you're already wearing something with a full inventory will drop that already worn item to the ground, even if it was stackable in your inventory.
+				Displaced clothing is dropped even if it could be stacked with a full inventory.
+				Equipping an item may reset the string builder halfway through causing some warnings not to display.
+				Sell All has improper rounding as it rounds after all items instead of each item individually (same goes for buy all).
+				getting transformed with full inventory will drop your clothing even although it fits in inventory as stackable.
+				Improvement: Deduplicate printing items now that weapon/clothing/item is similar.
+				The overlay display "Vendor wants x" in the buyback shows the wrong price.
+			Simplified a lot of if statements.
+			
+
 		Rfpnj:
 			Expanded and reorganised the Library in Lilaya's house.
 		
@@ -40,6 +64,34 @@
 	
 	
 	
+	
+	
+	
+	Known bugs that are not fixed:
+
+	The overlay display properly stretches for an item that blocks your clothing, but it doesn't properly stretch for item effects that are large - talked with @Innoxia about this and apparently fixing this is hell.
+	-- Proficiency "spell cost reduction"
+	-- Seduction "willpower damage"
+	
+	Sell All "Sell all of your tiara for x" improper pluralizing (this does work for items?)
+	-- Buy All "Buy all of the opaque demonstone" also has improper pluralizing
+	-- Drink All too
+	-- Store All too
+	-- Take All too
+	
+	Text misaligned when unequip drop warning is saved
+	
+	Possible bug with identifying working with stacks instead of single items (confirming that there is a bug here would be real nice because then I could fix it)
+	
+	Known possible inventory related improvements which I haven't applied yet because... ehhh lemme know if you want these:
+	
+	The bottom border of the item overlay with effects grows as the effects list goes on, this could get normalized
+	Buy back says "Vendor will sell it to you for $ x.", could be "Vendor will let you buy it back for $ x."
+	Dyeing items prints the text below the shop dialogue, when buying and selling items prints the text under the shop dialogue
+	Known issues related to inventory that I'm not gonna fix:
+	
+	Pluralization bugs
+	-- "You hand over all of your A dye-brush to Ralph in exchange for ¤ 287." Yeahhh that's item names and pluralization hell
 	
 	Override equals pls in Types
 	
