@@ -1313,21 +1313,18 @@ public class CharacterInventory implements Serializable {
 		if(clothingCurrentlyEquipped.isEmpty())
 			return 50;
 		
-		int average = 50, count = 1;
+		int average = 50;
 		for (AbstractClothing c : clothingCurrentlyEquipped) {
 			if (c.getClothingType().getFemininityRestriction() == Femininity.FEMININE) {
 				average += 75;
-				count++;
 			} else if (c.getClothingType().getFemininityRestriction() == Femininity.MASCULINE) {
 				average += 25;
-				count++;
 			} else {
 				average += 50;
-				count++;
 			}
 		}
 
-		average /= count;
+		average /= (clothingCurrentlyEquipped.size() + 1);
 		
 		return average;
 	}
