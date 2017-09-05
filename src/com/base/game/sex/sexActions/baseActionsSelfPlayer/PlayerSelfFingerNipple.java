@@ -174,7 +174,7 @@ public class PlayerSelfFingerNipple {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPlayerDom();
-		};
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -217,7 +217,7 @@ public class PlayerSelfFingerNipple {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPlayerDom();
-		};
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -260,7 +260,7 @@ public class PlayerSelfFingerNipple {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPlayerDom();
-		};
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -303,7 +303,7 @@ public class PlayerSelfFingerNipple {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isPlayerDom();
-		};
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -346,7 +346,7 @@ public class PlayerSelfFingerNipple {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isPlayerDom();
-		};
+		}
 		
 		@Override
 		public String getActionTitle() {

@@ -155,7 +155,7 @@ public class PartnerFingerVagina {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Reaching down between your [pc.legs], [npc.name] roughly grinds [npc.her] [npc.fingers+] over your [pc.pussy+], letting out [npc.a_moan+] as [npc.she] starts rapidly stroking your outer labia.",
 								"With [npc.a_moan+], [npc.name] reaches down between your [pc.legs], greedily pressing [npc.her] [npc.fingers] against your outer labia as [npc.she] starts roughly stroking your [pc.pussy+].",
-								"Roughly pushing [npc.her] [npc.fingers+] between your [pc.legs], [npc.name] roughly presses down, letting out [npc.a_moan+] as [npc.she] starts greedily fondling your [pc.pussy+]."));;
+								"Roughly pushing [npc.her] [npc.fingers+] between your [pc.legs], [npc.name] roughly presses down, letting out [npc.a_moan+] as [npc.she] starts greedily fondling your [pc.pussy+]."));
 						break;
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
