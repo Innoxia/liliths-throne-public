@@ -48,6 +48,14 @@
 			Removed a lot of unnecessary casts.
 			Made all public static SexActions final.
 			Reordered modifiers to comply with java language specification.
+			Body-related fixes:
+				Fixed lip size increment from rolling over causing a constant resize.
+				Fixed descriptions that go beyond size limits for TongueLength.
+				Cleaned code for antenna, arms, ass/assSize/hipSize, breasts, eyes, face, hair, horn, mouth, nipples, anus, penis, orifices, tail, testicles, tongue, and vagina.
+				Fixed nose piercing returning descriptions of lip being pierced.
+				Fixed a lot of identity mistakes between pc and npc.
+				Improved nipple and nippleShape changes to properly account of multiple changes form one transformative item.
+				Tidied up a lot of other formatting.
 			
 		Rfpnj:
 			Expanded and reorganised the Library in Lilaya's house.
@@ -62,9 +70,6 @@
 				Change some variables to local, that were only used in one spot
 				Eliminated some dead/constant logic
 				Any other cleanup that I could find
-	
-	
-	
 	
 	
 	
