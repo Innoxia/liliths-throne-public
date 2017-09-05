@@ -35,7 +35,7 @@ public enum ClitorisSize {
 		this.descriptor = descriptor;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
-		this.colour=colour;
+		this.colour = colour;
 	}
 
 	public int getMinimumValue() {

@@ -1690,9 +1690,12 @@ public class Body implements Serializable {
 			raceStage = RaceStage.HUMAN;
 			// Check to see if the body is a partial morph:
 			for (Race r : Race.values()) {
-				int currentParts = 0, nonHumanParts = 0;
+				if (r == Race.HUMAN) {
+					continue;
+				}
+				int currentParts = 0;
+				int nonHumanParts = 0;
 
-				// if(r!=Race.HUMAN){
 				if (ass.getType() == RacialBody.valueOfRace(r).getAssType()) {
 					currentParts++;
 					if (ass.getType() != RacialBody.valueOfRace(Race.HUMAN).getAssType())
@@ -1751,21 +1754,15 @@ public class Body implements Serializable {
 						&& vagina.getType() != VaginaType.NONE)
 					nonHumanParts++;
 
-				// }
-
-				if (r != Race.HUMAN) {
-					if (nonHumanParts > leaderNonHumanParts) {
-						this.race = r;
-						if (currentParts == 8)
-							raceStage = RaceStage.PARTIAL_FULL;
-						else
-							raceStage = RaceStage.PARTIAL;
-						leaderNonHumanParts = nonHumanParts;
+				if (nonHumanParts > leaderNonHumanParts) {
+					this.race = r;
+					if (currentParts == 8) {
+						raceStage = RaceStage.PARTIAL_FULL;
+					} else {
+						raceStage = RaceStage.PARTIAL;
 					}
+					leaderNonHumanParts = nonHumanParts;
 				}
-//				else if (currentParts == 8) {
-//					this.race = r;
-//				}
 			}
 
 		}
@@ -2738,13 +2735,11 @@ public class Body implements Serializable {
 			}
 		}
 		
-		if (isPlayer) {
-			if (!owner.isUrethraVirgin()) {
-				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER))!=null) {
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your urethral virginity to "
-								+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER)) + ".</span>");
-					}
+		if (isPlayer && !owner.isUrethraVirgin()) {
+			for(PenetrationType pt : PenetrationType.values()) {
+				if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER))!=null) {
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your urethral virginity to "
+							+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER)) + ".</span>");
 				}
 			}
 		}
@@ -2790,11 +2785,11 @@ public class Body implements Serializable {
 		// Testicle size and cum production:
 		
 		if(owner.isInternalTesticles()) {
-				if (isPlayer) {
-					descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] have shifted to sit inside your body, leaving your [pc.cock] as the only visible part of your male reproductive organs.");
-				} else {
-					descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] have shifted to sit inside [npc.her] body, leaving [npc.her] [npc.cock] as the only visible part of [pc.her] male reproductive organs.");
-				}
+			if (isPlayer) {
+				descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] have shifted to sit inside your body, leaving your [pc.cock] as the only visible part of your male reproductive organs.");
+			} else {
+				descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] have shifted to sit inside [npc.her] body, leaving [npc.her] [npc.cock] as the only visible part of [pc.her] male reproductive organs.");
+			}
 			
 		} else {
 			switch (penis.getTesticle().getTesticleSize()) {

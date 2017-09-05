@@ -42,6 +42,14 @@ public enum LipSize {
 		}
 		return ZERO_THIN;
 	}
+	
+	public static int getLargest() {
+		int largest = ZERO_THIN.value;
+		for(LipSize ls : LipSize.values()) {
+			largest = Math.max(largest, ls.value);
+		}
+		return largest;
+	}
 
 	public Colour getColour() {
 		return colour;

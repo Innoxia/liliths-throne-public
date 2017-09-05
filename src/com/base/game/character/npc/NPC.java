@@ -4874,7 +4874,7 @@ public abstract class NPC extends GameCharacter {
 							"Pressing [npc.her] [npc.lips+] against yours, [npc.name] continues making out with you.");
 				case SUB_RESISTING:
 					return UtilText.returnStringAtRandom(
-							"[npc.Name]'s [pc.sobs+] are muffled into your mouth as [npc.she] desperately tries to push you away from [npc.herHim].",
+							"[npc.Name]'s [npc.sobs+] are muffled into your mouth as [npc.she] desperately tries to push you away from [npc.herHim].",
 							"[npc.Name] tries to pull [npc.her] [npc.lips+] away from yours as [npc.she] struggles against you.",
 							"Trying to pull [npc.her] [npc.lips+] away from yours, [npc.name] continues struggling against your unwanted kiss.");
 			}

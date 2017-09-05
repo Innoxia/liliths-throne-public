@@ -219,12 +219,7 @@ public class Eye implements BodyPartInterface, Serializable {
 	}
 
 	public String setEyePairs(GameCharacter owner, int eyePairs) {
-		
-		if(eyePairs<=0) {
-			eyePairs = 1;
-		} else if (eyePairs>4) {
-			eyePairs=4;
-		}
+		eyePairs = Math.max(1, Math.min(eyePairs, 4));
 		
 		if(owner.getEyePairs() == eyePairs) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
@@ -243,7 +238,7 @@ public class Eye implements BodyPartInterface, Serializable {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "A tingling feeling spreads over [npc.name]'s [pc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
+							+ "A tingling feeling spreads over [npc.name]'s [npc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
 							+ " [npc.She] scrunches them shut and lets out a little cry as [npc.she] feels some of them [style.boldShrink(disappearing)] into the [npc.faceSkin] above [npc.her] main pair.</br>"
 							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric([npc.a_eyes])]."
 						+ "</p>");
@@ -259,7 +254,7 @@ public class Eye implements BodyPartInterface, Serializable {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "A tingling feeling spreads over [npc.name]'s [pc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
+							+ "A tingling feeling spreads over [npc.name]'s [npc.face], before moving up and concentrating into [npc.her] [npc.eyes]."
 							+ " [npc.She] scrunches them shut and lets out a little cry as [npc.she] feels the strange sensation of new [npc.eyes] [style.boldGrow(growing)] out of the [npc.faceSkin] above [npc.her] main pair.</br>"
 							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric([npc.a_eyes])]."
 						+ "</p>");
@@ -279,11 +274,11 @@ public class Eye implements BodyPartInterface, Serializable {
 		this.irisShape = irisShape;
 		
 		if(owner.isPlayer()) {
-			return
+			return UtilText.parse(owner, 
 					"<p>"
 						+ "An irritable itchy feeling rises up into your [pc.eyes], but, much to your relief, it passes even before you're able to reach up and rub at them.</br>"
 						+ "You now have [style.boldTfGeneric([pc.irisShape] irises)]!"
-					+ "</p>";
+					+ "</p>");
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
@@ -305,11 +300,11 @@ public class Eye implements BodyPartInterface, Serializable {
 		this.pupilShape = pupilShape;
 		
 		if(owner.isPlayer()) {
-			return
+			return UtilText.parse(owner, 
 					"<p>"
 						+ "An irritable itchy feeling rises up into your [pc.eyes], but, much to your relief, it passes even before you're able to reach up and rub at them.</br>"
 						+ "You now have [style.boldTfGeneric([pc.pupilShape] pupils)]!"
-					+ "</p>";
+					+ "</p>");
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
