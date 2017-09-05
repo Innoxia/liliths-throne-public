@@ -127,9 +127,20 @@ public abstract class AbstractCoreItem implements Serializable {
 	public abstract String getDescription();
 
 	public abstract int getValue();
+	
+	public int getPrice(float modifier) {
+		return (int) (getValue() * modifier);
+	}
 
 	public Rarity getRarity() {
 		return rarity;
+	}
+	
+	/**
+	 * @return the name of a css class to use as a displayed rarity in inventory screens
+	 */
+	public String getDisplayRarity() {
+		return rarity.getName();
 	}
 
 	public Colour getColour() {
