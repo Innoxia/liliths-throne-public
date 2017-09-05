@@ -74,7 +74,7 @@ public class InventoryTooltipEventListener implements EventListener {
 				yIncrease += 2;
 			}
 			
-			if(item.getItemEffects().size()>0) {
+			if(!item.getItemEffects().isEmpty()) {
 				for(ItemEffect ie : item.getItemEffects()) {
 					yIncrease += ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size();
 				}
@@ -85,7 +85,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(item.getDisplayName(true)) + "</div>");
 
-			if(item.getItemEffects().size()>0) {
+			if(!item.getItemEffects().isEmpty()) {
 				tooltipSB.append("<div class='subTitle'>");
 				int ieCount=0;
 				for(ItemEffect ie : item.getItemEffects()) {
@@ -519,7 +519,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			else
 				yIncrease = absClothing.getExtraDescriptions(equippedToCharacter).size() - 1;
 		} else {
-			if (absClothing.getExtraDescriptions(equippedToCharacter).size() >= 1)
+			if (!absClothing.getExtraDescriptions(equippedToCharacter).isEmpty())
 				yIncrease = absClothing.getExtraDescriptions(equippedToCharacter).size() - 1;
 		}
 

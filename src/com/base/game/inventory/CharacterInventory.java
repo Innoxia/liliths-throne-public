@@ -688,7 +688,7 @@ public class CharacterInventory implements Serializable {
 		}
 
 		// There is at least one piece of clothing that is incompatible with newClothing, and that clothing cannot be removed.
-		if (incompatibleUnequippableClothing.size() != 0) {
+		if (!incompatibleUnequippableClothing.isEmpty()) {
 			for(AbstractClothing c : incompatibleUnequippableClothing) {
 				if(c.isSealed())
 					equipTextSB.append("You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
@@ -1310,7 +1310,7 @@ public class CharacterInventory implements Serializable {
 	}
 
 	public int getClothingAverageFemininity() {
-		if(clothingCurrentlyEquipped.size()==0)
+		if(clothingCurrentlyEquipped.isEmpty())
 			return 50;
 		
 		int average = 50, count = 1;

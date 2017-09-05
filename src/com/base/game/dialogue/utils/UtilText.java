@@ -575,7 +575,7 @@ public class UtilText {
 			if(s!=null && !s.isEmpty())
 				randomStrings.add(s);
 		
-		if(randomStrings.size()!=0)
+		if(!randomStrings.isEmpty())
 			return randomStrings.get(Util.random.nextInt(randomStrings.size()));
 		else
 			return "";

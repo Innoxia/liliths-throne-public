@@ -81,7 +81,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");
-				if (statusEffect.getModifiersAsStringList(owner).size() != 0) {
+				if (!statusEffect.getModifiersAsStringList(owner).isEmpty()) {
 					tooltipSB.append("<b style='color:" + Colour.STATUS_EFFECT.toWebHexString() + ";'>Status Effect</b>");
 					for (String s : statusEffect.getModifiersAsStringList(owner))
 						tooltipSB.append("</br>" + s);
@@ -141,7 +141,7 @@ public class TooltipInformationEventListener implements EventListener {
 				
 				// Attribute modifiers:
 				tooltipSB.append("<div class='subTitle-picture'>");
-				if (perk.getModifiersAsStringList().size() != 0) {
+				if (!perk.getModifiersAsStringList().isEmpty()) {
 					tooltipSB.append("<b style='color:" + Colour.PERK.toWebHexString() + ";'>Perk</b>");
 					for (String s : perk.getModifiersAsStringList())
 						tooltipSB.append("</br>" + s);
@@ -168,7 +168,7 @@ public class TooltipInformationEventListener implements EventListener {
 				
 				// Attribute modifiers:
 				tooltipSB.append("<div class='subTitle-picture'>");
-				if (perk.getModifiersAsStringList().size() != 0) {
+				if (!perk.getModifiersAsStringList().isEmpty()) {
 					tooltipSB.append("<b style='color:" + Colour.FETISH.toWebHexString() + ";'>Fetish</b>");
 					for (String s : perk.getModifiersAsStringList())
 						tooltipSB.append("</br>" + s);
@@ -203,7 +203,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");
-			if (levelUpPerk.getModifiersAsStringList().size() != 0) {
+			if (!levelUpPerk.getModifiersAsStringList().isEmpty()) {
 				tooltipSB.append("<b style='color:" + Colour.PERK.toWebHexString() + ";'>Perk</b>");
 				for (String s : levelUpPerk.getModifiersAsStringList())
 					tooltipSB.append("</br>" + s);
@@ -223,14 +223,14 @@ public class TooltipInformationEventListener implements EventListener {
 
 			int yIncrease = (fetish.getModifiersAsStringList().size() > 4 ? fetish.getModifiersAsStringList().size() - 4 : 0) + fetish.getFetishesForAutomaticUnlock().size();
 
-			Main.mainController.setTooltipSize(360, (fetish.getFetishesForAutomaticUnlock().size()==0?288:324) + (yIncrease * 20));
+			Main.mainController.setTooltipSize(360, (fetish.getFetishesForAutomaticUnlock().isEmpty()?288:324) + (yIncrease * 20));
 
 			// Title:
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(fetish.getName(owner)) + " fetish</div>");
 			
 			// Requirements:
-			if(fetish.getFetishesForAutomaticUnlock().size()>=1) {
+			if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 				tooltipSB.append("<div class='subTitle'>Requirements");
 				for (Fetish f : fetish.getFetishesForAutomaticUnlock())
 					tooltipSB.append("</br>[style.boldArcane(" + Util.capitaliseSentence(f.getName(Main.game.getPlayer()))+")]");
@@ -239,7 +239,7 @@ public class TooltipInformationEventListener implements EventListener {
 			
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");
-			if (fetish.getModifiersAsStringList().size() != 0) {
+			if (!fetish.getModifiersAsStringList().isEmpty()) {
 				tooltipSB.append("<b style='color:" + Colour.FETISH.toWebHexString() + ";'>Fetish</b>");
 				for (String s : fetish.getModifiersAsStringList())
 					tooltipSB.append("</br>" + s);
@@ -397,7 +397,7 @@ public class TooltipInformationEventListener implements EventListener {
 			
 				// Attribute modifiers:
 				tooltipSB.append("<div class='subTitle-picture'>");
-				if (currentAttributeStatusEffect.getModifiersAsStringList(owner).size() != 0) {
+				if (!currentAttributeStatusEffect.getModifiersAsStringList(owner).isEmpty()) {
 					tooltipSB.append("<b style='color:" + Colour.STATUS_EFFECT.toWebHexString() + ";'>Status Effect</b>");
 					for (String s : currentAttributeStatusEffect.getModifiersAsStringList(owner))
 						tooltipSB.append("</br>" + s);

@@ -969,13 +969,13 @@ public enum Combat {
 					};
 
 				} else if (index == 5) {
-					if (Main.game.getPlayer().getSpells().size() == 0)
+					if (Main.game.getPlayer().getSpells().isEmpty())
 						return new Response("Spells", "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't know any spells!</span>", null);
 					else
 						return new Response("Spells", "Proceed to spell choice menu.", SPELL_SELECTION);
 
 				} else if (index == 6) {
-					if (Main.game.getPlayer().getSpecialAttacks().size() == 0)
+					if (Main.game.getPlayer().getSpecialAttacks().isEmpty())
 						return new Response("Special Attacks", "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't know any special attacks!</span>", null);
 					else
 						return new Response("Special Attacks", "Proceed to special attack menu.", SPECIAL_ATTACK_SELECTION);
