@@ -22,7 +22,7 @@ import com.base.utils.Util.ListValue;
  */
 public class PlayerSelfNoPen {
 	
-	public static SexAction PLAYER_STROKE_VAGINA_SUB = new SexAction(
+	public static final SexAction PLAYER_STROKE_VAGINA_SUB = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -66,7 +66,7 @@ public class PlayerSelfNoPen {
 	};
 	
 	
-	public static SexAction PLAYER_STROKE_PENIS = new SexAction(
+	public static final SexAction PLAYER_STROKE_PENIS = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -112,7 +112,7 @@ public class PlayerSelfNoPen {
 	
 	
 	
-	public static SexAction PLAYER_STROKE_MOUND = new SexAction(
+	public static final SexAction PLAYER_STROKE_MOUND = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,

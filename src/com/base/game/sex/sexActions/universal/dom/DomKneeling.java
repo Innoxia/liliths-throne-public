@@ -25,7 +25,7 @@ import com.base.utils.Util.ListValue;
  */
 public class DomKneeling {
 	
-	public static SexAction PARTNER_MOUND_SNOG = new SexAction(
+	public static final SexAction PARTNER_MOUND_SNOG = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -72,7 +72,7 @@ public class DomKneeling {
 		}
 	};
 	
-	public static SexAction PARTNER_MOUND_KISSING = new SexAction(
+	public static final SexAction PARTNER_MOUND_KISSING = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -121,7 +121,7 @@ public class DomKneeling {
 	
 	// Special orgasms for this scene:
 	
-	public static SexAction PLAYER_ORGASM_THIGH_SQUEEZE = new SexAction(
+	public static final SexAction PLAYER_ORGASM_THIGH_SQUEEZE = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.TWO_LOW,
@@ -219,7 +219,7 @@ public class DomKneeling {
 		}
 	};
 
-	public static SexAction PLAYER_ORGASM_COCK_DEEPTHROAT = new SexAction(
+	public static final SexAction PLAYER_ORGASM_COCK_DEEPTHROAT = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.TWO_LOW,
@@ -322,7 +322,7 @@ public class DomKneeling {
 		}
 	};
 	
-	public static SexAction PLAYER_ORGASM_COCK_FACIAL = new SexAction(
+	public static final SexAction PLAYER_ORGASM_COCK_FACIAL = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.TWO_LOW,

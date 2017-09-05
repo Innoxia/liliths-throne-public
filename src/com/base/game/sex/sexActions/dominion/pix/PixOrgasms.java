@@ -24,7 +24,7 @@ public class PixOrgasms {
 
 	// Player:
 	
-	public static SexAction PLAYER_ORGASM_PROMISE = new SexAction(
+	public static final SexAction PLAYER_ORGASM_PROMISE = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
@@ -126,7 +126,7 @@ public class PixOrgasms {
 		}
 	};
 	
-	public static SexAction PLAYER_ORGASM_REFUSE = new SexAction(
+	public static final SexAction PLAYER_ORGASM_REFUSE = new SexAction(
 			SexActionType.PLAYER_ORGASM_NO_AROUSAL_RESET,
 			ArousalIncrease.NEGATIVE,
 			ArousalIncrease.ZERO_NONE,
@@ -178,7 +178,7 @@ public class PixOrgasms {
 	
 	// Pix orgasm:
 	
-	public static SexAction PARTNER_ORGASM_PIX_REWARD = new SexAction(
+	public static final SexAction PARTNER_ORGASM_PIX_REWARD = new SexAction(
 			SexActionType.PARTNER_ORGASM,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,

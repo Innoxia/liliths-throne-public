@@ -23,7 +23,7 @@ import com.base.utils.Util.ListValue;
  */
 public class SubDoggy {
 	
-	public static SexAction PLAYER_LOOK_BACK = new SexAction(
+	public static final SexAction PLAYER_LOOK_BACK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -52,7 +52,7 @@ public class SubDoggy {
 	};
 
 	// Partner's methods:
-	public static SexAction PARTNER_SLAP_ASS = new SexAction(
+	public static final SexAction PARTNER_SLAP_ASS = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,

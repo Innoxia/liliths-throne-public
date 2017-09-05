@@ -23,7 +23,7 @@ import com.base.utils.Util.ListValue;
  */
 public class PlayerSelfTailNipple {
 	
-	public static SexAction PLAYER_SELF_TAIL_NIPPLE_PENETRATION = new SexAction(
+	public static final SexAction PLAYER_SELF_TAIL_NIPPLE_PENETRATION = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.ONE_MINIMUM,
@@ -89,7 +89,7 @@ public class PlayerSelfTailNipple {
 		}
 	};
 	
-	public static SexAction DOM_PLAYER_SELF_TAIL_NIPPLE_GENTLE = new SexAction(
+	public static final SexAction DOM_PLAYER_SELF_TAIL_NIPPLE_GENTLE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -102,7 +102,7 @@ public class PlayerSelfTailNipple {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPlayerDom();
-		};
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -132,7 +132,7 @@ public class PlayerSelfTailNipple {
 		}
 	};
 	
-	public static SexAction DOM_PLAYER_SELF_TAIL_NIPPLE_NORMAL = new SexAction(
+	public static final SexAction DOM_PLAYER_SELF_TAIL_NIPPLE_NORMAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -145,7 +145,7 @@ public class PlayerSelfTailNipple {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPlayerDom();
-		};
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -175,7 +175,7 @@ public class PlayerSelfTailNipple {
 		}
 	};
 	
-	public static SexAction DOM_PLAYER_SELF_TAIL_NIPPLE_ROUGH = new SexAction(
+	public static final SexAction DOM_PLAYER_SELF_TAIL_NIPPLE_ROUGH = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -188,7 +188,7 @@ public class PlayerSelfTailNipple {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPlayerDom();
-		};
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -218,7 +218,7 @@ public class PlayerSelfTailNipple {
 		}
 	};
 	
-	public static SexAction SUB_PLAYER_SELF_TAIL_NIPPLE_NORMAL = new SexAction(
+	public static final SexAction SUB_PLAYER_SELF_TAIL_NIPPLE_NORMAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -231,7 +231,7 @@ public class PlayerSelfTailNipple {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isPlayerDom();
-		};
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -261,7 +261,7 @@ public class PlayerSelfTailNipple {
 		}
 	};
 	
-	public static SexAction SUB_PLAYER_SELF_TAIL_NIPPLE_EAGER = new SexAction(
+	public static final SexAction SUB_PLAYER_SELF_TAIL_NIPPLE_EAGER = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -274,7 +274,7 @@ public class PlayerSelfTailNipple {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isPlayerDom();
-		};
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -304,7 +304,7 @@ public class PlayerSelfTailNipple {
 		}
 	};
 	
-	public static SexAction PLAYER_SELF_TAIL_NIPPLE_STOP_PENETRATION = new SexAction(
+	public static final SexAction PLAYER_SELF_TAIL_NIPPLE_STOP_PENETRATION = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,

@@ -25,7 +25,7 @@ public class SubSixtyNine {
 	
 	// Partner actions:
 	
-	public static SexAction PARTNER_MOUND_SNOG = new SexAction(
+	public static final SexAction PARTNER_MOUND_SNOG = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -69,7 +69,7 @@ public class SubSixtyNine {
 		}
 	};
 	
-	public static SexAction PARTNER_MOUND_KISSING = new SexAction(
+	public static final SexAction PARTNER_MOUND_KISSING = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -113,7 +113,7 @@ public class SubSixtyNine {
 		}
 	};
 	
-	public static SexAction PARTNER_GENTLE_MOUND_KISSING = new SexAction(
+	public static final SexAction PARTNER_GENTLE_MOUND_KISSING = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -159,7 +159,7 @@ public class SubSixtyNine {
 	
 	// Player actions:
 	
-	public static SexAction PLAYER_MOUND_SNOG = new SexAction(
+	public static final SexAction PLAYER_MOUND_SNOG = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
@@ -204,7 +204,7 @@ public class SubSixtyNine {
 		}
 	};
 	
-	public static SexAction PLAYER_MOUND_KISSING = new SexAction(
+	public static final SexAction PLAYER_MOUND_KISSING = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,

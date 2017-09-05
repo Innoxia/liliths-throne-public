@@ -36,7 +36,7 @@ public class GenericOrgasms {
 	 */
 	
 	// PLAYER:
-	public static SexAction PLAYER_GENERIC_ORGASM_CUM_INSIDE = new SexAction(
+	public static final SexAction PLAYER_GENERIC_ORGASM_CUM_INSIDE = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -337,7 +337,7 @@ public class GenericOrgasms {
 		}
 	};
 		
-	public static SexAction PLAYER_GENERIC_ORGASM_PULL_OUT = new SexAction(
+	public static final SexAction PLAYER_GENERIC_ORGASM_PULL_OUT = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -640,7 +640,7 @@ public class GenericOrgasms {
 		}
 	};
 		
-	public static SexAction PARTNER_GENERIC_ORGASM_CUM_INSIDE = new SexAction(
+	public static final SexAction PARTNER_GENERIC_ORGASM_CUM_INSIDE = new SexAction(
 			SexActionType.PARTNER_ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -954,7 +954,7 @@ public class GenericOrgasms {
 		}
 	};
 		
-	public static SexAction PARTNER_GENERIC_ORGASM_PULL_OUT = new SexAction(SexActionType.PARTNER_ORGASM,
+	public static final SexAction PARTNER_GENERIC_ORGASM_PULL_OUT = new SexAction(SexActionType.PARTNER_ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
@@ -1292,7 +1292,7 @@ public class GenericOrgasms {
 	
 	// Mutual orgasms:
 	
-	public static SexAction PLAYER_GENERIC_MUTUAL_ORGASM_CUM_INSIDE = new SexAction(
+	public static final SexAction PLAYER_GENERIC_MUTUAL_ORGASM_CUM_INSIDE = new SexAction(
 			SexActionType.MUTUAL_ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -1371,7 +1371,7 @@ public class GenericOrgasms {
 		}
 	};
 	
-	public static SexAction PLAYER_GENERIC_MUTUAL_ORGASM_PULL_OUT = new SexAction(
+	public static final SexAction PLAYER_GENERIC_MUTUAL_ORGASM_PULL_OUT = new SexAction(
 			SexActionType.MUTUAL_ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,

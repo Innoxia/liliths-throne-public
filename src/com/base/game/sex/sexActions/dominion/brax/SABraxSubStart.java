@@ -23,7 +23,7 @@ public class SABraxSubStart {
 
 	// Player's actions:
 
-	public static SexAction PLAYER_DIRTY_TALK = new SexAction(
+	public static final SexAction PLAYER_DIRTY_TALK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -102,7 +102,7 @@ public class SABraxSubStart {
 	
 	// Partner's actions:
 
-	public static SexAction PARTNER_TALK_DIRTY = new SexAction(
+	public static final SexAction PARTNER_TALK_DIRTY = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
