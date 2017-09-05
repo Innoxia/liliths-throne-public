@@ -24,9 +24,12 @@ import com.base.game.dialogue.utils.ParserCommand;
 import com.base.game.dialogue.utils.ParserTarget;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.main.Main;
 import com.base.utils.BaseColour;
@@ -319,9 +322,9 @@ public class GenericDialogue {
 		}
 	};
 
-	private static List<ClothingType> clothingTotal = new ArrayList<>();
+	private static List<AbstractClothingType> clothingTotal = new ArrayList<>();
 	static {
-		for (ClothingType c : ClothingType.values())
+		for (AbstractClothingType c : ClothingType.getAllClothing())
 			clothingTotal.add(c);
 	}
 	public static final DialogueNodeOld SPAWN_CLOTHING_MENU = new DialogueNodeOld("Spawn clothing on the floor", "Spawn clothing on the floor.", false) {
@@ -338,7 +341,7 @@ public class GenericDialogue {
 				return new Response(clothingTotal.get(index - 1).getName(), "", SPAWN_CLOTHING_MENU){
 					@Override
 					public void effects() {
-						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(ClothingType.generateClothing(clothingTotal.get(index - 1)));
+						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(AbstractClothingType.generateClothing(clothingTotal.get(index - 1)));
 						Main.game.getTextEndStringBuilder().append("<b>Spawned " + clothingTotal.get(index - 1).getName() + "!</b>");
 						
 					}
@@ -353,10 +356,11 @@ public class GenericDialogue {
 		}
 	};
 
-	private static List<WeaponType> weaponsTotal = new ArrayList<>();
+	private static List<AbstractWeaponType> weaponsTotal = new ArrayList<>();
 	static {
-		for (WeaponType c : WeaponType.values())
+		for (AbstractWeaponType c : WeaponType.allweapons) {
 			weaponsTotal.add(c);
+		}
 	}
 	public static final DialogueNodeOld SPAWN_WEAPON_MENU = new DialogueNodeOld("Spawn weapons on the floor", "Spawn weapons on the floor.", false) {
 		private static final long serialVersionUID = 1L;
@@ -372,7 +376,7 @@ public class GenericDialogue {
 				return new Response(weaponsTotal.get(index - 1).getName(), "", SPAWN_WEAPON_MENU){
 					@Override
 					public void effects() {
-						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(WeaponType.generateWeapon(weaponsTotal.get(index - 1)));
+						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(AbstractWeaponType.generateWeapon(weaponsTotal.get(index - 1)));
 						Main.game.getTextEndStringBuilder().append("<b>Spawned " + weaponsTotal.get(index - 1).getName() + "!</b>");
 						
 					}
@@ -387,9 +391,9 @@ public class GenericDialogue {
 		}
 	};
 	
-	private static List<ItemType> itemsTotal = new ArrayList<>();
+	private static List<AbstractItemType> itemsTotal = new ArrayList<>();
 	static {
-		for (ItemType c : ItemType.values())
+		for (AbstractItemType c : ItemType.allItems)
 			itemsTotal.add(c);
 	}
 	public static final DialogueNodeOld SPAWN_ITEM_MENU = new DialogueNodeOld("Spawn items on the floor", "Spawn items on the floor.", false) {
@@ -406,7 +410,7 @@ public class GenericDialogue {
 				return new Response(itemsTotal.get(index - 1).getName(false), "", SPAWN_ITEM_MENU){
 					@Override
 					public void effects() {
-						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(ItemType.generateItem(itemsTotal.get(index - 1)));
+						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(AbstractItemType.generateItem(itemsTotal.get(index - 1)));
 						Main.game.getTextEndStringBuilder().append("<b>Spawned " + itemsTotal.get(index - 1).getName(false) + "!</b>");
 						
 					}
@@ -887,8 +891,8 @@ public class GenericDialogue {
 	private static String clothingCollage() {
 		clothingCollageSB = new StringBuilder("<div style='position:inline-block;width:90vw;float:left;'>");
 
-		for (ClothingType c : ClothingType.values()) {
-			AbstractClothing ac = ClothingType.generateClothing(c);
+		for (AbstractClothingType c : ClothingType.getAllClothing()) {
+			AbstractClothing ac = AbstractClothingType.generateClothing(c);
 			clothingCollageSB.append("<html><div style='width:10vw;height:10vw;float:left;all: unset;'>" + ac.getSVGString() + "</div></html>");
 		}
 

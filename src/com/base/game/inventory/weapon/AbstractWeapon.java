@@ -25,12 +25,12 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 
 	private static final long serialVersionUID = 1L;
 
-	private WeaponType weaponType;
+	private AbstractWeaponType weaponType;
 	private DamageType damageType;
 	private Attribute coreEnchantment;
 	private List<Spell> spells;
 
-	public AbstractWeapon(WeaponType weaponType, DamageType dt) {
+	public AbstractWeapon(AbstractWeaponType weaponType, DamageType dt) {
 		super(weaponType.getName(), weaponType.getPathName(), dt.getMultiplierAttribute().getColour(), weaponType.getRarity(), weaponType.getAttributeModifiers());
 		this.weaponType = weaponType;
 		damageType = dt;
@@ -209,7 +209,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		return damageType;
 	}
 
-	public WeaponType getWeaponType() {
+	public AbstractWeaponType getWeaponType() {
 		return weaponType;
 	}
 

@@ -7,6 +7,7 @@ import com.base.game.dialogue.encounters.Encounter;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.utils.UtilText;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
 import com.base.main.Main;
 import com.base.utils.Colour;
@@ -166,7 +167,7 @@ public class HarpyNestsDialogue {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().hasHarpyNestAccess = true;
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(ItemType.generateItem(ItemType.BOOK_HARPY), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.BOOK_HARPY), false));
 						}
 					};
 					

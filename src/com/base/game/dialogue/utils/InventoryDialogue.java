@@ -2,6 +2,7 @@ package com.base.game.dialogue.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -19,11 +20,11 @@ import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.InventorySlot;
-import com.base.game.inventory.Rarity;
 import com.base.game.inventory.ShopTransaction;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
 import com.base.game.sex.Sex;
@@ -69,70 +70,15 @@ public class InventoryDialogue {
 
 		// Weapons:
 		if (Main.game.getPlayer().getWeaponCount() > 0) {
-			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getMapOfDuplicateWeapons().entrySet()) {
-				inventorySB.append("<div class='item-background "
-						+ getClassFromRarity(entry.getKey().getRarity()) + "'>" + entry.getKey().getSVGString()
-						+ "<div class='overlay"
-						+ (Main.game.getDialogueFlags().tradePartner!=null 
-							? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "" : " dark")
-							: (Main.game.isInSex() || Main.game.isInCombat()?" disabled":""))
-						+ "' id='WEAPON_" + entry.getKey().hashCode() + "'>"
-						+ getItemCountDiv(entry.getValue())
-						+ (Main.game.getDialogueFlags().tradePartner != null ? 
-								(Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? 
-										getItemPriceDiv((int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
-										: "") 
-								: "")
-						+ "</div>" + "</div>");
-			}
+			appendDivsForItemsToInventory(Main.game.getPlayer().getMapOfDuplicateWeapons(), "WEAPON_");
 		}
 		// Clothing:
 		if (Main.game.getPlayer().getClothingCount() > 0) {
-			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayer().getMapOfDuplicateClothing().entrySet()) {
-				inventorySB.append("<div class='item-background ");
-				
-				if (entry.getKey().isEnchantmentKnown()) {
-					inventorySB.append(getClassFromRarity(entry.getKey().getRarity()));
-				} else {
-					inventorySB.append("unknown");
-				}
-				inventorySB.append("'>");
-
-				inventorySB.append(entry.getKey().getSVGString() + "<div class='overlay"
-							+ (Main.game.getDialogueFlags().tradePartner!=null
-								? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "" : " dark")
-								: (Main.game.isInSex() || Main.game.isInCombat()?" disabled":""))
-							+ "' id='CLOTHING_" + entry.getKey().hashCode() + "'>"
-							+ getItemCountDiv(entry.getValue())
-							+ (Main.game.getDialogueFlags().tradePartner != null ? 
-									(Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? 
-											getItemPriceDiv(!entry.getKey().getAttributeModifiers().isEmpty() && !entry.getKey().isEnchantmentKnown() ? 5
-															:(int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
-											: "") 
-									: "")
-							+ "</div>"
-						+ "</div>");
-			}
+			appendDivsForItemsToInventory(Main.game.getPlayer().getMapOfDuplicateClothing(), "CLOTHING_");
 		}
 		// Items:
 		if (Main.game.getPlayer().getItemCount() > 0) {
-			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayer().getMapOfDuplicateItems().entrySet()) {
-				inventorySB.append("<div class='item-background "
-						+ getClassFromRarity(entry.getKey().getRarity()) + "'>" + entry.getKey().getSVGString()
-						+ "<div class='overlay"
-						+ (Main.game.getDialogueFlags().tradePartner!=null
-										? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? ""
-												: " dark")
-										: ((Main.game.isInSex() && !entry.getKey().getItemType().isAbleToBeUsedInSex()) || (Main.game.isInCombat() && !entry.getKey().getItemType().isAbleToBeUsedInCombat())?" disabled":""))
-						+ "' id='ITEM_" + entry.getKey().hashCode() + "'>"
-						+ getItemCountDiv(entry.getValue())
-						+ (Main.game.getDialogueFlags().tradePartner != null ? 
-								(Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? 
-										getItemPriceDiv((int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
-										: "") 
-								: "")
-						+ "</div>" + "</div>");
-			}
+			appendDivsForItemsToInventory(Main.game.getPlayer().getMapOfDuplicateItems(), "ITEM_");
 		}
 		// Fill space:
 		for (int i = Main.game.getPlayer().getMaximumInventorySpace(); i > Main.game.getPlayer().getInventorySlotsTaken(); i--) {
@@ -145,7 +91,7 @@ public class InventoryDialogue {
 		for(TFEssence essence : TFEssence.values()) {
 			inventorySB.append(
 					"<div style='width:28px; display:inline-block; margin:0 4px 0 4px;'>"
-						+ "<div class='item-inline " + getClassFromRarity(essence.getRarity()) + "'>"
+						+ "<div class='item-inline " + essence.getRarity().getName() + "'>"
 							+ essence.getSVGString()
 							+ "<div class='overlay no-pointer' id='ESSENCE_"+essence.hashCode()+"'></div>"
 						+ "</div>"
@@ -208,7 +154,7 @@ public class InventoryDialogue {
 	
 						if (itemBuyback != null) {
 							// Clothing:
-							int itemPrice = (int) (Main.game.getPlayer().getBuybackStack().get(i).getPrice());
+							int itemPrice = Main.game.getPlayer().getBuybackStack().get(i).getPrice();
 							if (itemBuyback instanceof AbstractClothing) {
 								inventorySB.append(getBuybackItemPanel(itemBuyback, "CLOTHING_BUYBACK_" + i, itemPrice));
 	
@@ -234,10 +180,10 @@ public class InventoryDialogue {
 					// Weapons:
 					if (Main.game.getDialogueFlags().tradePartner.getWeaponCount() > 0) {
 						for (Entry<AbstractWeapon, Integer> entry : Main.game.getDialogueFlags().tradePartner.getMapOfDuplicateWeapons().entrySet()) {
-							inventorySB.append("<div class='item-background " + getClassFromRarity(entry.getKey().getRarity()) + "'>" + entry.getKey().getSVGString());
+							inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString());
 							inventorySB.append("<div class='overlay' id='WEAPON_TRADER_" + entry.getKey().hashCode() + "'>"
 									+ getItemCountDiv(entry.getValue())
-									+ getItemPriceDiv((int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
+									+ getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()))
 									+ "</div>" + "</div>");
 						}
 					}
@@ -245,21 +191,20 @@ public class InventoryDialogue {
 					// Clothing:
 					if (Main.game.getDialogueFlags().tradePartner.getClothingCount() > 0) {
 						for (Entry<AbstractClothing, Integer> entry : Main.game.getDialogueFlags().tradePartner.getMapOfDuplicateClothing().entrySet()) {
-							inventorySB.append("<div class='item-background " + (entry.getKey().isEnchantmentKnown() ? getClassFromRarity(entry.getKey().getRarity()) : "unknown") + "'>"
+							inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>"
 									+ entry.getKey().getSVGString() + "<div class='overlay' id='CLOTHING_TRADER_" + entry.getKey().hashCode() + "'>"
 											+ getItemCountDiv(entry.getValue())
-											+ getItemPriceDiv(!entry.getKey().getAttributeModifiers().isEmpty() && !entry.getKey().isEnchantmentKnown() ? 5
-													:(int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
+											+ getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()))
 									+ "</div>" + "</div>");
 						}
 					}
 					// Items:
 					if (Main.game.getDialogueFlags().tradePartner.getItemCount() > 0) {
 						for (Entry<AbstractItem, Integer> entry : Main.game.getDialogueFlags().tradePartner.getMapOfDuplicateItems().entrySet()) {
-							inventorySB.append("<div class='item-background " + getClassFromRarity(entry.getKey().getRarity()) + "'>" + entry.getKey().getSVGString()
+							inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString()
 											+ "<div class='overlay' id='ITEM_TRADER_" + entry.getKey().hashCode() + "'>"
 													+ getItemCountDiv(entry.getValue())
-													+ getItemPriceDiv((int) (entry.getKey().getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()))
+													+ getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()))
 											+ "</div>" + "</div>");
 						}
 					}
@@ -275,7 +220,7 @@ public class InventoryDialogue {
 				// Weapons:
 				if (Main.game.getPlayerCell().getInventory().getWeaponCount() > 0) {
 					for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
-						inventorySB.append("<div class='item-background " + getClassFromRarity(entry.getKey().getRarity()) + "'>"
+						inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>"
 								+ entry.getKey().getSVGString() + "<div class='overlay' id='WEAPON_FLOOR_" + entry.getKey().hashCode() + "'>"
 										+ getItemCountDiv(entry.getValue())
 										+ "</div>"
@@ -285,14 +230,7 @@ public class InventoryDialogue {
 				// Clothing:
 				if (Main.game.getPlayerCell().getInventory().getClothingCount() > 0) {
 					for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
-						inventorySB.append("<div class='item-background ");
-						
-						if (entry.getKey().isEnchantmentKnown()) {
-							inventorySB.append(getClassFromRarity(entry.getKey().getRarity()));
-						} else {
-							inventorySB.append("unknown");
-						}
-						inventorySB.append("'>");
+						inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>");
 	
 						inventorySB.append(entry.getKey().getSVGString() + "<div class='overlay' id='CLOTHING_FLOOR_" + entry.getKey().hashCode() + "'>"
 								+ getItemCountDiv(entry.getValue())
@@ -303,7 +241,7 @@ public class InventoryDialogue {
 				// Items:
 				if (Main.game.getPlayerCell().getInventory().getItemCount() > 0) {
 					for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
-						inventorySB.append("<div class='item-background " + getClassFromRarity(entry.getKey().getRarity()) + "'>"
+						inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>"
 								+ entry.getKey().getSVGString()
 								+ "<div class='overlay' id='ITEM_FLOOR_" + entry.getKey().hashCode() + "'>"
 										+ getItemCountDiv(entry.getValue())
@@ -320,7 +258,8 @@ public class InventoryDialogue {
 			inventorySB.append("</div>");
 			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace() != Dominion.CITY_AUNTS_HOME
 					&& Main.game.getPlayerCell().getPlace().isItemsDisappear()
-					&& Main.game.getPlayerCell().getInventory().getInventorySlotsTaken() > 0)
+					&& Main.game.getPlayerCell().getInventory().getInventorySlotsTaken() > 0
+					&& Main.game.getDialogueFlags().tradePartner == null)
 				inventorySB.append("<p style='text-align: center; height:48px;'>" + "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>These items will disappear when you leave the area.</b>" + "</p>");
 			else
 				inventorySB.append("<p style='text-align: center; height:48px;'>-</p>");
@@ -370,22 +309,24 @@ public class InventoryDialogue {
 					return new Response("Take all", "Pick up everything on the ground.", INVENTORY_MENU){
 						@Override
 						public void effects(){
+							//TODO if this starts printing it will complain about the player's inventory being full
+							//TODO optimize (what if someone stores a thousand panties somewhere?)
 							int i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
-							while(i>0 && !Main.game.getPlayer().isInventoryFull()) {
+							while(i > 0) {
 								Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true);
-								i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
+								i--;
 							}
 							
 							i = Main.game.getPlayerCell().getInventory().getClothingInInventory().size();
-							while(i>0 && !Main.game.getPlayer().isInventoryFull()) {
+							while(i > 0) {
 								Main.game.getPlayer().addClothing(Main.game.getPlayerCell().getInventory().getClothingInInventory().get(i-1), true);
-								i = Main.game.getPlayerCell().getInventory().getClothingInInventory().size();
+								i--;
 							}
 							
 							i = Main.game.getPlayerCell().getInventory().getWeaponsInInventory().size();
-							while(i>0 && !Main.game.getPlayer().isInventoryFull()) {
+							while(i > 0) {
 								Main.game.getPlayer().addWeapon(Main.game.getPlayerCell().getInventory().getWeaponsInInventory().get(i-1), true);
-								i = Main.game.getPlayerCell().getInventory().getWeaponsInInventory().size();
+								i--;
 							}
 						}
 					};
@@ -429,7 +370,7 @@ public class InventoryDialogue {
 			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + item.getDescription() + item.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer())
 					+ (Main.game.getDialogueFlags().tradePartner != null ? 
 							Main.game.getDialogueFlags().tradePartner.willBuy(item) ? 
-									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + formatAsMoney((int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
+									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + formatAsMoney(item.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
 							: Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this."
 						: "");
 		}
@@ -539,7 +480,7 @@ public class InventoryDialogue {
 				}  else if (index == 2) {
 					if(Main.game.getDialogueFlags().tradePartner!=null) {
 						if (Main.game.getDialogueFlags().tradePartner.willBuy(item)) {
-							int sellPrice = (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier());
+							int sellPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier());
 							return new Response("Sell (" + formatAsMoney(sellPrice, "span") + ")", "Sell the " + item.getName() + " for " + formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 								@Override
 								public void effects(){
@@ -551,8 +492,9 @@ public class InventoryDialogue {
 						}
 						
 					} else {
+						boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasItem(item);
 						if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-							if(Main.game.isPlayerTileFull()) {
+							if(areaFull) {
 								return new Response("Drop", "This area is full, so you can't drop your " + item.getName() + " here!", null);
 							} else {
 								return new Response("Drop", "Drop your " + item.getName() + ".", INVENTORY_MENU){
@@ -563,7 +505,7 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(Main.game.isPlayerTileFull()) {
+							if(areaFull) {
 								return new Response("Store", "This area is full, so you can't store your " + item.getName() + " here!", null);
 							} else {
 								return new Response("Store", "Store the " + item.getName() + " in this area.", INVENTORY_MENU){
@@ -580,7 +522,7 @@ public class InventoryDialogue {
 				} else if (index == 3 && Main.game.getPlayer().getItemCount(item)>1) {
 					if(Main.game.getDialogueFlags().tradePartner!=null) {
 						if (Main.game.getDialogueFlags().tradePartner.willBuy(item)) {
-							int sellPrice = (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier() * Main.game.getPlayer().getItemCount(item));
+							int sellPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier()) * Main.game.getPlayer().getItemCount(item);
 							return new Response("Sell all (" + formatAsMoney(sellPrice, "span") + ")",
 									"Sell all of your " + item.getName() + (item.getItemType().isPlural()?"":"s")+" for " + formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 								@Override
@@ -602,8 +544,9 @@ public class InventoryDialogue {
 						}
 						
 					} else {
+						boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasItem(item);
 						if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-							if(Main.game.isPlayerTileFull()) {
+							if(areaFull) {
 								return new Response("Drop all", "This area is full, so you can't drop your " + item.getName() + " here!", null);
 							} else {
 								return new Response("Drop all", "Drop all of your " + item.getName() + (item.getItemType().isPlural()?"":"s")+".", INVENTORY_MENU){
@@ -618,7 +561,7 @@ public class InventoryDialogue {
 								};
 							}
 						} else {
-							if(Main.game.isPlayerTileFull()) {
+							if(areaFull) {
 								return new Response("Store all", "This area is full, so you can't store your " + item.getName() + " here!", null);
 							} else {
 								return new Response("Store all", "Store all of your " + item.getName() + (item.getItemType().isPlural()?"":"s")+" in this area.", INVENTORY_MENU){
@@ -727,7 +670,7 @@ public class InventoryDialogue {
 			return "<div class='inventoryImage'>" + weapon.getSVGString() + "</div>" + weapon.getDescription()
 					+ (Main.game.getDialogueFlags().tradePartner != null ? 
 							Main.game.getDialogueFlags().tradePartner.willBuy(weapon) ? 
-									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + formatAsMoney((int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
+									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + formatAsMoney(weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
 							: Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this."
 						: "");
 		}
@@ -751,7 +694,7 @@ public class InventoryDialogue {
 			} else if (index == 2) {
 				if(Main.game.getDialogueFlags().tradePartner!=null) {
 					if (Main.game.getDialogueFlags().tradePartner.willBuy(weapon)) {
-						int sellPrice = (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier());
+						int sellPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier());
 						return new Response("Sell (" + formatAsMoney(sellPrice, "span") + ")",
 								"Sell the " + weapon.getName() + " for " + formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 							@Override
@@ -764,8 +707,9 @@ public class InventoryDialogue {
 					}
 					
 				} else {
+					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasWeapon(weapon);
 					if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
 						} else {
 							return new Response("Drop", "Drop your " + weapon.getName() + ".", INVENTORY_MENU){
@@ -777,7 +721,7 @@ public class InventoryDialogue {
 						}
 						
 					} else {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Store", "This area is full, so you can't store your " + weapon.getName() + " here!", null);
 						} else {
 							return new Response("Store", "Store your " + weapon.getName() + " in this area.", INVENTORY_MENU){
@@ -794,7 +738,7 @@ public class InventoryDialogue {
 			} else if (index == 3 && Main.game.getPlayer().getWeaponCount(weapon)>1) {
 				if(Main.game.getDialogueFlags().tradePartner!=null) {
 					if (Main.game.getDialogueFlags().tradePartner.willBuy(weapon)) {
-						int sellPrice = (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier() * Main.game.getPlayer().getWeaponCount(weapon));
+						int sellPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier()) * Main.game.getPlayer().getWeaponCount(weapon);
 						return new Response("Sell all (" + formatAsMoney(sellPrice, "span") + ")",
 								"Sell all of your " + weapon.getName() +"s for " + formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 							@Override
@@ -816,8 +760,9 @@ public class InventoryDialogue {
 					}
 					
 				} else {
+					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasWeapon(weapon);
 					if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Drop all", "This area is full, so you can't drop your " + weapon.getName() + "s here!", null);
 						} else {
 							return new Response("Drop all", "Drop all of your " + weapon.getName() + "s.", INVENTORY_MENU){
@@ -833,7 +778,7 @@ public class InventoryDialogue {
 						}
 						
 					} else {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Store all", "This area is full, so you can't store your " + weapon.getName() + "s here!", null);
 						} else {
 							return new Response("Store all", "Store all of your " + weapon.getName() + "s in this area.", INVENTORY_MENU){
@@ -851,15 +796,13 @@ public class InventoryDialogue {
 				}
 				
 			} else if (index == 4) {
-				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING)){
-					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_JINXED_CLOTHING, Quest.SIDE_JINXED_LILAYA_HELP)){
-						return new Response("Remove jinx", "Proceed to the jinxed clothing choice menu.", REMOVE_JINX){
-							@Override
-							public void effects() {
-								jinxRemovalFromFloor=false;
-							}
-						};
-					}
+				if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING) && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_JINXED_CLOTHING, Quest.SIDE_JINXED_LILAYA_HELP)){
+					return new Response("Remove jinx", "Proceed to the jinxed clothing choice menu.", REMOVE_JINX){
+						@Override
+						public void effects() {
+							jinxRemovalFromFloor = false;
+						}
+					};
 				}
 				
 				return null;
@@ -902,7 +845,7 @@ public class InventoryDialogue {
 			return "<div class='inventoryImage'>" + clothing.getSVGString() + "</div>" + clothing.getDescription() + clothing.clothingExtraInformation(null)
 					+ (Main.game.getDialogueFlags().tradePartner != null ? 
 							Main.game.getDialogueFlags().tradePartner.willBuy(clothing) ? 
-									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + formatAsMoney((int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
+									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + formatAsMoney(clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
 							: Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this."
 						: "");
 		}
@@ -923,7 +866,7 @@ public class InventoryDialogue {
 			} else if (index == 2) {
 				if(Main.game.getDialogueFlags().tradePartner!=null) {
 					if (Main.game.getDialogueFlags().tradePartner.willBuy(clothing)) {
-						int itemPrice = (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier());
+						int itemPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier());
 						return new Response("Sell (" + formatAsMoney(itemPrice, "span") + ")",
 								"Sell your " + clothing.getName() + " for " + formatAsMoney(itemPrice) + ".", INVENTORY_MENU){
 							@Override
@@ -936,8 +879,9 @@ public class InventoryDialogue {
 					}
 					
 				} else {
+					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasClothing(clothing);
 					if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Drop", "This area is full, so you can't drop your " + clothing.getName() + " here!", null);
 						} else {
 							return new Response("Drop", "Drop your " + clothing.getName() + ".", INVENTORY_MENU){
@@ -949,7 +893,7 @@ public class InventoryDialogue {
 						}
 						
 					} else {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Store", "This area is full, so you can't store your " + clothing.getName() + " here!", null);
 						} else {
 							return new Response("Store", "Store your " + clothing.getName() + " in this area.", INVENTORY_MENU){
@@ -966,7 +910,7 @@ public class InventoryDialogue {
 			} else if (index == 3 && Main.game.getPlayer().getClothingCount(clothing)>1) {
 				if(Main.game.getDialogueFlags().tradePartner!=null) {
 					if (Main.game.getDialogueFlags().tradePartner.willBuy(clothing)) {
-						int itemPrice = (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier() * Main.game.getPlayer().getClothingCount(clothing));
+						int itemPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier()) * Main.game.getPlayer().getClothingCount(clothing);
 						return new Response("Sell all (" + formatAsMoney(itemPrice, "span") + ")",
 								"Sell all of your " + clothing.getName() +" for " + formatAsMoney(itemPrice) + ".", INVENTORY_MENU){
 							@Override
@@ -988,8 +932,9 @@ public class InventoryDialogue {
 					}
 					
 				} else {
+					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasClothing(clothing);
 					if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Drop all", "This area is full, so you can't drop your " + clothing.getName() + " here!", null);
 						} else {
 							return new Response("Drop all", "Drop all of your " + clothing.getName() + "s.", INVENTORY_MENU){
@@ -1005,7 +950,7 @@ public class InventoryDialogue {
 						}
 						
 					} else {
-						if(Main.game.isPlayerTileFull()) {
+						if(areaFull) {
 							return new Response("Store all", "This area is full, so you can't store your " + clothing.getName() + " here!", null);
 						} else {
 							return new Response("Store all", "Store all of your " + clothing.getName() + "s in this area.", INVENTORY_MENU){
@@ -1054,11 +999,14 @@ public class InventoryDialogue {
 								"Have the " + clothing.getName() + " identified for " + formatAsMoney(IDENTIFICATION_PRICE, "span") + ".", INVENTORY_MENU){
 						@Override
 						public void effects(){
+							Main.game.getPlayer().removeClothing(clothing);
 							Main.game.getTextStartStringBuilder().append(
 									"<p style='text-align:center;'>" + "You hand over " + formatAsMoney(IDENTIFICATION_PRICE) + " to "
 											+Main.game.getDialogueFlags().tradePartner.getName("the")+", who promptly identifies your "+clothing.getName()+"."
 									+ "</p>"
 									+clothing.setEnchantmentKnown(true));
+							
+							Main.game.getPlayer().addClothing(clothing, false);
 							Main.game.getPlayer().incrementMoney(-IDENTIFICATION_PRICE);
 						}
 					};
@@ -1100,7 +1048,7 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
-			int itemPrice = buyback ? buyBackPrice : (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier());
+			int itemPrice = buyback ? buyBackPrice : item.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
 			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + "<p>" + item.getDescription() + "</p>" + item.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer()) + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The")
 					+ " will sell it to you for " + formatAsMoney(itemPrice) + "." + "</p>";
 		}
@@ -1108,9 +1056,10 @@ public class InventoryDialogue {
 		@Override
 		public Response getResponse(int index) {
 			// Use item:
+			boolean noSlotForItem = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item);
 			if (index == 1) {
 				if (buyback) {
-					if (Main.game.getPlayer().isInventoryFull()) {
+					if (noSlotForItem) {
 						return new Response("Buy-back", "Your inventory is full, so you can't buy back the " + item.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < buyBackPrice) {
@@ -1118,7 +1067,7 @@ public class InventoryDialogue {
 						
 					} else {
 						return new Response("Buy-back",
-								"Buy back the " + item.getName() + " for " + formatAsMoney(buyBackPrice) + " and add it to your inventory.", ITEM_TRADER){
+								"Buy back the " + item.getName() + " for " + formatAsMoney(buyBackPrice) + " and add it to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(buyBackItem(item, buyBackPrice, buyBackIndex));
@@ -1127,8 +1076,8 @@ public class InventoryDialogue {
 					}
 					
 				} else {
-					int itemPrice = (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier());
-					if (Main.game.getPlayer().isInventoryFull()) {
+					int itemPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
+					if (noSlotForItem) {
 						return new Response("Buy", "Your inventory is full, so you can't buy the " + item.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < itemPrice) {
@@ -1147,8 +1096,8 @@ public class InventoryDialogue {
 				
 			} else if (index == 2 && Main.game.getDialogueFlags().tradePartner.getItemCount(item)>1) {
 				if (!buyback) {
-					int totalPrice = (int) ((item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getItemCount(item));
-					if (Main.game.getPlayer().isInventoryFull()) {
+					int totalPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getItemCount(item);
+					if (noSlotForItem) {
 						return new Response("Buy all", "Your inventory is full, so you can't buy the " + item.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < totalPrice) {
@@ -1201,7 +1150,7 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
-			int itemPrice = buyback ? buyBackPrice : (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier());
+			int itemPrice = buyback ? buyBackPrice : weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
 			return "<div class='inventoryImage'>" + weapon.getSVGString() + "</div>" + weapon.getDescription() + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will sell it to you for " 
 					+ formatAsMoney(itemPrice) + ".</p>";
 		}
@@ -1209,9 +1158,10 @@ public class InventoryDialogue {
 		@Override
 		public Response getResponse(int index) {
 			// Use item:
+			boolean noSlotForItem = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon);
 			if (index == 1) {
 				if (buyback) {
-					if (Main.game.getPlayer().isInventoryFull()) {
+					if (noSlotForItem) {
 						return new Response("Buy-back", "Your inventory is full, so you can't buy back the " + weapon.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < buyBackPrice) {
@@ -1219,7 +1169,7 @@ public class InventoryDialogue {
 						
 					} else {
 						return new Response("Buy-back",
-								"Buy back the " + weapon.getName() + " for " + formatAsMoney(buyBackPrice) + " and add it to your inventory.", WEAPON_TRADER){
+								"Buy back the " + weapon.getName() + " for " + formatAsMoney(buyBackPrice) + " and add it to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(buyBackWeapon(weapon, buyBackPrice, buyBackIndex));
@@ -1228,8 +1178,8 @@ public class InventoryDialogue {
 					}
 					
 				} else {
-					int itemPrice = (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier());
-					if (Main.game.getPlayer().isInventoryFull()) {
+					int itemPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
+					if (noSlotForItem) {
 						return new Response("Buy", "Your inventory is full, so you can't buy the " + weapon.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < itemPrice) {
@@ -1248,8 +1198,8 @@ public class InventoryDialogue {
 				
 			} else if (index == 2 && Main.game.getDialogueFlags().tradePartner.getWeaponCount(weapon)>1) {
 				if (!buyback) {
-					int totalPrice = (int) ((weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getWeaponCount(weapon));
-					if (Main.game.getPlayer().isInventoryFull()) {
+					int totalPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getWeaponCount(weapon);
+					if (noSlotForItem) {
 						return new Response("Buy all", "Your inventory is full, so you can't buy the " + weapon.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < totalPrice) {
@@ -1305,7 +1255,7 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
-			int itemPrice = buyback ? buyBackPrice : (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier());
+			int itemPrice = buyback ? buyBackPrice : clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
 			return "<div class='inventoryImage'>" + clothing.getSVGString() + "</div>" + clothing.getDescription() + clothing.clothingExtraInformation(null) + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The")
 					+ " will sell it to you for " + formatAsMoney(itemPrice) + ".</p>";
 		}
@@ -1313,9 +1263,10 @@ public class InventoryDialogue {
 		@Override
 		public Response getResponse(int index) {
 			// Use item:
+			boolean noSlotForItem = Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing);
 			if (index == 1) {
 				if (buyback) {
-					if (Main.game.getPlayer().isInventoryFull()) {
+					if (noSlotForItem) {
 						return new Response("Buy-back", "Your inventory is full, so you can't buy back the " + clothing.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < buyBackPrice) {
@@ -1323,7 +1274,7 @@ public class InventoryDialogue {
 						
 					} else {
 						return new Response("Buy-back",
-								"Buy back the " + clothing.getName() + " for " + formatAsMoney(buyBackPrice) + " and add it to your inventory.", CLOTHING_TRADER){
+								"Buy back the " + clothing.getName() + " for " + formatAsMoney(buyBackPrice) + " and add it to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(buyBackClothing(clothing, buyBackPrice, buyBackIndex));
@@ -1332,8 +1283,8 @@ public class InventoryDialogue {
 					}
 					
 				} else {
-					int itemPrice = (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier());
-					if (Main.game.getPlayer().isInventoryFull()) {
+					int itemPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
+					if (noSlotForItem) {
 						return new Response("Buy", "Your inventory is full, so you can't buy the " + clothing.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < itemPrice) {
@@ -1352,8 +1303,8 @@ public class InventoryDialogue {
 				
 			} else if (index == 2 && Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing)>1) {
 				if (!buyback) {
-					int totalPrice = (int) ((clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing));
-					if (Main.game.getPlayer().isInventoryFull()) {
+					int totalPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing);
+					if (noSlotForItem) {
 						return new Response("Buy all", "Your inventory is full, so you can't buy the " + clothing.getName() + "!", null);
 						
 					} else if (Main.game.getPlayer().getMoney() < totalPrice) {
@@ -1550,7 +1501,7 @@ public class InventoryDialogue {
 
 			} else if (index == 3 && Main.game.getPlayerCell().getInventory().getWeaponCount(weaponFloor)>1) {
 				
-				if (Main.game.getPlayer().isInventoryFull())
+				if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weaponFloor))
 					return new Response("Take all", "Your inventory is full, so you can't take the " + weaponFloor.getName() + "!", null);
 				else
 					return new Response("Take all", "Take the " + weaponFloor.getName() + ".", INVENTORY_MENU){
@@ -1639,7 +1590,7 @@ public class InventoryDialogue {
 				
 			} else if (index == 3 && Main.game.getPlayerCell().getInventory().getClothingCount(clothingFloor)>1) {
 				
-				if (Main.game.getPlayer().isInventoryFull())
+				if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothingFloor))
 					return new Response("Take all", "Your inventory is full, so you can't take the " + clothingFloor.getName() + "!", null);
 				else
 					return new Response("Take all", "Take the " + clothingFloor.getName() + ".", INVENTORY_MENU){
@@ -1694,7 +1645,7 @@ public class InventoryDialogue {
 		public Response getResponse(int index) {
 			// Unequip item:
 			if (index == 1) {
-				if (Main.game.getPlayer().isInventoryFull())
+				if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weaponEquipped))
 					return new Response("Unequip", "Your inventory is full, so you can't unequip the " + weaponEquipped.getName() + " into your inventory!", null);
 				else
 					return new Response("Unequip", "Unequip the " + weaponEquipped.getName() + ".", INVENTORY_MENU){
@@ -1711,8 +1662,9 @@ public class InventoryDialogue {
 
 			// Drop item:
 			} else if (index == 2) {
+				boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasWeapon(weaponEquipped);
 				if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-					if(Main.game.isPlayerTileFull()) {
+					if(areaFull) {
 						return new Response("Drop", "This area is full, so you can't drop your " + weaponEquipped.getName() + " here!", null);
 					} else {
 						return new Response("Drop", "Drop your " + weaponEquipped.getName() + ".", INVENTORY_MENU){
@@ -1729,7 +1681,7 @@ public class InventoryDialogue {
 					}
 					
 				} else {
-					if(Main.game.isPlayerTileFull()) {
+					if(areaFull) {
 						return new Response("Store", "This area is full, so you can't store your " + weaponEquipped.getName() + " here!", null);
 					} else {
 						return new Response("Store", "Store your " + weaponEquipped.getName() + " in this area.", INVENTORY_MENU){
@@ -1897,7 +1849,7 @@ public class InventoryDialogue {
 								"<span style='color:" + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>You can't unequip the " + clothingEquipped.getName() + " because " + (clothingEquipped.getClothingType().isPlural() ? "they've" : "it's")
 								+ " been jinxed!</span>", null);
 						
-					} else if (Main.game.getPlayer().isInventoryFull()) {
+					} else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothingEquipped)) {
 						return new Response("Unequip", "Your inventory is full, so you can't unequip the " + clothingEquipped.getName() + " into your inventory!", null);
 					} else {
 						return new Response("Unequip", "Unequip the " + clothingEquipped.getName() + " and add " + (clothingEquipped.getClothingType().isPlural() ? "them" : "it") + " to your inventory.", INVENTORY_MENU){
@@ -1910,6 +1862,7 @@ public class InventoryDialogue {
 					}
 					
 				} else if (index == 2) {
+					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasClothing(clothingEquipped);
 					if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
 						if (clothingEquipped.isSealed()) {
 							return new Response("Drop",
@@ -1917,7 +1870,7 @@ public class InventoryDialogue {
 									+ " because " + (clothingEquipped.getClothingType().isPlural() ? "they've" : "it's")
 									+ " been jinxed!</span>", null);
 							
-						} else if(Main.game.isPlayerTileFull()) {
+						} else if(areaFull) {
 							return new Response("Drop", "This area is full, so you can't drop your " + clothingEquipped.getName() + " here!", null);
 							
 						} else {
@@ -1937,7 +1890,7 @@ public class InventoryDialogue {
 									+ " because " + (clothingEquipped.getClothingType().isPlural() ? "they've" : "it's")
 									+ " been jinxed!</span>", null);
 							
-						} else if(Main.game.isPlayerTileFull()) {
+						} else if(areaFull) {
 							return new Response("Store", "This area is full, so you can't store your " + clothingEquipped.getName() + " here!", null);
 							
 						} else {
@@ -2013,7 +1966,7 @@ public class InventoryDialogue {
 
 		inventorySB.append("<div class='inventory-container'>");
 
-		if (jinxedClothing.size() > 0) {
+		if (!jinxedClothing.isEmpty()) {
 			for (int i = 0; i < jinxedClothing.size(); i++) {
 				inventorySB.append("<div class='item-background jinxed'>" + jinxedClothing.get(i).getSVGString());
 				inventorySB.append("<div class='overlay' id='JINXED_" + i + "'></div>" + "</div>");
@@ -2106,10 +2059,10 @@ public class InventoryDialogue {
 							+ ". This action is permanent, and you'll need another Dye-brush if you want to change its colour again.", INVENTORY_MENU){
 					@Override
 					public void effects(){
-						Main.game.getPlayer().useItem(ItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
+						Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
 						Main.game.getTextEndStringBuilder().append(
 								"<p style='text-align:center;'>"
-									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing.getClothingType(), clothing.getClothingType().getAvailableColours().get(index - 1))
+									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, clothing.getClothingType().getAvailableColours().get(index - 1))
 								+ "</p>"
 								+ "<p>"
 									+ "<b>Your " + clothing.getName() + " " + (clothing.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b> <b style='color:"
@@ -2117,8 +2070,8 @@ public class InventoryDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
-											?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(ItemType.generateItem(ItemType.DYE_BRUSH))
-													+ "</b> Dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(ItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+											?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+													+ "</b> Dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
 											:"You have <b>0</b> Dye-brushes left!")
 								+ "</p>");
 						Main.game.getPlayer().removeClothing(clothing);
@@ -2162,10 +2115,10 @@ public class InventoryDialogue {
 						+ ". This action is permanent, and you'll need another Dye-brush if you want to change its colour again.", CLOTHING_EQUIPPED){
 					@Override
 					public void effects(){
-						Main.game.getPlayer().useItem(ItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
+						Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
 						Main.game.getTextEndStringBuilder().append(
 								"<p style='text-align:center;'>"
-									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothingEquipped.getClothingType(), clothingEquipped.getClothingType().getAvailableColours().get(index - 1))
+									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothingEquipped, clothingEquipped.getClothingType().getAvailableColours().get(index - 1))
 								+ "</p>"
 								+ "<p>"
 									+ "<b>Your " + clothingEquipped.getName() + " " + (clothingEquipped.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b> <b style='color:"
@@ -2173,8 +2126,8 @@ public class InventoryDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
-											?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(ItemType.generateItem(ItemType.DYE_BRUSH))
-													+ "</b> Dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(ItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+											?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+													+ "</b> Dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
 											:"You have <b>0</b> Dye-brushes left!")
 								+ "</p>");
 						clothingEquipped.setColour(clothingEquipped.getClothingType().getAvailableColours().get(index - 1));
@@ -2217,10 +2170,10 @@ public class InventoryDialogue {
 						+ ". This action is permanent, and you'll need another Dye-brush if you want to change its colour again.",  Sex.SEX_DIALOGUE){
 					@Override
 					public void effects(){
-						Main.game.getPlayer().useItem(ItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
+						Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
 						Sex.setDyeClothingText(
 								"<p style='text-align:center;'>"
-									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothingEquipped.getClothingType(), clothingEquipped.getClothingType().getAvailableColours().get(index - 1))
+									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothingEquipped, clothingEquipped.getClothingType().getAvailableColours().get(index - 1))
 								+ "</p>"
 								+ "<p>"
 									+ "<b>"+(ownerInSex.isPlayer()?"Your":"[npc.Name]'s")+" " + clothingEquipped.getName() + " " + (clothingEquipped.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b> <b style='color:"
@@ -2228,8 +2181,8 @@ public class InventoryDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
-											?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(ItemType.generateItem(ItemType.DYE_BRUSH))
-													+ "</b> Dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(ItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+											?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+													+ "</b> Dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
 											:"You have <b>0</b> Dye-brushes left!")
 								+ "</p>");
 						clothingEquipped.setColour(clothingEquipped.getClothingType().getAvailableColours().get(index - 1));
@@ -2301,8 +2254,27 @@ public class InventoryDialogue {
 		}
 	}
 	
+	private static void appendDivsForItemsToInventory(Map<? extends AbstractCoreItem, Integer> map, String idPrefix) {
+		for (Entry<? extends AbstractCoreItem, Integer> entry : map.entrySet()) {
+			inventorySB.append("<div class='item-background "
+					+ entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString()
+					+ "<div class='overlay"
+					+ (Main.game.getDialogueFlags().tradePartner!=null 
+						? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "" : " dark")
+						: (Main.game.isInSex() || Main.game.isInCombat()?" disabled":""))
+					+ "' id='" + idPrefix + entry.getKey().hashCode() + "'>"
+					+ getItemCountDiv(entry.getValue())
+					+ (Main.game.getDialogueFlags().tradePartner != null ? 
+							(Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? 
+									getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
+									: "") 
+							: "")
+					+ "</div>" + "</div>");
+		}
+	}
+	
 	private static String getBuybackItemPanel(AbstractCoreItem itemBuyback, String id, int price) {
-		return "<div class='item-background " + getClassFromRarity(itemBuyback.getRarity()) + "'>"
+		return "<div class='item-background " + itemBuyback.getDisplayRarity() + "'>"
 				+ itemBuyback.getSVGString()
 				+ "<div class='overlay' id='" + id + "'>"
 					+ getItemPriceDiv(price)
@@ -2323,13 +2295,6 @@ public class InventoryDialogue {
 			+ "</div>";
 	}
 	
-	private static String getClassFromRarity(Rarity rarity) {
-		if (rarity != null) {
-			return rarity.getName();
-		}
-		return "unknown";
-	}
-	
 	private static String formatAsMoney(int money) {
 		return formatAsMoney(money, "b");
 	}
@@ -2345,11 +2310,11 @@ public class InventoryDialogue {
 
 	// Items:
 	public static String buyItem(AbstractItem item) {
-		int itemPrice = (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier());
+		int itemPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
 		if (Main.game.getPlayer().getMoney() < itemPrice)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		else if (Main.game.getPlayer().isInventoryFull())
+		else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item))
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
@@ -2367,11 +2332,11 @@ public class InventoryDialogue {
 	
 	public static String buyAllItems(AbstractItem item) {
 		int itemCount = Main.game.getDialogueFlags().tradePartner.getItemCount(item);
-		int totalPrice = (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier() * itemCount);
+		int totalPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) * itemCount;
 		if (Main.game.getPlayer().getMoney() < totalPrice)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		else if (Main.game.getPlayer().isInventoryFull())
+		else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item))
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
@@ -2404,7 +2369,7 @@ public class InventoryDialogue {
 		if (Main.game.getPlayer().getMoney() < price)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		else if (Main.game.getPlayer().isInventoryFull())
+		else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(item))
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
@@ -2420,7 +2385,7 @@ public class InventoryDialogue {
 	}
 
 	public static String sellItem(AbstractItem item) {
-		int itemPrice = (int) (item.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier());
+		int itemPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier());
 		Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(item, itemPrice));
 		Main.game.getPlayer().removeItem(item);
 		Main.game.getPlayer().incrementMoney(itemPrice);
@@ -2435,11 +2400,11 @@ public class InventoryDialogue {
 
 	// Clothing:
 	public static String buyClothing(AbstractClothing clothing) {
-		int itemPrice = (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier());
+		int itemPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
 		if (Main.game.getPlayer().getMoney() < itemPrice) {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		} else if (Main.game.getPlayer().isInventoryFull()) {
+		} else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing)) {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		} else {
@@ -2459,11 +2424,11 @@ public class InventoryDialogue {
 	
 	public static String buyAllClothing(AbstractClothing clothing) {
 		int clothingCount = Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing);
-		int totalPrice = (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier() * clothingCount);
+		int totalPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) * clothingCount;
 		if (Main.game.getPlayer().getMoney() < totalPrice) {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		} else if (Main.game.getPlayer().isInventoryFull()) {
+		} else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing)) {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		} else {
@@ -2504,7 +2469,7 @@ public class InventoryDialogue {
 		if (Main.game.getPlayer().getMoney() < price)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		else if (Main.game.getPlayer().isInventoryFull())
+		else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasClothing(clothing))
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
@@ -2520,7 +2485,7 @@ public class InventoryDialogue {
 	}
 
 	public static String sellClothing(AbstractClothing clothing) {
-		int itemPrice = (int) (clothing.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier());
+		int itemPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier());
 		Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(clothing, itemPrice));
 		Main.game.getPlayer().removeClothing(clothing);
 		Main.game.getPlayer().incrementMoney(itemPrice);
@@ -2535,11 +2500,11 @@ public class InventoryDialogue {
 
 	// Weapons:
 	public static String buyWeapon(AbstractWeapon weapon) {
-		int itemPrice = (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier());
+		int itemPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
 		if (Main.game.getPlayer().getMoney() < itemPrice)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		else if (Main.game.getPlayer().isInventoryFull())
+		else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon))
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
@@ -2557,11 +2522,11 @@ public class InventoryDialogue {
 	
 	public static String buyAllWeapons(AbstractWeapon weapon) {
 		int weaponCount = Main.game.getDialogueFlags().tradePartner.getWeaponCount(weapon);
-		int totalPrice = (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getSellModifier() * weaponCount);
+		int totalPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) * weaponCount;
 		if (Main.game.getPlayer().getMoney() < totalPrice)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		else if (Main.game.getPlayer().isInventoryFull())
+		else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon))
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
@@ -2594,7 +2559,7 @@ public class InventoryDialogue {
 		if (Main.game.getPlayer().getMoney() < price)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
-		else if (Main.game.getPlayer().isInventoryFull())
+		else if (Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasWeapon(weapon))
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
@@ -2610,7 +2575,7 @@ public class InventoryDialogue {
 	}
 
 	public static String sellWeapon(AbstractWeapon weapon) {
-		int itemPrice = (int) (weapon.getValue() * Main.game.getDialogueFlags().tradePartner.getBuyModifier());
+		int itemPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier());
 		Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(weapon, itemPrice));
 		Main.game.getPlayer().removeWeapon(weapon);
 		Main.game.getPlayer().incrementMoney(itemPrice);

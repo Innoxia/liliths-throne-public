@@ -5,12 +5,12 @@ import java.io.InputStream;
 
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.encounters.Encounter;
-import com.base.game.dialogue.places.dominion.shoppingArcade.RalphsSnacks;
-import com.base.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.base.game.dialogue.places.dominion.shoppingArcade.ArcaneArts;
 import com.base.game.dialogue.places.dominion.shoppingArcade.ClothingEmporium;
 import com.base.game.dialogue.places.dominion.shoppingArcade.PixsPlayground;
+import com.base.game.dialogue.places.dominion.shoppingArcade.RalphsSnacks;
 import com.base.game.dialogue.places.dominion.shoppingArcade.ShoppingArcadeDialogue;
+import com.base.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.base.utils.BaseColour;
 import com.base.utils.Bearing;
 import com.base.utils.Util;

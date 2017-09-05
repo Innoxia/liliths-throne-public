@@ -18,14 +18,17 @@ import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.EnchantingUtils;
 import com.base.game.inventory.enchanting.TFModifier;
 import com.base.game.inventory.enchanting.TFPotency;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemEffect;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.main.Main;
 import com.base.utils.Colour;
@@ -43,14 +46,14 @@ public class Vicky extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	private AbstractClothing panties = ClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_PINK_LIGHT, false),
-			skirt = ClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_PINK, false),
-			bra = ClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_PINK_LIGHT, false),
-			torso = ClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_WHITE, false),
-			socks = ClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false),
-			shoes = ClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false);
+	private AbstractClothing panties = AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_PINK_LIGHT, false),
+			skirt = AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_PINK, false),
+			bra = AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_PINK_LIGHT, false),
+			torso = AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_WHITE, false),
+			socks = AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false),
+			shoes = AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false);
 
-	private ItemType[] availableIngredients = new ItemType[] {
+	private AbstractItemType[] availableIngredients = new AbstractItemType[] {
 			ItemType.RACE_INGREDIENT_CAT_MORPH,
 			ItemType.RACE_INGREDIENT_DOG_MORPH,
 			ItemType.RACE_INGREDIENT_HARPY,
@@ -91,13 +94,13 @@ public class Vicky extends NPC {
 		this.equipClothingFromNowhere(shoes, true, this);
 
 		for(int i=0;i<3;i++){
-			this.addWeapon(WeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_RARE), false);
-			this.addWeapon(WeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE), false);
+			this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_RARE), false);
+			this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE), false);
 		}
-		this.addWeapon(WeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_EPIC), false);
-		this.addWeapon(WeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC), false);
+		this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_EPIC), false);
+		this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC), false);
 		
-		AbstractCoreItem ingredient = ItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
+		AbstractCoreItem ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
 		TFModifier primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
 		for(int i=0; i<8;i++) {
 			if(ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, TFModifier.NONE, TFPotency.MINOR_BOOST, 0, Main.game.getPlayer(), Main.game.getPlayer())!=null) {
@@ -105,27 +108,27 @@ public class Vicky extends NPC {
 				
 			}
 			
-			ingredient = ItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
+			ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
 			primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
 		}
 		
 		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_ARCANE), false);
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_ARCANE), false);
 			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_CAT_MORPH), false);
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_CAT_MORPH), false);
 			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_DEMON), false);
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DEMON), false);
 			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_DOG_MORPH), false);
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DOG_MORPH), false);
 			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_HARPY), false);
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HARPY), false);
 			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_HORSE_MORPH), false);
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HORSE_MORPH), false);
 			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_HUMAN), false);
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HUMAN), false);
 			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(ItemType.generateItem(ItemType.BOTTLED_ESSENCE_WOLF_MORPH), false);
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_WOLF_MORPH), false);
 		}
 	}
 	

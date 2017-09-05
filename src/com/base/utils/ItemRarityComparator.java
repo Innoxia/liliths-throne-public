@@ -2,18 +2,18 @@ package com.base.utils;
 
 import java.util.Comparator;
 
-import com.base.game.inventory.item.ItemType;
+import com.base.game.inventory.item.AbstractItemType;
 
 /**
  * Compares by rarity.
  * 
  * @since 0.1.2
- * @version 0.1.2
+ * @version 0.1.84
  * @author Innoxia
  */
-public class ItemRarityComparator implements Comparator<ItemType> {
+public class ItemRarityComparator implements Comparator<AbstractItemType> {
 	@Override
-	public int compare(ItemType first, ItemType second) {
+	public int compare(AbstractItemType first, AbstractItemType second) {
 		int result = first.getRarity().compareTo(second.getRarity());
 		if (result != 0) {
 			return result;

@@ -106,6 +106,7 @@ import com.base.game.inventory.clothing.CoverableArea;
 import com.base.game.inventory.clothing.DisplacementType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemEffect;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
@@ -130,6 +131,13 @@ import com.base.world.places.PlaceInterface;
 public class GameCharacter implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	public String test = "hello!";
+	public String getTest() {
+		if(test==null)
+			return "NULL";
+		return test;
+	}
 	
 	/** Calculation description as used in getAttributeValue() */
 	public static final String HEALTH_CALCULATION = "Level*10 + STR + Bonus HP";
@@ -1805,7 +1813,7 @@ public class GameCharacter implements Serializable {
 		return "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to inventory:</b> <b>" + item.getName() + "</b>";
 	}
 
-	public String addedItemToInventoryText(ItemType item) {
+	public String addedItemToInventoryText(AbstractItemType item) {
 		return "<p style='text-align:center;'>" + "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You add the " + item.getName(false) + " to your inventory.</span>" + "</p>";
 	}
 
@@ -1974,7 +1982,7 @@ public class GameCharacter implements Serializable {
 	/**
 	 * @return true if one of the items in this inventory has the same type as the Item provided.
 	 */
-	public boolean hasItemType(ItemType item) {
+	public boolean hasItemType(AbstractItemType item) {
 		return inventory.hasItemType(item);
 	}
 	
@@ -2005,7 +2013,7 @@ public class GameCharacter implements Serializable {
 
 	public String useItem(AbstractItem item, GameCharacter target, boolean removingFromFloor, boolean onlyReturnEffects) {
 		
-		if(ItemType.availableItems.contains(item.getItemType()) && isPlayer()) {
+		if(ItemType.allItems.contains(item.getItemType()) && isPlayer()) {
 			if(Main.game.getPlayer().getItemsDiscovered().add(item.getItemType())) {
 				Main.game.getPlayer().setNewItemDiscovered(true);
 				Main.game.getTextEndStringBuilder().append(
@@ -2121,15 +2129,16 @@ public class GameCharacter implements Serializable {
 				for (Entry<Attribute, Integer> e : getMainWeapon().getAttributeModifiers().entrySet())
 					incrementBonusAttribute(e.getKey(), -e.getValue());
 
+			boolean mustDropToFloor = isInventoryFull() && !hasWeapon(getMainWeapon());
 			String s;
-			if (isInventoryFull() || dropToFloor) {
+			if (mustDropToFloor || dropToFloor) {
 				Main.game.getActiveWorld().getCell(location).getInventory().addWeapon(getMainWeapon());
-				s = getMainWeapon().getWeaponType().unequipText(this) + (isInventoryFull() && !dropToFloor ? inventoryFullText() : "") + droppedItemText(getMainWeapon());
+				s = getMainWeapon().getWeaponType().unequipText(this) + (mustDropToFloor && !dropToFloor ? inventoryFullText() : "") + droppedItemText(getMainWeapon());
 			} else {
 				addWeapon(getMainWeapon(), false);
 				s = getMainWeapon().getWeaponType().unequipText(this) + "<p style='text-align:center;'>" + addedItemToInventoryText(getMainWeapon())+"</p>";
 			}
-			inventory.unequipMainWEapon();
+			inventory.unequipMainWeapon();
 			updateInventoryListeners();
 			
 			return s;
@@ -2183,10 +2192,12 @@ public class GameCharacter implements Serializable {
 			if (getOffhandWeapon().getAttributeModifiers() != null)
 				for (Entry<Attribute, Integer> e : getOffhandWeapon().getAttributeModifiers().entrySet())
 					incrementBonusAttribute(e.getKey(), -e.getValue());
+			
+			boolean mustDropToFloor = isInventoryFull() && !hasWeapon(getOffhandWeapon());
 			String s;
-			if (isInventoryFull() || dropToFloor) {
+			if (mustDropToFloor || dropToFloor) {
 				Main.game.getActiveWorld().getCell(location).getInventory().addWeapon(getOffhandWeapon());
-				s = getOffhandWeapon().getWeaponType().unequipText(this) + (isInventoryFull() && !dropToFloor ? inventoryFullText() : "") + droppedItemText(getOffhandWeapon());
+				s = getOffhandWeapon().getWeaponType().unequipText(this) + (mustDropToFloor && !dropToFloor ? inventoryFullText() : "") + droppedItemText(getOffhandWeapon());
 			} else {
 				addWeapon(getOffhandWeapon(), false);
 				s = getOffhandWeapon().getWeaponType().unequipText(this) + "<p style='text-align:center;'>" + addedItemToInventoryText(getOffhandWeapon())+"</p>";
@@ -2397,9 +2408,11 @@ public class GameCharacter implements Serializable {
 			for (Entry<Attribute, Integer> e : clothing.getAttributeModifiers().entrySet()) {
 				incrementBonusAttribute(e.getKey(), -e.getValue());
 			}
+			
+			boolean fitsIntoInventory = !isInventoryFull() || hasClothing(clothing);
 
 			// Place the clothing into inventory:
-			if (!isInventoryFull())
+			if (fitsIntoInventory)
 				addClothing(clothing, false);
 			else
 				Main.game.getActiveWorld().getCell(location).getInventory().addClothing(clothing);
@@ -2409,7 +2422,7 @@ public class GameCharacter implements Serializable {
 			return "<p style='text-align:center;'>"
 				+inventory.getEquipDescription()
 				+"</br>"
-				+ (isInventoryFull()
+				+ (!fitsIntoInventory
 						? droppedItemText(clothing)
 						: addedItemToInventoryText(clothing))
 				+ "</p>";

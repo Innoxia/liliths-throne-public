@@ -1,6 +1,7 @@
 package com.base.game.sex.sexActions;
 
 import java.util.List;
+
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.effects.Fetish;
 import com.base.game.character.effects.StatusEffect;

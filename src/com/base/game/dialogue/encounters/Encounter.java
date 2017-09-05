@@ -14,15 +14,18 @@ import com.base.game.character.npc.dominion.NPCRandomHarpy;
 import com.base.game.character.npc.dominion.NPCRandomSuccubus;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.main.Main;
 import com.base.utils.Util;
-import com.base.utils.Vector2i;
 import com.base.utils.Util.Value;
+import com.base.utils.Vector2i;
 
 /**
  * @since 0.1.0
@@ -101,9 +104,9 @@ public enum Encounter {
 			} else if (node == EncounterType.DOMINION_FIND_ITEM) {
 				
 				if(Math.random()<0.995f) {
-					randomItem = ItemType.generateItem(ItemType.availableItems.get(Util.random.nextInt(ItemType.availableItems.size())));
+					randomItem = AbstractItemType.generateItem(ItemType.commonItems.get(Util.random.nextInt(ItemType.commonItems.size())));
 				} else {
-					randomItem = ItemType.generateItem(ItemType.EGGPLANT);
+					randomItem = AbstractItemType.generateItem(ItemType.EGGPLANT);
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);
@@ -111,17 +114,17 @@ public enum Encounter {
 				
 			} else if (node == EncounterType.DOMINION_FIND_CLOTHING) {
 				if(Math.random()<0.01f) {
-					randomClothing = ClothingType.generateClothing(ClothingType.MEGA_MILK);
+					randomClothing = AbstractClothingType.generateClothing(ClothingType.MEGA_MILK);
 					Main.game.getPlayerCell().getInventory().addClothing(randomClothing);
 					
 				} else {
-					randomClothing = ClothingType.generateClothing(ClothingType.getCommonClothing().get(Util.random.nextInt(ClothingType.getCommonClothing().size())));
+					randomClothing = AbstractClothingType.generateClothing(ClothingType.getCommonClothing().get(Util.random.nextInt(ClothingType.getCommonClothing().size())));
 					Main.game.getPlayerCell().getInventory().addClothing(randomClothing);
 				}
 				return DominionEncounterDialogue.ALLEY_FIND_CLOTHING;
 				
 			} else if (node == EncounterType.DOMINION_FIND_WEAPON) {
-				randomWeapon = WeaponType.generateWeapon(WeaponType.getRareWeapons().get(Util.random.nextInt(WeaponType.getRareWeapons().size())));
+				randomWeapon = AbstractWeaponType.generateWeapon(WeaponType.rareWeapons.get(Util.random.nextInt(WeaponType.rareWeapons.size())));
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(randomWeapon);
 				return DominionEncounterDialogue.ALLEY_FIND_WEAPON;
@@ -209,10 +212,10 @@ public enum Encounter {
 			if (node == EncounterType.HARPY_NEST_FIND_ITEM) {
 				
 				if(Math.random() < 0.66) {
-					randomItem = ItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
+					randomItem = AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
 					
 				} else {
-					randomItem = ItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY);
+					randomItem = AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY);
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);
@@ -281,10 +284,10 @@ public enum Encounter {
 			if (node == EncounterType.HARPY_NEST_FIND_ITEM) {
 				
 				if(Math.random() < 0.66) {
-					randomItem = ItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
+					randomItem = AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
 					
 				} else {
-					randomItem = ItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY);
+					randomItem = AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY);
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);

@@ -6,6 +6,7 @@ import com.base.game.character.attributes.AffectionLevel;
 import com.base.game.character.attributes.ObedienceLevel;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.main.Main;
 import com.base.utils.Colour;
@@ -264,9 +265,9 @@ public class ScarlettsShop {
 							Main.game.getAlexa().addSlave(Main.game.getScarlett());
 							Main.game.getScarlett().setObedience(ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMedianValue());
 							Main.game.getScarlett().resetInventory();
-							Main.game.getScarlett().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getAlexa());
-							Main.game.getScarlett().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.BDSM_BALLGAG, Colour.CLOTHING_PINK, false), true, Main.game.getAlexa());
-							Main.game.getScarlett().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, Colour.CLOTHING_PINK, false), true, Main.game.getAlexa());
+							Main.game.getScarlett().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getAlexa());
+							Main.game.getScarlett().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_BALLGAG, Colour.CLOTHING_PINK, false), true, Main.game.getAlexa());
+							Main.game.getScarlett().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, Colour.CLOTHING_PINK, false), true, Main.game.getAlexa());
 						}
 					};
 					
