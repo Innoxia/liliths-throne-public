@@ -34,7 +34,6 @@ public class ItemEffect implements Serializable {
 			if(((ItemEffect)o).getItemEffectType()==itemEffectType
 				&& ((ItemEffect)o).getPrimaryModifier() == primaryModifier
 				&& ((ItemEffect)o).getSecondaryModifier() == secondaryModifier
-				&& ((ItemEffect)o).getSecondaryModifier() == secondaryModifier
 				&& ((ItemEffect)o).getPotency() == potency
 				&& ((ItemEffect)o).getLimit() == limit){
 					return true;
