@@ -14,8 +14,24 @@ import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerTongueVagina;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisMouth;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisNipple;
-import com.base.game.sex.sexActions.baseActionsSelfPartner.*;
-import com.base.game.sex.sexActions.baseActionsSelfPlayer.*;
+import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
+import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
+import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
+import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerVagina;
+import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfNoPen;
+import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailAnus;
+import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailMouth;
+import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailNipple;
+import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailVagina;
+import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfFingerAnus;
+import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfFingerMouth;
+import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfFingerNipple;
+import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfFingerVagina;
+import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfNoPen;
+import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailAnus;
+import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailMouth;
+import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailNipple;
+import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailVagina;
 import com.base.game.sex.sexActions.universal.GenericOrgasms;
 
 /**

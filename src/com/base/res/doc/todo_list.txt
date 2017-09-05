@@ -17,25 +17,61 @@
 	
 	Patch notes:
 	
+	Engine:
+		Moved ClothingTypes from Enum values over to static classes.
+	
 	Contributors:
 	
-	CognitiveMist:
-		Code cleanup, involving:
-			List sorting uses comparator class
-			Use addAll instead of for loops
-			String comparison don't use ==
-			Javadoc stuff
-			Spelling
-			Change some variables to local, that were only used in one spot
-			Eliminated some dead/constant logic
-			Any other cleanup that I could find
+		Rfpnj:
+			Expanded and reorganised the Library in Lilaya's house.
+		
+		CognitiveMist:
+			Code cleanup, involving:
+				List sorting uses comparator class
+				Use addAll instead of for loops
+				String comparison don't use ==
+				Javadoc stuff
+				Spelling
+				Change some variables to local, that were only used in one spot
+				Eliminated some dead/constant logic
+				Any other cleanup that I could find
 	
 	
 	
 	
 	
+	
+	Override equals pls in Types
+	
+	
+	
+	
+	Convert XML save for character, items, clothing, weapons
+	
+	Finish cowgirl descriptions
+	
+	Bugs
+	
+	
+	
+	Hey, tailpegging is super broken, it doesn't properly check to see if the player actually has a tail.
+	
+	The only bug i have found is when you use transformative enchantments on multiple (maybe single, haven't tested) breasts, specifically trying to grow the nipple and areola size that it keeps switching between 'getting larger' and 'shrinking' when all were enchanted to be Major Boost
+	
+	
+	Having an issue where using a cock-growing elixir gives me a penis with the wrong skin color. In my instance, my pale character grew a brown penis.
+	
+	
+	Genderless mound" on dolls should probably be, "sexless mound".  Genitals don't really have a gender, so to speak, and another word for genitals is sex.(edited)
+[23:01] DarkMaster: That mound being exposed does not trigger the exposed condition, may not be a bug but exposing it would still be public indecency and perhaps embracing
+	
+	I encountered a possible bug... I asked Ralph for the big discount, and now every move he does... is a lack thereof. he won't move at all. if it helps pin down the bug, it's durring a storm, and I already have a 25% discount. I don't know if either of those have to do with this.
 
+hypnotic cum
 
+add in part-specific colouring
+
+Not sure if it's been pointed out but when I choose "slut" as a starting choice, it doesn't work. In fact, if I choose it, go back, and choose another (e.g average), I end up with a mix between slut and whatever other I chose!
 
 1. The latest preview did not find my exported character from 1.83 but from the HF
 2. The hair/skin/eye colors got changed all to brown, possibly due to color change in code
@@ -54,9 +90,37 @@ anybody else having issues with imported characters unable to extract essences?
 
 	leg and ankle wraps to make full set
 	
+<<<<<<< HEAD
 	NPC's with broodmother fetish do not try to get pregnant. This has also something to do with the first problem I've mentioned.
+=======
 	
-	Make human encounters effect human furiness races too
+	New perk: Tempered (below arcane mastery). When willpower drops to 0 the first time, it stays at 1 instead.
+New perk: Marathon (below cardio queen). When stamina drops to 0 the first time, it stays at 1 instead.
+Change perk: "indefatigable" to "hulk", when health drops to 0 the first time, it stays at 1 instead.
+	
+	New status effect: Tired. Caused by being awake for over 12 hours in a row, gives no debuffs but in 4 hours it will become the status effect "exhausted". New status effect: Exhausted. Caused by being tired for 4 hours (ie awake for over 16 hours in a row), gives -5 strength -5 stamina and -5 willpower. Also make rest take 8 instead of 4 hours (succubi need to sleep too!).
+>>>>>>> c614137b7b2707cc4317762bbcbc747f3732cdc6
+	
+	Minor bug report: Gaining more testicles seems to be bugged. I created a potion to take a character from 2 to 8, and I got this message 3 times:"A tingling feeling spreads down into your testicles, and you let out a little cry as you feel some of them shrinking away and disappearing.
+
+4) New fetish: Chastity fetish. Frustrated debuff (-10 spell damage -50 willpower resist) becomes chaste (+50 stamina, -25 willpower resist)
+
+You could make a new file full of "clothing tag" enums. The tags would describe clothes. For example, "revealing", "protective", "modest", "bondage" etc. Each item could have multiple tags. When the enchantment on the item is randomly generated, the tags would influence what types of enchantments are randomly selected.
+
+You could do different things with this system: 
+- maybe certain enchantments are only available for items with the right tags. 
+(eg: revealing clothes like miniskirts might be the only ones to give a bonus to willpower damage.)
+
+- maybe certain enchantments might be impossible for items with the wrong tags.
+(eg: revealing clothes might never give bonuses to physical damage resistance.)
+
+- maybe enchantments are still randomly generated but if a piece of clothing has a certain tag it might automatically get a stronger bonus. 
+(eg: a physical damage resistance enchant on protective clothing would give a much higher bonus than a physical damage resistance enchant on revealing clothing.)
+
+
+
+After a few moments, you're left with eight balls."
+When it should be an indication that I'm gaining testicles, and the three messages should have given different amounts (first should have said 4, second 6, third 8).
 	
 	
 	Minor bug report: Gaining more testicles seems to be bugged. I created a potion to take a character from 2 to 8, and I got this message 3 times:"A tingling feeling spreads down into your testicles, and you let out a little cry as you feel some of them shrinking away and disappearing.

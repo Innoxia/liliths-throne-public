@@ -21,8 +21,10 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseSex;
 import com.base.game.inventory.CharacterInventory;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.ItemType;
 import com.base.game.sex.Sex;
 import com.base.game.sex.SexPace;
 import com.base.game.sex.managers.universal.SMDomDoggy;
@@ -99,13 +101,13 @@ public class TestNPC extends NPC {
 		this.addFetish(Fetish.FETISH_TRANSFORMATION);
 		
 
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.TORSO_HOODIE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_HOODIE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK, false), true, this);
 	}
 
 	@Override
@@ -529,185 +531,213 @@ public class TestNPC extends NPC {
 				
 			// Player uses item on NPC:
 			}else{
-				switch(item.getItemType()){
-					case CONDOM:
-						if(target.isWearingCondom()) {
-							return "<p>"
-									+ "[test.Name] is already wearing a condom, and [test.she] refuses to wear two at once."
-									+ "</p>";
-							
-						} else if(target.hasPenis()) {
-							Main.game.getPlayer().useItem(item, target, false);
-							if(Sex.isPlayerDom()) {
-								return "<p>"
-										+ "Holding out a condom to [test.name], you force [test.her] to take it and put it on."
-										+ " Quickly ripping it out of its little foil wrapper, [test.she] rolls it down the length of [test.her] [test.cock+] as [test.she] whines at you,"
-										+ " [test.speech(Do I really have to? It feels so much better without one...)]"
-										+ "</p>";
-							} else {
-								return "<p>"
-										+ "Holding out a condom to [test.name], you let out a sigh of relief as [test.she] reluctantly takes it."
-										+ " Quickly ripping it out of its little foil wrapper, [test.she] rolls it down the length of [test.her] [test.cock+] as [test.she] growls at you,"
-										+ " [test.speech(You'd better be glad that I'm in a good mood!)]"
-										+ "</p>";
-							}
-						} else {
-							return "<p>"
-									+ "[test.Name] doesn't have a penis, so [test.she] can't use the condom!"
-									+ "</p>";
-						}
-					case PROMISCUITY_PILL:
-						Main.game.getPlayer().useItem(item, target, false);
-						if(Sex.isPlayerDom()) {
-							return "<p>"
-									+ "Holding out a 'Promiscuity pill' to [test.name], you tell [test.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
-									+ " Letting out a reluctant sigh, [test.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [test.she] whines at you,"
-									+ " [test.speech(Fine! I kinda like the taste of these things anyway...)]"
-									+ "</p>";
-						} else {
-							return "<p>"
-									+ "Holding out a 'Promiscuity pill' to [test.name], you ask [test.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
-									+ " Letting out an annoyed sigh, [test.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [test.she] growls at you,"
-									+ " [test.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
-									+ "</p>";
-						}
-					case VIXENS_VIRILITY:
-						Main.game.getPlayer().useItem(item, target, false);
-						if(Sex.isPlayerDom()) {
-							return "<p>"
-									+ "Holding out a 'Vixen's Virility' pill to [test.name], you tell [test.her] to swallow it."
-									+ " Letting out a reluctant sigh, [test.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [test.she] whines at you,"
-									+ " [test.speech(Fine! I kinda like the taste of these things anyway...)]"
-									+ "</p>";
-						} else {
-							return "<p>"
-									+ "Holding out a 'Vixen's Virility' pill to [test.name], you ask [test.her] to swallow it."
-									+ " Letting out an annoyed sigh, [test.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [test.she] growls at you,"
-									+ " [test.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
-									+ "</p>";
-						}
-					case POTION: case ELIXIR:
-						if(Sex.isPlayerDom()) {
-							return "<p>"
-										+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [test.name]."
-										+ " Seeing what you're offering [test.herHim], [test.she] shifts about uncomfortably, "
-										+ " [test.speech(Do you really expect me to drink some rando~Mrph!~)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Not liking the start of [test.her] response, you quickly remove the bottle's stopper, and, rather unceremoniously, shove the neck down [test.her] throat."
-										+ " You pinch [test.her] nose and hold [test.herHim] still, forcing [test.herHim] to down all of the liquid before finally letting [test.herHim] go."
-										+ " [test.She] coughs and splutters for a moment, before letting out a surprised cry as [test.she] starts to feel the liquid's effects taking root deep in [test.her] body..."
-									+ "</p>"
-									+Main.game.getPlayer().useItem(item, target, false, true);
-						} else {
-							return "<p>"
-										+ "You try to give [test.name] your "+item.getName()+", but [test.she] takes one look at it and laughs,"
-										+ " [test.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
-										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [test.she]'s not interested."
-									+ "</p>";
-						}
-					case MOTHERS_MILK:
-						if(Sex.isPlayerDom()) {
-							return "<p>"
-										+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [test.name]."
-										+ " Seeing what you're offering [test.herHim], [test.she] shifts about uncomfortably, "
-										+ " [test.speech(Do you really expect me to drink tha~Mrph!~)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Not liking the start of [test.her] response, you unceremoniously shove the bottle's teat into [test.her] mouth."
-										+ " You pinch [test.her] nose and hold [test.herHim] still, forcing [test.herHim] to down all of the liquid before finally letting [test.herHim] go."
-										+ " [test.She] coughs and splutters for a moment, before letting out a surprised cry as [test.she] starts to feel the liquid's effects taking root deep in [test.her] body..."
-									+ "</p>"
-									+Main.game.getPlayer().useItem(item, target, false, true);
-						} else {
-							return "<p>"
-										+ "You try to give [test.name] your "+item.getName()+", but [test.she] takes one look at it and laughs,"
-										+ " [test.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
-										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [test.she]'s not interested."
-									+ "</p>";
-						}
-					case RACE_INGREDIENT_CAT_MORPH: case RACE_INGREDIENT_DOG_MORPH: case RACE_INGREDIENT_HARPY: case RACE_INGREDIENT_HORSE_MORPH: case RACE_INGREDIENT_SQUIRREL_MORPH: case RACE_INGREDIENT_WOLF_MORPH:
-						if(Sex.isPlayerDom()) {
-							return "<p>"
-										+ "Taking the "+item.getName()+" out from your inventory, you hold it out to [test.name]."
-										+ " Seeing what you're offering [test.herHim], [test.she] shifts about uncomfortably, "
-										+ " [test.speech(Do you really expect me to eat tha~Mrph!~)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Not liking the start of [test.her] response, you unceremoniously shove the "+item.getName()+" into [test.her] mouth."
-										+ " You pinch [test.her] nose and hold [test.herHim] still, forcing [test.herHim] to gulp down the entire meal before finally letting [test.herHim] go."
-										+ " [test.She] coughs and splutters for a moment, before letting out a surprised cry as [test.she] starts to feel the food's effects taking root deep in [test.her] body..."
-									+ "</p>"
-									+Main.game.getPlayer().useItem(item, target, false, true);
-						} else {
-							return "<p>"
-										+ "You try to give [test.name] your "+item.getName()+", but [test.she] takes one look at it and laughs,"
-										+ " [test.speech(Hah! Nice try, but do you really expect me to eat that?!)]</br>"
-										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [test.she]'s not interested."
-									+ "</p>";
-						}
-					case SEX_INGREDIENT_HARPY_PERFUME:
-						if(Sex.isPlayerDom()) {
-							return "<p>"
-										+ "Taking the "+item.getName()+" out from your inventory, you hold it out to [test.name]."
-										+ " Seeing what you're offering [test.herHim], [test.she] shifts about uncomfortably, "
-										+ " [test.speech(Do you really expect me to use tha~Hey!~)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Not liking the start of [test.her] response, you squirt the "+item.getName()+" onto [test.her] neck."
-										+ " [test.She] coughs and splutters for a moment, before letting out a surprised cry as [test.she] starts to feel the perfume's effects taking root deep in [test.her] body..."
-									+ "</p>"
-									+Main.game.getPlayer().useItem(item, target, false, true);
-						} else {
-							return "<p>"
-										+ "You try to give [test.name] your "+item.getName()+", but [test.she] takes one look at it and laughs,"
-										+ " [test.speech(Hah! Nice try, but do you really expect me to use that?!)]</br>"
-										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [test.she]'s not interested."
-									+ "</p>";
-						}
-					case COR_INGREDIENT_LILITHS_GIFT: case RACE_INGREDIENT_HUMAN: case RACE_INGREDIENT_DEMON: case FIT_INGREDIENT_CANINE_CRUSH: case FIT_INGREDIENT_SQUIRREL_JAVA: case INT_INGREDIENT_FELINE_FANCY: case STR_INGREDIENT_EQUINE_CIDER: case STR_INGREDIENT_WOLF_WHISKEY:
-						if(Sex.isPlayerDom()) {
-							return "<p>"
-										+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [test.name]."
-										+ " Seeing what you're offering [test.herHim], [test.she] shifts about uncomfortably, "
-										+ " [test.speech(Do you really expect me to drink tha~Mrph!~)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Not liking the start of [test.her] response, you quickly remove the bottle's cap, and, rather unceremoniously, shove the neck down [test.her] throat."
-										+ " You pinch [test.her] nose and hold [test.herHim] still, forcing [test.herHim] to down all of the liquid before finally letting [test.herHim] go."
-										+ " [test.She] coughs and splutters for a moment, before letting out a surprised cry as [test.she] starts to feel the liquid's effects taking root deep in [test.her] body..."
-									+ "</p>"
-									+Main.game.getPlayer().useItem(item, target, false, true);
-						} else {
-							return "<p>"
-										+ "You try to give [test.name] your "+item.getName()+", but [test.she] takes one look at it and laughs,"
-										+ " [test.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
-										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [test.she]'s not interested."
-									+ "</p>";
-						}
-					case EGGPLANT:
-						if(Sex.isPlayerDom()) {
-							return "<p>"
-										+ "Taking the eggplant from your inventory, you hold it out to [test.name]."
-										+ " Seeing what you're offering [test.herHim], [test.she] shifts about uncomfortably, "
-										+ " [test.speech(W-What are you going to do with th-~Mrph!~)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Not liking the start of [test.her] response, you quickly shove the eggplant into [test.her] mouth, grinning as you force [test.herHim] to eat the purple fruit..."
-									+ "</p>"
-									+Main.game.getPlayer().useItem(item, target, false, true);
-						} else {
-							return "<p>"
-										+ "You try to give [test.name] your "+item.getName()+", but [test.she] takes one look at it and laughs,"
-										+ " [test.speech(Hah! Did you really think I was going to eat that?!)]</br>"
-										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [test.she]'s not interested."
-									+ "</p>";
-						}
-					default:
+				if(item.getItemType().equals(ItemType.CONDOM)) {
+					if(target.isWearingCondom()) {
 						return "<p>"
-								+ "You try to give [test.name] "+item.getItemType().getDeterminer()+" "+item.getName()+", but [test.she] refuses to take it. You put the "+item.getName()+" back in your inventory."
+								+ "[npc.Name] is already wearing a condom, and [npc.she] refuses to wear two at once."
 								+ "</p>";
+						
+					} else if(target.hasPenis()) {
+						Main.game.getPlayer().useItem(item, target, false);
+						if(Sex.isPlayerDom()) {
+							return "<p>"
+									+ "Holding out a condom to [npc.name], you force [npc.her] to take it and put it on."
+									+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
+									+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
+									+ "</p>";
+						} else {
+							return "<p>"
+									+ "Holding out a condom to [npc.name], you let out a sigh of relief as [npc.she] reluctantly takes it."
+									+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] growls at you,"
+									+ " [npc.speech(You'd better be glad that I'm in a good mood!)]"
+									+ "</p>";
+						}
+					} else {
+						return "<p>"
+								+ "[npc.Name] doesn't have a penis, so [npc.she] can't use the condom!"
+								+ "</p>";
+					}
+					
+			} else if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
+					Main.game.getPlayer().useItem(item, target, false);
+					if(Sex.isPlayerDom()) {
+						return "<p>"
+								+ "Holding out a 'Promiscuity pill' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
+								+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
+								+ " [npc.speech(Fine! I kinda like the taste of these things anyway...)]"
+								+ "</p>";
+					} else {
+						return "<p>"
+								+ "Holding out a 'Promiscuity pill' to [npc.name], you ask [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
+								+ " Letting out an annoyed sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] growls at you,"
+								+ " [npc.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
+								+ "</p>";
+					}
+
+				} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+					
+						Main.game.getPlayer().useItem(item, target, false);
+						if(Sex.isPlayerDom()) {
+							return "<p>"
+									+ "Holding out a 'Vixen's Virility' pill to [npc.name], you tell [npc.her] to swallow it."
+									+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
+									+ " [npc.speech(Fine! I kinda like the taste of these things anyway...)]"
+									+ "</p>";
+						} else {
+							return "<p>"
+									+ "Holding out a 'Vixen's Virility' pill to [npc.name], you ask [npc.her] to swallow it."
+									+ " Letting out an annoyed sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] growls at you,"
+									+ " [npc.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
+									+ "</p>";
+						}
+						
+				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR)) {
+					
+						if(Sex.isPlayerDom()) {
+							return "<p>"
+										+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
+										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+										+ " [npc.speech(Do you really expect me to drink some rando~Mrph!~)]"
+									+ "</p>"
+									+ "<p>"
+										+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and, rather unceremoniously, shove the neck down [npc.her] throat."
+										+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.herHim] go."
+										+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the liquid's effects taking root deep in [npc.her] body..."
+									+ "</p>"
+									+Main.game.getPlayer().useItem(item, target, false, true);
+						} else {
+							return "<p>"
+										+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+										+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
+										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+									+ "</p>";
+						}
+						
+				} else if(item.getItemType().equals(ItemType.MOTHERS_MILK)) {
+					
+						if(Sex.isPlayerDom()) {
+							return "<p>"
+										+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
+										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+										+ " [npc.speech(Do you really expect me to drink tha~Mrph!~)]"
+									+ "</p>"
+									+ "<p>"
+										+ "Not liking the start of [npc.her] response, you unceremoniously shove the bottle's teat into [npc.her] mouth."
+										+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.herHim] go."
+										+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the liquid's effects taking root deep in [npc.her] body..."
+									+ "</p>"
+									+Main.game.getPlayer().useItem(item, target, false, true);
+						} else {
+							return "<p>"
+										+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+										+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
+										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+									+ "</p>";
+						}
+						
+				} else if(item.getItemType().equals(ItemType.RACE_INGREDIENT_CAT_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_DOG_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HARPY)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HORSE_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_WOLF_MORPH)) {
+					
+						if(Sex.isPlayerDom()) {
+							return "<p>"
+										+ "Taking the "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
+										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+										+ " [npc.speech(Do you really expect me to eat tha~Mrph!~)]"
+									+ "</p>"
+									+ "<p>"
+										+ "Not liking the start of [npc.her] response, you unceremoniously shove the "+item.getName()+" into [npc.her] mouth."
+										+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to gulp down the entire meal before finally letting [npc.herHim] go."
+										+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the food's effects taking root deep in [npc.her] body..."
+									+ "</p>"
+									+Main.game.getPlayer().useItem(item, target, false, true);
+						} else {
+							return "<p>"
+										+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+										+ " [npc.speech(Hah! Nice try, but do you really expect me to eat that?!)]</br>"
+										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+									+ "</p>";
+						}
+						
+				} else if(item.getItemType().equals(ItemType.SEX_INGREDIENT_HARPY_PERFUME)) {
+					
+						if(Sex.isPlayerDom()) {
+							return "<p>"
+										+ "Taking the "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
+										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+										+ " [npc.speech(Do you really expect me to use tha~Hey!~)]"
+									+ "</p>"
+									+ "<p>"
+										+ "Not liking the start of [npc.her] response, you squirt the "+item.getName()+" onto [npc.her] neck."
+										+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the perfume's effects taking root deep in [npc.her] body..."
+									+ "</p>"
+									+Main.game.getPlayer().useItem(item, target, false, true);
+						} else {
+							return "<p>"
+										+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+										+ " [npc.speech(Hah! Nice try, but do you really expect me to use that?!)]</br>"
+										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+									+ "</p>";
+						}
+						
+				} else if(item.getItemType().equals(ItemType.COR_INGREDIENT_LILITHS_GIFT)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HUMAN)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_DEMON)
+						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_CANINE_CRUSH)
+						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)
+						|| item.getItemType().equals(ItemType.INT_INGREDIENT_FELINE_FANCY)
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_EQUINE_CIDER)
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_WOLF_WHISKEY)) {
+					
+						if(Sex.isPlayerDom()) {
+							return "<p>"
+										+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
+										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+										+ " [npc.speech(Do you really expect me to drink tha~Mrph!~)]"
+									+ "</p>"
+									+ "<p>"
+										+ "Not liking the start of [npc.her] response, you quickly remove the bottle's cap, and, rather unceremoniously, shove the neck down [npc.her] throat."
+										+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.herHim] go."
+										+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the liquid's effects taking root deep in [npc.her] body..."
+									+ "</p>"
+									+Main.game.getPlayer().useItem(item, target, false, true);
+						} else {
+							return "<p>"
+										+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+										+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
+										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+									+ "</p>";
+						}
+	
+				} else if(item.getItemType().equals(ItemType.EGGPLANT)) {
+					
+					if(Sex.isPlayerDom()) {
+						return "<p>"
+									+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
+									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+									+ " [npc.speech(W-What are you going to do with th-~Mrph!~)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Not liking the start of [npc.her] response, you quickly shove the eggplant into [npc.her] mouth, grinning as you force [npc.herHim] to eat the purple fruit..."
+								+ "</p>"
+								+Main.game.getPlayer().useItem(item, target, false, true);
+					} else {
+						return "<p>"
+									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+									+ " [npc.speech(Hah! Did you really think I was going to eat that?!)]</br>"
+									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+								+ "</p>";
+					}
+					
+				} else {
+					return "<p>"
+								+ "You try to give [npc.name] "+item.getItemType().getDeterminer()+" "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory."
+							+ "</p>";
 				}
+				
 			}
 			
 		// NPC is using an item:

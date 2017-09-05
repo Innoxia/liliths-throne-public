@@ -31,6 +31,7 @@ import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.CoverableArea;
 import com.base.game.inventory.clothing.DisplacementType;
 import com.base.game.inventory.enchanting.TFEssence;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.sex.managers.SexManagerInterface;
 import com.base.game.sex.sexActions.SexActionInterface;
@@ -1102,7 +1103,7 @@ public enum Sex {
 			if(Main.game.getPlayer().isWearingCondom()){
 				Main.game.getPlayer().setWearingCondom(false);
 				if(Main.game.getPlayer().getPenisRawCumProductionValue()>0)
-					sexSB.append(Main.game.getPlayer().addItem(ItemType.generateItem(ItemType.CONDOM_USED), false));
+					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CONDOM_USED), false));
 
 			}
 			// Apply orgasm arousal resets:
@@ -1120,7 +1121,7 @@ public enum Sex {
 			if(partner.isWearingCondom()){
 				partner.setWearingCondom(false);
 				if(partner.getPenisRawCumProductionValue()>0)
-					sexSB.append(Main.game.getPlayer().addItem(ItemType.generateItem(ItemType.CONDOM_USED), false));
+					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CONDOM_USED), false));
 
 			}
 			// Apply orgasm arousal resets:
@@ -1138,12 +1139,12 @@ public enum Sex {
 			if(Main.game.getPlayer().isWearingCondom()){
 				Main.game.getPlayer().setWearingCondom(false);
 				if(Main.game.getPlayer().getPenisRawCumProductionValue()>0)
-					sexSB.append(Main.game.getPlayer().addItem(ItemType.generateItem(ItemType.CONDOM_USED), false));
+					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CONDOM_USED), false));
 			}
 			if(partner.isWearingCondom()){
 				partner.setWearingCondom(false);
 				if(partner.getPenisRawCumProductionValue()>0)
-					sexSB.append(Main.game.getPlayer().addItem(ItemType.generateItem(ItemType.CONDOM_USED), false));
+					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CONDOM_USED), false));
 
 			}
 			// Apply orgasm arousal resets:

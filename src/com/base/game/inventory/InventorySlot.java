@@ -3,6 +3,12 @@ package com.base.game.inventory;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.base.game.character.GameCharacter;
+import com.base.game.character.body.types.ArmType;
+import com.base.game.character.body.types.LegType;
+import com.base.game.character.race.Race;
+import com.base.game.dialogue.utils.UtilText;
+
 /**
  * @since 0.1.0
  * @version 0.1.69
@@ -122,5 +128,79 @@ public enum InventorySlot {
 
 	public static List<InventorySlot> getPiercingSlots() {
 		return piercingSlots;
+	}
+	
+	/**
+	 * Calculates if the character cannot wear clothing in the provided slot due to his or her race. If a part of their body is preventing the clothing from being equipped, this method returns the race of that body part.</br>
+	 * e.g. Horse legs block FOOT slot, so passing in a character who has horse legs and InventorySlot.FOOT will return Race.HORSE_MORPH.</br>
+	 * This method returns null if the slot is not being blocked.
+	 * 
+	 * @param character
+	 * @param slot
+	 * @return Race which is blocking this slot. Returns null if nothing is
+	 *         blocking the slot.
+	 */
+	public Race slotBlockedByRace(GameCharacter character) {
+		if (character == null) {
+			return null;
+		}
+		
+		if (character.getLegType() == LegType.HORSE_MORPH && this == InventorySlot.FOOT) {
+			return Race.HORSE_MORPH;
+		}
+		
+		if (character.getLegType() == LegType.HARPY && this == InventorySlot.FOOT) {
+			return Race.HARPY;
+		}
+		
+		if (character.getArmType() == ArmType.HARPY && (this == InventorySlot.HAND || this == InventorySlot.FINGER)) {
+			return Race.HARPY;
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Complimentary method to slotBlockedByRace(GameCharacter character,
+	 * InventorySlot slot).
+	 * 
+	 * @param character
+	 * @param slot
+	 * @return A description of why this slot can't be used.
+	 */
+	public String getCannotBeWornDescription(GameCharacter character) {
+		if (character.getLegType() == LegType.HORSE_MORPH && this == InventorySlot.FOOT) {
+			if(character.isPlayer())
+				return "Your horse-like hooves prevent you from wearing footwear of any kind!";
+			else
+				return UtilText.parse(character,
+						"[npc.Name]'s horse-like hooves prevent [npc.her] from wearing footwear of any kind!");
+		}
+		
+		if (character.getLegType() == LegType.HARPY && this == InventorySlot.FOOT) {
+			if(character.isPlayer())
+				return "Your bird-like talons prevent you from wearing footwear of any kind!";
+			else
+				return UtilText.parse(character,
+						"[npc.Name]'s bird-like talons prevent [npc.her] from wearing footwear of any kind!");
+		}
+		
+		if (character.getArmType() == ArmType.HARPY && this == InventorySlot.HAND) {
+			if(character.isPlayer())
+				return "You can't fit anything onto your harpy wings!";
+			else
+				return UtilText.parse(character,
+						"[npc.Name] can't fit anything onto [npc.her] harpy wings!");
+		}
+		
+		if (character.getArmType() == ArmType.HARPY && this == InventorySlot.FINGER) {
+			if(character.isPlayer())
+				return "You only have a single thumb in the middle of your harpy wings, so you can't wear anything that would require fingers!";
+			else
+				return UtilText.parse(character,
+						"[npc.Name] doesn't have any fingers on [npc.her] harpy wings!");
+		}
+		
+		return null;
 	}
 }

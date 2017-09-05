@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.base.game.character.body.BodyPartInterface;
-import com.base.game.character.body.Hair;
 import com.base.game.character.body.Eye;
+import com.base.game.character.body.Hair;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.valueEnums.CoveringPattern;
 import com.base.game.character.npc.dominion.Kate;

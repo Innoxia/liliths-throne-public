@@ -13,10 +13,10 @@ import com.base.game.character.race.RaceStage;
 import com.base.game.character.race.RacialBody;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.ShopTransaction;
-import com.base.game.inventory.clothing.ClothingType;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.CoverableArea;
-import com.base.game.inventory.item.ItemType;
-import com.base.game.inventory.weapon.WeaponType;
+import com.base.game.inventory.item.AbstractItemType;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.utils.Colour;
 import com.base.utils.SizedStack;
 import com.base.world.WorldType;
@@ -24,7 +24,7 @@ import com.base.world.places.PlaceInterface;
 
 /**
  * @since 0.1.0
- * @version 0.1.82
+ * @version 0.1.84
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter {
@@ -42,9 +42,9 @@ public class PlayerCharacter extends GameCharacter {
 	private SizedStack<ShopTransaction> buybackStack;
 
 	// Gameplay stats:
-	private Set<ItemType> itemsDiscovered;
-	private Set<WeaponType> weaponsDiscovered;
-	private Set<ClothingType> clothingDiscovered;
+	private Set<AbstractItemType> itemsDiscovered;
+	private Set<AbstractWeaponType> weaponsDiscovered;
+	private Set<AbstractClothingType> clothingDiscovered;
 	private List<GameCharacter> charactersEncountered;
 	private List<Race> racesDiscovered, racesAdvancedKnowledge;
 
@@ -294,15 +294,15 @@ public class PlayerCharacter extends GameCharacter {
 		this.newItemDiscovered = newItemDiscovered;
 	}
 
-	public Set<ItemType> getItemsDiscovered() {
+	public Set<AbstractItemType> getItemsDiscovered() {
 		return itemsDiscovered;
 	}
 
-	public Set<WeaponType> getWeaponsDiscovered() {
+	public Set<AbstractWeaponType> getWeaponsDiscovered() {
 		return weaponsDiscovered;
 	}
 
-	public Set<ClothingType> getClothingDiscovered() {
+	public Set<AbstractClothingType> getClothingDiscovered() {
 		return clothingDiscovered;
 	}
 

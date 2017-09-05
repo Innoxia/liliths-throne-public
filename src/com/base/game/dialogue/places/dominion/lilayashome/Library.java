@@ -4,6 +4,7 @@ import com.base.game.character.attributes.Attribute;
 import com.base.game.character.race.Race;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
 import com.base.main.Main;
 
@@ -26,7 +27,7 @@ public class Library {
 		public String getContent() {
 			return "<p>"
 					+ "Pushing open the heavy wooden door, you find yourself walking into Lilaya's library."
-					+ " Much like her lab, all four walls are covered in shelving, stacked full of what must be thousands of books of all shapes and sizes."
+					+ " Much like her lab, all four walls are covered in shelving; stacked full of what must be thousands of books of all shapes and sizes."
 					+ " Much of the room is taken up by free-standing book cases, although there's a little space on one side of the room, where a couple of comfortable leather-bound chairs flank an ornate fireplace."
 				+ "</p>";
 		}
@@ -359,7 +360,7 @@ public class Library {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "As you walk down one of the library's many aisles, you notice that the air somehow seems fresher than normal."
+						+ "As you walk down one of the library's many aisles, you notice that the air feels somehow fresher than normal."
 						+ " Realising that it must be an arcane enchantment of some sort, you take a closer look at some of the shelves around you."
 					+ "</p>"
 					+ "<p>"
@@ -498,7 +499,7 @@ public class Library {
 //	
 //	};
 	
-	private static Response bookResponse(ItemType book, Race race) {
+	private static Response bookResponse(AbstractItemType book, Race race) {
 		if(Main.game.getPlayer().getRacesAdvancedKnowledge().contains(race)) {
 			return new Response(book.getName(false), book.getDescription(), LIBRARY) {
 				@Override

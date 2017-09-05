@@ -53,6 +53,12 @@
 	
 	
 	
+	Encyclopedia for mechanics:
+		plasticity
+		barbs
+		orifices
+		etc.
+	
 	
 	
 	Summons:
@@ -231,6 +237,8 @@
 	
 	add way to skip sex scenes
 	
+	make the traps have more trap-like features, and also add cum inflation later on
+	
 	Ability for PC/NPCs to ask partner to be more gentle/rough?
 		I might make a sub-menu during sex of all possible requests/talking actions, and put more things like that in there
 		maybe make NPCs resist if you ignore their request to be gentler
@@ -249,6 +257,8 @@
 		(Perhaps if sub has dom fetish, and dom has sub fetish, there could be a 'turn tables' action)
 	
 	Split fetishes up.
+	
+	Only crotchless chaps
 	
 	make it possible to have cloaca-like slit allowing you to retract your cock and hiding your balls in your body while having a dick other than the human-like bird dick
 	
@@ -325,7 +335,12 @@
 	use sextoys under clothes to prevent decreasing openess or to do some other things
 	
 	Alexa quest variation for if taken over nests.
-	
+
+	1)  Four main types of clothes for each slot: Plain (no bonuses), Armored (defensive bonuses), Sexy (offensive bonuses) and Bondage (heavy offensive and defensive penalties, bonus to xp).
+	2) (edit: this is already accepted, but here's my two cents anyway) Anal and vaginal slots. Probably in the right side alongside the piercings and etc. Anal would be mostly buttplugs and vaginal mostly dildos.
+	 There could be a plain buttplug/dildo with no bonuses, a metal one which somehow protects the hp or is "holy" and protects the willpower,
+	  a spiky/oversized one which provides bonus willpower attack and a bondage one which provides a debuff (and maybe xp bonus).
+
 	Capsule pregnancy?
 		it would probably take the form of fucking someone you defeated and forfeiting any essence gains in exchange for getting knocked up/knocking them up with a maybe-random potion or something
 		would probably be faster than a regular pregnancy, but also disable essence gains for longer
@@ -429,6 +444,9 @@
 	
 	Midair fucking while in flight
 	
+	kind of odd when brax gives you the potion, the resist options are available. 
+	i mean, it says your being good and obident in fucking him, so, being able to resist seems a little silly
+	
 	Will there be an option during sex when you have pregnancy fetish.
 		If she isnt pregnant yet you comment that you intend to "put a bun in her oven" if she is already pregnant you can tell her the look suits her or something like that. Or even just caressing her stomach when it grows enough.
 	
@@ -441,6 +459,7 @@
 	
 	I will add foot fetish scenes soon! I won't replace those other fetishes, but I can definitely add a foot fetish to the available fetishes to take. ^^
 	
+	What if folks that you removed from a square showed up in the Police head quarters jail? IE you remove them by reporting them to the cops. And then the jails can sorta serve as a small log of your most recent NPC removals. Heh you could perhaps even change your mind about removal by "dropping your charges" against them perhaps.
 	
 	'wild' morphs instead of 'feral'
 		Have ferals as actual animals

@@ -16,15 +16,14 @@ import com.base.game.character.body.types.PenisType;
 import com.base.game.character.body.types.VaginaType;
 import com.base.game.character.body.valueEnums.Femininity;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.BlockedParts;
 import com.base.game.inventory.clothing.ClothingAccess;
 import com.base.game.inventory.clothing.ClothingSet;
-import com.base.game.inventory.clothing.ClothingType;
-import com.base.game.inventory.clothing.BlockedParts;
 import com.base.game.inventory.clothing.CoverableArea;
 import com.base.game.inventory.clothing.DisplacementType;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItem;
-import com.base.game.inventory.item.ItemType;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.weapon.AbstractWeapon;
 import com.base.main.Main;
 import com.base.utils.AbstractClothingRarityComparator;
@@ -41,7 +40,7 @@ import com.base.utils.Vector2i;;
  * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.
  * 
  * @since 0.1.0
- * @version 0.1.7
+ * @version 0.1.84
  * @author Innoxia
  */
 public class CharacterInventory implements Serializable {
@@ -255,9 +254,9 @@ public class CharacterInventory implements Serializable {
 	/**
 	 * @return true if one of the items in this inventory has the same type as the Item provided.
 	 */
-	public boolean hasItemType(ItemType item) {
+	public boolean hasItemType(AbstractItemType item) {
 		for(AbstractItem abstractItem : itemsInInventory)
-			if(abstractItem.getItemType() == item)
+			if(abstractItem.getItemType().equals(item))
 				return true;
 		
 		return false;
@@ -512,8 +511,8 @@ public class CharacterInventory implements Serializable {
 		for (AbstractClothing c : clothingCurrentlyEquipped){
 			
 			// Race:
-			if (ClothingType.slotBlockedByRace(character, c.getClothingType().getSlot()) != null) {
-				transformationIncompatible(character, c, clothingToRemove, ClothingType.getCannotBeWornDescription(character, c.getClothingType().getSlot()));
+			if (c.getClothingType().getSlot().slotBlockedByRace(character) != null) {
+				transformationIncompatible(character, c, clothingToRemove, c.getClothingType().getSlot().getCannotBeWornDescription(character));
 				
 			// Piercings:
 			} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_EAR && !character.isPiercedEar()){
@@ -597,8 +596,8 @@ public class CharacterInventory implements Serializable {
 		// }
 
 		// Check to see if any of the character's body parts are blocking equipping this item:
-		if (ClothingType.slotBlockedByRace(characterClothingOwner, newClothing.getClothingType().getSlot()) != null) {
-			equipTextSB.append("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" + ClothingType.getCannotBeWornDescription(characterClothingOwner, newClothing.getClothingType().getSlot()) + "</span>");
+		if (newClothing.getClothingType().getSlot().slotBlockedByRace(characterClothingOwner) != null) {
+			equipTextSB.append("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" + newClothing.getClothingType().getSlot().getCannotBeWornDescription(characterClothingOwner) + "</span>");
 			return false;
 		}
 		
