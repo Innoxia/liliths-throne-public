@@ -237,11 +237,7 @@ public class PartnerPenisAnus {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			// Partner can't penetrate if you're already fucking them, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
-			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER)==null) {
-				return true;
-			} else {
-				return false;
-			}
+			return Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER)==null;
 		}
 		
 		@Override

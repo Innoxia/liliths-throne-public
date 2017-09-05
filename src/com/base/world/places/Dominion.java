@@ -35,10 +35,7 @@ public enum Dominion implements PlaceInterface {
 		
 		@Override
 		public boolean isDangerous() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return true;
-			else
-				return false;
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 	},
 	
@@ -46,10 +43,7 @@ public enum Dominion implements PlaceInterface {
 		
 		@Override
 		public boolean isDangerous() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return true;
-			else
-				return false;
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 	},
 	
@@ -57,10 +51,7 @@ public enum Dominion implements PlaceInterface {
 		
 		@Override
 		public boolean isDangerous() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return true;
-			else
-				return false;
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 		@Override
 		public WorldType getLinkedWorldType() {
@@ -77,10 +68,7 @@ public enum Dominion implements PlaceInterface {
 		
 		@Override
 		public boolean isDangerous() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return true;
-			else
-				return false;
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 	},
 	
@@ -88,10 +76,7 @@ public enum Dominion implements PlaceInterface {
 		
 		@Override
 		public boolean isDangerous() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return true;
-			else
-				return false;
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 		@Override
 		public WorldType getLinkedWorldType() {
@@ -108,10 +93,7 @@ public enum Dominion implements PlaceInterface {
 		
 		@Override
 		public boolean isDangerous() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return true;
-			else
-				return false;
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 		@Override
 		public WorldType getLinkedWorldType() {
@@ -128,10 +110,7 @@ public enum Dominion implements PlaceInterface {
 		
 		@Override
 		public boolean isDangerous() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return true;
-			else
-				return false;
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 	},
 	
@@ -139,10 +118,7 @@ public enum Dominion implements PlaceInterface {
 		
 		@Override
 		public boolean isDangerous() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return true;
-			else
-				return false;
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 	},
 	
@@ -150,10 +126,7 @@ public enum Dominion implements PlaceInterface {
 
 		@Override
 		public boolean isDangerous() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return true;
-			else
-				return false;
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 
 		@Override
@@ -176,10 +149,7 @@ public enum Dominion implements PlaceInterface {
 
 		@Override
 		public boolean isDangerous() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return true;
-			else
-				return false;
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 		
 		@Override
@@ -205,10 +175,7 @@ public enum Dominion implements PlaceInterface {
 		
 		@Override
 		public boolean isDangerous() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return true;
-			else
-				return false;
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 		@Override
 		public WorldType getLinkedWorldType() {
@@ -230,10 +197,7 @@ public enum Dominion implements PlaceInterface {
 		
 		@Override
 		public boolean isDangerous() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return true;
-			else
-				return false;
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 		
 		@Override
@@ -255,10 +219,7 @@ public enum Dominion implements PlaceInterface {
 		
 		@Override
 		public boolean isDangerous() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return true;
-			else
-				return false;
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 		
 		@Override
@@ -271,10 +232,7 @@ public enum Dominion implements PlaceInterface {
 		
 		@Override
 		public boolean isDangerous() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return true;
-			else
-				return false;
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 		
 		@Override
@@ -287,10 +245,7 @@ public enum Dominion implements PlaceInterface {
 		
 		@Override
 		public boolean isDangerous() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return true;
-			else
-				return false;
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 		
 		@Override

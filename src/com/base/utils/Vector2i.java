@@ -40,16 +40,10 @@ public class Vector2i implements Serializable {
 			return true;
 
 		Vector2i comparisonObject = (Vector2i) obj;
-		if (this.x == comparisonObject.x && this.y == comparisonObject.y)
-			return true;
-		else
-			return false;
+		return this.x == comparisonObject.x && this.y == comparisonObject.y;
 	}
 	
 	public boolean equals (int x, int y) {
-		if(this.x==x && this.y==y)
-			return true;
-		else
-			return false;
+		return this.x==x && this.y==y;
 	}
 }

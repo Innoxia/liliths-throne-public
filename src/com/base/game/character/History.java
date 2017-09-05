@@ -116,10 +116,7 @@ public enum History {
 
 		@Override
 		public boolean isAvailable(GameCharacter player) {
-			if (player.getGender() == Gender.FEMALE)
-				return true;
-			else
-				return false;
+			return player.getGender() == Gender.FEMALE;
 		}
 	};
 
