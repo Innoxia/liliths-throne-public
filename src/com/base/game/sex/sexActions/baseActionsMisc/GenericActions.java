@@ -26,7 +26,7 @@ import com.base.utils.Util.ListValue;
  */
 public class GenericActions {
 	
-	public static SexAction PLAYER_RESIST = new SexAction(
+	public static final SexAction PLAYER_RESIST = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.NEGATIVE,
 			ArousalIncrease.ONE_MINIMUM,
@@ -93,7 +93,7 @@ public class GenericActions {
 		}
 	};
 	
-	public static SexAction PLAYER_FORBID_PARTNER_SELF = new SexAction(
+	public static final SexAction PLAYER_FORBID_PARTNER_SELF = new SexAction(
 			SexActionType.PLAYER_SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -192,7 +192,7 @@ public class GenericActions {
 		}
 	};
 	
-	public static SexAction PLAYER_PERMIT_PARTNER_SELF = new SexAction(
+	public static final SexAction PLAYER_PERMIT_PARTNER_SELF = new SexAction(
 			SexActionType.PLAYER_SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -227,7 +227,7 @@ public class GenericActions {
 		}
 	};
 	
-	public static SexAction PLAYER_FORBID_PARTNER_CLOTHING = new SexAction(
+	public static final SexAction PLAYER_FORBID_PARTNER_CLOTHING = new SexAction(
 			SexActionType.PLAYER_SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -262,7 +262,7 @@ public class GenericActions {
 		}
 	};
 	
-	public static SexAction PLAYER_PERMIT_PARTNER_CLOTHING_REMOVAL = new SexAction(
+	public static final SexAction PLAYER_PERMIT_PARTNER_CLOTHING_REMOVAL = new SexAction(
 			SexActionType.PLAYER_SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -297,7 +297,7 @@ public class GenericActions {
 		}
 	};
 	
-	public static SexAction PLAYER_FORBID_PARTNER_SELF_CLOTHING = new SexAction(
+	public static final SexAction PLAYER_FORBID_PARTNER_SELF_CLOTHING = new SexAction(
 			SexActionType.PLAYER_SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -332,7 +332,7 @@ public class GenericActions {
 		}
 	};
 	
-	public static SexAction PLAYER_PERMIT_PARTNER_CLOTHING_SELF_REMOVAL = new SexAction(
+	public static final SexAction PLAYER_PERMIT_PARTNER_CLOTHING_SELF_REMOVAL = new SexAction(
 			SexActionType.PLAYER_SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -368,7 +368,7 @@ public class GenericActions {
 	};
 	
 	
-	public static SexAction PLAYER_STOP_PARTNER_SELF = new SexAction(
+	public static final SexAction PLAYER_STOP_PARTNER_SELF = new SexAction(
 			SexActionType.PLAYER_SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -462,7 +462,7 @@ public class GenericActions {
 	
 	// Partner:
 	
-	public static SexAction PARTNER_RESIST = new SexAction(
+	public static final SexAction PARTNER_RESIST = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.NEGATIVE,
@@ -530,7 +530,7 @@ public class GenericActions {
 		}
 	};
 	
-	public static SexAction PARTNER_STOP_PLAYER_SELF = new SexAction(
+	public static final SexAction PARTNER_STOP_PLAYER_SELF = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -608,7 +608,7 @@ public class GenericActions {
 		}
 	};
 	
-	public static SexAction PARTNER_BLOCKS_REQUESTS = new SexAction(
+	public static final SexAction PARTNER_BLOCKS_REQUESTS = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -662,7 +662,7 @@ public class GenericActions {
 		}
 	};
 	
-	public static SexAction PARTNER_STOP_SEX = new SexAction(
+	public static final SexAction PARTNER_STOP_SEX = new SexAction(
 			SexActionType.PARTNER_SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -704,7 +704,7 @@ public class GenericActions {
 		}
 	};
 	
-	public static SexAction PLAYER_STOP_SEX = new SexAction(
+	public static final SexAction PLAYER_STOP_SEX = new SexAction(
 			SexActionType.PLAYER_SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,

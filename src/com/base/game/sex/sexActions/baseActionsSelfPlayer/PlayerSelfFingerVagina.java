@@ -22,7 +22,7 @@ import com.base.utils.Util.ListValue;
  */
 public class PlayerSelfFingerVagina {
 	
-	public static SexAction PLAYER_SELF_FINGER_VAGINA_PENETRATION = new SexAction(
+	public static final SexAction PLAYER_SELF_FINGER_VAGINA_PENETRATION = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -58,7 +58,7 @@ public class PlayerSelfFingerVagina {
 		}
 	};
 	
-	public static SexAction DOM_PLAYER_SELF_FINGER_VAGINA_GENTLE = new SexAction(
+	public static final SexAction DOM_PLAYER_SELF_FINGER_VAGINA_GENTLE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -101,7 +101,7 @@ public class PlayerSelfFingerVagina {
 		}
 	};
 	
-	public static SexAction DOM_PLAYER_SELF_FINGER_VAGINA_NORMAL = new SexAction(
+	public static final SexAction DOM_PLAYER_SELF_FINGER_VAGINA_NORMAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -144,7 +144,7 @@ public class PlayerSelfFingerVagina {
 		}
 	};
 	
-	public static SexAction DOM_PLAYER_SELF_FINGER_VAGINA_ROUGH = new SexAction(
+	public static final SexAction DOM_PLAYER_SELF_FINGER_VAGINA_ROUGH = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -187,7 +187,7 @@ public class PlayerSelfFingerVagina {
 		}
 	};
 	
-	public static SexAction SUB_PLAYER_SELF_FINGER_VAGINA_NORMAL = new SexAction(
+	public static final SexAction SUB_PLAYER_SELF_FINGER_VAGINA_NORMAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -230,7 +230,7 @@ public class PlayerSelfFingerVagina {
 		}
 	};
 	
-	public static SexAction SUB_PLAYER_SELF_FINGER_VAGINA_EAGER = new SexAction(
+	public static final SexAction SUB_PLAYER_SELF_FINGER_VAGINA_EAGER = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -273,7 +273,7 @@ public class PlayerSelfFingerVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_SELF_FINGER_VAGINA_STOP_PENETRATION = new SexAction(
+	public static final SexAction PLAYER_SELF_FINGER_VAGINA_STOP_PENETRATION = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,

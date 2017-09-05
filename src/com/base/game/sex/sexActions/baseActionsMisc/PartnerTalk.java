@@ -27,7 +27,7 @@ import com.base.utils.Util.ListValue;
  */
 public class PartnerTalk {
 	
-	public static SexAction PARTNER_DIRTY_TALK = new SexAction(
+	public static final SexAction PARTNER_DIRTY_TALK = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -185,7 +185,7 @@ public class PartnerTalk {
 		}
 	};
 	
-	public static SexAction PARTNER_ASK_FOR_CREAMPIE = new SexAction(
+	public static final SexAction PARTNER_ASK_FOR_CREAMPIE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -289,7 +289,7 @@ public class PartnerTalk {
 		}
 	};
 	
-	public static SexAction PARTNER_ASK_FOR_PULL_OUT = new SexAction(
+	public static final SexAction PARTNER_ASK_FOR_PULL_OUT = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,

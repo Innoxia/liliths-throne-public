@@ -32,7 +32,7 @@ public class PixShowerTime {
 	
 	// Player:
 
-	public static SexAction PLAYER_KISS = new SexAction(
+	public static final SexAction PLAYER_KISS = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ZERO_NONE,
@@ -74,7 +74,7 @@ public class PixShowerTime {
 		}
 	};
 	
-	public static SexAction PLAYER_TRY_TO_FEEL_BREASTS = new SexAction(
+	public static final SexAction PLAYER_TRY_TO_FEEL_BREASTS = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ZERO_NONE,
@@ -120,7 +120,7 @@ public class PixShowerTime {
 		}
 	};
 	
-	public static SexAction PLAYER_TRY_TO_MASTURBATE = new SexAction(
+	public static final SexAction PLAYER_TRY_TO_MASTURBATE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ZERO_NONE,
@@ -162,7 +162,7 @@ public class PixShowerTime {
 		}
 	};
 	
-	public static SexAction PLAYER_DIRTY_TALK = new SexAction(
+	public static final SexAction PLAYER_DIRTY_TALK = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ZERO_NONE,
@@ -202,7 +202,7 @@ public class PixShowerTime {
 		}
 	};
 	
-	public static SexAction PLAYER_BREAK_FREE = new SexAction(
+	public static final SexAction PLAYER_BREAK_FREE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ZERO_NONE,
@@ -247,7 +247,7 @@ public class PixShowerTime {
 		}
 	};
 	
-	public static SexAction PLAYER_SUBMIT = new SexAction(
+	public static final SexAction PLAYER_SUBMIT = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ZERO_NONE,
@@ -287,7 +287,7 @@ public class PixShowerTime {
 		}
 	};
 	
-	public static SexAction FINGER_PLAYERED_GRIND_DOWN = new SexAction(
+	public static final SexAction FINGER_PLAYERED_GRIND_DOWN = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.ONE_MINIMUM,
@@ -320,7 +320,7 @@ public class PixShowerTime {
 	
 	// Partner on player:
 	
-	public static SexAction PARTNER_KISS = new SexAction(
+	public static final SexAction PARTNER_KISS = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -350,7 +350,7 @@ public class PixShowerTime {
 		}
 	};
 	
-	public static SexAction PARTNER_DIRTY_TALK = new SexAction(
+	public static final SexAction PARTNER_DIRTY_TALK = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -385,7 +385,7 @@ public class PixShowerTime {
 		}
 	};
 	
-	public static SexAction PARTNER_GROPE_BREASTS = new SexAction(
+	public static final SexAction PARTNER_GROPE_BREASTS = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -463,7 +463,7 @@ public class PixShowerTime {
 		
 	};
 	
-	public static SexAction PARTNER_MASTURBATE_PLAYER_COCK = new SexAction(
+	public static final SexAction PARTNER_MASTURBATE_PLAYER_COCK = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -500,7 +500,7 @@ public class PixShowerTime {
 		}
 	};
 	
-	public static SexAction FINGER_PARTNERING_PLAYER_START = new SexAction(
+	public static final SexAction FINGER_PARTNERING_PLAYER_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
@@ -530,7 +530,7 @@ public class PixShowerTime {
 		}
 	};
 	
-	public static SexAction FINGER_PARTNERING_PLAYER_GENTLE = new SexAction(
+	public static final SexAction FINGER_PARTNERING_PLAYER_GENTLE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
@@ -566,7 +566,7 @@ public class PixShowerTime {
 		}
 	};
 	
-	public static SexAction FINGER_PARTNERING_PLAYER_ROUGH = new SexAction(
+	public static final SexAction FINGER_PARTNERING_PLAYER_ROUGH = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -608,7 +608,7 @@ public class PixShowerTime {
 		}
 	};
 	
-	public static SexAction FINGER_PARTNERING_PLAYER_CLIT_PLAY = new SexAction(
+	public static final SexAction FINGER_PARTNERING_PLAYER_CLIT_PLAY = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
@@ -646,7 +646,7 @@ public class PixShowerTime {
 		}
 	};
 	
-	public static SexAction PARTNER_ASK_FOR_PROMISE = new SexAction(
+	public static final SexAction PARTNER_ASK_FOR_PROMISE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -695,7 +695,7 @@ public class PixShowerTime {
 		}
 	};
 	
-	public static SexAction PARTNER_STOP_SEX = new SexAction(
+	public static final SexAction PARTNER_STOP_SEX = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,

@@ -28,7 +28,7 @@ import com.base.utils.Util.ListValue;
  */
 public class SubKneeling {
 	
-	public static SexAction PLAYER_MOUND_SNOG = new SexAction(
+	public static final SexAction PLAYER_MOUND_SNOG = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
@@ -74,7 +74,7 @@ public class SubKneeling {
 		}
 	};
 	
-	public static SexAction PLAYER_MOUND_KISSING = new SexAction(
+	public static final SexAction PLAYER_MOUND_KISSING = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
@@ -123,7 +123,7 @@ public class SubKneeling {
 	
 	// Special orgasms for this scene:
 	
-	public static SexAction PARTNER_ORGASM_THIGH_SQUEEZE = new SexAction(
+	public static final SexAction PARTNER_ORGASM_THIGH_SQUEEZE = new SexAction(
 			SexActionType.PARTNER_ORGASM,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FIVE_EXTREME,
@@ -220,7 +220,7 @@ public class SubKneeling {
 		}
 	};
 	
-	public static SexAction PARTNER_ORGASM_CUM_DOWN_THROAT = new SexAction(
+	public static final SexAction PARTNER_ORGASM_CUM_DOWN_THROAT = new SexAction(
 			SexActionType.PARTNER_ORGASM,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FIVE_EXTREME,
@@ -328,7 +328,7 @@ public class SubKneeling {
 		}
 	};
 	
-	public static SexAction PARTNER_ORGASM_FACIAL = new SexAction(
+	public static final SexAction PARTNER_ORGASM_FACIAL = new SexAction(
 			SexActionType.PARTNER_ORGASM,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FIVE_EXTREME,

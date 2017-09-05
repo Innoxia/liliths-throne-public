@@ -22,7 +22,7 @@ import com.base.utils.Util.ListValue;
  */
 public class PartnerFingerAnus {
 	
-	public static SexAction PARTNER_ANAL_FINGERING_START = new SexAction(
+	public static final SexAction PARTNER_ANAL_FINGERING_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -124,7 +124,7 @@ public class PartnerFingerAnus {
 		}
 	};
 	
-	public static SexAction PARTNER_ANAL_FINGERING_DOM_GENTLE = new SexAction(
+	public static final SexAction PARTNER_ANAL_FINGERING_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -195,7 +195,7 @@ public class PartnerFingerAnus {
 		}
 	};
 	
-	public static SexAction PARTNER_ANAL_FINGERING_DOM_NORMAL = new SexAction(
+	public static final SexAction PARTNER_ANAL_FINGERING_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -267,7 +267,7 @@ public class PartnerFingerAnus {
 		}
 	};
 	
-	public static SexAction PARTNER_ANAL_FINGERING_DOM_ROUGH = new SexAction(
+	public static final SexAction PARTNER_ANAL_FINGERING_DOM_ROUGH = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -340,7 +340,7 @@ public class PartnerFingerAnus {
 		}
 	};
 	
-	public static SexAction PARTNER_ANAL_FINGERING_SUB_NORMAL = new SexAction(
+	public static final SexAction PARTNER_ANAL_FINGERING_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -413,7 +413,7 @@ public class PartnerFingerAnus {
 		}
 	};
 	
-	public static SexAction PARTNER_ANAL_FINGERING_SUB_EAGER = new SexAction(
+	public static final SexAction PARTNER_ANAL_FINGERING_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -486,7 +486,7 @@ public class PartnerFingerAnus {
 		}
 	};
 	
-	public static SexAction PARTNER_ANAL_FINGERING_STOP = new SexAction(
+	public static final SexAction PARTNER_ANAL_FINGERING_STOP = new SexAction(
 			SexActionType.PARTNER_STOP_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -541,7 +541,7 @@ public class PartnerFingerAnus {
 	
 	// Partner actions:
 	
-	public static SexAction PLAYER_ANAL_FINGERING_START = new SexAction(
+	public static final SexAction PLAYER_ANAL_FINGERING_START = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -648,7 +648,7 @@ public class PartnerFingerAnus {
 		}
 	};
 	
-	public static SexAction PLAYER_ANALLY_FINGERED_DOM_GENTLE = new SexAction(
+	public static final SexAction PLAYER_ANALLY_FINGERED_DOM_GENTLE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -696,7 +696,7 @@ public class PartnerFingerAnus {
 		}
 	};
 	
-	public static SexAction PLAYER_ANALLY_FINGERED_DOM_NORMAL = new SexAction(
+	public static final SexAction PLAYER_ANALLY_FINGERED_DOM_NORMAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -744,7 +744,7 @@ public class PartnerFingerAnus {
 		}
 	};
 	
-	public static SexAction PLAYER_ANALLY_FINGERED_DOM_ROUGH = new SexAction(
+	public static final SexAction PLAYER_ANALLY_FINGERED_DOM_ROUGH = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -792,7 +792,7 @@ public class PartnerFingerAnus {
 		}
 	};
 	
-	public static SexAction PLAYER_ANALLY_FINGERED_SUB_NORMAL = new SexAction(
+	public static final SexAction PLAYER_ANALLY_FINGERED_SUB_NORMAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -840,7 +840,7 @@ public class PartnerFingerAnus {
 		}
 	};
 	
-	public static SexAction PLAYER_ANALLY_FINGERED_SUB_EAGER = new SexAction(
+	public static final SexAction PLAYER_ANALLY_FINGERED_SUB_EAGER = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -888,7 +888,7 @@ public class PartnerFingerAnus {
 		}
 	};
 	
-	public static SexAction PLAYER_ANAL_FINGERING_SUB_RESIST = new SexAction(
+	public static final SexAction PLAYER_ANAL_FINGERING_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.TWO_LOW,
@@ -958,7 +958,7 @@ public class PartnerFingerAnus {
 		}
 	};
 	
-	public static SexAction PLAYER_ANAL_FINGERING_STOP = new SexAction(
+	public static final SexAction PLAYER_ANAL_FINGERING_STOP = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,

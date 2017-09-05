@@ -40,7 +40,7 @@ public class PartnerPenisMouth {
 	 * 		Sub normal, eager, resist
 	 */
 	
-	public static SexAction PARTNER_COCK_SLAP = new SexAction(
+	public static final SexAction PARTNER_COCK_SLAP = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.TWO_LOW,
@@ -116,7 +116,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PARTNER_FORCE_BALLS_FOCUS = new SexAction(
+	public static final SexAction PARTNER_FORCE_BALLS_FOCUS = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
@@ -233,7 +233,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PLAYER_SUCK_BALLS = new SexAction(
+	public static final SexAction PLAYER_SUCK_BALLS = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -314,7 +314,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PLAYER_LICK_HEAD = new SexAction(
+	public static final SexAction PLAYER_LICK_HEAD = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -377,7 +377,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PLAYER_HERM_FUN = new SexAction(
+	public static final SexAction PLAYER_HERM_FUN = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
@@ -502,7 +502,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PARTNER_BLOWJOB_START = new SexAction(
+	public static final SexAction PARTNER_BLOWJOB_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -668,7 +668,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PARTNER_BLOWJOB_DOM_GENTLE = new SexAction(
+	public static final SexAction PARTNER_BLOWJOB_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -736,7 +736,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PARTNER_BLOWJOB_DOM_NORMAL = new SexAction(
+	public static final SexAction PARTNER_BLOWJOB_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -804,7 +804,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PARTNER_BLOWJOB_DOM_ROUGH = new SexAction(
+	public static final SexAction PARTNER_BLOWJOB_DOM_ROUGH = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -957,7 +957,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PARTNER_BLOWJOB_SUB_RESISTING = new SexAction(
+	public static final SexAction PARTNER_BLOWJOB_SUB_RESISTING = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ONE_MINIMUM,
@@ -1031,7 +1031,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PARTNER_BLOWJOB_SUB_NORMAL = new SexAction(
+	public static final SexAction PARTNER_BLOWJOB_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1100,7 +1100,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PARTNER_BLOWJOB_SUB_EAGER = new SexAction(
+	public static final SexAction PARTNER_BLOWJOB_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -1170,7 +1170,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PARTNER_BLOWJOB_STOP = new SexAction(
+	public static final SexAction PARTNER_BLOWJOB_STOP = new SexAction(
 			SexActionType.PARTNER_STOP_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -1237,7 +1237,7 @@ public class PartnerPenisMouth {
 	
 	// Player actions:
 	
-	public static SexAction PLAYER_BLOWJOB_START = new SexAction(
+	public static final SexAction PLAYER_BLOWJOB_START = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1372,7 +1372,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PLAYER_GIVING_BLOWJOB_DOM_GENTLE = new SexAction(
+	public static final SexAction PLAYER_GIVING_BLOWJOB_DOM_GENTLE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1437,7 +1437,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PLAYER_GIVING_BLOWJOB_DOM_NORMAL = new SexAction(
+	public static final SexAction PLAYER_GIVING_BLOWJOB_DOM_NORMAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -1503,7 +1503,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PLAYER_GIVING_BLOWJOB_DOM_ROUGH = new SexAction(
+	public static final SexAction PLAYER_GIVING_BLOWJOB_DOM_ROUGH = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
@@ -1571,7 +1571,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PLAYER_BLOWJOB_SUB_RESIST = new SexAction(
+	public static final SexAction PLAYER_BLOWJOB_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.TWO_LOW,
@@ -1636,7 +1636,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PLAYER_GIVING_BLOWJOB_SUB_NORMAL = new SexAction(
+	public static final SexAction PLAYER_GIVING_BLOWJOB_SUB_NORMAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1700,7 +1700,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PLAYER_GIVING_BLOWJOB_SUB_EAGER = new SexAction(
+	public static final SexAction PLAYER_GIVING_BLOWJOB_SUB_EAGER = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
@@ -1764,7 +1764,7 @@ public class PartnerPenisMouth {
 		}
 	};
 	
-	public static SexAction PLAYER_BLOWJOB_STOP = new SexAction(
+	public static final SexAction PLAYER_BLOWJOB_STOP = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,

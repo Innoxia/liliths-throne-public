@@ -14,7 +14,7 @@ import com.base.game.sex.sexActions.SexActionType;
  * @author Innoxia
  */
 public class ConChairTopPositionsLilaya {
-	public static SexAction PLAYER_SWITCH_CHAIR_POSITIONS = new SexAction(
+	public static final SexAction PLAYER_SWITCH_CHAIR_POSITIONS = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,

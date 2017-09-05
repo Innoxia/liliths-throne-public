@@ -38,7 +38,7 @@ public class PlayerTongueVagina {
 	 * 		Sub normal, eager, resist
 	 */
 	
-	public static SexAction PARTNER_FORCE_CLIT = new SexAction(
+	public static final SexAction PARTNER_FORCE_CLIT = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
@@ -118,7 +118,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_SUCK_CLIT = new SexAction(
+	public static final SexAction PLAYER_SUCK_CLIT = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
@@ -238,7 +238,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_HERM_FUN = new SexAction(
+	public static final SexAction PLAYER_HERM_FUN = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
@@ -362,7 +362,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_CUNNILINGUS_START = new SexAction(
+	public static final SexAction PLAYER_CUNNILINGUS_START = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -491,7 +491,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_CUNNILINGUS_DOM_GENTLE = new SexAction(
+	public static final SexAction PLAYER_CUNNILINGUS_DOM_GENTLE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -562,7 +562,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_CUNNILINGUS_DOM_NORMAL = new SexAction(
+	public static final SexAction PLAYER_CUNNILINGUS_DOM_NORMAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -633,7 +633,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_CUNNILINGUS_DOM_ROUGH = new SexAction(
+	public static final SexAction PLAYER_CUNNILINGUS_DOM_ROUGH = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -704,7 +704,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_CUNNILINGUS_SUB_RESISTING = new SexAction(
+	public static final SexAction PLAYER_CUNNILINGUS_SUB_RESISTING = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -772,7 +772,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_CUNNILINGUS_SUB_NORMAL = new SexAction(
+	public static final SexAction PLAYER_CUNNILINGUS_SUB_NORMAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -840,7 +840,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_CUNNILINGUS_SUB_EAGER = new SexAction(
+	public static final SexAction PLAYER_CUNNILINGUS_SUB_EAGER = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -923,7 +923,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PLAYER_CUNNILINGUS_STOP = new SexAction(
+	public static final SexAction PLAYER_CUNNILINGUS_STOP = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -985,7 +985,7 @@ public class PlayerTongueVagina {
 	
 	// Partner actions:
 	
-	public static SexAction PARTNER_CUNNILINGUS_START = new SexAction(
+	public static final SexAction PARTNER_CUNNILINGUS_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1154,7 +1154,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_RECEIVING_CUNNILINGUS_DOM_GENTLE = new SexAction(
+	public static final SexAction PARTNER_RECEIVING_CUNNILINGUS_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1221,7 +1221,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_RECEIVING_CUNNILINGUS_DOM_NORMAL = new SexAction(
+	public static final SexAction PARTNER_RECEIVING_CUNNILINGUS_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1288,7 +1288,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_RECEIVING_CUNNILINGUS_DOM_ROUGH = new SexAction(
+	public static final SexAction PARTNER_RECEIVING_CUNNILINGUS_DOM_ROUGH = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1417,7 +1417,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_RECEIVING_CUNNILINGUS_SUB_NORMAL = new SexAction(
+	public static final SexAction PARTNER_RECEIVING_CUNNILINGUS_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1485,7 +1485,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_RECEIVING_CUNNILINGUS_SUB_EAGER = new SexAction(
+	public static final SexAction PARTNER_RECEIVING_CUNNILINGUS_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
@@ -1555,7 +1555,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_RECEIVING_CUNNILINGUS_SUB_RESIST = new SexAction(
+	public static final SexAction PARTNER_RECEIVING_CUNNILINGUS_SUB_RESIST = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ONE_MINIMUM,
@@ -1625,7 +1625,7 @@ public class PlayerTongueVagina {
 		}
 	};
 	
-	public static SexAction PARTNER_CUNNILINGUS_STOP = new SexAction(
+	public static final SexAction PARTNER_CUNNILINGUS_STOP = new SexAction(
 			SexActionType.PARTNER_STOP_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
