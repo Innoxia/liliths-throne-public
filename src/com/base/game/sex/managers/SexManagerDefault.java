@@ -458,7 +458,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			if(action.getActionType() == SexActionType.PARTNER_PENETRATION) {
 				// Ban penetrative actions that don't involve tongue or finger:
 				if(action.getAssociatedPenetrationType()!=PenetrationType.TONGUE_PLAYER && action.getAssociatedPenetrationType()!=PenetrationType.TONGUE_PARTNER
-						&& action.getAssociatedPenetrationType()!=PenetrationType.FINGER_PARTNER && action.getAssociatedPenetrationType()!=PenetrationType.TONGUE_PARTNER) {
+						&& action.getAssociatedPenetrationType()!=PenetrationType.FINGER_PLAYER && action.getAssociatedPenetrationType()!=PenetrationType.FINGER_PARTNER) {
 					bannedActions.add(action);
 				}
 			}
