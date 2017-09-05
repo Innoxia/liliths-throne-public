@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -31,7 +32,6 @@ import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.utils.Colour;
 import com.base.utils.CreditsSlot;
-import com.base.utils.Util;
 import com.base.world.Generation;
 import com.base.world.WorldType;
 import com.base.world.places.LilayasHome;
@@ -56,7 +56,7 @@ public class Main extends Application {
 
 	public static MainController mainController;
 
-	public static Scene mainScene, menuScene;
+	public static Scene mainScene;
 
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
@@ -400,17 +400,15 @@ public class Main extends Application {
 		
 		boolean overwrite = false;
 		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles();
+			File[] directoryListing = dir.listFiles((path, filename) -> filename.endsWith(".lts"));
 			if (directoryListing != null) {
 				for (File child : directoryListing) {
-					if (Util.getFileExtention(child.getName()).equals("lts")) {
-						if (child.getName().equals(name+".lts")){
-							if(!allowOverwrite) {
-								Main.game.flashMessage(Colour.GENERIC_BAD, "Name already exists!");
-								return;
-							} else {
-								overwrite = true;
-							}
+					if (child.getName().equals(name+".lts")){
+						if(!allowOverwrite) {
+							Main.game.flashMessage(Colour.GENERIC_BAD, "Name already exists!");
+							return;
+						} else {
+							overwrite = true;
 						}
 					}
 				}
@@ -509,12 +507,9 @@ public class Main extends Application {
 		
 		File dir = new File("data/saves");
 		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles();
+			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".lts"));
 			if (directoryListing != null) {
-				for (File child : directoryListing) {
-					if (Util.getFileExtention(child.getName()).equals("lts"))
-						filesList.add(child);
-				}
+				filesList.addAll(Arrays.asList(directoryListing));
 			}
 		}
 
@@ -528,12 +523,9 @@ public class Main extends Application {
 		
 		File dir = new File("data/characters");
 		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles();
+			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
 			if (directoryListing != null) {
-				for (File child : directoryListing) {
-					if (Util.getFileExtention(child.getName()).equals("xml"))
-						filesList.add(child);
-				}
+				filesList.addAll(Arrays.asList(directoryListing));
 			}
 		}
 
