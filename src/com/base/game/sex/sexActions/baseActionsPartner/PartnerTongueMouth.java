@@ -850,7 +850,7 @@ public class PartnerTongueMouth {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Feeling tears welling up in your eyes, you let out [pc.a_sob+], trying to push back against [npc.name] in response to [npc.her] unwanted kisses.",
-					"[npc.Name]'s "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+" overwhelmes your senses as you let out a muffled [pc.sob],"
+					"[npc.Name]'s "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+" overwhelms your senses as you let out a muffled [pc.sob],"
 							+ " desperately trying to push [npc.herHim] off of you as [npc.she] continues assaulting your mouth with [npc.her] [npc.lips] and [npc.tongue].",
 					"You desperately try to push [npc.name] away, [pc.sobbing] in distress as [npc.she] continues kissing and grinding up against you."));
 			

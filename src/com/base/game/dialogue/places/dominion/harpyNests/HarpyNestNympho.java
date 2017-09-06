@@ -307,7 +307,7 @@ public class HarpyNestNympho {
 						public void effects() {
 							Main.game.getDialogueFlags().nymphoEncountered = true;
 							Main.game.getDialogueFlags().nymphoPacified = true;
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MARTRIARCH_NYMPHO_LOLLIPOP), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_NYMPHO_LOLLIPOP), false));
 						}
 						@Override
 						public QuestLine getQuestLine() {
@@ -375,7 +375,7 @@ public class HarpyNestNympho {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().nymphoPacified = true;
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MARTRIARCH_NYMPHO_LOLLIPOP), false));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_NYMPHO_LOLLIPOP), false));
 					}
 					@Override
 					public QuestLine getQuestLine() {
@@ -457,7 +457,7 @@ public class HarpyNestNympho {
 		}
 		
 		@Override
-		public String getContent() { // Mock her for only having one partner at once, she gets flustered, you describe multple harpies fucking her, she breaks and falls to her knees admitting that you're better than she is
+		public String getContent() { // Mock her for only having one partner at once, she gets flustered, you describe multiple harpies fucking her, she breaks and falls to her knees admitting that you're better than she is
 			return "<p>"
 					+ "[pc.speech(So, do you only fuck one of your little boy-toys here at a time?)] you ask in a derisory tone,"
 					+ " [pc.speech(Because you know you could be doing a lot more than that, right?)]"

@@ -149,7 +149,7 @@ public class ItemType {
 	// breasts & cock fuckable.
 	// LUNETTES_NEED("a vial of", "it", "Lunette's need", "A small glass vial,
 	// filled with an oily liquid. Engraved into the glass is an image of
-	// Lunette; a muscular futa pegatuar. She's"
+	// Lunette; a muscular futa pegataur. She's"
 	// + " laughing as she aggressively mounts a busty horse-girl. Lunette's
 	// latest conquest is being pushed into the ground, her stomach visibly
 	// distending from Lunette's gigantic horse-cock.",
@@ -485,7 +485,7 @@ public class ItemType {
 			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
 				return "<p>"
 							+ "After first unscrewing the cap, you bring the plastic bottle up to your mouth."
-							+ " A faint smell of vanilla informs you that this isn't any ordinary water, and as you tilt your head back and start drinking the cool liquid, the taste of vanilla overwhelmes your senses."
+							+ " A faint smell of vanilla informs you that this isn't any ordinary water, and as you tilt your head back and start drinking the cool liquid, the taste of vanilla overwhelms your senses."
 						+ "</p>";
 				
 			} else {
@@ -1054,12 +1054,12 @@ public class ItemType {
 			"bubblegum lollipop",
 			"A bright pink lollipop, with a little ball of gum at its core."
 				+ " Although it doesn't look out of the ordinary, it's somewhat unusual in the fact that it has an incredibly strong smell of bubblegum.",
-			"raceHarpyLolipop",
+			"raceHarpyLollipop",
 			Colour.RACE_HARPY,
 			60,
 			Rarity.RARE,
 			TFEssence.HARPY,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_LOLIPOP, null, null, null, 0)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_LOLLIPOP, null, null, null, 0)))) {
 
 		/**
 				 * 
@@ -1497,13 +1497,13 @@ public class ItemType {
 	
 	// Specials:
 	
-	public static AbstractItemType HARPY_MARTRIARCH_BIMBO_LOLLIPOP = new AbstractItemType(
+	public static AbstractItemType HARPY_MATRIARCH_BIMBO_LOLLIPOP = new AbstractItemType(
 			null,
 			false,
 			"[bimboHarpy.name]'s lollipop",
 			"A swirly lollipop that you got from the harpy matriarch [bimboHarpy.name]."
 				+ " Although it doesn't look out of the ordinary, you're pretty sure that eating it would result in a potent transformation...",
-			"bimboLolipop",
+			"bimboLollipop",
 			Colour.RARITY_LEGENDARY,
 			500,
 			Rarity.LEGENDARY,
@@ -1537,13 +1537,13 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType HARPY_MARTRIARCH_NYMPHO_LOLLIPOP = new AbstractItemType(
+	public static AbstractItemType HARPY_MATRIARCH_NYMPHO_LOLLIPOP = new AbstractItemType(
 			null,
 			false,
 			"[nymphoHarpy.name]'s lollipop",
 			"A cock-shaped lollipop that you got from the harpy matriarch [nymphoHarpy.name]."
 				+ " Although it looks to be made from regular candy, you're pretty sure that eating it would result in a potent transformation...",
-			"nymphoLolipop",
+			"nymphoLollipop",
 			Colour.RARITY_LEGENDARY,
 			500,
 			Rarity.LEGENDARY,
@@ -1577,7 +1577,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType HARPY_MARTRIARCH_DOMINANT_PERFUME = new AbstractItemType(
+	public static AbstractItemType HARPY_MATRIARCH_DOMINANT_PERFUME = new AbstractItemType(
 			null,
 			false,
 			"[dominantHarpy.name]'s perfume",
@@ -2629,15 +2629,15 @@ public class ItemType {
 //
 //	THROBBING_GLOW("a bottle of", "it", "Throbbing Glow",
 //			"A clear plastic bottle of the energy drink <i>Throbbing Glow</i>, filled with a bright blue liquid. A"
-//					+ " well-endowed greater horse-boy is prominently featured on the label, stroking his gigantic member with one hand, while bringing a bottle of <i>Thobbing Glow</i>" + " to his lips with the other.",
+//					+ " well-endowed greater horse-boy is prominently featured on the label, stroking his gigantic member with one hand, while bringing a bottle of <i>Throbbing Glow</i>" + " to his lips with the other.",
 //			"potion", Colour.CLOTHING_BLUE_LIGHT, true, 25, Rarity.RARE, "Increases penis and testicle size. Increases cum production.") {
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
 //			if (user == Main.game.getPlayer() && target == Main.game.getPlayer())
-//				effectStringBuilder = new StringBuilder("<p>You unscrew the plastic cap and gulp down the bottle of <i>Thobbing Glow</i>. It tastes a little sour, sort of like"
+//				effectStringBuilder = new StringBuilder("<p>You unscrew the plastic cap and gulp down the bottle of <i>Throbbing Glow</i>. It tastes a little sour, sort of like"
 //						+ " a cheap, sugary energy drink. As the last few drops slide down your throat, you feel a throbbing, deep-seated heat take root in your groin.</p>");
 //			else if (user != Main.game.getPlayer() && target != Main.game.getPlayer())
-//				effectStringBuilder = new StringBuilder("<p>" + target.getName("The") + " pulls out a bottle of <i>Thobbing Glow</i>, unscrews the cap," + " and gulps it all down.</p>");
+//				effectStringBuilder = new StringBuilder("<p>" + target.getName("The") + " pulls out a bottle of <i>Throbbing Glow</i>, unscrews the cap," + " and gulps it all down.</p>");
 //
 //			effectStringBuilder.append("<p>" + TransformationEffect.THROBBING_GLOW.applyEffect(target) + "</p>");
 //
@@ -2783,7 +2783,7 @@ public class ItemType {
 					allItems.add(item);
 					
 					if(item!=ItemType.POTION && item!=ItemType.ELIXIR
-							&& item!=ItemType.HARPY_MARTRIARCH_BIMBO_LOLLIPOP && item!=ItemType.HARPY_MARTRIARCH_DOMINANT_PERFUME && item!=ItemType.HARPY_MARTRIARCH_NYMPHO_LOLLIPOP
+							&& item!=ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP && item!=ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME && item!=ItemType.HARPY_MATRIARCH_NYMPHO_LOLLIPOP
 							&& item!=ItemType.BOOK_CAT_MORPH && item!=ItemType.BOOK_DEMON && item!=ItemType.BOOK_DOG_MORPH
 							&& item!=ItemType.BOOK_HARPY && item!=ItemType.BOOK_HORSE_MORPH && item!=ItemType.BOOK_HUMAN && item!=ItemType.BOOK_WOLF_MORPH
 							&& item!=ItemType.BOTTLED_ESSENCE_ARCANE && item!=ItemType.BOTTLED_ESSENCE_CAT_MORPH && item!=ItemType.BOTTLED_ESSENCE_DEMON

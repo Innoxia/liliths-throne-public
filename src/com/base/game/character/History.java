@@ -40,7 +40,7 @@ public enum History {
 
 	BIRD_BRAIN("Bird brain", "You sometimes forget what you were doing halfway throu- Ooh a penny! You're less intelligent than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.INTELLIGENCE, -5))),
 
-	UNFIT("Unfit", "You've never done any excercise in your life, leaving you quite out of shape. You are less fit than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FITNESS, -5))),
+	UNFIT("Unfit", "You've never done any exercise in your life, leaving you quite out of shape. You are less fit than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FITNESS, -5))),
 
 	// Other:
 	TOWN_BIKE("Slut", "You've lost count of the amount of guys (and sometimes girls) that you've slept with. You have a lot of experience with flirting and seducing people." + " <span style='color:" + Colour.GENERIC_SEX.toWebHexString()

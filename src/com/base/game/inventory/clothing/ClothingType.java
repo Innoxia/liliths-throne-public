@@ -414,7 +414,7 @@ public class ClothingType {
 	public static AbstractClothingType HEAD_CIRCLET = new AbstractClothingType("a",
 			false,
 			"circlet",
-			"A thin band of metal that sits ontop of your head.",
+			"A thin band of metal that sits atop your head.",
 			1,
 			Femininity.FEMININE,
 			InventorySlot.HEAD,
@@ -1027,15 +1027,15 @@ public class ClothingType {
 			}else {
 				if (rough) {
 					if (clothingOwner.isPlayer()) {
-						return UtilText.parse(clothingRemover, "[npc.Name] holds your head still and fastens an ahnk necklace around your neck.");
+						return UtilText.parse(clothingRemover, "[npc.Name] holds your head still and fastens an ankh necklace around your neck.");
 					} else {
 						return UtilText.parse(clothingOwner, "You hold [npc.name]'s head still as you fasten the necklace around [npc.her] neck.");
 					}
 				} else {
 					if (clothingOwner.isPlayer()) {
-						return UtilText.parse(clothingRemover, "[npc.Name] clips an ahnk necklace around your neck.");
+						return UtilText.parse(clothingRemover, "[npc.Name] clips an ankh necklace around your neck.");
 					} else {
-						return UtilText.parse(clothingOwner, "You fasten the ahnk necklace around [npc.name]'s neck.");
+						return UtilText.parse(clothingOwner, "You fasten the ankh necklace around [npc.name]'s neck.");
 					}
 				}
 			}
@@ -1067,7 +1067,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType NECK_SCARF = new AbstractClothingType("a", false, "scarf", "A unisex scarf, made of a soft, wooly fabric.", 1, null, InventorySlot.NECK, Rarity.COMMON, null, "neck_scarf", null,
+	public static AbstractClothingType NECK_SCARF = new AbstractClothingType("a", false, "scarf", "A unisex scarf, made of a soft, woolly fabric.", 1, null, InventorySlot.NECK, Rarity.COMMON, null, "neck_scarf", null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 
@@ -1207,7 +1207,7 @@ public class ClothingType {
 			else {
 				if (rough) {
 					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " pushes your " + clothingOwner.getArmName() + " through " + clothing.getName(true) + "'s sleeves and hasilty buttons it up.";
+						return Util.capitaliseSentence(clothingRemover.getName("the")) + " pushes your " + clothingOwner.getArmName() + " through " + clothing.getName(true) + "'s sleeves and hastily buttons it up.";
 					else
 						return UtilText.genderParsing(clothingOwner,
 								"You push " + clothingOwner.getName("the") + "'s " + clothingOwner.getArmName() + " through the shirt's sleeves and hastily button it up.");
@@ -1319,7 +1319,7 @@ public class ClothingType {
 			else {
 				if (rough) {
 					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " pushes your " + clothingOwner.getArmName() + " through " + clothing.getName(true) + "'s sleeves and hasilty buttons it up.";
+						return Util.capitaliseSentence(clothingRemover.getName("the")) + " pushes your " + clothingOwner.getArmName() + " through " + clothing.getName(true) + "'s sleeves and hastily buttons it up.";
 					else
 						return UtilText.genderParsing(clothingOwner,
 								"You push " + clothingOwner.getName("the") + "'s " + clothingOwner.getArmName() + " through the shirt's sleeves and hastily button it up.");
@@ -1515,7 +1515,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_RIBBED_SWEATER = new AbstractClothingType("a", false, "ribbed sweater", "A unisex ribbed sweater, made from some sort of wooly fabric.", 1, null, InventorySlot.TORSO, Rarity.COMMON, null, "torso_ribbed_sweater", null,
+	public static AbstractClothingType TORSO_RIBBED_SWEATER = new AbstractClothingType("a", false, "ribbed sweater", "A unisex ribbed sweater, made from some sort of woolly fabric.", 1, null, InventorySlot.TORSO, Rarity.COMMON, null, "torso_ribbed_sweater", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -2047,7 +2047,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_OPEN_CARDIGAN = new AbstractClothingType("an", false, "open-front cardigan", "A very feminine, open-front cardigan. It's made from a thin, wooly fabric.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_open_cardigan", null,
+	public static AbstractClothingType TORSO_OPEN_CARDIGAN = new AbstractClothingType("an", false, "open-front cardigan", "A very feminine, open-front cardigan. It's made from a thin, woolly fabric.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_open_cardigan", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -3262,14 +3262,14 @@ public class ClothingType {
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You untie the biki top's strings and remove it from your chest.";
+				return "You untie the bikini top's strings and remove it from your chest.";
 			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " unties <her> biki top's strings and removes it from <her> chest.");
+				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " unties <her> bikini top's strings and removes it from <her> chest.");
 			else {
 				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " unties your biki top's strings and removes it from your chest.";
+					return Util.capitaliseSentence(clothingRemover.getName("the")) + " unties your bikini top's strings and removes it from your chest.";
 				else
-					return UtilText.genderParsing(clothingOwner, "You untie " + clothingOwner.getName("the") + "'s biki top's strings and pull it off <her> chest.");
+					return UtilText.genderParsing(clothingOwner, "You untie " + clothingOwner.getName("the") + "'s bikini top's strings and pull it off <her> chest.");
 			}
 		}
 

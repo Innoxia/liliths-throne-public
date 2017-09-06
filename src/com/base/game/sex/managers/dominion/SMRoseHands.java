@@ -38,7 +38,7 @@ public class SMRoseHands extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isItemUseAvalable() {
+	public boolean isItemUseAvailable() {
 		return false;
 	}
 	

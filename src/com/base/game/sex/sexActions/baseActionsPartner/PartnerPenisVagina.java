@@ -999,7 +999,7 @@ public class PartnerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex(); // Partner can only stop if they're in charge (otherwise, this is the player fucking themselves on the parnter's cock).
+			return !Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex(); // Partner can only stop if they're in charge (otherwise, this is the player fucking themselves on the partner's cock).
 		}
 		
 		@Override

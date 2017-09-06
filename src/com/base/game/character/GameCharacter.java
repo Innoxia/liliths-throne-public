@@ -1564,7 +1564,7 @@ public class GameCharacter implements Serializable {
 			
 		} else {
 			pregnancyChance = 0;
-			pregnancyChance += (partner.getAttributeValue(Attribute.VIRILITY)/100f) * partner.getPenisCumProduction().getPregnancyModifer();
+			pregnancyChance += (partner.getAttributeValue(Attribute.VIRILITY)/100f) * partner.getPenisCumProduction().getPregnancyModifier();
 			pregnancyChance += (getAttributeValue(Attribute.FERTILITY)/100f);
 		}
 		

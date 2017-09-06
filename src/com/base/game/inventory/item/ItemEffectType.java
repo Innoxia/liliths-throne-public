@@ -515,7 +515,7 @@ public enum ItemEffectType {
 		}
 	},
 	
-	// FItness:
+	// Fitness:
 	
 	FIT_CANINE_CRUSH(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldStamina(stamina)]"),
@@ -719,7 +719,7 @@ public enum ItemEffectType {
 		}
 	},
 	
-	RACE_LOLIPOP(Util.newArrayListOfValues(
+	RACE_LOLLIPOP(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(+5)] [style.boldFitness(fitness)] to 'potion effects'"),
 			new ListValue<>("[style.boldSex(+3)] [style.boldFeminine(femininity)]")),
 			Colour.RACE_WOLF_MORPH) {
@@ -2167,7 +2167,7 @@ public enum ItemEffectType {
 					case TF_MOD_ORIFICE_PUFFY:
 						switch(potency) {
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes puffyness from anal rim.") { @Override public String applyEffect() { return target.removeAssOrificeModifier(OrificeModifier.PUFFY); } };
+								return new RacialEffectUtil("Removes puffiness from anal rim.") { @Override public String applyEffect() { return target.removeAssOrificeModifier(OrificeModifier.PUFFY); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Makes anal rim puffy.") { @Override public String applyEffect() { return target.addAssOrificeModifier(OrificeModifier.PUFFY); } };
 						}
@@ -2338,7 +2338,7 @@ public enum ItemEffectType {
 					case TF_MOD_ORIFICE_PUFFY:
 						switch(potency) {
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes puffyness from nipples.") { @Override public String applyEffect() { return target.removeNippleOrificeModifier(OrificeModifier.PUFFY); } };
+								return new RacialEffectUtil("Removes puffiness from nipples.") { @Override public String applyEffect() { return target.removeNippleOrificeModifier(OrificeModifier.PUFFY); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Makes nipples extra puffy.") { @Override public String applyEffect() { return target.addNippleOrificeModifier(OrificeModifier.PUFFY); } };
 						}
@@ -2517,7 +2517,7 @@ public enum ItemEffectType {
 					case TF_MOD_ORIFICE_PUFFY:
 						switch(potency) {
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes puffyness from lips.") { @Override public String applyEffect() { return target.removeFaceOrificeModifier(OrificeModifier.PUFFY); } };
+								return new RacialEffectUtil("Removes puffiness from lips.") { @Override public String applyEffect() { return target.removeFaceOrificeModifier(OrificeModifier.PUFFY); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Makes lips extra puffy.") { @Override public String applyEffect() { return target.addFaceOrificeModifier(OrificeModifier.PUFFY); } };
 						}
@@ -2829,7 +2829,7 @@ public enum ItemEffectType {
 					case TF_MOD_ORIFICE_PUFFY:
 						switch(potency) {
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes puffyness from urethra.") { @Override public String applyEffect() { return target.removeUrethraOrificeModifier(OrificeModifier.PUFFY); } };
+								return new RacialEffectUtil("Removes puffiness from urethra.") { @Override public String applyEffect() { return target.removeUrethraOrificeModifier(OrificeModifier.PUFFY); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Makes urethra extra puffy.") { @Override public String applyEffect() { return target.addUrethraOrificeModifier(OrificeModifier.PUFFY); } };
 						}
@@ -2963,7 +2963,7 @@ public enum ItemEffectType {
 					case TF_MOD_ORIFICE_PUFFY:
 						switch(potency) {
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes puffyness from labia.") { @Override public String applyEffect() { return target.removeVaginaOrificeModifier(OrificeModifier.PUFFY); } };
+								return new RacialEffectUtil("Removes puffiness from labia.") { @Override public String applyEffect() { return target.removeVaginaOrificeModifier(OrificeModifier.PUFFY); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Makes labia extra puffy.") { @Override public String applyEffect() { return target.addVaginaOrificeModifier(OrificeModifier.PUFFY); } };
 						}

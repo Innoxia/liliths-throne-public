@@ -749,7 +749,7 @@ public class PrologueDialogue {
 					+ " The buildings on either side all adhere to old-fashioned designs that look very similar to pictures you've seen of Victorian architecture."
 					+ " When combined with the style of street-lights, a casual observer could easily be confused into believing that they'd been transported back"
 					+ " to an alternate version of mid-nineteenth century central London."
-					+ " As you look closer, however, the fashion trends being displayed in shop-fronts and on advertisment billboards make it quite clear that this 'alternate dimension' must be of the same time period that you're familiar with."
+					+ " As you look closer, however, the fashion trends being displayed in shop-fronts and on advertisement billboards make it quite clear that this 'alternate dimension' must be of the same time period that you're familiar with."
 					+ "</p>"
 
 					+ "<p>"
@@ -1136,7 +1136,7 @@ public class PrologueDialogue {
 					+ " You somehow know that you're able to harness its power into what you'd once have called magic."
 					+ " You know that its the same sort of arcane power that's found in that strange thunderstorm, and, indeed, all throughout this world."
 					+ " And, somewhat disturbingly, you know that this 'arcane' is strongly connected to your sexual desires, and if you lose control of it, has the power to corrupt both your mind and body."
-					+ " Putting such dark thoughts aside for now, you twist your hand, eager to try out this new power, and a swirling vortex of flame obediantly materialises around your arm."
+					+ " Putting such dark thoughts aside for now, you twist your hand, eager to try out this new power, and a swirling vortex of flame obediently materialises around your arm."
 					+ " With another motion, you dispel it, and look up to see Lilaya beaming at you in excitement."
 					+ "</p>";
 		}
@@ -1387,7 +1387,7 @@ public class PrologueDialogue {
 					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.parseSpeech("There are fourty flames in there, which should be more than enough to get some new clothes. Mistress advises that you rest through this storm and go out shopping tomorrow."
+					+ UtilText.parseSpeech("There are forty flames in there, which should be more than enough to get some new clothes. Mistress advises that you rest through this storm and go out shopping tomorrow."
 							+ " Oh, and please remember what I said about the alleyways being dangerous."
 							, Main.game.getRose())
 					+ " Rose smiles and makes her exit once again, leaving you to decide for yourself what you want to do next."

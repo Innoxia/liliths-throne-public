@@ -713,7 +713,7 @@ public enum Sex {
 			} else if (index < availableSexActionsPlayer.size() && availableSexActionsPlayer.get(index) != null){
 
 				if(availableSexActionsPlayer.get(index) == SexActionUtility.PLAYER_USE_ITEM){
-					if(sexManager.isItemUseAvalable()) {
+					if(sexManager.isItemUseAvailable()) {
 						return new Response(availableSexActionsPlayer.get(index).getActionTitle(), availableSexActionsPlayer.get(index).getActionDescription(), InventoryDialogue.INVENTORY_MENU,
 								availableSexActionsPlayer.get(index).getFetishesPlayer(),
 								availableSexActionsPlayer.get(index).getCorruptionNeeded(),

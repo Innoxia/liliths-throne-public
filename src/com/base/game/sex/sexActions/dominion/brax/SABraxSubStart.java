@@ -80,7 +80,7 @@ public class SABraxSubStart {
 							UtilText.returnStringAtRandom(
 							"You're going to be a good little beta, aren't you [brax.name]?",
 							"That's right, stay on your knees like a good little beta!",
-							"Whan an obedient beta you are!",
+							"What an obedient beta you are!",
 							"Hmm, how should your new alpha use you?")));
 			}
 			

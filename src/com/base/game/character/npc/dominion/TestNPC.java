@@ -361,7 +361,7 @@ public class TestNPC extends NPC {
 						TEST_DIALOGUE_AFTER_SEX,
 						Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX,
 						"<p>"
-							+ "You step forwards, gentley wrapping your [pc.arms] around the [test.race] and lovingly pulling [test.herHim] into you."
+							+ "You step forwards, gently wrapping your [pc.arms] around the [test.race] and lovingly pulling [test.herHim] into you."
 						+ "</p>"
 						+ "<p>"
 							+ "[test.speech(~Mmmm!~)] [test.she] moans, leaning into you,"

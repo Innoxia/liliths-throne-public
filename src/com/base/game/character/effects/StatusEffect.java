@@ -526,7 +526,7 @@ public enum StatusEffect {
 	// Agility:
 	FITNESS_PERK_0(
 			80,
-			"clutz",
+			"klutz",
 			"attFitness0",
 			Colour.FITNESS_STAGE_ZERO,
 			false,
@@ -537,7 +537,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(FitnessLevel.ZERO_CLUTZ.getName());
+			return Util.capitaliseSentence(FitnessLevel.ZERO_KLUTZ.getName());
 		}
 		
 		@Override
@@ -556,7 +556,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return FitnessLevel.getFitnessLevelFromValue(target.getAttributeValue(Attribute.FITNESS)) == FitnessLevel.ZERO_CLUTZ;
+			return FitnessLevel.getFitnessLevelFromValue(target.getAttributeValue(Attribute.FITNESS)) == FitnessLevel.ZERO_KLUTZ;
 		}
 		
 		@Override
@@ -781,7 +781,7 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer())
-				return "Your body and mind are completely untained by corruption. You might consider performing the most conservative of sexual acts with the person you love, but other than that, you're not interested in sex at all.";
+				return "Your body and mind are completely untainted by corruption. You might consider performing the most conservative of sexual acts with the person you love, but other than that, you're not interested in sex at all.";
 			else
 				return UtilText.genderParsing(owner, owner.getName("The") + " is completely pure, and strongly resists temptation.");
 		}
@@ -3413,11 +3413,11 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "Losing your virginity has hit you hard. All you can think of is big, thick cocks breaking you in like a worthless slut, before defiling your womb with their foul cum..."
-						+ " Without your virginty, all you can see yourself as is a cheap sex toy.";
+						+ " Without your virginity, all you can see yourself as is a cheap sex toy.";
 			} else {
 				return UtilText.parse(target,
 						"Losing [npc.her] virginity has hit [npc.name] hard. All [npc.she] can think of is big, thick cocks breaking [npc.herHim] in like a worthless slut, before defiling [npc.her] womb with their foul cum..."
-								+ " Without [npc.her] virginty, all [npc.she] can see [npc.herself] as is a cheap sex toy.");
+								+ " Without [npc.her] virginity, all [npc.she] can see [npc.herself] as is a cheap sex toy.");
 			}
 		}
 
@@ -3456,7 +3456,7 @@ public enum StatusEffect {
 			} else {
 				return UtilText.parse(target,
 						"Losing [npc.her] virginity has hit [npc.name] hard. All [npc.she] can think of is big, thick cocks breaking [npc.herHim] in like a worthless slut, before defiling [npc.her] womb with their foul cum..."
-								+ " Without [npc.her] virginty, all [npc.she] can see [npc.herself] as is a cheap sex toy.");
+								+ " Without [npc.her] virginity, all [npc.she] can see [npc.herself] as is a cheap sex toy.");
 			}
 		}
 
