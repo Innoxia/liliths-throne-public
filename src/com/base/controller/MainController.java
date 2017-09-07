@@ -43,6 +43,7 @@ import com.base.game.character.QuestLine;
 import com.base.game.character.attributes.Attribute;
 import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.BodyCoveringType;
+import com.base.game.character.body.valueEnums.BodyHair;
 import com.base.game.character.body.valueEnums.CoveringPattern;
 import com.base.game.character.body.valueEnums.HairLength;
 import com.base.game.character.body.valueEnums.HairStyle;
@@ -1777,6 +1778,99 @@ public class MainController implements Initializable {
 											Main.game.getPlayer().setPiercedVagina(true);
 											break;
 									}
+								}
+							});
+						}
+					}, false);
+				}
+			}
+			
+			if (((EventTarget) document.getElementById("BLEACHING_OFF")) != null) {
+				
+				((EventTarget) document.getElementById("BLEACHING_OFF")).addEventListener("click", e -> {
+					if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_ANAL_BLEACHING_COST) {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_ANAL_BLEACHING_COST);
+								Main.game.getPlayer().setAssBleached(false);
+							}
+						});
+					}
+				}, false);
+			}
+			
+			if (((EventTarget) document.getElementById("BLEACHING_ON")) != null) {
+				
+				((EventTarget) document.getElementById("BLEACHING_ON")).addEventListener("click", e -> {
+					if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_ANAL_BLEACHING_COST) {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_ANAL_BLEACHING_COST);
+								Main.game.getPlayer().setAssBleached(true);
+							}
+						});
+					}
+				}, false);
+			}
+			
+			for(BodyHair bodyHair: BodyHair.values()) {
+				
+				String id = "ASS_HAIR_"+bodyHair;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_BODY_HAIR_COST) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
+									Main.game.getPlayer().setAssHair(bodyHair);
+								}
+							});
+						}
+					}, false);
+				}
+				
+				id = "UNDERARM_HAIR_"+bodyHair;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_BODY_HAIR_COST) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
+									Main.game.getPlayer().setUnderarmHair(bodyHair);
+								}
+							});
+						}
+					}, false);
+				}
+				
+				id = "PUBIC_HAIR_"+bodyHair;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_BODY_HAIR_COST) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
+									Main.game.getPlayer().setPubicHair(bodyHair);
+								}
+							});
+						}
+					}, false);
+				}
+				
+				id = "FACIAL_HAIR_"+bodyHair;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_BODY_HAIR_COST) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
+									Main.game.getPlayer().setFacialHair(bodyHair);
 								}
 							});
 						}

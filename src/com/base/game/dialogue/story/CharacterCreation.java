@@ -99,10 +99,9 @@ public class CharacterCreation {
 						setBodyType();
 						Main.game.clearTextStartStringBuilder();
 						Main.game.clearTextEndStringBuilder();
-						Main.game.getPlayer().setNewWeaponDiscovered(false);
-						Main.game.getPlayer().setNewClothingDiscovered(false);
-						Main.game.getPlayer().setNewItemDiscovered(false);
-						Main.game.getPlayer().getItemsDiscovered().clear();
+						Main.getProperties().setNewWeaponDiscovered(false);
+						Main.getProperties().setNewClothingDiscovered(false);
+						Main.getProperties().setNewItemDiscovered(false);
 						Main.game.getPlayer().calculateStatusEffects(0);
 					}
 				};
@@ -1687,8 +1686,8 @@ public class CharacterCreation {
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
 						
-						Main.game.getPlayer().addRaceDiscovered(Main.game.getLilaya().getRace());
-						Main.game.getPlayer().addRaceDiscovered(Main.game.getRose().getRace());
+						Main.getProperties().addRaceDiscovered(Main.game.getLilaya().getRace());
+						Main.getProperties().addRaceDiscovered(Main.game.getRose().getRace());
 
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
 						
@@ -1737,12 +1736,8 @@ public class CharacterCreation {
 	};
 
 	private static void applyGameStart() {
-		Main.game.getPlayer().addRaceDiscovered(Race.HUMAN);
-		Main.game.getPlayer().getItemsDiscovered().add(ItemType.CONDOM);
-		
-		// Main.game.getPlayer().addSideQuest(QuestLine.SIDE_ITEM_DISCOVERY);
-		// Main.game.getPlayer().addSideQuest(QuestLine.SIDE_RACE_DISCOVERY);
-//		Main.game.getPlayer().setMainQuestUpdated(false);
+		Main.getProperties().addRaceDiscovered(Race.HUMAN);
+		Main.getProperties().addItemDiscovered(ItemType.CONDOM);
 	}
 	
 	private static StringBuilder importSB;
@@ -1878,8 +1873,8 @@ public class CharacterCreation {
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
 						
-						Main.game.getPlayer().addRaceDiscovered(Main.game.getLilaya().getRace());
-						Main.game.getPlayer().addRaceDiscovered(Main.game.getRose().getRace());
+						Main.getProperties().addRaceDiscovered(Main.game.getLilaya().getRace());
+						Main.getProperties().addRaceDiscovered(Main.game.getRose().getRace());
 						
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
 						

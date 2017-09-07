@@ -2,7 +2,9 @@ package com.base.game.inventory.item;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.base.game.character.GameCharacter;
 import com.base.game.character.attributes.CorruptionLevel;
@@ -1848,10 +1850,7 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.APPLY_CONDOM, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -1917,10 +1916,7 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.USED_CONDOM_DRINK, null, null, null, 0)))) {
 		
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2082,7 +2078,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.CAT_MORPH);
+			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.CAT_MORPH);
 		}
 
 		@Override
@@ -2122,7 +2118,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.DEMON);
+			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.DEMON);
 		}
 
 		@Override
@@ -2167,7 +2163,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.DOG_MORPH);
+			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.DOG_MORPH);
 		}
 
 		@Override
@@ -2212,7 +2208,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.HARPY);
+			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.HARPY);
 		}
 
 		@Override
@@ -2257,7 +2253,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.HORSE_MORPH);
+			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.HORSE_MORPH);
 		}
 
 		@Override
@@ -2302,7 +2298,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.HUMAN);
+			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.HUMAN);
 		}
 
 		@Override
@@ -2347,7 +2343,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.SQUIRREL_MORPH);
+			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.SQUIRREL_MORPH);
 		}
 
 		@Override
@@ -2387,7 +2383,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.WOLF_MORPH);
+			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.WOLF_MORPH);
 		}
 
 		@Override
@@ -2768,6 +2764,9 @@ public class ItemType {
 			essences = new ArrayList<>(),
 			allItems = new ArrayList<>();
 	
+	public static Map<AbstractItemType, String> itemToIdMap = new HashMap<>();
+	public static Map<String, AbstractItemType> idToItemMap = new HashMap<>();
+	
 	static{
 		
 		Field[] fields = ItemType.class.getFields();
@@ -2779,6 +2778,10 @@ public class ItemType {
 				AbstractItemType item;
 				try {
 					item = ((AbstractItemType) f.get(null));
+					
+					// I feel like this is stupid :thinking:
+					itemToIdMap.put(item, f.getName());
+					idToItemMap.put(f.getName(), item);
 					
 					allItems.add(item);
 					

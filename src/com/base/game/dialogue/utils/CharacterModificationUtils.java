@@ -1145,6 +1145,115 @@ public class CharacterModificationUtils {
 		return contentSB.toString();
 	}
 	
+	public static String getKatesDivAssHair(String title, String description) {
+		return getKatesDivGenericBodyHair(title, description, Main.game.getPlayer().getAssHair(), "ASS_HAIR_", false);
+	}
+	
+	public static String getKatesDivUnderarmHair(String title, String description) {
+		return getKatesDivGenericBodyHair(title, description, Main.game.getPlayer().getUnderarmHair(), "UNDERARM_HAIR_", false);
+	}
+	
+	public static String getKatesDivFacialHair(String title, String description) {
+		return getKatesDivGenericBodyHair(title, description, Main.game.getPlayer().getFacialHair(), "FACIAL_HAIR_", Main.game.getPlayer().isFeminine());
+	}
+	
+	public static String getKatesDivPubicHair(String title, String description) {
+		return getKatesDivGenericBodyHair(title, description, Main.game.getPlayer().getPubicHair(), "PUBIC_HAIR_", false);
+	}
+	
+	private static String getKatesDivGenericBodyHair(String title, String description, BodyHair activeHair, String id, boolean blockAllButNoneOptions) {
+		contentSB.setLength(0);
+		
+		contentSB.append(
+				"<div class='cosmetics-container'>"
+					+ "<div class='cosmetics-inner-container left'>"
+						+ "<h5 style='text-align:center;'>"
+							+title+" "+UtilText.getColouredMoneySymbol("span")+" "
+								+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST
+									? SuccubisSecrets.BASE_BODY_HAIR_COST
+									: "[style.colourBad("+SuccubisSecrets.BASE_BODY_HAIR_COST+")]")
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ description
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='cosmetics-inner-container right'>");
+		
+		for (BodyHair bodyHair : BodyHair.values()) {
+			if (activeHair == bodyHair) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>" + Util.capitaliseSentence(bodyHair.getName()) + "</b>"
+						+ "</div>");
+			} else {
+				if(blockAllButNoneOptions) {
+					contentSB.append(
+							"<div class='cosmetics-button disabled'>"
+								+ "[style.colourDisabled(" + Util.capitaliseSentence(bodyHair.getName()) + ")]"
+							+ "</div>");
+				} else {
+					contentSB.append(
+							"<div id='"+id+bodyHair+"' class='cosmetics-button'>"
+									+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST
+										? "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(bodyHair.getName()) + "</span>"
+										: "[style.colourDisabled(" + Util.capitaliseSentence(bodyHair.getName()) + ")]")
+							+ "</div>");
+				}
+			}
+		}
+		
+		contentSB.append(
+				"</div>"
+			+ "</div>");
+		
+		return contentSB.toString();
+	}
+	
+	public static String getKatesDivAnalBleaching(String title, String description) {
+		contentSB.setLength(0);
+		
+		contentSB.append(
+				"<div class='cosmetics-container'>"
+					+ "<div class='cosmetics-inner-container left'>"
+						+ "<h5 style='text-align:center;'>"
+							+title+" "+UtilText.getColouredMoneySymbol("span")+" "
+								+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_ANAL_BLEACHING_COST
+									? SuccubisSecrets.BASE_ANAL_BLEACHING_COST
+									: "[style.colourBad("+SuccubisSecrets.BASE_ANAL_BLEACHING_COST+")]")
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ description
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='cosmetics-inner-container right'>");
+		
+		if(Main.game.getPlayer().isAssBleached()) {
+			contentSB.append(
+					"<div id='BLEACHING_OFF' class='cosmetics-button'>"
+						+ "[style.colourDisabled(Normal)]"
+					+ "</div>"
+					+ "<div class='cosmetics-button active'>"
+						+ "[style.boldArcane(Bleached)]"
+					+ "</div>");
+		} else {
+			contentSB.append(
+					"<div class='cosmetics-button active'>"
+						+ "Normal"
+					+ "</div>"
+					+ "<div id='BLEACHING_ON' class='cosmetics-button'>"
+						+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_ANAL_BLEACHING_COST
+							?"<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Bleached</span>"
+							:"[style.colourDisabled(Bleached)]")
+					+ "</div>");
+		}
+		
+		contentSB.append(
+				"</div>"
+			+ "</div>");
+		
+		return contentSB.toString();
+	}
+	
 	public static String getKatesDivCoverings(BodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow) {
 		contentSB.setLength(0);
 		

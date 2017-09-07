@@ -188,6 +188,10 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	public static AbstractClothing generateClothingWithEnchantment(AbstractClothingType clothingType) {
 		return AbstractClothingType.generateClothingWithEnchantment(clothingType, clothingType.getAvailableColours().get(Util.random.nextInt(clothingType.getAvailableColours().size())));
 	}
+	
+	public String getId() {
+		return ClothingType.clothingToIdMap.get(this);
+	}
 
 	static Map<ClothingSet, List<AbstractClothingType>> clothingSetMap = new EnumMap<>(ClothingSet.class);
 

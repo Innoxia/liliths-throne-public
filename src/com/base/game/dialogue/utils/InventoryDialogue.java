@@ -979,7 +979,7 @@ public class InventoryDialogue {
 						return new Response("Dye", "Your inventory is full, so you can't dye this item of clothing.", null);
 					}
 				} else {
-					if (Main.game.getPlayer().getItemsDiscovered().contains(ItemType.DYE_BRUSH))
+					if (Main.getProperties().isItemDiscovered(ItemType.DYE_BRUSH))
 						return new Response("Dye", "You'll need to find another Dye-brush if you want to dye your clothes.", null);
 					else
 						return new Response("Dye", "You'll need to find an item of some sort if you want to dye your clothes.", null);
@@ -1807,7 +1807,7 @@ public class InventoryDialogue {
 							return new Response("Dye", "You can only dye clothing if you're the dominant partner in non-consensual sex.", null);
 						}
 					} else {
-						if (Main.game.getPlayer().getItemsDiscovered().contains(ItemType.DYE_BRUSH))
+						if (Main.getProperties().isItemDiscovered(ItemType.DYE_BRUSH))
 							return new Response("Dye", "You'll need to find another Dye-brush if you want to dye your clothes.", null);
 						else
 							return new Response("Dye", "You'll need to find an item of some sort if you want to dye your clothes.", null);
@@ -1908,7 +1908,7 @@ public class InventoryDialogue {
 					if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)) {
 						return new Response("Dye", "Use a Dye-brush to dye this item of clothing.", DYE_EQUIPPED_CLOTHING);
 					} else {
-						if (Main.game.getPlayer().getItemsDiscovered().contains(ItemType.DYE_BRUSH))
+						if (Main.getProperties().isItemDiscovered(ItemType.DYE_BRUSH))
 							return new Response("Dye", "You'll need to find another Dye-brush if you want to dye your clothes.", null);
 						else
 							return new Response("Dye", "You'll need to find an item of some sort if you want to dye your clothes.", null);

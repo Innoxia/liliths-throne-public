@@ -94,8 +94,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 			@Override
 			public String onEquip(GameCharacter character) {
 				if (character.isPlayer()) {
-					if (Main.game.getPlayer().getWeaponsDiscovered().add(wt)) {
-						Main.game.getPlayer().setNewWeaponDiscovered(true);
+					if (Main.getProperties().addWeaponDiscovered(wt)) {
 						Main.game.getTextEndStringBuilder().append(
 								"<p style='text-align:center;'>"
 									+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
@@ -123,6 +122,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 	 */
 	public static AbstractWeapon generateWeapon(AbstractWeaponType wt) {
 		return AbstractWeaponType.generateWeapon(wt, wt.getAvailableDamageTypes().get(Util.random.nextInt(wt.getAvailableDamageTypes().size())));
+	}
+	
+	public String getId() {
+		return WeaponType.weaponToIdMap.get(this);
 	}
 
 	public abstract String equipText(GameCharacter character);

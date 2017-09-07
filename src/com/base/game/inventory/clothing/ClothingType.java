@@ -3,6 +3,7 @@ package com.base.game.inventory.clothing;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7419,6 +7420,9 @@ public class ClothingType {
 															commonClothingMapAndrogynous,
 															commonClothingMapFemaleIncludingAndrogynous,
 															commonClothingMapMaleIncludingAndrogynous;
+	
+	public static Map<AbstractClothingType, String> clothingToIdMap = new HashMap<>();
+	public static Map<String, AbstractClothingType> idToClothingMap = new HashMap<>();
 
 	static {
 		
@@ -7470,6 +7474,10 @@ public class ClothingType {
 				AbstractClothingType ct;
 				try {
 					ct = ((AbstractClothingType) f.get(null));
+
+					// I feel like this is stupid :thinking:
+					clothingToIdMap.put(ct, f.getName());
+					idToClothingMap.put(f.getName(), ct);
 					
 					allClothing.add(ct);
 					
@@ -7540,11 +7548,6 @@ public class ClothingType {
 				
 			}
 		}
-		
-		
-		
-		
-
 	}
 	
 	public static List<AbstractClothingType> getAllClothing() {

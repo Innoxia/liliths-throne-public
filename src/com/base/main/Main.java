@@ -580,10 +580,9 @@ public class Main extends Application {
 				Main.game.setRenderAttributesSection(true);
 				Main.game.clearTextStartStringBuilder();
 				Main.game.clearTextEndStringBuilder();
-				Main.game.getPlayer().setNewWeaponDiscovered(false);
-				Main.game.getPlayer().setNewClothingDiscovered(false);
-				Main.game.getPlayer().setNewItemDiscovered(false);
-				Main.game.getPlayer().getItemsDiscovered().clear();
+				Main.getProperties().setNewWeaponDiscovered(false);
+				Main.getProperties().setNewClothingDiscovered(false);
+				Main.getProperties().setNewItemDiscovered(false);
 				Main.game.getPlayer().calculateStatusEffects(0);
 
 				Main.game.initNewGame(CharacterCreation.START_GAME_WITH_IMPORT);

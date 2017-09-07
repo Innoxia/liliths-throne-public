@@ -540,7 +540,7 @@ public class Game implements Serializable {
 									if (((NPC) character).isAddedToContacts()) {
 										Main.game.getPlayer().addCharacterEncountered(character);
 									} 
-									if(Main.game.getPlayer().addRaceDiscovered(character.getRace())) {
+									if(Main.getProperties().addRaceDiscovered(character.getRace())) {
 										Main.game.getTextEndStringBuilder().append(getRaceDiscoveredMessage(character.getRace()));
 									}
 									((NPC) character).setLastTimeEncountered(minutesPassed);
@@ -705,7 +705,7 @@ public class Game implements Serializable {
 						if (((NPC) character).isAddedToContacts()) {
 							Main.game.getPlayer().addCharacterEncountered(character);
 						}
-						if(Main.game.getPlayer().addRaceDiscovered(character.getRace())) {
+						if(Main.getProperties().addRaceDiscovered(character.getRace())) {
 							Main.game.getTextEndStringBuilder().append(getRaceDiscoveredMessage(character.getRace()));
 						}
 						

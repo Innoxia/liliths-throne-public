@@ -2,21 +2,14 @@ package com.base.game.character;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import com.base.game.character.gender.Gender;
-import com.base.game.character.race.Race;
 import com.base.game.character.race.RaceStage;
 import com.base.game.character.race.RacialBody;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.ShopTransaction;
-import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.CoverableArea;
-import com.base.game.inventory.item.AbstractItemType;
-import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.utils.Colour;
 import com.base.utils.SizedStack;
 import com.base.world.WorldType;
@@ -35,21 +28,13 @@ public class PlayerCharacter extends GameCharacter {
 
 	private Map<QuestLine, Integer> quests;
 
-	private boolean mainQuestUpdated, sideQuestUpdated, romanceQuestUpdated,
-		newWeaponDiscovered, newClothingDiscovered, newItemDiscovered, newRaceDiscovered;
+	private boolean mainQuestUpdated, sideQuestUpdated, romanceQuestUpdated;
 
 	// Trader buy-back:
 	private SizedStack<ShopTransaction> buybackStack;
 
-	// Gameplay stats:
-	private Set<AbstractItemType> itemsDiscovered;
-	private Set<AbstractWeaponType> weaponsDiscovered;
-	private Set<AbstractClothingType> clothingDiscovered;
 	private List<GameCharacter> charactersEncountered;
-	private List<Race> racesDiscovered, racesAdvancedKnowledge;
-
-
-
+	
 	public PlayerCharacter(NameTriplet nameTriplet, String description, int level, Gender gender, RacialBody startingRace, RaceStage stage, CharacterInventory inventory, WorldType startingWorld, PlaceInterface startingPlace) {
 		super(nameTriplet, description, level, gender, startingRace, stage, new CharacterInventory(0), startingWorld, startingPlace);
 
@@ -66,21 +51,10 @@ public class PlayerCharacter extends GameCharacter {
 		mainQuestUpdated = false;
 		sideQuestUpdated = false;
 		romanceQuestUpdated = false;
-		
-		newWeaponDiscovered = false;
-		newClothingDiscovered = false;
-		newItemDiscovered = false;
-		newRaceDiscovered = false;
 
 		buybackStack = new SizedStack<>(24);
 
-		itemsDiscovered = new HashSet<>();
-		weaponsDiscovered = new HashSet<>();
-		clothingDiscovered = new HashSet<>();
 		charactersEncountered = new ArrayList<>();
-
-		racesDiscovered = new ArrayList<>();
-		racesAdvancedKnowledge = new ArrayList<>();
 	}
 
 	@Override
@@ -270,42 +244,6 @@ public class PlayerCharacter extends GameCharacter {
 
 	// Other stuff:
 
-	public boolean isNewWeaponDiscovered() {
-		return newWeaponDiscovered;
-	}
-
-	public void setNewWeaponDiscovered(boolean newWeaponDiscovered) {
-		this.newWeaponDiscovered = newWeaponDiscovered;
-	}
-
-	public boolean isNewClothingDiscovered() {
-		return newClothingDiscovered;
-	}
-
-	public void setNewClothingDiscovered(boolean newClothingDiscovered) {
-		this.newClothingDiscovered = newClothingDiscovered;
-	}
-
-	public boolean isNewItemDiscovered() {
-		return newItemDiscovered;
-	}
-
-	public void setNewItemDiscovered(boolean newItemDiscovered) {
-		this.newItemDiscovered = newItemDiscovered;
-	}
-
-	public Set<AbstractItemType> getItemsDiscovered() {
-		return itemsDiscovered;
-	}
-
-	public Set<AbstractWeaponType> getWeaponsDiscovered() {
-		return weaponsDiscovered;
-	}
-
-	public Set<AbstractClothingType> getClothingDiscovered() {
-		return clothingDiscovered;
-	}
-
 	public List<GameCharacter> getCharactersEncountered() {
 		return charactersEncountered;
 	}
@@ -314,44 +252,6 @@ public class PlayerCharacter extends GameCharacter {
 		if (!charactersEncountered.contains(character)) {
 			charactersEncountered.add(character);
 		}
-	}
-
-	public boolean isNewRaceDiscovered() {
-		return newRaceDiscovered;
-	}
-
-	public void setNewRaceDiscovered(boolean newRaceDiscovered) {
-		this.newRaceDiscovered = newRaceDiscovered;
-	}
-	
-	public boolean addRaceDiscovered(Race race) {
-		if(!racesDiscovered.contains(race)) {
-			racesDiscovered.add(race);
-			racesDiscovered.sort((Race r1, Race r2) -> (r1.getName()).compareTo(r2.getName()));
-			newRaceDiscovered = true;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public List<Race> getRacesDiscovered() {
-		return racesDiscovered;
-	}
-	
-	public boolean addRacesAdvancedKnowledge(Race race) {
-		if(!racesAdvancedKnowledge.contains(race)) {
-			racesAdvancedKnowledge.add(race);
-			racesAdvancedKnowledge.sort((Race r1, Race r2) -> (r1.getName()).compareTo(r2.getName()));
-			newRaceDiscovered = true;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public List<Race> getRacesAdvancedKnowledge() {
-		return racesAdvancedKnowledge;
 	}
 	
 	public SizedStack<ShopTransaction> getBuybackStack() {

@@ -2016,8 +2016,7 @@ public class GameCharacter implements Serializable {
 	public String useItem(AbstractItem item, GameCharacter target, boolean removingFromFloor, boolean onlyReturnEffects) {
 		
 		if(ItemType.allItems.contains(item.getItemType()) && isPlayer()) {
-			if(Main.game.getPlayer().getItemsDiscovered().add(item.getItemType())) {
-				Main.game.getPlayer().setNewItemDiscovered(true);
+			if(Main.getProperties().addItemDiscovered(item.getItemType())) {
 				Main.game.getTextEndStringBuilder().append(
 						"<p style='text-align:center;'>"
 							+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
@@ -2309,8 +2308,7 @@ public class GameCharacter implements Serializable {
 			updateInventoryListeners();
 
 			if (isPlayer()) {
-				if (Main.game.getPlayer().getClothingDiscovered().add(newClothing.getClothingType())) {
-					Main.game.getPlayer().setNewClothingDiscovered(true);
+				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
 					Main.game.getTextEndStringBuilder().append(
 							"<p style='text-align:center;'>"
 								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
@@ -2341,8 +2339,7 @@ public class GameCharacter implements Serializable {
 			updateInventoryListeners();
 
 			if (isPlayer()) {
-				if (Main.game.getPlayer().getClothingDiscovered().add(newClothing.getClothingType())) {
-					Main.game.getPlayer().setNewClothingDiscovered(true);
+				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
 					Main.game.getTextEndStringBuilder().append(
 							"<p style='text-align:center;'>"
 								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
@@ -2374,8 +2371,7 @@ public class GameCharacter implements Serializable {
 			updateInventoryListeners();
 
 			if (isPlayer()) {
-				if (Main.game.getPlayer().getClothingDiscovered().add(newClothing.getClothingType())) {
-					Main.game.getPlayer().setNewClothingDiscovered(true);
+				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
 					Main.game.getTextEndStringBuilder().append(
 							"<p style='text-align:center;'>"
 								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
@@ -3050,6 +3046,10 @@ public class GameCharacter implements Serializable {
 				return BodyCoveringType.BODY_HAIR_LYCAN_FUR;
 		}
 		return BodyCoveringType.BODY_HAIR_HUMAN;
+	}
+	
+	public BodyCoveringType getBodyHairCoveringType() {
+		return getBodyHairCoveringType(getRace());
 	}
 
 	public RaceStage getRaceStage() {
@@ -4291,6 +4291,9 @@ public class GameCharacter implements Serializable {
 	}
 	// Facial hair:
 	public BodyHair getFacialHair() {
+		if(isFeminine()) {
+			setFacialHair(BodyHair.NONE);
+		}
 		return body.getFace().getFacialHair();
 	}
 	public Covering getFacialHairType() {

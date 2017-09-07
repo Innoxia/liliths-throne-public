@@ -40,6 +40,8 @@ public class SuccubisSecrets {
 	public static final int BASE_PIERCINGS_COST = 25;
 	public static final int BASE_HAIR_LENGTH_COST = 25;
 	public static final int BASE_HAIR_STYLE_COST = 50;
+	public static final int BASE_ANAL_BLEACHING_COST = 100;
+	public static final int BASE_BODY_HAIR_COST = 50;
 	
 	public static final HashMap<BodyCoveringType, Integer> cosmeticCostsMap = Util.newHashMapOfValues(
 			new Value<>(BodyCoveringType.MAKEUP_BLUSHER, 25),
@@ -524,7 +526,7 @@ public class SuccubisSecrets {
 		}  else if (index == 5) {
 				return new Response("Eyes",
 						"There's a special page near the front of the brochure, advertising Kate's ability to recolour a person's eyes."
-						+ " Just like skin recolourings, this is quite demanding on her aura, and is therefore very expensive.", SHOP_BEAUTY_SALON_IRISES){
+						+ " Just like skin recolourings, this is quite demanding on her aura, and is therefore very expensive.", SHOP_BEAUTY_SALON_EYES){
 					@Override
 					public void effects() {
 						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy) {
@@ -575,7 +577,7 @@ public class SuccubisSecrets {
 			};
 
 		} else if (index == 7) {
-			return new Response("Other", "Kate can offer other miscellaneous services, such as anal bleaching.", null); //TODO bleaching & body hair
+			return new Response("Other", "Kate can offer other miscellaneous services, such as anal bleaching.", SHOP_BEAUTY_SALON_OTHER);
 
 		} else if (index == 8) {
 			return new Response("Tattoos", "Most of the brochure is taken up with drawings and photographs displaying Kate's considerable artistic talents."
@@ -663,12 +665,7 @@ public class SuccubisSecrets {
 		
 		@Override
 		public Response getResponse(int index) {
-			if (index == 0) {
-				return new Response("Back", "Tell Kate that you want a different service.", SHOP_BEAUTY_SALON_MAIN);
-				
-			} else {
-				return null;
-			}
+			return getMainResponse(index);
 		}
 	};
 	public static final DialogueNodeOld SHOP_BEAUTY_SALON_SKIN_COLOUR = new DialogueNodeOld("Succubi's Secrets", "-", true) {
@@ -736,16 +733,11 @@ public class SuccubisSecrets {
 		
 		@Override
 		public Response getResponse(int index) {
-			if (index == 0) {
-				return new Response("Back", "Tell Kate that you want a different service.", SHOP_BEAUTY_SALON_MAIN);
-				
-			} else {
-				return null;
-			}
+			return getMainResponse(index);
 		}
 	};
 	
-	public static final DialogueNodeOld SHOP_BEAUTY_SALON_IRISES = new DialogueNodeOld("Succubi's Secrets", "-", true) {
+	public static final DialogueNodeOld SHOP_BEAUTY_SALON_EYES = new DialogueNodeOld("Succubi's Secrets", "-", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -760,10 +752,10 @@ public class SuccubisSecrets {
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
 					+CharacterModificationUtils.getKatesDivCoverings(
-							Main.game.getPlayer().getEyeType().getBodyCoveringType(), "Irises", ".", true, true)
+							Main.game.getPlayer().getEyeType().getBodyCoveringType(), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.EYE_PUPILS, "Pupils", ".", true, true);
+							BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true);
 		}
 		
 		@Override
@@ -773,12 +765,7 @@ public class SuccubisSecrets {
 		
 		@Override
 		public Response getResponse(int index) {
-			if (index == 0) {
-				return new Response("Back", "Tell Kate that you want a different service.", SHOP_BEAUTY_SALON_MAIN);
-				
-			} else {
-				return null;
-			}
+			return getMainResponse(index);
 		}
 	};
 	
@@ -819,12 +806,61 @@ public class SuccubisSecrets {
 		
 		@Override
 		public Response getResponse(int index) {
-			if (index == 0) {
-				return new Response("Back", "Tell Kate that you want a different service.", SHOP_BEAUTY_SALON_MAIN);
+			return getMainResponse(index);
+		}
+	};
+	
+	public static final DialogueNodeOld SHOP_BEAUTY_SALON_OTHER = new DialogueNodeOld("", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel() {
+			return "Cosmetics";
+		}
 
-			} else {
-				return null;
-			}
+		@Override
+		public String getHeaderContent() {
+			
+			return "<p>"
+						+ "Kate also offers some other miscellaneous services, such as anal bleaching and body hair colouring."
+					+ "</p>"
+					+ "<h6 style='text-align:center;'>"
+						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
+					+ "</h6>"
+					+CharacterModificationUtils.getKatesDivAnalBleaching("Anal bleaching", "Anal bleaching is the process of lightening the colour of the skin around the anus, to make it more uniform with the surrounding area.")
+
+					+(Main.game.isFacialHairEnabled() || Main.game.isBodyHairEnabled() || Main.game.isPubicHairEnabled()
+							?CharacterModificationUtils.getKatesDivCoverings(
+									Main.game.getPlayer().getBodyHairCoveringType(), "Body hair", "This is the hair that covers all areas other than the head.", true, true)
+							:"")
+					
+					+(Main.game.isFacialHairEnabled()
+							?CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on your face. Feminine characters cannot grow facial hair.")
+							:"")
+					
+					+(Main.game.isPubicHairEnabled()
+							?CharacterModificationUtils.getKatesDivPubicHair("Pubic hair", "The body hair found in the genital area; located on and around your sex organs and crotch.")
+							:"")
+					
+					+(Main.game.isBodyHairEnabled()
+							?CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in your armpits.")
+							:"")
+					
+					+(Main.game.isBodyHairEnabled()
+							?CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around your asshole.")
+							:"")
+					;
+			
+		}
+
+		@Override
+		public String getContent() {
+			return null;
+		}
+		
+		@Override
+		public Response getResponse(int index) {
+			return getMainResponse(index);
 		}
 	};
 	
@@ -873,12 +909,7 @@ public class SuccubisSecrets {
 		
 		@Override
 		public Response getResponse(int index) {
-			if (index == 0) {
-				return new Response("Back", "Tell Kate that you want a different service.", SHOP_BEAUTY_SALON_MAIN);
-				
-			} else {
-				return null;
-			}
+			return getMainResponse(index);
 		}
 	};
 	
@@ -899,12 +930,7 @@ public class SuccubisSecrets {
 		
 		@Override
 		public Response getResponse(int index) {
-			if (index == 0) {
-				return new Response("Back", "Tell Kate that you want a different service.", SHOP_BEAUTY_SALON_MAIN);
-				
-			} else {
-				return null;
-			}
+			return getMainResponse(index);
 		}
 	};
 }

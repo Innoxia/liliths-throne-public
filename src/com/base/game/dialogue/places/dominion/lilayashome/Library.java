@@ -160,7 +160,7 @@ public class Library {
 				};
 
 			} else if (lore == 0) {
-				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
+				return new Response("Back", "Return to browsing the stacks.", BROWSE_BOOKS);
 
 			} else {
 				return null;
@@ -338,7 +338,7 @@ public class Library {
 				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
 
 			} else if (city == 0) {
-				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
+				return new Response("Back", "Return to browsing the stacks.", BROWSE_BOOKS);
 
 			} else {
 				return null;
@@ -379,7 +379,7 @@ public class Library {
 //				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
 
 			}  else if (field == 0) {
-				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
+				return new Response("Back", "Return to browsing the stacks.", BROWSE_BOOKS);
 
 			} else {
 				return null;
@@ -500,7 +500,7 @@ public class Library {
 //	};
 	
 	private static Response bookResponse(AbstractItemType book, Race race) {
-		if(Main.game.getPlayer().getRacesAdvancedKnowledge().contains(race)) {
+		if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(race)) {
 			return new Response(book.getName(false), book.getDescription(), LIBRARY) {
 				@Override
 				public void effects() {

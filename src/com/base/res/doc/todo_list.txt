@@ -22,12 +22,13 @@
 		Added support for different genital arrangements (normal, cloaca, etc.).
 	
 	Gameplay:
+		<b>Changed:</b> Encyclopedia entries for clothing, items, weapons, and races are now stored in the properties file, so discoveries are carried over between characters.
 		Reduced the size of Lilaya's home to make navigation more manageable. (I'll add in the larger version later on as an upgrade to the house.)
 	
 	Sex:
 		Finished converting old cowgirl position descriptions into the new one.
 		Converted Brax's cowgirl scene into the new format. (The facesitting descriptions are absent, but I'll add those back in for a proper facesitting position.)
-		
+	
 	UI:
 		Fixed the annoying way the screen would jump back to the top every time you clicked a button (e.g. in preferences menu).
 		Remade all the options in Kate's shop to use proper buttons. (I'll use this system for the character creation menu as well.)
@@ -95,16 +96,21 @@
 	
 	
 	
-	
-	
-	
 	Alexa
+	
+	X Finish Alexa's quest content.
+
+	X Add in some proper dialogue and interactions for the incest content.
+	
+	X Add in some forced transformation content.
+
+	
 	
 	Other things
 	
 	Slavery
 	
-	
+	Add cloaca descriptions
 	
 	
 	Description for anal fingering describes my character's fingers rather than the dom's.

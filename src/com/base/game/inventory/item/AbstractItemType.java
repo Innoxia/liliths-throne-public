@@ -93,6 +93,10 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		};
 	}
 	
+	public String getId() {
+		return ItemType.itemToIdMap.get(this);
+	}
+	
 	public List<ItemEffect> getEffects() {
 		return effects;
 	}
