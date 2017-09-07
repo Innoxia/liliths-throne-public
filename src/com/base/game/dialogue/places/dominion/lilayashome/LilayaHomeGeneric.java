@@ -465,6 +465,28 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
+	public static final DialogueNodeOld FOUNTAIN = new DialogueNodeOld("Water fountain", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "In the very centre of the garden courtyard, a huge, ornate water fountain happily bubbles away with a mind of its own."
+					+ " The structure is made up of a collection of intricate statues; each one of a beautiful woman in some manner of indecent pose."
+				+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return null;
+		}
+	};
+	
 	public static final DialogueNodeOld ENTRANCE_HALL = new DialogueNodeOld("Entrance hall", ".", false) {
 		private static final long serialVersionUID = 1L;
 

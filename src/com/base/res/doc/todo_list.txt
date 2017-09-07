@@ -18,7 +18,19 @@
 	Patch notes:
 	
 	Engine:
-		Moved ClothingTypes from Enum values over to static classes.
+		Moved ClothingTypes, ItemTypes, and WeaponTypes from Enum values over to static classes.
+		Added support for different genital arrangements (normal, cloaca, etc.).
+	
+	Gameplay:
+		Reduced the size of Lilaya's home to make navigation more manageable. (I'll add in the larger version later on as an upgrade to the house.)
+	
+	Sex:
+		Finished converting old cowgirl position descriptions into the new one.
+		Converted Brax's cowgirl scene into the new format. (The facesitting descriptions are absent, but I'll add those back in for a proper facesitting position.)
+		
+	UI:
+		Fixed the annoying way the screen would jump back to the top every time you clicked a button (e.g. in preferences menu).
+		Remade all the options in Kate's shop to use proper buttons. (I'll use this system for the character creation menu as well.)
 	
 	Contributors:
 		
@@ -40,7 +52,7 @@
 				Displaced clothing is dropped even if it could be stacked with a full inventory.
 				Equipping an item may reset the string builder halfway through causing some warnings not to display.
 				Sell All has improper rounding as it rounds after all items instead of each item individually (same goes for buy all).
-				getting transformed with full inventory will drop your clothing even although it fits in inventory as stackable.
+				Getting transformed with full inventory will drop your clothing even although it fits in inventory as stackable.
 				Improvement: Deduplicate printing items now that weapon/clothing/item is similar.
 				The overlay display "Vendor wants x" in the buyback shows the wrong price.
 			Simplified a lot of if statements.
@@ -74,10 +86,28 @@
 				Removed Util.getFileExtention, replaced by a FilenameFilter
 				Fleshed out / fixed up some Javadocs
 				Did some witchcraftery on the stringList functions :)
+				
+		Blue999:
+			Added: Lacy panties (feminine, groin slot).
+			Added: Lacy plune bra (feminine, chest slot).
+			Added: Chemise with shorts (feminine, chest slot, blocks groin slot).
 	
 	
 	
 	
+	
+	
+	
+	Alexa
+	
+	Other things
+	
+	Slavery
+	
+	
+	
+	
+	Description for anal fingering describes my character's fingers rather than the dom's.
 	
 	Known bugs that are not fixed:
 
@@ -105,23 +135,20 @@
 	Pluralization bugs
 	-- "You hand over all of your A dye-brush to Ralph in exchange for ¤ 287." Yeahhh that's item names and pluralization hell
 	
-	Override equals pls in Types
 	
-	
-	
-	
-	Convert XML save for character, items, clothing, weapons
-	
-	Finish cowgirl descriptions
+	Flavour text in-game says it is custom to kiss a slave for one last time before enslavement, since kissing a slave is considered taboo
 	
 	Bugs
 	
+	Gym/Fast food
 	
+	After defeating my character, the succubi just finger their nipples and tail-fuck themselves to completion a lot of the time. Is there a way to disable this?
 	
 	Hey, tailpegging is super broken, it doesn't properly check to see if the player actually has a tail.
 	
 	The only bug i have found is when you use transformative enchantments on multiple (maybe single, haven't tested) breasts, specifically trying to grow the nipple and areola size that it keeps switching between 'getting larger' and 'shrinking' when all were enchanted to be Major Boost
 	
+	Cam inside of kate knocking her up. Then right after the sex ended had sex again cumming inside her and when I checked the pregnancy stats found she had 2 ongoing pregnancys at the same time
 	
 	Having an issue where using a cock-growing elixir gives me a penis with the wrong skin color. In my instance, my pale character grew a brown penis.
 	
@@ -154,16 +181,15 @@ anybody else having issues with imported characters unable to extract essences?
 
 	leg and ankle wraps to make full set
 	
-<<<<<<< HEAD
+
 	NPC's with broodmother fetish do not try to get pregnant. This has also something to do with the first problem I've mentioned.
-=======
+
 	
 	New perk: Tempered (below arcane mastery). When willpower drops to 0 the first time, it stays at 1 instead.
 New perk: Marathon (below cardio queen). When stamina drops to 0 the first time, it stays at 1 instead.
 Change perk: "indefatigable" to "hulk", when health drops to 0 the first time, it stays at 1 instead.
 	
 	New status effect: Tired. Caused by being awake for over 12 hours in a row, gives no debuffs but in 4 hours it will become the status effect "exhausted". New status effect: Exhausted. Caused by being tired for 4 hours (ie awake for over 16 hours in a row), gives -5 strength -5 stamina and -5 willpower. Also make rest take 8 instead of 4 hours (succubi need to sleep too!).
->>>>>>> c614137b7b2707cc4317762bbcbc747f3732cdc6
 	
 	Minor bug report: Gaining more testicles seems to be bugged. I created a potion to take a character from 2 to 8, and I got this message 3 times:"A tingling feeling spreads down into your testicles, and you let out a little cry as you feel some of them shrinking away and disappearing.
 
@@ -213,9 +239,13 @@ When it should be an indication that I'm gaining testicles, and the three messag
 	-Additionally/alternatively, enabling specific content partially unlocks that content (such as allowing the Lilaya scene and Brax's forced TF) but taking the fetish makes the content more likely (kids spawning in alleys and random NPCs TFing the player).
 	
 	
+	Equals and HashCode *should* be ok for Abstract Clothing, Item, and Weapon types, but maybe make sure.
+	
 	GATE HAIR PROPERLY FOR TFS
 	
 	Gate obesity
+	
+	Add facesitting position, with descriptions from SABracSubCowgirl
 	
 	Good point, I'll add fuckable nipples (and urethras) behind option gates.
 	
@@ -248,6 +278,7 @@ When it should be an indication that I'm gaining testicles, and the three messag
 	It would probably be best if the player gets prompted with an option to go into said content settings during character creation.
 	
 	Fetishes
+	
 	
 	add a 'cloaca' transformation
 	

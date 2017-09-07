@@ -105,7 +105,7 @@ public class InventoryDialogue {
 		inventorySB.append(
 				"<div style='width:60px; display:inline-block; margin:0 4px 0 4px;'>"
 					+ " <div style='display:inline-block; height:48px; vertical-align: middle; top:0;'>"
-						+ formatAsMoney(Main.game.getPlayer().getMoney())
+						+ UtilText.formatAsMoney(Main.game.getPlayer().getMoney())
 					+ "</div>"
 				+ "</div>"
 				);
@@ -370,7 +370,7 @@ public class InventoryDialogue {
 			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + item.getDescription() + item.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer())
 					+ (Main.game.getDialogueFlags().tradePartner != null ? 
 							Main.game.getDialogueFlags().tradePartner.willBuy(item) ? 
-									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + formatAsMoney(item.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
+									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + UtilText.formatAsMoney(item.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
 							: Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this."
 						: "");
 		}
@@ -481,7 +481,7 @@ public class InventoryDialogue {
 					if(Main.game.getDialogueFlags().tradePartner!=null) {
 						if (Main.game.getDialogueFlags().tradePartner.willBuy(item)) {
 							int sellPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier());
-							return new Response("Sell (" + formatAsMoney(sellPrice, "span") + ")", "Sell the " + item.getName() + " for " + formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
+							return new Response("Sell (" + UtilText.formatAsMoney(sellPrice, "span") + ")", "Sell the " + item.getName() + " for " + UtilText.formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 								@Override
 								public void effects(){
 									Main.game.getTextStartStringBuilder().append(sellItem(item));
@@ -523,15 +523,15 @@ public class InventoryDialogue {
 					if(Main.game.getDialogueFlags().tradePartner!=null) {
 						if (Main.game.getDialogueFlags().tradePartner.willBuy(item)) {
 							int sellPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier()) * Main.game.getPlayer().getItemCount(item);
-							return new Response("Sell all (" + formatAsMoney(sellPrice, "span") + ")",
-									"Sell all of your " + item.getName() + (item.getItemType().isPlural()?"":"s")+" for " + formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
+							return new Response("Sell all (" + UtilText.formatAsMoney(sellPrice, "span") + ")",
+									"Sell all of your " + item.getName() + (item.getItemType().isPlural()?"":"s")+" for " + UtilText.formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 								@Override
 								public void effects(){
 									int itemCount = Main.game.getPlayer().getItemCount(item);
 									
 									Main.game.getTextStartStringBuilder().append(
 											"<p style='text-align:center;'>"
-												+ "You hand over all of your <b>" + item.getDisplayName(true) + "</b> to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + formatAsMoney(sellPrice) + "."
+												+ "You hand over all of your <b>" + item.getDisplayName(true) + "</b> to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + UtilText.formatAsMoney(sellPrice) + "."
 											+ "</p>");
 									
 									for(int i = 0; i < itemCount; i++) {
@@ -670,7 +670,7 @@ public class InventoryDialogue {
 			return "<div class='inventoryImage'>" + weapon.getSVGString() + "</div>" + weapon.getDescription()
 					+ (Main.game.getDialogueFlags().tradePartner != null ? 
 							Main.game.getDialogueFlags().tradePartner.willBuy(weapon) ? 
-									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + formatAsMoney(weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
+									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + UtilText.formatAsMoney(weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
 							: Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this."
 						: "");
 		}
@@ -695,8 +695,8 @@ public class InventoryDialogue {
 				if(Main.game.getDialogueFlags().tradePartner!=null) {
 					if (Main.game.getDialogueFlags().tradePartner.willBuy(weapon)) {
 						int sellPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier());
-						return new Response("Sell (" + formatAsMoney(sellPrice, "span") + ")",
-								"Sell the " + weapon.getName() + " for " + formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
+						return new Response("Sell (" + UtilText.formatAsMoney(sellPrice, "span") + ")",
+								"Sell the " + weapon.getName() + " for " + UtilText.formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(sellWeapon(weapon));
@@ -739,15 +739,15 @@ public class InventoryDialogue {
 				if(Main.game.getDialogueFlags().tradePartner!=null) {
 					if (Main.game.getDialogueFlags().tradePartner.willBuy(weapon)) {
 						int sellPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier()) * Main.game.getPlayer().getWeaponCount(weapon);
-						return new Response("Sell all (" + formatAsMoney(sellPrice, "span") + ")",
-								"Sell all of your " + weapon.getName() +"s for " + formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
+						return new Response("Sell all (" + UtilText.formatAsMoney(sellPrice, "span") + ")",
+								"Sell all of your " + weapon.getName() +"s for " + UtilText.formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								int itemCount = Main.game.getPlayer().getWeaponCount(weapon);
 								
 								Main.game.getTextStartStringBuilder().append(
 										"<p style='text-align:center;'>"
-											+ "You hand over all of your <b>" + weapon.getDisplayName(true) + "</b> to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + formatAsMoney(sellPrice) + "."
+											+ "You hand over all of your <b>" + weapon.getDisplayName(true) + "</b> to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + UtilText.formatAsMoney(sellPrice) + "."
 										+ "</p>");
 								
 								for(int i = 0; i < itemCount; i++) {
@@ -845,7 +845,7 @@ public class InventoryDialogue {
 			return "<div class='inventoryImage'>" + clothing.getSVGString() + "</div>" + clothing.getDescription() + clothing.clothingExtraInformation(null)
 					+ (Main.game.getDialogueFlags().tradePartner != null ? 
 							Main.game.getDialogueFlags().tradePartner.willBuy(clothing) ? 
-									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + formatAsMoney(clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
+									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + UtilText.formatAsMoney(clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
 							: Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this."
 						: "");
 		}
@@ -867,8 +867,8 @@ public class InventoryDialogue {
 				if(Main.game.getDialogueFlags().tradePartner!=null) {
 					if (Main.game.getDialogueFlags().tradePartner.willBuy(clothing)) {
 						int itemPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier());
-						return new Response("Sell (" + formatAsMoney(itemPrice, "span") + ")",
-								"Sell your " + clothing.getName() + " for " + formatAsMoney(itemPrice) + ".", INVENTORY_MENU){
+						return new Response("Sell (" + UtilText.formatAsMoney(itemPrice, "span") + ")",
+								"Sell your " + clothing.getName() + " for " + UtilText.formatAsMoney(itemPrice) + ".", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(sellClothing(clothing));
@@ -911,15 +911,15 @@ public class InventoryDialogue {
 				if(Main.game.getDialogueFlags().tradePartner!=null) {
 					if (Main.game.getDialogueFlags().tradePartner.willBuy(clothing)) {
 						int itemPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier()) * Main.game.getPlayer().getClothingCount(clothing);
-						return new Response("Sell all (" + formatAsMoney(itemPrice, "span") + ")",
-								"Sell all of your " + clothing.getName() +" for " + formatAsMoney(itemPrice) + ".", INVENTORY_MENU){
+						return new Response("Sell all (" + UtilText.formatAsMoney(itemPrice, "span") + ")",
+								"Sell all of your " + clothing.getName() +" for " + UtilText.formatAsMoney(itemPrice) + ".", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								int itemCount = Main.game.getPlayer().getClothingCount(clothing);
 								
 								Main.game.getTextStartStringBuilder().append(
 										"<p style='text-align:center;'>"
-											+ "You hand over all of your <b>" + clothing.getDisplayName(true) + "</b> to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + formatAsMoney(itemPrice) + "."
+											+ "You hand over all of your <b>" + clothing.getDisplayName(true) + "</b> to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + UtilText.formatAsMoney(itemPrice) + "."
 										+ "</p>");
 								
 								for(int i = 0; i < itemCount; i++) {
@@ -995,13 +995,13 @@ public class InventoryDialogue {
 					return new Response("Identify (" + Main.game.getCurrencySymbol() + " " + IDENTIFICATION_PRICE + ")", "You don't have enough money!", null);
 					
 				}else {
-					return new Response("Identify (" + formatAsMoney(IDENTIFICATION_PRICE, "span") + ")",
-								"Have the " + clothing.getName() + " identified for " + formatAsMoney(IDENTIFICATION_PRICE, "span") + ".", INVENTORY_MENU){
+					return new Response("Identify (" + UtilText.formatAsMoney(IDENTIFICATION_PRICE, "span") + ")",
+								"Have the " + clothing.getName() + " identified for " + UtilText.formatAsMoney(IDENTIFICATION_PRICE, "span") + ".", INVENTORY_MENU){
 						@Override
 						public void effects(){
 							Main.game.getPlayer().removeClothing(clothing);
 							Main.game.getTextStartStringBuilder().append(
-									"<p style='text-align:center;'>" + "You hand over " + formatAsMoney(IDENTIFICATION_PRICE) + " to "
+									"<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(IDENTIFICATION_PRICE) + " to "
 											+Main.game.getDialogueFlags().tradePartner.getName("the")+", who promptly identifies your "+clothing.getName()+"."
 									+ "</p>"
 									+clothing.setEnchantmentKnown(true));
@@ -1050,7 +1050,7 @@ public class InventoryDialogue {
 		public String getContent() {
 			int itemPrice = buyback ? buyBackPrice : item.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
 			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + "<p>" + item.getDescription() + "</p>" + item.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer()) + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The")
-					+ " will sell it to you for " + formatAsMoney(itemPrice) + "." + "</p>";
+					+ " will sell it to you for " + UtilText.formatAsMoney(itemPrice) + "." + "</p>";
 		}
 		
 		@Override
@@ -1067,7 +1067,7 @@ public class InventoryDialogue {
 						
 					} else {
 						return new Response("Buy-back",
-								"Buy back the " + item.getName() + " for " + formatAsMoney(buyBackPrice) + " and add it to your inventory.", INVENTORY_MENU){
+								"Buy back the " + item.getName() + " for " + UtilText.formatAsMoney(buyBackPrice) + " and add it to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(buyBackItem(item, buyBackPrice, buyBackIndex));
@@ -1084,8 +1084,8 @@ public class InventoryDialogue {
 						return new Response("Buy", "You don't have enough money to buy the " + item.getName() + "!", null);
 						
 					} else {
-						return new Response("Buy (" + formatAsMoney(itemPrice, "span") + ")",
-								"Buy the " + item.getName() + " for " + formatAsMoney(itemPrice) + " and add it to your inventory.", INVENTORY_MENU){
+						return new Response("Buy (" + UtilText.formatAsMoney(itemPrice, "span") + ")",
+								"Buy the " + item.getName() + " for " + UtilText.formatAsMoney(itemPrice) + " and add it to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(buyItem(item));
@@ -1105,8 +1105,8 @@ public class InventoryDialogue {
 						return new Response("Buy all", "You don't have enough money to buy the " + item.getName() + "!", null);
 						
 					} else {
-						return new Response("Buy all (" + formatAsMoney(totalPrice, "span") + ")",
-								"Buy all of the " + item.getName() + " for " + formatAsMoney(totalPrice) + " and add them to your inventory.", INVENTORY_MENU){
+						return new Response("Buy all (" + UtilText.formatAsMoney(totalPrice, "span") + ")",
+								"Buy all of the " + item.getName() + " for " + UtilText.formatAsMoney(totalPrice) + " and add them to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(buyAllItems(item));
@@ -1152,7 +1152,7 @@ public class InventoryDialogue {
 		public String getContent() {
 			int itemPrice = buyback ? buyBackPrice : weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
 			return "<div class='inventoryImage'>" + weapon.getSVGString() + "</div>" + weapon.getDescription() + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will sell it to you for " 
-					+ formatAsMoney(itemPrice) + ".</p>";
+					+ UtilText.formatAsMoney(itemPrice) + ".</p>";
 		}
 		
 		@Override
@@ -1169,7 +1169,7 @@ public class InventoryDialogue {
 						
 					} else {
 						return new Response("Buy-back",
-								"Buy back the " + weapon.getName() + " for " + formatAsMoney(buyBackPrice) + " and add it to your inventory.", INVENTORY_MENU){
+								"Buy back the " + weapon.getName() + " for " + UtilText.formatAsMoney(buyBackPrice) + " and add it to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(buyBackWeapon(weapon, buyBackPrice, buyBackIndex));
@@ -1186,8 +1186,8 @@ public class InventoryDialogue {
 						return new Response("Buy", "You don't have enough money to buy the " + weapon.getName() + "!", null);
 						
 					} else {
-						return new Response("Buy (" + formatAsMoney(itemPrice, "span") + ")",
-								"Buy the " + weapon.getName() + " for " + formatAsMoney(itemPrice) + " and add it to your inventory.", INVENTORY_MENU){
+						return new Response("Buy (" + UtilText.formatAsMoney(itemPrice, "span") + ")",
+								"Buy the " + weapon.getName() + " for " + UtilText.formatAsMoney(itemPrice) + " and add it to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(buyWeapon(weapon));
@@ -1207,8 +1207,8 @@ public class InventoryDialogue {
 						return new Response("Buy all", "You don't have enough money to buy the " + weapon.getName() + "!", null);
 						
 					} else {
-						return new Response("Buy all (" + formatAsMoney(totalPrice, "span") + ")",
-								"Buy all of the " + weapon.getName() + " for " + formatAsMoney(totalPrice) + " and add them to your inventory.", INVENTORY_MENU){
+						return new Response("Buy all (" + UtilText.formatAsMoney(totalPrice, "span") + ")",
+								"Buy all of the " + weapon.getName() + " for " + UtilText.formatAsMoney(totalPrice) + " and add them to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(buyAllWeapons(weapon));
@@ -1257,7 +1257,7 @@ public class InventoryDialogue {
 		public String getContent() {
 			int itemPrice = buyback ? buyBackPrice : clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
 			return "<div class='inventoryImage'>" + clothing.getSVGString() + "</div>" + clothing.getDescription() + clothing.clothingExtraInformation(null) + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The")
-					+ " will sell it to you for " + formatAsMoney(itemPrice) + ".</p>";
+					+ " will sell it to you for " + UtilText.formatAsMoney(itemPrice) + ".</p>";
 		}
 		
 		@Override
@@ -1274,7 +1274,7 @@ public class InventoryDialogue {
 						
 					} else {
 						return new Response("Buy-back",
-								"Buy back the " + clothing.getName() + " for " + formatAsMoney(buyBackPrice) + " and add it to your inventory.", INVENTORY_MENU){
+								"Buy back the " + clothing.getName() + " for " + UtilText.formatAsMoney(buyBackPrice) + " and add it to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(buyBackClothing(clothing, buyBackPrice, buyBackIndex));
@@ -1291,8 +1291,8 @@ public class InventoryDialogue {
 						return new Response("Buy", "You don't have enough money to buy the " + clothing.getName() + "!", null);
 						
 					} else {
-						return new Response("Buy (" + formatAsMoney(itemPrice, "span") + ")",
-								"Buy the " + clothing.getName() + " for " + formatAsMoney(itemPrice) + " and add it to your inventory.", INVENTORY_MENU){
+						return new Response("Buy (" + UtilText.formatAsMoney(itemPrice, "span") + ")",
+								"Buy the " + clothing.getName() + " for " + UtilText.formatAsMoney(itemPrice) + " and add it to your inventory.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextStartStringBuilder().append(buyClothing(clothing));
@@ -1312,8 +1312,8 @@ public class InventoryDialogue {
 						return new Response("Buy all", "You don't have enough money to buy the " + clothing.getName() + "!", null);
 						
 					} else {
-						return new Response("Buy all (" + formatAsMoney(totalPrice, "span") + ")",
-								"Buy all of the " + clothing.getName() + " for " + formatAsMoney(totalPrice) + " and add them to your inventory.",
+						return new Response("Buy all (" + UtilText.formatAsMoney(totalPrice, "span") + ")",
+								"Buy all of the " + clothing.getName() + " for " + UtilText.formatAsMoney(totalPrice) + " and add them to your inventory.",
 										INVENTORY_MENU){
 							@Override
 							public void effects(){
@@ -2291,21 +2291,8 @@ public class InventoryDialogue {
 	
 	private static String getItemPriceDiv(int price) {
 		return "<div class='item-price'>"
-				+ formatAsItemPrice(price)
+				+ UtilText.formatAsItemPrice(price)
 			+ "</div>";
-	}
-	
-	private static String formatAsMoney(int money) {
-		return formatAsMoney(money, "b");
-	}
-	
-	private static String formatAsMoney(int money, String tag) {
-		return "<" + tag + " style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</" + tag + "> <" + tag + ">" + money + "</" + tag + ">";
-	}
-	
-	private static String formatAsItemPrice(int money) {
-		String tag = "b";
-		return "<" + tag + " style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</" + tag + "><" + tag + ">" + money + "</" + tag + ">";
 	}
 
 	// Items:
@@ -2321,7 +2308,7 @@ public class InventoryDialogue {
 			Main.game.getDialogueFlags().tradePartner.removeItem(item);
 			Main.game.getPlayer().incrementMoney(-itemPrice);
 
-			String s = "<p style='text-align:center;'>" + "You hand over " + formatAsMoney(itemPrice) + 
+			String s = "<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(itemPrice) + 
 					" to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the "
 					+ item.getName() + "." + "</p>" + Main.game.getPlayer().addItem(item, false);
 
@@ -2353,7 +2340,7 @@ public class InventoryDialogue {
 			
 			String s = UtilText.parse(Main.game.getDialogueFlags().tradePartner,
 					"<p style='text-align:center;'>"
-							+ "You hand over " + formatAsMoney(totalPrice) + " to [npc.name] in exchange for all of the "
+							+ "You hand over " + UtilText.formatAsMoney(totalPrice) + " to [npc.name] in exchange for all of the "
 							+ item.getName() + " [npc.she] has."
 							+ "</br>"
 							+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>"+itemCount+"x</b> <b>"+item.getDisplayName(true)+"</b>"
@@ -2376,7 +2363,7 @@ public class InventoryDialogue {
 			Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
 			Main.game.getPlayer().incrementMoney(-price);
 
-			String s = "<p style='text-align:center;'>" + "You hand over " + formatAsMoney(price) + " to "
+			String s = "<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(price) + " to "
 					+ Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the " + item.getName() + "." + "</p>" + Main.game.getPlayer().addItem(item, false);
 
 			Main.mainController.forceInventoryRender();
@@ -2391,7 +2378,7 @@ public class InventoryDialogue {
 		Main.game.getPlayer().incrementMoney(itemPrice);
 
 		String s = "<p style='text-align:center;'>" 
-						+ "You hand over the " + item.getName() + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + formatAsMoney(itemPrice) + "." 
+						+ "You hand over the " + item.getName() + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + UtilText.formatAsMoney(itemPrice) + "." 
 					+ "</p>";
 
 		Main.mainController.forceInventoryRender();
@@ -2414,7 +2401,7 @@ public class InventoryDialogue {
 			
 			Main.game.getPlayer().incrementMoney(-itemPrice);
 
-			String s = "<p style='text-align:center;'>" + "You hand over " + formatAsMoney(itemPrice) + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") 
+			String s = "<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(itemPrice) + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") 
 					+ " in exchange for the " + clothing.getName() + "." + "</p>" + Main.game.getPlayer().addClothing(clothing, false);
 
 			Main.mainController.forceInventoryRender();
@@ -2453,7 +2440,7 @@ public class InventoryDialogue {
 
 			String s = UtilText.parse(Main.game.getDialogueFlags().tradePartner,
 					"<p style='text-align:center;'>"
-							+ "You hand over " + formatAsMoney(totalPrice) + " to [npc.name] in exchange for all of the "
+							+ "You hand over " + UtilText.formatAsMoney(totalPrice) + " to [npc.name] in exchange for all of the "
 							+ clothing.getName() + " [npc.she] has."
 							+ "</br>"
 							+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Clothing added to inventory:</b> <b>"+clothingCount+"x</b> <b>"+clothing.getDisplayName(true)+"</b>"
@@ -2476,7 +2463,7 @@ public class InventoryDialogue {
 			Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
 			Main.game.getPlayer().incrementMoney(-price);
 
-			String s = "<p style='text-align:center;'>" + "You hand over " + formatAsMoney(price) + " to "
+			String s = "<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(price) + " to "
 					+ Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the " + clothing.getName() + "." + "</p>" + Main.game.getPlayer().addClothing(clothing, false);
 
 			Main.mainController.forceInventoryRender();
@@ -2491,7 +2478,7 @@ public class InventoryDialogue {
 		Main.game.getPlayer().incrementMoney(itemPrice);
 
 		String s = "<p style='text-align:center;'>" 
-						+ "You hand over the " + clothing.getName() + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + formatAsMoney(itemPrice) + "." 
+						+ "You hand over the " + clothing.getName() + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + UtilText.formatAsMoney(itemPrice) + "." 
 				+ "</p>";
 
 		Main.mainController.forceInventoryRender();
@@ -2512,7 +2499,7 @@ public class InventoryDialogue {
 			Main.game.getPlayer().incrementMoney(-itemPrice);
 
 			String s = "<p style='text-align:center;'>" 
-							+ "You hand over " + formatAsMoney(itemPrice) + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the " + weapon.getName() + "." 
+							+ "You hand over " + UtilText.formatAsMoney(itemPrice) + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the " + weapon.getName() + "." 
 					+ "</p>" + Main.game.getPlayer().addWeapon(weapon, false);
 
 			Main.mainController.forceInventoryRender();
@@ -2543,7 +2530,7 @@ public class InventoryDialogue {
 
 			String s = UtilText.parse(Main.game.getDialogueFlags().tradePartner,
 					"<p style='text-align:center;'>"
-							+ "You hand over " + formatAsMoney(totalPrice) + " to [npc.name] in exchange for all of the "
+							+ "You hand over " + UtilText.formatAsMoney(totalPrice) + " to [npc.name] in exchange for all of the "
 							+ weapon.getName() + "s [npc.she] has."
 							+ "</br>"
 							+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Weapons added to inventory:</b> <b>"+weaponCount+"x</b> <b>"+weapon.getDisplayName(true)+"</b>"
@@ -2566,7 +2553,7 @@ public class InventoryDialogue {
 			Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
 			Main.game.getPlayer().incrementMoney(-price);
 
-			String s = "<p style='text-align:center;'>" + "You hand over " + formatAsMoney(price) + " to "
+			String s = "<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(price) + " to "
 					+ Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the " + weapon.getName() + "." + "</p>" + Main.game.getPlayer().addWeapon(weapon, false);
 
 			Main.mainController.forceInventoryRender();
@@ -2581,7 +2568,7 @@ public class InventoryDialogue {
 		Main.game.getPlayer().incrementMoney(itemPrice);
 
 		String s = "<p style='text-align:center;'>" 
-						+ "You hand over the " + weapon.getName() + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + formatAsMoney(itemPrice) + "." 
+						+ "You hand over the " + weapon.getName() + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + UtilText.formatAsMoney(itemPrice) + "." 
 				+ "</p>";
 
 		Main.mainController.forceInventoryRender();

@@ -151,67 +151,102 @@ public class Main extends Application {
 	private static Generation gen;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+
+		credits.add(new CreditsSlot("Anonymous", "", 0, 0, 1, 2));
+		// A. L2 | C.C. R1
 		
-		credits.add(new CreditsSlot("Spookermen", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Wolfregis", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Gr33n B3ans", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Saladine", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("A.", "", 0, 0, 0, 1)); // TODO
-		credits.add(new CreditsSlot("Pierrre Mura", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Master's dumb bitch", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Spookermen", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("Wolfregis", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("Gr33n B3ans", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("Saladine", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("Pierrre Mura", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("Master's dumb bitch", "", 0, 0, 0, 2));
 		credits.add(new CreditsSlot("John Scarlet", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Knight-Lord Xander", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Knight-Lord Xander", "", 0, 0, 0, 2));
 		credits.add(new CreditsSlot("KingofKings", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Max Nobody", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Max Nobody", "", 0, 0, 0, 2));
 		credits.add(new CreditsSlot("Lexi <3", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("QQQ", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("N.", "", 0, 0, 0, 1)); // TODO
-		credits.add(new CreditsSlot("loveless", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Fiona", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("QQQ", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("N.", "", 0, 0, 0, 2)); // TODO
+		credits.add(new CreditsSlot("loveless", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("Fiona", "", 0, 0, 0, 2));
 		credits.add(new CreditsSlot("Vmpireassassin (Chloe)", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Nightmare", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("iloveyouMiaoNiNi", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Elmsdor", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("rinoskin", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("CelestialNightmare", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Blue999", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("AlphaOneBravo", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Sorter", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("iloveyouMiaoNiNi", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("Elmsdor", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("rinoskin", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("CelestialNightmare", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("Blue999", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("AlphaOneBravo", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("Sorter", "", 0, 0, 0, 2));
 		credits.add(new CreditsSlot("Timmybond24", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Rohise", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("BloodsailXXII", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Lexi the slut", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Pallid", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Rohise", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("BloodsailXXII", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("Lexi the slut", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("Pallid", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("S", "", 0, 0, 1, 1));
+		credits.add(new CreditsSlot("S.", "", 0, 0, 0, 1)); // TODO
+		credits.add(new CreditsSlot("Tanner Daves", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Horagen81", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("V.", "", 0, 0, 0, 1)); // TODO
+		credits.add(new CreditsSlot("P.", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("R.S.", "", 0, 0, 0, 1)); // TODO
+		credits.add(new CreditsSlot("O.", "", 0, 0, 0, 1)); // TODO
+		credits.add(new CreditsSlot("A.S.", "", 0, 0, 0, 1)); // TODO
+		credits.add(new CreditsSlot("C.", "", 0, 0, 0, 1)); // TODO
+		credits.add(new CreditsSlot("C.T.", "", 0, 0, 0, 1)); // TODO
 		
-		credits.add(new CreditsSlot("Nelson Adams", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("Swift Shot", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("Kestrel", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("P. H.", "", 0, 0, 1, 0)); // TODO
-		credits.add(new CreditsSlot("48days", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("Torinir", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("EnigmaticYoshi", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("L.", "", 0, 0, 1, 0)); // TODO
-		credits.add(new CreditsSlot("Niki Parks", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("suka", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Nelson Adams", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("Swift Shot", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("Kestrel", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("P.H.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("48days", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("Torinir", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("EnigmaticYoshi", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("L.", "", 0, 0, 2, 0)); // TODO
+		credits.add(new CreditsSlot("Niki Parks", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("suka", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Kernog", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("S. D", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("S.D", "", 0, 0, 2, 0)); // TODO
+		credits.add(new CreditsSlot("triangleman", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("J.B.", "", 0, 0, 2, 0)); // TODO
+		credits.add(new CreditsSlot("William Brown", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("waaaghkus", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("B.", "", 0, 0, 2, 0)); // TODO
+		credits.add(new CreditsSlot("Pokys", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("Niko", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("Arkhan", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("Terrance", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("crashtestdummy", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("Shas'O Dal'yth Kauyon Kais Taku", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("Blacktouch", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("ForeverFree2MeTaMax", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("Jordan Aitken", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("B.", "", 0, 0, 2, 0)); // TODO
+		credits.add(new CreditsSlot("P.F.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("Farseeker", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Rakesh", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Spaghetti Code", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("V.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("Argmoe", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("b00marrows ", "", 0, 1, 1, 0));
+		credits.add(new CreditsSlot("Fenrakk101", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("V.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("B.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("G.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("Cursed Rena", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("G.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("L.B.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("G.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("S.M.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("D.D.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("K.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("R.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("A.", "", 0, 0, 1, 0)); // TODO
 		credits.add(new CreditsSlot("T.", "", 0, 0, 1, 0)); // TODO
-		credits.add(new CreditsSlot("J. B.", "", 0, 0, 1, 0)); // TODO
-		credits.add(new CreditsSlot("W. B.", "", 0, 0, 1, 0)); // TODO
-		credits.add(new CreditsSlot("waaaghkus", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("B.", "", 0, 0, 1, 0)); // TODO
-		credits.add(new CreditsSlot("Pokys", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("Niko", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("S", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("Arkhan", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("Terrance", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("crashtestdummy", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("Shas'O Dal'yth Kauyon Kais Taku", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("Blacktouch", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("ForeverFree2MeTaMax", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("Jordan Aitken", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("B.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("N.L.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("Burt", "", 0, 0, 1, 0));
 		
 		
 		credits.sort(Comparator.comparing((CreditsSlot a) -> a.getName().toLowerCase()));

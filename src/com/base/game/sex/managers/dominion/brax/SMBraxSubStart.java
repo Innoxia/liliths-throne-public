@@ -126,7 +126,7 @@ public class SMBraxSubStart extends SexManagerDefault {
 	
 	@Override
 	public boolean isPartnerCanRemovePlayersClothes(){
-		return true;
+		return false;
 	}
 
 	@Override

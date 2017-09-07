@@ -27,6 +27,8 @@ import com.base.utils.Util.ListValue;
  */
 public class SABraxSubCowgirl {
 
+	// TODO: This class isn't being used anymore, but I need the facesitting actions for reference for when I add that position.
+	
 	// Player's actions:
 
 	public static final SexAction PLAYER_DIRTY_TALK = new SexAction(

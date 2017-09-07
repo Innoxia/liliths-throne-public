@@ -29,6 +29,7 @@ import com.base.game.character.body.valueEnums.CoveringPattern;
 import com.base.game.character.body.valueEnums.CupSize;
 import com.base.game.character.body.valueEnums.Femininity;
 import com.base.game.character.body.valueEnums.FluidModifier;
+import com.base.game.character.body.valueEnums.GenitalArrangement;
 import com.base.game.character.body.valueEnums.Muscle;
 import com.base.game.character.body.valueEnums.OrificeModifier;
 import com.base.game.character.body.valueEnums.PenisModifier;
@@ -80,6 +81,8 @@ public class Body implements Serializable {
 	private Tail tail;
 	private Vagina vagina;
 	private Wing wing;
+	
+	private GenitalArrangement genitalArrangement;
 
 	private Race race;
 	private RaceStage raceStage;
@@ -105,6 +108,7 @@ public class Body implements Serializable {
 		private final Leg leg;
 		private final Skin skin;
 		private final BodyMaterial bodyMaterial;
+		private GenitalArrangement genitalArrangement;
 		private final Race race = null;
 		private final int height;
 		private final int femininity, bodySize, muscle;
@@ -118,7 +122,7 @@ public class Body implements Serializable {
 		private Vagina vagina = new Vagina(VaginaType.NONE, 0, 0, 0, 3, 3, true);
 		private Wing wing = new Wing(WingType.NONE);
 
-		public BodyBuilder(Arm arm, Ass ass, Breast breast, Face face, Eye eye, Ear ear, Hair hair, Leg leg, Skin skin, BodyMaterial bodyMaterial, int height, int femininity, int bodySize, int muscle) {
+		public BodyBuilder(Arm arm, Ass ass, Breast breast, Face face, Eye eye, Ear ear, Hair hair, Leg leg, Skin skin, BodyMaterial bodyMaterial, GenitalArrangement genitalArrangement, int height, int femininity, int bodySize, int muscle) {
 			this.arm = arm;
 			this.ass = ass;
 			this.breast = breast;
@@ -129,6 +133,7 @@ public class Body implements Serializable {
 			this.leg = leg;
 			this.skin = skin;
 			this.bodyMaterial = bodyMaterial;
+			this.genitalArrangement = genitalArrangement;
 			this.height = height;
 			this.femininity = femininity;
 			this.bodySize = bodySize;
@@ -172,11 +177,11 @@ public class Body implements Serializable {
 
 		@Override
 		public Body build() {
-			return new Body(this, height, femininity, bodySize, muscle);
+			return new Body(this);
 		}
 	}
 
-	private Body(BodyBuilder builder, int height, int femininity, int bodySize, int muscle) {
+	private Body(BodyBuilder builder) {
 		antenna = builder.antenna;
 		arm = builder.arm;
 		ass = builder.ass;
@@ -187,7 +192,6 @@ public class Body implements Serializable {
 		hair = builder.hair;
 		leg = builder.leg;
 		skin = builder.skin;
-		bodyMaterial = builder.bodyMaterial;
 		horn = builder.horn;
 		penis = builder.penis;
 		secondPenis = builder.secondPenis;
@@ -197,11 +201,14 @@ public class Body implements Serializable {
 		race = builder.race;
 
 		calculateRace(); // For determining RaceStage.
-
-		this.height = height;
-		this.femininity = femininity;
-		this.bodySize = bodySize;
-		this.muscle= muscle;
+		
+		bodyMaterial = builder.bodyMaterial;
+		genitalArrangement = builder.genitalArrangement;
+		
+		height = builder.height;
+		femininity = builder.femininity;
+		bodySize =builder. bodySize;
+		muscle= builder.muscle;
 		
 		this.pubicHair = BodyHair.NONE;
 
@@ -1774,10 +1781,6 @@ public class Body implements Serializable {
 
 	public RaceStage getRaceStage() {
 		return raceStage;
-	}
-	
-	public BodyMaterial getBodyMaterial() {
-		return bodyMaterial;
 	}
 	
 	public Antenna getAntenna() {
@@ -3695,6 +3698,10 @@ public class Body implements Serializable {
 		return BodyShape.valueOf(Muscle.valueOf(getMuscle()), BodySize.valueOf(getBodySize()));
 	}
 	
+	public BodyMaterial getBodyMaterial() {
+		return bodyMaterial;
+	}
+	
 	public boolean setBodyMaterial(BodyMaterial bodyMaterial) {
 		if(this.bodyMaterial == bodyMaterial) {
 			return false;
@@ -3704,6 +3711,15 @@ public class Body implements Serializable {
 		
 		return true;
 	}
+
+	public GenitalArrangement getGenitalArrangement() {
+		return genitalArrangement;
+	}
+
+	public void setGenitalArrangement(GenitalArrangement genitalArrangement) {
+		this.genitalArrangement = genitalArrangement;
+	}
+
 
 	public boolean isPiercedStomach() {
 		return piercedStomach;

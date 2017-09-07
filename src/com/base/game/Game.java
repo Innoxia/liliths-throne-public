@@ -683,6 +683,11 @@ public class Game implements Serializable {
 			return;
 		}
 		
+		int currentPosition = 0;
+		if(getCurrentDialogueNode()!=null) {
+			currentPosition =  (int) Main.mainController.getWebEngine().executeScript("document.getElementById('main-content').scrollTop");
+			
+		}
 		String headerContent = node.getHeaderContent();
 		String content = node.getContent();
 		boolean resetPointer = false;
@@ -785,7 +790,10 @@ public class Game implements Serializable {
 				+ "</body>";
 
 		} else {
-			currentDialogue = "<body>"
+			currentDialogue = "<body onLoad='scrollBack()'>"
+					+ " <script>function scrollBack() {"
+							+ "document.getElementById('main-content').scrollTop = "+currentPosition+";"
+					+ "}</script>"
 					+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
 					+ "<div id='main-content'>"
 					+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"

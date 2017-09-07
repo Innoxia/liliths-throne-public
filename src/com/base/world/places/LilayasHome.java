@@ -65,12 +65,17 @@ public enum LilayasHome implements PlaceInterface {
 	LILAYA_HOME_LAB("Lilaya's Lab", "dominion/lilayasHome/lab", BaseColour.ORANGE, Lab.LAB, null, true, false),
 	
 	LILAYA_HOME_GARDEN("Garden", "dominion/lilayasHome/garden", BaseColour.GREEN, LilayaHomeGeneric.GARDEN, null, true, false) {
-
 		@Override
 		public boolean isStormImmune() {
 			return false;
-		}	
-		
+		}
+	},
+	
+	LILAYA_HOME_FOUNTAIN("Fountain", "dominion/lilayasHome/fountain", BaseColour.BLUE_LIGHT, LilayaHomeGeneric.FOUNTAIN, null, true, false) {
+		@Override
+		public boolean isStormImmune() {
+			return false;
+		}
 	},
 	
 

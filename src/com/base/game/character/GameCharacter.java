@@ -66,6 +66,7 @@ import com.base.game.character.body.valueEnums.EyeShape;
 import com.base.game.character.body.valueEnums.Femininity;
 import com.base.game.character.body.valueEnums.FluidFlavour;
 import com.base.game.character.body.valueEnums.FluidModifier;
+import com.base.game.character.body.valueEnums.GenitalArrangement;
 import com.base.game.character.body.valueEnums.HairLength;
 import com.base.game.character.body.valueEnums.HairStyle;
 import com.base.game.character.body.valueEnums.HipSize;
@@ -442,6 +443,7 @@ public class GameCharacter implements Serializable {
 				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN),
 				new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN),
 				startingBodyType.getBodyMaterial(),
+				startingBodyType.getGenitalArrangement(),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleHeight() : startingBodyType.getMaleHeight()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleFemininity() : startingBodyType.getMaleFemininity()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleBodySize() : startingBodyType.getMaleBodySize()),
@@ -4378,6 +4380,20 @@ public class GameCharacter implements Serializable {
 	}
 	public String removeFaceOrificeModifier(OrificeModifier modifier) {
 		return body.getFace().getMouth().getOrificeMouth().removeOrificeModifier(this, modifier);
+	}
+	
+	
+	
+	// ------------------------------ Genital arrangement: ------------------------------ //
+	
+	// Type:
+	public GenitalArrangement getGenitalArrangement() {
+		return body.getGenitalArrangement();
+	}
+	public String setGenitalArrangement(GenitalArrangement type) {
+		body.setGenitalArrangement(type);
+		
+		return ""; // TODO
 	}
 	
 	

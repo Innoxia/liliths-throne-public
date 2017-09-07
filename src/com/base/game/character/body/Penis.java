@@ -13,6 +13,7 @@ import com.base.game.character.body.valueEnums.OrificePlasticity;
 import com.base.game.character.body.valueEnums.PenisModifier;
 import com.base.game.character.body.valueEnums.PenisSize;
 import com.base.game.dialogue.utils.UtilText;
+import com.base.main.Main;
 import com.base.utils.Util;
 
 /**
@@ -89,6 +90,10 @@ public class Penis implements BodyPartInterface, Serializable {
 			list.add(pm.getName());
 		}
 		list.add(type.getDescriptor(owner));
+		if(Main.game.isInSex()) {
+			list.add("hard");
+			list.add("throbbing");
+		}
 		
         return UtilText.returnStringAtRandom(list.toArray(new String[]{}));
 	}

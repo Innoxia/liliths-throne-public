@@ -955,7 +955,273 @@ public class PartnerFingerNipple {
 	};
 	
 	
-	// Partner reactions:
+	// Player actions:
+	
+	public static final SexAction PLAYER_FORCE_FEEL_BREASTS = new SexAction(
+			SexActionType.PLAYER_REQUIRES_NO_PENETRATION,
+			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ZERO_PURE,
+			PenetrationType.FINGER_PARTNER,
+			OrificeType.NIPPLE_PLAYER) {
+		@Override
+		public String getActionTitle() {
+			return "Force breast grope";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Force [npc.name] to start groping your [pc.breasts+].";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.game.getPlayer().hasBreasts() && (Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex());
+		}
+
+		@Override
+		public String getDescription() {
+			if(!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.NIPPLES)){
+
+				UtilText.nodeContentSB.setLength(0);
+				
+				switch(Sex.getSexPacePlayer()) {
+					case DOM_GENTLE:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Taking [npc.name]'s [npc.hands] in yours, you guide them up to your chest, letting out a soft [pc.moan] as you press them into your [pc.breasts+],"
+										+ " forcing your [pc.lowClothing(nipples)] down against your [pc.nipples+] in the process.",
+								"You take hold of [npc.name]'s [npc.hands], guiding them up to gently press into your [pc.topClothing(nipples)], and holding them there for a moment as you encourage [npc.herHim] to grope and squeeze your [pc.breasts].",
+								"Taking hold of [npc.name]'s [npc.hands], you gently guide [npc.her] [npc.fingers] up to your [pc.topClothing(nipples)], before softly pressing them into your [pc.breasts+]."));
+						break;
+					case DOM_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Taking [npc.name]'s [npc.hands] in yours, you guide them up to your chest, letting out [pc.a_moan+] as you eagerly press them into your [pc.breasts+],"
+										+ " forcing your [pc.lowClothing(nipples)] down against your [pc.nipples+] in the process.",
+								"You take hold of [npc.name]'s [npc.hands], eagerly guiding them up to press into your [pc.topClothing(nipples)], and holding them there for a moment as you encourage [npc.herHim] to grope and squeeze your [pc.breasts].",
+								"Taking hold of [npc.name]'s [npc.hands], you eagerly guide [npc.her] [npc.fingers] up to your [pc.topClothing(nipples)], before enthusiastically pressing them into your [pc.breasts+]."));
+						break;
+					case DOM_ROUGH:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Taking [npc.name]'s [npc.hands] in yours, you yank them up to your chest, letting out [pc.a_moan+] as you roughly press them into your [pc.breasts+],"
+										+ " forcing your [pc.lowClothing(nipples)] down against your [pc.nipples+] in the process.",
+								"You take hold of [npc.name]'s [npc.hands], roughly yanking them up to press into your [pc.topClothing(nipples)], and holding them there for a moment as you order [npc.herHim] to grope and squeeze your [pc.breasts].",
+								"Taking hold of [npc.name]'s [npc.hands], you violently pull them up to your chest, forcing [npc.her] [npc.fingers] to press into the [pc.topClothing(nipples)] that's covering your [pc.breasts+]."));
+						break;
+					case SUB_EAGER:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Taking [npc.name]'s [npc.hands] in yours, you guide them up to your chest, letting out [pc.a_moan+] as you eagerly press them into your [pc.breasts+],"
+										+ " forcing your [pc.lowClothing(nipples)] down against your [pc.nipples+] in the process.",
+								"You take hold of [npc.name]'s [npc.hands], eagerly guiding them up to press into your [pc.topClothing(nipples)], and holding them there for a moment as you encourage [npc.herHim] to grope and squeeze your [pc.breasts].",
+								"Taking hold of [npc.name]'s [npc.hands], you eagerly guide [npc.her] [npc.fingers] up to your [pc.topClothing(nipples)], before enthusiastically pressing them into your [pc.breasts+]."));
+						break;
+					case SUB_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Taking [npc.name]'s [npc.hands] in yours, you guide them up to your chest, letting out [pc.a_moan+] as you press them into your [pc.breasts+],"
+										+ " forcing your [pc.lowClothing(nipples)] down against your [pc.nipples+] in the process.",
+								"You take hold of [npc.name]'s [npc.hands], guiding them up to press into your [pc.topClothing(nipples)], and holding them there for a moment as you encourage [npc.herHim] to grope and squeeze your [pc.breasts].",
+								"Taking hold of [npc.name]'s [npc.hands], you guide [npc.her] [npc.fingers] up to your [pc.topClothing(nipples)], before pressing them into your [pc.breasts+]."));
+						break;
+					default:
+						break;
+				}
+				switch(Sex.getSexPacePartner()) {
+					case DOM_GENTLE:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc.Name] lets out a soft [npc.moan] in response to your eagerness, before gently pressing [npc.her] [npc.hands] into the flesh of your [pc.breasts+].",
+								" With a soft [npc.moan], [npc.she] eagerly responds to your move by gently sinking [npc.her] [npc.fingers] into the soft flesh of your [pc.breasts].",
+								" Softly [npc.moaning], [npc.she] starts playing with your [pc.breasts+], drawing pleasurable [pc.moans] from between your [pc.lips] as [npc.she] gently presses [npc.her] [npc.fingers] into your [pc.breasts]."));
+						break;
+					case DOM_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc.Name] lets out [npc.a_moan+] in response to your eagerness, before eagerly pressing [npc.her] [npc.hands] into the flesh of your [pc.breasts+].",
+								" With [npc.a_moan+], [npc.she] eagerly responds to your move by enthusiastically sinking [npc.her] [npc.fingers] into the soft flesh of your [pc.breasts].",
+								" [npc.Moaning+], [npc.she] starts playing with your [pc.breasts+], drawing pleasurable [pc.moans] from between your [pc.lips] as [npc.she] eagerly presses [npc.her] [npc.fingers] into your [pc.breasts]."));
+						break;
+					case DOM_ROUGH:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc.Name] lets out [npc.a_moan+] in response to your eagerness, roughly pressing [npc.her] [npc.hands] into the flesh of your [pc.breasts+] as [npc.she] growls out that [npc.she]'s still the one in charge.",
+								" With [npc.a_moan+], [npc.she] eagerly responds to your move by roughly sinking [npc.her] [npc.fingers] into the soft flesh of your [pc.breasts].",
+								" [npc.Moaning+], [npc.she] starts playing with your [pc.breasts+], drawing pleasurable [pc.moans] from between your [pc.lips] as [npc.she] roughly presses [npc.her] [npc.fingers] into your [pc.breasts]."));
+						break;
+					case SUB_EAGER:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc.Name] lets out [npc.a_moan+] in response to your eagerness, before eagerly pressing [npc.her] [npc.hands] into the flesh of your [pc.breasts+].",
+								" With [npc.a_moan+], [npc.she] eagerly responds to your move by enthusiastically sinking [npc.her] [npc.fingers] into the soft flesh of your [pc.breasts].",
+								" [npc.Moaning+], [npc.she] starts playing with your [pc.breasts+], drawing pleasurable [pc.moans] from between your [pc.lips] as [npc.she] eagerly presses [npc.her] [npc.fingers] into your [pc.breasts]."));
+						break;
+					case SUB_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc.Name] lets out [npc.a_moan+] in response to your eagerness, before pressing [npc.her] [npc.hands] into the flesh of your [pc.breasts+].",
+								" With [npc.a_moan+], [npc.she] responds to your move by sinking [npc.her] [npc.fingers] into the soft flesh of your [pc.breasts].",
+								" [npc.Moaning+], [npc.she] starts playing with your [pc.breasts+], drawing pleasurable [pc.moans] from between your [pc.lips] as [npc.she] presses [npc.her] [npc.fingers] into your [pc.breasts]."));
+						break;
+					case SUB_RESISTING:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc.She] tries to pull back, [npc.sobbing] and struggling against your touch as you force [npc.her] [npc.hands] into your [pc.breasts+].",
+								" With [npc.a_sob+], [npc.she] starts writhing around in discomfort, pleading for you to leave [npc.herHim] alone as you continue forcing [npc.her] [npc.hands] into your [pc.breasts+].",
+								" [npc.A_sob+] bursts out from between [npc.her] [npc.lips+], and as you carry on forcing [npc.her] [npc.hands] into your [pc.breasts+], [npc.she] continues to struggle against your touch."));
+						break;
+					default:
+						break;
+				}
+				
+				switch (Main.game.getPlayer().getBreastLactation()) {
+					case ONE_TRICKLE:
+						UtilText.nodeContentSB.append(" A small trickle of [pc.milk] leaks out into your [pc.lowClothing(nipples)] as [npc.she] squeezes down on your [pc.nipples+].");
+						break;
+					case TWO_SMALL_AMOUNT:
+						UtilText.nodeContentSB.append(" A small squirt of [pc.milk] leaks out into your [pc.lowClothing(nipples)] as [npc.she] squeezes down on your [pc.nipples+].");
+						break;
+					case THREE_DECENT_AMOUNT:
+						UtilText.nodeContentSB.append(" A trickle of [pc.milk] runs out into your [pc.lowClothing(nipples)] as [npc.she] squeezes down on your [pc.nipples+].");
+						break;
+					case FOUR_LARGE_AMOUNT:
+						UtilText.nodeContentSB.append(" Your [pc.milk] starts to flow out into your [pc.lowClothing(nipples)], and you moan as you feel it running down over your [pc.breasts+].");
+						break;
+					case FIVE_VERY_LARGE_DROOLING:
+						UtilText.nodeContentSB.append(" Your [pc.milk] starts drooling out in a little stream into your [pc.lowClothing(nipples)] as [npc.she] squeezes down on your [pc.nipples+].");
+						break;
+					case SIX_EXTREME_AMOUNT_DRIPPING:
+						UtilText.nodeContentSB.append(" Your [pc.milk] starts pouring out in a constant stream, quickly soaking your [pc.lowClothing(nipples)].");
+						break;
+					case SEVEN_MONSTROUS_AMOUNT_POURING:
+						UtilText.nodeContentSB.append(" Your [pc.milk] starts pouring out in a heavy flow, quickly soaking your [pc.lowClothing(nipples)].");
+						break;
+					default:
+						break;
+				}
+		
+				return UtilText.nodeContentSB.toString();
+				
+			}else{
+				
+				UtilText.nodeContentSB.setLength(0);
+				
+				switch(Sex.getSexPacePlayer()) {
+					case DOM_GENTLE:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Taking [npc.name]'s [npc.hands] in yours, you guide them up to your chest, letting out a soft [pc.moan] as you press them into your [pc.breasts+].",
+								"You take hold of [npc.name]'s [npc.hands], guiding them up to gently press into the soft flesh of your [pc.breasts].",
+								"Taking hold of [npc.name]'s [npc.hands], you gently guide [npc.her] [npc.fingers] up to softly press into your [pc.breasts+]."));
+						break;
+					case DOM_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Taking [npc.name]'s [npc.hands] in yours, you guide them up to your chest, letting out [pc.a_moan+] as you eagerly press them into your [pc.breasts+].",
+								"You take hold of [npc.name]'s [npc.hands], eagerly guiding them up to press into the soft flesh of your [pc.breasts].",
+								"Taking hold of [npc.name]'s [npc.hands], you eagerly guide [npc.her] [npc.fingers] up to enthusiastically press into your [pc.breasts+]."));
+						break;
+					case DOM_ROUGH:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Taking [npc.name]'s [npc.hands] in yours, you yank them up to your chest, letting out [pc.a_moan+] as you roughly press them into your [pc.breasts+].",
+								"You take hold of [npc.name]'s [npc.hands], roughly yanking them up to press into the soft flesh of your [pc.breasts].",
+								"Taking hold of [npc.name]'s [npc.hands], you violently pull them up to your chest, forcing [npc.her] [npc.fingers] to press into the soft flesh of your [pc.breasts+]."));
+						break;
+					case SUB_EAGER:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Taking [npc.name]'s [npc.hands] in yours, you guide them up to your chest, letting out [pc.a_moan+] as you eagerly press them into your [pc.breasts+].",
+								"You take hold of [npc.name]'s [npc.hands], eagerly guiding them up to press into the soft flesh of your [pc.breasts].",
+								"Taking hold of [npc.name]'s [npc.hands], you eagerly guide [npc.her] [npc.fingers] up to enthusiastically press them into your [pc.breasts+]."));
+						break;
+					case SUB_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Taking [npc.name]'s [npc.hands] in yours, you guide them up to your chest, letting out [pc.a_moan+] as you press them into your [pc.breasts+].",
+								"You take hold of [npc.name]'s [npc.hands], guiding them up to press into the soft flesh of your [pc.breasts].",
+								"Taking hold of [npc.name]'s [npc.hands], you guide [npc.her] [npc.fingers] up to press them into your [pc.breasts+]."));
+						break;
+					default:
+						break;
+				}
+				switch(Sex.getSexPacePartner()) {
+					case DOM_GENTLE:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc.Name] lets out a soft [npc.moan] in response to your eagerness, before gently pressing [npc.her] [npc.hands] into the flesh of your [pc.breasts+].",
+								" With a soft [npc.moan], [npc.she] eagerly responds to your move by gently sinking [npc.her] [npc.fingers] into the soft flesh of your [pc.breasts].",
+								" Softly [npc.moaning], [npc.she] starts playing with your [pc.breasts+], drawing pleasurable [pc.moans] from between your [pc.lips] as [npc.she] gently presses [npc.her] [npc.fingers] into your [pc.breasts]."));
+						break;
+					case DOM_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc.Name] lets out [npc.a_moan+] in response to your eagerness, before eagerly pressing [npc.her] [npc.hands] into the flesh of your [pc.breasts+].",
+								" With [npc.a_moan+], [npc.she] eagerly responds to your move by enthusiastically sinking [npc.her] [npc.fingers] into the soft flesh of your [pc.breasts].",
+								" [npc.Moaning+], [npc.she] starts playing with your [pc.breasts+], drawing pleasurable [pc.moans] from between your [pc.lips] as [npc.she] eagerly presses [npc.her] [npc.fingers] into your [pc.breasts]."));
+						break;
+					case DOM_ROUGH:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc.Name] lets out [npc.a_moan+] in response to your eagerness, roughly pressing [npc.her] [npc.hands] into the flesh of your [pc.breasts+] as [npc.she] growls out that [npc.she]'s still the one in charge.",
+								" With [npc.a_moan+], [npc.she] eagerly responds to your move by roughly sinking [npc.her] [npc.fingers] into the soft flesh of your [pc.breasts].",
+								" [npc.Moaning+], [npc.she] starts playing with your [pc.breasts+], drawing pleasurable [pc.moans] from between your [pc.lips] as [npc.she] roughly presses [npc.her] [npc.fingers] into your [pc.breasts]."));
+						break;
+					case SUB_EAGER:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc.Name] lets out [npc.a_moan+] in response to your eagerness, before eagerly pressing [npc.her] [npc.hands] into the flesh of your [pc.breasts+].",
+								" With [npc.a_moan+], [npc.she] eagerly responds to your move by enthusiastically sinking [npc.her] [npc.fingers] into the soft flesh of your [pc.breasts].",
+								" [npc.Moaning+], [npc.she] starts playing with your [pc.breasts+], drawing pleasurable [pc.moans] from between your [pc.lips] as [npc.she] eagerly presses [npc.her] [npc.fingers] into your [pc.breasts]."));
+						break;
+					case SUB_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc.Name] lets out [npc.a_moan+] in response to your eagerness, before pressing [npc.her] [npc.hands] into the flesh of your [pc.breasts+].",
+								" With [npc.a_moan+], [npc.she] responds to your move by sinking [npc.her] [npc.fingers] into the soft flesh of your [pc.breasts].",
+								" [npc.Moaning+], [npc.she] starts playing with your [pc.breasts+], drawing pleasurable [pc.moans] from between your [pc.lips] as [npc.she] presses [npc.her] [npc.fingers] into your [pc.breasts]."));
+						break;
+					case SUB_RESISTING:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc.She] tries to pull back, [npc.sobbing] and struggling against your touch as you force [npc.her] [npc.hands] into your [pc.breasts+].",
+								" With [npc.a_sob+], [npc.she] starts writhing around in discomfort, pleading for you to leave [npc.herHim] alone as you continue forcing [npc.her] [npc.hands] into your [pc.breasts+].",
+								" [npc.A_sob+] bursts out from between [npc.her] [npc.lips+], and as you carry on forcing [npc.her] [npc.hands] into your [pc.breasts+], [npc.she] continues to struggle against your touch."));
+						break;
+					default:
+						break;
+				}
+				
+				switch (Main.game.getPlayer().getBreastLactation()) {
+					case ONE_TRICKLE:
+						UtilText.nodeContentSB.append(" A small trickle of [pc.milk] leaks out onto [npc.her] fingertips as [npc.she] squeezes down on your [pc.nipples+].");
+						break;
+					case TWO_SMALL_AMOUNT:
+						UtilText.nodeContentSB.append(" A small squirt of [pc.milk] leaks out onto [npc.her] fingertips as [npc.she] squeezes down on your [pc.nipples+].");
+						break;
+					case THREE_DECENT_AMOUNT:
+						UtilText.nodeContentSB.append(" A trickle of [pc.milk] runs out over [npc.her] fingertips as [npc.she] squeezes down on your [pc.nipples+].");
+						break;
+					case FOUR_LARGE_AMOUNT:
+						UtilText.nodeContentSB.append(" Your [pc.milk] starts to flow out over [npc.her] fingers, and you moan as you feel it running down over your [pc.breasts+].");
+						break;
+					case FIVE_VERY_LARGE_DROOLING:
+						UtilText.nodeContentSB.append(" Your [pc.milk] starts drooling out in a little stream over [npc.her] fingers as [npc.she] squeezes down on your [pc.nipples+].");
+						break;
+					case SIX_EXTREME_AMOUNT_DRIPPING:
+						UtilText.nodeContentSB.append(" Your [pc.milk] starts pouring out in a constant stream, quickly soaking your breasts and dripping down onto the floor beneath you.");
+						break;
+					case SEVEN_MONSTROUS_AMOUNT_POURING:
+						UtilText.nodeContentSB.append(" Your [pc.milk] starts pouring out in a heavy flow, quickly soaking your breasts and dripping down to form a large pool on the floor beneath you.");
+						break;
+					default:
+						break;
+				}
+		
+				return UtilText.nodeContentSB.toString();
+				
+			}
+		}
+
+		@Override
+		public void applyEffects(){
+			if(!Sex.getPartner().isCoverableAreaExposed(CoverableArea.NIPPLES) && Sex.getPartner().getBreastLactation().getMinimumValue()>=Lactation.ONE_TRICKLE.getMinimumValue()){
+				if(Sex.getPartner().getLowestZLayerCoverableArea(CoverableArea.NIPPLES)!=null) {
+					Sex.getPartner().getLowestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(true);
+				}
+			}
+		}
+		
+		@Override
+		public List<Fetish> getFetishesPlayer() {
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
+		}
+		
+		@Override
+		public List<Fetish> getFetishesPartner() {
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
+		}
+	};
 	
 	public static final SexAction PLAYER_NIPPLE_FINGERING_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,

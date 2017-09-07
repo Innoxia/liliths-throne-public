@@ -27,6 +27,7 @@ import com.base.game.character.body.valueEnums.Capacity;
 import com.base.game.character.body.valueEnums.ClitorisSize;
 import com.base.game.character.body.valueEnums.CumProduction;
 import com.base.game.character.body.valueEnums.CupSize;
+import com.base.game.character.body.valueEnums.GenitalArrangement;
 import com.base.game.character.body.valueEnums.HairLength;
 import com.base.game.character.body.valueEnums.Lactation;
 import com.base.game.character.body.valueEnums.LipSize;
@@ -75,7 +76,8 @@ public enum RacialBody {
 			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
 			TailType.NONE,
 			VaginaType.HUMAN, Wetness.TWO_MOIST, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE),
+			WingType.NONE,
+			GenitalArrangement.NORMAL),
 
 	// ANGEL:
 	ANGEL(Util.newHashMapOfValues(
@@ -103,7 +105,8 @@ public enum RacialBody {
 			TesticleSize.FOUR_HUGE, 2, CumProduction.SEVEN_MONSTROUS,
 			TailType.NONE,
 			VaginaType.ANGEL, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-			WingType.ANGEL) {
+			WingType.ANGEL,
+			GenitalArrangement.NORMAL) {
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
@@ -137,7 +140,8 @@ public enum RacialBody {
 			TesticleSize.FOUR_HUGE, 4, CumProduction.SEVEN_MONSTROUS,
 			TailType.DEMON_COMMON,
 			VaginaType.DEMON_COMMON, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-			WingType.DEMON_COMMON) {
+			WingType.DEMON_COMMON,
+			GenitalArrangement.NORMAL) {
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
@@ -172,7 +176,8 @@ public enum RacialBody {
 			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
 			TailType.DOG_MORPH,
 			VaginaType.DOG_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE),
+			WingType.NONE,
+			GenitalArrangement.NORMAL),
 	
 	WOLF_MORPH(
 			Util.newHashMapOfValues(
@@ -200,7 +205,8 @@ public enum RacialBody {
 			TesticleSize.THREE_LARGE, 2, CumProduction.FIVE_HUGE,
 			TailType.LYCAN,
 			VaginaType.WOLF_MORPH, Wetness.FOUR_SLIMY, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE),
+			WingType.NONE,
+			GenitalArrangement.NORMAL),
 
 	// FELINES:
 	CAT_MORPH(
@@ -214,7 +220,7 @@ public enum RacialBody {
 			AssType.CAT_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.CAT_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.D, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			170, 35, BodySize.ONE_SLENDER.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			160, 85, BodySize.ONE_SLENDER.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
 			EarType.CAT_MORPH,
@@ -229,7 +235,8 @@ public enum RacialBody {
 			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
 			TailType.CAT_MORPH,
 			VaginaType.CAT_MORPH, Wetness.TWO_MOIST, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE),
+			WingType.NONE,
+			GenitalArrangement.NORMAL),
 
 	// EQUINES:
 	HORSE_MORPH(
@@ -258,7 +265,8 @@ public enum RacialBody {
 			TesticleSize.FOUR_HUGE, 2, CumProduction.FIVE_HUGE,
 			TailType.HORSE_MORPH,
 			VaginaType.HORSE_MORPH, Wetness.THREE_WET, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE),
+			WingType.NONE,
+			GenitalArrangement.NORMAL),
 
 	// SLIMES:
 	SLIME(Util.newHashMapOfValues(
@@ -286,7 +294,8 @@ public enum RacialBody {
 			TesticleSize.ZERO_VESTIGIAL, 2, CumProduction.SEVEN_MONSTROUS,
 			TailType.NONE,
 			VaginaType.SLIME, Wetness.SEVEN_DROOLING, Capacity.SEVEN_GAPING, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-			WingType.NONE),
+			WingType.NONE,
+			GenitalArrangement.NORMAL),
 
 	// RODENTS:
 	SQUIRREL_MORPH(Util.newHashMapOfValues(
@@ -314,7 +323,8 @@ public enum RacialBody {
 			TesticleSize.THREE_LARGE, 2, CumProduction.THREE_AVERAGE,
 			TailType.SQUIRREL_MORPH,
 			VaginaType.SQUIRREL_MORPH, Wetness.TWO_MOIST, Capacity.FOUR_LOOSE, ClitorisSize.ONE_BIG, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE),
+			WingType.NONE,
+			GenitalArrangement.NORMAL),
 
 	// AVIAN:
 	HARPY(Util.newHashMapOfValues(
@@ -342,7 +352,8 @@ public enum RacialBody {
 			TesticleSize.ZERO_VESTIGIAL, 2, CumProduction.ONE_TRICKLE,
 			TailType.HARPY,
 			VaginaType.HARPY, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE) {
+			WingType.NONE,
+			GenitalArrangement.CLOACA) {
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
 			double chance = Math.random();
@@ -377,6 +388,7 @@ public enum RacialBody {
 	private WingType wingType;
 	
 	private BodyMaterial bodyMaterial;
+	private GenitalArrangement genitalArrangement;
 	
 	private NippleShape maleNippleShape, femaleNippleShape;
 	
@@ -415,7 +427,8 @@ public enum RacialBody {
 			TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction,
 			TailType tailType,
 			VaginaType vaginaType, Wetness vaginaWetness, Capacity vaginaCapacity, ClitorisSize clitSize, OrificeElasticity vaginaElasticity, OrificePlasticity vaginaPlasticity,
-			WingType wingType) {
+			WingType wingType,
+			GenitalArrangement genitalArrangement) {
 
 		this.attributeModifiers = attributeModifiers;
 		
@@ -497,6 +510,8 @@ public enum RacialBody {
 		this.vaginaElasticity = vaginaElasticity.getValue();
 		this.vaginaPlasticity = vaginaPlasticity.getValue();
 		this.testicleQuantity = testicleQuantity;
+		
+		this.genitalArrangement = genitalArrangement;
 
 	}
 
@@ -820,6 +835,10 @@ public enum RacialBody {
 
 	public int getFemaleLipSize() {
 		return femaleLipSize;
+	}
+
+	public GenitalArrangement getGenitalArrangement() {
+		return genitalArrangement;
 	}
 
 }
