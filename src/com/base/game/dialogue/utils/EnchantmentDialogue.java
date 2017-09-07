@@ -317,8 +317,7 @@ public class EnchantmentDialogue {
 						@Override
 						public void effects() {
 							effects.clear();
-							for(ItemEffect ie : EnchantmentDialogue.previousEffects)
-								effects.add(ie);
+							effects.addAll(EnchantmentDialogue.previousEffects);
 						}
 					};
 					
@@ -389,8 +388,7 @@ public class EnchantmentDialogue {
 		previousPrimaryMod = primaryMod;
 		previousSecondaryMod = secondaryMod;
 		previousEffects.clear();
-		for(ItemEffect ie : EnchantmentDialogue.effects)
-			previousEffects.add(ie);
+		previousEffects.addAll(EnchantmentDialogue.effects);
 		
 		resetEnchantmentVariables();
 		EnchantmentDialogue.effects.clear();

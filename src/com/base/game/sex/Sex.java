@@ -273,17 +273,13 @@ public enum Sex {
 		playerClothingPreSex = new ArrayList<>();
 		partnerClothingPreSex = new ArrayList<>();
 
-		for (AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped())
-			playerClothingPreSex.add(c);
-		for (AbstractClothing c : partner.getClothingCurrentlyEquipped())
-			partnerClothingPreSex.add(c);
+		playerClothingPreSex.addAll(Main.game.getPlayer().getClothingCurrentlyEquipped());
+		partnerClothingPreSex.addAll(partner.getClothingCurrentlyEquipped());
 
 		List<AbstractClothing> clothingToStrip = new ArrayList<>();
 
 		if(sexManager.isPlayerStartNaked()) {
-			for (AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-				clothingToStrip.add(c);
-			}
+			clothingToStrip.addAll(Main.game.getPlayer().getClothingCurrentlyEquipped());
 
 			for (AbstractClothing c : clothingToStrip) {
 				Main.game.getPlayer().unequipClothingOntoFloor(c, true, Main.game.getPlayer());
@@ -293,9 +289,7 @@ public enum Sex {
 		clothingToStrip.clear();
 
 		if(sexManager.isPartnerStartNaked()) {
-			for (AbstractClothing c : partner.getClothingCurrentlyEquipped()) {
-				clothingToStrip.add(c);
-			}
+			clothingToStrip.addAll(partner.getClothingCurrentlyEquipped());
 
 			for (AbstractClothing c : clothingToStrip) {
 				partner.unequipClothingOntoFloor(c, true, partner);

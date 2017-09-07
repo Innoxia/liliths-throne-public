@@ -1,6 +1,7 @@
 package com.base.game.character.body.types;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.base.game.character.GameCharacter;
@@ -42,9 +43,7 @@ public enum AnusType implements BodyPartTypeInterface {
 		this.skinType = skinType;
 		this.race = race;
 		this.defaultRacialOrificeModifiers = new ArrayList<>();
-		for(OrificeModifier om : defaultRacialOrificeModifiers) {
-			this.defaultRacialOrificeModifiers.add(om);
-		}
+		Collections.addAll(this.defaultRacialOrificeModifiers, defaultRacialOrificeModifiers);
 	}
 	
 	@Override

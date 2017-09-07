@@ -791,18 +791,18 @@ public class OptionsDialogue {
 			total+=Main.getProperties().genderPreferencesMap.get(g);
 		}
 		
-		String s = "";
+		StringBuilder s = new StringBuilder();
 		
 		if(total==0) {
-			s = "<div style='width:100%;height:12px;background:"+Colour.FEMININE.getShades()[3]+";float:left;margin:4vw 0 0 0;border-radius: 2px;'>";
+			s.append("<div style='width:100%;height:12px;background:"+Colour.FEMININE.getShades()[3]+";float:left;margin:4vw 0 0 0;border-radius: 2px;'>");
 			
 		} else {
-			s = "<div style='width:100%;height:12px;background:#222;float:left;margin:4vw 0 0 0;border-radius: 2px;'>";
+			s.append("<div style='width:100%;height:12px;background:#222;float:left;margin:4vw 0 0 0;border-radius: 2px;'>");
 			
 			int f=3, m=0;
 			for(Gender g : Gender.values()) {
-				s+= "<div style='width:" + (Main.getProperties().genderPreferencesMap.get(g)/total) * (100) + "%; height:12px; background:"
-					+ (g.isFeminine()?Colour.FEMININE.getShades()[f]:Colour.MASCULINE.getShades()[m]) + "; float:left; border-radius: 2;'></div>";
+				s.append("<div style='width:" + (Main.getProperties().genderPreferencesMap.get(g)/total) * (100) + "%; height:12px; background:"
+					+ (g.isFeminine()?Colour.FEMININE.getShades()[f]:Colour.MASCULINE.getShades()[m]) + "; float:left; border-radius: 2;'></div>");
 				if(g.isFeminine())
 					f--;
 				else
@@ -810,9 +810,9 @@ public class OptionsDialogue {
 			}
 		}
 		
-		s+= "</div>";
+		s.append("</div>");
 		
-		return s;
+		return s.toString();
 	}
 	
 	public static final DialogueNodeOld GENDER_PREFERENCE = new DialogueNodeOld("Gender preferences", "", true) {

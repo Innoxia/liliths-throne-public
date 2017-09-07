@@ -75,12 +75,8 @@ public enum Encounter {
 				
 				if(Main.game.isIncestEnabled() && Math.random()>0.75f) { // Incest
 					List<NPC> offspringAvailable = new ArrayList<>();
-					for(NPC npc : Main.game.getOffspring()) {
-						offspringAvailable.add(npc);
-					}
-					for(NPC npc : Main.game.getOffspringSpawned()) {
-						offspringAvailable.remove(npc);
-					}
+					offspringAvailable.addAll(Main.game.getOffspring());
+					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
 					
 					if(!offspringAvailable.isEmpty()) {
 						NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));

@@ -324,8 +324,7 @@ public class GenericDialogue {
 
 	private static List<AbstractClothingType> clothingTotal = new ArrayList<>();
 	static {
-		for (AbstractClothingType c : ClothingType.getAllClothing())
-			clothingTotal.add(c);
+		clothingTotal.addAll(ClothingType.getAllClothing());
 	}
 	public static final DialogueNodeOld SPAWN_CLOTHING_MENU = new DialogueNodeOld("Spawn clothing on the floor", "Spawn clothing on the floor.", false) {
 		private static final long serialVersionUID = 1L;
@@ -358,9 +357,7 @@ public class GenericDialogue {
 
 	private static List<AbstractWeaponType> weaponsTotal = new ArrayList<>();
 	static {
-		for (AbstractWeaponType c : WeaponType.allweapons) {
-			weaponsTotal.add(c);
-		}
+		weaponsTotal.addAll(WeaponType.allweapons);
 	}
 	public static final DialogueNodeOld SPAWN_WEAPON_MENU = new DialogueNodeOld("Spawn weapons on the floor", "Spawn weapons on the floor.", false) {
 		private static final long serialVersionUID = 1L;
@@ -393,8 +390,7 @@ public class GenericDialogue {
 	
 	private static List<AbstractItemType> itemsTotal = new ArrayList<>();
 	static {
-		for (AbstractItemType c : ItemType.allItems)
-			itemsTotal.add(c);
+		itemsTotal.addAll(ItemType.allItems);
 	}
 	public static final DialogueNodeOld SPAWN_ITEM_MENU = new DialogueNodeOld("Spawn items on the floor", "Spawn items on the floor.", false) {
 		private static final long serialVersionUID = 1L;

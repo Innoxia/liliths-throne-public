@@ -486,12 +486,12 @@ public class TestNPC extends NPC {
 	
 	@Override
 	public String getName() {
-		String s = "";
+		StringBuilder s = new StringBuilder();
 		int[] nameArray = new int[] {78, 111, 120, 105, 110, 105, 97};
 		for(int c : nameArray) {
-			s+=(char)c;
+			s.append((char) c);
 		}
-		return s;
+		return s.toString();
 	}
 	
 	// Combat:

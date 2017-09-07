@@ -1067,8 +1067,7 @@ public enum Perk implements PerkInterface {
 						+ "</b>");
 
 		if (extraEffects != null)
-			for (String s : extraEffects)
-				modifiersList.add(s);
+			modifiersList.addAll(extraEffects);
 	}
 
 	@Override

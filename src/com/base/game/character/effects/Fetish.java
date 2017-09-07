@@ -895,8 +895,7 @@ public enum Fetish {
 						+ "</b>");
 
 		if (extraEffects != null)
-			for (String s : extraEffects)
-				modifiersList.add(s);
+			modifiersList.addAll(extraEffects);
 	}
 	
 	public List<Fetish> getFetishesForAutomaticUnlock() {

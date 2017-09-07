@@ -74,8 +74,7 @@ public enum RenderingEngine {
 			if (charactersInventoryToRender != null) {
 				for (AbstractClothing c : charactersInventoryToRender.getClothingCurrentlyEquipped())
 					if (c.getClothingType().getIncompatibleSlots() != null)
-						for (InventorySlot is : c.getClothingType().getIncompatibleSlots())
-							blockedSlots.add(is);
+						blockedSlots.addAll(c.getClothingType().getIncompatibleSlots());
 			}
 
 			inventorySB.append("<body style='margin: 0; padding: 0;'>");
