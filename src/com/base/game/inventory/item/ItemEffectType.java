@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.base.game.Game;
 import com.base.game.character.GameCharacter;
 import com.base.game.character.attributes.Attribute;

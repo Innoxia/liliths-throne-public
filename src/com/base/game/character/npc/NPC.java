@@ -32,6 +32,7 @@ import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.clothing.CoverableArea;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.sex.LubricationType;
 import com.base.game.sex.OrificeType;
@@ -208,79 +209,81 @@ public abstract class NPC extends GameCharacter {
 				case COW_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.STR_INGREDIENT_BUBBLE_MILK)));
 				case DOG_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.FIT_INGREDIENT_CANINE_CRUSH)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_CANINE_CRUSH)));
 				case HORSE_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER)));
 				case WOLF_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY)));
 				case HUMAN:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.INT_INGREDIENT_VANILLA_WATER)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_VANILLA_WATER)));
 				case ANGEL:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
 				case DEMON:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.COR_INGREDIENT_LILITHS_GIFT)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.COR_INGREDIENT_LILITHS_GIFT)));
 				case HARPY:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME)));
 				case SLIME:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
 				case SQUIRREL_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)));
 			}
 			
 		} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(getRace())) {
 			switch(getRace()) {
 				case CAT_MORPH:
+
 					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_CAT_MORPH)));
 				case COW_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_COW_MORPH)));
 				case DOG_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_DOG_MORPH)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_DOG_MORPH)));
 				case HORSE_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_HORSE_MORPH)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_HORSE_MORPH)));
 				case WOLF_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_WOLF_MORPH)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_WOLF_MORPH)));
 				case HUMAN:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_HUMAN)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_HUMAN)));
 				case ANGEL:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
 				case DEMON:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_DEMON)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_DEMON)));
 				case HARPY:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_HARPY)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_HARPY)));
 				case SLIME:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
 				case SQUIRREL_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_SQUIRREL_MORPH)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_SQUIRREL_MORPH)));
 			}
 		
 		} else {
 			switch(getRace()) {
 				case CAT_MORPH:
+
 					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_CAT_MORPH)));
 				case COW_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_COW_MORPH)));
 				case DOG_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_DOG_MORPH)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_DOG_MORPH)));
 				case HORSE_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_HORSE_MORPH)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HORSE_MORPH)));
 				case WOLF_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_WOLF_MORPH)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_WOLF_MORPH)));
 				case HUMAN:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
 				case ANGEL:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
 				case DEMON:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_DEMON)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_DEMON)));
 				case HARPY:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY)));
 				case SLIME:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
 				case SQUIRREL_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)));
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)));
 			}
 		}
 		
-		return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.DYE_BRUSH)));
+		return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
 	}
 	
 	public Map<TFEssence, Integer> getLootEssenceDrops() {
@@ -648,23 +651,20 @@ public abstract class NPC extends GameCharacter {
 	 */
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
 		// Player is using an item:
-		if(user.isPlayer()){
+		if(user.isPlayer()) {
 			// Player uses item on themselves:
-			if(target.isPlayer()){
+			if(target.isPlayer()) {
 				return Main.game.getPlayer().useItem(item, target, false);
 				
 			// Player uses item on NPC:
-			}else{
-				switch(item.getItemType()){
-					default:
-						return "<p>"
-								+ "You try to give [npc.name] "+item.getItemType().getDeterminer()+" "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory."
-								+ "</p>";
-				}
+			} else {
+				return "<p>"
+							+ "You try to give [npc.name] the "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory."
+						+ "</p>";
 			}
 			
 		// NPC is using an item:
-		}else{
+		} else {
 			return Sex.getPartner().useItem(item, target, false);
 		}
 	}
@@ -4882,7 +4882,7 @@ public abstract class NPC extends GameCharacter {
 							"Pressing [npc.her] [npc.lips+] against yours, [npc.name] continues making out with you.");
 				case SUB_RESISTING:
 					return UtilText.returnStringAtRandom(
-							"[npc.Name]'s [pc.sobs+] are muffled into your mouth as [npc.she] desperately tries to push you away from [npc.herHim].",
+							"[npc.Name]'s [npc.sobs+] are muffled into your mouth as [npc.she] desperately tries to push you away from [npc.herHim].",
 							"[npc.Name] tries to pull [npc.her] [npc.lips+] away from yours as [npc.she] struggles against you.",
 							"Trying to pull [npc.her] [npc.lips+] away from yours, [npc.name] continues struggling against your unwanted kiss.");
 			}

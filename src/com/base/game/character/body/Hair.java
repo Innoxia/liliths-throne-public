@@ -59,7 +59,7 @@ public class Hair implements BodyPartInterface, Serializable {
 	public String setType(GameCharacter owner, HairType type) {
 		if (type == getType()) {
 			if (owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(You already have the [pc.hair] of a [pc.hairRace], so nothing happens...)]</p>";
+				return "<p style='text-align:center;'>[style.colourDisabled(You already have the [pc.hair] of [pc.a_hairRace], so nothing happens...)]</p>";
 			} else {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already has the [npc.hair] of [npc.a_hairRace], so nothing happens...)]</p>");
 			}
@@ -226,27 +226,12 @@ public class Hair implements BodyPartInterface, Serializable {
 	 * Sets the length value. Value is bound to >=0 && <=HairLength.SEVEN_TO_FLOOR.getMaximumValue()
 	 */
 	public String setLength(GameCharacter owner, int length) {
-		int sizeChange = 0;
-		
-		if (length <= 0) {
-			if (this.length != 0) {
-				sizeChange = 0 - this.length;
-				this.length = 0;
-			}
-		} else if (length >= HairLength.SEVEN_TO_FLOOR.getMaximumValue()) {
-			if (this.length != HairLength.SEVEN_TO_FLOOR.getMaximumValue()) {
-				sizeChange = HairLength.SEVEN_TO_FLOOR.getMaximumValue() - this.length;
-				this.length = HairLength.SEVEN_TO_FLOOR.getMaximumValue();
-			}
-		} else {
-			if (this.length != length) {
-				sizeChange = length - this.length;
-				this.length = length;
-			}
-		}
+		int oldLength = this.length;
+		this.length = Math.max(0, Math.min(length, HairLength.SEVEN_TO_FLOOR.getMaximumValue()));
+		int sizeChange = this.length - oldLength;
 		
 		String styleChange = "";
-		if(length < owner.getHairStyle().getMinimumLengthRequired()) {
+		if(this.length < owner.getHairStyle().getMinimumLengthRequired()) {
 			if(owner.isPlayer()) {
 				styleChange = "<p>"
 								+ "Your [pc.hair] "+(owner.getHairType().isDefaultPlural()?"are":"is")+" too short for your current hair style!"
@@ -260,33 +245,31 @@ public class Hair implements BodyPartInterface, Serializable {
 			}
 		}
 		
-		if(sizeChange == 0) {
+		if (sizeChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The length of your [pc.hair] doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The length of [npc.name]'s [pc.hair] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The length of [npc.name]'s [npc.hair] doesn't change...)]</p>");
 			}
-		}
-		
-		if(this.length > length) {
+		} else if (sizeChange < 0) {
 			if(owner.isPlayer()) {
 				return "<p>Your scalp itches for a moment as you feel your [pc.hair] [style.boldShrink(getting shorter)].</br>"
-						+ "You now have [style.boldTfGeneric([pc.hairLength], "+length+"-inch [pc.hair])]!</p>"
+						+ "You now have [style.boldTfGeneric([pc.hairLength], "+this.length+"-inch [pc.hair])]!</p>"
 						+ styleChange;
 			} else {
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry and rubs at [npc.her] scalp as [npc.her] [npc.hair] [style.boldShrink(gets shorter)].</br>"
-						+ "[npc.She] now has [style.boldTfGeneric([npc.hairLength], "+length+"-inch [npc.hair])]!</p>"
+						+ "[npc.She] now has [style.boldTfGeneric([npc.hairLength], "+this.length+"-inch [npc.hair])]!</p>"
 						+ styleChange);
 			}
 			
 		} else {
 			if(owner.isPlayer()) {
 				return "<p>Your scalp itches for a moment as you feel your [pc.hair] [style.boldGrow(growing longer)].</br>"
-						+ "You now have [style.boldTfGeneric([pc.hairLength], "+length+"-inch [pc.hair])]!</p>"
+						+ "You now have [style.boldTfGeneric([pc.hairLength], "+this.length+"-inch [pc.hair])]!</p>"
 						+ styleChange;
 			} else {
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry and rubs at [npc.her] scalp as [npc.her] [npc.hair] [style.boldGrow(grows longer)].</br>"
-						+ "[npc.She] now has [style.boldTfGeneric([npc.hairLength], "+length+"-inch [npc.hair])]!</p>"
+						+ "[npc.She] now has [style.boldTfGeneric([npc.hairLength], "+this.length+"-inch [npc.hair])]!</p>"
 						+ styleChange);
 			}
 		}

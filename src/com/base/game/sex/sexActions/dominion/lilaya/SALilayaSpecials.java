@@ -21,7 +21,7 @@ import com.base.main.Main;
 public class SALilayaSpecials {
 	
 	// Demand pull out
-	public static SexAction PARTNER_DEMAND_PULL_OUT = new SexAction(
+	public static final SexAction PARTNER_DEMAND_PULL_OUT = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -66,7 +66,7 @@ public class SALilayaSpecials {
 	
 	
 	// Furious stop sex
-	public static SexAction PARTNER_FURIOUS_STOP_SEX = new SexAction(
+	public static final SexAction PARTNER_FURIOUS_STOP_SEX = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,

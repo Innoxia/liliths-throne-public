@@ -5,7 +5,6 @@ import com.base.game.character.GameCharacter;
 import com.base.game.character.Name;
 import com.base.game.character.attributes.Attribute;
 import com.base.game.character.gender.Gender;
-import com.base.game.character.npc.NPC;
 import com.base.game.character.race.Race;
 import com.base.game.character.race.RaceStage;
 import com.base.game.character.race.RacialBody;
@@ -16,6 +15,7 @@ import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.ItemType;
 import com.base.game.sex.Sex;
 import com.base.main.Main;
 import com.base.utils.Util;
@@ -292,8 +292,7 @@ public class NPCOffspring extends NPC {
 				
 			// Player uses item on NPC:
 			}else{
-				switch(item.getItemType()){
-					case CONDOM:
+				if(item.getItemType().equals(ItemType.CONDOM)) {
 						if(target.isWearingCondom()) {
 							return "<p>"
 									+ "[npc.Name] is already wearing a condom, and [npc.she] refuses to wear two at once."
@@ -319,7 +318,8 @@ public class NPCOffspring extends NPC {
 									+ "[npc.Name] doesn't have a penis, so [npc.she] can't use the condom!"
 									+ "</p>";
 						}
-					case PROMISCUITY_PILL:
+						
+				} else if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
 						Main.game.getPlayer().useItem(item, target, false);
 						if(Sex.isPlayerDom()) {
 							return "<p>"
@@ -334,7 +334,9 @@ public class NPCOffspring extends NPC {
 									+ " [npc.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
 									+ "</p>";
 						}
-					case VIXENS_VIRILITY:
+
+				} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+					
 						Main.game.getPlayer().useItem(item, target, false);
 						if(Sex.isPlayerDom()) {
 							return "<p>"
@@ -349,7 +351,9 @@ public class NPCOffspring extends NPC {
 									+ " [npc.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
 									+ "</p>";
 						}
-					case POTION: case ELIXIR:
+						
+				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR)) {
+					
 						if(Sex.isPlayerDom()) {
 							return "<p>"
 										+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
@@ -369,7 +373,9 @@ public class NPCOffspring extends NPC {
 										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 									+ "</p>";
 						}
-					case MOTHERS_MILK:
+						
+				} else if(item.getItemType().equals(ItemType.MOTHERS_MILK)) {
+					
 						if(Sex.isPlayerDom()) {
 							return "<p>"
 										+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
@@ -389,7 +395,14 @@ public class NPCOffspring extends NPC {
 										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 									+ "</p>";
 						}
-					case RACE_INGREDIENT_CAT_MORPH: case RACE_INGREDIENT_DOG_MORPH: case RACE_INGREDIENT_HARPY: case RACE_INGREDIENT_HORSE_MORPH: case RACE_INGREDIENT_SQUIRREL_MORPH: case RACE_INGREDIENT_WOLF_MORPH:
+						
+				} else if(item.getItemType().equals(ItemType.RACE_INGREDIENT_CAT_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_DOG_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HARPY)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HORSE_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_WOLF_MORPH)) {
+					
 						if(Sex.isPlayerDom()) {
 							return "<p>"
 										+ "Taking the "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
@@ -409,7 +422,9 @@ public class NPCOffspring extends NPC {
 										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 									+ "</p>";
 						}
-					case SEX_INGREDIENT_HARPY_PERFUME:
+						
+				} else if(item.getItemType().equals(ItemType.SEX_INGREDIENT_HARPY_PERFUME)) {
+					
 						if(Sex.isPlayerDom()) {
 							return "<p>"
 										+ "Taking the "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
@@ -428,7 +443,16 @@ public class NPCOffspring extends NPC {
 										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 									+ "</p>";
 						}
-					case COR_INGREDIENT_LILITHS_GIFT: case RACE_INGREDIENT_HUMAN: case RACE_INGREDIENT_DEMON: case FIT_INGREDIENT_CANINE_CRUSH: case FIT_INGREDIENT_SQUIRREL_JAVA: case INT_INGREDIENT_FELINE_FANCY: case STR_INGREDIENT_EQUINE_CIDER: case STR_INGREDIENT_WOLF_WHISKEY:
+						
+				} else if(item.getItemType().equals(ItemType.COR_INGREDIENT_LILITHS_GIFT)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HUMAN)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_DEMON)
+						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_CANINE_CRUSH)
+						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)
+						|| item.getItemType().equals(ItemType.INT_INGREDIENT_FELINE_FANCY)
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_EQUINE_CIDER)
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_WOLF_WHISKEY)) {
+					
 						if(Sex.isPlayerDom()) {
 							return "<p>"
 										+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
@@ -448,10 +472,31 @@ public class NPCOffspring extends NPC {
 										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 									+ "</p>";
 						}
-					default:
+
+				} else if(item.getItemType().equals(ItemType.EGGPLANT)) {
+					
+					if(Sex.isPlayerDom()) {
 						return "<p>"
-								+ "You try to give [npc.name] "+item.getItemType().getDeterminer()+" "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory."
+									+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
+									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+									+ " [npc.speech(W-What are you going to do with th-~Mrph!~)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Not liking the start of [npc.her] response, you quickly shove the eggplant into [npc.her] mouth, grinning as you force [npc.herHim] to eat the purple fruit..."
+								+ "</p>"
+								+Main.game.getPlayer().useItem(item, target, false, true);
+					} else {
+						return "<p>"
+									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+									+ " [npc.speech(Hah! Did you really think I was going to eat that?!)]</br>"
+									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 								+ "</p>";
+					}
+					
+				} else {
+					return "<p>"
+								+ "You try to give [npc.name] "+item.getItemType().getDeterminer()+" "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory."
+							+ "</p>";
 				}
 			}
 			

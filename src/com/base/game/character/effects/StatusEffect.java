@@ -11,8 +11,8 @@ import com.base.game.Weather;
 import com.base.game.character.GameCharacter;
 import com.base.game.character.QuestLine;
 import com.base.game.character.SexualOrientation;
-import com.base.game.character.attributes.Attribute;
 import com.base.game.character.attributes.ArousalLevel;
+import com.base.game.character.attributes.Attribute;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.attributes.FitnessLevel;
 import com.base.game.character.attributes.IntelligenceLevel;
@@ -4507,12 +4507,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if(Main.game.isInSex()) {
-				return true;
-				
-			} else {
-				return false;
-			}
+			return Main.game.isInSex();
 		}
 		
 		@Override
@@ -4855,12 +4850,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if(Main.game.isInSex()) {
-				return true;
-				
-			} else {
-				return false;
-			}
+			return Main.game.isInSex();
 		}
 		
 		@Override
@@ -5216,15 +5206,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if(Main.game.isInSex()) {
-				if(target.isBreastFuckable())
-					return true;
-				else
-					return false;
-				
-			} else {
-				return false;
-			}
+			return Main.game.isInSex() && target.isBreastFuckable();
 		}
 		
 		@Override

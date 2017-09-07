@@ -16,6 +16,7 @@ import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.enchanting.TFModifier;
 import com.base.game.inventory.enchanting.TFPotency;
 import com.base.game.inventory.item.AbstractItem;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemEffect;
 import com.base.game.inventory.weapon.AbstractWeapon;
 import com.base.main.Main;
@@ -185,7 +186,7 @@ public class EnchantmentDialogue {
 		inventorySB.append("<div class='enchanting-essence-main'>");
 
 			inventorySB.append("<div class='enchanting-essence-inner-left'>");
-				inventorySB.append("<div class='enchanting-ingredient" + getRarityIdentifier(ingredient.getEnchantmentItemType().getRarity()) + "'>"
+				inventorySB.append("<div class='enchanting-ingredient" + getRarityIdentifier(((AbstractItemType) ingredient.getEnchantmentItemType()).getRarity()) + "'>"
 						+ "<div class='enchanting-ingredient-content'>"+EnchantingUtils.getSVGString(ingredient, effects)+"</div>"
 						+ "<div class='overlay' id='OUTPUT_ENCHANTING'></div>"
 						+ "</div>");
@@ -363,12 +364,7 @@ public class EnchantmentDialogue {
 	};
 	
 	public static boolean canAffordCost(AbstractCoreItem ingredient, List<ItemEffect> itemEffects) {
-		if(Main.game.getPlayer().getEssenceCount(ingredient.getRelatedEssence()) >= EnchantingUtils.getCost(ingredient, itemEffects)) {
-			return true;
-			
-		} else {
-			return false;
-		}
+		return Main.game.getPlayer().getEssenceCount(ingredient.getRelatedEssence()) >= EnchantingUtils.getCost(ingredient, itemEffects);
 	}
 	
 	public static void craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects) {

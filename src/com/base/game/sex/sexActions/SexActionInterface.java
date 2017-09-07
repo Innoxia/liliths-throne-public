@@ -1,6 +1,7 @@
 package com.base.game.sex.sexActions;
 
 import java.util.List;
+
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.effects.Fetish;
 import com.base.game.character.effects.StatusEffect;
@@ -108,12 +109,12 @@ public interface SexActionInterface {
 		}
 		
 		applyEffects();
-	};
+	}
 
 	public default void applyEffects(){
 	}
 	
-	public default boolean isBaseRequirementsMet() { return true; };
+	public default boolean isBaseRequirementsMet() { return true; }
 	
 	/**
 	 * Used for determining how likely an NPC is to use this action.

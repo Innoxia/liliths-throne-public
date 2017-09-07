@@ -8,6 +8,7 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseCombat;
 import com.base.game.dialogue.responses.ResponseSex;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemEffectType;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.sex.Sex;
@@ -318,7 +319,7 @@ public class HarpyNestDominant {
 						public void effects() {
 							Main.game.getDialogueFlags().dominantEncountered = true;
 							Main.game.getDialogueFlags().dominantPacified = true;
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(ItemType.generateItem(ItemType.HARPY_MARTRIARCH_DOMINANT_PERFUME), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MARTRIARCH_DOMINANT_PERFUME), false));
 						}
 						@Override
 						public QuestLine getQuestLine() {
@@ -395,7 +396,7 @@ public class HarpyNestDominant {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().dominantPacified = true;
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(ItemType.generateItem(ItemType.HARPY_MARTRIARCH_DOMINANT_PERFUME), false));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MARTRIARCH_DOMINANT_PERFUME), false));
 					}
 					@Override
 					public QuestLine getQuestLine() {

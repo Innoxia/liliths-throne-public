@@ -1,6 +1,7 @@
 package com.base.game.dialogue.responses;
 
 import java.util.List;
+
 import com.base.game.character.GameCharacter;
 import com.base.game.character.QuestLine;
 import com.base.game.character.attributes.Attribute;
@@ -179,16 +180,12 @@ public class Response {
 	
 	public boolean isAbleToBypass(){
 		if(!isAvailable()) {
-			if(isBlockedFromPerks()
+			return !(isBlockedFromPerks()
 					|| !isFemininityInRange()
 					|| !isRequiredRace()
 					|| !isPenetrationTypeAvailable()
 					|| !isOrificeTypeAvailable()
-					|| (corruptionBypass==null && fetishesRequired!=null)) {
-				return false;
-			} else {
-				return true;
-			}
+					|| (corruptionBypass==null && fetishesRequired!=null));
 		}
 		
 		return false;
@@ -458,13 +455,11 @@ public class Response {
 	}
 
 	public boolean isCorruptionWithinRange() {
-		if(corruptionBypass==null)
-			return false;
+		if(corruptionBypass == null) {
+			return false;	
+		}
 		
-		if(corruptionBypass.getMinimumValue()<=Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION))
-			return true;
-		else
-			return false;
+		return corruptionBypass.getMinimumValue() <= Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION);
 	}
 	
 	public boolean isAvailableFromFetishes() {

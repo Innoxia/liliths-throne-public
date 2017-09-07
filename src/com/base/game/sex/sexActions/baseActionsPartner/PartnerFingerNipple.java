@@ -25,7 +25,7 @@ import com.base.utils.Util.ListValue;
  */
 public class PartnerFingerNipple {
 	
-	public static SexAction PARTNER_FEEL_BREASTS = new SexAction(
+	public static final SexAction PARTNER_FEEL_BREASTS = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -296,7 +296,7 @@ public class PartnerFingerNipple {
 		}
 	};
 	
-	public static SexAction PARTNER_PINCH_NIPPLES = new SexAction(
+	public static final SexAction PARTNER_PINCH_NIPPLES = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -441,7 +441,7 @@ public class PartnerFingerNipple {
 	// Penetration:
 	
 	
-	public static SexAction PARTNER_NIPPLE_FINGERING_START = new SexAction(
+	public static final SexAction PARTNER_NIPPLE_FINGERING_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -543,7 +543,7 @@ public class PartnerFingerNipple {
 		}
 	};
 	
-	public static SexAction PARTNER_NIPPLE_FINGERING_DOM_GENTLE = new SexAction(
+	public static final SexAction PARTNER_NIPPLE_FINGERING_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -613,7 +613,7 @@ public class PartnerFingerNipple {
 		}
 	};
 	
-	public static SexAction PARTNER_NIPPLE_FINGERING_DOM_NORMAL = new SexAction(
+	public static final SexAction PARTNER_NIPPLE_FINGERING_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -684,7 +684,7 @@ public class PartnerFingerNipple {
 		}
 	};
 	
-	public static SexAction PARTNER_NIPPLE_FINGERING_DOM_ROUGH = new SexAction(
+	public static final SexAction PARTNER_NIPPLE_FINGERING_DOM_ROUGH = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -755,7 +755,7 @@ public class PartnerFingerNipple {
 		}
 	};
 	
-	public static SexAction PARTNER_NIPPLE_FINGERING_SUB_NORMAL = new SexAction(
+	public static final SexAction PARTNER_NIPPLE_FINGERING_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -828,7 +828,7 @@ public class PartnerFingerNipple {
 		}
 	};
 	
-	public static SexAction PARTNER_NIPPLE_FINGERING_SUB_EAGER = new SexAction(
+	public static final SexAction PARTNER_NIPPLE_FINGERING_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
@@ -902,7 +902,7 @@ public class PartnerFingerNipple {
 		}
 	};
 	
-	public static SexAction PARTNER_NIPPLE_FINGERING_STOP = new SexAction(
+	public static final SexAction PARTNER_NIPPLE_FINGERING_STOP = new SexAction(
 			SexActionType.PARTNER_STOP_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -957,7 +957,7 @@ public class PartnerFingerNipple {
 	
 	// Partner reactions:
 	
-	public static SexAction PLAYER_NIPPLE_FINGERING_SUB_RESIST = new SexAction(
+	public static final SexAction PLAYER_NIPPLE_FINGERING_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -1028,7 +1028,7 @@ public class PartnerFingerNipple {
 		}
 	};
 	
-	public static SexAction PLAYER_NIPPLE_FINGERING_STOP = new SexAction(
+	public static final SexAction PLAYER_NIPPLE_FINGERING_STOP = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,

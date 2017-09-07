@@ -274,16 +274,7 @@ public enum Fetish {
 		
 		@Override
 		public boolean isAvailable(GameCharacter character) {
-			
-			if(character.getVaginaType()==VaginaType.NONE) {
-				return false;
-			}
-			
-			if(!character.isVaginaVirgin()) {
-				return false;
-			}
-			
-			return true;
+			return character.getVaginaType() != VaginaType.NONE && character.isVaginaVirgin();
 		}
 
 		@Override

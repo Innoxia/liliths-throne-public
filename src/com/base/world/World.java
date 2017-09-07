@@ -16,7 +16,7 @@ public class World implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public final int WORLD_WIDTH, WORLD_HEIGHT;
-	public final static int CELL_SIZE = 64;
+	public static final int CELL_SIZE = 64;
 
 	private Cell[][] grid;
 	private WorldType WorldType;

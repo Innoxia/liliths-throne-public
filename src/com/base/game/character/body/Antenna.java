@@ -131,12 +131,7 @@ public class Antenna implements BodyPartInterface, Serializable {
 	}
 
 	public String setAntennaRows(GameCharacter owner, int rows) {
-		
-		if(rows<=0) {
-			rows = 1;
-		} else if (rows>3) {
-			rows=3;
-		}
+		rows = Math.max(1, Math.min(rows, 3));
 		
 		if(owner.getAntennaRows() == rows) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";

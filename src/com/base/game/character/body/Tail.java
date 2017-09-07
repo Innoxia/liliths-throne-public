@@ -82,7 +82,7 @@ public class Tail implements BodyPartInterface, Serializable {
 						"<p>"
 							+ (owner.getTailCount()==1
 								?"You feel your [pc.tail] growing hot and itchy, and after just a moment it starts to transform."
-								:"You feel your [pc.tails] growing hot and itchy, and after just a moment they start to transform"));
+								:"You feel your [pc.tails] growing hot and itchy, and after just a moment they start to transform."));
 			}
 			
 		} else {
@@ -95,7 +95,7 @@ public class Tail implements BodyPartInterface, Serializable {
 						"<p>"
 							+ (owner.getTailCount()==1
 								?"[npc.Name] feels [npc.her] [npc.tail] growing hot and itchy, and after just a moment it starts to transform."
-								:"[npc.Name] feels [npc.her] [npc.tails] growing hot and itchy, and after just a moment they starts to transform"));
+								:"[npc.Name] feels [npc.her] [npc.tails] growing hot and itchy, and after just a moment they starts to transform."));
 			}
 		}
 		
@@ -358,11 +358,7 @@ public class Tail implements BodyPartInterface, Serializable {
 	}
 
 	public String setTailCount(GameCharacter owner, int tailCount) {
-		if(tailCount<=0) {
-			tailCount = 1;
-		} else if (tailCount>9) {
-			tailCount=9;
-		}
+		tailCount = Math.max(1, Math.min(tailCount, 9));
 		
 		if(owner.getTailCount() == tailCount) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";

@@ -1,7 +1,7 @@
 package com.base.game.dialogue.utils;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,10 +33,13 @@ import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.inventory.Rarity;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.TFEssence;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemEffect;
 import com.base.game.inventory.item.ItemType;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.game.sex.OrificeType;
 import com.base.game.sex.PenetrationType;
@@ -52,7 +55,7 @@ import com.base.utils.WeaponRarityComparator;
 
 /**
  * @since 0.1.0
- * @version 0.1.82
+ * @version 0.1.84
  * @author Innoxia
  */
 public class PhoneDialogue {
@@ -820,10 +823,9 @@ public class PhoneDialogue {
 				+ (loadsReceived < 0 ? "<span class='option-disabled'>-</span>" : loadsReceived) + "</div>";
 	}
 
-	private static StringBuilder contentSB;
 	private static String pregnancyDetails() {
-		contentSB = new StringBuilder();
-		
+		StringBuilder contentSB = new StringBuilder();
+
 		// Mothered children:
 		
 		boolean noPregnancies=true;
@@ -845,7 +847,7 @@ public class PhoneDialogue {
 				if(pp.getFather()!=null) {
 					contentSB.append(UtilText.parse(pp.getFather(),
 							"<b>[npc.Name(A)] (</b>"
-								+ (pp.getFather().getRaceStage().getName()!=""
+								+ (!pp.getFather().getRaceStage().getName().isEmpty()
 										?"<b style='color:"+pp.getFather().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getFather().getRaceStage().getName())+"</b> "
 										:"")
 								+ "<b style='color:"+pp.getFather().getRace().getColour().toWebHexString()+";'>"
@@ -920,7 +922,7 @@ public class PhoneDialogue {
 							+ "[style.boldBad(Ongoing pregnancy)]"
 							+ "</br>"
 							+"<b>[npc.Name(A)] (</b>"
-								+ (pp.getMother().getRaceStage().getName()!=""
+								+ (!pp.getMother().getRaceStage().getName().isEmpty()
 										?"<b style='color:"+pp.getMother().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getMother().getRaceStage().getName())+"</b> "
 										:"")
 								+ "<b style='color:"+pp.getMother().getRace().getColour().toWebHexString()+";'>"
@@ -999,7 +1001,7 @@ public class PhoneDialogue {
 	}
 
 	private static String statRow(String left, String centre, String right) {
-		return "<div class='extraAttribute-third'" + (left == "" || left == null ? " style='height:24px;background:transparent;'" : "") + ">" + (left != null ? left : "") + "</div>" + "<div class='extraAttribute-third'>" + centre + "</div>"
+		return "<div class='extraAttribute-third'" + (left == null || left.isEmpty() ? " style='height:24px;background:transparent;'" : "") + ">" + (left != null ? left : "") + "</div>" + "<div class='extraAttribute-third'>" + centre + "</div>"
 				+ "<div class='extraAttribute-third'>" + right + "</div>";
 	}
 
@@ -1073,9 +1075,10 @@ public class PhoneDialogue {
 	public static void resetContentForContacts() {
 		CharactersPresentDialogue.characterViewed = Main.game.getPlayer().getCharactersEncountered().get(0);
 		title = "Contacts";
-		content = "<p>You have encountered the following characters in your travels:</p>";
+		StringBuilder contentSB = new StringBuilder("<p>You have encountered the following characters in your travels:</p>");
 		for (int i = 0; i < Main.game.getPlayer().getCharactersEncountered().size(); i++)
-			content += "<p>" + Main.game.getPlayer().getCharactersEncountered().get(i).getName() + "</p>";
+			contentSB.append("<p>" + Main.game.getPlayer().getCharactersEncountered().get(i).getName() + "</p>");
+		content = contentSB.toString();
 	}
 
 	public static final DialogueNodeOld CONTACTS = new DialogueNodeOld("Contacts", "Look at your contacts.", true) {
@@ -1185,22 +1188,20 @@ public class PhoneDialogue {
 		}
 	};
 
-	private static List<ItemType> itemsDiscoveredList = new ArrayList<>();
-	private static List<WeaponType> weaponsDiscoveredList = new ArrayList<>();
-	private static List<ClothingType> clothingDiscoveredList = new ArrayList<>();
+	private static List<AbstractItemType> itemsDiscoveredList = new ArrayList<>();
+	private static List<AbstractClothingType> clothingDiscoveredList = new ArrayList<>();
+	private static List<AbstractWeaponType> weaponsDiscoveredList = new ArrayList<>();
+	
 	static {
-		for (ItemType item : ItemType.availableItems)
-			itemsDiscoveredList.add(item);
+		
+		itemsDiscoveredList.addAll(ItemType.allItems);
 		itemsDiscoveredList.sort(new ItemRarityComparator());
-
-		for (WeaponType weapon : WeaponType.values())
-			weaponsDiscoveredList.add(weapon);
+		
+		weaponsDiscoveredList.addAll(WeaponType.allweapons);
 		weaponsDiscoveredList.sort(new WeaponRarityComparator());
-
-		for (ClothingType clothing : ClothingType.values())
-			clothingDiscoveredList.add(clothing);
+		
+		clothingDiscoveredList.addAll(ClothingType.getAllClothing());
 		clothingDiscoveredList.sort(new ClothingRarityComparator());
-
 	}
 	public static final DialogueNodeOld WEAPON_CATALOGUE = new DialogueNodeOld("Discovered Weapons", "", true) {
 		private static final long serialVersionUID = 1L;
@@ -1216,7 +1217,7 @@ public class PhoneDialogue {
 			journalSB.append("<div class='phone-item-third name'>Weapon</div>");
 			journalSB.append("<div class='phone-item-third colours'>Damage types <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
 
-			for (WeaponType weapon : weaponsDiscoveredList) {
+			for (AbstractWeaponType weapon : weaponsDiscoveredList) {
 				if (Main.game.getPlayer().getWeaponsDiscovered().contains(weapon)) {
 					journalSB.append("<div class='phone-item-third slot'>" + Util.capitaliseSentence(weapon.getSlot().getName()) + "</div>");
 					journalSB.append("<div class='phone-item-third name' style='color:" + weapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(weapon.getName()) + "</div>");
@@ -1266,7 +1267,7 @@ public class PhoneDialogue {
 			journalSB.append("<div class='phone-item-third name'>Clothing</div>");
 			journalSB.append("<div class='phone-item-third colours'>Colours <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
 
-			for (ClothingType clothing : clothingDiscoveredList) {
+			for (AbstractClothingType clothing : clothingDiscoveredList) {
 				if (Main.game.getPlayer().getClothingDiscovered().contains(clothing)) {
 					String sizeClass = ""; //hack to prevent overflow... works for up to 30 colours
 					if (clothing.getAvailableColours().size() > 15){
@@ -1321,7 +1322,7 @@ public class PhoneDialogue {
 			journalSB.append("<div class='phone-item-half effects'>Effects</div>");
 			journalSB.append("</div>");
 
-			for (ItemType item : itemsDiscoveredList) {
+			for (AbstractItemType item : itemsDiscoveredList) {
 				journalSB.append("<div class='phone-item-half-table-row'>");
 				if (Main.game.getPlayer().getItemsDiscovered().contains(item)) {
 					journalSB.append("<div class='phone-item-half name' style='color:" + item.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(item.getName(false)) + "</div>");
@@ -1372,10 +1373,11 @@ public class PhoneDialogue {
 
 	public static void resetContentForRaces() {
 		title = "Races";
-		content = "<p style='text-align:center;'>You have encountered the following races in your travels:</p>";
+		StringBuilder contentSB = new StringBuilder("<p style='text-align:center;'>You have encountered the following races in your travels:</p>");
 		
 		for (Race r : Main.game.getPlayer().getRacesDiscovered())
-			content += "<p style='text-align:center;'><b style='color:"+r.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(r.getName()) + "</b></p>";
+			contentSB.append("<p style='text-align:center;'><b style='color:"+r.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(r.getName()) + "</b></p>");
+		content = contentSB.toString();
 	}
 
 	public static final DialogueNodeOld RACES = new DialogueNodeOld("Discovered races", "View discovered races", true) {
@@ -1619,11 +1621,10 @@ public class PhoneDialogue {
 								journalSB.append("<td class='perkCell'></td>");
 
 						} else { // Arrow icon
-							if (i < 8) {
-								if (PerkTree.getArrowGrid()[i / 2][j - 1] == true) {
-									journalSB.append("<td class='arrowCell'>" + SVGImages.SVG_IMAGE_PROVIDER.getPerkTreeArrow() + "</td>");
-								} else
-									journalSB.append("<td class='arrowCell'></td>");
+							if (PerkTree.getArrowGrid()[i / 2][j - 1]) {
+								journalSB.append("<td class='arrowCell'>" + SVGImages.SVG_IMAGE_PROVIDER.getPerkTreeArrow() + "</td>");
+							} else {
+								journalSB.append("<td class='arrowCell'></td>");
 							}
 						}
 					}
@@ -1666,7 +1667,7 @@ public class PhoneDialogue {
 							fitnessPoints = 0;
 
 							// Add perks in level order:
-							Collections.sort(levelUpPerks, (a, b) -> a.getRequiredLevel().getLevel() - b.getRequiredLevel().getLevel());
+							levelUpPerks.sort(Comparator.comparing(a -> a.getRequiredLevel().getLevel()));
 
 							for (PerkInterface p : levelUpPerks) {
 								Main.game.getPlayer().addPerk((Perk)p);

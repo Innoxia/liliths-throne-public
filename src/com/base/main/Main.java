@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -28,10 +28,10 @@ import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.story.CharacterCreation;
 import com.base.game.dialogue.utils.OptionsDialogue;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.utils.Colour;
 import com.base.utils.CreditsSlot;
-import com.base.utils.Util;
 import com.base.world.Generation;
 import com.base.world.WorldType;
 import com.base.world.places.LilayasHome;
@@ -56,15 +56,15 @@ public class Main extends Application {
 
 	public static MainController mainController;
 
-	public static Scene mainScene, menuScene;
+	public static Scene mainScene;
 
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public final static String VERSION_NUMBER = "0.1.83.5",
+	public static final String VERSION_NUMBER = "0.1.83.5",
 			VERSION_DESCRIPTION = "Early Alpha";
 
-	public final static Image WINDOW_IMAGE = new Image("/com/base/res/images/windowIcon32.png");
+	public static final Image WINDOW_IMAGE = new Image("/com/base/res/images/windowIcon32.png");
 
 	private static Properties properties;
 	
@@ -214,11 +214,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("B.", "", 0, 0, 1, 0)); // TODO
 		
 		
-		Collections.sort(credits, new Comparator<CreditsSlot>() {
-			public int compare(CreditsSlot left, CreditsSlot right) {
-		    	return left.getName().toLowerCase().compareTo(right.getName().toLowerCase());
-			}
-		});
+		credits.sort(Comparator.comparing((CreditsSlot a) -> a.getName().toLowerCase()));
 		
 		
 		Main.primaryStage = primaryStage;
@@ -229,7 +225,7 @@ public class Main extends Application {
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/base/res/fxml/main.fxml"));
 
-		Pane pane = (Pane) loader.load();
+		Pane pane = loader.load();
 
 		mainScene = new Scene(pane);
 
@@ -239,7 +235,7 @@ public class Main extends Application {
 			mainScene.getStylesheets().add("/com/base/res/css/stylesheet.css");
 		}
 
-		mainController = loader.<MainController> getController();
+		mainController = loader.getController();
 
 		Main.primaryStage.setScene(mainScene);
 		
@@ -247,17 +243,15 @@ public class Main extends Application {
 		
 		try {
 			Main.game = new Game();
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
+		} catch (ClassNotFoundException | IOException e1) {
 			e1.printStackTrace();
 		}
-				
+
 		loader = new FXMLLoader(getClass().getResource("/com/base/res/fxml/main.fxml"));
 		try {
 			if (Main.mainScene == null) {
-				pane = (Pane) loader.load();
-				Main.mainController = loader.<MainController> getController();
+				pane = loader.load();
+				Main.mainController = loader.getController();
 
 				Main.mainScene = new Scene(pane);
 				if (Main.getProperties().lightTheme)
@@ -308,9 +302,7 @@ public class Main extends Application {
 	public static void startNewGame(DialogueNodeOld startingDialogueNode) {
 		try {
 			Main.game = new Game();
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
+		} catch (ClassNotFoundException | IOException e1) {
 			e1.printStackTrace();
 		}
 //		Main.game.setPlayer(new PlayerCharacter("Player", "", 1, Gender.MALE, RacialBody.HUMAN, RaceStage.HUMAN, null, WorldType.CITY, Dominion.CITY_AUNTS_HOME));
@@ -331,8 +323,8 @@ public class Main extends Application {
 				Pane pane;
 				try {
 					if (Main.mainScene == null) {
-						pane = (Pane) loader.load();
-						Main.mainController = loader.<MainController> getController();
+						pane = loader.load();
+						Main.mainController = loader.getController();
 
 						Main.mainScene = new Scene(pane);
 						if (Main.getProperties().lightTheme)
@@ -395,7 +387,7 @@ public class Main extends Application {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Name too long!");
 			return;
 		}
-		if (!name.matches("[a-zA-Z0-9]+[a-zA-Z0-9' '_]*")) {
+		if (!name.matches("[a-zA-Z0-9]+[a-zA-Z0-9' _]*")) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Incompatible characters!");
 			return;
 		}
@@ -408,17 +400,15 @@ public class Main extends Application {
 		
 		boolean overwrite = false;
 		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles();
+			File[] directoryListing = dir.listFiles((path, filename) -> filename.endsWith(".lts"));
 			if (directoryListing != null) {
 				for (File child : directoryListing) {
-					if (Util.getFileExtention(child.getName()).equals("lts")) {
-						if (child.getName().equals(name+".lts")){
-							if(!allowOverwrite) {
-								Main.game.flashMessage(Colour.GENERIC_BAD, "Name already exists!");
-								return;
-							} else {
-								overwrite = true;
-							}
+					if (child.getName().equals(name+".lts")){
+						if(!allowOverwrite) {
+							Main.game.flashMessage(Colour.GENERIC_BAD, "Name already exists!");
+							return;
+						} else {
+							overwrite = true;
 						}
 					}
 				}
@@ -431,29 +421,31 @@ public class Main extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		if (file != null) {
-			try {
-				   
-			    try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
-			      oos.writeObject(Main.game);
-			      oos.close();
-			    }
 
-				properties.lastSaveLocation = name;//"data/saves/"+name+".lts";
-				properties.nameColour = Femininity.valueOf(game.getPlayer().getFemininity()).getColour().toWebHexString();
-				properties.name = game.getPlayer().getName();
-				properties.level = game.getPlayer().getLevel();
-				properties.money = game.getPlayer().getMoney();
-				properties.race = game.getPlayer().getRace().getName();
-				properties.quest = game.getPlayer().getQuest(QuestLine.MAIN).getName();
-
-				properties.savePropertiesAsXML();
-				
-
-			} catch (Exception ex) {
-				ex.printStackTrace();
+		try {
+//			long timeStart = System.nanoTime();
+//			System.out.println(timeStart);
+			
+			try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
+			  oos.writeObject(Main.game);
+			  oos.close();
 			}
+			
+//			System.out.println("Difference: "+(System.nanoTime()-timeStart)/1000000000f);
+
+			properties.lastSaveLocation = name;//"data/saves/"+name+".lts";
+			properties.nameColour = Femininity.valueOf(game.getPlayer().getFemininity()).getColour().toWebHexString();
+			properties.name = game.getPlayer().getName();
+			properties.level = game.getPlayer().getLevel();
+			properties.money = game.getPlayer().getMoney();
+			properties.race = game.getPlayer().getRace().getName();
+			properties.quest = game.getPlayer().getQuest(QuestLine.MAIN).getName();
+
+			properties.savePropertiesAsXML();
+
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 		
 		if(Main.game.getCurrentDialogueNode() == OptionsDialogue.SAVE_LOAD) {
@@ -515,17 +507,13 @@ public class Main extends Application {
 		
 		File dir = new File("data/saves");
 		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles();
+			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".lts"));
 			if (directoryListing != null) {
-				for (File child : directoryListing) {
-					if (Util.getFileExtention(child.getName()).equals("lts"))
-						filesList.add(child);
-				}
+				filesList.addAll(Arrays.asList(directoryListing));
 			}
 		}
-		
-//		Collections.sort(filesList, (a, b) -> b.getName().compareTo(a.getName()));
-		Collections.sort(filesList, (e1, e2)->{return e1.lastModified()>e2.lastModified()?-1:(e1.lastModified()==e2.lastModified()?0:1);});
+
+		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
 		
 		return filesList;
 	}
@@ -535,16 +523,13 @@ public class Main extends Application {
 		
 		File dir = new File("data/characters");
 		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles();
+			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
 			if (directoryListing != null) {
-				for (File child : directoryListing) {
-					if (Util.getFileExtention(child.getName()).equals("xml"))
-						filesList.add(child);
-				}
+				filesList.addAll(Arrays.asList(directoryListing));
 			}
 		}
-		
-		Collections.sort(filesList, (a, b) -> b.lastModified() > a.lastModified() ? 1 : -1);
+
+		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
 		
 		return filesList;
 	}
@@ -555,8 +540,8 @@ public class Main extends Application {
 				Main.game.setPlayer(CharacterUtils.startLoadingCharacterFromXML());
 				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file, Main.game.getPlayer()));
 				
-				Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.LEG_SHORTS, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.TORSO_HOODIE, false), true, Main.game.getPlayer());
+				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_SHORTS, false), true, Main.game.getPlayer());
+				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_HOODIE, false), true, Main.game.getPlayer());
 				Main.game.setRenderAttributesSection(true);
 				Main.game.clearTextStartStringBuilder();
 				Main.game.clearTextEndStringBuilder();

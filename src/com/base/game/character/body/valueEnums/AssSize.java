@@ -28,13 +28,13 @@ public enum AssSize {
 	SEVEN_GIGANTIC("gigantic", 7, Colour.GENERIC_SIZE_EIGHT);
 
 	private String descriptor;
-	private int assSize;
+	private int size;
 	private Colour colour;
 
 	private AssSize(String descriptor, int assSize, Colour colour) {
 		this.descriptor = descriptor;
-		this.assSize = assSize;
-		this.colour=colour;
+		this.size = assSize;
+		this.colour = colour;
 	}
 
 	public static AssSize getAssSizeFromInt(int assSize) {
@@ -54,7 +54,7 @@ public enum AssSize {
 	}
 
 	public int getValue() {
-		return assSize;
+		return size;
 	}
 
 	public Colour getColour() {

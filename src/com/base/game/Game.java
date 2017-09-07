@@ -3,14 +3,11 @@ package com.base.game;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.base.controller.MainController;
 import com.base.controller.TooltipUpdateThread;
@@ -25,6 +22,7 @@ import com.base.game.character.npc.NPC;
 import com.base.game.character.npc.dominion.Alexa;
 import com.base.game.character.npc.dominion.Brax;
 import com.base.game.character.npc.dominion.CandiReceptionist;
+import com.base.game.character.npc.dominion.Finch;
 import com.base.game.character.npc.dominion.HarpyBimbo;
 import com.base.game.character.npc.dominion.HarpyBimboCompanion;
 import com.base.game.character.npc.dominion.HarpyDominant;
@@ -34,7 +32,6 @@ import com.base.game.character.npc.dominion.HarpyNymphoCompanion;
 import com.base.game.character.npc.dominion.Kate;
 import com.base.game.character.npc.dominion.Lilaya;
 import com.base.game.character.npc.dominion.NPCRandomDominion;
-import com.base.game.character.npc.dominion.Finch;
 import com.base.game.character.npc.dominion.Nyan;
 import com.base.game.character.npc.dominion.Pazu;
 import com.base.game.character.npc.dominion.Pix;
@@ -58,9 +55,7 @@ import com.base.game.dialogue.responses.ResponseSex;
 import com.base.game.dialogue.responses.ResponseTrade;
 import com.base.game.dialogue.utils.MiscellaneousDialogue;
 import com.base.game.dialogue.utils.UtilText;
-import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.clothing.CoverableArea;
-import com.base.game.inventory.weapon.WeaponType;
 import com.base.main.Main;
 import com.base.rendering.RenderingEngine;
 import com.base.rendering.SVGImages;
@@ -135,10 +130,6 @@ public class Game implements Serializable {
 
 	private DialogueFlags dialogueFlags;
 
-	// Maps of unlocked:
-	private Map<ClothingType, Set<Colour>> unlockedClothes;
-	private List<WeaponType> unlockedWeapons;
-
 	// Responses:
 	private int responsePointer = 0;
 	
@@ -167,9 +158,6 @@ public class Game implements Serializable {
 
 		hintsOn = false;
 		started = false;
-
-		unlockedClothes = new HashMap<>();
-		unlockedWeapons = new ArrayList<>();
 
 		// Start in clouds:
 		currentWeather = Weather.CLOUD;
@@ -845,11 +833,7 @@ public class Game implements Serializable {
 	/**
 	 * Sets the content of the main WebView based on a DialogueNode.
 	 * 
-	 * @param node
-	 *            The DialogueNode to set the content of.
-	 * @param isRestore
-	 *            True if this is a restoration after using inventory-like
-	 *            dialogue.
+	 * @param response
 	 */
 	public void setContent(Response response) {
 		setContent(response, true, null, null);
@@ -1348,7 +1332,7 @@ public class Game implements Serializable {
 			}
 		}
 		
-		Collections.sort(charactersPresent, (a, b)->{return a.getName().compareTo(b.getName());});
+		charactersPresent.sort(Comparator.comparing(GameCharacter::getName));
 		
 		return charactersPresent;
 	}
@@ -1635,21 +1619,6 @@ public class Game implements Serializable {
 
 	public boolean isStarted() {
 		return started;
-	}
-
-	public Map<ClothingType, Set<Colour>> getUnlockedClothes() {
-		return unlockedClothes;
-	}
-
-	public void unlockClothing(ClothingType clothing, Colour colour) {
-		if (unlockedClothes.get(clothing) == null)
-			unlockedClothes.put(clothing, new HashSet<>());
-
-		unlockedClothes.get(clothing).add(colour);
-	}
-
-	public List<WeaponType> getUnlockedWeapons() {
-		return unlockedWeapons;
 	}
 
 	// Dialogues:

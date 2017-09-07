@@ -16,8 +16,8 @@ import com.base.game.character.effects.Fetish;
 import com.base.game.character.effects.Perk;
 import com.base.game.character.effects.StatusEffect;
 import com.base.game.character.npc.NPC;
-import com.base.game.dialogue.GenericDialogue;
 import com.base.game.dialogue.DialogueNodeOld;
+import com.base.game.dialogue.GenericDialogue;
 import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
@@ -29,7 +29,7 @@ import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.weapon.AbstractWeapon;
-import com.base.game.inventory.weapon.WeaponType;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.main.Main;
 import com.base.rendering.RenderingEngine;
 import com.base.utils.Colour;
@@ -40,7 +40,7 @@ import com.base.utils.Util;
  * Call initialiseCombat() before using.
  *
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.84
  * @author Innoxia
  */
 public enum Combat {
@@ -320,19 +320,19 @@ public enum Combat {
 		descriptionStringBuilder.append("<div class='combat-inner-container'>"
 
 				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.HEALTH_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
-				+ (int) ((((float) Main.game.getPlayer().getHealth()) / (Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM))) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "; border-radius: 2px;'></div>"
+				+ (int) ((Main.game.getPlayer().getHealth() / Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "; border-radius: 2px;'></div>"
 				+ "</div>" + "<div class='combat-resource-number' style='color:"
 				+ (renderedPlayerHealthValue < Main.game.getPlayer().getHealth() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedPlayerHealthValue > Main.game.getPlayer().getHealth() ? (Colour.CLOTHING_RED.toWebHexString()) : "default")) + ";'>"
 				+ (int) Math.ceil(Main.game.getPlayer().getHealth()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.HEALTH_MAXIMUM + "'></div>" + "</div>"
 
 				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.MANA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
-				+ (int) ((((float) Main.game.getPlayer().getMana()) / (Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM))) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_MANA.toWebHexString() + "; border-radius: 2px;'></div>"
+				+ (int) ((Main.game.getPlayer().getMana() / Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_MANA.toWebHexString() + "; border-radius: 2px;'></div>"
 				+ "</div>" + "<div class='combat-resource-number' style='color:"
 				+ (renderedPlayerManaValue < Main.game.getPlayer().getMana() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedPlayerManaValue > Main.game.getPlayer().getMana() ? (Colour.CLOTHING_RED.toWebHexString()) : "default")) + ";'>"
 				+ (int) Math.ceil(Main.game.getPlayer().getMana()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.MANA_MAXIMUM + "'></div>" + "</div>"
 
 				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.STAMINA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
-				+ (int) ((((float) Main.game.getPlayer().getStamina()) / (Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM))) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString()
+				+ (int) ((Main.game.getPlayer().getStamina() / Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString()
 				+ "; border-radius: 2px;'></div>" + "</div>" + "<div class='combat-resource-number' style='color:"
 				+ (renderedPlayerStaminaValue < Main.game.getPlayer().getStamina() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedPlayerStaminaValue > Main.game.getPlayer().getStamina() ? (Colour.CLOTHING_RED.toWebHexString()) : "default")) + ";'>"
 				+ (int) Math.ceil(Main.game.getPlayer().getStamina()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.STAMINA_MAXIMUM + "'></div>" + "</div>"
@@ -457,18 +457,18 @@ public enum Combat {
 		descriptionStringBuilder.append("<div class='combat-inner-container'>"
 
 				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.HEALTH_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
-				+ (int) ((((float) opponent.getHealth()) / (opponent.getAttributeValue(Attribute.HEALTH_MAXIMUM))) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
+				+ (int) ((opponent.getHealth() / opponent.getAttributeValue(Attribute.HEALTH_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
 				+ "<div class='combat-resource-number' style='color:"
 				+ (renderedOpponentHealthValue < opponent.getHealth() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedOpponentHealthValue > opponent.getHealth() ? (Colour.CLOTHING_RED.toWebHexString()) : "default")) + ";'>"
 				+ (int) Math.ceil(opponent.getHealth()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.HEALTH_MAXIMUM + "'></div>" + "</div>"
 
 				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.MANA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
-				+ (int) ((((float) opponent.getMana()) / (opponent.getAttributeValue(Attribute.MANA_MAXIMUM))) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_MANA.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
+				+ (int) ((opponent.getMana() / opponent.getAttributeValue(Attribute.MANA_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_MANA.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
 				+ "<div class='combat-resource-number' style='color:" + (renderedOpponentManaValue < opponent.getMana() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedOpponentManaValue > opponent.getMana() ? (Colour.CLOTHING_RED.toWebHexString()) : "default"))
 				+ ";'>" + (int) Math.ceil(opponent.getMana()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.MANA_MAXIMUM + "'></div>" + "</div>"
 
 				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.STAMINA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
-				+ (int) ((((float) opponent.getStamina()) / (opponent.getAttributeValue(Attribute.STAMINA_MAXIMUM))) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
+				+ (int) ((opponent.getStamina() / opponent.getAttributeValue(Attribute.STAMINA_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
 				+ "<div class='combat-resource-number' style='color:"
 				+ (renderedOpponentStaminaValue < opponent.getStamina() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedOpponentStaminaValue > opponent.getStamina() ? (Colour.CLOTHING_RED.toWebHexString()) : "default")) + ";'>"
 				+ (int) Math.ceil(opponent.getStamina()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.STAMINA_MAXIMUM + "'></div>" + "</div>"
@@ -545,7 +545,7 @@ public enum Combat {
 
 	private static StringBuilder tempSB;
 	
-	public final static DialogueNodeOld SPELL_SELECTION = new DialogueNodeOld("Combat", "Use a spell.", true) {
+	public static final DialogueNodeOld SPELL_SELECTION = new DialogueNodeOld("Combat", "Use a spell.", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -611,7 +611,7 @@ public enum Combat {
 		}
 	};
 
-	public final static DialogueNodeOld SPECIAL_ATTACK_SELECTION = new DialogueNodeOld("Combat", "Use a special attack.", true) {
+	public static final DialogueNodeOld SPECIAL_ATTACK_SELECTION = new DialogueNodeOld("Combat", "Use a special attack.", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -676,7 +676,7 @@ public enum Combat {
 		}
 	};
 
-	public final static DialogueNodeOld ITEM_USED = new DialogueNodeOld("Combat", "Use the item.", true) {
+	public static final DialogueNodeOld ITEM_USED = new DialogueNodeOld("Combat", "Use the item.", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -725,7 +725,7 @@ public enum Combat {
 		}
 	};
 
-	public final static DialogueNodeOld SUBMIT = new DialogueNodeOld("Combat", "Submit", true) {
+	public static final DialogueNodeOld SUBMIT = new DialogueNodeOld("Combat", "Submit", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -773,7 +773,7 @@ public enum Combat {
 			return MapDisplay.NORMAL;
 		}
 	};
-	public final static DialogueNodeOld SUBMIT_CONFIRM = new DialogueNodeOld("Combat", "Submit", true) {
+	public static final DialogueNodeOld SUBMIT_CONFIRM = new DialogueNodeOld("Combat", "Submit", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -813,7 +813,7 @@ public enum Combat {
 		}
 	};
 
-	public final static DialogueNodeOld ESCAPE = new DialogueNodeOld("Combat", "Escape", true) {
+	public static final DialogueNodeOld ESCAPE = new DialogueNodeOld("Combat", "Escape", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -858,7 +858,7 @@ public enum Combat {
 		}
 	};
 
-	public final static DialogueNodeOld ENEMY_ATTACK = new DialogueNodeOld("Combat", "The enemy strikes back at you.", true) {
+	public static final DialogueNodeOld ENEMY_ATTACK = new DialogueNodeOld("Combat", "The enemy strikes back at you.", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -1152,7 +1152,7 @@ public enum Combat {
 		if(Main.game.getPlayer().getMainWeapon()!= null) {
 			attack = Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), opponent);
 		} else {
-			attack = WeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent);
+			attack = AbstractWeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent);
 		}
 
 		return (opponent.isVisiblyPregnant()
@@ -1197,7 +1197,7 @@ public enum Combat {
 		if(Main.game.getPlayer().getOffhandWeapon()!= null) {
 			attack = Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), opponent);
 		} else {
-			attack = WeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent);
+			attack = AbstractWeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent);
 		}
 
 		return (opponent.isVisiblyPregnant()
@@ -1250,7 +1250,7 @@ public enum Combat {
 		} else if(Main.game.getPlayer().getOffhandWeapon()!= null) {
 			attack = Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), opponent);
 		} else {
-			attack = WeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent);
+			attack = AbstractWeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent);
 		}
 
 		return (opponent.isVisiblyPregnant()

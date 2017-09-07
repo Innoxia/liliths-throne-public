@@ -1,7 +1,7 @@
 package com.base.game.dialogue.encounters;
 
-import com.base.game.dialogue.GenericDialogue;
 import com.base.game.dialogue.DialogueNodeOld;
+import com.base.game.dialogue.GenericDialogue;
 import com.base.game.dialogue.responses.Response;
 import com.base.main.Main;
 import com.base.utils.Util;

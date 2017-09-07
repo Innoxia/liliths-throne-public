@@ -17,8 +17,11 @@ import com.base.game.dialogue.utils.UtilText;
 public class OrificeMouth implements OrificeInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private int wetness, elasticity, plasticity;
-	private float capacity, stretchedCapacity;
+	private int wetness;
+	private int elasticity;
+	private int plasticity;
+	private float capacity;
+	private float stretchedCapacity;
 	private boolean virgin;
 	private Set<OrificeModifier> orificeModifiers;
 
@@ -30,10 +33,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 		this.plasticity = plasticity;
 		this.virgin = virgin;
 		
-		this.orificeModifiers = new HashSet<>();
-		for(OrificeModifier om : orificeModifiers) {
-			this.orificeModifiers.add(om);
-		}
+		this.orificeModifiers = new HashSet<>(orificeModifiers);
 	}
 	
 	@Override
@@ -43,26 +43,11 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 
 	@Override
 	public String setWetness(GameCharacter owner, int wetness) {
-		int wetnessChange = 0;
+		int oldWetness = this.wetness;
+		this.wetness = Math.max(0, Math.min(wetness, Wetness.SEVEN_DROOLING.getValue()));
+		int wetnessChange = this.wetness - oldWetness;
 		
-		if (wetness <= 0) {
-			if (this.wetness != 0) {
-				wetnessChange = 0 - this.wetness;
-				this.wetness = 0;
-			}
-		} else if (wetness >= Wetness.SEVEN_DROOLING.getValue()) {
-			if (this.wetness != Wetness.SEVEN_DROOLING.getValue()) {
-				wetnessChange = Wetness.SEVEN_DROOLING.getValue() - this.wetness;
-				this.wetness = Wetness.SEVEN_DROOLING.getValue();
-			}
-		} else {
-			if (this.wetness != wetness) {
-				wetnessChange = wetness - this.wetness;
-				this.wetness = wetness;
-			}
-		}
-		
-		if(wetnessChange == 0) {
+		if (wetnessChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your throat's wetness doesn't change...)]</p>";
 			} else {
@@ -75,13 +60,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "Your throat suddenly fills with saliva, and you gulp as you realise that it's permanently [style.boldGrow(got wetter)].</br>"
-							+ "You now have [style.boldSex(" + UtilText.generateSingluarDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
+							+ "You now have [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name]'s throat suddenly fills with saliva, and [npc.she] gulps as [npc.she] realises that it's permanently [style.boldGrow(got wetter)].</br>"
-							+ "[npc.Name] now has [style.boldSex(" + UtilText.generateSingluarDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
+							+ "[npc.Name] now has [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
 						+ "</p>");
 			}
 			
@@ -89,13 +74,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You shift about uncomfortably as you feel your throat [style.boldShrink(getting drier)].</br>"
-							+ "You now have [style.boldSex(" + UtilText.generateSingluarDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
+							+ "You now have [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] shifts about uncomfortably as [npc.she] feels [npc.her] throat [style.boldShrink(getting drier)].</br>"
-							+ "[npc.Name] now has [style.boldSex(" + UtilText.generateSingluarDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
+							+ "[npc.Name] now has [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " throat)]!"
 						+ "</p>");
 			}
 		}
@@ -113,26 +98,11 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 
 	@Override
 	public String setCapacity(GameCharacter owner, float capacity) {
-		float capacityChange = 0;
+		float oldCapacity = this.capacity;
+		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue()));
+		float capacityChange = this.capacity - oldCapacity;
 		
-		if (capacity <= 0) {
-			if (this.capacity != 0) {
-				capacityChange = 0 - this.capacity;
-				this.capacity = 0;
-			}
-		} else if (capacity >= Capacity.SEVEN_GAPING.getMaximumValue()) {
-			if (this.capacity != Capacity.SEVEN_GAPING.getMaximumValue()) {
-				capacityChange = Capacity.SEVEN_GAPING.getMaximumValue() - this.capacity;
-				this.capacity = Capacity.SEVEN_GAPING.getMaximumValue();
-			}
-		} else {
-			if (this.capacity != capacity) {
-				capacityChange = capacity - this.capacity;
-				this.capacity = capacity;
-			}
-		}
-		
-		if(capacityChange == 0) {
+		if (capacityChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your throat's capacity doesn't change...)]</p>";
 			} else {
@@ -145,13 +115,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You feel your throat's [style.boldGrow(capacity increasing)] as it relaxes and stretches out with a mind of its own.</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] feels [npc.her] throat's [style.boldGrow(capacity increasing)] as it relaxes and stretches out with a mind of its own.</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
 						+ "</p>");
 			}
 			
@@ -159,13 +129,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a cry as you feel your throat close up and tighten as its internal [style.boldShrink(capacity decreases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a cry as [npc.she] feels [npc.her] throat close up and tighten as its internal [style.boldShrink(capacity decreases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " throat)]!"
 						+ "</p>");
 			}
 		}
@@ -178,23 +148,9 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 
 	@Override
 	public boolean setStretchedCapacity(float stretchedCapacity) {
-		if (stretchedCapacity <= 0) {
-			if (this.stretchedCapacity != 0) {
-				this.stretchedCapacity = 0;
-				return true;
-			}
-		} else if (stretchedCapacity >= Capacity.SEVEN_GAPING.getMaximumValue()) {
-			if (this.stretchedCapacity != Capacity.SEVEN_GAPING.getMaximumValue()) {
-				this.stretchedCapacity = Capacity.SEVEN_GAPING.getMaximumValue();
-				return true;
-			}
-		} else {
-			if (this.stretchedCapacity != stretchedCapacity) {
-				this.stretchedCapacity = stretchedCapacity;
-				return true;
-			}
-		}
-		return false;
+		float oldStretchedCapacity = this.stretchedCapacity;
+		this.stretchedCapacity = Math.max(0, Math.min(stretchedCapacity, Capacity.SEVEN_GAPING.getMaximumValue()));
+		return oldStretchedCapacity != this.stretchedCapacity;
 	}
 
 	@Override
@@ -204,26 +160,11 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 
 	@Override
 	public String setElasticity(GameCharacter owner, int elasticity) {
-		float elasticityChange = 0;
+		int oldElasticity = this.elasticity;
+		this.elasticity = Math.max(0, Math.min(elasticity, OrificeElasticity.SEVEN_ELASTIC.getValue()));
+		int elasticityChange = this.elasticity - oldElasticity;
 		
-		if (elasticity <= 0) {
-			if (this.elasticity != 0) {
-				elasticityChange = 0 - this.elasticity;
-				this.elasticity = 0;
-			}
-		} else if (elasticity >= OrificeElasticity.SEVEN_ELASTIC.getValue()) {
-			if (this.elasticity != OrificeElasticity.SEVEN_ELASTIC.getValue()) {
-				elasticityChange = OrificeElasticity.SEVEN_ELASTIC.getValue() - this.elasticity;
-				this.elasticity = OrificeElasticity.SEVEN_ELASTIC.getValue();
-			}
-		} else {
-			if (this.elasticity != elasticity) {
-				elasticityChange = elasticity - this.elasticity;
-				this.elasticity = elasticity;
-			}
-		}
-		
-		if(elasticityChange == 0) {
+		if (elasticityChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your throat's elasticity doesn't change...)]</p>";
 			} else {
@@ -236,13 +177,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange slackening sensation pulsating deep within your throat as its [style.boldGrow(elasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange slackening sensation pulsating deep within [npc.her] throat as its [style.boldGrow(elasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
 						+ "</p>");
 			}
 			
@@ -250,13 +191,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange clenching sensation pulsating deep within your throat as its [style.boldShrink(elasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange clenching sensation pulsating deep within [npc.her] throat as its [style.boldShrink(elasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " throat)]!"
 						+ "</p>");
 			}
 		}
@@ -269,26 +210,11 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 
 	@Override
 	public String setPlasticity(GameCharacter owner, int plasticity) {
-		float plasticityChange = 0;
+		int oldPlasticity = this.plasticity;
+		this.plasticity = Math.max(0, Math.min(plasticity, OrificePlasticity.SEVEN_MOULDABLE.getValue()));
+		int plasticityChange = this.plasticity - oldPlasticity;
 		
-		if (plasticity <= 0) {
-			if (this.plasticity != 0) {
-				plasticityChange = 0 - this.plasticity;
-				this.plasticity = 0;
-			}
-		} else if (plasticity >= OrificePlasticity.SEVEN_MOULDABLE.getValue()) {
-			if (this.plasticity != OrificePlasticity.SEVEN_MOULDABLE.getValue()) {
-				plasticityChange = OrificePlasticity.SEVEN_MOULDABLE.getValue() - this.plasticity;
-				this.plasticity = OrificePlasticity.SEVEN_MOULDABLE.getValue();
-			}
-		} else {
-			if (this.plasticity != plasticity) {
-				plasticityChange = plasticity - this.plasticity;
-				this.plasticity = plasticity;
-			}
-		}
-		
-		if(plasticityChange == 0) {
+		if (plasticityChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your throat's plasticity doesn't change...)]</p>";
 			} else {
@@ -301,13 +227,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange moulding sensation pulsating deep within your throat as its [style.boldGrow(plasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange moulding sensation pulsating deep within [npc.her] throat as its [style.boldGrow(plasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
 						+ "</p>");
 			}
 			
@@ -315,13 +241,13 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange softening sensation pulsating deep within your throat as its [style.boldShrink(plasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange softening sensation pulsating deep within [npc.her] throat as its [style.boldShrink(plasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " throat)]!"
 						+ "</p>");
 			}
 		}

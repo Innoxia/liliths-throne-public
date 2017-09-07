@@ -61,7 +61,7 @@ public class Mouth implements BodyPartInterface, Serializable {
 
 	@Override
 	public String getDescriptor(GameCharacter owner) {
-		List<String> descriptorList = new ArrayList<String>();
+		List<String> descriptorList = new ArrayList<>();
 		
 		for(OrificeModifier om : orificeMouth.getOrificeModifiers()) {
 			descriptorList.add(om.getName());
@@ -100,17 +100,18 @@ public class Mouth implements BodyPartInterface, Serializable {
 	}
 
 	public String setLipSize(GameCharacter owner, int lipSize) {
-		if(owner.getLipSizeValue() == lipSize) {
+		int effectiveLipSize = Math.max(0, Math.min(lipSize, LipSize.getLargest()));
+		if(owner.getLipSizeValue() == effectiveLipSize) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.lips] doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s [pc.lips] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s [npc.lips] doesn't change...)]</p>");
 			}
 		}
 		
 		String transformation = "";
 		
-		if(this.lipSize > lipSize) {
+		if(this.lipSize > effectiveLipSize) {
 			if(owner.isPlayer()) {
 				transformation = "<p>A soothing coolness rises up into your [pc.lips], causing you to let out a surprised gasp as you feel them [style.boldShrink(shrinking)].</br>";
 			} else {
@@ -125,7 +126,7 @@ public class Mouth implements BodyPartInterface, Serializable {
 			}
 		}
 		
-		this.lipSize = lipSize;
+		this.lipSize = effectiveLipSize;
 
 		if(owner.isPlayer()) {
 			return transformation

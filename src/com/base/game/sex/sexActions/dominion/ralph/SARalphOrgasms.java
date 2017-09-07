@@ -29,7 +29,7 @@ import com.base.utils.Util.ListValue;
  */
 public class SARalphOrgasms {
 
-	public static SexAction PLAYER_ORGASM = new SexAction(
+	public static final SexAction PLAYER_ORGASM = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -218,7 +218,7 @@ public class SARalphOrgasms {
 		}
 	};
 	
-	public static SexAction PARTNER_ORGASM = new SexAction(
+	public static final SexAction PARTNER_ORGASM = new SexAction(
 			SexActionType.PARTNER_ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
@@ -409,7 +409,7 @@ public class SARalphOrgasms {
 		}
 	};
 	
-	public static SexAction PLAYER_MUTUAL_ORGASM = new SexAction(
+	public static final SexAction PLAYER_MUTUAL_ORGASM = new SexAction(
 			SexActionType.MUTUAL_ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,

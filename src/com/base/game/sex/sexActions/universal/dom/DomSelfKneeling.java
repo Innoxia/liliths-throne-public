@@ -22,7 +22,7 @@ import com.base.utils.Util.ListValue;
  */
 public class DomSelfKneeling {
 
-	public static SexAction PLAYER_MOUND_SNOG = new SexAction(
+	public static final SexAction PLAYER_MOUND_SNOG = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
@@ -68,7 +68,7 @@ public class DomSelfKneeling {
 		}
 	};
 	
-	public static SexAction PLAYER_MOUND_KISSING = new SexAction(
+	public static final SexAction PLAYER_MOUND_KISSING = new SexAction(
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,

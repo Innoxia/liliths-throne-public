@@ -18,6 +18,7 @@ import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.main.Main;
 import com.base.utils.Colour;
@@ -34,11 +35,11 @@ public class Pix extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	private AbstractClothing
-			groin = ClothingType.generateClothing(ClothingType.GROIN_BOYSHORTS, Colour.CLOTHING_WHITE, false),
-			leg = ClothingType.generateClothing(ClothingType.LEG_YOGA_PANTS, Colour.CLOTHING_PINK_LIGHT, false),
-			chest = ClothingType.generateClothing(ClothingType.CHEST_SPORTS_BRA, Colour.CLOTHING_PINK_LIGHT, false),
-			socks = ClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false),
-			shoes = ClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_PINK_LIGHT, false);
+			groin = AbstractClothingType.generateClothing(ClothingType.GROIN_BOYSHORTS, Colour.CLOTHING_WHITE, false),
+			leg = AbstractClothingType.generateClothing(ClothingType.LEG_YOGA_PANTS, Colour.CLOTHING_PINK_LIGHT, false),
+			chest = AbstractClothingType.generateClothing(ClothingType.CHEST_SPORTS_BRA, Colour.CLOTHING_PINK_LIGHT, false),
+			socks = AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false),
+			shoes = AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_PINK_LIGHT, false);
 
 	public Pix() {
 		super(new NameTriplet("Pix"), "An extremely energetic dog-girl. While you're at the gym, Pix is never far away.",

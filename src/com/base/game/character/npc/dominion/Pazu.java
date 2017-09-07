@@ -16,6 +16,7 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.main.Main;
 import com.base.utils.Colour;
@@ -32,7 +33,7 @@ public class Pazu extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	private AbstractClothing
-			shorts = ClothingType.generateClothing(ClothingType.LEG_SHORTS, Colour.CLOTHING_WHITE, false);
+			shorts = AbstractClothingType.generateClothing(ClothingType.LEG_SHORTS, Colour.CLOTHING_WHITE, false);
 
 	public Pazu() {
 		super(new NameTriplet("Pazu"),

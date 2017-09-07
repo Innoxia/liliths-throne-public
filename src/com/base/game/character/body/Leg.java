@@ -228,7 +228,7 @@ public class Leg implements BodyPartInterface, Serializable {
 								+ " As [npc.her] new leathery skin spreads down to the ends of [npc.her] toes, [npc.her] feet start to undergo an extreme transformation."
 								+ " [npc.Her] toes combine together and re-shape themselves into three forward-facing talons, as a fourth, thumb-like talon branches out behind them."
 								+ " As the transformation ends, a layer of attractive feathers grow around [npc.her] upper-thigh, smoothly transitioning into the leathery skin which now covers [npc.her] lower-legs.</br>"
-								+ "[npc.Name] now has anthropomorphic, [style.boldHarpy(bird-like legs and talons in place of feet)], which are covered in [pc.legFullDescription]."
+								+ "[npc.Name] now has anthropomorphic, [style.boldHarpy(bird-like legs and talons in place of feet)], which are covered in [npc.legFullDescription]."
 							+ "</p>");
 				}
 				break;

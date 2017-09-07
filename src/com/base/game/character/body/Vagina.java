@@ -79,7 +79,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 
 	@Override
 	public String getDescriptor(GameCharacter owner) {
-		List<String> descriptorList = new ArrayList<String>();
+		List<String> descriptorList = new ArrayList<>();
 		
 		for(OrificeModifier om : orificeVagina.getOrificeModifiers()) {
 			descriptorList.add(om.getName());
@@ -689,34 +689,17 @@ public class Vagina implements BodyPartInterface, Serializable {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		int sizeChange = 0;
+		int oldSize = this.clitSize;
+		this.clitSize = Math.max(0, Math.min(clitSize, ClitorisSize.SEVEN_STALLION.getMaximumValue()));
+		int sizeChange = this.clitSize - oldSize;
 		
-		if (clitSize <= 0) {
-			if (this.clitSize != 0) {
-				sizeChange = 0 - this.clitSize;
-				this.clitSize = 0;
-			}
-		} else if (clitSize >= ClitorisSize.SEVEN_STALLION.getMaximumValue()) {
-			if (this.clitSize != ClitorisSize.SEVEN_STALLION.getMaximumValue()) {
-				sizeChange = ClitorisSize.SEVEN_STALLION.getMaximumValue() - this.clitSize;
-				this.clitSize = ClitorisSize.SEVEN_STALLION.getMaximumValue();
-			}
-		} else {
-			if (this.clitSize != clitSize) {
-				sizeChange = clitSize - this.clitSize;
-				this.clitSize = clitSize;
-			}
-		}
-		
-		if(sizeChange == 0) {
+		if (sizeChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The size of your clit doesn't change...)]</p>";
 			} else {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s clit doesn't change...)]</p>");
 			}
-		}
-		
-		if (sizeChange > 0) {
+		} else if (sizeChange > 0) {
 			if (owner.isPlayer()) {
 				return "</p>"
 							+ "You let out [pc.a_moan] as you feel a deep throbbing sensation building up within your [pc.pussy]."

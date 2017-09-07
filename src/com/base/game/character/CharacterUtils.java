@@ -1,6 +1,7 @@
 package com.base.game.character;
 
 import java.io.File;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,6 +65,7 @@ import com.base.game.character.race.RacialBody;
 import com.base.game.combat.SpecialAttack;
 import com.base.game.combat.Spell;
 import com.base.game.inventory.InventorySlot;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.BlockedParts;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.clothing.CoverableArea;
@@ -86,6 +88,8 @@ public class CharacterUtils {
 	
 	public static void saveCharacterAsXML(GameCharacter character){
 		try {
+			long timeStart = System.nanoTime();
+			System.out.println(timeStart);
 		
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -460,7 +464,8 @@ public class CharacterUtils {
 			Element bodyWing = doc.createElement("wing");
 			characterBody.appendChild(bodyWing);
 			addAttribute(doc, bodyWing, "type", character.getWingType().toString());
-			
+
+			System.out.println("Difference1: "+(System.nanoTime()-timeStart)/1000000000f);
 			
 			// PlayerCharacter specific:
 			
@@ -516,8 +521,23 @@ public class CharacterUtils {
 				}
 			}
 			
+
+			System.out.println("Difference2: "+(System.nanoTime()-timeStart)/1000000000f);
 			
+			TransformerFactory tf = TransformerFactory.newInstance();
+			Transformer transformer1 = tf.newTransformer();
+			transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+			StringWriter writer = new StringWriter();
+
+			System.out.println("Difference3: "+(System.nanoTime()-timeStart)/1000000000f);
 			
+			transformer1.transform(new DOMSource(doc), new StreamResult(writer));
+			
+			System.out.println("Difference4: "+(System.nanoTime()-timeStart)/1000000000f);
+			
+			String output = writer.getBuffer().toString();
+			System.out.println("Difference: "+(System.nanoTime()-timeStart)/1000000000f);
+			System.out.println(output);
 			
 			// Save this xml:
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -526,7 +546,6 @@ public class CharacterUtils {
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
 			
-
 			File dir = new File("data/");
 			dir.mkdir();
 			
@@ -544,7 +563,7 @@ public class CharacterUtils {
 			}
 			
 			StreamResult result = new StreamResult(new File(saveLocation));
-		
+			
 			transformer.transform(source, result);
 		
 		} catch (ParserConfigurationException pce) {
@@ -1570,12 +1589,12 @@ public class CharacterUtils {
 					// Don't add clothing if not core
 				} else {
 					if((slot.isCoreClothing() || Math.random()>0.75f || slot.isJewellery()) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
-						if(!ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot).isEmpty() && (ClothingType.slotBlockedByRace(character, slot) != character.getRace())) {
+						if(!ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot).isEmpty() && (slot.slotBlockedByRace(character) != character.getRace())) {
 							
-							ClothingType ct = getClothingTypeForSlot(character, slot, ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot));
+							AbstractClothingType ct = getClothingTypeForSlot(character, slot, ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot));
 							
 							if(ct!=null) {
-								character.equipClothingFromNowhere(ClothingType.generateClothing(
+								character.equipClothingFromNowhere(AbstractClothingType.generateClothing(
 										ct,
 										(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
 												? lingerieColour
@@ -1603,12 +1622,12 @@ public class CharacterUtils {
 					// Don't add clothing if not core
 				} else {
 					if((slot.isCoreClothing() || Math.random()>0.75f || slot.isJewellery()) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
-						if(!ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot).isEmpty() && (ClothingType.slotBlockedByRace(character, slot) != character.getRace())) {
+						if(!ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot).isEmpty() && (slot.slotBlockedByRace(character) != character.getRace())) {
 							
-							ClothingType ct = getClothingTypeForSlot(character, slot, ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot));
+							AbstractClothingType ct = getClothingTypeForSlot(character, slot, ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot));
 							
 							if(ct!=null) {
-							character.equipClothingFromNowhere(ClothingType.generateClothing(
+							character.equipClothingFromNowhere(AbstractClothingType.generateClothing(
 									ct,
 									(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
 											? lingerieColour
@@ -1625,12 +1644,12 @@ public class CharacterUtils {
 		}
 	}
 	
-	private static ClothingType getClothingTypeForSlot(GameCharacter character, InventorySlot slot, List<ClothingType> clothingOptions) {
-		List<ClothingType> availableClothing = new ArrayList<>();
+	private static AbstractClothingType getClothingTypeForSlot(GameCharacter character, InventorySlot slot, List<AbstractClothingType> clothingOptions) {
+		List<AbstractClothingType> availableClothing = new ArrayList<>();
 
 		boolean canEquip=true;
 		
-		for(ClothingType ct : clothingOptions) {
+		for(AbstractClothingType ct : clothingOptions) {
 			canEquip=true;
 			
 			if(slot==InventorySlot.CHEST && !character.hasBreasts()) {

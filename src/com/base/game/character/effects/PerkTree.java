@@ -2,6 +2,7 @@ package com.base.game.character.effects;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -39,10 +40,9 @@ public enum PerkTree {
 	static {
 		// First, order perk trees by their lowest level (first) perk:
 		List<PerkTree> perkTreesList = new ArrayList<>();
-		for (PerkTree pt : PerkTree.values())
-			perkTreesList.add(pt);
+		Collections.addAll(perkTreesList, PerkTree.values());
 
-		Collections.sort(perkTreesList, (a, b) -> a.getLinkedPerks()[0].getRequiredLevel().getLevel() - b.getLinkedPerks()[0].getRequiredLevel().getLevel());
+		perkTreesList.sort(Comparator.comparingInt(a -> a.getLinkedPerks()[0].getRequiredLevel().getLevel()));
 
 		// Then, run through trees, assigning each tree's perks to a cell. At
 		// this stage, also assign arrows to cells.

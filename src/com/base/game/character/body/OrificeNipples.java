@@ -17,8 +17,10 @@ import com.base.game.dialogue.utils.UtilText;
 public class OrificeNipples implements OrificeInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private int elasticity, plasticity;
-	private float capacity, stretchedCapacity;
+	private int elasticity;
+	private int plasticity;
+	private float capacity;
+	private float stretchedCapacity;
 	private boolean virgin;
 	private Set<OrificeModifier> orificeModifiers;
 
@@ -29,10 +31,7 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 		this.plasticity = plasticity;
 		this.virgin = virgin;
 		
-		this.orificeModifiers = new HashSet<>();
-		for(OrificeModifier om : orificeModifiers) {
-			this.orificeModifiers.add(om);
-		}
+		this.orificeModifiers = new HashSet<>(orificeModifiers);
 	}
 	
 	@Override
@@ -58,37 +57,21 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 	
 	@Override
 	public String setCapacity(GameCharacter owner, float capacity) {
-		float initialCapacity = this.capacity;
-		float capacityChange = 0;
+		float oldCapacity = this.capacity;
+		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue()));
+		float capacityChange = this.capacity - oldCapacity;
 		
-		if (capacity <= 0) {
-			if (this.capacity != 0) {
-				capacityChange = 0 - this.capacity;
-				this.capacity = 0;
-			}
-		} else if (capacity >= Capacity.SEVEN_GAPING.getMaximumValue()) {
-			if (this.capacity != Capacity.SEVEN_GAPING.getMaximumValue()) {
-				capacityChange = Capacity.SEVEN_GAPING.getMaximumValue() - this.capacity;
-				this.capacity = Capacity.SEVEN_GAPING.getMaximumValue();
-			}
-		} else {
-			if (this.capacity != capacity) {
-				capacityChange = capacity - this.capacity;
-				this.capacity = capacity;
-			}
-		}
-		
-		if(capacityChange == 0) {
+		if (capacityChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The capacity of your [pc.nipples] doesn't change...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The capacity of [npc.name]'s [pc.nipples] doesn't change...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The capacity of [npc.name]'s [npc.nipples] doesn't change...)]</p>");
 			}
 		}
 		
 		String capacityDescriptor = getCapacity().getDescriptor();
 		if (capacityChange > 0) {
-			if(initialCapacity == 0) { // Getting fuckable nipples:
+			if(oldCapacity == 0) { // Getting fuckable nipples:
 				if (owner.isPlayer()) {
 					return "<p>"
 								+ "You squirm about uncomfortably as your [pc.nipples] grow unusually hard and sensitive."
@@ -164,23 +147,9 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 
 	@Override
 	public boolean setStretchedCapacity(float stretchedCapacity) {
-		if (stretchedCapacity <= 0) {
-			if (this.stretchedCapacity != 0) {
-				this.stretchedCapacity = 0;
-				return true;
-			}
-		} else if (stretchedCapacity >= Capacity.SEVEN_GAPING.getMaximumValue()) {
-			if (this.stretchedCapacity != Capacity.SEVEN_GAPING.getMaximumValue()) {
-				this.stretchedCapacity = Capacity.SEVEN_GAPING.getMaximumValue();
-				return true;
-			}
-		} else {
-			if (this.stretchedCapacity != stretchedCapacity) {
-				this.stretchedCapacity = stretchedCapacity;
-				return true;
-			}
-		}
-		return false;
+		float oldStretchedCapacity = this.stretchedCapacity;
+		this.stretchedCapacity = Math.max(0, Math.min(stretchedCapacity, Capacity.SEVEN_GAPING.getMaximumValue()));
+		return oldStretchedCapacity != this.stretchedCapacity;
 	}
 
 	@Override
@@ -190,26 +159,11 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 
 	@Override
 	public String setElasticity(GameCharacter owner, int elasticity) {
-		float elasticityChange = 0;
+		int oldElasticity = this.elasticity;
+		this.elasticity = Math.max(0, Math.min(elasticity, OrificeElasticity.SEVEN_ELASTIC.getValue()));
+		int elasticityChange = this.elasticity - oldElasticity;
 		
-		if (elasticity <= 0) {
-			if (this.elasticity != 0) {
-				elasticityChange = 0 - this.elasticity;
-				this.elasticity = 0;
-			}
-		} else if (elasticity >= OrificeElasticity.SEVEN_ELASTIC.getValue()) {
-			if (this.elasticity != OrificeElasticity.SEVEN_ELASTIC.getValue()) {
-				elasticityChange = OrificeElasticity.SEVEN_ELASTIC.getValue() - this.elasticity;
-				this.elasticity = OrificeElasticity.SEVEN_ELASTIC.getValue();
-			}
-		} else {
-			if (this.elasticity != elasticity) {
-				elasticityChange = elasticity - this.elasticity;
-				this.elasticity = elasticity;
-			}
-		}
-		
-		if(elasticityChange == 0) {
+		if (elasticityChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The elasticity of your [pc.nipples] doesn't change...)]</p>";
 			} else {
@@ -222,13 +176,13 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange slackening sensation pulsating deep within your [pc.breasts] as your [pc.nipples]' [style.boldGrow(elasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [pc.nipples])]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [pc.nipples])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange slackening sensation pulsating deep within [npc.her] [npc.breasts] as your [npc.nipples]' [style.boldGrow(elasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [npc.nipples])]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [npc.nipples])]!"
 						+ "</p>");
 			}
 			
@@ -236,13 +190,13 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange clenching sensation pulsating deep within your [pc.breasts] as your [pc.nipples]' [style.boldShrink(elasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [pc.nipples])]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [pc.nipples])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange clenching sensation pulsating deep within [npc.her] [npc.breasts] as your [npc.nipples]' [style.boldShrink(elasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [npc.nipples])]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [npc.nipples])]!"
 						+ "</p>");
 			}
 		}
@@ -255,26 +209,11 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 
 	@Override
 	public String setPlasticity(GameCharacter owner, int plasticity) {
-		float plasticityChange = 0;
+		int oldPlasticity = this.plasticity;
+		this.plasticity = Math.max(0, Math.min(plasticity, OrificePlasticity.SEVEN_MOULDABLE.getValue()));
+		int plasticityChange = this.plasticity - oldPlasticity;
 		
-		if (plasticity <= 0) {
-			if (this.plasticity != 0) {
-				plasticityChange = 0 - this.plasticity;
-				this.plasticity = 0;
-			}
-		} else if (plasticity >= OrificePlasticity.SEVEN_MOULDABLE.getValue()) {
-			if (this.plasticity != OrificePlasticity.SEVEN_MOULDABLE.getValue()) {
-				plasticityChange = OrificePlasticity.SEVEN_MOULDABLE.getValue() - this.plasticity;
-				this.plasticity = OrificePlasticity.SEVEN_MOULDABLE.getValue();
-			}
-		} else {
-			if (this.plasticity != plasticity) {
-				plasticityChange = plasticity - this.plasticity;
-				this.plasticity = plasticity;
-			}
-		}
-		
-		if(plasticityChange == 0) {
+		if (plasticityChange == 0) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(Your [pc.nipples]'s plasticity doesn't change...)]</p>";
 			} else {
@@ -287,13 +226,13 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange moulding sensation pulsating deep within your [pc.breasts] as your [pc.nipples]' [style.boldGrow(plasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [pc.nipples])]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [pc.nipples])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange moulding sensation pulsating deep within [npc.her] [npc.breasts] as your [npc.nipples]' [style.boldGrow(plasticity increases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [npc.nipples])]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [npc.nipples])]!"
 						+ "</p>");
 			}
 			
@@ -301,13 +240,13 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "<p>"
 							+ "You let out a little gasp as you feel a strange softening sensation pulsating deep within your [pc.breasts] as your [pc.nipples]' [style.boldShrink(plasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [pc.nipples])]!"
+							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [pc.nipples])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange softening sensation pulsating deep within [npc.her] [npc.breasts] as your [npc.nipples]' [style.boldShrink(plasticity decreases)].</br>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingluarDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [npc.nipples])]!"
+							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [npc.nipples])]!"
 						+ "</p>");
 			}
 		}

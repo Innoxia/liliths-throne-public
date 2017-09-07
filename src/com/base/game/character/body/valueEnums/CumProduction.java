@@ -35,7 +35,9 @@ public enum CumProduction {
 	/** This and SIX_EXTREME are a bit ridiculous, and should only be used as part of "extreme proportion" content. */
 	SEVEN_MONSTROUS("a monstrous amount of", 1000, 10000, 0, 2f, Wetness.SEVEN_DROOLING, Colour.GENERIC_SIZE_EIGHT);
 
-	private int minimumValue, maximumValue, arousalNeededToStartPreCumming;
+	private int minimumValue;
+	private int maximumValue;
+	private int arousalNeededToStartPreCumming;
 	private float pregnancyModifer;
 	private String descriptor;
 	private Wetness associatedWetness;
@@ -48,7 +50,7 @@ public enum CumProduction {
 		this.arousalNeededToStartPreCumming = arousalNeededToStartPreCumming;
 		this.pregnancyModifer = pregnancyModifer;
 		this.associatedWetness = associatedWetness;
-		this.colour=colour;
+		this.colour = colour;
 	}
 
 	public int getMinimumValue() {

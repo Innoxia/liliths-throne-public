@@ -20,7 +20,7 @@ public class SexActionUtility {
 
 	// GENERIC:
 	
-	public static SexAction PLAYER_NONE = new SexAction(
+	public static final SexAction PLAYER_NONE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
@@ -76,7 +76,7 @@ public class SexActionUtility {
 		}
 	};
 	
-	public static SexAction PLAYER_CALM_DOWN = new SexAction(
+	public static final SexAction PLAYER_CALM_DOWN = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.NEGATIVE_MINOR,
 			ArousalIncrease.ZERO_NONE,
@@ -132,7 +132,7 @@ public class SexActionUtility {
 		}
 	};
 	
-	public static SexAction PARTNER_NONE = new SexAction(
+	public static final SexAction PARTNER_NONE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -155,7 +155,7 @@ public class SexActionUtility {
 		}
 	};
 	
-	public static SexAction PARTNER_ORGASM_MUTUAL_WAIT = new SexAction(
+	public static final SexAction PARTNER_ORGASM_MUTUAL_WAIT = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -179,7 +179,7 @@ public class SexActionUtility {
 		}
 	};
 	
-	public static SexAction PARTNER_ORGASM_SKIP = new SexAction(
+	public static final SexAction PARTNER_ORGASM_SKIP = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -202,7 +202,7 @@ public class SexActionUtility {
 		}
 	};
 
-	public static SexAction PLAYER_USE_ITEM = new SexAction(
+	public static final SexAction PLAYER_USE_ITEM = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -226,7 +226,7 @@ public class SexActionUtility {
 		}
 	};
 
-	public static SexAction CLOTHING_REMOVAL = new SexAction(
+	public static final SexAction CLOTHING_REMOVAL = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
@@ -249,7 +249,7 @@ public class SexActionUtility {
 		}
 	};
 	
-	public static SexAction CLOTHING_DYE = new SexAction(
+	public static final SexAction CLOTHING_DYE = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
@@ -272,7 +272,7 @@ public class SexActionUtility {
 		}
 	};
 	
-	public static SexAction DENIAL_FETISH_DENY = new SexAction(
+	public static final SexAction DENIAL_FETISH_DENY = new SexAction(
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.NEGATIVE,

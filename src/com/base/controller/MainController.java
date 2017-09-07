@@ -50,14 +50,14 @@ import com.base.game.character.gender.GenderPreference;
 import com.base.game.character.gender.GenderPronoun;
 import com.base.game.character.npc.NPC;
 import com.base.game.character.npc.dominion.TestNPC;
-import com.base.game.character.race.Race;
 import com.base.game.character.race.FurryPreference;
+import com.base.game.character.race.Race;
 import com.base.game.combat.Combat;
 import com.base.game.combat.DamageType;
 import com.base.game.combat.SpecialAttack;
 import com.base.game.combat.Spell;
-import com.base.game.dialogue.GenericDialogue;
 import com.base.game.dialogue.DialogueNodeOld;
+import com.base.game.dialogue.GenericDialogue;
 import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.places.dominion.CityHall;
 import com.base.game.dialogue.responses.Response;
@@ -71,6 +71,7 @@ import com.base.game.dialogue.utils.PhoneDialogue;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.enchanting.EnchantingUtils;
 import com.base.game.inventory.enchanting.TFEssence;
@@ -78,6 +79,7 @@ import com.base.game.inventory.enchanting.TFModifier;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.item.ItemEffect;
 import com.base.game.inventory.weapon.AbstractWeapon;
+import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.game.inventory.weapon.WeaponType;
 import com.base.game.sex.Sex;
 import com.base.main.Main;
@@ -391,7 +393,8 @@ public class MainController implements Initializable {
 //						 System.out.println(event.getCode());
 						 if(event.getCode()==KeyCode.END){
 							 
-//							 System.out.println(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
+							 System.out.println(Main.game.getPlayer().test);
+							 System.out.println(Main.game.getPlayer().getTest());
 							 
 //							 webViewMain = new WebView();
 //							 webViewAttributes = new WebView(); 
@@ -1466,7 +1469,7 @@ public class MainController implements Initializable {
 			// -------------------- Phone listeners -------------------- // TODO track listeners
 			
 			// Phone item viewer:
-			for (ClothingType clothing : ClothingType.values())
+			for (AbstractClothingType clothing : ClothingType.getAllClothing())
 				for (Colour c : clothing.getAvailableColours()) {
 					if ((EventTarget) document.getElementById(clothing.toString() + "_" + c.toString()) != null) {
 						addEventListener(document, clothing.toString() + "_" + c.toString(), "mousemove", moveTooltipListener, false);
@@ -1476,7 +1479,7 @@ public class MainController implements Initializable {
 						addEventListener(document, clothing.toString() + "_" + c.toString(), "mouseenter", el2, false);
 					}
 				}
-			for (WeaponType weapon : WeaponType.values())
+			for (AbstractWeaponType weapon : WeaponType.allweapons)
 				for (DamageType dt : weapon.getAvailableDamageTypes()) {
 					if ((EventTarget) document.getElementById(weapon.toString() + "_" + dt.toString()) != null) {
 						addEventListener(document, weapon.toString() + "_" + dt.toString(), "mousemove", moveTooltipListener, false);
@@ -2272,10 +2275,7 @@ public class MainController implements Initializable {
 	}
 
 	private boolean lastKeysEqual(KeyCode one, KeyCode two, KeyCode three, KeyCode four, KeyCode five) {
-		if (lastKeys[0] == five && lastKeys[1] == four && lastKeys[2] == three && lastKeys[3] == two && lastKeys[4] == one)
-			return true;
-		else
-			return false;
+		return lastKeys[0] == five && lastKeys[1] == four && lastKeys[2] == three && lastKeys[3] == two && lastKeys[4] == one;
 	}
 
 	/**

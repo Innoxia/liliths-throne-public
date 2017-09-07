@@ -5,7 +5,6 @@ import java.util.List;
 import com.base.game.character.attributes.ArousalLevel;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.effects.Fetish;
-import com.base.game.character.npc.NPC;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.sex.ArousalIncrease;
 import com.base.game.sex.OrificeType;
@@ -28,7 +27,7 @@ import com.base.utils.Util.ListValue;
  */
 public class PartnerTalk {
 	
-	public static SexAction PARTNER_DIRTY_TALK = new SexAction(
+	public static final SexAction PARTNER_DIRTY_TALK = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -80,17 +79,17 @@ public class PartnerTalk {
 						return UtilText.returnStringAtRandom(
 								"Turning [npc.her] head to look back at you, [pc.a_moan+] escapes from between [npc.name]'s [npc.lips+], ",
 								"[npc.Name] turns [npc.her] head to look back at you, letting out [npc.a_moan+] before calling out, ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
 								"Desperately trying to crawl away from you, [npc.name] [npc.sobsVerb+] as you grab [npc.her] [npc.hips+] and pull [npc.herHim] back, ",
 								"Trying to crawl away from you, [npc.name] lets out [npc.a_sob+] as you hold [npc.herHim] firmly in place, ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 					default: 
 						return UtilText.returnStringAtRandom(
 								"Turning [npc.her] head to look back at you, [npc.a_moan] escapes from between [npc.name]'s [npc.lips+], ",
 								"[npc.Name] turns [npc.her] head to look back at you, letting out [npc.a_moan] before calling out, ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 				}
 				
 			} else if(Sex.getPosition()==SexPosition.KNEELING_PLAYER_PERFORMING_ORAL) {
@@ -100,17 +99,17 @@ public class PartnerTalk {
 						return UtilText.returnStringAtRandom(
 								"[npc.Name] looks down at you as you kneel beneath [npc.herHim], ",
 								"Looking down at you, [npc.name] sighs, ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
 								"[npc.Name] smirks down at you as you kneel beneath [npc.herHim], ",
 								"Smirking down at you, [npc.name] sighs, ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 					default: 
 						return UtilText.returnStringAtRandom(
 								"[npc.Name] looks down at you as you kneel beneath [npc.herHim], ",
 								"Looking down at you, [npc.name] [npc.moansVerb], ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 				}
 				
 			} else if(Sex.getPosition()==SexPosition.KNEELING_PARTNER_PERFORMING_ORAL) {
@@ -120,17 +119,17 @@ public class PartnerTalk {
 						return UtilText.returnStringAtRandom(
 								"[npc.Name] glances up at you as [npc.she] [npc.moansVerb], ",
 								"Looking up at you, [npc.name] [npc.moansVerb], ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
 								"[npc.Name] glances up at you, before letting out [npc.a_sob+], ",
 								"Looking up at you, [npc.name] lets out [npc.a_sob+], ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 					default: 
 						return UtilText.returnStringAtRandom(
 								"[npc.Name] glances up at you as [npc.she] speaks, ",
 								"Looking up at you, [npc.name] speaks, ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 				}
 				
 			} else if(Sex.getPosition()==SexPosition.SIXTY_NINE_PARTNER_TOP) {
@@ -140,17 +139,17 @@ public class PartnerTalk {
 						return UtilText.returnStringAtRandom(
 								"[npc.Name] looks back at you as you lie beneath [npc.herHim], and speaks down to you, ",
 								"Looking back at you as you lie beneath [npc.herHim], [npc.name] speaks down to you, ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
 								"[npc.Name] looks back at you as you lie beneath [npc.herHim], and growls down to you, ",
 								"Looking back at you as you lie beneath [npc.herHim], [npc.name] growls down to you, ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 					default: 
 						return UtilText.returnStringAtRandom(
 								"[npc.Name] looks back at you as you lie beneath [npc.herHim], and [npc.moansVerb] down to you, ",
 								"Looking back at you as you lie beneath [npc.herHim], [npc.name] [npc.moansVerb] down to you, ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 				}
 				
 			} else {
@@ -160,33 +159,33 @@ public class PartnerTalk {
 						return UtilText.returnStringAtRandom(
 								"[npc.Name] lets out a soft [npc.moan], ",
 								"[npc.Name] gently sighs, ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
 								"[npc.Name] lets out a rough growl before speaking out loud, ",
 								"[npc.Name] makes a threatening growling noise before speaking, ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
 								"A desperate [npc.moan] escapes from between [npc.name]'s [npc.lips+], ",
 								"[npc.Name] lets out a desperate [npc.moan] before addressing you, ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
 								"A protesting whine escapes from between [npc.name]'s [npc.lips+] as [npc.she] struggles against you, ",
 								"[npc.Name] lets out a distressed whining noise as [npc.she] tries to shuffle away from you, ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 					default: // DOM_NORMAL, SUB_NORMAL:
 						return UtilText.returnStringAtRandom(
 								"[npc.A_moan] escapes from between [npc.name]'s [npc.lips+], ",
 								"[npc.Name] lets out [npc.a_moan] before addressing you, ")
-								+ ((NPC)Sex.getPartner()).getDirtyTalk(Sex.isPlayerDom());
+								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 				}
 			}
 		}
 	};
 	
-	public static SexAction PARTNER_ASK_FOR_CREAMPIE = new SexAction(
+	public static final SexAction PARTNER_ASK_FOR_CREAMPIE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
@@ -290,7 +289,7 @@ public class PartnerTalk {
 		}
 	};
 	
-	public static SexAction PARTNER_ASK_FOR_PULL_OUT = new SexAction(
+	public static final SexAction PARTNER_ASK_FOR_PULL_OUT = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,

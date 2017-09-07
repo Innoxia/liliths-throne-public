@@ -20,6 +20,7 @@ import com.base.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.CharacterInventory;
+import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.main.Main;
 import com.base.utils.Colour;
@@ -70,13 +71,13 @@ public class HarpyBimboCompanion extends NPC {
 		this.setPiercedEar(true);
 		this.setPiercedNavel(true);
 
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_RED, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.CHEST_CROPTOP_BRA, Colour.CLOTHING_RED, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_BELTED, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_RED, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_CROPTOP_BRA, Colour.CLOTHING_RED, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_BELTED, Colour.CLOTHING_WHITE, false), true, this);
 		
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(ClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, Colour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, Colour.CLOTHING_SILVER, false), true, this);
 	}
 	
 	@Override

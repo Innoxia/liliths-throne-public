@@ -17,45 +17,176 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Reverted penis/vagina loss when shrinking past minimum size/capacity respectively. You now remove a penis or vagina by adding the 'remove' effect to a potion.
-		Ralph now stocks squirrel-morph consumables.
+	Engine:
+		Moved ClothingTypes from Enum values over to static classes.
 	
-	Sex:
-		Converted the following actions into the new cowgirl position for both sub and dom positions: Starting kiss, penetrating anus, penetrating vagina.
+	Contributors:
+		
+		Pimgd:
+			Inventory-related bugs fixed:
+				Take all from floor doesn't handle stackables well if your inventory is full.
+				Take all weapon doesn't work if inventory is full.
+				Jinxed items don't stack when unjinxed.
+				You can't store stackables if the area is full.
+				Unidentified items will show their state in the buyback menu.
+				Jinxed items can't be selected if you're carrying a dye brush and just identified them.
+				Unidentified items will sell for their real value and not the fixed value you get for an unidentified item.
+				That includes the "vendor will buy for x" text (not overlay) and the button.
+				"These items will disappear when you leave the area" when trading on a tile with dropped stuff.
+				Can't buy/buyback a stackable with full inventory? Check item/weapon/clothing!
+				Can't unequip weapons/clothing even although they would stack if you have a full inventory.
+				Unequipping clothing (weapons too?) causing your inventory to be full claims it gets dropped when it doesn't.
+				Equipping clothing (weapons too?) when you're already wearing something with a full inventory will drop that already worn item to the ground, even if it was stackable in your inventory.
+				Displaced clothing is dropped even if it could be stacked with a full inventory.
+				Equipping an item may reset the string builder halfway through causing some warnings not to display.
+				Sell All has improper rounding as it rounds after all items instead of each item individually (same goes for buy all).
+				getting transformed with full inventory will drop your clothing even although it fits in inventory as stackable.
+				Improvement: Deduplicate printing items now that weapon/clothing/item is similar.
+				The overlay display "Vendor wants x" in the buyback shows the wrong price.
+			Simplified a lot of if statements.
+			Removed a lot of empty statements (i.e. removing a ton of unnecessary semi-colons).
+			Removed a lot of unnecessary casts.
+			Made all public static SexActions final.
+			Reordered modifiers to comply with java language specification.
+			Body-related fixes:
+				Fixed lip size increment from rolling over causing a constant resize.
+				Fixed descriptions that go beyond size limits for TongueLength.
+				Cleaned code for antenna, arms, ass/assSize/hipSize, breasts, eyes, face, hair, horn, mouth, nipples, anus, penis, orifices, tail, testicles, tongue, and vagina.
+				Fixed nose piercing returning descriptions of lip being pierced.
+				Fixed a lot of identity mistakes between pc and npc.
+				Improved nipple and nippleShape changes to properly account of multiple changes form one transformative item.
+				Tidied up a lot of other formatting.
+			
+		Rfpnj:
+			Expanded and reorganised the Library in Lilaya's house.
+		
+		CognitiveMist:
+			Code cleanup, involving:
+				List sorting uses comparator class
+				Use addAll instead of for loops
+				String comparison don't use ==
+				Javadoc stuff
+				Spelling
+				Change some variables to local, that were only used in one spot
+				Eliminated some dead/constant logic
+				Any other cleanup that I could find
 	
-	Clothing:
-		<b>Temporarily added:</b> Special clothing to Nyan's store, allowing you to buy the rainbow, Maid, and Milk Maid clothing. (I'm going to change this in the future!)
-		Added: 'Milk Maid' Set, requires Milk Maid's Dress and Kerchief to be worn. (I'll change the set's effects to increase lactation when I convert the attributes over to the new system.)
-		Added: Milk Maid's Dress (Feminine, Torso slot). (Created by Blue999)
-		Added: Kerchief (Unisex, head slot).
-		Added: Nursing bra (Feminine, Chest slot). (Created by Blue999)
-		Added: Crotchless thong (Feminine, groin slot).
-		Added: Keyhole sweater (Feminine, torso slot).
-		Added: Jeans (Unisex, leg slot).
-	
-	Other:
-		Testicle-related actions are now correctly disabled if they are internal.
-		Added correct descriptions for multiple tails in the character view screen.
-	
-	Bugs:
-		Fixed some typos.
-		Fixed some incorrect gender pronouns.
-		Fixed some minor UI issues in Kate's shop.
 	
 	
 	
 	
-	
+	Known bugs that are not fixed:
 
+	The overlay display properly stretches for an item that blocks your clothing, but it doesn't properly stretch for item effects that are large - talked with @Innoxia about this and apparently fixing this is hell.
+	-- Proficiency "spell cost reduction"
+	-- Seduction "willpower damage"
+	
+	Sell All "Sell all of your tiara for x" improper pluralizing (this does work for items?)
+	-- Buy All "Buy all of the opaque demonstone" also has improper pluralizing
+	-- Drink All too
+	-- Store All too
+	-- Take All too
+	
+	Text misaligned when unequip drop warning is saved
+	
+	Possible bug with identifying working with stacks instead of single items (confirming that there is a bug here would be real nice because then I could fix it)
+	
+	Known possible inventory related improvements which I haven't applied yet because... ehhh lemme know if you want these:
+	
+	The bottom border of the item overlay with effects grows as the effects list goes on, this could get normalized
+	Buy back says "Vendor will sell it to you for $ x.", could be "Vendor will let you buy it back for $ x."
+	Dyeing items prints the text below the shop dialogue, when buying and selling items prints the text under the shop dialogue
+	Known issues related to inventory that I'm not gonna fix:
+	
+	Pluralization bugs
+	-- "You hand over all of your A dye-brush to Ralph in exchange for ¤ 287." Yeahhh that's item names and pluralization hell
+	
+	Override equals pls in Types
+	
+	
+	
+	
+	Convert XML save for character, items, clothing, weapons
+	
+	Finish cowgirl descriptions
+	
+	Bugs
+	
+	
+	
+	Hey, tailpegging is super broken, it doesn't properly check to see if the player actually has a tail.
+	
+	The only bug i have found is when you use transformative enchantments on multiple (maybe single, haven't tested) breasts, specifically trying to grow the nipple and areola size that it keeps switching between 'getting larger' and 'shrinking' when all were enchanted to be Major Boost
+	
+	
+	Having an issue where using a cock-growing elixir gives me a penis with the wrong skin color. In my instance, my pale character grew a brown penis.
+	
+	
+	Genderless mound" on dolls should probably be, "sexless mound".  Genitals don't really have a gender, so to speak, and another word for genitals is sex.(edited)
+[23:01] DarkMaster: That mound being exposed does not trigger the exposed condition, may not be a bug but exposing it would still be public indecency and perhaps embracing
+	
+	I encountered a possible bug... I asked Ralph for the big discount, and now every move he does... is a lack thereof. he won't move at all. if it helps pin down the bug, it's durring a storm, and I already have a 25% discount. I don't know if either of those have to do with this.
 
+hypnotic cum
 
+add in part-specific colouring
+
+Not sure if it's been pointed out but when I choose "slut" as a starting choice, it doesn't work. In fact, if I choose it, go back, and choose another (e.g average), I end up with a mix between slut and whatever other I chose!
+
+1. The latest preview did not find my exported character from 1.83 but from the HF
+2. The hair/skin/eye colors got changed all to brown, possibly due to color change in code
+3. Testicles changed from vestigal to average
+4. Cum amt changed from an extreme amount to average
+5. My demonic ears lost their color. Were Lilac, now color isn't being mentioned
+
+once you've selected to have glowing eyes, if you were to cycle back to regular the selected text doesn't shift to regular
+
+skin toggle works
+[05:11] Sorter: you can check the skin glow switch and see where it got messed up
+[05:12] Sorter: my ears apparently still are lilac but it's not mentioned in the selfie. It used to
+
+anybody else having issues with imported characters unable to extract essences?
+[06:42] Def: since Lilaya's 1st quest doesnt resolve
 
 	leg and ankle wraps to make full set
 	
+<<<<<<< HEAD
+	NPC's with broodmother fetish do not try to get pregnant. This has also something to do with the first problem I've mentioned.
+=======
+	
+	New perk: Tempered (below arcane mastery). When willpower drops to 0 the first time, it stays at 1 instead.
+New perk: Marathon (below cardio queen). When stamina drops to 0 the first time, it stays at 1 instead.
+Change perk: "indefatigable" to "hulk", when health drops to 0 the first time, it stays at 1 instead.
+	
+	New status effect: Tired. Caused by being awake for over 12 hours in a row, gives no debuffs but in 4 hours it will become the status effect "exhausted". New status effect: Exhausted. Caused by being tired for 4 hours (ie awake for over 16 hours in a row), gives -5 strength -5 stamina and -5 willpower. Also make rest take 8 instead of 4 hours (succubi need to sleep too!).
+>>>>>>> c614137b7b2707cc4317762bbcbc747f3732cdc6
+	
+	Minor bug report: Gaining more testicles seems to be bugged. I created a potion to take a character from 2 to 8, and I got this message 3 times:"A tingling feeling spreads down into your testicles, and you let out a little cry as you feel some of them shrinking away and disappearing.
+
+4) New fetish: Chastity fetish. Frustrated debuff (-10 spell damage -50 willpower resist) becomes chaste (+50 stamina, -25 willpower resist)
+
+You could make a new file full of "clothing tag" enums. The tags would describe clothes. For example, "revealing", "protective", "modest", "bondage" etc. Each item could have multiple tags. When the enchantment on the item is randomly generated, the tags would influence what types of enchantments are randomly selected.
+
+You could do different things with this system: 
+- maybe certain enchantments are only available for items with the right tags. 
+(eg: revealing clothes like miniskirts might be the only ones to give a bonus to willpower damage.)
+
+- maybe certain enchantments might be impossible for items with the wrong tags.
+(eg: revealing clothes might never give bonuses to physical damage resistance.)
+
+- maybe enchantments are still randomly generated but if a piece of clothing has a certain tag it might automatically get a stronger bonus. 
+(eg: a physical damage resistance enchant on protective clothing would give a much higher bonus than a physical damage resistance enchant on revealing clothing.)
+
+
+
+After a few moments, you're left with eight balls."
+When it should be an indication that I'm gaining testicles, and the three messages should have given different amounts (first should have said 4, second 6, third 8).
 	
 	
-	Make human encounters effect human furiness races too
+	Minor bug report: Gaining more testicles seems to be bugged. I created a potion to take a character from 2 to 8, and I got this message 3 times:"A tingling feeling spreads down into your testicles, and you let out a little cry as you feel some of them shrinking away and disappearing.
+
+After a few moments, you're left with eight balls."
+When it should be an indication that I'm gaining testicles, and the three messages should have given different amounts (first should have said 4, second 6, third 8). 
 	
 	
 	Hmm. Being pushed down into submissive cowgirl by a gynephilic victor that believes you to be female seems like it is probably not intended behavior?

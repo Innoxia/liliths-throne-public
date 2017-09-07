@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.base.game.inventory.Rarity;
+import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
 import com.base.utils.Colour;
 import com.base.utils.Util;
@@ -155,7 +156,7 @@ public enum TFEssence {
 		return rarity;
 	}
 	
-	public static ItemType essenceToItem(TFEssence essence) {
+	public static AbstractItemType essenceToItem(TFEssence essence) {
 		switch(essence) {
 			case ARCANE:
 				return ItemType.BOTTLED_ESSENCE_ARCANE;

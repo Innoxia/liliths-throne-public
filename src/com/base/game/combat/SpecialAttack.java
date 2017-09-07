@@ -991,10 +991,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			if (owner.getFaceType() == FaceType.DOG_MORPH)
-				return true;
-			else
-				return false;
+			return owner.getFaceType() == FaceType.DOG_MORPH;
 		}
 	},
 
@@ -1104,10 +1101,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			if (owner.getFaceType() == FaceType.LYCAN)
-				return true;
-			else
-				return false;
+			return owner.getFaceType() == FaceType.LYCAN;
 		}
 	},
 
@@ -1160,10 +1154,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			if (owner.getArmType() == ArmType.SQUIRREL_MORPH)
-				return true;
-			else
-				return false;
+			return owner.getArmType() == ArmType.SQUIRREL_MORPH;
 		}
 	},
 
@@ -1216,10 +1207,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			if (owner.getArmType() == ArmType.CAT_MORPH)
-				return true;
-			else
-				return false;
+			return owner.getArmType() == ArmType.CAT_MORPH;
 		}
 	},
 
@@ -1268,10 +1256,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			if (owner.getLegType() == LegType.HORSE_MORPH)
-				return true;
-			else
-				return false;
+			return owner.getLegType() == LegType.HORSE_MORPH;
 		}
 	};
 
@@ -1436,7 +1421,7 @@ public enum SpecialAttack {
 	}
 	
 	private float getModifiedCost(GameCharacter caster) {
-		float calculatedCost = caster.getLevel() + ((float)caster.getAttributeValue(Attribute.STAMINA_MAXIMUM) * (specialAttackCost.getPercentage())/100f);
+		float calculatedCost = caster.getLevel() + (caster.getAttributeValue(Attribute.STAMINA_MAXIMUM) * (specialAttackCost.getPercentage())/100f);
 		
 		// Round float value to nearest 1 decimal place:
 		calculatedCost = (Math.round(calculatedCost*10))/10f;
@@ -1520,7 +1505,7 @@ public enum SpecialAttack {
 				descriptionSB.append(
 						"<p>"
 							+ "[npc.Name] can't bring [npc.herself] to look away, and as [npc.she] lets out a desperate whine, you realise that [npc.she] has "
-							+ UtilText.generateSingluarDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>, and your display is"
+							+ UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>, and your display is"
 							+ " <b style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>massively turning [npc.herHim] on</b>!</br></br>"
 							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>!"
 						+ "</p>");
@@ -1536,7 +1521,7 @@ public enum SpecialAttack {
 				descriptionSB.append(
 						"<p>"
 							+ "Because you have "
-							+UtilText.generateSingluarDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
+							+UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
 							+ " you find yourself unable to look away from [npc.name]'s enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning you on</b>!</br></br>"
 							+ "<b>You lose " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>!"
 						+ "</p>");

@@ -24,7 +24,7 @@ import com.base.utils.Util.ListValue;
 public class BraxPositioning {
 	
 	// Doggy:
-	public static SexAction PLAYER_FORCE_POSITION_DOGGY = new SexAction(
+	public static final SexAction PLAYER_FORCE_POSITION_DOGGY = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -72,7 +72,7 @@ public class BraxPositioning {
 	};
 	
 	// Cowgirl
-	public static SexAction PLAYER_FORCE_POSITION_COWGIRL = new SexAction(
+	public static final SexAction PLAYER_FORCE_POSITION_COWGIRL = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -118,7 +118,7 @@ public class BraxPositioning {
 	};
 	
 	// Return to oral:
-	public static SexAction PLAYER_FORCE_POSITION_KNEELING_ORAL = new SexAction(
+	public static final SexAction PLAYER_FORCE_POSITION_KNEELING_ORAL = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,

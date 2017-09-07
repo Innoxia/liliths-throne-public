@@ -176,7 +176,7 @@ public class Arm implements BodyPartInterface, Serializable {
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-								" Within a matter of moments, a layer of [pc.armFullDescription] has quickly grown over them, and, looking down,"
+								" Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
 										+ " [npc.she] sees [npc.her] hair growing over the backs of [npc.her] new hands as tough, hoof-like nails push out in place of regular, human-like ones."
 								+ " Despite their appearance, [npc.she]'s relieved to discover that [npc.her] hands have lost none of their dexterity."
 								+ " As the transformation comes to an end, [npc.she] sees that at [npc.her] upper-biceps, [npc.her] new hair smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.</br>"
@@ -269,28 +269,25 @@ public class Arm implements BodyPartInterface, Serializable {
 	}
 
 	public String setArmRows(GameCharacter owner, int armRows) {
-		
-		if(armRows == getArmRows()) {
+		int currentArmRows = getArmRows();
+		armRows = Math.max(1, Math.min(armRows, 3));
+		if (armRows == currentArmRows) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
-		}
-		
-		if(armRows<=0) {
-			armRows = 1;
-		} else if (armRows>3) {
-			armRows=3;
 		}
 		
 		UtilText.transformationContentSB.setLength(0);
 		
-		if (armRows < getArmRows()) {
+		if (armRows < currentArmRows) {
+			boolean losesTwoPairs = (armRows + 2) == currentArmRows;
 			if (owner.isPlayer()) {
 				UtilText.transformationContentSB.append(
 						"<p>"
 							+ "You feel a strange pressure building up around the base of "
-							+ (getArmRows() == 3
-								? (getArmRows() == 2 ? "the lowest of your extra pairs"
-									: "your two extra pairs")
-								: "your extra pair")
+							+ (losesTwoPairs
+								? "your two extra pairs"
+								: (armRows == 2 
+									? "the lowest of your extra pairs" 
+									: "your extra pair"))
 							+ " of [pc.arms], and before you can react, they rapidly shrink away into the [pc.skin] of your torso.</br>" 
 							+ "You now have [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [pc.arms])], covered in [pc.armFullDescriptionColour]."
 						+ "</p>");
@@ -298,24 +295,24 @@ public class Arm implements BodyPartInterface, Serializable {
 				UtilText.transformationContentSB.append(UtilText.parse(owner,
 						"<p>"
 							+ "[npc.Name] glances worriedly down at "
-							+ (getArmRows() == 3
-								? (getArmRows() == 2 ? "the lowest of [npc.her] extra pair"
-									: "[npc.her] two extra pairs")
-								: "[npc.her] extra pair")
+							+ (losesTwoPairs
+								? "[npc.her] two extra pairs"
+								: (armRows == 2 
+									? "the lowest of [npc.her] extra pairs" 
+									: "[npc.her] extra pair"))
 							+ " of [npc.arms], and before [npc.she] can react, they rapidly shrink away into the [npc.skin] of [npc.her] torso.</br>" 
 							+ "[npc.She] now has [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [npc.arms])], covered in [npc.armFullDescriptionColour]."
 						+ "</p>"));
 			}
 			
-		} else if (armRows > getArmRows()) {
+		} else {
+			boolean gainsTwoPairs = (armRows - 2) == currentArmRows;
 			if (owner.isPlayer()) {
 				UtilText.transformationContentSB.append(
 						"<p>"
 							+ "You feel a strange pressure building up down the sides of your torso, and before you have time to react, "
-								+ (getArmRows() == 1
-									? (getArmRows() == 3
-										? "two extra pairs"
-										: "an extra pair")
+								+ (gainsTwoPairs
+									? "two extra pairs"
 									: "an extra pair")
 							+ " of [pc.arms] rapidly grow out of the [pc.skin] of your lower torso.</br>"
 							+ "You now have [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [pc.arms])], covered in [pc.armFullDescriptionColour]."
@@ -324,10 +321,8 @@ public class Arm implements BodyPartInterface, Serializable {
 				UtilText.transformationContentSB.append(UtilText.parse(owner,
 						"<p>"
 							+ "[npc.Name] glances worriedly down at [npc.her] torso, and before [npc.she] can react, "
-								+ (getArmRows() == 1
-									? (getArmRows() == 3
-										? "two extra pairs"
-										: "an extra pair")
+								+ (gainsTwoPairs
+									? "two extra pairs"
 									: "an extra pair")
 							+ " of [npc.arms] rapidly grow out of the [npc.skin] of [npc.her] lower torso.</br>"
 							+ "[npc.She] now has [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [npc.arms])], covered in [npc.armFullDescriptionColour]."
@@ -335,13 +330,7 @@ public class Arm implements BodyPartInterface, Serializable {
 			}
 		}
 		
-		if (armRows <= 0) {
-			this.armRows = 1;
-		} else if (armRows > 3) {
-			this.armRows = 3;
-		} else {
-			this.armRows = armRows;
-		}
+		this.armRows = armRows;
 		
 		return UtilText.transformationContentSB.toString();
 	}
