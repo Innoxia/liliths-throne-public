@@ -376,8 +376,8 @@ public class Library {
 			if (field == 1) {
 				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
 
-//			} else if (field == 2) {
-//				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
+			} else if (field == 2) {
+				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
 
 			}  else if (field == 0) {
 				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
