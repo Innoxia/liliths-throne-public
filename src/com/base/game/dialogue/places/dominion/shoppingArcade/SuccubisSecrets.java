@@ -20,6 +20,7 @@ import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseSex;
 import com.base.game.dialogue.responses.ResponseTrade;
 import com.base.game.dialogue.utils.CharacterModificationUtils;
+import com.base.game.dialogue.utils.InventoryDialogue;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.sex.managers.universal.consensual.SMChairTop;
 import com.base.main.Main;
@@ -667,6 +668,11 @@ public class SuccubisSecrets {
 		public Response getResponse(int index) {
 			return getMainResponse(index);
 		}
+		
+		@Override
+		public boolean reloadOnRestore() {
+			return true;
+		}
 	};
 	public static final DialogueNodeOld SHOP_BEAUTY_SALON_SKIN_COLOUR = new DialogueNodeOld("Succubi's Secrets", "-", true) {
 		private static final long serialVersionUID = 1L;
@@ -735,6 +741,11 @@ public class SuccubisSecrets {
 		public Response getResponse(int index) {
 			return getMainResponse(index);
 		}
+		
+		@Override
+		public boolean reloadOnRestore() {
+			return true;
+		}
 	};
 	
 	public static final DialogueNodeOld SHOP_BEAUTY_SALON_EYES = new DialogueNodeOld("Succubi's Secrets", "-", true) {
@@ -766,6 +777,11 @@ public class SuccubisSecrets {
 		@Override
 		public Response getResponse(int index) {
 			return getMainResponse(index);
+		}
+		
+		@Override
+		public boolean reloadOnRestore() {
+			return true;
 		}
 	};
 	
@@ -807,6 +823,11 @@ public class SuccubisSecrets {
 		@Override
 		public Response getResponse(int index) {
 			return getMainResponse(index);
+		}
+
+		@Override
+		public boolean reloadOnRestore() {
+			return true;
 		}
 	};
 	
@@ -862,6 +883,11 @@ public class SuccubisSecrets {
 		public Response getResponse(int index) {
 			return getMainResponse(index);
 		}
+
+		@Override
+		public boolean reloadOnRestore() {
+			return true;
+		}
 	};
 	
 	public static final DialogueNodeOld SHOP_BEAUTY_SALON_COSMETICS = new DialogueNodeOld("", "", true) {
@@ -911,6 +937,11 @@ public class SuccubisSecrets {
 		public Response getResponse(int index) {
 			return getMainResponse(index);
 		}
+
+		@Override
+		public boolean reloadOnRestore() {
+			return true;
+		}
 	};
 	
 	public static final DialogueNodeOld SHOP_BEAUTY_SALON_TATTOOS = new DialogueNodeOld("Succubi's Secrets", "-", true) {
@@ -931,6 +962,11 @@ public class SuccubisSecrets {
 		@Override
 		public Response getResponse(int index) {
 			return getMainResponse(index);
+		}
+
+		@Override
+		public boolean reloadOnRestore() {
+			return true;
 		}
 	};
 }
