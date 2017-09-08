@@ -404,12 +404,12 @@ public class Main extends Application {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Can only quicksave in a normal scene!");
 			
 		} else {
-			saveGame("QuickSave", true);
+			saveGame("QuickSave_"+Main.game.getPlayer().getName(), true);
 		}
 	}
 
 	public static void quickLoadGame() {
-		loadGame("QuickSave");
+		loadGame("QuickSave_"+Main.game.getPlayer().getName());
 	}
 
 	public static void saveGame(String name, boolean allowOverwrite) {
@@ -488,7 +488,7 @@ public class Main extends Application {
 			} else {
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), Colour.GENERIC_GOOD, "Game saved!");
 			}
-		} else if(name.equals("QuickSave")){
+		} else if(name.equals("QuickSave_"+Main.game.getPlayer().getName())){
 			Main.game.flashMessage(Colour.GENERIC_GOOD, "Quick saved!");
 		}
 	}

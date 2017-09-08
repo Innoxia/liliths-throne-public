@@ -30,6 +30,7 @@
 		Made the nursing bra have random enchantments.
 		Added the hair styles: mohawk, sidecut.
 		Added colours for pupils and irises: aqua, grey, lilac, purple, violet, crimson, golden.
+		Added character-specific quicksaves. (Quicksave will now save as "QuickSave_X", where X is your character's name.)
 	
 	Sex:
 		Finished converting old cowgirl position descriptions into the new one.
