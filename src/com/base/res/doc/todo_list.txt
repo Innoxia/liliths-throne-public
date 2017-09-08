@@ -87,6 +87,7 @@
 			Added green skin for demons.
 		
 		CognitiveMist:
+			Did a huge amount of spelling corrections.
 			Code cleanup, involving:
 				List sorting uses comparator class
 				Use addAll instead of for loops
@@ -109,9 +110,8 @@
 	
 	
 	
-	Keeps on "New entry in your phone" for clothing
 	
-	quicksave name
+	
 	
 	Weapons delete themselves when keep on equipping the same type from floor
 	

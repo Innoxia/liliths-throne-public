@@ -1125,7 +1125,7 @@ public class OptionsDialogue {
 				};
 				
 			} else if (index == 0) {
-				return new Response("Back", "Go back to the options menu.", OPTIONS);
+				return new Response("Back", "Go back to the options menu.", MENU);
 				
 			} else {
 				return null;
