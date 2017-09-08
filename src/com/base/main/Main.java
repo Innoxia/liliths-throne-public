@@ -494,6 +494,7 @@ public class Main extends Application {
 	}
 
 	public static void loadGame(String name) {
+		
 		File file = new File("data/saves/"+name+".lts");
 		
 		if (file.exists()) {

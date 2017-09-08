@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.84
  * @author Innoxia
  */
 public enum Colour {
@@ -277,7 +277,7 @@ public enum Colour {
 	SKIN_RED(BaseColour.CRIMSON, "scarlet"),
 	SKIN_BROWN(BaseColour.BROWN, "brown"),
 	SKIN_PINK(BaseColour.PINK_LIGHT, "light pink"),
-	SKIN_GREEN(BaseColour.GREEN, "green")
+	SKIN_GREEN(BaseColour.GREEN, "green"),
 	SKIN_BLUE(BaseColour.BLUE_LIGHT, "light blue"),
 	SKIN_LILAC(BaseColour.LILAC, "lilac"),
 	SKIN_PURPLE(BaseColour.PURPLE, "purple"),
@@ -333,7 +333,16 @@ public enum Colour {
 	// Eye colours:
 	EYE_BROWN(BaseColour.BROWN, "brown"),
 	EYE_BLUE(BaseColour.BLUE_LIGHT, "blue"),
+	EYE_AQUA(BaseColour.AQUA, "aqua"),
 	EYE_GREEN(BaseColour.GREEN, "green"),
+	EYE_GREY(BaseColour.GREY, "grey"),
+
+	EYE_LILAC(BaseColour.LILAC, "lilac"),
+	EYE_PURPLE(BaseColour.PURPLE, "purple"),
+	EYE_VIOLET(BaseColour.VIOLET, "violet"),
+	EYE_CRIMSON(BaseColour.CRIMSON, "crimson"),
+	EYE_GOLD(BaseColour.GOLD, "golden"),
+	
 	EYE_YELLOW(BaseColour.YELLOW, "yellow"),
 	EYE_RED(BaseColour.RED, "red"),
 	EYE_PINK(BaseColour.PINK, "pink"),
@@ -481,28 +490,42 @@ public enum Colour {
 	// Eyes:
 	
 	public static List<Colour> naturalIrisColours = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.EYE_BLUE),
 			new ListValue<Colour>(Colour.EYE_BROWN),
-			new ListValue<Colour>(Colour.EYE_GREEN));
+			new ListValue<Colour>(Colour.EYE_BLUE),
+			new ListValue<Colour>(Colour.EYE_AQUA),
+			new ListValue<Colour>(Colour.EYE_GREEN),
+			new ListValue<Colour>(Colour.EYE_GREY));
 	
 	public static List<Colour> dyeIrisColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.EYE_YELLOW),
+			new ListValue<Colour>(Colour.EYE_GOLD),
 			new ListValue<Colour>(Colour.EYE_RED),
+			new ListValue<Colour>(Colour.EYE_CRIMSON),
 			new ListValue<Colour>(Colour.EYE_ORANGE),
 			new ListValue<Colour>(Colour.EYE_PINK),
+			new ListValue<Colour>(Colour.EYE_VIOLET),
+			new ListValue<Colour>(Colour.EYE_LILAC),
+			new ListValue<Colour>(Colour.EYE_PURPLE),
 			new ListValue<Colour>(Colour.EYE_BLACK));
 	
 	public static List<Colour> naturalPupilColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.EYE_BLACK));
 	
 	public static List<Colour> dyePupilColours = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.EYE_BLUE),
 			new ListValue<Colour>(Colour.EYE_BROWN),
+			new ListValue<Colour>(Colour.EYE_BLUE),
+			new ListValue<Colour>(Colour.EYE_AQUA),
 			new ListValue<Colour>(Colour.EYE_GREEN),
+			new ListValue<Colour>(Colour.EYE_GREY),
 			new ListValue<Colour>(Colour.EYE_YELLOW),
+			new ListValue<Colour>(Colour.EYE_GOLD),
 			new ListValue<Colour>(Colour.EYE_RED),
+			new ListValue<Colour>(Colour.EYE_CRIMSON),
 			new ListValue<Colour>(Colour.EYE_ORANGE),
-			new ListValue<Colour>(Colour.EYE_PINK));
+			new ListValue<Colour>(Colour.EYE_PINK),
+			new ListValue<Colour>(Colour.EYE_VIOLET),
+			new ListValue<Colour>(Colour.EYE_LILAC),
+			new ListValue<Colour>(Colour.EYE_PURPLE));
 	
 	
 	

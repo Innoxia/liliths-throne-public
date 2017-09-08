@@ -86,6 +86,35 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 			e1.printStackTrace();
 		}
 	}
+	
+	@Override
+	public boolean equals (Object o) { // I know it doesn't include everything, but this should be enough to check for equality.
+		if(super.equals(o)){
+			if(o instanceof AbstractItemType){
+				if(((AbstractItemType)o).getName(false).equals(getName(false))
+						&& ((AbstractItemType)o).getPathName().equals(getPathName())
+						&& ((AbstractItemType)o).getRarity() == getRarity()
+						&& ((AbstractItemType)o).getRelatedEssence() == getRelatedEssence()
+						&& ((AbstractItemType)o).getEffects().equals(getEffects())
+						){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() { // I know it doesn't include everything, but this should be enough to check for equality.
+		int result = super.hashCode();
+		result = 31 * result + getName(false).hashCode();
+		result = 31 * result + getPathName().hashCode();
+		result = 31 * result + getRarity().hashCode();
+		if(getRelatedEssence() != null)
+			result = 31 * result + getRelatedEssence().hashCode();
+		result = 31 * result + getEffects().hashCode();
+		return result;
+	}
 
 	public static AbstractItem generateItem(AbstractItemType itemType) {
 		return new AbstractItem(itemType) {

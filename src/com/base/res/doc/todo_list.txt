@@ -29,14 +29,15 @@
 		Reduced the size of Lilaya's home to make navigation more manageable. (I'll add in the larger version later on as an upgrade to the house.)
 		Made the nursing bra have random enchantments.
 		Added the hair styles: mohawk, sidecut.
+		Added colours for pupils and irises: aqua, grey, lilac, purple, violet, crimson, golden.
 	
 	Sex:
 		Finished converting old cowgirl position descriptions into the new one.
 		Converted Brax's cowgirl scene into the new format. (The facesitting descriptions are absent, but I'll add those back in for a proper facesitting position.)
 	
 	UI:
+		<b>Finished:</b> Remade all the options in Kate's shop to use proper buttons. (I'll use this system for the character creation menu as well.)
 		Fixed the annoying way the screen would jump back to the top every time you clicked a button (e.g. in preferences menu).
-		Remade all the options in Kate's shop to use proper buttons. (I'll use this system for the character creation menu as well.)
 		Moved content preferences into its own option in the main menu to make it more obvious.
 		
 	Bugs:
@@ -107,16 +108,13 @@
 	
 	
 	
-	Finish the forced transformation content.
-		Harpies
-	
-	Add Paizuri, thigh sex, and hotdogging.
-	
 	Keeps on "New entry in your phone" for clothing
 	
-	violet irises
-	
 	quicksave name
+	
+	Weapons delete themselves when keep on equipping the same type from floor
+	
+	Add Paizuri, thigh sex, and hotdogging.
 	
 	Bug fixing
 	

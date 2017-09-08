@@ -3,7 +3,9 @@ package com.base.game.inventory.weapon;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,8 +58,18 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		this.damageVariance = damageVariance;
 
 		this.pathName = pathName;
-		this.attributeModifiers = attributeModifiers;
-		this.spells = spells;
+		
+		if(attributeModifiers==null) {
+			this.attributeModifiers = new HashMap<>();
+		} else {
+			this.attributeModifiers = attributeModifiers;
+		}
+		
+		if(spells==null) {
+			this.spells = new ArrayList<>();
+		} else {
+			this.spells = spells;
+		}
 
 		SVGStringMap = new EnumMap<>(DamageType.class);
 		for (DamageType dt : this.availableDamageTypes)
@@ -79,6 +91,42 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 				e.printStackTrace();
 			}
 
+	}
+	
+	@Override
+	public boolean equals (Object o) { // I know it doesn't include everything, but this should be enough to check for equality.
+		if(super.equals(o)){
+			if(o instanceof AbstractWeaponType){
+				if(((AbstractWeaponType)o).getName().equals(getName())
+						&& ((AbstractWeaponType)o).getPathName().equals(getPathName())
+						&& ((AbstractWeaponType)o).getDamageLevel() == getDamageLevel()
+						&& ((AbstractWeaponType)o).getDamageVariance() == getDamageVariance()
+						&& ((AbstractWeaponType)o).getSlot() == getSlot()
+						&& ((AbstractWeaponType)o).getRarity() == getRarity()
+						&& ((AbstractWeaponType)o).getAvailableDamageTypes().equals(getAvailableDamageTypes())
+						&& ((AbstractWeaponType)o).getAttributeModifiers().equals(getAttributeModifiers())
+						&& ((AbstractWeaponType)o).getSpells().equals(getSpells())
+						){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() { // I know it doesn't include everything, but this should be enough to check for equality.
+		int result = super.hashCode();
+		result = 31 * result + getName().hashCode();
+		result = 31 * result + getPathName().hashCode();
+		result = 31 * result + getDamageLevel().hashCode();
+		result = 31 * result + getDamageVariance().hashCode();
+		result = 31 * result + getSlot().hashCode();
+		result = 31 * result + getRarity().hashCode();
+		result = 31 * result + getAvailableDamageTypes().hashCode();
+		result = 31 * result + getAttributeModifiers().hashCode();
+		result = 31 * result + getSpells().hashCode();
+		return result;
 	}
 
 	public static AbstractWeapon generateWeapon(AbstractWeaponType wt, DamageType dt) {
