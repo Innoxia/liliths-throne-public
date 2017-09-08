@@ -1205,9 +1205,9 @@ public class PartnerFingerNipple {
 
 		@Override
 		public void applyEffects(){
-			if(!Sex.getPartner().isCoverableAreaExposed(CoverableArea.NIPPLES) && Sex.getPartner().getBreastLactation().getMinimumValue()>=Lactation.ONE_TRICKLE.getMinimumValue()){
-				if(Sex.getPartner().getLowestZLayerCoverableArea(CoverableArea.NIPPLES)!=null) {
-					Sex.getPartner().getLowestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(true);
+			if(!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.NIPPLES) && Main.game.getPlayer().getBreastLactation().getMinimumValue()>=Lactation.ONE_TRICKLE.getMinimumValue()){
+				if(Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.NIPPLES)!=null) {
+					Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(true);
 				}
 			}
 		}
