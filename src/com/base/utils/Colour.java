@@ -277,7 +277,7 @@ public enum Colour {
 	SKIN_RED(BaseColour.CRIMSON, "scarlet"),
 	SKIN_BROWN(BaseColour.BROWN, "brown"),
 	SKIN_PINK(BaseColour.PINK_LIGHT, "light pink"),
-	SKIN_GREEN(BaseColour.GREEN, "green")
+	SKIN_GREEN(BaseColour.GREEN, "green"),
 	SKIN_BLUE(BaseColour.BLUE_LIGHT, "light blue"),
 	SKIN_LILAC(BaseColour.LILAC, "lilac"),
 	SKIN_PURPLE(BaseColour.PURPLE, "purple"),
