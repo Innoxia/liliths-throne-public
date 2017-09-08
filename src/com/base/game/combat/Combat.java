@@ -1370,7 +1370,7 @@ public enum Combat {
 	
 	private static String submit() {
 		combatStringBuilder = new StringBuilder(
-				"<p>" + "You kneel infront of " + opponent.getName("the") + ", lowering your head in submission. " + UtilText.parsePlayerSpeech("I don't want to fight any more, I submit.") + "</p>");
+				"<p>" + "You kneel in front of " + opponent.getName("the") + ", lowering your head in submission. " + UtilText.parsePlayerSpeech("I don't want to fight any more, I submit.") + "</p>");
 
 		combatStringBuilder.append(endCombatTurn(true));
 

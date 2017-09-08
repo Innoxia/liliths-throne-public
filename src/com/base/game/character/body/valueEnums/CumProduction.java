@@ -38,17 +38,17 @@ public enum CumProduction {
 	private int minimumValue;
 	private int maximumValue;
 	private int arousalNeededToStartPreCumming;
-	private float pregnancyModifer;
+	private float pregnancyModifier;
 	private String descriptor;
 	private Wetness associatedWetness;
 	private Colour colour;
 
-	private CumProduction(String descriptor, int minimumValue, int maximumValue, int arousalNeededToStartPreCumming, float pregnancyModifer, Wetness associatedWetness, Colour colour) {
+	private CumProduction(String descriptor, int minimumValue, int maximumValue, int arousalNeededToStartPreCumming, float pregnancyModifier, Wetness associatedWetness, Colour colour) {
 		this.descriptor = descriptor;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
 		this.arousalNeededToStartPreCumming = arousalNeededToStartPreCumming;
-		this.pregnancyModifer = pregnancyModifer;
+		this.pregnancyModifier = pregnancyModifier;
 		this.associatedWetness = associatedWetness;
 		this.colour = colour;
 	}
@@ -90,8 +90,8 @@ public enum CumProduction {
 	/**
 	 * In the range of 0 to 2. Average is 1.
 	 */
-	public float getPregnancyModifer() {
-		return pregnancyModifer;
+	public float getPregnancyModifier() {
+		return pregnancyModifier;
 	}
 
 	public Wetness getAssociatedWetness() {

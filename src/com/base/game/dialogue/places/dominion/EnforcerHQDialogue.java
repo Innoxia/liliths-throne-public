@@ -920,7 +920,7 @@ public class EnforcerHQDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "Brax thrashes about beneath you, growling and groaning as Candi starts emptying the bottle's contents down his throat."
-							+ " Once the liquid has been emptied into the wolf-boy's mouth, Candi clamps his mouth shut, making soothing shushing noises as she strokes his throat to enourage him to swallow the last few drops."
+							+ " Once the liquid has been emptied into the wolf-boy's mouth, Candi clamps his mouth shut, making soothing shushing noises as she strokes his throat to encourage him to swallow the last few drops."
 						+ "</p>"
 						+ "<p>"
 							+ "[candi.speechNoEffects(Good boy Brax! Drink it all down!)] Candi moans, clearly excited to see what's about to happen."
@@ -1263,7 +1263,7 @@ public class EnforcerHQDialogue {
 						&& Main.game.getPlayer().isFeminine()
 							?"<p>"
 							+ "As he finishes barking out his question, you see his hungry eyes drop down to roam over your wolf-like body, and you wonder if he has a weakness for wolf-girls."
-							+ " Wanting to test your theory, you turn back to face the door, pushing it firmly shut while not-so-subtely sticking out your ass towards [brax.name]."
+							+ " Wanting to test your theory, you turn back to face the door, pushing it firmly shut while not-so-subtly sticking out your ass towards [brax.name]."
 							+ " Turning back to face him, your suspicions are proven to be correct as you see his eyes fogged over with lust..."
 							+ "</p>"
 							:"");
@@ -1440,7 +1440,7 @@ public class EnforcerHQDialogue {
 		public String getContent() {
 			return "<p>"
 					+ "You wonder just how gullible this 'Chief of Dominion Operations' really is, and, pushing your luck, you continue bluffing, "
-					+ UtilText.parsePlayerSpeech("You know, I pride myself on the fact that 'The She-wolf's Den' is only known only amongst the most important and influencial people in Dominion."
+					+ UtilText.parsePlayerSpeech("You know, I pride myself on the fact that 'The She-wolf's Den' is only known only amongst the most important and influential people in Dominion."
 							+ " You see, it takes people of that refinement to really appreciate the fact that I hire only the most beautiful and skillful of wolf-girls.")
 					+ "</p>"
 					+ "<p>"
@@ -1561,7 +1561,7 @@ public class EnforcerHQDialogue {
 		public String getContent() {
 			return "<p>"
 					+ "Almost feeling sorry for [brax.name], you decide to tell him that he's a gullible idiot, "
-					+ UtilText.parsePlayerSpeech("Do you really believe that there's a place called 'The She-wolf's Den'? You do realise that I made all that up, right? I mean, noone can be <i>that</i> much of a gullible idiot!")
+					+ UtilText.parsePlayerSpeech("Do you really believe that there's a place called 'The She-wolf's Den'? You do realise that I made all that up, right? I mean, no one can be <i>that</i> much of a gullible idiot!")
 					+ "</p>"
 					+ "<p>"
 					+ "With his hand on the door-handle, [brax.name] stops, and with an unsure stammer, turns back to you, "

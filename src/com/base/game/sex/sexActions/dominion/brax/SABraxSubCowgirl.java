@@ -433,7 +433,7 @@ public class SABraxSubCowgirl {
 					
 					"Reaching down to playfully stroke Brax's furry wolf-like ears, you let out a contented moan as he buries his tongue deep in your "+Main.game.getPlayer().getVaginaName(true)+".",
 						
-					"Holding yourself over Brax's face, you let out a seris of lewd moans as his wide, wolf-like tongue pushes its way eagerly into your "+Main.game.getPlayer().getVaginaName(true)+".");
+					"Holding yourself over Brax's face, you let out a series of lewd moans as his wide, wolf-like tongue pushes its way eagerly into your "+Main.game.getPlayer().getVaginaName(true)+".");
 		}
 		
 		@Override
@@ -468,7 +468,7 @@ public class SABraxSubCowgirl {
 					
 					"Reaching down to playfully stroke Brax's furry wolf-like ears, you let out a contented moan as he buries his tongue deep in your [pc.asshole+].",
 						
-					"Holding yourself over Brax's face, you let out a seris of lewd moans as his wide, wolf-like tongue obediently pushes its way into your [pc.asshole+].");
+					"Holding yourself over Brax's face, you let out a series of lewd moans as his wide, wolf-like tongue obediently pushes its way into your [pc.asshole+].");
 		}
 		
 		@Override
@@ -980,7 +980,7 @@ public class SABraxSubCowgirl {
 					+ "Making sure to save a little for yourself, you break off the kiss, rapidly closing your hand around Brax's muzzle to prevent him from wasting his precious jizz."
 					+ " Not being able to resist any longer, you make a show of swallowing the small amount of delicious cum that you kept in your mouth, before telling Brax to do the same."
 					+ "</br></br>"
-					+ "You hold Brax's muzzle closed until you see him reluctantly mimicing your behaviour, and, as you let go, he obediently opens his mouth to show you that he's swallowed it all."
+					+ "You hold Brax's muzzle closed until you see him reluctantly mimicking your behaviour, and, as you let go, he obediently opens his mouth to show you that he's swallowed it all."
 					+ " Delighted with the wolf-boy's performance, you lean down and share a passionate, cummy kiss with him.";
 		}
 
@@ -1025,7 +1025,7 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public String getDescription() {
-			return "Seeing Brax's cum slattered all over his furry stomach and chest, you get the sudden urge to give him a taste of himself."
+			return "Seeing Brax's cum splattered all over his furry stomach and chest, you get the sudden urge to give him a taste of himself."
 					+ " Leaning down, you start scooping up all the sticky seed in your fingers, breathing in the wolf-boy's powerful masculine musk as you take your time making sure not to miss a single drop."
 					+ "</br></br>"
 					+ "Once your hand is full of delicious, salty cream, you lean down over Brax's chest to gaze down into his rather worried-looking eyes."
@@ -1203,7 +1203,7 @@ public class SABraxSubCowgirl {
 		}
 	};
 	
-	public static final SexAction PARTNER_COWGIRL_TAKE_IT_ANAILINGUS = new SexAction(
+	public static final SexAction PARTNER_COWGIRL_TAKE_IT_ANILINGUS = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
@@ -1342,7 +1342,7 @@ public class SABraxSubCowgirl {
 						
 						"With his [npc.penis+] not receiving any attention, Brax reaches around between his legs and starts submissively masturbating.",
 							
-						"With a patheric whine, Brax reaches around to his groin, and, after spending a moment squeezing and stroking his fat knot, starts submissively stroking his [npc.penis+].");
+						"With a pathetic whine, Brax reaches around to his groin, and, after spending a moment squeezing and stroking his fat knot, starts submissively stroking his [npc.penis+].");
 			}
 		}
 	};

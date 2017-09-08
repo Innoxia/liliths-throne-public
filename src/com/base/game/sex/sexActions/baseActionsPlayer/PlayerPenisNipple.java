@@ -1075,7 +1075,7 @@ public class PlayerPenisNipple {
 
 		@Override
 		public String getActionDescription() {
-			return "Thrst your chest out against [pc.name] as [pc.her] [pc.cock] thrusts into your [npc.nipple].";
+			return "Thrust your chest out against [pc.name] as [pc.her] [pc.cock] thrusts into your [npc.nipple].";
 		}
 
 		@Override

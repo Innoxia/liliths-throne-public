@@ -908,7 +908,7 @@ public class ConChairBottom {
 						?"Reaching down, [npc.name] roughly grabs your [pc.horns+], using them for support as [npc.she] starts to rapidly slam [npc.her] [npc.cock+] in and out of your [pc.nipple+]."
 						:"Reaching down, [npc.name] roughly grabs your [pc.hips+], using them for support as [npc.she] starts to rapidly slam [npc.her] [npc.cock+] in and out of your [pc.nipple+]."),
 							
-					"Reaching down to roughly grab your head, [npc.name] lets out [npc.a_maon+] as [npc.she] leans heavily down on top of you,"
+					"Reaching down to roughly grab your head, [npc.name] lets out [npc.a_moan+] as [npc.she] leans heavily down on top of you,"
 							+ " sinking [npc.her] [npc.cock+] deep into your [pc.breast] before frantically thrusting in and out of your [pc.nipple+].",
 							
 					"[npc.Name] reaches down to roughly grab your head, causing you to let out a startled cry as [npc.she] starts forcefully slamming [npc.her] [npc.cock+] in and out of your [pc.nipple+].",

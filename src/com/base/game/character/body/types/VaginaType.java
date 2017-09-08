@@ -117,7 +117,7 @@ public enum VaginaType implements BodyPartTypeInterface {
 
 	@Override
 	public String getDescriptor(GameCharacter gc) {
-		// Randomly give a type-specific, wetness, or capcity descriptor:
+		// Randomly give a type-specific, wetness, or capacity descriptor:
 		switch(Util.random.nextInt(3)){
 			case 0:
 				switch(this){

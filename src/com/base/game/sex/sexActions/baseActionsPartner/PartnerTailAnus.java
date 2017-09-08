@@ -741,7 +741,7 @@ public class PartnerTailAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex(); // Partner can only stop if they're in charge (otherwise, this is the player fucking themselves on the parnter's cock).
+			return !Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex(); // Partner can only stop if they're in charge (otherwise, this is the player fucking themselves on the partner's cock).
 		}
 		
 		@Override
@@ -1113,7 +1113,7 @@ public class PartnerTailAnus {
 
 		@Override
 		public String getActionDescription() {
-			return "EAgerly buck your hips to help thrust [npc.name]'s [npc.tail] deep into your [pc.asshole].";
+			return "Eagerly buck your hips to help thrust [npc.name]'s [npc.tail] deep into your [pc.asshole].";
 		}
 
 		@Override

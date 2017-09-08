@@ -1522,7 +1522,7 @@ public class CharacterCreation {
 
 					+ "Your background will influence your starting core attributes. While attributes can be temporarily modified by many items in the game, core attributes are a lot harder to change.</br></br>"
 
-					+ "Attribute-based perks can be earnt through core attribute values, plus any bonus modifiers you have."
+					+ "Attribute-based perks can be earned through core attribute values, plus any bonus modifiers you have."
 					+ " For example, if your items boost your strength to 100, you will get the maximum strength status effect.</br></br>"
 
 					+ "You can hover your mouse over the attributes panel on the left of the screen for information relating to your attributes."

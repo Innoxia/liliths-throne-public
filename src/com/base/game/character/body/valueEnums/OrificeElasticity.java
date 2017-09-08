@@ -28,7 +28,7 @@ public enum OrificeElasticity {
 	/**Normal value, along with THREE_FLEXIBLE. Is somewhat resistant to being stretched out.*/
 	FOUR_LIMBER("limber", 4, 0.25f),
 
-	/*-------STRECHY:---------*/
+	/*-------STRETCHY:---------*/
 	
 	/**Stretches out fairly quickly.*/
 	FIVE_STRETCHY("stretchy", 5, 0.3f),

@@ -115,7 +115,7 @@ public class Face implements BodyPartInterface, Serializable {
 				UtilText.transformationContentSB.append(
 						"<p>"
 							+ "An intense tingling sensation suddenly sweeps across [npc.name]'s [npc.face], and [npc.she] scrunches up [npc.her] [npc.eyes] as [npc.she] feels it start to transform."
-							+ " With an audible crunch, [npc.her] facial bones start to restructure themselves, and although the feeling isn't painful, it's enough of a shock to cause [npc.herhim] to let out an involuntary cry.");
+							+ " With an audible crunch, [npc.her] facial bones start to restructure themselves, and although the feeling isn't painful, it's enough of a shock to cause [npc.herHim] to let out an involuntary cry.");
 			}
 		}
 

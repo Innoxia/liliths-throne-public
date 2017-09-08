@@ -244,7 +244,7 @@ public class CityPlaces {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			UtilText.nodeContentSB.append("<p>"
-					+ "You find yourself walking through labrynthine alleyways, with not a soul in sight."
+					+ "You find yourself walking through labyrinthine alleyways, with not a soul in sight."
 					+ " Back-doors and steaming vents line the dark brick walls, and you often have to navigate around overflowing bins and stacks of empty crates in order to make progress."
 					+ " These less-travelled parts of Dominion have a dangerous feel to them, and you can't shake the feeling that you're being followed."
 					+ "</p>");
@@ -366,7 +366,7 @@ public class CityPlaces {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			UtilText.nodeContentSB.append("<p>"
-						+ "You find yourself walking through labrynthine alleyways, with not a soul in sight."
+						+ "You find yourself walking through labyrinthine alleyways, with not a soul in sight."
 						+ " Back-doors and steaming vents line the dark brick walls, and you often have to navigate around overflowing bins and stacks of empty crates in order to make progress."
 						+ " You're far away from the safety of the main street, and you can't shake the feeling that there's something <b>extremely dangerous</b> lurking around the next corner..."
 					+ "</p>");

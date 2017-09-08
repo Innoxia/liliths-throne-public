@@ -235,7 +235,7 @@ public class HarpyBimbo extends NPC {
 				@Override
 				public void effects() {
 					Main.game.getDialogueFlags().bimboPacified = true;
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MARTRIARCH_BIMBO_LOLLIPOP), false));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP), false));
 				}
 				@Override
 				public QuestLine getQuestLine() {
