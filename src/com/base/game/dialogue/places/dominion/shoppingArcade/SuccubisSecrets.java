@@ -701,7 +701,7 @@ public class SuccubisSecrets {
 					description = "This is the skin that's currently covering your nipples and areolae. The secondary colour determines what your nipples' inner-walls look like (if they are fuckable).";
 					
 				} else if(bct == BodyCoveringType.MOUTH) {
-					title = "Lips & throat";
+					title = "Lips & Throat";
 					if(Main.game.getPlayer().getFaceType() == FaceType.HARPY) {
 						description = "This is the colour of your beak. The secondary colour determines what the insides of your mouth and throat look like.";
 					} else {
@@ -781,21 +781,21 @@ public class SuccubisSecrets {
 				+ "<h6 style='text-align:center;'>"
 					+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 				+ "</h6>"
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.EAR, "Ear piercing", "Ears are the most common area of the body that are pierced, and enable the equipping of earrings and other ear-related jewellery.")
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.EAR, "Ear Piercing", "Ears are the most common area of the body that are pierced, and enable the equipping of earrings and other ear-related jewellery.")
 
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.NOSE, "Nose piercing", "Having a nose piercing allows you to equip jewellery such as nose rings or studs.")
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.NOSE, "Nose Piercing", "Having a nose piercing allows you to equip jewellery such as nose rings or studs.")
 				
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.LIP, "Lip piercing", "Lip piercings allow you to wear lip rings.")
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.LIP, "Lip Piercing", "Lip piercings allow you to wear lip rings.")
 				
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.NAVEL, "Navel piercing", "Getting your navel (belly button) pierced allows you to equip navel-related jewellery.")
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.NAVEL, "Navel Piercing", "Getting your navel (belly button) pierced allows you to equip navel-related jewellery.")
 				
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.TONGUE, "Tongue piercing", "Getting a tongue piercing will allow you to equip tongue bars.")
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.TONGUE, "Tongue Piercing", "Getting a tongue piercing will allow you to equip tongue bars.")
 				
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.NIPPLE, "Nipple piercing", "Nipple piercings will allow you to equip nipple bars.")
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.NIPPLE, "Nipple Piercing", "Nipple piercings will allow you to equip nipple bars.")
 				
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.PENIS, "Penis piercing", "Ow.")
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.PENIS, "Penis Piercing", "Ow.")
 				
-				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.VAGINA, "Vagina piercing", "Ow.");
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.VAGINA, "Vagina Piercing", "Ow.");
 		
 		}
 
