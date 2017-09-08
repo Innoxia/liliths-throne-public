@@ -1498,9 +1498,9 @@ public class CharacterModificationUtils {
 										: "[style.colourBad("+SuccubisSecrets.getPiercingCost(type)+")]")
 								:"[style.colourDisabled("+title+" "+Main.game.getCurrencySymbol()+" "+SuccubisSecrets.getPiercingCost(type)+")]")
 						+"</h5>"
-//						+ "<p style='text-align:center;'>"
-//							+ description
-//						+ "</p>"
+						+ "<p style='text-align:center;'>"
+							+ description
+						+ "</p>"
 					+ "</div>"
 					+ "<div class='cosmetics-inner-container right'>");
 		
