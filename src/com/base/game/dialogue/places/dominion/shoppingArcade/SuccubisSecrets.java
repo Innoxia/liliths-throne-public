@@ -651,10 +651,10 @@ public class SuccubisSecrets {
 					+ "</h6>"
 					+CharacterModificationUtils.getKatesDivHairLengths("Hair Length", "Hair length determines what hair styles you're able to have. The longer the hair, the more styles are available.")
 
-					+CharacterModificationUtils.getKatesDivHairStyles("Hair Style", "Hair style availability is determined by your hair length..")
+					+CharacterModificationUtils.getKatesDivHairStyles("Hair Style", "Hair style availability is determined by your hair length.")
 					
 					+CharacterModificationUtils.getKatesDivCoverings(
-							Main.game.getPlayer().getHairCovering().getType(), "[pc.Hair] colour", "All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
+							Main.game.getPlayer().getHairCovering().getType(), "[pc.Hair] Colour", "All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
 					;
 		}
 		
