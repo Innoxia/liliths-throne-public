@@ -177,15 +177,15 @@ public class Game implements Serializable {
 		
 		lilaya = new Lilaya();
 		NPCList.add(lilaya);
-		lilaya.addRelationship(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+		lilaya.setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 		
 		rose = new Rose();
 		NPCList.add(rose);
-		rose.addRelationship(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+		rose.setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 		lilaya.addSlave(rose);
 		rose.setObedience(ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMedianValue());
-		lilaya.addRelationship(rose, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-		rose.addRelationship(lilaya, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+		lilaya.setAffection(rose, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+		rose.setAffection(lilaya, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
 		
 		brax = new Brax();
 		NPCList.add(brax);
@@ -193,8 +193,8 @@ public class Game implements Serializable {
 		candiReceptionist = new CandiReceptionist();
 		NPCList.add(candiReceptionist);
 
-		brax.addRelationship(candiReceptionist, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
-		candiReceptionist.addRelationship(brax, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+		brax.setAffection(candiReceptionist, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+		candiReceptionist.setAffection(brax, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
 		
 		ralph = new Ralph();
 		NPCList.add(ralph);
@@ -220,9 +220,9 @@ public class Game implements Serializable {
 		alexa = new Alexa();
 		NPCList.add(alexa);
 		
-		alexa.addRelationship(scarlett, AffectionLevel.NEGATIVE_FOUR_HATE.getMedianValue());
-		scarlett.addRelationship(alexa, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-		scarlett.addRelationship(Main.game.getPlayer(), AffectionLevel.NEGATIVE_TWO_DISLIKE.getMedianValue());
+		alexa.setAffection(scarlett, AffectionLevel.NEGATIVE_FOUR_HATE.getMedianValue());
+		scarlett.setAffection(alexa, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+		scarlett.setAffection(Main.game.getPlayer(), AffectionLevel.NEGATIVE_TWO_DISLIKE.getMedianValue());
 		
 		harpyBimbo = new HarpyBimbo();
 		NPCList.add(harpyBimbo);
@@ -230,8 +230,8 @@ public class Game implements Serializable {
 		harpyBimboCompanion = new HarpyBimboCompanion();
 		NPCList.add(harpyBimboCompanion);
 
-		harpyBimbo.addRelationship(harpyBimboCompanion, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-		harpyBimboCompanion.addRelationship(harpyBimbo, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
+		harpyBimbo.setAffection(harpyBimboCompanion, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+		harpyBimboCompanion.setAffection(harpyBimbo, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
 		
 		harpyDominant = new HarpyDominant();
 		NPCList.add(harpyDominant);
@@ -239,8 +239,8 @@ public class Game implements Serializable {
 		harpyDominantCompanion = new HarpyDominantCompanion();
 		NPCList.add(harpyDominantCompanion);
 
-		harpyDominant.addRelationship(harpyDominantCompanion, AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
-		harpyDominantCompanion.addRelationship(harpyDominant, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
+		harpyDominant.setAffection(harpyDominantCompanion, AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+		harpyDominantCompanion.setAffection(harpyDominant, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
 		
 		harpyNympho = new HarpyNympho();
 		NPCList.add(harpyNympho);
@@ -248,8 +248,8 @@ public class Game implements Serializable {
 		harpyNymphoCompanion = new HarpyNymphoCompanion();
 		NPCList.add(harpyNymphoCompanion);
 
-		harpyNympho.addRelationship(harpyNymphoCompanion, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-		harpyNymphoCompanion.addRelationship(harpyNympho, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
+		harpyNympho.setAffection(harpyNymphoCompanion, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+		harpyNymphoCompanion.setAffection(harpyNympho, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
 		
 		pazu = new Pazu();
 		NPCList.add(pazu);

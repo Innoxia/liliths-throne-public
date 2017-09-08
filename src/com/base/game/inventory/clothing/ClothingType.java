@@ -3345,9 +3345,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"chest_nursing_bra",
-			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_STAMINA, 3),
-					new Value<Attribute, Integer>(Attribute.FITNESS, 3)),
+			null,
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,

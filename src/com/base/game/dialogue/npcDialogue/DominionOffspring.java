@@ -183,7 +183,7 @@ public class DominionOffspring {
 				return new Response("Hug", "Hug [npc.name].", OFFSPRING_ENCOUNTER_PHYSICAL) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getCurrentRandomAttacker().incrementRelationshipAffection(Main.game.getPlayer(), 3));
+						Main.game.getTextEndStringBuilder().append(Main.game.getCurrentRandomAttacker().incrementAffection(Main.game.getPlayer(), 3));
 					}
 				};
 				
@@ -191,7 +191,7 @@ public class DominionOffspring {
 				return new Response("Small talk", "Chat about this and that with [npc.name].", OFFSPRING_ENCOUNTER_MINOR) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getCurrentRandomAttacker().incrementRelationshipAffection(Main.game.getPlayer(), 1));
+						Main.game.getTextEndStringBuilder().append(Main.game.getCurrentRandomAttacker().incrementAffection(Main.game.getPlayer(), 1));
 					}
 				};
 				
@@ -215,7 +215,7 @@ public class DominionOffspring {
 							+ "</p>") {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getCurrentRandomAttacker().incrementRelationshipAffection(Main.game.getPlayer(), 10));
+							Main.game.getTextEndStringBuilder().append(Main.game.getCurrentRandomAttacker().incrementAffection(Main.game.getPlayer(), 10));
 						}
 					};
 				} else {

@@ -4,7 +4,7 @@ import com.base.utils.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.84
  * @author Innoxia
  */
 public enum Femininity {
@@ -70,5 +70,9 @@ public enum Femininity {
 
 	public Colour getColour() {
 		return colour;
+	}
+	
+	public boolean isFeminine() {
+		return this != MASCULINE && this != MASCULINE_STRONG;
 	}
 }

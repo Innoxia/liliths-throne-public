@@ -2892,7 +2892,7 @@ public class GameCharacter implements Serializable {
 	
 	//TODO Improve isFeminine method to take into account knowledge of the character's gender.
 	public boolean isFeminine() {
-		boolean isFeminine = true;
+		boolean isFeminine = body.isFeminine();
 		
 		if(Femininity.valueOf(getFemininity()) == Femininity.ANDROGYNOUS) {
 			switch(Main.getProperties().androgynousIdentification){
@@ -2911,11 +2911,11 @@ public class GameCharacter implements Serializable {
 				default:
 					break;
 			}
-//			System.out.println("fem: "+isFeminine +"   "+getClothingAverageFemininity());
-			return isFeminine;
-		} else {
-			return body.getGender().isFeminine();
 		}
+//		else {
+//			return body.getGender().isFeminine();
+//		}
+		return isFeminine;
 	}
 
 

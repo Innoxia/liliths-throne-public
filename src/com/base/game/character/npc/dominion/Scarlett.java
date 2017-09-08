@@ -1,6 +1,8 @@
 package com.base.game.character.npc.dominion;
 
 import com.base.game.character.NameTriplet;
+import com.base.game.character.Quest;
+import com.base.game.character.QuestLine;
 import com.base.game.character.SexualOrientation;
 import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.BodyCoveringType;
@@ -12,6 +14,7 @@ import com.base.game.character.race.RacialBody;
 import com.base.game.combat.Attack;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
+import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.AbstractClothingType;
@@ -23,7 +26,7 @@ import com.base.world.places.SlaverAlley;
 
 /**
  * @since 0.1.75
- * @version 0.1.78
+ * @version 0.1.84
  * @author Innoxia
  */
 public class Scarlett extends NPC {
@@ -71,6 +74,20 @@ public class Scarlett extends NPC {
 	}
 	
 	@Override
+	public String getDescription() {
+		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
+			return UtilText.parse(this,
+					"Once the owner of a shop in Slaver Alley, Scarlett is now a slave [npc.herself]."
+					+ " Rude, loud, and quick to anger, [npc.she] isn't a very pleasant person to have to deal with.");
+			
+		} else {
+			return UtilText.parse(this,
+					"Scarlett is the owner of the rather unoriginally named establishment 'Scarlett's shop'."
+							+ " Rude, loud, and quick to anger, [npc.she] isn't a very pleasant person to have to deal with.");
+		}
+	}
+	
+	@Override
 	public String getSpeechColour() {
 		if(Main.getProperties().lightTheme) {
 			return "#FA0060";
@@ -81,6 +98,12 @@ public class Scarlett extends NPC {
 
 	@Override
 	public void applyReset() {
+		this.equipClothingFromNowhere(underwear, true, this);
+		this.equipClothingFromNowhere(bra, true, this);
+		this.equipClothingFromNowhere(torso, true, this);
+		this.equipClothingFromNowhere(skirt, true, this);
+		this.equipClothingFromNowhere(neck, true, this);
+		this.equipClothingFromNowhere(ear, true, this);
 	}
 	
 	@Override
@@ -98,7 +121,7 @@ public class Scarlett extends NPC {
 			applyReset();
 	}
 
-	// Combat (you never fight Rose):
+	// Combat (you never fight):
 	@Override
 	public String getCombatDescription() {
 		return null;

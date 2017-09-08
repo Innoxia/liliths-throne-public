@@ -152,8 +152,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		credits.add(new CreditsSlot("Anonymous", "", 0, 0, 1, 2));
-		// A. L2 | C.C. R1
+		credits.add(new CreditsSlot("Anonymous", "", 0, 0, 2, 2));
+		// A. L2 | C.C. R1 | G. R1
 		
 		credits.add(new CreditsSlot("Spookermen", "", 0, 0, 0, 2));
 		credits.add(new CreditsSlot("Wolfregis", "", 0, 0, 0, 2));
@@ -191,10 +191,11 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("V.", "", 0, 0, 0, 1)); // TODO
 		credits.add(new CreditsSlot("P.", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("R.S.", "", 0, 0, 0, 1)); // TODO
-		credits.add(new CreditsSlot("O.", "", 0, 0, 0, 1)); // TODO
+		credits.add(new CreditsSlot("Odd8Ball", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("A.S.", "", 0, 0, 0, 1)); // TODO
-		credits.add(new CreditsSlot("C.", "", 0, 0, 0, 1)); // TODO
+		credits.add(new CreditsSlot("Calrak", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("C.T.", "", 0, 0, 0, 1)); // TODO
+		credits.add(new CreditsSlot("Torsten015", "", 0, 0, 0, 1)); // TODO
 		
 		credits.add(new CreditsSlot("Nelson Adams", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Swift Shot", "", 0, 0, 2, 0));
@@ -213,7 +214,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("William Brown", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("waaaghkus", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("B.", "", 0, 0, 2, 0)); // TODO
+		credits.add(new CreditsSlot("BRobort", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Pokys", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Niko", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Arkhan", "", 0, 0, 2, 0));
@@ -224,7 +225,6 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("ForeverFree2MeTaMax", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Jordan Aitken", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("B.", "", 0, 0, 2, 0)); // TODO
-		credits.add(new CreditsSlot("P.F.", "", 0, 0, 1, 0)); // TODO
 		credits.add(new CreditsSlot("Farseeker", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Rakesh", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Spaghetti Code", "", 0, 0, 1, 0));
@@ -236,15 +236,14 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("B.", "", 0, 0, 1, 0)); // TODO
 		credits.add(new CreditsSlot("G.", "", 0, 0, 1, 0)); // TODO
 		credits.add(new CreditsSlot("Cursed Rena", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("G.", "", 0, 0, 1, 0)); // TODO
 		credits.add(new CreditsSlot("L.B.", "", 0, 0, 1, 0)); // TODO
-		credits.add(new CreditsSlot("G.", "", 0, 0, 1, 0)); // TODO
-		credits.add(new CreditsSlot("S.M.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("Georgio154", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Crow Invictus", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("D.D.", "", 0, 0, 1, 0)); // TODO
 		credits.add(new CreditsSlot("K.", "", 0, 0, 1, 0)); // TODO
 		credits.add(new CreditsSlot("R.", "", 0, 0, 1, 0)); // TODO
 		credits.add(new CreditsSlot("A.", "", 0, 0, 1, 0)); // TODO
-		credits.add(new CreditsSlot("T.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("Isidoros", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("N.L.", "", 0, 0, 1, 0)); // TODO
 		credits.add(new CreditsSlot("Burt", "", 0, 0, 1, 0));
 		

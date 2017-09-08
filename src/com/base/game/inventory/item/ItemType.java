@@ -1685,10 +1685,7 @@ public class ItemType {
 			null,
 			null) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -1717,15 +1714,15 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (target == Main.game.getPlayer()) {
 				return "<p>"
-						+ "You drink the potion."
+							+ "After gulping down the sweet liquid, you feel a strange tingling feeling spreading throughout your body as the potion's effects start to make themselves known..."
 						+ "</p>";
 				
 			} else {
 				return UtilText.parse(target,
 						"<p>"
-						+ "[npc.Name] drinks the potion."
+							+ "After gulping down the sweet liquid, a strange tingling feeling spreads throughout [npc.name]'s body as the potion's effects start to make themselves known..."
 						+ "</p>");
 			}
 		}
@@ -1742,10 +1739,7 @@ public class ItemType {
 			null,
 			null) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -1774,15 +1768,15 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (target == Main.game.getPlayer()) {
 				return "<p>"
-						+ "You drink the potion."
+							+ "After gulping down the sweet liquid, you feel a strange tingling feeling spreading throughout your body as the elixir's effects start to make themselves known..."
 						+ "</p>";
 				
 			} else {
 				return UtilText.parse(target,
 						"<p>"
-						+ "[npc.Name] drinks the potion."
+							+ "After gulping down the sweet liquid, a strange tingling feeling spreads throughout [npc.name]'s body as the elixir's effects start to make themselves known..."
 						+ "</p>");
 			}
 		}

@@ -23,7 +23,12 @@
 	
 	Gameplay:
 		<b>Changed:</b> Encyclopedia entries for clothing, items, weapons, and races are now stored in the properties file, so discoveries are carried over between characters.
+		<b>Added:</b> Forced transformations by random NPCs after combat loss. (You'll need to turn this on in the content preferences first.) (Also, it's only working for the alleyway attackers and harpies in the Nests at the moment.)
+		Transformation fetish now increases the amount of forced transformations applied after combat defeat from 1 to 3.
+		Finished Alexa/Scarlett's quest content. (More Alexa content related to her shop will be added soon.)
 		Reduced the size of Lilaya's home to make navigation more manageable. (I'll add in the larger version later on as an upgrade to the house.)
+		Made the nursing bra have random enchantments.
+		Added the hair styles: mohawk, sidecut.
 	
 	Sex:
 		Finished converting old cowgirl position descriptions into the new one.
@@ -32,6 +37,11 @@
 	UI:
 		Fixed the annoying way the screen would jump back to the top every time you clicked a button (e.g. in preferences menu).
 		Remade all the options in Kate's shop to use proper buttons. (I'll use this system for the character creation menu as well.)
+		Moved content preferences into its own option in the main menu to make it more obvious.
+		
+	Bugs:
+		Fixed some typos.
+		Fixed some incorrect descriptions in the selfie view.
 	
 	Contributors:
 		
@@ -72,6 +82,7 @@
 			
 		Rfpnj:
 			Expanded and reorganised the Library in Lilaya's house.
+			Added green skin for demons.
 		
 		CognitiveMist:
 			Code cleanup, involving:
@@ -96,15 +107,22 @@
 	
 	
 	
-	Alexa
+	Finish the forced transformation content.
+		Harpies
 	
-	X Finish Alexa's quest content.
-
+	Add Paizuri, thigh sex, and hotdogging.
+	
+	Keeps on "New entry in your phone" for clothing
+	
+	violet irises
+	
+	quicksave name
+	
+	Bug fixing
+	
 	X Add in some proper dialogue and interactions for the incest content.
-	
-	X Add in some forced transformation content.
 
-	
+	Watch hands in AbstractClothingType!
 	
 	Other things
 	
@@ -112,6 +130,9 @@
 	
 	Add cloaca descriptions
 	
+	Improve forced TF descritions
+	
+	eye TF racial modifiers
 	
 	Description for anal fingering describes my character's fingers rather than the dom's.
 	
@@ -539,7 +560,6 @@ When it should be an indication that I'm gaining testicles, and the three messag
 	cowboy hat
 	Belt top... literally wearing a belt that coveres no more than the nipples
 	Is a tube top a thing? i havent seen one yet
-	An item that covers multiple slots should have 'multiple' or maybe 'multiplied' effects on it. As of right now, multi slot items are statistically negative to wear
 	
 	There will need to be a system in place to handle multiple penetrators in one orifice
 		Need to use capacity to determine what can fit
@@ -1324,10 +1344,6 @@ Also noticed the Stop partner self action option disappears.
 	
 	I'll probably do as you suggest, and add in a 1 or 2 day timer before NPCs get new clothes.
 	
-	Ah ok. Hmm could you maybe stop them from putting on new outfits that block off the slots of clothing they already wearing? @Innoxia 
-		Heh right now I'm stealing their clothes until they put on clothes i like but when they put on new clothes that blocks slots they already had filled they lose the clothes that used to be in that slot
-	
-	
 	Would be nice to have a bit better highlighting on perks you've already taken.
 	
 	It should probably be possible to call for Rose from your room
@@ -1505,8 +1521,6 @@ Also noticed the Stop partner self action option disappears.
 	Ralph romance
 	
 	font style switcher
-	
-	I'll make clothing that occupies multiple slots have stronger enchantments, good suggestion ^^
 	
 	And I'll be adding a way to upgrade potions into full-tf versions.
 	

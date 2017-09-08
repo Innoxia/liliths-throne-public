@@ -9,6 +9,7 @@ import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseCombat;
 import com.base.game.dialogue.responses.ResponseSex;
 import com.base.game.dialogue.utils.UtilText;
+import com.base.game.inventory.item.AbstractItem;
 import com.base.game.sex.Sex;
 import com.base.game.sex.SexPace;
 import com.base.game.sex.managers.universal.SMDomStanding;
@@ -424,21 +425,142 @@ public class DominionAlleywayAttacker {
 
 		@Override
 		public String getContent() {
+			
 			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer()) {
-				return UtilText.parse(Main.game.getCurrentRandomAttacker(),
-						"<p>"
-							+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
-							+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
-						+ "</p>"
-						+ "<p>"
-							+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down to grab one of your [pc.arms]."
-						+ "</p>"
-						+ "<p>"
-							+ "Pulling you to your feet, [npc.name] starts grinding [npc.herself] up against you, [npc.moaning] into your [pc.ear] as [npc.she] starts groping your body."
-						+ "</p>"
-						+ "<p>"
-							+ "[npc.speech(Don't try anything bitch! <i>I'm</i> the one in charge here!)] [npc.she] growls, before pulling you into a forceful kiss."
-						+ "</p>");
+				
+				if(Main.game.isForcedTFEnabled()) {
+					
+					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
+						UtilText.nodeContentSB.setLength(0);
+						
+						Util.Value<String, AbstractItem> potion = Main.game.getCurrentRandomAttacker().generateTransformativePotion();
+						UtilText.nodeContentSB.append(
+								UtilText.parse(Main.game.getCurrentRandomAttacker(),
+									"<p>"
+										+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
+										+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
+									+ "</p>"
+									+ "<p>"
+										+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down and pushing you to the ground."
+									+ "</p>"
+									+ "<p>"
+										+ "As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side, grinning,"
+										+ " [npc.speech(I think you could do with some <i>improvements</i>!)]"
+									+ "</p>"
+									+ "<p>"
+										+ "[npc.She] pulls out the little stopper from the top of the bottle, and as you open your mouth to protest, [npc.she] suddenly shoves the neck into your mouth."
+										+ " You cough and splutter as the sickly-sweet fluid drains down into your throat, and you find yourself desperately gulping down the liquid so as not to choke on it."
+										+ " As you drain the contents of the bottle, [npc.name] grinds [npc.herself] against you, [npc.moaning] into your [pc.ear] as [npc.she] starts groping your body."
+									+ "</p>"
+									+ "<p>"
+										+ "[npc.speech(Good [pc.girl]! Now, let's see the changes take effect!)] [npc.she] growls, before suddenly standing up, and, grabbing you by the [pc.arm], yanking you to your feet."
+										+ " You're far too weak to resist as [npc.she] holds you still, and you notice that there's an especially hungry look in [npc.her] [npc.eyes] as [npc.she] lustfully gazes down at your body, sighing,"
+										+ " [npc.speech("+potion.getKey()+")]"
+									+ "</p>"
+									+ "<p>"
+										+Main.game.getCurrentRandomAttacker().useItem(potion.getValue(), Main.game.getPlayer(), false)
+									+"</p>"));
+
+						potion = Main.game.getCurrentRandomAttacker().generateTransformativePotion();
+						UtilText.nodeContentSB.append(
+								UtilText.parse(Main.game.getCurrentRandomAttacker(),
+									"<p>"
+										+ "You stagger about a little, overwhelmed by the changes that [npc.name] is forcing you to go through."
+										+ " Before you can protest or react to the transformation, [npc.she] suddenly grabs hold of your chin, and you look up to see that [npc.she]'s holding another two bottles of yet more transformative fluids."
+										+ " While you were undergoing your first transformation, [npc.she] was obviously getting these next ones ready, as you see that the stoppers have already been removed from both of them."
+									+ "</p>"
+									+ "<p>"
+										+ "Holding you steady, [npc.she] forces the first bottle into your mouth, and you once more find yourself with no other option but to gulp down the sweet liquid."
+										+ " [npc.Name] laughs as you cough and splutter on the fluid, before growling into your [pc.ear],"
+										+ " [npc.speech("+potion.getKey()+")]"
+									+ "</p>"
+									+ "<p>"
+										+Main.game.getCurrentRandomAttacker().useItem(potion.getValue(), Main.game.getPlayer(), false)
+									+"</p>"));
+						
+						potion = Main.game.getCurrentRandomAttacker().generateTransformativePotion();
+						UtilText.nodeContentSB.append(
+								UtilText.parse(Main.game.getCurrentRandomAttacker(),
+									"<p>"
+										+ "As you struggle to recover from your second transformation, [npc.name] shoves the last of the three bottles into your mouth, forcing yet more of the transformative fluids down your throat."
+										+ " [npc.Name] holds you firmly in [npc.her] grasp, laughing and groping your body as [npc.she] taunts you,"
+										+ " [npc.speech("+potion.getKey()+")]"
+									+ "</p>"
+									+ "<p>"
+										+Main.game.getCurrentRandomAttacker().useItem(potion.getValue(), Main.game.getPlayer(), false)
+									+"</p>"
+									+"<p>"
+										+ "Having forced you to consume all of [npc.her] potions, [npc.name] throws the now-empty bottles to one side, before pulling you into a forceful kiss."
+										+ " You're powerless to resist [npc.her] advances, and as [npc.her] [npc.hands] reach around to give your [pc.ass+] a squeeze, [npc.she] laughs,"
+										+ " [npc.speech(I'll turn you into my perfect little "
+											+"<b style='color:"+Main.game.getCurrentRandomAttacker().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
+												+(Main.game.getCurrentRandomAttacker().getPreferredBody().getGender().getName())
+											+"</b> "
+											+"<b style='color:"+Main.game.getCurrentRandomAttacker().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
+												+(Main.game.getCurrentRandomAttacker().getPreferredBody().getRace().getName())
+											+"</b>"
+											+ "! Now for the real fun!)]"
+									+ "</p>"));
+						
+						return UtilText.nodeContentSB.toString();
+						
+					} else {
+						Util.Value<String, AbstractItem> potion = Main.game.getCurrentRandomAttacker().generateTransformativePotion();
+						return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+								"<p>"
+									+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
+									+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
+								+ "</p>"
+								+ "<p>"
+									+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down and pushing you to the ground."
+								+ "</p>"
+								+ "<p>"
+									+ "As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side, grinning,"
+									+ " [npc.speech(I think you could do with some <i>improvements</i>!)]"
+								+ "</p>"
+								+ "<p>"
+									+ "[npc.She] pulls out the little stopper from the top of the bottle, and as you open your mouth to protest, [npc.she] suddenly shoves the neck into your mouth."
+									+ " You cough and splutter as the sickly-sweet fluid drains down into your throat, and you find yourself desperately gulping down the liquid so as not to choke on it."
+									+ " As you drain the contents of the bottle, [npc.name] grinds [npc.herself] against you, [npc.moaning] into your [pc.ear] as [npc.she] starts groping your body."
+								+ "</p>"
+								+ "<p>"
+									+ "[npc.speech(Good [pc.girl]! Now, let's see the changes take effect!)] [npc.she] growls, before suddenly standing up, and, grabbing you by the [pc.arm], yanking you to your feet."
+									+ " You're far too weak to resist as [npc.she] holds you still, and you notice that there's an especially hungry look in [npc.her] [npc.eyes] as [npc.she] lustfully gazes down at your body, sighing,"
+									+ " [npc.speech("+potion.getKey()+")]"
+								+ "</p>")
+								+ "<p>"
+									+Main.game.getCurrentRandomAttacker().useItem(potion.getValue(), Main.game.getPlayer(), false)
+								+"</p>"
+								+"<p>"
+									+ "As you struggle to recover from your transformation, [npc.name] throws the now-empty bottle to one side, before pulling you into a forceful kiss."
+									+ " You're powerless to resist [npc.her] advances, and as [npc.her] [npc.hands] reach around to give your [pc.ass+] a squeeze, [npc.she] laughs,"
+									+ " [npc.speech(I'll turn you into my perfect little "
+										+"<b style='color:"+Main.game.getCurrentRandomAttacker().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
+											+(Main.game.getCurrentRandomAttacker().getPreferredBody().getGender().getName())
+										+"</b> "
+										+"<b style='color:"+Main.game.getCurrentRandomAttacker().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
+											+(Main.game.getCurrentRandomAttacker().getPreferredBody().getRace().getName())
+										+"</b>"
+										+ "! Now for the real fun!)]"
+								+ "</p>";
+					}
+					
+				} else {
+					return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+							"<p>"
+								+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
+								+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down to grab one of your [pc.arms]."
+							+ "</p>"
+							+ "<p>"
+								+ "Pulling you to your feet, [npc.name] starts grinding [npc.herself] up against you, [npc.moaning] into your [pc.ear] as [npc.she] starts groping your body."
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech(Don't try anything bitch! <i>I'm</i> the one in charge here!)] [npc.she] growls, before pulling you into a forceful kiss."
+							+ "</p>");
+				}
 				
 			} else {
 				return UtilText.parse(Main.game.getCurrentRandomAttacker(),

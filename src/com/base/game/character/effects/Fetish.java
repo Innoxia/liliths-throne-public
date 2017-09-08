@@ -437,14 +437,13 @@ public enum Fetish {
 		}
 	},
 	
-	FETISH_TRANSFORMATION(60, //TODO
+	FETISH_TRANSFORMATION(60,
 			"transformation",
 			"fetish_transformation",
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Increases</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>potency of forced transformations</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Not yet implemented!</span>")),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Increases</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>potency of forced transformations</span>")),
 			null) {
 
 		@Override

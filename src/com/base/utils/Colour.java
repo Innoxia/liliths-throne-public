@@ -338,8 +338,6 @@ public enum Colour {
 	EYE_PINK(BaseColour.PINK, "pink"),
 	EYE_ORANGE(BaseColour.ORANGE, "orange"),
 	EYE_BLACK(BaseColour.BLACK, "black");
-
-	
 	
 	
 	// Clothing groups:
