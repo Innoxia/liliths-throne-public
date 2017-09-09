@@ -1298,7 +1298,34 @@ public class Game implements Serializable {
 
 		setResponses(currentDialogueNode);
 
-		currentDialogue = savedDialogue;
+		if (currentDialogueNode.reloadOnRestore()) {
+			String headerContent = currentDialogueNode.getHeaderContent();
+			String content = currentDialogueNode.getContent();
+			currentDialogue = "<body onLoad='scrollToElement()'>"
+					+ " <script>function scrollToElement() {"
+					+ "document.getElementById('main-content').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop;"
+			+ "}</script>"
+			+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
+			+ "<div id='main-content'>"
+			+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
+				+ "<div class='div-center'>"
+					+ (headerContent != null
+						? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+							+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
+							+ "</div>"
+						: "") 
+					+ (content != null
+						? "<div id='text-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+						+ pastDialogueSB.toString() + "</div>" : "")
+//							+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+				+ "</div>"
+				+"<div id='bottom-text'>Game saved!</div>"
+			+ "</div>"
+
+		+ "</body>";
+		} else {
+			currentDialogue = savedDialogue;
+		}
 		pastDialogueSB.setLength(0);
 		pastDialogueSB.append(previousPastDialogueSBContents);
 

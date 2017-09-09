@@ -35,7 +35,7 @@ public class Library {
 		@Override
 		public Response getResponse(int main) {
 			if (main == 1) {
-				return new Response("Browse the Stacks", "Read one of the many books available in the library.", BROWSE_BOOKS) {
+				return new Response("Browse the Shelves", "Read one of the many books available in the library.", BROWSE_BOOKS) {
 				};
 
 			} else if (main == 2) {
