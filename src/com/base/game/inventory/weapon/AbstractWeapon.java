@@ -95,12 +95,11 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 	public boolean equals (Object o) {
 		if(super.equals(o)){
 			if(o instanceof AbstractWeapon){
-				if(
-						((AbstractWeapon)o).getWeaponType()==weaponType
-						&& ((AbstractWeapon)o).getDamageType()==damageType
-						&& ((AbstractWeapon)o).getCoreEnchantment()==coreEnchantment
-						&& ((AbstractWeapon)o).getSpells().equals(spells)
-						){
+				if(((AbstractWeapon)o).getWeaponType().equals(weaponType)
+					&& ((AbstractWeapon)o).getDamageType()==damageType
+					&& ((AbstractWeapon)o).getCoreEnchantment()==coreEnchantment
+					&& ((AbstractWeapon)o).getSpells().equals(spells)
+					){
 					return true;
 				}
 			}
