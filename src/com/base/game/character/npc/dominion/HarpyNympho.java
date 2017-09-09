@@ -233,7 +233,7 @@ public class HarpyNympho extends NPC {
 				@Override
 				public void effects() {
 					Main.game.getDialogueFlags().nymphoPacified = true;
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MARTRIARCH_NYMPHO_LOLLIPOP), false));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_NYMPHO_LOLLIPOP), false));
 				}
 				@Override
 				public QuestLine getQuestLine() {

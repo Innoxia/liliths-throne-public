@@ -143,7 +143,7 @@ public enum TFModifier {
 	
 	DAMAGE_POISON(AttributeCategory.CORRUPTION,
 			Attribute.DAMAGE_POISON,
-			"Applies an effect related to the secondary attribute 'Posion damage'.",
+			"Applies an effect related to the secondary attribute 'Poison damage'.",
 			"modifier_circle_damage",
 			Rarity.RARE),
 	
@@ -435,7 +435,7 @@ public enum TFModifier {
 	
 	// modifiers:
 	
-	TF_MOD_ORIFICE_PUFFY("puffyness",
+	TF_MOD_ORIFICE_PUFFY("puffiness",
 			"Applies an effect related to making an orifice puffy.",
 			"puffy",
 			"modifier_circle_orifice_puffy",

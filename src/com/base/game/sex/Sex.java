@@ -713,7 +713,7 @@ public enum Sex {
 			} else if (index < availableSexActionsPlayer.size() && availableSexActionsPlayer.get(index) != null){
 
 				if(availableSexActionsPlayer.get(index) == SexActionUtility.PLAYER_USE_ITEM){
-					if(sexManager.isItemUseAvalable()) {
+					if(sexManager.isItemUseAvailable()) {
 						return new Response(availableSexActionsPlayer.get(index).getActionTitle(), availableSexActionsPlayer.get(index).getActionDescription(), InventoryDialogue.INVENTORY_MENU,
 								availableSexActionsPlayer.get(index).getFetishesPlayer(),
 								availableSexActionsPlayer.get(index).getCorruptionNeeded(),
@@ -2145,6 +2145,18 @@ public enum Sex {
 		}
 	}
 	
+	// Player breasts:
+	public static boolean isPlayerFreeBreasts() {
+		return getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER)==null;
+	}
+	public static boolean isPlayerBreastsNoPartnerPenetration() {
+		if(getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER)==null) {
+			return true;
+		} else {
+			return getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER).isPlayer();
+		}
+	}
+	
 	// Player mouth:
 	public static boolean isPlayerFreeMouth() {
 		return getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==null && !ongoingPenetrationMap.containsKey(PenetrationType.TONGUE_PLAYER);
@@ -2212,6 +2224,18 @@ public enum Sex {
 			return true;
 		} else {
 			return getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER).isPlayer();
+		}
+	}
+	
+	// Partner breasts:
+	public static boolean isPartnerFreeBreasts() {
+		return getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER)==null;
+	}
+	public static boolean isPartnerBreastsNoPlayerPenetration() {
+		if(getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER)==null) {
+			return true;
+		} else {
+			return getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER).isPlayer();
 		}
 	}
 	

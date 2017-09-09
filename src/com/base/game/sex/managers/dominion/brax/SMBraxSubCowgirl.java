@@ -6,6 +6,19 @@ import com.base.game.sex.managers.SexManagerDefault;
 import com.base.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.base.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.base.game.sex.sexActions.baseActionsMisc.PlayerTalk;
+import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerNipple;
+import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerUrethra;
+import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
+import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisAnus;
+import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisVagina;
+import com.base.game.sex.sexActions.baseActionsPartner.PartnerTailAnus;
+import com.base.game.sex.sexActions.baseActionsPartner.PartnerTailVagina;
+import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerNipple;
+import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
+import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
+import com.base.game.sex.sexActions.baseActionsPlayer.PlayerTailAnus;
+import com.base.game.sex.sexActions.baseActionsPlayer.PlayerTailVagina;
+import com.base.game.sex.sexActions.baseActionsPlayer.PlayerTongueMouth;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
@@ -25,12 +38,12 @@ import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailMouth;
 import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailNipple;
 import com.base.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailVagina;
 import com.base.game.sex.sexActions.dominion.brax.BraxPositioning;
-import com.base.game.sex.sexActions.dominion.brax.SABraxSubCowgirl;
 import com.base.game.sex.sexActions.universal.GenericOrgasms;
+import com.base.game.sex.sexActions.universal.dom.DomCowgirl;
 
 /**
  * @since 0.1.68
- * @version 0.1.79
+ * @version 0.1.84
  * @author Innoxia
  */
 public class SMBraxSubCowgirl extends SexManagerDefault {
@@ -64,8 +77,25 @@ public class SMBraxSubCowgirl extends SexManagerDefault {
 				PartnerSelfNoPen.class,
 				
 				// Scene-specific:
+
+				PlayerTongueMouth.class,
+				PlayerFingerNipple.class,
+				PlayerFingerUrethra.class,
+				PlayerFingerVagina.class,
+				PlayerTailVagina.class,
+				PlayerTailAnus.class,
 				
-				SABraxSubCowgirl.class,
+				PartnerFingerNipple.class,
+				PartnerFingerUrethra.class,
+				PartnerFingerVagina.class,
+				PartnerPenisVagina.class,
+				PartnerPenisAnus.class,
+				PartnerTailVagina.class,
+				PartnerTailAnus.class,
+				
+				DomCowgirl.class,
+				
+//				SABraxSubCowgirl.class,
 				
 				// Positioning:
 				
@@ -111,7 +141,7 @@ public class SMBraxSubCowgirl extends SexManagerDefault {
 	
 	@Override
 	public boolean isPartnerCanRemovePlayersClothes(){
-		return true;
+		return false;
 	}
 
 	@Override

@@ -180,6 +180,31 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
+	public static final DialogueNodeOld ROOM_GARDEN_GROUND_FLOOR = new DialogueNodeOld("Garden-view room", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "As Lilaya and Rose are the only other residents of this grand town-house, the vast majority of these rooms remain unused."
+					+ " Rose seems to be doing an excellent job of keeping them all clean and well-dusted, and from the freshness of the air in here, you can tell that she even takes care to come in and open the windows on a regular basis."
+				+ "</p>"
+				+ "<p>"
+					+ "This particular room has a series of wide, ceiling-height windows set into one wall, which swing open to allow access to and from the adjoining garden courtyard."
+				+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return getRoomResponse(index);
+		}
+	};
+	
 	public static final DialogueNodeOld ROOM_GARDEN = new DialogueNodeOld("Garden-view room", ".", false) {
 		private static final long serialVersionUID = 1L;
 
@@ -195,7 +220,7 @@ public class LilayaHomeGeneric {
 					+ " Rose seems to be doing an excellent job of keeping them all clean and well-dusted, and from the freshness of the air in here, you can tell that she even takes care to come in and open the windows on a regular basis."
 				+ "</p>"
 				+ "<p>"
-					+ "This particular room has a series of large windows set into one wall, which allow a generous amount of natural daylight to flood out into the corridor when the door is left open."
+					+ "This particular room has a series of wide, ceiling-height windows set into one wall, which allow a generous amount of natural daylight to flood out into the corridor when the door is left open."
 					+ " Stepping into the room to glance out of the windows, you find yourself looking down on Lilaya's private garden."
 				+ "</p>";
 		}
@@ -456,6 +481,28 @@ public class LilayaHomeGeneric {
 			return "<p>"
 					+ "The garden courtyard consists of a series of wide, perfectly trimmed grass pathways, each one lined with beds of brightly-coloured flowers."
 					+ " Although Rose is now the one responsible for maintaining it, you guess that Lilaya must have hired a professional company in order to have had this area landscaped so perfectly."
+				+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld FOUNTAIN = new DialogueNodeOld("Water fountain", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "In the very centre of the garden courtyard, a huge, ornate water fountain happily bubbles away with a mind of its own."
+					+ " The structure is made up of a collection of intricate statues; each one of a beautiful woman in some manner of indecent pose."
 				+ "</p>";
 		}
 

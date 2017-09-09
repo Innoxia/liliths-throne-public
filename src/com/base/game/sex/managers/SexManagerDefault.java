@@ -516,6 +516,12 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 								returnableActions.add(action);
 							}
 						}
+						// Paizuri:
+						if((Sex.getPartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS) || Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST_PLAYER)) && action.getAssociatedOrificeType()!=null) {
+							if(action.getAssociatedOrificeType().isBreasts()) {
+								returnableActions.add(action);
+							}
+						}
 						// Vaginal penetration on player:
 						if((Sex.getPartner().hasFetish(Fetish.FETISH_IMPREGNATION) || Sex.getPartner().hasFetish(Fetish.FETISH_SEEDER) || Sex.getPlayerPenetrationRequests().contains(OrificeType.VAGINA_PLAYER))
 								&& action.getAssociatedOrificeType()!=null && action.getAssociatedPenetrationType().isPenis()) {

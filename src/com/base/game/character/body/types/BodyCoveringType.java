@@ -1271,12 +1271,12 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 	private List<Colour> naturalColoursPrimary, dyeColoursPrimary, naturalColoursSecondary, dyeColoursSecondary, allColours, allPrimaryColours, allSecondaryColours;
 	private List<CoveringPattern> naturalPatterns, dyePatterns, allPatterns;
 	private Race race;
-	private boolean isDeafultPlural;
+	private boolean isDefaultPlural;
 
 	private BodyCoveringType(
 			Race race,
 			String determiner,
-			boolean isDeafultPlural,
+			boolean isDefaultPlural,
 			String namePlural,
 			String nameSingular,
 			String descriptor,
@@ -1291,7 +1291,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 		this.namePlural = namePlural;
 		this.nameSingular=nameSingular;
 		this.descriptor = descriptor;
-		this.isDeafultPlural = isDeafultPlural;
+		this.isDefaultPlural = isDefaultPlural;
 		
 		if(naturalPatterns == null) {
 			this.naturalPatterns = new ArrayList<>();
@@ -1374,7 +1374,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 
 	@Override
 	public boolean isDefaultPlural() {
-		return isDeafultPlural;
+		return isDefaultPlural;
 	}
 	
 	@Override

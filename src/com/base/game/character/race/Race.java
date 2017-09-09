@@ -380,7 +380,7 @@ public enum Race {
 			+ "</p>"
 			+ "<p>"
 				+ "Squirrel-morphs, like the other common races, get heavily affected by arcane storms."
-				+ " Being exposed to arcane thunder will make squirrel-boys enter a potent rut, which, when combined with their great speed, makes them a dangerous foe to encounter during an arcane strom."
+				+ " Being exposed to arcane thunder will make squirrel-boys enter a potent rut, which, when combined with their great speed, makes them a dangerous foe to encounter during an arcane storm."
 				+ " Squirrel-girls will react to arcane thunder by going into heat, and will force themselves on anyone they might come across."
 			+ "</p>"
 			+ "<p>"
@@ -414,7 +414,7 @@ public enum Race {
 				+ "Slimes are a humanoid race, able to morph their bodies into different shapes and sizes."
 				+ " Slimes are tolerated in Dominion, as they aren't aggressive and don't cause too many problems."
 				+ " They are typically found near bodies of water, as they require a steady source of liquid to stay healthy."
-				+ " Slimes can change their gender at will, though the vast majority choose to take on a female form, and seeing a male slime is a very rare occurance."
+				+ " Slimes can change their gender at will, though the vast majority choose to take on a female form, and seeing a male slime is a very rare occurrence."
 			+ "</p>",
 
 			"<p>"
@@ -559,7 +559,7 @@ public enum Race {
 	 * +
 	 * " A Royal bee can be found leading a colony of bee-morphs, and they almost never leave the safety of their hive."
 	 * +
-	 * " Their responsibility is to keep the hive funtioning, and they command the complete loyalty and devotion of their colony."
+	 * " Their responsibility is to keep the hive functioning, and they command the complete loyalty and devotion of their colony."
 	 * +
 	 * " They spend most of their time seeing to the needs of the hive's bee-girls, and along with the bee-boys, fuck and pleasure the bee-girls in order to collect their honey-milk."
 	 * +
@@ -572,10 +572,10 @@ public enum Race {
 	 * +
 	 * " The hive's current Queen or King will mate with the chosen bee-morph, forcing them to drink their Royal jelly."
 	 * +
-	 * " This causes the chosen bee-morph to transform into a new Royal bee, who will then leave the hive, taking about a third of the colony's memebers with them.</p>"
+	 * " This causes the chosen bee-morph to transform into a new Royal bee, who will then leave the hive, taking about a third of the colony's members with them.</p>"
 	 * 
 	 * +
-	 * "<p>Royal bees almost never venture out of ther hives, but will attack anyone that manages to break through the colony's bee-boy guards."
+	 * "<p>Royal bees almost never venture out of their hives, but will attack anyone that manages to break through the colony's bee-boy guards."
 	 * +
 	 * " Those that are foolish enough to enter an active bee hive are never heard from again. It has been speculated that such intruders are forcefully"
 	 * + " transformed into another member of the hive.</p>",
@@ -744,7 +744,7 @@ public enum Race {
 	 * " Their legs and arms are covered in smooth grey skin, ending at the thigh and upper arm."
 	 * +
 	 * " A huge shark-like tail grows from above their ass, allowing them to swim at incredible speeds."
-	 * + " All shark morphs are incredibley fit from all the swimming they do."
+	 * + " All shark morphs are incredibly fit from all the swimming they do."
 	 * + " Shark morphs have sharp pointed teeth that they can retract at will."
 	 * +
 	 * " Females typically have very small breasts, streamlining them for swimming."
@@ -866,7 +866,7 @@ public enum Race {
 	 * +
 	 * " The surface dwellers of Dominion do not tolerate their presence, and as such, rat-morphs are found almost exclusively in the undercity of Submission."
 	 * +
-	 * " Occassionally, a gang of rat-morphs will venture to the surface, looking for isolated individuals to overwhelm and rape."
+	 * " Occasionally, a gang of rat-morphs will venture to the surface, looking for isolated individuals to overwhelm and rape."
 	 * +
 	 * " These unlucky victims will be claimed by the leader first, with the rest of the gang soon to follow."
 	 * ,
@@ -948,7 +948,7 @@ public enum Race {
 	 * 
 	 * IMP("imp",
 	 * 
-	 * "Imps are a small, mischievous, tribal race, found primarily in the subterrainian city of Submission."
+	 * "Imps are a small, mischievous, tribal race, found primarily in the subterranean city of Submission."
 	 * +
 	 * " Despite their short stature, Imps are birthed fully mature, and inherit the caliber of intelligence from their mother."
 	 * +
@@ -973,7 +973,7 @@ public enum Race {
 	 * +
 	 * " Imps have a humanoid face, with a pair of small horns breaking out of their forehead."
 	 * +
-	 * " A small, spaded tail grows from above their ass, and a pair of wings grow from their uppder back, allowing them to fly with some effort."
+	 * " A small, spaded tail grows from above their ass, and a pair of wings grow from their upper back, allowing them to fly with some effort."
 	 * +
 	 * " Imps have a demonic penis, the size of which depends on how many other Imps they have absorbed."
 	 * ,
@@ -1006,7 +1006,7 @@ public enum Race {
 	 * +
 	 * " The Alpha will then enslave the broken person, giving them a new name and taking them back to their lair as a sex slave."
 	 * +
-	 * " Thankfully for the residents of Dominion, this is a very rare occurance, as the punishment for an Imp setting foot in Dominion is being transformed into a statue by the nearest demon."
+	 * " Thankfully for the residents of Dominion, this is a very rare occurrence, as the punishment for an Imp setting foot in Dominion is being transformed into a statue by the nearest demon."
 	 * ,
 	 * 
 	 * "An Alpha Imp is exactly the same as a regular Imp, albeit with a larger cock."
@@ -1015,7 +1015,7 @@ public enum Race {
 	 * +
 	 * " Imps have a humanoid face, with a pair of small horns breaking out of their forehead."
 	 * +
-	 * " A small, spaded tail grows from above their ass, and a pair of wings grow from their uppder back, allowing them to fly with some effort."
+	 * " A small, spaded tail grows from above their ass, and a pair of wings grow from their upper back, allowing them to fly with some effort."
 	 * ,
 	 * 
 	 * "The Alpha Imp is seldom seen isolated from his tribe, and as a result is always bold enough to attack isolated individuals."
@@ -1090,7 +1090,7 @@ public enum Race {
 	 * +
 	 * " They are very dangerous and aggressive, and will attack travellers unprovoked."
 	 * +
-	 * " Lamis are known for using hypnotism to force their prey to do whatever they want."
+	 * " Lamias are known for using hypnotism to force their prey to do whatever they want."
 	 * + " Due to this behaviour, Lamias have been forced out of Dominion.",
 	 * 
 	 * "Lamias are humanoid/animal monsters, having a normal-looking Lizard morph upper body, but instead of legs and a tail they possess the lower body of a snake."
@@ -1154,7 +1154,7 @@ public enum Race {
 	 * 
 	 * "Vulpines are humanoid monsters, covered in fur that ranges from dark orange to pure white."
 	 * +
-	 * " They have digitgrade legs, and their hands and feet have leathery pads, with each digit ending in little claws."
+	 * " They have digitigrade legs, and their hands and feet have leathery pads, with each digit ending in little claws."
 	 * +
 	 * " Kitsunes can have up to nine fox-like bushy tails growing from above their ass."
 	 * +
@@ -1203,7 +1203,7 @@ public enum Race {
 	 * "Female bovines are extremely passive, and will usually submit when attacked."
 	 * + " Males, however, will defend themselves." +
 	 * " They are completely unable to use magic." +
-	 * "Males will use physical attacks in comabt, and if a female decides to fight, she will use seduction."
+	 * "Males will use physical attacks in combat, and if a female decides to fight, she will use seduction."
 	 * ,
 	 * 
 	 * " Bovines will breed with any other race." +
@@ -1215,18 +1215,18 @@ public enum Race {
 	 * 
 	 * MINOTAUR("minotaur",
 	 * 
-	 * "Minotaurs are an exclusivelt male humanoid monster race." +
+	 * "Minotaurs are an exclusively male humanoid monster race." +
 	 * " Minotaurs are extremely dominant and aggressive, and will attack almost anything on sight."
 	 * + " As a result, Minotaurs have been driven out of Dominion society." +
 	 * " A minotaur will usually have a herd of submissive Bovines following him everywhere."
 	 * +
 	 * " Minotaurs show a special interest in free Bovines, and after raping them, will force them to join his herd."
 	 * +
-	 * " The minotaur will then forecully transform the Bovine into a hyper-breasted submissive fuck toy."
+	 * " The minotaur will then forcefully transform the Bovine into a hyper-breasted submissive fuck toy."
 	 * ,
 	 * 
 	 * "Minotaurs are humanoid monsters, with a fine layer of fur covering their entire bodies."
-	 * + " Their feet are shaped into hooves and their legs are digitgrade." +
+	 * + " Their feet are shaped into hooves and their legs are digitigrade." +
 	 * " A cow-like tail grows from above their ass." +
 	 * " They have a pair of cow-like ears and a pair of huge horns." +
 	 * " They have anthropomorphic cow-like faces." +
@@ -1313,9 +1313,9 @@ public enum Race {
 	 * ,
 	 * 
 	 * "Wyverns are humanoid, with a human body and face." +
-	 * " The scaley arms of a Wyvern extend into large, leathery wings, giving them the ability to fly."
+	 * " The scaly arms of a Wyvern extend into large, leathery wings, giving them the ability to fly."
 	 * +
-	 * " Their legs are also scaley, starting at mid thigh, and their feet have claws instead of toes."
+	 * " Their legs are also scaly, starting at mid thigh, and their feet have claws instead of toes."
 	 * +
 	 * " Wyverns have a crest instead of hair, and they have a long, lizard-like tail."
 	 * +
@@ -1353,7 +1353,7 @@ public enum Race {
 	 * ,
 	 * 
 	 * "Dragons are humanoid monsters, covered in hard scales." +
-	 * " They have a huge pair of scaley and leathery wings on their back, giving them the ability to fly."
+	 * " They have a huge pair of scaly and leathery wings on their back, giving them the ability to fly."
 	 * + " Their feet and hands have claws on the end of their digits." +
 	 * " Dragons have a crest instead of hair, and they have a long, lizard-like tail."
 	 * +
@@ -1369,7 +1369,7 @@ public enum Race {
 	 * "Dragons breed by laying eggs that can be fertilised by any race." +
 	 * " They will hate-fuck anyone they defeat in combat, with females refusing to become fertilised by what they consider inferior races."
 	 * +
-	 * " Once fertilised eggs hatch, the new Draons will rapidly reach full maturity and leave to make their own way in the ruins."
+	 * " Once fertilised eggs hatch, the new Dragons will rapidly reach full maturity and leave to make their own way in the ruins."
 	 * ,
 	 * 
 	 * RacialBody.DRAGON, Genus.DRAGON, Disposition.UNPREDICTABLE,
@@ -1387,7 +1387,7 @@ public enum Race {
 	 * ,
 	 * 
 	 * "Demons are humanoid, with a human-like face and body." +
-	 * " Their skin will range in colour from dark red to a light lillac." +
+	 * " Their skin will range in colour from dark red to a light lilac." +
 	 * " Demons can change the appearance of their bodies at will, but they will commonly have one or two pairs of horns and a thin spaded tail."
 	 * +
 	 * " When in succubus form, many demons like to morph their legs into black leather reaching up to their thighs, forming their feet into high heels."
@@ -1426,7 +1426,7 @@ public enum Race {
 	 * "Lilin are a humanoid race found everywhere." +
 	 * " Lilin are physically indistinguishable from demons, as both species can alter their bodies at will."
 	 * +
-	 * " The main difference between the two is that Lilin are able to use far more powerful magic than regular demons, and they have the abiltiy to create new demons."
+	 * " The main difference between the two is that Lilin are able to use far more powerful magic than regular demons, and they have the ability to create new demons."
 	 * +
 	 * " Their corruptive aura is also far more potent, and any creature not highly resistant to the dark passion will surrender to their will almost instantly."
 	 * +
@@ -1434,7 +1434,7 @@ public enum Race {
 	 * ,
 	 * 
 	 * "Lilin are humanoid, with a human-like face and body." +
-	 * " Their skin will range in colour from dark red to a light lillac." +
+	 * " Their skin will range in colour from dark red to a light lilac." +
 	 * " Lilin can change the appearance of their bodies at will, but they will commonly have one or two pairs of horns and a thin spaded tail."
 	 * +
 	 * " When in succubus form, many Lilin like to morph their legs into black leather reaching up to their thighs, forming their feet into high heels."

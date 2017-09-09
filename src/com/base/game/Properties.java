@@ -3,7 +3,9 @@ package com.base.game;
 import java.io.File;
 import java.io.Serializable;
 import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -25,11 +27,17 @@ import com.base.game.character.gender.Gender;
 import com.base.game.character.gender.GenderPronoun;
 import com.base.game.character.race.FurryPreference;
 import com.base.game.character.race.Race;
+import com.base.game.inventory.clothing.AbstractClothingType;
+import com.base.game.inventory.clothing.ClothingType;
+import com.base.game.inventory.item.AbstractItemType;
+import com.base.game.inventory.item.ItemType;
+import com.base.game.inventory.weapon.AbstractWeaponType;
+import com.base.game.inventory.weapon.WeaponType;
 import com.base.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.1.82
+ * @version 0.1.84
  * @author Innoxia
  */
 public class Properties implements Serializable {
@@ -43,7 +51,12 @@ public class Properties implements Serializable {
 			forcedTransformationContent = false,
 			facialHairContent = false,
 			pubicHairContent = false,
-			bodyHairContent = false;
+			bodyHairContent = false,
+			
+			newWeaponDiscovered = false,
+			newClothingDiscovered = false,
+			newItemDiscovered = false,
+			newRaceDiscovered = false;
 	
 	public AndrogynousIdentification androgynousIdentification = AndrogynousIdentification.CLOTHING_FEMININE;
 
@@ -54,6 +67,12 @@ public class Properties implements Serializable {
 	public Map<Gender, Integer> genderPreferencesMap;
 
 	public Map<Race, FurryPreference> raceFemininePreferencesMap, raceMasculinePreferencesMap;
+	
+	// Discoveries:
+	private Set<AbstractItemType> itemsDiscovered;
+	private Set<AbstractWeaponType> weaponsDiscovered;
+	private Set<AbstractClothingType> clothingDiscovered;
+	private Set<Race> racesDiscovered, racesAdvancedKnowledge;
 
 	public Properties() {
 		hotkeyMapPrimary = new EnumMap<>(KeyboardAction.class);
@@ -83,6 +102,12 @@ public class Properties implements Serializable {
 			raceFemininePreferencesMap.put(r, FurryPreference.NORMAL);
 			raceMasculinePreferencesMap.put(r, FurryPreference.NORMAL);
 		}
+		
+		itemsDiscovered = new HashSet<>();
+		weaponsDiscovered = new HashSet<>();
+		clothingDiscovered = new HashSet<>();
+		racesDiscovered = new HashSet<>();
+		racesAdvancedKnowledge = new HashSet<>();
 	}
 	
 	public void savePropertiesAsXML(){
@@ -123,6 +148,11 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
+
+			createXMLElementWithValue(doc, settings, "newWeaponDiscovered", String.valueOf(newWeaponDiscovered));
+			createXMLElementWithValue(doc, settings, "newClothingDiscovered", String.valueOf(newClothingDiscovered));
+			createXMLElementWithValue(doc, settings, "newItemDiscovered", String.valueOf(newItemDiscovered));
+			createXMLElementWithValue(doc, settings, "newRaceDiscovered", String.valueOf(newRaceDiscovered));
 			
 			
 			// Game key binds:
@@ -220,6 +250,60 @@ public class Properties implements Serializable {
 				element.setAttributeNode(preference);
 			}
 			
+			// Discoveries:
+			Element itemsDiscovered = doc.createElement("itemsDiscovered");
+			properties.appendChild(itemsDiscovered);
+			for (AbstractItemType itemType : this.itemsDiscovered) {
+				Element element = doc.createElement("itemType");
+				itemsDiscovered.appendChild(element);
+				
+				Attr hash = doc.createAttribute("id");
+				hash.setValue(itemType.getId());
+				element.setAttributeNode(hash);
+			}
+			
+			Element weaponsDiscovered = doc.createElement("weaponsDiscovered");
+			properties.appendChild(weaponsDiscovered);
+			for (AbstractWeaponType weaponType : this.weaponsDiscovered) {
+				Element element = doc.createElement("weaponType");
+				weaponsDiscovered.appendChild(element);
+				
+				Attr hash = doc.createAttribute("id");
+				hash.setValue(weaponType.getId());
+				element.setAttributeNode(hash);
+			}
+			
+			Element clothingDiscovered = doc.createElement("clothingDiscovered");
+			properties.appendChild(clothingDiscovered);
+			for (AbstractClothingType clothingType : this.clothingDiscovered) {
+				Element element = doc.createElement("clothingType");
+				clothingDiscovered.appendChild(element);
+				
+				Attr hash = doc.createAttribute("id");
+				hash.setValue(clothingType.getId());
+				element.setAttributeNode(hash);
+			}
+			
+			Element racesDiscovered = doc.createElement("racesDiscovered");
+			properties.appendChild(racesDiscovered);
+			for (Race race : Race.values()) {
+				Element element = doc.createElement("raceDiscovery");
+				racesDiscovered.appendChild(element);
+				
+				Attr discovered = doc.createAttribute("race");
+				discovered.setValue(race.toString());
+				element.setAttributeNode(discovered);
+				
+				discovered = doc.createAttribute("discovered");
+				discovered.setValue(String.valueOf(this.racesDiscovered.contains(race)));
+				element.setAttributeNode(discovered);
+				
+				discovered = doc.createAttribute("advancedKnowledge");
+				discovered.setValue(String.valueOf(this.racesAdvancedKnowledge.contains(race)));
+				element.setAttributeNode(discovered);
+			}
+			
+			
 			// Write out to properties.xml:
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
@@ -280,6 +364,11 @@ public class Properties implements Serializable {
 				facialHairContent = ((((Element)element.getElementsByTagName("facialHairContent").item(0)).getAttribute("value")).equals("true"));
 				pubicHairContent = ((((Element)element.getElementsByTagName("pubicHairContent").item(0)).getAttribute("value")).equals("true"));
 				bodyHairContent = ((((Element)element.getElementsByTagName("bodyHairContent").item(0)).getAttribute("value")).equals("true"));
+				
+				newWeaponDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newWeaponDiscovered").item(0)).getAttribute("value"));
+				newClothingDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newClothingDiscovered").item(0)).getAttribute("value"));
+				newItemDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newItemDiscovered").item(0)).getAttribute("value"));
+				newRaceDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newRaceDiscovered").item(0)).getAttribute("value"));
 				
 				overwriteWarning = ((((Element)element.getElementsByTagName("overwriteWarning").item(0)).getAttribute("value")).equals("true"));
 				if(element.getElementsByTagName("androgynousIdentification").item(0)!=null) {
@@ -360,9 +449,137 @@ public class Properties implements Serializable {
 						raceMasculinePreferencesMap.put(Race.valueOf(e.getAttribute("race")), FurryPreference.valueOf(e.getAttribute("preference")));
 				}
 				
+				// Discoveries:
+				nodes = doc.getElementsByTagName("itemsDiscovered");
+				element = (Element) nodes.item(0);
+				for(int i=0; i<element.getElementsByTagName("itemType").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("itemType").item(i));
+					
+					if(!e.getAttribute("id").isEmpty()) {
+						itemsDiscovered.add(ItemType.idToItemMap.get(e.getAttribute("id")));
+					}
+				}
+				
+				nodes = doc.getElementsByTagName("weaponsDiscovered");
+				element = (Element) nodes.item(0);
+				for(int i=0; i<element.getElementsByTagName("weaponType").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("weaponType").item(i));
+					
+					if(!e.getAttribute("id").isEmpty()) {
+						weaponsDiscovered.add(WeaponType.idToWeaponMap.get(e.getAttribute("id")));
+					}
+				}
+				
+				nodes = doc.getElementsByTagName("clothingDiscovered");
+				element = (Element) nodes.item(0);
+				for(int i=0; i<element.getElementsByTagName("clothingType").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("clothingType").item(i));
+					
+					if(!e.getAttribute("id").isEmpty()) {
+						clothingDiscovered.add(ClothingType.idToClothingMap.get(e.getAttribute("id")));
+					}
+				}
+				
+				nodes = doc.getElementsByTagName("racesDiscovered");
+				element = (Element) nodes.item(0);
+				for(int i=0; i<element.getElementsByTagName("raceDiscovery").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("raceDiscovery").item(i));
+					
+					if(!e.getAttribute("discovered").isEmpty()) {
+						if(Boolean.valueOf(e.getAttribute("discovered"))) {
+							this.racesDiscovered.add(Race.valueOf(e.getAttribute("race")));
+						}
+					}
+					if(!e.getAttribute("advancedKnowledge").isEmpty()) {
+						if(Boolean.valueOf(e.getAttribute("advancedKnowledge"))) {
+							this.racesAdvancedKnowledge.add(Race.valueOf(e.getAttribute("race")));
+						}
+					}
+				}
+				
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+	}
+	
+	// Add discoveries:
+	
+	public boolean addItemDiscovered(AbstractItemType itemType) {
+		newItemDiscovered = itemsDiscovered.add(itemType);
+		return newItemDiscovered;
+	}
+	
+	public boolean isItemDiscovered(AbstractItemType itemType) {
+		return itemsDiscovered.contains(itemType);
+	}
+	
+	public boolean addClothingDiscovered(AbstractClothingType clothingType) {
+		newClothingDiscovered = clothingDiscovered.add(clothingType);
+		return newClothingDiscovered;
+	}
+	
+	public boolean isClothingDiscovered(AbstractClothingType clothingType) {
+		return clothingDiscovered.contains(clothingType);
+	}
+	
+	public boolean addWeaponDiscovered(AbstractWeaponType weaponType) {
+		newWeaponDiscovered = weaponsDiscovered.add(weaponType);
+		return newWeaponDiscovered;
+	}
+	
+	public boolean isWeaponDiscovered(AbstractWeaponType weaponType) {
+		return weaponsDiscovered.contains(weaponType);
+	}
+	
+	public boolean addRaceDiscovered(Race race) {
+		newRaceDiscovered = racesDiscovered.add(race);
+		return newRaceDiscovered;
+	}
+	
+	public boolean isRaceDiscovered(Race race) {
+		return racesDiscovered.contains(race);
+	}
+	
+	public boolean addAdvancedRaceKnowledge(Race race) {
+		return racesAdvancedKnowledge.add(race);
+	}
+	
+	public boolean isAdvancedRaceKnowledgeDiscovered(Race race) {
+		return racesAdvancedKnowledge.contains(race);
+	}
+	
+	// Getters/Setters for discoveries
+	
+	public boolean isNewWeaponDiscovered() {
+		return newWeaponDiscovered;
+	}
+
+	public void setNewWeaponDiscovered(boolean newWeaponDiscovered) {
+		this.newWeaponDiscovered = newWeaponDiscovered;
+	}
+
+	public boolean isNewClothingDiscovered() {
+		return newClothingDiscovered;
+	}
+
+	public void setNewClothingDiscovered(boolean newClothingDiscovered) {
+		this.newClothingDiscovered = newClothingDiscovered;
+	}
+
+	public boolean isNewItemDiscovered() {
+		return newItemDiscovered;
+	}
+
+	public void setNewItemDiscovered(boolean newItemDiscovered) {
+		this.newItemDiscovered = newItemDiscovered;
+	}
+
+	public boolean isNewRaceDiscovered() {
+		return newRaceDiscovered;
+	}
+
+	public void setNewRaceDiscovered(boolean newRaceDiscovered) {
+		this.newRaceDiscovered = newRaceDiscovered;
 	}
 }

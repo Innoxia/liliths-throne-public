@@ -1123,7 +1123,7 @@ public enum SpecialAttack {
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.genderParsing(caster,
-						"<p>" + caster.getName("The") + " flexs the claws on <her> anthropomorphic squirrel-like hands, and with a quick dash forwards, attempts to strike at you."
+						"<p>" + caster.getName("The") + " flexes the claws on <her> anthropomorphic squirrel-like hands, and with a quick dash forwards, attempts to strike at you."
 								+ (isHit ? " <Her> sharp claws rake over your body, and you let out a surprised cry as <she> quickly jumps back, and smirking at you."
 										: " You see <her> attack coming, and you jump out of the way just in time, leaving <herPro> to swipe at nothing more than thin air.")
 								+ "</p>")

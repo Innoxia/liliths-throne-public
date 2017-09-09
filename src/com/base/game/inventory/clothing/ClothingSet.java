@@ -6,7 +6,6 @@ import com.base.game.character.GameCharacter;
 import com.base.game.character.effects.StatusEffect;
 import com.base.game.combat.SpecialAttack;
 import com.base.game.combat.Spell;
-import com.base.main.Main;
 
 /**
  * @since 0.1.0
@@ -16,25 +15,24 @@ import com.base.main.Main;
 public enum ClothingSet {
 
 	// Hat, gloves, shirt, skirt/shorts, thigh-high boots
-	ENFORCER("Enforcer", StatusEffect.SET_ENFORCER.getDescription(Main.game.getPlayer()), StatusEffect.SET_ENFORCER, 2, null, null),
+	ENFORCER("Enforcer", StatusEffect.SET_ENFORCER, 2, null, null),
 	
-	MAID("Maid", StatusEffect.SET_MAID.getDescription(Main.game.getPlayer()), StatusEffect.SET_MAID, 5, null, null),
+	MAID("Maid", StatusEffect.SET_MAID, 5, null, null),
 	
-	MILK_MAID("Milk Maid", StatusEffect.SET_MILK_MAID.getDescription(Main.game.getPlayer()), StatusEffect.SET_MILK_MAID, 2, null, null),
+	MILK_MAID("Milk Maid", StatusEffect.SET_MILK_MAID, 2, null, null),
 
-	BDSM("BDSM", StatusEffect.SET_BDSM.getDescription(Main.game.getPlayer()), StatusEffect.SET_BDSM, 4, null, null),
+	BDSM("BDSM", StatusEffect.SET_BDSM, 4, null, null),
 
-	RAINBOW("Rainbow", StatusEffect.SET_RAINBOW.getDescription(Main.game.getPlayer()), StatusEffect.SET_RAINBOW, 2, null, null);
+	RAINBOW("Rainbow", StatusEffect.SET_RAINBOW, 2, null, null);
 
-	private String name, description;
+	private String name;
 	private int numberRequiredForCompleteSet;
 	private List<SpecialAttack> specialAttacks;
 	private List<Spell> spells;
 	private StatusEffect associatedStatusEffect;
 
-	private ClothingSet(String name, String description, StatusEffect associatedStatusEffect, int numberRequiredForCompleteSet, List<SpecialAttack> specialAttacks, List<Spell> spells) {
+	private ClothingSet(String name, StatusEffect associatedStatusEffect, int numberRequiredForCompleteSet, List<SpecialAttack> specialAttacks, List<Spell> spells) {
 		this.name = name;
-		this.description = description;
 		this.numberRequiredForCompleteSet = numberRequiredForCompleteSet;
 		this.specialAttacks = specialAttacks;
 		this.spells = spells;
@@ -55,10 +53,6 @@ public enum ClothingSet {
 
 	public String getName() {
 		return name;
-	}
-
-	public String getDescription() {
-		return description;
 	}
 
 	public int getNumberRequiredForCompleteSet() {

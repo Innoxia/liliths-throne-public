@@ -29,7 +29,7 @@ public enum Genus {
 			Colour.CLOTHING_RED), //TODO
 	ARACHNID("arachnoid",
 			Colour.CLOTHING_RED), //TODO
-	AVIAN("aviine",
+	AVIAN("avian",
 			Colour.RACE_HARPY),
 	AQUATIC("aquatic",
 			Colour.CLOTHING_RED), //TODO

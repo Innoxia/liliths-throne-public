@@ -28,7 +28,7 @@ public enum OrificePlasticity {
 	/**Normal value, along with THREE_RESILIENT. Will very slowly return to starting value after sex.*/
 	FOUR_ACCOMMODATING("accommodating", 4, 0),
 
-	/*-------STRECHY:---------*/
+	/*-------STRETCHY:---------*/
 
 	/**Will recover about 80% of its original size after sex.*/
 	FIVE_YIELDING("yielding", 5, 0.2f),

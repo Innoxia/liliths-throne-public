@@ -125,21 +125,21 @@ public class OptionsDialogue {
 				}
 				
 			} else if (index == 3) {
-				return new Response("Options", "Open the options page.", OPTIONS);
-
-			} else if (index == 4) {
-				return new ResponseEffectsOnly("Blog", "Opens the page:</br></br><i>https://lilithsthrone.blogspot.co.uk/</i></br></br><b>Externally in your default browser.</b>"){
+				return new Response("Options", "Open the options page.", OPTIONS){
 					@Override
 					public void effects() {
-						try {
-							Desktop.getDesktop().browse(new URI("https://lilithsthrone.blogspot.co.uk/"));
-						} catch (IOException | URISyntaxException e) {
-							e.printStackTrace();
-						}	
 						confirmNewGame=false;
 						
 					}
-					
+				};
+
+			} else if (index == 4) {
+				return new Response("Content preferences", "Set your preferred content settings.", CONTENT_PREFERENCE){
+					@Override
+					public void effects() {
+						confirmNewGame=false;
+						
+					}
 				};
 			
 			} else if (index == 5) {
@@ -163,6 +163,21 @@ public class OptionsDialogue {
 			} else if (index == 7) {
 				return new Response("Credits", "View the game's credits screen.", CREDITS);
 				
+			} else if (index == 8) {
+				return new ResponseEffectsOnly("Blog", "Opens the page:</br></br><i>https://lilithsthrone.blogspot.co.uk/</i></br></br><b>Externally in your default browser.</b>"){
+					@Override
+					public void effects() {
+						try {
+							Desktop.getDesktop().browse(new URI("https://lilithsthrone.blogspot.co.uk/"));
+						} catch (IOException | URISyntaxException e) {
+							e.printStackTrace();
+						}	
+						confirmNewGame=false;
+						
+					}
+					
+				};
+			
 			} else if (index == 0) {
 				if(Main.game.isStarted()) {
 					return new ResponseEffectsOnly("Resume", "Return to whatever you were doing before opening this menu."){
@@ -461,9 +476,6 @@ public class OptionsDialogue {
 			
 			} else if (index == 8) {
 				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
-			
-			} else if (index == 9) {
-				return new Response("Content preferences", "Set your preferred content settings.", CONTENT_PREFERENCE);
 			
 			} else if (index == 0) {
 				return new Response("Back", "Back to the main menu.", MENU);
@@ -1113,7 +1125,7 @@ public class OptionsDialogue {
 				};
 				
 			} else if (index == 0) {
-				return new Response("Back", "Go back to the options menu.", OPTIONS);
+				return new Response("Back", "Go back to the options menu.", MENU);
 				
 			} else {
 				return null;
@@ -1156,7 +1168,20 @@ public class OptionsDialogue {
 			
 			for(CreditsSlot cs : Main.credits) {
 				if(cs.getLegendaryCount()>0) {
-					UtilText.nodeContentSB.append("</br><b style='color:"+Colour.RARITY_LEGENDARY.toWebHexString()+";'>&#9679</b> "+cs.getName());
+					UtilText.nodeContentSB.append("</br>");
+					for(int i=0; i<cs.getLegendaryCount(); i++) {
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_LEGENDARY.toWebHexString()+";'>&#9679</b> ");
+					}
+					for(int i=0; i<cs.getEpicCount(); i++) {
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>&#9679</b> ");
+					}
+					for(int i=0; i<cs.getRareCount(); i++) {
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_RARE.toWebHexString()+";'>&#9679</b> ");
+					}
+					for(int i=0; i<cs.getUncommonCount(); i++) {
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_UNCOMMON.toWebHexString()+";'>&#9679</b> ");
+					}
+					UtilText.nodeContentSB.append(cs.getName());
 				}
 			}
 			
@@ -1168,7 +1193,17 @@ public class OptionsDialogue {
 			
 			for(CreditsSlot cs : Main.credits) {
 				if(cs.getLegendaryCount()==0 && cs.getEpicCount()>0) {
-					UtilText.nodeContentSB.append("</br><b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>&#9679</b> "+cs.getName());
+					UtilText.nodeContentSB.append("</br>");
+					for(int i=0; i<cs.getEpicCount(); i++) {
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>&#9679</b> ");
+					}
+					for(int i=0; i<cs.getRareCount(); i++) {
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_RARE.toWebHexString()+";'>&#9679</b> ");
+					}
+					for(int i=0; i<cs.getUncommonCount(); i++) {
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_UNCOMMON.toWebHexString()+";'>&#9679</b> ");
+					}
+					UtilText.nodeContentSB.append(cs.getName());
 				}
 			}
 			

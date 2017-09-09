@@ -124,10 +124,10 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return Race.CAT_MORPH.getBasicDescription()
 					+Race.CAT_MORPH.getAdvancedDescription()
-					+(Main.game.getPlayer().addRaceDiscovered(Race.CAT_MORPH)
+					+(Main.getProperties().addRaceDiscovered(Race.CAT_MORPH)
 							?Game.getRaceDiscoveredMessage(Race.CAT_MORPH)
 							:"")
-					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.CAT_MORPH)
+					+(Main.getProperties().addAdvancedRaceKnowledge(Race.CAT_MORPH)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.CAT_MORPH)
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
@@ -178,10 +178,10 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return Race.DEMON.getBasicDescription()
 					+Race.DEMON.getAdvancedDescription()
-					+(Main.game.getPlayer().addRaceDiscovered(Race.DEMON)
+					+(Main.getProperties().addRaceDiscovered(Race.DEMON)
 							?Game.getRaceDiscoveredMessage(Race.DEMON)
 							:"")
-					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.DEMON)
+					+(Main.getProperties().addAdvancedRaceKnowledge(Race.DEMON)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.DEMON)
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
@@ -200,10 +200,10 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return Race.DOG_MORPH.getBasicDescription()
 					+Race.DOG_MORPH.getAdvancedDescription()
-					+(Main.game.getPlayer().addRaceDiscovered(Race.DOG_MORPH)
+					+(Main.getProperties().addRaceDiscovered(Race.DOG_MORPH)
 							?Game.getRaceDiscoveredMessage(Race.DOG_MORPH)
 							:"")
-					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.DOG_MORPH)
+					+(Main.getProperties().addAdvancedRaceKnowledge(Race.DOG_MORPH)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.DOG_MORPH)
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
@@ -222,10 +222,10 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return Race.HARPY.getBasicDescription()
 					+Race.HARPY.getAdvancedDescription()
-					+(Main.game.getPlayer().addRaceDiscovered(Race.HARPY)
+					+(Main.getProperties().addRaceDiscovered(Race.HARPY)
 							?Game.getRaceDiscoveredMessage(Race.HARPY)
 							:"")
-					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.HARPY)
+					+(Main.getProperties().addAdvancedRaceKnowledge(Race.HARPY)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.HARPY)
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
@@ -244,10 +244,10 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return Race.HORSE_MORPH.getBasicDescription()
 					+Race.HORSE_MORPH.getAdvancedDescription()
-					+(Main.game.getPlayer().addRaceDiscovered(Race.HORSE_MORPH)
+					+(Main.getProperties().addRaceDiscovered(Race.HORSE_MORPH)
 							?Game.getRaceDiscoveredMessage(Race.HORSE_MORPH)
 							:"")
-					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.HORSE_MORPH)
+					+(Main.getProperties().addAdvancedRaceKnowledge(Race.HORSE_MORPH)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.HORSE_MORPH)
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
@@ -266,10 +266,10 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return Race.HUMAN.getBasicDescription()
 					+Race.HUMAN.getAdvancedDescription()
-					+(Main.game.getPlayer().addRaceDiscovered(Race.HUMAN)
+					+(Main.getProperties().addRaceDiscovered(Race.HUMAN)
 							?Game.getRaceDiscoveredMessage(Race.HUMAN)
 							:"")
-					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.HUMAN)
+					+(Main.getProperties().addAdvancedRaceKnowledge(Race.HUMAN)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.HUMAN)
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
@@ -288,10 +288,10 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return Race.SQUIRREL_MORPH.getBasicDescription()
 					+Race.SQUIRREL_MORPH.getAdvancedDescription()
-					+(Main.game.getPlayer().addRaceDiscovered(Race.SQUIRREL_MORPH)
+					+(Main.getProperties().addRaceDiscovered(Race.SQUIRREL_MORPH)
 							?Game.getRaceDiscoveredMessage(Race.SQUIRREL_MORPH)
 							:"")
-					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.SQUIRREL_MORPH)
+					+(Main.getProperties().addAdvancedRaceKnowledge(Race.SQUIRREL_MORPH)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.SQUIRREL_MORPH)
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
@@ -310,10 +310,10 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return Race.WOLF_MORPH.getBasicDescription()
 					+Race.WOLF_MORPH.getAdvancedDescription()
-					+(Main.game.getPlayer().addRaceDiscovered(Race.WOLF_MORPH)
+					+(Main.getProperties().addRaceDiscovered(Race.WOLF_MORPH)
 							?Game.getRaceDiscoveredMessage(Race.WOLF_MORPH)
 							:"")
-					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.WOLF_MORPH)
+					+(Main.getProperties().addAdvancedRaceKnowledge(Race.WOLF_MORPH)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.WOLF_MORPH)
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
@@ -572,7 +572,7 @@ public enum ItemEffectType {
 		}
 	},
 	
-	// FItness:
+	// Fitness:
 	
 	FIT_CANINE_CRUSH(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldStamina(stamina)]"),
@@ -801,7 +801,7 @@ public enum ItemEffectType {
 		}
 	},
 	
-	RACE_LOLIPOP(Util.newArrayListOfValues(
+	RACE_LOLLIPOP(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(+5)] [style.boldFitness(fitness)] to 'potion effects'"),
 			new ListValue<>("[style.boldSex(+3)] [style.boldFeminine(femininity)]")),
 			Colour.RACE_WOLF_MORPH) {
@@ -2294,7 +2294,7 @@ public enum ItemEffectType {
 					case TF_MOD_ORIFICE_PUFFY:
 						switch(potency) {
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes puffyness from anal rim.") { @Override public String applyEffect() { return target.removeAssOrificeModifier(OrificeModifier.PUFFY); } };
+								return new RacialEffectUtil("Removes puffiness from anal rim.") { @Override public String applyEffect() { return target.removeAssOrificeModifier(OrificeModifier.PUFFY); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Makes anal rim puffy.") { @Override public String applyEffect() { return target.addAssOrificeModifier(OrificeModifier.PUFFY); } };
 						}
@@ -2465,7 +2465,7 @@ public enum ItemEffectType {
 					case TF_MOD_ORIFICE_PUFFY:
 						switch(potency) {
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes puffyness from nipples.") { @Override public String applyEffect() { return target.removeNippleOrificeModifier(OrificeModifier.PUFFY); } };
+								return new RacialEffectUtil("Removes puffiness from nipples.") { @Override public String applyEffect() { return target.removeNippleOrificeModifier(OrificeModifier.PUFFY); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Makes nipples extra puffy.") { @Override public String applyEffect() { return target.addNippleOrificeModifier(OrificeModifier.PUFFY); } };
 						}
@@ -2644,7 +2644,7 @@ public enum ItemEffectType {
 					case TF_MOD_ORIFICE_PUFFY:
 						switch(potency) {
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes puffyness from lips.") { @Override public String applyEffect() { return target.removeFaceOrificeModifier(OrificeModifier.PUFFY); } };
+								return new RacialEffectUtil("Removes puffiness from lips.") { @Override public String applyEffect() { return target.removeFaceOrificeModifier(OrificeModifier.PUFFY); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Makes lips extra puffy.") { @Override public String applyEffect() { return target.addFaceOrificeModifier(OrificeModifier.PUFFY); } };
 						}
@@ -2956,7 +2956,7 @@ public enum ItemEffectType {
 					case TF_MOD_ORIFICE_PUFFY:
 						switch(potency) {
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes puffyness from urethra.") { @Override public String applyEffect() { return target.removeUrethraOrificeModifier(OrificeModifier.PUFFY); } };
+								return new RacialEffectUtil("Removes puffiness from urethra.") { @Override public String applyEffect() { return target.removeUrethraOrificeModifier(OrificeModifier.PUFFY); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Makes urethra extra puffy.") { @Override public String applyEffect() { return target.addUrethraOrificeModifier(OrificeModifier.PUFFY); } };
 						}
@@ -3090,7 +3090,7 @@ public enum ItemEffectType {
 					case TF_MOD_ORIFICE_PUFFY:
 						switch(potency) {
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes puffyness from labia.") { @Override public String applyEffect() { return target.removeVaginaOrificeModifier(OrificeModifier.PUFFY); } };
+								return new RacialEffectUtil("Removes puffiness from labia.") { @Override public String applyEffect() { return target.removeVaginaOrificeModifier(OrificeModifier.PUFFY); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Makes labia extra puffy.") { @Override public String applyEffect() { return target.addVaginaOrificeModifier(OrificeModifier.PUFFY); } };
 						}

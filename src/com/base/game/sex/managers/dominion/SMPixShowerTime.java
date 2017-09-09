@@ -38,7 +38,7 @@ public class SMPixShowerTime extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isItemUseAvalable() {
+	public boolean isItemUseAvailable() {
 		return false;
 	}
 	

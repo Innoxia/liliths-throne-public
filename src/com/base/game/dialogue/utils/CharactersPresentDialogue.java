@@ -116,11 +116,11 @@ public class CharactersPresentDialogue {
 				+ "<p>"
 					+ "[style.boldAffection(Affection:)]</br>"
 					+ AffectionLevel.getDescription(character, Main.game.getPlayer(),
-							AffectionLevel.getAffectionLevelFromValue(character.getRelationshipAffection(Main.game.getPlayer())), true));
+							AffectionLevel.getAffectionLevelFromValue(character.getAffection(Main.game.getPlayer())), true));
 		
 		for(Entry<GameCharacter, Integer> entry : character.getRelationshipsMap().entrySet()) {
 			if(!entry.getKey().isPlayer()) {
-				infoScreenSB.append("</br>" + AffectionLevel.getDescription(character, entry.getKey(), AffectionLevel.getAffectionLevelFromValue(character.getRelationshipAffection(entry.getKey())), true));
+				infoScreenSB.append("</br>" + AffectionLevel.getDescription(character, entry.getKey(), AffectionLevel.getAffectionLevelFromValue(character.getAffection(entry.getKey())), true));
 			}
 		}
 		

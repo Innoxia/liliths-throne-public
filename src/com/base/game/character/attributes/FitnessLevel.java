@@ -10,7 +10,7 @@ import com.base.utils.Colour;
  */
 public enum FitnessLevel {
 	
-	ZERO_CLUTZ("clutz", 0, 5, Colour.FITNESS_STAGE_ZERO) {
+	ZERO_KLUTZ("klutz", 0, 5, Colour.FITNESS_STAGE_ZERO) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.FITNESS_PERK_0;

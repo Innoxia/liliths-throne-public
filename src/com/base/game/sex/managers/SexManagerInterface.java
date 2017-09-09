@@ -47,7 +47,7 @@ public interface SexManagerInterface {
 	public boolean isPartnerCanRemoveOwnClothes();
 	public boolean isPartnerCanRemovePlayersClothes();
 	
-	public default boolean isItemUseAvalable() {
+	public default boolean isItemUseAvailable() {
 		return true;
 	}
 	

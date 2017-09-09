@@ -20,7 +20,9 @@ import com.base.game.character.body.valueEnums.Lactation;
 import com.base.game.character.body.valueEnums.LipSize;
 import com.base.game.character.body.valueEnums.NippleSize;
 import com.base.game.character.body.valueEnums.PenisSize;
+import com.base.game.character.body.valueEnums.PiercingType;
 import com.base.game.character.body.valueEnums.TesticleSize;
+import com.base.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.utils.Util;
@@ -121,9 +123,15 @@ public class CharacterModificationUtils {
 				setHairStyleIfAvailable(HairStyle.STRAIGHT);
 				break;
 			case STRAIGHT:
+				setHairStyleIfAvailable(HairStyle.MOHAWK);
+				break;
+			case MOHAWK:
 				setHairStyleIfAvailable(HairStyle.WAVY);
 				break;
 			case WAVY:
+				setHairStyleIfAvailable(HairStyle.SIDECUT);
+				break;
+			case SIDECUT:
 				setHairStyleIfAvailable(HairStyle.PONYTAIL);
 				break;
 			case PONYTAIL:
@@ -1051,4 +1059,489 @@ public class CharacterModificationUtils {
 		
 		return stringsToSelection(stringsList);
 	}
+
+	// ---------------------- With buttons: ---------------------- //
+	
+	public static String getKatesDivHairLengths(String title, String description) {
+		contentSB.setLength(0);
+		
+		contentSB.append(
+				"<div class='cosmetics-container'>"
+					+ "<div class='cosmetics-inner-container left'>"
+						+ "<h5 style='text-align:center;'>"
+							+title+" "+UtilText.getColouredMoneySymbol("span")+" "
+								+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_LENGTH_COST
+									? SuccubisSecrets.BASE_HAIR_LENGTH_COST
+									: "[style.colourBad("+SuccubisSecrets.BASE_HAIR_LENGTH_COST+")]")
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ description
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='cosmetics-inner-container right'>");
+		
+		for (HairLength hairLength : HairLength.values()) {
+			if (Main.game.getPlayer().getHairLength() == hairLength) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:" + hairLength.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(hairLength.getDescriptor()) + "</b>"
+						+ "</div>");
+			} else {
+				contentSB.append(
+						"<div id='HAIR_LENGTH_"+hairLength+"' class='cosmetics-button'>"
+								+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_LENGTH_COST
+									? "<span style='color:"+hairLength.getColour().getShades()[0]+";'>" + Util.capitaliseSentence(hairLength.getDescriptor()) + "</span>"
+									: "[style.colourDisabled(" + Util.capitaliseSentence(hairLength.getDescriptor()) + ")]")
+						+ "</div>");
+			}
+		}
+		
+		contentSB.append(
+				"</div>"
+			+ "</div>");
+		
+		return contentSB.toString();
+	}
+	
+	public static String getKatesDivHairStyles(String title, String description) {
+		contentSB.setLength(0);
+		
+		contentSB.append(
+				"<div class='cosmetics-container'>"
+					+ "<div class='cosmetics-inner-container left'>"
+						+ "<h5 style='text-align:center;'>"
+							+title+" "+UtilText.getColouredMoneySymbol("span")+" "
+								+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_STYLE_COST
+									? SuccubisSecrets.BASE_HAIR_STYLE_COST
+									: "[style.colourBad("+SuccubisSecrets.BASE_HAIR_STYLE_COST+")]")
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ description
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='cosmetics-inner-container right'>");
+		
+		for (HairStyle hairStyle : HairStyle.values()) {
+			if (Main.game.getPlayer().getHairStyle() == hairStyle) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>" + Util.capitaliseSentence(hairStyle.getName()) + "</b>"
+						+ "</div>");
+			} else {
+				if(Main.game.getPlayer().getHairRawLengthValue() >= hairStyle.getMinimumLengthRequired()) {
+					contentSB.append(
+							"<div id='HAIR_STYLE_"+hairStyle+"' class='cosmetics-button'>"
+									+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_STYLE_COST
+										? "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(hairStyle.getName()) + "</span>"
+										: "[style.colourDisabled(" + Util.capitaliseSentence(hairStyle.getName()) + ")]")
+							+ "</div>");
+				} else {
+					contentSB.append(
+							"<div class='cosmetics-button disabled'>"
+								+ "[style.colourDisabled(" + Util.capitaliseSentence(hairStyle.getName()) + ")]"
+							+ "</div>");
+				}
+			}
+		}
+		
+		contentSB.append(
+				"</div>"
+			+ "</div>");
+		
+		return contentSB.toString();
+	}
+	
+	public static String getKatesDivAssHair(String title, String description) {
+		return getKatesDivGenericBodyHair(title, description, Main.game.getPlayer().getAssHair(), "ASS_HAIR_", false);
+	}
+	
+	public static String getKatesDivUnderarmHair(String title, String description) {
+		return getKatesDivGenericBodyHair(title, description, Main.game.getPlayer().getUnderarmHair(), "UNDERARM_HAIR_", false);
+	}
+	
+	public static String getKatesDivFacialHair(String title, String description) {
+		return getKatesDivGenericBodyHair(title, description, Main.game.getPlayer().getFacialHair(), "FACIAL_HAIR_", Main.game.getPlayer().isFeminine());
+	}
+	
+	public static String getKatesDivPubicHair(String title, String description) {
+		return getKatesDivGenericBodyHair(title, description, Main.game.getPlayer().getPubicHair(), "PUBIC_HAIR_", false);
+	}
+	
+	private static String getKatesDivGenericBodyHair(String title, String description, BodyHair activeHair, String id, boolean blockAllButNoneOptions) {
+		contentSB.setLength(0);
+		
+		contentSB.append(
+				"<div class='cosmetics-container'>"
+					+ "<div class='cosmetics-inner-container left'>"
+						+ "<h5 style='text-align:center;'>"
+							+title+" "+UtilText.getColouredMoneySymbol("span")+" "
+								+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST
+									? SuccubisSecrets.BASE_BODY_HAIR_COST
+									: "[style.colourBad("+SuccubisSecrets.BASE_BODY_HAIR_COST+")]")
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ description
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='cosmetics-inner-container right'>");
+		
+		for (BodyHair bodyHair : BodyHair.values()) {
+			if (activeHair == bodyHair) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>" + Util.capitaliseSentence(bodyHair.getName()) + "</b>"
+						+ "</div>");
+			} else {
+				if(blockAllButNoneOptions) {
+					contentSB.append(
+							"<div class='cosmetics-button disabled'>"
+								+ "[style.colourDisabled(" + Util.capitaliseSentence(bodyHair.getName()) + ")]"
+							+ "</div>");
+				} else {
+					contentSB.append(
+							"<div id='"+id+bodyHair+"' class='cosmetics-button'>"
+									+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST
+										? "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(bodyHair.getName()) + "</span>"
+										: "[style.colourDisabled(" + Util.capitaliseSentence(bodyHair.getName()) + ")]")
+							+ "</div>");
+				}
+			}
+		}
+		
+		contentSB.append(
+				"</div>"
+			+ "</div>");
+		
+		return contentSB.toString();
+	}
+	
+	public static String getKatesDivAnalBleaching(String title, String description) {
+		contentSB.setLength(0);
+		
+		contentSB.append(
+				"<div class='cosmetics-container'>"
+					+ "<div class='cosmetics-inner-container left'>"
+						+ "<h5 style='text-align:center;'>"
+							+title+" "+UtilText.getColouredMoneySymbol("span")+" "
+								+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_ANAL_BLEACHING_COST
+									? SuccubisSecrets.BASE_ANAL_BLEACHING_COST
+									: "[style.colourBad("+SuccubisSecrets.BASE_ANAL_BLEACHING_COST+")]")
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ description
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='cosmetics-inner-container right'>");
+		
+		if(Main.game.getPlayer().isAssBleached()) {
+			contentSB.append(
+					"<div id='BLEACHING_OFF' class='cosmetics-button'>"
+						+ "[style.colourDisabled(Normal)]"
+					+ "</div>"
+					+ "<div class='cosmetics-button active'>"
+						+ "[style.boldArcane(Bleached)]"
+					+ "</div>");
+		} else {
+			contentSB.append(
+					"<div class='cosmetics-button active'>"
+						+ "Normal"
+					+ "</div>"
+					+ "<div id='BLEACHING_ON' class='cosmetics-button'>"
+						+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_ANAL_BLEACHING_COST
+							?"<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Bleached</span>"
+							:"[style.colourDisabled(Bleached)]")
+					+ "</div>");
+		}
+		
+		contentSB.append(
+				"</div>"
+			+ "</div>");
+		
+		return contentSB.toString();
+	}
+	
+	public static String getKatesDivCoverings(BodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow) {
+		contentSB.setLength(0);
+		
+		contentSB.append(
+				"<div class='cosmetics-container'>"
+					+ "<div class='cosmetics-inner-container left'>"
+						+ "<h5 style='text-align:center;'>"
+							+title+" "+UtilText.getColouredMoneySymbol("span")+" "
+								+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
+									? SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
+									: "[style.colourBad("+SuccubisSecrets.getBodyCoveringTypeCost(coveringType)+")]")
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ description
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='cosmetics-inner-container right'>");
+		
+		for (Colour cs : coveringType.getAllPrimaryColours()) {
+			if (Main.game.getPlayer().getCovering(coveringType).getPrimaryColour() == cs) {
+				if(Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing()) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+								+ "<b style='color:"+cs.toWebHexString()+"; text-shadow: 0px 0px 4px "+cs.getShades()[4]+";'>" + Util.capitaliseSentence(cs.getName()) + "</b>"
+							+ "</div>");
+				} else {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+								+ "<b style='color:" + cs.toWebHexString() + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>"
+							+ "</div>");
+				}
+			} else {
+				contentSB.append(
+						"<div id='"+coveringType+"_PRIMARY_"+cs+"' class='cosmetics-button'>"
+								+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
+									? "<span style='color:"+cs.getShades()[0]+";'>" + Util.capitaliseSentence(cs.getName()) + "</span>"
+									: "[style.colourDisabled(" + Util.capitaliseSentence(cs.getName()) + ")]")
+						+ "</div>");
+			}
+		}
+		
+		if(withGlow) {
+			contentSB.append(
+					"</div>"
+					+ "<div class='cosmetics-inner-container right'>");
+			
+			if(Main.game.getPlayer().getCovering(coveringType).getPrimaryColour() == Colour.COVERING_NONE) { // Disable glow:
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+								+ "No glow"
+							+ "</div>"
+							+ "<div class='cosmetics-button disabled'>"
+								+ "[style.colourDisabled(Glowing)]"
+							+ "</div>");
+				
+			} else {
+				if(Main.game.getPlayer().getCovering(coveringType).isPrimaryGlowing()) {
+					contentSB.append(
+							"<div id='"+coveringType+"_PRIMARY_GLOW_OFF' class='cosmetics-button'>"
+								+ "[style.colourDisabled(No glow)]"
+							+ "</div>"
+							+ "<div class='cosmetics-button active'>"
+								+ "[style.boldArcane(Glowing)]"
+							+ "</div>");
+				} else {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+								+ "No glow"
+							+ "</div>"
+							+ "<div id='"+coveringType+"_PRIMARY_GLOW_ON' class='cosmetics-button'>"
+								+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
+									?"<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glowing</span>"
+									:"[style.colourDisabled(Glowing)]")
+							+ "</div>");
+				}
+		
+			}
+		}
+		
+		if(withSecondary
+				&& !coveringType.getAllPatterns().isEmpty()
+				&& (coveringType.getAllPatterns().size()==1
+					?!coveringType.getAllPatterns().contains(CoveringPattern.NONE)&&!coveringType.getAllPatterns().contains(CoveringPattern.EYE_IRISES)&&!coveringType.getAllPatterns().contains(CoveringPattern.EYE_PUPILS)
+					:true)
+				&& !coveringType.getAllSecondaryColours().isEmpty()) {
+			contentSB.append(
+					"</div>"
+					+ "<div class='cosmetics-inner-container right'>");
+			
+			for (CoveringPattern pattern : coveringType.getAllPatterns()) {
+				if (Main.game.getPlayer().getCovering(coveringType).getPattern() == pattern) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+								+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(pattern.getName()) + "</b>"
+							+ "</div>");
+				} else {
+					contentSB.append(
+							"<div id='"+coveringType+"_PATTERN_"+pattern+"' class='cosmetics-button'>"
+									+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
+										? "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(pattern.getName()) + "</span>"
+										: "[style.colourDisabled(" + Util.capitaliseSentence(pattern.getName()) + ")]")
+							+ "</div>");
+				}
+			}
+			
+			contentSB.append(
+					"</div>"
+					+ "<div class='cosmetics-inner-container right'>");
+			
+			for (Colour cs : coveringType.getAllSecondaryColours()) {
+				
+				if(Main.game.getPlayer().getCovering(coveringType).getPattern()==CoveringPattern.NONE
+						|| Main.game.getPlayer().getCovering(coveringType).getPattern()==CoveringPattern.EYE_IRISES
+						|| Main.game.getPlayer().getCovering(coveringType).getPattern()==CoveringPattern.EYE_PUPILS) {
+					contentSB.append(
+							"<div class='cosmetics-button disabled'>"
+								+ "[style.colourDisabled(" + Util.capitaliseSentence(cs.getName()) + ")]"
+							+ "</div>");
+					
+					
+				} else {
+					if (Main.game.getPlayer().getCovering(coveringType).getSecondaryColour() == cs) {
+						if(Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()) {
+							contentSB.append(
+									"<div class='cosmetics-button active'>"
+										+ "<b style='color:"+cs.toWebHexString()+"; text-shadow: 0px 0px 4px "+cs.getShades()[4]+";'>" + Util.capitaliseSentence(cs.getName()) + "</b>"
+									+ "</div>");
+						} else {
+							contentSB.append(
+									"<div class='cosmetics-button active'>"
+										+ "<b style='color:" + cs.toWebHexString() + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>"
+									+ "</div>");
+						}
+					} else {
+						contentSB.append(
+								"<div id='"+coveringType+"_SECONDARY_"+cs+"' class='cosmetics-button'>"
+										+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
+											? "<span style='color:"+cs.getShades()[0]+";'>" + Util.capitaliseSentence(cs.getName()) + "</span>"
+											: "[style.colourDisabled(" + Util.capitaliseSentence(cs.getName()) + ")]")
+								+ "</div>");
+					}
+				}
+			}
+			
+			if(withGlow) {
+				contentSB.append(
+						"</div>"
+						+ "<div class='cosmetics-inner-container right'>");
+				
+				if(Main.game.getPlayer().getCovering(coveringType).getSecondaryColour() == Colour.COVERING_NONE
+						|| Main.game.getPlayer().getCovering(coveringType).getPattern() == CoveringPattern.NONE
+						|| Main.game.getPlayer().getCovering(coveringType).getPattern()==CoveringPattern.EYE_IRISES
+						|| Main.game.getPlayer().getCovering(coveringType).getPattern()==CoveringPattern.EYE_PUPILS) { // Disable glow:
+						contentSB.append(
+								"<div class='cosmetics-button disabled'>"
+									+ "[style.colourDisabled(No Glow)]"
+								+ "</div>"
+								+ "<div class='cosmetics-button disabled'>"
+									+ "[style.colourDisabled(Glowing)]"
+								+ "</div>");
+					
+				} else {
+					if(Main.game.getPlayer().getCovering(coveringType).isSecondaryGlowing()) {
+						contentSB.append(
+								"<div id='"+coveringType+"_SECONDARY_GLOW_OFF' class='cosmetics-button'>"
+									+ "[style.colourDisabled(No glow)]"
+								+ "</div>"
+								+ "<div class='cosmetics-button active'>"
+									+ "[style.boldArcane(Glowing)]"
+								+ "</div>");
+					} else {
+						contentSB.append(
+								"<div class='cosmetics-button active'>"
+									+ "No glow"
+								+ "</div>"
+								+ "<div id='"+coveringType+"_SECONDARY_GLOW_ON' class='cosmetics-button'>"
+									+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
+										?"<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glowing</span>"
+										:"[style.colourDisabled(Glowing)]")
+								+ "</div>");
+					}
+			
+				}
+			}
+		}
+		
+		contentSB.append(
+				"</div>"
+			+ "</div>");
+		
+		return contentSB.toString();
+	}
+	
+	public static String getKatesDivPiercings(PiercingType type, String title, String description) {
+		contentSB.setLength(0);
+		
+		boolean isPierced = false, canPierce = true;
+		
+		switch(type) {
+			case EAR:
+				isPierced = Main.game.getPlayer().isPiercedEar();
+				break;
+			case LIP:
+				isPierced = Main.game.getPlayer().isPiercedLip();
+				break;
+			case NAVEL:
+				isPierced = Main.game.getPlayer().isPiercedNavel();
+				break;
+			case NIPPLE:
+				isPierced = Main.game.getPlayer().isPiercedNipple();
+				break;
+			case NOSE:
+				isPierced = Main.game.getPlayer().isPiercedNose();
+				break;
+			case PENIS:
+				canPierce = Main.game.getPlayer().hasPenis();
+				isPierced = Main.game.getPlayer().isPiercedPenis();
+				break;
+			case TONGUE:
+				isPierced = Main.game.getPlayer().isPiercedTongue();
+				break;
+			case VAGINA:
+				canPierce = Main.game.getPlayer().hasVagina();
+				isPierced = Main.game.getPlayer().isPiercedVagina();
+				break;
+		}
+		
+		contentSB.append(
+				"<div class='cosmetics-container'>"
+					+ "<div class='cosmetics-inner-container left'>"
+						+ "<h5 style='text-align:center;'>"
+							+(canPierce
+								? title+" "+UtilText.getColouredMoneySymbol("span")+" "
+									+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getPiercingCost(type)
+										? SuccubisSecrets.getPiercingCost(type)
+										: "[style.colourBad("+SuccubisSecrets.getPiercingCost(type)+")]")
+								:"[style.colourDisabled("+title+" "+Main.game.getCurrencySymbol()+" "+SuccubisSecrets.getPiercingCost(type)+")]")
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ description
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='cosmetics-inner-container right'>");
+		
+		
+		
+		if(isPierced) {
+			contentSB.append(
+					"<div id='"+type+"_PIERCE_REMOVE' class='cosmetics-button'>"
+						+ "[style.colourDisabled(Unpierced)]"
+					+ "</div>");
+			
+			contentSB.append(
+					"<div class='cosmetics-button active'>"
+						+ "[style.boldArcane(Pierced)]"
+					+ "</div>");
+		} else {
+			contentSB.append(
+					"<div class='cosmetics-button active'>"
+						+ "Unpierced"
+					+ "</div>");
+			
+			if(canPierce) {
+				contentSB.append(
+						"<div id='"+type+"_PIERCE' class='cosmetics-button'>"
+							+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getPiercingCost(type)
+								?"<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Pierced</span>"
+								:"[style.colourDisabled(Pierced)]")
+						+ "</div>");
+			} else {
+				contentSB.append(
+						"<div class='cosmetics-button disabled'>"
+							+ "[style.colourDisabled(Pierced)]"
+						+ "</div>");
+			}
+		}
+
+		contentSB.append(
+				"</div>"
+			+ "</div>");
+		
+		return contentSB.toString();
+	}
+	
 }

@@ -488,6 +488,23 @@ public class UtilText {
 		return descriptionSB.toString();
 	}
 	
+	public static String formatAsMoney(int money) {
+		return formatAsMoney(money, "b");
+	}
+	
+	public static String getColouredMoneySymbol(String tag) {
+		return "<" + tag + " style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</" + tag + ">";
+	}
+	
+	public static String formatAsMoney(int money, String tag) {
+		return "<" + tag + " style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</" + tag + "> <" + tag + ">" + money + "</" + tag + ">";
+	}
+	
+	public static String formatAsItemPrice(int money) {
+		String tag = "b";
+		return "<" + tag + " style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</" + tag + "><" + tag + ">" + money + "</" + tag + ">";
+	}
+	
 	public static String formatVirginityLoss(String s) {
 		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'><i>"+s+"</i></p>";
 	}

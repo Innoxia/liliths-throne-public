@@ -392,12 +392,12 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			case PUFFY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a tingling sensation running over your [pc.nipples], and you let out a little sigh as you feel them [style.boldShrink(shrink down)], losing their puffyness.</br>"
+								+ "You feel a tingling sensation running over your [pc.nipples], and you let out a little sigh as you feel them [style.boldShrink(shrink down)], losing their puffiness.</br>"
 								+ "[style.boldTfSex(Your [pc.nipples] are no longer extremely puffy!)]"
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "[npc.Name] lets out a little sigh as [npc.her] [npc.nipples] [style.boldShrink(shrink down)] and lose their puffyness.</br>"
+								+ "[npc.Name] lets out a little sigh as [npc.her] [npc.nipples] [style.boldShrink(shrink down)] and lose their puffiness.</br>"
 								+ "[style.boldSex([npc.Name]'s [npc.nipples] are no longer extremely puffy!)]"
 							+ "</p>";
 				}

@@ -95,7 +95,7 @@ public enum TFEssence {
 	
 	ARCANE("Arcane",
 			"An exceedingly rare pure arcane essence.",
-			"arcanic",
+			"arcane",
 			"essenceArcane",
 			Colour.GENERIC_ARCANE,
 			Rarity.LEGENDARY);
