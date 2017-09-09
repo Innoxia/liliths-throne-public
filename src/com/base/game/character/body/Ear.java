@@ -164,14 +164,14 @@ public class Ear implements BodyPartInterface, Serializable {
 			case COW_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
-								" They quickly grow into long ovals, and shift to flop over on the side of your head vastly different than a normal pair of human ears would."
-								+ " A layer of [pc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new cow-like ears back and forth."
+								" They quickly take on a distinctly bovine shape, by growing out and narrowing down into long, slightly-folded ovals."
+								+ " A layer of [pc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, you discover that you're able to twitch your new cow-like ears back and forth."
 								+ "</br>"
 								+ "You now have [style.boldCowMorph(anthropomorphic, cow-like ears)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-								" They quickly grow into long ovals, and shift to flop over the side of [npc.her] head vastly different than a normal pair of human ears would."
+								" They quickly take on a distinctly bovine shape, by growing out and narrowing down into long, slightly-folded ovals."
 								+ " A layer of [npc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, [npc.she] experimentally twitches [npc.her] new cow-like ears back and forth."
 								+ "</br>"
 								+ "[npc.Name] now has [style.boldCowMorph(anthropomorphic, cow-like ears)]."
