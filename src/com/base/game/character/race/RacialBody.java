@@ -175,8 +175,8 @@ public enum RacialBody {
 			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
 			TailType.COW_MORPH,
 			VaginaType.COW_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE),
-
+			WingType.NONE,
+			GenitalArrangement.NORMAL),
 	// CANINES:
 	DOG_MORPH(
 			Util.newHashMapOfValues(
