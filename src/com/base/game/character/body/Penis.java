@@ -312,13 +312,13 @@ public class Penis implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							"Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as your shaft grows wider and the head flattens down.</br>"
-							+ "You now have an [style.boldCowMorph(bovine penis)], covered in [pc.penisFullDescription].</br>"
+							+ "You now have a [style.boldCowMorph(bovine penis)], covered in [pc.penisFullDescription].</br>"
 							+ "You have [style.boldCowMorph([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" bovine balls)], covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldCowMorph(bovine cum)].");
 				} else {
 					UtilText.transformationContentSB.append(
 							"Letting out an involuntary moan, [npc.name] feels [npc.her] penis shifting into a new form, and [npc.she]'s hit by a wave of overwhelming arousal as [npc.her] shaft grows wider and the head flattens down.</br>"
-							+ "[npc.She] now has an [style.boldCowMorph(bovine penis)], covered in [npc.penisFullDescription].</br>"
-							+ "[She] has [style.boldCowMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" bovine balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldCowMorph(bovine cum)].");
+							+ "[npc.She] now has a [style.boldCowMorph(bovine penis)], covered in [npc.penisFullDescription].</br>"
+							+ "[npc.She] has [style.boldCowMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" bovine balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldCowMorph(bovine cum)].");
 				}
 				break;
 			case FELINE:
