@@ -24,6 +24,7 @@
 		Fixed major bug where items and weapons would sometimes not stack in inventory.
 		Fixed items showing up in sex as disabled, even if they were available to be used.
 		Fixed weapons not having any spells.
+		Fixed bug where the main quest couldn't be progressed if you started an imported character.
 	
 	
 	
@@ -36,12 +37,7 @@
 	
 	
 	
-	I can't complete the "survive the evening" quest
-		dialogue with lilaya doesn't complete tests, meaning I can't access enchanting at all
-	
-	
-	none of the demonstones have spells
-	
+	Also, right now, everyone has a species-preference. -may- want to make it so that some folk don't care much about species and only about body-shape/sex
 	Make gender preferences for NPC's forced TFs settable
 	
 	Now, one other thought, maybe have fetishes figure in a little bit for what gear they end up with?
@@ -57,13 +53,22 @@
 		They don't instantly remove an offending organ, instead that's one of the random things that they'll sometimes shrink or tighten until it's very small and then they remove it.
 	
 	
+	virginity losses from self
+	
 	Add afro
 	
 	there's no yellow for genital colors
 	
+	
+	
 	If a character has the non-consent fetish, you should remove the arousal gain penalty from resisting sex. You might even gain extra arousal
 	NPCs with the non-con fetish always resist
 	So a sadistic character will gain more arousal from a resisting partner and a non-con fetishist would gain extra arousal while resisting instead of having a penalty.
+	
+	Firstly, you could change the description of the Non-con fetish to only include being raped, but not necessarily raping others. 
+	Then, you can expand the sadism fetish to include raping others. Alternatively, you could also make a second red boardered "dominant" version of the Non-con fetish.
+	Also, you could have the "resist" action only decrease the character's arousal if they don't have the noncon fetish. I have no idea where this is done in the code however but if you can find where to stick it, a little if statement would probably do
+	
 	
 	is the selfie screen supposed to not list the actual penis length anymore
 	

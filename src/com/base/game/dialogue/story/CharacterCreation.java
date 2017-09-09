@@ -1841,6 +1841,7 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						applyGameStart();
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 					}
 				};
 				
