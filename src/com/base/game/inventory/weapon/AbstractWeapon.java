@@ -43,7 +43,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 
 		// Add random spells:
 		if (weaponType.getRarity() == Rarity.RARE) {
-			if (weaponType.getSpells() == null) {
+			if (weaponType.getSpells().isEmpty()) {
 				this.spells = new ArrayList<>();
 				if (dt == DamageType.PHYSICAL)
 					this.spells.add(Spell.SLAM_1);
@@ -60,7 +60,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 			attributeModifiers.put(rndAtt, Util.random.nextInt(3) + 1);
 			coreEnchantment = rndAtt;
 
-			if (weaponType.getSpells() == null) {
+			if (weaponType.getSpells().isEmpty()) {
 				this.spells = new ArrayList<>();
 				if (dt == DamageType.PHYSICAL) {
 					this.spells.add(Spell.SLAM_1);
@@ -95,8 +95,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 	public boolean equals (Object o) {
 		if(super.equals(o)){
 			if(o instanceof AbstractWeapon){
-				if(
-						((AbstractWeapon)o).getWeaponType()==weaponType
+				if(((AbstractWeapon)o).getWeaponType().equals(getWeaponType())
 						&& ((AbstractWeapon)o).getDamageType()==damageType
 						&& ((AbstractWeapon)o).getCoreEnchantment()==coreEnchantment
 						&& ((AbstractWeapon)o).getSpells().equals(spells)
@@ -111,7 +110,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 	@Override
 	public int hashCode() {
 		int result = super.hashCode();
-		result = 31 * result + weaponType.hashCode();
+		result = 31 * result + getWeaponType().hashCode();
 		result = 31 * result + damageType.hashCode();
 		if(coreEnchantment!=null)
 			result = 31 * result + coreEnchantment.hashCode();

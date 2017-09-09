@@ -5164,7 +5164,7 @@ public class ClothingType {
 							null))),
 
 			null,
-			Colour.allClothingColours) {
+			Colour.lingerieColours) {
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -5221,7 +5221,7 @@ public class ClothingType {
 							null))),
 
 			null,
-			Colour.allClothingColours) {
+			Colour.lingerieColours) {
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -5279,7 +5279,7 @@ public class ClothingType {
 
 			null,
 
-			Colour.allClothingColours) {
+			Colour.lingerieColours) {
 		
 				private static final long serialVersionUID = 1L;
 
@@ -5352,7 +5352,7 @@ public class ClothingType {
 
 			null,
 
-			Colour.allClothingColours) {
+			Colour.lingerieColours) {
 		
 				private static final long serialVersionUID = 1L;
 
@@ -5403,7 +5403,7 @@ public class ClothingType {
 
 			null,
 
-			Colour.allClothingColours) {
+			Colour.lingerieColours) {
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -5579,7 +5579,7 @@ public class ClothingType {
 
 			null,
 
-			Colour.allClothingColours) {
+			Colour.lingerieColours) {
 		
 				private static final long serialVersionUID = 1L;
 

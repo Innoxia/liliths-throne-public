@@ -620,7 +620,7 @@ public abstract class NPC extends GameCharacter {
 		
 		// Femininity:
 		if(Main.game.getPlayer().getFemininity() < getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininity()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
-			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.BOOST, 1), "I'm gonna turn you into a cute little girl!");
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.BOOST, 1), "I'm gonna need you to be more feminine!");
 			
 		} else if(Main.game.getPlayer().getFemininity() > getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininity()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
 			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.DRAIN, 1), "I'm gonna need you to be more of a man!");
@@ -719,24 +719,24 @@ public abstract class NPC extends GameCharacter {
 		switch(this.getSexualOrientation()) {
 			case AMBIPHILIC:
 				if(Main.game.getPlayer().isFeminine()) {
-					desiredGenders.put(Gender.FEMALE, 15);
-					desiredGenders.put(Gender.FUTANARI, 10);
-					desiredGenders.put(Gender.SHEMALE, 5);
+					desiredGenders.put(Gender.FEMALE, 7);
+					desiredGenders.put(Gender.FUTANARI, 2);
+					desiredGenders.put(Gender.SHEMALE, 1);
 				} else {
-					desiredGenders.put(Gender.MALE, 15);
-					desiredGenders.put(Gender.HERMAPHRODITE, 10);
-					desiredGenders.put(Gender.CUNT_BOY, 5);
+					desiredGenders.put(Gender.MALE, 7);
+					desiredGenders.put(Gender.HERMAPHRODITE, 2);
+					desiredGenders.put(Gender.CUNT_BOY, 1);
 				}
 				break;
 			case ANDROPHILIC:
-				desiredGenders.put(Gender.MALE, 15);
-				desiredGenders.put(Gender.HERMAPHRODITE, 10);
-				desiredGenders.put(Gender.CUNT_BOY, 5);
+				desiredGenders.put(Gender.MALE, 7);
+				desiredGenders.put(Gender.HERMAPHRODITE, 2);
+				desiredGenders.put(Gender.CUNT_BOY, 1);
 				break;
 			case GYNEPHILIC:
-				desiredGenders.put(Gender.FEMALE, 15);
-				desiredGenders.put(Gender.FUTANARI, 10);
-				desiredGenders.put(Gender.SHEMALE, 5);
+				desiredGenders.put(Gender.FEMALE, 7);
+				desiredGenders.put(Gender.FUTANARI, 2);
+				desiredGenders.put(Gender.SHEMALE, 1);
 				break;
 		}
 		

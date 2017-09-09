@@ -132,7 +132,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	public boolean equals (Object o) {
 		if(super.equals(o)){
 			if(o instanceof AbstractClothing){
-				if(((AbstractClothing)o).isSealed()==sealed
+				if(((AbstractClothing)o).getClothingType().equals(getClothingType())
+						&& ((AbstractClothing)o).isSealed()==sealed
 						&& ((AbstractClothing)o).isDirty()==cummedIn
 						&& ((AbstractClothing)o).isEnchantmentKnown()==enchantmentKnown
 						&& ((AbstractClothing)o).isBadEnchantment()==badEnchantment
@@ -148,6 +149,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	@Override
 	public int hashCode() {
 		int result = super.hashCode();
+		result = 31 * result + getClothingType().hashCode();
 		result = 31 * result + (sealed ? 1 : 0);
 		result = 31 * result + (cummedIn ? 1 : 0);
 		result = 31 * result + (enchantmentKnown ? 1 : 0);

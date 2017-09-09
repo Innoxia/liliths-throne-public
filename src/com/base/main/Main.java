@@ -47,7 +47,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.84
  * @author Innoxia
  */
 public class Main extends Application {
@@ -61,7 +61,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.83.5",
+	public static final String VERSION_NUMBER = "0.1.84",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/base/res/images/windowIcon32.png");
@@ -75,15 +75,20 @@ public class Main extends Application {
 		
 		+ "<p><b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Important information:</b> <i>If you don't see a mini-map in the bottom-left corner of the screen after starting the game, please update your java!</i></p>"
 		
-		//TODO
 		+ "<p>"
-			+ "Hello! ^^"
+			+ "Hello again everyone! ^^"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "This preview is a lot smaller than usual, due to having spent the first few days of this week working on getting the 0.1.83 hotfix out."
-			+ " I also spent the entire of Thursday (finally) getting the new wiki sorted out, which only left me with Friday in which to make this preview."
-			+ " I'm going to try and merge some fun pull requests off the github over the weekend, so I might update this preview with some more content on Monday! :3"
+			+ "I didn't manage to achieve all of my goals this week, and I feel particularly guilty about not getting the basic slavery mechanics into the game."
+			+ " I also forgot to make a mid-week progress report, so I'm really sorry about that as well."
+			+ " To try and make it up to you, I'll work on getting paizuri (breast fucking) added to the game over the weekend, and I'll (hopefully) release a hotfix with that in it by Monday."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "Anyway, in this version, I've managed to add forced transformations, a better UI for Kate's shop (which took far longer than I anticipated,"
+			+ " and still has a couple of minor formating bugs), and did some behind-the-scenes work on improving the engine."
+			+ " I'm planning on focusing solely on slavery content and bug fixing next week, so there will (finally) be slavery added to the game in the next version!"
 		+ "</p>"
 			
 		
@@ -93,7 +98,7 @@ public class Main extends Application {
 		
 		+ "<list>"
 		
-		+ "<h6>Patch Notes - <b>Version " + Main.VERSION_NUMBER + "</b></h6>"
+		+ "<h6>Patch Notes - <b>Version 0.1.83.5</b></h6>"
 		
 		+"<li>Gameplay:</li>"
 		+"<ul>Reverted penis/vagina loss when shrinking past minimum size/capacity respectively. You now remove a penis or vagina by adding the 'remove' effect to a potion.</ul>"
@@ -122,6 +127,104 @@ public class Main extends Application {
 		+"<ul>Fixed some minor UI issues in Kate's shop.</ul>"
 		
 		+ "</list>"
+		
+		+ "<list>"
+
+		+ "<h6>Patch Notes - <b>Version " + Main.VERSION_NUMBER + "</b></h6>"
+		
+		+"<li>Engine:</li>"
+		+"<ul>Moved ClothingTypes, ItemTypes, and WeaponTypes from Enum values over to static classes.</ul>"
+		+"<ul>Added support for different genital arrangements (normal, cloaca, etc.).</ul>"
+			
+		+"<li>Gameplay:</li>"
+		+"<ul><b>Changed:</b> Encyclopedia entries for clothing, items, weapons, and races are now stored in the properties file, so discoveries are carried over between characters.</ul>"
+		+"<ul><b>Added:</b> Forced transformations by random NPCs after combat loss. (You'll need to turn this on in the content preferences first.) (Also, it's only working for the alleyway attackers and harpies in the Nests at the moment.)</ul>"
+		+"<ul>Transformation fetish now increases the amount of forced transformations applied after combat defeat from 1 to 3.</ul>"
+		+"<ul>Finished Alexa/Scarlett's quest content. (More Alexa content related to her shop will be added soon.)</ul>"
+		+"<ul>Reduced the size of Lilaya's home to make navigation more manageable. (I'll add in the larger version later on as an upgrade to the house.)</ul>"
+		+"<ul>Made the nursing bra have random enchantments.</ul>"
+		+"<ul>Added the hair styles: mohawk, sidecut.</ul>"
+		+"<ul>Added colours for pupils and irises: aqua, grey, lilac, purple, violet, crimson, golden.</ul>"
+		+"<ul>Added character-specific quicksaves. (Quicksave will now save as 'QuickSave_X', where X is your character's name.)</ul>"
+			
+		+"<li>Sex:</li>"
+		+"<ul>Finished converting old cowgirl position descriptions into the new one.</ul>"
+		+"<ul>Converted Brax's cowgirl scene into the new format. (The facesitting descriptions are absent, but I'll add those back in for a proper facesitting position.)</ul>"
+			
+		+"<li>UI:</li>"
+		+"<ul><b>Finished:</b> Remade all the options in Kate's shop to use proper buttons. (I'll use this system for the character creation menu as well.)</ul>"
+		+"<ul>Fixed the annoying way the screen would jump back to the top every time you clicked a button (e.g. in preferences menu).</ul>"
+		+"<ul>Moved content preferences into its own option in the main menu to make it more obvious.</ul>"
+		
+		+"<li>Bugs:</li>"
+		+"<ul>Fixed some typos.</ul>"
+		+"<ul>Fixed some incorrect descriptions in the selfie view.</ul>"
+		+"<ul>Several other small bug fixes that I forgot to keep track of...</ul>"
+			
+		+"<li>Contributors:</li>"
+		
+		+"<li>Contributed by Pimgd:</li>"
+		+"<li>Inventory-related bugs fixed:</li>"
+			+"<ul>Take all from floor doesn't handle stackables well if your inventory is full.</ul>"
+			+"<ul>Take all weapon doesn't work if inventory is full.</ul>"
+			+"<ul>Jinxed items don't stack when unjinxed.</ul>"
+			+"<ul>You can't store stackables if the area is full.</ul>"
+			+"<ul>Unidentified items will show their state in the buyback menu.</ul>"
+			+"<ul>Jinxed items can't be selected if you're carrying a dye brush and just identified them.</ul>"
+			+"<ul>Unidentified items will sell for their real value and not the fixed value you get for an unidentified item.</ul>"
+			+"<ul>That includes the 'vendor will buy for x' text (not overlay) and the button.</ul>"
+			+"<ul>'These items will disappear when you leave the area' when trading on a tile with dropped stuff.</ul>"
+			+"<ul>Can't buy/buyback a stackable with full inventory? Check item/weapon/clothing!</ul>"
+			+"<ul>Can't unequip weapons/clothing even although they would stack if you have a full inventory.</ul>"
+			+"<ul>Unequipping clothing (weapons too?) causing your inventory to be full claims it gets dropped when it doesn't.</ul>"
+			+"<ul>Equipping clothing (weapons too?) when you're already wearing something with a full inventory will drop that already worn item to the ground, even if it was stackable in your inventory.</ul>"
+			+"<ul>Displaced clothing is dropped even if it could be stacked with a full inventory.</ul>"
+			+"<ul>Equipping an item may reset the string builder halfway through causing some warnings not to display.</ul>"
+			+"<ul>Sell All has improper rounding as it rounds after all items instead of each item individually (same goes for buy all).</ul>"
+			+"<ul>Getting transformed with full inventory will drop your clothing even although it fits in inventory as stackable.</ul>"
+			+"<ul>Improvement: Deduplicate printing items now that weapon/clothing/item is similar.</ul>"
+			+"<ul>The overlay display 'Vendor wants x' in the buyback shows the wrong price.</ul>"
+
+		+"<li>Body-related fixes:</li>"
+			+"<ul>Fixed lip size increment from rolling over causing a constant resize.</ul>"
+			+"<ul>Fixed descriptions that go beyond size limits for TongueLength.</ul>"
+			+"<ul>Cleaned code for antenna, arms, ass/assSize/hipSize, breasts, eyes, face, hair, horn, mouth, nipples, anus, penis, orifices, tail, testicles, tongue, and vagina.</ul>"
+			+"<ul>Fixed nose piercing returning descriptions of lip being pierced.</ul>"
+			+"<ul>Fixed a lot of identity mistakes between pc and npc.</ul>"
+			+"<ul>Improved nipple and nippleShape changes to properly account of multiple changes form one transformative item.</ul>"
+			+"<ul>Tidied up a lot of other formatting.</ul>"
+
+		+"<li>Other fixes:</li>"
+			+"<ul>Simplified a lot of if statements.</ul>"
+			+"<ul>Removed a lot of empty statements (i.e. removing a ton of unnecessary semi-colons).</ul>"
+			+"<ul>Removed a lot of unnecessary casts.</ul>"
+			+"<ul>Made all public static SexActions final.</ul>"
+			+"<ul>Reordered modifiers to comply with java language specification.</ul>"
+		
+		+"<li>Contributed by Rfpnj:</li>"
+			+"<ul>Expanded and reorganised the Library in Lilaya's house.</ul>"
+			+"<ul>Added green skin for demons.</ul>"
+		
+		+"<li>Contributed by CognitiveMist:</li>"
+			+"<ul>Did a huge amount of spelling corrections.</ul>"
+			+"<ul>Code cleanup, involving:</ul>"
+			+"<ul>List sorting uses comparator class</ul>"
+			+"<ul>Use addAll instead of for loops</ul>"
+			+"<ul>String comparison don't use ==</ul>"
+			+"<ul>Javadoc stuff</ul>"
+			+"<ul>Spelling</ul>"
+			+"<ul>Change some variables to local, that were only used in one spot</ul>"
+			+"<ul>Eliminated some dead/constant logic</ul>"
+			+"<ul>Any other cleanup that I could find</ul>"
+			+"<ul>Util methods cleanup:</ul>"
+			+"<ul>Removed Util.getFileExtention, replaced by a FilenameFilter</ul>"
+			+"<ul>Fleshed out / fixed up some Javadocs</ul>"
+			+"<ul>Did some witchcraftery on the stringList functions :)</ul>"
+		
+		+"<li>Contributed by Blue999:</li>"
+			+"<ul>Added: Lacy panties (feminine, groin slot).</ul>"
+			+"<ul>Added: Lacy plunge bra (feminine, chest slot).</ul>"
+		+"</list>"
 		;
 	
 	public static String disclaimer = "<h1 style='text-align:center;'>DISCLAIMER</h1>"
