@@ -2576,6 +2576,9 @@ public class Lab {
 					case CAT_MORPH:
 						litterSB.append(" good-looking");
 						break;
+					case COW_MORPH:
+						litterSB.append(" strong");
+						break;
 					case DEMON:
 						litterSB.append(" mischievous");
 						break;
@@ -2617,6 +2620,9 @@ public class Lab {
 						break;
 					case CAT_MORPH:
 						litterSB.append(" good-looking");
+						break;
+					case COW_MORPH:
+						litterSB.append(" strong");
 						break;
 					case DEMON:
 						litterSB.append(" mischievous");
@@ -2660,6 +2666,9 @@ public class Lab {
 					case CAT_MORPH:
 						litterSB.append(" pretty");
 						break;
+					case COW_MORPH:
+						litterSB.append(" docile");
+						break;
 					case DEMON:
 						litterSB.append(" cheeky");
 						break;
@@ -2701,6 +2710,9 @@ public class Lab {
 						break;
 					case CAT_MORPH:
 						litterSB.append(" pretty");
+						break;
+					case COW_MORPH:
+						litterSB.append(" docile");
 						break;
 					case DEMON:
 						litterSB.append(" cheeky");

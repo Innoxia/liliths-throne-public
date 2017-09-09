@@ -252,7 +252,9 @@ public abstract class NPC extends GameCharacter {
 		if(rnd <= 0.7) {
 			switch(getRace()) {
 				case CAT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_FELINE_FANCY)));
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.INT_INGREDIENT_FELINE_FANCY)));
+				case COW_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.STR_INGREDIENT_BUBBLE_MILK)));
 				case DOG_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_CANINE_CRUSH)));
 				case HORSE_MORPH:
@@ -276,7 +278,10 @@ public abstract class NPC extends GameCharacter {
 		} else if(rnd <= 0.8 && !Main.getProperties().isRaceDiscovered(getRace())) {
 			switch(getRace()) {
 				case CAT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_CAT_MORPH)));
+
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_CAT_MORPH)));
+				case COW_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.BOOK_COW_MORPH)));
 				case DOG_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_DOG_MORPH)));
 				case HORSE_MORPH:
@@ -300,7 +305,10 @@ public abstract class NPC extends GameCharacter {
 		} else {
 			switch(getRace()) {
 				case CAT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_CAT_MORPH)));
+
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_CAT_MORPH)));
+				case COW_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(ItemType.generateItem(ItemType.RACE_INGREDIENT_COW_MORPH)));
 				case DOG_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_DOG_MORPH)));
 				case HORSE_MORPH:
@@ -6021,6 +6029,8 @@ public abstract class NPC extends GameCharacter {
 								break;
 							case AVIAN:
 								break;
+							case BOVINE:
+								return "You let out [pc.a_moan+] as you feel [npc.name]'s cow-like cock push into your [pc.asshole+].";
 							case CANINE:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.asshole+].";
 							case LUPINE:
@@ -6089,6 +6099,8 @@ public abstract class NPC extends GameCharacter {
 								break;
 							case AVIAN:
 								break;
+							case BOVINE:
+								return "You let out [pc.a_moan+] as you feel [npc.name]'s cow-like cock push into your [pc.pussy+].";
 							case CANINE:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.pussy+].";
 							case LUPINE:
@@ -6157,6 +6169,8 @@ public abstract class NPC extends GameCharacter {
 								break;
 							case AVIAN:
 								break;
+							case BOVINE:
+								return "You let out [pc.a_moan+] as you feel [npc.name]'s cow-like cock push into your [pc.nipple+].";
 							case CANINE:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.nipple+].";
 							case LUPINE:
@@ -6225,6 +6239,8 @@ public abstract class NPC extends GameCharacter {
 								break;
 							case AVIAN:
 								break;
+							case BOVINE:
+								return "You let out a muffled [pc.moan] as [npc.name]'s cow-like cock pushes its way into your mouth.";
 							case CANINE:
 								return "You let out a muffled [pc.moan] as [npc.name]'s dog-like cock pushes its way into your mouth.";
 							case LUPINE:
@@ -6271,6 +6287,8 @@ public abstract class NPC extends GameCharacter {
 								break;
 							case AVIAN:
 								break;
+							case BOVINE:
+								return "[npc.Name] lets out a muffled [npc.moan] as your cow-like cock pushes its way into [npc.her] mouth.";
 							case CANINE:
 								return "[npc.Name] lets out a muffled [npc.moan] as your dog-like cock pushes its way into [npc.her] mouth.";
 							case LUPINE:

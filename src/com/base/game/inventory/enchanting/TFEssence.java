@@ -51,6 +51,13 @@ public enum TFEssence {
 			Colour.RACE_WOLF_MORPH,
 			Rarity.COMMON),
 
+	COW_MORPH("Cow-morph",
+			"An essence gained from a cow-morph.",
+			"bovine",
+			"essenceCowMorph",
+			Colour.RACE_COW_MORPH,
+			Rarity.COMMON),
+
 	HARPY("Harpy",
 			"An essence gained from a harpy.",
 			"avian",
@@ -155,6 +162,8 @@ public enum TFEssence {
 				return ItemType.BOTTLED_ESSENCE_ARCANE;
 			case CAT_MORPH:
 				return ItemType.BOTTLED_ESSENCE_CAT_MORPH;
+			case COW_MORPH:
+				return ItemType.BOTTLED_ESSENCE_COW_MORPH;
 			case DEMON:
 				return ItemType.BOTTLED_ESSENCE_DEMON;
 			case DOG_MORPH:
