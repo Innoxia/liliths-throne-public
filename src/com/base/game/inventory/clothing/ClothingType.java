@@ -5241,7 +5241,7 @@ public static AbstractClothingType PIERCING_EAR_LIVESTOCK_TAGS = new AbstractClo
 							null))),
 
 			null,
-			Colour.allClothingColours) {
+			Colour.lingerieColours) {
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -5298,7 +5298,7 @@ public static AbstractClothingType PIERCING_EAR_LIVESTOCK_TAGS = new AbstractClo
 							null))),
 
 			null,
-			Colour.allClothingColours) {
+			Colour.lingerieColours) {
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -5356,7 +5356,7 @@ public static AbstractClothingType PIERCING_EAR_LIVESTOCK_TAGS = new AbstractClo
 
 			null,
 
-			Colour.allClothingColours) {
+			Colour.lingerieColours) {
 		
 				private static final long serialVersionUID = 1L;
 
@@ -5429,7 +5429,7 @@ public static AbstractClothingType PIERCING_EAR_LIVESTOCK_TAGS = new AbstractClo
 
 			null,
 
-			Colour.allClothingColours) {
+			Colour.lingerieColours) {
 		
 				private static final long serialVersionUID = 1L;
 
@@ -5480,7 +5480,7 @@ public static AbstractClothingType PIERCING_EAR_LIVESTOCK_TAGS = new AbstractClo
 
 			null,
 
-			Colour.allClothingColours) {
+			Colour.lingerieColours) {
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -5656,7 +5656,7 @@ public static AbstractClothingType PIERCING_EAR_LIVESTOCK_TAGS = new AbstractClo
 
 			null,
 
-			Colour.allClothingColours) {
+			Colour.lingerieColours) {
 		
 				private static final long serialVersionUID = 1L;
 

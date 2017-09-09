@@ -35,7 +35,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	public boolean equals (Object o) {//TODO check itemEffects
 		if(super.equals(o)) {
 			return (o instanceof AbstractItem)
-					&& ((AbstractItem)o).getItemType()==itemType
+					&& ((AbstractItem)o).getItemType().equals(itemType)
 					&& ((AbstractItem)o).getItemEffects().equals(itemEffects);
 		} else {
 			return false;

@@ -2256,12 +2256,13 @@ public class InventoryDialogue {
 	
 	private static void appendDivsForItemsToInventory(Map<? extends AbstractCoreItem, Integer> map, String idPrefix) {
 		for (Entry<? extends AbstractCoreItem, Integer> entry : map.entrySet()) {
-			inventorySB.append("<div class='item-background "
-					+ entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString()
+			inventorySB.append("<div class='item-background "+ entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString()
 					+ "<div class='overlay"
-					+ (Main.game.getDialogueFlags().tradePartner!=null 
-						? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "" : " dark")
-						: (Main.game.isInSex() || Main.game.isInCombat()?" disabled":""))
+						+ (Main.game.getDialogueFlags().tradePartner!=null 
+							? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "" : " dark")
+							: (entry.getKey() instanceof AbstractItem
+									?((Main.game.isInSex() && !((AbstractItem)entry.getKey()).isAbleToBeUsedInSex()) || (Main.game.isInCombat() && !((AbstractItem)entry.getKey()).isAbleToBeUsedInCombat())?" disabled":"")
+									:(Main.game.isInSex() || Main.game.isInCombat() ?" disabled":"")))
 					+ "' id='" + idPrefix + entry.getKey().hashCode() + "'>"
 					+ getItemCountDiv(entry.getValue())
 					+ (Main.game.getDialogueFlags().tradePartner != null ? 

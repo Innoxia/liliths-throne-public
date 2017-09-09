@@ -17,102 +17,80 @@
 	
 	Patch notes:
 	
-	Engine:
-		Moved ClothingTypes, ItemTypes, and WeaponTypes from Enum values over to static classes.
-		Added support for different genital arrangements (normal, cloaca, etc.).
-	
 	Gameplay:
-		<b>Changed:</b> Encyclopedia entries for clothing, items, weapons, and races are now stored in the properties file, so discoveries are carried over between characters.
-		<b>Added:</b> Forced transformations by random NPCs after combat loss. (You'll need to turn this on in the content preferences first.) (Also, it's only working for the alleyway attackers and harpies in the Nests at the moment.)
-		Transformation fetish now increases the amount of forced transformations applied after combat defeat from 1 to 3.
-		Finished Alexa/Scarlett's quest content. (More Alexa content related to her shop will be added soon.)
-		Reduced the size of Lilaya's home to make navigation more manageable. (I'll add in the larger version later on as an upgrade to the house.)
-		Made the nursing bra have random enchantments.
-		Added the hair styles: mohawk, sidecut.
-		Added colours for pupils and irises: aqua, grey, lilac, purple, violet, crimson, golden.
-		Added character-specific quicksaves. (Quicksave will now save as "QuickSave_X", where X is your character's name.)
+		Slightly tweaked gender preferences for NPC's forced TFs.
 	
-	Sex:
-		Finished converting old cowgirl position descriptions into the new one.
-		Converted Brax's cowgirl scene into the new format. (The facesitting descriptions are absent, but I'll add those back in for a proper facesitting position.)
-	
-	UI:
-		<b>Finished:</b> Remade all the options in Kate's shop to use proper buttons. (I'll use this system for the character creation menu as well.)
-		Fixed the annoying way the screen would jump back to the top every time you clicked a button (e.g. in preferences menu).
-		Moved content preferences into its own option in the main menu to make it more obvious.
-		
 	Bugs:
-		Fixed some typos.
-		Fixed some incorrect descriptions in the selfie view.
-	
-	Contributors:
-		
-		Pimgd:
-			Inventory-related bugs fixed:
-				Take all from floor doesn't handle stackables well if your inventory is full.
-				Take all weapon doesn't work if inventory is full.
-				Jinxed items don't stack when unjinxed.
-				You can't store stackables if the area is full.
-				Unidentified items will show their state in the buyback menu.
-				Jinxed items can't be selected if you're carrying a dye brush and just identified them.
-				Unidentified items will sell for their real value and not the fixed value you get for an unidentified item.
-				That includes the "vendor will buy for x" text (not overlay) and the button.
-				"These items will disappear when you leave the area" when trading on a tile with dropped stuff.
-				Can't buy/buyback a stackable with full inventory? Check item/weapon/clothing!
-				Can't unequip weapons/clothing even although they would stack if you have a full inventory.
-				Unequipping clothing (weapons too?) causing your inventory to be full claims it gets dropped when it doesn't.
-				Equipping clothing (weapons too?) when you're already wearing something with a full inventory will drop that already worn item to the ground, even if it was stackable in your inventory.
-				Displaced clothing is dropped even if it could be stacked with a full inventory.
-				Equipping an item may reset the string builder halfway through causing some warnings not to display.
-				Sell All has improper rounding as it rounds after all items instead of each item individually (same goes for buy all).
-				Getting transformed with full inventory will drop your clothing even although it fits in inventory as stackable.
-				Improvement: Deduplicate printing items now that weapon/clothing/item is similar.
-				The overlay display "Vendor wants x" in the buyback shows the wrong price.
-			Simplified a lot of if statements.
-			Removed a lot of empty statements (i.e. removing a ton of unnecessary semi-colons).
-			Removed a lot of unnecessary casts.
-			Made all public static SexActions final.
-			Reordered modifiers to comply with java language specification.
-			Body-related fixes:
-				Fixed lip size increment from rolling over causing a constant resize.
-				Fixed descriptions that go beyond size limits for TongueLength.
-				Cleaned code for antenna, arms, ass/assSize/hipSize, breasts, eyes, face, hair, horn, mouth, nipples, anus, penis, orifices, tail, testicles, tongue, and vagina.
-				Fixed nose piercing returning descriptions of lip being pierced.
-				Fixed a lot of identity mistakes between pc and npc.
-				Improved nipple and nippleShape changes to properly account of multiple changes form one transformative item.
-				Tidied up a lot of other formatting.
-			
-		Rfpnj:
-			Expanded and reorganised the Library in Lilaya's house.
-			Added green skin for demons.
-		
-		CognitiveMist:
-			Did a huge amount of spelling corrections.
-			Code cleanup, involving:
-				List sorting uses comparator class
-				Use addAll instead of for loops
-				String comparison don't use ==
-				Javadoc stuff
-				Spelling
-				Change some variables to local, that were only used in one spot
-				Eliminated some dead/constant logic
-				Any other cleanup that I could find
-			Util methods cleanup:
-				Removed Util.getFileExtention, replaced by a FilenameFilter
-				Fleshed out / fixed up some Javadocs
-				Did some witchcraftery on the stringList functions :)
-				
-		Blue999:
-			Added: Lacy panties (feminine, groin slot).
-			Added: Lacy plune bra (feminine, chest slot).
-			Added: Chemise with shorts (feminine, chest slot, blocks groin slot).
+		Fixed game freeze once NPC finished transforming you into their preferred body type.
+		Fixed major bug where items and weapons would sometimes not stack in inventory.
+		Fixed items showing up in sex as disabled, even if they were available to be used.
+		Fixed weapons not having any spells.
+		Fixed bug where the main quest couldn't be progressed if you started an imported character.
+		Minor typo fixes.
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	can the 'offspring' button get a character-overview akin to that of the contacts menu
+	
+	Also, right now, everyone has a species-preference. -may- want to make it so that some folk don't care much about species and only about body-shape/sex
+	Make gender preferences for NPC's forced TFs settable
+	
+	Now, one other thought, maybe have fetishes figure in a little bit for what gear they end up with?
+		Not for normal peps, but when deciding whether to be a herm or off-gender sex.
+		If someone has a cum feitsh or receiving cock feitsh, they should probably prefer a partner with a cock.
+		If they have impregnation fetishes, it would make sense for them to prefer a partner with a vagina.
+		This could actually be tested after the random roll has been done, and adjusts the result then.
+		That will save a fair bit of coding work.
+	
+	
+	they should focus on adding desired organs before removing
+	Another one, for the TF fetishists, is to have organ removal be something that's gradual.
+		They don't instantly remove an offending organ, instead that's one of the random things that they'll sometimes shrink or tighten until it's very small and then they remove it.
+	
+	
+	virginity losses from self
+	
+	Add afro
+	
+	there's no yellow for genital colors
+	
+	pushing your fingers into your partner's mouth
+	
+	
+	If a character has the non-consent fetish, you should remove the arousal gain penalty from resisting sex. You might even gain extra arousal
+	NPCs with the non-con fetish always resist
+	So a sadistic character will gain more arousal from a resisting partner and a non-con fetishist would gain extra arousal while resisting instead of having a penalty.
+	
+	Firstly, you could change the description of the Non-con fetish to only include being raped, but not necessarily raping others. 
+	Then, you can expand the sadism fetish to include raping others. Alternatively, you could also make a second red boardered "dominant" version of the Non-con fetish.
+	Also, you could have the "resist" action only decrease the character's arousal if they don't have the noncon fetish. I have no idea where this is done in the code however but if you can find where to stick it, a little if statement would probably do
+	
+	
+	is the selfie screen supposed to not list the actual penis length anymore
+	
+	Character creation: Full body hair has the heading 'Pubic hair', so that name shows up twice
+	
+	allow the option of enabling body hair content from the character creation extra hair menu
+	
+	kate option for penis color - it's just called "skin"
+	
+	an option for fur highlights
+	
+	an option to make all the skin options match your base skin would be nice
 	
 	Add Paizuri
-		suck on the tip during a tiddy fuck
 	
+	TF fetish for NPCs increases the amount of times they TF you
+	
+	resisting characters could stop resisting if you're gentle and/or make them cum a few times
+	
+	 a fetish for wearing soiled clothing? Also, I'd like a randomise button on character creation
 	
 	
 	Weapons delete themselves when keep on equipping the same type from floor

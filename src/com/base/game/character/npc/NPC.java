@@ -550,11 +550,13 @@ public abstract class NPC extends GameCharacter {
 		// Order of transformation preferences are: Sexual organs -> minor parts -> Legs & arms -> Face & skin 
 
 		// Sexual transformations:
-		if(Main.game.getPlayer().getVaginaType() != getPreferredBody().getVagina().getType()) {
-			if(getPreferredBody().getVagina().getType() == VaginaType.NONE) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that little cunt of yours!");
-			} else {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
+		if(!Main.game.getPlayer().isHasAnyPregnancyEffects()) { // Vagina cannot be transformed if pregnant, so skip this
+			if(Main.game.getPlayer().getVaginaType() != getPreferredBody().getVagina().getType()) {
+				if(getPreferredBody().getVagina().getType() == VaginaType.NONE) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that little cunt of yours!");
+				} else {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
+				}
 			}
 		}
 		if(Main.game.getPlayer().getPenisType() != getPreferredBody().getPenis().getType()) {
@@ -628,7 +630,7 @@ public abstract class NPC extends GameCharacter {
 		
 		// Femininity:
 		if(Main.game.getPlayer().getFemininity() < getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininity()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
-			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.BOOST, 1), "I'm gonna turn you into a cute little girl!");
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.BOOST, 1), "I'm gonna need you to be more feminine!");
 			
 		} else if(Main.game.getPlayer().getFemininity() > getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininity()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
 			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.DRAIN, 1), "I'm gonna need you to be more of a man!");
@@ -708,6 +710,9 @@ public abstract class NPC extends GameCharacter {
 			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1), "Your [pc.lips] are too big!");
 		}
 		
+		if(possibleEffects.isEmpty()) {
+			return null;
+		}
 		
 		List<ItemEffect> keysAsArray = new ArrayList<>(possibleEffects.keySet());
 		ItemEffect effect = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
@@ -727,24 +732,24 @@ public abstract class NPC extends GameCharacter {
 		switch(this.getSexualOrientation()) {
 			case AMBIPHILIC:
 				if(Main.game.getPlayer().isFeminine()) {
-					desiredGenders.put(Gender.FEMALE, 15);
-					desiredGenders.put(Gender.FUTANARI, 10);
-					desiredGenders.put(Gender.SHEMALE, 5);
+					desiredGenders.put(Gender.FEMALE, 7);
+					desiredGenders.put(Gender.FUTANARI, 2);
+					desiredGenders.put(Gender.SHEMALE, 1);
 				} else {
-					desiredGenders.put(Gender.MALE, 15);
-					desiredGenders.put(Gender.HERMAPHRODITE, 10);
-					desiredGenders.put(Gender.CUNT_BOY, 5);
+					desiredGenders.put(Gender.MALE, 7);
+					desiredGenders.put(Gender.HERMAPHRODITE, 2);
+					desiredGenders.put(Gender.CUNT_BOY, 1);
 				}
 				break;
 			case ANDROPHILIC:
-				desiredGenders.put(Gender.MALE, 15);
-				desiredGenders.put(Gender.HERMAPHRODITE, 10);
-				desiredGenders.put(Gender.CUNT_BOY, 5);
+				desiredGenders.put(Gender.MALE, 7);
+				desiredGenders.put(Gender.HERMAPHRODITE, 2);
+				desiredGenders.put(Gender.CUNT_BOY, 1);
 				break;
 			case GYNEPHILIC:
-				desiredGenders.put(Gender.FEMALE, 15);
-				desiredGenders.put(Gender.FUTANARI, 10);
-				desiredGenders.put(Gender.SHEMALE, 5);
+				desiredGenders.put(Gender.FEMALE, 7);
+				desiredGenders.put(Gender.FUTANARI, 2);
+				desiredGenders.put(Gender.SHEMALE, 1);
 				break;
 		}
 		

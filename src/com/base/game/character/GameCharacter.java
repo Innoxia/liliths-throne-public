@@ -1637,7 +1637,11 @@ public class GameCharacter implements Serializable {
 	public boolean isPregnant() {
 		return pregnantLitter != null;
 	}
-
+	
+	public boolean isHasAnyPregnancyEffects() {
+		return hasStatusEffect(StatusEffect.PREGNANT_0) || hasStatusEffect(StatusEffect.PREGNANT_1) || hasStatusEffect(StatusEffect.PREGNANT_2) || hasStatusEffect(StatusEffect.PREGNANT_3);
+	}
+	
 	public boolean isVisiblyPregnant() {
 		return pregnantLitter != null && !hasStatusEffect(StatusEffect.PREGNANT_0);
 	}
