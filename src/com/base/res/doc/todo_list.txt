@@ -29,6 +29,10 @@
 		Minor typo fixes.
 		Fixed parsing bugs (which was causing the parser's 'Commands' action to be unresponsive.)
 	
+	Contributors:
+	
+	Pimgd:
+		Disallowed quick manage drop if cell is full, thereby preventing item loss.
 	
 	
 	
