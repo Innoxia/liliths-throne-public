@@ -49,12 +49,12 @@ public class InventorySelectedItemEventListener implements EventListener {
 					Main.game.setContent(new Response("", "", InventoryDialogue.ITEM_INVENTORY));
 				
 			} else if (Main.game.getDialogueFlags().tradePartner == null){
-				if (Main.game.getDialogueFlags().quickTrade){
+				if (Main.game.getDialogueFlags().quickTrade && Main.game.getPlayerCell().getInventory().canAddItem(item)) {
 					Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().dropItem(item) + "</p>");
 					Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
-				}else
+				} else {
 					Main.game.setContent(new Response("", "", InventoryDialogue.ITEM_INVENTORY));
-				
+				}
 			} else {
 				if (InventoryDialogue.isBuyback()) {
 					InventoryDialogue.setBuyBackPrice(buyBackPrice);
@@ -107,12 +107,12 @@ public class InventorySelectedItemEventListener implements EventListener {
 			if(Main.game.isInSex()){
 				// Do nothing...
 			}else if (Main.game.getDialogueFlags().tradePartner == null){
-				if (Main.game.getDialogueFlags().quickTrade){
+				if (Main.game.getDialogueFlags().quickTrade && Main.game.getPlayerCell().getInventory().canAddClothing(clothing)) {
 					Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().dropClothing(clothing) + "</p>");
 					Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
-				}else
+				} else {
 					Main.game.setContent(new Response("", "", InventoryDialogue.CLOTHING_INVENTORY));
-				
+				}
 			}else {
 				if (InventoryDialogue.isBuyback()) {
 					InventoryDialogue.setBuyBackPrice(buyBackPrice);
@@ -166,12 +166,12 @@ public class InventorySelectedItemEventListener implements EventListener {
 			if(Main.game.isInSex()){
 				// Do nothing...
 			}else if (Main.game.getDialogueFlags().tradePartner == null){
-				if (Main.game.getDialogueFlags().quickTrade){
+				if (Main.game.getDialogueFlags().quickTrade && Main.game.getPlayerCell().getInventory().canAddWeapon(weapon)) {
 					Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().dropWeapon(weapon) + "</p>");
 					Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
-				}else
+				} else {
 					Main.game.setContent(new Response("", "", InventoryDialogue.WEAPON_INVENTORY));
-				
+				}
 			}else {
 				if (InventoryDialogue.isBuyback()) {
 					InventoryDialogue.setBuyBackPrice(buyBackPrice);
