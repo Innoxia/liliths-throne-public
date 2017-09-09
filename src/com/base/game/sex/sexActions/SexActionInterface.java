@@ -213,11 +213,11 @@ public interface SexActionInterface {
 				if(getAssociatedOrificeType() != null) {
 					switch(getAssociatedOrificeType()){
 						case NIPPLE_PARTNER:
-							if(!Sex.getPartner().isBreastFuckable())
+							if(!Sex.getPartner().isBreastFuckableNipplePenetration())
 								return null;
 							break;
 						case NIPPLE_PLAYER:
-							if(!Main.game.getPlayer().isBreastFuckable())
+							if(!Main.game.getPlayer().isBreastFuckableNipplePenetration())
 								return null;
 							break;
 						default:
@@ -517,6 +517,10 @@ public interface SexActionInterface {
 				case NIPPLE_PARTNER:
 					break;
 				case NIPPLE_PLAYER:
+					break;
+				case BREAST_PARTNER:
+					break;
+				case BREAST_PLAYER:
 					break;
 				case URETHRA_PARTNER:
 					if(!Sex.getPartner().hasPenis())

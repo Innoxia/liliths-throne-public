@@ -3767,8 +3767,11 @@ public class GameCharacter implements Serializable {
 	public boolean hasBreasts() {
 		return body.getBreast().hasBreasts();
 	}
-	public boolean isBreastFuckable() {
+	public boolean isBreastFuckableNipplePenetration() {
 		return body.getBreast().isFuckable();
+	}
+	public boolean isBreastFuckablePaizuri() {
+		return body.getBreast().getRawSizeValue() >= CupSize.C.getMeasurement();
 	}
 	// Type:
 	public BreastType getBreastType() {

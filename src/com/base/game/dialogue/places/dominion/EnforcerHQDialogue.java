@@ -1280,7 +1280,7 @@ public class EnforcerHQDialogue {
 						null, null, Util.newArrayListOfValues(new ListValue<>(Perk.OBSERVANT)), null, null);
 					
 			} else if (index == 3) {
-				return new Response("Wolf-tease", "Use your feminine wolf-like body to tease [brax.name] into giving you information about Arthur..", INTERIOR_BRAX_GETTING_TEASED,
+				return new Response("Wolf-tease", "Use your feminine wolf-like body to tease [brax.name] into giving you information about Arthur.", INTERIOR_BRAX_GETTING_TEASED,
 						null, null, null, Femininity.FEMININE, Race.WOLF_MORPH){
 					@Override
 					public void effects(){

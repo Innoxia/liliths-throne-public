@@ -5175,7 +5175,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex() && target.isBreastFuckable();
+			return Main.game.isInSex() && target.isBreastFuckableNipplePenetration();
 		}
 		
 		@Override

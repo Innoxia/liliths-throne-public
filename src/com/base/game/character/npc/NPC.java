@@ -5473,6 +5473,12 @@ public abstract class NPC extends GameCharacter {
 			case VAGINA_PLAYER:
 				orificeName = "[pc.pussy+]";
 				break;
+			case BREAST_PARTNER:
+				orificeName = "[npc.breasts+]";
+				break;
+			case BREAST_PLAYER:
+				orificeName = "[pc.breasts+]";
+				break;
 		}
 		
 		if(Sex.isPlayerDom()) {
@@ -6332,6 +6338,12 @@ public abstract class NPC extends GameCharacter {
 				break;
 			case VAGINA_PLAYER:
 				orificeName = "[pc.pussy+]";
+				break;
+			case BREAST_PARTNER:
+				orificeName = "[npc.breasts+]";
+				break;
+			case BREAST_PLAYER:
+				orificeName = "[pc.breasts+]";
 				break;
 		}
 		

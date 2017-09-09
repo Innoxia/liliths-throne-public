@@ -42,7 +42,7 @@ public class PlayerPenisNipple {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex()) && Sex.getPartner().isBreastFuckable();
+			return (Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex()) && Sex.getPartner().isBreastFuckableNipplePenetration();
 		}
 
 		@Override
@@ -138,7 +138,7 @@ public class PlayerPenisNipple {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (!Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex()) && Sex.getPartner().isBreastFuckable();
+			return (!Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex()) && Sex.getPartner().isBreastFuckableNipplePenetration();
 		}
 
 		@Override

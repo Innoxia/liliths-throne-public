@@ -814,7 +814,7 @@ public class PartnerFingerAnus {
 
 		@Override
 		public String getActionDescription() {
-			return "Enjoy [pc.name]'s [pc.fingers+] in your [npc.asshole+].";
+			return "Enjoy [npc.name]'s [npc.fingers+] in your [pc.asshole+].";
 		}
 
 		@Override
