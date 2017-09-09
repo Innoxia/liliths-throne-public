@@ -14,6 +14,8 @@ public enum SkinType implements BodyPartTypeInterface {
 
 	ANGEL(BodyCoveringType.ANGEL, Race.ANGEL),
 
+	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
+
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
 
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
@@ -85,6 +87,8 @@ public enum SkinType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("angelic");
 			case CAT_MORPH:
 				return UtilText.returnStringAtRandom("cat-like");
+			case COW_MORPH:
+				return UtilText.returnStringAtRandom("cow-like");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("demonic");
 			case DOG_MORPH:

@@ -126,6 +126,7 @@ public class Library {
 		}
 
 		@Override
+
 		public Response getResponse(int lore) {
 			if (lore == 1) {
 				return new Response("Arcane Arousal", "A leather-bound tome that seems to offer an insight into how the arcane works.", ARCANE_AROUSAL) {
@@ -307,6 +308,7 @@ public class Library {
 		@Override
 		public String getContent() {
 			return "<p>"
+
 						+ "Walking down one of the aisles, you find yourself surrounded by heavy wooden shelves, fastened together by prominent beams of iron and steel."
 						+ " A lot of the books here seem to be about local history of Dominion's many districts, and, while fascinating for a historian, they don't offer much use to you."
 						+ " Despite most of the books not being worth your time, there are a few here and there that detail the many races found within the city, and you wonder if you should give them a read..."
@@ -339,7 +341,6 @@ public class Library {
 
 			} else if (city == 0) {
 				return new Response("Back", "Return to browsing the stacks.", BROWSE_BOOKS);
-
 			} else {
 				return null;
 			}
@@ -375,8 +376,47 @@ public class Library {
 			if (field == 1) {
 				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
 
-//			} else if (field == 2) {
-//				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
+			} else if (field == 2) {
+				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
+
+			}  else if (field == 0) {
+				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
+
+
+			} else {
+				return null;
+			}
+		}
+	
+	};
+	
+
+	public static final DialogueNodeOld FIELDS_BOOKS = new DialogueNodeOld("", "", false) {
+		/**
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "Library";
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "Walking down one of the aisles, you see that these shelves have an pastoral look to them. The shelves look like they haven been crafted from blocks of sod supported by pieces of wood."
+					+ " These books have the general feeling of being about the fields and its people."
+					+ "</p>";
+							
+		}
+
+		@Override
+		public Response getResponse(int field) {
+			if (field == 1) {
+				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
+
+			} else if (field == 2) {
+				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
 
 			}  else if (field == 0) {
 				return new Response("Back", "Return to browsing the stacks.", BROWSE_BOOKS);
@@ -388,6 +428,7 @@ public class Library {
 	
 	};
 	
+
 //	public static final DialogueNodeOld SEA_BOOKS = new DialogueNodeOld("", "", false) {
 //		/**
 //		 */

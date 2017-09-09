@@ -549,6 +549,38 @@ public class Vagina implements BodyPartInterface, Serializable {
 						+ "</p>"));
 				}
 				break;
+			case COW_MORPH:
+				if(owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							" You let out a squeal of excitement as a wave of pleasure runs up from your groin, and you feel your slit shifting and contracting with a mind of its own."
+							+ " Your pussy lips puff up and darken to a deep black, and you find yourself moaning and squirming as your cunt reshapes itself into a cow-like vagina, giving your feminine sex a very animalistic appearance."
+						+ "</p>"
+						+ "<p>"
+							+ "Just as you think that the transformation has come to an end, your pussy involuntarily clenches down,"
+								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
+							+ " Images of huge, flared bull-cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their hot seed deep into your bovine womb."
+							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
+							+ "</br>"
+							+ "You now have an [style.boldCowMorph(bovine vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
+						+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(UtilText.parse(owner, 
+							" [npc.She] lets out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, and as [npc.she] feels [npc.her] slit shifting and contracting with a mind of its own,"
+									+ " [npc.she] desperately clamps [npc.her] [npc.legs] shut."
+							+ " [npc.Her] pussy lips puff up and darken to a deep black, and [npc.she] starts moaning and squirming as [npc.her] cunt reshapes itself into a cow-like vagina, giving [npc.her] feminine sex a very animalistic appearance."
+						+ "</p>"
+						+ "<p>"
+							+ "Just as [npc.she] starts think that the transformation has come to an end, [npc.her] pussy involuntarily clenches down,"
+								+ " and a desperate squeal escapes from between [npc.her] [npc.lips+] as a warm, tingling feeling spreads up through [npc.her] lower abdomen."
+							+ " Images of huge, flared bull-cocks slamming deep into [npc.her] new pussy flash before [npc.her] eyes,"
+								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their potent seed deep into [npc.her] bovine womb."
+							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
+								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
+							+ "</br>"
+							+ "[npc.Name] now has an [style.boldCowMorph(bovine vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
+						+ "</p>"));
+				}
+				break;
 			case HARPY:
 				if(owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

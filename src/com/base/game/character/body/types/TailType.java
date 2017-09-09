@@ -19,7 +19,9 @@ public enum TailType implements BodyPartTypeInterface {
 	
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH, false, false),
 
-	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true, false),
+	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH, false),
+	
+	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, false, false),
 	
@@ -88,6 +90,8 @@ public enum TailType implements BodyPartTypeInterface {
 		switch(this){
 			case CAT_MORPH:
 				return UtilText.returnStringAtRandom("cat-like");
+			case COW_MORPH:
+				return UtilText.returnStringAtRandom("cow-like", "tufted");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("spaded", "demonic");
 			case DOG_MORPH:

@@ -19,6 +19,8 @@ public enum TesticleType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, FluidType.CUM_DEMON, Race.DEMON, false),
 
+	BOVINE(BodyCoveringType.BOVINE_FUR, FluidType.CUM_COW_MORPH, Race.COW_MORPH, false),
+	
 	CANINE(BodyCoveringType.CANINE_FUR, FluidType.CUM_DOG_MORPH, Race.DOG_MORPH, false),
 	
 	LUPINE(BodyCoveringType.LYCAN_FUR, FluidType.CUM_WOLF_MORPH, Race.WOLF_MORPH, false),
