@@ -2082,9 +2082,9 @@ public class Body implements Serializable {
 				
 			case COW_MORPH:
 				if (isPlayer) {
-					descriptionSB.append("You have an bovine, [pc.anusFullDescription(true)]");
+					descriptionSB.append("You have a bovine, [pc.anusFullDescription(true)]");
 				} else {
-					descriptionSB.append("[npc.She] has an bovine, [npc.anusFullDescription(true)]");
+					descriptionSB.append("[npc.She] has a bovine, [npc.anusFullDescription(true)]");
 				}
 				break;
 				
