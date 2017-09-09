@@ -61,6 +61,8 @@
 	
 	
 	
+	Work for Lilaya as a maid
+	
 	Summons:
 	
 	 the summons should be created before combat starts.  The player should be able to walk around with their pets/summons, and customizing them in some way would be nice for player advancement and team management.

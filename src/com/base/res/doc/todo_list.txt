@@ -27,14 +27,18 @@
 		Fixed weapons not having any spells.
 		Fixed bug where the main quest couldn't be progressed if you started an imported character.
 		Minor typo fixes.
+		Fixed parsing bugs (which was causing the parser's 'Commands' action to be unresponsive.)
 	
 	
 	
 	
 	
 	
+	In the body stats menu it does not show plasticity for stuff only Elasticity
 	
+	Dying items seems to be broken. I can enter the dyeing menu, but all the color buttons don't work
 	
+	split Nyan pages up
 	
 	can the 'offspring' button get a character-overview akin to that of the contacts menu
 	
@@ -53,6 +57,7 @@
 	Another one, for the TF fetishists, is to have organ removal be something that's gradual.
 		They don't instantly remove an offending organ, instead that's one of the random things that they'll sometimes shrink or tighten until it's very small and then they remove it.
 	
+	Buy Brax
 	
 	virginity losses from self
 	

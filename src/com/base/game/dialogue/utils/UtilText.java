@@ -3404,6 +3404,9 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+					return "";
+				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
 						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getFullDescription(character, true);
@@ -3422,6 +3425,9 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+					return "";
+				}
 				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getFullDescription(character, true);
 			}
 		});
@@ -3435,6 +3441,9 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+					return "";
+				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
 						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getColourDescriptor(true);
@@ -3453,6 +3462,9 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+					return "";
+				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
 						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getPrimaryColourDescriptor(true);
@@ -3471,6 +3483,9 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+					return "";
+				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
 						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getSecondaryColourDescriptor(true);
@@ -3489,6 +3504,9 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+					return "";
+				}
 				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getPrimaryColour().toWebHexString();
 			}
 		});
