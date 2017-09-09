@@ -908,7 +908,7 @@ public class SuccubisSecrets {
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rogue) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", false, true)
+							BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", false, true)
 					
 					+CharacterModificationUtils.getKatesDivCoverings(
 							BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", false, true)

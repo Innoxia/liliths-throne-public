@@ -21,10 +21,12 @@
 		Slightly tweaked gender preferences for NPC's forced TFs.
 	
 	Bugs:
+		Fixed game freeze once NPC finished transforming you into their preferred body type.
 		Fixed major bug where items and weapons would sometimes not stack in inventory.
 		Fixed items showing up in sex as disabled, even if they were available to be used.
 		Fixed weapons not having any spells.
 		Fixed bug where the main quest couldn't be progressed if you started an imported character.
+		Minor typo fixes.
 	
 	
 	
@@ -34,8 +36,7 @@
 	
 	
 	
-	
-	
+	can the 'offspring' button get a character-overview akin to that of the contacts menu
 	
 	Also, right now, everyone has a species-preference. -may- want to make it so that some folk don't care much about species and only about body-shape/sex
 	Make gender preferences for NPC's forced TFs settable
@@ -59,6 +60,7 @@
 	
 	there's no yellow for genital colors
 	
+	pushing your fingers into your partner's mouth
 	
 	
 	If a character has the non-consent fetish, you should remove the arousal gain penalty from resisting sex. You might even gain extra arousal

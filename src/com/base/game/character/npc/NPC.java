@@ -542,11 +542,13 @@ public abstract class NPC extends GameCharacter {
 		// Order of transformation preferences are: Sexual organs -> minor parts -> Legs & arms -> Face & skin 
 
 		// Sexual transformations:
-		if(Main.game.getPlayer().getVaginaType() != getPreferredBody().getVagina().getType()) {
-			if(getPreferredBody().getVagina().getType() == VaginaType.NONE) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that little cunt of yours!");
-			} else {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
+		if(!Main.game.getPlayer().isHasAnyPregnancyEffects()) { // Vagina cannot be transformed if pregnant, so skip this
+			if(Main.game.getPlayer().getVaginaType() != getPreferredBody().getVagina().getType()) {
+				if(getPreferredBody().getVagina().getType() == VaginaType.NONE) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that little cunt of yours!");
+				} else {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
+				}
 			}
 		}
 		if(Main.game.getPlayer().getPenisType() != getPreferredBody().getPenis().getType()) {
@@ -700,6 +702,9 @@ public abstract class NPC extends GameCharacter {
 			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1), "Your [pc.lips] are too big!");
 		}
 		
+		if(possibleEffects.isEmpty()) {
+			return null;
+		}
 		
 		List<ItemEffect> keysAsArray = new ArrayList<>(possibleEffects.keySet());
 		ItemEffect effect = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
