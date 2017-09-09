@@ -7623,18 +7623,7 @@ public static AbstractClothingType PIERCING_EAR_LIVESTOCK_TAGS = new AbstractClo
 				
 			}
 		}
-
-  
-		if (character.getLegType() == LegType.COW_MORPH && slot == InventorySlot.FOOT) {
-			return Race.COW_MORPH;
-		}
-		
-		if (character.getLegType() == LegType.HARPY && slot == InventorySlot.FOOT) {
-			return Race.HARPY;
-		}
-
-
-    
+  	    
 	}
 	
 	public static List<AbstractClothingType> getAllClothing() {
