@@ -351,8 +351,6 @@ When it should be an indication that I'm gaining testicles, and the three messag
 	
 	a crash bug, if in you'r room, you put objects, and have to much objects, if you take all and don't have engout space in your invotory, the game crash
 	
-	: if the room is full, you can't drop other objec, but with Quick-manage: he say he safely store objec and the object no linger existe
-	
 	 I think something's up with gender pronouns in the latest hotfix. Either that or traps are no longer called traps and are just called "Man" regardless of settings or feminity level.
 	  Not sure, I'm out of town so haven't really been able to give this release a good stress test, hence why I'm not even signed in.
 
