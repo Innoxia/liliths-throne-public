@@ -37,8 +37,27 @@
 	
 	
 	
+	TF TAILS DESCRIPTIONS
+	
+	TF Horse & cow colour description
+	
+	Race description for cow-morphs
+	
+	Change gore to headbutt
+	
+	Sprouts?
+	
+	Bubble milk alcoholic
 	
 	
+	
+	
+	
+	"Gritting your teeth, you try once again to remove the offending article of clothing, only to find yourself instantly letting go as you try to pull it off it off."
+	
+	
+	
+	Headpats and scritches during oral when
 	
 	I'll also definitely add an options menu to set NPC transformation ratios, as well as making them take your preferences into account. They should already be doing that, but there must be a bug in my method.
 	
