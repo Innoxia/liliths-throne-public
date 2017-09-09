@@ -295,7 +295,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("P.", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("R.S.", "", 0, 0, 0, 1)); // TODO
 		credits.add(new CreditsSlot("Odd8Ball", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("A.S.", "", 0, 0, 0, 1)); // TODO
+		credits.add(new CreditsSlot("SchALLieS", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Calrak", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("C.T.", "", 0, 0, 0, 1)); // TODO
 		credits.add(new CreditsSlot("Torsten015", "", 0, 0, 0, 1)); // TODO

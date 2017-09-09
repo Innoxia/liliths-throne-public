@@ -99,6 +99,52 @@ public enum Spell {
 			return false;
 		}
 	},
+	
+	FIRE_INFERNO("inferno",
+			"spellFireball",
+			DamageType.FIRE,
+			DamageLevel.EXTREME,
+			DamageVariance.LOW,
+			SpecialAttackSpellCosts.HIGH,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.BURN_WEAK, 2))) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
+
+			float damage = calculateDamage(caster, target, spellLevel, isCritical);
+			float cost = calculateCost(caster, spellLevel);
+
+			if (caster.isPlayer())
+				descriptionSB = new StringBuilder("<p>" + "Summoning a swirling vortex of arcane fire around your " + Main.game.getPlayer().getArmNameSingular() + "," + " you focus its raw power into a ball of roiling flames before launching it at "
+						+ target.getName("the") + "." + "</p>");
+			else
+				descriptionSB = new StringBuilder(UtilText.genderParsing(caster,
+						"<p>" + "Summoning a swirling vortex of arcane fire around <her> " + caster.getArmNameSingular() + "," + " <she> focuses its raw power into a ball of roiling flames before launching it directly at you!" + "</p>"));
+
+			descriptionSB.append(getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+			
+			// If attack hits, apply damage and effects:
+			if (isHit) {
+				descriptionSB.append(target.incrementHealth(-damage));
+				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
+					target.addStatusEffect(se.getKey(), se.getValue());
+			}
+
+			caster.incrementMana(-cost);
+						
+			return descriptionSB.toString();
+		}
+
+		@Override
+		public String getDescription(GameCharacter caster, int level) {
+			return "Summons a ball of flames that can be launched at a target.";
+		}
+
+		@Override
+		public boolean isSelfCastSpell() {
+			return false;
+		}
+	},
+	
 	ICESHARD_1("ice shard", "spellIceShard", DamageType.ICE, DamageLevel.POOR, DamageVariance.LOW, SpecialAttackSpellCosts.LOW, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CHILL, 2))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {

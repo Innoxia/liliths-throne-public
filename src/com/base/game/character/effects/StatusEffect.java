@@ -3888,11 +3888,56 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_FIRE,
 			false,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b>4</b> <b style='color: " + Colour.DAMAGE_TYPE_FIRE.toWebHexString() + ";'>Fire damage per turn</b>"))) {
+			Util.newArrayListOfValues(new ListValue<String>("<b>5</b> <b style='color: " + Colour.DAMAGE_TYPE_FIRE.toWebHexString() + ";'>Fire damage per turn</b>"))) {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int damage = (int) (4 * ((100 - (target.getAttributeValue(Attribute.RESISTANCE_FIRE))) / 100f)); 
+			int damage = (int) (5 * ((100 - (target.getAttributeValue(Attribute.RESISTANCE_FIRE))) / 100f)); 
+			if (damage < 1)
+				damage = 1;
+			target.incrementHealth(-damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> <b style='color:" + Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + DamageType.FIRE.getName() + "</b> damage!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> <b style='color:" + Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + DamageType.FIRE.getName() + "</b> damage!";
+			}
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "Invisible arcane flames lick at your feet, and while they don't cause you any real pain, you still end up hopping around in discomfort.";
+			} else {
+				return UtilText.parse(target,
+						"Invisible arcane flames lick at [npc.name]'s feet, and while they don't cause [npc.herHim] any real pain, [npc.she] still ends up hopping around in discomfort.");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	BURN_STRONG(
+			10,
+			"ignited",
+			"negativeCombatEffect",
+			Colour.DAMAGE_TYPE_FIRE,
+			false,
+			null,
+			Util.newArrayListOfValues(new ListValue<String>("<b>10</b> <b style='color: " + Colour.DAMAGE_TYPE_FIRE.toWebHexString() + ";'>Fire damage per turn</b>"))) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) (10 * ((100 - (target.getAttributeValue(Attribute.RESISTANCE_FIRE))) / 100f)); 
 			if (damage < 1)
 				damage = 1;
 			target.incrementHealth(-damage);

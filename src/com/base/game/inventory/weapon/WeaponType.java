@@ -101,7 +101,10 @@ public class WeaponType {
 			DamageLevel.HIGH,
 			DamageVariance.LOW,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 5)),
-			Util.newArrayListOfValues(new ListValue<Spell>(Spell.FIREBALL_1), new ListValue<Spell>(Spell.FIREBALL_1), new ListValue<Spell>(Spell.FIREBALL_1))) {
+			Util.newArrayListOfValues(
+					new ListValue<Spell>(Spell.FIREBALL_1),
+					new ListValue<Spell>(Spell.FIRE_SHIELD),
+					new ListValue<Spell>(Spell.FIRE_INFERNO))) {
 
 		private static final long serialVersionUID = 1L;
 
