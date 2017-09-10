@@ -33,6 +33,8 @@
 	
 	Pimgd:
 		Disallowed quick manage drop if cell is full, thereby preventing item loss.
+		
+	Rfpnj:
 		Cow-morph:
 			Added all cow-morph transformations and body parts.
 			Added 'Milking Cows' (lore book).
@@ -45,12 +47,10 @@
 	
 	
 	
+	Paizuri
 	
-	
-		If I pull up my maid dress, the NPC currently taking advantage decides to still take it off despite all the fun bits already being exposed. :V
-		pls fix.
-	
-	
+	If I pull up my maid dress, the NPC currently taking advantage decides to still take it off despite all the fun bits already being exposed. :V
+	pls fix.
 	
 	When you first speak with pix she still says lifetime membership is 1000 not 800
 	
