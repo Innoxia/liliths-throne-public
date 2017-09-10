@@ -521,7 +521,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 				if(owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							" You let out a squeal of excitement as a wave of pleasure runs up from your groin, and you feel your slit shifting and contracting with a mind of its own."
-							+ " Your pussy lips puff up and darken to a deep black, and you find yourself moaning and squirming as your cunt reshapes itself into a horse-like vagina, giving your feminine sex a very animalistic appearance."
+							+ " Your pussy lips puff up as your cunt reshapes itself into an animalistic, horse-like vagina."
 						+ "</p>"
 						+ "<p>"
 							+ "Just as you think that the transformation has come to an end, your pussy involuntarily clenches down,"
@@ -553,7 +553,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 				if(owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							" You let out a squeal of excitement as a wave of pleasure runs up from your groin, and you feel your slit shifting and contracting with a mind of its own."
-							+ " Your pussy lips puff up and darken to a deep black, and you find yourself moaning and squirming as your cunt reshapes itself into a cow-like vagina, giving your feminine sex a very animalistic appearance."
+									+ " Your pussy lips puff up as your cunt reshapes itself into an animalistic, cow-like vagina."
 						+ "</p>"
 						+ "<p>"
 							+ "Just as you think that the transformation has come to an end, your pussy involuntarily clenches down,"

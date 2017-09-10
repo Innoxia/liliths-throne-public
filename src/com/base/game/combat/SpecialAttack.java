@@ -1003,15 +1003,15 @@ public enum SpecialAttack {
 		}
 	},
 
-	COW_GORE(50,
-			"Gore",
+	COW_HEADBUTT(50,
+			"Headbutt",
 			"hornsIcon",
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			DamageType.PHYSICAL,
 			DamageLevel.HIGH,
 			DamageVariance.LOW,
 			SpecialAttackSpellCosts.MEDIUM,
-			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 4))) {
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 2))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
@@ -1020,20 +1020,24 @@ public enum SpecialAttack {
 			descriptionSB = new StringBuilder();
 			
 			if (caster == Main.game.getPlayer()) {
-				descriptionSB.append(UtilText.genderParsing(target,
-						"<p>" + "With a burst of energy, you leap forwards, trying to ram your horns at " + target.getName("the") + "."
-								+ (isHit ? " Your cow-like horns slam into " + target.getName("the") + "'s body,"
-										+ " and you manage to cause some serious damage with your sharp horns before <she> manages to throw you off of <herPro>."
-										: target.getName("The") + " manages to jump to one side, and there's an audible woosh as your horns move through the thin air.")
-								+ "</p>")
+				descriptionSB.append(UtilText.parse(target,
+						"<p>"
+							+ "With a burst of energy, you leap forwards, trying to butt your head into [npc.name]."
+							+ (isHit
+									? " You manage to make contact; ramming your forehead into [npc.her] body and whacking [npc.herHim] with the sides of your horns,"
+											+ " you knock the wind out of [npc.herHim] and cause [npc.hreHim] to stagger backwards in a daze."
+									: " [npc.She] manages to jump to one side, and there's an audible whoosh as you thrust your horns through the air.")
+						+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.genderParsing(caster,
-						"<p>" + "With a sudden burst of energy, " + caster.getName("the") + " leaps forwards as <she> tries to gore you."
-								+ (isHit ? " <Her> cow-like muzzle slams down on your body,"
-										+ " and <she> shakes <her> head from side-to-side, managing to cause some serious damage with <her> sharp horns before you manage to throw <herPro> off of you."
-										: "You jump to one side as you see the attack coming, and there's an audible woosh as <her> horns hit nothing but thin air.")
-								+ "</p>")
+						"<p>"
+							+ "With a burst of energy, [npc.name] leaps forwards, trying to butt [npc.her] head into you."
+							+ (isHit
+									? " [npc.She] manages to make contact; ramming [npc.her] forehead into your body and whacking you with the sides of [npc.her] horns,"
+											+ " [npc.she] knocks the wind out of you and causes you to stagger backwards in a daze."
+									: " You manage to jump to one side, and there's an audible whoosh as [npc.she] thrusts [npc.her] horns through the air.")
+						+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			}
 			
@@ -1051,18 +1055,16 @@ public enum SpecialAttack {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
+			if (owner.isPlayer()) {
 				return "Your anthropomorphic cow-like horns can be used to deliver a powerful attack.";
-			else
-				return UtilText.genderParsing(owner, owner.getName("The") + "'s anthropomorphic cow-like horns can be used to deliver a powerful attack.");
+			} else {
+				return UtilText.parse(owner, "[npc.Name]'s anthropomorphic cow-like horns can be used to deliver a powerful attack.");
+			}
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			if (owner.getHornType() == HornType.BOVINE_MALE)
-				return true;
-			else
-				return false;
+			return owner.getHornType() == HornType.BOVINE_MALE || owner.getHornType() == HornType.BOVINE_FEMALE;
 		}
 	},
 
@@ -1117,7 +1119,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			return owner.getFaceType() == FaceType.LYCAN;
+			return owner.getArmType() == ArmType.LYCAN;
 		}
 	},
 

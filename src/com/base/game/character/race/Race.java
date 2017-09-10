@@ -177,28 +177,34 @@ public enum Race {
 			"cow-girls",
 
 			"<p>"
-					+ "Bovines are a humanoid race most commonly found in the city of Dominion."
-					+ " Bovines are quite stupid and the females are very submissive, and will happily do whatever their friends tell them to do."
-				+ "</p>",
-				
-				"<p>"
-					+ " They are mostly known for their females having gigantic breasts and heavy lactation."
-					+ " Due to this, they are often the target of unwanted attention from the other races."
-				+ "Bovines love to have their breasts milked, and prefer their sexual partners to pay attention to their breasts."
-				+	"</p>"
-				,
+				+ "Although cow-morphs can often be found in Dominion, they're far more common and numerous out in the Foloi Fields, where their primary occupation is working in the many farms that litter the landscape."
+				+ " The females of this race, called cow-girls, tend to be quite docile and submissive, which is in stark contrast to their male counterparts (cow-boys), who are typically very dominant and territorial."
+			+ "</p>",
+			
+			"<p>"
+				+ "Cow-girls are well known for having gigantic breasts and heavy lactation, and, due to this, are often the target of unwanted attention."
+				+ " It's commonplace for a cow-girl to have her breasts regularly milked, and the Foloi Fields are littered with milking sheds suited for this purpose."
+			+ "</p>"
+			+ "<p>"
+				+ "Cow-girls have strong herding instincts, and will naturally seek out a cow-boy to submit to."
+				+ " As a result of this, harems are a common part of cow-morph society, with some of the stronger and more dominant cow-boys leading herds of up to fifty females."
+				+ " Cow-boys are usually the owners of the many farms out in the Foloi Fields, and will assign their herd to be responsible for tending to their crops, as well as for providing milk for the farm's dairy."
+			+ "</p>"
+			+ "<p>"
+				+ "A cow-morph's offspring will be a mixture of more cow-morphs and offspring of their partner's race."
+			+ "</p>",
 
-				Colour.RACE_COW_MORPH,
-				Genus.BOVINE,
-				Disposition.CIVILIZED,
-				StatusEffect.COW_MORPH,
-				Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
-				true,
-				0.5f,
-				1,
-				2,
-				
-				TFEssence.COW_MORPH),
+			Colour.RACE_COW_MORPH,
+			Genus.BOVINE,
+			Disposition.CIVILIZED,
+			StatusEffect.COW_MORPH,
+			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
+			true,
+			0.5f,
+			1,
+			2,
+			
+			TFEssence.COW_MORPH),
 
 	// CANINES:
 	DOG_MORPH("dog-morph",

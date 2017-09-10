@@ -37,28 +37,11 @@
 			Added all cow-morph transformations and body parts.
 			Added 'Milking Cows' (lore book).
 			Added bottled cow-morph essence.
-			Added Bubble milk.
+			Added Bubble milk. (Icon design help from Blue999.)
 			Added Bubble yoghurt.
 			Added Ear tag (no femininity requirements, ear piercing slot).
 			Added Cowbell collar (no femininity requirements, neck slot).
-			Added bul nose ring (no femininity requirements, nose piercing slot).
-	
-	
-	
-	TF TAILS DESCRIPTIONS
-	
-	TF Horse & cow colour description
-	
-	Race description for cow-morphs
-	
-	Change gore to headbutt
-	
-	Sprouts?
-	
-	Bubble milk alcoholic
-	
-	Make cow morphs Lactate
-	
+			Added bovine nose ring (no femininity requirements, nose piercing slot).
 	
 	
 	

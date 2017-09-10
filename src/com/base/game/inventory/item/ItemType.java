@@ -350,11 +350,11 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType STR_INGREDIENT_BUBBLE_MILK = new AbstractItemType("a bottle of", //TODO
+	public static AbstractItemType STR_INGREDIENT_BUBBLE_MILK = new AbstractItemType("a bottle of",
 			false,
 			"Bubble Milk",
-			"The thick glass bottle of 'Bubble Milk' appears to contain, much as its name would suggest, a generous helping of some sort of alcoholic milk."
-				+ " A busty greater cow-girl is prominently featured on the label, smiling as she milks her gigantic udder-tits into a metal bucket.",
+			"The thick glass bottle of 'Bubble Milk' appears to contain, much as its name would suggest, a generous helping of milk."
+				+ " Looking through the glass, you see that there are little bubbles fizzing up in the liquid within, making this milk appear to be carbonated.",
 			"attributeCowMorphDrink",
 			Colour.ATTRIBUTE_STRENGTH,
 			25,
@@ -381,16 +381,17 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer())
+			if (user == Main.game.getPlayer()) {
 				return "<p>"
-							+ "Unscrewing the lid, you bring the bottle of 'Bubble Milk' to your lips before tilting your head back and quickly gulping down the creamy liquid."
-							+ " As the last few drops slide down your throat, you notice a faint, kick permeating through the sweet liquid, which lingers for some time as a slightly pleasant aftertaste."
+							+ "Unscrewing the cap, you bring the bottle of Bubble Milk up to your [pc.lips+], before tilting your head back and quickly gulping down the creamy liquid."
+							+ " Despite its name and the appearance of being carbonated, the mellow taste lacks any sort of fizz, and, after draining the entire bottle, a soft, pleasant aftertaste lingers in your mouth."
 						+ "</p>";
-			else
+			} else {
 				return UtilText.parse(user,
 						"<p>"
-								+ "[npc.Name] pulls out a bottle of 'Bubble Milk', and, after quickly unscrewing the cap, [npc.she] promptly downs the entire bottle."
+							+ "[npc.Name] pulls out a bottle of 'Bubble Milk', and, after quickly unscrewing the cap, [npc.she] promptly downs the entire bottle."
 						+ "</p>");
+			}
 		}
 	};
 	
@@ -898,18 +899,18 @@ public class ItemType {
 	};
 	
 
-	public static AbstractItemType RACE_INGREDIENT_COW_MORPH  = new AbstractItemType( //TODO
-			"a",
+	public static AbstractItemType RACE_INGREDIENT_COW_MORPH  = new AbstractItemType(
+			"a pot of",
 			false,
-			"Fresh Sprouts",
-			"A small bag of alfalfa sprouts."
-					+ " A label on the side shows a greater cow-girl devouring a plate of what looks to be this bag's contents.",
+			"Bubble Cream",
+			"A small pot of yoghurt, with a black-and-white cow-pattern styled onto the lid."
+					+ " A label on side declares it to be 'Bubble Cream', which seems to be a little misleading, as there isn't any sort of bubbling going on in the creamy mixture contained within.",
 			"raceCowMorphBubbleCream",
 			Colour.RACE_COW_MORPH,
 			40,
 			Rarity.RARE,
 			TFEssence.COW_MORPH,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_FRESH_SPROUTS, null, null, null, 0)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_BUBBLE_CREAM, null, null, null, 0)))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -932,15 +933,16 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
 				return "<p>"
-							+ "You pull at the sides of one end of the bag, and open the package."
-							+ " A fresh smell accompanies the sight of the sprouts inside, and you find yourself unable to resist the delicious-looking display."
-							+ " You quickly wolf down the bag's contents, finding that the sprouts are as delicious as they look."
+							+ "You peel back the foil lid to reveal the pot's contents."
+							+ " Despite this product being called 'Cream', it's actually a thick yoghurt that's contained within."
+							+ " Detaching the tiny wooden spoon that was stuck to one side, you eagerly dig in to the creamy mixture,"
+								+ " letting out satisfied little humming noises as you discover that it's quite possibly the most delicious yoghurt that you've ever tasted."
 						+ "</p>";
 				
 			} else {
 				return UtilText.parse(target,
 						"<p>"
-								+ "[npc.Name] pulls out a bag of 'Fresh Sprouts', and, opening the bag, quickly devours the contents."
+							+ "[npc.Name] pulls out a pot of Bubble Cream, and, after tearing off the foil lid, [npc.she] quickly wolfs down the thick yoghurt contained within."
 						+ "</p>");
 			}
 		}

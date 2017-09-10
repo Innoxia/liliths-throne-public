@@ -761,7 +761,7 @@ public enum ItemEffectType {
 		}
 	},
 	
-	RACE_FRESH_SPROUTS(Util.newArrayListOfValues(
+	RACE_BUBBLE_CREAM(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'"),
 			new ListValue<>("[style.boldGood(+2)] [style.boldFitness(fitness)] to 'potion effects'")),
 			Colour.RACE_COW_MORPH) {

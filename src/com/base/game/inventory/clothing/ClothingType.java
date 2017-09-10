@@ -200,10 +200,10 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType PIERCING_NOSE_COW_RING = new AbstractClothingType("a",
+	public static AbstractClothingType PIERCING_NOSE_BOVINE_RING = new AbstractClothingType("a",
 			false,
-			"bull nose ring",
-			"A large nose ring, similar to one worn by bulls.",
+			"bovine nose ring",
+			"A large nose ring, similar to one worn by cows and bulls.",
 			0,
 			null,
 			InventorySlot.PIERCING_NOSE,

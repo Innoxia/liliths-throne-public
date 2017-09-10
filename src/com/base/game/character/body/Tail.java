@@ -95,7 +95,7 @@ public class Tail implements BodyPartInterface, Serializable {
 						"<p>"
 							+ (owner.getTailCount()==1
 								?"[npc.Name] feels [npc.her] [npc.tail] growing hot and itchy, and after just a moment it starts to transform."
-								:"[npc.Name] feels [npc.her] [npc.tails] growing hot and itchy, and after just a moment they starts to transform."));
+								:"[npc.Name] feels [npc.her] [npc.tails] growing hot and itchy, and after just a moment they start to transform."));
 			}
 		}
 		
@@ -125,7 +125,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " You quickly realise that you have a decent amount of control over it, and you can twist it almost anywhere you please."
 									+ "</br>"
 									+ "You now have a [style.boldCatMorph(cat-like tail)]"
-								:" Furry, cat-like tails sprout from just above your ass, rapidly growing in size until they're each almost as long as one of your legs."
+								:" [pc.TailCount] furry, cat-like tails sprout from just above your ass, rapidly growing in size until they're each almost as long as one of your legs."
 									+ " You quickly realise that you have a decent amount of control over them, and you can twist them almost anywhere you please."
 									+ "</br>"
 									+ "You now have [pc.tailCount] [style.boldCatMorph(cat-like tails)]")
@@ -137,7 +137,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " [npc.She] quickly realises that [npc.she] has a decent amount of control over it, and can twist it almost anywhere [npc.she] pleases."
 									+ "</br>"
 									+ "[npc.Name] now has a [style.boldCatMorph(cat-like tail)]"
-								:" Furry, cat-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each almost as long as one of [npc.her] legs."
+								:" [npc.TailCount] furry, cat-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each almost as long as one of [npc.her] legs."
 									+ " [npc.She] quickly realises that [npc.she] has a decent amount of control over them, and can twist them almost anywhere [npc.she] pleases."
 									+ "</br>"
 									+ "[npc.Name] now has [npc.tailCount] [style.boldCatMorph(cat-like tails)]")
@@ -152,7 +152,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " You quickly realise that you have complete control over where it goes, allowing you to use it like a third limb."
 									+ "</br>"
 									+ "You now have a [style.boldDemon(demonic tail)]"
-								:" Demonic, spaded tail sprout from just above your ass, rapidly growing in size until they're each slightly longer than one of your legs."
+								:" [pc.TailCount] demonic, spaded tail sprout from just above your ass, rapidly growing in size until they're each slightly longer than one of your legs."
 									+ " You quickly realise that you have complete control over where they go, allowing you to use them like extra limbs."
 									+ "</br>"
 									+ "You now have [pc.tailCount] [style.boldDemon(demonic tails)]")
@@ -164,7 +164,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " [npc.She] quickly realises that [npc.she] has complete control over where it goes, allowing [npc.herHim] to use it like a third limb."
 									+ "</br>"
 									+ "[npc.Name] now has a [style.boldDemon(demonic tail)]"
-								:" Demonic, spaded tail sprout from just above [npc.her] ass, rapidly growing in size until they're slightly longer than one of [npc.her] legs."
+								:" [npc.TailCount] demonic, spaded tail sprout from just above [npc.her] ass, rapidly growing in size until they're slightly longer than one of [npc.her] legs."
 									+ " [npc.She] quickly realises that [npc.she] has complete control over where they go, allowing [npc.herHim] to use them like extra limbs."
 									+ "</br>"
 									+ "[npc.Name] now has [npc.tailCount] [style.boldDemon(demonic tails)]")
@@ -179,7 +179,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " You quickly realise that you have little control over it, and it wags with a mind of its own whenever you get excited."
 									+ "</br>"
 									+ "You now have a [style.boldDogMorph(dog-like tail)]"
-								:" Furry, dog-like tails sprout from just above your ass, rapidly growing in size until they're each about half the length of one of your legs."
+								:" [pc.TailCount] furry, dog-like tails sprout from just above your ass, rapidly growing in size until they're each about half the length of one of your legs."
 									+ " You quickly realise that you have little control over them, and they wag with a mind of their own whenever you get excited."
 									+ "</br>"
 									+ "You now have [pc.tailCount] [style.boldDogMorph(dog-like tails)]")
@@ -191,7 +191,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " [npc.She] quickly realises that [npc.she] has little control over it, and it wags with a mind of its own whenever [npc.she] gets excited."
 									+ "</br>"
 									+ "[npc.Name] now has a [style.boldDogMorph(dog-like tail)]"
-								:" Furry, dog-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about half the length of one of [npc.her] legs."
+								:" [npc.TailCount] furry, dog-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about half the length of one of [npc.her] legs."
 									+ " [npc.She] quickly realises that [npc.she] has little control over them, and they wag with a mind of their own whenever [npc.she] gets excited."
 									+ "</br>"
 									+ "[npc.Name] now has [npc.tailCount] [style.boldDogMorph(dog-like tails)]")
@@ -206,7 +206,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " You discover that you can quickly raise and lower your new bird-like tail, which helps you to keep your balance."
 									+ "</br>"
 									+ "You now have a [style.boldHarpy(harpy's bird-like tail)]"
-								:" Pretty plumes of tail feathers sprout from just above your ass, with each feather quickly growing to be about one-third the length of one of your legs."
+								:" [pc.TailCount] pretty plumes of tail feathers sprout from just above your ass, with each feather quickly growing to be about one-third the length of one of your legs."
 									+ " You discover that you can quickly raise and lower your new bird-like tails, which helps you to keep your balance."
 									+ "</br>"
 									+ "You now have [pc.tailCount] [style.boldHarpy(harpy's bird-like tails)]")
@@ -218,7 +218,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " [npc.She] discovers that [npc.she] can quickly raise and lower [npc.her] new bird-like tail, which helps [npc.herHim] to keep [npc.her] balance."
 									+ "</br>"
 									+ "[npc.Name] now has a [style.boldHarpy(harpy's bird-like tail)]"
-								:" Pretty plumes of tail feathers sprout from just above [npc.her] ass, with each feather quickly growing to be about one-third the length of one of [npc.her] legs."
+								:" [npc.TailCount] pretty plumes of tail feathers sprout from just above [npc.her] ass, with each feather quickly growing to be about one-third the length of one of [npc.her] legs."
 									+ " [npc.She] discovers that [npc.she] can quickly raise and lower [npc.her] new bird-like tails, which helps [npc.herHim] to keep [npc.her] balance."
 									+ "</br>"
 									+ "[npc.Name] now has [npc.tailCount] [style.boldHarpy(harpy's bird-like tails)]")
@@ -233,7 +233,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " You quickly discover that your control over it is limited to swishing it from side to side."
 									+ "</br>"
 									+ "You now have a [style.boldHorseMorph(horse-like tail)]"
-								:" Horse-like tails sprout from just above your ass, rapidly growing in length until they hang to just over half-way down your legs."
+								:" [pc.TailCount] horse-like tails sprout from just above your ass, rapidly growing in length until they hang to just over half-way down your legs."
 									+ " You quickly discover that your control over them is limited to swishing them from side to side."
 									+ "</br>"
 									+ "You now have [pc.tailCount] [style.boldHorseMorph(horse-like tails)]")
@@ -245,7 +245,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " [npc.She] quickly discovers that [npc.her] control over it is limited to swishing it from side to side."
 									+ "</br>"
 									+ "[npc.Name] now has a [style.boldHorseMorph(horse-like tail)]"
-								:" Horse-like tails sprout from just above [npc.her] ass, rapidly growing in length until they hang to just over half-way down [npc.her] legs."
+								:" [npc.TailCount] horse-like tails sprout from just above [npc.her] ass, rapidly growing in length until they hang to just over half-way down [npc.her] legs."
 									+ " [npc.She] quickly discovers that [npc.her] control over them is limited to swishing them from side to side."
 									+ "</br>"
 									+ "[npc.Name] now has [npc.tailCount] [style.boldHorseMorph(horse-like tails)]")
@@ -260,7 +260,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " You quickly discover that your control over it is limited to swishing it from side to side."
 									+ "</br>"
 									+ "You now have a [style.boldCowMorph(cow-like tail)]"
-								:" Cow-like tails sprout from just above your ass, rapidly growing in length until they hang to just over half-way down your legs."
+								:" [pc.TailCount] cow-like tails sprout from just above your ass, rapidly growing in length until they hang to just over half-way down your legs."
 									+ " You quickly discover that your control over them is limited to swishing them from side to side."
 									+ "</br>"
 									+ "You now have [pc.tailCount] [style.boldCowMorph(cow-like tails)]")
@@ -272,7 +272,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " [npc.She] quickly discovers that [npc.her] control over it is limited to swishing it from side to side."
 									+ "</br>"
 									+ "[npc.Name] now has a [style.boldCowMorph(cow-like tail)]"
-								:" Cow-like tails sprout from just above [npc.her] ass, rapidly growing in length until they hang to just over half-way down [npc.her] legs."
+								:" [npc.TailCount] cow-like tails sprout from just above [npc.her] ass, rapidly growing in length until they hang to just over half-way down [npc.her] legs."
 									+ " [npc.She] quickly discovers that [npc.her] control over them is limited to swishing them from side to side."
 									+ "</br>"
 									+ "[npc.Name] now has [npc.tailCount] [style.boldCowMorph(cow-like tails)]")
@@ -287,7 +287,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " You quickly realise that you have limited control over it, and it takes a lot of effort to stop it from betraying your emotions."
 									+ "</br>"
 									+ "You now have a [style.boldWolfMorph(wolf-like tail)]"
-								:" Furry, wolf-like tails sprout from just above your ass, rapidly growing in size until they're each about half the length of one of your legs."
+								:" [pc.TailCount] furry, wolf-like tails sprout from just above your ass, rapidly growing in size until they're each about half the length of one of your legs."
 									+ " You quickly realise that you have limited control over them, and it takes a lot of effort to stop them from betraying your emotions."
 									+ "</br>"
 									+ "You now have [pc.tailCount] [style.boldWolfMorph(wolf-like tails)]")
@@ -299,7 +299,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " [npc.She] quickly realises that [npc.she] has limited control over it, and it takes a lot of effort to stop it from betraying [npc.her] emotions."
 									+ "</br>"
 									+ "[npc.Name] now has a [style.boldWolfMorph(wolf-like tail)]"
-								:" Furry, wolf-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about half the length of one of [npc.her] legs."
+								:" [npc.TailCount] furry, wolf-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about half the length of one of [npc.her] legs."
 									+ " [npc.She] quickly realises that [npc.she] has limited control over them, and it takes a lot of effort to stop them from betraying [npc.her] emotions."
 									+ "</br>"
 									+ "[npc.Name] now has [npc.tailCount] [style.boldWolfMorph(wolf-like tails)]")
@@ -314,7 +314,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " You quickly realise that you have a reasonable amount of control over it, and can use it to help balance you out while moving quickly."
 									+ "</br>"
 									+ "You now have a [style.boldSquirrelMorph(squirrel-like tail)]"
-								:" Furry, squirrel-like tails sprout from just above your ass, rapidly growing in size until they're each almost as long as your body."
+								:" [pc.TailCount] furry, squirrel-like tails sprout from just above your ass, rapidly growing in size until they're each almost as long as your body."
 									+ " You quickly realise that you have a reasonable amount of control over them, and can use them to help balance you out while moving quickly."
 									+ "</br>"
 									+ "You now have [pc.tailCount] [style.boldSquirrelMorph(squirrel-like tails)]")
@@ -326,7 +326,7 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " [npc.She] quickly realises that [npc.she] has a reasonable amount of control over it, and can use it to help balance [npc.herHim] out while moving quickly."
 									+ "</br>"
 									+ "[npc.Name] now has a [style.boldSquirrelMorph(squirrel-like tail)]"
-								:" Furry, squirrel-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each almost as long as [npc.her] body."
+								:" [npc.TailCount] furry, squirrel-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each almost as long as [npc.her] body."
 									+ " [npc.She] quickly realises that [npc.she] has a reasonable amount of control over them, and can use them to help balance [npc.herHim] out while moving quickly."
 									+ "</br>"
 									+ "[npc.Name] now has [npc.tailCount] [style.boldSquirrelMorph(squirrel-like tails)]")
