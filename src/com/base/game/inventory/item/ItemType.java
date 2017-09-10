@@ -351,7 +351,7 @@ public class ItemType {
 	};
 	
 
-		public static AbstractItemType STR_INGREDIENT_BUBBLE_MILK = new AbstractItemType("a bottle of",
+	public static AbstractItemType STR_INGREDIENT_BUBBLE_MILK = new AbstractItemType("a bottle of", //TODO
 			false,
 			"Bubble Milk",
 			"The thick glass bottle of 'Bubble Milk' appears to contain, much as its name would suggest, a generous helping of some sort of alcoholic milk."
@@ -361,7 +361,9 @@ public class ItemType {
 			25,
 			Rarity.UNCOMMON,
 			TFEssence.COW_MORPH,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_BUBBLE_MILK, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_BUBBLE_MILK, null, null, null, 0)))) {
+
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -369,7 +371,7 @@ public class ItemType {
 		}
 
 		@Override
-		public ItemType getEnchantmentItemType() {
+		public AbstractItemType getEnchantmentItemType() {
 			return POTION;
 		}
 
@@ -391,7 +393,7 @@ public class ItemType {
 								+ "[npc.Name] pulls out a bottle of 'Bubble Milk', and, after quickly unscrewing the cap, [npc.she] promptly downs the entire bottle."
 						+ "</p>");
 		}
-	},
+	};
 	
 	public static AbstractItemType STR_INGREDIENT_WOLF_WHISKEY = new AbstractItemType("a bottle of",
 
@@ -406,10 +408,7 @@ public class ItemType {
 			TFEssence.WOLF_MORPH,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_WOLF_WHISKEY, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -900,7 +899,7 @@ public class ItemType {
 	};
 	
 
-	public static AbstractItemType RACE_INGREDIENT_COW_MORPH  = new AbstractItemType(
+	public static AbstractItemType RACE_INGREDIENT_COW_MORPH  = new AbstractItemType( //TODO
 			"a",
 			false,
 			"Fresh Sprouts",
@@ -911,7 +910,9 @@ public class ItemType {
 			40,
 			Rarity.RARE,
 			TFEssence.COW_MORPH,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_FRESH_SPROUTS, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_FRESH_SPROUTS, null, null, null, 0)))) {
+
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -919,7 +920,7 @@ public class ItemType {
 		}
 
 		@Override
-		public ItemType getEnchantmentItemType() {
+		public AbstractItemType getEnchantmentItemType() {
 			return ELIXIR;
 		}
 
@@ -944,7 +945,7 @@ public class ItemType {
 						+ "</p>");
 			}
 		}
-	},
+	};
 	
 
 	public static AbstractItemType RACE_INGREDIENT_SQUIRREL_MORPH = new AbstractItemType(
@@ -1308,7 +1309,7 @@ public class ItemType {
 	};
 	
 
-	public static AbstractItemType BOTTLED_ESSENCE_COW_MORPH = new AbstractItemType(
+	public static AbstractItemType BOTTLED_ESSENCE_COW_MORPH = new AbstractItemType( //TODO
 			null,
 			false,
 			"Bottled Cow-morph Essence",
@@ -1319,7 +1320,9 @@ public class ItemType {
 			10,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_COW_MORPH, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_COW_MORPH, null, null, null, 0)))) {
+
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -1341,7 +1344,7 @@ public class ItemType {
 					+ "</p>";
 			}
 		}
-	},
+	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_DEMON = new AbstractItemType(
 
@@ -2223,7 +2226,7 @@ public class ItemType {
 	};
 	
 
-		public static AbstractItemType BOOK_COW_MORPH = new AbstractItemType(
+		public static AbstractItemType BOOK_COW_MORPH = new AbstractItemType( //TODO
 			null,
 			false,
 			"Milking Cows",
@@ -2233,15 +2236,13 @@ public class ItemType {
 			10,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_COW_MORPH, null, null)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_COW_MORPH, null, null, null, 0)))) {
+
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			if(!Main.game.getPlayer().getRacesAdvancedKnowledge().contains(Race.COW_MORPH)) {
-				return true;
-			} else {
-				return false;
-			}
+			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.COW_MORPH);
 		}
 
 		@Override
@@ -2260,7 +2261,7 @@ public class ItemType {
 						+ "Opening the book, you read its contents..."
 					+ "</p>";
 		}
-	},
+	};
 	
 
 	public static AbstractItemType BOOK_DEMON = new AbstractItemType(
@@ -2275,10 +2276,7 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_DEMON, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {

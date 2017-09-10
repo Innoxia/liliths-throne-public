@@ -161,7 +161,7 @@ public class Library {
 				};
 
 			} else if (lore == 0) {
-				return new Response("Back", "Return to browsing the stacks.", BROWSE_BOOKS);
+				return new Response("Back", "Return to browsing the shelves.", BROWSE_BOOKS);
 
 			} else {
 				return null;
@@ -340,7 +340,7 @@ public class Library {
 				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
 
 			} else if (city == 0) {
-				return new Response("Back", "Return to browsing the stacks.", BROWSE_BOOKS);
+				return new Response("Back", "Return to browsing the shelves.", BROWSE_BOOKS);
 			} else {
 				return null;
 			}
@@ -380,46 +380,8 @@ public class Library {
 				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
 
 			}  else if (field == 0) {
-				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
+				return new Response("Back to the shelves", "Return to strolling the shelves.", BROWSE_BOOKS);
 
-
-			} else {
-				return null;
-			}
-		}
-	
-	};
-	
-
-	public static final DialogueNodeOld FIELDS_BOOKS = new DialogueNodeOld("", "", false) {
-		/**
-		 */
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getLabel() {
-			return "Library";
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "Walking down one of the aisles, you see that these shelves have an pastoral look to them. The shelves look like they haven been crafted from blocks of sod supported by pieces of wood."
-					+ " These books have the general feeling of being about the fields and its people."
-					+ "</p>";
-							
-		}
-
-		@Override
-		public Response getResponse(int field) {
-			if (field == 1) {
-				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
-
-			} else if (field == 2) {
-				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
-
-			}  else if (field == 0) {
-				return new Response("Back", "Return to browsing the stacks.", BROWSE_BOOKS);
 
 			} else {
 				return null;

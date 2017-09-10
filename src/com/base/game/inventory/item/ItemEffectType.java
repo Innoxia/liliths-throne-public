@@ -153,13 +153,13 @@ public enum ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return Race.COW_MORPH.getBasicDescription()
 					+Race.COW_MORPH.getAdvancedDescription()
-					+(Main.game.getPlayer().addRaceDiscovered(Race.COW_MORPH)
+					+(Main.getProperties().addRaceDiscovered(Race.COW_MORPH)
 							?Game.getRaceDiscoveredMessage(Race.COW_MORPH)
 							:"")
-					+(Main.game.getPlayer().addRacesAdvancedKnowledge(Race.COW_MORPH)
+					+(Main.getProperties().addAdvancedRaceKnowledge(Race.COW_MORPH)
 							?Game.getRaceAdvancedKnowledgeMessage(Race.COW_MORPH)
 								+"<p>"
 									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
@@ -516,7 +516,7 @@ public enum ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
 			return "A powerful wave of arcane energy washes over you..."
@@ -777,7 +777,7 @@ public enum ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return "You start to feel a lot stronger..."
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 3)
@@ -876,7 +876,7 @@ public enum ItemEffectType {
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementEssenceCount(TFEssence.COW_MORPH, 1);
 			return "You have absorbed [style.boldGood(+1)] [style.boldCat(Cow-morph)] essence!";
 		}
@@ -1470,7 +1470,7 @@ public enum ItemEffectType {
 
 		@Override
 		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFRacialBodyPartsListList();
+			return TFModifier.getTFRacialBodyPartsList();
 		}
 
 		@Override
@@ -1479,13 +1479,13 @@ public enum ItemEffectType {
 		}
 		
 		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialEffectDescription(Race.COW_MORPH, primaryModifier, secondaryModifier);
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return Util.newArrayListOfValues(new ListValue<>(getRacialEffect(Race.COW_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription()));
 		}
 		
 		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, GameCharacter user, GameCharacter target) {
-			return getRacialEffect(Race.COW_MORPH, primaryModifier, secondaryModifier, user, target);
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return getRacialEffect(Race.COW_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
 		}
 	},
 	

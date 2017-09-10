@@ -11,7 +11,7 @@ import com.base.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.69
+ * @version 0.1.84
  * @author Innoxia
  */
 public enum InventorySlot {
@@ -157,12 +157,8 @@ public enum InventorySlot {
 			return Race.HARPY;
 		}
 		
-		if (character.getLegType() == LegType.COW_MORPH && slot == InventorySlot.FOOT) {
+		if (character.getLegType() == LegType.COW_MORPH && this == InventorySlot.FOOT) {
 			return Race.COW_MORPH;
-		}
-		
-		if (character.getLegType() == LegType.HARPY && slot == InventorySlot.FOOT) {
-			return Race.HARPY;
 		}
 
 		return null;

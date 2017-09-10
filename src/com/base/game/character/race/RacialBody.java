@@ -156,6 +156,7 @@ public enum RacialBody {
 					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
 					new Value<Attribute, Float>(Attribute.FITNESS, 25f),
 					new Value<Attribute, Float>(Attribute.CORRUPTION, 15f)),
+			AntennaType.NONE,
 			ArmType.COW_MORPH, 1,
 			AssType.COW_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT,
 			BreastType.COW_MORPH,
@@ -177,6 +178,7 @@ public enum RacialBody {
 			VaginaType.COW_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			WingType.NONE,
 			GenitalArrangement.NORMAL),
+	
 	// CANINES:
 	DOG_MORPH(
 			Util.newHashMapOfValues(

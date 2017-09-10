@@ -118,7 +118,7 @@ public class ClothingType {
 	};
 
 
-public static AbstractClothingType PIERCING_EAR_LIVESTOCK_TAGS = new AbstractClothingType("a pair of",
+	public static AbstractClothingType PIERCING_EAR_LIVESTOCK_TAGS = new AbstractClothingType("a pair of", //TODO
 			true,
 			"livestock tags",
 			"A pair of colored livestock tags.",
@@ -132,6 +132,9 @@ public static AbstractClothingType PIERCING_EAR_LIVESTOCK_TAGS = new AbstractClo
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 			null,
 			Colour.allClothingColours) {
+		
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
@@ -153,7 +156,7 @@ public static AbstractClothingType PIERCING_EAR_LIVESTOCK_TAGS = new AbstractClo
 					"[npc.Name] unclips your tags.",
 					null);
 		}
-	},
+	};
 
 	public static AbstractClothingType PIERCING_NOSE_BASIC_RING = new AbstractClothingType("a",
 
@@ -1107,13 +1110,23 @@ public static AbstractClothingType PIERCING_EAR_LIVESTOCK_TAGS = new AbstractClo
 		}
 	};
 	
-  public static AbstractClothingType NECK_COWBELL_COLLAR  = new AbstractClothingType("a",	false, "cowbell collar", "A heavy leather collar, of the type worn by a cow.", 0,	null, InventorySlot.NECK,	Rarity.UNCOMMON, null, "neck_cowbell_collar",	null,
-			
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			
+	public static AbstractClothingType NECK_COWBELL_COLLAR  = new AbstractClothingType("a", //TODO
+			false,
+			"cowbell collar",
+			"A heavy leather collar, of the type worn by a cow.",
+			0,
 			null,
-			
+			InventorySlot.NECK,
+			Rarity.UNCOMMON,
+			null,
+			"neck_cowbell_collar",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
+			null,
 			Colour.allMetalColours) {
+		
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
@@ -1143,7 +1156,7 @@ public static AbstractClothingType PIERCING_EAR_LIVESTOCK_TAGS = new AbstractClo
 
 			}
 		}
-	},
+	};
 	
 	public static AbstractClothingType NECK_SCARF = new AbstractClothingType("a", false, "scarf", "A unisex scarf, made of a soft, wooly fabric.", 1, null, InventorySlot.NECK, Rarity.COMMON, null, "neck_scarf", null,
 
