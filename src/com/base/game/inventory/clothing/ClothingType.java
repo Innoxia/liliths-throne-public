@@ -158,7 +158,7 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType PIERCING_NOSE_BASIC_RING = new AbstractClothingType("a", //TODO
+	public static AbstractClothingType PIERCING_NOSE_BASIC_RING = new AbstractClothingType("a",
 
 			false,
 			"nose ring",
@@ -176,6 +176,46 @@ public class ClothingType {
 		
 		
 				private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the nose ring into place.",
+					"You slide [npc.name]'s new nose ring into place.",
+					null,
+					"[npc.Name] slides [npc.her] nose ring into place.",
+					"[npc.Name] slides your new nose ring into place.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the nose ring out.",
+					"You slide [npc.name]'s nose ring out.",
+					null,
+					"[npc.Name] slides [npc.her] nose ring out.",
+					"[npc.Name] slides your nose ring out.",
+					null);
+		}
+	};
+
+	public static AbstractClothingType PIERCING_NOSE_COW_RING = new AbstractClothingType("a",
+			false,
+			"bull nose ring",
+			"A large nose ring, similar to one worn by bulls.",
+			0,
+			null,
+			InventorySlot.PIERCING_NOSE,
+			Rarity.COMMON,
+			null,
+			"piercing_nose_cow_ring",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
+			null,
+			Colour.allMetalColours) {
+		
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1113,7 +1153,7 @@ public class ClothingType {
 	public static AbstractClothingType NECK_COWBELL_COLLAR  = new AbstractClothingType("a", //TODO
 			false,
 			"cowbell collar",
-			"A leather collar, with a bell attached to the front.",
+			"A leather collar, with a cowbell attached to the front.",
 			0,
 			null,
 			InventorySlot.NECK,
