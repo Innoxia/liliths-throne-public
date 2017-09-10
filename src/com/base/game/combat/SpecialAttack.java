@@ -943,7 +943,15 @@ public enum SpecialAttack {
 	 * Special attack's main feature is that they should apply long-duration
 	 * status effects. Damage is secondary. They CAN miss.
 	 */
-	DOG_BITE(50, "bite", "biteIcon", Colour.DAMAGE_TYPE_PHYSICAL, DamageType.PHYSICAL, DamageLevel.HIGH, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 4))) {
+	DOG_BITE(50,
+			"bite",
+			"biteIcon",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			DamageType.PHYSICAL,
+			DamageLevel.HIGH,
+			DamageVariance.LOW,
+			SpecialAttackSpellCosts.MEDIUM,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 4))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
@@ -995,7 +1003,15 @@ public enum SpecialAttack {
 		}
 	},
 
-	COW_GORE(50, "Gore", "HornIcon", Colour.DAMAGE_TYPE_PHYSICAL, DamageType.PHYSICAL, DamageLevel.HIGH, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 4))) {
+	COW_GORE(50,
+			"Gore",
+			"hornsIcon",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			DamageType.PHYSICAL,
+			DamageLevel.HIGH,
+			DamageVariance.LOW,
+			SpecialAttackSpellCosts.MEDIUM,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 4))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 

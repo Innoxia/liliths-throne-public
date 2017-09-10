@@ -118,47 +118,47 @@ public class ClothingType {
 	};
 
 
-	public static AbstractClothingType PIERCING_EAR_LIVESTOCK_TAGS = new AbstractClothingType("a pair of", //TODO
+	public static AbstractClothingType PIERCING_EAR_TAGS = new AbstractClothingType("an",
 			true,
-			"livestock tags",
-			"A pair of colored livestock tags.",
+			"ear tag",
+			"A bright yellow ear tag, made from plastic and used for identification of domestic animals.",
 			0,
 			null,
 			InventorySlot.PIERCING_EAR,
 			Rarity.COMMON,
 			null,
-			"piercing_livestock_tag",
+			"piercing_livestock_tags",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 			null,
-			Colour.allClothingColours) {
+			Util.newArrayListOfValues(new ListValue<>(Colour.CLOTHING_YELLOW))) {
 		
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You clip the tags into place.",
-					"You clip [npc.name]'s new tags into place.",
+					"You clip the tag into place.",
+					"You clip [npc.name]'s new tag into place.",
 					null,
-					"[npc.Name] clips [npc.her] tags into place.",
-					"[npc.Name] clips your new tags into place.",
+					"[npc.Name] clips [npc.her] tag into place.",
+					"[npc.Name] clips your new tag into place.",
 					null);
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You unclip your tags.",
-					"You unclip [npc.name]'s tags.",
+					"You unclip your tag.",
+					"You unclip [npc.name]'s tag.",
 					null,
-					"[npc.Name] unclips [npc.her] tags.",
-					"[npc.Name] unclips your tags.",
+					"[npc.Name] unclips [npc.her] tag.",
+					"[npc.Name] unclips your tag.",
 					null);
 		}
 	};
 
-	public static AbstractClothingType PIERCING_NOSE_BASIC_RING = new AbstractClothingType("a",
+	public static AbstractClothingType PIERCING_NOSE_BASIC_RING = new AbstractClothingType("a", //TODO
 
 			false,
 			"nose ring",
@@ -1113,11 +1113,11 @@ public class ClothingType {
 	public static AbstractClothingType NECK_COWBELL_COLLAR  = new AbstractClothingType("a", //TODO
 			false,
 			"cowbell collar",
-			"A heavy leather collar, of the type worn by a cow.",
+			"A leather collar, with a bell attached to the front.",
 			0,
 			null,
 			InventorySlot.NECK,
-			Rarity.UNCOMMON,
+			Rarity.COMMON,
 			null,
 			"neck_cowbell_collar",
 			null,

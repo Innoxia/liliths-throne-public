@@ -350,7 +350,6 @@ public class ItemType {
 		}
 	};
 	
-
 	public static AbstractItemType STR_INGREDIENT_BUBBLE_MILK = new AbstractItemType("a bottle of", //TODO
 			false,
 			"Bubble Milk",
@@ -905,7 +904,7 @@ public class ItemType {
 			"Fresh Sprouts",
 			"A small bag of alfalfa sprouts."
 					+ " A label on the side shows a greater cow-girl devouring a plate of what looks to be this bag's contents.",
-			"raceCowMorphFreshSprouts",
+			"raceCowMorphBubbleCream",
 			Colour.RACE_COW_MORPH,
 			40,
 			Rarity.RARE,
