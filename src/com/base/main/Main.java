@@ -61,7 +61,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.84",
+	public static final String VERSION_NUMBER = "0.1.84.1",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/base/res/images/windowIcon32.png");
@@ -95,6 +95,65 @@ public class Main extends Application {
 		+ "<p>"
 			+ "If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
 		+ "</p>"
+
+		+ "</br>"
+
+		+ "<list>"
+		
+		+ "<h6>Hotfix (v0.1.84.1)</h6>"
+		
+		+"<li>Gameplay:</li>"
+		+"<ul>Slightly tweaked gender preferences for NPC's forced TFs.</ul>"
+		+"<ul>You can now use elixirs and potions on your offspring in consensual sex, as well as if you're the dom in non-consensual.</ul>"
+		+"<ul>NPCs applying forced transformations will now shrink your cock and reduce your vagina's capacity down to minimum values before removing them.</ul>"
+		
+		+"<li>Sex:</li>"
+		+"<ul>Added: Paizuri and Naizuri. All paizuri actions have three variations; one for breasts larger than B-cups, one for completely flat chests, and another for the other sizes in-between.</ul>"
+		+"<ul>Added Paizuri to 69, kneeling, and cow-girl positions.</ul>"
+		+"<ul>Added nipple-fucking to cow-girl position.</ul>"
+		+"<ul>Very minor change to AI in sex to make them uninterested in getting access to your nipples if your groin is already exposed. (I'm going to massively improve the AI within the next couple of versions.)</ul>"
+		
+		+"<li>Other:</li>"
+		+"<ul>You can now dye Enforcer's clothing to any colour.</ul>"
+		+"<ul>Split Nyan's 'Female lingerie' up into 'Female underwear' and 'Female lingerie' to prevent item overflow. (You'll be able to buy enchanted clothing from her again now. :3)</ul>"
+		+"<ul>Added squirrel-morph (and cow-morph) potions and essences to Vicky's shop.</ul>"
+		+"<ul>Tweaked NPC's forced TF preferences to have a chance to be a related race (i.e. cat morphs may prefer to TF you into a harpy, or dog/wolf-morphs may TF you into a cat-morph).</ul>"
+		+"<ul>Added fur highlighting options.</ul>"
+		+"<ul>Added afro hair style.</ul>"
+		
+		+"<li>Bugs:</li>"
+		+"<ul>Fixed game freeze once NPC finished transforming you into their preferred body type.</ul>"
+		+"<ul>Fixed major bug where items and weapons would sometimes not stack in inventory.</ul>"
+		+"<ul>Fixed items showing up in sex as disabled, even if they were available to be used.</ul>"
+		+"<ul>Fixed weapons not having any spells.</ul>"
+		+"<ul>Fixed bug where the main quest couldn't be progressed if you started an imported character.</ul>"
+		+"<ul>Minor typo fixes.</ul>"
+		+"<ul>Fixed parsing bugs (which was causing the parser's 'Commands' action to be unresponsive.)</ul>"
+		+"<ul>Vicky will now buy Bottled Squirrel-Morph Essence.</ul>"
+		+"<ul>Horn transformations now apply the correct horn type, based on whether the target to be transformed is masculine or feminine.</ul>"
+			
+		+"<li>Contributors:</li>"
+			
+		+"<li>Pimgd:</li>"
+		+"<ul>Disallowed quick manage drop if cell is full, thereby preventing item loss.</ul>"
+		
+		+"<li>Rfpnj:</li>"
+		+"<ul>Cow-morph:</ul>"
+		+"<ul>Added all cow-morph transformations and body parts.</ul>"
+		+"<ul>Added 'Milking Cows' (lore book).</ul>"
+		+"<ul>Added bottled cow-morph essence.</ul>"
+		+"<ul>Added Bubble Milk. (Icon design help from Blue999.)</ul>"
+		+"<ul>Added Bubble Cream.</ul>"
+		+"<ul>Added Ear tag (no femininity requirements, ear piercing slot).</ul>"
+		+"<ul>Added Cowbell collar (no femininity requirements, neck slot).</ul>"
+		+"<ul>Added bovine nose ring (no femininity requirements, nose piercing slot).</ul>"
+		
+		+"<li>Blue999:</li>"
+		+"<ul>Added: Milk Maid's headdress (Feminine, head slot, Milk Maid set).</ul>"
+
+		+ "</list>"
+		
+		+ "</br>"
 		
 		+ "<list>"
 		

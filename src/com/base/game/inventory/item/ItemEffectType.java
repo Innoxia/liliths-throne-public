@@ -2771,7 +2771,13 @@ public enum ItemEffectType {
 								@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornTypeFemale()); } };
 							
 						} else {
-							return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" horns transformation.") { @Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornTypeFemale()); } };
+							return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" horns transformation.") { @Override public String applyEffect() {
+									if(target.isFeminine()) {
+										return target.setHornType(RacialBody.valueOfRace(race).getHornTypeFemale());
+									} else {
+										return target.setHornType(RacialBody.valueOfRace(race).getHornTypeMale());
+									}
+								} };
 						}
 				}
 				

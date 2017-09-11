@@ -701,6 +701,10 @@ public class SuccubisSecrets {
 					title = "Vagina";
 					description = "This is the skin that's currently covering your labia. The secondary colour determines what your vagina's inner-walls look like.";
 					
+				} else if(bct == BodyCoveringType.PENIS) {
+					title = "Penis";
+					description = "This is the skin that's currently covering your penis. The secondary colour determines what the inside of your urethra looks like (if it's fuckable).";
+					
 				} else if(bct == BodyCoveringType.NIPPLES) {
 					title = "Nipples";
 					description = "This is the skin that's currently covering your nipples and areolae. The secondary colour determines what your nipples' inner-walls look like (if they are fuckable).";

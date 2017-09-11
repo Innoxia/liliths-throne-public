@@ -73,11 +73,12 @@ public class NPCRandomDominion extends NPC {
 		
 		if(Math.random()>humanChance) {
 			Map<Race, Integer> availableRaces = Util.newHashMapOfValues(
-					new Value<>(Race.DOG_MORPH, 3),
-					new Value<>(Race.CAT_MORPH, 3),
-					new Value<>(Race.HORSE_MORPH, 3),
-					new Value<>(Race.WOLF_MORPH, 3),
-					new Value<>(Race.SQUIRREL_MORPH, 1));
+					new Value<>(Race.DOG_MORPH, 20),
+					new Value<>(Race.CAT_MORPH, 20),
+					new Value<>(Race.HORSE_MORPH, 20),
+					new Value<>(Race.WOLF_MORPH, 20),
+					new Value<>(Race.SQUIRREL_MORPH, 10),
+					new Value<>(Race.COW_MORPH, 10));
 			
 			int total = 0;
 			for(int i : availableRaces.values()) {

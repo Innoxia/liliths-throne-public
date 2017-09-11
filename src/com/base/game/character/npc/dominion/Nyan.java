@@ -176,6 +176,7 @@ public class Nyan extends NPC {
 		specials.add(AbstractClothingType.generateClothing(ClothingType.HAND_RAINBOW_FINGERLESS_GLOVES));
 
 		specials.add(AbstractClothingType.generateClothing(ClothingType.MILK_MAID_KERCHIEF));
+		specials.add(AbstractClothingType.generateClothing(ClothingType.MILK_MAID_HEADBAND));
 		specials.add(AbstractClothingType.generateClothing(ClothingType.MILK_MAID_TORSO_DRESS));
 
 		specials.add(AbstractClothingType.generateClothing(ClothingType.MAID_DRESS));

@@ -31,7 +31,10 @@
 	Other:
 		You can now dye Enforcer's clothing to any colour.
 		Split Nyan's 'Female lingerie' up into 'Female underwear' and 'Female lingerie' to prevent item overflow. (You'll be able to buy enchanted clothing from her again now. :3)
-		Added squirrel-morph (and cow-morph) potions and essenes to Vicky's shop.
+		Added squirrel-morph (and cow-morph) potions and essences to Vicky's shop.
+		Tweaked NPC's forced TF preferences to have a chance to be a related race (i.e. cat morphs may prefer to TF you into a harpy, or dog/wolf-morphs may TF you into a cat-morph).
+		Added fur highlighting options.
+		Added afro hair style.
 		
 	Bugs:
 		Fixed game freeze once NPC finished transforming you into their preferred body type.
@@ -42,6 +45,7 @@
 		Minor typo fixes.
 		Fixed parsing bugs (which was causing the parser's 'Commands' action to be unresponsive.)
 		Vicky will now buy Bottled Squirrel-Morph Essence.
+		Horn transformations now apply the correct horn type, based on whether the target to be transformed is masculine or feminine.
 	
 	Contributors:
 	
@@ -68,6 +72,14 @@
 	
 	
 	
+	
+	
+	Add udder
+	
+	Common sense colourings for each race
+	
+	Child genetics
+	
 	Start trading with Ralph and jinxed clothes re-apply themselves happens
 	
 	Essence inventory too big
@@ -83,7 +95,7 @@
 	Headpats and scritches during oral when
 	
 	I'll also definitely add an options menu to set NPC transformation ratios, as well as making them take your preferences into account. They should already be doing that, but there must be a bug in my method.
-		
+	
 	In the body stats menu it does not show plasticity for stuff only Elasticity
 	
 	gained three 'risk of pregnancy' status effects from being forcibly transformed?
@@ -95,13 +107,10 @@
 	Also, right now, everyone has a species-preference. -may- want to make it so that some folk don't care much about species and only about body-shape/sex
 	Make gender preferences for NPC's forced TFs settable
 	
+	Add paizuri for multi-breasts
 	
 	Maybe a non-furry version of forced TF would change the character's body type and such. For example, changing femininity, breast size, etc.
 	I think bimbofication and sissification are common, fur-free, fetishes on TFgamessite. So maybe the human-only forced TFs could do something like that?
-	
-	
-	Cat-morphs should clearly have a preference for bird-morphs and other prey animals in terms of what they'll turn a defeated PC into, down the road
-	Dogs and wolves turning people into cats so they can chase them...
 	
 	
 	Now, one other thought, maybe have fetishes figure in a little bit for what gear they end up with?
@@ -113,19 +122,16 @@
 	
 	
 	they should focus on adding desired organs before removing
-	Another one, for the TF fetishists, is to have organ removal be something that's gradual.
-		They don't instantly remove an offending organ, instead that's one of the random things that they'll sometimes shrink or tighten until it's very small and then they remove it.
 	
 	Buy Brax
 	
 	virginity losses from self
 	
-	Add afro
-	
 	there's no yellow for genital colors
 	
 	pushing your fingers into your partner's mouth
 	
+	the player should be able to ask the alley succubi to change their femininity in addition to altering their breasts and genitals
 	
 	If a character has the non-consent fetish, you should remove the arousal gain penalty from resisting sex. You might even gain extra arousal
 	NPCs with the non-con fetish always resist
@@ -138,13 +144,7 @@
 	
 	is the selfie screen supposed to not list the actual penis length anymore
 	
-	Character creation: Full body hair has the heading 'Pubic hair', so that name shows up twice
-	
 	allow the option of enabling body hair content from the character creation extra hair menu
-	
-	kate option for penis color - it's just called "skin"
-	
-	an option for fur highlights
 	
 	an option to make all the skin options match your base skin would be nice
 	

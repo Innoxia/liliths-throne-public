@@ -93,7 +93,7 @@ public class Covering implements BodyPartInterface, Serializable {
 	public String getColourDescriptor(boolean coloured) {
 		if(coloured) {
 			switch(pattern) {
-				case HAIR_HIGHLIGHTS:
+				case HIGHLIGHTS:
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>, "
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+"-highlighted</span>";
 				case MOTTLED:
@@ -134,7 +134,7 @@ public class Covering implements BodyPartInterface, Serializable {
 		
 		} else {
 			switch(pattern) {
-				case HAIR_HIGHLIGHTS:
+				case HIGHLIGHTS:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+", "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+"-highlighted";
 				case MOTTLED:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+", "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+"-mottled";
@@ -190,7 +190,7 @@ public class Covering implements BodyPartInterface, Serializable {
 		//text-shadow: 0px 0px 4px #FF0000;
 		if(coloured) {
 			switch(pattern) {
-				case HAIR_HIGHLIGHTS:
+				case HIGHLIGHTS:
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>, "+type.getName(true, gc)+", with "
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+" highlights</span>";
 				case MOTTLED:
@@ -231,7 +231,7 @@ public class Covering implements BodyPartInterface, Serializable {
 			
 		} else {
 			switch(pattern) {
-				case HAIR_HIGHLIGHTS:
+				case HIGHLIGHTS:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+", "+type.getName(true, gc)+", with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" highlights";
 				case MOTTLED:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+", "+type.getName(true, gc)+", with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" mottling";

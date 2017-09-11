@@ -513,6 +513,9 @@ public class Body implements Serializable {
 				case MOHAWK:
 					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into a mohawk.");
 					break;
+				case AFRO:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into an afro.");
+					break;
 				case SIDECUT:
 					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into a sidecut.");
 					break;

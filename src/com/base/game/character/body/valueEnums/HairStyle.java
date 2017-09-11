@@ -21,6 +21,7 @@ public enum HairStyle {
 	SIDECUT("sidecut", HairLength.THREE_SHOULDER_LENGTH),
 	PONYTAIL("ponytail", HairLength.THREE_SHOULDER_LENGTH),
 	TWIN_TAILS("twintails", HairLength.THREE_SHOULDER_LENGTH),
+	AFRO("afro", HairLength.THREE_SHOULDER_LENGTH),
 	BRAIDED("braided", HairLength.FOUR_MID_BACK);
 	
 	private String descriptor;

@@ -779,7 +779,20 @@ public abstract class NPC extends GameCharacter {
 		
 		Race race = getRace();
 		
-		if(Math.random()>0.80f) {
+		// Chance for predator races to prefer prey races:
+		if(getRace()==Race.CAT_MORPH && Math.random()>0.6f) {
+			race = Race.HARPY;
+		}
+		if((getRace()==Race.WOLF_MORPH || getRace()==Race.DOG_MORPH) && Math.random()>0.6f) {
+			List<Race> availableRaces = new ArrayList<>();
+			availableRaces.add(Race.CAT_MORPH);
+			availableRaces.add(Race.HARPY);
+			availableRaces.add(Race.SQUIRREL_MORPH);
+			race = availableRaces.get(Util.random.nextInt(availableRaces.size()));
+		}
+		
+		// Chance for race to be random:
+		if(Math.random()>0.85f) {
 			List<Race> availableRaces = new ArrayList<>();
 			availableRaces.add(Race.CAT_MORPH);
 			availableRaces.add(Race.DOG_MORPH);

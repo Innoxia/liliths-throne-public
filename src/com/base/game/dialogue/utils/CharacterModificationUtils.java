@@ -138,6 +138,9 @@ public class CharacterModificationUtils {
 				setHairStyleIfAvailable(HairStyle.TWIN_TAILS);
 				break;
 			case TWIN_TAILS:
+				setHairStyleIfAvailable(HairStyle.AFRO);
+				break;
+			case AFRO:
 				setHairStyleIfAvailable(HairStyle.BRAIDED);
 				break;
 			case BRAIDED:

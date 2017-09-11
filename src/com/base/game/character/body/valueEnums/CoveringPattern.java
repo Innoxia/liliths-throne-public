@@ -14,14 +14,13 @@ public enum CoveringPattern {
 	ORIFICE_VAGINA("vagina"),
 	ORIFICE_NIPPLE("nipple"),
 	ORIFICE_MOUTH("mouth"),
-	
-	HAIR_HIGHLIGHTS("highlighted"),
 
 	EYE_IRISES("standard"),
 	EYE_IRISES_HETEROCHROMATIC("heterochromatic"),
 	EYE_PUPILS("standard"),
 	EYE_PUPILS_HETEROCHROMATIC("heterochromatic"),
-	
+
+	HIGHLIGHTS("highlighted"),
 	STRIPED("striped"),
 	SPOTTED("spotted"),
 	MOTTLED("mottled");

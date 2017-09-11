@@ -1092,8 +1092,8 @@ public class CharacterCreation {
 			} else {
 				UtilText.nodeContentSB.append(
 						"</br>"
-						+ "<p style='text-align:center;'><b>Pubic hair</b></br>"
-							+ "[style.colourDisabled(Pubic hair is currently disabled in the options. You will not see any pubic hair content while it is disabled.)]"
+						+ "<p style='text-align:center;'><b>Body hair</b></br>"
+							+ "[style.colourDisabled(Body hair is currently disabled in the options. You will not see any underarm or ass hair content while it is disabled.)]"
 						+ "</p>");
 			}
 			
