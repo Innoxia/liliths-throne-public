@@ -11,12 +11,14 @@ import com.base.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerAnus;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerUrethra;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
+import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisBreasts;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisMouth;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisNipple;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerTongueVagina;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerAnus;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
+import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisBreasts;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisMouth;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisNipple;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerTongueVagina;
@@ -84,6 +86,7 @@ public class SMDomSixtyNine extends SexManagerDefault {
 				PartnerFingerAnus.class,
 				PartnerTongueVagina.class,
 				PartnerPenisNipple.class,
+				PartnerPenisBreasts.class,
 
 				PlayerPenisMouth.class,
 				PlayerFingerUrethra.class,
@@ -91,6 +94,7 @@ public class SMDomSixtyNine extends SexManagerDefault {
 				PlayerFingerAnus.class,
 				PlayerTongueVagina.class,
 				PlayerPenisNipple.class,
+				PlayerPenisBreasts.class,
 				
 				DomSixtyNine.class,
 				

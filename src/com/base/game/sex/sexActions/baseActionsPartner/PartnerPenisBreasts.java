@@ -10,6 +10,7 @@ import com.base.game.sex.OrificeType;
 import com.base.game.sex.PenetrationType;
 import com.base.game.sex.Sex;
 import com.base.game.sex.SexPace;
+import com.base.game.sex.SexPosition;
 import com.base.game.sex.sexActions.SexAction;
 import com.base.game.sex.sexActions.SexActionType;
 import com.base.main.Main;
@@ -42,7 +43,8 @@ public class PartnerPenisBreasts {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPacePartner()!=SexPace.SUB_RESISTING && Sex.getPartner().getPenisRawSizeValue()>=6 && Sex.isPlayerFreeMouth() && Main.game.getPlayer().isBreastFuckablePaizuri();
+			return Sex.getSexPacePartner()!=SexPace.SUB_RESISTING && Sex.getPartner().getPenisRawSizeValue()>=6 && Sex.isPlayerFreeMouth() && Main.game.getPlayer().isBreastFuckablePaizuri()
+					&& Sex.getPosition() != SexPosition.SIXTY_NINE_PARTNER_TOP && Sex.getPosition() != SexPosition.SIXTY_NINE_PLAYER_TOP;
 		}
 
 		@Override
@@ -155,7 +157,8 @@ public class PartnerPenisBreasts {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING && Sex.getPartner().getPenisRawSizeValue()>=6 && Sex.isPlayerFreeMouth() && Main.game.getPlayer().isBreastFuckablePaizuri();
+			return Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING && Sex.getPartner().getPenisRawSizeValue()>=6 && Sex.isPlayerFreeMouth() && Main.game.getPlayer().isBreastFuckablePaizuri()
+					&& Sex.getPosition() != SexPosition.SIXTY_NINE_PARTNER_TOP && Sex.getPosition() != SexPosition.SIXTY_NINE_PLAYER_TOP;
 		}
 
 		@Override
@@ -258,6 +261,11 @@ public class PartnerPenisBreasts {
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS_PARTNER,
 			OrificeType.BREAST_PLAYER) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) != PenetrationType.PENIS_PLAYER && Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) != PenetrationType.PENIS_PLAYER;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -481,8 +489,8 @@ public class PartnerPenisBreasts {
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS_PARTNER,
 			OrificeType.BREAST_PLAYER,
-			SexPace.DOM_GENTLE,
-			null) {
+			null,
+			SexPace.DOM_GENTLE) {
 		@Override
 		public String getActionTitle() {
 			if(Main.game.getPlayer().isBreastFuckablePaizuri()) {
@@ -602,8 +610,8 @@ public class PartnerPenisBreasts {
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS_PARTNER,
 			OrificeType.BREAST_PLAYER,
-			SexPace.DOM_NORMAL,
-			null) {
+			null,
+			SexPace.DOM_NORMAL) {
 		@Override
 		public String getActionTitle() {
 			if(Main.game.getPlayer().isBreastFuckablePaizuri()) {
@@ -723,8 +731,8 @@ public class PartnerPenisBreasts {
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS_PARTNER,
 			OrificeType.BREAST_PLAYER,
-			SexPace.DOM_ROUGH,
-			null) {
+			null,
+			SexPace.DOM_ROUGH) {
 		@Override
 		public String getActionTitle() {
 			if(Main.game.getPlayer().isBreastFuckablePaizuri()) {
@@ -845,8 +853,8 @@ public class PartnerPenisBreasts {
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS_PARTNER,
 			OrificeType.BREAST_PLAYER,
-			SexPace.SUB_NORMAL,
-			null) {
+			null,
+			SexPace.SUB_NORMAL) {
 		@Override
 		public String getActionTitle() {
 			if(Main.game.getPlayer().isBreastFuckablePaizuri()) {
@@ -971,8 +979,8 @@ public class PartnerPenisBreasts {
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS_PARTNER,
 			OrificeType.BREAST_PLAYER,
-			SexPace.SUB_EAGER,
-			null) {
+			null,
+			SexPace.SUB_EAGER) {
 		@Override
 		public String getActionTitle() {
 			if(Main.game.getPlayer().isBreastFuckablePaizuri()) {
@@ -1097,8 +1105,8 @@ public class PartnerPenisBreasts {
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS_PARTNER,
 			OrificeType.BREAST_PLAYER,
-			SexPace.SUB_RESISTING,
-			null) {
+			null,
+			SexPace.SUB_RESISTING) {
 		@Override
 		public String getActionTitle() {
 			if(Main.game.getPlayer().isBreastFuckablePaizuri()) {
@@ -1325,6 +1333,11 @@ public class PartnerPenisBreasts {
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS_PARTNER,
 			OrificeType.BREAST_PLAYER) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) != PenetrationType.PENIS_PLAYER && Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) != PenetrationType.PENIS_PLAYER;
+		}
 
 		@Override
 		public String getActionTitle() {
@@ -1540,8 +1553,8 @@ public class PartnerPenisBreasts {
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS_PARTNER,
 			OrificeType.BREAST_PLAYER,
-			null,
-			SexPace.DOM_GENTLE) {
+			SexPace.DOM_GENTLE,
+			null) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1614,8 +1627,8 @@ public class PartnerPenisBreasts {
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS_PARTNER,
 			OrificeType.BREAST_PLAYER,
-			null,
-			SexPace.DOM_NORMAL) {
+			SexPace.DOM_NORMAL,
+			null) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1688,8 +1701,8 @@ public class PartnerPenisBreasts {
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS_PARTNER,
 			OrificeType.BREAST_PLAYER,
-			null,
-			SexPace.DOM_ROUGH) {
+			SexPace.DOM_ROUGH,
+			null) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1762,8 +1775,8 @@ public class PartnerPenisBreasts {
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS_PARTNER,
 			OrificeType.BREAST_PLAYER,
-			null,
-			SexPace.SUB_NORMAL) {
+			SexPace.SUB_NORMAL,
+			null) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1836,8 +1849,8 @@ public class PartnerPenisBreasts {
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS_PARTNER,
 			OrificeType.BREAST_PLAYER,
-			null,
-			SexPace.SUB_EAGER) {
+			SexPace.SUB_EAGER,
+			null) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1910,8 +1923,8 @@ public class PartnerPenisBreasts {
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS_PARTNER,
 			OrificeType.BREAST_PLAYER,
-			null,
-			SexPace.SUB_RESISTING) {
+			SexPace.SUB_RESISTING,
+			null) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {

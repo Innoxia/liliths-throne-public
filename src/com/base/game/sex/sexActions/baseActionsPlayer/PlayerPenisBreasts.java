@@ -10,6 +10,7 @@ import com.base.game.sex.OrificeType;
 import com.base.game.sex.PenetrationType;
 import com.base.game.sex.Sex;
 import com.base.game.sex.SexPace;
+import com.base.game.sex.SexPosition;
 import com.base.game.sex.sexActions.SexAction;
 import com.base.game.sex.sexActions.SexActionType;
 import com.base.main.Main;
@@ -42,7 +43,8 @@ public class PlayerPenisBreasts {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING && Main.game.getPlayer().getPenisRawSizeValue()>=6 && Sex.isPartnerFreeMouth() && Sex.getPartner().isBreastFuckablePaizuri();
+			return Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING && Main.game.getPlayer().getPenisRawSizeValue()>=6 && Sex.isPartnerFreeMouth() && Sex.getPartner().isBreastFuckablePaizuri()
+					&& Sex.getPosition() != SexPosition.SIXTY_NINE_PARTNER_TOP && Sex.getPosition() != SexPosition.SIXTY_NINE_PLAYER_TOP;
 		}
 
 		@Override
@@ -155,7 +157,8 @@ public class PlayerPenisBreasts {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPacePartner()!=SexPace.SUB_RESISTING && Main.game.getPlayer().getPenisRawSizeValue()>=6 && Sex.isPartnerFreeMouth() && Sex.getPartner().isBreastFuckablePaizuri();
+			return Sex.getSexPacePartner()!=SexPace.SUB_RESISTING && Main.game.getPlayer().getPenisRawSizeValue()>=6 && Sex.isPartnerFreeMouth() && Sex.getPartner().isBreastFuckablePaizuri()
+					&& Sex.getPosition() != SexPosition.SIXTY_NINE_PARTNER_TOP && Sex.getPosition() != SexPosition.SIXTY_NINE_PLAYER_TOP;
 		}
 
 		@Override
@@ -258,6 +261,11 @@ public class PlayerPenisBreasts {
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS_PLAYER,
 			OrificeType.BREAST_PARTNER) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) != PenetrationType.PENIS_PARTNER && Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) != PenetrationType.PENIS_PARTNER;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -1326,6 +1334,11 @@ public class PlayerPenisBreasts {
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS_PLAYER,
 			OrificeType.BREAST_PARTNER) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) != PenetrationType.PENIS_PARTNER && Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) != PenetrationType.PENIS_PARTNER;
+		}
 
 		@Override
 		public String getActionTitle() {

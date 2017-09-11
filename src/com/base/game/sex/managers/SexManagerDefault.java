@@ -263,7 +263,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				}
 				
 				// Get access to player's nipples before their own:
-				if (Main.game.getPlayer().hasBreasts()) {
+				if (Main.game.getPlayer().hasBreasts() && (Sex.getPartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS) || !Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA))) {
 					if(!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.NIPPLES)) {
 						if (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
 							return Sex.partnerManageClothingToAccessCoverableArea(true, CoverableArea.NIPPLES);

@@ -7433,7 +7433,7 @@ public class ClothingType {
 			"Milk Maid's headband",
 			"A frilly headband, with lots of decorative lace attached to the top.",
 			1,
-			null,
+			Femininity.FEMININE,
 			InventorySlot.HEAD,
 			Rarity.EPIC,
 			ClothingSet.MILK_MAID,

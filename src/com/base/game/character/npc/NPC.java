@@ -552,7 +552,11 @@ public abstract class NPC extends GameCharacter {
 		if(!Main.game.getPlayer().isHasAnyPregnancyEffects()) { // Vagina cannot be transformed if pregnant, so skip this
 			if(Main.game.getPlayer().getVaginaType() != getPreferredBody().getVagina().getType()) {
 				if(getPreferredBody().getVagina().getType() == VaginaType.NONE) {
-					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that little cunt of yours!");
+					if(Main.game.getPlayer().getVaginaRawCapacityValue() > 1) {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_CAPACITY, TFPotency.DRAIN, 1), "Let's get to work on getting rid of that little cunt of yours!");
+					} else {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that tight little cunt of yours!");
+					}
 				} else {
 					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
 				}
@@ -560,13 +564,17 @@ public abstract class NPC extends GameCharacter {
 		}
 		if(Main.game.getPlayer().getPenisType() != getPreferredBody().getPenis().getType()) {
 			if(getPreferredBody().getPenis().getType() == PenisType.NONE) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that little cock of yours!");
+				if(Main.game.getPlayer().getPenisRawSizeValue() > 1) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1), "Let's get to work on getting rid of that cock of yours!");
+				} else {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that pathetic little cock of yours!");
+				}
 			} else {
 				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getPenis().getName(Main.game.getPlayer(), false)+"!");
 			}
 		}
 		// All minor part transformations:
-		if(possibleEffects.isEmpty()) {
+		if(possibleEffects.isEmpty() || Math.random()>0.33f) {
 			if(Main.game.getPlayer().getAntennaType() != getPreferredBody().getAntenna().getType()) {
 				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ANTENNA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
 			}

@@ -1716,8 +1716,6 @@ public class PhoneDialogue {
 
 	private static boolean confirmReset = false;
 	public static final DialogueNodeOld CHARACTER_FETISHES = new DialogueNodeOld("Fetishes", "", true) {
-		/**
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -1865,6 +1863,8 @@ public class PhoneDialogue {
 							Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -getFetishCost());
 
 							levelUpFetishes.clear();
+
+							PhoneDialogue.confirmReset = false;
 						}
 					};
 				}
@@ -1884,6 +1884,8 @@ public class PhoneDialogue {
 							Main.game.getPlayer().setSexualOrientation(SexualOrientation.GYNEPHILIC);
 							
 						}
+
+						PhoneDialogue.confirmReset = false;
 					}
 				};
 				

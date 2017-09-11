@@ -8,6 +8,7 @@ import com.base.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.base.game.sex.sexActions.baseActionsMisc.GenericPositioning;
 import com.base.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.base.game.sex.sexActions.baseActionsMisc.PlayerTalk;
+import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisBreasts;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisMouth;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerPenisNipple;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerFingerAnus;
@@ -74,6 +75,7 @@ public class SMSubKneeling extends SexManagerDefault {
 				
 				PartnerPenisMouth.class,
 				PartnerPenisNipple.class,
+				PartnerPenisBreasts.class,
 
 				PlayerFingerUrethra.class,
 				PlayerFingerVagina.class,
