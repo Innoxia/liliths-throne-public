@@ -19,7 +19,15 @@
 	
 	Gameplay:
 		Slightly tweaked gender preferences for NPC's forced TFs.
-	
+		You can now use elixirs and potions on your offspring in consensual sex, as well as if you're the dom in non-consensual.
+		
+	Sex:
+		Added: Paizuri and Naizuri. All paizuri actions have three variations; one for breasts larger than B-cups, one for completely flat chests, and another for the other sizes in-between.
+		Added Paizuri to 69, kneeling, and cow-girl positions.
+		
+	Other:
+		You can now dye Enforcer's clothing to any colour.
+		
 	Bugs:
 		Fixed game freeze once NPC finished transforming you into their preferred body type.
 		Fixed major bug where items and weapons would sometimes not stack in inventory.
@@ -39,21 +47,40 @@
 			Added all cow-morph transformations and body parts.
 			Added 'Milking Cows' (lore book).
 			Added bottled cow-morph essence.
-			Added Bubble milk. (Icon design help from Blue999.)
-			Added Bubble yoghurt.
+			Added Bubble Milk. (Icon design help from Blue999.)
+			Added Bubble Cream.
 			Added Ear tag (no femininity requirements, ear piercing slot).
 			Added Cowbell collar (no femininity requirements, neck slot).
 			Added bovine nose ring (no femininity requirements, nose piercing slot).
 	
 	
 	
-	Paizuri
+	
+	
+	
+	
+	
+	
+	Essence inventory too big
+	
+	The right side tab on the blog didn't get updated for this release
+	
+	Vicky will not buy Bottled Squirrel-Morph Essence
+	
+	After giving birth I seem to be stuck with a recovering vagina from slightly loose to extremely tight... I have max plasticity and 1 elasticity
+	
+	milk maid headdress
+	
+	Might I suggest possibly moving the location of the 'Reset' button on the fetish screen?  Or add a confirmation. :slight_frown:  I just twitched and accidentally hit it twice and lost a lot of Arcane Essences
+	
+	Head pats
 	
 	If I pull up my maid dress, the NPC currently taking advantage decides to still take it off despite all the fun bits already being exposed. :V
 	pls fix.
 	
 	When you first speak with pix she still says lifetime membership is 1000 not 800
 	
+	adding a "TF preferences" screen to allow you to define what you're ok with being transformed into
 	
 	Headpats and scritches during oral when
 	
@@ -73,6 +100,15 @@
 	
 	Also, right now, everyone has a species-preference. -may- want to make it so that some folk don't care much about species and only about body-shape/sex
 	Make gender preferences for NPC's forced TFs settable
+	
+	
+	Maybe a non-furry version of forced TF would change the character's body type and such. For example, changing femininity, breast size, etc.
+	I think bimbofication and sissification are common, fur-free, fetishes on TFgamessite. So maybe the human-only forced TFs could do something like that?
+	
+	
+	Cat-morphs should clearly have a preference for bird-morphs and other prey animals in terms of what they'll turn a defeated PC into, down the road
+	Dogs and wolves turning people into cats so they can chase them...
+	
 	
 	Now, one other thought, maybe have fetishes figure in a little bit for what gear they end up with?
 		Not for normal peps, but when deciding whether to be a herm or off-gender sex.
@@ -119,6 +155,8 @@
 	an option to make all the skin options match your base skin would be nice
 	
 	Add Paizuri
+	
+	Allow sub/dom switch in sex (when improve UI)
 	
 	TF fetish for NPCs increases the amount of times they TF you
 	

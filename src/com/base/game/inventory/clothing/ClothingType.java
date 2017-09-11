@@ -7300,7 +7300,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
 			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLUE))) {
+			Colour.allClothingColours) {
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -7349,7 +7349,7 @@ public class ClothingType {
 							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
 
 			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLUE))) {
+			Colour.allClothingColours) {
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -7428,6 +7428,55 @@ public class ClothingType {
 						private static final long serialVersionUID = 1L;
 	};
 	
+	public static AbstractClothingType MILK_MAID_HEADBAND = new AbstractClothingType("a",
+			false,
+			"Milk Maid's headband",
+			"A frilly headband, with lots of decorative lace attached to the top.",
+			1,
+			null,
+			InventorySlot.HEAD,
+			Rarity.EPIC,
+			ClothingSet.MILK_MAID,
+			"milk_maid_headband",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_STAMINA, 2),
+					new Value<Attribute, Integer>(Attribute.FITNESS, 2)),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
+					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+					new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
+					new ListValue<Colour>(Colour.CLOTHING_GREEN),
+					new ListValue<Colour>(Colour.CLOTHING_TAN),
+					new ListValue<Colour>(Colour.CLOTHING_BROWN),
+					new ListValue<Colour>(Colour.CLOTHING_BLACK))) {
+		
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You pull on the headband.",
+						"You push the headband onto [npc.name]'s head.",
+						null,
+						"[npc.Name] pulls the headband onto [npc.her] head.",
+						"[npc.Name] pushes the headband onto your head.",
+						null);
+			}
+
+			@Override
+			public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You take off your headband.",
+						"You take off [npc.name]'s headband.",
+						null,
+						"[npc.Name] takes [npc.her] headband off.",
+						"[npc.Name] takes your headband off.",
+						null);
+			}
+	};
+	
 	public static AbstractClothingType MILK_MAID_KERCHIEF = new AbstractClothingType("a",
 			false,
 			"kerchief",
@@ -7443,7 +7492,7 @@ public class ClothingType {
 					new Value<Attribute, Integer>(Attribute.FITNESS, 2)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
 			null,
-			Colour.lingerieColours) {
+			Colour.allClothingColours) {
 		
 		
 				private static final long serialVersionUID = 1L;

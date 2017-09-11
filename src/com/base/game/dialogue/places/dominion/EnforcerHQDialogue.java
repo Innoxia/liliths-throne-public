@@ -1492,8 +1492,8 @@ public class EnforcerHQDialogue {
 					}
 					@Override
 					public void effects(){
-						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT), false);
-						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS), false);
+						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), false);
+						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), false);
 					}
 				};
 					
@@ -1632,7 +1632,7 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Read", "Read the piece of paper [brax.name] just have you.", INTERIOR_BRAX_GETTING_TEASED_UH_OH){
+				return new Response("Read", "Read the piece of paper [brax.name] just handed to you.", INTERIOR_BRAX_GETTING_TEASED_UH_OH){
 					@Override
 					public QuestLine getQuestLine() {
 						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_C_WOLFS_DEN)
@@ -1642,8 +1642,8 @@ public class EnforcerHQDialogue {
 					}
 					@Override
 					public void effects(){
-						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT), false);
-						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS), false);
+						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), false);
+						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), false);
 					}
 				};
 					

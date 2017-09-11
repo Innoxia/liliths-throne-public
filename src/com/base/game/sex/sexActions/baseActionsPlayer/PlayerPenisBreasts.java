@@ -538,21 +538,21 @@ public class PlayerPenisBreasts {
 						case SUB_EAGER:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You gently slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has,"
-											+ " grinning as [npc.she] enthusiastically tries to press [npc.her] [npc.breastSize] [npc.breasts+] together while begging for you to keep going.",
-									"You slowly thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+], causing [npc.her] to let out [npc.a_moan+] as [npc.she] lustfully gazes down at your [pc.cock+].",
+											+ " grinning as [npc.she] enthusiastically tries to press [npc.her] [npc.breastSize] [npc.breasts] together while begging for you to keep going.",
+									"You slowly thrust up between [npc.name]'s [npc.breastSize] [npc.breasts], causing [npc.her] to let out [npc.a_moan+] as [npc.she] lustfully gazes down at your [pc.cock+].",
 									"Thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer,"
-											+ " you let out a soft [pc.moan] as [npc.she] reaches up and desperately tries to press [npc.her] [npc.breastSize] [npc.breasts+] together for you."));
+											+ " you let out a soft [pc.moan] as [npc.she] reaches up and desperately tries to press [npc.her] [npc.breastSize] [npc.breasts] together for you."));
 							break;
 						case SUB_RESISTING:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You gently slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has, ignoring [npc.her] desperate cries for you to stop as [npc.she] weakly tries to push you away.",
-									"You slowly thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+], causing [npc.her] to let out [npc.a_moan+] as tears start welling up in [npc.her] [npc.eyes].",
+									"You slowly thrust up between [npc.name]'s [npc.breastSize] [npc.breasts], causing [npc.her] to let out [npc.a_moan+] as tears start welling up in [npc.her] [npc.eyes].",
 									"Thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer, you let out a soft [pc.moan] as [npc.she] weakly struggles and tries to push you away."));
 							break;
 						default: // SUB_NORMAL and in case anything goes wrong:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You gently slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has, grinning as [npc.she] tries to press [npc.her] [npc.breasts+] together and asks you to keep going.",
-									"You slowly thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+], causing [npc.her] to let out a little [npc.moan] as [npc.she] looks down at your [pc.cock+].",
+									"You slowly thrust up between [npc.name]'s [npc.breastSize] [npc.breasts], causing [npc.her] to let out a little [npc.moan] as [npc.she] looks down at your [pc.cock+].",
 									"Thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer, you let out a soft [pc.moan] as [npc.she] reaches up and tries to press [npc.her] [npc.breasts+] together for you."));
 							break;
 					}
@@ -659,21 +659,21 @@ public class PlayerPenisBreasts {
 						case SUB_EAGER:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You eagerly slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has,"
-											+ " grinning as [npc.she] enthusiastically tries to press [npc.her] [npc.breastSize] [npc.breasts+] together while begging for you to keep going.",
-									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+], causing [npc.her] to let out [npc.a_moan+] as [npc.she] lustfully gazes down at your [pc.cock+].",
+											+ " grinning as [npc.she] enthusiastically tries to press [npc.her] [npc.breastSize] [npc.breasts] together while begging for you to keep going.",
+									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts], causing [npc.her] to let out [npc.a_moan+] as [npc.she] lustfully gazes down at your [pc.cock+].",
 									"Desperately thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer,"
-											+ " you let out [pc.a_moan+] as [npc.she] reaches up and desperately tries to press [npc.her] [npc.breastSize] [npc.breasts+] together for you."));
+											+ " you let out [pc.a_moan+] as [npc.she] reaches up and desperately tries to press [npc.her] [npc.breastSize] [npc.breasts] together for you."));
 							break;
 						case SUB_RESISTING:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You eagerly slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has, ignoring [npc.her] desperate cries for you to stop as [npc.she] weakly tries to push you away.",
-									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+], causing [npc.her] to let out [npc.a_moan+] as tears start welling up in [npc.her] [npc.eyes].",
+									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts], causing [npc.her] to let out [npc.a_moan+] as tears start welling up in [npc.her] [npc.eyes].",
 									"Desperately thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer, you let out [pc.a_moan+] as [npc.she] weakly struggles and tries to push you away."));
 							break;
 						default: // SUB_NORMAL and in case anything goes wrong:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You eagerly slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has, grinning as [npc.she] tries to press [npc.her] [npc.breasts+] together and asks you to keep going.",
-									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+], causing [npc.her] to let out a little [npc.moan] as [npc.she] looks down at your [pc.cock+].",
+									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts], causing [npc.her] to let out a little [npc.moan] as [npc.she] looks down at your [pc.cock+].",
 									"Desperately thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer,"
 											+ " you let out [pc.a_moan+] as [npc.she] reaches up and tries to press [npc.her] [npc.breasts+] together for you."));
 							break;
@@ -782,21 +782,21 @@ public class PlayerPenisBreasts {
 						case SUB_EAGER:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You roughly slam your [pc.cock+] up into the small amount of cleavage that [npc.name] has,"
-											+ " grinning as [npc.she] enthusiastically tries to press [npc.her] [npc.breastSize] [npc.breasts+] together while begging for you to keep going.",
-									"You forcefully thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+], causing [npc.her] to let out [npc.a_moan+] as [npc.she] lustfully gazes down at your [pc.cock+].",
+											+ " grinning as [npc.she] enthusiastically tries to press [npc.her] [npc.breastSize] [npc.breasts] together while begging for you to keep going.",
+									"You forcefully thrust up between [npc.name]'s [npc.breastSize] [npc.breasts], causing [npc.her] to let out [npc.a_moan+] as [npc.she] lustfully gazes down at your [pc.cock+].",
 									"Roughly thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer,"
-											+ " you let out [pc.a_moan+] as [npc.she] reaches up and tries to press [npc.her] [npc.breastSize] [npc.breasts+] together for you."));
+											+ " you let out [pc.a_moan+] as [npc.she] reaches up and tries to press [npc.her] [npc.breastSize] [npc.breasts] together for you."));
 							break;
 						case SUB_RESISTING:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You roughly slam your [pc.cock+] up into the small amount of cleavage that [npc.name] has, ignoring [npc.her] desperate cries for you to stop as [npc.she] weakly tries to push you away.",
-									"You forcefully thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+], causing [npc.her] to let out [npc.a_moan+] as tears start welling up in [npc.her] [npc.eyes].",
+									"You forcefully thrust up between [npc.name]'s [npc.breastSize] [npc.breasts], causing [npc.her] to let out [npc.a_moan+] as tears start welling up in [npc.her] [npc.eyes].",
 									"Roughly thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer, you let out [pc.a_moan+] as [npc.she] weakly struggles and tries to push you away."));
 							break;
 						default: // SUB_NORMAL and in case anything goes wrong:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You roughly slam your [pc.cock+] up into the small amount of cleavage that [npc.name] has, grinning as [npc.she] tries to press [npc.her] [npc.breasts+] together and asks you to keep going.",
-									"You forcefully thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+], causing [npc.her] to let out a little [npc.moan] as [npc.she] looks down at your [pc.cock+].",
+									"You forcefully thrust up between [npc.name]'s [npc.breastSize] [npc.breasts], causing [npc.her] to let out a little [npc.moan] as [npc.she] looks down at your [pc.cock+].",
 									"Roughly thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer, you let out [pc.a_moan+] as [npc.she] reaches up and tries to press [npc.her] [npc.breasts+] together for you."));
 							break;
 					}
@@ -903,16 +903,16 @@ public class PlayerPenisBreasts {
 						case DOM_GENTLE:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has,"
-											+ " grinning as [npc.she] gently tries to press [npc.her] [npc.breastSize] [npc.breasts+] together while begging for you to keep going.",
-									"You thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+], causing [npc.her] to let out [npc.a_moan+] as [npc.she] glances down at your [pc.cock+] and bites [npc.her] [npc.lip].",
+											+ " grinning as [npc.she] gently tries to press [npc.her] [npc.breastSize] [npc.breasts] together while begging for you to keep going.",
+									"You thrust up between [npc.name]'s [npc.breastSize] [npc.breasts], causing [npc.her] to let out [npc.a_moan+] as [npc.she] glances down at your [pc.cock+] and bites [npc.her] [npc.lip].",
 									"Thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer,"
-											+ " you let out [pc.a_moan+] as [npc.she] reaches up and tries to press [npc.her] [npc.breastSize] [npc.breasts+] together for you."));
+											+ " you let out [pc.a_moan+] as [npc.she] reaches up and tries to press [npc.her] [npc.breastSize] [npc.breasts] together for you."));
 							break;
 						case DOM_ROUGH:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has,"
-											+ " letting out [pc.a_moan+] as [npc.she] roughly tries to press [npc.her] [npc.breastSize] [npc.breasts+] together and orders you to keep going.",
-									"You thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+],"
+											+ " letting out [pc.a_moan+] as [npc.she] roughly tries to press [npc.her] [npc.breastSize] [npc.breasts] together and orders you to keep going.",
+									"You thrust up between [npc.name]'s [npc.breastSize] [npc.breasts],"
 											+ " causing [npc.her] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.she]'s still in charge.",
 									"Thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer,"
 											+ " you let out [pc.a_moan+] as [npc.she] forcefully tries to push [npc.her] [npc.breasts+] together and demands that you pick up the pace."));
@@ -920,8 +920,8 @@ public class PlayerPenisBreasts {
 						default: // DOM_NORMAL and in case anything goes wrong:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has,"
-											+ " grinning as [npc.she] gently tries to press [npc.her] [npc.breastSize] [npc.breasts+] together while telling you to keep going.",
-									"You thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+], causing [npc.her] to let out [npc.a_moan+] as [npc.she] lustfully gazes down at your [pc.cock+] and bites [npc.her] [npc.lip+].",
+											+ " grinning as [npc.she] gently tries to press [npc.her] [npc.breastSize] [npc.breasts] together while telling you to keep going.",
+									"You thrust up between [npc.name]'s [npc.breastSize] [npc.breasts], causing [npc.her] to let out [npc.a_moan+] as [npc.she] lustfully gazes down at your [pc.cock+] and bites [npc.her] [npc.lip+].",
 									"Thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer,"
 											+ " you let out [pc.a_moan+] as [npc.she] reaches up and eagerly tries to press [npc.her] [npc.breasts+] together for you."));
 							break;
@@ -1029,16 +1029,16 @@ public class PlayerPenisBreasts {
 						case DOM_GENTLE:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You eagerly slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has,"
-											+ " grinning as [npc.she] gently tries to press [npc.her] [npc.breastSize] [npc.breasts+] together while begging for you to keep going.",
-									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+], causing [npc.her] to let out [npc.a_moan+] as [npc.she] glances down at your [pc.cock+] and bites [npc.her] [npc.lip].",
+											+ " grinning as [npc.she] gently tries to press [npc.her] [npc.breastSize] [npc.breasts] together while begging for you to keep going.",
+									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts], causing [npc.her] to let out [npc.a_moan+] as [npc.she] glances down at your [pc.cock+] and bites [npc.her] [npc.lip].",
 									"Desperately thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer,"
-											+ " you let out [pc.a_moan+] as [npc.she] reaches up and tries to press [npc.her] [npc.breastSize] [npc.breasts+] together for you."));
+											+ " you let out [pc.a_moan+] as [npc.she] reaches up and tries to press [npc.her] [npc.breastSize] [npc.breasts] together for you."));
 							break;
 						case DOM_ROUGH:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You eagerly slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has,"
-											+ " letting out [pc.a_moan+] as [npc.she] roughly tries to press [npc.her] [npc.breastSize] [npc.breasts+] together and orders you to keep going.",
-									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+],"
+											+ " letting out [pc.a_moan+] as [npc.she] roughly tries to press [npc.her] [npc.breastSize] [npc.breasts] together and orders you to keep going.",
+									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts],"
 											+ " causing [npc.her] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.she]'s still in charge.",
 									"Desperately thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer,"
 											+ " you let out [pc.a_moan+] as [npc.she] forcefully tries to push [npc.her] [npc.breasts+] together and demands that you pick up the pace."));
@@ -1046,8 +1046,8 @@ public class PlayerPenisBreasts {
 						default: // DOM_NORMAL and in case anything goes wrong:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 									"You eagerly slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has,"
-											+ " grinning as [npc.she] gently tries to press [npc.her] [npc.breastSize] [npc.breasts+] together while telling you to keep going.",
-									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+], causing [npc.her] to let out [npc.a_moan+] as [npc.she] lustfully gazes down at your [pc.cock+] and bites [npc.her] [npc.lip+].",
+											+ " grinning as [npc.she] gently tries to press [npc.her] [npc.breastSize] [npc.breasts] together while telling you to keep going.",
+									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts], causing [npc.her] to let out [npc.a_moan+] as [npc.she] lustfully gazes down at your [pc.cock+] and bites [npc.her] [npc.lip+].",
 									"Desperately thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer,"
 											+ " you let out [pc.a_moan+] as [npc.she] reaches up and eagerly tries to press [npc.her] [npc.breasts+] together for you."));
 							break;
@@ -1127,25 +1127,30 @@ public class PlayerPenisBreasts {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPartner().isBreastFuckablePaizuri()) { //TODO
+			if(Sex.getPartner().isBreastFuckablePaizuri()) {
 				switch(Sex.getSexPacePartner()) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"You eagerly slide your [pc.cock+] up into [npc.name]'s cleavage, grinning as [npc.she] gently presses [npc.her] [npc.breasts+] together while begging for you to keep going.",
-								"You enthusiastically thrust up between [npc.name]'s [npc.breasts+], causing [npc.her] to let out a soft [npc.moan] as [npc.she] glances down at your [pc.cock+] and bites [npc.her] [npc.lip].",
-								"Desperately thrusting your [pc.cock+] between [npc.name]'s cleavage, you let out [pc.a_moan+] as [npc.she] reaches up and gently presses [npc.her] [npc.breasts+] together for you."));
+								"You desperately try to pull your [pc.cock+] out of [npc.name]'s cleavage, but [npc.she] firmly holds you in place,"
+										+ " pressing [npc.her] [npc.breasts+] together while gently reminding you that [npc.she]'ll do whatever [npc.she] wants.",
+								"You frantically try to pull away from [npc.name]'s [npc.breasts+], but [npc.she] firmly holds you in place, softly [npc.moaning] as [npc.she] ignores your desperate protests.",
+								"You feel tears welling up in your eyes as you try to pull out of [npc.name]'s cleavage, but [npc.her] grip is too strong,"
+										+ " and [npc.she] continues softly [npc.moaning] as [npc.she] firmly forces your [pc.cock+] between [npc.her] [npc.breasts+]."));
 						break;
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"You eagerly slide your [pc.cock+] up into [npc.name]'s cleavage, letting out [pc.a_moan+] as [npc.she] roughly presses [npc.her] [npc.breasts+] together and orders you to keep going.",
-								"You enthusiastically thrust up between [npc.name]'s [npc.breasts+], causing [npc.her] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.she]'s still in charge.",
-								"Desperately thrusting your [pc.cock+] between [npc.name]'s cleavage, you let out [pc.a_moan+] as [npc.she] forcefully pushes [npc.her] [npc.breasts+] together and demands that you pick up the pace."));
+								"You desperately try to pull your [pc.cock+] out of [npc.name]'s cleavage, but [npc.she] roughly holds you in place, pressing [npc.her] [npc.breasts+] together while growling that [npc.she]'ll use you however [npc.she] wants.",
+								"You frantically try to pull away from [npc.name]'s [npc.breasts+], but [npc.she] roughly holds you in place, [npc.moaning+] as [npc.she] ignores your futile protests.",
+								"You feel tears welling up in your eyes as you try to pull out of [npc.name]'s cleavage, but [npc.her] grip is too strong,"
+										+ " and [npc.she] continues [npc.moaning+] as [npc.she] roughly forces your [pc.cock+] between [npc.her] [npc.breasts+]."));
 						break;
 					default: // DOM_NORMAL and in case anything goes wrong:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"You eagerly slide your [pc.cock+] up into [npc.name]'s cleavage, grinning as [npc.she] eagerly presses [npc.her] [npc.breasts+] together and tells you to keep going.",
-								"You enthusiastically thrust up between [npc.name]'s [npc.breasts+], causing [npc.her] to let out [npc.a_moan+] as [npc.she] lustfully gazes down at your [pc.cock+] and bites [npc.her] [npc.lip].",
-								"Desperately thrusting your [pc.cock+] between [npc.name]'s cleavage, you let out [pc.a_moan+] as [npc.she] reaches up and eagerly presses [npc.her] [npc.breasts+] together for you."));
+								"You desperately try to pull your [pc.cock+] out of [npc.name]'s cleavage, but [npc.she] firmly holds you in place,"
+										+ " pressing [npc.her] [npc.breasts+] together while [npc.moaning] that [npc.she]'ll do whatever [npc.she] wants.",
+								"You frantically try to pull away from [npc.name]'s [npc.breasts+], but [npc.she] firmly holds you in place, [npc.moaning+] as [npc.she] ignores your futile protests.",
+								"You feel tears welling up in your eyes as you try to pull out of [npc.name]'s cleavage, but [npc.her] grip is too strong,"
+										+ " and [npc.she] continues [npc.moaning+] as [npc.she] eagerly forces your [pc.cock+] between [npc.her] [npc.breasts+]."));
 						break;
 				}
 				
@@ -1154,28 +1159,27 @@ public class PlayerPenisBreasts {
 					switch(Sex.getSexPacePartner()) {
 						case DOM_GENTLE:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									"You eagerly slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has,"
-											+ " grinning as [npc.she] gently tries to press [npc.her] [npc.breastSize] [npc.breasts+] together while begging for you to keep going.",
-									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+], causing [npc.her] to let out [npc.a_moan+] as [npc.she] glances down at your [pc.cock+] and bites [npc.her] [npc.lip].",
-									"Desperately thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer,"
-											+ " you let out [pc.a_moan+] as [npc.she] reaches up and tries to press [npc.her] [npc.breastSize] [npc.breasts+] together for you."));
+									"You desperately try to pull your [pc.cock+] out of the small amount of cleavage that [npc.name] has, but [npc.she] firmly holds you in place,"
+											+ " trying to press [npc.her] [npc.breasts+] together while gently reminding you that [npc.she]'ll do whatever [npc.she] wants.",
+									"You frantically try to pull away from [npc.name]'s [npc.breastSize] [npc.breasts], but [npc.she] firmly holds you in place, softly [npc.moaning] as [npc.she] ignores your desperate protests.",
+									"You feel tears welling up in your eyes as you try to pull out of the tiny amount of cleavage that [npc.name] has on offer, but [npc.her] grip is too strong,"
+											+ " and [npc.she] continues softly [npc.moaning] as [npc.she] firmly forces your [pc.cock+] between [npc.her] [npc.breasts+]."));
 							break;
 						case DOM_ROUGH:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									"You eagerly slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has,"
-											+ " letting out [pc.a_moan+] as [npc.she] roughly tries to press [npc.her] [npc.breastSize] [npc.breasts+] together and orders you to keep going.",
-									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+],"
-											+ " causing [npc.her] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.she]'s still in charge.",
-									"Desperately thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer,"
-											+ " you let out [pc.a_moan+] as [npc.she] forcefully tries to push [npc.her] [npc.breasts+] together and demands that you pick up the pace."));
+									"You desperately try to pull your [pc.cock+] out of the small amount of cleavage that [npc.name] has, but [npc.she] roughly holds you in place,"
+											+ " trying to press [npc.her] [npc.breasts+] together while growling that [npc.she]'ll use you however [npc.she] wants.",
+									"You frantically try to pull away from [npc.name]'s [npc.breastSize] [npc.breasts], but [npc.she] roughly holds you in place, [npc.moaning+] as [npc.she] ignores your futile protests.",
+									"You feel tears welling up in your eyes as you try to pull out of the tiny amount of cleavage that [npc.name] has on offer, but [npc.her] grip is too strong,"
+											+ " and [npc.she] continues [npc.moaning+] as [npc.she] roughly forces your [pc.cock+] between [npc.her] [npc.breasts+]."));
 							break;
 						default: // DOM_NORMAL and in case anything goes wrong:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									"You eagerly slide your [pc.cock+] up into the small amount of cleavage that [npc.name] has,"
-											+ " grinning as [npc.she] gently tries to press [npc.her] [npc.breastSize] [npc.breasts+] together while telling you to keep going.",
-									"You enthusiastically thrust up between [npc.name]'s [npc.breastSize] [npc.breasts+], causing [npc.her] to let out [npc.a_moan+] as [npc.she] lustfully gazes down at your [pc.cock+] and bites [npc.her] [npc.lip+].",
-									"Desperately thrusting your [pc.cock+] between the tiny amount of cleavage that [npc.name] has on offer,"
-											+ " you let out [pc.a_moan+] as [npc.she] reaches up and eagerly tries to press [npc.her] [npc.breasts+] together for you."));
+									"You desperately try to pull your [pc.cock+] out of the small amount of cleavage that [npc.name] has, but [npc.she] firmly holds you in place,"
+											+ " trying to press [npc.her] [npc.breasts+] together while  that [npc.she]'ll do whatever [npc.she] wants.",
+									"You frantically try to pull away from [npc.name]'s [npc.breastSize] [npc.breasts], but [npc.she] firmly holds you in place, [npc.moaning+] as [npc.she] ignores your futile protests.",
+									"You feel tears welling up in your eyes as you try to pull out of the tiny amount of cleavage that [npc.name] has on offer, but [npc.her] grip is too strong,"
+											+ " and [npc.she] continues [npc.moaning+] as [npc.she] eagerly forces your [pc.cock+] between [npc.her] [npc.breasts+]."));
 							break;
 					}
 					
@@ -1183,21 +1187,25 @@ public class PlayerPenisBreasts {
 					switch(Sex.getSexPacePartner()) {
 						case DOM_GENTLE:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									"You eagerly slide your [pc.cock+] against [npc.name]'s chest, grinning as [npc.she] gently begs for you to keep going.",
-									"You enthusiastically thrust down against [npc.name]'s chest, causing [npc.her] to let out a soft [npc.moan] as [npc.she] lustfully gazes down at your [pc.cock+] and bites [npc.her] [npc.lip].",
-									"Desperately thrusting your [pc.cock+] against [npc.name]'s chest, you let out [pc.a_moan+] as [npc.she] softly begs for you not to stop."));
+									"You desperately try to pull your [pc.cock+] away from [npc.name]'s chest, but [npc.she] firmly holds you in place, grinding against you as [npc.she] gently [npc.moansVerb] that [npc.she]'ll do whatever [npc.she] wants.",
+									"You frantically try to pull away from [npc.name]'s chest, but [npc.she] firmly holds you in place, softly [npc.moaning] as [npc.she] ignores your desperate protests.",
+									"You feel tears welling up in your eyes as you try to pull away from [npc.name], but [npc.her] grip is too strong,"
+											+ " and [npc.she] continues softly [npc.moaning] as [npc.she] firmly forces your [pc.cock+] against [npc.her] chest."));
 							break;
 						case DOM_ROUGH:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									"You eagerly slide your [pc.cock+] against [npc.name]'s chest, letting out [pc.a_moan+] as [npc.she] roughly orders you to keep going.",
-									"You enthusiastically thrust down against [npc.name]'s chest, causing [npc.her] to let out [npc.a_moan+] before [npc.she] regains [npc.her] composure and roughly growls out that [npc.she]'s still in charge.",
-									"Desperately thrusting your [pc.cock+] against [npc.name]'s chest, you let out [pc.a_moan+] as [npc.she] forcefully demands that you pick up the pace."));
+									"You desperately try to pull your [pc.cock+] away from [npc.name]'s chest, but [npc.she] roughly holds you in place,"
+											+ " forcefully grinding against you as [npc.she] [npc.moansVerb] that [npc.she]'ll do whatever [npc.she] wants.",
+									"You frantically try to pull away from [npc.name]'s chest, but [npc.she] roughly holds you in place, [npc.moaning+] as [npc.she] ignores your futile protests.",
+									"You feel tears welling up in your eyes as you try to pull away from [npc.name], but [npc.her] grip is too strong,"
+											+ " and [npc.she] continues [npc.moaning+] as [npc.she] roughly forces your [pc.cock+] against [npc.her] chest."));
 							break;
 						default: // DOM_NORMAL and in case anything goes wrong:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									"You eagerly slide your [pc.cock+] against [npc.name]'s chest, grinning as [npc.she] eagerly [npc.moans] for you to keep going.",
-									"You enthusiastically thrust down against [npc.name]'s chest, causing [npc.her] to let out [npc.a_moan+] as [npc.she] looks down at your [pc.cock+] and bites [npc.her] [npc.lip].",
-									"Desperately thrusting your [pc.cock+] against [npc.name]'s chest, you let out [pc.a_moan+] as [npc.she] eagerly begs for you to continue."));
+									"You desperately try to pull your [pc.cock+] away from [npc.name]'s chest, but [npc.she] firmly holds you in place, grinding against you as [npc.she] [npc.moansVerb] that [npc.she]'ll do whatever [npc.she] wants.",
+									"You frantically try to pull away from [npc.name]'s chest, but [npc.she] firmly holds you in place, [npc.moaning+] as [npc.she] ignores your futile protests.",
+									"You feel tears welling up in your eyes as you try to pull away from [npc.name], but [npc.her] grip is too strong,"
+											+ " and [npc.she] continues [npc.moaning+] as [npc.she] eagerly forces your [pc.cock+] against [npc.her] chest."));
 							break;
 					}
 				}
@@ -1247,26 +1255,60 @@ public class PlayerPenisBreasts {
 		public String getDescription() {
 			
 			UtilText.nodeContentSB.setLength(0);
-			
-			switch(Sex.getSexPacePlayer()) {
-				case DOM_ROUGH:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							""));
-					break;
-				default:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							""));
-					break;
+
+			if(Sex.getPartner().isBreastFuckablePaizuri()) {
+				switch(Sex.getSexPacePlayer()) {
+					case DOM_ROUGH:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Roughly pushing [npc.name] away, you pull your [pc.cock+] out from [npc.her] cleavage and tell [npc.herHim] that you've had enough of fucking [npc.her] [npc.breasts+].",
+								"Roughly pulling your [pc.cock+] out from [npc.name]'s cleavage, you tell [npc.herHim] that you've had enough of fucking [npc.her] [npc.breasts+]."));
+						break;
+					default:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"You pull your [pc.cock+] out from [npc.name]'s cleavage and tell [npc.herHim] that you've had enough of fucking [npc.her] [npc.breasts+].",
+								"Pulling your [pc.cock+] out from [npc.name]'s cleavage, you tell [npc.herHim] that you've had enough of fucking [npc.her] [npc.breasts+]."));
+						break;
+				}
+			} else {
+				if(Sex.getPartner().hasBreasts()) {
+					switch(Sex.getSexPacePlayer()) {
+						case DOM_ROUGH:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									"Roughly pushing [npc.name] away, you pull your [pc.cock+] out from [npc.her] tiny amount of cleavage and tell [npc.herHim] that you've had enough of fucking [npc.her] [npc.breastSize] [npc.breasts].",
+									"Roughly pulling your [pc.cock+] out from [npc.name]'s tiny amount of cleavage, you tell [npc.herHim] that you've had enough of fucking [npc.her] [npc.breastSize] [npc.breasts]."));
+							break;
+						default:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									"You pull your [pc.cock+] out from [npc.name]'s tiny amount of cleavage and tell [npc.herHim] that you've had enough of fucking [npc.her] [npc.breastSize] [npc.breasts].",
+									"Pulling your [pc.cock+] out from [npc.name]'s tiny amount of cleavage, you tell [npc.herHim] that you've had enough of fucking [npc.her] [npc.breastSize] [npc.breasts]."));
+							break;
+					}
+				} else {
+					switch(Sex.getSexPacePlayer()) {
+						case DOM_ROUGH:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									"Roughly pushing [npc.name] away, you take your [pc.cock+] away from [npc.her] chest and tell [npc.herHim] that you've had enough of grinding against [npc.herHim].",
+									"Roughly pulling your [pc.cock+] away from [npc.name]'s chest, you tell [npc.herHim] that you've had enough of grinding against [npc.herHim]."));
+							break;
+						default:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									"You take your [pc.cock+] away from [npc.name]'s chest and tell [npc.herHim] that you've had enough of grinding against [npc.herHim].",
+									"Pulling your [pc.cock+] away from [npc.name]'s chest, you tell [npc.herHim] that you've had enough of grinding against [npc.herHim]."));
+							break;
+					}
+				}
 			}
 			
 			switch(Sex.getSexPacePartner()) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" "));
+							" [npc.She] continues struggling against you, [npc.moaning+] as [npc.she] begs you to leave [npc.herHim] alone.",
+							" With [npc.a_moan+], [npc.she] begs you to leave [npc.herHim] alone, tears welling up in [npc.her] [npc.eyes] as [npc.she] weakly tries to push you away."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" "));
+							" [npc.She] lets out [npc.a_moan+], betraying [npc.her] desire for you to continue.",
+							" With [npc.a_moan+], [npc.she] begs for you to keep on using [npc.herHim]."));
 					break;
 			}
 			
@@ -1308,58 +1350,174 @@ public class PlayerPenisBreasts {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
-				case DOM_GENTLE:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							""));
-					break;
-				case DOM_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							""));
-					break;
-				case DOM_ROUGH:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							""));
-					break;
-				case SUB_EAGER:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							""));
-					break;
-				case SUB_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							""));
-					break;
-				default:
-					break;
-			}
-			
-			switch(Sex.getSexPacePlayer()) {
-				case DOM_GENTLE:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" "));
-					break;
-				case DOM_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" "));
-					break;
-				case DOM_ROUGH:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" ."));
-					break;
-				case SUB_EAGER:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" ."));
-					break;
-				case SUB_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" ."));
-					break;
-				case SUB_RESISTING:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" ."));
-					break;
-				default:
-					break;
+			if(Sex.getPartner().isBreastFuckablePaizuri()) {
+				switch(Sex.getSexPacePartner()) {
+					case DOM_GENTLE:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Gently taking hold of your [pc.cock+], [npc.name] guides it up to [npc.her] cleavage, and, sliding forwards, [npc.she] presses [npc.her] [npc.breasts+] together and starts giving you a titfuck."));
+						break;
+					case DOM_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Eagerly taking hold of your [pc.cock+], [npc.name] guides it up to [npc.her] cleavage, and, sliding forwards, [npc.she] presses [npc.her] [npc.breasts+] together and starts giving you an enthusiastic titfuck."));
+						break;
+					case DOM_ROUGH:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Roughly grabbing hold of your [pc.cock+], [npc.name] pulls it up to [npc.her] cleavage, and, sliding forwards, [npc.she] presses [npc.her] [npc.breasts+] together and starts giving you a forceful titfuck."));
+						break;
+					case SUB_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Taking hold of your [pc.cock+], [npc.name] guides it up to [npc.her] cleavage, and, sliding forwards, [npc.she] presses [npc.her] [npc.breasts+] together and starts giving you a titfuck."));
+						break;
+					case SUB_EAGER:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"Eagerly taking hold of your [pc.cock+], [npc.name] guides it up to [npc.her] cleavage, and, sliding forwards, [npc.she] presses [npc.her] [npc.breasts+] together and starts giving you an enthusiastic titfuck."));
+						break;
+					default:
+						break;
+				}
+				switch(Sex.getSexPacePlayer()) {
+					case DOM_GENTLE:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You let out a happy little [pc.moan] in response, helping to push [npc.her] [npc.breasts] together as you encourage [npc.herHim] to keep going."));
+						break;
+					case DOM_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You let out [pc.a_moan+] in response, eagerly helping to push [npc.her] [npc.breasts] together as you enthusiastically encourage [npc.herHim] to keep going."));
+						break;
+					case DOM_ROUGH:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You let out [pc.a_moan+] in response, roughly pushing [npc.her] [npc.breasts] together as you demand that [npc.she] keeps on going."));
+						break;
+					case SUB_EAGER:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You let out [pc.a_moan+] in response, eagerly helping to push [npc.her] [npc.breasts] together as you enthusiastically encourage [npc.herHim] to keep going."));
+						break;
+					case SUB_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You let out [pc.a_moan] in response, helping to push [npc.her] [npc.breasts] together as you meekly ask [npc.herHim] to keep going."));
+						break;
+					case SUB_RESISTING:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" You let out [pc.a_moan+] in response, weakly trying to push [npc.herHim] away as you beg for [npc.herHim] to stop."));
+						break;
+					default:
+						break;
+				}
+				
+			} else {
+				if(Sex.getPartner().hasBreasts()) {
+					switch(Sex.getSexPacePartner()) {
+						case DOM_GENTLE:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									"Gently taking hold of your [pc.cock+], [npc.name] guides it up to what little cleavage [npc.she] has, and, sliding forwards,"
+											+ " [npc.she] tries [npc.her] best to press [npc.her] [npc.breastSize] [npc.breasts] together in order to give you a titfuck."));
+							break;
+						case DOM_NORMAL:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									"Eagerly taking hold of your [pc.cock+], [npc.name] guides it up to what little cleavage [npc.she] has, and, sliding forwards,"
+											+ " [npc.she] tries [npc.her] best to press [npc.her] [npc.breastSize] [npc.breasts] together in order to give you an enthusiastic titfuck."));
+							break;
+						case DOM_ROUGH:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									"Roughly grabbing hold of your [pc.cock+], [npc.name] guides it up to what little cleavage [npc.she] has, and, sliding forwards,"
+											+ " [npc.she] tries [npc.her] best to press [npc.her] [npc.breastSize] [npc.breasts] together in order to give you a forceful titfuck."));
+							break;
+						case SUB_NORMAL:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									"Taking hold of your [pc.cock+], [npc.name] guides it up to what little cleavage [npc.she] has, and, sliding forwards,"
+											+ " [npc.she] tries [npc.her] best to press [npc.her] [npc.breastSize] [npc.breasts] together in order to give you a titfuck."));
+							break;
+						case SUB_EAGER:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									"Eagerly taking hold of your [pc.cock+], [npc.name] guides it up to what little cleavage [npc.she] has, and, sliding forwards,"
+											+ " [npc.she] tries [npc.her] best to press [npc.her] [npc.breastSize] [npc.breasts] together in order to give you an enthusiastic titfuck."));
+							break;
+						default:
+							break;
+					}
+					switch(Sex.getSexPacePlayer()) {
+						case DOM_GENTLE:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" You let out a happy little [pc.moan] in response, gently thrusting into [npc.her] chest as you encourage [npc.herHim] to keep going."));
+							break;
+						case DOM_NORMAL:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" You let out [pc.a_moan+] in response, desperately thrusting into [npc.her] chest as you enthusiastically encourage [npc.herHim] to keep going."));
+							break;
+						case DOM_ROUGH:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" You let out [pc.a_moan+] in response, roughly thrusting into [npc.her] chest as you demand that [npc.she] keeps on going."));
+							break;
+						case SUB_EAGER:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" You let out [pc.a_moan+] in response, eagerly thrusting into [npc.her] chest as you enthusiastically encourage [npc.herHim] to keep going."));
+							break;
+						case SUB_NORMAL:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" You let out [pc.a_moan] in response, thrusting into [npc.her] chest as you meekly ask [npc.herHim] to keep going."));
+							break;
+						case SUB_RESISTING:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" You let out [pc.a_moan+] in response, weakly trying to push [npc.herHim] away as you beg for [npc.herHim] to stop."));
+							break;
+						default:
+							break;
+					}
+					
+				} else {
+					switch(Sex.getSexPacePartner()) {
+						case DOM_GENTLE:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									"Gently taking hold of your [pc.cock+], [npc.name] guides it up to [npc.her] flat chest, and, sliding forwards, [npc.she] grinds [npc.her] torso against your [pc.cock+]."));
+							break;
+						case DOM_NORMAL:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									"Eagerly taking hold of your [pc.cock+], [npc.name] guides it up to [npc.her] flat chest, and, sliding forwards, [npc.she] enthusiastically grinds [npc.her] torso against your [pc.cock+]."));
+							break;
+						case DOM_ROUGH:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									"Roughly grabbing hold of your [pc.cock+], [npc.name] guides it up to [npc.her] flat chest, and, sliding forwards, [npc.she] forcefully grinds [npc.her] torso against your [pc.cock+]."));
+							break;
+						case SUB_NORMAL:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									"Taking hold of your [pc.cock+], [npc.name] guides it up to [npc.her] flat chest, and, sliding forwards, [npc.she] grinds [npc.her] torso against your [pc.cock+]."));
+							break;
+						case SUB_EAGER:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									"Eagerly taking hold of your [pc.cock+], [npc.name] guides it up to [npc.her] flat chest, and, sliding forwards, [npc.she] enthusiastically grinds [npc.her] torso against your [pc.cock+]."));
+							break;
+						default:
+							break;
+					}
+					switch(Sex.getSexPacePlayer()) {
+						case DOM_GENTLE:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" You let out a happy little [pc.moan] in response, gently thrusting into [npc.her] chest as you encourage [npc.herHim] to keep going."));
+							break;
+						case DOM_NORMAL:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" You let out [pc.a_moan+] in response, desperately thrusting into [npc.her] chest as you enthusiastically encourage [npc.herHim] to keep going."));
+							break;
+						case DOM_ROUGH:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" You let out [pc.a_moan+] in response, roughly thrusting into [npc.her] chest as you demand that [npc.she] keeps on going."));
+							break;
+						case SUB_EAGER:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" You let out [pc.a_moan+] in response, eagerly thrusting into [npc.her] chest as you enthusiastically encourage [npc.herHim] to keep going."));
+							break;
+						case SUB_NORMAL:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" You let out [pc.a_moan] in response, thrusting into [npc.her] chest as you meekly ask [npc.herHim] to keep going."));
+							break;
+						case SUB_RESISTING:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" You let out [pc.a_moan+] in response, weakly trying to push [npc.herHim] away as you beg for [npc.herHim] to stop."));
+							break;
+						default:
+							break;
+					}
+				}
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -1376,7 +1534,7 @@ public class PlayerPenisBreasts {
 		}
 	};
 	
-	public static final SexAction PARTNER_RIDING_COCK_DOM_GENTLE = new SexAction(
+	public static final SexAction PARTNER_PERFORMING_COCK_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -1413,8 +1571,28 @@ public class PlayerPenisBreasts {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					""));
+			if(Sex.getPartner().isBreastFuckablePaizuri()) {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"Reaching up to push [npc.her] [npc.breasts+] together around your [pc.cock+], [npc.name] gently raises and lowers [npc.her] torso, softly [npc.moaning] as [npc.she] helps you to fuck [npc.her] cleavage.",
+						"Gently pressing [npc.her] [npc.breasts+] together around your [pc.cock+], [npc.name] slowly lifts them up and down, helping you to fuck [npc.her] cleavage as [npc.she] [npc.moansVerb] in delight.",
+						"Letting out a soft [npc.moan], [npc.name] presses [npc.her] [npc.breasts] together, enveloping your [pc.cock+] in [npc.her] pillowy mounds as [npc.she] gives you a loving titfuck."));
+				
+			} else {
+				if(Sex.getPartner().hasBreasts()) {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Reaching up to try and push [npc.her] [npc.breastSize] [npc.breasts+] together around your [pc.cock+], [npc.name] gently raises and lowers [npc.her] torso,"
+									+ " softly [npc.moaning] as [npc.she] helps you to fuck what little cleavage [npc.she] has.",
+							"Gently trying to press [npc.her] [npc.breastSize] [npc.breasts+] together around your [pc.cock+], [npc.name] uses [npc.her] [npc.fingers+] to help create a structure for you to thrust into,"
+									+ " before [npc.moaning] in delight as [npc.she] lifts [npc.herself] up and down to get you to fuck [npc.her] small cleavage.",
+							"Letting out a soft [npc.moan], [npc.name] tries to press [npc.her] [npc.breastSize] [npc.breasts] together, using [npc.her] [npc.fingers+] to help to envelop your [pc.cock+] as [npc.she] gives you a loving titfuck."));
+							
+				} else {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Reaching up to wrap [npc.her] [npc.fingers+] around your [pc.cock+], [npc.name] gently raises and lowers [npc.her] torso, softly [npc.moaning] as [npc.she] thrusts out [npc.her] chest and grinds against you.",
+							"Gently wrapping [npc.her] [npc.fingers+] around your [pc.cock+], [npc.name] lifts [npc.herself] up and down, grinding [npc.her] chest against you as [npc.she] imitates giving you a titfuck.",
+							"Letting out a soft [npc.moan], [npc.name] wraps [npc.her] [npc.fingers+] around your [pc.cock+] and thrusts [npc.her] chest out, before lifting [npc.herself] up and down to give you an imitation titfuck"));
+				}
+			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1430,7 +1608,7 @@ public class PlayerPenisBreasts {
 		}
 	};
 	
-	public static final SexAction PARTNER_RIDING_COCK_DOM_NORMAL = new SexAction(
+	public static final SexAction PARTNER_PERFORMING_COCK_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -1467,8 +1645,29 @@ public class PlayerPenisBreasts {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					""));
+			if(Sex.getPartner().isBreastFuckablePaizuri()) {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"Reaching up to eagerly push [npc.her] [npc.breasts+] together around your [pc.cock+], [npc.name] rapidly starts bucking [npc.her] torso up and down, [npc.moaning+] as [npc.she] helps you to fuck [npc.her] cleavage.",
+						"Eagerly pressing [npc.her] [npc.breasts+] together around your [pc.cock+], [npc.name] rapidly starts lifting them up and down, helping you to fuck [npc.her] cleavage as [npc.she] [npc.moansVerb] in delight.",
+						"Letting out [npc.a_moan+], [npc.name] eagerly presses [npc.her] [npc.breasts] together, enveloping your [pc.cock+] in [npc.her] pillowy mounds as [npc.she] gives you an enthusiastic titfuck."));
+				
+			} else {
+				if(Sex.getPartner().hasBreasts()) {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Reaching up to desperately try and push [npc.her] [npc.breastSize] [npc.breasts+] together around your [pc.cock+], [npc.name] rapidly starts bucking [npc.her] torso up and down,"
+									+ " [npc.moaning+] as [npc.she] enthusiastically helps you to fuck what little cleavage [npc.she] has.",
+							"Eagerly trying to press [npc.her] [npc.breastSize] [npc.breasts+] together around your [pc.cock+], [npc.name] uses [npc.her] [npc.fingers+] to help create a structure for you to thrust into,"
+									+ " before [npc.moaning] in delight as [npc.she] rapidly lifts [npc.herself] up and down to get you to fuck [npc.her] small cleavage.",
+							"Letting out [npc.a_moan+], [npc.name] desperately tries to press [npc.her] [npc.breastSize] [npc.breasts] together,"
+									+ " using [npc.her] [npc.fingers+] to help to envelop your [pc.cock+] as [npc.she] gives you an enthusiastic titfuck."));
+							
+				} else {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Reaching up to wrap [npc.her] [npc.fingers+] around your [pc.cock+], [npc.name] rapidly starts bucking [npc.her] torso up and down, [npc.moaning+] as [npc.she] thrusts [npc.her] chest out and eagerly grinds against you.",
+							"Eagerly wrapping [npc.her] [npc.fingers+] around your [pc.cock+], [npc.name] rapidly lifts [npc.herself] up and down, grinding [npc.her] chest against you as [npc.she] imitates giving you a titfuck.",
+							"Letting out [npc.a_moan+], [npc.name] wraps [npc.her] [npc.fingers+] around your [pc.cock+] and eagerly thrusts [npc.her] chest out, before lifting [npc.herself] up and down to give you an imitation titfuck"));
+				}
+			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1484,7 +1683,7 @@ public class PlayerPenisBreasts {
 		}
 	};
 	
-	public static final SexAction PARTNER_RIDING_COCK_DOM_ROUGH = new SexAction(
+	public static final SexAction PARTNER_PERFORMING_COCK_DOM_ROUGH = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -1521,8 +1720,30 @@ public class PlayerPenisBreasts {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					""));
+			if(Sex.getPartner().isBreastFuckablePaizuri()) {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"Reaching up to desperately push [npc.her] [npc.breasts+] together around your [pc.cock+], [npc.name] starts roughly bucking [npc.her] torso up and down, [npc.moaning+] as [npc.she] forces you to fuck [npc.her] cleavage.",
+						"Roughly pressing [npc.her] [npc.breasts+] together around your [pc.cock+], [npc.name] starts rapidly lifting them up and down, forcing you to fuck [npc.her] cleavage as [npc.she] [npc.moansVerb] in delight.",
+						"Letting out [npc.a_moan+], [npc.name] roughly presses [npc.her] [npc.breasts] together, enveloping your [pc.cock+] in [npc.her] pillowy mounds as [npc.she] gives you a forceful titfuck."));
+				
+			} else {
+				if(Sex.getPartner().hasBreasts()) {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Reaching up to desperately try and push [npc.her] [npc.breastSize] [npc.breasts+] together around your [pc.cock+], [npc.name] starts rapidly bucking [npc.her] torso up and down,"
+									+ " [npc.moaning+] as [npc.she] roughly forces you to fuck what little cleavage [npc.she] has.",
+							"Roughly trying to press [npc.her] [npc.breastSize] [npc.breasts+] together around your [pc.cock+], [npc.name] uses [npc.her] [npc.fingers+] to help create a structure for you to thrust into,"
+									+ " before [npc.moaning] in delight as [npc.she] rapidly lifts [npc.herself] up and down to force you to fuck [npc.her] small cleavage.",
+							"Letting out [npc.a_moan+], [npc.name] roughly tries to press [npc.her] [npc.breastSize] [npc.breasts] together,"
+									+ " using [npc.her] [npc.fingers+] to help to envelop your [pc.cock+] as [npc.she] gives you a forceful titfuck."));
+							
+				} else {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Reaching up to roughly wrap [npc.her] [npc.fingers+] around your [pc.cock+], [npc.name] rapidly starts bucking [npc.her] torso up and down,"
+									+ " [npc.moaning+] as [npc.she] thrusts [npc.her] chest out and forcefully grinds against you.",
+							"Roughly wrapping [npc.her] [npc.fingers+] around your [pc.cock+], [npc.name] rapidly lifts [npc.herself] up and down, forcefully grinding [npc.her] chest against you as [npc.she] imitates giving you a titfuck.",
+							"Letting out [npc.a_moan+], [npc.name] roughly wraps [npc.her] [npc.fingers+] around your [pc.cock+] and forcefully thrusts [npc.her] chest out, before lifting [npc.herself] up and down to give you an imitation titfuck"));
+				}
+			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1538,7 +1759,7 @@ public class PlayerPenisBreasts {
 		}
 	};
 	
-	public static final SexAction PARTNER_RIDING_COCK_SUB_NORMAL = new SexAction(
+	public static final SexAction PARTNER_PERFORMING_COCK_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -1575,8 +1796,28 @@ public class PlayerPenisBreasts {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					""));
+			if(Sex.getPartner().isBreastFuckablePaizuri()) {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"Reaching up to push [npc.her] [npc.breasts+] together around your [pc.cock+], [npc.name] starts bucking [npc.her] torso up and down, [npc.moaning+] as [npc.she] helps you to fuck [npc.her] cleavage.",
+						"Pressing [npc.her] [npc.breasts+] together around your [pc.cock+], [npc.name] starts lifting them up and down, helping you to fuck [npc.her] cleavage as [npc.she] [npc.moansVerb] in delight.",
+						"Letting out [npc.a_moan+], [npc.name] presses [npc.her] [npc.breasts] together, enveloping your [pc.cock+] in [npc.her] pillowy mounds as [npc.she] gives you a titfuck."));
+				
+			} else {
+				if(Sex.getPartner().hasBreasts()) {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Reaching up to try and push [npc.her] [npc.breastSize] [npc.breasts+] together around your [pc.cock+], [npc.name] starts bucking [npc.her] torso up and down,"
+									+ " [npc.moaning+] as [npc.she] helps you to fuck what little cleavage [npc.she] has.",
+							"Trying to press [npc.her] [npc.breastSize] [npc.breasts+] together around your [pc.cock+], [npc.name] uses [npc.her] [npc.fingers+] to help create a structure for you to thrust into,"
+									+ " before [npc.moaning] in delight as [npc.she] lifts [npc.herself] up and down to get you to fuck [npc.her] small cleavage.",
+							"Letting out [npc.a_moan+], [npc.name] tries to press [npc.her] [npc.breastSize] [npc.breasts] together, using [npc.her] [npc.fingers+] to help to envelop your [pc.cock+] as [npc.she] gives you a titfuck."));
+							
+				} else {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Reaching up to wrap [npc.her] [npc.fingers+] around your [pc.cock+], [npc.name] starts bucking [npc.her] torso up and down, [npc.moaning+] as [npc.she] thrusts [npc.her] chest out and grinds against you.",
+							"Wrapping [npc.her] [npc.fingers+] around your [pc.cock+], [npc.name] lifts [npc.herself] up and down, grinding [npc.her] chest against you as [npc.she] imitates giving you a titfuck.",
+							"Letting out [npc.a_moan+], [npc.name] wraps [npc.her] [npc.fingers+] around your [pc.cock+] and thrusts [npc.her] chest out, before lifting [npc.herself] up and down to give you an imitation titfuck"));
+				}
+			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1592,7 +1833,7 @@ public class PlayerPenisBreasts {
 		}
 	};
 	
-	public static final SexAction PARTNER_RIDING_COCK_SUB_EAGER = new SexAction(
+	public static final SexAction PARTNER_PERFORMING_COCK_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
@@ -1629,8 +1870,29 @@ public class PlayerPenisBreasts {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					""));
+			if(Sex.getPartner().isBreastFuckablePaizuri()) {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"Reaching up to eagerly push [npc.her] [npc.breasts+] together around your [pc.cock+], [npc.name] rapidly starts bucking [npc.her] torso up and down, [npc.moaning+] as [npc.she] helps you to fuck [npc.her] cleavage.",
+						"Eagerly pressing [npc.her] [npc.breasts+] together around your [pc.cock+], [npc.name] rapidly starts lifting them up and down, helping you to fuck [npc.her] cleavage as [npc.she] [npc.moansVerb] in delight.",
+						"Letting out [npc.a_moan+], [npc.name] eagerly presses [npc.her] [npc.breasts] together, enveloping your [pc.cock+] in [npc.her] pillowy mounds as [npc.she] gives you an enthusiastic titfuck."));
+				
+			} else {
+				if(Sex.getPartner().hasBreasts()) {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Reaching up to desperately try and push [npc.her] [npc.breastSize] [npc.breasts+] together around your [pc.cock+], [npc.name] rapidly starts bucking [npc.her] torso up and down,"
+									+ " [npc.moaning+] as [npc.she] enthusiastically helps you to fuck what little cleavage [npc.she] has.",
+							"Eagerly trying to press [npc.her] [npc.breastSize] [npc.breasts+] together around your [pc.cock+], [npc.name] uses [npc.her] [npc.fingers+] to help create a structure for you to thrust into,"
+									+ " before [npc.moaning] in delight as [npc.she] rapidly lifts [npc.herself] up and down to get you to fuck [npc.her] small cleavage.",
+							"Letting out [npc.a_moan+], [npc.name] desperately tries to press [npc.her] [npc.breastSize] [npc.breasts] together,"
+									+ " using [npc.her] [npc.fingers+] to help to envelop your [pc.cock+] as [npc.she] gives you an enthusiastic titfuck."));
+							
+				} else {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Reaching up to wrap [npc.her] [npc.fingers+] around your [pc.cock+], [npc.name] rapidly starts bucking [npc.her] torso up and down, [npc.moaning+] as [npc.she] thrusts [npc.her] chest out and eagerly grinds against you.",
+							"Eagerly wrapping [npc.her] [npc.fingers+] around your [pc.cock+], [npc.name] rapidly lifts [npc.herself] up and down, grinding [npc.her] chest against you as [npc.she] imitates giving you a titfuck.",
+							"Letting out [npc.a_moan+], [npc.name] wraps [npc.her] [npc.fingers+] around your [pc.cock+] and eagerly thrusts [npc.her] chest out, before lifting [npc.herself] up and down to give you an imitation titfuck"));
+				}
+			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1684,21 +1946,25 @@ public class PlayerPenisBreasts {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePlayer()) {
-				case DOM_GENTLE:
+			if(Sex.getPartner().isBreastFuckablePaizuri()) {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"[npc.Name] lets out [npc.moan+] as [npc.she] tries to pull [npc.her] [npc.breasts+] away from your [pc.cock+], before begging for you to leave [npc.herHim] alone.",
+						"With [npc.a_moan+], [npc.name] weakly tries to pull away from you, sobbing in distress as your [pc.cock+] continues to thrust up between [npc.her] [npc.breasts+].",
+						"Letting out [npc.a_moan+], [npc.name] tries to push you away from [npc.herHim], tears running down [npc.her] cheeks as you continue thrusting your [pc.cock+] into [npc.her] cleavage."));
+				
+			} else {
+				if(Sex.getPartner().hasBreasts()) {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							""));
-					break;
-				case DOM_NORMAL:
+							"[npc.Name] lets out [npc.moan+] as [npc.she] tries to pull [npc.her] [npc.breastSize] [npc.breasts] away from your [pc.cock+], before begging for you to leave [npc.herHim] alone.",
+							"With [npc.a_moan+], [npc.name] weakly tries to pull away from you, sobbing in distress as your [pc.cock+] continues to thrust up between [npc.her] [npc.breastSize] [npc.breasts+].",
+							"Letting out [npc.a_moan+], [npc.name] tries to push you away from [npc.herHim], tears running down [npc.her] cheeks as you continue thrusting your [pc.cock+] into [npc.her] small cleavage."));
+							
+				} else {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							""));
-					break;
-				case DOM_ROUGH:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							""));
-					break;
-				default:
-					break;
+							"[npc.Name] lets out [npc.moan+] as [npc.she] tries to pull [npc.her] chest away from your [pc.cock+], before begging for you to leave [npc.herHim] alone.",
+							"With [npc.a_moan+], [npc.name] weakly tries to pull away from you, sobbing in distress as your [pc.cock+] continues to grind up against [npc.her] chest.",
+							"Letting out [npc.a_moan+], [npc.name] tries to push you away from [npc.herHim], tears running down [npc.her] cheeks as you continue thrusting your [pc.cock+] against [npc.her] chest."));
+				}
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -1751,25 +2017,44 @@ public class PlayerPenisBreasts {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
-				case DOM_ROUGH:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							""));
-					break;
-				default:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							""));
-					break;
+			if(Sex.getPartner().hasBreasts()) {
+				switch(Sex.getSexPacePlayer()) {
+					case DOM_ROUGH:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"[npc.Name] roughly pushes you away from [npc.herHim], and, in a menacing tone, orders you to stop fucking [npc.her] [npc.breasts+].",
+								"With a menacing growl, [npc.name] roughly pushes you away, and orders you to stop fucking [npc.her] [npc.breasts+]."));
+						break;
+					default:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"[npc.Name] pushes you away from [npc.herHim], and tells you to stop fucking [npc.her] [npc.breasts+].",
+								"With one last [npc.moan], [npc.name] pushes you away, and tells you to stop fucking [npc.her] [npc.breasts+]."));
+						break;
+				}
+			} else {
+				switch(Sex.getSexPacePlayer()) {
+					case DOM_ROUGH:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"[npc.Name] roughly pushes you away from [npc.herHim], and, in a menacing tone, orders you to stop grinding against [npc.her] chest.",
+								"With a menacing growl, [npc.name] roughly pushes you away, and orders you to stop grinding against [npc.her] chest."));
+						break;
+					default:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								"[npc.Name] pushes you away from [npc.herHim], and tells you to stop grinding against [npc.her] chest.",
+								"With one last [npc.moan], [npc.name] pushes you away, and tells you to stop grinding against [npc.her] chest."));
+						break;
+				}
 			}
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPacePartner()) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" "));
+							" You continue struggling against [npc.herHim], [pc.moaning+] as you beg [npc.herHim] to leave you alone.",
+							" With [pc.a_moan+], you beg [npc.herHim] to leave you alone, tears welling up in your [pc.eyes] as you weakly try to push [npc.herHim] away."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" "));
+							" You can't help but let out [pc.a_moan+], betraying your desire for more of [npc.her] attention.",
+							" With [pc.a_moan+], you beg for [npc.herHim] to keep on using you."));
 					break;
 			}
 			

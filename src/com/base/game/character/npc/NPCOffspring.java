@@ -366,6 +366,15 @@ public class NPCOffspring extends NPC {
 										+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the liquid's effects taking root deep in [npc.her] body..."
 									+ "</p>"
 									+Main.game.getPlayer().useItem(item, target, false, true);
+							
+						} else if(Sex.getSexManager().isConsensualSex()) {
+							return "<p>"
+									+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
+									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, before agreeing to take the bottle, "
+									+ " [npc.speech(Ok... I'll drink it...)]"
+								+ "</p>"
+								+Main.game.getPlayer().useItem(item, target, false, true);
+							
 						} else {
 							return "<p>"
 										+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
