@@ -670,6 +670,7 @@ public enum Spell {
 							damageCostDescriptionSB.append(", ");
 					}
 					damageCostDescriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
+					i++;
 				}
 				damageCostDescriptionSB.append(".</p>");
 			}
@@ -700,6 +701,7 @@ public enum Spell {
 							damageCostDescriptionSB.append(", ");
 					}
 					damageCostDescriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
+					i++;
 				}
 				damageCostDescriptionSB.append("!</p>");
 			}

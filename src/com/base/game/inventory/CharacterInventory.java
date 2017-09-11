@@ -688,7 +688,7 @@ public class CharacterInventory implements Serializable {
 		}
 
 		// There is at least one piece of clothing that is incompatible with newClothing, and that clothing cannot be removed.
-		if (incompatibleUnequippableClothing.size() != 0) {
+		if (!incompatibleUnequippableClothing.isEmpty()) {
 			for(AbstractClothing c : incompatibleUnequippableClothing) {
 				if(c.isSealed())
 					equipTextSB.append("You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
@@ -1310,24 +1310,21 @@ public class CharacterInventory implements Serializable {
 	}
 
 	public int getClothingAverageFemininity() {
-		if(clothingCurrentlyEquipped.size()==0)
+		if(clothingCurrentlyEquipped.isEmpty())
 			return 50;
 		
-		int average = 50, count = 1;
+		int average = 50;
 		for (AbstractClothing c : clothingCurrentlyEquipped) {
 			if (c.getClothingType().getFemininityRestriction() == Femininity.FEMININE) {
 				average += 75;
-				count++;
 			} else if (c.getClothingType().getFemininityRestriction() == Femininity.MASCULINE) {
 				average += 25;
-				count++;
 			} else {
 				average += 50;
-				count++;
 			}
 		}
 
-		average /= count;
+		average /= (clothingCurrentlyEquipped.size() + 1);
 		
 		return average;
 	}
@@ -1346,10 +1343,9 @@ public class CharacterInventory implements Serializable {
 			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList())
 				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
 					// Replace if ZLayer is lower than previous found clothing:
-					if (c == null)
+					if (c == null || clothing.getClothingType().getzLayer() < c.getClothingType().getzLayer()) {
 						c = clothing;
-					else if (clothing.getClothingType().getzLayer() < c.getClothingType().getzLayer())
-						c = clothing;
+					}
 				}
 		}
 
@@ -1370,10 +1366,9 @@ public class CharacterInventory implements Serializable {
 			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList())
 				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
 					// Replace if ZLayer is higher than previous found clothing:
-					if (c == null)
+					if (c == null || clothing.getClothingType().getzLayer() > c.getClothingType().getzLayer()) {
 						c = clothing;
-					else if (clothing.getClothingType().getzLayer() > c.getClothingType().getzLayer())
-						c = clothing;
+					}
 				}
 		}
 

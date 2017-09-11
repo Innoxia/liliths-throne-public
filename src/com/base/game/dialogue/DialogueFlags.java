@@ -64,8 +64,8 @@ public class DialogueFlags implements Serializable {
 		
 		focusedEssence = null;
 		
-		ralphDiscountStartTime=-1;
-		ralphDiscount=0;
+		ralphDiscountStartTime = -1;
+		ralphDiscount = 0;
 		
 		scarlettPrice = 2000;
 		

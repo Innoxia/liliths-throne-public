@@ -208,9 +208,10 @@ public class MainController implements Initializable {
 		GameCharacter.addPlayerInventoryChangeEventListener(new CharacterChangeEventListener() {
 			@Override
 			public void onChange() {
-				if (RenderingEngine.ENGINE.getCharactersInventoryToRender() != null)
-					if (RenderingEngine.ENGINE.getCharactersInventoryToRender().isPlayer())
-						RenderingEngine.ENGINE.renderInventory();
+				GameCharacter characterInventoryToRender = RenderingEngine.ENGINE.getCharactersInventoryToRender();
+				if (characterInventoryToRender != null && characterInventoryToRender.isPlayer()) {
+					RenderingEngine.ENGINE.renderInventory();
+				}
 			}
 		});
 

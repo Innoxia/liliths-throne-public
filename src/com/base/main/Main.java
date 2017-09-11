@@ -504,7 +504,7 @@ public class Main extends Application {
 //		Main.game.setPlayer(new PlayerCharacter("Player", "", 1, Gender.MALE, RacialBody.HUMAN, RaceStage.HUMAN, null, WorldType.CITY, Dominion.CITY_AUNTS_HOME));
 
 		// Generate world:
-		if (!(gen == null))
+		if (gen != null)
 			if (gen.isRunning()) {
 				gen.cancel();
 			}
@@ -662,11 +662,10 @@ public class Main extends Application {
 		if (file.exists()) {
 			try {
 				Main.game = new Game();
-				FileInputStream fin = new FileInputStream(file);
-				ObjectInputStream ois = new ObjectInputStream(fin);
-				Game loadedGame = (Game) ois.readObject();
-				ois.close();
-				fin.close();
+				Game loadedGame = null;
+				try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))){
+					loadedGame = (Game) ois.readObject();
+				}
 				Main.game = loadedGame;
 				Main.mainController.renderMap();
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), Colour.GENERIC_GOOD, "Game loaded!");
