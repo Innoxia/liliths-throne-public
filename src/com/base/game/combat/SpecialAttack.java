@@ -1025,7 +1025,7 @@ public enum SpecialAttack {
 							+ "With a burst of energy, you leap forwards, trying to butt your head into [npc.name]."
 							+ (isHit
 									? " You manage to make contact; ramming your forehead into [npc.her] body and whacking [npc.herHim] with the sides of your horns,"
-											+ " you knock the wind out of [npc.herHim] and cause [npc.hreHim] to stagger backwards in a daze."
+											+ " you knock the wind out of [npc.herHim] and cause [npc.herHim] to stagger backwards in a daze."
 									: " [npc.She] manages to jump to one side, and there's an audible whoosh as you thrust your horns through the air.")
 						+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));

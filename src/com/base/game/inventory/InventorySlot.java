@@ -181,6 +181,14 @@ public enum InventorySlot {
 						"[npc.Name]'s horse-like hooves prevent [npc.her] from wearing footwear of any kind!");
 		}
 		
+		if (character.getLegType() == LegType.COW_MORPH && this == InventorySlot.FOOT) {
+			if(character.isPlayer())
+				return "Your cow-like hooves prevent you from wearing footwear of any kind!";
+			else
+				return UtilText.parse(character,
+						"[npc.Name]'s cow-like hooves prevent [npc.her] from wearing footwear of any kind!");
+		}
+		
 		if (character.getLegType() == LegType.HARPY && this == InventorySlot.FOOT) {
 			if(character.isPlayer())
 				return "Your bird-like talons prevent you from wearing footwear of any kind!";

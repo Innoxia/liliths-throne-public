@@ -539,7 +539,13 @@ public abstract class NPC extends GameCharacter {
 				itemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
 				reaction = "Time to turn you into a "+raceName+"!";
 				break;
-			default:
+			case COW_MORPH:
+				itemType = ItemType.RACE_INGREDIENT_COW_MORPH;
+				break;
+			case ANGEL:
+			case DEMON:
+			case SLIME:
+			case HUMAN:
 				itemType = ItemType.RACE_INGREDIENT_HUMAN;
 				break;
 		}

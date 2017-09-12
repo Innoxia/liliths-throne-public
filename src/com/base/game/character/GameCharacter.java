@@ -2025,7 +2025,7 @@ public class GameCharacter implements Serializable {
 						"<p style='text-align:center;'>"
 							+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
 							+ "</br>"
-							+ "<b>Item:</b> <b style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(item.getName())+"</b>"
+							+ "<b>Item:</b> <b style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(item.getItemType().getName(false))+"</b>"
 						+ "</p>");
 			}
 		}
@@ -2998,12 +2998,14 @@ public class GameCharacter implements Serializable {
 						if(isPlayer()) {
 							postTFSB.append(
 									"<b>You have discovered that your natural</b>"
-									+" <b style='color:"+bp.getType().getBodyCoveringType().getRace().getColour().toWebHexString()+";'>"+bp.getType().getBodyCoveringType().getRace().getName()+"'s</b> <b>"+bp.getType().getBodyCoveringType().getName(this)+" colour is "
+									+" <b style='color:"+bp.getType().getBodyCoveringType().getRace().getColour().toWebHexString()+";'>"+bp.getType().getBodyCoveringType().getRace().getName()+"'s</b>"
+											+ " <b>"+bp.getType().getBodyCoveringType().getName(this)+" colour is "
 									+getCovering(bp.getType().getBodyCoveringType()).getColourDescriptor(true)+"!</b>");
 						} else {
 							postTFSB.append(UtilText.parse(this,
 									"<b>[npc.Name] has discovered that [npc.her] natural</b>"
-									+" <b style='color:"+bp.getType().getBodyCoveringType().getRace().getColour().toWebHexString()+";'>"+bp.getType().getBodyCoveringType().getRace().getName()+"'s</b> <b>"+bp.getType().getBodyCoveringType().getName(this)+" colour is</b>"
+									+" <b style='color:"+bp.getType().getBodyCoveringType().getRace().getColour().toWebHexString()+";'>"+bp.getType().getBodyCoveringType().getRace().getName()+"'s</b>"
+											+ " <b>"+bp.getType().getBodyCoveringType().getName(this)+" colour is</b>"
 									+ " <b style='color:"+getCovering(bp.getType().getBodyCoveringType()).getPrimaryColour().toWebHexString()+";'>"+getCovering(bp.getType().getBodyCoveringType()).getColourDescriptor(false)+"</b><b>!</b>"));
 						}
 					}

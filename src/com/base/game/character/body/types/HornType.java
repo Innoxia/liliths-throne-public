@@ -6,19 +6,19 @@ import com.base.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.69.9
+ * @version 0.1.85
  * @author Innoxia
  */
 public enum HornType implements BodyPartTypeInterface {
 	NONE("", null, null),
 
-	DEMON_COMMON_FEMALE("long, swept-back", BodyCoveringType.HORN, Race.DEMON),
+	DEMON_COMMON_FEMALE("long, swept-back", BodyCoveringType.HORN_DEMON, Race.DEMON),
 
-	DEMON_COMMON_MALE("short, curved", BodyCoveringType.HORN, Race.DEMON),
+	DEMON_COMMON_MALE("short, curved", BodyCoveringType.HORN_DEMON, Race.DEMON),
 
-	BOVINE_FEMALE("short, curved", BodyCoveringType.HORN, Race.COW_MORPH),
+	BOVINE_FEMALE("short, curved", BodyCoveringType.HORN_COW, Race.COW_MORPH),
 
-	BOVINE_MALE("long, curved", BodyCoveringType.HORN, Race.COW_MORPH);
+	BOVINE_MALE("long, curved", BodyCoveringType.HORN_COW, Race.COW_MORPH);
 
 	private BodyCoveringType skinType;
 	private Race race;

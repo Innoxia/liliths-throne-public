@@ -72,7 +72,6 @@ public class Ralph extends NPC {
 	private AbstractClothing underwear = AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false),
 			legs = AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false),
 			torso = AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false),
-			socks = AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false),
 			shoes = AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false);
 
 	public Ralph() {
@@ -90,7 +89,6 @@ public class Ralph extends NPC {
 		this.equipClothingFromNowhere(underwear, true, this);
 		this.equipClothingFromNowhere(legs, true, this);
 		this.equipClothingFromNowhere(torso, true, this);
-		this.equipClothingFromNowhere(socks, true, this);
 		this.equipClothingFromNowhere(shoes, true, this);
 		
 		this.addFetish(Fetish.FETISH_IMPREGNATION);
@@ -125,7 +123,6 @@ public class Ralph extends NPC {
 		this.equipClothingFromNowhere(underwear, true, this);
 		this.equipClothingFromNowhere(legs, true, this);
 		this.equipClothingFromNowhere(torso, true, this);
-		this.equipClothingFromNowhere(socks, true, this);
 		this.equipClothingFromNowhere(shoes, true, this);
 
 		for(int i=0;i<5;i++)

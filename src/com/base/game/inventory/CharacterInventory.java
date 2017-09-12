@@ -1223,13 +1223,9 @@ public class CharacterInventory implements Serializable {
 	}
 
 	/**
-	 * @param area
-	 *            Area you want to get to.
-	 * @param byRemovingClothing
-	 *            Allow consideration of clothing removal or not.
-	 * @return True if can access slot. (if byRemovingClothing is true, then it
-	 *         tells you if you are able to get to the slot by removing
-	 *         clothing, not that it is available right now).
+	 * @param area Area you want to get to.
+	 * @param byRemovingClothing Allow consideration of clothing removal or not.
+	 * @return True if can access slot. (if byRemovingClothing is true, then it tells you if you are able to get to the slot by removing clothing, not that it is available right now).
 	 */
 	public boolean isAbleToAccessCoverableArea(CoverableArea area, boolean byRemovingClothing) {
 

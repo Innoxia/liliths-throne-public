@@ -904,7 +904,7 @@ public class ItemType {
 			false,
 			"Bubble Cream",
 			"A small pot of yoghurt, with a black-and-white cow-pattern styled onto the lid."
-					+ " A label on side declares it to be 'Bubble Cream', which seems to be a little misleading, as there isn't any sort of bubbling going on in the creamy mixture contained within.",
+					+ " A label on the side declares it to be 'Bubble Cream', which seems to be a little misleading, as there isn't any sort of bubbling going on in the creamy mixture contained within.",
 			"raceCowMorphBubbleCream",
 			Colour.RACE_COW_MORPH,
 			40,

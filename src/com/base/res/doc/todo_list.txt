@@ -17,54 +17,14 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Slightly tweaked gender preferences for NPC's forced TFs.
-		You can now use elixirs and potions on your offspring in consensual sex, as well as if you're the dom in non-consensual.
-		NPCs applying forced transformations will now shrink your cock and reduce your vagina's capacity down to minimum values before removing them.
-		
-	Sex:
-		Added: Paizuri and Naizuri. All paizuri actions have three variations; one for breasts larger than B-cups, one for completely flat chests, and another for the other sizes in-between.
-		Added Paizuri to 69, kneeling, and cow-girl positions.
-		Added nipple-fucking to cow-girl position.
-		Very minor change to AI in sex to make them uninterested in getting access to your nipples if your groin is already exposed. (I'm going to massively improve the AI within the next couple of versions.)
-		
 	Other:
-		You can now dye Enforcer's clothing to any colour.
-		Split Nyan's 'Female lingerie' up into 'Female underwear' and 'Female lingerie' to prevent item overflow. (You'll be able to buy enchanted clothing from her again now. :3)
-		Added squirrel-morph (and cow-morph) potions and essences to Vicky's shop.
-		Tweaked NPC's forced TF preferences to have a chance to be a related race (i.e. cat morphs may prefer to TF you into a harpy, or dog/wolf-morphs may TF you into a cat-morph).
-		Added fur highlighting options.
-		Added afro hair style.
-		
+		Ralph no longer feels the need to wear socks over his hooves.
+	
 	Bugs:
-		Fixed game freeze once NPC finished transforming you into their preferred body type.
-		Fixed major bug where items and weapons would sometimes not stack in inventory.
-		Fixed items showing up in sex as disabled, even if they were available to be used.
-		Fixed weapons not having any spells.
-		Fixed bug where the main quest couldn't be progressed if you started an imported character.
-		Minor typo fixes.
-		Fixed parsing bugs (which was causing the parser's 'Commands' action to be unresponsive.)
-		Vicky will now buy Bottled Squirrel-Morph Essence.
-		Horn transformations now apply the correct horn type, based on whether the target to be transformed is masculine or feminine.
-	
-	Contributors:
-	
-	Pimgd:
-		Disallowed quick manage drop if cell is full, thereby preventing item loss.
-		
-	Rfpnj:
-		Cow-morph:
-			Added all cow-morph transformations and body parts.
-			Added 'Milking Cows' (lore book).
-			Added bottled cow-morph essence.
-			Added Bubble Milk. (Icon design help from Blue999.)
-			Added Bubble Cream.
-			Added Ear tag (no femininity requirements, ear piercing slot).
-			Added Cowbell collar (no femininity requirements, neck slot).
-			Added bovine nose ring (no femininity requirements, nose piercing slot).
-			
-	Blue999:
-		Added: Milk Maid's headdress (Feminine, head slot, Milk Maid set).
+		NPCs with cow-morph body-type preference will now correctly TF you into a cow-morph instead of a human.
+		Fixed some issues with Bubble Milk displaying a large letter A in its icon.
+		Fixed 'null' being returned in text when cow-leg transformation caused you to be unable to wear shoes.
+		Fixed some typos.
 	
 	
 	
@@ -72,13 +32,114 @@
 	
 	
 	
+	
+	
+	
+	#################
+	
+	Liquid basic encahntment allow +/- potency
+	
+	Did Lilaya's tests twice, Essences quest didn't unlock
+	
+	 Lactation base transformation (small increase in lactation) is duplicated in breasts, which also increase lactation (wetness).
+	
+	Bubble Cream enchantments cannot have their potency increased or decreased.
+	
+	NPCs are still going crazy and taking their own  virginities like mad
+	
+	edit: potency can't be changed on anything in the bubble cream enchanting screen, FYI. Still works for other TF items, just not that one.
+	
+	I get locked up and cant move forward after beating the new cow morphs
+	
+	
+	The arcane storm notfication that makes you press continue only plays when you are in a protected area. this is likely leftover when you switched the effect the player has to the one that does nto affect stats
+	
+	turn the negative clothing status effect into an arousal gain one
+	
+	add in Lilaya's lab as a fast travel option from your room
+	 fast-travel from the shops to the entrance of the mall
+	
+	
+	
+	
+	
+	
+	
+	Both with TF fetish -> all in one
+	
+	handholding fetish
+	
+	add in say innerlocking figures as a continuous activited during sex to turn people with it on~/also prevent them from doing things with their hands
+	
+	the middle 4 locations could always include the house, shopping district, and tower. Then define locations as N/S/E/W
+	
+	
+	whenever I beat cow-morphs everything freezes (when entering sex scene) (both were broodmothers)
+	
+	Ear tags spawning on everyone
+		limit those to only having a rare chance of spawning on cow-morphs
+	
+	Add silver eye colour
+	
+	hair accessory slot
+	
+	slots for extra arms if you have more then one set
+	
+	Add 'penetration-type' requests (request to fuck them, or to have paizuri)
+	
+	NPC spawn with extra hair pls
+	
+	mohawk the default hairstyle
+	
+	Add udders
+	
+	you can't increase or reduce potency of enchantments using bubble cream
+	
+	Forced clothing wearing
+	
+	You can't learn partner's ass virginity by removing her clothes. You only discover it by performing anal
+	
+	They both lead to default no penetration orgasm texts.
+		That's probably because there's no dick or breast statuses.
+	
+	flared & tapered make mutually exclusive
+	
+	Fluid falvours and addiction
+	
+	Really need to improve sex AI
+	
+	the ongoing penetration status effects only affect the one that's penetrated
+	no ongoing status for breasts as well, so I don't think anyone's gaining any arousal for ongoing paizuri
+	
+	I'll also add a way to save potions (possibly through an XML or JSON save, so that they're available cross-character). I'll try and get this done for the next version.
+	
+	Fetish training (or very expensive potions)
+	
+	Possible bug when advancing story past first Arthur
+	
+	bug where chars switch between being interested and not interested in sex in the same encounter
+		It happens in the incest scenes and I think in the regular ones as well, but I could be misremembering.
+	
+	creampie fetish
+	
+	More Orgasms!
+	
+	every character I make with a cock has milk-flavored right out of the box. Shouldn't it be, you know, cum-flavored cum instead unless you TF it later
+	
+	1. Encounter prostitutes in alleyways.
+	2. Sell your body to random NPCs in alleyways.
+	3. Assign slaves to selling themselves in the streets, then later I'll add a brothel for you to buy, and then assign your slaves to there.
 	
 	
 	Add udder
 	
 	Common sense colourings for each race
 	
+	breast feeding/nipple sucking
+	
 	Child genetics
+	
+	Cowgirl (self)
 	
 	Start trading with Ralph and jinxed clothes re-apply themselves happens
 	
@@ -119,6 +180,12 @@
 		If they have impregnation fetishes, it would make sense for them to prefer a partner with a vagina.
 		This could actually be tested after the random roll has been done, and adjusts the result then.
 		That will save a fair bit of coding work.
+	
+	making demon PC able to tf
+	
+	Reduce offsping. Increase pregnancy time.
+	
+	Add sensible colours and gentics.
 	
 	
 	they should focus on adding desired organs before removing

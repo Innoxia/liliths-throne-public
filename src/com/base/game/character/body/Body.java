@@ -702,9 +702,9 @@ public class Body implements Serializable {
 				break;
 			case COW_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"cow-like ears, which are positioned high up on your head.");
+					sb.append(" You have a pair of oval-shaped, cow-like ears" + (ear.isPierced() ? ", which have been pierced" : "") + ".");
 				else
-					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"cow-like ears, which are positioned high up on [npc.her] head.");
+					sb.append(" [npc.She] has a pair of oval-shaped, cow-like ears" + (ear.isPierced() ? ", which have been pierced" : "") + ".");
 				break;
 			case SQUIRREL_MORPH:
 				if (owner.isPlayer())
@@ -2655,7 +2655,7 @@ public class Body implements Serializable {
 				descriptionSB.append(" demonic cock");
 				break;
 			case BOVINE:
-				descriptionSB.append(" bovine");
+				descriptionSB.append(" bovine cock");
 				break;
 			case CANINE:
 				descriptionSB.append(" canine cock");
