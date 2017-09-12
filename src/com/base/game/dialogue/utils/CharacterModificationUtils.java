@@ -210,15 +210,27 @@ public class CharacterModificationUtils {
 	public static void incrementFacialHair(BodyHair hair) {
 		switch(hair) {
 			case NONE:
+				setFacialHairIfAvailable(BodyHair.STUBBLE);
+				break;
+			case STUBBLE:
 				setFacialHairIfAvailable(BodyHair.MANICURED);
 				break;
 			case MANICURED:
 				setFacialHairIfAvailable(BodyHair.TRIMMED);
 				break;
 			case TRIMMED:
+				setFacialHairIfAvailable(BodyHair.NATURAL);
+				break;
+			case NATURAL:
+				setFacialHairIfAvailable(BodyHair.UNKEMPT);
+				break;
+			case UNKEMPT:
 				setFacialHairIfAvailable(BodyHair.BUSHY);
 				break;
 			case BUSHY:
+				setFacialHairIfAvailable(BodyHair.WILD);
+				break;
+			case WILD:
 				setFacialHairIfAvailable(BodyHair.NONE);
 				break;
 		}
@@ -233,15 +245,27 @@ public class CharacterModificationUtils {
 	public static void incrementPubicHair() {
 		switch(Main.game.getPlayer().getPubicHair()) {
 			case NONE:
+				Main.game.getPlayer().setPubicHair(BodyHair.STUBBLE);
+				break;
+			case STUBBLE:
 				Main.game.getPlayer().setPubicHair(BodyHair.MANICURED);
 				break;
 			case MANICURED:
 				Main.game.getPlayer().setPubicHair(BodyHair.TRIMMED);
 				break;
 			case TRIMMED:
+				Main.game.getPlayer().setPubicHair(BodyHair.NATURAL);
+				break;
+			case NATURAL:
+				Main.game.getPlayer().setPubicHair(BodyHair.UNKEMPT);
+				break;
+			case UNKEMPT:
 				Main.game.getPlayer().setPubicHair(BodyHair.BUSHY);
 				break;
 			case BUSHY:
+				Main.game.getPlayer().setPubicHair(BodyHair.WILD);
+				break;
+			case WILD:
 				Main.game.getPlayer().setPubicHair(BodyHair.NONE);
 				break;
 		}
@@ -249,15 +273,27 @@ public class CharacterModificationUtils {
 	public static void incrementUnderarmHair() {
 		switch(Main.game.getPlayer().getUnderarmHair()) {
 			case NONE:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.STUBBLE);
+				break;
+			case STUBBLE:
 				Main.game.getPlayer().setUnderarmHair(BodyHair.MANICURED);
 				break;
 			case MANICURED:
 				Main.game.getPlayer().setUnderarmHair(BodyHair.TRIMMED);
 				break;
 			case TRIMMED:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.NATURAL);
+				break;
+			case NATURAL:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.UNKEMPT);
+				break;
+			case UNKEMPT:
 				Main.game.getPlayer().setUnderarmHair(BodyHair.BUSHY);
 				break;
 			case BUSHY:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.WILD);
+				break;
+			case WILD:
 				Main.game.getPlayer().setUnderarmHair(BodyHair.NONE);
 				break;
 		}
@@ -265,15 +301,27 @@ public class CharacterModificationUtils {
 	public static void incrementAssHair() {
 		switch(Main.game.getPlayer().getAssHair()) {
 			case NONE:
+				Main.game.getPlayer().setAssHair(BodyHair.STUBBLE);
+				break;
+			case STUBBLE:
 				Main.game.getPlayer().setAssHair(BodyHair.MANICURED);
 				break;
 			case MANICURED:
 				Main.game.getPlayer().setAssHair(BodyHair.TRIMMED);
 				break;
 			case TRIMMED:
+				Main.game.getPlayer().setAssHair(BodyHair.NATURAL);
+				break;
+			case NATURAL:
+				Main.game.getPlayer().setAssHair(BodyHair.UNKEMPT);
+				break;
+			case UNKEMPT:
 				Main.game.getPlayer().setAssHair(BodyHair.BUSHY);
 				break;
 			case BUSHY:
+				Main.game.getPlayer().setAssHair(BodyHair.WILD);
+				break;
+			case WILD:
 				Main.game.getPlayer().setAssHair(BodyHair.NONE);
 				break;
 		}

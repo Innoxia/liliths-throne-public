@@ -19,6 +19,7 @@
 	
 	Other:
 		Ralph no longer feels the need to wear socks over his hooves.
+		Added more values for Body Hair.
 	
 	Bugs:
 		NPCs with cow-morph body-type preference will now correctly TF you into a cow-morph instead of a human.
@@ -46,6 +47,8 @@
 	Bubble Cream enchantments cannot have their potency increased or decreased.
 	
 	NPCs are still going crazy and taking their own  virginities like mad
+	
+	Add text of "This is as far as the quest goes"
 	
 	edit: potency can't be changed on anything in the bubble cream enchanting screen, FYI. Still works for other TF items, just not that one.
 	

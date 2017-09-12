@@ -751,14 +751,26 @@ public class Body implements Serializable {
 							sb.append(" You don't have any trace of facial "+owner.getFacialHairType().getName(owner, true)+".");
 						}
 						break;
+					case STUBBLE:
+						sb.append(" You have a stubbly patch of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on your [pc.face].");
+						break;
 					case MANICURED:
 						sb.append(" You have a small amount of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on your [pc.face].");
 						break;
 					case TRIMMED:
 						sb.append(" You have a well-trimmed beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on your [pc.face].");
 						break;
+					case NATURAL:
+						sb.append(" You have a natural-looking beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on your [pc.face].");
+						break;
+					case UNKEMPT:
+						sb.append(" You have an unkempt, bushy beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on your [pc.face].");
+						break;
 					case BUSHY:
-						sb.append(" You have a big bushy beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on your [pc.face].");
+						sb.append(" You have a thick, bushy beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on your [pc.face].");
+						break;
+					case WILD:
+						sb.append(" You have a wild, bushy beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on your [pc.face].");
 						break;
 				}
 				
@@ -769,14 +781,26 @@ public class Body implements Serializable {
 							sb.append(" [npc.She] doesn't have any trace of facial "+owner.getFacialHairType().getName(owner, true)+".");
 						}
 						break;
+					case STUBBLE:
+						sb.append(" [npc.She] has a stubbly patch of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face].");
+						break;
 					case MANICURED:
 						sb.append(" [npc.She] has a small amount of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face].");
 						break;
 					case TRIMMED:
 						sb.append(" [npc.She] has a well-trimmed beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face].");
 						break;
+					case NATURAL:
+						sb.append(" [npc.She] has a natural-looking beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face].");
+						break;
+					case UNKEMPT:
+						sb.append(" [npc.She] has a unkempt, bushy beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face].");
+						break;
 					case BUSHY:
-						sb.append(" [npc.She] has a big bushy beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face].");
+						sb.append(" [npc.She] has a thick, bushy beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face].");
+						break;
+					case WILD:
+						sb.append(" [npc.She] has a wild, bushy beard of "+owner.getFacialHairType().getFullDescription(owner, true)+" growing on [npc.her] [npc.face].");
 						break;
 				}
 			}
@@ -1351,14 +1375,26 @@ public class Body implements Serializable {
 					case NONE:
 						sb.append(" There is no trace of any "+owner.getUnderarmHairType().getName(owner)+" in your armpits.");
 						break;
+					case STUBBLE:
+						sb.append(" You have a stubbly patch of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of your armpits.");
+						break;
 					case MANICURED:
 						sb.append(" You have a well-manicured patch of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of your armpits.");
 						break;
 					case TRIMMED:
 						sb.append(" You have a trimmed patch of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of your armpits.");
 						break;
+					case NATURAL:
+						sb.append(" You have a natural amount of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of your armpits.");
+						break;
+					case UNKEMPT:
+						sb.append(" You have an unkempt mass of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of your armpits.");
+						break;
 					case BUSHY:
-						sb.append(" You have a thick mass of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of your armpits.");
+						sb.append(" You have a thick, bushy mass of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of your armpits.");
+						break;
+					case WILD:
+						sb.append(" You have a wild, bushy mass of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of your armpits.");
 						break;
 				}
 				
@@ -1367,14 +1403,26 @@ public class Body implements Serializable {
 					case NONE:
 						sb.append(" There is no trace of any "+owner.getUnderarmHairType().getName(owner, true)+" in [npc.her] armpits.");
 						break;
+					case STUBBLE:
+						sb.append(" [npc.She] has a stubbly patch of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
+						break;
 					case MANICURED:
 						sb.append(" [npc.She] has a well-manicured patch of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
 						break;
 					case TRIMMED:
 						sb.append(" [npc.She] has a trimmed patch of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
 						break;
+					case NATURAL:
+						sb.append(" [npc.She] has a natural amount of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
+						break;
+					case UNKEMPT:
+						sb.append(" [npc.She] has a unkempt mass of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
+						break;
 					case BUSHY:
-						sb.append(" [npc.She] has a thick mass of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
+						sb.append(" [npc.She] has a thick, bushy mass of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
+						break;
+					case WILD:
+						sb.append(" [npc.She] has a wild, bushy mass of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
 						break;
 				}
 			}
@@ -2142,14 +2190,26 @@ public class Body implements Serializable {
 					case NONE:
 						descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getName(owner, true)+" around your asshole.");
 						break;
+					case STUBBLE:
+						descriptionSB.append(" You have a stubbly patch of "+owner.getAssHairType().getFullDescription(owner, true)+" around your asshole.");
+						break;
 					case MANICURED:
 						descriptionSB.append(" You have a well-manicured patch of "+owner.getAssHairType().getFullDescription(owner, true)+" around your asshole.");
 						break;
 					case TRIMMED:
 						descriptionSB.append(" You have a trimmed patch of "+owner.getAssHairType().getFullDescription(owner, true)+" around your asshole.");
 						break;
+					case NATURAL:
+						descriptionSB.append(" You have a natural amount of "+owner.getAssHairType().getFullDescription(owner, true)+" around your asshole.");
+						break;
+					case UNKEMPT:
+						descriptionSB.append(" You have an unkempt mass of "+owner.getAssHairType().getFullDescription(owner, true)+" around your asshole.");
+						break;
 					case BUSHY:
-						descriptionSB.append(" You have a thick mass of "+owner.getAssHairType().getFullDescription(owner, true)+" around your asshole.");
+						descriptionSB.append(" You have a thick, bushy mass of "+owner.getAssHairType().getFullDescription(owner, true)+" around your asshole.");
+						break;
+					case WILD:
+						descriptionSB.append(" You have a wild, bushy mass of "+owner.getAssHairType().getFullDescription(owner, true)+" around your asshole.");
 						break;
 				}
 				
@@ -2158,14 +2218,26 @@ public class Body implements Serializable {
 					case NONE:
 						descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getName(owner, true)+" around [npc.her] asshole.");
 						break;
+					case STUBBLE:
+						descriptionSB.append(" [npc.She] has a stubbly patch of "+owner.getAssHairType().getFullDescription(owner, true)+" around [npc.her] asshole.");
+						break;
 					case MANICURED:
 						descriptionSB.append(" [npc.She] has a well-manicured patch of "+owner.getAssHairType().getFullDescription(owner, true)+" around [npc.her] asshole.");
 						break;
 					case TRIMMED:
 						descriptionSB.append(" [npc.She] has a trimmed patch of "+owner.getAssHairType().getFullDescription(owner, true)+" around [npc.her] asshole.");
 						break;
+					case NATURAL:
+						descriptionSB.append(" [npc.She] has a natural amount of "+owner.getAssHairType().getFullDescription(owner, true)+" around [npc.her] asshole.");
+						break;
+					case UNKEMPT:
+						descriptionSB.append(" [npc.She] has an unkempt mass of "+owner.getAssHairType().getFullDescription(owner, true)+" around [npc.her] asshole.");
+						break;
 					case BUSHY:
-						descriptionSB.append(" [npc.She] has a thick mass of "+owner.getAssHairType().getFullDescription(owner, true)+" around [npc.her] asshole.");
+						descriptionSB.append(" [npc.She] has a thick, bushy mass of "+owner.getAssHairType().getFullDescription(owner, true)+" around [npc.her] asshole.");
+						break;
+					case WILD:
+						descriptionSB.append(" [npc.She] has a wild, bushy mass of "+owner.getAssHairType().getFullDescription(owner, true)+" around [npc.her] asshole.");
 						break;
 				}
 			}
@@ -2849,6 +2921,13 @@ public class Body implements Serializable {
 						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner, true)+" around the base of [npc.her] cock.");
 					}
 					break;
+				case STUBBLE:
+					if (isPlayer) {
+						descriptionSB.append(" You have a stubbly patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of your cock.");
+					} else {
+						descriptionSB.append(" [npc.She] has a stubbly patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of [npc.her] cock.");
+					}
+					break;
 				case MANICURED:
 					if (isPlayer) {
 						descriptionSB.append(" You have a neat, manicured patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of your cock.");
@@ -2863,7 +2942,28 @@ public class Body implements Serializable {
 						descriptionSB.append(" [npc.She] has a trimmed patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of [npc.her] cock.");
 					}
 					break;
+				case NATURAL:
+					if (isPlayer) {
+						descriptionSB.append(" You have a natural bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of your cock.");
+					} else {
+						descriptionSB.append(" [npc.She] has a natural bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of [npc.her] cock.");
+					}
+					break;
+				case UNKEMPT:
+					if (isPlayer) {
+						descriptionSB.append(" You have an unkempt bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of your cock.");
+					} else {
+						descriptionSB.append(" [npc.She] has an unkempt bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of [npc.her] cock.");
+					}
+					break;
 				case BUSHY:
+					if (isPlayer) {
+						descriptionSB.append(" You have a thick, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of your cock.");
+					} else {
+						descriptionSB.append(" [npc.She] has a thick, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of [npc.her] cock.");
+					}
+					break;
+				case WILD:
 					if (isPlayer) {
 						descriptionSB.append(" You have a wild, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around the base of your cock.");
 					} else {
@@ -3194,11 +3294,18 @@ public class Body implements Serializable {
 						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner, true)+" around [npc.her] pussy.");
 					}
 					break;
+				case STUBBLE:
+					if (isPlayer) {
+						descriptionSB.append(" You have a stubbly patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around your pussy.");
+					} else {
+						descriptionSB.append(" [npc.She] has a stubbly patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] pussy.");
+					}
+					break;
 				case MANICURED:
 					if (isPlayer) {
 						descriptionSB.append(" You have a neat, manicured patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around your pussy.");
 					} else {
-						descriptionSB.append(" [npc.She] has a neat, manicured patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [pc.her] pussy.");
+						descriptionSB.append(" [npc.She] has a neat, manicured patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] pussy.");
 					}
 					break;
 				case TRIMMED:
@@ -3208,7 +3315,28 @@ public class Body implements Serializable {
 						descriptionSB.append(" [npc.She] has a trimmed patch of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] pussy.");
 					}
 					break;
+				case NATURAL:
+					if (isPlayer) {
+						descriptionSB.append(" You have a natural bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around your pussy.");
+					} else {
+						descriptionSB.append(" [npc.She] has a natural bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] pussy.");
+					}
+					break;
+				case UNKEMPT:
+					if (isPlayer) {
+						descriptionSB.append(" You have an unkempt bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around your pussy.");
+					} else {
+						descriptionSB.append(" [npc.She] has an unkempt bush of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] pussy.");
+					}
+					break;
 				case BUSHY:
+					if (isPlayer) {
+						descriptionSB.append(" You have a thick, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around your pussy.");
+					} else {
+						descriptionSB.append(" [npc.She] has a thick, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around [npc.her] pussy.");
+					}
+					break;
+				case WILD:
 					if (isPlayer) {
 						descriptionSB.append(" You have a wild, bushy mass of "+owner.getPubicHairType().getFullDescription(owner, true)+" around your pussy.");
 					} else {
