@@ -4,7 +4,7 @@ import com.base.main.Main;
 
 /**
  * @since 0.1.78
- * @version 0.1.79
+ * @version 0.1.84
  * @author Innoxia
  */
 public enum OrificeType {
@@ -36,6 +36,23 @@ public enum OrificeType {
 		@Override
 		public boolean isFree() {
 			return Sex.isPlayerFreeNipples();
+		}
+	},
+	
+	BREAST_PLAYER(true) {
+		@Override
+		public String getName() {
+			return Main.game.getPlayer().getBreastName();
+		}
+		@Override
+		public boolean isPlural() {
+			return true;
+		}
+		@Override
+		public boolean isBreasts() { return true; }
+		@Override
+		public boolean isFree() {
+			return Sex.isPlayerFreeBreasts();
 		}
 	},
 	
@@ -110,6 +127,23 @@ public enum OrificeType {
 		}
 	},
 	
+	BREAST_PARTNER(false) {
+		@Override
+		public String getName() {
+			return Sex.getPartner().getBreastName();
+		}
+		@Override
+		public boolean isPlural() {
+			return true;
+		}
+		@Override
+		public boolean isBreasts() { return true; }
+		@Override
+		public boolean isFree() {
+			return Sex.isPartnerFreeBreasts();
+		}
+	},
+	
 	ANUS_PARTNER(false) {
 		@Override
 		public String getName() {
@@ -167,6 +201,7 @@ public enum OrificeType {
 
 	public boolean isMouth() { return false; }
 	public boolean isNipple() { return false; }
+	public boolean isBreasts() { return false; }
 	public boolean isAnus() { return false; }
 	public boolean isVagina() { return false; }
 	public boolean isUrethra() { return false; }

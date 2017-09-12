@@ -41,6 +41,13 @@ import com.base.game.character.CharacterChangeEventListener;
 import com.base.game.character.GameCharacter;
 import com.base.game.character.QuestLine;
 import com.base.game.character.attributes.Attribute;
+import com.base.game.character.body.Covering;
+import com.base.game.character.body.types.BodyCoveringType;
+import com.base.game.character.body.valueEnums.BodyHair;
+import com.base.game.character.body.valueEnums.CoveringPattern;
+import com.base.game.character.body.valueEnums.HairLength;
+import com.base.game.character.body.valueEnums.HairStyle;
+import com.base.game.character.body.valueEnums.PiercingType;
 import com.base.game.character.effects.Fetish;
 import com.base.game.character.effects.Perk;
 import com.base.game.character.effects.PerkInterface;
@@ -60,6 +67,7 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.GenericDialogue;
 import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.places.dominion.CityHall;
+import com.base.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.story.CharacterCreation;
@@ -1415,13 +1423,15 @@ public class MainController implements Initializable {
 			if (((EventTarget) document.getElementById("ENCHANT_ADD_BUTTON")) != null) {
 				
 				((EventTarget) document.getElementById("ENCHANT_ADD_BUTTON")).addEventListener("click", e -> {
-					if(EnchantmentDialogue.ingredient.getEnchantmentEffect().getEffectsDescription(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod, EnchantmentDialogue.potency, EnchantmentDialogue.limit, Main.game.getPlayer(), Main.game.getPlayer())==null) {
+					if(EnchantmentDialogue.ingredient.getEnchantmentEffect().getEffectsDescription(
+							EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod, EnchantmentDialogue.potency, EnchantmentDialogue.limit, Main.game.getPlayer(), Main.game.getPlayer())==null) {
 						
 					} else {
 						Main.game.setContent(new Response("Add", "Add the effect.", EnchantmentDialogue.ENCHANTMENT_MENU){
 							@Override
 							public void effects() {
-								EnchantmentDialogue.effects.add(new ItemEffect(EnchantmentDialogue.ingredient.getEnchantmentEffect(), EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod, EnchantmentDialogue.potency, EnchantmentDialogue.limit));
+								EnchantmentDialogue.effects.add(new ItemEffect(
+										EnchantmentDialogue.ingredient.getEnchantmentEffect(), EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod, EnchantmentDialogue.potency, EnchantmentDialogue.limit));
 							}
 						});
 					}
@@ -1461,6 +1471,409 @@ public class MainController implements Initializable {
 						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(tfMod);
 						addEventListener(document, "MOD_SECONDARY_" + tfMod.hashCode(), "mouseenter", el2, false);
 					}
+				}
+			}
+			
+
+			// -------------------- Cosmetics --------------------
+			
+			for(BodyCoveringType bct : BodyCoveringType.values()) {
+				String id = bct+"_PRIMARY_GLOW_OFF";
+				
+				if (((EventTarget) document.getElementById(id)) != null) {
+					
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.getBodyCoveringTypeCost(bct)) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+									
+									Main.game.getPlayer().setSkinCovering(new Covering(
+											bct,
+											Main.game.getPlayer().getCovering(bct).getPattern(),
+											Main.game.getPlayer().getCovering(bct).getPrimaryColour(),
+											false,
+											Main.game.getPlayer().getCovering(bct).getSecondaryColour(),
+											Main.game.getPlayer().getCovering(bct).isSecondaryGlowing()), false);
+									
+								}
+							});
+						}
+					}, false);
+				}
+				
+				id = bct+"_PRIMARY_GLOW_ON";
+				
+				if (((EventTarget) document.getElementById(id)) != null) {
+					
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.getBodyCoveringTypeCost(bct)) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+									
+									Main.game.getPlayer().setSkinCovering(new Covering(
+											bct,
+											Main.game.getPlayer().getCovering(bct).getPattern(),
+											Main.game.getPlayer().getCovering(bct).getPrimaryColour(),
+											true,
+											Main.game.getPlayer().getCovering(bct).getSecondaryColour(),
+											Main.game.getPlayer().getCovering(bct).isSecondaryGlowing()), false);
+									
+								}
+							});
+						}
+					}, false);
+				}
+				
+				id = bct+"_SECONDARY_GLOW_OFF";
+				
+				if (((EventTarget) document.getElementById(id)) != null) {
+					
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.getBodyCoveringTypeCost(bct)) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+									
+									Main.game.getPlayer().setSkinCovering(new Covering(
+											bct,
+											Main.game.getPlayer().getCovering(bct).getPattern(),
+											Main.game.getPlayer().getCovering(bct).getPrimaryColour(),
+											Main.game.getPlayer().getCovering(bct).isPrimaryGlowing(),
+											Main.game.getPlayer().getCovering(bct).getSecondaryColour(),
+											false), false);
+									
+								}
+							});
+						}
+					}, false);
+				}
+				
+				id = bct+"_SECONDARY_GLOW_ON";
+				
+				if (((EventTarget) document.getElementById(id)) != null) {
+					
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.getBodyCoveringTypeCost(bct)) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+									
+									Main.game.getPlayer().setSkinCovering(new Covering(
+											bct,
+											Main.game.getPlayer().getCovering(bct).getPattern(),
+											Main.game.getPlayer().getCovering(bct).getPrimaryColour(),
+											Main.game.getPlayer().getCovering(bct).isPrimaryGlowing(),
+											Main.game.getPlayer().getCovering(bct).getSecondaryColour(),
+											true), false);
+									
+								}
+							});
+						}
+					}, false);
+				}
+				
+				for(CoveringPattern pattern : CoveringPattern.values()) {
+					id = bct+"_PATTERN_"+pattern;
+					
+					if (((EventTarget) document.getElementById(id)) != null) {
+						
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.getBodyCoveringTypeCost(bct)) {
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+									@Override
+									public void effects() {
+										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+										
+										Main.game.getPlayer().setSkinCovering(new Covering(
+												bct,
+												pattern,
+												Main.game.getPlayer().getCovering(bct).getPrimaryColour(),
+												Main.game.getPlayer().getCovering(bct).isPrimaryGlowing(),
+												Main.game.getPlayer().getCovering(bct).getSecondaryColour(),
+												Main.game.getPlayer().getCovering(bct).isSecondaryGlowing()), false);
+										
+									}
+								});
+							}
+						}, false);
+					}
+				}
+				
+				for(Colour colour : bct.getAllColours()) {
+					id = bct+"_PRIMARY_"+colour;
+					
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.getBodyCoveringTypeCost(bct)) {
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+									@Override
+									public void effects() {
+										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+										
+										Main.game.getPlayer().setSkinCovering(new Covering(
+												bct,
+												Main.game.getPlayer().getCovering(bct).getPattern(),
+												colour,
+												(colour == Colour.COVERING_NONE ? false : Main.game.getPlayer().getCovering(bct).isPrimaryGlowing()),
+												Main.game.getPlayer().getCovering(bct).getSecondaryColour(),
+												Main.game.getPlayer().getCovering(bct).isSecondaryGlowing()), false);
+										
+									}
+								});
+							}
+						}, false);
+					}
+					
+					id = bct+"_SECONDARY_"+colour;
+					
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.getBodyCoveringTypeCost(bct)) {
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+									@Override
+									public void effects() {
+										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+										
+										Main.game.getPlayer().setSkinCovering(new Covering(
+												bct,
+												Main.game.getPlayer().getCovering(bct).getPattern(),
+												Main.game.getPlayer().getCovering(bct).getPrimaryColour(),
+												Main.game.getPlayer().getCovering(bct).isPrimaryGlowing(),
+												colour,
+												(colour == Colour.COVERING_NONE ? false : Main.game.getPlayer().getCovering(bct).isSecondaryGlowing())), false);
+										
+									}
+								});
+							}
+						}, false);
+					}
+				}
+			}
+			
+			for(HairLength hairLength : HairLength.values()) {
+				String id = "HAIR_LENGTH_"+hairLength;
+				
+				if (((EventTarget) document.getElementById(id)) != null) {
+					
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_HAIR_LENGTH_COST) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_HAIR_LENGTH_COST);
+									
+									Main.game.getPlayer().setHairLength(hairLength.getMedianValue());
+								}
+							});
+						}
+					}, false);
+				}
+			}
+			
+			for(HairStyle hairStyle: HairStyle.values()) {
+				String id = "HAIR_STYLE_"+hairStyle;
+				
+				if (((EventTarget) document.getElementById(id)) != null) {
+					
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_HAIR_STYLE_COST) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_HAIR_STYLE_COST);
+									
+									Main.game.getPlayer().setHairStyle(hairStyle);
+								}
+							});
+						}
+					}, false);
+				}
+			}
+			
+			for(PiercingType piercingType : PiercingType.values()) {
+				String id = piercingType+"_PIERCE_REMOVE";
+				
+				if (((EventTarget) document.getElementById(id)) != null) {
+					
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.getPiercingCost(piercingType)) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getPiercingCost(piercingType));
+									
+									switch(piercingType) {
+										case EAR:
+											Main.game.getPlayer().setPiercedEar(false);
+											break;
+										case LIP:
+											Main.game.getPlayer().setPiercedLip(false);
+											break;
+										case NAVEL:
+											Main.game.getPlayer().setPiercedNavel(false);
+											break;
+										case NIPPLE:
+											Main.game.getPlayer().setPiercedNipples(false);
+											break;
+										case NOSE:
+											Main.game.getPlayer().setPiercedNose(false);
+											break;
+										case PENIS:
+											Main.game.getPlayer().setPiercedPenis(false);
+											break;
+										case TONGUE:
+											Main.game.getPlayer().setPiercedTongue(false);
+											break;
+										case VAGINA:
+											Main.game.getPlayer().setPiercedVagina(false);
+											break;
+									}
+								}
+							});
+						}
+					}, false);
+				}
+				
+				id = piercingType+"_PIERCE";
+				
+				if (((EventTarget) document.getElementById(id)) != null) {
+					
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.getPiercingCost(piercingType)) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getPiercingCost(piercingType));
+									
+									switch(piercingType) {
+										case EAR:
+											Main.game.getPlayer().setPiercedEar(true);
+											break;
+										case LIP:
+											Main.game.getPlayer().setPiercedLip(true);
+											break;
+										case NAVEL:
+											Main.game.getPlayer().setPiercedNavel(true);
+											break;
+										case NIPPLE:
+											Main.game.getPlayer().setPiercedNipples(true);
+											break;
+										case NOSE:
+											Main.game.getPlayer().setPiercedNose(true);
+											break;
+										case PENIS:
+											Main.game.getPlayer().setPiercedPenis(true);
+											break;
+										case TONGUE:
+											Main.game.getPlayer().setPiercedTongue(true);
+											break;
+										case VAGINA:
+											Main.game.getPlayer().setPiercedVagina(true);
+											break;
+									}
+								}
+							});
+						}
+					}, false);
+				}
+			}
+			
+			if (((EventTarget) document.getElementById("BLEACHING_OFF")) != null) {
+				
+				((EventTarget) document.getElementById("BLEACHING_OFF")).addEventListener("click", e -> {
+					if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_ANAL_BLEACHING_COST) {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_ANAL_BLEACHING_COST);
+								Main.game.getPlayer().setAssBleached(false);
+							}
+						});
+					}
+				}, false);
+			}
+			
+			if (((EventTarget) document.getElementById("BLEACHING_ON")) != null) {
+				
+				((EventTarget) document.getElementById("BLEACHING_ON")).addEventListener("click", e -> {
+					if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_ANAL_BLEACHING_COST) {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_ANAL_BLEACHING_COST);
+								Main.game.getPlayer().setAssBleached(true);
+							}
+						});
+					}
+				}, false);
+			}
+			
+			for(BodyHair bodyHair: BodyHair.values()) {
+				
+				String id = "ASS_HAIR_"+bodyHair;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_BODY_HAIR_COST) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
+									Main.game.getPlayer().setAssHair(bodyHair);
+								}
+							});
+						}
+					}, false);
+				}
+				
+				id = "UNDERARM_HAIR_"+bodyHair;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_BODY_HAIR_COST) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
+									Main.game.getPlayer().setUnderarmHair(bodyHair);
+								}
+							});
+						}
+					}, false);
+				}
+				
+				id = "PUBIC_HAIR_"+bodyHair;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_BODY_HAIR_COST) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
+									Main.game.getPlayer().setPubicHair(bodyHair);
+								}
+							});
+						}
+					}, false);
+				}
+				
+				id = "FACIAL_HAIR_"+bodyHair;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_BODY_HAIR_COST) {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
+									Main.game.getPlayer().setFacialHair(bodyHair);
+								}
+							});
+						}
+					}, false);
 				}
 			}
 			

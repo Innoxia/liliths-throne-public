@@ -261,7 +261,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				}
 				
 				// Get access to player's nipples before their own:
-				if (Main.game.getPlayer().hasBreasts()) {
+				if (Main.game.getPlayer().hasBreasts() && (Sex.getPartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS) || !Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA))) {
 					if(!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.NIPPLES)) {
 						if (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
 							return Sex.partnerManageClothingToAccessCoverableArea(true, CoverableArea.NIPPLES);
@@ -508,6 +508,12 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 						// Nipple penetrations:
 						if((Sex.getPartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS) || Sex.getPlayerPenetrationRequests().contains(OrificeType.NIPPLE_PLAYER)) && action.getAssociatedOrificeType()!=null) {
 							if(action.getAssociatedOrificeType().isNipple()) {
+								returnableActions.add(action);
+							}
+						}
+						// Paizuri:
+						if((Sex.getPartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS) || Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST_PLAYER)) && action.getAssociatedOrificeType()!=null) {
+							if(action.getAssociatedOrificeType().isBreasts()) {
 								returnableActions.add(action);
 							}
 						}

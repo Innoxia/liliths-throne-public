@@ -12,6 +12,7 @@ import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerAnus;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerUrethra;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
 import com.base.game.sex.sexActions.baseActionsPartner.PartnerTongueVagina;
+import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisBreasts;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisMouth;
 import com.base.game.sex.sexActions.baseActionsPlayer.PlayerPenisNipple;
 import com.base.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
@@ -74,6 +75,7 @@ public class SMDomKneeling extends SexManagerDefault {
 
 				PlayerPenisMouth.class,
 				PlayerPenisNipple.class,
+				PlayerPenisBreasts.class,
 
 				PartnerFingerUrethra.class,
 				PartnerFingerVagina.class,

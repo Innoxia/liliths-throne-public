@@ -10,6 +10,7 @@ import com.base.game.character.GameCharacter;
 import com.base.game.character.attributes.Attribute;
 import com.base.game.character.body.types.ArmType;
 import com.base.game.character.body.types.FaceType;
+import com.base.game.character.body.types.HornType;
 import com.base.game.character.body.types.LegType;
 import com.base.game.character.effects.Fetish;
 import com.base.game.character.effects.StatusEffect;
@@ -942,7 +943,15 @@ public enum SpecialAttack {
 	 * Special attack's main feature is that they should apply long-duration
 	 * status effects. Damage is secondary. They CAN miss.
 	 */
-	DOG_BITE(50, "bite", "biteIcon", Colour.DAMAGE_TYPE_PHYSICAL, DamageType.PHYSICAL, DamageLevel.HIGH, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 4))) {
+	DOG_BITE(50,
+			"bite",
+			"biteIcon",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			DamageType.PHYSICAL,
+			DamageLevel.HIGH,
+			DamageVariance.LOW,
+			SpecialAttackSpellCosts.MEDIUM,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 4))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
@@ -991,6 +1000,71 @@ public enum SpecialAttack {
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
 			return owner.getFaceType() == FaceType.DOG_MORPH;
+		}
+	},
+
+	COW_HEADBUTT(50,
+			"Headbutt",
+			"hornsIcon",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			DamageType.PHYSICAL,
+			DamageLevel.HIGH,
+			DamageVariance.LOW,
+			SpecialAttackSpellCosts.MEDIUM,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 2))) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+
+			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+
+			descriptionSB = new StringBuilder();
+			
+			if (caster == Main.game.getPlayer()) {
+				descriptionSB.append(UtilText.parse(target,
+						"<p>"
+							+ "With a burst of energy, you leap forwards, trying to butt your head into [npc.name]."
+							+ (isHit
+									? " You manage to make contact; ramming your forehead into [npc.her] body and whacking [npc.herHim] with the sides of your horns,"
+											+ " you knock the wind out of [npc.herHim] and cause [npc.hreHim] to stagger backwards in a daze."
+									: " [npc.She] manages to jump to one side, and there's an audible whoosh as you thrust your horns through the air.")
+						+ "</p>")
+						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+			} else {
+				descriptionSB.append(UtilText.genderParsing(caster,
+						"<p>"
+							+ "With a burst of energy, [npc.name] leaps forwards, trying to butt [npc.her] head into you."
+							+ (isHit
+									? " [npc.She] manages to make contact; ramming [npc.her] forehead into your body and whacking you with the sides of [npc.her] horns,"
+											+ " [npc.she] knocks the wind out of you and causes you to stagger backwards in a daze."
+									: " You manage to jump to one side, and there's an audible whoosh as [npc.she] thrusts [npc.her] horns through the air.")
+						+ "</p>")
+						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+			}
+			
+			// If attack hits, apply damage and effects:
+			if (isHit) {
+				descriptionSB.append(target.incrementHealth(-damage));
+				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
+					target.addStatusEffect(se.getKey(), se.getValue());
+			}
+
+			caster.incrementStamina(-cost);
+			
+			return descriptionSB.toString();
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Your anthropomorphic cow-like horns can be used to deliver a powerful attack.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name]'s anthropomorphic cow-like horns can be used to deliver a powerful attack.");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			return owner.getHornType() == HornType.BOVINE_MALE || owner.getHornType() == HornType.BOVINE_FEMALE;
 		}
 	},
 
@@ -1045,7 +1119,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			return owner.getFaceType() == FaceType.LYCAN;
+			return owner.getArmType() == ArmType.LYCAN;
 		}
 	},
 
@@ -1067,7 +1141,7 @@ public enum SpecialAttack {
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.genderParsing(caster,
-						"<p>" + caster.getName("The") + " flexs the claws on <her> anthropomorphic squirrel-like hands, and with a quick dash forwards, attempts to strike at you."
+						"<p>" + caster.getName("The") + " flexes the claws on <her> anthropomorphic squirrel-like hands, and with a quick dash forwards, attempts to strike at you."
 								+ (isHit ? " <Her> sharp claws rake over your body, and you let out a surprised cry as <she> quickly jumps back, and smirking at you."
 										: " You see <her> attack coming, and you jump out of the way just in time, leaving <herPro> to swipe at nothing more than thin air.")
 								+ "</p>")

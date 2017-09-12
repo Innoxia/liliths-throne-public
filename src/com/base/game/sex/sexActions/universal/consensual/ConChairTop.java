@@ -1894,7 +1894,7 @@ public class ConChairTop {
 			return UtilText.returnStringAtRandom(
 					"A devious grin flashes across [npc.name]'s face, and you let out a surprised [pc.moan] as you suddenly feel [npc.herHim] driving [npc.her] [npc.tail] deep into your [pc.pussy+].",
 					
-					"[npc.Name] winks at you, and as [npc.she] does so, you feel [npc.her] [npc.tail+] ride up hard into your [pc.pusy+], causing you to let out [pc.a_moan+].",
+					"[npc.Name] winks at you, and as [npc.she] does so, you feel [npc.her] [npc.tail+] ride up hard into your [pc.pussy+], causing you to let out [pc.a_moan+].",
 					
 					"As [npc.she] lets out [npc.a_moan+], you suddenly feel [npc.name]'s [npc.tail] start to thrust in and out of your [pc.pussy+],"
 							+ " and you notice a devious smile flash across [npc.her] [npc.face] as [npc.she] delights in using her [npc.tail] to fuck you.",

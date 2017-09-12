@@ -40,7 +40,7 @@ import com.base.world.places.Jungle;
  * Test class that I'm using to try out some methods and stuff. It might end up as a bit of a mess, but don't remove it.
  * 
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.1.84
  * @author Innoxia
  */
 public class TestNPC extends NPC {
@@ -107,7 +107,7 @@ public class TestNPC extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
 	}
 
 	@Override
@@ -119,17 +119,39 @@ public class TestNPC extends NPC {
 	}
 	
 	@Override
+	public boolean isClothingStealable() {
+		return true;
+	}
+	
+	@Override
 	public DialogueNodeOld getEncounterDialogue() {
 		return null;
 	}
 
 	@Override
 	public void endSex(boolean applyEffects) {
+		if(applyEffects) {
+			setPendingClothingDressing(true);
+		}
 	}
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return true;
+	}
+	
+	@Override
+	public void equipClothing(boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
+		this.resetInventory();
+		
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_HOODIE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK, false), true, this);
+		
 	}
 	
 	@Override
@@ -361,7 +383,7 @@ public class TestNPC extends NPC {
 						TEST_DIALOGUE_AFTER_SEX,
 						Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX,
 						"<p>"
-							+ "You step forwards, gentley wrapping your [pc.arms] around the [test.race] and lovingly pulling [test.herHim] into you."
+							+ "You step forwards, gently wrapping your [pc.arms] around the [test.race] and lovingly pulling [test.herHim] into you."
 						+ "</p>"
 						+ "<p>"
 							+ "[test.speech(~Mmmm!~)] [test.she] moans, leaning into you,"

@@ -22,6 +22,8 @@ public enum HairType implements BodyPartTypeInterface {
 
 	CAT_MORPH(BodyCoveringType.HAIR_FELINE_FUR, Race.CAT_MORPH),
 
+	COW_MORPH(BodyCoveringType.HAIR_BOVINE_FUR, Race.COW_MORPH),
+
 	SQUIRREL_MORPH(BodyCoveringType.HAIR_SQUIRREL_FUR, Race.SQUIRREL_MORPH),
 
 	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH),
@@ -85,6 +87,8 @@ public enum HairType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("angelic");
 			case CAT_MORPH:
 				return UtilText.returnStringAtRandom("cat-like");
+			case COW_MORPH:
+				return UtilText.returnStringAtRandom("cow-like");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("demonic");
 			case DOG_MORPH:

@@ -365,6 +365,98 @@ position:relative;
 }
 
 /***********************************************************/
+/*COSMETICS*/
+
+.cosmetics-container{
+	float:left;
+	background-color: transparent;
+	background:#19191a;
+	border-radius:5px;
+	
+	padding:0px;
+	margin:0px 0px 1% 0px;
+	
+	width:100%;
+	max-width:800px;
+	-webkit-user-select: none;
+}
+.cosmetics-inner-container{
+	float:left;
+	background-color: transparent;
+	background:#19191a;
+	border-radius:5px;
+	
+	padding:1%;
+	margin:1%;
+	width:46%;
+	max-width:400px;
+	-webkit-user-select: none;
+}
+.cosmetics-inner-container.left{
+	padding:1%;
+	margin:1%;
+	width:36%;
+	max-width:320px;
+}
+.cosmetics-inner-container.right{
+	float:right;
+	text-align:center;
+	padding:1%;
+	margin:0 1% 0 1%;
+	width:56%;
+	max-width:480px;
+}
+.cosmetics-button {
+	display:inline-block;
+	
+    white-space: nowrap;
+	
+	font-size:2vw;
+	line-height:2vw;
+	text-align:center;
+
+	border-radius: 5px;
+	width:21%;
+	margin:1%;
+	padding:1%;
+	
+	background: -webkit-gradient(
+		linear, left top, left bottom,
+		from(#555),
+		color-stop(0.50, #444),
+		color-stop(0.92, #333),
+		to(#222));
+	text-shadow:
+		1px 1px 2px rgba(000,000,000,0.7),
+		0px 1px 0px rgba(000,000,000,0.4);
+}
+.cosmetics-button:hover{
+	background:#555555;
+	cursor:pointer;
+}
+.cosmetics-button.active{
+	box-sizing:border-box;
+	width:23%;
+	border:1%;
+	padding:1% 0 1% 0;
+	border-style:solid;
+	border-color:#777;
+}
+.cosmetics-button.disabled{
+	background:#222;
+}
+.cosmetics-button.disabled:hover{
+	background:#222;
+	cursor:default;
+}
+@media screen and (min-width: 800px) {
+	.cosmetics-button{
+		font-size: 16px;
+		line-height: 16px;
+	}
+}
+
+/***********************************************************/
 /*FETISHES*/
 
 .fetish-container{

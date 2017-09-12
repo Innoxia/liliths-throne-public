@@ -99,10 +99,9 @@ public class CharacterCreation {
 						setBodyType();
 						Main.game.clearTextStartStringBuilder();
 						Main.game.clearTextEndStringBuilder();
-						Main.game.getPlayer().setNewWeaponDiscovered(false);
-						Main.game.getPlayer().setNewClothingDiscovered(false);
-						Main.game.getPlayer().setNewItemDiscovered(false);
-						Main.game.getPlayer().getItemsDiscovered().clear();
+						Main.getProperties().setNewWeaponDiscovered(false);
+						Main.getProperties().setNewClothingDiscovered(false);
+						Main.getProperties().setNewItemDiscovered(false);
 						Main.game.getPlayer().calculateStatusEffects(0);
 					}
 				};
@@ -1093,8 +1092,8 @@ public class CharacterCreation {
 			} else {
 				UtilText.nodeContentSB.append(
 						"</br>"
-						+ "<p style='text-align:center;'><b>Pubic hair</b></br>"
-							+ "[style.colourDisabled(Pubic hair is currently disabled in the options. You will not see any pubic hair content while it is disabled.)]"
+						+ "<p style='text-align:center;'><b>Body hair</b></br>"
+							+ "[style.colourDisabled(Body hair is currently disabled in the options. You will not see any underarm or ass hair content while it is disabled.)]"
 						+ "</p>");
 			}
 			
@@ -1523,7 +1522,7 @@ public class CharacterCreation {
 
 					+ "Your background will influence your starting core attributes. While attributes can be temporarily modified by many items in the game, core attributes are a lot harder to change.</br></br>"
 
-					+ "Attribute-based perks can be earnt through core attribute values, plus any bonus modifiers you have."
+					+ "Attribute-based perks can be earned through core attribute values, plus any bonus modifiers you have."
 					+ " For example, if your items boost your strength to 100, you will get the maximum strength status effect.</br></br>"
 
 					+ "You can hover your mouse over the attributes panel on the left of the screen for information relating to your attributes."
@@ -1687,8 +1686,8 @@ public class CharacterCreation {
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
 						
-						Main.game.getPlayer().addRaceDiscovered(Main.game.getLilaya().getRace());
-						Main.game.getPlayer().addRaceDiscovered(Main.game.getRose().getRace());
+						Main.getProperties().addRaceDiscovered(Main.game.getLilaya().getRace());
+						Main.getProperties().addRaceDiscovered(Main.game.getRose().getRace());
 
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
 						
@@ -1737,12 +1736,8 @@ public class CharacterCreation {
 	};
 
 	private static void applyGameStart() {
-		Main.game.getPlayer().addRaceDiscovered(Race.HUMAN);
-		Main.game.getPlayer().getItemsDiscovered().add(ItemType.CONDOM);
-		
-		// Main.game.getPlayer().addSideQuest(QuestLine.SIDE_ITEM_DISCOVERY);
-		// Main.game.getPlayer().addSideQuest(QuestLine.SIDE_RACE_DISCOVERY);
-//		Main.game.getPlayer().setMainQuestUpdated(false);
+		Main.getProperties().addRaceDiscovered(Race.HUMAN);
+		Main.getProperties().addItemDiscovered(ItemType.CONDOM);
 	}
 	
 	private static StringBuilder importSB;
@@ -1846,6 +1841,7 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						applyGameStart();
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 					}
 				};
 				
@@ -1878,8 +1874,8 @@ public class CharacterCreation {
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
 						
-						Main.game.getPlayer().addRaceDiscovered(Main.game.getLilaya().getRace());
-						Main.game.getPlayer().addRaceDiscovered(Main.game.getRose().getRace());
+						Main.getProperties().addRaceDiscovered(Main.game.getLilaya().getRace());
+						Main.getProperties().addRaceDiscovered(Main.game.getRose().getRace());
 						
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
 						

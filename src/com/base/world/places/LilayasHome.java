@@ -26,15 +26,17 @@ public enum LilayasHome implements PlaceInterface {
 	
 	LILAYA_HOME_CORRIDOR("Corridor", null, null, LilayaHomeGeneric.CORRIDOR, null, true, false),
 	
-	LILAYA_HOME_ROOM("Room", "dominion/lilayasHome/room", BaseColour.PURPLE_LIGHT, LilayaHomeGeneric.ROOM, null, true, false),
+	LILAYA_HOME_ROOM("Room", "dominion/lilayasHome/room", BaseColour.GREY, LilayaHomeGeneric.ROOM, null, true, false),
 	
-	LILAYA_HOME_ROOM_WINDOW("Room", "dominion/lilayasHome/room", BaseColour.PURPLE_LIGHT, LilayaHomeGeneric.ROOM_WINDOW, null, true, false),
+	LILAYA_HOME_ROOM_WINDOW("Room", "dominion/lilayasHome/room", BaseColour.GREY, LilayaHomeGeneric.ROOM_WINDOW, null, true, false),
 	
-	LILAYA_HOME_ROOM_GARDEN("Room", "dominion/lilayasHome/room", BaseColour.PURPLE_LIGHT, LilayaHomeGeneric.ROOM_GARDEN, null, true, false),
+	LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR("Room", "dominion/lilayasHome/room", BaseColour.GREY, LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR, null, true, false),
 	
-	LILAYA_HOME_BIRTHING_ROOM("Room", "dominion/lilayasHome/roomBirthing", BaseColour.RED, LilayaHomeGeneric.BIRTHING_ROOM, null, true, false),
+	LILAYA_HOME_ROOM_GARDEN("Room", "dominion/lilayasHome/room", BaseColour.GREY, LilayaHomeGeneric.ROOM_GARDEN, null, true, false),
 	
-	LILAYA_HOME_KITCHEN("Kitchen", "dominion/lilayasHome/kitchen", BaseColour.RED, LilayaHomeGeneric.KITCHEN, null, true, false),
+	LILAYA_HOME_BIRTHING_ROOM("Room", "dominion/lilayasHome/roomBirthing", BaseColour.PINK, LilayaHomeGeneric.BIRTHING_ROOM, null, true, false),
+	
+	LILAYA_HOME_KITCHEN("Kitchen", "dominion/lilayasHome/kitchen", BaseColour.TAN, LilayaHomeGeneric.KITCHEN, null, true, false),
 	
 	LILAYA_HOME_LIBRARY("Library", "dominion/lilayasHome/library", BaseColour.TEAL, Library.LIBRARY, null, true, false),
 	
@@ -65,12 +67,17 @@ public enum LilayasHome implements PlaceInterface {
 	LILAYA_HOME_LAB("Lilaya's Lab", "dominion/lilayasHome/lab", BaseColour.ORANGE, Lab.LAB, null, true, false),
 	
 	LILAYA_HOME_GARDEN("Garden", "dominion/lilayasHome/garden", BaseColour.GREEN, LilayaHomeGeneric.GARDEN, null, true, false) {
-
 		@Override
 		public boolean isStormImmune() {
 			return false;
-		}	
-		
+		}
+	},
+	
+	LILAYA_HOME_FOUNTAIN("Fountain", "dominion/lilayasHome/fountain", BaseColour.BLUE_LIGHT, LilayaHomeGeneric.FOUNTAIN, null, true, false) {
+		@Override
+		public boolean isStormImmune() {
+			return false;
+		}
 	},
 	
 

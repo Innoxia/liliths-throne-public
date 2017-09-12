@@ -116,6 +116,19 @@ public class Eye implements BodyPartInterface, Serializable {
 								+ "[npc.Name] now has [style.boldDemon(demonic eyes)]");
 				}
 				break;
+			case COW_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" By the time you hesitantly open them again, they've changed into cow-like eyes, with larger-than-average pupils and irises."
+								+ "</br>"
+								+ "You now have [style.boldCowMorph(cow-like eyes)]");
+				} else {
+					UtilText.transformationContentSB.append(
+								" By the time [npc.she] hesitantly opens them again, they've changed into cow-like eyes, with larger-than-average pupils and irises."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldCowMorph(cow-like eyes)]");
+				}
+				break;
 			case DOG_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

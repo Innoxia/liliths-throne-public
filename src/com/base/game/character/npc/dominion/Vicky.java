@@ -59,6 +59,8 @@ public class Vicky extends NPC {
 			ItemType.RACE_INGREDIENT_HARPY,
 			ItemType.RACE_INGREDIENT_HORSE_MORPH,
 			ItemType.RACE_INGREDIENT_WOLF_MORPH,
+			ItemType.RACE_INGREDIENT_SQUIRREL_MORPH,
+			ItemType.RACE_INGREDIENT_COW_MORPH,
 			ItemType.RACE_INGREDIENT_HUMAN,
 			ItemType.RACE_INGREDIENT_DEMON};
 	
@@ -93,7 +95,7 @@ public class Vicky extends NPC {
 		this.equipClothingFromNowhere(socks, true, this);
 		this.equipClothingFromNowhere(shoes, true, this);
 
-		for(int i=0;i<3;i++){
+		for(int i=0;i<2;i++){
 			this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_RARE), false);
 			this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE), false);
 		}
@@ -129,6 +131,10 @@ public class Vicky extends NPC {
 				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HUMAN), false);
 			for(int i=0; i<25+Util.random.nextInt(20);i++)
 				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_WOLF_MORPH), false);
+			for(int i=0; i<25+Util.random.nextInt(20);i++)
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH), false);
+			for(int i=0; i<25+Util.random.nextInt(20);i++)
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_COW_MORPH), false);
 		}
 	}
 	
@@ -172,6 +178,8 @@ public class Vicky extends NPC {
 					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_HORSE_MORPH
 					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_HUMAN
 					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_WOLF_MORPH
+					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_COW_MORPH
+					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH
 					|| ((AbstractItem)item).getItemType()==ItemType.POTION
 					|| ((AbstractItem)item).getItemType()==ItemType.ELIXIR) {
 				return true;

@@ -108,7 +108,7 @@ public class PhoneDialogue {
 				
 			} else if (index == 5) {
 				return new Response(
-						(Main.game.getPlayer().isNewWeaponDiscovered() || Main.game.getPlayer().isNewClothingDiscovered() || Main.game.getPlayer().isNewItemDiscovered() || Main.game.getPlayer().isNewRaceDiscovered())
+						(Main.getProperties().isNewWeaponDiscovered() || Main.getProperties().isNewClothingDiscovered() || Main.getProperties().isNewItemDiscovered() || Main.getProperties().isNewRaceDiscovered())
 							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Encyclopedia</span>"
 							:"Encyclopedia",
 						"Have a look at all the different items and races you've discovered so far.", ENCYCLOPEDIA){
@@ -1139,38 +1139,38 @@ public class PhoneDialogue {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response((Main.game.getPlayer().isNewRaceDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Races</span>":"Races",
+				return new Response((Main.getProperties().isNewRaceDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Races</span>":"Races",
 						"Have a look at all the different races that you've encountered in your travels.", RACES){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setNewRaceDiscovered(false);
+						Main.getProperties().setNewRaceDiscovered(false);
 					}
 				};
 			
 			} else if (index == 2) {
-				return new Response((Main.game.getPlayer().isNewWeaponDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Weapons</span>":"Weapons",
+				return new Response((Main.getProperties().isNewWeaponDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Weapons</span>":"Weapons",
 						"Have a look at all the different weapons that you've encountered in your travels.", WEAPON_CATALOGUE){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setNewWeaponDiscovered(false);
+						Main.getProperties().setNewWeaponDiscovered(false);
 					}
 				};
 			
 			} else if (index == 3) {
-				return new Response((Main.game.getPlayer().isNewClothingDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Clothing</span>":"Clothing",
+				return new Response((Main.getProperties().isNewClothingDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Clothing</span>":"Clothing",
 						"Have a look at all the different clothing that you've encountered in your travels.", CLOTHING_CATALOGUE){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setNewClothingDiscovered(false);
+						Main.getProperties().setNewClothingDiscovered(false);
 					}
 				};
 			
 			} else if (index == 4) {
-				return new Response((Main.game.getPlayer().isNewItemDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Items</span>":"Items",
+				return new Response((Main.getProperties().isNewItemDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Items</span>":"Items",
 						"Have a look at all the different items that you've encountered in your travels.", ITEM_CATALOGUE){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setNewItemDiscovered(false);
+						Main.getProperties().setNewItemDiscovered(false);
 					}
 				};
 			
@@ -1218,7 +1218,7 @@ public class PhoneDialogue {
 			journalSB.append("<div class='phone-item-third colours'>Damage types <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
 
 			for (AbstractWeaponType weapon : weaponsDiscoveredList) {
-				if (Main.game.getPlayer().getWeaponsDiscovered().contains(weapon)) {
+				if (Main.getProperties().isWeaponDiscovered(weapon)) {
 					journalSB.append("<div class='phone-item-third slot'>" + Util.capitaliseSentence(weapon.getSlot().getName()) + "</div>");
 					journalSB.append("<div class='phone-item-third name' style='color:" + weapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(weapon.getName()) + "</div>");
 
@@ -1268,7 +1268,7 @@ public class PhoneDialogue {
 			journalSB.append("<div class='phone-item-third colours'>Colours <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
 
 			for (AbstractClothingType clothing : clothingDiscoveredList) {
-				if (Main.game.getPlayer().getClothingDiscovered().contains(clothing)) {
+				if (Main.getProperties().isClothingDiscovered(clothing)) {
 					String sizeClass = ""; //hack to prevent overflow... works for up to 30 colours
 					if (clothing.getAvailableColours().size() > 15){
 						sizeClass = "phone-item-third-large";
@@ -1324,7 +1324,7 @@ public class PhoneDialogue {
 
 			for (AbstractItemType item : itemsDiscoveredList) {
 				journalSB.append("<div class='phone-item-half-table-row'>");
-				if (Main.game.getPlayer().getItemsDiscovered().contains(item)) {
+				if (Main.getProperties().isItemDiscovered(item)) {
 					journalSB.append("<div class='phone-item-half name' style='color:" + item.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(item.getName(false)) + "</div>");
 
 					journalSB.append("<div class='phone-item-half effects'>");
@@ -1370,13 +1370,24 @@ public class PhoneDialogue {
 			return MapDisplay.PHONE;
 		}
 	};
-
+	
+	private static List<Race> racesDiscovered = new ArrayList<>();
+	
 	public static void resetContentForRaces() {
 		title = "Races";
 		StringBuilder contentSB = new StringBuilder("<p style='text-align:center;'>You have encountered the following races in your travels:</p>");
 		
-		for (Race r : Main.game.getPlayer().getRacesDiscovered())
-			contentSB.append("<p style='text-align:center;'><b style='color:"+r.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(r.getName()) + "</b></p>");
+		racesDiscovered.clear();
+		
+		for (Race r : Race.values()) {
+			if(Main.getProperties().isRaceDiscovered(r)) {
+				racesDiscovered.add(r);
+				contentSB.append("<p style='text-align:center;'><b style='color:"+r.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(r.getName()) + "</b></p>");
+			}
+		}
+		
+		racesDiscovered.sort(Comparator.comparing(Race::getName));
+		
 		content = contentSB.toString();
 	}
 
@@ -1398,13 +1409,13 @@ public class PhoneDialogue {
 			if (index == 0) {
 				return new Response("Back", "Return to the encyclopedia.", ENCYCLOPEDIA);
 			
-			} else if (index <= Main.game.getPlayer().getRacesDiscovered().size()) {
-				return new Response(Util.capitaliseSentence(Main.game.getPlayer().getRacesDiscovered().get(index - 1).getName()),
-						"Take a detailed look at what " + Main.game.getPlayer().getRacesDiscovered().get(index - 1).getName() + "s are like.",
+			} else if (index <= racesDiscovered.size()) {
+				return new Response(Util.capitaliseSentence(racesDiscovered.get(index - 1).getName()),
+						"Take a detailed look at what " + racesDiscovered.get(index - 1).getName() + "s are like.",
 						RACES){
 					@Override
 					public void effects() {
-						Race race = Main.game.getPlayer().getRacesDiscovered().get(index - 1);
+						Race race = racesDiscovered.get(index - 1);
 						RacialBody racialBody = RacialBody.valueOfRace(race);
 						
 						title = Util.capitaliseSentence(race.getName()) + " ("
@@ -1458,7 +1469,7 @@ public class PhoneDialogue {
 									+ race.getPluralFemaleName() + "</b>."
 								+ "</p>"
 								+ race.getBasicDescription()
-								+(Main.game.getPlayer().getRacesAdvancedKnowledge().contains(race)
+								+(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(race)
 										?race.getAdvancedDescription()
 										:"<p style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
 											+ "Further information can be discovered in books!"
@@ -1705,8 +1716,6 @@ public class PhoneDialogue {
 
 	private static boolean confirmReset = false;
 	public static final DialogueNodeOld CHARACTER_FETISHES = new DialogueNodeOld("Fetishes", "", true) {
-		/**
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -1854,6 +1863,8 @@ public class PhoneDialogue {
 							Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -getFetishCost());
 
 							levelUpFetishes.clear();
+
+							PhoneDialogue.confirmReset = false;
 						}
 					};
 				}
@@ -1873,6 +1884,8 @@ public class PhoneDialogue {
 							Main.game.getPlayer().setSexualOrientation(SexualOrientation.GYNEPHILIC);
 							
 						}
+
+						PhoneDialogue.confirmReset = false;
 					}
 				};
 				

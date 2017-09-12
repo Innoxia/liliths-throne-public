@@ -15,6 +15,8 @@ public enum EyeType implements BodyPartTypeInterface {
 
 	ANGEL(BodyCoveringType.EYE_ANGEL, Race.ANGEL, 1, EyeShape.ROUND, EyeShape.ROUND),
 
+	COW_MORPH(BodyCoveringType.EYE_COW_MORPH, Race.COW_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
+
 	DEMON_COMMON(BodyCoveringType.EYE_DEMON_COMMON, Race.DEMON, 1, EyeShape.ROUND, EyeShape.VERTICAL),
 
 	DOG_MORPH(BodyCoveringType.EYE_DOG_MORPH, Race.DOG_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
@@ -72,6 +74,8 @@ public enum EyeType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("angelic");
 			case CAT_MORPH:
 				return UtilText.returnStringAtRandom("cat-like");
+			case COW_MORPH:
+				return UtilText.returnStringAtRandom("cow-like");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("demonic");
 			case DOG_MORPH:

@@ -2,7 +2,9 @@ package com.base.game.inventory.weapon;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.base.game.character.GameCharacter;
 import com.base.game.character.attributes.Attribute;
@@ -99,7 +101,10 @@ public class WeaponType {
 			DamageLevel.HIGH,
 			DamageVariance.LOW,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 5)),
-			Util.newArrayListOfValues(new ListValue<Spell>(Spell.FIREBALL_1), new ListValue<Spell>(Spell.FIREBALL_1), new ListValue<Spell>(Spell.FIREBALL_1))) {
+			Util.newArrayListOfValues(
+					new ListValue<Spell>(Spell.FIREBALL_1),
+					new ListValue<Spell>(Spell.FIRE_SHIELD),
+					new ListValue<Spell>(Spell.FIRE_INFERNO))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -185,6 +190,9 @@ public class WeaponType {
 	};
 
 	public static List<AbstractWeaponType> rareWeapons = new ArrayList<>(), allweapons = new ArrayList<>();
+	
+	public static Map<AbstractWeaponType, String> weaponToIdMap = new HashMap<>();
+	public static Map<String, AbstractWeaponType> idToWeaponMap = new HashMap<>();
 
 	static {
 		
@@ -195,8 +203,13 @@ public class WeaponType {
 			if (AbstractWeaponType.class.isAssignableFrom(f.getType())) {
 				
 				AbstractWeaponType weapon;
+				
 				try {
 					weapon = ((AbstractWeaponType) f.get(null));
+
+					// I feel like this is stupid :thinking:
+					weaponToIdMap.put(weapon, f.getName());
+					idToWeaponMap.put(f.getName(), weapon);
 					
 					allweapons.add(weapon);
 					

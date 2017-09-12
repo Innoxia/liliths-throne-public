@@ -1474,8 +1474,7 @@ public class Lab {
 						+ "</p>"
 						+ "<p>"
 							+ "[lilaya.speech(So, I've got a deal to make. I only ever use my lab and my bedroom, and as you've probably seen, all the other rooms in this house are left empty and unused."
-								+ " I'm willing to let you use those empty rooms as accommodation for your slaves, but on two conditions."
-								+ " One, you cover the conversion costs for every room you want to use, and two, you either pay a daily upkeep so that I can hire help for Rose, or you assign some of your slaves to help with the cleaning."
+								+ " I'm willing to let you use those empty rooms as accommodation for your slaves, but only on the condition that you either pay a daily upkeep for each room that you use, or you assign some of your slaves to help with the cleaning."
 								+ " Deal?)]"
 						+ "</p>"
 						+ "<p>"
@@ -2577,6 +2576,9 @@ public class Lab {
 					case CAT_MORPH:
 						litterSB.append(" good-looking");
 						break;
+					case COW_MORPH:
+						litterSB.append(" strong");
+						break;
 					case DEMON:
 						litterSB.append(" mischievous");
 						break;
@@ -2618,6 +2620,9 @@ public class Lab {
 						break;
 					case CAT_MORPH:
 						litterSB.append(" good-looking");
+						break;
+					case COW_MORPH:
+						litterSB.append(" strong");
 						break;
 					case DEMON:
 						litterSB.append(" mischievous");
@@ -2661,6 +2666,9 @@ public class Lab {
 					case CAT_MORPH:
 						litterSB.append(" pretty");
 						break;
+					case COW_MORPH:
+						litterSB.append(" docile");
+						break;
 					case DEMON:
 						litterSB.append(" cheeky");
 						break;
@@ -2702,6 +2710,9 @@ public class Lab {
 						break;
 					case CAT_MORPH:
 						litterSB.append(" pretty");
+						break;
+					case COW_MORPH:
+						litterSB.append(" docile");
 						break;
 					case DEMON:
 						litterSB.append(" cheeky");

@@ -145,7 +145,7 @@ public class SexActionRalphDiscount {
 			return "As Ralph finishes dealing with the customer above you, you decide to have a little fun."
 					+ " Pulling back, you gently run your tongue around the flared head of his equine cock, teasing the tip over his bumpy urethra."
 					+ " A slimy stream of saliva and pre-cum drools down from your stretched lips, and you reach up to smear the natural lubricant up and down his shaft, gently stroking his balls as you carry on teasing his head with your tongue."
-					+ " You grin mischievously as you hear Ralph struggling to maintain his composure in front of the customer, and as you hear him tactfully directing the cutomer to look at the other side of the shop,"
+					+ " You grin mischievously as you hear Ralph struggling to maintain his composure in front of the customer, and as you hear him tactfully directing the customer to look at the other side of the shop,"
 					+ " he slams his cock forwards down your throat, letting you know that he's clearly not amused by your little game...";
 		}
 		

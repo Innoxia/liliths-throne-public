@@ -126,6 +126,46 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 				displacementTypesAvailableWithoutNONE.add(bp.displacementType);
 		Collections.sort(displacementTypesAvailableWithoutNONE);
 	}
+	
+	@Override
+	public boolean equals (Object o) { // I know it doesn't include everything, but this should be enough to check for equality.
+		if(super.equals(o)){
+			if(o instanceof AbstractClothingType){
+				if(((AbstractClothingType)o).getName().equals(getName())
+						&& ((AbstractClothingType)o).getPathName().equals(getPathName())
+						&& ((AbstractClothingType)o).getPhysicalResistance() == getPhysicalResistance()
+						&& ((AbstractClothingType)o).getFemininityMaximum() == getFemininityMaximum()
+						&& ((AbstractClothingType)o).getFemininityMinimum() == getFemininityMinimum()
+						&& ((AbstractClothingType)o).getFemininityRestriction() == getFemininityRestriction()
+						&& ((AbstractClothingType)o).getSlot() == getSlot()
+						&& ((AbstractClothingType)o).getAttributeModifiers().equals(getAttributeModifiers())
+						&& ((AbstractClothingType)o).getClothingSet() == getClothingSet()
+						&& ((AbstractClothingType)o).getRarity() == getRarity()
+						){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() { // I know it doesn't include everything, but this should be enough to check for equality.
+		int result = super.hashCode();
+		result = 31 * result + getName().hashCode();
+		result = 31 * result + getPathName().hashCode();
+		result = 31 * result + getPhysicalResistance();
+		result = 31 * result + getFemininityMaximum();
+		result = 31 * result + getFemininityMinimum();
+		if(getFemininityRestriction()!=null)
+			result = 31 * result + getFemininityRestriction().hashCode();
+		result = 31 * result + getAttributeModifiers().hashCode();
+		if(getClothingSet()!=null)
+			result = 31 * result + getClothingSet().hashCode();
+		result = 31 * result + getRarity().hashCode();
+		return result;
+	}
+	
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour colourShade, boolean allowRandomEnchantment) {
 		Colour c = colourShade;
 
@@ -187,6 +227,10 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	 */
 	public static AbstractClothing generateClothingWithEnchantment(AbstractClothingType clothingType) {
 		return AbstractClothingType.generateClothingWithEnchantment(clothingType, clothingType.getAvailableColours().get(Util.random.nextInt(clothingType.getAvailableColours().size())));
+	}
+	
+	public String getId() {
+		return ClothingType.clothingToIdMap.get(this);
 	}
 
 	static Map<ClothingSet, List<AbstractClothingType>> clothingSetMap = new EnumMap<>(ClothingSet.class);

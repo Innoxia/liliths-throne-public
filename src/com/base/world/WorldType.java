@@ -66,8 +66,9 @@ public enum WorldType {
 					new Value<>(new Color(0xffff00), LilayasHome.LILAYA_HOME_BIRTHING_ROOM),
 					new Value<>(new Color(0xff80ff), LilayasHome.LILAYA_HOME_KITCHEN),
 					new Value<>(new Color(0x00ffff), LilayasHome.LILAYA_HOME_LIBRARY),
-					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_ROOM),
-					new Value<>(new Color(0xff0080), LilayasHome.LILAYA_HOME_ROOM_GARDEN),
+//					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_ROOM),
+					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_FOUNTAIN),
+					new Value<>(new Color(0xff0080), LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR),
 					new Value<>(new Color(0xff00ff), LilayasHome.LILAYA_HOME_ROOM_WINDOW),
 					new Value<>(new Color(0x00ff00), LilayasHome.LILAYA_HOME_STAIR_UP)),
 			

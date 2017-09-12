@@ -319,7 +319,7 @@ public class HarpyNestDominant {
 						public void effects() {
 							Main.game.getDialogueFlags().dominantEncountered = true;
 							Main.game.getDialogueFlags().dominantPacified = true;
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MARTRIARCH_DOMINANT_PERFUME), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME), false));
 						}
 						@Override
 						public QuestLine getQuestLine() {
@@ -396,7 +396,7 @@ public class HarpyNestDominant {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().dominantPacified = true;
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MARTRIARCH_DOMINANT_PERFUME), false));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME), false));
 					}
 					@Override
 					public QuestLine getQuestLine() {

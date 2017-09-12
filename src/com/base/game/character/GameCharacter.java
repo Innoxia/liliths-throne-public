@@ -66,6 +66,7 @@ import com.base.game.character.body.valueEnums.EyeShape;
 import com.base.game.character.body.valueEnums.Femininity;
 import com.base.game.character.body.valueEnums.FluidFlavour;
 import com.base.game.character.body.valueEnums.FluidModifier;
+import com.base.game.character.body.valueEnums.GenitalArrangement;
 import com.base.game.character.body.valueEnums.HairLength;
 import com.base.game.character.body.valueEnums.HairStyle;
 import com.base.game.character.body.valueEnums.HipSize;
@@ -442,6 +443,7 @@ public class GameCharacter implements Serializable {
 				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN),
 				new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN),
 				startingBodyType.getBodyMaterial(),
+				startingBodyType.getGenitalArrangement(),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleHeight() : startingBodyType.getMaleHeight()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleFemininity() : startingBodyType.getMaleFemininity()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleBodySize() : startingBodyType.getMaleBodySize()),
@@ -1564,7 +1566,7 @@ public class GameCharacter implements Serializable {
 			
 		} else {
 			pregnancyChance = 0;
-			pregnancyChance += (partner.getAttributeValue(Attribute.VIRILITY)/100f) * partner.getPenisCumProduction().getPregnancyModifer();
+			pregnancyChance += (partner.getAttributeValue(Attribute.VIRILITY)/100f) * partner.getPenisCumProduction().getPregnancyModifier();
 			pregnancyChance += (getAttributeValue(Attribute.FERTILITY)/100f);
 		}
 		
@@ -1635,7 +1637,11 @@ public class GameCharacter implements Serializable {
 	public boolean isPregnant() {
 		return pregnantLitter != null;
 	}
-
+	
+	public boolean isHasAnyPregnancyEffects() {
+		return hasStatusEffect(StatusEffect.PREGNANT_0) || hasStatusEffect(StatusEffect.PREGNANT_1) || hasStatusEffect(StatusEffect.PREGNANT_2) || hasStatusEffect(StatusEffect.PREGNANT_3);
+	}
+	
 	public boolean isVisiblyPregnant() {
 		return pregnantLitter != null && !hasStatusEffect(StatusEffect.PREGNANT_0);
 	}
@@ -2014,8 +2020,7 @@ public class GameCharacter implements Serializable {
 	public String useItem(AbstractItem item, GameCharacter target, boolean removingFromFloor, boolean onlyReturnEffects) {
 		
 		if(ItemType.allItems.contains(item.getItemType()) && isPlayer()) {
-			if(Main.game.getPlayer().getItemsDiscovered().add(item.getItemType())) {
-				Main.game.getPlayer().setNewItemDiscovered(true);
+			if(Main.getProperties().addItemDiscovered(item.getItemType())) {
 				Main.game.getTextEndStringBuilder().append(
 						"<p style='text-align:center;'>"
 							+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
@@ -2307,8 +2312,7 @@ public class GameCharacter implements Serializable {
 			updateInventoryListeners();
 
 			if (isPlayer()) {
-				if (Main.game.getPlayer().getClothingDiscovered().add(newClothing.getClothingType())) {
-					Main.game.getPlayer().setNewClothingDiscovered(true);
+				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
 					Main.game.getTextEndStringBuilder().append(
 							"<p style='text-align:center;'>"
 								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
@@ -2339,8 +2343,7 @@ public class GameCharacter implements Serializable {
 			updateInventoryListeners();
 
 			if (isPlayer()) {
-				if (Main.game.getPlayer().getClothingDiscovered().add(newClothing.getClothingType())) {
-					Main.game.getPlayer().setNewClothingDiscovered(true);
+				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
 					Main.game.getTextEndStringBuilder().append(
 							"<p style='text-align:center;'>"
 								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
@@ -2372,8 +2375,7 @@ public class GameCharacter implements Serializable {
 			updateInventoryListeners();
 
 			if (isPlayer()) {
-				if (Main.game.getPlayer().getClothingDiscovered().add(newClothing.getClothingType())) {
-					Main.game.getPlayer().setNewClothingDiscovered(true);
+				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
 					Main.game.getTextEndStringBuilder().append(
 							"<p style='text-align:center;'>"
 								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
@@ -2894,7 +2896,7 @@ public class GameCharacter implements Serializable {
 	
 	//TODO Improve isFeminine method to take into account knowledge of the character's gender.
 	public boolean isFeminine() {
-		boolean isFeminine = true;
+		boolean isFeminine = body.isFeminine();
 		
 		if(Femininity.valueOf(getFemininity()) == Femininity.ANDROGYNOUS) {
 			switch(Main.getProperties().androgynousIdentification){
@@ -2913,11 +2915,11 @@ public class GameCharacter implements Serializable {
 				default:
 					break;
 			}
-//			System.out.println("fem: "+isFeminine +"   "+getClothingAverageFemininity());
-			return isFeminine;
-		} else {
-			return body.getGender().isFeminine();
 		}
+//		else {
+//			return body.getGender().isFeminine();
+//		}
+		return isFeminine;
 	}
 
 
@@ -3030,6 +3032,8 @@ public class GameCharacter implements Serializable {
 				return BodyCoveringType.BODY_HAIR_ANGEL;
 			case CAT_MORPH:
 				return BodyCoveringType.BODY_HAIR_FELINE_FUR;
+			case COW_MORPH:
+				return BodyCoveringType.BODY_HAIR_BOVINE_FUR;
 			case DEMON:
 				return BodyCoveringType.BODY_HAIR_DEMON;
 			case DOG_MORPH:
@@ -3048,6 +3052,10 @@ public class GameCharacter implements Serializable {
 				return BodyCoveringType.BODY_HAIR_LYCAN_FUR;
 		}
 		return BodyCoveringType.BODY_HAIR_HUMAN;
+	}
+	
+	public BodyCoveringType getBodyHairCoveringType() {
+		return getBodyHairCoveringType(getRace());
 	}
 
 	public RaceStage getRaceStage() {
@@ -3765,8 +3773,11 @@ public class GameCharacter implements Serializable {
 	public boolean hasBreasts() {
 		return body.getBreast().hasBreasts();
 	}
-	public boolean isBreastFuckable() {
+	public boolean isBreastFuckableNipplePenetration() {
 		return body.getBreast().isFuckable();
+	}
+	public boolean isBreastFuckablePaizuri() {
+		return body.getBreast().getRawSizeValue() >= CupSize.C.getMeasurement();
 	}
 	// Type:
 	public BreastType getBreastType() {
@@ -4289,6 +4300,9 @@ public class GameCharacter implements Serializable {
 	}
 	// Facial hair:
 	public BodyHair getFacialHair() {
+		if(isFeminine()) {
+			setFacialHair(BodyHair.NONE);
+		}
 		return body.getFace().getFacialHair();
 	}
 	public Covering getFacialHairType() {
@@ -4378,6 +4392,20 @@ public class GameCharacter implements Serializable {
 	}
 	public String removeFaceOrificeModifier(OrificeModifier modifier) {
 		return body.getFace().getMouth().getOrificeMouth().removeOrificeModifier(this, modifier);
+	}
+	
+	
+	
+	// ------------------------------ Genital arrangement: ------------------------------ //
+	
+	// Type:
+	public GenitalArrangement getGenitalArrangement() {
+		return body.getGenitalArrangement();
+	}
+	public String setGenitalArrangement(GenitalArrangement type) {
+		body.setGenitalArrangement(type);
+		
+		return ""; // TODO
 	}
 	
 	

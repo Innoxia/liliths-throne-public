@@ -17,6 +17,7 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.CharacterInventory;
+import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
@@ -41,7 +42,7 @@ public class Nyan extends NPC {
 			socks = AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false),
 			shoes = AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false);
 
-	private List<AbstractClothing> commonFemaleClothing, commonFemaleLingerie, commonFemaleAccessories,
+	private List<AbstractClothing> commonFemaleClothing, commonFemaleUnderwear, commonFemaleOtherLingerie, commonFemaleAccessories,
 									commonMaleClothing, commonMaleLingerie, commonMaleAccessories,
 									commonAndrogynousClothing, commonAndrogynousLingerie, commonAndrogynousAccessories,
 									specials;
@@ -62,7 +63,8 @@ public class Nyan extends NPC {
 		this.setBreastSize(CupSize.B.getMeasurement());
 		
 		commonFemaleClothing = new ArrayList<>();
-		commonFemaleLingerie = new ArrayList<>();
+		commonFemaleUnderwear = new ArrayList<>();
+		commonFemaleOtherLingerie = new ArrayList<>();
 		commonFemaleAccessories = new ArrayList<>();
 		commonMaleClothing = new ArrayList<>();
 		commonMaleLingerie = new ArrayList<>();
@@ -89,7 +91,8 @@ public class Nyan extends NPC {
 		this.equipClothingFromNowhere(shoes, true, this);
 		
 		commonFemaleClothing.clear();
-		commonFemaleLingerie.clear();
+		commonFemaleUnderwear.clear();
+		commonFemaleOtherLingerie.clear();
 		commonFemaleAccessories.clear();
 		
 		commonMaleClothing.clear();
@@ -110,10 +113,16 @@ public class Nyan extends NPC {
 			commonFemaleClothing.add(AbstractClothingType.generateClothingWithEnchantment(ClothingType.getCommonFemaleClothing().get(Util.random.nextInt(ClothingType.getCommonFemaleClothing().size()))));
 		
 		for(AbstractClothingType ct : ClothingType.getCommonFemaleLingerie()) {
-			commonFemaleLingerie.add(AbstractClothingType.generateClothing(ct, false));
+			if(ct.getSlot() == InventorySlot.GROIN) {
+				commonFemaleUnderwear.add(AbstractClothingType.generateClothing(ct, false));
+			} else {
+				commonFemaleOtherLingerie.add(AbstractClothingType.generateClothing(ct, false));
+			}
 		}
-//		for (int i = 0; i < 1; i++)
-//			commonFemaleLingerie.add(AbstractClothingType.generateClothingWithEnchantment(ClothingType.getCommonFemaleLingerie().get(Util.random.nextInt(ClothingType.getCommonFemaleLingerie().size()))));
+		for (int i = 0; i < 4; i++) {
+			commonFemaleUnderwear.add(AbstractClothingType.generateClothingWithEnchantment(commonFemaleUnderwear.get(Util.random.nextInt(commonFemaleUnderwear.size())).getClothingType()));
+			commonFemaleOtherLingerie.add(AbstractClothingType.generateClothingWithEnchantment(commonFemaleOtherLingerie.get(Util.random.nextInt(commonFemaleOtherLingerie.size())).getClothingType()));
+		}
 		
 		for(AbstractClothingType ct : ClothingType.getCommonFemaleAccessories()) {
 			commonFemaleAccessories.add(AbstractClothingType.generateClothing(ct, false));
@@ -167,6 +176,7 @@ public class Nyan extends NPC {
 		specials.add(AbstractClothingType.generateClothing(ClothingType.HAND_RAINBOW_FINGERLESS_GLOVES));
 
 		specials.add(AbstractClothingType.generateClothing(ClothingType.MILK_MAID_KERCHIEF));
+		specials.add(AbstractClothingType.generateClothing(ClothingType.MILK_MAID_HEADBAND));
 		specials.add(AbstractClothingType.generateClothing(ClothingType.MILK_MAID_TORSO_DRESS));
 
 		specials.add(AbstractClothingType.generateClothing(ClothingType.MAID_DRESS));
@@ -180,7 +190,10 @@ public class Nyan extends NPC {
 		for(AbstractClothing c : commonFemaleClothing) {
 			c.setEnchantmentKnown(true);
 		}
-		for(AbstractClothing c : commonFemaleLingerie) {
+		for(AbstractClothing c : commonFemaleUnderwear) {
+			c.setEnchantmentKnown(true);
+		}
+		for(AbstractClothing c : commonFemaleOtherLingerie) {
 			c.setEnchantmentKnown(true);
 		}
 		for(AbstractClothing c : commonFemaleAccessories) {
@@ -208,7 +221,8 @@ public class Nyan extends NPC {
 	
 	public void removeClothingFromLists(AbstractClothing clothing){
 		commonFemaleClothing.remove(clothing);
-		commonFemaleLingerie.remove(clothing);
+		commonFemaleUnderwear.remove(clothing);
+		commonFemaleOtherLingerie.remove(clothing);
 		commonFemaleAccessories.remove(clothing);
 		
 		commonMaleClothing.remove(clothing);
@@ -259,8 +273,12 @@ public class Nyan extends NPC {
 		return commonFemaleClothing;
 	}
 
-	public List<AbstractClothing> getCommonFemaleLingerie() {
-		return commonFemaleLingerie;
+	public List<AbstractClothing> getCommonFemaleUnderwear() {
+		return commonFemaleUnderwear;
+	}
+	
+	public List<AbstractClothing> getCommonFemaleOtherLingerie() {
+		return commonFemaleOtherLingerie;
 	}
 
 	public List<AbstractClothing> getCommonFemaleAccessories() {

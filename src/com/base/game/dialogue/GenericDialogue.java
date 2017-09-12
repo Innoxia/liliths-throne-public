@@ -42,7 +42,7 @@ import com.base.utils.Util;
  * @author Innoxia
  */
 public class GenericDialogue {
-	// Holds all basic DalogueNodes that don't belong to a specific
+	// Holds all basic DialogueNodes that don't belong to a specific
 	// NPC/Dungeon/Event
 
 	public static DialogueNodeOld getDefaultDialogue() {
@@ -1043,7 +1043,7 @@ public class GenericDialogue {
 					+ "</p>"
 					
 					+"<p>"
-					+ "<b>Command modifer (a_ an_)</b></br>"
+					+ "<b>Command modifier (a_ an_)</b></br>"
 					+"You may insert 'a_' or 'an_' to automatically generate the appropriate pronoun before an argument. (It's your choice if you prefer a_ or an_, they both work in exactly the same way.)</br>"
 					+"e.g.:</br>"
 					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>height</i>] outputs 'tall'</br>"
@@ -1058,7 +1058,7 @@ public class GenericDialogue {
 					+ "</p>"
 					
 					+"<p>"
-					+ "<b>Command modifer (Capitalisation)</b></br>"
+					+ "<b>Command modifier (Capitalisation)</b></br>"
 					+"Most commands are able to apply capitalisation. The ones that don't, such as numeric output commands, will still happily take a capitalised command, but capitalisation won't be applied.</br>"
 					+ "To capitalise an output, all you have to do is capitalise <b>the first letter</b> of the command name.</br>"
 					+"e.g.:</br>"
@@ -1070,7 +1070,7 @@ public class GenericDialogue {
 					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>a_Height</i>] <b>also</b> outputs 'A tall'</br></br>"
 					
 					+"<p>"
-					+ "<b>Command modifer (+ D)</b></br>"
+					+ "<b>Command modifier (+ D)</b></br>"
 					+"Most commands that return a name are able to apply additional <b>randomised descriptors</b>. (You can check to see what commands accept '+' and 'D' modifiers in the 'Commands' page.)</br>"
 					+ "To apply additional descriptors to the returned output, all you have to do is add a '+', 'd', or 'D' to the end of the command.</br>"
 					+ "<b>This works in combination with 'a_ an_' and 'Capitalisation' modifiers.</b></br>"

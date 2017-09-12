@@ -35,7 +35,7 @@ public class Library {
 		@Override
 		public Response getResponse(int main) {
 			if (main == 1) {
-				return new Response("Browse the Stacks", "Read one of the many books available in the library.", BROWSE_BOOKS) {
+				return new Response("Browse the Shelves", "Read one of the many books available in the library.", BROWSE_BOOKS) {
 				};
 
 			} else if (main == 2) {
@@ -126,6 +126,7 @@ public class Library {
 		}
 
 		@Override
+
 		public Response getResponse(int lore) {
 			if (lore == 1) {
 				return new Response("Arcane Arousal", "A leather-bound tome that seems to offer an insight into how the arcane works.", ARCANE_AROUSAL) {
@@ -160,7 +161,7 @@ public class Library {
 				};
 
 			} else if (lore == 0) {
-				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
+				return new Response("Back", "Return to browsing the shelves.", BROWSE_BOOKS);
 
 			} else {
 				return null;
@@ -307,6 +308,7 @@ public class Library {
 		@Override
 		public String getContent() {
 			return "<p>"
+
 						+ "Walking down one of the aisles, you find yourself surrounded by heavy wooden shelves, fastened together by prominent beams of iron and steel."
 						+ " A lot of the books here seem to be about local history of Dominion's many districts, and, while fascinating for a historian, they don't offer much use to you."
 						+ " Despite most of the books not being worth your time, there are a few here and there that detail the many races found within the city, and you wonder if you should give them a read..."
@@ -338,8 +340,7 @@ public class Library {
 				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
 
 			} else if (city == 0) {
-				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
-
+				return new Response("Back", "Return to browsing the shelves.", BROWSE_BOOKS);
 			} else {
 				return null;
 			}
@@ -375,11 +376,12 @@ public class Library {
 			if (field == 1) {
 				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
 
-//			} else if (field == 2) {
-//				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
+			} else if (field == 2) {
+				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
 
 			}  else if (field == 0) {
-				return new Response("Back to the shelves", "Return to strolling the stacks.", BROWSE_BOOKS);
+				return new Response("Back to the shelves", "Return to strolling the shelves.", BROWSE_BOOKS);
+
 
 			} else {
 				return null;
@@ -388,6 +390,7 @@ public class Library {
 	
 	};
 	
+
 //	public static final DialogueNodeOld SEA_BOOKS = new DialogueNodeOld("", "", false) {
 //		/**
 //		 */
@@ -500,7 +503,7 @@ public class Library {
 //	};
 	
 	private static Response bookResponse(AbstractItemType book, Race race) {
-		if(Main.game.getPlayer().getRacesAdvancedKnowledge().contains(race)) {
+		if(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(race)) {
 			return new Response(book.getName(false), book.getDescription(), LIBRARY) {
 				@Override
 				public void effects() {

@@ -101,4 +101,8 @@ public abstract class DialogueNodeOld implements Serializable {
 	public boolean disableHeaderParsing() {
 		return false;
 	}
+	
+	public boolean reloadOnRestore() {
+		return false;
+	}
 }

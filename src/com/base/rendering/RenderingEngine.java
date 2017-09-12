@@ -1036,10 +1036,10 @@ public enum RenderingEngine {
 							Main.game.getPlayer().isMainQuestUpdated()
 							|| Main.game.getPlayer().isSideQuestUpdated()
 							|| Main.game.getPlayer().isRomanceQuestUpdated()
-							|| Main.game.getPlayer().isNewWeaponDiscovered()
-							|| Main.game.getPlayer().isNewClothingDiscovered()
-							|| Main.game.getPlayer().isNewItemDiscovered()
-							|| Main.game.getPlayer().isNewRaceDiscovered()
+							|| Main.getProperties().isNewWeaponDiscovered()
+							|| Main.getProperties().isNewClothingDiscovered()
+							|| Main.getProperties().isNewItemDiscovered()
+							|| Main.getProperties().isNewRaceDiscovered()
 							|| Main.game.getPlayer().getPerkPoints()>0
 							|| (Main.game.getPlayer().getLevelUpPoints()>0
 									&& (Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH) + Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE) + Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS))<300)

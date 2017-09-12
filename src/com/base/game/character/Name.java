@@ -113,6 +113,8 @@ public enum Name {
 				break;
 			case CAT_MORPH:
 				break;
+			case COW_MORPH:
+				break;
 			case DEMON:
 				break;
 			case DOG_MORPH:
@@ -147,6 +149,8 @@ public enum Name {
 			case ANGEL:
 				break;
 			case CAT_MORPH:
+				break;
+			case COW_MORPH:
 				break;
 			case DEMON:
 				break;

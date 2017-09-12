@@ -150,6 +150,19 @@ public class Hair implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case COW_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair.</br>"
+								+ "You now have [pc.hairColour] [style.boldCowMorph(bovine hair)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.</br>"
+								+ "[npc.Name] now has [npc.hairColour] [style.boldCowMorph(bovine hair)]."
+							+ "</p>");
+				}
+				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -317,6 +330,24 @@ public class Hair implements BodyPartInterface, Serializable {
 					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now wavy.</p>";
 				} else {
 					return UtilText.parse(owner, "<p>[npc.Name]'s [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now wavy.</p>");
+				}
+			case MOHAWK:
+				if(owner.isPlayer()) {
+					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a mohawk.</p>";
+				} else {
+					return UtilText.parse(owner, "<p>[npc.Name]'s [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a mohawk.</p>");
+				}
+			case AFRO:
+				if(owner.isPlayer()) {
+					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into an afro.</p>";
+				} else {
+					return UtilText.parse(owner, "<p>[npc.Name]'s [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into an afro.</p>");
+				}
+			case SIDECUT:
+				if(owner.isPlayer()) {
+					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a sidecut.</p>";
+				} else {
+					return UtilText.parse(owner, "<p>[npc.Name]'s [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a sidecut.</p>");
 				}
 		}
 		

@@ -488,6 +488,23 @@ public class UtilText {
 		return descriptionSB.toString();
 	}
 	
+	public static String formatAsMoney(int money) {
+		return formatAsMoney(money, "b");
+	}
+	
+	public static String getColouredMoneySymbol(String tag) {
+		return "<" + tag + " style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</" + tag + ">";
+	}
+	
+	public static String formatAsMoney(int money, String tag) {
+		return "<" + tag + " style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</" + tag + "> <" + tag + ">" + money + "</" + tag + ">";
+	}
+	
+	public static String formatAsItemPrice(int money) {
+		String tag = "b";
+		return "<" + tag + " style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</" + tag + "><" + tag + ">" + money + "</" + tag + ">";
+	}
+	
 	public static String formatVirginityLoss(String s) {
 		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'><i>"+s+"</i></p>";
 	}
@@ -3387,6 +3404,9 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+					return "";
+				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
 						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getFullDescription(character, true);
@@ -3405,6 +3425,9 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+					return "";
+				}
 				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getFullDescription(character, true);
 			}
 		});
@@ -3418,6 +3441,9 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+					return "";
+				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
 						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getColourDescriptor(true);
@@ -3436,6 +3462,9 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+					return "";
+				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
 						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getPrimaryColourDescriptor(true);
@@ -3454,6 +3483,9 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+					return "";
+				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
 						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getSecondaryColourDescriptor(true);
@@ -3472,6 +3504,9 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+					return "";
+				}
 				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getPrimaryColour().toWebHexString();
 			}
 		});

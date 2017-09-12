@@ -25,6 +25,8 @@ public enum BreastType implements BodyPartTypeInterface {
 	
 	WOLF_MORPH(NippleType.WOLF_MORPH, FluidType.MILK_WOLF_MORPH, BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
 	
+	COW_MORPH(NippleType.COW_MORPH, FluidType.MILK_COW_MORPH, BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
+	
 	CAT_MORPH(NippleType.CAT_MORPH, FluidType.MILK_CAT_MORPH, BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 	
 	SQUIRREL_MORPH(NippleType.SQUIRREL_MORPH, FluidType.MILK_SQUIRREL_MORPH, BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.base.game.character.CharacterUtils;
@@ -12,10 +13,50 @@ import com.base.game.character.GameCharacter;
 import com.base.game.character.NameTriplet;
 import com.base.game.character.SexualOrientation;
 import com.base.game.character.attributes.AffectionLevel;
+import com.base.game.character.attributes.Attribute;
+import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.attributes.ObedienceLevel;
+import com.base.game.character.body.Arm;
+import com.base.game.character.body.Ass;
+import com.base.game.character.body.Body;
+import com.base.game.character.body.Breast;
+import com.base.game.character.body.Ear;
+import com.base.game.character.body.Eye;
+import com.base.game.character.body.Face;
+import com.base.game.character.body.Hair;
+import com.base.game.character.body.Horn;
+import com.base.game.character.body.Leg;
+import com.base.game.character.body.Penis;
+import com.base.game.character.body.Skin;
+import com.base.game.character.body.Tail;
+import com.base.game.character.body.Vagina;
+import com.base.game.character.body.Wing;
+import com.base.game.character.body.types.ArmType;
+import com.base.game.character.body.types.AssType;
+import com.base.game.character.body.types.BreastType;
+import com.base.game.character.body.types.EarType;
+import com.base.game.character.body.types.EyeType;
+import com.base.game.character.body.types.FaceType;
+import com.base.game.character.body.types.HairType;
+import com.base.game.character.body.types.HornType;
+import com.base.game.character.body.types.LegType;
+import com.base.game.character.body.types.PenisType;
+import com.base.game.character.body.types.SkinType;
+import com.base.game.character.body.types.TailType;
 import com.base.game.character.body.types.VaginaType;
+import com.base.game.character.body.types.WingType;
+import com.base.game.character.body.valueEnums.AssSize;
+import com.base.game.character.body.valueEnums.CumProduction;
 import com.base.game.character.body.valueEnums.CupSize;
+import com.base.game.character.body.valueEnums.Femininity;
+import com.base.game.character.body.valueEnums.HairLength;
+import com.base.game.character.body.valueEnums.HairStyle;
+import com.base.game.character.body.valueEnums.HipSize;
+import com.base.game.character.body.valueEnums.LipSize;
+import com.base.game.character.body.valueEnums.OrificeModifier;
 import com.base.game.character.body.valueEnums.PenisSize;
+import com.base.game.character.body.valueEnums.TesticleSize;
+import com.base.game.character.body.valueEnums.Wetness;
 import com.base.game.character.effects.Fetish;
 import com.base.game.character.effects.StatusEffect;
 import com.base.game.character.gender.Gender;
@@ -30,9 +71,13 @@ import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.clothing.CoverableArea;
+import com.base.game.inventory.enchanting.EnchantingUtils;
 import com.base.game.inventory.enchanting.TFEssence;
+import com.base.game.inventory.enchanting.TFModifier;
+import com.base.game.inventory.enchanting.TFPotency;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.item.AbstractItemType;
+import com.base.game.inventory.item.ItemEffect;
 import com.base.game.inventory.item.ItemType;
 import com.base.game.sex.LubricationType;
 import com.base.game.sex.OrificeType;
@@ -51,7 +96,7 @@ import com.base.world.places.PlaceInterface;
 
 /**
  * @since 0.1.0
- * @version 0.1.82
+ * @version 0.1.84
  * @author Innoxia
  */
 public abstract class NPC extends GameCharacter {
@@ -66,6 +111,8 @@ public abstract class NPC extends GameCharacter {
 	protected boolean knowsPlayerGender = false, addedToContacts, reactedToPregnancy, pendingClothingDressing;
 	
 	protected Set<SexPosition> sexPositionPreferences;
+	
+	protected Body bodyPreference = null;
 	
 	// Relationship stats:
 	private Map<GameCharacter, Integer> relationships;
@@ -206,6 +253,8 @@ public abstract class NPC extends GameCharacter {
 			switch(getRace()) {
 				case CAT_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_FELINE_FANCY)));
+				case COW_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BUBBLE_MILK)));
 				case DOG_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_CANINE_CRUSH)));
 				case HORSE_MORPH:
@@ -226,10 +275,13 @@ public abstract class NPC extends GameCharacter {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)));
 			}
 			
-		} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesAdvancedKnowledge().contains(getRace())) {
+		} else if(rnd <= 0.8 && !Main.getProperties().isRaceDiscovered(getRace())) {
 			switch(getRace()) {
 				case CAT_MORPH:
+
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_CAT_MORPH)));
+				case COW_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_COW_MORPH)));
 				case DOG_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_DOG_MORPH)));
 				case HORSE_MORPH:
@@ -254,6 +306,8 @@ public abstract class NPC extends GameCharacter {
 			switch(getRace()) {
 				case CAT_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_CAT_MORPH)));
+				case COW_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_COW_MORPH)));
 				case DOG_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_DOG_MORPH)));
 				case HORSE_MORPH:
@@ -291,7 +345,7 @@ public abstract class NPC extends GameCharacter {
 		return relationships;
 	}
 	
-	public int getRelationshipAffection(GameCharacter character) {
+	public int getAffection(GameCharacter character) {
 		if(relationships.containsKey(character)) {
 			return relationships.get(character);
 		} else {
@@ -300,16 +354,12 @@ public abstract class NPC extends GameCharacter {
 		}
 	}
 	
-	public AffectionLevel getRelationshipAffectionLevel(GameCharacter character) {
+	public AffectionLevel getAffectionLevel(GameCharacter character) {
 		if(relationships.containsKey(character)) {
 			return AffectionLevel.getAffectionLevelFromValue(relationships.get(character));
 		} else {
 			return AffectionLevel.getAffectionLevelFromValue(0);
 		}
-	}
-	
-	public void addRelationship(GameCharacter character, int affection) {
-		relationships.put(character, affection);
 	}
 	
 	/**
@@ -319,16 +369,9 @@ public abstract class NPC extends GameCharacter {
 	 * @param affection
 	 * @return
 	 */
-	public String setRelationshipAffection(GameCharacter character, int affection) {
-		if(affection>100) {
-			relationships.put(character, 100);
-			
-		} else if (affection<-100) {
-			relationships.put(character, -100);
-			
-		} else {
-			relationships.put(character, affection);
-		}
+	public String setAffection(GameCharacter character, int affection) {
+		
+		relationships.put(character, Math.max(-100, Math.min(100, affection)));
 		
 		if(character.isPlayer()) {
 			return UtilText.parse(this,
@@ -353,22 +396,14 @@ public abstract class NPC extends GameCharacter {
 	 * @param affectionIncrement
 	 * @return
 	 */
-	public String incrementRelationshipAffection(GameCharacter character, int affectionIncrement) {
-		if(character.isPlayer()) {
-			return UtilText.parse(character,
-					"<p style='text-align:center'>"
-							+ getName("The")+" "+(affectionIncrement>0?"gains":"loses")+" <b>"+(affectionIncrement>=0?"+":"")+affectionIncrement+"</b> [style.boldAffection(affection)] towards you!"
-						+ "</p>")
-					+setRelationshipAffection(character, getRelationshipAffection(character) + affectionIncrement);
+	public String incrementAffection(GameCharacter character, int affectionIncrement) {
+		setAffection(character, getAffection(character) + affectionIncrement);
+		
+		return UtilText.parse(character,
+				"<p style='text-align:center'>"
+						+ getName("The") + " "+(affectionIncrement>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(affectionIncrement)+"</b> [style.boldAffection(affection)] towards "+(character.isPlayer()?"you":"[npc.name]")+"!"
+					+ "</p>");
 			
-			
-		} else {
-			return UtilText.parse(character,
-					"<p style='text-align:center'>"
-							+ getName("The")+" "+(affectionIncrement>0?"gains":"loses")+" <b>"+(affectionIncrement>=0?"+":"")+affectionIncrement+"</b> [style.boldAffection(affection)] towards [npc.name]!"
-						+ "</p>")
-					+setRelationshipAffection(character, getRelationshipAffection(character) + affectionIncrement);
-		}
 	}
 	
 	// Obedience:
@@ -378,14 +413,8 @@ public abstract class NPC extends GameCharacter {
 	}
 
 	public String setObedience(int obedience) {
-		this.obedience = obedience;
 		
-		if(getObedience() > 100) {
-			this.obedience = 100;
-			
-		} else if(getObedience() < -100) {
-			this.obedience = -100;
-		}
+		this.obedience = Math.max(-100, Math.min(100, obedience));
 		
 		return UtilText.parse(this,
 					"<p style='text-align:center'>"
@@ -396,11 +425,12 @@ public abstract class NPC extends GameCharacter {
 	
 	public String incrementObedience(int increment) {
 		
+		setObedience(getObedience()+increment);
+		
 		return UtilText.parse(this,
 				"<p style='text-align:center'>"
-						+ "[npc.Name] "+(increment>0?"gains":"loses")+" <b>"+(increment>=0?"+":"")+increment+"</b> [style.boldObedience(obedience)]!"
-					+ "</p>")
-				+setObedience(getObedience()+increment);
+						+ "[npc.Name] "+(increment>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!"
+					+ "</p>");
 	}
 	
 	
@@ -442,6 +472,535 @@ public abstract class NPC extends GameCharacter {
 
 	public boolean isAddedToContacts() {
 		return addedToContacts;
+	}
+	
+	public Body getPreferredBody() {
+		if(bodyPreference == null) {
+			regenerateBodyPreference();
+		}
+		
+		return bodyPreference;
+	}
+	
+	public void regenerateBodyPreference() {
+		bodyPreference = generatePreferredBody();
+	}
+	
+	/**
+	 * Example return value: ["Let's give you bigger breasts!", AbstractItem]
+	 * @return NPC's speech as a reaction to giving you this potion, along with the potion itself.
+	 */
+	public Value<String, AbstractItem> generateTransformativePotion() {
+		
+		/* TODO
+		 * Body Size
+		 * Muscle mass
+		 * Penis modifiers
+		 * Vagina modifiers
+		 * Throat modifiers
+		 */
+		
+		
+		AbstractItemType itemType = ItemType.RACE_INGREDIENT_HUMAN;
+		String reaction = "Time to transform you!", raceName = "human";
+		
+		if (getPreferredBody().getGender().isFeminine()) {
+			raceName = getPreferredBody().getRace().getSingularFemaleName();
+		} else {
+			raceName = getPreferredBody().getRace().getSingularMaleName();
+		}
+		
+		switch(getPreferredBody().getRace()) {
+			case CAT_MORPH:
+				itemType = ItemType.RACE_INGREDIENT_CAT_MORPH;
+				reaction = "Time to turn you into a cute little "+raceName+"!";
+				break;
+			case DOG_MORPH:
+				itemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
+				reaction = "Time to turn you into an excitable little "+raceName+"!";
+				break;
+			case HARPY:
+				itemType = ItemType.RACE_INGREDIENT_HARPY;
+				reaction = "Time to turn you into a hot little "+raceName+"!";
+				break;
+			case HORSE_MORPH:
+				itemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
+				if (getPreferredBody().getGender().isFeminine()) {
+					reaction = "Time to turn you into my little mare!";
+				} else {
+					reaction = "Time to turn you into my very own stallion!";
+				}
+				break;
+			case SQUIRREL_MORPH:
+				itemType = ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
+				reaction = "Time to turn you into a cute little "+raceName+"!";
+				break;
+			case WOLF_MORPH:
+				itemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
+				reaction = "Time to turn you into a "+raceName+"!";
+				break;
+			default:
+				itemType = ItemType.RACE_INGREDIENT_HUMAN;
+				break;
+		}
+		
+		Map<ItemEffect, String> possibleEffects = new HashMap<>();
+		
+		// Order of transformation preferences are: Sexual organs -> minor parts -> Legs & arms -> Face & skin 
+
+		// Sexual transformations:
+		if(!Main.game.getPlayer().isHasAnyPregnancyEffects()) { // Vagina cannot be transformed if pregnant, so skip this
+			if(Main.game.getPlayer().getVaginaType() != getPreferredBody().getVagina().getType()) {
+				if(getPreferredBody().getVagina().getType() == VaginaType.NONE) {
+					if(Main.game.getPlayer().getVaginaRawCapacityValue() > 1) {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_CAPACITY, TFPotency.DRAIN, 1), "Let's get to work on getting rid of that little cunt of yours!");
+					} else {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that tight little cunt of yours!");
+					}
+				} else {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
+				}
+			}
+		}
+		if(Main.game.getPlayer().getPenisType() != getPreferredBody().getPenis().getType()) {
+			if(getPreferredBody().getPenis().getType() == PenisType.NONE) {
+				if(Main.game.getPlayer().getPenisRawSizeValue() > 1) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1), "Let's get to work on getting rid of that cock of yours!");
+				} else {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that pathetic little cock of yours!");
+				}
+			} else {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getPenis().getName(Main.game.getPlayer(), false)+"!");
+			}
+		}
+		// All minor part transformations:
+		if(possibleEffects.isEmpty() || Math.random()>0.33f) {
+			if(Main.game.getPlayer().getAntennaType() != getPreferredBody().getAntenna().getType()) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ANTENNA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			}
+			if(Main.game.getPlayer().getAssType() != getPreferredBody().getAss().getType()) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			}
+			if(Main.game.getPlayer().getBreastType() != getPreferredBody().getBreast().getType()) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			}
+			if(Main.game.getPlayer().getEarType() != getPreferredBody().getEar().getType()) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EARS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			}
+			if(Main.game.getPlayer().getEyeType() != getPreferredBody().getEye().getType()) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EYES, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			}
+			if(Main.game.getPlayer().getHairType() != getPreferredBody().getHair().getType()) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			}
+			if(Main.game.getPlayer().getHornType() != getPreferredBody().getHorn().getType()) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HORNS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			}
+			if(Main.game.getPlayer().getTailType() != getPreferredBody().getTail().getType()) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_TAIL, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			}
+			if(Main.game.getPlayer().getWingType() != getPreferredBody().getWing().getType()) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_WINGS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			}
+		}
+		// Leg & Arm transformations:
+		if(possibleEffects.isEmpty()) {
+			if(Main.game.getPlayer().getArmType() != getPreferredBody().getArm().getType()) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ARMS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			}
+			if(Main.game.getPlayer().getLegType() != getPreferredBody().getLeg().getType()) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_LEGS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			}
+		}
+		// Face & Skin transformations:
+		if(possibleEffects.isEmpty()) {
+			if(Main.game.getPlayer().getSkinType() != getPreferredBody().getSkin().getType()) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_SKIN, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			}
+			if(Main.game.getPlayer().getFaceType() != getPreferredBody().getFace().getType()) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			}
+		}
+		
+		// 50% chance of type TF:
+		if(Math.random()<0.5f && !possibleEffects.isEmpty()) {
+			List<ItemEffect> keysAsArray = new ArrayList<>(possibleEffects.keySet());
+			ItemEffect effect = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
+			
+			return new Value<>(
+					possibleEffects.get(effect),
+					EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), Util.newArrayListOfValues(new ListValue<>(effect))));
+		}
+		
+		
+		// Other transformations:
+		
+		// Femininity:
+		if(Main.game.getPlayer().getFemininity() < getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininity()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.BOOST, 1), "I'm gonna need you to be more feminine!");
+			
+		} else if(Main.game.getPlayer().getFemininity() > getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininity()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.DRAIN, 1), "I'm gonna need you to be more of a man!");
+		}
+		
+		// Height:
+		if(Main.game.getPlayer().getHeight() < getPreferredBody().getHeight() && (getPreferredBody().getHeight() - Main.game.getPlayer().getHeight() > 5)) {
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1), "Let's make you a little taller!");
+			
+		} else if(Main.game.getPlayer().getHeight() > getPreferredBody().getHeight() && (Main.game.getPlayer().getHeight() - getPreferredBody().getHeight() > 5)) {
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1), "Let's make you a little shorter!");
+		}
+		
+		// Breast size:
+		if(Main.game.getPlayer().getBreastSize().getMeasurement() < getPreferredBody().getBreast().getSize().getMeasurement()) {
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_BOOST, 1), "Your breasts need to be bigger!");
+			
+		} else if(Main.game.getPlayer().getBreastSize().getMeasurement() > getPreferredBody().getBreast().getSize().getMeasurement()) {
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1), "Your breasts are too big!");
+		}
+		
+		// Ass size:
+		if(Main.game.getPlayer().getAssSize().getValue() < getPreferredBody().getAss().getAssSize().getValue()) {
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_BOOST, 1), "Your ass needs to be bigger");
+			
+		} else if(Main.game.getPlayer().getAssSize().getValue() > getPreferredBody().getAss().getAssSize().getValue()) {
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1), "Your ass is too big!");
+		}
+		
+		// Hip size:
+		if(Main.game.getPlayer().getHipSize().getValue() < getPreferredBody().getAss().getHipSize().getValue()) {
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_BOOST, 1), "Your hips need to be wider!");
+			
+		} else if(Main.game.getPlayer().getHipSize().getValue() > getPreferredBody().getAss().getHipSize().getValue()) {
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_DRAIN, 1), "Your hips are too wide!");
+		}
+		
+
+		if(Main.game.getPlayer().getPenisType() != PenisType.NONE && getPreferredBody().getPenis().getType() != PenisType.NONE) {
+			// Penis size:
+			if(Main.game.getPlayer().getPenisRawSizeValue() < getPreferredBody().getPenis().getRawSizeValue()) {
+				if(getPreferredBody().getPenis().getRawSizeValue() - Main.game.getPlayer().getPenisRawSizeValue() > 5) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1), "Your cock needs to be a lot bigger!");
+				} else {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_BOOST, 1), "Your cock needs to be a little bigger!");
+				}
+				
+			} else if(Main.game.getPlayer().getPenisRawSizeValue() > getPreferredBody().getPenis().getRawSizeValue()) {
+				if(Main.game.getPlayer().getPenisRawSizeValue() - getPreferredBody().getPenis().getRawSizeValue() > 5) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1), "Your cock needs to be a lot smaller!");
+				} else {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1), "Your cock needs to be a little smaller!");
+				}
+			}
+		}
+		
+		if(Main.game.getPlayer().getVaginaType() != VaginaType.NONE && getPreferredBody().getVagina().getType() != VaginaType.NONE) {
+			// Vagina wetness:
+			if(Main.game.getPlayer().getVaginaWetness().getValue() < getPreferredBody().getVagina().getOrificeVagina().getWetness(Main.game.getGenericAndrogynousNPC()).getValue()) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_BOOST, 1), "Your pussy isn't wet enough!");
+			}
+		}
+		
+		// Hair length:
+		if(Main.game.getPlayer().getHairRawLengthValue() < getPreferredBody().getHair().getRawLengthValue() && (getPreferredBody().getHair().getRawLengthValue() - Main.game.getPlayer().getHairRawLengthValue() > 5)) {
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1), "Your [pc.hair] "+(Main.game.getPlayer().getHairType().isDefaultPlural()?"are":"is")+" too short!");
+			
+		} else if(Main.game.getPlayer().getHairRawLengthValue() > getPreferredBody().getHair().getRawLengthValue() && (Main.game.getPlayer().getHairRawLengthValue() - getPreferredBody().getHair().getRawLengthValue() > 5)) {
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1), "Your [pc.hair] "+(Main.game.getPlayer().getHairType().isDefaultPlural()?"are":"is")+" too long!");
+		}
+		
+		// Lip size:
+		if(Main.game.getPlayer().getLipSize().getValue() < getPreferredBody().getFace().getMouth().getLipSize().getValue()) {
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_BOOST, 1), "Your [pc.lips] are too small!");
+			
+		} else if(Main.game.getPlayer().getLipSize().getValue() > getPreferredBody().getFace().getMouth().getLipSize().getValue()) {
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1), "Your [pc.lips] are too big!");
+		}
+		
+		if(possibleEffects.isEmpty()) {
+			return null;
+		}
+		
+		List<ItemEffect> keysAsArray = new ArrayList<>(possibleEffects.keySet());
+		ItemEffect effect = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
+		
+		return new Value<>(
+				possibleEffects.get(effect),
+				EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), Util.newArrayListOfValues(new ListValue<>(effect))));
+	}
+	
+	private Body generatePreferredBody() {
+		
+		// Preferred gender:
+		
+		Gender preferredGender = Gender.FUTANARI;
+		Map<Gender, Integer> desiredGenders = new HashMap<>();
+		
+		switch(this.getSexualOrientation()) {
+			case AMBIPHILIC:
+				if(Main.game.getPlayer().isFeminine()) {
+					desiredGenders.put(Gender.FEMALE, 7);
+					desiredGenders.put(Gender.FUTANARI, 2);
+					desiredGenders.put(Gender.SHEMALE, 1);
+				} else {
+					desiredGenders.put(Gender.MALE, 7);
+					desiredGenders.put(Gender.HERMAPHRODITE, 2);
+					desiredGenders.put(Gender.CUNT_BOY, 1);
+				}
+				break;
+			case ANDROPHILIC:
+				desiredGenders.put(Gender.MALE, 7);
+				desiredGenders.put(Gender.HERMAPHRODITE, 2);
+				desiredGenders.put(Gender.CUNT_BOY, 1);
+				break;
+			case GYNEPHILIC:
+				desiredGenders.put(Gender.FEMALE, 7);
+				desiredGenders.put(Gender.FUTANARI, 2);
+				desiredGenders.put(Gender.SHEMALE, 1);
+				break;
+		}
+		
+		int total = 0;
+		for(Entry<Gender, Integer> entry : desiredGenders.entrySet()) {
+			total+=entry.getValue();
+		}
+		int count = Util.random.nextInt(total)+1;
+		total = 0;
+		for(Entry<Gender, Integer> entry : desiredGenders.entrySet()) {
+			if(total < count && total+entry.getValue()>= count) {
+				preferredGender = entry.getKey();
+				break;
+			}
+			total+=entry.getValue();
+		}
+		
+		
+		// Preferred race:
+		
+		Race race = getRace();
+		
+		// Chance for predator races to prefer prey races:
+		if(getRace()==Race.CAT_MORPH && Math.random()>0.6f) {
+			race = Race.HARPY;
+		}
+		if((getRace()==Race.WOLF_MORPH || getRace()==Race.DOG_MORPH) && Math.random()>0.6f) {
+			List<Race> availableRaces = new ArrayList<>();
+			availableRaces.add(Race.CAT_MORPH);
+			availableRaces.add(Race.HARPY);
+			availableRaces.add(Race.SQUIRREL_MORPH);
+			race = availableRaces.get(Util.random.nextInt(availableRaces.size()));
+		}
+		
+		// Chance for race to be random:
+		if(Math.random()>0.85f) {
+			List<Race> availableRaces = new ArrayList<>();
+			availableRaces.add(Race.CAT_MORPH);
+			availableRaces.add(Race.DOG_MORPH);
+			availableRaces.add(Race.HARPY);
+			availableRaces.add(Race.HORSE_MORPH);
+			availableRaces.add(Race.HUMAN);
+			availableRaces.add(Race.SQUIRREL_MORPH);
+			availableRaces.add(Race.WOLF_MORPH);
+			race = availableRaces.get(Util.random.nextInt(availableRaces.size()));
+		}
+		
+		RacialBody startingBodyType = RacialBody.valueOfRace(race);
+		
+		
+		// Preferred race stage:
+		
+		RaceStage stage = getRaceStage();
+		
+		if(preferredGender.isFeminine()) {
+			switch(Main.getProperties().raceFemininePreferencesMap.get(race)) {
+				case HUMAN:
+					stage = RaceStage.HUMAN;
+					break;
+				case MAXIMUM:
+					stage = RaceStage.GREATER;
+					break;
+				case MINIMUM:
+					stage = RaceStage.PARTIAL_FULL;
+					break;
+				case NORMAL:
+					stage = RaceStage.GREATER;
+					break;
+				case REDUCED:
+					stage = RaceStage.LESSER;
+					break;
+			}
+		} else {
+			switch(Main.getProperties().raceMasculinePreferencesMap.get(race)) {
+				case HUMAN:
+					stage = RaceStage.HUMAN;
+					break;
+				case MAXIMUM:
+					stage = RaceStage.GREATER;
+					break;
+				case MINIMUM:
+					stage = RaceStage.PARTIAL_FULL;
+					break;
+				case NORMAL:
+					stage = RaceStage.GREATER;
+					break;
+				case REDUCED:
+					stage = RaceStage.LESSER;
+					break;
+			}
+		}
+		
+		
+		Body body = new Body.BodyBuilder(
+				new Arm((stage.isArmFurry()?startingBodyType.getArmType():ArmType.HUMAN), startingBodyType.getArmRows()),
+				new Ass(stage.isAssFurry()?startingBodyType.getAssType():AssType.HUMAN,
+						(preferredGender.isFeminine() ? startingBodyType.getFemaleAssSize() : startingBodyType.getMaleAssSize()),
+						startingBodyType.getAnusWetness(),
+						startingBodyType.getAnusCapacity(),
+						startingBodyType.getAnusElasticity(),
+						startingBodyType.getAnusPlasticity(),
+						true),
+				new Breast(stage.isBreastFurry()?startingBodyType.getBreastType():BreastType.HUMAN,
+						(preferredGender.isFeminine() ? startingBodyType.getFemaleBreastSize() : startingBodyType.getMaleBreastSize()),
+						(preferredGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
+						((stage.isSkinFurry() && Main.getProperties().multiBreasts==1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
+								?(preferredGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale())
+								:1),
+						(preferredGender.isFeminine() ? startingBodyType.getFemaleNippleSize() : startingBodyType.getMaleNippleSize()),
+						(preferredGender.isFeminine() ? startingBodyType.getFemaleNippleShape() : startingBodyType.getMaleNippleShape()),
+						(preferredGender.isFeminine() ? startingBodyType.getFemaleAreolaeSize() : startingBodyType.getMaleAreolaeSize()),
+						(preferredGender.isFeminine() ? startingBodyType.getFemaleNippleCountPerBreast() : startingBodyType.getMaleNippleCountPerBreast()),
+						(preferredGender.isFeminine() ? startingBodyType.getFemaleBreastCapacity() : startingBodyType.getMaleBreastCapacity()),
+						(preferredGender.isFeminine() ? startingBodyType.getFemaleBreastElasticity() : startingBodyType.getMaleBreastElasticity()),
+						(preferredGender.isFeminine() ? startingBodyType.getFemaleBreastPlasticity() : startingBodyType.getMaleBreastPlasticity()), 
+						true),
+				new Face((stage.isFaceFurry()?startingBodyType.getFaceType():FaceType.HUMAN),
+						(preferredGender.isFeminine() ? startingBodyType.getFemaleLipSize() : startingBodyType.getMaleLipSize())),
+				new Eye(stage.isEyeFurry()?startingBodyType.getEyeType():EyeType.HUMAN),
+				new Ear(stage.isEarFurry()?startingBodyType.getEarType():EarType.HUMAN),
+				new Hair(stage.isHairFurry()?startingBodyType.getHairType():HairType.HUMAN,
+						(preferredGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()),
+						HairStyle.getRandomHairStyle((preferredGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))),
+				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN),
+				new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN),
+				startingBodyType.getBodyMaterial(),
+				startingBodyType.getGenitalArrangement(),
+				(preferredGender.isFeminine() ? startingBodyType.getFemaleHeight() : startingBodyType.getMaleHeight()),
+				(preferredGender.isFeminine() ? startingBodyType.getFemaleFemininity() : startingBodyType.getMaleFemininity()),
+				(preferredGender.isFeminine() ? startingBodyType.getFemaleBodySize() : startingBodyType.getMaleBodySize()),
+				(preferredGender.isFeminine() ? startingBodyType.getFemaleMuscle() : startingBodyType.getMaleMuscle()))
+						.vagina((preferredGender==Gender.FUTANARI || preferredGender==Gender.HERMAPHRODITE || preferredGender==Gender.CUNT_BOY || preferredGender==Gender.FEMALE)
+								? new Vagina(stage.isVaginaFurry()?startingBodyType.getVaginaType():VaginaType.HUMAN,
+										startingBodyType.getClitSize(),
+										startingBodyType.getVaginaWetness(),
+										startingBodyType.getVaginaCapacity(),
+										startingBodyType.getVaginaElasticity(),
+										startingBodyType.getVaginaPlasticity(),
+										true)
+								: new Vagina(VaginaType.NONE, 0, 0, 0, 3, 3, true))
+						.penis((preferredGender==Gender.FUTANARI || preferredGender==Gender.HERMAPHRODITE || preferredGender==Gender.SHEMALE || preferredGender==Gender.MALE)
+								? new Penis(stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN,
+									startingBodyType.getPenisSize(),
+									startingBodyType.getTesticleSize(),
+									startingBodyType.getCumProduction(),
+									startingBodyType.getTesticleQuantity())
+								: new Penis(PenisType.NONE, 0, 0, 0, 2))
+						.horn(startingBodyType.getHornTypeFemale() == HornType.NONE ? new Horn(HornType.NONE) : new Horn(!preferredGender.isFeminine()
+								? (stage.isHornFurry()?startingBodyType.getHornTypeMale():HornType.NONE)
+								: (stage.isHornFurry()?startingBodyType.getHornTypeFemale():HornType.NONE)))
+						.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
+						.wing(new Wing(stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE))
+						.build();
+		
+		// Apply fetish mdifiers:
+		
+		GameCharacter genericOwner = Main.game.getGenericAndrogynousNPC();
+		
+		//Ass:
+		if(hasFetish(Fetish.FETISH_ANAL_GIVING)) {
+			if(this.getAttributeValue(Attribute.CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
+				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(genericOwner, OrificeModifier.RIBBED);
+				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(genericOwner, OrificeModifier.MUSCLE_CONTROL);
+				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(genericOwner, OrificeModifier.PUFFY);
+			}
+			if(this.getAttributeValue(Attribute.CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
+				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(genericOwner, OrificeModifier.TENTACLED);
+			}
+			
+			body.getAss().setAssSize(genericOwner, AssSize.FIVE_HUGE.getValue());
+			body.getAss().setAssSize(genericOwner, HipSize.FIVE_VERY_WIDE.getValue());
+		}
+		
+		// Body:
+		if(preferredGender.isFeminine()) {
+			// Want feminine bodies to be smaller than them:
+			body.setHeight(getHeight() - Util.random.nextInt(25));
+			
+		} else {
+			// Want masculine bodies to be taller than them:
+			body.setHeight(getHeight() + Util.random.nextInt(25));
+		}
+		
+		//Breasts:
+		if(Main.getProperties().multiBreasts==0) {
+			body.getBreast().setRows(genericOwner, 1);
+			
+		} else if(Main.getProperties().multiBreasts==1) {
+			if(stage != RaceStage.GREATER) {
+				body.getBreast().setRows(genericOwner, 1);
+			}
+		}
+
+		if(hasFetish(Fetish.FETISH_BREASTS_OTHERS) && preferredGender.isFeminine()) {
+			body.getBreast().setSize(genericOwner, CupSize.DD.getMeasurement() + (Util.random.nextInt(5)));
+		}
+		
+		// Face:
+		if(hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
+			body.getFace().getMouth().getOrificeMouth().addOrificeModifier(genericOwner, OrificeModifier.PUFFY);
+			body.getFace().getMouth().setLipSize(genericOwner, LipSize.FOUR_HUGE.getValue());
+			
+			if(this.getAttributeValue(Attribute.CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
+				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(genericOwner, OrificeModifier.RIBBED);
+				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(genericOwner, OrificeModifier.MUSCLE_CONTROL);
+			}
+			if(this.getAttributeValue(Attribute.CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
+				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(genericOwner, OrificeModifier.TENTACLED);
+			}
+		}
+		
+		// Hair:
+		if(preferredGender.isFeminine()) {
+			body.getHair().setLength(genericOwner, HairLength.THREE_SHOULDER_LENGTH.getMedianValue() + Util.random.nextInt(HairLength.SEVEN_TO_FLOOR.getMinimumValue() - HairLength.THREE_SHOULDER_LENGTH.getMedianValue()));
+			
+		} else {
+			body.getHair().setLength(genericOwner, HairLength.ONE_VERY_SHORT.getMedianValue() + Util.random.nextInt(HairLength.THREE_SHOULDER_LENGTH.getMinimumValue() - HairLength.ONE_VERY_SHORT.getMedianValue()));
+		}
+		
+		// Penis:
+		if(body.getPenis().getType()!=PenisType.NONE) {
+			if(preferredGender==Gender.SHEMALE && Math.random()>=0.1f) { // Most traps have a small cock:
+				body.getPenis().setPenisSize(genericOwner, PenisSize.ONE_TINY.getMedianValue() + Util.random.nextInt(4));
+				body.getPenis().getTesticle().setTesticleSize(genericOwner, TesticleSize.ONE_TINY.getValue());
+				body.getPenis().getTesticle().setCumProduction(genericOwner, CumProduction.ONE_TRICKLE.getMedianValue());
+			} else {
+				body.getPenis().setPenisSize(genericOwner,body.getPenis().getSize().getMinimumValue() + Util.random.nextInt(body.getPenis().getSize().getMaximumValue() - body.getPenis().getSize().getMinimumValue()) +1);
+			}
+		}
+		
+		// Vagina:
+		if(body.getVagina().getType()!=VaginaType.NONE) {
+			if(this.getAttributeValue(Attribute.CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
+				body.getVagina().getOrificeVagina().addOrificeModifier(genericOwner, OrificeModifier.RIBBED);
+				body.getVagina().getOrificeVagina().addOrificeModifier(genericOwner, OrificeModifier.MUSCLE_CONTROL);
+			}
+			if(this.getAttributeValue(Attribute.CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
+				body.getVagina().getOrificeVagina().addOrificeModifier(genericOwner, OrificeModifier.TENTACLED);
+			}
+			
+			body.getVagina().getOrificeVagina().setWetness(genericOwner, Wetness.THREE_WET.getValue() + Util.random.nextInt(4));
+		}
+		
+		return body;
 	}
 	
 	// Sex:
@@ -4947,6 +5506,12 @@ public abstract class NPC extends GameCharacter {
 			case VAGINA_PLAYER:
 				orificeName = "[pc.pussy+]";
 				break;
+			case BREAST_PARTNER:
+				orificeName = "[npc.breasts+]";
+				break;
+			case BREAST_PLAYER:
+				orificeName = "[pc.breasts+]";
+				break;
 		}
 		
 		if(Sex.isPlayerDom()) {
@@ -5484,6 +6049,8 @@ public abstract class NPC extends GameCharacter {
 								break;
 							case AVIAN:
 								break;
+							case BOVINE:
+								return "You let out [pc.a_moan+] as you feel [npc.name]'s cow-like cock push into your [pc.asshole+].";
 							case CANINE:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.asshole+].";
 							case LUPINE:
@@ -5552,6 +6119,8 @@ public abstract class NPC extends GameCharacter {
 								break;
 							case AVIAN:
 								break;
+							case BOVINE:
+								return "You let out [pc.a_moan+] as you feel [npc.name]'s cow-like cock push into your [pc.pussy+].";
 							case CANINE:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.pussy+].";
 							case LUPINE:
@@ -5620,6 +6189,8 @@ public abstract class NPC extends GameCharacter {
 								break;
 							case AVIAN:
 								break;
+							case BOVINE:
+								return "You let out [pc.a_moan+] as you feel [npc.name]'s cow-like cock push into your [pc.nipple+].";
 							case CANINE:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.nipple+].";
 							case LUPINE:
@@ -5688,6 +6259,8 @@ public abstract class NPC extends GameCharacter {
 								break;
 							case AVIAN:
 								break;
+							case BOVINE:
+								return "You let out a muffled [pc.moan] as [npc.name]'s cow-like cock pushes its way into your mouth.";
 							case CANINE:
 								return "You let out a muffled [pc.moan] as [npc.name]'s dog-like cock pushes its way into your mouth.";
 							case LUPINE:
@@ -5734,6 +6307,8 @@ public abstract class NPC extends GameCharacter {
 								break;
 							case AVIAN:
 								break;
+							case BOVINE:
+								return "[npc.Name] lets out a muffled [npc.moan] as your cow-like cock pushes its way into [npc.her] mouth.";
 							case CANINE:
 								return "[npc.Name] lets out a muffled [npc.moan] as your dog-like cock pushes its way into [npc.her] mouth.";
 							case LUPINE:
@@ -5806,6 +6381,12 @@ public abstract class NPC extends GameCharacter {
 				break;
 			case VAGINA_PLAYER:
 				orificeName = "[pc.pussy+]";
+				break;
+			case BREAST_PARTNER:
+				orificeName = "[npc.breasts+]";
+				break;
+			case BREAST_PLAYER:
+				orificeName = "[pc.breasts+]";
 				break;
 		}
 		

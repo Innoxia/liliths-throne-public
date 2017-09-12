@@ -50,11 +50,13 @@ public class Ralph extends NPC {
 			ItemType.RACE_INGREDIENT_HORSE_MORPH,
 			ItemType.RACE_INGREDIENT_WOLF_MORPH,
 			ItemType.RACE_INGREDIENT_SQUIRREL_MORPH,
+			ItemType.RACE_INGREDIENT_COW_MORPH,
 			ItemType.RACE_INGREDIENT_HUMAN,
 			ItemType.RACE_INGREDIENT_DEMON,
 
 			ItemType.STR_INGREDIENT_EQUINE_CIDER,
 			ItemType.STR_INGREDIENT_WOLF_WHISKEY,
+			ItemType.STR_INGREDIENT_BUBBLE_MILK,
 			ItemType.INT_INGREDIENT_FELINE_FANCY,
 			ItemType.FIT_INGREDIENT_CANINE_CRUSH,
 			ItemType.SEX_INGREDIENT_HARPY_PERFUME,
@@ -151,10 +153,10 @@ public class Ralph extends NPC {
 			descriptionSB = new StringBuilder();
 			
 			descriptionSB.append("<p>"
-						+ "You look over at the counter to see Ralph smiling back at you. Sensing that you might need some assistance, he brisky walks over to where you're standing."
+						+ "You look over at the counter to see Ralph smiling back at you. Sensing that you might need some assistance, he briskly walks over to where you're standing."
 					+ "</p>"
 					+ "<p>"
-						+ "Although the memory of you submissively pleasuring Ralph's huge horse-cock is still fresh in both of your minds, he treates you with the utmost respect,"
+						+ "Although the memory of you submissively pleasuring Ralph's huge horse-cock is still fresh in both of your minds, he treats you with the utmost respect,"
 						+ " and politely lists off the prices of the transformative consumables on display."
 						+ " He reminds you that he's also interested in buying any transformative consumables that you're willing to sell."
 						+ " As you turn back to look at the goods, Ralph tells you that he refreshes his stock every day."
@@ -175,7 +177,7 @@ public class Ralph extends NPC {
 			
 		}else
 			return "<p>"
-						+ "You look over at the counter to see Ralph smiling back at you. Sensing that you might need some assistance, he brisky walks over to where you're standing."
+						+ "You look over at the counter to see Ralph smiling back at you. Sensing that you might need some assistance, he briskly walks over to where you're standing."
 					+ "</p>"
 					+ "<p>"
 						+ "After a brief greeting, you ask him about the transformative consumables on display. He politely informs you that they're all for sale, and lists off all the prices."

@@ -526,7 +526,7 @@ public enum StatusEffect {
 	// Agility:
 	FITNESS_PERK_0(
 			80,
-			"clutz",
+			"klutz",
 			"attFitness0",
 			Colour.FITNESS_STAGE_ZERO,
 			false,
@@ -537,7 +537,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(FitnessLevel.ZERO_CLUTZ.getName());
+			return Util.capitaliseSentence(FitnessLevel.ZERO_KLUTZ.getName());
 		}
 		
 		@Override
@@ -556,7 +556,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return FitnessLevel.getFitnessLevelFromValue(target.getAttributeValue(Attribute.FITNESS)) == FitnessLevel.ZERO_CLUTZ;
+			return FitnessLevel.getFitnessLevelFromValue(target.getAttributeValue(Attribute.FITNESS)) == FitnessLevel.ZERO_KLUTZ;
 		}
 		
 		@Override
@@ -781,7 +781,7 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer())
-				return "Your body and mind are completely untained by corruption. You might consider performing the most conservative of sexual acts with the person you love, but other than that, you're not interested in sex at all.";
+				return "Your body and mind are completely untainted by corruption. You might consider performing the most conservative of sexual acts with the person you love, but other than that, you're not interested in sex at all.";
 			else
 				return UtilText.genderParsing(owner, owner.getName("The") + " is completely pure, and strongly resists temptation.");
 		}
@@ -1795,6 +1795,37 @@ public enum StatusEffect {
 		}
 	},
 
+	// BOVINE:
+	COW_MORPH(
+			90,
+			"cow-morph",
+			"raceCowMorph",
+			Colour.RACE_COW_MORPH,
+			true,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.INTELLIGENCE, -5f), new Value<Attribute, Float>(Attribute.STRENGTH, 15f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "Your body possesses a great strength, but your mind is considerably slower than it once was.";
+			else
+				return UtilText.genderParsing(target, target.getName("The")
+						+ "'s body possesses a great strength, but <her> mind isn't exactly the quickest.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.COW_MORPH
+					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+	},
+
 	// SLIME:
 	SLIME(
 			90,
@@ -2102,17 +2133,16 @@ public enum StatusEffect {
 					return "<p>"
 								+ "As you finish fitting the "+clothing.getName()+" in place, you start to feel a strange warmth radiating from "+(clothing.getClothingType().isPlural()?"their":"its")+" surface."
 								+ " Feeling a little uneasy about the manner of arcane enchantment that "+(clothing.getClothingType().isPlural()?"they":"it")+" must contain, you immediately try to take "
-									+(clothing.getClothingType().isPlural()?"they":"it")+" off."
+									+(clothing.getClothingType().isPlural()?"them":"it")+" off."
 							+ "</p>"
 							+ "<p>"
-								+ "Taking hold of the "+clothing.getName()+", nothing seems to be wrong at first, but as you try to pull "+(clothing.getClothingType().isPlural()?"they":"it")+" off, you find out that you've made a big mistake."
+								+ "Taking hold of the "+clothing.getName()+", nothing seems to be wrong at first, but as you try to pull "+(clothing.getClothingType().isPlural()?"them":"it")+" off, you find out that you've made a big mistake."
 								+ " A jolt of arcane energy suddenly flashes up through your body, and as the invasive force shoots its way into your mind, you find yourself unwittingly releasing your grip."
 							+ "</p>"
 							+ "<p>"
-								+ "Gritting your teeth, you try once again to remove the offending article of clothing, only to find yourself instantly letting go as you try to pull it off "
-									+(clothing.getClothingType().isPlural()?"they":"it")+" off."
+								+ "Gritting your teeth, you try once again to remove the offending article of clothing, only to find yourself instantly letting go as you try to pull "+(clothing.getClothingType().isPlural()?"them":"it")+" off."
 								+ " No matter how much you struggle, all you're able to do is move the "+clothing.getName()
-								+" around a little, and whenever it looks to be in danger of being removed, it moves back into its proper position with a mind of its own."
+									+" around a little, and whenever it looks to be in danger of being removed, it moves back into its proper position with a mind of its own."
 							+ "</p>"
 							+ "<p>"
 								+ "Eventually giving up, you decide to go and ask Lilaya what's going on with "+(clothing.getClothingType().isPlural()?"these":"this")
@@ -3413,11 +3443,11 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "Losing your virginity has hit you hard. All you can think of is big, thick cocks breaking you in like a worthless slut, before defiling your womb with their foul cum..."
-						+ " Without your virginty, all you can see yourself as is a cheap sex toy.";
+						+ " Without your virginity, all you can see yourself as is a cheap sex toy.";
 			} else {
 				return UtilText.parse(target,
 						"Losing [npc.her] virginity has hit [npc.name] hard. All [npc.she] can think of is big, thick cocks breaking [npc.herHim] in like a worthless slut, before defiling [npc.her] womb with their foul cum..."
-								+ " Without [npc.her] virginty, all [npc.she] can see [npc.herself] as is a cheap sex toy.");
+								+ " Without [npc.her] virginity, all [npc.she] can see [npc.herself] as is a cheap sex toy.");
 			}
 		}
 
@@ -3456,7 +3486,7 @@ public enum StatusEffect {
 			} else {
 				return UtilText.parse(target,
 						"Losing [npc.her] virginity has hit [npc.name] hard. All [npc.she] can think of is big, thick cocks breaking [npc.herHim] in like a worthless slut, before defiling [npc.her] womb with their foul cum..."
-								+ " Without [npc.her] virginty, all [npc.she] can see [npc.herself] as is a cheap sex toy.");
+								+ " Without [npc.her] virginity, all [npc.she] can see [npc.herself] as is a cheap sex toy.");
 			}
 		}
 
@@ -3888,11 +3918,56 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_FIRE,
 			false,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b>4</b> <b style='color: " + Colour.DAMAGE_TYPE_FIRE.toWebHexString() + ";'>Fire damage per turn</b>"))) {
+			Util.newArrayListOfValues(new ListValue<String>("<b>5</b> <b style='color: " + Colour.DAMAGE_TYPE_FIRE.toWebHexString() + ";'>Fire damage per turn</b>"))) {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int damage = (int) (4 * ((100 - (target.getAttributeValue(Attribute.RESISTANCE_FIRE))) / 100f)); 
+			int damage = (int) (5 * ((100 - (target.getAttributeValue(Attribute.RESISTANCE_FIRE))) / 100f)); 
+			if (damage < 1)
+				damage = 1;
+			target.incrementHealth(-damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> <b style='color:" + Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + DamageType.FIRE.getName() + "</b> damage!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> <b style='color:" + Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + DamageType.FIRE.getName() + "</b> damage!";
+			}
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "Invisible arcane flames lick at your feet, and while they don't cause you any real pain, you still end up hopping around in discomfort.";
+			} else {
+				return UtilText.parse(target,
+						"Invisible arcane flames lick at [npc.name]'s feet, and while they don't cause [npc.herHim] any real pain, [npc.she] still ends up hopping around in discomfort.");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	BURN_STRONG(
+			10,
+			"ignited",
+			"negativeCombatEffect",
+			Colour.DAMAGE_TYPE_FIRE,
+			false,
+			null,
+			Util.newArrayListOfValues(new ListValue<String>("<b>10</b> <b style='color: " + Colour.DAMAGE_TYPE_FIRE.toWebHexString() + ";'>Fire damage per turn</b>"))) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) (10 * ((100 - (target.getAttributeValue(Attribute.RESISTANCE_FIRE))) / 100f)); 
 			if (damage < 1)
 				damage = 1;
 			target.incrementHealth(-damage);
@@ -5175,7 +5250,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex() && target.isBreastFuckable();
+			return Main.game.isInSex() && target.isBreastFuckableNipplePenetration();
 		}
 		
 		@Override

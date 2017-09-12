@@ -17,63 +17,167 @@
 	
 	Patch notes:
 	
-	Engine:
-		Moved ClothingTypes from Enum values over to static classes.
+	Gameplay:
+		Slightly tweaked gender preferences for NPC's forced TFs.
+		You can now use elixirs and potions on your offspring in consensual sex, as well as if you're the dom in non-consensual.
+		NPCs applying forced transformations will now shrink your cock and reduce your vagina's capacity down to minimum values before removing them.
+		
+	Sex:
+		Added: Paizuri and Naizuri. All paizuri actions have three variations; one for breasts larger than B-cups, one for completely flat chests, and another for the other sizes in-between.
+		Added Paizuri to 69, kneeling, and cow-girl positions.
+		Added nipple-fucking to cow-girl position.
+		Very minor change to AI in sex to make them uninterested in getting access to your nipples if your groin is already exposed. (I'm going to massively improve the AI within the next couple of versions.)
+		
+	Other:
+		You can now dye Enforcer's clothing to any colour.
+		Split Nyan's 'Female lingerie' up into 'Female underwear' and 'Female lingerie' to prevent item overflow. (You'll be able to buy enchanted clothing from her again now. :3)
+		Added squirrel-morph (and cow-morph) potions and essences to Vicky's shop.
+		Tweaked NPC's forced TF preferences to have a chance to be a related race (i.e. cat morphs may prefer to TF you into a harpy, or dog/wolf-morphs may TF you into a cat-morph).
+		Added fur highlighting options.
+		Added afro hair style.
+		
+	Bugs:
+		Fixed game freeze once NPC finished transforming you into their preferred body type.
+		Fixed major bug where items and weapons would sometimes not stack in inventory.
+		Fixed items showing up in sex as disabled, even if they were available to be used.
+		Fixed weapons not having any spells.
+		Fixed bug where the main quest couldn't be progressed if you started an imported character.
+		Minor typo fixes.
+		Fixed parsing bugs (which was causing the parser's 'Commands' action to be unresponsive.)
+		Vicky will now buy Bottled Squirrel-Morph Essence.
+		Horn transformations now apply the correct horn type, based on whether the target to be transformed is masculine or feminine.
 	
 	Contributors:
+	
+	Pimgd:
+		Disallowed quick manage drop if cell is full, thereby preventing item loss.
 		
-		Pimgd:
-			Inventory-related bugs fixed:
-				Take all from floor doesn't handle stackables well if your inventory is full.
-				Take all weapon doesn't work if inventory is full.
-				Jinxed items don't stack when unjinxed.
-				You can't store stackables if the area is full.
-				Unidentified items will show their state in the buyback menu.
-				Jinxed items can't be selected if you're carrying a dye brush and just identified them.
-				Unidentified items will sell for their real value and not the fixed value you get for an unidentified item.
-				That includes the "vendor will buy for x" text (not overlay) and the button.
-				"These items will disappear when you leave the area" when trading on a tile with dropped stuff.
-				Can't buy/buyback a stackable with full inventory? Check item/weapon/clothing!
-				Can't unequip weapons/clothing even although they would stack if you have a full inventory.
-				Unequipping clothing (weapons too?) causing your inventory to be full claims it gets dropped when it doesn't.
-				Equipping clothing (weapons too?) when you're already wearing something with a full inventory will drop that already worn item to the ground, even if it was stackable in your inventory.
-				Displaced clothing is dropped even if it could be stacked with a full inventory.
-				Equipping an item may reset the string builder halfway through causing some warnings not to display.
-				Sell All has improper rounding as it rounds after all items instead of each item individually (same goes for buy all).
-				getting transformed with full inventory will drop your clothing even although it fits in inventory as stackable.
-				Improvement: Deduplicate printing items now that weapon/clothing/item is similar.
-				The overlay display "Vendor wants x" in the buyback shows the wrong price.
-			Simplified a lot of if statements.
-			Removed a lot of empty statements (i.e. removing a ton of unnecessary semi-colons).
-			Removed a lot of unnecessary casts.
-			Made all public static SexActions final.
-			Reordered modifiers to comply with java language specification.
-			Body-related fixes:
-				Fixed lip size increment from rolling over causing a constant resize.
-				Fixed descriptions that go beyond size limits for TongueLength.
-				Cleaned code for antenna, arms, ass/assSize/hipSize, breasts, eyes, face, hair, horn, mouth, nipples, anus, penis, orifices, tail, testicles, tongue, and vagina.
-				Fixed nose piercing returning descriptions of lip being pierced.
-				Fixed a lot of identity mistakes between pc and npc.
-				Improved nipple and nippleShape changes to properly account of multiple changes form one transformative item.
-				Tidied up a lot of other formatting.
+	Rfpnj:
+		Cow-morph:
+			Added all cow-morph transformations and body parts.
+			Added 'Milking Cows' (lore book).
+			Added bottled cow-morph essence.
+			Added Bubble Milk. (Icon design help from Blue999.)
+			Added Bubble Cream.
+			Added Ear tag (no femininity requirements, ear piercing slot).
+			Added Cowbell collar (no femininity requirements, neck slot).
+			Added bovine nose ring (no femininity requirements, nose piercing slot).
 			
-		Rfpnj:
-			Expanded and reorganised the Library in Lilaya's house.
-		
-		CognitiveMist:
-			Code cleanup, involving:
-				List sorting uses comparator class
-				Use addAll instead of for loops
-				String comparison don't use ==
-				Javadoc stuff
-				Spelling
-				Change some variables to local, that were only used in one spot
-				Eliminated some dead/constant logic
-				Any other cleanup that I could find
+	Blue999:
+		Added: Milk Maid's headdress (Feminine, head slot, Milk Maid set).
 	
 	
 	
 	
+	
+	
+	
+	
+	
+	Add udder
+	
+	Common sense colourings for each race
+	
+	Child genetics
+	
+	Start trading with Ralph and jinxed clothes re-apply themselves happens
+	
+	Essence inventory too big
+	
+	The right side tab on the blog didn't get updated for this release
+	
+	After giving birth I seem to be stuck with a recovering vagina from slightly loose to extremely tight... I have max plasticity and 1 elasticity
+	
+	Head pats
+	
+	adding a "TF preferences" screen to allow you to define what you're ok with being transformed into
+	
+	Headpats and scritches during oral when
+	
+	I'll also definitely add an options menu to set NPC transformation ratios, as well as making them take your preferences into account. They should already be doing that, but there must be a bug in my method.
+	
+	In the body stats menu it does not show plasticity for stuff only Elasticity
+	
+	gained three 'risk of pregnancy' status effects from being forcibly transformed?
+	
+	when a npc isn't interested in your gender, but has TF fetish, have them try to tf you instead of just taking your money and running when losing/submitting to them
+	
+	can the 'offspring' button get a character-overview akin to that of the contacts menu
+	
+	Also, right now, everyone has a species-preference. -may- want to make it so that some folk don't care much about species and only about body-shape/sex
+	Make gender preferences for NPC's forced TFs settable
+	
+	Add paizuri for multi-breasts
+	
+	Maybe a non-furry version of forced TF would change the character's body type and such. For example, changing femininity, breast size, etc.
+	I think bimbofication and sissification are common, fur-free, fetishes on TFgamessite. So maybe the human-only forced TFs could do something like that?
+	
+	
+	Now, one other thought, maybe have fetishes figure in a little bit for what gear they end up with?
+		Not for normal peps, but when deciding whether to be a herm or off-gender sex.
+		If someone has a cum feitsh or receiving cock feitsh, they should probably prefer a partner with a cock.
+		If they have impregnation fetishes, it would make sense for them to prefer a partner with a vagina.
+		This could actually be tested after the random roll has been done, and adjusts the result then.
+		That will save a fair bit of coding work.
+	
+	
+	they should focus on adding desired organs before removing
+	
+	Buy Brax
+	
+	virginity losses from self
+	
+	there's no yellow for genital colors
+	
+	pushing your fingers into your partner's mouth
+	
+	the player should be able to ask the alley succubi to change their femininity in addition to altering their breasts and genitals
+	
+	If a character has the non-consent fetish, you should remove the arousal gain penalty from resisting sex. You might even gain extra arousal
+	NPCs with the non-con fetish always resist
+	So a sadistic character will gain more arousal from a resisting partner and a non-con fetishist would gain extra arousal while resisting instead of having a penalty.
+	
+	Firstly, you could change the description of the Non-con fetish to only include being raped, but not necessarily raping others. 
+	Then, you can expand the sadism fetish to include raping others. Alternatively, you could also make a second red boardered "dominant" version of the Non-con fetish.
+	Also, you could have the "resist" action only decrease the character's arousal if they don't have the noncon fetish. I have no idea where this is done in the code however but if you can find where to stick it, a little if statement would probably do
+	
+	
+	is the selfie screen supposed to not list the actual penis length anymore
+	
+	allow the option of enabling body hair content from the character creation extra hair menu
+	
+	an option to make all the skin options match your base skin would be nice
+	
+	try and add an event in the future where you're stopped by enforces due to wearing their uniform
+	
+	Allow sub/dom switch in sex (when improve UI)
+	
+	TF fetish for NPCs increases the amount of times they TF you
+	
+	resisting characters could stop resisting if you're gentle and/or make them cum a few times
+	
+	 a fetish for wearing soiled clothing? Also, I'd like a randomise button on character creation
+	
+	
+	fishnet corsets and fishnet microskirts
+	
+	Flying
+	
+	Weapons delete themselves when keep on equipping the same type from floor
+	
+	Add thigh sex, and hotdogging.
+	
+	X Add in some proper dialogue and interactions for the incest content.
+
+	Watch hands in AbstractClothingType!
+	
+	Slavery
+	
+	Add cloaca descriptions
+	
+	Improve forced TF descriptions
+	
+	eye TF racial modifiers
 	
 	Known bugs that are not fixed:
 
@@ -101,23 +205,20 @@
 	Pluralization bugs
 	-- "You hand over all of your A dye-brush to Ralph in exchange for ¤ 287." Yeahhh that's item names and pluralization hell
 	
-	Override equals pls in Types
 	
-	
-	
-	
-	Convert XML save for character, items, clothing, weapons
-	
-	Finish cowgirl descriptions
+	Flavour text in-game says it is custom to kiss a slave for one last time before enslavement, since kissing a slave is considered taboo
 	
 	Bugs
 	
+	Gym/Fast food
 	
+	After defeating my character, the succubi just finger their nipples and tail-fuck themselves to completion a lot of the time. Is there a way to disable this?
 	
 	Hey, tailpegging is super broken, it doesn't properly check to see if the player actually has a tail.
 	
 	The only bug i have found is when you use transformative enchantments on multiple (maybe single, haven't tested) breasts, specifically trying to grow the nipple and areola size that it keeps switching between 'getting larger' and 'shrinking' when all were enchanted to be Major Boost
 	
+	Cam inside of kate knocking her up. Then right after the sex ended had sex again cumming inside her and when I checked the pregnancy stats found she had 2 ongoing pregnancys at the same time
 	
 	Having an issue where using a cock-growing elixir gives me a penis with the wrong skin color. In my instance, my pale character grew a brown penis.
 	
@@ -150,16 +251,15 @@ anybody else having issues with imported characters unable to extract essences?
 
 	leg and ankle wraps to make full set
 	
-<<<<<<< HEAD
+
 	NPC's with broodmother fetish do not try to get pregnant. This has also something to do with the first problem I've mentioned.
-=======
+
 	
 	New perk: Tempered (below arcane mastery). When willpower drops to 0 the first time, it stays at 1 instead.
 New perk: Marathon (below cardio queen). When stamina drops to 0 the first time, it stays at 1 instead.
 Change perk: "indefatigable" to "hulk", when health drops to 0 the first time, it stays at 1 instead.
 	
 	New status effect: Tired. Caused by being awake for over 12 hours in a row, gives no debuffs but in 4 hours it will become the status effect "exhausted". New status effect: Exhausted. Caused by being tired for 4 hours (ie awake for over 16 hours in a row), gives -5 strength -5 stamina and -5 willpower. Also make rest take 8 instead of 4 hours (succubi need to sleep too!).
->>>>>>> c614137b7b2707cc4317762bbcbc747f3732cdc6
 	
 	Minor bug report: Gaining more testicles seems to be bugged. I created a potion to take a character from 2 to 8, and I got this message 3 times:"A tingling feeling spreads down into your testicles, and you let out a little cry as you feel some of them shrinking away and disappearing.
 
@@ -209,9 +309,13 @@ When it should be an indication that I'm gaining testicles, and the three messag
 	-Additionally/alternatively, enabling specific content partially unlocks that content (such as allowing the Lilaya scene and Brax's forced TF) but taking the fetish makes the content more likely (kids spawning in alleys and random NPCs TFing the player).
 	
 	
+	Equals and HashCode *should* be ok for Abstract Clothing, Item, and Weapon types, but maybe make sure.
+	
 	GATE HAIR PROPERLY FOR TFS
 	
 	Gate obesity
+	
+	Add facesitting position, with descriptions from SABracSubCowgirl
 	
 	Good point, I'll add fuckable nipples (and urethras) behind option gates.
 	
@@ -244,6 +348,7 @@ When it should be an indication that I'm gaining testicles, and the three messag
 	It would probably be best if the player gets prompted with an option to go into said content settings during character creation.
 	
 	Fetishes
+	
 	
 	add a 'cloaca' transformation
 	
@@ -310,8 +415,6 @@ When it should be an indication that I'm gaining testicles, and the three messag
 	Seems to be a bug where the second time a character gives birth the "pass out" button (and its knocked out equivalent) doesnt progress the scene, leaving you stuck there.
 	
 	a crash bug, if in you'r room, you put objects, and have to much objects, if you take all and don't have engout space in your invotory, the game crash
-	
-	: if the room is full, you can't drop other objec, but with Quick-manage: he say he safely store objec and the object no linger existe
 	
 	 I think something's up with gender pronouns in the latest hotfix. Either that or traps are no longer called traps and are just called "Man" regardless of settings or feminity level.
 	  Not sure, I'm out of town so haven't really been able to give this release a good stress test, hence why I'm not even signed in.
@@ -498,7 +601,6 @@ When it should be an indication that I'm gaining testicles, and the three messag
 	cowboy hat
 	Belt top... literally wearing a belt that coveres no more than the nipples
 	Is a tube top a thing? i havent seen one yet
-	An item that covers multiple slots should have 'multiple' or maybe 'multiplied' effects on it. As of right now, multi slot items are statistically negative to wear
 	
 	There will need to be a system in place to handle multiple penetrators in one orifice
 		Need to use capacity to determine what can fit
@@ -1283,10 +1385,6 @@ Also noticed the Stop partner self action option disappears.
 	
 	I'll probably do as you suggest, and add in a 1 or 2 day timer before NPCs get new clothes.
 	
-	Ah ok. Hmm could you maybe stop them from putting on new outfits that block off the slots of clothing they already wearing? @Innoxia 
-		Heh right now I'm stealing their clothes until they put on clothes i like but when they put on new clothes that blocks slots they already had filled they lose the clothes that used to be in that slot
-	
-	
 	Would be nice to have a bit better highlighting on perks you've already taken.
 	
 	It should probably be possible to call for Rose from your room
@@ -1464,8 +1562,6 @@ Also noticed the Stop partner self action option disappears.
 	Ralph romance
 	
 	font style switcher
-	
-	I'll make clothing that occupies multiple slots have stronger enchantments, good suggestion ^^
 	
 	And I'll be adding a way to upgrade potions into full-tf versions.
 	

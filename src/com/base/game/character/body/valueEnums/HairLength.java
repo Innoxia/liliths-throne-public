@@ -19,13 +19,13 @@ public enum HairLength {
 	/** above the shoulders */
 	THREE_SHOULDER_LENGTH("shoulder-length", 6, 12, Colour.GENERIC_SIZE_FOUR),
 	/** Reaching down to mid-back */
-	FOUR_MID_BACK("long", 12, 18, Colour.GENERIC_SIZE_FIVE),
+	FOUR_MID_BACK("long", 12, 25, Colour.GENERIC_SIZE_FIVE),
 	/** Reaching down to just above the ass */
-	FIVE_ABOVE_ASS("very long", 18, 24, Colour.GENERIC_SIZE_SIX),
+	FIVE_ABOVE_ASS("very long", 25, 40, Colour.GENERIC_SIZE_SIX),
 	/** Reaching down to below the ass */
-	SIX_BELOW_ASS("incredibly long", 24, 30, Colour.GENERIC_SIZE_SEVEN),
+	SIX_BELOW_ASS("incredibly long", 40, 70, Colour.GENERIC_SIZE_SEVEN),
 	/** Hair so long that it reaches the floor */
-	SEVEN_TO_FLOOR("extremely long", 30, 80, Colour.GENERIC_SIZE_EIGHT);
+	SEVEN_TO_FLOOR("floor-length", 70, 140, Colour.GENERIC_SIZE_EIGHT);
 
 	private int minimumValue, maximumValue;
 	private String descriptor;

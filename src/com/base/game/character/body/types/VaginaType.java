@@ -36,6 +36,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 	
 	CAT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_CAT_MORPH, Race.CAT_MORPH),
 
+	COW_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_COW_MORPH, Race.COW_MORPH),
+
 	HORSE_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_HORSE_MORPH, Race.HORSE_MORPH, OrificeModifier.PUFFY),
 
 	SLIME(BodyCoveringType.VAGINA_SLIME, FluidType.GIRL_CUM_SLIME, Race.SLIME),
@@ -116,7 +118,7 @@ public enum VaginaType implements BodyPartTypeInterface {
 
 	@Override
 	public String getDescriptor(GameCharacter gc) {
-		// Randomly give a type-specific, wetness, or capcity descriptor:
+		// Randomly give a type-specific, wetness, or capacity descriptor:
 		switch(Util.random.nextInt(3)){
 			case 0:
 				switch(this){
@@ -130,6 +132,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("hot", "animalistic", "wolf-like", "lupine");
 					case CAT_MORPH:
 						return UtilText.returnStringAtRandom("hot", "animalistic", "cat-like", "feline");
+					case COW_MORPH:
+						return UtilText.returnStringAtRandom("hot", "animalistic", "cow-like", "bovine");
 					case HORSE_MORPH:
 						return UtilText.returnStringAtRandom("hot", "animalistic", "equine");
 					case HUMAN:
