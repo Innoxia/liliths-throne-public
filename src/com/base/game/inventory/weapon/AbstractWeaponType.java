@@ -15,12 +15,12 @@ import com.base.game.combat.DamageLevel;
 import com.base.game.combat.DamageType;
 import com.base.game.combat.DamageVariance;
 import com.base.game.combat.Spell;
+import com.base.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreType;
 import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.Rarity;
 import com.base.main.Main;
-import com.base.utils.Colour;
 import com.base.utils.Util;
 
 /**
@@ -143,12 +143,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 			public String onEquip(GameCharacter character) {
 				if (character.isPlayer()) {
 					if (Main.getProperties().addWeaponDiscovered(wt)) {
-						Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center;'>"
-									+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
-									+ "</br>"
-									+ "<b>Weapon:</b> <b style='color:"+wt.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(wt.getName())+"</b>"
-								+ "</p>");
+						Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(wt.getName(), wt.getRarity().getColour()), true);
 					}
 				}
 				return wt.equipText(character);

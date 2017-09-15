@@ -8,18 +8,18 @@ import com.base.game.character.GameCharacter;
 import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.utils.InventoryDialogue;
+import com.base.game.dialogue.utils.NPCInventoryInteraction;
 import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.weapon.AbstractWeapon;
 import com.base.game.sex.Sex;
 import com.base.main.Main;
-import com.base.rendering.RenderingEngine;
 import com.base.utils.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.85
  * @author Innoxia
  */
 public class InventorySelectedItemEventListener implements EventListener {
@@ -48,7 +48,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 				if(item.isAbleToBeUsedInSex())
 					Main.game.setContent(new Response("", "", InventoryDialogue.ITEM_INVENTORY));
 				
-			} else if (Main.game.getDialogueFlags().tradePartner == null){
+			} else if (InventoryDialogue.getInventoryNPC() == null){
 				if (Main.game.getDialogueFlags().quickTrade && Main.game.getPlayerCell().getInventory().canAddItem(item)) {
 					Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().dropItem(item) + "</p>");
 					Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
@@ -70,7 +70,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 
 					} else {
 						if (Main.game.getDialogueFlags().quickTrade) {
-							if (Main.game.getDialogueFlags().tradePartner.willBuy(item)) {
+							if (InventoryDialogue.getInventoryNPC().willBuy(item)) {
 								Main.game.getTextStartStringBuilder().append(InventoryDialogue.sellItem(item));
 								Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 							}
@@ -79,7 +79,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 						}
 					}
 
-				} else if (owner == Main.game.getDialogueFlags().tradePartner) {
+				} else if (owner == InventoryDialogue.getInventoryNPC()) {
 					if (Main.game.getDialogueFlags().quickTrade) {
 
 						Main.game.getTextStartStringBuilder().append(InventoryDialogue.buyItem(item));
@@ -91,7 +91,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 				} else {
 					if (Main.game.getDialogueFlags().quickTrade) {
 
-						if (Main.game.getDialogueFlags().tradePartner.willBuy(item)) {
+						if (InventoryDialogue.getInventoryNPC().willBuy(item)) {
 							Main.game.getTextStartStringBuilder().append(InventoryDialogue.sellItem(item));
 							Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 						}
@@ -106,7 +106,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			
 			if(Main.game.isInSex()){
 				// Do nothing...
-			}else if (Main.game.getDialogueFlags().tradePartner == null){
+			}else if (InventoryDialogue.getInventoryNPC() == null){
 				if (Main.game.getDialogueFlags().quickTrade && Main.game.getPlayerCell().getInventory().canAddClothing(clothing)) {
 					Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().dropClothing(clothing) + "</p>");
 					Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
@@ -128,7 +128,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 
 					} else {
 						if (Main.game.getDialogueFlags().quickTrade) {
-							if (Main.game.getDialogueFlags().tradePartner.willBuy(clothing)) {
+							if (InventoryDialogue.getInventoryNPC().willBuy(clothing)) {
 								Main.game.getTextStartStringBuilder().append(InventoryDialogue.sellClothing(clothing));
 								Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 							}
@@ -137,7 +137,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 						}
 					}
 
-				} else if (owner == Main.game.getDialogueFlags().tradePartner) {
+				} else if (owner == InventoryDialogue.getInventoryNPC()) {
 					if (Main.game.getDialogueFlags().quickTrade) {
 
 						Main.game.getTextStartStringBuilder().append(InventoryDialogue.buyClothing(clothing));
@@ -149,7 +149,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 				} else {
 					if (Main.game.getDialogueFlags().quickTrade) {
 
-						if (Main.game.getDialogueFlags().tradePartner.willBuy(clothing)) {
+						if (InventoryDialogue.getInventoryNPC().willBuy(clothing)) {
 							Main.game.getTextStartStringBuilder().append(InventoryDialogue.sellClothing(clothing));
 							Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 						}
@@ -165,7 +165,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			
 			if(Main.game.isInSex()){
 				// Do nothing...
-			}else if (Main.game.getDialogueFlags().tradePartner == null){
+			}else if (InventoryDialogue.getInventoryNPC() == null){
 				if (Main.game.getDialogueFlags().quickTrade && Main.game.getPlayerCell().getInventory().canAddWeapon(weapon)) {
 					Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().dropWeapon(weapon) + "</p>");
 					Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
@@ -187,7 +187,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 
 					} else {
 						if (Main.game.getDialogueFlags().quickTrade) {
-							if (Main.game.getDialogueFlags().tradePartner.willBuy(weapon)) {
+							if (InventoryDialogue.getInventoryNPC().willBuy(weapon)) {
 								Main.game.getTextStartStringBuilder().append(InventoryDialogue.sellWeapon(weapon));
 								Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 							}
@@ -196,7 +196,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 						}
 					}
 
-				} else if (owner == Main.game.getDialogueFlags().tradePartner) {
+				} else if (owner == InventoryDialogue.getInventoryNPC()) {
 					if (Main.game.getDialogueFlags().quickTrade) {
 
 						Main.game.getTextStartStringBuilder().append(InventoryDialogue.buyWeapon(weapon));
@@ -208,7 +208,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 				} else {
 					if (Main.game.getDialogueFlags().quickTrade) {
 
-						if (Main.game.getDialogueFlags().tradePartner.willBuy(weapon)) {
+						if (InventoryDialogue.getInventoryNPC().willBuy(weapon)) {
 							Main.game.getTextStartStringBuilder().append(InventoryDialogue.sellWeapon(weapon));
 							Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 						}
@@ -253,21 +253,23 @@ public class InventorySelectedItemEventListener implements EventListener {
 				InventoryDialogue.setWeaponFloor(weaponFloor);
 				Main.game.setContent(new Response("", "", InventoryDialogue.WEAPON_FLOOR));
 			}
-
+			
 		} else if (clothingEquipped != null) {
 			if (Main.game.isInCombat()) {
-				if (RenderingEngine.ENGINE.getCharactersInventoryToRender().isPlayer()) {
+				if (owner.isPlayer()) {
 					Main.game.getTextEndStringBuilder().append("<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You can't alter your clothing while in combat!</span></p>");
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					
 				} else {
 					Main.game.getTextEndStringBuilder().append(
 							"<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>[npc.Name] isn't going to let you play with [npc.her] clothing!</span></p>");
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}
+				
 			} else if (Main.game.isInSex()) {
 				InventoryDialogue.setClothingEquipped(clothingEquipped);
 					
-				if (RenderingEngine.ENGINE.getCharactersInventoryToRender().isPlayer()){
+				if (owner.isPlayer()){
 					if(Sex.getSexManager().isPlayerCanRemoveOwnClothes()){
 						if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL)
 							Main.game.saveDialogueNode();
@@ -276,8 +278,6 @@ public class InventorySelectedItemEventListener implements EventListener {
 						Main.game.setContent(new Response("", "", InventoryDialogue.CLOTHING_EQUIPPED));
 					}else{
 						Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot manage your own clothing!");
-//						Main.game.getTextEndStringBuilder().append("<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You can't manage your own clothes in this sex scene!</span></p>");
-//						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));	
 					}
 					
 				}else{
@@ -287,31 +287,33 @@ public class InventorySelectedItemEventListener implements EventListener {
 
 						InventoryDialogue.setOwnerInSex(Sex.getPartner());
 						Main.game.setContent(new Response("", "", InventoryDialogue.CLOTHING_EQUIPPED));
+						
 					}else{
 						Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot manage "+ Sex.getPartner().getName("the") + "'s clothing!");
-//						Main.game.getTextEndStringBuilder().append("<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You can't manage "
-//								+ Sex.getPartner().getName("the") + "'s clothes in this sex scene!</span></p>");
-//						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}
 					
 				}
-			} else {
+				
+			} else if (owner.isPlayer() || InventoryDialogue.getNPCInventoryInteraction() == NPCInventoryInteraction.FULL_MANAGEMENT) {
+				
 				InventoryDialogue.setClothingEquipped(clothingEquipped);
 				Main.game.setContent(new Response("", "", InventoryDialogue.CLOTHING_EQUIPPED));
 			}
 
 		} else if (weaponEquipped != null) {
 			if (Main.game.isInCombat()) {
-				if (RenderingEngine.ENGINE.getCharactersInventoryToRender().isPlayer()) {
+				if (owner.isPlayer()) {
 					Main.game.getTextEndStringBuilder().append("<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You can't change your weapons while in combat!</span></p>");
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					
 				} else {
 					Main.game.getTextEndStringBuilder().append(
 							"<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>[npc.Name] isn't going to let you play with [npc.her] weapons!</span></p>");
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}
+				
 			} else if (Main.game.isInSex()) {
-//				if (RenderingEngine.ENGINE.getCharactersInventoryToRender().isPlayer()) {
+//				if (owner.isPlayer()) {
 //					Main.game.getTextEndStringBuilder().append("<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You can't change your weapons while having sex!</span></p>");
 //					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 //				} else {
@@ -319,7 +321,8 @@ public class InventorySelectedItemEventListener implements EventListener {
 //							"<p><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" + "You're too excited to worry about playing with " + Combat.COMBAT.getOpponent().getNameWithDeterminer("the") + "'s weapons right now!</span></p>"));
 //					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 //				}
-			} else {
+				
+			} else if (owner.isPlayer() || InventoryDialogue.getNPCInventoryInteraction() == NPCInventoryInteraction.FULL_MANAGEMENT) {
 				InventoryDialogue.setWeaponEquipped(weaponEquipped);
 				Main.game.setContent(new Response("", "", InventoryDialogue.WEAPON_EQUIPPED));
 			}
@@ -400,14 +403,17 @@ public class InventorySelectedItemEventListener implements EventListener {
 		return this;
 	}
 
-	public InventorySelectedItemEventListener setWeaponEquipped(InventorySlot invSlot) {
+	public InventorySelectedItemEventListener setWeaponEquipped(GameCharacter owner, InventorySlot invSlot) {
 		resetVariables();
-
-		if (RenderingEngine.ENGINE.getCharactersInventoryToRender() != null) {
-			if (invSlot == InventorySlot.WEAPON_MAIN)
-				weaponEquipped = RenderingEngine.ENGINE.getCharactersInventoryToRender().getMainWeapon();
-			else
-				weaponEquipped = RenderingEngine.ENGINE.getCharactersInventoryToRender().getOffhandWeapon();
+		
+		this.owner = owner;
+		
+		if (owner != null) {
+			if (invSlot == InventorySlot.WEAPON_MAIN) {
+				weaponEquipped = owner.getMainWeapon();
+			} else {
+				weaponEquipped = owner.getOffhandWeapon();
+			}
 		} else {
 			weaponEquipped = null;
 		}
@@ -415,14 +421,17 @@ public class InventorySelectedItemEventListener implements EventListener {
 		return this;
 	}
 
-	public InventorySelectedItemEventListener setClothingEquipped(InventorySlot invSlot) {
+	public InventorySelectedItemEventListener setClothingEquipped(GameCharacter owner, InventorySlot invSlot) {
 		resetVariables();
+		
+		this.owner = owner;
 
-		if (RenderingEngine.ENGINE.getCharactersInventoryToRender() != null)
-			clothingEquipped = RenderingEngine.ENGINE.getCharactersInventoryToRender().getClothingInSlot(invSlot);
-		else
+		if (owner != null) {
+			clothingEquipped = owner.getClothingInSlot(invSlot);
+		} else {
 			clothingEquipped = null;
-
+		}
+		
 		return this;
 	}
 

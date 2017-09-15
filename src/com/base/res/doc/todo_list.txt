@@ -17,11 +17,21 @@
 	
 	Patch notes:
 	
+	Engine:
+		I've disabled the 'fade in' effect on the main text window, which was causing some input lag in all screens (most noticably the inventory screens). If you want to re-enable the fade-in effect, you cna do so in the options screen.
+		
+	UI:
+		Moved the map from the bottom-left up into the main section of dialogue.
+			While playing, I felt as though my focus was mostly on the tiny section at the bottom-left of the screen, and I was having to move my eyes a lot between the map and the main content panel. This was an attempt to address this situation.
+		Added an event log in the bottom-left of the screen.
+	
 	Other:
 		Ralph no longer feels the need to wear socks over his hooves.
 		Added more values for Body Hair.
+		NPCs should no longer be taking their own virginites.
 	
 	Bugs:
+		Fixed bug where the potency of Bubble Cream's enchantments couldn't be changed.
 		NPCs with cow-morph body-type preference will now correctly TF you into a cow-morph instead of a human.
 		Fixed some issues with Bubble Milk displaying a large letter A in its icon.
 		Fixed 'null' being returned in text when cow-leg transformation caused you to be unable to wear shoes.
@@ -34,9 +44,22 @@
 	
 	
 	
-	
+	Np ensl
 	
 	#################
+	
+	Make harpies a rare dominion alley encounter, it is odd that they're currently singled out as never showing up there when they live on top of the buildings
+	
+	PEnis modifier text is firing even if no penis
+	
+	import's still borked
+		The color of the hair on my head changed, my dick became prehensile, my cum became slimy and oily, and if I'm in danger of pregnant during import I lose my vagina
+	
+	Vicky will not buy any of my bottled essence
+	
+	Just want to add to that "can't change potency" problem: I got that bug and it blocks out the options to change potency on ANY item for enchantment, not just the bubble cream.
+	
+	Demon nipple-cunts decription
 	
 	Liquid basic encahntment allow +/- potency
 	
@@ -44,16 +67,13 @@
 	
 	 Lactation base transformation (small increase in lactation) is duplicated in breasts, which also increase lactation (wetness).
 	
-	Bubble Cream enchantments cannot have their potency increased or decreased.
-	
-	NPCs are still going crazy and taking their own  virginities like mad
-	
 	Add text of "This is as far as the quest goes"
-	
-	edit: potency can't be changed on anything in the bubble cream enchanting screen, FYI. Still works for other TF items, just not that one.
 	
 	I get locked up and cant move forward after beating the new cow morphs
 	
+	Make Brax/harpy forced TFs an option in the scene
+	
+	pubic hair spawns
 	
 	The arcane storm notfication that makes you press continue only plays when you are in a protected area. this is likely leftover when you switched the effect the player has to the one that does nto affect stats
 	
@@ -62,11 +82,15 @@
 	add in Lilaya's lab as a fast travel option from your room
 	 fast-travel from the shops to the entrance of the mall
 	
+	So the harpy matriarchs are initially missing some positions such as Back to Wall, but those positions com back immediately when I move into a different position.
 	
+	Also think I ran into a bug where I was having non-con with an impregnation fetish male, and I asked him to pull out and the game had him pull out but stay at 100 orgasm and whatever option I hit just had him respond with "the man is waiting" or something along those lines
 	
+	Forced TF isn't good for human-only playthroughs
 	
+	One bug I have noticed for several versions is that whenever you increase penis capacity it seems to automatically be given the puffy rim description. I have tried using other enchantments to remove the effect but it acts like it isn't there. If you shrink the capacity down to extremely tight it removes all internal descriptions and removes the puffy effect. When I later tried adding the effect when it was already displayed, it seemed to do nothing.
 	
-	
+	I'll add in a preferences screen for the forced TF content as soon as I can, to allow you to define the limits of what you're comfortable being transformed into. ^^
 	
 	Both with TF fetish -> all in one
 	

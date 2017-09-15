@@ -285,7 +285,8 @@ public class PrologueDialogue {
 						
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
 						
-						Main.game.setRenderMapSection(true);
+						Main.game.setRenderMap(false);
+						
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.DOMINION),
 								Dominion.CITY_AUNTS_HOME,

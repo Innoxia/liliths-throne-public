@@ -42,14 +42,7 @@
       <WebView fx:id="webViewMain" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <VBox fx:id="vBoxLeft" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <children>
-            <WebView fx:id="webViewAttributes" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <WebView fx:id="webViewMapTitle" maxHeight="40.0" minHeight="40.0" minWidth="200.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
-            <AnchorPane fx:id="anchorPaneCanvas" minHeight="250.0" minWidth="250.0">
-               <children>
-                  <WebView fx:id="webViewInventory" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <WebView fx:id="webViewMap" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
+            <WebView fx:id="webViewAttributes" prefHeight="-1.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <HBox alignment="CENTER" maxHeight="32.0" minHeight="32.0" prefHeight="32.0">
                <children>
                   <WebView fx:id="webViewButtons" prefHeight="200.0" prefWidth="250.0" />

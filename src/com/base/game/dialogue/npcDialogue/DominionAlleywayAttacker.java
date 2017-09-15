@@ -317,6 +317,14 @@ public class DominionAlleywayAttacker {
 									+ " you realise that you couldn't be happier with how things have turned out..."
 							+ "</p>");
 					
+				} else if (index == 6) {
+					return new Response("Clothing", "Manage [npc.name]'s clothing.", null){
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return GenericDialogue.getDefaultDialogueNoEncounter();
+						}
+					};
+					
 				} else if (index == 10) {
 					return new Response(
 							"Remove character",

@@ -3,12 +3,11 @@ package com.base.game.dialogue;
 import java.io.Serializable;
 
 import com.base.game.character.body.types.BodyCoveringType;
-import com.base.game.character.npc.NPC;
 import com.base.game.inventory.enchanting.TFEssence;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.85
  * @author Innoxia
  */
 public class DialogueFlags implements Serializable {
@@ -20,13 +19,12 @@ public class DialogueFlags implements Serializable {
 	public int ralphDiscount, scarlettPrice;
 	
 	public BodyCoveringType skinTypeSelected;
-
-	public NPC tradePartner;
 	
 	public TFEssence focusedEssence;
 	
 	public boolean
 			// Misc:
+			
 			quickTrade,
 			jinxedClothingDiscovered,
 			stormTextUpdate,
@@ -38,7 +36,7 @@ public class DialogueFlags implements Serializable {
 			ralphIntroduced,
 			nyanIntroduced,
 			kateIntroduced, reactedToKatePregnancy,
-
+			
 			// Aunt's Home:
 			auntHomeJustEntered, hadSexWithLilaya, reactedToPregnancyLilaya, waitingOnLilayaPregnancyResults,
 			essenceExtractionKnown,
@@ -59,8 +57,6 @@ public class DialogueFlags implements Serializable {
 		quickTrade = false;
 		jinxedClothingDiscovered = false;
 		stormTextUpdate = false;
-
-		tradePartner = null;
 		
 		focusedEssence = null;
 		

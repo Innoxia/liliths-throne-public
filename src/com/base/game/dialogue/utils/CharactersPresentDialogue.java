@@ -25,13 +25,12 @@ import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.inventory.clothing.CoverableArea;
 import com.base.main.Main;
-import com.base.rendering.RenderingEngine;
 import com.base.utils.Colour;
 import com.base.utils.Util;
 
 /**
  * @since 0.1.3
- * @version 0.1.8
+ * @version 0.1.85
  * @author Innoxia
  */
 public class CharactersPresentDialogue {
@@ -44,12 +43,8 @@ public class CharactersPresentDialogue {
 		
 		characterViewed = Main.game.getCharactersPresent().get(0);
 		
-		RenderingEngine.ENGINE.setCharactersInventoryToRender(Main.game.getCharactersPresent().get(0));
-		
 		menuTitle = "Characters present ("+Util.capitaliseSentence(Main.game.getCharactersPresent().get(0).getName())+")";
 		menuContent = getCharacterInformationScreen((NPC) Main.game.getCharactersPresent().get(0));
-		
-		RenderingEngine.ENGINE.renderInventory();
 	}
 	
 	public static final DialogueNodeOld MENU = new DialogueNodeOld("", "", true) {
@@ -84,11 +79,8 @@ public class CharactersPresentDialogue {
 					public void effects() {
 						characterViewed = Main.game.getCharactersPresent().get(index-1);
 						
-						RenderingEngine.ENGINE.setCharactersInventoryToRender(Main.game.getCharactersPresent().get(index - 1));
 						menuTitle = "Characters present ("+Util.capitaliseSentence(Main.game.getCharactersPresent().get(index - 1).getName())+")";
 						menuContent = getCharacterInformationScreen((NPC) Main.game.getCharactersPresent().get(index - 1));
-						
-						RenderingEngine.ENGINE.renderInventory();
 					}
 				};
 				

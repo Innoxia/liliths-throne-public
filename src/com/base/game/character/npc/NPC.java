@@ -170,7 +170,6 @@ public abstract class NPC extends GameCharacter {
 	public void setLocation(WorldType worldType, Vector2i location) {
 		setWorldLocation(worldType);
 		setLocation(location);
-		Main.mainController.renderMap();
 	}
 	
 	public void setLocation(WorldType worldType, PlaceInterface placeType) {

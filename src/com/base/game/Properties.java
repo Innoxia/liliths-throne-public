@@ -27,6 +27,7 @@ import com.base.game.character.gender.Gender;
 import com.base.game.character.gender.GenderPronoun;
 import com.base.game.character.race.FurryPreference;
 import com.base.game.character.race.Race;
+import com.base.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.item.AbstractItemType;
@@ -44,7 +45,7 @@ public class Properties implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public String lastSaveLocation = "", nameColour = "", name = "", race = "", quest = "", versionNumber="";
 	public int fontSize = 18, level = 1, money = 0, humanEncountersLevel = 1, multiBreasts = 1;
-	public boolean lightTheme = false, overwriteWarning = true,
+	public boolean lightTheme = false, overwriteWarning = true, fadeInText=false,
 			furryTailPenetrationContent = false,
 			nonConContent = false,
 			incestContent = false,
@@ -145,6 +146,7 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "pubicHairContent", String.valueOf(pubicHairContent));
 			createXMLElementWithValue(doc, settings, "bodyHairContent", String.valueOf(bodyHairContent));
 			createXMLElementWithValue(doc, settings, "overwriteWarning", String.valueOf(overwriteWarning));
+			createXMLElementWithValue(doc, settings, "fadeInText", String.valueOf(fadeInText));
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
@@ -371,6 +373,8 @@ public class Properties implements Serializable {
 				newRaceDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newRaceDiscovered").item(0)).getAttribute("value"));
 				
 				overwriteWarning = ((((Element)element.getElementsByTagName("overwriteWarning").item(0)).getAttribute("value")).equals("true"));
+				fadeInText = ((((Element)element.getElementsByTagName("fadeInText").item(0)).getAttribute("value")).equals("true"));
+				
 				if(element.getElementsByTagName("androgynousIdentification").item(0)!=null) {
 					androgynousIdentification = AndrogynousIdentification.valueOf(((Element)element.getElementsByTagName("androgynousIdentification").item(0)).getAttribute("value"));
 				}
@@ -534,6 +538,9 @@ public class Properties implements Serializable {
 	
 	public boolean addRaceDiscovered(Race race) {
 		newRaceDiscovered = racesDiscovered.add(race);
+		if(newRaceDiscovered) {
+			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(race.getName(), race.getColour()), true);
+		}
 		return newRaceDiscovered;
 	}
 	
@@ -542,7 +549,11 @@ public class Properties implements Serializable {
 	}
 	
 	public boolean addAdvancedRaceKnowledge(Race race) {
-		return racesAdvancedKnowledge.add(race);
+		boolean added = racesAdvancedKnowledge.add(race);
+		if(added) {
+			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(race.getName()+" (Advanced)", race.getColour()), true);
+		}
+		return added;
 	}
 	
 	public boolean isAdvancedRaceKnowledgeDiscovered(Race race) {

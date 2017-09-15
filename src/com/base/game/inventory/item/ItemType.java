@@ -860,10 +860,7 @@ public class ItemType {
 			TFEssence.CAT_MORPH,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_KITTYS_REWARD, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {

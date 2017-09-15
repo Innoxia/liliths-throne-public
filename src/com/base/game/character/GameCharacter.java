@@ -97,6 +97,8 @@ import com.base.game.character.race.RacialBody;
 import com.base.game.combat.Combat;
 import com.base.game.combat.SpecialAttack;
 import com.base.game.combat.Spell;
+import com.base.game.dialogue.eventLog.EventLogEntryAttributeChange;
+import com.base.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.CharacterInventory;
@@ -126,7 +128,7 @@ import com.base.world.places.PlaceInterface;
  * The class for all the game's characters. I think this is the biggest class in the game.
  * 
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.85
  * @author Innoxia
  */
 public class GameCharacter implements Serializable {
@@ -828,6 +830,10 @@ public class GameCharacter implements Serializable {
 				value = 100;
 		}
 		attributes.put(att, value);
+		
+		if(isPlayer() && att != Attribute.AROUSAL) {
+			Main.game.addEvent(new EventLogEntryAttributeChange(att, increment, true), true);
+		}
 
 		// Increment health, mana and stamina based on the change:
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM) * healthPercentage);
@@ -835,7 +841,7 @@ public class GameCharacter implements Serializable {
 		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM) * staminaPercentage);
 
 		updateAttributeListeners();
-
+		
 		return att.getAttributeChangeText(this, increment);
 	}
 
@@ -2021,20 +2027,16 @@ public class GameCharacter implements Serializable {
 		
 		if(ItemType.allItems.contains(item.getItemType()) && isPlayer()) {
 			if(Main.getProperties().addItemDiscovered(item.getItemType())) {
-				Main.game.getTextEndStringBuilder().append(
-						"<p style='text-align:center;'>"
-							+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
-							+ "</br>"
-							+ "<b>Item:</b> <b style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(item.getItemType().getName(false))+"</b>"
-						+ "</p>");
+				Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(item.getItemType().getName(false), item.getRarity().getColour()), true);
 			}
 		}
 		
 		if (item.getItemType().isConsumedOnUse()) {
-			if(removingFromFloor)
+			if(removingFromFloor) {
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().removeItem(item);
-			else
+			} else {
 				removeItem(item);
+			}
 		}
 		
 		if(onlyReturnEffects) {
@@ -2313,12 +2315,7 @@ public class GameCharacter implements Serializable {
 
 			if (isPlayer()) {
 				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
-					Main.game.getTextEndStringBuilder().append(
-							"<p style='text-align:center;'>"
-								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
-								+ "</br>"
-								+ "<b>Clothing:</b> <b style='color:"+newClothing.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(newClothing.getName())+"</b>"
-							+ "</p>");
+					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getName(), newClothing.getRarity().getColour()), true);
 				}
 			}
 		}
@@ -2344,12 +2341,7 @@ public class GameCharacter implements Serializable {
 
 			if (isPlayer()) {
 				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
-					Main.game.getTextEndStringBuilder().append(
-							"<p style='text-align:center;'>"
-								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
-								+ "</br>"
-								+ "<b>Clothing:</b> <b style='color:"+newClothing.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(newClothing.getName())+"</b>"
-							+ "</p>");
+					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getName(), newClothing.getRarity().getColour()), true);
 				}
 			}
 		}
@@ -2376,12 +2368,7 @@ public class GameCharacter implements Serializable {
 
 			if (isPlayer()) {
 				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
-					Main.game.getTextEndStringBuilder().append(
-							"<p style='text-align:center;'>"
-								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
-								+ "</br>"
-								+ "<b>Clothing:</b> <b style='color:"+newClothing.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(newClothing.getName())+"</b>"
-							+ "</p>");
+					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getName(), newClothing.getRarity().getColour()), true);
 				}
 			}
 		}

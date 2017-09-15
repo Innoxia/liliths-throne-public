@@ -38,7 +38,6 @@ import com.base.game.sex.sexActions.SexActionInterface;
 import com.base.game.sex.sexActions.SexActionType;
 import com.base.game.sex.sexActions.SexActionUtility;
 import com.base.main.Main;
-import com.base.rendering.RenderingEngine;
 import com.base.utils.BaseColour;
 import com.base.utils.Colour;
 import com.base.utils.Util;
@@ -48,7 +47,7 @@ import com.base.utils.Util;
  * startSex(), which returns the starting DialogueNode.
  *
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.85
  * @author Innoxia
  */
 public enum Sex {
@@ -264,7 +263,6 @@ public enum Sex {
 
 		Main.game.setInSex(true);
 
-		RenderingEngine.ENGINE.setCharactersInventoryToRender(partner);
 		Main.mainController.openInventory();
 
 		// Main.mainController.updateUI();
@@ -309,8 +307,6 @@ public enum Sex {
 	}
 
 	private static void endSex() {
-		RenderingEngine.ENGINE.setCharactersInventoryToRender(Main.game.getPlayer());
-
 		Main.game.setInSex(false);
 
 		// Restore clothes:

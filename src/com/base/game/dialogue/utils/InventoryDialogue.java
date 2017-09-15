@@ -2,8 +2,6 @@ package com.base.game.dialogue.utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.base.game.character.GameCharacter;
@@ -18,11 +16,9 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
-import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.ShopTransaction;
 import com.base.game.inventory.clothing.AbstractClothing;
-import com.base.game.inventory.enchanting.TFEssence;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
@@ -30,13 +26,13 @@ import com.base.game.inventory.weapon.AbstractWeapon;
 import com.base.game.sex.Sex;
 import com.base.game.sex.sexActions.SexActionUtility;
 import com.base.main.Main;
+import com.base.rendering.RenderingEngine;
 import com.base.utils.Colour;
 import com.base.utils.Util;
-import com.base.world.places.Dominion;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.85
  * @author Innoxia
  */
 public class InventoryDialogue {
@@ -49,6 +45,9 @@ public class InventoryDialogue {
 	private static AbstractClothing clothing, clothingFloor, clothingEquipped;
 	private static AbstractWeapon weapon, weaponFloor, weaponEquipped;
 	private static GameCharacter ownerInSex;
+	
+	private static NPC inventoryNPC;
+	private static NPCInventoryInteraction interactionType;
 
 	private static StringBuilder inventorySB;
 
@@ -59,213 +58,21 @@ public class InventoryDialogue {
 	private static int buyBackPrice, buyBackIndex;
 
 	private static String inventoryView() {
-//		System.out.println(System.nanoTime()+": rendered");
 		inventorySB = new StringBuilder();
-
-		inventorySB.append("<div class='inventory-contents'>");
-		inventorySB.append("<p style='text-align: center;'>" + "<b>Your inventory ("+Main.game.getPlayer().getInventorySlotsTaken()+"/"+Main.game.getPlayer().getMaximumInventorySpace()+")</b>"
-				+ "</p>");
-
-		inventorySB.append("<div class='inventory-container'>");
-
-		// Weapons:
-		if (Main.game.getPlayer().getWeaponCount() > 0) {
-			appendDivsForItemsToInventory(Main.game.getPlayer().getMapOfDuplicateWeapons(), "WEAPON_");
-		}
-		// Clothing:
-		if (Main.game.getPlayer().getClothingCount() > 0) {
-			appendDivsForItemsToInventory(Main.game.getPlayer().getMapOfDuplicateClothing(), "CLOTHING_");
-		}
-		// Items:
-		if (Main.game.getPlayer().getItemCount() > 0) {
-			appendDivsForItemsToInventory(Main.game.getPlayer().getMapOfDuplicateItems(), "ITEM_");
-		}
-		// Fill space:
-		for (int i = Main.game.getPlayer().getMaximumInventorySpace(); i > Main.game.getPlayer().getInventorySlotsTaken(); i--) {
-			inventorySB.append("<div class='item-background empty'></div>");
-		}
 		
-		inventorySB.append("</div>"
-				
-				+ "<div style='text-align: center; display:block; margin:0 auto; height:48px; padding:8px 0 8px 0;'>");
-		for(TFEssence essence : TFEssence.values()) {
-			inventorySB.append(
-					"<div style='width:28px; display:inline-block; margin:0 4px 0 4px;'>"
-						+ "<div class='item-inline " + essence.getRarity().getName() + "'>"
-							+ essence.getSVGString()
-							+ "<div class='overlay no-pointer' id='ESSENCE_"+essence.hashCode()+"'></div>"
-						+ "</div>"
-						+ " <div style='display:inline-block; height:20px; vertical-align: middle;'>"
-							+ "<b>"+Main.game.getPlayer().getEssenceCount(essence)+"</b>"
-						+ "</div>"
-					+ "</div>"
-					);
-		}
+//		if (InventoryDialogue.getInventoryNPC()!=null) {
+//			inventorySB.append(RenderingEngine.ENGINE.getInventoryPanel(InventoryDialogue.getInventoryNPC(), buyback));
+//			
+//		} else if (Main.game.isInCombat()) {
+//			inventorySB.append(RenderingEngine.ENGINE.getInventoryPanel(Combat.getOpponent(), false));
+//			
+//		} else if (Main.game.isInSex()) {
+//			inventorySB.append(RenderingEngine.ENGINE.getInventoryPanel(Sex.getPartner(), false));
+//			
+//		} else {
+			inventorySB.append(RenderingEngine.ENGINE.getInventoryPanel(inventoryNPC, false));
+//		}
 		
-		inventorySB.append(
-				"<div style='width:60px; display:inline-block; margin:0 4px 0 4px;'>"
-					+ " <div style='display:inline-block; height:48px; vertical-align: middle; top:0;'>"
-						+ UtilText.formatAsMoney(Main.game.getPlayer().getMoney())
-					+ "</div>"
-				+ "</div>"
-				);
-		
-		inventorySB.append("</div>");
-		
-		
-		inventorySB.append("</div>");
-
-		// Right-panel:
-		inventorySB.append("<div class='inventory-contents'>" + "<p style='text-align: center;'>");
-		
-		if(Main.game.isInSex() || Main.game.isInCombat()){
-			
-			inventorySB.append("<b>Disabled</b>");
-			inventorySB.append("</p>" + "<div class='inventory-container'>");
-			for (int i = 24; i > 0; i--) {
-				inventorySB.append("<div class='item-background disabled'></div>");
-			}
-			inventorySB.append("</div>");
-			inventorySB.append("<p style='text-align: center; height:48px;'>-</p>");
-			inventorySB.append("</div>");
-			
-		} else {
-
-			if (Main.game.getDialogueFlags().tradePartner!=null) {
-				if (buyback)
-					inventorySB.append("<b>Buyback:</b>");
-				else
-					inventorySB.append("<b>" + Util.capitaliseSentence(Main.game.getDialogueFlags().tradePartner.getName()) + " is offering to sell:</b>");
-	
-			} else {
-				inventorySB.append("<b>Items on the ground:</b>");
-			}
-			
-			inventorySB.append("</p>" + "<div class='inventory-container'>");
-	
-			// This is a trade dialogue:
-			if (Main.game.getDialogueFlags().tradePartner!=null) {
-	
-				// Buyback screen:
-				if (buyback) {
-					for (int i = Main.game.getPlayer().getBuybackStack().size() - 1; i >= 0; i--) {
-						
-						AbstractCoreItem itemBuyback = Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold();
-	
-						if (itemBuyback != null) {
-							// Clothing:
-							int itemPrice = Main.game.getPlayer().getBuybackStack().get(i).getPrice();
-							if (itemBuyback instanceof AbstractClothing) {
-								inventorySB.append(getBuybackItemPanel(itemBuyback, "CLOTHING_BUYBACK_" + i, itemPrice));
-	
-							// Weapon:
-							} else if (itemBuyback instanceof AbstractWeapon) {
-								inventorySB.append(getBuybackItemPanel(itemBuyback, "WEAPON_BUYBACK_" + i, itemPrice));
-								
-							// Item:
-							} else {
-								inventorySB.append(getBuybackItemPanel(itemBuyback, "ITEM_BUYBACK_" + i, itemPrice));
-							}
-						}
-					}
-	
-					// Fill space:
-					for (int i = 24; i > Main.game.getPlayer().getBuybackStack().size(); i--) {
-						inventorySB.append("<div class='item-background empty'></div>");
-					}
-					
-				// Normal trader screen:
-				} else {
-					
-					// Weapons:
-					if (Main.game.getDialogueFlags().tradePartner.getWeaponCount() > 0) {
-						for (Entry<AbstractWeapon, Integer> entry : Main.game.getDialogueFlags().tradePartner.getMapOfDuplicateWeapons().entrySet()) {
-							inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString());
-							inventorySB.append("<div class='overlay' id='WEAPON_TRADER_" + entry.getKey().hashCode() + "'>"
-									+ getItemCountDiv(entry.getValue())
-									+ getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()))
-									+ "</div>" + "</div>");
-						}
-					}
-					
-					// Clothing:
-					if (Main.game.getDialogueFlags().tradePartner.getClothingCount() > 0) {
-						for (Entry<AbstractClothing, Integer> entry : Main.game.getDialogueFlags().tradePartner.getMapOfDuplicateClothing().entrySet()) {
-							inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>"
-									+ entry.getKey().getSVGString() + "<div class='overlay' id='CLOTHING_TRADER_" + entry.getKey().hashCode() + "'>"
-											+ getItemCountDiv(entry.getValue())
-											+ getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()))
-									+ "</div>" + "</div>");
-						}
-					}
-					// Items:
-					if (Main.game.getDialogueFlags().tradePartner.getItemCount() > 0) {
-						for (Entry<AbstractItem, Integer> entry : Main.game.getDialogueFlags().tradePartner.getMapOfDuplicateItems().entrySet()) {
-							inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString()
-											+ "<div class='overlay' id='ITEM_TRADER_" + entry.getKey().hashCode() + "'>"
-													+ getItemCountDiv(entry.getValue())
-													+ getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()))
-											+ "</div>" + "</div>");
-						}
-					}
-					// Fill space:
-					for (int i = Main.game.getDialogueFlags().tradePartner.getMaximumInventorySpace(); i > Main.game.getDialogueFlags().tradePartner.getInventorySlotsTaken(); i--) {
-						inventorySB.append("<div class='item-background empty'></div>");
-					}
-	
-				}
-				
-			// Floor:
-			} else {
-				// Weapons:
-				if (Main.game.getPlayerCell().getInventory().getWeaponCount() > 0) {
-					for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
-						inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>"
-								+ entry.getKey().getSVGString() + "<div class='overlay' id='WEAPON_FLOOR_" + entry.getKey().hashCode() + "'>"
-										+ getItemCountDiv(entry.getValue())
-										+ "</div>"
-								+ "</div>");
-					}
-				}
-				// Clothing:
-				if (Main.game.getPlayerCell().getInventory().getClothingCount() > 0) {
-					for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
-						inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>");
-	
-						inventorySB.append(entry.getKey().getSVGString() + "<div class='overlay' id='CLOTHING_FLOOR_" + entry.getKey().hashCode() + "'>"
-								+ getItemCountDiv(entry.getValue())
-								+ "</div>"
-						+ "</div>");
-					}
-				}
-				// Items:
-				if (Main.game.getPlayerCell().getInventory().getItemCount() > 0) {
-					for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
-						inventorySB.append("<div class='item-background " + entry.getKey().getDisplayRarity() + "'>"
-								+ entry.getKey().getSVGString()
-								+ "<div class='overlay' id='ITEM_FLOOR_" + entry.getKey().hashCode() + "'>"
-										+ getItemCountDiv(entry.getValue())
-								+ "</div>" + "</div>");
-					}
-				}
-				// Fill space:
-				for (int i = 24; i > Main.game.getPlayerCell().getInventory().getInventorySlotsTaken(); i--) {
-					inventorySB.append("<div class='item-background empty'></div>");
-				}
-	
-			}
-	
-			inventorySB.append("</div>");
-			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace() != Dominion.CITY_AUNTS_HOME
-					&& Main.game.getPlayerCell().getPlace().isItemsDisappear()
-					&& Main.game.getPlayerCell().getInventory().getInventorySlotsTaken() > 0
-					&& Main.game.getDialogueFlags().tradePartner == null)
-				inventorySB.append("<p style='text-align: center; height:48px;'>" + "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>These items will disappear when you leave the area.</b>" + "</p>");
-			else
-				inventorySB.append("<p style='text-align: center; height:48px;'>-</p>");
-			inventorySB.append("</div>");
-		}
-
 		return inventorySB.toString();
 	}
 
@@ -278,10 +85,11 @@ public class InventoryDialogue {
 
 		@Override
 		public String getLabel() {
-			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat())
+			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
 				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
-			else
+			} else {
 				return "Inventory";
+			}
 		}
 
 		@Override
@@ -291,17 +99,18 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
-			if (Main.game.getDialogueFlags().tradePartner!=null)
-				return Main.game.getDialogueFlags().tradePartner.getTraderDescription();
-			else
+			if (InventoryDialogue.getInventoryNPC()!=null && interactionType == NPCInventoryInteraction.TRADING) {
+				return InventoryDialogue.getInventoryNPC().getTraderDescription();
+			} else {
 				return "";
+			}
 		}
 		
 		@Override
 		public Response getResponse(int index) {
 			if (index == 0) {
 				return getCloseInventoryResponse();
-			} else if (index == 1 && Main.game.getDialogueFlags().tradePartner==null) {
+			} else if (index == 1 && InventoryDialogue.getInventoryNPC()==null) {
 				if(Main.game.getPlayerCell().getInventory().getInventorySlotsTaken()==0 || Main.game.isInCombat() || Main.game.isInSex()) {
 					return new Response("Take all", "Pick up everything on the ground.", null);
 					
@@ -332,7 +141,7 @@ public class InventoryDialogue {
 					};
 				}
 				
-			} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
+			} else if (index == 8 && InventoryDialogue.getInventoryNPC()!=null) {
 				return getBuybackResponse();
 			} else if (index == 9 && !Main.game.isInSex() && !Main.game.isInCombat()) {
 				return getQuickTradeResponse();
@@ -348,30 +157,38 @@ public class InventoryDialogue {
 	};
 
 	public static final DialogueNodeOld ITEM_INVENTORY = new DialogueNodeOld("Item", "", true) {
-		/**
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getLabel() {
-			return item.getDisplayName(true);
+			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+			} else {
+				return "Inventory";
+			}
 		}
 
 		@Override
 		public String getHeaderContent() {
-			if(!Main.game.isInSex())
-				return inventoryView();
-			else
-				return null;
+			return inventoryView();
 		}
 		
 		@Override
 		public String getContent() {
-			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + item.getDescription() + item.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer())
-					+ (Main.game.getDialogueFlags().tradePartner != null ? 
-							Main.game.getDialogueFlags().tradePartner.willBuy(item) ? 
-									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + UtilText.formatAsMoney(item.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
-							: Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this."
+			return "<div class='inventoryImage'>"
+						+ "<div class='inventoryImage-content'>"
+							+ item.getSVGString()
+						+ "</div>"
+					+ "</div>"
+					+ "<p><b>"+item.getDisplayName(true)+"</b></p>"
+					+ item.getDescription()
+					+ item.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer())
+					+ (InventoryDialogue.getInventoryNPC() != null ? 
+							InventoryDialogue.getInventoryNPC().willBuy(item)
+								? "<p>"
+									+ InventoryDialogue.getInventoryNPC().getName("The") + " will buy it for " + UtilText.formatAsMoney(item.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier())) + "."
+								+ "</p>" 
+								: InventoryDialogue.getInventoryNPC().getName("The") + " doesn't want to buy this."
 						: "");
 		}
 
@@ -478,9 +295,9 @@ public class InventoryDialogue {
 	
 				// Drop or sell item:
 				}  else if (index == 2) {
-					if(Main.game.getDialogueFlags().tradePartner!=null) {
-						if (Main.game.getDialogueFlags().tradePartner.willBuy(item)) {
-							int sellPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier());
+					if(InventoryDialogue.getInventoryNPC()!=null) {
+						if (InventoryDialogue.getInventoryNPC().willBuy(item)) {
+							int sellPrice = item.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier());
 							return new Response("Sell (" + UtilText.formatAsMoney(sellPrice, "span") + ")", "Sell the " + item.getName() + " for " + UtilText.formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 								@Override
 								public void effects(){
@@ -488,7 +305,7 @@ public class InventoryDialogue {
 								}
 							};
 						} else {
-							return new Response("Sell", Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this.", null);
+							return new Response("Sell", InventoryDialogue.getInventoryNPC().getName("The") + " doesn't want to buy this.", null);
 						}
 						
 					} else {
@@ -520,9 +337,9 @@ public class InventoryDialogue {
 					
 				// Mass drop or sell items:
 				} else if (index == 3 && Main.game.getPlayer().getItemCount(item)>1) {
-					if(Main.game.getDialogueFlags().tradePartner!=null) {
-						if (Main.game.getDialogueFlags().tradePartner.willBuy(item)) {
-							int sellPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier()) * Main.game.getPlayer().getItemCount(item);
+					if(InventoryDialogue.getInventoryNPC()!=null) {
+						if (InventoryDialogue.getInventoryNPC().willBuy(item)) {
+							int sellPrice = item.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier()) * Main.game.getPlayer().getItemCount(item);
 							return new Response("Sell all (" + UtilText.formatAsMoney(sellPrice, "span") + ")",
 									"Sell all of your " + item.getName() + (item.getItemType().isPlural()?"":"s")+" for " + UtilText.formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 								@Override
@@ -531,7 +348,7 @@ public class InventoryDialogue {
 									
 									Main.game.getTextStartStringBuilder().append(
 											"<p style='text-align:center;'>"
-												+ "You hand over all of your <b>" + item.getDisplayName(true) + "</b> to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + UtilText.formatAsMoney(sellPrice) + "."
+												+ "You hand over all of your <b>" + item.getDisplayName(true) + "</b> to " + InventoryDialogue.getInventoryNPC().getName("the") + " in exchange for " + UtilText.formatAsMoney(sellPrice) + "."
 											+ "</p>");
 									
 									for(int i = 0; i < itemCount; i++) {
@@ -540,7 +357,7 @@ public class InventoryDialogue {
 								}
 							};
 						} else {
-							return new Response("Sell all", Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this.", null);
+							return new Response("Sell all", InventoryDialogue.getInventoryNPC().getName("The") + " doesn't want to buy this.", null);
 						}
 						
 					} else {
@@ -631,7 +448,7 @@ public class InventoryDialogue {
 					
 					return null;
 					
-				} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
+				} else if (index == 8 && InventoryDialogue.getInventoryNPC()!=null) {
 					return getBuybackResponse();
 				} else if (index == 9) {
 					return getQuickTradeResponse();
@@ -654,24 +471,31 @@ public class InventoryDialogue {
 
 		@Override
 		public String getLabel() {
-			return weapon.getDisplayName(true);
+			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+			} else {
+				return "Inventory";
+			}
 		}
 		
 		@Override
 		public String getHeaderContent() {
-			if(!Main.game.isInSex())
-				return inventoryView();
-			else
-				return null;
+			return inventoryView();
 		}
 
 		@Override
 		public String getContent() {
-			return "<div class='inventoryImage'>" + weapon.getSVGString() + "</div>" + weapon.getDescription()
-					+ (Main.game.getDialogueFlags().tradePartner != null ? 
-							Main.game.getDialogueFlags().tradePartner.willBuy(weapon) ? 
-									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + UtilText.formatAsMoney(weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
-							: Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this."
+			return "<div class='inventoryImage'>"
+						+ "<div class='inventoryImage-content'>"
+							+ weapon.getSVGString()
+						+ "</div>"
+					+ "</div>"
+					+ "<p><b>"+weapon.getDisplayName(true)+"</b></p>"
+					+ weapon.getDescription()
+					+ (InventoryDialogue.getInventoryNPC() != null ? 
+							InventoryDialogue.getInventoryNPC().willBuy(weapon) ? 
+									"<p>" + InventoryDialogue.getInventoryNPC().getName("The") + " will buy it for " + UtilText.formatAsMoney(weapon.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier())) + ".</p>" 
+							: InventoryDialogue.getInventoryNPC().getName("The") + " doesn't want to buy this."
 						: "");
 		}
 		
@@ -692,9 +516,9 @@ public class InventoryDialogue {
 
 			// Drop or sell weapon:
 			} else if (index == 2) {
-				if(Main.game.getDialogueFlags().tradePartner!=null) {
-					if (Main.game.getDialogueFlags().tradePartner.willBuy(weapon)) {
-						int sellPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier());
+				if(InventoryDialogue.getInventoryNPC()!=null) {
+					if (InventoryDialogue.getInventoryNPC().willBuy(weapon)) {
+						int sellPrice = weapon.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier());
 						return new Response("Sell (" + UtilText.formatAsMoney(sellPrice, "span") + ")",
 								"Sell the " + weapon.getName() + " for " + UtilText.formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 							@Override
@@ -703,7 +527,7 @@ public class InventoryDialogue {
 							}
 						};
 					} else {
-						return new Response("Sell", Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this.", null);
+						return new Response("Sell", InventoryDialogue.getInventoryNPC().getName("The") + " doesn't want to buy this.", null);
 					}
 					
 				} else {
@@ -736,9 +560,9 @@ public class InventoryDialogue {
 				
 			// Mass drop or sell weapons:
 			} else if (index == 3 && Main.game.getPlayer().getWeaponCount(weapon)>1) {
-				if(Main.game.getDialogueFlags().tradePartner!=null) {
-					if (Main.game.getDialogueFlags().tradePartner.willBuy(weapon)) {
-						int sellPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier()) * Main.game.getPlayer().getWeaponCount(weapon);
+				if(InventoryDialogue.getInventoryNPC()!=null) {
+					if (InventoryDialogue.getInventoryNPC().willBuy(weapon)) {
+						int sellPrice = weapon.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier()) * Main.game.getPlayer().getWeaponCount(weapon);
 						return new Response("Sell all (" + UtilText.formatAsMoney(sellPrice, "span") + ")",
 								"Sell all of your " + weapon.getName() +"s for " + UtilText.formatAsMoney(sellPrice) + ".", INVENTORY_MENU){
 							@Override
@@ -747,7 +571,7 @@ public class InventoryDialogue {
 								
 								Main.game.getTextStartStringBuilder().append(
 										"<p style='text-align:center;'>"
-											+ "You hand over all of your <b>" + weapon.getDisplayName(true) + "</b> to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + UtilText.formatAsMoney(sellPrice) + "."
+											+ "You hand over all of your <b>" + weapon.getDisplayName(true) + "</b> to " + InventoryDialogue.getInventoryNPC().getName("the") + " in exchange for " + UtilText.formatAsMoney(sellPrice) + "."
 										+ "</p>");
 								
 								for(int i = 0; i < itemCount; i++) {
@@ -756,7 +580,7 @@ public class InventoryDialogue {
 							}
 						};
 					} else {
-						return new Response("Sell all", Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this.", null);
+						return new Response("Sell all", InventoryDialogue.getInventoryNPC().getName("The") + " doesn't want to buy this.", null);
 					}
 					
 				} else {
@@ -807,7 +631,7 @@ public class InventoryDialogue {
 				
 				return null;
 				
-			} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
+			} else if (index == 8 && InventoryDialogue.getInventoryNPC()!=null) {
 				return getBuybackResponse();
 			} else if (index == 9) {
 				return getQuickTradeResponse();
@@ -829,24 +653,31 @@ public class InventoryDialogue {
 
 		@Override
 		public String getLabel() {
-			return clothing.getDisplayName(true);
+			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+			} else {
+				return "Inventory";
+			}
 		}
 		
 		@Override
 		public String getHeaderContent() {
-			if(!Main.game.isInSex())
-				return inventoryView();
-			else
-				return null;
+			return inventoryView();
 		}
 
 		@Override
 		public String getContent() {
-			return "<div class='inventoryImage'>" + clothing.getSVGString() + "</div>" + clothing.getDescription() + clothing.clothingExtraInformation(null)
-					+ (Main.game.getDialogueFlags().tradePartner != null ? 
-							Main.game.getDialogueFlags().tradePartner.willBuy(clothing) ? 
-									"<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will buy it for " + UtilText.formatAsMoney(clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) + ".</p>" 
-							: Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this."
+			return "<div class='inventoryImage'>"
+						+ "<div class='inventoryImage-content'>"
+							+ clothing.getSVGString()
+						+ "</div>"
+					+ "</div>"
+					+ "<p><b>"+clothing.getDisplayName(true)+"</b></p>"
+					+ clothing.getDescription() + clothing.clothingExtraInformation(null)
+					+ (InventoryDialogue.getInventoryNPC() != null ? 
+							InventoryDialogue.getInventoryNPC().willBuy(clothing) ? 
+									"<p>" + InventoryDialogue.getInventoryNPC().getName("The") + " will buy it for " + UtilText.formatAsMoney(clothing.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier())) + ".</p>" 
+							: InventoryDialogue.getInventoryNPC().getName("The") + " doesn't want to buy this."
 						: "");
 		}
 		
@@ -864,9 +695,9 @@ public class InventoryDialogue {
 
 			// Drop:
 			} else if (index == 2) {
-				if(Main.game.getDialogueFlags().tradePartner!=null) {
-					if (Main.game.getDialogueFlags().tradePartner.willBuy(clothing)) {
-						int itemPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier());
+				if(InventoryDialogue.getInventoryNPC()!=null) {
+					if (InventoryDialogue.getInventoryNPC().willBuy(clothing)) {
+						int itemPrice = clothing.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier());
 						return new Response("Sell (" + UtilText.formatAsMoney(itemPrice, "span") + ")",
 								"Sell your " + clothing.getName() + " for " + UtilText.formatAsMoney(itemPrice) + ".", INVENTORY_MENU){
 							@Override
@@ -875,7 +706,7 @@ public class InventoryDialogue {
 							}
 						};
 					} else {
-						return new Response("Sell", Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this.", null);
+						return new Response("Sell", InventoryDialogue.getInventoryNPC().getName("The") + " doesn't want to buy this.", null);
 					}
 					
 				} else {
@@ -908,9 +739,9 @@ public class InventoryDialogue {
 				
 			// Mass drop or sell items:
 			} else if (index == 3 && Main.game.getPlayer().getClothingCount(clothing)>1) {
-				if(Main.game.getDialogueFlags().tradePartner!=null) {
-					if (Main.game.getDialogueFlags().tradePartner.willBuy(clothing)) {
-						int itemPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier()) * Main.game.getPlayer().getClothingCount(clothing);
+				if(InventoryDialogue.getInventoryNPC()!=null) {
+					if (InventoryDialogue.getInventoryNPC().willBuy(clothing)) {
+						int itemPrice = clothing.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier()) * Main.game.getPlayer().getClothingCount(clothing);
 						return new Response("Sell all (" + UtilText.formatAsMoney(itemPrice, "span") + ")",
 								"Sell all of your " + clothing.getName() +" for " + UtilText.formatAsMoney(itemPrice) + ".", INVENTORY_MENU){
 							@Override
@@ -919,7 +750,7 @@ public class InventoryDialogue {
 								
 								Main.game.getTextStartStringBuilder().append(
 										"<p style='text-align:center;'>"
-											+ "You hand over all of your <b>" + clothing.getDisplayName(true) + "</b> to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + UtilText.formatAsMoney(itemPrice) + "."
+											+ "You hand over all of your <b>" + clothing.getDisplayName(true) + "</b> to " + InventoryDialogue.getInventoryNPC().getName("the") + " in exchange for " + UtilText.formatAsMoney(itemPrice) + "."
 										+ "</p>");
 								
 								for(int i = 0; i < itemCount; i++) {
@@ -928,7 +759,7 @@ public class InventoryDialogue {
 							}
 						};
 					} else {
-						return new Response("Sell all", Main.game.getDialogueFlags().tradePartner.getName("The") + " doesn't want to buy this.", null);
+						return new Response("Sell all", InventoryDialogue.getInventoryNPC().getName("The") + " doesn't want to buy this.", null);
 					}
 					
 				} else {
@@ -986,9 +817,9 @@ public class InventoryDialogue {
 				}
 				
 			// Identify:
-			} else if (index == 5 && Main.game.getDialogueFlags().tradePartner!=null && !clothing.isEnchantmentKnown()) {
-				if(!Main.game.getDialogueFlags().tradePartner.willBuy(clothing)) {
-					return new Response("Identify", Main.game.getDialogueFlags().tradePartner.getName("The") + " can't identify clothing!", null);
+			} else if (index == 5 && InventoryDialogue.getInventoryNPC()!=null && !clothing.isEnchantmentKnown()) {
+				if(!InventoryDialogue.getInventoryNPC().willBuy(clothing)) {
+					return new Response("Identify", InventoryDialogue.getInventoryNPC().getName("The") + " can't identify clothing!", null);
 					
 				} else if(Main.game.getPlayer().getMoney() < IDENTIFICATION_PRICE){
 					// don't format as money because we don't want to highlight non-selectable choices
@@ -1002,7 +833,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().removeClothing(clothing);
 							Main.game.getTextStartStringBuilder().append(
 									"<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(IDENTIFICATION_PRICE) + " to "
-											+Main.game.getDialogueFlags().tradePartner.getName("the")+", who promptly identifies your "+clothing.getName()+"."
+											+InventoryDialogue.getInventoryNPC().getName("the")+", who promptly identifies your "+clothing.getName()+"."
 									+ "</p>"
 									+clothing.setEnchantmentKnown(true));
 							
@@ -1012,7 +843,7 @@ public class InventoryDialogue {
 					};
 				}
 
-			} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
+			} else if (index == 8 && InventoryDialogue.getInventoryNPC()!=null) {
 				return getBuybackResponse();
 			} else if (index == 9) {
 				return getQuickTradeResponse();
@@ -1035,21 +866,28 @@ public class InventoryDialogue {
 
 		@Override
 		public String getLabel() {
-			return item.getDisplayName(true);
+			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+			} else {
+				return "Inventory";
+			}
 		}
 		
 		@Override
 		public String getHeaderContent() {
-			if(!Main.game.isInSex())
-				return inventoryView();
-			else
-				return null;
+			return inventoryView();
 		}
 
 		@Override
 		public String getContent() {
-			int itemPrice = buyback ? buyBackPrice : item.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
-			return "<div class='inventoryImage'>" + item.getSVGString() + "</div>" + "<p>" + item.getDescription() + "</p>" + item.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer()) + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The")
+			int itemPrice = buyback ? buyBackPrice : item.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier());
+			return "<div class='inventoryImage'>"
+						+ "<div class='inventoryImage-content'>"
+							+ item.getSVGString()
+						+ "</div>"
+					+ "</div>"
+					+ "<p><b>"+item.getDisplayName(true)+"</b></p>"
+					+ "<p>" + item.getDescription() + "</p>" + item.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer()) + "<p>" + InventoryDialogue.getInventoryNPC().getName("The")
 					+ " will sell it to you for " + UtilText.formatAsMoney(itemPrice) + "." + "</p>";
 		}
 		
@@ -1076,7 +914,7 @@ public class InventoryDialogue {
 					}
 					
 				} else {
-					int itemPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
+					int itemPrice = item.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier());
 					if (noSlotForItem) {
 						return new Response("Buy", "Your inventory is full, so you can't buy the " + item.getName() + "!", null);
 						
@@ -1094,9 +932,9 @@ public class InventoryDialogue {
 					}
 				}
 				
-			} else if (index == 2 && Main.game.getDialogueFlags().tradePartner.getItemCount(item)>1) {
+			} else if (index == 2 && InventoryDialogue.getInventoryNPC().getItemCount(item)>1) {
 				if (!buyback) {
-					int totalPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getItemCount(item);
+					int totalPrice = item.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier()) * InventoryDialogue.getInventoryNPC().getItemCount(item);
 					if (noSlotForItem) {
 						return new Response("Buy all", "Your inventory is full, so you can't buy the " + item.getName() + "!", null);
 						
@@ -1117,7 +955,7 @@ public class InventoryDialogue {
 					return null;
 				}
 				
-			} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
+			} else if (index == 8 && InventoryDialogue.getInventoryNPC()!=null) {
 				return getBuybackResponse();
 			} else if (index == 9) {
 				return getQuickTradeResponse();
@@ -1137,21 +975,28 @@ public class InventoryDialogue {
 
 		@Override
 		public String getLabel() {
-			return weapon.getDisplayName(true);
+			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+			} else {
+				return "Inventory";
+			}
 		}
 		
 		@Override
 		public String getHeaderContent() {
-			if(!Main.game.isInSex())
-				return inventoryView();
-			else
-				return null;
+			return inventoryView();
 		}
 
 		@Override
 		public String getContent() {
-			int itemPrice = buyback ? buyBackPrice : weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
-			return "<div class='inventoryImage'>" + weapon.getSVGString() + "</div>" + weapon.getDescription() + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The") + " will sell it to you for " 
+			int itemPrice = buyback ? buyBackPrice : weapon.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier());
+			return "<div class='inventoryImage'>"
+						+ "<div class='inventoryImage-content'>"
+							+ weapon.getSVGString()
+						+ "</div>"
+					+ "</div>"
+					+ "<p><b>"+weapon.getDisplayName(true)+"</b></p>"
+					+ "</div>" + weapon.getDescription() + "<p>" + InventoryDialogue.getInventoryNPC().getName("The") + " will sell it to you for " 
 					+ UtilText.formatAsMoney(itemPrice) + ".</p>";
 		}
 		
@@ -1178,7 +1023,7 @@ public class InventoryDialogue {
 					}
 					
 				} else {
-					int itemPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
+					int itemPrice = weapon.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier());
 					if (noSlotForItem) {
 						return new Response("Buy", "Your inventory is full, so you can't buy the " + weapon.getName() + "!", null);
 						
@@ -1196,9 +1041,9 @@ public class InventoryDialogue {
 					}
 				}
 				
-			} else if (index == 2 && Main.game.getDialogueFlags().tradePartner.getWeaponCount(weapon)>1) {
+			} else if (index == 2 && InventoryDialogue.getInventoryNPC().getWeaponCount(weapon)>1) {
 				if (!buyback) {
-					int totalPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getWeaponCount(weapon);
+					int totalPrice = weapon.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier()) * InventoryDialogue.getInventoryNPC().getWeaponCount(weapon);
 					if (noSlotForItem) {
 						return new Response("Buy all", "Your inventory is full, so you can't buy the " + weapon.getName() + "!", null);
 						
@@ -1219,7 +1064,7 @@ public class InventoryDialogue {
 					return null;
 				}
 				
-			} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
+			} else if (index == 8 && InventoryDialogue.getInventoryNPC()!=null) {
 				return getBuybackResponse();
 			} else if (index == 9) {
 				return getQuickTradeResponse();
@@ -1242,21 +1087,28 @@ public class InventoryDialogue {
 
 		@Override
 		public String getLabel() {
-			return clothing.getDisplayName(true);
+			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+			} else {
+				return "Inventory";
+			}
 		}
 		
 		@Override
 		public String getHeaderContent() {
-			if(!Main.game.isInSex())
-				return inventoryView();
-			else
-				return null;
+			return inventoryView();
 		}
 
 		@Override
 		public String getContent() {
-			int itemPrice = buyback ? buyBackPrice : clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
-			return "<div class='inventoryImage'>" + clothing.getSVGString() + "</div>" + clothing.getDescription() + clothing.clothingExtraInformation(null) + "<p>" + Main.game.getDialogueFlags().tradePartner.getName("The")
+			int itemPrice = buyback ? buyBackPrice : clothing.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier());
+			return "<div class='inventoryImage'>"
+						+ "<div class='inventoryImage-content'>"
+							+ clothing.getSVGString()
+						+ "</div>"
+					+ "</div>"
+					+ "<p><b>"+clothing.getDisplayName(true)+"</b></p>"
+					+ clothing.getDescription() + clothing.clothingExtraInformation(null) + "<p>" + InventoryDialogue.getInventoryNPC().getName("The")
 					+ " will sell it to you for " + UtilText.formatAsMoney(itemPrice) + ".</p>";
 		}
 		
@@ -1283,7 +1135,7 @@ public class InventoryDialogue {
 					}
 					
 				} else {
-					int itemPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
+					int itemPrice = clothing.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier());
 					if (noSlotForItem) {
 						return new Response("Buy", "Your inventory is full, so you can't buy the " + clothing.getName() + "!", null);
 						
@@ -1301,9 +1153,9 @@ public class InventoryDialogue {
 					}
 				}
 				
-			} else if (index == 2 && Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing)>1) {
+			} else if (index == 2 && InventoryDialogue.getInventoryNPC().getClothingCount(clothing)>1) {
 				if (!buyback) {
-					int totalPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) * Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing);
+					int totalPrice = clothing.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier()) * InventoryDialogue.getInventoryNPC().getClothingCount(clothing);
 					if (noSlotForItem) {
 						return new Response("Buy all", "Your inventory is full, so you can't buy the " + clothing.getName() + "!", null);
 						
@@ -1325,7 +1177,7 @@ public class InventoryDialogue {
 					return null;
 				}
 				
-			} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
+			} else if (index == 8 && InventoryDialogue.getInventoryNPC()!=null) {
 				return getBuybackResponse();
 			} else if (index == 9) {
 				return getQuickTradeResponse();
@@ -1348,20 +1200,27 @@ public class InventoryDialogue {
 
 		@Override
 		public String getLabel() {
-			return itemFloor.getDisplayName(true);
+			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+			} else {
+				return "Inventory";
+			}
 		}
 		
 		@Override
 		public String getHeaderContent() {
-			if(!Main.game.isInSex())
-				return inventoryView();
-			else
-				return null;
+			return inventoryView();
 		}
 
 		@Override
 		public String getContent() {
-			return "<div class='inventoryImage'>" + itemFloor.getSVGString() + "</div>" + itemFloor.getDescription() + itemFloor.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer());
+			return "<div class='inventoryImage'>"
+						+ "<div class='inventoryImage-content'>"
+							+ itemFloor.getSVGString()
+						+ "</div>"
+					+ "</div>"
+					+ "<p><b>"+itemFloor.getDisplayName(true)+"</b></p>"
+					+ itemFloor.getDescription() + itemFloor.getExtraDescription(Main.game.getPlayer(), Main.game.getPlayer());
 		}
 		
 		@Override
@@ -1456,20 +1315,27 @@ public class InventoryDialogue {
 
 		@Override
 		public String getLabel() {
-			return weaponFloor.getDisplayName(true);
+			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+			} else {
+				return "Inventory";
+			}
 		}
 		
 		@Override
 		public String getHeaderContent() {
-			if(!Main.game.isInSex())
-				return inventoryView();
-			else
-				return null;
+			return inventoryView();
 		}
 
 		@Override
 		public String getContent() {
-			return "<div class='inventoryImage'>" + weaponFloor.getSVGString() + "</div>" + weaponFloor.getDescription();
+			return "<div class='inventoryImage'>"
+						+ "<div class='inventoryImage-content'>"
+							+ weaponFloor.getSVGString()
+						+ "</div>"
+					+ "</div>"
+					+ "<p><b>"+weaponFloor.getDisplayName(true)+"</b></p>"
+					+ weaponFloor.getDescription();
 		}
 		
 		@Override
@@ -1547,20 +1413,27 @@ public class InventoryDialogue {
 
 		@Override
 		public String getLabel() {
-			return clothingFloor.getDisplayName(true);
+			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+			} else {
+				return "Inventory";
+			}
 		}
 		
 		@Override
 		public String getHeaderContent() {
-			if(!Main.game.isInSex())
-				return inventoryView();
-			else
-				return null;
+			return inventoryView();
 		}
 
 		@Override
 		public String getContent() {
-			return "<div class='inventoryImage'>" + clothingFloor.getSVGString() + "</div>" + clothingFloor.getDescription() + clothingFloor.clothingExtraInformation(null);
+			return "<div class='inventoryImage'>"
+						+ "<div class='inventoryImage-content'>"
+							+ clothingFloor.getSVGString()
+						+ "</div>"
+					+ "</div>"
+					+ "<p><b>"+clothingFloor.getDisplayName(true)+"</b></p>"
+					+ clothingFloor.getDescription() + clothingFloor.clothingExtraInformation(null);
 		}
 		
 		@Override
@@ -1625,20 +1498,27 @@ public class InventoryDialogue {
 
 		@Override
 		public String getLabel() {
-			return weaponEquipped.getDisplayName(true);
+			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+			} else {
+				return "Inventory";
+			}
 		}
 		
 		@Override
 		public String getHeaderContent() {
-			if(!Main.game.isInSex())
-				return inventoryView();
-			else
-				return null;
+			return inventoryView();
 		}
 
 		@Override
 		public String getContent() {
-			return "<div class='inventoryImage'>" + weaponEquipped.getSVGString() + "</div>" + weaponEquipped.getDescription();
+			return "<div class='inventoryImage'>"
+						+ "<div class='inventoryImage-content'>"
+							+ weaponEquipped.getSVGString()
+						+ "</div>"
+					+ "</div>"
+					+ "<p><b>"+weaponEquipped.getDisplayName(true)+"</b></p>"
+					+ weaponEquipped.getDescription();
 		}
 		
 		@Override
@@ -1716,20 +1596,26 @@ public class InventoryDialogue {
 
 		@Override
 		public String getLabel() {
-			return clothingEquipped.getDisplayName(true);
+			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+			} else {
+				return "Inventory";
+			}
 		}
 		
 		@Override
 		public String getHeaderContent() {
-			if(!Main.game.isInSex())
-				return inventoryView();
-			else
-				return null;
+			return inventoryView();
 		}
 
 		@Override
 		public String getContent() {
-			return "<div class='inventoryImage'>" + clothingEquipped.getSVGString() + "</div>"
+			return "<div class='inventoryImage'>"
+						+ "<div class='inventoryImage-content'>"
+							+ clothingEquipped.getSVGString()
+						+ "</div>"
+					+ "</div>"
+					+ "<p><b>"+clothingEquipped.getDisplayName(true)+"</b></p>"
 					+ clothingEquipped.getDescription()
 					+ clothingEquipped.clothingExtraInformation((Main.game.isInSex()?ownerInSex:Main.game.getPlayer()))
 					+ (Main.game.isInSex()||Main.game.isInCombat()?clothingEquipped.getDisplacementBlockingDescriptions(ownerInSex):"");
@@ -1940,7 +1826,7 @@ public class InventoryDialogue {
 						};
 					}
 					
-				} else if (index == 8 && Main.game.getDialogueFlags().tradePartner!=null) {
+				} else if (index == 8 && InventoryDialogue.getInventoryNPC()!=null) {
 					return getBuybackResponse();
 				} else if (index == 9) {
 					return getQuickTradeResponse();
@@ -2131,7 +2017,6 @@ public class InventoryDialogue {
 											:"You have <b>0</b> Dye-brushes left!")
 								+ "</p>");
 						clothingEquipped.setColour(clothingEquipped.getClothingType().getAvailableColours().get(index - 1));
-						Main.mainController.forceInventoryRender();
 					}
 				};
 
@@ -2187,7 +2072,6 @@ public class InventoryDialogue {
 								+ "</p>");
 						clothingEquipped.setColour(clothingEquipped.getClothingType().getAvailableColours().get(index - 1));
 
-						Main.mainController.forceInventoryRender();
 						Main.game.restoreSavedContent();
 						Sex.endSexTurn(SexActionUtility.CLOTHING_DYE);
 						Sex.setSexStarted(true);
@@ -2253,52 +2137,10 @@ public class InventoryDialogue {
 			};
 		}
 	}
-	
-	private static void appendDivsForItemsToInventory(Map<? extends AbstractCoreItem, Integer> map, String idPrefix) {
-		for (Entry<? extends AbstractCoreItem, Integer> entry : map.entrySet()) {
-			inventorySB.append("<div class='item-background "+ entry.getKey().getDisplayRarity() + "'>" + entry.getKey().getSVGString()
-					+ "<div class='overlay"
-						+ (Main.game.getDialogueFlags().tradePartner!=null 
-							? (Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? "" : " dark")
-							: (entry.getKey() instanceof AbstractItem
-									?((Main.game.isInSex() && !((AbstractItem)entry.getKey()).isAbleToBeUsedInSex()) || (Main.game.isInCombat() && !((AbstractItem)entry.getKey()).isAbleToBeUsedInCombat())?" disabled":"")
-									:(Main.game.isInSex() || Main.game.isInCombat() ?" disabled":"")))
-					+ "' id='" + idPrefix + entry.getKey().hashCode() + "'>"
-					+ getItemCountDiv(entry.getValue())
-					+ (Main.game.getDialogueFlags().tradePartner != null ? 
-							(Main.game.getDialogueFlags().tradePartner.willBuy(entry.getKey()) ? 
-									getItemPriceDiv(entry.getKey().getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier())) 
-									: "") 
-							: "")
-					+ "</div>" + "</div>");
-		}
-	}
-	
-	private static String getBuybackItemPanel(AbstractCoreItem itemBuyback, String id, int price) {
-		return "<div class='item-background " + itemBuyback.getDisplayRarity() + "'>"
-				+ itemBuyback.getSVGString()
-				+ "<div class='overlay' id='" + id + "'>"
-					+ getItemPriceDiv(price)
-				+ "</div>"
-				+ "</div>";
-	}
-	
-	private static String getItemCountDiv(int amount) {
-		if (amount > 1) {
-			return "<div class='item-count'><b>x" + amount + "</b></div>";
-		}
-		return "";
-	}
-	
-	private static String getItemPriceDiv(int price) {
-		return "<div class='item-price'>"
-				+ UtilText.formatAsItemPrice(price)
-			+ "</div>";
-	}
 
 	// Items:
 	public static String buyItem(AbstractItem item) {
-		int itemPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
+		int itemPrice = item.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier());
 		if (Main.game.getPlayer().getMoney() < itemPrice)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
@@ -2306,21 +2148,20 @@ public class InventoryDialogue {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
-			Main.game.getDialogueFlags().tradePartner.removeItem(item);
+			InventoryDialogue.getInventoryNPC().removeItem(item);
 			Main.game.getPlayer().incrementMoney(-itemPrice);
 
 			String s = "<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(itemPrice) + 
-					" to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the "
+					" to " + InventoryDialogue.getInventoryNPC().getName("the") + " in exchange for the "
 					+ item.getName() + "." + "</p>" + Main.game.getPlayer().addItem(item, false);
 
-			Main.mainController.forceInventoryRender();
 			return s;
 		}
 	}
 	
 	public static String buyAllItems(AbstractItem item) {
-		int itemCount = Main.game.getDialogueFlags().tradePartner.getItemCount(item);
-		int totalPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) * itemCount;
+		int itemCount = InventoryDialogue.getInventoryNPC().getItemCount(item);
+		int totalPrice = item.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier()) * itemCount;
 		if (Main.game.getPlayer().getMoney() < totalPrice)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
@@ -2328,18 +2169,18 @@ public class InventoryDialogue {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
-			List<AbstractItem> items = Main.game.getDialogueFlags().tradePartner.getAllItemsInInventory().stream()
+			List<AbstractItem> items = InventoryDialogue.getInventoryNPC().getAllItemsInInventory().stream()
 				.filter(item::equals)
 				.collect(Collectors.toList());
 				
 			items.stream().forEach(tradeItem -> {
 				Main.game.getPlayer().addItem(tradeItem, false);
-				Main.game.getDialogueFlags().tradePartner.removeItem(tradeItem);
+				InventoryDialogue.getInventoryNPC().removeItem(tradeItem);
 			});
 			
 			Main.game.getPlayer().incrementMoney(-totalPrice);
 			
-			String s = UtilText.parse(Main.game.getDialogueFlags().tradePartner,
+			String s = UtilText.parse(InventoryDialogue.getInventoryNPC(),
 					"<p style='text-align:center;'>"
 							+ "You hand over " + UtilText.formatAsMoney(totalPrice) + " to [npc.name] in exchange for all of the "
 							+ item.getName() + " [npc.she] has."
@@ -2347,7 +2188,6 @@ public class InventoryDialogue {
 							+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>"+itemCount+"x</b> <b>"+item.getDisplayName(true)+"</b>"
 					+ "</p>");
 
-			Main.mainController.forceInventoryRender();
 			return s;
 		}
 	}
@@ -2365,30 +2205,28 @@ public class InventoryDialogue {
 			Main.game.getPlayer().incrementMoney(-price);
 
 			String s = "<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(price) + " to "
-					+ Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the " + item.getName() + "." + "</p>" + Main.game.getPlayer().addItem(item, false);
+					+ InventoryDialogue.getInventoryNPC().getName("the") + " in exchange for the " + item.getName() + "." + "</p>" + Main.game.getPlayer().addItem(item, false);
 
-			Main.mainController.forceInventoryRender();
 			return s;
 		}
 	}
 
 	public static String sellItem(AbstractItem item) {
-		int itemPrice = item.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier());
+		int itemPrice = item.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier());
 		Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(item, itemPrice));
 		Main.game.getPlayer().removeItem(item);
 		Main.game.getPlayer().incrementMoney(itemPrice);
 
 		String s = "<p style='text-align:center;'>" 
-						+ "You hand over the " + item.getName() + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + UtilText.formatAsMoney(itemPrice) + "." 
+						+ "You hand over the " + item.getName() + " to " + InventoryDialogue.getInventoryNPC().getName("the") + " in exchange for " + UtilText.formatAsMoney(itemPrice) + "." 
 					+ "</p>";
 
-		Main.mainController.forceInventoryRender();
 		return s;
 	}
 
 	// Clothing:
 	public static String buyClothing(AbstractClothing clothing) {
-		int itemPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
+		int itemPrice = clothing.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier());
 		if (Main.game.getPlayer().getMoney() < itemPrice) {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
@@ -2396,23 +2234,22 @@ public class InventoryDialogue {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		} else {
-			Main.game.getDialogueFlags().tradePartner.removeClothing(clothing);
+			InventoryDialogue.getInventoryNPC().removeClothing(clothing);
 			// Temporary fix! TODO
 			((Nyan)Main.game.getNyan()).removeClothingFromLists(clothing);
 			
 			Main.game.getPlayer().incrementMoney(-itemPrice);
 
-			String s = "<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(itemPrice) + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") 
+			String s = "<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(itemPrice) + " to " + InventoryDialogue.getInventoryNPC().getName("the") 
 					+ " in exchange for the " + clothing.getName() + "." + "</p>" + Main.game.getPlayer().addClothing(clothing, false);
 
-			Main.mainController.forceInventoryRender();
 			return s;
 		}
 	}
 	
 	public static String buyAllClothing(AbstractClothing clothing) {
-		int clothingCount = Main.game.getDialogueFlags().tradePartner.getClothingCount(clothing);
-		int totalPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) * clothingCount;
+		int clothingCount = InventoryDialogue.getInventoryNPC().getClothingCount(clothing);
+		int totalPrice = clothing.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier()) * clothingCount;
 		if (Main.game.getPlayer().getMoney() < totalPrice) {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
@@ -2421,25 +2258,25 @@ public class InventoryDialogue {
 
 		} else {
 			
-			if(Main.game.getDialogueFlags().tradePartner == Main.game.getNyan()) {
+			if(InventoryDialogue.getInventoryNPC() == Main.game.getNyan()) {
 				for(int i=0; i<clothingCount; i++) {
 					// Temporary fix! TODO
 					((Nyan)Main.game.getNyan()).removeClothingFromLists(clothing);
 				}
 			}
 			
-			List<AbstractClothing> clothingItems = Main.game.getDialogueFlags().tradePartner.getAllClothingInInventory().stream()
+			List<AbstractClothing> clothingItems = InventoryDialogue.getInventoryNPC().getAllClothingInInventory().stream()
 					.filter(clothing::equals)
 					.collect(Collectors.toList());
 					
 			clothingItems.stream().forEach(tradeClothing -> {
 				Main.game.getPlayer().addClothing(tradeClothing, false);
-				Main.game.getDialogueFlags().tradePartner.removeClothing(tradeClothing);
+				InventoryDialogue.getInventoryNPC().removeClothing(tradeClothing);
 			});
 			
 			Main.game.getPlayer().incrementMoney(-totalPrice);
 
-			String s = UtilText.parse(Main.game.getDialogueFlags().tradePartner,
+			String s = UtilText.parse(InventoryDialogue.getInventoryNPC(),
 					"<p style='text-align:center;'>"
 							+ "You hand over " + UtilText.formatAsMoney(totalPrice) + " to [npc.name] in exchange for all of the "
 							+ clothing.getName() + " [npc.she] has."
@@ -2447,7 +2284,6 @@ public class InventoryDialogue {
 							+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Clothing added to inventory:</b> <b>"+clothingCount+"x</b> <b>"+clothing.getDisplayName(true)+"</b>"
 					+ "</p>");
 
-			Main.mainController.forceInventoryRender();
 			return s;
 		}
 	}
@@ -2465,30 +2301,28 @@ public class InventoryDialogue {
 			Main.game.getPlayer().incrementMoney(-price);
 
 			String s = "<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(price) + " to "
-					+ Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the " + clothing.getName() + "." + "</p>" + Main.game.getPlayer().addClothing(clothing, false);
+					+ InventoryDialogue.getInventoryNPC().getName("the") + " in exchange for the " + clothing.getName() + "." + "</p>" + Main.game.getPlayer().addClothing(clothing, false);
 
-			Main.mainController.forceInventoryRender();
 			return s;
 		}
 	}
 
 	public static String sellClothing(AbstractClothing clothing) {
-		int itemPrice = clothing.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier());
+		int itemPrice = clothing.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier());
 		Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(clothing, itemPrice));
 		Main.game.getPlayer().removeClothing(clothing);
 		Main.game.getPlayer().incrementMoney(itemPrice);
 
 		String s = "<p style='text-align:center;'>" 
-						+ "You hand over the " + clothing.getName() + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + UtilText.formatAsMoney(itemPrice) + "." 
+						+ "You hand over the " + clothing.getName() + " to " + InventoryDialogue.getInventoryNPC().getName("the") + " in exchange for " + UtilText.formatAsMoney(itemPrice) + "." 
 				+ "</p>";
 
-		Main.mainController.forceInventoryRender();
 		return s;
 	}
 
 	// Weapons:
 	public static String buyWeapon(AbstractWeapon weapon) {
-		int itemPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier());
+		int itemPrice = weapon.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier());
 		if (Main.game.getPlayer().getMoney() < itemPrice)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
@@ -2496,21 +2330,20 @@ public class InventoryDialogue {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
-			Main.game.getDialogueFlags().tradePartner.removeWeapon(weapon);
+			InventoryDialogue.getInventoryNPC().removeWeapon(weapon);
 			Main.game.getPlayer().incrementMoney(-itemPrice);
 
 			String s = "<p style='text-align:center;'>" 
-							+ "You hand over " + UtilText.formatAsMoney(itemPrice) + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the " + weapon.getName() + "." 
+							+ "You hand over " + UtilText.formatAsMoney(itemPrice) + " to " + InventoryDialogue.getInventoryNPC().getName("the") + " in exchange for the " + weapon.getName() + "." 
 					+ "</p>" + Main.game.getPlayer().addWeapon(weapon, false);
 
-			Main.mainController.forceInventoryRender();
 			return s;
 		}
 	}
 	
 	public static String buyAllWeapons(AbstractWeapon weapon) {
-		int weaponCount = Main.game.getDialogueFlags().tradePartner.getWeaponCount(weapon);
-		int totalPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getSellModifier()) * weaponCount;
+		int weaponCount = InventoryDialogue.getInventoryNPC().getWeaponCount(weapon);
+		int totalPrice = weapon.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier()) * weaponCount;
 		if (Main.game.getPlayer().getMoney() < totalPrice)
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>You don't have enough money to buy this!</p>";
 
@@ -2518,18 +2351,18 @@ public class InventoryDialogue {
 			return "<p style='colour:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full, so you can't buy this!</p>";
 
 		else {
-			List<AbstractWeapon> weapons = Main.game.getDialogueFlags().tradePartner.getAllWeaponsInInventory().stream()
+			List<AbstractWeapon> weapons = InventoryDialogue.getInventoryNPC().getAllWeaponsInInventory().stream()
 				.filter(weapon::equals)
 				.collect(Collectors.toList());
 			
 			weapons.forEach(tradeWeapon -> {
 				Main.game.getPlayer().addWeapon(tradeWeapon, false);
-				Main.game.getDialogueFlags().tradePartner.removeWeapon(tradeWeapon);
+				InventoryDialogue.getInventoryNPC().removeWeapon(tradeWeapon);
 			});
 			
 			Main.game.getPlayer().incrementMoney(-totalPrice);
 
-			String s = UtilText.parse(Main.game.getDialogueFlags().tradePartner,
+			String s = UtilText.parse(InventoryDialogue.getInventoryNPC(),
 					"<p style='text-align:center;'>"
 							+ "You hand over " + UtilText.formatAsMoney(totalPrice) + " to [npc.name] in exchange for all of the "
 							+ weapon.getName() + "s [npc.she] has."
@@ -2537,7 +2370,6 @@ public class InventoryDialogue {
 							+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Weapons added to inventory:</b> <b>"+weaponCount+"x</b> <b>"+weapon.getDisplayName(true)+"</b>"
 					+ "</p>");
 
-			Main.mainController.forceInventoryRender();
 			return s;
 		}
 	}
@@ -2555,24 +2387,22 @@ public class InventoryDialogue {
 			Main.game.getPlayer().incrementMoney(-price);
 
 			String s = "<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(price) + " to "
-					+ Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for the " + weapon.getName() + "." + "</p>" + Main.game.getPlayer().addWeapon(weapon, false);
+					+ InventoryDialogue.getInventoryNPC().getName("the") + " in exchange for the " + weapon.getName() + "." + "</p>" + Main.game.getPlayer().addWeapon(weapon, false);
 
-			Main.mainController.forceInventoryRender();
 			return s;
 		}
 	}
 
 	public static String sellWeapon(AbstractWeapon weapon) {
-		int itemPrice = weapon.getPrice(Main.game.getDialogueFlags().tradePartner.getBuyModifier());
+		int itemPrice = weapon.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier());
 		Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(weapon, itemPrice));
 		Main.game.getPlayer().removeWeapon(weapon);
 		Main.game.getPlayer().incrementMoney(itemPrice);
 
 		String s = "<p style='text-align:center;'>" 
-						+ "You hand over the " + weapon.getName() + " to " + Main.game.getDialogueFlags().tradePartner.getName("the") + " in exchange for " + UtilText.formatAsMoney(itemPrice) + "." 
+						+ "You hand over the " + weapon.getName() + " to " + InventoryDialogue.getInventoryNPC().getName("the") + " in exchange for " + UtilText.formatAsMoney(itemPrice) + "." 
 				+ "</p>";
 
-		Main.mainController.forceInventoryRender();
 		return s;
 	}
 
@@ -2678,6 +2508,22 @@ public class InventoryDialogue {
 
 	public static void setOwnerInSex(GameCharacter ownerInSex) {
 		InventoryDialogue.ownerInSex = ownerInSex;
+	}
+
+	public static NPC getInventoryNPC() {
+		return inventoryNPC;
+	}
+
+	public static void setInventoryNPC(NPC inventoryNPC) {
+		InventoryDialogue.inventoryNPC = inventoryNPC;
+	}
+
+	public static NPCInventoryInteraction getNPCInventoryInteraction() {
+		return interactionType;
+	}
+
+	public static void setNPCInventoryInteraction(NPCInventoryInteraction nPCInventoryInteraction) {
+		interactionType = nPCInventoryInteraction;
 	}
 
 }

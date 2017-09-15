@@ -1662,8 +1662,6 @@ public class CharacterCreation {
 				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.</br></br><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
 					@Override
 					public void effects() {
-
-						Main.game.setRenderMapSection(true);
 						applyGameStart();
 
 						Main.game.getPlayer().resetInventory();
@@ -1682,6 +1680,8 @@ public class CharacterCreation {
 
 						Main.game.clearTextStartStringBuilder();
 						Main.game.clearTextEndStringBuilder();
+						
+						Main.game.setRenderMap(true);
 
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
@@ -1789,8 +1789,6 @@ public class CharacterCreation {
 					public void effects() {
 						Main.mainController.setAttributePanelContent("");
 						Main.mainController.setButtonsContent("");
-						Main.mainController.setMapViewContent("");
-						Main.mainController.setMapTitleContent("");
 						
 						Main.startNewGame(CharacterCreation.CHARACTER_CREATION_START);
 					}
@@ -1850,7 +1848,6 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 
-						Main.game.setRenderMapSection(true);
 						applyGameStart();
 
 						Main.game.getPlayer().resetInventory();
@@ -1870,6 +1867,8 @@ public class CharacterCreation {
 
 						Main.game.clearTextStartStringBuilder();
 						Main.game.clearTextEndStringBuilder();
+						
+						Main.game.setRenderMap(true);
 
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
@@ -1895,8 +1894,6 @@ public class CharacterCreation {
 					public void effects() {
 						Main.mainController.setAttributePanelContent("");
 						Main.mainController.setButtonsContent("");
-						Main.mainController.setMapViewContent("");
-						Main.mainController.setMapTitleContent("");
 						
 						Main.startNewGame(CharacterCreation.CHARACTER_CREATION_START);
 					}

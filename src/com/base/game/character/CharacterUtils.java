@@ -1568,9 +1568,9 @@ public class CharacterUtils {
 				lingerieColour = Colour.lingerieColours.get(Util.random.nextInt(Colour.lingerieColours.size()));
 		
 		List<InventorySlot> inventorySlotsInPriorityOrder = new ArrayList<>();
-		inventorySlotsInPriorityOrder.add(InventorySlot.TORSO); // Torso needs to be randomly decided first, to give girls a chance to wear a dress.
+		inventorySlotsInPriorityOrder.add(InventorySlot.TORSO_UNDER); // Torso needs to be randomly decided first, to give girls a chance to wear a dress.
 		for(InventorySlot slot : InventorySlot.values()) {
-			if(slot!=InventorySlot.TORSO) {
+			if(slot!=InventorySlot.TORSO_UNDER) {
 				inventorySlotsInPriorityOrder.add(slot);
 			}
 		}

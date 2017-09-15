@@ -11,44 +11,46 @@ import com.base.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.84
+ * @version 0.1.85
  * @author Innoxia
  */
 public enum InventorySlot {
 
-	/*
-	 * Z-Layers: 0: Piercings 10: Minimum (GROIN [underwear], STOMACH [corsets],
-	 * LEG_UNDER [stockings], CHEST [bras], MOUTH [ballgag]) 20: Low (SOCK
-	 * [socks], HAND [gloves]) 30: Medium: (LEG [trousers], WRIST [bracelets],
-	 * FINGER [rings], NECK[necklace]) 40: High: (FOOT [shoes], TORSO [dress],
-	 * HEAD [circlet]) 50: Max: (ANKLE [ankle-cuffs], EYES [blindfold])
-	 */
 
 	// HEAD:
-	HEAD(40, "head", false, false), // Headgear ***
+	HEAD(40, "head", false, false), // Headgear
 	EYES(50, "eyes", false, false), // Eyes
+	FACE(20, "face", false, false), // Masks
 	MOUTH(10, "mouth", false, false), // Mouth
 	NECK(30, "neck", false, false), // Necklaces
 
 	// TORSO:
-	TORSO(40, "torso", true, false), // Tops ***
-	CHEST(10, "chest", true, false), // Bras ***
+	TORSO_OVER(50, "over-torso", false, false), // Coats
+	TORSO_UNDER(40, "torso", true, false), // Shirts
+	CHEST(10, "chest", true, false), // Bras
+	NIPPLES(5, "nipples", false, false), // Nipple shields, insertables
 	STOMACH(10, "stomach", false, false), // Corsets
 
 	// HAND:
 	HAND(20, "hands", false, false), // Gloves
 	WRIST(30, "wrists", false, false), // Bracelets
 	FINGER(30, "fingers", false, false), // Rings
+	HIPS(40, "hips", false, false), // Belts
+	ANUS(0, "anus", false, false), // Insertables
 
-	// LEG:
-	LEG(30, "legs", true, false), // Trousers ***
-	GROIN(10, "groin", true, false), // Underwear ***
-	// LEG_UNDER(10, "thighs"), // Tights
-
-	// FOOT:
-	FOOT(40, "feet", true, false), // Shoes ***
-	SOCK(10, "calves", true, false), // Socks ***
+	// LEG & FOOT:
+	LEG(30, "legs", true, false), // Trousers
+	GROIN(10, "groin", true, false), // Underwear
+	FOOT(40, "feet", true, false), // Shoes
+	SOCK(10, "calves", true, false), // Socks
 	ANKLE(50, "ankles", false, false), // Ankle bracelets
+	
+	// OPTIONAL EXTRAS:
+	HORNS(50, "horns", false, false), // Decorations
+	WINGS(50, "wings", false, false), // Decorations
+	TAIL(50, "tail", false, false), // Decorations
+	PENIS(0, "penis", false, false), // Cock socks & insertables
+	VAGINA(0, "vagina", false, false), // Insertables
 
 	// PIERCING:
 	PIERCING_EAR(0, "ear piercing", false, true),
@@ -77,7 +79,7 @@ public enum InventorySlot {
 		clothingSlots.add(EYES);
 		clothingSlots.add(MOUTH);
 		clothingSlots.add(NECK);
-		clothingSlots.add(TORSO);
+		clothingSlots.add(TORSO_UNDER);
 		clothingSlots.add(CHEST);
 		clothingSlots.add(STOMACH);
 		clothingSlots.add(HAND);
@@ -178,7 +180,7 @@ public enum InventorySlot {
 				return "Your horse-like hooves prevent you from wearing footwear of any kind!";
 			else
 				return UtilText.parse(character,
-						"[npc.Name]'s horse-like hooves prevent [npc.her] from wearing footwear of any kind!");
+						"[npc.Name]'s horse-like hooves prevent [npc.herHim] from wearing footwear of any kind!");
 		}
 		
 		if (character.getLegType() == LegType.COW_MORPH && this == InventorySlot.FOOT) {
@@ -186,7 +188,7 @@ public enum InventorySlot {
 				return "Your cow-like hooves prevent you from wearing footwear of any kind!";
 			else
 				return UtilText.parse(character,
-						"[npc.Name]'s cow-like hooves prevent [npc.her] from wearing footwear of any kind!");
+						"[npc.Name]'s cow-like hooves prevent [npc.herHim] from wearing footwear of any kind!");
 		}
 		
 		if (character.getLegType() == LegType.HARPY && this == InventorySlot.FOOT) {
@@ -194,7 +196,7 @@ public enum InventorySlot {
 				return "Your bird-like talons prevent you from wearing footwear of any kind!";
 			else
 				return UtilText.parse(character,
-						"[npc.Name]'s bird-like talons prevent [npc.her] from wearing footwear of any kind!");
+						"[npc.Name]'s bird-like talons prevent [npc.herHim] from wearing footwear of any kind!");
 		}
 		
 		if (character.getArmType() == ArmType.HARPY && this == InventorySlot.HAND) {

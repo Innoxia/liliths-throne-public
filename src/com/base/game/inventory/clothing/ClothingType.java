@@ -1314,7 +1314,7 @@ public class ClothingType {
 
 	// TORSO
 
-	public static AbstractClothingType TORSO_OXFORD_SHIRT = new AbstractClothingType("a", false, "long-sleeved shirt", "A men's long-sleeved shirt.", 1, Femininity.MASCULINE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_oxfordShirt", null,
+	public static AbstractClothingType TORSO_OXFORD_SHIRT = new AbstractClothingType("a", false, "long-sleeved shirt", "A men's long-sleeved shirt.", 1, Femininity.MASCULINE, InventorySlot.TORSO_UNDER, Rarity.COMMON, null, "torso_oxfordShirt", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null,
@@ -1426,7 +1426,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_SHORT_SLEEVE_SHIRT = new AbstractClothingType("a", false, "short-sleeved shirt", "A unisex short-sleeved shirt.", 1, null, InventorySlot.TORSO, Rarity.COMMON, null, "torso_shortSleeveShirt", null,
+	public static AbstractClothingType TORSO_SHORT_SLEEVE_SHIRT = new AbstractClothingType("a", false, "short-sleeved shirt", "A unisex short-sleeved shirt.", 1, null, InventorySlot.TORSO_UNDER, Rarity.COMMON, null, "torso_shortSleeveShirt", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null,
@@ -1538,7 +1538,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_HOODIE = new AbstractClothingType("a", false, "hoodie", "A loose-fitting hoodie.", 1, null, InventorySlot.TORSO, Rarity.COMMON, null, "torso_hoodie", null,
+	public static AbstractClothingType TORSO_HOODIE = new AbstractClothingType("a", false, "hoodie", "A loose-fitting hoodie.", 1, null, InventorySlot.TORSO_UNDER, Rarity.COMMON, null, "torso_hoodie", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
@@ -1646,7 +1646,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_RIBBED_SWEATER = new AbstractClothingType("a", false, "ribbed sweater", "A unisex ribbed sweater, made from some sort of woolly fabric.", 1, null, InventorySlot.TORSO, Rarity.COMMON, null, "torso_ribbed_sweater", null,
+	public static AbstractClothingType TORSO_RIBBED_SWEATER = new AbstractClothingType("a", false, "ribbed sweater", "A unisex ribbed sweater, made from some sort of woolly fabric.", 1, null, InventorySlot.TORSO_UNDER, Rarity.COMMON, null, "torso_ribbed_sweater", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -1772,7 +1772,7 @@ public class ClothingType {
 			"A feminine sweater, with a section at the front cut out to reveal the wearer's cleavage.",
 			1,
 			Femininity.FEMININE,
-			InventorySlot.TORSO,
+			InventorySlot.TORSO_UNDER,
 			Rarity.COMMON,
 			null,
 			"torso_keyhole_sweater",
@@ -1802,7 +1802,7 @@ public class ClothingType {
 				private static final long serialVersionUID = 1L;
 	};
 	
-	public static AbstractClothingType TORSO_TSHIRT = new AbstractClothingType("a", false, "T-shirt", "A plain T-shirt that would look good on any figure.", 1, null, InventorySlot.TORSO, Rarity.COMMON, null, "torso_tshirt", null,
+	public static AbstractClothingType TORSO_TSHIRT = new AbstractClothingType("a", false, "T-shirt", "A plain T-shirt that would look good on any figure.", 1, null, InventorySlot.TORSO_UNDER, Rarity.COMMON, null, "torso_tshirt", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
@@ -1875,7 +1875,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_KEYHOLE_CROPTOP = new AbstractClothingType("a", false, "keyhole crop top", "A small, sleeveless crop top with a stylish cutout that reveals some cleavage.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_keyhole_croptop", null,
+	public static AbstractClothingType TORSO_KEYHOLE_CROPTOP = new AbstractClothingType("a", false, "keyhole crop top", "A small, sleeveless crop top with a stylish cutout that reveals some cleavage.", 1, Femininity.FEMININE, InventorySlot.TORSO_UNDER, Rarity.COMMON, null, "torso_keyhole_croptop", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
@@ -1948,7 +1948,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_SHORT_CROPTOP = new AbstractClothingType("a", false, "short croptop", "A small, sleeveless croptop that leaves its wearer's stomach completely exposed.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_short_croptop", null,
+	public static AbstractClothingType TORSO_SHORT_CROPTOP = new AbstractClothingType("a", false, "short croptop", "A small, sleeveless croptop that leaves its wearer's stomach completely exposed.", 1, Femininity.FEMININE, InventorySlot.TORSO_UNDER, Rarity.COMMON, null, "torso_short_croptop", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
@@ -2022,7 +2022,7 @@ public class ClothingType {
 		}
 	};
 	public static AbstractClothingType TORSO_FISHNET_TOP = new AbstractClothingType("a", false, "fishnet top", "A small fishnet top that leaves its wearer's stomach completely exposed, while not doing much to conceal anything else, either.",
-			1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_fishnet_top", null,
+			1, Femininity.FEMININE, InventorySlot.TORSO_UNDER, Rarity.COMMON, null, "torso_fishnet_top", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -2106,7 +2106,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_BLOUSE = new AbstractClothingType("a", false, "blouse", "A delicate blouse, made of very fine fabric.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_blouse", null,
+	public static AbstractClothingType TORSO_BLOUSE = new AbstractClothingType("a", false, "blouse", "A delicate blouse, made of very fine fabric.", 1, Femininity.FEMININE, InventorySlot.TORSO_UNDER, Rarity.COMMON, null, "torso_blouse", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
@@ -2178,7 +2178,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_OPEN_CARDIGAN = new AbstractClothingType("an", false, "open-front cardigan", "A very feminine, open-front cardigan. It's made from a thin, woolly fabric.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_open_cardigan", null,
+	public static AbstractClothingType TORSO_OPEN_CARDIGAN = new AbstractClothingType("an", false, "open-front cardigan", "A very feminine, open-front cardigan. It's made from a thin, woolly fabric.", 1, Femininity.FEMININE, InventorySlot.TORSO_UNDER, Rarity.COMMON, null, "torso_open_cardigan", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -2225,7 +2225,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_CAMITOP_STRAPS = new AbstractClothingType("a", false, "cami top", "A short cami top with straps that loop over the wearer's shoulders. It's short enough that the wearer's stomach is left on display.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null,
+	public static AbstractClothingType TORSO_CAMITOP_STRAPS = new AbstractClothingType("a", false, "cami top", "A short cami top with straps that loop over the wearer's shoulders. It's short enough that the wearer's stomach is left on display.", 1, Femininity.FEMININE, InventorySlot.TORSO_UNDER, Rarity.COMMON, null,
 			"torso_cami_straps", null,
 
 			Util.newArrayListOfValues(
@@ -2299,7 +2299,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_SKATER_DRESS = new AbstractClothingType("a", false, "skater dress", "A sleeveless skater dress, held up by a pair of thin straps that loop over the wearer's shoulders.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_skater_dress", null,
+	public static AbstractClothingType TORSO_SKATER_DRESS = new AbstractClothingType("a", false, "skater dress", "A sleeveless skater dress, held up by a pair of thin straps that loop over the wearer's shoulders.", 1, Femininity.FEMININE, InventorySlot.TORSO_UNDER, Rarity.COMMON, null, "torso_skater_dress", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
@@ -2395,7 +2395,7 @@ public class ClothingType {
 			"A long, dress-like sweater, with a large portion cut out of the back.",
 			1,
 			Femininity.FEMININE,
-			InventorySlot.TORSO,
+			InventorySlot.TORSO_UNDER,
 			Rarity.COMMON,
 			null,
 			"torso_virgin_killer_sweater",
@@ -2429,7 +2429,7 @@ public class ClothingType {
 				private static final long serialVersionUID = 1L;
 	};
 	
-	public static AbstractClothingType TORSO_SLIP_DRESS = new AbstractClothingType("a", false, "slip dress", "A long, silky, sleeveless dress.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_slip_dress", null,
+	public static AbstractClothingType TORSO_SLIP_DRESS = new AbstractClothingType("a", false, "slip dress", "A long, silky, sleeveless dress.", 1, Femininity.FEMININE, InventorySlot.TORSO_UNDER, Rarity.COMMON, null, "torso_slip_dress", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
@@ -2505,7 +2505,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_PLUNGE_DRESS = new AbstractClothingType("a", false, "plunge dress", "An elegant dress with a plunging v-neckline, perfect for showing off its wearer's cleavage.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_plunge_dress", null,
+	public static AbstractClothingType TORSO_PLUNGE_DRESS = new AbstractClothingType("a", false, "plunge dress", "An elegant dress with a plunging v-neckline, perfect for showing off its wearer's cleavage.", 1, Femininity.FEMININE, InventorySlot.TORSO_UNDER, Rarity.COMMON, null, "torso_plunge_dress", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -2596,7 +2596,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_LONG_SLEEVE_DRESS = new AbstractClothingType("a", false, "long-sleeved dress", "A long-sleeved bodycon dress with a high neck.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_long_sleeve_dress", null,
+	public static AbstractClothingType TORSO_LONG_SLEEVE_DRESS = new AbstractClothingType("a", false, "long-sleeved dress", "A long-sleeved bodycon dress with a high neck.", 1, Femininity.FEMININE, InventorySlot.TORSO_UNDER, Rarity.COMMON, null, "torso_long_sleeve_dress", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
@@ -2673,7 +2673,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_BODYCONZIP_DRESS = new AbstractClothingType("a", false, "frontal-zip dress", "A tight fitting bodycon dress with a zip that runs the entire way up the front.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_bodyconzip_dress", null,
+	public static AbstractClothingType TORSO_BODYCONZIP_DRESS = new AbstractClothingType("a", false, "frontal-zip dress", "A tight fitting bodycon dress with a zip that runs the entire way up the front.", 1, Femininity.FEMININE, InventorySlot.TORSO_UNDER, Rarity.COMMON, null, "torso_bodyconzip_dress", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null,
@@ -6628,7 +6628,7 @@ public class ClothingType {
 
 	};
 	public static AbstractClothingType MAID_DRESS = new AbstractClothingType("a", false, "Maid's dress", "A heavily stylised Maid's dress, it consists of a coloured one-piece dress with decorative white lace trimmings." + " A small white apron is attached to the front, and is similarly trimmed in white lace.",
-			1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.EPIC, ClothingSet.MAID, "maidDress", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 6)),
+			1, Femininity.FEMININE, InventorySlot.TORSO_UNDER, Rarity.EPIC, ClothingSet.MAID, "maidDress", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 6)),
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
@@ -7276,7 +7276,7 @@ public class ClothingType {
 			"An Enforcer's shirt, it comes with what appears to be a stab-proof vest.",
 			5,
 			null,
-			InventorySlot.TORSO,
+			InventorySlot.TORSO_UNDER,
 			Rarity.EPIC,
 			ClothingSet.ENFORCER,
 			"enforcerShirt",
@@ -7384,7 +7384,7 @@ public class ClothingType {
 					+ " The corset, just like the skirt, is made of a soft fabric, and its strings can be pulled tight to flatter the wearer's figure and push their breasts slighter closer together.",
 			1,
 			Femininity.FEMININE,
-			InventorySlot.TORSO,
+			InventorySlot.TORSO_UNDER,
 			Rarity.EPIC,
 			ClothingSet.MILK_MAID,
 			"milk_maid_dress",
@@ -7526,7 +7526,7 @@ public class ClothingType {
 			"A T-shirt with the words 'Mega Milk' written on the front.",
 			1,
 			null,
-			InventorySlot.TORSO,
+			InventorySlot.TORSO_UNDER,
 			Rarity.UNCOMMON,
 			null,
 			"torso_tshirt_megamilk",
@@ -7619,7 +7619,7 @@ public class ClothingType {
 			commonClothingMapMaleIncludingAndrogynous.put(slot, new ArrayList<>());
 		}
 		
-		coreClothingSlots = Util.newArrayListOfValues(new ListValue<>(InventorySlot.TORSO), new ListValue<>(InventorySlot.LEG));
+		coreClothingSlots = Util.newArrayListOfValues(new ListValue<>(InventorySlot.TORSO_UNDER), new ListValue<>(InventorySlot.LEG));
 		lingerieSlots = Util.newArrayListOfValues(new ListValue<>(InventorySlot.CHEST), new ListValue<>(InventorySlot.GROIN), new ListValue<>(InventorySlot.STOMACH), new ListValue<>(InventorySlot.SOCK));
 
 		allClothing = new ArrayList<>();

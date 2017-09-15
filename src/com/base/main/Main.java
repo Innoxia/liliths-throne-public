@@ -390,7 +390,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Farseeker", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Rakesh", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Spaghetti Code", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("V.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("Vaelin", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Argmoe", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("b00marrows ", "", 0, 1, 1, 0));
 		credits.add(new CreditsSlot("Fenrakk101", "", 0, 0, 1, 0));
@@ -398,7 +398,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("B.", "", 0, 0, 1, 0)); // TODO
 		credits.add(new CreditsSlot("G.", "", 0, 0, 1, 0)); // TODO
 		credits.add(new CreditsSlot("Cursed Rena", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("L.B.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("Louis", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Georgio154", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Crow Invictus", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("D.D.", "", 0, 0, 1, 0)); // TODO
@@ -668,7 +668,6 @@ public class Main extends Application {
 				ois.close();
 				fin.close();
 				Main.game = loadedGame;
-				Main.mainController.renderMap();
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), Colour.GENERIC_GOOD, "Game loaded!");
 				if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.OPTIONS) {
 					Main.mainController.openOptions();

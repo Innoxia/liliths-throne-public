@@ -31,7 +31,6 @@ import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.weapon.AbstractWeapon;
 import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.main.Main;
-import com.base.rendering.RenderingEngine;
 import com.base.utils.Colour;
 import com.base.utils.Util;
 
@@ -40,7 +39,7 @@ import com.base.utils.Util;
  * Call initialiseCombat() before using.
  *
  * @since 0.1.0
- * @version 0.1.84
+ * @version 0.1.85
  * @author Innoxia
  */
 public enum Combat {
@@ -110,9 +109,6 @@ public enum Combat {
 		renderedPlayerStaminaValue = Main.game.getPlayer().getStamina();
 
 		Main.game.setInCombat(true);
-
-		// Set to opponent, as when the inventory opens, it switches to the opposite (in MainController openInventory())
-		RenderingEngine.ENGINE.setCharactersInventoryToRender(opponent);
 		
 		Main.mainController.openInventory();
 		
@@ -222,8 +218,6 @@ public enum Combat {
 
 			opponent.setWonCombatCount(opponent.getWonCombatCount()+1);
 		}
-
-		RenderingEngine.ENGINE.setCharactersInventoryToRender(Main.game.getPlayer());
 
 		Main.game.setInCombat(false);
 
@@ -838,7 +832,6 @@ public enum Combat {
 					return new ResponseEffectsOnly("Escaped!", "You got away!"){
 						@Override
 						public void effects() {
-							RenderingEngine.ENGINE.setCharactersInventoryToRender(Main.game.getPlayer());
 							Main.game.setInCombat(false);
 							Main.game.setContent(new Response("", "", GenericDialogue.getDefaultDialogueNoEncounter()));
 						}
@@ -891,7 +884,6 @@ public enum Combat {
 					return new ResponseEffectsOnly("Escaped!", "You got away!"){
 						@Override
 						public void effects() {
-							RenderingEngine.ENGINE.setCharactersInventoryToRender(Main.game.getPlayer());
 							Main.game.setInCombat(false);
 							Main.game.setContent(new Response("", "", GenericDialogue.getDefaultDialogueNoEncounter()));
 						}

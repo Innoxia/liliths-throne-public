@@ -45,7 +45,6 @@ import com.base.game.sex.OrificeType;
 import com.base.game.sex.PenetrationType;
 import com.base.game.sex.SexType;
 import com.base.main.Main;
-import com.base.rendering.RenderingEngine;
 import com.base.rendering.SVGImages;
 import com.base.utils.ClothingRarityComparator;
 import com.base.utils.Colour;
@@ -55,7 +54,7 @@ import com.base.utils.WeaponRarityComparator;
 
 /**
  * @since 0.1.0
- * @version 0.1.84
+ * @version 0.1.85
  * @author Innoxia
  */
 public class PhoneDialogue {
@@ -1107,7 +1106,6 @@ public class PhoneDialogue {
 					public void effects() {
 						CharactersPresentDialogue.characterViewed = Main.game.getPlayer().getCharactersEncountered().get(index - 1);
 						
-						RenderingEngine.ENGINE.setCharactersInventoryToRender(Main.game.getPlayer().getCharactersEncountered().get(index - 1));
 						title = Util.capitaliseSentence(Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName());
 						content = CharactersPresentDialogue.getCharacterInformationScreen((NPC) Main.game.getPlayer().getCharactersEncountered().get(index - 1));
 						

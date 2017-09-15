@@ -43,8 +43,6 @@ public class InventoryRemoveJinx implements EventListener {
 		InventoryDialogue.getJinxedClothing().get(index).getAttributeModifiers().clear();
 		InventoryDialogue.getJinxedClothing().get(index).removeBadEnchantment();
 
-		Main.mainController.forceInventoryRender();
-
 		InventoryDialogue.populateJinxedClothingList();
 
 		Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU){

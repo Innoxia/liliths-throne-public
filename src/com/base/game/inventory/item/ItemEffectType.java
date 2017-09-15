@@ -6,7 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.base.game.Game;
 import com.base.game.character.GameCharacter;
 import com.base.game.character.attributes.Attribute;
 import com.base.game.character.body.Covering;
@@ -46,6 +45,7 @@ import com.base.game.character.effects.Perk;
 import com.base.game.character.effects.StatusEffect;
 import com.base.game.character.race.Race;
 import com.base.game.character.race.RacialBody;
+import com.base.game.dialogue.eventLog.EventLogEntryBookAddedToLibrary;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.clothing.CoverableArea;
 import com.base.game.inventory.enchanting.TFEssence;
@@ -96,7 +96,6 @@ public enum ItemEffectType {
 			if(target.getPenisType()!=PenisType.NONE && target.isCoverableAreaExposed(CoverableArea.PENIS) && !target.isWearingCondom())
 				target.setWearingCondom(true);
 			
-			Main.mainController.forceInventoryRender();
 			return "<p>"
 					+ "You pull a condom out from your inventory, and, quickly tearing open the wrapper, you roll the rubber down the length of your cock."
 					+ "</p>";
@@ -122,18 +121,7 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Race.CAT_MORPH.getBasicDescription()
-					+Race.CAT_MORPH.getAdvancedDescription()
-					+(Main.getProperties().addRaceDiscovered(Race.CAT_MORPH)
-							?Game.getRaceDiscoveredMessage(Race.CAT_MORPH)
-							:"")
-					+(Main.getProperties().addAdvancedRaceKnowledge(Race.CAT_MORPH)
-							?Game.getRaceAdvancedKnowledgeMessage(Race.CAT_MORPH)
-								+"<p>"
-									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-								+ "</p>"
-								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
-							:"");
+			return getBookEffect(Race.CAT_MORPH, ItemType.BOOK_CAT_MORPH);
 		}
 	},
 	
@@ -154,18 +142,7 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Race.COW_MORPH.getBasicDescription()
-					+Race.COW_MORPH.getAdvancedDescription()
-					+(Main.getProperties().addRaceDiscovered(Race.COW_MORPH)
-							?Game.getRaceDiscoveredMessage(Race.COW_MORPH)
-							:"")
-					+(Main.getProperties().addAdvancedRaceKnowledge(Race.COW_MORPH)
-							?Game.getRaceAdvancedKnowledgeMessage(Race.COW_MORPH)
-								+"<p>"
-									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-								+ "</p>"
-								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
-							:"");
+			return getBookEffect(Race.COW_MORPH, ItemType.BOOK_COW_MORPH);
 		}
 	},
 	
@@ -176,18 +153,7 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Race.DEMON.getBasicDescription()
-					+Race.DEMON.getAdvancedDescription()
-					+(Main.getProperties().addRaceDiscovered(Race.DEMON)
-							?Game.getRaceDiscoveredMessage(Race.DEMON)
-							:"")
-					+(Main.getProperties().addAdvancedRaceKnowledge(Race.DEMON)
-							?Game.getRaceAdvancedKnowledgeMessage(Race.DEMON)
-								+"<p>"
-									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-								+ "</p>"
-								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
-							:"");
+			return getBookEffect(Race.DEMON, ItemType.BOOK_DEMON);
 		}
 	},
 	
@@ -198,18 +164,7 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Race.DOG_MORPH.getBasicDescription()
-					+Race.DOG_MORPH.getAdvancedDescription()
-					+(Main.getProperties().addRaceDiscovered(Race.DOG_MORPH)
-							?Game.getRaceDiscoveredMessage(Race.DOG_MORPH)
-							:"")
-					+(Main.getProperties().addAdvancedRaceKnowledge(Race.DOG_MORPH)
-							?Game.getRaceAdvancedKnowledgeMessage(Race.DOG_MORPH)
-								+"<p>"
-									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-								+ "</p>"
-								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
-							:"");
+			return getBookEffect(Race.DOG_MORPH, ItemType.BOOK_DOG_MORPH);
 		}
 	},
 	
@@ -220,18 +175,7 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Race.HARPY.getBasicDescription()
-					+Race.HARPY.getAdvancedDescription()
-					+(Main.getProperties().addRaceDiscovered(Race.HARPY)
-							?Game.getRaceDiscoveredMessage(Race.HARPY)
-							:"")
-					+(Main.getProperties().addAdvancedRaceKnowledge(Race.HARPY)
-							?Game.getRaceAdvancedKnowledgeMessage(Race.HARPY)
-								+"<p>"
-									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-								+ "</p>"
-								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
-							:"");
+			return getBookEffect(Race.HARPY, ItemType.BOOK_HARPY);
 		}
 	},
 	
@@ -242,18 +186,7 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Race.HORSE_MORPH.getBasicDescription()
-					+Race.HORSE_MORPH.getAdvancedDescription()
-					+(Main.getProperties().addRaceDiscovered(Race.HORSE_MORPH)
-							?Game.getRaceDiscoveredMessage(Race.HORSE_MORPH)
-							:"")
-					+(Main.getProperties().addAdvancedRaceKnowledge(Race.HORSE_MORPH)
-							?Game.getRaceAdvancedKnowledgeMessage(Race.HORSE_MORPH)
-								+"<p>"
-									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-								+ "</p>"
-								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
-							:"");
+			return getBookEffect(Race.HORSE_MORPH, ItemType.BOOK_HORSE_MORPH);
 		}
 	},
 	
@@ -264,18 +197,7 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Race.HUMAN.getBasicDescription()
-					+Race.HUMAN.getAdvancedDescription()
-					+(Main.getProperties().addRaceDiscovered(Race.HUMAN)
-							?Game.getRaceDiscoveredMessage(Race.HUMAN)
-							:"")
-					+(Main.getProperties().addAdvancedRaceKnowledge(Race.HUMAN)
-							?Game.getRaceAdvancedKnowledgeMessage(Race.HUMAN)
-								+"<p>"
-									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-								+ "</p>"
-								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
-							:"");
+			return getBookEffect(Race.HUMAN, ItemType.BOOK_HUMAN);
 		}
 	},
 	
@@ -286,18 +208,7 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Race.SQUIRREL_MORPH.getBasicDescription()
-					+Race.SQUIRREL_MORPH.getAdvancedDescription()
-					+(Main.getProperties().addRaceDiscovered(Race.SQUIRREL_MORPH)
-							?Game.getRaceDiscoveredMessage(Race.SQUIRREL_MORPH)
-							:"")
-					+(Main.getProperties().addAdvancedRaceKnowledge(Race.SQUIRREL_MORPH)
-							?Game.getRaceAdvancedKnowledgeMessage(Race.SQUIRREL_MORPH)
-								+"<p>"
-									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-								+ "</p>"
-								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
-							:"");
+			return getBookEffect(Race.SQUIRREL_MORPH, ItemType.BOOK_SQUIRREL_MORPH);
 		}
 	},
 	
@@ -308,18 +219,7 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Race.WOLF_MORPH.getBasicDescription()
-					+Race.WOLF_MORPH.getAdvancedDescription()
-					+(Main.getProperties().addRaceDiscovered(Race.WOLF_MORPH)
-							?Game.getRaceDiscoveredMessage(Race.WOLF_MORPH)
-							:"")
-					+(Main.getProperties().addAdvancedRaceKnowledge(Race.WOLF_MORPH)
-							?Game.getRaceAdvancedKnowledgeMessage(Race.WOLF_MORPH)
-								+"<p>"
-									+ "<b style='colour:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Book added to Lilaya's library!</b>"
-								+ "</p>"
-								+ Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f)
-							:"");
+			return getBookEffect(Race.WOLF_MORPH, ItemType.BOOK_WOLF_MORPH);
 		}
 	},
 	
@@ -765,16 +665,6 @@ public enum ItemEffectType {
 			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'"),
 			new ListValue<>("[style.boldGood(+2)] [style.boldFitness(fitness)] to 'potion effects'")),
 			Colour.RACE_COW_MORPH) {
-		
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return null;
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return null;
-		}
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
@@ -1479,6 +1369,11 @@ public enum ItemEffectType {
 		}
 		
 		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return getRacialPotencyModifiers(primaryModifier, secondaryModifier);
+		}
+		
+		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return Util.newArrayListOfValues(new ListValue<>(getRacialEffect(Race.COW_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription()));
 		}
@@ -1675,7 +1570,18 @@ public enum ItemEffectType {
 		STAMINA,
 		ALL;
 	}
-
+	
+	private static String getBookEffect(Race race, AbstractItemType book) {
+		Main.getProperties().addRaceDiscovered(race);
+		if(Main.getProperties().addAdvancedRaceKnowledge(race)) {
+			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(book), true);
+			Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f);
+		}
+		
+		return race.getBasicDescription()
+				+race.getAdvancedDescription();
+	}
+	
 	private static List<String> descriptions = new ArrayList<>();
 	private static List<String> genericAttributeEffectDescription(resourceRestoration restorationType, TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit) {
 		descriptions.clear();
