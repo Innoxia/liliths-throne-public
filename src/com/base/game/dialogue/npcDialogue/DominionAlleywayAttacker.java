@@ -320,7 +320,7 @@ public class DominionAlleywayAttacker {
 							+ "</p>");
 					
 				} else if (index == 6) {
-					return new ResponseEffectsOnly("Clothing", "Manage [npc.name]'s clothing."){
+					return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
 						@Override
 						public void effects() {
 							Main.mainController.openInventory(Main.game.getCurrentRandomAttacker(), InventoryInteraction.FULL_MANAGEMENT);

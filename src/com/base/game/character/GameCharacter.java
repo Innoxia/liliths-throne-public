@@ -2063,11 +2063,13 @@ public class GameCharacter implements Serializable {
 	
 	public String addWeapon(AbstractWeapon weapon, boolean removingFromFloor) {
 		if (inventory.addWeapon(weapon)) {
-			if (removingFromFloor)
+			if (removingFromFloor) {
 				Main.game.getActiveWorld().getCell(location).getInventory().removeWeapon(weapon);
+			}
 			return "<p style='text-align:center;'>" + addedItemToInventoryText(weapon)+"</p>";
 			
 		} else {
+			Main.game.getActiveWorld().getCell(location).getInventory().addWeapon(weapon);
 			return inventoryFullText() + "</br>" + droppedItemText(weapon);
 		}
 	}
@@ -2095,16 +2097,14 @@ public class GameCharacter implements Serializable {
 	
 	/** @return Description of equipping this weapon. */
 	public String equipMainWeaponFromInventory(AbstractWeapon weapon, GameCharacter fromCharactersInventory) {
-		String s = equipMainWeapon(weapon);
 		fromCharactersInventory.removeWeapon(weapon);
-		return s;
+		return equipMainWeapon(weapon);
 	}
 
 	/** @return Description of equipping this weapon. */
 	public String equipMainWeaponFromFloor(AbstractWeapon weapon) {
-		String s = equipMainWeapon(weapon);
 		Main.game.getActiveWorld().getCell(location).getInventory().removeWeapon(weapon);
-		return s;
+		return equipMainWeapon(weapon);
 	}
 
 	/** @return Description of equipping this weapon. */

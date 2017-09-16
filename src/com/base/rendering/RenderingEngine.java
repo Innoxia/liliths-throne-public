@@ -39,7 +39,7 @@ import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Vector2i;
-import com.base.world.places.GenericPlace;
+import com.base.world.places.GenericPlaces;
 
 /**
  * @since 0.1.0
@@ -50,6 +50,14 @@ public enum RenderingEngine {
 	ENGINE;
 	
 	private static boolean zoomedIn = true, renderedDisabledMap = false;
+	
+
+	private static InventorySlot[] inventorySlots = {
+			InventorySlot.EYES,			InventorySlot.HEAD,			InventorySlot.NECK,		InventorySlot.HAIR,		InventorySlot.HORNS,
+			InventorySlot.TORSO_OVER,	InventorySlot.TORSO_UNDER,	InventorySlot.CHEST,	InventorySlot.MOUTH,	InventorySlot.WINGS,
+			InventorySlot.HAND,			InventorySlot.HIPS,			InventorySlot.STOMACH,	InventorySlot.NIPPLES,	InventorySlot.TAIL,
+			InventorySlot.WRIST,		InventorySlot.LEG,			InventorySlot.GROIN,	InventorySlot.FINGER,	InventorySlot.PENIS,
+			InventorySlot.ANKLE,		InventorySlot.FOOT,			InventorySlot.SOCK,		InventorySlot.ANUS,		InventorySlot.VAGINA };
 
 	private RenderingEngine() {
 	}
@@ -89,13 +97,6 @@ public enum RenderingEngine {
 		// EQUIPPED:
 		equippedPanelSB.append("<div class='inventory-equipped'>");
 		
-		// Draw each inventory slot:
-		InventorySlot[] inventorySlots = {
-				InventorySlot.HEAD, InventorySlot.EYES, InventorySlot.FACE, InventorySlot.MOUTH, InventorySlot.NECK,
-				InventorySlot.TORSO_OVER, InventorySlot.TORSO_UNDER, InventorySlot.CHEST, InventorySlot.NIPPLES, InventorySlot.STOMACH,
-				InventorySlot.WRIST,  InventorySlot.HAND, InventorySlot.FINGER, InventorySlot.HIPS, InventorySlot.ANUS,
-				InventorySlot.LEG, InventorySlot.GROIN, InventorySlot.ANKLE, InventorySlot.FOOT, InventorySlot.SOCK };
-		
 		for (InventorySlot invSlot : inventorySlots) {
 			
 			clothing = charactersInventoryToRender.getClothingInSlot(invSlot);
@@ -107,7 +108,6 @@ public enum RenderingEngine {
 						"<div class='inventory-item-slot" + getClassRarityIdentifier(clothing.getRarity()) + "'"
 								+ (clothing.isSealed() ? "style='border-width:2px; border-color:#" + Colour.SEALED.toWebHexString() + "; border-style:solid;'" : "") + ">"
 								
-
 								// Picture:
 								+ "<div class='inventory-icon-content'>"+clothing.getSVGString()+"</div>"
 								
@@ -271,7 +271,10 @@ public enum RenderingEngine {
 				}
 			}
 		}
-		equippedPanelSB.append("<p style='text-align:center; display:inline-block; height:48px; vertical-align: middle; top:0;'>"+UtilText.formatAsMoney(charactersInventoryToRender.getMoney())+"</p></div>");
+		equippedPanelSB.append(
+				"<p style='text-align:center; display:inline-block; vertical-align: middle; top:0;'>"
+						+ UtilText.getColouredMoneySymbol("b")+" <b>"+charactersInventoryToRender.getMoney()+"</b>"
+				+"</p></div>");
 		
 		return equippedPanelSB.toString();
 	}
@@ -336,19 +339,19 @@ public enum RenderingEngine {
 		
 		
 		inventorySB.append("<div style='float:left; display:block; text-align:center; margin:0 auto; height:36px; padding:8px 0 8px 0;'>");
-		for(TFEssence essence : TFEssence.values()) {
-			inventorySB.append(
-					"<div style='width:28px; display:inline-block; margin:0 4px 0 4px;'>"
-						+ "<div class='item-inline " + essence.getRarity().getName() + "'>"
-							+ essence.getSVGString()
-							+ "<div class='overlay no-pointer' id='ESSENCE_"+essence.hashCode()+"'></div>"
+			for(TFEssence essence : TFEssence.values()) {
+				inventorySB.append(
+						"<div style='width:28px; display:inline-block; margin:0 4px 0 4px;'>"
+							+ "<div class='item-inline " + essence.getRarity().getName() + "'>"
+								+ essence.getSVGString()
+								+ "<div class='overlay no-pointer' id='ESSENCE_"+essence.hashCode()+"'></div>"
+							+ "</div>"
+							+ " <div style='display:inline-block; height:20px; vertical-align: middle;'>"
+								+ "<b>"+charactersInventoryToRender.getEssenceCount(essence)+"</b>"
+							+ "</div>"
 						+ "</div>"
-						+ " <div style='display:inline-block; height:20px; vertical-align: middle;'>"
-							+ "<b>"+charactersInventoryToRender.getEssenceCount(essence)+"</b>"
-						+ "</div>"
-					+ "</div>"
-					);
-		}
+						);
+			}
 		inventorySB.append("</div>");
 		
 		inventorySB.append("</div>");
@@ -374,12 +377,6 @@ public enum RenderingEngine {
 		
 		// EQUIPPED:
 		inventorySB.append("<div class='inventory-equipped'>");
-		// Draw each inventory slot:
-		InventorySlot[] inventorySlots = {
-				InventorySlot.HEAD, InventorySlot.EYES, InventorySlot.FACE, InventorySlot.MOUTH, InventorySlot.NECK,
-				InventorySlot.TORSO_OVER, InventorySlot.TORSO_UNDER, InventorySlot.CHEST, InventorySlot.NIPPLES, InventorySlot.STOMACH,
-				InventorySlot.WRIST,  InventorySlot.HAND, InventorySlot.FINGER, InventorySlot.HIPS, InventorySlot.ANUS,
-				InventorySlot.LEG, InventorySlot.GROIN, InventorySlot.ANKLE, InventorySlot.FOOT, InventorySlot.SOCK };
 		
 		for (InventorySlot invSlot : inventorySlots) {
 			inventorySB.append("<div class='inventory-item-slot disabled'></div>");
@@ -536,6 +533,17 @@ public enum RenderingEngine {
 									: "<div style=' mix-blend-mode: difference; width:90vw; height:2vw; background:" + Colour.GENERIC_EXCELLENT.toWebHexString() + "; float:left; border-radius: 2;'></div>")
 								+ "</div>"
 								+ "<div class='overlay' id='PLAYER_" + Attribute.EXPERIENCE.getName() + "' style='cursor:pointer;'></div>"
+							+ "</div>"
+							+ "<div class='full-width-container' style='padding:0 8px 0 8px'>"
+								+  "<span style='float:left;'>"
+									+ "<b>" 
+									+ (Main.game.isDayTime() ? "Day " : "Night ") + Main.game.getDayNumber() + ", " + String.format("%02d", (Main.game.getMinutesPassed() % (24 * 60)) / 60)
+									+ ":" + String.format("%02d", (Main.game.getMinutesPassed() % (24 * 60)) % 60)
+									+ "</b>"
+								+ "</span>"
+								+ "<span style='float:right;'>"
+									+ UtilText.getColouredMoneySymbol("b")+" <b>"+Main.game.getPlayer().getMoney()+"</b>"
+								+ "</span>"
 							+ "</div>"
 						+ "</div>");
 						
@@ -922,12 +930,12 @@ public enum RenderingEngine {
 
 					if (Main.game.getActiveWorld().getCell(x, y).isDiscovered() || Main.game.isDebugMode()) { // If the tile is discovered:
 
-						if (Main.game.getActiveWorld().getCell(x, y).getPlace() == GenericPlace.IMPASSABLE) {
+						if (Main.game.getActiveWorld().getCell(x, y).getPlace() == GenericPlaces.IMPASSABLE) {
 							mapSB.append("<div class='map-tile blank' style='width:" + (4 * unit) + "%; height:" + (4 * unit) + "%;'></div>");
 						} else {
 
 							// This is the "move North" tile:
-							if (y == playerPosition.getY() + 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace() != GenericPlace.IMPASSABLE) {
+							if (y == playerPosition.getY() + 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace() != GenericPlaces.IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='upButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
@@ -954,7 +962,7 @@ public enum RenderingEngine {
 								mapSB.append("</div>");
 
 								// This is the "move South" tile:
-							} else if (y == playerPosition.getY() - 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace() != GenericPlace.IMPASSABLE) {
+							} else if (y == playerPosition.getY() - 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace() != GenericPlaces.IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='downButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
@@ -981,7 +989,7 @@ public enum RenderingEngine {
 								mapSB.append("</div>");
 
 								// This is the "move West" tile:
-							} else if (y == playerPosition.getY() && x == playerPosition.getX() - 1 && Main.game.getActiveWorld().getCell(x, y).getPlace() != GenericPlace.IMPASSABLE) {
+							} else if (y == playerPosition.getY() && x == playerPosition.getX() - 1 && Main.game.getActiveWorld().getCell(x, y).getPlace() != GenericPlaces.IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='leftButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
@@ -1008,7 +1016,7 @@ public enum RenderingEngine {
 								mapSB.append("</div>");
 
 								// This is the "move East" tile:
-							} else if (y == playerPosition.getY() && x == playerPosition.getX() + 1 && Main.game.getActiveWorld().getCell(x, y).getPlace() != GenericPlace.IMPASSABLE) {
+							} else if (y == playerPosition.getY() && x == playerPosition.getX() + 1 && Main.game.getActiveWorld().getCell(x, y).getPlace() != GenericPlaces.IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='rightButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									

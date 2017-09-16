@@ -697,7 +697,7 @@ position:relative;
 	display: inline-block;
 	width:49.5%;
 	background-color:#19191a;
-	padding:4px 4px 0 4px;
+	padding:8px;
 	margin: 0;
 	border-radius: 5px;
 	box-sizing: border-box;
@@ -785,8 +785,8 @@ position:relative;
 	border-radius: 5px;
 	text-align:center;
 	width:100%;
-	padding:0 4px 4px 4px;
-	margin:0 4px 4px 4px;
+	padding:4px 0 0 0;
+	margin:4px 0 0 0;
 	-webkit-user-select: none;
 	box-sizing: border-box;
 }
@@ -880,11 +880,11 @@ position:relative;
 /*INDIVIDUAL ITEM VIEW*/
 .inventoryImage {
 	position:relative;
-	float:left;
+	float:right;
 	background-color: #4b4b4e;
 	border-radius: 5px;
 	margin:4px 4px 0 0;
-	width:20%;
+	width:30%;
 }
 .inventoryImage:after{
 	content: "";

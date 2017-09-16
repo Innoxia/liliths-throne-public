@@ -367,4 +367,12 @@ public enum Dominion implements PlaceInterface {
 	public PlaceInterface getLinkedPlaceInterface() {
 		return null;
 	}
+
+	public DialogueNodeOld getDialogue() {
+		return dialogue;
+	}
+
+	public Encounter getEncounterType() {
+		return encounterType;
+	}
 }

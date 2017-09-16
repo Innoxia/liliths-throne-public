@@ -156,6 +156,7 @@ h6{
 	padding:0;
 	margin:0;
 	-webkit-user-select: none;
+	box-sizing: border-box;
 }
 
 .quarter-width-container{
@@ -163,6 +164,15 @@ h6{
 	float:left;
 	width:25%;
 	-webkit-user-select: none;
+	box-sizing: border-box;
+}
+
+.three-quarter-width-container{
+	position:relative;
+	float:left;
+	width:75%;
+	-webkit-user-select: none;
+	box-sizing: border-box;
 }
 
 

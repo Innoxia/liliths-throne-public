@@ -20,7 +20,7 @@ public enum InventorySlot {
 	// HEAD:
 	HEAD(40, "head", false, false), // Headgear
 	EYES(50, "eyes", false, false), // Eyes
-	FACE(20, "face", false, false), // Masks
+	HAIR(20, "hair", false, false), // Ribbons, hairbands
 	MOUTH(10, "mouth", false, false), // Mouth
 	NECK(30, "neck", false, false), // Necklaces
 

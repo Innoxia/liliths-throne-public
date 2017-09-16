@@ -19,7 +19,8 @@
 	
 	Engine:
 		<b>Added:</b> Functionality to give/take clothing, items, and weapons to/from NPCs. This took ages. x_x
-		I've disabled the 'fade in' effect on the main text window, which was causing some input lag in all screens (most noticably the inventory screens). If you want to re-enable the fade-in effect, you can do so in the options screen.
+		<b>Added:</b> All of the inventory slots that I had planned, including orifice-related ones (to allow for insertion of toys into orifices).
+		I've disabled the 'fade in' effect on the main text window, which was causing some input lag in all screens (most noticeably in the inventory screens). If you want to re-enable the fade-in effect, you can do so in the options screen.
 		
 	UI:
 		<b>Remade & expanded:</b> Inventory screen.
@@ -32,6 +33,7 @@
 		Ralph no longer feels the need to wear socks over his hooves.
 		Added more values for Body Hair.
 		NPCs should no longer be taking their own virginites.
+		<b>A few more minor things:</b> But I forgot to make note of them...
 	
 	Bugs:
 		Fixed bug where the potency of Bubble Cream's enchantments couldn't be changed.
@@ -46,7 +48,65 @@
 	
 	
 	
-	pull up clothing
+	
+	
+	
+	
+	
+	Slave Accommodation
+	X Unlock rooms in Lilaya's house.
+	X Room upgrades.
+	
+	Event log
+	
+	Slave Acquisition
+	X Enslaving attackers in alleyways & nests.
+	X Buying slaves from Slaver Alley.
+	X Transfer slaves from Slavery Administration to Lilaya's home.
+	
+	Inventory Descriptions
+	
+	Slave Management
+	X Clothing. (This one is going to be significantly larger than all the other tasks...)
+	X Items.
+	X Fetishes.
+	X Jobs.
+	X Room assignment.
+	X Permissions & rules.
+	
+	Slave Interactions
+	X Talk.
+	X Give gift.
+	X Punish.
+	X Sex.
+	
+	Slave Removal
+	X Free.
+	X Sell.
+	
+	Bug fixes
+	X Fix at least 10 bugs.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	Switch to ground/NPC view
 	
 	descriptions
 	

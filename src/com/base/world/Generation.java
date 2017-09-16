@@ -14,7 +14,7 @@ import com.base.main.Main;
 import com.base.utils.Bearing;
 import com.base.utils.Util;
 import com.base.utils.Vector2i;
-import com.base.world.places.GenericPlace;
+import com.base.world.places.GenericPlaces;
 import com.base.world.places.PlaceInterface;
 
 import javafx.concurrent.Task;
@@ -420,7 +420,7 @@ public class Generation extends Task<Boolean> {
 						if (Math.random() > 0.8) {
 							expandedGrid[i][j].setPlace(worldType.getCutOffZone());
 						} else {
-							expandedGrid[i][j].setPlace(GenericPlace.IMPASSABLE);
+							expandedGrid[i][j].setPlace(GenericPlaces.IMPASSABLE);
 						}
 					}
 	

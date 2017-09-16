@@ -9,7 +9,7 @@ import com.base.utils.Util.ListValue;
 import com.base.utils.Util.Value;
 import com.base.world.places.Dominion;
 import com.base.world.places.EnforcerHQ;
-import com.base.world.places.GenericPlace;
+import com.base.world.places.GenericPlaces;
 import com.base.world.places.HarpyNests;
 import com.base.world.places.Jungle;
 import com.base.world.places.LilayasHome;
@@ -58,7 +58,7 @@ public enum WorldType {
 			"/com/base/res/map/dominion/lilayasHome/lilayas_home_ground_floor.png",
 			Util.newHashMapOfValues(
 					
-					new Value<>(new Color(0xFFFFFF), GenericPlace.IMPASSABLE),
+					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
 					new Value<>(new Color(0x808080), LilayasHome.LILAYA_HOME_CORRIDOR),
 					new Value<>(new Color(0xff0000), LilayasHome.LILAYA_HOME_ENTRANCE_HALL),
 					new Value<>(new Color(0x008000), LilayasHome.LILAYA_HOME_GARDEN),
@@ -84,7 +84,7 @@ public enum WorldType {
 			1,
 			"/com/base/res/map/dominion/lilayasHome/lilayas_home_first_floor.png",
 			Util.newHashMapOfValues(
-					new Value<>(new Color(0xFFFFFF), GenericPlace.IMPASSABLE),
+					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
 					new Value<>(new Color(0x808080), LilayasHome.LILAYA_HOME_CORRIDOR),
 					new Value<>(new Color(0xff00ff), LilayasHome.LILAYA_HOME_ROOM_WINDOW),
 					new Value<>(new Color(0xff0080), LilayasHome.LILAYA_HOME_ROOM_GARDEN),
@@ -106,7 +106,7 @@ public enum WorldType {
 			"Harpy nests",
 			5,
 			HarpyNests.WALKWAYS,
-			GenericPlace.IMPASSABLE,
+			GenericPlaces.IMPASSABLE,
 			Util.newArrayListOfValues(
 					new ListValue<PlaceInterface>(HarpyNests.ENTRANCE_ENFORCER_POST),
 					new ListValue<PlaceInterface>(HarpyNests.HARPY_NEST_RED),
@@ -120,7 +120,7 @@ public enum WorldType {
 			"/com/base/res/map/dominion/slaverAlley/slaverAlley.png",
 			Util.newHashMapOfValues(
 					
-					new Value<>(new Color(0xFFFFFF), GenericPlace.IMPASSABLE),
+					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
 					new Value<>(new Color(0x808080), SlaverAlley.ALLEY),
 					new Value<>(new Color(0xff0000), SlaverAlley.ALLEY_ENTRANCE),
 					new Value<>(new Color(0xff00ff), SlaverAlley.MARKET_STALL),
@@ -136,7 +136,7 @@ public enum WorldType {
 			"/com/base/res/map/dominion/shoppingArcade/shoppingArcade.png",
 			Util.newHashMapOfValues(
 					
-					new Value<>(new Color(0xFFFFFF), GenericPlace.IMPASSABLE),
+					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
 					new Value<>(new Color(0x808080), ShoppingArcade.ARCADE),
 					new Value<>(new Color(0xff0000), ShoppingArcade.ARCADE_ENTRANCE),
 					new Value<>(new Color(0x00ffff), ShoppingArcade.RALPHS_SHOP_ITEMS),
@@ -159,7 +159,7 @@ public enum WorldType {
 			"/com/base/res/map/dominion/enforcerHQ/enforcerHQ.png",
 			Util.newHashMapOfValues(
 					
-					new Value<>(new Color(0xFFFFFF), GenericPlace.IMPASSABLE),
+					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
 					new Value<>(new Color(0x808080), EnforcerHQ.CORRIDOR),
 					new Value<>(new Color(0xff0000), EnforcerHQ.ENTRANCE),
 					new Value<>(new Color(0xffff00), EnforcerHQ.GUARDED_DOOR),
@@ -176,7 +176,7 @@ public enum WorldType {
 			"submission",
 			5,
 			Submission.SEWER_WALKWAYS,
-			GenericPlace.IMPASSABLE,
+			GenericPlaces.IMPASSABLE,
 			Util.newArrayListOfValues(
 					new ListValue<PlaceInterface>(Submission.SEWER_RAT_TUNNELS),
 					new ListValue<PlaceInterface>(Submission.SEWER_IMP_PALACE),

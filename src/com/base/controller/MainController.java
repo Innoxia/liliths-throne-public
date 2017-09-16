@@ -96,7 +96,7 @@ import com.base.rendering.RenderingEngine;
 import com.base.utils.Colour;
 import com.base.utils.Vector2i;
 import com.base.world.WorldType;
-import com.base.world.places.GenericPlace;
+import com.base.world.places.GenericPlaces;
 import com.base.world.places.ShoppingArcade;
 
 import javafx.beans.value.ObservableValue;
@@ -2617,7 +2617,7 @@ public class MainController implements Initializable {
 	 */
 	public void moveNorth() {
 		if (Main.game.getPlayer().getLocation().getY() + 1 < Main.game.getActiveWorld().WORLD_HEIGHT) {
-			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1).getPlace() != GenericPlace.IMPASSABLE) {
+			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1).getPlace() != GenericPlaces.IMPASSABLE) {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear())
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory();
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1));
@@ -2632,7 +2632,7 @@ public class MainController implements Initializable {
 	 */
 	public void moveSouth() {
 		if (Main.game.getPlayer().getLocation().getY() - 1 >= 0) {
-			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1).getPlace() != GenericPlace.IMPASSABLE) {
+			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1).getPlace() != GenericPlaces.IMPASSABLE) {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear())
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory();
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1));
@@ -2647,7 +2647,7 @@ public class MainController implements Initializable {
 	 */
 	public void moveEast() {
 		if (Main.game.getPlayer().getLocation().getX() + 1 < Main.game.getActiveWorld().WORLD_WIDTH) {
-			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()).getPlace() != GenericPlace.IMPASSABLE) {
+			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()).getPlace() != GenericPlaces.IMPASSABLE) {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear())
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory();
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()));
@@ -2662,7 +2662,7 @@ public class MainController implements Initializable {
 	 */
 	public void moveWest() {
 		if (Main.game.getPlayer().getLocation().getX() - 1 >= 0) {
-			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()).getPlace() != GenericPlace.IMPASSABLE) {
+			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()).getPlace() != GenericPlaces.IMPASSABLE) {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear())
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory();
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()));

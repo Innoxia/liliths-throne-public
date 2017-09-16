@@ -17,7 +17,7 @@ public class World implements Serializable {
 
 	public final int WORLD_WIDTH, WORLD_HEIGHT;
 	public static final int CELL_SIZE = 64;
-
+	
 	private Cell[][] grid;
 	private WorldType WorldType;
 	private Map<PlaceInterface, Vector2i> placesOfInterest;
