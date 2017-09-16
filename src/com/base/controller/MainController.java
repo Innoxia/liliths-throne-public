@@ -74,7 +74,7 @@ import com.base.game.dialogue.story.CharacterCreation;
 import com.base.game.dialogue.utils.CharactersPresentDialogue;
 import com.base.game.dialogue.utils.EnchantmentDialogue;
 import com.base.game.dialogue.utils.InventoryDialogue;
-import com.base.game.dialogue.utils.NPCInventoryInteraction;
+import com.base.game.dialogue.utils.InventoryInteraction;
 import com.base.game.dialogue.utils.OptionsDialogue;
 import com.base.game.dialogue.utils.PhoneDialogue;
 import com.base.game.inventory.AbstractCoreItem;
@@ -262,17 +262,17 @@ public class MainController implements Initializable {
 
 	public void openInventory() {
 		if(Main.game.isInCombat()) {
-			openInventory((NPC) Combat.getOpponent(), NPCInventoryInteraction.COMBAT);
+			openInventory((NPC) Combat.getOpponent(), InventoryInteraction.COMBAT);
 			
 		} else if(Main.game.isInSex()) {
-			openInventory((NPC) Combat.getOpponent(), NPCInventoryInteraction.SEX);
+			openInventory((NPC) Combat.getOpponent(), InventoryInteraction.SEX);
 			
 		} else {
-			openInventory(null, NPCInventoryInteraction.FULL_MANAGEMENT);
+			openInventory(null, InventoryInteraction.FULL_MANAGEMENT);
 		}
 	}
 	
-	public void openInventory(NPC npc, NPCInventoryInteraction interaction) {
+	public void openInventory(NPC npc, InventoryInteraction interaction) {
 		if(!Main.game.isStarted()) {
 			return;
 		}
@@ -1109,6 +1109,14 @@ public class MainController implements Initializable {
 					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, InventoryDialogue.getInventoryNPC());
 					addEventListener(document, id, "mouseenter", el2, false);
 				}
+				
+				id = "NPC_VIEW_" + invSlot.toString() + "Slot";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, CharactersPresentDialogue.characterViewed);
+					addEventListener(document, id, "mouseenter", el2, false);
+				}
 			}
 
 			// For all equipped clothing slots:
@@ -1136,13 +1144,23 @@ public class MainController implements Initializable {
 						addEventListener(document, id, "mouseenter", el2, false);
 					}
 				}
+				
+				id = "NPC_VIEW_" + invSlot.toString() + "Slot";
+				if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
+					if (((EventTarget) document.getElementById(id)) != null) {
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, CharactersPresentDialogue.characterViewed);
+						addEventListener(document, id, "mouseenter", el2, false);
+					}
+				}
 			}
 			
 			
 			
 			// Non-equipped inventory:
-				
-			// Weapons in inventory:
+			
+			// Player:
 			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getMapOfDuplicateWeapons().entrySet()) {
 				id = "PLAYER_WEAPON_" + entry.getKey().hashCode();
 				if (((EventTarget) document.getElementById(id)) != null) {
@@ -1153,42 +1171,7 @@ public class MainController implements Initializable {
 					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer());
 					addEventListener(document, id, "mouseenter", el2, false);
 				}
-				
-				id = "NPC_WEAPON_" + entry.getKey().hashCode();
-				if (((EventTarget) document.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), InventoryDialogue.getInventoryNPC());
-					addEventListener(document, id, "click", el, false);
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), InventoryDialogue.getInventoryNPC());
-					addEventListener(document, id, "mouseenter", el2, false);
-				}
 			}
-			
-			// Clothing in inventory:
-			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayer().getMapOfDuplicateClothing().entrySet()) {
-				id = "PLAYER_CLOTHING_" + entry.getKey().hashCode();
-				if (((EventTarget) document.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), Main.game.getPlayer());
-					addEventListener(document, id, "click", el, false);
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), Main.game.getPlayer(), null);
-					addEventListener(document, id, "mouseenter", el2, false);
-				}
-				
-				id = "NPC_CLOTHING_" + entry.getKey().hashCode();
-				if (((EventTarget) document.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), InventoryDialogue.getInventoryNPC());
-					addEventListener(document, id, "click", el, false);
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), InventoryDialogue.getInventoryNPC(), null);
-					addEventListener(document, id, "mouseenter", el2, false);
-				}
-			}
-			
-			// Items in inventory:
 			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayer().getMapOfDuplicateItems().entrySet()) {
 				id = "PLAYER_ITEM_" + entry.getKey().hashCode();
 				if (((EventTarget) document.getElementById(id)) != null) {
@@ -1199,146 +1182,132 @@ public class MainController implements Initializable {
 					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem(entry.getKey(), Main.game.getPlayer(), null);
 					addEventListener(document, id, "mouseenter", el2, false);
 				}
+			}
+			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayer().getMapOfDuplicateClothing().entrySet()) {
+				id = "PLAYER_CLOTHING_" + entry.getKey().hashCode();
+				if (((EventTarget) document.getElementById(id)) != null) {
+					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), Main.game.getPlayer());
+					addEventListener(document, id, "click", el, false);
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), Main.game.getPlayer(), null);
+					addEventListener(document, id, "mouseenter", el2, false);
+				}
+			}
+			
+			// Partner:
+			if(InventoryDialogue.getInventoryNPC()!=null) {
+				for (Entry<AbstractWeapon, Integer> entry : InventoryDialogue.getInventoryNPC().getMapOfDuplicateWeapons().entrySet()) {
+					id = "NPC_WEAPON_" + entry.getKey().hashCode();
+					if (((EventTarget) document.getElementById(id)) != null) {
+						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), InventoryDialogue.getInventoryNPC());
+						addEventListener(document, id, "click", el, false);
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), InventoryDialogue.getInventoryNPC());
+						addEventListener(document, id, "mouseenter", el2, false);
+					}
+				}
 				
-				id = "NPC_ITEM_" + entry.getKey().hashCode();
-				if (((EventTarget) document.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemInventory(entry.getKey(), InventoryDialogue.getInventoryNPC());
-					addEventListener(document, id, "click", el, false);
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem(entry.getKey(), InventoryDialogue.getInventoryNPC(), null);
-					addEventListener(document, id, "mouseenter", el2, false);
+				for (Entry<AbstractClothing, Integer> entry : InventoryDialogue.getInventoryNPC().getMapOfDuplicateClothing().entrySet()) {
+					id = "NPC_CLOTHING_" + entry.getKey().hashCode();
+					if (((EventTarget) document.getElementById(id)) != null) {
+						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), InventoryDialogue.getInventoryNPC());
+						addEventListener(document, id, "click", el, false);
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), InventoryDialogue.getInventoryNPC(), null);
+						addEventListener(document, id, "mouseenter", el2, false);
+					}
+				}
+				
+				for (Entry<AbstractItem, Integer> entry : InventoryDialogue.getInventoryNPC().getMapOfDuplicateItems().entrySet()) {
+					id = "NPC_ITEM_" + entry.getKey().hashCode();
+					if (((EventTarget) document.getElementById(id)) != null) {
+						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemInventory(entry.getKey(), InventoryDialogue.getInventoryNPC());
+						addEventListener(document, id, "click", el, false);
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem(entry.getKey(), InventoryDialogue.getInventoryNPC(), null);
+						addEventListener(document, id, "mouseenter", el2, false);
+					}
+				}
+				
+			// Floor:
+			} else {
+				// Weapons on floor:
+				for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
+					id = "WEAPON_FLOOR_" + entry.getKey().hashCode();
+					if (((EventTarget) document.getElementById(id)) != null) {
+						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), null);
+						addEventListener(document, id, "click", el, false);
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), null);
+						addEventListener(document, id, "mouseenter", el2, false);
+					}
+				}
+				
+				// Clothing on floor:
+				for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
+					id = "CLOTHING_FLOOR_" + entry.getKey().hashCode();
+					if (((EventTarget) document.getElementById(id)) != null) {
+						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), null);
+						addEventListener(document, id, "click", el, false);
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), null, null);
+						addEventListener(document, id, "mouseenter", el2, false);
+					}
+				}
+				
+				// Items on floor:
+				for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
+					id = "ITEM_FLOOR_" + entry.getKey().hashCode();
+					if (((EventTarget) document.getElementById(id)) != null) {
+						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemInventory(entry.getKey(), null);
+						addEventListener(document, id, "click", el, false);
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem(entry.getKey(), null, null);
+						addEventListener(document, id, "mouseenter", el2, false);	
+					}
 				}
 			}
 			
-			// Weapons on floor:
-			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
-				id = "WEAPON_FLOOR_" + entry.getKey().hashCode();
-				if (((EventTarget) document.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponFloor(entry.getKey());
-					addEventListener(document, id, "click", el, false);
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), null);
-					addEventListener(document, id, "mouseenter", el2, false);
-				}
-			}
-			
-			// Clothing on floor:
-			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
-				id = "CLOTHING_FLOOR_" + entry.getKey().hashCode();
-				if (((EventTarget) document.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingFloor(entry.getKey());
-					addEventListener(document, id, "click", el, false);
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), null, null);
-					addEventListener(document, id, "mouseenter", el2, false);
-				}
-			}
-			
-			// Items on floor:
-			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
-				id = "ITEM_FLOOR_" + entry.getKey().hashCode();
-				if (((EventTarget) document.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemFloor(entry.getKey());
-					addEventListener(document, id, "click", el, false);
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem(entry.getKey(), null, null);
-					addEventListener(document, id, "mouseenter", el2, false);	
-				}
-			}
-			
-			if(InventoryDialogue.getNPCInventoryInteraction() == NPCInventoryInteraction.TRADING) {
+			if(InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
 			
 				if(InventoryDialogue.getInventoryNPC() != null) {
-					// Weapons owned by trader:
-					for (Entry<AbstractWeapon, Integer> entry : InventoryDialogue.getInventoryNPC().getMapOfDuplicateWeapons().entrySet()) {
-						if (((EventTarget) document.getElementById("WEAPON_TRADER_" + entry.getKey().hashCode())) != null) {
-		
-							InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), InventoryDialogue.getInventoryNPC());
-							addEventListener(document, "WEAPON_TRADER_" + entry.getKey().hashCode(), "click", el, false);
-							
-							addEventListener(document, "WEAPON_TRADER_" + entry.getKey().hashCode(), "mousemove", moveTooltipListener, false);
-							addEventListener(document, "WEAPON_TRADER_" + entry.getKey().hashCode(), "mouseleave", hideTooltipListener, false);
-		
-							InventoryTooltipEventListener el2 =  new InventoryTooltipEventListener().setWeapon(entry.getKey(), InventoryDialogue.getInventoryNPC());
-							((EventTarget) document.getElementById("WEAPON_TRADER_" + entry.getKey().hashCode())).addEventListener("mouseenter",el2, false);
-						}
-					}
-					
-					// Clothing owned by trader:
-					for (Entry<AbstractClothing, Integer> entry : InventoryDialogue.getInventoryNPC().getMapOfDuplicateClothing().entrySet()) {
-						if (((EventTarget) document.getElementById("CLOTHING_TRADER_" + entry.getKey().hashCode())) != null) {
-		
-							InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), InventoryDialogue.getInventoryNPC());
-							addEventListener(document, "CLOTHING_TRADER_" + entry.getKey().hashCode(), "click", el, false);
-							
-							addEventListener(document, "CLOTHING_TRADER_" + entry.getKey().hashCode(), "mousemove", moveTooltipListener, false);
-							addEventListener(document, "CLOTHING_TRADER_" + entry.getKey().hashCode(), "mouseleave", hideTooltipListener, false);
-		
-							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), InventoryDialogue.getInventoryNPC(), null);
-							addEventListener(document, "CLOTHING_TRADER_" + entry.getKey().hashCode(), "mouseenter", el2, false);
-						}
-					}
-					
-					// Items owned by trader:
-					for (Entry<AbstractItem, Integer> entry : InventoryDialogue.getInventoryNPC().getMapOfDuplicateItems().entrySet()) {
-						if (((EventTarget) document.getElementById("ITEM_TRADER_" + entry.getKey().hashCode())) != null) {
-							
-							InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemInventory(entry.getKey(), InventoryDialogue.getInventoryNPC());
-							addEventListener(document, "ITEM_TRADER_" + entry.getKey().hashCode(), "click", el, false);
-							
-							addEventListener(document, "ITEM_TRADER_" + entry.getKey().hashCode(), "mousemove", moveTooltipListener, false);
-							addEventListener(document, "ITEM_TRADER_" + entry.getKey().hashCode(), "mouseleave", hideTooltipListener, false);
-		
-							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem(entry.getKey(), InventoryDialogue.getInventoryNPC(), null);
-							addEventListener(document, "ITEM_TRADER_" + entry.getKey().hashCode(), "mouseenter", el2, false);
-						}
-					}
-					
 					// Buyback panel:
 					for (int i = Main.game.getPlayer().getBuybackStack().size() - 1; i >= 0; i--) {
-						if (((EventTarget) document.getElementById("WEAPON_BUYBACK_" + i)) != null) {
-			
-							InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponBuyback(
-									(AbstractWeapon) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), Main.game.getPlayer().getBuybackStack().get(i).getPrice(), i);
-							((EventTarget) document.getElementById("WEAPON_BUYBACK_" + i)).addEventListener("click",el, false);
-							
-							addEventListener(document, "WEAPON_BUYBACK_" + i, "mousemove", moveTooltipListener, false);
-							addEventListener(document, "WEAPON_BUYBACK_" + i, "mouseleave", hideTooltipListener, false);
-			
+						if (((EventTarget) document.getElementById("WEAPON_" + i)) != null) {
+							InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponInventory((AbstractWeapon) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC(), i);
+							((EventTarget) document.getElementById("WEAPON_" + i)).addEventListener("click",el, false);
+							addEventListener(document, "WEAPON_" + i, "mousemove", moveTooltipListener, false);
+							addEventListener(document, "WEAPON_" + i, "mouseleave", hideTooltipListener, false);
 							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC());
-							((EventTarget) document.getElementById("WEAPON_BUYBACK_" + i)).addEventListener("mouseenter",el2, false);
+							((EventTarget) document.getElementById("WEAPON_" + i)).addEventListener("mouseenter",el2, false);
 						}
-						if (((EventTarget) document.getElementById("CLOTHING_BUYBACK_" + i)) != null) {
-			
-							InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingBuyback(
-									(AbstractClothing) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), Main.game.getPlayer().getBuybackStack().get(i).getPrice(), i);
-							addEventListener(document, "CLOTHING_BUYBACK_" + i, "click", el, false);
-							
-							addEventListener(document, "CLOTHING_BUYBACK_" + i, "mousemove", moveTooltipListener, false);
-							addEventListener(document, "CLOTHING_BUYBACK_" + i, "mouseleave", hideTooltipListener, false);
-			
+						
+						if (((EventTarget) document.getElementById("CLOTHING_" + i)) != null) {
+							InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory((AbstractClothing) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC(), i);
+							addEventListener(document, "CLOTHING_" + i, "click", el, false);
+							addEventListener(document, "CLOTHING_" + i, "mousemove", moveTooltipListener, false);
+							addEventListener(document, "CLOTHING_" + i, "mouseleave", hideTooltipListener, false);
 							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing((AbstractClothing) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC(), null);
-							addEventListener(document, "CLOTHING_BUYBACK_" + i, "mouseenter", el2, false);
+							addEventListener(document, "CLOTHING_" + i, "mouseenter", el2, false);
 						}
-						if (((EventTarget) document.getElementById("ITEM_BUYBACK_" + i)) != null) {
-			
-							InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemBuyback(
-									(AbstractItem) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), Main.game.getPlayer().getBuybackStack().get(i).getPrice(), i);
-							addEventListener(document, "ITEM_BUYBACK_" + i, "click", el, false);
-							
-							addEventListener(document, "ITEM_BUYBACK_" + i, "mousemove", moveTooltipListener, false);
-							addEventListener(document, "ITEM_BUYBACK_" + i, "mouseleave", hideTooltipListener, false);
-			
+						
+						if (((EventTarget) document.getElementById("ITEM_" + i)) != null) {
+							InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemInventory((AbstractItem) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC(), i);
+							addEventListener(document, "ITEM_" + i, "click", el, false);
+							addEventListener(document, "ITEM_" + i, "mousemove", moveTooltipListener, false);
+							addEventListener(document, "ITEM_" + i, "mouseleave", hideTooltipListener, false);
 							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem((AbstractItem) Main.game.getPlayer().getBuybackStack().get(i).getAbstractItemSold(), InventoryDialogue.getInventoryNPC(), null);
-							addEventListener(document, "ITEM_BUYBACK_" + i, "mouseenter", el2, false);
+							addEventListener(document, "ITEM_" + i, "mouseenter", el2, false);
 						}
 					}
 				}
-			
 			}
 			
 			for(int i=0; i<InventoryDialogue.getJinxedClothing().size(); i++) {
@@ -1917,22 +1886,20 @@ public class MainController implements Initializable {
 			// Phone item viewer:
 			for (AbstractClothingType clothing : ClothingType.getAllClothing())
 				for (Colour c : clothing.getAvailableColours()) {
-					if ((EventTarget) document.getElementById(clothing.toString() + "_" + c.toString()) != null) {
-						addEventListener(document, clothing.toString() + "_" + c.toString(), "mousemove", moveTooltipListener, false);
-						addEventListener(document, clothing.toString() + "_" + c.toString(), "mouseleave", hideTooltipListener, false);
-	
+					if ((EventTarget) document.getElementById(clothing.hashCode() + "_" + c.toString()) != null) {
+						addEventListener(document, clothing.hashCode() + "_" + c.toString(), "mousemove", moveTooltipListener, false);
+						addEventListener(document, clothing.hashCode() + "_" + c.toString(), "mouseleave", hideTooltipListener, false);
 						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setGenericClothing(clothing, c);
-						addEventListener(document, clothing.toString() + "_" + c.toString(), "mouseenter", el2, false);
+						addEventListener(document, clothing.hashCode() + "_" + c.toString(), "mouseenter", el2, false);
 					}
 				}
 			for (AbstractWeaponType weapon : WeaponType.allweapons)
 				for (DamageType dt : weapon.getAvailableDamageTypes()) {
-					if ((EventTarget) document.getElementById(weapon.toString() + "_" + dt.toString()) != null) {
-						addEventListener(document, weapon.toString() + "_" + dt.toString(), "mousemove", moveTooltipListener, false);
-						addEventListener(document, weapon.toString() + "_" + dt.toString(), "mouseleave", hideTooltipListener, false);
-	
+					if ((EventTarget) document.getElementById(weapon.hashCode() + "_" + dt.toString()) != null) {
+						addEventListener(document, weapon.hashCode() + "_" + dt.toString(), "mousemove", moveTooltipListener, false);
+						addEventListener(document, weapon.hashCode() + "_" + dt.toString(), "mouseleave", hideTooltipListener, false);
 						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setGenericWeapon(weapon, dt);
-						addEventListener(document, weapon.toString() + "_" + dt.toString(), "mouseenter", el2, false);
+						addEventListener(document, weapon.hashCode() + "_" + dt.toString(), "mouseenter", el2, false);
 					}
 				}
 	

@@ -25,7 +25,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	protected List<ItemEffect> itemEffects;
 
 	public AbstractItem(AbstractItemType itemType) {
-		super(itemType.getName(false), itemType.getSVGString(), itemType.getColour(), itemType.getRarity(), null);
+		super(itemType.getName(false), itemType.getNamePlural(false), itemType.getSVGString(), itemType.getColour(), itemType.getRarity(), null);
 
 		this.itemType = itemType;
 		this.itemEffects = itemType.getEffects();

@@ -28,7 +28,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 
 	protected static final long serialVersionUID = 1L;
 	
-	private String determiner, name, description, pathName;
+	private String determiner, name, namePlural, description, pathName;
 
 	private boolean plural;
 	private int physicalResistance, femininityMinimum, femininityMaximum;
@@ -53,6 +53,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 			String determiner,
 			boolean plural,
 			String name,
+			String namePlural,
 			String description,
 			int physicalResistance,
 			Femininity femininityRestriction,
@@ -67,6 +68,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		this.determiner = determiner;
 		this.plural = plural;
 		this.name = name;
+		this.namePlural = namePlural;
 		this.description = description;
 
 		this.physicalResistance = physicalResistance;
@@ -366,7 +368,14 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	}
 
 	public String getName() {
+		if(isPlural()) {
+			return namePlural;
+		}
 		return name;
+	}
+	
+	public String getNamePlural() {
+		return namePlural;
 	}
 
 	public String getDescription() {

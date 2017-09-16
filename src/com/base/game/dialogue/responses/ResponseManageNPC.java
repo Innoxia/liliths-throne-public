@@ -1,9 +1,14 @@
 package com.base.game.dialogue.responses;
 
 import com.base.game.character.npc.NPC;
-import com.base.game.dialogue.utils.NPCInventoryInteraction;
+import com.base.game.dialogue.utils.InventoryInteraction;
 import com.base.main.Main;
 
+/**
+ * @since 0.1.85
+ * @version 0.1.85
+ * @author Innoxia
+ */
 public class ResponseManageNPC extends Response {
 	
 	private NPC npcToManage;
@@ -15,7 +20,7 @@ public class ResponseManageNPC extends Response {
 	}
 	
 	public void openNPCManagement() {
-		Main.mainController.openInventory(npcToManage, NPCInventoryInteraction.FULL_MANAGEMENT);
+		Main.mainController.openInventory(npcToManage, InventoryInteraction.FULL_MANAGEMENT);
 	}
 	
 

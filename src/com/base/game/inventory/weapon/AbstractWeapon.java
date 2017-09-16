@@ -31,7 +31,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 	private List<Spell> spells;
 
 	public AbstractWeapon(AbstractWeaponType weaponType, DamageType dt) {
-		super(weaponType.getName(), weaponType.getPathName(), dt.getMultiplierAttribute().getColour(), weaponType.getRarity(), weaponType.getAttributeModifiers());
+		super(weaponType.getName(), weaponType.getNamePlural(), weaponType.getPathName(), dt.getMultiplierAttribute().getColour(), weaponType.getRarity(), weaponType.getAttributeModifiers());
 		this.weaponType = weaponType;
 		damageType = dt;
 		

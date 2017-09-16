@@ -32,7 +32,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 
 	protected static final long serialVersionUID = 1L;
 	
-	private String determiner, pronoun, name, description, pathName;
+	private String determiner, pronoun, name, namePlural, description, pathName;
 	protected DamageLevel damageLevel;
 	protected DamageVariance damageVariance;
 	private InventorySlot slot;
@@ -42,12 +42,13 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 	private Map<DamageType, String> SVGStringMap;
 	private List<Spell> spells;
 
-	public AbstractWeaponType(String determiner, String pronoun, String name, String description, InventorySlot slot, String pathName, Rarity rarity, List<DamageType> availableDamageTypes, DamageLevel damageLevel, DamageVariance damageVariance,
-			Map<Attribute, Integer> attributeModifiers, List<Spell> spells) {
+	public AbstractWeaponType(String determiner, String pronoun, String name, String namePlural, String description, InventorySlot slot, String pathName, Rarity rarity, List<DamageType> availableDamageTypes, DamageLevel damageLevel,
+			DamageVariance damageVariance, Map<Attribute, Integer> attributeModifiers, List<Spell> spells) {
 
 		this.determiner = determiner;
 		this.pronoun = pronoun;
 		this.name = name;
+		this.namePlural = namePlural;
 		this.description = description;
 		this.rarity = rarity;
 
@@ -220,6 +221,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getNamePlural() {
+		return namePlural;
 	}
 
 	public String getDescription() {

@@ -556,7 +556,7 @@ public class DominionOffspring {
 								+ " [npc.Name] starts kissing you, [npc.speech(Yes [npc.pcName]! You'll be good now, won't you?)]"
 							+ "</p>");
 					
-				} else if (index == 6 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
+				} else if (index == 10 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
 					return new Response(
 							"Remove character",
 							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
@@ -639,7 +639,7 @@ public class DominionOffspring {
 							"You can't submit to [npc.herHim], as [npc.she] has no interest in having sex with you!",
 							null);
 					
-				} else if (index == 6 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
+				} else if (index == 10 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
 					return new Response(
 							"Remove character",
 							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
@@ -846,7 +846,7 @@ public class DominionOffspring {
 					}
 				};
 				
-			} else if (index == 5 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
+			} else if (index == 10 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
 				return new Response(
 						"Remove character",
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",

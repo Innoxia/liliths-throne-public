@@ -1026,7 +1026,7 @@ public class PrologueDialogue {
 						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
 						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_PINK, false), true, Main.game.getPlayer());
 
-						Main.game.getPlayer().equipMainWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE), false);
+						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
 
 						Main.game.clearTextStartStringBuilder();
 						Main.game.clearTextEndStringBuilder();

@@ -20,16 +20,17 @@ public abstract class AbstractCoreItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	protected String name, SVGString;
+	protected String name, namePlural, SVGString;
 	protected Colour colourShade;
 	protected Rarity rarity;
 
 	protected Map<Attribute, Integer> attributeModifiers;
 	protected TFEssence relatedEssence;
 
-	public AbstractCoreItem(String name, String SVGString, Colour colour, Rarity rarity, Map<Attribute, Integer> attributeModifiers) {
+	public AbstractCoreItem(String name, String namePlural, String SVGString, Colour colour, Rarity rarity, Map<Attribute, Integer> attributeModifiers) {
 		super();
 		this.name = name;
+		this.namePlural = namePlural;
 		this.colourShade = colour;
 		this.rarity = rarity;
 		this.SVGString = SVGString;
@@ -110,6 +111,10 @@ public abstract class AbstractCoreItem implements Serializable {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public String getNamePlural() {
+		return namePlural;
 	}
 
 	public void setName(String name) {

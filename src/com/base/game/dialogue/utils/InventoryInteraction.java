@@ -5,7 +5,7 @@ package com.base.game.dialogue.utils;
  * @version 0.1.85
  * @author Innoxia
  */
-public enum NPCInventoryInteraction {
+public enum InventoryInteraction {
 	SEX,
 	COMBAT,
 	TRADING,

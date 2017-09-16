@@ -331,7 +331,7 @@ public class DominionSuccubus {
 					}
 				};
 				
-			} else if (index == 5) {
+			} else if (index == 10) {
 				return new Response(
 						"Remove character",
 						"Scare "+Main.game.getCurrentRandomAttacker().getName("the")+" away. <b>This will remove "+Main.game.getCurrentRandomAttacker().getName("the")+" from this area, allowing another NPC to move into this tile.</b>",
@@ -901,7 +901,7 @@ public class DominionSuccubus {
 					}
 				};
 				
-			} else if (index == 5) {
+			} else if (index == 10) {
 				return new Response(
 						"Remove character",
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",

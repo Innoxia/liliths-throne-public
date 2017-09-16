@@ -8,6 +8,8 @@ import com.base.game.dialogue.GenericDialogue;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseCombat;
 import com.base.game.dialogue.responses.ResponseSex;
+import com.base.game.dialogue.responses.ResponseEffectsOnly;
+import com.base.game.dialogue.utils.InventoryInteraction;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.sex.Sex;
@@ -318,10 +320,10 @@ public class DominionAlleywayAttacker {
 							+ "</p>");
 					
 				} else if (index == 6) {
-					return new Response("Clothing", "Manage [npc.name]'s clothing.", null){
+					return new ResponseEffectsOnly("Clothing", "Manage [npc.name]'s clothing."){
 						@Override
-						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+						public void effects() {
+							Main.mainController.openInventory(Main.game.getCurrentRandomAttacker(), InventoryInteraction.FULL_MANAGEMENT);
 						}
 					};
 					

@@ -911,9 +911,10 @@ public class CharacterInventory implements Serializable {
 												}
 
 										} else {
-											if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, true)) // Can  be removed:
+											if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, true)) { // Can  be removed:
 												clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
-											else {
+												
+											} else {
 												equipTextSB.append("</br>Your " + clothing.getName() + " can't be unequipped because your " + equippedClothing.getName() + " "
 														+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " in the way.");
 												blockingClothing = equippedClothing;

@@ -22,7 +22,7 @@ div {
 }
 #main-content{
 	height:100%;
-	overflow-y:auto;
+	overflow-y:scroll;
 	overflow-x:hidden;
 	cursor:default;
 }
@@ -697,7 +697,8 @@ position:relative;
 	display: inline-block;
 	width:49.5%;
 	background-color:#19191a;
-	padding:8px;
+	padding:4px 4px 0 4px;
+	margin: 0;
 	border-radius: 5px;
 	box-sizing: border-box;
 }
@@ -784,9 +785,10 @@ position:relative;
 	border-radius: 5px;
 	text-align:center;
 	width:100%;
-	padding-top:0;
-	margin-top:0;
+	padding:0 4px 4px 4px;
+	margin:0 4px 4px 4px;
 	-webkit-user-select: none;
+	box-sizing: border-box;
 }
 
 

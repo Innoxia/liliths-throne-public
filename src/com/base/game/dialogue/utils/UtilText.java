@@ -497,7 +497,11 @@ public class UtilText {
 	}
 	
 	public static String formatAsMoney(int money, String tag) {
-		return "<" + tag + " style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</" + tag + "> <" + tag + ">" + money + "</" + tag + ">";
+		return "<" + tag + " style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</" + tag + "><" + tag + ">" + money + "</" + tag + ">";
+	}
+	
+	public static String formatAsMoneyUncoloured(int money, String tag) {
+		return "<" + tag + ">" + Main.game.getCurrencySymbol() + "</" + tag + "><" + tag + ">" + money + "</" + tag + ">";
 	}
 	
 	public static String formatAsItemPrice(int money) {

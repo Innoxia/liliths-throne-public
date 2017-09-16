@@ -22,7 +22,7 @@ import com.base.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.66
+ * @version 0.1.85
  * @author Innoxia
  */
 public abstract class AbstractClothing extends AbstractCoreItem implements Serializable {
@@ -37,7 +37,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	private Attribute coreEnchantment;
 
 	public AbstractClothing(AbstractClothingType clothingType, Colour colour, boolean allowRandomEnchantment) {
-		super(clothingType.getName(), clothingType.getPathName(), clothingType.getAvailableColours().contains(colour) ? colour : clothingType.getAvailableColours().get(Util.random.nextInt(clothingType.getAvailableColours().size())),
+		super(clothingType.getName(), clothingType.getNamePlural(), clothingType.getPathName(),
+				clothingType.getAvailableColours().contains(colour) ? colour : clothingType.getAvailableColours().get(Util.random.nextInt(clothingType.getAvailableColours().size())),
 				clothingType.getRarity(), clothingType.getAttributeModifiers());
 
 		this.clothingType = clothingType;
@@ -92,7 +93,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	}
 	
 	public AbstractClothing(AbstractClothingType clothingType, Colour colour, Map<Attribute, Integer> enchantmentMap) {
-		super(clothingType.getName(), clothingType.getPathName(), clothingType.getAvailableColours().contains(colour) ? colour : clothingType.getAvailableColours().get(Util.random.nextInt(clothingType.getAvailableColours().size())),
+		super(clothingType.getName(), clothingType.getNamePlural(), clothingType.getPathName(), clothingType.getAvailableColours().contains(colour) ? colour : clothingType.getAvailableColours().get(Util.random.nextInt(clothingType.getAvailableColours().size())),
 				clothingType.getRarity(), clothingType.getAttributeModifiers());
 
 		this.clothingType = clothingType;

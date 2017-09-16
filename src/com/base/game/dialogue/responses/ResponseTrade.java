@@ -1,9 +1,14 @@
 package com.base.game.dialogue.responses;
 
 import com.base.game.character.npc.NPC;
-import com.base.game.dialogue.utils.NPCInventoryInteraction;
+import com.base.game.dialogue.utils.InventoryInteraction;
 import com.base.main.Main;
 
+/**
+ * @since 0.1.7?
+ * @version 0.1.85
+ * @author Innoxia
+ */
 public class ResponseTrade extends Response {
 	
 	private NPC tradePartner;
@@ -15,7 +20,7 @@ public class ResponseTrade extends Response {
 	}
 	
 	public void openTrade() {
-		Main.mainController.openInventory(tradePartner, NPCInventoryInteraction.TRADING);
+		Main.mainController.openInventory(tradePartner, InventoryInteraction.TRADING);
 	}
 	
 

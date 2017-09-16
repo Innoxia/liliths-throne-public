@@ -17,7 +17,7 @@ import com.base.game.combat.DamageType;
 import com.base.game.combat.Spell;
 import com.base.game.dialogue.utils.EnchantmentDialogue;
 import com.base.game.dialogue.utils.InventoryDialogue;
-import com.base.game.dialogue.utils.NPCInventoryInteraction;
+import com.base.game.dialogue.utils.InventoryInteraction;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.InventorySlot;
@@ -70,7 +70,7 @@ public class InventoryTooltipEventListener implements EventListener {
 				item = (AbstractItem) coreItem;
 			
 			int yIncrease = 0;
-			if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == NPCInventoryInteraction.TRADING) {
+			if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
 				yIncrease += 2;
 			}
 			
@@ -119,7 +119,7 @@ public class InventoryTooltipEventListener implements EventListener {
 					+ "<div class='subTitle'>" + "<b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol()
 					+ "</b> <b>" + item.getValue() + "</b>" + "</div>");
 
-			if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == NPCInventoryInteraction.TRADING) {
+			if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
 				if (owner.isPlayer()) {
 					if (InventoryDialogue.getInventoryNPC().willBuy(item))
 						tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " offers " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
@@ -438,7 +438,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		else
 			yIncrease = absWep.getSpells().size() - 1;
 
-		if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == NPCInventoryInteraction.TRADING) {
+		if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
 			yIncrease += 2;
 		}
 
@@ -486,7 +486,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		// Value:
 		tooltipSB.append("<div class='subTitle'>" + "<b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + absWep.getValue() + "</b>" + "</div>");
 
-		if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == NPCInventoryInteraction.TRADING) {
+		if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
 			if (owner.isPlayer()) {
 				if (InventoryDialogue.getInventoryNPC().willBuy(absWep))
 					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " offers " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"
@@ -521,7 +521,7 @@ public class InventoryTooltipEventListener implements EventListener {
 				yIncrease = absClothing.getExtraDescriptions(equippedToCharacter).size() - 1;
 		}
 
-		if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == NPCInventoryInteraction.TRADING) {
+		if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
 			yIncrease += 2;
 		}
 		
@@ -575,7 +575,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		tooltipSB.append("<div class='subTitle'>" + "<b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (absClothing.isEnchantmentKnown() ? absClothing.getValue() : "?")
 				+ "</b>" + "</div>");
 
-		if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == NPCInventoryInteraction.TRADING) {
+		if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
 			if (owner.isPlayer()) {
 				if (InventoryDialogue.getInventoryNPC().willBuy(absClothing))
 					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " offers " + " <b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>"

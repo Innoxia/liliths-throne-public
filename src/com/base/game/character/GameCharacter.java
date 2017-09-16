@@ -2091,16 +2091,31 @@ public class GameCharacter implements Serializable {
 	public AbstractWeapon getMainWeapon() {
 		return inventory.getMainWeapon();
 	}
-	
-	/**
-	 * @return Description of equipping this weapon.
-	 */
-	public String equipMainWeapon(AbstractWeapon weapon, boolean removingFromFloor) {
-		if (weapon == null)
-			throw new NullPointerException("null weapon was passed.");
 
-		if (hasWeapon(weapon))
-			removeWeapon(weapon);
+	
+	/** @return Description of equipping this weapon. */
+	public String equipMainWeaponFromInventory(AbstractWeapon weapon, GameCharacter fromCharactersInventory) {
+		String s = equipMainWeapon(weapon);
+		fromCharactersInventory.removeWeapon(weapon);
+		return s;
+	}
+
+	/** @return Description of equipping this weapon. */
+	public String equipMainWeaponFromFloor(AbstractWeapon weapon) {
+		String s = equipMainWeapon(weapon);
+		Main.game.getActiveWorld().getCell(location).getInventory().removeWeapon(weapon);
+		return s;
+	}
+
+	/** @return Description of equipping this weapon. */
+	public String equipMainWeaponFromNowhere(AbstractWeapon weapon) {
+		return equipMainWeapon(weapon);
+	}
+	
+	private String equipMainWeapon(AbstractWeapon weapon) {
+		if (weapon == null) {
+			throw new NullPointerException("null weapon was passed.");
+		}
 		
 		String s = "";
 		
@@ -2108,23 +2123,23 @@ public class GameCharacter implements Serializable {
 			s += addWeapon(getMainWeapon(), false);
 
 			// Revert old melee weapon's attribute bonuses:
-			if (getMainWeapon().getAttributeModifiers() != null)
-				for (Entry<Attribute, Integer> e : getMainWeapon().getAttributeModifiers().entrySet())
+			if (getMainWeapon().getAttributeModifiers() != null) {
+				for (Entry<Attribute, Integer> e : getMainWeapon().getAttributeModifiers().entrySet()) {
 					incrementBonusAttribute(e.getKey(), -e.getValue());
-
+				}
+			}
 		}
 
 		s += weapon.onEquip(this);
 		// Apply its attribute bonuses:
-		if (weapon.getAttributeModifiers() != null)
-			for (Entry<Attribute, Integer> e : weapon.getAttributeModifiers().entrySet())
+		if (weapon.getAttributeModifiers() != null) {
+			for (Entry<Attribute, Integer> e : weapon.getAttributeModifiers().entrySet()) {
 				incrementBonusAttribute(e.getKey(), e.getValue());
-				
+			}
+		}
+		
 		inventory.equipMainWeapon(weapon);
 		updateInventoryListeners();
-		
-		if (removingFromFloor)
-			Main.game.getActiveWorld().getCell(location).getInventory().removeWeapon(weapon);
 		
 		return s;
 	}
@@ -2157,38 +2172,54 @@ public class GameCharacter implements Serializable {
 		return inventory.getOffhandWeapon();
 	}
 	
-	/**
-	 * @return Description of equipping this weapon.
-	 */
-	public String equipOffhandWeapon(AbstractWeapon weapon, boolean removingFromFloor) {
-		if (weapon == null)
+	
+	/** @return Description of equipping this weapon. */
+	public String equipOffhandWeaponFromInventory(AbstractWeapon weapon, GameCharacter fromCharactersInventory) {
+		String s = equipOffhandWeapon(weapon);
+		fromCharactersInventory.removeWeapon(weapon);
+		return s;
+	}
+
+	/** @return Description of equipping this weapon. */
+	public String equipOffhandWeaponFromFloor(AbstractWeapon weapon) {
+		String s = equipOffhandWeapon(weapon);
+		Main.game.getActiveWorld().getCell(location).getInventory().removeWeapon(weapon);
+		return s;
+	}
+
+	/** @return Description of equipping this weapon. */
+	public String equipOffhandWeaponFromNowhere(AbstractWeapon weapon) {
+		return equipOffhandWeapon(weapon);
+	}
+	
+	public String equipOffhandWeapon(AbstractWeapon weapon) {
+		if (weapon == null) {
 			throw new NullPointerException("null weapon was passed.");
-
-		if (hasWeapon(weapon))
-			removeWeapon(weapon);
-
+		}
+		
 		String s = "";
 		
 		if (getOffhandWeapon() != null) {
 			s += addWeapon(getOffhandWeapon(), false);
 
 			// Revert old weapon's attribute bonuses:
-			if (getOffhandWeapon().getAttributeModifiers() != null)
-				for (Entry<Attribute, Integer> e : getOffhandWeapon().getAttributeModifiers().entrySet())
+			if (getOffhandWeapon().getAttributeModifiers() != null) {
+				for (Entry<Attribute, Integer> e : getOffhandWeapon().getAttributeModifiers().entrySet()) {
 					incrementBonusAttribute(e.getKey(), -e.getValue());
-
+				}
+			}
 		}
 		
 		s += weapon.onEquip(this);
 		// Apply its attribute bonuses:
-		if (weapon.getAttributeModifiers() != null)
-			for (Entry<Attribute, Integer> e : weapon.getAttributeModifiers().entrySet())
+		if (weapon.getAttributeModifiers() != null) {
+			for (Entry<Attribute, Integer> e : weapon.getAttributeModifiers().entrySet()) {
 				incrementBonusAttribute(e.getKey(), e.getValue());
+			}
+		}
 		
 		inventory.equipOffhandWeapon(weapon);
 		updateInventoryListeners();
-		if (removingFromFloor)
-			Main.game.getActiveWorld().getCell(location).getInventory().removeWeapon(weapon);
 		
 		return s;
 	}
@@ -2296,18 +2327,25 @@ public class GameCharacter implements Serializable {
 		equippedClothing.clear();
 	}
 
-	public String equipClothingFromInventory(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
+	/**
+	 * 
+	 * @param newClothing The clothing to equip to this character.
+	 * @param automaticClothingManagement Whether clothing should automatically be shifted/removed in order to equip this clothing.
+	 * @param characterClothingEquipper The character who is equipping the clothing to this character.
+	 * @param fromCharactersInventory The character who has this clothing in their inventory.
+	 * @return
+	 */
+	public String equipClothingFromInventory(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper, GameCharacter fromCharactersInventory) {
 		boolean wasAbleToEquip = inventory.isAbleToEquip(newClothing, true, automaticClothingManagement, this, characterClothingEquipper);
 
-		// If this item was able to be equipped, and it was equipped, apply it's
-		// attribute bonuses:
+		// If this item was able to be equipped, and it was equipped, apply its attribute bonuses:
 		if (wasAbleToEquip) {
 			incrementBonusAttribute(Attribute.RESISTANCE_PHYSICAL, newClothing.getClothingType().getPhysicalResistance());
 			for (Entry<Attribute, Integer> e : newClothing.getAttributeModifiers().entrySet()) {
 				incrementBonusAttribute(e.getKey(), e.getValue());
 			}
 			
-			removeClothing(newClothing);
+			fromCharactersInventory.removeClothing(newClothing);
 
 			newClothing.setEnchantmentKnown(true);
 

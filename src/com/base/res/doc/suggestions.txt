@@ -89,6 +89,17 @@
 		Slave
 		Latex
 	
+	
+	Personalities:
+-Each personality includes a library of dialogue lines for different situations.
+-These are used by both NPCs and the PC, one is chosen during character creation.
+-The primary thing that these personalities affect are the lines spoken during the 'dirty talk' action and when random lines are spoken in sex scenes.
+-Some buttons are also changed to reflect the PC's attitude ("Have some fun" vs "Help them out" vs "Take advantage of their lusts")
+-Fetishes may weigh what personality is chosen for an NPC, so sadists are more likely to be selfish or rude.
+	
+	
+	when you add the tea house, the person behind the counter should say goodbye with 'Tea you later', while their colleague shoots them an incredibly dirty glance
+	
 	animal sheaths (foreskin? hmmmm)
 	
 	add a "maximum internal capacity" mechanic
