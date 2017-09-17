@@ -841,9 +841,10 @@ public enum RenderingEngine {
 			}
 		}
 						
-		uiAttributeSB.append(
-					"</div>"
-					+ "<div class='event-log'>"
+		uiAttributeSB.append("</div>");
+		
+		
+		uiAttributeSB.append("<div class='event-log'>"
 					+ "<p style='text-align:center;padding:0;margin:0;'><b>Event Log</b></p>"
 						+ "<div class='event-log-inner' id='event-log-inner-id'>");
 		
@@ -878,9 +879,12 @@ public enum RenderingEngine {
 				count++;
 			}
 		}
+		uiAttributeSB.append("</div>"+ "</div>");
+		
+//		uiAttributeSB.append("<div>" + renderedHTMLMap() + "</div>");
+		
+		
 		uiAttributeSB.append("</div>"
-					+ "</div>"
-				+"</div>"
 				+ "</body>");
 
 		if (Main.mainController != null) {
@@ -930,12 +934,12 @@ public enum RenderingEngine {
 
 					if (Main.game.getActiveWorld().getCell(x, y).isDiscovered() || Main.game.isDebugMode()) { // If the tile is discovered:
 
-						if (Main.game.getActiveWorld().getCell(x, y).getPlace() == GenericPlaces.IMPASSABLE) {
+						if (Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() == GenericPlaces.IMPASSABLE) {
 							mapSB.append("<div class='map-tile blank' style='width:" + (4 * unit) + "%; height:" + (4 * unit) + "%;'></div>");
 						} else {
 
 							// This is the "move North" tile:
-							if (y == playerPosition.getY() + 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace() != GenericPlaces.IMPASSABLE) {
+							if (y == playerPosition.getY() + 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='upButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
@@ -962,7 +966,7 @@ public enum RenderingEngine {
 								mapSB.append("</div>");
 
 								// This is the "move South" tile:
-							} else if (y == playerPosition.getY() - 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace() != GenericPlaces.IMPASSABLE) {
+							} else if (y == playerPosition.getY() - 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='downButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
@@ -989,7 +993,7 @@ public enum RenderingEngine {
 								mapSB.append("</div>");
 
 								// This is the "move West" tile:
-							} else if (y == playerPosition.getY() && x == playerPosition.getX() - 1 && Main.game.getActiveWorld().getCell(x, y).getPlace() != GenericPlaces.IMPASSABLE) {
+							} else if (y == playerPosition.getY() && x == playerPosition.getX() - 1 && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='leftButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
@@ -1016,7 +1020,7 @@ public enum RenderingEngine {
 								mapSB.append("</div>");
 
 								// This is the "move East" tile:
-							} else if (y == playerPosition.getY() && x == playerPosition.getX() + 1 && Main.game.getActiveWorld().getCell(x, y).getPlace() != GenericPlaces.IMPASSABLE) {
+							} else if (y == playerPosition.getY() && x == playerPosition.getX() + 1 && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='rightButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									

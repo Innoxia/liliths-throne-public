@@ -97,6 +97,7 @@ import com.base.utils.Colour;
 import com.base.utils.Vector2i;
 import com.base.world.WorldType;
 import com.base.world.places.GenericPlaces;
+import com.base.world.places.PlaceUpgrade;
 import com.base.world.places.ShoppingArcade;
 
 import javafx.beans.value.ObservableValue;
@@ -388,8 +389,8 @@ public class MainController implements Initializable {
 //						 System.out.println(event.getCode());
 						 if(event.getCode()==KeyCode.END){
 							 
-							 System.out.println(Main.game.getPlayer().test);
-							 System.out.println(Main.game.getPlayer().getTest());
+							 for(NPC npc : Main.game.getNPCList())
+								 System.out.println(npc.getName());
 							 
 //							 webViewMain = new WebView();
 //							 webViewAttributes = new WebView(); 
@@ -1474,6 +1475,39 @@ public class MainController implements Initializable {
 						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(tfMod);
 						addEventListener(document, "MOD_SECONDARY_" + tfMod.hashCode(), "mouseenter", el2, false);
 					}
+				}
+			}
+
+			
+			// -------------------- Room upgrades -------------------- //
+			
+			for(PlaceUpgrade placeUpgrade : PlaceUpgrade.values()) {
+				id = placeUpgrade+"_BUY";
+				
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								Main.game.getPlayer().getLocationPlace().addPlaceUpgrade(placeUpgrade);
+								Main.game.getPlayer().incrementMoney(-placeUpgrade.getInstallCost());
+							}
+						});
+					}, false);
+				}
+				
+				id = placeUpgrade+"_REMOVE";
+				
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								Main.game.getPlayer().getLocationPlace().removePlaceUpgrade(placeUpgrade);
+								Main.game.getPlayer().incrementMoney(-placeUpgrade.getRemovalCost());
+							}
+						});
+					}, false);
 				}
 			}
 			
@@ -2564,7 +2598,7 @@ public class MainController implements Initializable {
 			Main.game.setContent(new Response("", "", GenericDialogue.DEBUG_MENU));
 		}
 		if (lastKeysEqual(KeyCode.N, KeyCode.O, KeyCode.X, KeyCode.X, KeyCode.X)) {
-			if(Main.game.getPlayer().getLocationPlace()==ShoppingArcade.GENERIC_SHOP)
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==ShoppingArcade.GENERIC_SHOP)
 				Main.game.setContent(new Response("", "", TestNPC.TEST_DIALOGUE) {
 					@Override
 					public void effects() {
@@ -2617,7 +2651,7 @@ public class MainController implements Initializable {
 	 */
 	public void moveNorth() {
 		if (Main.game.getPlayer().getLocation().getY() + 1 < Main.game.getActiveWorld().WORLD_HEIGHT) {
-			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1).getPlace() != GenericPlaces.IMPASSABLE) {
+			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear())
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory();
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1));
@@ -2632,7 +2666,7 @@ public class MainController implements Initializable {
 	 */
 	public void moveSouth() {
 		if (Main.game.getPlayer().getLocation().getY() - 1 >= 0) {
-			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1).getPlace() != GenericPlaces.IMPASSABLE) {
+			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear())
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory();
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1));
@@ -2647,7 +2681,7 @@ public class MainController implements Initializable {
 	 */
 	public void moveEast() {
 		if (Main.game.getPlayer().getLocation().getX() + 1 < Main.game.getActiveWorld().WORLD_WIDTH) {
-			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()).getPlace() != GenericPlaces.IMPASSABLE) {
+			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear())
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory();
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()));
@@ -2662,7 +2696,7 @@ public class MainController implements Initializable {
 	 */
 	public void moveWest() {
 		if (Main.game.getPlayer().getLocation().getX() - 1 >= 0) {
-			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()).getPlace() != GenericPlaces.IMPASSABLE) {
+			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear())
 					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory();
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()));

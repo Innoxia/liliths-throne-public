@@ -10,7 +10,9 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.GenericDialogue;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseCombat;
+import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.responses.ResponseSex;
+import com.base.game.dialogue.utils.InventoryInteraction;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.sex.Sex;
@@ -337,6 +339,14 @@ public class HarpyNestsAttacker {
 								+ " You let out a muffled yelp as your opponent takes charge, but as you feel [npc.her] [npc.hands] reaching down to start roughly groping your ass,"
 									+ " you realise that you couldn't be happier with how things have turned out..."
 							+ "</p>");
+					
+				} else if (index == 6) {
+					return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
+						@Override
+						public void effects() {
+							Main.mainController.openInventory(Main.game.getCurrentRandomAttacker(), InventoryInteraction.FULL_MANAGEMENT);
+						}
+					};
 					
 				} else if (index == 10) {
 					return new Response(
@@ -831,6 +841,40 @@ public class HarpyNestsAttacker {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false);
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld ENSLAVEMENT_DIALOGUE = new DialogueNodeOld("New Slave", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getDescription(){
+			return ".";
+		}
+
+		@Override
+		public String getContent() {//TODO
+			return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+					"<p>"
+						+ "TODO</br>"
+						+ "You clasp the collar around [npc.name]'s neck.</br>"
+						+ "The arcane enchantment recognises [npc.herHim] as being a criminal, and, with a purple flash, <b>they're teleported to the 'Slave Administration' building in Slaver Alley, where they'll be waiting for you to pick them up</b>."
+					+ "</p>");
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
+					@Override
+					public DialogueNodeOld getNextDialogue(){
+						return GenericDialogue.getDefaultDialogueNoEncounter();
 					}
 				};
 				

@@ -1544,8 +1544,7 @@ public class EnforcerHQDialogue {
 					@Override
 					public void effects() {
 						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_ENFORCER_HQ, true);
-						Main.game.getBrax().setLocation(WorldType.ENFORCER_HQ, EnforcerHQ.RECEPTION_DESK);
-						Main.game.getBrax().setPendingClothingDressing(true);
+						((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
 					}
 				};
 			} else {
@@ -1785,8 +1784,7 @@ public class EnforcerHQDialogue {
 					@Override
 					public void effects() {
 						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_ENFORCER_HQ, true);
-						Main.game.getBrax().setLocation(WorldType.ENFORCER_HQ, EnforcerHQ.RECEPTION_DESK);
-						Main.game.getBrax().setPendingClothingDressing(true);
+						((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
 					}
 				};
 			} else {

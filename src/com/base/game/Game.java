@@ -66,6 +66,7 @@ import com.base.world.Cell;
 import com.base.world.World;
 import com.base.world.WorldType;
 import com.base.world.places.Dominion;
+import com.base.world.places.GenericPlace;
 import com.base.world.places.PlaceInterface;
 
 /**
@@ -271,10 +272,10 @@ public class Game implements Serializable {
 		Main.game.getActiveWorld().getCell(1, 0).setDiscovered(false);
 		
 		// Set starting locations:
-		player.setLocation(worlds.get(player.getWorldLocation()).getPlacesOfInterest().get(player.getStartingPlace()));
+		player.setLocation(worlds.get(player.getWorldLocation()).getPlacesOfInterest().get(new GenericPlace(player.getStartingPlace())));
 		
 		for(NPC npc : NPCList) {
-			npc.setLocation(worlds.get(npc.getWorldLocation()).getPlacesOfInterest().get(npc.getStartingPlace()));
+			npc.setLocation(worlds.get(npc.getWorldLocation()).getPlacesOfInterest().get(new GenericPlace(npc.getStartingPlace())));
 		}
 		
 		started = true;
@@ -296,12 +297,12 @@ public class Game implements Serializable {
 
 		handleAtmosphericConditions(turnTime);
 
-		// Remove Dominion attackers if they aren't in alleyways:
+		// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
 		Iterator<NPC> npcIterator = NPCList.iterator();
 		while(npcIterator.hasNext()) {
 			NPC npc = npcIterator.next();
 			if(npc instanceof NPCRandomDominion) {
-				if(npc.getLocationPlace()!=Dominion.CITY_BACK_ALLEYS && !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
+				if(npc.getLocationPlace().getPlaceType() != Dominion.CITY_BACK_ALLEYS && npc.getWorldLocation()==WorldType.DOMINION && !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
 					// Remove ongoing pregnancies for NPCs that are removed:
 					if(npc.isPregnant()) {
 						npc.endPregnancy(false);
@@ -905,7 +906,8 @@ public class Game implements Serializable {
 	}
 	
 	private String getMapDiv() {
-		return (Main.game.getActiveWorld() != null && isStarted() && isRenderMap() && Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL && !Main.game.isInSex() && !Main.game.isInCombat()
+		return (Main.game.getActiveWorld() != null && isStarted() && isRenderMap()
+					&& !Main.game.getCurrentDialogueNode().isMapDisabled() && Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL && !Main.game.isInSex() && !Main.game.isInCombat()
 				? "<div style='float:left; width:250px; height:250px; padding:8px; margin:8px; border-radius:5px; background:#333;'>"
 					+ (Main.game.isStarted()?RenderingEngine.ENGINE.renderedHTMLMap():"")
 				+ "</div>"
@@ -1520,14 +1522,14 @@ public class Game implements Serializable {
 	public void setActiveWorld(World world, PlaceInterface placeType, boolean setDefaultDialogue) {
 		setActiveWorld(
 				world,
-				world.getPlacesOfInterest().get(placeType),
+				world.getPlacesOfInterest().get(new GenericPlace(placeType)),
 				setDefaultDialogue);
 	}
 	
 	public void setActiveWorld(boolean setDefaultDialogue) {
 		setActiveWorld(
 				getWorlds().get(getPlayerCell().getPlace().getLinkedWorldType()),
-				getWorlds().get(getPlayerCell().getPlace().getLinkedWorldType()).getPlacesOfInterest().get(getPlayerCell().getPlace().getLinkedPlaceInterface()),
+				getWorlds().get(getPlayerCell().getPlace().getLinkedWorldType()).getPlacesOfInterest().get(new GenericPlace(getPlayerCell().getPlace().getLinkedPlaceInterface())),
 				setDefaultDialogue);
 	}
 

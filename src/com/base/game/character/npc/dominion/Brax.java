@@ -105,6 +105,12 @@ public class Brax extends NPC {
 		this.addFetish(Fetish.FETISH_DOMINANT);
 	}
 	
+	public void setBraxsPostQuestStatus() {
+		Main.game.getBrax().setLocation(WorldType.ENFORCER_HQ, EnforcerHQ.RECEPTION_DESK);
+		Main.game.getBrax().setPendingClothingDressing(true);
+		Main.game.getCandi().addSlave(Main.game.getBrax());
+	}
+	
 	@Override
 	public String getDescription() {
 		if(Main.game.getDialogueFlags().bimbofiedBrax) {
@@ -420,8 +426,7 @@ public class Brax extends NPC {
 					@Override
 					public void effects() {
 						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_ENFORCER_HQ, true);
-						Main.game.getBrax().setLocation(WorldType.ENFORCER_HQ, EnforcerHQ.RECEPTION_DESK);
-						Main.game.getBrax().setPendingClothingDressing(true);
+						((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
 					}
 				};
 			} else {
@@ -855,8 +860,7 @@ public class Brax extends NPC {
 					@Override
 					public void effects() {
 						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_ENFORCER_HQ, true);
-						Main.game.getBrax().setLocation(WorldType.ENFORCER_HQ, EnforcerHQ.RECEPTION_DESK);
-						Main.game.getBrax().setPendingClothingDressing(true);
+						((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
 					}
 				};
 				

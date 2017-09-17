@@ -17,6 +17,7 @@ import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.ShopTransaction;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.ClothingType;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
@@ -27,6 +28,8 @@ import com.base.main.Main;
 import com.base.rendering.RenderingEngine;
 import com.base.utils.Colour;
 import com.base.utils.Util;
+import com.base.world.WorldType;
+import com.base.world.places.SlaverAlley;
 
 /**
  * @since 0.1.0
@@ -2068,13 +2071,30 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name()])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
-									@Override
-									public void effects(){
-										Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.equipClothingFromInventory(clothing, true, Main.game.getPlayer(), Main.game.getPlayer()) + "</p>");
-										populateJinxedClothingList();
-									}
-								};
+								if(clothing.getClothingType().equals(ClothingType.NECK_SLAVE_COLLAR) && inventoryNPC.isAbleToBeEnslaved()) {
+									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name()])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
+										@Override
+										public DialogueNodeOld getNextDialogue() {
+											return inventoryNPC.getEnslavementDialogue();
+										}
+										@Override
+										public void effects(){
+											inventoryNPC.setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION);
+											System.out.println(inventoryNPC.getWorldLocation() + " "+ inventoryNPC.getLocationPlace().getName());
+											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.equipClothingFromInventory(clothing, true, Main.game.getPlayer(), Main.game.getPlayer()) + "</p>");
+											populateJinxedClothingList();
+										}
+									};
+									
+								} else {
+									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name()])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
+										@Override
+										public void effects(){
+											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.equipClothingFromInventory(clothing, true, Main.game.getPlayer(), Main.game.getPlayer()) + "</p>");
+											populateJinxedClothingList();
+										}
+									};
+								}
 							
 							} else {
 								return null;

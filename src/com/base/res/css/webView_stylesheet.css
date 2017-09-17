@@ -1525,6 +1525,88 @@ position:relative;
 }
 
 /***********************************************************/
+/*SLAVE MANAGEMENT*/
+
+.SM-title {
+	float:left;
+	padding:0;
+	margin: 0;
+}
+.SM-title-container {
+	position:relative;
+	display: inline-block;
+	float:left;
+	margin: 0 0 4px 0;
+	width:100%;
+}
+
+.SM-container {
+	position:relative;
+	display: inline-block;
+	float:left;
+	width:100%;
+	background-color:#333333;
+	padding:8px;
+	margin: 4px 0 4px 0;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+.SM-inner-container {
+	position:relative;
+	display: inline-block;
+	float:left;
+	width:100%;
+	background-color:#222;
+	padding:8px;
+	margin: 4px 0 4px 0;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+.SM-stats-box {
+	position:relative;
+	display: inline-block;
+	float:left;
+	width:18%;
+	background-color:#19191a;
+	padding:4px;
+	margin: 0 1% 0 1%;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+.SM-button {
+	position:relative;
+	display: inline-block;
+	float:left;
+	padding:4px;
+	margin: 0 1% 0 1%;
+	width:18%;
+	border-radius:5px;
+	text-align:center;
+	box-sizing: border-box;
+	
+	background: -webkit-gradient(
+		linear, left top, left bottom,
+		from(#555),
+		color-stop(0.50, #444),
+		color-stop(0.92, #333),
+		to(#292929));
+	text-shadow:
+		1px 1px 2px rgba(000,000,000,0.7),
+		0px 1px 0px rgba(000,000,000,0.4);
+}
+.SM-button:hover{
+	background:#555555;
+	cursor:pointer;
+}
+.SM-button.disabled{
+	color:#777;
+}
+.SM-button.disabled:hover{
+	color:#777;
+	cursor:default;
+}
+
+/***********************************************************/
 /*OTHER*/
 
 h1.specialText{
@@ -1672,42 +1754,6 @@ border-radius:5px;
 .demo {
 	-webkit-animation: demo 2s ease-out;
     -webkit-animation-iteration-count: 2;
-}
-
-/***********************************************************/
-/*TITLE*/
-.weatherBodyTitle{
-	background-color:rgba(25, 25, 26, 0.95);
-	border-radius:5px;
-	margin:0 1vw 0 1vw;
-	-webkit-user-select: none;
-	cursor:default;
-}
-
-.weather-image{
-	position:relative;
-	float:left;
-	width:14vw;
-	height:14vw;
-	padding:0;
-	margin:auto;
-	border-radius: 5px;
-	background-color: #333333;
-	-webkit-user-select: none;
-}
-
-.overlay {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	right: 0;
-	-webkit-user-select: none;
-}
-.overlay:hover{
-	background-color:#fff;
-	opacity:0.20;
-	border-radius:5px;
 }
 
 /***********************************************************/

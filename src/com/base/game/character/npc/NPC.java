@@ -98,6 +98,7 @@ import com.base.utils.Util.ListValue;
 import com.base.utils.Util.Value;
 import com.base.utils.Vector2i;
 import com.base.world.WorldType;
+import com.base.world.places.GenericPlace;
 import com.base.world.places.PlaceInterface;
 
 /**
@@ -179,7 +180,11 @@ public abstract class NPC extends GameCharacter {
 	}
 	
 	public void setLocation(WorldType worldType, PlaceInterface placeType) {
-		setLocation(worldType, Main.game.getWorlds().get(worldType).getPlacesOfInterest().get(placeType));
+		setLocation(worldType, Main.game.getWorlds().get(worldType).getPlacesOfInterest().get(new GenericPlace(placeType)));
+	}
+	
+	public void setLocation(WorldType worldType, GenericPlace place) {
+		setLocation(worldType, Main.game.getWorlds().get(worldType).getPlacesOfInterest().get(place));
 	}
 	
 	// Trader:

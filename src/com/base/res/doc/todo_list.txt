@@ -3,24 +3,16 @@
 		Patch notes in Main
 		Update README
 		Create .exe version
-		
-	Version goals:
-		Make save games compatible. This will probably not be completed for Friday, but should be done for the full release next Friday (18th).
-		Finish the next stage of the main quest. Scarlett and Alexa's content.
-		Implement generic NPC enslavement, romance, and moving into Lilaya's house.
-		Finish Incest and Transformation fetish content.
-		Add Paizuri, thigh sex, and hotdogging.
-		Add a position that allows for dominantly receiving anal. Either adding 'Cowgirl' or adding anal actions to the 'Back-to-wall' position. (Or maybe both :3)
-		Do a lot of bug fixing, add several minor suggestions, and add some more content here and there.
-		
-	
 	
 	Patch notes:
 	
 	Engine:
 		<b>Added:</b> Functionality to give/take clothing, items, and weapons to/from NPCs. This took ages. x_x
 		<b>Added:</b> All of the inventory slots that I had planned, including orifice-related ones (to allow for insertion of toys into orifices).
-		I've disabled the 'fade in' effect on the main text window, which was causing some input lag in all screens (most noticeably in the inventory screens). If you want to re-enable the fade-in effect, you can do so in the options screen.
+		<b>Added:</b> An option (in the options menu) to disable the 'fade in' effect on the main text window (which removes the input lag if using the mouse to click the map for movement).
+		
+	Gameplay:
+		<b>Added:</b> Functionality to convert the rooms in Lilaya's house into slave's quarters, along with functionality to apply upgrades those rooms.
 		
 	UI:
 		<b>Remade & expanded:</b> Inventory screen.
@@ -30,6 +22,7 @@
 		Moved all 'Remove character' actions to button 10.
 	
 	Other:
+		Moved Rose's dialogue out of the generic rooms and into her room's tile.
 		Ralph no longer feels the need to wear socks over his hooves.
 		Added more values for Body Hair.
 		NPCs should no longer be taking their own virginites.
@@ -46,7 +39,9 @@
 	
 	
 	
+	Remember that these releases are previews, and are buggy/WIP builds!!!
 	
+	UI, event log, descriptions of equipping/unequipping are super placeholder!
 	
 	
 	
@@ -57,18 +52,22 @@
 	X Unlock rooms in Lilaya's house.
 	X Room upgrades.
 	
+	
 	Event log
+	
 	
 	Slave Acquisition
 	X Enslaving attackers in alleyways & nests.
 	X Buying slaves from Slaver Alley.
 	X Transfer slaves from Slavery Administration to Lilaya's home.
 	
+	
 	Inventory Descriptions
 	
+	
 	Slave Management
-	X Clothing. (This one is going to be significantly larger than all the other tasks...)
-	X Items.
+	O Clothing. (This one is going to be significantly larger than all the other tasks...)
+	O Items.
 	X Fetishes.
 	X Jobs.
 	X Room assignment.
@@ -86,18 +85,6 @@
 	
 	Bug fixes
 	X Fix at least 10 bugs.
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

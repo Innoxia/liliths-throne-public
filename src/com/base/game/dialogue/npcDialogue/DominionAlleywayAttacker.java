@@ -832,4 +832,38 @@ public class DominionAlleywayAttacker {
 			}
 		}
 	};
+	
+	public static final DialogueNodeOld ENSLAVEMENT_DIALOGUE = new DialogueNodeOld("New Slave", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getDescription(){
+			return ".";
+		}
+
+		@Override
+		public String getContent() {//TODO
+			return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+					"<p>"
+						+ "TODO</br>"
+						+ "You clasp the collar around [npc.name]'s neck.</br>"
+						+ "The arcane enchantment recognises [npc.herHim] as being a criminal, and, with a purple flash, <b>they're teleported to the 'Slave Administration' building in Slaver Alley, where they'll be waiting for you to pick them up</b>."
+					+ "</p>");
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
+					@Override
+					public DialogueNodeOld getNextDialogue(){
+						return GenericDialogue.getDefaultDialogueNoEncounter();
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
 }

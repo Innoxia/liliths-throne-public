@@ -1,8 +1,8 @@
 package com.base.world.places;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.utils.BaseColour;
@@ -16,13 +16,32 @@ public class GenericPlace implements Serializable {
 	
 	private PlaceInterface placeType;
 	
-	private List<PlaceUpgrade> placeUpgrades;
+	private Set<PlaceUpgrade> placeUpgrades;
 
-	GenericPlace(PlaceInterface placeType) {
+	public GenericPlace(PlaceInterface placeType) {
 		this.placeType=placeType;
-		placeUpgrades = new ArrayList<>();
+		placeUpgrades = new HashSet<>();
 	}
-
+	
+	@Override
+	public boolean equals (Object o) {
+		if(o instanceof GenericPlace){
+			if(((GenericPlace)o).getPlaceType() == placeType
+				&& ((GenericPlace)o).getPlaceUpgrades().equals(placeUpgrades)){
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = 31 * result + placeType.hashCode();
+		result = 31 * result + placeUpgrades.hashCode();
+		return result;
+	}
+	
 	public String getName() {
 		return placeType.getName();
 	}
@@ -84,9 +103,35 @@ public class GenericPlace implements Serializable {
 	public PlaceInterface getLinkedPlaceInterface() {
 		return placeType.getLinkedPlaceInterface();
 	}
-
-	public List<PlaceUpgrade> getPlaceUpgrades() {
+	
+	public boolean addPlaceUpgrade(PlaceUpgrade upgrade) {
+		if(placeUpgrades.add(upgrade)) {
+			upgrade.applyInstallationEffects(this);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean removePlaceUpgrade(PlaceUpgrade upgrade) {
+		if(placeUpgrades.remove(upgrade)) {
+			upgrade.applyRemovalEffects(this);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public Set<PlaceUpgrade> getPlaceUpgrades() {
 		return placeUpgrades;
+	}
+
+	public PlaceInterface getPlaceType() {
+		return placeType;
+	}
+
+	public void setPlaceType(PlaceInterface placeType) {
+		this.placeType = placeType;
 	}
 
 }

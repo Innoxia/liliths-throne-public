@@ -73,7 +73,8 @@ public class NPCRandomHarpy extends NPC {
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
 		CharacterUtils.equipClothing(this, true, false);
-		
+
+		this.setEnslavementDialogue(HarpyNestsAttacker.ENSLAVEMENT_DIALOGUE);
 		
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));

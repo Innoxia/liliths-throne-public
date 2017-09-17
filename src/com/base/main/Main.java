@@ -401,7 +401,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Mr L", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Georgio154", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Crow Invictus", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("D.D.", "", 0, 0, 1, 0)); // TODO
+		credits.add(new CreditsSlot("Yllarius", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("kenshin5491", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("R.", "", 0, 0, 1, 0)); // TODO
 		credits.add(new CreditsSlot("A.", "", 0, 0, 1, 0)); // TODO

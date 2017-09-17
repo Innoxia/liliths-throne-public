@@ -107,6 +107,8 @@ public class NPCRandomSuccubus extends NPC {
 		clothingChoices.add(ClothingType.FOOT_HEELS);
 		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
 
+		this.setEnslavementDialogue(DominionSuccubus.ENSLAVEMENT_DIALOGUE);
+		
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));

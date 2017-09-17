@@ -160,7 +160,8 @@ public class NPCRandomDominion extends NPC {
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 
 		CharacterUtils.equipClothing(this, true, false);
-		
+
+		this.setEnslavementDialogue(DominionAlleywayAttacker.ENSLAVEMENT_DIALOGUE);
 		
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -220,7 +221,7 @@ public class NPCRandomDominion extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-		if(Main.game.getActiveWorld().getCell(location).getPlace()==Dominion.CITY_BACK_ALLEYS) {
+		if(Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType()==Dominion.CITY_BACK_ALLEYS) {
 			return DominionAlleywayAttacker.ALLEY_ATTACK;
 		} else {
 			return DominionAlleywayAttacker.STORM_ATTACK;

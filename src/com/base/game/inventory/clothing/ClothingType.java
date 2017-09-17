@@ -1377,7 +1377,9 @@ public class ClothingType {
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 
 			if(applyEffects) {
-				clothing.setSealed(true);
+				if(clothingOwner.isAbleToBeEnslaved()) {
+					clothing.setSealed(true);
+				}
 			}
 			
 			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())

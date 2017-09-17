@@ -12,7 +12,9 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.GenericDialogue;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseCombat;
+import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.responses.ResponseSex;
+import com.base.game.dialogue.utils.InventoryInteraction;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.clothing.CoverableArea;
 import com.base.game.sex.Sex;
@@ -328,6 +330,14 @@ public class DominionSuccubus {
 						Main.game.getCurrentRandomAttacker().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
 						Main.game.getCurrentRandomAttacker().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
 						Main.game.getCurrentRandomAttacker().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
+					}
+				};
+				
+			} else if (index == 6) {
+				return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
+					@Override
+					public void effects() {
+						Main.mainController.openInventory(Main.game.getCurrentRandomAttacker(), InventoryInteraction.FULL_MANAGEMENT);
 					}
 				};
 				
@@ -957,6 +967,40 @@ public class DominionSuccubus {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false);
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld ENSLAVEMENT_DIALOGUE = new DialogueNodeOld("New Slave", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getDescription(){
+			return ".";
+		}
+
+		@Override
+		public String getContent() {//TODO
+			return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+					"<p>"
+						+ "TODO</br>"
+						+ "You clasp the collar around [npc.name]'s neck.</br>"
+						+ "The arcane enchantment recognises [npc.herHim] as being a criminal, and, with a purple flash, <b>they're teleported to the 'Slave Administration' building in Slaver Alley, where they'll be waiting for you to pick them up</b>."
+					+ "</p>");
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
+					@Override
+					public DialogueNodeOld getNextDialogue(){
+						return GenericDialogue.getDefaultDialogueNoEncounter();
 					}
 				};
 				

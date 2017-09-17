@@ -10,7 +10,7 @@ import com.base.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.1.69
+ * @version 0.1.85
  * @author Innoxia
  */
 public class DemonHome {
@@ -42,6 +42,12 @@ public class DemonHome {
 					else
 						return new Response("Arthur's Apartment", "Head over to Arthur's apartment building.", DEMON_HOME_ARTHURS_APARTMENT);
 				}
+
+			} else if (index == 2) {
+				if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
+					return new Response("Zaranix's Home", "This is as far as the main quest goes for now! I'll add more in the next couple of versions! Thank you for playing! ^^", null);
+				}
+				return null;
 
 			} else {
 				return null;

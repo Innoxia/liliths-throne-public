@@ -10,12 +10,15 @@ import com.base.game.dialogue.utils.UtilText;
 import com.base.game.sex.managers.dominion.SMRoseHands;
 import com.base.main.Main;
 import com.base.utils.BaseColour;
+import com.base.utils.Colour;
 import com.base.world.WorldType;
+import com.base.world.places.GenericPlace;
 import com.base.world.places.LilayasHome;
+import com.base.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.75
- * @version 0.1.78
+ * @version 0.1.85
  * @author Innoxia
  */
 public class LilayaHomeGeneric {
@@ -101,31 +104,132 @@ public class LilayaHomeGeneric {
 	};
 	
 	private static Response getRoomResponse(int index) {
+		
 		if (index == 1) {
-			return new Response("Call for Rose", "Lilaya's slave, Rose, is always close at hand. If you were to ring the little bell pull in this room she'd be sure to come running.", AUNT_HOME_ROSE){
-				@Override
-				public void effects() {
-					roseContent = "<p>"
-								+ "Deciding that you'd like to talk to Rose, you decide to tug down on the little bell pull in one corner of the room."
-								+ " Despite the enormous size of Lilaya's house, Rose never seems to be far away, and you soon hear her walking down the corridor as she rushes to respond to your call."
-							+ "</p>"
-							+ "<p>"
-								+ "As she steps into the room, you see her cat-like tail swishing from side to side, and you notice one of her ears twitch as she sees you standing there waiting for her."
-								+ " Realising that you're obviously looking to talk to her, she curtsies before issuing a greeting."
-							+ "</p>"
-							+ "<p>"
-								+ UtilText.parseSpeech(Main.game.isDayTime() ? "Good day," : "Good evening,", Main.game.getRose())
-								+ " she says, "
-								+ UtilText.parseSpeech("How may I help you?", Main.game.getRose())
-							+ "</p>";
-					Main.game.getDialogueFlags().auntHomeJustEntered = false;
-					Main.game.getRose().setLocation(Main.game.getActiveWorld().getWorldType(), Main.game.getPlayer().getLocation());
-				}
-			};
-
+			return new Response("Room Modifications", "Enter the room upgrades options screen.", ROOM_UPGRADES);
+			
 		} else {
 			return null;
 		}
+		
+	}
+	
+	public static final DialogueNodeOld ROOM_UPGRADES = new DialogueNodeOld("Room Modifications", ".", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			
+			GenericPlace place = Main.game.getPlayer().getLocationPlace();
+			
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<div class='SM-container'>");
+			
+			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
+				UtilText.nodeContentSB.append(getRoomUpgradeDiv(place, upgrade, place.getPlaceUpgrades().contains(upgrade)));
+			}
+			
+			UtilText.nodeContentSB.append("</div>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			if (index == 0) {
+				return new Response("Back", "Exit the room upgrades screen.", ROOM_UPGRADES) {
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+					}
+				};
+
+			} else {
+				return null;
+			}
+		}
+		
+		@Override
+		public boolean isMapDisabled() {
+			return true;
+		}
+	};
+	
+	private static StringBuilder purchaseAvailability = new StringBuilder();
+	private static String getRoomUpgradeDiv(GenericPlace place, PlaceUpgrade upgrade, boolean owned) {
+		boolean availableForPurchase = upgrade.isPrerequisitesMet(place) && (owned?Main.game.getPlayer().getMoney()>=upgrade.getRemovalCost():Main.game.getPlayer().getMoney()>=upgrade.getInstallCost());
+		
+		purchaseAvailability.setLength(0);
+		
+		if(owned) {
+			if(Main.game.getPlayer().getMoney()<upgrade.getRemovalCost()) {
+				purchaseAvailability.append("</br><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You cannot afford to remove this modification.</span>");
+			} else {
+				purchaseAvailability.append("</br><span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>You can afford to remove this modification.</span>");
+			}
+			
+		} else {
+			if(Main.game.getPlayer().getMoney()<upgrade.getInstallCost()) {
+				purchaseAvailability.append("</br><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You cannot afford this modification.</span>");
+			} else {
+				purchaseAvailability.append("</br><span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>You can afford this modification.</span>");
+			}
+			
+			if(!upgrade.getPrerequisites().isEmpty()) {
+				purchaseAvailability.append("</br>You need to purchase the following first:");
+				for(PlaceUpgrade prereq : upgrade.getPrerequisites()) {
+					if(place.getPlaceUpgrades().contains(prereq)) {
+						purchaseAvailability.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+prereq.getName()+"</b>");
+					} else {
+						purchaseAvailability.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+prereq.getName()+"</b>");
+					}
+				}
+			}
+		}
+		
+		return "<div class='SM-inner-container'>"
+					+ "<div class='SM-title-container'>"
+						+ "<h5 class='SM-title' "+(owned?"style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'":"")+">"+upgrade.getName()+"</h5>"
+						+ "<div class='SM-button"+(availableForPurchase?"":" disabled")+"' "+(availableForPurchase?"id='"+upgrade+(owned?"_REMOVE":"_BUY")+"'":"")+" style='float:right;'>"
+						+ (availableForPurchase
+							?(owned
+									?"Remove "+UtilText.formatAsMoney(upgrade.getRemovalCost(), "span")
+									:"Buy "+UtilText.formatAsMoney(upgrade.getInstallCost(), "span"))
+							:(owned
+									?"Remove "+UtilText.formatAsMoneyUncoloured(upgrade.getRemovalCost(), "span")
+									:"Buy "+UtilText.formatAsMoneyUncoloured(upgrade.getInstallCost(), "span")))
+						+ "</div>"
+					+"</div>"
+					+ "<p>"+(owned?upgrade.getDescriptionAfterPurchase():upgrade.getDescriptionForPurchase())+"</p>"
+					+ "<p>"
+						+ "<b>Upkeep:</b> "+UtilText.getColouredMoneySymbol("b")+(upgrade.getUpkeep()>0
+								?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>+"
+								:(upgrade.getUpkeep()==0
+										?"<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+										:"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"))+upgrade.getUpkeep()+"</b><b>/day</b></br>"
+						
+						+ "<b>Affection modifier:</b> "+(upgrade.getAffectionGain()>0
+								?"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+"
+								:(upgrade.getAffectionGain()==0
+										?"<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+										:"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"))+upgrade.getAffectionGain()+"</b><b>/day</b></br>"
+						
+						+ "<b>Obedience modifier:</b> "+(upgrade.getObedienceGain()>0
+								?"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+"
+								:(upgrade.getObedienceGain()==0
+										?"<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+										:"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"))+upgrade.getObedienceGain()+"</b><b>/day</b></br>"
+						
+						+ purchaseAvailability.toString()
+					+ "</p>"
+				+ "</div>";
 	}
 	
 	public static final DialogueNodeOld ROOM = new DialogueNodeOld("Windowless room", ".", false) {
@@ -221,7 +325,7 @@ public class LilayaHomeGeneric {
 				+ "</p>"
 				+ "<p>"
 					+ "This particular room has a series of wide, ceiling-height windows set into one wall, which allow a generous amount of natural daylight to flood out into the corridor when the door is left open."
-					+ " Stepping into the room to glance out of the windows, you find yourself looking down on Lilaya's private garden."
+					+ " Stepping into the room to glance out of the windows, you find yourself looking down on the house's garden courtyard."
 				+ "</p>";
 		}
 
@@ -230,6 +334,129 @@ public class LilayaHomeGeneric {
 			return getRoomResponse(index);
 		}
 	};
+	
+	private static StringBuilder roomSB = new StringBuilder();
+	private static String getRoomModificationsDescription() {
+		GenericPlace place = Main.game.getPlayer().getLocationPlace();
+		roomSB.setLength(0);
+		
+
+		roomSB.append(formatRoomUpgrade(PlaceUpgrade.BASIC_SLAVE_QUARTERS,
+						"You've paid to have this room converted into basic slave's quarters."
+						+ " A single-size bed, covered in a plain white duvet, sits against one wall."
+						+ " Beside it, there's a simple bedside cabinet, complete with arcane-powered lamp."
+						+ " Other than that, the only other pieces of furniture in here are a wooden wardrobe and chest of drawers."));
+		
+		if(place.getPlaceUpgrades().contains(PlaceUpgrade.SLAVE_QUARTERS_ARCANE_INSTRUMENTS)) {
+			roomSB.append(formatRoomUpgrade(PlaceUpgrade.SLAVE_QUARTERS_ARCANE_INSTRUMENTS,
+					"In exchange for lowering this room's upkeep, Lilaya has installed several arcane instruments around the room, which allow her to gather data about any slave being housed in here."
+					+ " A couple of them give off a very quiet humming noise, which, combined with their faint purple glow, makes them quite intrusive, and will negatively impact the occupant's affection towards you."));
+		}
+		
+		return roomSB.toString();
+	}
+	
+
+	private static String formatRoomUpgrade(PlaceUpgrade upgrade, String description) {
+		return "<p>"
+				+ "<b style='color:"+upgrade.getColour().toWebHexString()+";'>"+upgrade.getName()+"</b></br>"
+				+ description
+			+ "</p>";
+	}
+	
+	public static final DialogueNodeOld ROOM_SLAVE = new DialogueNodeOld("Slave's Room", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "This room is situated deep within the house, and doesn't have any windows."
+						+ " To compensate for the lack of natural daylight, the walls have been painted and wall-papered in a very light shade of blue."
+					+ "</p>"
+					+getRoomModificationsDescription();
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return getRoomResponse(index);
+		}
+	};
+	
+	public static final DialogueNodeOld ROOM_WINDOW_SLAVE = new DialogueNodeOld("Slave's Room", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "This room has a series of large windows set into one wall, which allow a generous amount of natural daylight to flood out into the corridor when the door is left open."
+						+ " What with this room being situated on the outside of the house, the view from the windows is of the hustle and bustle of Dominion's busy streets."
+					+ "</p>"
+					+getRoomModificationsDescription();
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return getRoomResponse(index);
+		}
+	};
+	
+	public static final DialogueNodeOld ROOM_GARDEN_GROUND_FLOOR_SLAVE = new DialogueNodeOld("Slave's Garden-view Room", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "This room has a series of wide, ceiling-height windows set into one wall, which swing open to allow access to and from the adjoining garden courtyard."
+					+ "</p>"
+					+getRoomModificationsDescription();
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return getRoomResponse(index);
+		}
+	};
+	
+	public static final DialogueNodeOld ROOM_GARDEN_SLAVE = new DialogueNodeOld("Slave's Garden-view Room", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "This room has a series of wide, ceiling-height windows set into one wall, which allow a generous amount of natural daylight to flood out into the corridor when the door is left open."
+						+ " What with this room being situated in the interior of the house, the view from the windows is of the house's garden courtyard."
+					+ "</p>"
+					+getRoomModificationsDescription();
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return getRoomResponse(index);
+		}
+	};
+	
+	
+	
 	
 	public static final DialogueNodeOld BIRTHING_ROOM = new DialogueNodeOld("Birthing room", ".", false) {
 		private static final long serialVersionUID = 1L;
@@ -310,14 +537,38 @@ public class LilayaHomeGeneric {
 					+ " Rose seems to only allow herself some rest when she's sure that nobody else is around who might need her, so she's probably off in another part of the house at the moment."
 				+ "</p>"
 				+ "<p>"
-					+ "You suspect that she's probably in Lilaya's lab right now."
-					+ " If you wanted to talk to her, you could always call her by using one of the bell pulls found in any of the house's spare rooms."
+					+ "You notice that there's a little bell set into the wall beside her door, and you wonder if you should try ringing it to get Rose to come up to her room."
 				+ "</p>";
 		}
 
 		@Override
 		public Response getResponse(int index) {
-			return null;
+			if (index == 1) {
+				return new Response("Call for Rose", "Lilaya's slave, Rose, is always close at hand. If you were to ring the little bell beside her bedroom's door, she'd be sure to come running.", AUNT_HOME_ROSE){
+					@Override
+					public void effects() {
+						roseContent = "<p>"
+									+ "Deciding that you'd like to talk to Rose, you decide to push the little bell that's situated beside her bedroom's door, causing a faint ringing noise to echo up from somewhere else in the house."
+									+ " Despite the enormous size of Lilaya's home, Rose never seems to be far away, and you soon hear her walking down the corridor as she rushes to respond to your call."
+								+ "</p>"
+								+ "<p>"
+									+ "As she approaches, you see her cat-like tail swishing from side to side, and you notice one of her ears twitch as she sees you standing outside her bedroom waiting for her."
+									+ " Realising that you're obviously wanting to have a talk, she curtsies before issuing a greeting."
+								+ "</p>"
+								+ "<p>"
+									+ "[rose.speech("+(Main.game.isDayTime() ? "Good day," : "Good evening,")+")]"
+									+ " she says,"
+									+ " [rose.speech(How may I help you?)]"
+								+ "</p>";
+						
+						Main.game.getDialogueFlags().auntHomeJustEntered = false;
+						Main.game.getRose().setLocation(Main.game.getActiveWorld().getWorldType(), Main.game.getPlayer().getLocation());
+					}
+				};
+				
+			} else {
+				return null;
+			}
 		}
 	};
 	

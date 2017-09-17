@@ -14,6 +14,7 @@ import com.base.main.Main;
 import com.base.utils.Bearing;
 import com.base.utils.Util;
 import com.base.utils.Vector2i;
+import com.base.world.places.GenericPlace;
 import com.base.world.places.GenericPlaces;
 import com.base.world.places.PlaceInterface;
 
@@ -87,7 +88,7 @@ public class Generation extends Task<Boolean> {
 				
 				for(int w = 0 ; w < img.getWidth(); w++) {
 					for(int h = 0 ; h < img.getHeight(); h++) {
-						grid[w][img.getHeight()-1-h].setPlace(worldType.getPlacesMap().get(new Color(img.getRGB(w, h))));
+						grid[w][img.getHeight()-1-h].setPlace(new GenericPlace(worldType.getPlacesMap().get(new Color(img.getRGB(w, h)))));
 						world.addPlaceOfInterest(grid[w][img.getHeight()-1-h].getPlace(), new Vector2i(w, img.getHeight()-1-h));
 					}
 				}
@@ -174,7 +175,7 @@ public class Generation extends Task<Boolean> {
 						visited[i * 2 + x][j * 2 + y] = true;
 						grid[i * 2 + x][j * 2 + y].setBlocked(true);
 						if (worldType.getCutOffZone() != null) {
-							grid[i * 2 + x][j * 2 + y].setPlace(worldType.getCutOffZone());
+							grid[i * 2 + x][j * 2 + y].setPlace(new GenericPlace(worldType.getCutOffZone()));
 							dangerousPlaces.add(new Vector2i(i * 2 + x, j * 2 + y));
 						}
 					}
@@ -189,31 +190,45 @@ public class Generation extends Task<Boolean> {
 			for(PlaceInterface pt : worldType.getPlaces()) {
 				if(pt.getParentWorldType()!=null) {
 					if(pt.getParentAlignment()!=null) {
+						if(debug)
+							System.out.println(pt.getName()+" Break 1a");
 						Vector2i location = null;
 						switch(pt.getParentAlignment()) {
 							case ALIGNED:
-								location = Main.game.getWorlds().get(pt.getParentWorldType()).getPlacesOfInterest().get(pt.getParentPlaceInterface());
-								grid[location.getX()/2][location.getY()/2].setPlace(pt);
+								location = Main.game.getWorlds().get(pt.getParentWorldType()).getPlacesOfInterest().get(new GenericPlace(pt.getParentPlaceInterface()));
+								if(debug)
+									System.out.println(location);
+								grid[location.getX()/2][location.getY()/2].setPlace(new GenericPlace(pt));
 								grid[location.getX()/2][location.getY()/2].setBlocked(false);
 								visited[location.getX()/2][location.getY()/2] = false;
+								if(debug)
+									System.out.println(location);
 								break;
 							case ALIGNED_FLIP_HORIZONTAL:
-								location = Main.game.getWorlds().get(pt.getParentWorldType()).getPlacesOfInterest().get(pt.getParentPlaceInterface());
-								grid[width - 1 - (location.getX())/2][location.getY()/2].setPlace(pt);
+								location = Main.game.getWorlds().get(pt.getParentWorldType()).getPlacesOfInterest().get(new GenericPlace(pt.getParentPlaceInterface()));
+								grid[width - 1 - (location.getX())/2][location.getY()/2].setPlace(new GenericPlace(pt));
 								grid[width - 1 - (location.getX())/2][location.getY()/2].setBlocked(false);
 								visited[width - 1 - (location.getX())/2][location.getY()/2] = false;
+								if(debug)
+									System.out.println(location);
 								break;
 							case ALIGNED_FLIP_VERTICAL:
-								location = Main.game.getWorlds().get(pt.getParentWorldType()).getPlacesOfInterest().get(pt.getParentPlaceInterface());
-								grid[location.getX()/2][height - 1 - (location.getY())/2].setPlace(pt);
+								location = Main.game.getWorlds().get(pt.getParentWorldType()).getPlacesOfInterest().get(new GenericPlace(pt.getParentPlaceInterface()));
+								grid[location.getX()/2][height - 1 - (location.getY())/2].setPlace(new GenericPlace(pt));
 								grid[location.getX()/2][height - 1 - (location.getY())/2].setBlocked(false);
 								visited[location.getX()/2][height - 1 - (location.getY())/2] = false;
+								if(debug)
+									System.out.println(location);
 								break;
 							default:
 								break;
 						}
+						if(debug)
+							System.out.println(pt.getName()+" Break 1b");
 					}
 				}
+				if(debug)
+					System.out.println(worldType.getName()+" Break 1c");
 			}
 			
 			if(debug)
@@ -320,7 +335,7 @@ public class Generation extends Task<Boolean> {
 	
 					grid[coreX][coreY].setBlocked(false);
 					visited[coreX][coreY] = false;
-					grid[coreX][coreY].setPlace(pt);
+					grid[coreX][coreY].setPlace(new GenericPlace(pt));
 
 					if (pt.getBearing() == Bearing.NORTH)
 						grid[coreX][coreY].setNorthAccess(true);
@@ -362,13 +377,13 @@ public class Generation extends Task<Boolean> {
 						coreX = width / 2 + rnd.nextInt(width / 2);
 						coreY = height / 2 + rnd.nextInt(height / 2);
 					}
-				} while (grid[coreX][coreY].isBlocked() || grid[coreX][coreY].getPlace() != worldType.getStandardPlace());
+				} while (grid[coreX][coreY].isBlocked() || grid[coreX][coreY].getPlace().getPlaceType() != worldType.getStandardPlace());
 	
 				quadrant++;
 				if (quadrant > 4)
 					quadrant = 1;
 	
-				grid[coreX][coreY].setPlace(p);
+				grid[coreX][coreY].setPlace(new GenericPlace(p));
 	
 			}
 	
@@ -377,13 +392,17 @@ public class Generation extends Task<Boolean> {
 				for (PlaceInterface p : worldType.getDangerousPlaces()) {
 					Vector2i vTemp = dangerousPlaces.get(Util.random.nextInt(dangerousPlaces.size()));
 	
-					grid[vTemp.getX()][vTemp.getY()].setPlace(p);
+					grid[vTemp.getX()][vTemp.getY()].setPlace(new GenericPlace(p));
 	
 					dangerousPlaces.remove(vTemp);
 				}
 	
 			Cell[][] finalGrid = generateMap(width / 2, height / 2, grid, visited);
 	
+
+			if(debug)
+				System.out.println(worldType.getName()+" Break 4");
+			
 			// Expand the generated grid:
 	
 			Cell[][] expandedGrid = new Cell[width * 2 - 1][height * 2 - 1];
@@ -404,7 +423,7 @@ public class Generation extends Task<Boolean> {
 						if (finalGrid[i / 2][(j + 1) / 2].isSouthAccess())
 							expandedGrid[i][j].setNorthAccess(true);
 						if (!finalGrid[i / 2][j / 2].isNorthAccess() && !finalGrid[i / 2][(j + 1) / 2].isSouthAccess()) {
-							expandedGrid[i][j].setPlace(worldType.getCutOffZone());
+							expandedGrid[i][j].setPlace(new GenericPlace(worldType.getCutOffZone()));
 						}
 	
 					} else if (j % 2 == 0) {
@@ -413,14 +432,14 @@ public class Generation extends Task<Boolean> {
 						if (finalGrid[(i + 1) / 2][j / 2].isWestAccess())
 							expandedGrid[i][j].setEastAccess(true);
 						if (!finalGrid[i / 2][j / 2].isEastAccess() && !finalGrid[(i + 1) / 2][j / 2].isWestAccess()) {
-							expandedGrid[i][j].setPlace(worldType.getCutOffZone());
+							expandedGrid[i][j].setPlace(new GenericPlace(worldType.getCutOffZone()));
 						}
 	
 					} else {
 						if (Math.random() > 0.8) {
-							expandedGrid[i][j].setPlace(worldType.getCutOffZone());
+							expandedGrid[i][j].setPlace(new GenericPlace(worldType.getCutOffZone()));
 						} else {
-							expandedGrid[i][j].setPlace(GenericPlaces.IMPASSABLE);
+							expandedGrid[i][j].setPlace(new GenericPlace(GenericPlaces.IMPASSABLE));
 						}
 					}
 	

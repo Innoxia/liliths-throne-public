@@ -47,6 +47,7 @@ import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.world.WorldType;
+import com.base.world.places.GenericPlace;
 import com.base.world.places.LilayasHome;
 
 /**
@@ -1696,7 +1697,7 @@ public class CharacterCreation {
 						
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(LilayasHome.LILAYA_HOME_ROOM_PLAYER),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
 								true);
 					}
 				};
@@ -1883,7 +1884,7 @@ public class CharacterCreation {
 						
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(LilayasHome.LILAYA_HOME_ROOM_PLAYER),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
 								true);
 					}
 				};

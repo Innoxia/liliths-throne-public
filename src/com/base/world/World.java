@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.base.utils.Vector2i;
-import com.base.world.places.PlaceInterface;
+import com.base.world.places.GenericPlace;
 
 /**
  * @since 0.1.0
- * @version 0.1.75
+ * @version 0.1.85
  * @author Innoxia
  */
 public class World implements Serializable {
@@ -20,7 +20,7 @@ public class World implements Serializable {
 	
 	private Cell[][] grid;
 	private WorldType WorldType;
-	private Map<PlaceInterface, Vector2i> placesOfInterest;
+	private Map<GenericPlace, Vector2i> placesOfInterest;
 
 	public World(int worldWidth, int worldHeight, Cell[][] grid, WorldType WorldType) {
 		WORLD_WIDTH = worldWidth;
@@ -60,11 +60,11 @@ public class World implements Serializable {
 		this.grid = grid;
 	}
 
-	public Map<PlaceInterface, Vector2i> getPlacesOfInterest() {
+	public Map<GenericPlace, Vector2i> getPlacesOfInterest() {
 		return placesOfInterest;
 	}
 	
-	public void addPlaceOfInterest(PlaceInterface place, Vector2i vector) {
+	public void addPlaceOfInterest(GenericPlace place, Vector2i vector) {
 		placesOfInterest.put(place, vector);
 	}
 }

@@ -1,5 +1,7 @@
 package com.base.world.places;
 
+import java.util.ArrayList;
+
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.utils.BaseColour;
 import com.base.utils.Bearing;
@@ -8,11 +10,11 @@ import com.base.world.WorldType;
 
 /**
  * @since 0.1.75
- * @version 0.1.78
+ * @version 0.1.85
  * @author Innoxia
  */
 public interface PlaceInterface {
-
+	
 	public String getName();
 	
 	public BaseColour getColour();
@@ -29,6 +31,9 @@ public interface PlaceInterface {
 
 	public String getSVGString();
 
+	public default ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+		return new ArrayList<>();
+	}
 	
 	// For determining where this place should be placed:
 	

@@ -25,6 +25,7 @@ import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.world.WorldType;
 import com.base.world.places.Dominion;
+import com.base.world.places.GenericPlace;
 import com.base.world.places.LilayasHome;
 
 /**
@@ -284,8 +285,8 @@ public class PrologueDialogue {
 						Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 5);
 						
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
-						
-						Main.game.setRenderMap(false);
+
+						Main.game.setRenderMap(true);
 						
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.DOMINION),
@@ -720,7 +721,7 @@ public class PrologueDialogue {
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_ENTRANCE_HALL);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(LilayasHome.LILAYA_HOME_ENTRANCE_HALL),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ENTRANCE_HALL)),
 								false);
 					}
 				};
@@ -837,7 +838,7 @@ public class PrologueDialogue {
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(LilayasHome.LILAYA_HOME_LAB),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_LAB)),
 								false);
 					}
 				};
@@ -1231,7 +1232,7 @@ public class PrologueDialogue {
 						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_PLAYER);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(LilayasHome.LILAYA_HOME_ROOM_PLAYER),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
 								false);
 					}
 				};

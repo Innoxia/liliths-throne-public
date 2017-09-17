@@ -6,7 +6,7 @@ import com.base.game.dialogue.responses.Response;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.85
  * @author Innoxia
  */
 public abstract class DialogueNodeOld implements Serializable {
@@ -74,6 +74,10 @@ public abstract class DialogueNodeOld implements Serializable {
 
 	public abstract Response getResponse(int index);
 
+	public boolean isMapDisabled() {
+		return false;
+	}
+	
 	public boolean isTravelDisabled() {
 		return travelDisabled;
 	}

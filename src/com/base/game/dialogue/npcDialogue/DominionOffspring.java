@@ -7,7 +7,9 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.GenericDialogue;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseCombat;
+import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.responses.ResponseSex;
+import com.base.game.dialogue.utils.InventoryInteraction;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.sex.Sex;
 import com.base.game.sex.SexPace;
@@ -556,7 +558,15 @@ public class DominionOffspring {
 								+ " [npc.Name] starts kissing you, [npc.speech(Yes [npc.pcName]! You'll be good now, won't you?)]"
 							+ "</p>");
 					
-				} else if (index == 10 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
+				} else if (index == 6) {
+					return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
+						@Override
+						public void effects() {
+							Main.mainController.openInventory(Main.game.getCurrentRandomAttacker(), InventoryInteraction.FULL_MANAGEMENT);
+						}
+					};
+					
+				} else if (index == 10 && Main.game.getPlayer().getLocationPlace().getPlaceType() == Dominion.CITY_BACK_ALLEYS) {
 					return new Response(
 							"Remove character",
 							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
@@ -639,7 +649,7 @@ public class DominionOffspring {
 							"You can't submit to [npc.herHim], as [npc.she] has no interest in having sex with you!",
 							null);
 					
-				} else if (index == 10 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
+				} else if (index == 10 && Main.game.getPlayer().getLocationPlace().getPlaceType() == Dominion.CITY_BACK_ALLEYS) {
 					return new Response(
 							"Remove character",
 							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
@@ -846,7 +856,7 @@ public class DominionOffspring {
 					}
 				};
 				
-			} else if (index == 10 && Main.game.getPlayer().getLocationPlace() == Dominion.CITY_BACK_ALLEYS) {
+			} else if (index == 10 && Main.game.getPlayer().getLocationPlace().getPlaceType() == Dominion.CITY_BACK_ALLEYS) {
 				return new Response(
 						"Remove character",
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
@@ -899,6 +909,40 @@ public class DominionOffspring {
 		public Response getResponse(int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
+					@Override
+					public DialogueNodeOld getNextDialogue(){
+						return GenericDialogue.getDefaultDialogueNoEncounter();
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld ENSLAVEMENT_DIALOGUE = new DialogueNodeOld("New Slave", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getDescription(){
+			return ".";
+		}
+
+		@Override
+		public String getContent() {//TODO
+			return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+					"<p>"
+						+ "TODO</br>"
+						+ "You clasp the collar around [npc.name]'s neck.</br>"
+						+ "The arcane enchantment recognises [npc.herHim] as being a criminal, and, with a purple flash, <b>they're teleported to the 'Slave Administration' building in Slaver Alley, where they'll be waiting for you to pick them up</b>."
+					+ "</p>");
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						return GenericDialogue.getDefaultDialogueNoEncounter();

@@ -97,6 +97,7 @@ import com.base.game.character.race.RacialBody;
 import com.base.game.combat.Combat;
 import com.base.game.combat.SpecialAttack;
 import com.base.game.combat.Spell;
+import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.eventLog.EventLogEntryAttributeChange;
 import com.base.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.base.game.dialogue.utils.UtilText;
@@ -122,6 +123,7 @@ import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Vector2i;
 import com.base.world.WorldType;
+import com.base.world.places.GenericPlace;
 import com.base.world.places.PlaceInterface;
 
 /**
@@ -134,13 +136,6 @@ import com.base.world.places.PlaceInterface;
 public class GameCharacter implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	public String test = "hello!";
-	public String getTest() {
-		if(test==null)
-			return "NULL";
-		return test;
-	}
 	
 	/** Calculation description as used in getAttributeValue() */
 	public static final String HEALTH_CALCULATION = "Level*10 + STR + Bonus HP";
@@ -169,6 +164,7 @@ public class GameCharacter implements Serializable {
 
 	protected List<GameCharacter> slavesOwned;
 	protected GameCharacter owner;
+	protected DialogueNodeOld enslavementDialogue;
 	
 	protected SexualOrientation sexualOrientation;
 	
@@ -244,6 +240,7 @@ public class GameCharacter implements Serializable {
 
 		slavesOwned = new ArrayList<>();
 		owner = null;
+		enslavementDialogue = null;
 		
 		sexualOrientation = startingRace.getSexualOrientation(startingGender);
 		
@@ -563,6 +560,18 @@ public class GameCharacter implements Serializable {
 	
 	
 	// Slavery:
+	
+	public DialogueNodeOld getEnslavementDialogue() {
+		return enslavementDialogue;
+	}
+	
+	public void setEnslavementDialogue(DialogueNodeOld enslavementDialogue) {
+		this.enslavementDialogue = enslavementDialogue;
+	}
+	
+	public boolean isAbleToBeEnslaved() {
+		return getEnslavementDialogue()!=null;
+	}
 	
 	public List<GameCharacter> getSlavesOwned() {
 		return slavesOwned;
@@ -1759,7 +1768,7 @@ public class GameCharacter implements Serializable {
 		this.worldLocation = worldLocation;
 	}
 	
-	public PlaceInterface getLocationPlace() {
+	public GenericPlace getLocationPlace() {
 		return Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getPlace();
 	}
 	
