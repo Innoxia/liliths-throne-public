@@ -1544,66 +1544,68 @@ public class MainController implements Initializable {
 				}, false);
 			}
 			
-			id = Main.game.getDialogueFlags().slaveryManagerSlaveSelected.getId()+"_RENAME";
-			if (((EventTarget) document.getElementById(id)) != null) {
-				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-
-					boolean unsuitableName = false;
-				 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveNameInput')")!=null) {
-					 
-						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveNameInput').value;");
-						if(Main.mainController.getWebEngine().getDocument()!=null) {
-							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-									|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-								unsuitableName = true;
-							else {
-								unsuitableName = false;
-							}
-						}
-						
-						if (!unsuitableName) {
-							Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
-								@Override
-								public void effects() {
-									Main.game.getDialogueFlags().slaveryManagerSlaveSelected.setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
+			if(Main.game.getDialogueFlags().slaveryManagerSlaveSelected!=null) {
+				id = Main.game.getDialogueFlags().slaveryManagerSlaveSelected.getId()+"_RENAME";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+	
+						boolean unsuitableName = false;
+					 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveNameInput')")!=null) {
+						 
+							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveNameInput').value;");
+							if(Main.mainController.getWebEngine().getDocument()!=null) {
+								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
+									unsuitableName = true;
+								else {
+									unsuitableName = false;
 								}
-							});
-						}
-						
-					}
-						
-				}, false);
-			}
-			
-			id = Main.game.getDialogueFlags().slaveryManagerSlaveSelected.getId()+"_CALLS_PLAYER";
-			if (((EventTarget) document.getElementById(id)) != null) {
-				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-
-					boolean unsuitableName = false;
-				 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput')")!=null) {
-					 
-						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInput').value;");
-						if(Main.mainController.getWebEngine().getDocument()!=null) {
-							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-									|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-								unsuitableName = true;
-							else {
-								unsuitableName = false;
 							}
+							
+							if (!unsuitableName) {
+								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
+									@Override
+									public void effects() {
+										Main.game.getDialogueFlags().slaveryManagerSlaveSelected.setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
+									}
+								});
+							}
+							
 						}
-						
-						if (!unsuitableName) {
-							Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
-								@Override
-								public void effects() {
-									Main.game.getDialogueFlags().slaveryManagerSlaveSelected.setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+							
+					}, false);
+				}
+				
+				id = Main.game.getDialogueFlags().slaveryManagerSlaveSelected.getId()+"_CALLS_PLAYER";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+	
+						boolean unsuitableName = false;
+					 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput')")!=null) {
+						 
+							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInput').value;");
+							if(Main.mainController.getWebEngine().getDocument()!=null) {
+								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
+									unsuitableName = true;
+								else {
+									unsuitableName = false;
 								}
-							});
+							}
+							
+							if (!unsuitableName) {
+								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
+									@Override
+									public void effects() {
+										Main.game.getDialogueFlags().slaveryManagerSlaveSelected.setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+									}
+								});
+							}
+							
 						}
-						
-					}
-						
-				}, false);
+							
+					}, false);
+				}
 			}
 			
 			id = "GLOBAL_CALLS_PLAYER";

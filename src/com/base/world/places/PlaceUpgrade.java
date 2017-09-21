@@ -19,7 +19,7 @@ import com.base.world.Cell;
 public enum PlaceUpgrade {
 	
 	SLAVERY_ADMINISTRATION_CELLS(true,
-			Colour.BASE_GREY,
+			Colour.GENERIC_ARCANE,
 			"Dingy Cells",
 			"-",
 			"",
@@ -35,7 +35,7 @@ public enum PlaceUpgrade {
 			null),
 	
 	LILAYA_EMPTY_ROOM(true,
-			Colour.BASE_GREY,
+			Colour.GENERIC_ARCANE,
 			"Empty Room",
 			"Rose will return this room to its original state, which will render it unsuitable for housing any of your slaves.",
 			"This room is empty, and would need conversion work to be done if you'd like to house any of your slaves here.",
@@ -84,7 +84,7 @@ public enum PlaceUpgrade {
 	},
 	
 	LILAYA_SLAVE_ROOM(true,
-			Colour.BASE_CRIMSON,
+			Colour.GENERIC_ARCANE,
 			"Slave's Room",
 			"Rose will prepare this room just like she would for any other guest, making it suitable for housing just one of your slaves."
 					+ " While not the most economical choice if you plan on owning a large number of slaves, the occupant of this room will no doubt appreciate having their own personal space.",

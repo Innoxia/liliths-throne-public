@@ -278,7 +278,10 @@ public class LilayaHomeGeneric {
 		
 		return "<div class='SM-inner-container'>"
 					+ "<div class='SM-title-container'>"
-						+ "<h5 class='SM-title' "+(owned?"style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'":"")+">"+upgrade.getName()+"</h5>"
+						+ "<h5 class='SM-title' "+(upgrade.isCoreRoomUpgrade()
+															?"style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'"
+															:(owned?"style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'":""))
+													+">"+upgrade.getName()+"</h5>"
 						+ "<h5 class='SM-title' style='float:right;'>"+(upgrade.isCoreRoomUpgrade()?"[style.boldArcane(Core Modification)]":"[style.bold(Standard Modification)]")+"</h5>"
 					+"</div>"
 					+ "<p>"
@@ -322,8 +325,10 @@ public class LilayaHomeGeneric {
 					+ "<div class='SM-button"+(availableForPurchase?"":" disabled")+"' "+(availableForPurchase?"id='"+upgrade+(owned?"_REMOVE":"_BUY")+"'":"")+" style='position:absolute; right:8px; bottom:12px;'>"
 					+ (availableForPurchase
 						?(owned
-								?"Remove "+UtilText.formatAsMoney(upgrade.getRemovalCost(), "span")
-								:"Buy "+UtilText.formatAsMoney(upgrade.getInstallCost(), "span"))
+								?"[style.colourBad(Remove)] "+UtilText.formatAsMoney(upgrade.getRemovalCost(), "span")
+								:(upgrade.isCoreRoomUpgrade()
+										?"[style.colourArcane(Buy)] "+UtilText.formatAsMoney(upgrade.getInstallCost(), "span")
+										:"[style.colourGood(Buy)] "+UtilText.formatAsMoney(upgrade.getInstallCost(), "span")))
 						:(owned
 								?"Remove "+UtilText.formatAsMoneyUncoloured(upgrade.getRemovalCost(), "span")
 								:"Buy "+UtilText.formatAsMoneyUncoloured(upgrade.getInstallCost(), "span")))

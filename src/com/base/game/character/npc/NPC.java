@@ -414,31 +414,37 @@ public abstract class NPC extends GameCharacter {
 	}
 	
 	public float getDailyAffectionChange() {
-		float change = 0f;
+		// Forgive me, for I am tired x_x
+		
+		float affectionTrack = getAffection(Main.game.getPlayer());
 		
 		for(PlaceUpgrade upgrade : this.getLocationPlace().getPlaceUpgrades()) {
 			if(upgrade.getAffectionCap()==null) {
-				change += upgrade.getAffectionGain();
+				affectionTrack += upgrade.getAffectionGain();
 				
 			} else {
 				if(upgrade.getAffectionGain()>0) {
-					if(getAffection(Main.game.getPlayer()) + upgrade.getAffectionGain() > upgrade.getAffectionCap().getMaximumValue()) {
-						change += upgrade.getAffectionCap().getMaximumValue() - getAffection(Main.game.getPlayer());
-					} else {
-						change += upgrade.getAffectionGain();
+					if(getAffection(Main.game.getPlayer()) < upgrade.getAffectionCap().getMaximumValue()) {
+						if(getAffection(Main.game.getPlayer()) + upgrade.getAffectionGain() > upgrade.getAffectionCap().getMaximumValue()) {
+							affectionTrack = upgrade.getAffectionCap().getMaximumValue();
+						} else {
+							affectionTrack += upgrade.getAffectionGain();
+						}
 					}
 					
 				} else if(upgrade.getAffectionGain()<0) {
-					if(getAffection(Main.game.getPlayer()) + upgrade.getAffectionGain() < upgrade.getAffectionCap().getMinimumValue()) {
-						change += upgrade.getAffectionCap().getMinimumValue() - getAffection(Main.game.getPlayer());
-					} else {
-						change += upgrade.getAffectionGain();
+					if(getAffection(Main.game.getPlayer()) > upgrade.getAffectionCap().getMinimumValue()) {
+						if(getAffection(Main.game.getPlayer()) + upgrade.getAffectionGain() < upgrade.getAffectionCap().getMinimumValue()) {
+							affectionTrack = upgrade.getAffectionCap().getMinimumValue();
+						} else {
+							affectionTrack += upgrade.getAffectionGain();
+						}
 					}
 				}
 			}
 		}
 		
-		return change;
+		return affectionTrack - getAffection(Main.game.getPlayer());
 	}
 	
 	// Obedience:
@@ -469,31 +475,37 @@ public abstract class NPC extends GameCharacter {
 	}
 	
 	public float getDailyObedienceChange() {
-		float change = 0f;
+		// Forgive me, for I am tired x_x
+		
+		float obedienceTrack = getObedience();
 		
 		for(PlaceUpgrade upgrade : this.getLocationPlace().getPlaceUpgrades()) {
 			if(upgrade.getObedienceCap()==null) {
-				change += upgrade.getObedienceGain();
+				obedienceTrack += upgrade.getObedienceGain();
 				
 			} else {
 				if(upgrade.getObedienceGain()>0) {
-					if(getObedience() + upgrade.getObedienceGain() > upgrade.getObedienceCap().getMaximumValue()) {
-						change += upgrade.getObedienceCap().getMaximumValue() - getObedience();
-					} else {
-						change += upgrade.getObedienceGain();
+					if(getObedience() < upgrade.getObedienceCap().getMaximumValue()) {
+						if(getObedience() + upgrade.getObedienceGain() > upgrade.getObedienceCap().getMaximumValue()) {
+							obedienceTrack = upgrade.getObedienceCap().getMaximumValue();
+						} else {
+							obedienceTrack += upgrade.getObedienceGain();
+						}
 					}
 					
 				} else if(upgrade.getObedienceGain()<0) {
-					if(getObedience() + upgrade.getObedienceGain() < upgrade.getObedienceCap().getMinimumValue()) {
-						change += upgrade.getObedienceCap().getMinimumValue() - getObedience();
-					} else {
-						change += upgrade.getObedienceGain();
+					if(getObedience() > upgrade.getObedienceCap().getMinimumValue()) {
+						if(getObedience() + upgrade.getObedienceGain() < upgrade.getObedienceCap().getMinimumValue()) {
+							obedienceTrack = upgrade.getObedienceCap().getMinimumValue();
+						} else {
+							obedienceTrack += upgrade.getObedienceGain();
+						}
 					}
 				}
 			}
 		}
 		
-		return change;
+		return obedienceTrack - getObedience();
 	}
 	
 	public int getValueAsSlave() {

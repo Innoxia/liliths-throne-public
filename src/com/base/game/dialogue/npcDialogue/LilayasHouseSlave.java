@@ -139,6 +139,9 @@ public class LilayasHouseSlave {
 			} else if (index == 4) {
 				return new Response("Gift", "Give [npc.name] a gift.", SLAVE_GIFT);
 				
+			} else if (index == 5) {
+				return new Response("Punish", "Punish [npc.name].", SLAVE_PUNISHMENT);
+				
 			} else if (index == 6) {
 				if(Main.game.isNonConEnabled() && !Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()) {
 					return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
@@ -319,6 +322,40 @@ public class LilayasHouseSlave {
 		public Response getResponse(int index) {
 			if (index == 4) {
 				return new Response("Gift", "Give [npc.name] a gift.", null);
+				
+			} else {
+				return SLAVE_TALK.getResponse(index);
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld SLAVE_PUNISHMENT = new DialogueNodeOld("", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel(){
+			return "Talking with [npc.Name]";
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "<i>All of the slave-interaction dialogue is currently placeholder!</i>"
+					+ "</p>"
+					+ "<p>"
+						+ "This will be a way to increase obedience at the cost of affection."
+					+ "</p>"
+					+ "<p>"
+					+ (Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()
+						?"[npc.She] keeps glancing at your body..."
+						:"[npc.She] doesn't show any interest in being attracted to you.")
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			if (index == 5) {
+				return new Response("Punish", "Punish [npc.name].", null);
 				
 			} else {
 				return SLAVE_TALK.getResponse(index);

@@ -61,7 +61,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.84.5",
+	public static final String VERSION_NUMBER = "0.1.84.6",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/base/res/images/windowIcon32.png");
@@ -71,7 +71,7 @@ public class Main extends Application {
 	public static String patchNotes =
 			
 		"<h1 style='text-align:center;'>Version " + Main.VERSION_NUMBER + "</h1>"
-		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>VERY BUGGY PREVIEW!</b></h6>"
+		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>Moderately Buggy Preview!</b></h6>"
 //		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha release!</b></h6>"
 		
 		+ "<p><b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Important information:</b> <i>If you don't see a mini-map in the bottom-left corner of the screen after starting the game, please update your java!</i></p>"
@@ -82,7 +82,16 @@ public class Main extends Application {
 			
 		+ "<p>"
 			+ "This version is just a preview of my current progress, and contains a lot of bugs and half-finished content!"
-			+ " I'm really sorry that it's in such a rough state, but implementing the system to allow clothing and item management between the player and any NPC was an absolute nightmare to create, and took all of my time. ;_;"
+			+ " It does contain some expansion on the slavery content, but there's still more for me to do before I can truly say that the basics are in."
+			+ " I'll be finishing it off over the next week. ^^"
+		+ "</p>"
+			
+		+ "<p>"
+			+ "Oh, also, The UI is still being worked on. I <i>should</i> have it done for Friday, but if not, then it will be finished in next week's update. :3"
+		+ "</p>"
+			
+		+ "<p>"
+			+ "(Scroll all the way down for the patch notes.)"
 		+ "</p>"
 		
 		+ "<p>"
@@ -124,6 +133,52 @@ public class Main extends Application {
 		+"<ul>Fixed 'null' being returned in text when cow-leg transformation caused you to be unable to wear shoes.</ul>"
 		+"<ul>Fixed some typos.</ul>"
 		+"</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+		
+		+ "<h6>Preview 'Hotfix' (v0.1.84.6)</h6>"
+		
+		+"<li>Engine:</li>"
+		+"<ul>Changed the way NPCs are tracked in an effort to make them easier to save and access.</ul>"
+			
+		+"<li>Slavery:</li>"
+		+"<ul><b>Added:</b> Room management, Slave management UI (access from Slavery Administration, or any of the rooms in Lilaya's House).</ul>"
+		+"<ul><b>Added:</b> Basic slave buying/selling. Once you've completed the part of the main quest involving Alexa, her shop will restock five slaves every day.</ul>"
+		+"<ul><b>Added:</b> A lot of slave-related engine work. x_x</ul>"
+		+"<ul><b>Added:</b> Placeholder dialogue for slaves. (This is the same as the offspring placeholders for now, I'm going to massively expand all these options over the next few versions.)</ul>"
+			
+		+"<li>UI:</li>"
+		+"<ul>Moved the map back down to the bottom-left (I'll find a place for the event log next week ^^).</ul>"
+		+"<ul>Swapped the finger and hips slots in the inventory UI.</ul>"
+		+"<ul>Added 'Displace all', 'Replace all', 'Unequip all', and 'Equip all' actions to the inventory menu, along with NPC-targeted versions for displace, replace, and unequip.</ul>"
+		+"<ul>Temporarily disabled quick manage in the inventory until I can get it fixed. (Sorry!)</ul>"
+			
+		+"<li>Other:</li>"
+		+"<ul>Added 'unzip' displacement type for trousers, jeans, and shorts.</ul>"
+		+"<ul>Added pattern options (striping/spotting/mottling) for demon and human skin in Kate's shop.</ul>"
+		+"<ul>Added a fast travel option from your room to Lilaya's Lab, and vice versa. Also added fast travel back to the entrance from each of the shops in the arcade.</ul>"
+		+"<ul>Moved Cowbell collar, Ear tag, and Bovine nose ring into a new 'Cattle' set. (The status effect buffs are boring at the moment, but I'll make them far more exciting when I move lactation/cum production into enchantable stats.)</ul>"
+		+"<ul>Added 'silver' to eye colours.</ul>"
+			
+		+"<li>Bugs:</li>"
+		+"<ul>You should now properly be able to access your parnter's clothing during sex.</ul>"
+		+"<ul>Enslaving someone by forcing them to equip a slave collar now correctly marks them as your slave.</ul>"
+		+"<ul>Blazers are now correctly unisex.</ul>"
+		+"<ul>Fixed bug where clothing would be duplicated after sex scenes.</ul>"
+		+"<ul>Fixed a lot of incorrect descriptions of clothing management during sex.</ul>"
+		+"<ul>You can now access the inventory of the people who try to rob you, as well as those who try to rape you.</ul>"
+		+"<ul>Fixed bug where dying equipped clothes would cause those clothes to be duplicated into the owner's inventory.</ul>"
+		+"<ul>Descriptions for adding a penis modifier will no longer display if the target has no penis.</ul>"
+		+"<ul>Fixed demonic nipples always being described as nipple-cunts (even if they were regular nipples).</ul>"
+		+"<ul>Arcane storm notifications should now properly trigger when in a vulnerable area.</ul>"
+		+"<ul>Fixed starting hairstyle being random (your hair will now always start with a 'natural' style in the character creation).</ul>"
+		+"<ul>Fixed bug where enforcer shirt, maid's dress, and Mega Milk T-shirt would not be able to be unequipped if you wore something over the top (like a hoodie).</ul>"
+		+"<ul>Possibly fixed the bug that was causing the properties file to get re-created on a new game start.</ul>"
+		+"<ul>Fixed minor bug where the text on the screen would disappear when pressing enter in the City Hall's change name box.</ul>"
+		+"<ul>Scarlett's slave collar should now correctly be sealed.</ul>"
+		+ "</list>"
 		;
 	
 	public static String disclaimer = "<h1 style='text-align:center;'>DISCLAIMER</h1>"

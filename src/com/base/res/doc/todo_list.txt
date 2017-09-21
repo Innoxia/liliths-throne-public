@@ -30,14 +30,14 @@
 		Added 'silver' to eye colours.
 	
 	Bugs:
-		You should now properly be able to access your aprnter's clothing during sex.
+		You should now properly be able to access your parnter's clothing during sex.
 		Enslaving someone by forcing them to equip a slave collar now correctly marks them as your slave.
 		Blazers are now correctly unisex.
 		Fixed bug where clothing would be duplicated after sex scenes.
 		Fixed a lot of incorrect descriptions of clothing management during sex.
 		You can now access the inventory of the people who try to rob you, as well as those who try to rape you.
 		Fixed bug where dying equipped clothes would cause those clothes to be duplicated into the owner's inventory.
-		Descriptions for adding a penis modifier will no longer disaply if the target has no penis.
+		Descriptions for adding a penis modifier will no longer display if the target has no penis.
 		Fixed demonic nipples always being described as nipple-cunts (even if they were regular nipples).
 		Arcane storm notifications should now properly trigger when in a vulnerable area.
 		Fixed starting hairstyle being random (your hair will now always start with a 'natural' style in the character creation).
@@ -53,14 +53,6 @@
 	
 	MANAGEMENT
 	
-	obedience/affection gains are completely broken
-	
-	Replace detailed managemt with view
-	
-	Slave Interactions
-		Punish. Spanking
-	
-		
 	Slaves (Overview)
 		Assignments
 		Rules
@@ -102,7 +94,7 @@
 	
 	"H&D-only", "MG", "FF"
 	
-	MAKE DEV BRANCH
+	MAKE DEV BRANCH (I forgot, and now Anon will be mad :NotLikeBlob:)
 	
 	exhibs tag is only hasBreasts(). Add || isFeminine() and also get males to go topless
 	
