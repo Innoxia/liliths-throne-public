@@ -311,15 +311,25 @@ public enum Sex {
 
 		// Restore clothes:
 		for (AbstractClothing c : playerClothingPreSex) {
-			if (!Main.game.getPlayer().getClothingCurrentlyEquipped().contains(c))
-				Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
-			else {
+			if (!Main.game.getPlayer().getClothingCurrentlyEquipped().contains(c)) {
+				if(Main.game.getPlayer().getAllClothingInInventory().contains(c)) {
+					Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer());
+				} else {
+					Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
+				}
+				
+			} else {
 				c.getDisplacedList().clear();
 			}
 		}
 		for (AbstractClothing c : partnerClothingPreSex) {
-			if (!partner.getClothingCurrentlyEquipped().contains(c) && Main.game.getActiveWorld().getCell(partner.getLocation()).getInventory().hasClothing(c)) {
-				partner.equipClothingFromGround(c, true, partner);
+			if(!partner.getClothingCurrentlyEquipped().contains(c)) {
+				if(partner.getAllClothingInInventory().contains(c)) {
+					partner.equipClothingFromInventory(c, true, partner, partner);
+				} else {
+					partner.equipClothingFromGround(c, true, partner);
+				}
+				
 			} else {
 				c.getDisplacedList().clear();
 			}

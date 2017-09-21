@@ -534,6 +534,14 @@ public class Penis implements BodyPartInterface, Serializable {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
+		if(!owner.hasPenis()) {
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourDisabled(You don't have a penis, so nothing happens...)]</p>";
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] doesn't have a penis, so nothing happens...)]</p>");
+			}
+		}
+		
 		penisModifiers.add(modifier);
 		
 		switch(modifier) {

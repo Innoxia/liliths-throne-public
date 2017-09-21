@@ -320,7 +320,7 @@ public class Face implements BodyPartInterface, Serializable {
 
 	public String setFacialHair(GameCharacter owner, BodyHair facialHair) {
 		
-		if(owner.getFemininity()>=Femininity.ANDROGYNOUS.getMinimumFemininity() && facialHair!=BodyHair.NONE) {
+		if(owner.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity() && facialHair!=BodyHair.NONE) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You're too feminine to be able to grow a beard...)]</p>";
 			} else {

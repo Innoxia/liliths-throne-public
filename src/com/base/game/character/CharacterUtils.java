@@ -226,7 +226,7 @@ public class CharacterUtils {
 			characterBody.appendChild(bodyCore);
 			addAttribute(doc, bodyCore, "piercedStomach", String.valueOf(character.isPiercedNavel()));
 			addAttribute(doc, bodyCore, "height", String.valueOf(character.getRawHeightValue()));
-			addAttribute(doc, bodyCore, "femininity", String.valueOf(character.getFemininity()));
+			addAttribute(doc, bodyCore, "femininity", String.valueOf(character.getFemininityValue()));
 			addAttribute(doc, bodyCore, "bodySize", String.valueOf(character.getBodySizeValue()));
 			addAttribute(doc, bodyCore, "muscle", String.valueOf(character.getMuscleValue()));
 			addAttribute(doc, bodyCore, "pubicHair", String.valueOf(character.getPubicHair()));

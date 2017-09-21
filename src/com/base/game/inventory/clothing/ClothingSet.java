@@ -9,7 +9,7 @@ import com.base.game.combat.Spell;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.85
  * @author Innoxia
  */
 public enum ClothingSet {
@@ -22,6 +22,8 @@ public enum ClothingSet {
 	MILK_MAID("Milk Maid", StatusEffect.SET_MILK_MAID, 2, null, null),
 
 	BDSM("BDSM", StatusEffect.SET_BDSM, 4, null, null),
+	
+	CATTLE("Cattle", StatusEffect.SET_CATTLE, 3, null, null),
 
 	RAINBOW("Rainbow", StatusEffect.SET_RAINBOW, 2, null, null);
 

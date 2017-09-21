@@ -3,6 +3,7 @@ package com.base.game.dialogue;
 import java.io.Serializable;
 
 import com.base.game.character.body.types.BodyCoveringType;
+import com.base.game.character.npc.NPC;
 import com.base.game.inventory.enchanting.TFEssence;
 
 /**
@@ -22,12 +23,15 @@ public class DialogueFlags implements Serializable {
 	
 	public TFEssence focusedEssence;
 	
+	public DialogueNodeOld slaveryManagerRootDialogue;
+	public NPC slaveTrader, slaveryManagerSlaveSelected;
+	
 	public boolean
 			// Misc:
 			
 			quickTrade,
 			jinxedClothingDiscovered,
-			stormTextUpdate,
+			stormTextUpdateRequired,
 	
 			// Gym:
 			gymIntroduced, gymHadTour, gymIsMember,
@@ -56,9 +60,13 @@ public class DialogueFlags implements Serializable {
 
 		quickTrade = false;
 		jinxedClothingDiscovered = false;
-		stormTextUpdate = false;
+		stormTextUpdateRequired = false;
 		
 		focusedEssence = null;
+		
+		slaveryManagerRootDialogue = null;
+		slaveryManagerSlaveSelected = null;
+		slaveTrader = null;
 		
 		ralphDiscountStartTime=-1;
 		ralphDiscount=0;

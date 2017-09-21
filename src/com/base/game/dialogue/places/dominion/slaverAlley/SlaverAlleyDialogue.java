@@ -6,6 +6,7 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.responses.ResponseTrade;
+import com.base.game.dialogue.utils.MiscDialogue;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.main.Main;
 import com.base.utils.Colour;
@@ -364,8 +365,8 @@ public class SlaverAlleyDialogue {
 				if (index == 1) {
 					return new ResponseTrade("Trade", "Buy slavery-related items.", Main.game.getFinch());
 
-				} else if (index == 2) {
-					return new Response("Manage slaves", "Open the slave management window. Not yet implemented!", null); //TODO
+				} else if (index == 5) {
+					return new Response("Manage slaves", "Open the slave management screen.", MiscDialogue.getSlaveryManagementDialogue(SLAVERY_ADMINISTRATION, Main.game.getFinch()));
 
 				} else if (index == 0) {
 					return new Response("Leave", "Step back outside.", SLAVERY_ADMINISTRATION_EXTERIOR);

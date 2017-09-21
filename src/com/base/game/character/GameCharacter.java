@@ -145,6 +145,7 @@ public class GameCharacter implements Serializable {
 	public static final String STAMINA_CALCULATION = "Level*10 + FIT + Bonus ST";
 
 	// Core variables:
+	protected String id;
 	protected NameTriplet nameTriplet;
 	protected boolean playerKnowsName;
 	protected String playerPetName = "";
@@ -162,7 +163,7 @@ public class GameCharacter implements Serializable {
 
 	protected History history;
 
-	protected List<GameCharacter> slavesOwned;
+	protected List<NPC> slavesOwned;
 	protected GameCharacter owner;
 	protected DialogueNodeOld enslavementDialogue;
 	
@@ -226,7 +227,9 @@ public class GameCharacter implements Serializable {
 	protected static List<CharacterChangeEventListener> playerInventoryChangeEventListeners = new ArrayList<>();
 
 	protected GameCharacter(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace, RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceInterface startingPlace) {
-
+		
+		id = "NPC-"+(Main.game.getNpcTally()+1); // id gets set in Game's addNPC method, so it doesn't matter if this is unique or not... Right?
+		
 		this.nameTriplet = nameTriplet;
 		playerKnowsName = true;
 		this.description = description;
@@ -312,6 +315,18 @@ public class GameCharacter implements Serializable {
 		setBody(startingGender, startingRace, stage);
 	}
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getMapIcon() {
+		return getRace().getStatusEffect().getSVGString(this);
+	}
+
 	public String speech(String text) {
 		return UtilText.parseSpeech(text, this);
 	}
@@ -340,13 +355,13 @@ public class GameCharacter implements Serializable {
 	}
 
 	public String getSpeechColour() {
-		if (Femininity.valueOf(getFemininity()) == Femininity.MASCULINE || Femininity.valueOf(getFemininity()) == Femininity.MASCULINE_STRONG) {
+		if (Femininity.valueOf(getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(getFemininityValue()) == Femininity.MASCULINE_STRONG) {
 			if(isPlayer())
 				return Colour.MASCULINE.toWebHexString();
 			else
 				return Colour.MASCULINE_NPC.toWebHexString();
 
-		} else if (Femininity.valueOf(getFemininity()) == Femininity.ANDROGYNOUS){
+		} else if (Femininity.valueOf(getFemininityValue()) == Femininity.ANDROGYNOUS){
 			if(isPlayer())
 				return Colour.ANDROGYNOUS.toWebHexString();
 			else
@@ -493,10 +508,10 @@ public class GameCharacter implements Serializable {
 			}
 			
 		} else {
-			if(getFemininity()>Femininity.ANDROGYNOUS.getMaximumFemininity()) {
+			if(getFemininityValue()>Femininity.ANDROGYNOUS.getMaximumFemininity()) {
 				return nameTriplet.getFeminine();
 				
-			} else if(getFemininity()>=Femininity.ANDROGYNOUS.getMinimumFemininity()) {
+			} else if(getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity()) {
 				return nameTriplet.getAndrogynous();
 				
 			} else {
@@ -573,11 +588,11 @@ public class GameCharacter implements Serializable {
 		return getEnslavementDialogue()!=null;
 	}
 	
-	public List<GameCharacter> getSlavesOwned() {
+	public List<NPC> getSlavesOwned() {
 		return slavesOwned;
 	}
 	
-	public boolean addSlave(GameCharacter slave) {
+	public boolean addSlave(NPC slave) {
 		boolean added = slavesOwned.add(slave);
 		
 		if(added) {
@@ -615,7 +630,6 @@ public class GameCharacter implements Serializable {
 	public boolean isSlave() {
 		return owner != null;
 	}
-
 	
 	
 	public SexualOrientation getSexualOrientation() {
@@ -2342,7 +2356,7 @@ public class GameCharacter implements Serializable {
 	 * @param automaticClothingManagement Whether clothing should automatically be shifted/removed in order to equip this clothing.
 	 * @param characterClothingEquipper The character who is equipping the clothing to this character.
 	 * @param fromCharactersInventory The character who has this clothing in their inventory.
-	 * @return
+	 * @return Equip description
 	 */
 	public String equipClothingFromInventory(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper, GameCharacter fromCharactersInventory) {
 		boolean wasAbleToEquip = inventory.isAbleToEquip(newClothing, true, automaticClothingManagement, this, characterClothingEquipper);
@@ -2932,7 +2946,7 @@ public class GameCharacter implements Serializable {
 	public boolean isFeminine() {
 		boolean isFeminine = body.isFeminine();
 		
-		if(Femininity.valueOf(getFemininity()) == Femininity.ANDROGYNOUS) {
+		if(Femininity.valueOf(getFemininityValue()) == Femininity.ANDROGYNOUS) {
 			switch(Main.getProperties().androgynousIdentification){
 				case FEMININE:
 					isFeminine = true;
@@ -3100,7 +3114,11 @@ public class GameCharacter implements Serializable {
 
 	// Femininity:
 
-	public int getFemininity() {
+	public Femininity getFemininity() {
+		return Femininity.valueOf(body.getFemininity());
+	}
+	
+	public int getFemininityValue() {
 		return body.getFemininity();
 	}
 	
@@ -3125,14 +3143,14 @@ public class GameCharacter implements Serializable {
 				if(isPlayer()) {
 						return "<p>"
 									+ "You feel your body subtly shifting to become <b style='color:" + Colour.FEMININE.toWebHexString() + ";'>more feminine</b>.</br>"
-									+ "You now have <b style='color:"+ Femininity.valueOf(getFemininity()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininity(), true) + "</b> body."
+									+ "You now have <b style='color:"+ Femininity.valueOf(getFemininityValue()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininityValue(), true) + "</b> body."
 							+ "</p>"
 							+beardLoss;
 				} else {
 					return UtilText.parse(this,
 							"<p>"
 								+ "[npc.Name]'s body subtly shifts to become <b style='color:" + Colour.FEMININE.toWebHexString() + ";'>more feminine</b>.</br>"
-								+ "[npc.She] now has <b style='color:"+ Femininity.valueOf(getFemininity()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininity(), true) + "</b> body."
+								+ "[npc.She] now has <b style='color:"+ Femininity.valueOf(getFemininityValue()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininityValue(), true) + "</b> body."
 							+ "</p>"
 							+beardLoss);
 				}
@@ -3142,14 +3160,14 @@ public class GameCharacter implements Serializable {
 				if(isPlayer()) {
 					return "<p>"
 								+ "You feel your body subtly shifting to become <b style='color:" + Colour.MASCULINE.toWebHexString() + ";'>more masculine</b>.</br>"
-								+ "You have <b style='color:"+ Femininity.valueOf(getFemininity()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininity(), true) + "</b> body."
+								+ "You have <b style='color:"+ Femininity.valueOf(getFemininityValue()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininityValue(), true) + "</b> body."
 							+ "</p>"
 							+beardLoss;
 				} else {
 					return UtilText.parse(this,
 							"<p>"
 								+ "[npc.Name]'s body subtly shifts to become <b style='color:" + Colour.MASCULINE.toWebHexString() + ";'>more masculine</b>.</br>"
-								+ "[npc.She] now has <b style='color:"+ Femininity.valueOf(getFemininity()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininity(), true) + "</b> body."
+								+ "[npc.She] now has <b style='color:"+ Femininity.valueOf(getFemininityValue()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininityValue(), true) + "</b> body."
 							+ "</p>"
 							+beardLoss);
 				}
@@ -3168,7 +3186,7 @@ public class GameCharacter implements Serializable {
 	}
 
 	public String incrementFemininity(int increment) {
-		return setFemininity(getFemininity() + increment);
+		return setFemininity(getFemininityValue() + increment);
 	}
 
 	// Body size:

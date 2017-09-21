@@ -10,7 +10,7 @@ import com.base.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.85
  * @author Innoxia
  */
 public class CityHall {
@@ -124,9 +124,9 @@ public class CityHall {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if (Main.game.getPlayer().getMoney() < 100)
+				if (Main.game.getPlayer().getMoney() < 100) {
 					return new Response("Confirm", "Change name for 100 flames. (You can't afford this!)", null);
-				else
+				} else {
 					return new Response("Confirm", "Change name for 100 flames.", CITY_HALL_NAME_CHANGE_FORM){
 						@Override
 						public void effects() {
@@ -142,7 +142,8 @@ public class CityHall {
 							}
 						}
 					};
-
+				}
+				
 			} else if (index == 2) {
 				return new Response("Random", "Randomly generate a name (but won't be applied until you confirm).", CITY_HALL_NAME_CHANGE_FORM){
 						@Override

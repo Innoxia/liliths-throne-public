@@ -133,10 +133,10 @@ public enum Name {
 				break;
 		}
 		
-		if(gc.getFemininity() <= Femininity.MASCULINE.getMaximumFemininity()) {
+		if(gc.getFemininityValue() <= Femininity.MASCULINE.getMaximumFemininity()) {
 			return HUMAN.getNameTriplets().get(Util.random.nextInt(HUMAN.getNameTriplets().size())).getMasculine();
 			
-		} else if (gc.getFemininity() <= Femininity.ANDROGYNOUS.getMaximumFemininity()) {
+		} else if (gc.getFemininityValue() <= Femininity.ANDROGYNOUS.getMaximumFemininity()) {
 			return HUMAN.getNameTriplets().get(Util.random.nextInt(HUMAN.getNameTriplets().size())).getAndrogynous();
 			
 		} else {

@@ -30,7 +30,11 @@ public interface PlaceInterface {
 	public boolean isItemsDisappear();
 
 	public String getSVGString();
-
+	
+	public default ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
+		return new ArrayList<>();
+	}
+	
 	public default ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
 		return new ArrayList<>();
 	}

@@ -323,6 +323,14 @@ public class Lab {
 							}
 						};
 			
+					} else if (index == 7) {
+						return new ResponseEffectsOnly("Your Room", "Fast travel up to your room."){
+							@Override
+							public void effects() {
+								Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), LilayasHome.LILAYA_HOME_ROOM_PLAYER, true);
+							}
+						};
+
 					} else {
 						return null;
 					}

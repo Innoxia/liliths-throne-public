@@ -6,188 +6,182 @@
 	
 	Patch notes:
 	
+	
 	Engine:
-		<b>Added:</b> Functionality to give/take clothing, items, and weapons to/from NPCs. This took ages. x_x
-		<b>Added:</b> All of the inventory slots that I had planned, including orifice-related ones (to allow for insertion of toys into orifices).
-		<b>Added:</b> An option (in the options menu) to disable the 'fade in' effect on the main text window (which removes the input lag if using the mouse to click the map for movement).
-		
-	Gameplay:
-		<b>Added:</b> Functionality to convert the rooms in Lilaya's house into slave's quarters, along with functionality to apply upgrades those rooms.
-		
+		Changed the way NPCs are tracked in an effort to make them easier to save and access.
+	
+	Slavery:
+		<b>Added:</b> Room management, Slave management UI (access from Slavery Administration, or any of the rooms in Lilaya's House).
+		<b>Added:</b> Basic slave buying/selling. Once you've completed the part of the main quest involving Alexa, her shop will restock five slaves every day.
+		<b>Added:</b> A lot of slave-related engine work. x_x
+		<b>Added:</b> Placeholder dialogue for slaves. (This is the same as the offspring placeholders for now, I'm going to massively expand all these options over the next few versions.)
+	
 	UI:
-		<b>Remade & expanded:</b> Inventory screen.
-		Moved the map from the bottom-left up into the main section of dialogue.
-			While playing, I felt as though my focus was mostly on the tiny section at the bottom-left of the screen, and I was having to move my eyes a lot between the map and the main content panel. This was an attempt to address this situation.
-		Added an event log in the bottom-left of the screen.
-		Moved all 'Remove character' actions to button 10.
+		Moved the map back down to the bottom-left (I'll find a place for the event log next week ^^).
+		Swapped the finger and hips slots in the inventory UI.
+		Added 'Displace all', 'Replace all', 'Unequip all', and 'Equip all' actions to the inventory menu, along with NPC-targeted versions for displace, replace, and unequip.
+		Temporarily disabled quick manage in the inventory until I can get it fixed. (Sorry!)
 	
 	Other:
-		Moved Rose's dialogue out of the generic rooms and into her room's tile.
-		Ralph no longer feels the need to wear socks over his hooves.
-		Added more values for Body Hair.
-		NPCs should no longer be taking their own virginites.
-		<b>A few more minor things:</b> But I forgot to make note of them...
+		Added 'unzip' displacement type for trousers, jeans, and shorts.
+		Added pattern options (striping/spotting/mottling) for demon and human skin in Kate's shop.
+		Added a fast travel option from your room to Lilaya's Lab, and vice versa. Also added fast travel back to the entrance from each of the shops in the arcade.
+		Moved Cowbell collar, Ear tag, and Bovine nose ring into a new 'Cattle' set. (The status effect buffs are boring at the moment, but I'll make them far more exciting when I move lactation/cum production into enchantable stats.)
+		Added 'silver' to eye colours.
 	
 	Bugs:
-		Fixed bug where the potency of Bubble Cream's enchantments couldn't be changed.
-		NPCs with cow-morph body-type preference will now correctly TF you into a cow-morph instead of a human.
-		Fixed some issues with Bubble Milk displaying a large letter A in its icon.
-		Fixed 'null' being returned in text when cow-leg transformation caused you to be unable to wear shoes.
-		Fixed some typos.
+		You should now properly be able to access your aprnter's clothing during sex.
+		Enslaving someone by forcing them to equip a slave collar now correctly marks them as your slave.
+		Blazers are now correctly unisex.
+		Fixed bug where clothing would be duplicated after sex scenes.
+		Fixed a lot of incorrect descriptions of clothing management during sex.
+		You can now access the inventory of the people who try to rob you, as well as those who try to rape you.
+		Fixed bug where dying equipped clothes would cause those clothes to be duplicated into the owner's inventory.
+		Descriptions for adding a penis modifier will no longer disaply if the target has no penis.
+		Fixed demonic nipples always being described as nipple-cunts (even if they were regular nipples).
+		Arcane storm notifications should now properly trigger when in a vulnerable area.
+		Fixed starting hairstyle being random (your hair will now always start with a 'natural' style in the character creation).
+		Fixed bug where enforcer shirt, maid's dress, and Mega Milk T-shirt would not be able to be unequipped if you wore something over the top (like a hoodie).
+		Possibly fixed the bug that was causing the properties file to get re-created on a new game start.
+		Fixed minor bug where the text on the screen would disappear when pressing enter in the City Hall's change name box.
+		Scarlett's slave collar should now correctly be sealed.
 	
 	
 	
 	
 	
-	Remember that these releases are previews, and are buggy/WIP builds!!!
 	
-	UI, event log, descriptions of equipping/unequipping are super placeholder!
+	MANAGEMENT
 	
+	obedience/affection gains are completely broken
 	
-	
-	
-	
-	
-	Slave Accommodation
-	X Unlock rooms in Lilaya's house.
-	X Room upgrades.
-	
-	
-	Event log
-	
-	
-	Slave Acquisition
-	X Enslaving attackers in alleyways & nests.
-	X Buying slaves from Slaver Alley.
-	X Transfer slaves from Slavery Administration to Lilaya's home.
-	
-	
-	Inventory Descriptions
-	
-	
-	Slave Management
-	O Clothing. (This one is going to be significantly larger than all the other tasks...)
-	O Items.
-	X Fetishes.
-	X Jobs.
-	X Room assignment.
-	X Permissions & rules.
+	Replace detailed managemt with view
 	
 	Slave Interactions
-	X Talk.
-	X Give gift.
-	X Punish.
-	X Sex.
+		Punish. Spanking
 	
-	Slave Removal
-	X Free.
-	X Sell.
-	
-	Bug fixes
-	X Fix at least 10 bugs.
-	
-	
-	
+		
+	Slaves (Overview)
+		Assignments
+		Rules
+		
+	Slave panel - Detailed
+		Assignments
+		Rules
+		
+	Auction - random price (40% chance to be higher than Alexa, +1% chance per fetish the slave has for a very high price)
 	
 	
+	Assignments: Primary job, two secondary jobs, fetish training/removal, diet
+	
+	Rules: Masturbation, inter-slave sex (allow vaginal/anal/oral/breast give & receive), crawling, silence, bowing, 
 	
 	
+	Daily Reports (Calculated at midnight)
+	
+	
+	
+	
+	
+	
+	
+	
+	Taking own anal and oral virginity with tail
+	
+	
+	UI -> make a right panel for NPC and event log
+	
+	
+	
+	
+	
+	Light theme!
+	
+	Fertility cycle (96 hours)
+	And when in the 'risky' or 'fertile' stages, it will be impossible to get a 0% impregnation chance
+	
+	"H&D-only", "MG", "FF"
+	
+	MAKE DEV BRANCH
+	
+	exhibs tag is only hasBreasts(). Add || isFeminine() and also get males to go topless
+	
+	imported character, all actions and moving around are laggy
+	
+	a toggle to prevent clothing replacing after sex (for PC and NPC)
 	
 	Switch to ground/NPC view
 	
-	descriptions
+	the tooltip trying to render behind your mouse in top-right slots
 	
-	refresh map on inventory close (icon persists)
+	I would like to steal their TF potions and use it on them (gen potions in inv, not at moment of TF)
 	
 	Quick manage
 	
-	Character view
+	On another note, it seems that having a thing in the Torso slot and the Over-Torso slot causes an infinite loop to occur when the game tries to determine if it can unequip it or not.
 	
 	#################
 	
-	Characters present inventory
+	the ongoing penetration status effects only affect the one that's penetrated
+	no ongoing status for breasts as well, so I don't think anyone's gaining any arousal for ongoing paizuri
 	
-	foreskin 
+	foreskin
+	
+	Cow Morph and Squirrel Morph elixirs sold by Vicky of Arcane Arts lack the changes in the title, i.e. Cow Morph leg TF item is call Elixir of Legs rather than Bovine Elixir of Legs.
+	
+	add a 'request TF' action in the post-victory screen
+	
+	balance Kate's prices and add confirmation
 	
 	Make harpies a rare dominion alley encounter, it is odd that they're currently singled out as never showing up there when they live on top of the buildings
 	
-	 I played 0.1.84.1 for a few hours last night, and the longer I played, the more lag I noticed. Ending post-combat sex scenes brought out the worst of it, with the game freezing up for 10--30 seconds or so right after hitting the Stop Sex button
-	
-	PEnis modifier text is firing even if no penis
+	I played 0.1.84.1 for a few hours last night, and the longer I played, the more lag I noticed. Ending post-combat sex scenes brought out the worst of it, with the game freezing up for 10--30 seconds or so right after hitting the Stop Sex button
 	
 	import's still borked
 		The color of the hair on my head changed, my dick became prehensile, my cum became slimy and oily, and if I'm in danger of pregnant during import I lose my vagina
 	
-	Vicky will not buy any of my bottled essence
-	
 	convert handjobs to ongoing acts
 	
-	Just want to add to that "can't change potency" problem: I got that bug and it blocks out the options to change potency on ANY item for enchantment, not just the bubble cream.
-	
-	Demon nipple-cunts decription
+	bell gag and bell collar
 	
 	Liquid basic encahntment allow +/- potency
+	Lactation base transformation (small increase in lactation) is duplicated in breasts, which also increase lactation (wetness).
 	
 	Did Lilaya's tests twice, Essences quest didn't unlock
-	
-	 Lactation base transformation (small increase in lactation) is duplicated in breasts, which also increase lactation (wetness).
-	
-	Add text of "This is as far as the quest goes"
-	
-	I get locked up and cant move forward after beating the new cow morphs
 	
 	Make Brax/harpy forced TFs an option in the scene
 	
 	pubic hair spawns
-	
-	The arcane storm notfication that makes you press continue only plays when you are in a protected area. this is likely leftover when you switched the effect the player has to the one that does nto affect stats
+	NPC spawn with extra hair pls
 	
 	turn the negative clothing status effect into an arousal gain one
 	
-	add in Lilaya's lab as a fast travel option from your room
-	 fast-travel from the shops to the entrance of the mall
-	
 	So the harpy matriarchs are initially missing some positions such as Back to Wall, but those positions com back immediately when I move into a different position.
 	
-	Also think I ran into a bug where I was having non-con with an impregnation fetish male, and I asked him to pull out and the game had him pull out but stay at 100 orgasm and whatever option I hit just had him respond with "the man is waiting" or something along those lines
+	Also think I ran into a bug where I was having non-con with an impregnation fetish male, and I asked him to pull out and the game had him pull out but stay at 100 orgasm and whatever option I hit just had him respond with "the man is waiting"
+	 or something along those lines
 	
 	Forced TF isn't good for human-only playthroughs
-	
-	One bug I have noticed for several versions is that whenever you increase penis capacity it seems to automatically be given the puffy rim description. I have tried using other enchantments to remove the effect but it acts like it isn't there. If you shrink the capacity down to extremely tight it removes all internal descriptions and removes the puffy effect. When I later tried adding the effect when it was already displayed, it seemed to do nothing.
 	
 	I'll add in a preferences screen for the forced TF content as soon as I can, to allow you to define the limits of what you're comfortable being transformed into. ^^
 	
 	Both with TF fetish -> all in one
 	
-	handholding fetish
+	I'll add a way to submit to forced TFs after a combat victory, thanks for the suggestion. ^^
+
+	I'll also add some correct virginity-loss descriptions for self-actions. ^^
 	
 	add in say innerlocking figures as a continuous activited during sex to turn people with it on~/also prevent them from doing things with their hands
 	
 	the middle 4 locations could always include the house, shopping district, and tower. Then define locations as N/S/E/W
 	
-	
 	whenever I beat cow-morphs everything freezes (when entering sex scene) (both were broodmothers)
-	
-	Ear tags spawning on everyone
-		limit those to only having a rare chance of spawning on cow-morphs
-	
-	Add silver eye colour
-	
-	hair accessory slot
 	
 	slots for extra arms if you have more then one set
 	
 	Add 'penetration-type' requests (request to fuck them, or to have paizuri)
 	
-	NPC spawn with extra hair pls
-	
-	mohawk the default hairstyle
-	
 	Add udders
-	
-	you can't increase or reduce potency of enchantments using bubble cream
-	
-	Forced clothing wearing
 	
 	You can't learn partner's ass virginity by removing her clothes. You only discover it by performing anal
 	
@@ -199,9 +193,6 @@
 	Fluid falvours and addiction
 	
 	Really need to improve sex AI
-	
-	the ongoing penetration status effects only affect the one that's penetrated
-	no ongoing status for breasts as well, so I don't think anyone's gaining any arousal for ongoing paizuri
 	
 	I'll also add a way to save potions (possibly through an XML or JSON save, so that they're available cross-character). I'll try and get this done for the next version.
 	
@@ -225,8 +216,6 @@
 	3. Assign slaves to selling themselves in the streets, then later I'll add a brothel for you to buy, and then assign your slaves to there.
 	
 	
-	Add udder
-	
 	Common sense colourings for each race
 	
 	breast feeding/nipple sucking
@@ -239,15 +228,13 @@
 	
 	Essence inventory too big
 	
-	The right side tab on the blog didn't get updated for this release
-	
 	After giving birth I seem to be stuck with a recovering vagina from slightly loose to extremely tight... I have max plasticity and 1 elasticity
 	
 	Head pats
+	Headpats and scritches during oral when
 	
 	adding a "TF preferences" screen to allow you to define what you're ok with being transformed into
 	
-	Headpats and scritches during oral when
 	
 	I'll also definitely add an options menu to set NPC transformation ratios, as well as making them take your preferences into account. They should already be doing that, but there must be a bug in my method.
 	
@@ -266,7 +253,6 @@
 	
 	Maybe a non-furry version of forced TF would change the character's body type and such. For example, changing femininity, breast size, etc.
 	I think bimbofication and sissification are common, fur-free, fetishes on TFgamessite. So maybe the human-only forced TFs could do something like that?
-	
 	
 	Now, one other thought, maybe have fetishes figure in a little bit for what gear they end up with?
 		Not for normal peps, but when deciding whether to be a herm or off-gender sex.

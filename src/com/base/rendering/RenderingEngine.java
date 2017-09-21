@@ -20,10 +20,8 @@ import com.base.game.character.body.types.VaginaType;
 import com.base.game.character.body.valueEnums.Femininity;
 import com.base.game.character.effects.Fetish;
 import com.base.game.character.effects.StatusEffect;
-import com.base.game.character.npc.NPC;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.MapDisplay;
-import com.base.game.dialogue.eventLog.EventLogEntry;
 import com.base.game.dialogue.utils.InventoryDialogue;
 import com.base.game.dialogue.utils.InventoryInteraction;
 import com.base.game.dialogue.utils.UtilText;
@@ -55,8 +53,8 @@ public enum RenderingEngine {
 	private static InventorySlot[] inventorySlots = {
 			InventorySlot.EYES,			InventorySlot.HEAD,			InventorySlot.NECK,		InventorySlot.HAIR,		InventorySlot.HORNS,
 			InventorySlot.TORSO_OVER,	InventorySlot.TORSO_UNDER,	InventorySlot.CHEST,	InventorySlot.MOUTH,	InventorySlot.WINGS,
-			InventorySlot.HAND,			InventorySlot.HIPS,			InventorySlot.STOMACH,	InventorySlot.NIPPLES,	InventorySlot.TAIL,
-			InventorySlot.WRIST,		InventorySlot.LEG,			InventorySlot.GROIN,	InventorySlot.FINGER,	InventorySlot.PENIS,
+			InventorySlot.HAND,			InventorySlot.FINGER,		InventorySlot.STOMACH,	InventorySlot.NIPPLES,	InventorySlot.TAIL,
+			InventorySlot.WRIST,		InventorySlot.LEG,			InventorySlot.GROIN,	InventorySlot.HIPS,		InventorySlot.PENIS,
 			InventorySlot.ANKLE,		InventorySlot.FOOT,			InventorySlot.SOCK,		InventorySlot.ANUS,		InventorySlot.VAGINA };
 
 	private RenderingEngine() {
@@ -90,8 +88,8 @@ public enum RenderingEngine {
 		equippedPanelSB.append(
 				"<p style='width:100%; text-align:center; padding:0 margin:0;'>"
 					+(charactersInventoryToRender.isPlayer()
-						?"<b style='color:"+Femininity.valueOf(charactersInventoryToRender.getFemininity()).getColour().toWebHexString()+";'>Your</b> <b>Inventory</b>"
-						:"<b style='color:"+Femininity.valueOf(charactersInventoryToRender.getFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(charactersInventoryToRender.getName())+"'s</b> <b>Inventory</b>")
+						?"<b style='color:"+Femininity.valueOf(charactersInventoryToRender.getFemininityValue()).getColour().toWebHexString()+";'>Your</b> <b>Inventory</b>"
+						:"<b style='color:"+Femininity.valueOf(charactersInventoryToRender.getFemininityValue()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(charactersInventoryToRender.getName())+"'s</b> <b>Inventory</b>")
 				+"</p>");
 		
 		// EQUIPPED:
@@ -116,9 +114,9 @@ public enum RenderingEngine {
 								// If clothing is cummed in:
 								+ (clothing.isDirty() ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>" : "")
 								// If clothing is too masculine:
-								+ (clothing.getClothingType().getFemininityMaximum() < charactersInventoryToRender.getFemininity() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getMasculineWarningIcon() + "</div>" : "")
+								+ (clothing.getClothingType().getFemininityMaximum() < charactersInventoryToRender.getFemininityValue() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getMasculineWarningIcon() + "</div>" : "")
 								// If clothing is too feminine:
-								+ (clothing.getClothingType().getFemininityMinimum() > charactersInventoryToRender.getFemininity() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getFeminineWarningIcon() + "</div>" : "")
+								+ (clothing.getClothingType().getFemininityMinimum() > charactersInventoryToRender.getFemininityValue() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getFeminineWarningIcon() + "</div>" : "")
 
 
 								+ "<div class='overlay' id='" + idModifier + invSlot.toString() + "Slot'>" + "</div>" + "</div>");
@@ -204,9 +202,9 @@ public enum RenderingEngine {
 								// If clothing is cummed in:
 								+ (clothing.isDirty() ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>" : "")
 								// If clothing is too masculine:
-								+ (clothing.getClothingType().getFemininityMaximum() < charactersInventoryToRender.getFemininity() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getMasculineWarningIcon() + "</div>" : "")
+								+ (clothing.getClothingType().getFemininityMaximum() < charactersInventoryToRender.getFemininityValue() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getMasculineWarningIcon() + "</div>" : "")
 								// If clothing is too feminine:
-								+ (clothing.getClothingType().getFemininityMinimum() > charactersInventoryToRender.getFemininity() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getFeminineWarningIcon() + "</div>" : "")
+								+ (clothing.getClothingType().getFemininityMinimum() > charactersInventoryToRender.getFemininityValue() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getFeminineWarningIcon() + "</div>" : "")
 
 
 								+ "<div class='overlay' id='" + idModifier + invSlot.toString() + "Slot'>" + "</div>" + "</div>");
@@ -512,8 +510,8 @@ public enum RenderingEngine {
 						// Name box:
 						+ "<div class='attribute-container'>"
 							+ "<div class='full-width-container'>"
-								+ "<p class='player-name' style='color:"+ Femininity.valueOf(Main.game.getPlayer().getFemininity()).getColour().toWebHexString() + ";'>"
-									+ (Main.game.getPlayer().getName().length() == 0 ? (Main.game.getPlayer().getFemininity() <= Femininity.MASCULINE.getMaximumFemininity() ? "Hero" : "Heroine") : Main.game.getPlayer().getName())
+								+ "<p class='player-name' style='color:"+ Femininity.valueOf(Main.game.getPlayer().getFemininityValue()).getColour().toWebHexString() + ";'>"
+									+ (Main.game.getPlayer().getName().length() == 0 ? (Main.game.getPlayer().getFemininityValue() <= Femininity.MASCULINE.getMaximumFemininity() ? "Hero" : "Heroine") : Main.game.getPlayer().getName())
 								+ "</p>"
 								+ "<div class='overlay' id='EXTRA_ATTRIBUTES'></div>"
 							+ "</div>"
@@ -552,7 +550,7 @@ public enum RenderingEngine {
 			uiAttributeSB.append(
 					"<div class='attribute-container'>"
 						+ "<p style='text-align:center;padding:0;margin:0;'>"
-							+ "<b style='color:"+Femininity.valueOf(Main.game.getPlayer().getFemininity()).getColour().toWebHexString()+";'>"+Main.game.getPlayer().getName()+"</b>"
+							+ "<b style='color:"+Femininity.valueOf(Main.game.getPlayer().getFemininityValue()).getColour().toWebHexString()+";'>"+Main.game.getPlayer().getName()+"</b>"
 							+ "</br>"
 							+ "<b>"+(Sex.isPlayerDom()?"Dom":"Sub")+":</b> <b style='color:"+Sex.getSexPacePlayer().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Sex.getSexPacePlayer().getName())+"</b> | <b>Orgasms:</b> "
 								+(Sex.getNumberOfPlayerOrgasms()==0
@@ -621,7 +619,7 @@ public enum RenderingEngine {
 							
 					+ "<div class='attribute-container'>"
 						+ "<div class='full-width-container' style='margin:0;padding:0;'>"
-							+ "<p style='text-align:center;padding:0;margin:0;'><b style='color:"+Femininity.valueOf(Sex.getPartner().getFemininity()).getColour().toWebHexString()+";'>"
+							+ "<p style='text-align:center;padding:0;margin:0;'><b style='color:"+Femininity.valueOf(Sex.getPartner().getFemininityValue()).getColour().toWebHexString()+";'>"
 								+Util.capitaliseSentence(Sex.getPartner().getName())+"</b></p>"
 							+ "<p style='text-align:center;'>"
 								+ (Sex.getPartner().getRaceStage().getName()!=""
@@ -844,44 +842,44 @@ public enum RenderingEngine {
 		uiAttributeSB.append("</div>");
 		
 		
-		uiAttributeSB.append("<div class='event-log'>"
-					+ "<p style='text-align:center;padding:0;margin:0;'><b>Event Log</b></p>"
-						+ "<div class='event-log-inner' id='event-log-inner-id'>");
+//		uiAttributeSB.append("<div class='event-log'>"
+//					+ "<p style='text-align:center;padding:0;margin:0;'><b>Event Log</b></p>"
+//						+ "<div class='event-log-inner' id='event-log-inner-id'>");
+//		
+//		if(Main.game.getEventLog().isEmpty()) {
+//			uiAttributeSB.append("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No events yet...</span>");
+//		}
+//		int count = 0;
+//		if(Main.game.getEventLog().size()>50) {
+//			for(EventLogEntry event : Main.game.getEventLog().subList(Main.game.getEventLog().size()-50, Main.game.getEventLog().size()-1)) {
+//				if(count==0) {
+//					uiAttributeSB.append("<div class='event-log-entry' style='background:#222;'>"+event.getFormattedEntry()+"</div>");
+//				} else {
+//					if(count%2==0) {
+//						uiAttributeSB.append("<div class='event-log-entry' style='background:#222222;'>"+event.getFormattedEntry()+"</div>");
+//					} else {
+//						uiAttributeSB.append("<div class='event-log-entry' style='background:#292929;'>"+event.getFormattedEntry()+"</div>");
+//					}
+//				}
+//				count++;
+//			}
+//		} else {
+//			for(EventLogEntry event : Main.game.getEventLog()) {
+//				if(count==0) {
+//					uiAttributeSB.append("<div class='event-log-entry' style='background:#222;'>"+event.getFormattedEntry()+"</div>");
+//				} else {
+//					if(count%2==0) {
+//						uiAttributeSB.append("<div class='event-log-entry' style='background:#222222;'>"+event.getFormattedEntry()+"</div>");
+//					} else {
+//						uiAttributeSB.append("<div class='event-log-entry' style='background:#292929;'>"+event.getFormattedEntry()+"</div>");
+//					}
+//				}
+//				count++;
+//			}
+//		}
+//		uiAttributeSB.append("</div>"+ "</div>");
 		
-		if(Main.game.getEventLog().isEmpty()) {
-			uiAttributeSB.append("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No events yet...</span>");
-		}
-		int count = 0;
-		if(Main.game.getEventLog().size()>50) {
-			for(EventLogEntry event : Main.game.getEventLog().subList(Main.game.getEventLog().size()-50, Main.game.getEventLog().size()-1)) {
-				if(count==0) {
-					uiAttributeSB.append("<div class='event-log-entry' style='background:#222;'>"+event.getFormattedEntry()+"</div>");
-				} else {
-					if(count%2==0) {
-						uiAttributeSB.append("<div class='event-log-entry' style='background:#222222;'>"+event.getFormattedEntry()+"</div>");
-					} else {
-						uiAttributeSB.append("<div class='event-log-entry' style='background:#292929;'>"+event.getFormattedEntry()+"</div>");
-					}
-				}
-				count++;
-			}
-		} else {
-			for(EventLogEntry event : Main.game.getEventLog()) {
-				if(count==0) {
-					uiAttributeSB.append("<div class='event-log-entry' style='background:#222;'>"+event.getFormattedEntry()+"</div>");
-				} else {
-					if(count%2==0) {
-						uiAttributeSB.append("<div class='event-log-entry' style='background:#222222;'>"+event.getFormattedEntry()+"</div>");
-					} else {
-						uiAttributeSB.append("<div class='event-log-entry' style='background:#292929;'>"+event.getFormattedEntry()+"</div>");
-					}
-				}
-				count++;
-			}
-		}
-		uiAttributeSB.append("</div>"+ "</div>");
-		
-//		uiAttributeSB.append("<div>" + renderedHTMLMap() + "</div>");
+		uiAttributeSB.append("<div>" + renderedHTMLMap() + "</div>");
 		
 		
 		uiAttributeSB.append("</div>"
@@ -935,27 +933,28 @@ public enum RenderingEngine {
 					if (Main.game.getActiveWorld().getCell(x, y).isDiscovered() || Main.game.isDebugMode()) { // If the tile is discovered:
 
 						if (Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() == GenericPlaces.IMPASSABLE) {
-							mapSB.append("<div class='map-tile blank' style='width:" + (4 * unit) + "%; height:" + (4 * unit) + "%;'></div>");
+							mapSB.append("<div class='map-tile blank' style='width:" + (4 * unit) + "%;'></div>");
 						} else {
 
 							// This is the "move North" tile:
 							if (y == playerPosition.getY() + 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-									mapSB.append("<div class='map-tile movement dangerous' id='upButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
+									mapSB.append("<div class='map-tile movement dangerous' id='upButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
 								} else {
-									mapSB.append("<div class='map-tile movement' id='upButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%; border-color:"+
-												(Main.game.getPlayer().getFemininity()<=Femininity.MASCULINE.getMaximumFemininity()
+									mapSB.append("<div class='map-tile movement' id='upButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%; border-color:"+
+												(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()
 														?Colour.MASCULINE_PLUS
-														:(Main.game.getPlayer().getFemininity()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
+														:(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
 																?Colour.ANDROGYNOUS
 																		:Colour.FEMININE_PLUS)).toWebHexString()+";'>");
 								}
 								
 								// Put place icon onto tile:
-								if (Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() != null)
-									mapSB.append("<div class='place-icon'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div>");
-
+								if (Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() != null) {
+									mapSB.append("<div class='place-icon'><div class='map-tile-content'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div></div>");
+								}
+								
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_NORTH) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_NORTH).getFullName()) + "</b>");
 								
@@ -968,21 +967,22 @@ public enum RenderingEngine {
 								// This is the "move South" tile:
 							} else if (y == playerPosition.getY() - 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-									mapSB.append("<div class='map-tile movement dangerous' id='downButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
+									mapSB.append("<div class='map-tile movement dangerous' id='downButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
 								} else {
-									mapSB.append("<div class='map-tile movement' id='downButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%; border-color:"+
-												(Main.game.getPlayer().getFemininity()<=Femininity.MASCULINE.getMaximumFemininity()
+									mapSB.append("<div class='map-tile movement' id='downButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%; border-color:"+
+												(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()
 														?Colour.MASCULINE_PLUS
-														:(Main.game.getPlayer().getFemininity()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
+														:(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
 																?Colour.ANDROGYNOUS
 																		:Colour.FEMININE_PLUS)).toWebHexString()+";'>");
 								}
 
 								// Put place icon onto tile:
-								if (Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() != null)
-									mapSB.append("<div class='place-icon'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div>");
-
+								if (Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() != null) {
+									mapSB.append("<div class='place-icon'><div class='map-tile-content'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div></div>");
+								}
+								
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_SOUTH) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_SOUTH).getFullName()) + "</b>");
 
@@ -995,21 +995,22 @@ public enum RenderingEngine {
 								// This is the "move West" tile:
 							} else if (y == playerPosition.getY() && x == playerPosition.getX() - 1 && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-									mapSB.append("<div class='map-tile movement dangerous' id='leftButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
+									mapSB.append("<div class='map-tile movement dangerous' id='leftButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
 								} else {
-									mapSB.append("<div class='map-tile movement' id='leftButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%; border-color:"+
-												(Main.game.getPlayer().getFemininity()<=Femininity.MASCULINE.getMaximumFemininity()
+									mapSB.append("<div class='map-tile movement' id='leftButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%; border-color:"+
+												(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()
 														?Colour.MASCULINE_PLUS
-														:(Main.game.getPlayer().getFemininity()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
+														:(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
 																?Colour.ANDROGYNOUS
 																		:Colour.FEMININE_PLUS)).toWebHexString()+";'>");
 								}
 
 								// Put place icon onto tile:
-								if (Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() != null)
-									mapSB.append("<div class='place-icon'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div>");
-
+								if (Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() != null) {
+									mapSB.append("<div class='place-icon'><div class='map-tile-content'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div></div>");
+								}
+								
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_WEST) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_WEST).getFullName()) + "</b>");
 
@@ -1022,20 +1023,21 @@ public enum RenderingEngine {
 								// This is the "move East" tile:
 							} else if (y == playerPosition.getY() && x == playerPosition.getX() + 1 && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-									mapSB.append("<div class='map-tile movement dangerous' id='rightButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
+									mapSB.append("<div class='map-tile movement dangerous' id='rightButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
 								} else {
-									mapSB.append("<div class='map-tile movement' id='rightButton' style='width:" + (4 * unit - borderSizeReduction) + "%; height:"+ (4 * unit - borderSizeReduction) + "%; border-width:1%; border-color:"+
-												(Main.game.getPlayer().getFemininity()<=Femininity.MASCULINE.getMaximumFemininity()
+									mapSB.append("<div class='map-tile movement' id='rightButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%; border-color:"+
+												(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()
 														?Colour.MASCULINE_PLUS
-														:(Main.game.getPlayer().getFemininity()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
+														:(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
 																?Colour.ANDROGYNOUS
 																		:Colour.FEMININE_PLUS)).toWebHexString()+";'>");
 								}
 
 								// Put place icon onto tile:
-								if (Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() != null)
-									mapSB.append("<div class='place-icon'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div>");
+								if (Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() != null) {
+									mapSB.append("<div class='place-icon'><div class='map-tile-content'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div></div>");
+								}
 
 								mapSB.append("<b class='hotkey-icon" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? " dangerous" : "") + "'>"
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_EAST) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_EAST).getFullName()) + "</b>");
@@ -1048,41 +1050,41 @@ public enum RenderingEngine {
 
 							} else {
 								mapSB.append("<div class='map-tile" + (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous() ? (y == playerPosition.getY() && x == playerPosition.getX() ? " player dangerous" : " dangerous")
-										: (y == playerPosition.getY() && x == playerPosition.getX() ? " player" : "")) + "' style='width:" + (4 * unit) + "%; height:" + (4 * unit) + "%;'>");
+										: (y == playerPosition.getY() && x == playerPosition.getX() ? " player" : "")) + "' style='width:" + (4 * unit) + "%;'>");
 
 								// Put place icon onto tile:
 								if (Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() != null) {
 									if (y == playerPosition.getY() && x == playerPosition.getX()) {
 										if (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-											mapSB.append("<div class='place-icon' style='margin:7%;width:86%;height:86%;'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerPlaceMapDangerousIcon() + "</div>");
+											mapSB.append("<div class='place-icon' style='margin:7%;width:86%;'><div class='map-tile-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerPlaceMapDangerousIcon() + "</div></div>");
 											
 										} else {
-											if(Main.game.getPlayer().getFemininity()<=Femininity.MASCULINE.getMaximumFemininity()) {
-												mapSB.append("<div class='place-icon' style='margin:7%;width:86%;height:86%;'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerPlaceMapIconMasculine() + "</div>");
+											if(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()) {
+												mapSB.append("<div class='place-icon' style='margin:7%;width:86%;'><div class='map-tile-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerPlaceMapIconMasculine() + "</div></div>");
 												
-											} else if(Main.game.getPlayer().getFemininity()<=Femininity.ANDROGYNOUS.getMaximumFemininity()) {
-												mapSB.append("<div class='place-icon' style='margin:7%;width:86%;height:86%;'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerPlaceMapIconAndrogynous() + "</div>");
+											} else if(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()) {
+												mapSB.append("<div class='place-icon' style='margin:7%;width:86%;'><div class='map-tile-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerPlaceMapIconAndrogynous() + "</div></div>");
 												
 											} else{
-												mapSB.append("<div class='place-icon' style='margin:7%;width:86%;height:86%;'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerPlaceMapIconFeminine() + "</div>");
+												mapSB.append("<div class='place-icon' style='margin:7%;width:86%;'><div class='map-tile-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerPlaceMapIconFeminine() + "</div></div>");
 											}
 										}
 									}
-									mapSB.append("<div class='place-icon' style='margin:18%;width:64%;height:64%;'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div>");
+									mapSB.append("<div class='place-icon' style='margin:18%;width:64%;'><div class='map-tile-content'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div></div>");
 
 								} else if (y == playerPosition.getY() && x == playerPosition.getX()) {
 
 									if (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-										mapSB.append("<div class='place-icon' style='margin:18%;width:64%;height:64%;'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerMapDangerousIcon() + "</div>");
+										mapSB.append("<div class='place-icon' style='margin:18%;width:64%;'><div class='map-tile-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerMapDangerousIcon() + "</div></div>");
 									} else {
-										if(Main.game.getPlayer().getFemininity()<=Femininity.MASCULINE.getMaximumFemininity()) {
-											mapSB.append("<div class='place-icon' style='margin:18%;width:64%;height:64%;'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerMapIconMasculine() + "</div>");
+										if(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()) {
+											mapSB.append("<div class='place-icon' style='margin:18%;width:64%;'><div class='map-tile-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerMapIconMasculine() + "</div></div>");
 											
-										} else if(Main.game.getPlayer().getFemininity()<=Femininity.ANDROGYNOUS.getMaximumFemininity()) {
-											mapSB.append("<div class='place-icon' style='margin:18%;width:64%;height:64%;'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerMapIconAndrogynous() + "</div>");
+										} else if(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()) {
+											mapSB.append("<div class='place-icon' style='margin:18%;width:64%;'><div class='map-tile-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerMapIconAndrogynous() + "</div></div>");
 											
 										} else{
-											mapSB.append("<div class='place-icon' style='margin:18%;width:64%;height:64%;'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerMapIconFeminine() + "</div>");
+											mapSB.append("<div class='place-icon' style='margin:18%;width:64%;'><div class='map-tile-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerMapIconFeminine() + "</div></div>");
 										}
 									}
 								}
@@ -1097,18 +1099,18 @@ public enum RenderingEngine {
 						}
 						
 					} else {
-						mapSB.append("<div class='map-tile blank' style='width:" + (4 * unit) + "%; height:" + (4 * unit) + "%;'></div>");
+						mapSB.append("<div class='map-tile blank' style='width:" + (4 * unit) + "%;'></div>");
 					}
 					
 				} else {
-					mapSB.append("<div class='map-tile blank' style='width:" + (4 * unit) + "%; height:" + (4 * unit) + "%;'></div>");
+					mapSB.append("<div class='map-tile blank' style='width:" + (4 * unit) + "%;'></div>");
 				}
 			}
 
 		}
 		
 		if (Main.game.getCurrentDialogueNode().isTravelDisabled()) {
-			mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>");
+			mapSB.append("<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>");
 			renderedDisabledMap = true;
 		} else {
 			renderedDisabledMap = false;
@@ -1125,10 +1127,8 @@ public enum RenderingEngine {
 	private void appendNPCIcon(int x, int y) {
 		List<String> mapIcons = new ArrayList<>();
 		
-		for(NPC npc : Main.game.getNPCList()) {
-			if(npc.getLocation().equals(x, y) && npc.getWorldLocation()==Main.game.getActiveWorld().getWorldType()) {
-				mapIcons.add(npc.getMapIcon());
-			}
+		for(GameCharacter gc : Main.game.getCharactersPresent(Main.game.getActiveWorld().getCell(x, y))) {
+			mapIcons.add(gc.getMapIcon());
 		}
 		
 		for(int i = mapIcons.size() ; i>0 ; i--) {

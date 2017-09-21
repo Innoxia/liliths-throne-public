@@ -547,7 +547,7 @@ public class PhoneDialogue {
 		public String getContent() {
 			return "<div class='subTitle'>" + "Body stats" + "</div>"
 
-					+ statRow("Core", "Femininity", String.valueOf(Main.game.getPlayer().getFemininity())) + statRow(null, "Height (cm)", String.valueOf(Main.game.getPlayer().getHeight()))
+					+ statRow("Core", "Femininity", String.valueOf(Main.game.getPlayer().getFemininityValue())) + statRow(null, "Height (cm)", String.valueOf(Main.game.getPlayer().getHeight()))
 
 					+ statRow("Head", "Hair length (cm)", String.valueOf(Util.conversionInchesToCentimetres(Main.game.getPlayer().getHairRawLengthValue())))
 

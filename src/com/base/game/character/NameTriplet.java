@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @since 0.1.75
- * @version 0.1.78
+ * @version 0.1.85
  * @author Innoxia
  */
 public class NameTriplet implements Serializable {
@@ -22,6 +22,10 @@ public class NameTriplet implements Serializable {
 		this.masculine = name;
 		this.androgynous = name;
 		this.feminine = name;
+	}
+	
+	public String toString() {
+		return masculine+"-"+androgynous+"-"+feminine;
 	}
 
 	public String getMasculine() {

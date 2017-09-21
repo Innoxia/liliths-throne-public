@@ -1781,6 +1781,11 @@ border-radius:5px;
 	padding:0;
 	-webkit-user-select: none;
 }
+.place-icon:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
 
 .map-tile{
 	position: relative;
@@ -1791,6 +1796,17 @@ border-radius:5px;
 	background-color:#808080;
 	-webkit-user-select: none;
 }
+.map-tile:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+.map-tile-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
 .map-tile.blank{
 	background-color:transparent;
 	-webkit-user-select: none;

@@ -153,7 +153,6 @@ public enum Combat {
 					}
 				}
 			}
-			
 			if(opponent.getLootEssenceDrops()!=null) {
 				
 				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
@@ -201,7 +200,6 @@ public enum Combat {
 				}
 				
 			}
-			
 			opponent.setLostCombatCount(opponent.getLostCombatCount()+1);
 			
 		} else {
@@ -233,7 +231,7 @@ public enum Combat {
 		opponent.setMana(opponent.getAttributeValue(Attribute.MANA_MAXIMUM));
 		opponent.setHealth(opponent.getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		opponent.setStamina(opponent.getAttributeValue(Attribute.STAMINA_MAXIMUM));
-		
+
 		postCombatString = postCombatStringBuilder.toString();
 		
 		Main.game.getTextStartStringBuilder().append(postCombatString);
@@ -252,7 +250,7 @@ public enum Combat {
 		descriptionStringBuilder.append("<div class='combat-inner-container'>"
 					+ "<div class='combat-container name'>"
 						+ "<div class='combat-container'>"
-							+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(Main.game.getPlayer().getFemininity()).getColour().toWebHexString() + ";'>" 
+							+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(Main.game.getPlayer().getFemininityValue()).getColour().toWebHexString() + ";'>" 
 								+ "<b>" + Util.capitaliseSentence(Main.game.getPlayer().getName()) + "</b>"
 							+ "</p>"
 						+ "</div>"
@@ -390,7 +388,7 @@ public enum Combat {
 		descriptionStringBuilder.append("<div class='combat-inner-container'>"
 				+ "<div class='combat-container name'>"
 					+ "<div class='combat-container'>"
-						+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(opponent.getFemininity()).getColour().toWebHexString() + ";'>" 
+						+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(opponent.getFemininityValue()).getColour().toWebHexString() + ";'>" 
 							+ "<b>" + Util.capitaliseSentence(opponent.getName()) + "</b>"
 						+ "</p>"
 					+ "</div>"

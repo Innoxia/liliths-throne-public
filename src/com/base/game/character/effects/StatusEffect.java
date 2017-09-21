@@ -1366,6 +1366,7 @@ public enum StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightRain();
 		}
 	},
+	
 	WEATHER_STORM_GATHERING(100,
 			"Gathering storm",
 			"weatherDayStormIncoming",
@@ -1398,6 +1399,7 @@ public enum StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStormIncoming();
 		}
 	},
+	
 	WEATHER_STORM(100,
 			"Arcane storm",
 			"weatherDayStorm",
@@ -1410,8 +1412,8 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			if(target.isPlayer() && Main.game.getDialogueFlags().stormTextUpdate) {
-				Main.game.getDialogueFlags().stormTextUpdate = false;
+			if(target.isPlayer() && Main.game.getDialogueFlags().stormTextUpdateRequired) {
+				Main.game.getDialogueFlags().stormTextUpdateRequired = false;
 				return "<p>"
 						+ "A bright-pink flash suddenly illuminates the entire city of Dominion, causing those few residents still prowling the streets to look skywards."
 						+ " High up above them, the threatening storm clouds have finally broken, and a roiling mass of arcane energy finally crackles into life."
@@ -1438,8 +1440,9 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if(!target.getRace().isVulnerableToLilithsLustStorm() && target.isPlayer() && !target.getLocationPlace().isStormImmune()) {
+			if((target.isPlayer() || !target.getRace().isVulnerableToLilithsLustStorm()) && !target.getLocationPlace().isStormImmune()) {
 				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM;
+				
 			} else {
 				return false;
 			}
@@ -1447,10 +1450,11 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			if(Main.game.isDayTime())
+			if(Main.game.isDayTime()) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayStorm();
-			else
+			} else {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStorm();
+			}
 		}
 	},
 	
@@ -1494,6 +1498,7 @@ public enum StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStorm();
 		}
 	},
+	
 	WEATHER_STORM_PROTECTED(100,
 			"Arcane storm (protected)",
 			"weatherDayStorm",
@@ -1506,8 +1511,8 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			if(target.isPlayer() && Main.game.getDialogueFlags().stormTextUpdate) {
-				Main.game.getDialogueFlags().stormTextUpdate = false;
+			if(target.isPlayer() && Main.game.getDialogueFlags().stormTextUpdateRequired) {
+				Main.game.getDialogueFlags().stormTextUpdateRequired = false;
 				return "<p>"
 						+ "A bright-pink flash suddenly illuminates the entire city of Dominion, causing those few residents still prowling the streets to look skywards."
 						+ " High up above them, the threatening storm clouds have finally broken, and a roiling mass of arcane energy finally crackles into life."
@@ -2023,7 +2028,7 @@ public enum StatusEffect {
 			}
 			
 			for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-				if (c.getClothingType().getFemininityMinimum() > target.getFemininity()) {
+				if (c.getClothingType().getFemininityMinimum() > target.getFemininityValue()) {
 					return true;
 				}
 			}
@@ -2058,7 +2063,7 @@ public enum StatusEffect {
 			}
 			
 			for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-				if (c.getClothingType().getFemininityMaximum() < target.getFemininity()) {
+				if (c.getClothingType().getFemininityMaximum() < target.getFemininityValue()) {
 					return true;
 				}
 			}
@@ -3664,6 +3669,43 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return ClothingSet.BDSM.isCharacterWearingCompleteSet(target);
+		}
+	},
+	
+	SET_CATTLE(
+			70,
+			"Cattle",
+			"set_cattle",
+			Colour.BASE_TAN,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.FITNESS, 5f),
+					new Value<Attribute, Float>(Attribute.STRENGTH, 5f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "You are wearing a set of accessories normally found on a cow or bull.";
+					
+				} else {
+					return UtilText.parse(target, "[npc.Name] is wearing a set of accessories normally found on a cow or bull.");
+					
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.CATTLE.isCharacterWearingCompleteSet(target);
 		}
 	},
 	

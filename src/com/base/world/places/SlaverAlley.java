@@ -2,6 +2,7 @@ package com.base.world.places;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import com.base.game.character.Quest;
 import com.base.game.character.QuestLine;
@@ -13,6 +14,7 @@ import com.base.main.Main;
 import com.base.utils.BaseColour;
 import com.base.utils.Bearing;
 import com.base.utils.Util;
+import com.base.utils.Util.ListValue;
 import com.base.world.EntranceType;
 import com.base.world.WorldType;
 
@@ -31,7 +33,12 @@ public enum SlaverAlley implements PlaceInterface {
 	
 	AUCTIONING_BLOCK("Auctioning block", "dominion/slaverAlley/auctionBlock", BaseColour.GOLD, SlaverAlleyDialogue.AUCTION_BLOCK, null, true, false),
 
-	SLAVERY_ADMINISTRATION("Slavery Administration", "dominion/slaverAlley/slaveryAdministration", BaseColour.PURPLE, SlaverAlleyDialogue.SLAVERY_ADMINISTRATION_EXTERIOR, null, true, false),
+	SLAVERY_ADMINISTRATION("Slavery Administration", "dominion/slaverAlley/slaveryAdministration", BaseColour.PURPLE, SlaverAlleyDialogue.SLAVERY_ADMINISTRATION_EXTERIOR, null, true, false){
+		@Override
+		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
+			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.SLAVERY_ADMINISTRATION_CELLS));
+		}
+	},
 	
 	SCARLETTS_SHOP("Scarlett's shop", "dominion/slaverAlley/scarlettsStall", BaseColour.CRIMSON, ScarlettsShop.SCARLETTS_SHOP_EXTERIOR, null, true, false){
 		@Override

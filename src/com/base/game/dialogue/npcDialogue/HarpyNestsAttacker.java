@@ -30,7 +30,7 @@ public class HarpyNestsAttacker {
 		
 		@Override
 		public String getLabel(){
-			if(Main.game.getCurrentRandomAttacker().isVisiblyPregnant()) {
+			if(Main.game.getActiveNPC().isVisiblyPregnant()) {
 				return "Pregnant harpy";
 			} else {
 				return "Angry harpy";
@@ -39,15 +39,15 @@ public class HarpyNestsAttacker {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getCurrentRandomAttacker().isVisiblyPregnant()){
-				if(!Main.game.getCurrentRandomAttacker().isReactedToPregnancy()) {
-					if(Main.game.getCurrentRandomAttacker().hasFetish(Fetish.FETISH_PREGNANCY) || Main.game.getCurrentRandomAttacker().hasFetish(Fetish.FETISH_BROODMOTHER)) {
+			if(Main.game.getActiveNPC().isVisiblyPregnant()){
+				if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
+					if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_PREGNANCY) || Main.game.getActiveNPC().hasFetish(Fetish.FETISH_BROODMOTHER)) {
 						return "<p>"
 								+ "As you travel along the narrow walkways, you find yourself passing the nest of that aggressive [npc.race] who attacked you before."
 								+ " As you walk by, [npc.she] suddenly jumps down in front of you, blocking your path."
 								+ " [npc.Her] belly is clearly swollen; proof that you ended up getting [npc.her] pregnant from your previous encounter."
 							+ "</p>"
-							+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getCurrentRandomAttacker().getRace().isVulnerableToLilithsLustStorm()
+							+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToLilithsLustStorm()
 								?"<p>"
 									+ "A flash of arcane lightning illuminates [npc.her] face, and you see a desperate, hungry look deep in [npc.her] [npc.eyes+]."
 									+ " [npc.Her] gaze rests on your body for a moment, and [npc.she] licks [npc.her] [npc.lips]; proof that she's completely lost to the storm's potent effects."
@@ -71,7 +71,7 @@ public class HarpyNestsAttacker {
 								+ " As you walk by, [npc.she] suddenly jumps down in front of you, blocking your path."
 								+ " [npc.Her] belly is clearly swollen; proof that you ended up getting [npc.her] pregnant from your previous encounter."
 							+ "</p>"
-							+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getCurrentRandomAttacker().getRace().isVulnerableToLilithsLustStorm()
+							+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToLilithsLustStorm()
 								?"<p>"
 									+ "A flash of arcane lightning illuminates [npc.her] face, and you see a desperate, hungry look deep in [npc.her] [npc.eyes+]."
 									+ " [npc.Her] gaze rests on your body for a moment, and [npc.she] licks [npc.her] [npc.lips]; proof that she's completely lost to the storm's potent effects."
@@ -95,7 +95,7 @@ public class HarpyNestsAttacker {
 							+ " As you walk by, [npc.she] suddenly jumps down in front of you, blocking your path."
 							+ " [npc.Her] belly is still clearly swollen; clear proof of your previous encounter with [npc.herHim]."
 						+ "</p>"
-						+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getCurrentRandomAttacker().getRace().isVulnerableToLilithsLustStorm()
+						+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToLilithsLustStorm()
 							?"<p>"
 								+ "A flash of arcane lightning illuminates [npc.her] face, and you see a desperate, hungry look deep in [npc.her] [npc.eyes+]."
 								+ " [npc.Her] gaze rests on your body for a moment, and [npc.she] licks [npc.her] [npc.lips]; proof that she's completely lost to the storm's potent effects."
@@ -114,12 +114,12 @@ public class HarpyNestsAttacker {
 				}
 				
 			}else{
-				if(Main.game.getCurrentRandomAttacker().getArmType()!=ArmType.HARPY || Main.game.getCurrentRandomAttacker().getRace()!=Race.HARPY) {
+				if(Main.game.getActiveNPC().getArmType()!=ArmType.HARPY || Main.game.getActiveNPC().getRace()!=Race.HARPY) {
 					return "<p>"
 								+ "As you travel along the narrow walkways, you find yourself passing the home of that aggressive [npc.race] who attacked you before."
 								+ " As you walk by, [npc.she] suddenly jumps down in front of you, blocking your path."
 							+ "</p>"
-							+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getCurrentRandomAttacker().getRace().isVulnerableToLilithsLustStorm()
+							+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToLilithsLustStorm()
 								?"<p>"
 									+ "A flash of arcane lightning illuminates [npc.her] face, and you see a desperate, hungry look deep in [npc.her] [npc.eyes+]."
 									+ " [npc.Her] gaze rests on your body for a moment, and [npc.she] licks [npc.her] [npc.lips]; proof that she's completely lost to the storm's potent effects."
@@ -134,12 +134,12 @@ public class HarpyNestsAttacker {
 							+ "</p>";
 					
 				} else {
-					if(Main.game.getCurrentRandomAttacker().getFoughtPlayerCount()>0) {
+					if(Main.game.getActiveNPC().getFoughtPlayerCount()>0) {
 						return "<p>"
 									+ "As you travel along the narrow walkways, you find yourself passing the home of that aggressive [npc.race] who attacked you before."
 									+ " As you walk by, [npc.she] suddenly jumps down in front of you, blocking your path."
 								+ "</p>"
-								+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getCurrentRandomAttacker().getRace().isVulnerableToLilithsLustStorm()
+								+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToLilithsLustStorm()
 									?"<p>"
 										+ "A flash of arcane lightning illuminates [npc.her] face, and you see a desperate, hungry look deep in [npc.her] [npc.eyes+]."
 										+ " [npc.Her] gaze rests on your body for a moment, and [npc.she] licks [npc.her] [npc.lips]; proof that she's completely lost to the storm's potent effects."
@@ -155,7 +155,7 @@ public class HarpyNestsAttacker {
 						
 					} else {
 
-						if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getCurrentRandomAttacker().getRace().isVulnerableToLilithsLustStorm()) {
+						if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.getActiveNPC().getRace().isVulnerableToLilithsLustStorm()) {
 							return 
 								"<p>"
 									+ "As you travel along the deserted walkways, you keep on catching glimpses of movement behind you."
@@ -214,11 +214,11 @@ public class HarpyNestsAttacker {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "You find yourself fighting " + Main.game.getCurrentRandomAttacker().getName("the") + "!", HARPY_ATTACKS, Main.game.getCurrentRandomAttacker()){
+				return new ResponseCombat("Fight", "You find yourself fighting " + Main.game.getActiveNPC().getName("the") + "!", HARPY_ATTACKS, Main.game.getActiveNPC()){
 					@Override
 					public void effects() {
-						if(Main.game.getCurrentRandomAttacker().isVisiblyPregnant())
-							Main.game.getCurrentRandomAttacker().setReactedToPregnancy(true);
+						if(Main.game.getActiveNPC().isVisiblyPregnant())
+							Main.game.getActiveNPC().setReactedToPregnancy(true);
 					}
 				};
 				
@@ -240,8 +240,8 @@ public class HarpyNestsAttacker {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
-				return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+			if(Main.game.getActiveNPC().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
+				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "[npc.Name] collapses to the floor, completely defeated."
 							+ " [npc.She] looks up at you, and, despite [npc.her] defeat, you see that [npc.she]'s still got a hungry, lustful look in [npc.her] eyes."
@@ -257,14 +257,14 @@ public class HarpyNestsAttacker {
 						+ "</p>");
 				
 			} else {
-				return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "[npc.Name] collapses to the floor, completely defeated."
 							+ " [npc.She] looks up at you, and you see that there's a desperate look of regret in [npc.her] [npc.eyes]."
 							+ " Making pitiful little whining noises, [npc.she] tries to shuffle away from you, clearly worried about what your intentions are."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(J-Just take my money and leave me alone!)], [npc.she] pleads, throwing [npc.her] "+(Main.game.getCurrentRandomAttacker().isFeminine()?"purse":"wallet")+" at your feet."
+							+ "[npc.speech(J-Just take my money and leave me alone!)], [npc.she] pleads, throwing [npc.her] "+(Main.game.getActiveNPC().isFeminine()?"purse":"wallet")+" at your feet."
 						+ "</p>"
 						+ "<p>"
 							+ "You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone."
@@ -276,7 +276,7 @@ public class HarpyNestsAttacker {
 		
 		@Override
 		public Response getResponse(int index) {
-			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
+			if(Main.game.getActiveNPC().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way...", null){
 						@Override
@@ -289,13 +289,13 @@ public class HarpyNestsAttacker {
 					return new ResponseSex("Have some fun",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							AFTER_SEX_VICTORY,
-							Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY);
+							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY);
 					
 				} else if (index == 3) {
 					return new ResponseSex("Have some gentle fun",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 							AFTER_SEX_VICTORY,
-							Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY) {
+							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
 						@Override
 						public void effects() {
 							sexPacePlayer = (SexPace.DOM_GENTLE);
@@ -306,7 +306,7 @@ public class HarpyNestsAttacker {
 					return new ResponseSex("Have some rough fun",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 							AFTER_SEX_VICTORY,
-							Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY) {
+							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
 						@Override
 						public void effects() {
 							sexPacePlayer = (SexPace.DOM_ROUGH);
@@ -319,7 +319,7 @@ public class HarpyNestsAttacker {
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
 							AFTER_SEX_DEFEAT,
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-							Main.game.getCurrentRandomAttacker(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]."
 								+ " Leaning down, you do the first thing that comes into your mind, and start apologising,"
@@ -344,7 +344,7 @@ public class HarpyNestsAttacker {
 					return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
 						@Override
 						public void effects() {
-							Main.mainController.openInventory(Main.game.getCurrentRandomAttacker(), InventoryInteraction.FULL_MANAGEMENT);
+							Main.mainController.openInventory(Main.game.getActiveNPC(), InventoryInteraction.FULL_MANAGEMENT);
 						}
 					};
 					
@@ -359,7 +359,7 @@ public class HarpyNestsAttacker {
 						}
 						@Override
 						public void effects() {
-							Main.game.removeNPC(Main.game.getCurrentRandomAttacker());
+							Main.game.removeNPC(Main.game.getActiveNPC());
 						}
 					};
 					
@@ -381,7 +381,7 @@ public class HarpyNestsAttacker {
 							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", AFTER_SEX_VICTORY,
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
 							null, null, null,
-							Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace..."
@@ -391,7 +391,7 @@ public class HarpyNestsAttacker {
 					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", AFTER_SEX_VICTORY,
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
 							null, null, null,
-							Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Reaching down, you take hold of [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace..."
@@ -406,7 +406,7 @@ public class HarpyNestsAttacker {
 					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", AFTER_SEX_VICTORY,
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
 							null, null, null,
-							Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace..."
@@ -422,6 +422,14 @@ public class HarpyNestsAttacker {
 							"You can't submit to [npc.herHim], as [npc.she] has no interest in having sex with you!",
 							null);
 					
+				} else if (index == 6) {
+					return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
+						@Override
+						public void effects() {
+							Main.mainController.openInventory(Main.game.getActiveNPC(), InventoryInteraction.FULL_MANAGEMENT);
+						}
+					};
+					
 				} else if (index == 10) {
 					return new Response(
 							"Remove character",
@@ -433,7 +441,7 @@ public class HarpyNestsAttacker {
 						}
 						@Override
 						public void effects() {
-							Main.game.removeNPC(Main.game.getCurrentRandomAttacker());
+							Main.game.removeNPC(Main.game.getActiveNPC());
 						}
 					};
 					
@@ -456,13 +464,13 @@ public class HarpyNestsAttacker {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer()) {
+			if(Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()) {
 				
 				if(Main.game.isForcedTFEnabled()) {
-					Util.Value<String, AbstractItem> potion = Main.game.getCurrentRandomAttacker().generateTransformativePotion();
+					Util.Value<String, AbstractItem> potion = Main.game.getActiveNPC().generateTransformativePotion();
 					
 					if(potion == null) {
-						return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+						return UtilText.parse(Main.game.getActiveNPC(),
 									"<p>"
 										+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
 										+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
@@ -476,11 +484,11 @@ public class HarpyNestsAttacker {
 									+ "</p>"
 									+ "<p>"
 										+ "[npc.speech(You're my perfect little "
-													+"<b style='color:"+Main.game.getCurrentRandomAttacker().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
-														+(Main.game.getCurrentRandomAttacker().getPreferredBody().getGender().getName())
+													+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
+														+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
 													+"</b> "
-													+"<b style='color:"+Main.game.getCurrentRandomAttacker().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
-														+(Main.game.getCurrentRandomAttacker().getPreferredBody().getRace().getName())
+													+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
+														+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
 													+"</b>"
 													+ " now! Don't forget bitch, <i>I'm</i> the one in charge!)] [npc.she] growls, before pulling you into a forceful kiss."
 									+ "</p>");
@@ -492,7 +500,7 @@ public class HarpyNestsAttacker {
 							UtilText.nodeContentSB.setLength(0);
 							
 							UtilText.nodeContentSB.append(
-									UtilText.parse(Main.game.getCurrentRandomAttacker(),
+									UtilText.parse(Main.game.getActiveNPC(),
 										"<p>"
 											+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
 											+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
@@ -515,27 +523,27 @@ public class HarpyNestsAttacker {
 											+ " [npc.speech("+potion.getKey()+")]"
 										+ "</p>"
 										+ "<p>"
-											+Main.game.getCurrentRandomAttacker().useItem(potion.getValue(), Main.game.getPlayer(), false)
+											+Main.game.getActiveNPC().useItem(potion.getValue(), Main.game.getPlayer(), false)
 										+"</p>"));
 	
-							potion = Main.game.getCurrentRandomAttacker().generateTransformativePotion();
+							potion = Main.game.getActiveNPC().generateTransformativePotion();
 							if(potion == null) {
 								UtilText.nodeContentSB.append(
 										UtilText.parse(
 												"<p>"
 													+ "[npc.speech(You're my perfect little "
-													+"<b style='color:"+Main.game.getCurrentRandomAttacker().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
-														+(Main.game.getCurrentRandomAttacker().getPreferredBody().getGender().getName())
+													+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
+														+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
 													+"</b> "
-													+"<b style='color:"+Main.game.getCurrentRandomAttacker().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
-														+(Main.game.getCurrentRandomAttacker().getPreferredBody().getRace().getName())
+													+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
+														+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
 													+"</b>"
 													+ " now! Don't forget bitch, <i>I'm</i> the one in charge!)] [npc.she] growls, before pulling you into a forceful kiss."
 												+ "</p>"));
 								
 							} else {
 								UtilText.nodeContentSB.append(
-										UtilText.parse(Main.game.getCurrentRandomAttacker(),
+										UtilText.parse(Main.game.getActiveNPC(),
 											"<p>"
 												+ "You stagger about a little, overwhelmed by the changes that [npc.name] is forcing you to go through."
 												+ " Before you can protest or react to the transformation, [npc.she] suddenly grabs hold of your chin, and you look up to see that [npc.she]'s holding another two bottles of yet more transformative fluids."
@@ -547,44 +555,44 @@ public class HarpyNestsAttacker {
 												+ " [npc.speech("+potion.getKey()+")]"
 											+ "</p>"
 											+ "<p>"
-												+Main.game.getCurrentRandomAttacker().useItem(potion.getValue(), Main.game.getPlayer(), false)
+												+Main.game.getActiveNPC().useItem(potion.getValue(), Main.game.getPlayer(), false)
 											+"</p>"));
 								
-								potion = Main.game.getCurrentRandomAttacker().generateTransformativePotion();
+								potion = Main.game.getActiveNPC().generateTransformativePotion();
 								if(potion == null) {
 									UtilText.nodeContentSB.append(
 											UtilText.parse(
 													"<p>"
 														+ "[npc.speech(You're my perfect little "
-														+"<b style='color:"+Main.game.getCurrentRandomAttacker().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
-															+(Main.game.getCurrentRandomAttacker().getPreferredBody().getGender().getName())
+														+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
+															+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
 														+"</b> "
-														+"<b style='color:"+Main.game.getCurrentRandomAttacker().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
-															+(Main.game.getCurrentRandomAttacker().getPreferredBody().getRace().getName())
+														+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
+															+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
 														+"</b>"
 														+ " now! Don't forget bitch, <i>I'm</i> the one in charge!)] [npc.she] growls, before pulling you into a forceful kiss."
 													+ "</p>"));
 									
 								} else {
 									UtilText.nodeContentSB.append(
-											UtilText.parse(Main.game.getCurrentRandomAttacker(),
+											UtilText.parse(Main.game.getActiveNPC(),
 												"<p>"
 													+ "As you struggle to recover from your second transformation, [npc.name] shoves the last of the three bottles into your mouth, forcing yet more of the transformative fluids down your throat."
 													+ " [npc.Name] holds you firmly in [npc.her] grasp, laughing and groping your body as [npc.she] taunts you,"
 													+ " [npc.speech("+potion.getKey()+")]"
 												+ "</p>"
 												+ "<p>"
-													+Main.game.getCurrentRandomAttacker().useItem(potion.getValue(), Main.game.getPlayer(), false)
+													+Main.game.getActiveNPC().useItem(potion.getValue(), Main.game.getPlayer(), false)
 												+"</p>"
 												+"<p>"
 													+ "Having forced you to consume all of [npc.her] potions, [npc.name] throws the now-empty bottles to one side, before pulling you into a forceful kiss."
 													+ " You're powerless to resist [npc.her] advances, and as [npc.her] [npc.hands] reach around to give your [pc.ass+] a squeeze, [npc.she] laughs,"
 													+ " [npc.speech(I'll turn you into my perfect little "
-														+"<b style='color:"+Main.game.getCurrentRandomAttacker().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
-															+(Main.game.getCurrentRandomAttacker().getPreferredBody().getGender().getName())
+														+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
+															+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
 														+"</b> "
-														+"<b style='color:"+Main.game.getCurrentRandomAttacker().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
-															+(Main.game.getCurrentRandomAttacker().getPreferredBody().getRace().getName())
+														+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
+															+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
 														+"</b>"
 														+ "! Now for the real fun!)]"
 												+ "</p>"));
@@ -594,7 +602,7 @@ public class HarpyNestsAttacker {
 							return UtilText.nodeContentSB.toString();
 							
 						} else {
-							return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+							return UtilText.parse(Main.game.getActiveNPC(),
 									"<p>"
 										+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
 										+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
@@ -617,17 +625,17 @@ public class HarpyNestsAttacker {
 										+ " [npc.speech("+potion.getKey()+")]"
 									+ "</p>")
 									+ "<p>"
-										+Main.game.getCurrentRandomAttacker().useItem(potion.getValue(), Main.game.getPlayer(), false)
+										+Main.game.getActiveNPC().useItem(potion.getValue(), Main.game.getPlayer(), false)
 									+"</p>"
 									+"<p>"
 										+ "As you struggle to recover from your transformation, [npc.name] throws the now-empty bottle to one side, before pulling you into a forceful kiss."
 										+ " You're powerless to resist [npc.her] advances, and as [npc.her] [npc.hands] reach around to give your [pc.ass+] a squeeze, [npc.she] laughs,"
 										+ " [npc.speech(I'll turn you into my perfect little "
-											+"<b style='color:"+Main.game.getCurrentRandomAttacker().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
-												+(Main.game.getCurrentRandomAttacker().getPreferredBody().getGender().getName())
+											+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
+												+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
 											+"</b> "
-											+"<b style='color:"+Main.game.getCurrentRandomAttacker().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
-												+(Main.game.getCurrentRandomAttacker().getPreferredBody().getRace().getName())
+											+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
+												+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
 											+"</b>"
 											+ "! Now for the real fun!)]"
 									+ "</p>";
@@ -636,7 +644,7 @@ public class HarpyNestsAttacker {
 					}
 					
 				} else {
-					return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+					return UtilText.parse(Main.game.getActiveNPC(),
 							"<p>"
 								+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
 								+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
@@ -654,7 +662,7 @@ public class HarpyNestsAttacker {
 				}
 				
 			} else {
-				return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
 							+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
@@ -675,13 +683,13 @@ public class HarpyNestsAttacker {
 		
 		@Override
 		public Response getResponse(int index) {
-			if(Main.game.getCurrentRandomAttacker().isWantsToHaveSexWithPlayer()) {
+			if(Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()) {
 				
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							AFTER_SEX_DEFEAT,
-							Main.game.getCurrentRandomAttacker(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
@@ -691,7 +699,7 @@ public class HarpyNestsAttacker {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							AFTER_SEX_DEFEAT,
-							Main.game.getCurrentRandomAttacker(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
@@ -706,7 +714,7 @@ public class HarpyNestsAttacker {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							AFTER_SEX_DEFEAT,
-							Main.game.getCurrentRandomAttacker(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
@@ -754,7 +762,7 @@ public class HarpyNestsAttacker {
 		@Override
 		public String getContent() {
 			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
-				return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfPartnerOrgasms() > 1?"s":"")+"."
 							+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
@@ -763,7 +771,7 @@ public class HarpyNestsAttacker {
 							+ "Leaving [npc.herHim] to recover by [npc.herself], you set off and continue on your way."
 						+ "</p>");
 			} else {
-				return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished."
 							+ " [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
@@ -787,7 +795,7 @@ public class HarpyNestsAttacker {
 			} else if (index == 10) {
 				return new Response(
 						"Remove character",
-						"Scare "+Main.game.getCurrentRandomAttacker().getName("the")+" away. <b>This will remove "+Main.game.getCurrentRandomAttacker().getName("the")+" from this area, allowing another NPC to move into this tile.</b>",
+						"Scare "+Main.game.getActiveNPC().getName("the")+" away. <b>This will remove "+Main.game.getActiveNPC().getName("the")+" from this area, allowing another NPC to move into this tile.</b>",
 						AFTER_COMBAT_VICTORY){
 					
 					@Override
@@ -796,7 +804,7 @@ public class HarpyNestsAttacker {
 					}
 					@Override
 					public void effects() {
-						Main.game.removeNPC(Main.game.getCurrentRandomAttacker());
+						Main.game.removeNPC(Main.game.getActiveNPC());
 					}
 				};
 				
@@ -821,7 +829,7 @@ public class HarpyNestsAttacker {
 
 		@Override
 		public String getContent() {
-			return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+			return UtilText.parse(Main.game.getActiveNPC(),
 					"<p>"
 						+ "As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you."
 						+ " [npc.She] looks down at you, and you glance up to see a very satisfied smile cross [npc.her] face."
@@ -860,7 +868,7 @@ public class HarpyNestsAttacker {
 
 		@Override
 		public String getContent() {//TODO
-			return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+			return UtilText.parse(Main.game.getActiveNPC(),
 					"<p>"
 						+ "TODO</br>"
 						+ "You clasp the collar around [npc.name]'s neck.</br>"

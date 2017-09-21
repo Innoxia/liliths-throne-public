@@ -5,6 +5,7 @@ import com.base.game.character.effects.Fetish;
 import com.base.game.character.npc.dominion.Ralph;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
+import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.responses.ResponseSex;
 import com.base.game.dialogue.responses.ResponseTrade;
 import com.base.game.dialogue.utils.UtilText;
@@ -15,6 +16,8 @@ import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Util.ListValue;
+import com.base.world.WorldType;
+import com.base.world.places.ShoppingArcade;
 
 /**
  * @since 0.1.82
@@ -49,6 +52,14 @@ public class RalphsSnacks {
 					}
 				};
 				
+			} else if (index == 6) {
+				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
+					@Override
+					public void effects() {
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), ShoppingArcade.ARCADE_ENTRANCE, true);
+					}
+				};
+
 			} else {
 				return null;
 			}

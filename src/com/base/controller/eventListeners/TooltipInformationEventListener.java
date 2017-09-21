@@ -527,8 +527,8 @@ public class TooltipInformationEventListener implements EventListener {
 			Main.mainController.setTooltipSize(360, 600);
 
 			tooltipSB.setLength(0);
-			tooltipSB.append("<div class='title' style='color:" + Femininity.valueOf(Main.game.getPlayer().getFemininity()).getColour().toWebHexString() + ";'>"
-					+ (Main.game.getPlayer().getName().length() == 0 ? (Main.game.getPlayer().getFemininity() <= Femininity.MASCULINE.getMaximumFemininity() ? "Hero" : "Heroine") : Main.game.getPlayer().getName()) + "</div>"
+			tooltipSB.append("<div class='title' style='color:" + Femininity.valueOf(Main.game.getPlayer().getFemininityValue()).getColour().toWebHexString() + ";'>"
+					+ (Main.game.getPlayer().getName().length() == 0 ? (Main.game.getPlayer().getFemininityValue() <= Femininity.MASCULINE.getMaximumFemininity() ? "Hero" : "Heroine") : Main.game.getPlayer().getName()) + "</div>"
 
 					+ extraAttributeBonus(Main.game.getPlayer(), Attribute.CRITICAL_CHANCE)
 					+ extraAttributeBonus(Main.game.getPlayer(), Attribute.CRITICAL_DAMAGE)
@@ -567,7 +567,7 @@ public class TooltipInformationEventListener implements EventListener {
 			} else {
 				target = CharactersPresentDialogue.characterViewed;
 			}
-			tooltipSB.append("<div class='title' style='color:" + Femininity.valueOf(target.getFemininity()).getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(target.getName()) + "</div>");
+			tooltipSB.append("<div class='title' style='color:" + Femininity.valueOf(target.getFemininityValue()).getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(target.getName()) + "</div>");
 
 			tooltipSB.append(
 					extraAttributeBonus(target, Attribute.CRITICAL_CHANCE)

@@ -100,6 +100,7 @@ import com.base.utils.Vector2i;
 import com.base.world.WorldType;
 import com.base.world.places.GenericPlace;
 import com.base.world.places.PlaceInterface;
+import com.base.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
@@ -122,10 +123,10 @@ public abstract class NPC extends GameCharacter {
 	protected Body bodyPreference = null;
 	
 	// Relationship stats:
-	private Map<GameCharacter, Integer> relationships;
+	private Map<GameCharacter, Float> relationships;
 	
 	// Slavery:
-	private int obedience;
+	private float obedience;
 	
 	protected NPC(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace,
 			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceInterface startingPlace, boolean addedToContacts) {
@@ -141,7 +142,7 @@ public abstract class NPC extends GameCharacter {
 		buyModifier=0.75f;
 		sellModifier=1.5f;
 		
-		relationships = new HashMap<GameCharacter,Integer>();
+		relationships = new HashMap<GameCharacter,Float>();
 		obedience = 0;
 		
 		if(getLocation().equals(Main.game.getPlayer().getLocation()) && getWorldLocation()==Main.game.getPlayer().getWorldLocation()) {
@@ -168,10 +169,6 @@ public abstract class NPC extends GameCharacter {
 	
 	public boolean isClothingStealable() {
 		return false;
-	}
-	
-	public String getMapIcon() {
-		return getRace().getStatusEffect().getSVGString(this);
 	}
 	
 	public void setLocation(WorldType worldType, Vector2i location) {
@@ -351,15 +348,15 @@ public abstract class NPC extends GameCharacter {
 	/**
 	 * Do not use this method to alter the map!
 	 */
-	public Map<GameCharacter, Integer> getRelationshipsMap() {
+	public Map<GameCharacter, Float> getRelationshipsMap() {
 		return relationships;
 	}
 	
-	public int getAffection(GameCharacter character) {
+	public float getAffection(GameCharacter character) {
 		if(relationships.containsKey(character)) {
 			return relationships.get(character);
 		} else {
-			relationships.put(character, 0);
+			relationships.put(character, 0f);
 			return 0;
 		}
 	}
@@ -379,7 +376,7 @@ public abstract class NPC extends GameCharacter {
 	 * @param affection
 	 * @return
 	 */
-	public String setAffection(GameCharacter character, int affection) {
+	public String setAffection(GameCharacter character, float affection) {
 		
 		relationships.put(character, Math.max(-100, Math.min(100, affection)));
 		
@@ -406,7 +403,7 @@ public abstract class NPC extends GameCharacter {
 	 * @param affectionIncrement
 	 * @return
 	 */
-	public String incrementAffection(GameCharacter character, int affectionIncrement) {
+	public String incrementAffection(GameCharacter character, float affectionIncrement) {
 		setAffection(character, getAffection(character) + affectionIncrement);
 		
 		return UtilText.parse(character,
@@ -416,24 +413,52 @@ public abstract class NPC extends GameCharacter {
 			
 	}
 	
+	public float getDailyAffectionChange() {
+		float change = 0f;
+		
+		for(PlaceUpgrade upgrade : this.getLocationPlace().getPlaceUpgrades()) {
+			if(upgrade.getAffectionCap()==null) {
+				change += upgrade.getAffectionGain();
+				
+			} else {
+				if(upgrade.getAffectionGain()>0) {
+					if(getAffection(Main.game.getPlayer()) + upgrade.getAffectionGain() > upgrade.getAffectionCap().getMaximumValue()) {
+						change += upgrade.getAffectionCap().getMaximumValue() - getAffection(Main.game.getPlayer());
+					} else {
+						change += upgrade.getAffectionGain();
+					}
+					
+				} else if(upgrade.getAffectionGain()<0) {
+					if(getAffection(Main.game.getPlayer()) + upgrade.getAffectionGain() < upgrade.getAffectionCap().getMinimumValue()) {
+						change += upgrade.getAffectionCap().getMinimumValue() - getAffection(Main.game.getPlayer());
+					} else {
+						change += upgrade.getAffectionGain();
+					}
+				}
+			}
+		}
+		
+		return change;
+	}
+	
 	// Obedience:
 	
-	public int getObedience() {
+	public float getObedience() {
 		return obedience;
 	}
 
-	public String setObedience(int obedience) {
+	public String setObedience(float obedience) {
 		
 		this.obedience = Math.max(-100, Math.min(100, obedience));
 		
 		return UtilText.parse(this,
 					"<p style='text-align:center'>"
 						+ "[npc.Name] now has <b>"+(obedience>0?"+":"")+obedience+"</b> [style.boldObedience(obedience)]!</br>"
-						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true)
+						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
 					+ "</p>");
 	}
 	
-	public String incrementObedience(int increment) {
+	public String incrementObedience(float increment) {
 		
 		setObedience(getObedience()+increment);
 		
@@ -443,6 +468,43 @@ public abstract class NPC extends GameCharacter {
 					+ "</p>");
 	}
 	
+	public float getDailyObedienceChange() {
+		float change = 0f;
+		
+		for(PlaceUpgrade upgrade : this.getLocationPlace().getPlaceUpgrades()) {
+			if(upgrade.getObedienceCap()==null) {
+				change += upgrade.getObedienceGain();
+				
+			} else {
+				if(upgrade.getObedienceGain()>0) {
+					if(getObedience() + upgrade.getObedienceGain() > upgrade.getObedienceCap().getMaximumValue()) {
+						change += upgrade.getObedienceCap().getMaximumValue() - getObedience();
+					} else {
+						change += upgrade.getObedienceGain();
+					}
+					
+				} else if(upgrade.getObedienceGain()<0) {
+					if(getObedience() + upgrade.getObedienceGain() < upgrade.getObedienceCap().getMinimumValue()) {
+						change += upgrade.getObedienceCap().getMinimumValue() - getObedience();
+					} else {
+						change += upgrade.getObedienceGain();
+					}
+				}
+			}
+		}
+		
+		return change;
+	}
+	
+	public int getValueAsSlave() {
+		int value = 1000;
+		
+		value += (getFetishes().size()*50);
+		
+		value *= (100+(getObedience()/2))/100f;
+		
+		return value;
+	}
 	
 	
 	// Misc:
@@ -652,10 +714,10 @@ public abstract class NPC extends GameCharacter {
 		// Other transformations:
 		
 		// Femininity:
-		if(Main.game.getPlayer().getFemininity() < getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininity()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
+		if(Main.game.getPlayer().getFemininityValue() < getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
 			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.BOOST, 1), "I'm gonna need you to be more feminine!");
 			
-		} else if(Main.game.getPlayer().getFemininity() > getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininity()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
+		} else if(Main.game.getPlayer().getFemininityValue() > getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
 			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.DRAIN, 1), "I'm gonna need you to be more of a man!");
 		}
 		
@@ -1107,6 +1169,12 @@ public abstract class NPC extends GameCharacter {
 			return true;
 		}
 		
+		if(isSlave()) {
+			if(this.getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue()) {
+				return false;
+			}
+		}
+		
 		if(hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
 				|| (getSexualOrientation()==SexualOrientation.ANDROPHILIC && Main.game.getPlayer().isFeminine())
 				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !Main.game.getPlayer().isFeminine())
@@ -1128,6 +1196,16 @@ public abstract class NPC extends GameCharacter {
 	public SexPace getSexPaceSubPreference(){
 		if(!isWantsToHaveSexWithPlayer()) {
 			if(Main.game.isNonConEnabled()) {
+				
+				if(isSlave()) {
+					if(this.getObedience()>=ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMinimumValue()) {
+						return SexPace.SUB_EAGER;
+						
+					} else if(this.getObedience()>=ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMinimumValue()) {
+						return SexPace.SUB_NORMAL;
+					}
+				}
+				
 				return SexPace.SUB_RESISTING;
 				
 			} else {
@@ -1257,7 +1335,7 @@ public abstract class NPC extends GameCharacter {
 					+ AffectionLevel.getDescription(character, Main.game.getPlayer(),
 							AffectionLevel.getAffectionLevelFromValue(character.getAffection(Main.game.getPlayer())), true));
 		
-		for(Entry<GameCharacter, Integer> entry : character.getRelationshipsMap().entrySet()) {
+		for(Entry<GameCharacter, Float> entry : character.getRelationshipsMap().entrySet()) {
 			if(!entry.getKey().isPlayer()) {
 				infoScreenSB.append("</br>" + AffectionLevel.getDescription(character, entry.getKey(), AffectionLevel.getAffectionLevelFromValue(character.getAffection(entry.getKey())), true));
 			}
@@ -1267,9 +1345,9 @@ public abstract class NPC extends GameCharacter {
 					+ "[style.boldObedience(Obedience:)]</br>"
 					+ UtilText.parse(character,
 							(character.isSlave()
-								?"[npc.Name] [style.boldArcane(is a slave)], owned by "+character.getOwner().getName("a")+"."
+								?"[npc.Name] [style.boldArcane(is a slave)], owned by "+(character.getOwner().isPlayer()?"you!":character.getOwner().getName("a")+".")
 								:"[npc.Name] [style.boldGood(is not a slave)]."))
-					+ "</br>"+ObedienceLevel.getDescription(character, ObedienceLevel.getObedienceLevelFromValue(character.getObedience()), true)
+					+ "</br>"+ObedienceLevel.getDescription(character, ObedienceLevel.getObedienceLevelFromValue(character.getObedience()), true, true)
 					+"</br></br>"
 					+ "[style.boldArcane(Slaves owned:)]");
 		
@@ -1294,7 +1372,7 @@ public abstract class NPC extends GameCharacter {
 
 	private static StringBuilder infoBoxSB = new StringBuilder();
 
-	private static String getCharacterInfoBox(NPC character) {
+	public static String getCharacterInfoBox(NPC character) {
 		infoBoxSB.setLength(0);
 		
 		infoBoxSB.append("<div class='combat-display left' style='float:right;'>"
@@ -1303,7 +1381,7 @@ public abstract class NPC extends GameCharacter {
 		+ "<div class='combat-inner-container'>"
 				+ "<div class='combat-container name'>"
 					+ "<div class='combat-container'>"
-						+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(character.getFemininity()).getColour().toWebHexString() + ";'>" 
+						+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>" 
 							+ "<b>" + Util.capitaliseSentence(character.getName()) + "</b>"
 						+ "</p>"
 					+ "</div>"
@@ -1423,7 +1501,7 @@ public abstract class NPC extends GameCharacter {
 				+"<table align='center'>"
 
 				+ "<tr style='height:8px; color:"+character.getGender().getColour().toWebHexString()+";'><th>Core</th></tr>"
-				+ statRow("Femininity", String.valueOf(character.getFemininity()))
+				+ statRow("Femininity", String.valueOf(character.getFemininityValue()))
 				+ statRow("Height (cm)", String.valueOf(character.getHeight()))
 				+ statRow("Hair length (cm)", String.valueOf(Util.conversionInchesToCentimetres(character.getHairRawLengthValue())))
 				+ "<tr style='height:8px;'></tr>"

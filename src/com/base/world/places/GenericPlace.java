@@ -14,13 +14,21 @@ public class GenericPlace implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private String name;
 	private PlaceInterface placeType;
-	
 	private Set<PlaceUpgrade> placeUpgrades;
 
 	public GenericPlace(PlaceInterface placeType) {
 		this.placeType=placeType;
 		placeUpgrades = new HashSet<>();
+		if(placeType!=null) {
+			this.name = placeType.getName();
+			for(PlaceUpgrade pu : placeType.getStartingPlaceUpgrades()) {
+				placeUpgrades.add(pu);
+			}
+		} else {
+			this.name = "-";
+		}
 	}
 	
 	@Override
@@ -43,7 +51,11 @@ public class GenericPlace implements Serializable {
 	}
 	
 	public String getName() {
-		return placeType.getName();
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public BaseColour getColour() {
@@ -125,6 +137,26 @@ public class GenericPlace implements Serializable {
 	public Set<PlaceUpgrade> getPlaceUpgrades() {
 		return placeUpgrades;
 	}
+	
+	public int getCapacity() {
+		int c = 0;
+		for(PlaceUpgrade pu : placeUpgrades) {
+			c+=pu.getCapacity();
+		}
+		return c;
+	}
+	
+	public int getUpkeep() {
+		int upkeep = 0;
+		for(PlaceUpgrade pu : placeUpgrades) {
+			upkeep+=pu.getUpkeep();
+		}
+		if(upkeep<0) {
+			return 0;
+		}
+		return upkeep;
+	}
+	
 
 	public PlaceInterface getPlaceType() {
 		return placeType;

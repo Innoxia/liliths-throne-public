@@ -282,7 +282,8 @@ public class Properties implements Serializable {
 				clothingDiscovered.appendChild(element);
 				
 				Attr hash = doc.createAttribute("id");
-				hash.setValue(clothingType.getId());
+				if(clothingType != null)
+					hash.setValue(clothingType.getId());
 				element.setAttributeNode(hash);
 			}
 			
@@ -372,8 +373,8 @@ public class Properties implements Serializable {
 				newItemDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newItemDiscovered").item(0)).getAttribute("value"));
 				newRaceDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newRaceDiscovered").item(0)).getAttribute("value"));
 				
-				overwriteWarning = ((((Element)element.getElementsByTagName("overwriteWarning").item(0)).getAttribute("value")).equals("true"));
-				fadeInText = ((((Element)element.getElementsByTagName("fadeInText").item(0)).getAttribute("value")).equals("true"));
+				overwriteWarning = Boolean.valueOf(((Element)element.getElementsByTagName("overwriteWarning").item(0)).getAttribute("value"));
+				fadeInText = Boolean.valueOf(((Element)element.getElementsByTagName("fadeInText").item(0)).getAttribute("value"));
 				
 				if(element.getElementsByTagName("androgynousIdentification").item(0)!=null) {
 					androgynousIdentification = AndrogynousIdentification.valueOf(((Element)element.getElementsByTagName("androgynousIdentification").item(0)).getAttribute("value"));

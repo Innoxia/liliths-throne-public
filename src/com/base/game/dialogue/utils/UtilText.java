@@ -89,7 +89,7 @@ public class UtilText {
 		
 		boolean isFeminine = character.isFeminine();
 		
-		if(Femininity.valueOf(character.getFemininity()) == Femininity.ANDROGYNOUS) {
+		if(Femininity.valueOf(character.getFemininityValue()) == Femininity.ANDROGYNOUS) {
 			switch(Main.getProperties().androgynousIdentification){
 				case FEMININE:
 					isFeminine = true;
@@ -246,9 +246,9 @@ public class UtilText {
 		if (Main.game.getPlayer().hasFetish(Fetish.FETISH_BIMBO))
 			modifiedSentence = Util.addBimbo(text, 6);
 
-		if (Femininity.valueOf(Main.game.getPlayer().getFemininity()) == Femininity.MASCULINE || Femininity.valueOf(Main.game.getPlayer().getFemininity()) == Femininity.MASCULINE_STRONG)
+		if (Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.MASCULINE_STRONG)
 			return "<span class='thoughts masculine'>" + modifiedSentence + "</span>";
-		else if (Femininity.valueOf(Main.game.getPlayer().getFemininity()) == Femininity.ANDROGYNOUS)
+		else if (Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.ANDROGYNOUS)
 			return "<span class='thoughts androgynous'>" + modifiedSentence + "</span>";
 		else
 			return "<span class='thoughts feminine'>" + modifiedSentence + "</span>";
@@ -289,9 +289,9 @@ public class UtilText {
 			}
 		}
 
-		if (Femininity.valueOf(Main.game.getPlayer().getFemininity()) == Femininity.MASCULINE || Femininity.valueOf(Main.game.getPlayer().getFemininity()) == Femininity.MASCULINE_STRONG)
+		if (Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.MASCULINE_STRONG)
 			return "<span class='speech' style='color:" + Colour.MASCULINE.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-		else if (Femininity.valueOf(Main.game.getPlayer().getFemininity()) == Femininity.ANDROGYNOUS)
+		else if (Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.ANDROGYNOUS)
 			return "<span class='speech' style='color:" + Colour.ANDROGYNOUS.toWebHexString() + ";'>" + modifiedSentence + "</span>";
 		else
 			return "<span class='speech' style='color:" + Colour.FEMININE.toWebHexString() + ";'>" + modifiedSentence + "</span>";
@@ -357,9 +357,9 @@ public class UtilText {
 			return "<span class='speech' style='color:" + target.getSpeechColour() + ";'>" + modifiedSentence + "</span>";
 
 		} else {
-			if (Femininity.valueOf(target.getFemininity()) == Femininity.MASCULINE || Femininity.valueOf(target.getFemininity()) == Femininity.MASCULINE_STRONG)
+			if (Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE_STRONG)
 				return "<span class='speech' style='color:" + Colour.MASCULINE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-			else if (Femininity.valueOf(target.getFemininity()) == Femininity.ANDROGYNOUS)
+			else if (Femininity.valueOf(target.getFemininityValue()) == Femininity.ANDROGYNOUS)
 				return "<span class='speech' style='color:" + Colour.ANDROGYNOUS_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
 			else
 				return "<span class='speech' style='color:" + Colour.FEMININE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
@@ -374,9 +374,9 @@ public class UtilText {
 			return "<span class='speech' style='color:" + target.getSpeechColour() + ";'>" + modifiedSentence + "</span>";
 
 		} else {
-			if (Femininity.valueOf(target.getFemininity()) == Femininity.MASCULINE || Femininity.valueOf(target.getFemininity()) == Femininity.MASCULINE_STRONG)
+			if (Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE_STRONG)
 				return "<span class='speech' style='color:" + Colour.MASCULINE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-			else if (Femininity.valueOf(target.getFemininity()) == Femininity.ANDROGYNOUS)
+			else if (Femininity.valueOf(target.getFemininityValue()) == Femininity.ANDROGYNOUS)
 				return "<span class='speech' style='color:" + Colour.ANDROGYNOUS_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
 			else
 				return "<span class='speech' style='color:" + Colour.FEMININE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
@@ -399,9 +399,9 @@ public class UtilText {
 			return "<span class='thoughts' style='color:" + target.getSpeechColour() + ";'>" + modifiedSentence + "</span>";
 
 		} else {
-			if (Femininity.valueOf(target.getFemininity()) == Femininity.MASCULINE || Femininity.valueOf(target.getFemininity()) == Femininity.MASCULINE_STRONG)
+			if (Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE_STRONG)
 				return "<span class='thoughts' style='color:" + Colour.MASCULINE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-			else if (Femininity.valueOf(target.getFemininity()) == Femininity.ANDROGYNOUS)
+			else if (Femininity.valueOf(target.getFemininityValue()) == Femininity.ANDROGYNOUS)
 				return "<span class='thoughts' style='color:" + Colour.ANDROGYNOUS_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
 			else
 				return "<span class='thoughts' style='color:" + Colour.FEMININE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
@@ -819,7 +819,7 @@ public class UtilText {
 				"Description of method"){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return Femininity.valueOf(character.getFemininity()).getName(false);
+				return Femininity.valueOf(character.getFemininityValue()).getName(false);
 			}
 		});
 		

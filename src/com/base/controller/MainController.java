@@ -39,6 +39,7 @@ import com.base.game.KeyCodeWithModifiers;
 import com.base.game.KeyboardAction;
 import com.base.game.character.CharacterChangeEventListener;
 import com.base.game.character.GameCharacter;
+import com.base.game.character.NameTriplet;
 import com.base.game.character.QuestLine;
 import com.base.game.character.attributes.Attribute;
 import com.base.game.character.body.Covering;
@@ -67,6 +68,7 @@ import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.GenericDialogue;
 import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.places.dominion.CityHall;
+import com.base.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.base.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
@@ -75,6 +77,7 @@ import com.base.game.dialogue.utils.CharactersPresentDialogue;
 import com.base.game.dialogue.utils.EnchantmentDialogue;
 import com.base.game.dialogue.utils.InventoryDialogue;
 import com.base.game.dialogue.utils.InventoryInteraction;
+import com.base.game.dialogue.utils.MiscDialogue;
 import com.base.game.dialogue.utils.OptionsDialogue;
 import com.base.game.dialogue.utils.PhoneDialogue;
 import com.base.game.inventory.AbstractCoreItem;
@@ -99,6 +102,7 @@ import com.base.world.WorldType;
 import com.base.world.places.GenericPlaces;
 import com.base.world.places.PlaceUpgrade;
 import com.base.world.places.ShoppingArcade;
+import com.base.world.places.SlaverAlley;
 
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
@@ -266,7 +270,7 @@ public class MainController implements Initializable {
 			openInventory((NPC) Combat.getOpponent(), InventoryInteraction.COMBAT);
 			
 		} else if(Main.game.isInSex()) {
-			openInventory((NPC) Combat.getOpponent(), InventoryInteraction.SEX);
+			openInventory((NPC) Sex.getPartner(), InventoryInteraction.SEX);
 			
 		} else {
 			openInventory(null, InventoryInteraction.FULL_MANAGEMENT);
@@ -375,9 +379,11 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							return;
 						}
-					} else
+						
+					} else {
 						actionToBind = null;
-
+					}
+					
 					if (!buttonsPressed.contains(event.getCode())) {
 						buttonsPressed.add(event.getCode());
 
@@ -389,8 +395,8 @@ public class MainController implements Initializable {
 //						 System.out.println(event.getCode());
 						 if(event.getCode()==KeyCode.END){
 							 
-							 for(NPC npc : Main.game.getNPCList())
-								 System.out.println(npc.getName());
+//							 for(NPC npc : Main.game.getNPCList())
+//								 System.out.println(npc.getName());
 							 
 //							 webViewMain = new WebView();
 //							 webViewAttributes = new WebView(); 
@@ -542,6 +548,11 @@ public class MainController implements Initializable {
 								allowInput = false;
 						}
 						
+						if(Main.game.getCurrentDialogueNode() == LilayaHomeGeneric.ROOM_UPGRADES){
+							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement"))
+								allowInput = false;
+						}
+						
 						if(Main.game.getCurrentDialogueNode() == CityHall.CITY_HALL_NAME_CHANGE_FORM){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement"))
 								allowInput = false;
@@ -601,7 +612,10 @@ public class MainController implements Initializable {
 						}
 						
 						// For name selection:
-						if (event.getCode() == KeyCode.ENTER && Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME) {
+						if (event.getCode() == KeyCode.ENTER
+								&& (Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME
+									|| Main.game.getCurrentDialogueNode() == LilayaHomeGeneric.ROOM_UPGRADES
+									|| Main.game.getCurrentDialogueNode() == CityHall.CITY_HALL_NAME_CHANGE_FORM)) {
 							Main.game.setContent(1);
 						}
 
@@ -835,20 +849,6 @@ public class MainController implements Initializable {
 			addEventListener(document, "copy-content-button", "mousemove", moveTooltipListener, false);
 			addEventListener(document, "copy-content-button", "mouseleave", hideTooltipListener, false);
 			addEventListener(document, "copy-content-button", "mouseenter", copyInfoListener, false);
-		}
-		
-		// Map:
-		if (((EventTarget) document.getElementById("upButton")) != null) {
-			addEventListener(document, "upButton", "click", moveNorthListener, true);
-		}
-		if (((EventTarget) document.getElementById("downButton")) != null) {
-			addEventListener(document, "downButton", "click", moveSouthListener, true);
-		}
-		if (((EventTarget) document.getElementById("leftButton")) != null) {
-			addEventListener(document, "leftButton", "click", moveWestListener, true);
-		}
-		if (((EventTarget) document.getElementById("rightButton")) != null) {
-			addEventListener(document, "rightButton", "click", moveEastListener, true);
 		}
 		
 		// Combat tooltips:
@@ -1510,8 +1510,196 @@ public class MainController implements Initializable {
 					}, false);
 				}
 			}
+
+			
+			// -------------------- Slavery -------------------- //
+			
+			id = "rename_room_button";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+
+				boolean unsuitableName = false;
+				 if(Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput')")!=null) {
+					 
+						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
+						if(Main.mainController.getWebEngine().getDocument()!=null) {
+							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+									|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
+								unsuitableName = true;
+							else {
+								unsuitableName = false;
+							}
+						}
+						
+						if (!unsuitableName) {
+							Main.game.setContent(new Response("Rename Room", "Rename this room to whatever you've entered in the text box.", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getPlayerCell().getPlace().setName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+								}
+							});
+						}
+					}
+						
+				}, false);
+			}
+			
+			id = Main.game.getDialogueFlags().slaveryManagerSlaveSelected.getId()+"_RENAME";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+
+					boolean unsuitableName = false;
+				 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveNameInput')")!=null) {
+					 
+						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveNameInput').value;");
+						if(Main.mainController.getWebEngine().getDocument()!=null) {
+							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+									|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
+								unsuitableName = true;
+							else {
+								unsuitableName = false;
+							}
+						}
+						
+						if (!unsuitableName) {
+							Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getDialogueFlags().slaveryManagerSlaveSelected.setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
+								}
+							});
+						}
+						
+					}
+						
+				}, false);
+			}
+			
+			id = Main.game.getDialogueFlags().slaveryManagerSlaveSelected.getId()+"_CALLS_PLAYER";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+
+					boolean unsuitableName = false;
+				 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput')")!=null) {
+					 
+						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInput').value;");
+						if(Main.mainController.getWebEngine().getDocument()!=null) {
+							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+									|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
+								unsuitableName = true;
+							else {
+								unsuitableName = false;
+							}
+						}
+						
+						if (!unsuitableName) {
+							Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.game.getDialogueFlags().slaveryManagerSlaveSelected.setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+								}
+							});
+						}
+						
+					}
+						
+				}, false);
+			}
+			
+			id = "GLOBAL_CALLS_PLAYER";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+
+					boolean unsuitableName = false;
+				 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput')")!=null) {
+					 
+						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInput').value;");
+						if(Main.mainController.getWebEngine().getDocument()!=null) {
+							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+									|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
+								unsuitableName = true;
+							else {
+								unsuitableName = false;
+							}
+						}
+						
+						if (!unsuitableName) {
+							Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
+										slave.setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+									}
+								}
+							});
+						}
+						
+					}
+						
+				}, false);
+			}
+			
+			for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
+				id = slave.getId();
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementDetailedDialogue(Main.game.getNPCById(slave.getId()))));
+					}, false);
+				}
+				
+				id = slave.getId()+"_TRANSFER";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
+							@Override
+							public void effects() {
+								Main.game.getNPCById(slave.getId()).setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation());
+							}
+						});
+					}, false);
+				}
+				
+				id = slave.getId()+"_SELL";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
+							@Override
+							public void effects() {
+								Main.game.getPlayer().incrementMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getBuyModifier()));
+								Main.game.getDialogueFlags().slaveTrader.addSlave(Main.game.getNPCById(slave.getId()));
+								Main.game.getNPCById(slave.getId()).setLocation(Main.game.getDialogueFlags().slaveTrader.getWorldLocation(), Main.game.getDialogueFlags().slaveTrader.getLocation());
+							}
+						});
+					}, false);
+				}
+			}
 			
 
+			if(Main.game.getDialogueFlags().slaveTrader!=null)
+			for(NPC slave : Main.game.getDialogueFlags().slaveTrader.getSlavesOwned()) {
+				id = slave.getId();
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementDetailedDialogue(Main.game.getNPCById(slave.getId()))));
+					}, false);
+				}
+				
+				id = slave.getId()+"_BUY";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
+							@Override
+							public void effects() {
+								Main.game.getPlayer().incrementMoney(-(int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()));
+								Main.game.getPlayer().addSlave(Main.game.getNPCById(slave.getId()));
+								Main.game.getNPCById(slave.getId()).setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION);
+							}
+						});
+					}, false);
+				}
+			}
+			
+			
 			// -------------------- Cosmetics --------------------
 			
 			for(BodyCoveringType bct : BodyCoveringType.values()) {
@@ -2344,7 +2532,23 @@ public class MainController implements Initializable {
 	private void manageAttributeListeners() {
 		documentAttributes = (Document) webEngineAttributes.executeScript("document");
 		EventListenerDataMap.put(documentAttributes, new ArrayList<>());
+		
 
+		
+		// Map:
+		if (((EventTarget) documentAttributes.getElementById("upButton")) != null) {
+			addEventListener(documentAttributes, "upButton", "click", moveNorthListener, true);
+		}
+		if (((EventTarget) documentAttributes.getElementById("downButton")) != null) {
+			addEventListener(documentAttributes, "downButton", "click", moveSouthListener, true);
+		}
+		if (((EventTarget) documentAttributes.getElementById("leftButton")) != null) {
+			addEventListener(documentAttributes, "leftButton", "click", moveWestListener, true);
+		}
+		if (((EventTarget) documentAttributes.getElementById("rightButton")) != null) {
+			addEventListener(documentAttributes, "rightButton", "click", moveEastListener, true);
+		}
+		
 		Attribute[] attributes = {
 				Attribute.HEALTH_MAXIMUM,
 				Attribute.MANA_MAXIMUM,

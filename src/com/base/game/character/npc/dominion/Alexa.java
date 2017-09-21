@@ -1,12 +1,15 @@
 package com.base.game.character.npc.dominion;
 
 import com.base.game.character.NameTriplet;
+import com.base.game.character.Quest;
+import com.base.game.character.QuestLine;
 import com.base.game.character.SexualOrientation;
 import com.base.game.character.body.Covering;
 import com.base.game.character.body.types.BodyCoveringType;
 import com.base.game.character.body.valueEnums.CupSize;
 import com.base.game.character.effects.Fetish;
 import com.base.game.character.gender.Gender;
+import com.base.game.character.gender.GenderPreference;
 import com.base.game.character.npc.NPC;
 import com.base.game.character.race.RaceStage;
 import com.base.game.character.race.RacialBody;
@@ -23,6 +26,7 @@ import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.world.WorldType;
 import com.base.world.places.HarpyNests;
+import com.base.world.places.SlaverAlley;
 
 /**
  * @since 0.1.75
@@ -85,6 +89,26 @@ public class Alexa extends NPC {
 	
 	@Override
 	public void applyReset() {
+		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
+			for(NPC slave : slavesOwned) {
+				Main.game.removeNPC(slave);
+			}
+			this.slavesOwned.clear();
+			
+			for(int i=0; i<5; i++) {
+				NPC newSlave = new NPCRandomDominion(GenderPreference.getGenderFromUserPreferences());
+				newSlave.setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP);
+				addSlave(newSlave);
+				newSlave.resetInventory();
+				newSlave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getAlexa());
+				newSlave.setPlayerKnowsName(true);
+				try {
+					Main.game.addNPC(newSlave);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	@Override

@@ -35,10 +35,25 @@ public class InventorySelectedItemEventListener implements EventListener {
 		TooltipUpdateThread.cancelThreads=true;
 		
 		if (item != null) {
-			InventoryDialogue.setOwner(owner);
-			InventoryDialogue.setItem(item);
-			InventoryDialogue.setBuyBackIndex(buyBackIndex);
-			Main.game.setContent(new Response("", "", InventoryDialogue.ITEM_INVENTORY));
+			if(Main.game.getDialogueFlags().quickTrade) {
+				switch(InventoryDialogue.getNPCInventoryInteraction()) {
+					case COMBAT:
+						break;
+					case FULL_MANAGEMENT:
+						break;
+					case SEX:
+						break;
+					case TRADING:
+						break;
+				}
+				
+				
+			} else {
+				InventoryDialogue.setOwner(owner);
+				InventoryDialogue.setItem(item);
+				InventoryDialogue.setBuyBackIndex(buyBackIndex);
+				Main.game.setContent(new Response("", "", InventoryDialogue.ITEM_INVENTORY));
+			}
 			
 		} else if (clothing != null) {
 			InventoryDialogue.setOwner(owner);

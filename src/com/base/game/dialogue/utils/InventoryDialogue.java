@@ -1,7 +1,9 @@
 package com.base.game.dialogue.utils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.base.game.character.GameCharacter;
@@ -17,7 +19,9 @@ import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.ShopTransaction;
 import com.base.game.inventory.clothing.AbstractClothing;
+import com.base.game.inventory.clothing.BlockedParts;
 import com.base.game.inventory.clothing.ClothingType;
+import com.base.game.inventory.clothing.DisplacementType;
 import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.item.AbstractItemType;
 import com.base.game.inventory.item.ItemType;
@@ -26,6 +30,7 @@ import com.base.game.sex.Sex;
 import com.base.game.sex.sexActions.SexActionUtility;
 import com.base.main.Main;
 import com.base.rendering.RenderingEngine;
+import com.base.utils.ClothingZLayerComparator;
 import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.world.WorldType;
@@ -50,7 +55,7 @@ public class InventoryDialogue {
 	private static NPC inventoryNPC;
 	private static InventoryInteraction interactionType;
 
-	private static StringBuilder inventorySB;
+	private static StringBuilder inventorySB = new StringBuilder(), responseSB = new StringBuilder();
 
 	private static List<AbstractClothing> jinxedClothing = new ArrayList<>();
 
@@ -97,47 +102,582 @@ public class InventoryDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int index) { //TODO sex end
 			if (index == 0) {
 				return getCloseInventoryResponse();
-			} else if (index == 1 && inventoryNPC==null) {
-				if(Main.game.getPlayerCell().getInventory().getInventorySlotsTaken()==0 || Main.game.isInCombat() || Main.game.isInSex()) {
-					return new Response("Take all", "Pick up everything on the ground.", null);
-					
-				} else {
-					return new Response("Take all", "Pick up everything on the ground.", INVENTORY_MENU){
-						@Override
-						public void effects(){
-							//TODO if this starts printing it will complain about the player's inventory being full
-							//TODO optimize (what if someone stores a thousand panties somewhere?)
-							int i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
-							while(i > 0) {
-								Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true);
-								i--;
-							}
-							
-							i = Main.game.getPlayerCell().getInventory().getClothingInInventory().size();
-							while(i > 0) {
-								Main.game.getPlayer().addClothing(Main.game.getPlayerCell().getInventory().getClothingInInventory().get(i-1), true);
-								i--;
-							}
-							
-							i = Main.game.getPlayerCell().getInventory().getWeaponsInInventory().size();
-							while(i > 0) {
-								Main.game.getPlayer().addWeapon(Main.game.getPlayerCell().getInventory().getWeaponsInInventory().get(i-1), true);
-								i--;
-							}
-						}
-					};
-				}
-				
-			} else if (index == 9 && inventoryNPC!=null) {
-				return getBuybackResponse();
-			} else if (index == 10 && !Main.game.isInSex() && !Main.game.isInCombat()) {
-				return getQuickTradeResponse();
-			} else {
-				return null;
 			}
+
+			switch(interactionType) {
+				case COMBAT:
+					if(index == 1) {
+						return new Response("Take all", "You can't do this during combat!", null);
+						
+					} else if (index == 2) {
+						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Displace all", "You aren't wearing any clothing, so there's nothing to displace!", null);
+							
+						} else {
+							return new Response("Displace all", "Displace as much of your clothing as possible.", Combat.ENEMY_ATTACK){
+								@Override
+								public void effects(){
+									responseSB.setLength(0);
+									
+									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
+										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
+											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
+												Main.game.getPlayer().isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
+												responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getDisplaceDescription()+"</p>");
+											}
+										}
+									}
+									Combat.setPlayerTurnText(responseSB.toString());
+									Combat.attackEnemy();
+									Combat.setPreviousAction(Attack.NONE);
+									Main.game.restoreSavedContent();
+								}
+							};
+						}
+						
+					} else if (index == 3) {
+						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Replace all", "You aren't wearing any clothing, so there's nothing to replace!", null);
+							
+						} else {
+							return new Response("Replace all", "Replace as much of your clothing as possible.", Combat.ENEMY_ATTACK){
+								@Override
+								public void effects(){
+									responseSB.setLength(0);
+									
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
+									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
+									
+									for(AbstractClothing c : zlayerClothing) {
+										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
+											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
+												Main.game.getPlayer().isAbleToBeReplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
+												responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getReplaceDescription()+"</p>");
+											}
+										}
+									}
+									
+									Combat.setPlayerTurnText(responseSB.toString());
+									Combat.attackEnemy();
+									Combat.setPreviousAction(Attack.NONE);
+									Main.game.restoreSavedContent();
+								}
+							};
+						}
+						
+					} else if (index == 4) {
+						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Unequip all", "You aren't wearing any clothing, so there's nothing to remove!", null);
+							
+						} else {
+							return new Response("Unequip all", "Remove as much of your clothing as possible.", Combat.ENEMY_ATTACK){
+								@Override
+								public void effects(){
+									responseSB.setLength(0);
+									
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
+									zlayerClothing.sort(new ClothingZLayerComparator());
+									
+									for(AbstractClothing c : zlayerClothing) { 
+										Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+										responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
+									}
+									
+									Combat.setPlayerTurnText(responseSB.toString());
+									Combat.attackEnemy();
+									Combat.setPreviousAction(Attack.NONE);
+									Main.game.restoreSavedContent();
+								}
+							};
+						}
+						
+					} else if (index == 5) {
+						if(Main.game.getPlayer().getAllClothingInInventory().isEmpty()) {
+							return new Response("Equip all", "You don't have any clothing, so there's nothing to equip!", null);
+							
+						} else {
+							return new Response("Equip all", "Equip as much of the clothing in your inventory as possible.", Combat.ENEMY_ATTACK){
+								@Override
+								public void effects(){
+									responseSB.setLength(0);
+									
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getAllClothingInInventory());
+									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
+									Set<InventorySlot> slotsTaken = new HashSet<>();
+									
+									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
+										slotsTaken.add(c.getClothingType().getSlot());
+									}
+									
+									for(AbstractClothing c : zlayerClothing) {
+										if(!slotsTaken.contains(c.getClothingType().getSlot())) {
+											responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer())+"</p>");
+											slotsTaken.add(c.getClothingType().getSlot());
+										}
+									}
+									
+									Combat.setPlayerTurnText(responseSB.toString());
+									Combat.attackEnemy();
+									Combat.setPreviousAction(Attack.NONE);
+									Main.game.restoreSavedContent();
+								}
+							};
+						}
+						
+					} else {
+						return null;
+					}
+					
+				case FULL_MANAGEMENT:
+					if (index == 1) {
+						if(inventoryNPC != null || Main.game.getPlayerCell().getInventory().getInventorySlotsTaken()==0 || Main.game.isInCombat() || Main.game.isInSex()) {
+							return new Response("Take all", "Pick up everything on the ground.", null);
+							
+						} else {
+							return new Response("Take all", "Pick up everything on the ground.", INVENTORY_MENU){
+								@Override
+								public void effects(){
+									//TODO if this starts printing it will complain about the player's inventory being full
+									//TODO optimize (what if someone stores a thousand panties somewhere?)
+									int i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
+									while(i > 0) {
+										Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true);
+										i--;
+									}
+									
+									i = Main.game.getPlayerCell().getInventory().getClothingInInventory().size();
+									while(i > 0) {
+										Main.game.getPlayer().addClothing(Main.game.getPlayerCell().getInventory().getClothingInInventory().get(i-1), true);
+										i--;
+									}
+									
+									i = Main.game.getPlayerCell().getInventory().getWeaponsInInventory().size();
+									while(i > 0) {
+										Main.game.getPlayer().addWeapon(Main.game.getPlayerCell().getInventory().getWeaponsInInventory().get(i-1), true);
+										i--;
+									}
+								}
+							};
+						}
+						
+					} else if (index == 2) {
+						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Displace all", "You aren't wearing any clothing, so there's nothing to displace!", null);
+							
+						} else {
+							return new Response("Displace all", "Displace as much of your clothing as possible.", INVENTORY_MENU){
+								@Override
+								public void effects(){
+									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
+										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
+											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
+												Main.game.getPlayer().isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
+												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getDisplaceDescription()+"</p>");
+											}
+										}
+									}
+								}
+							};
+						}
+						
+					} else if (index == 3) {
+						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Replace all", "You aren't wearing any clothing, so there's nothing to replace!", null);
+							
+						} else {
+							return new Response("Replace all", "Replace as much of your clothing as possible.", INVENTORY_MENU){
+								@Override
+								public void effects(){
+									
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
+									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
+									
+									for(AbstractClothing c : zlayerClothing) {
+										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
+											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
+												Main.game.getPlayer().isAbleToBeReplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
+												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getReplaceDescription()+"</p>");
+											}
+										}
+									}
+								}
+							};
+						}
+						
+					} else if (index == 4) {
+						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Unequip all", "You aren't wearing any clothing, so there's nothing to remove!", null);
+							
+						} else {
+							return new Response("Unequip all", "Remove as much of your clothing as possible.", INVENTORY_MENU){
+								@Override
+								public void effects(){
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
+									zlayerClothing.sort(new ClothingZLayerComparator());
+									
+									for(AbstractClothing c : zlayerClothing) { 
+										Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+										Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
+									}
+								}
+							};
+						}
+						
+					} else if (index == 5) {
+						if(Main.game.getPlayer().getAllClothingInInventory().isEmpty()) {
+							return new Response("Equip all", "You don't have any clothing, so there's nothing to equip!", null);
+							
+						} else {
+							return new Response("Equip all", "Equip as much of the clothing in your inventory as possible.", INVENTORY_MENU){
+								@Override
+								public void effects(){
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getAllClothingInInventory());
+									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
+									Set<InventorySlot> slotsTaken = new HashSet<>();
+									
+									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
+										slotsTaken.add(c.getClothingType().getSlot());
+									}
+									
+									for(AbstractClothing c : zlayerClothing) {
+										if(!slotsTaken.contains(c.getClothingType().getSlot())) {
+											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer())+"</p>");
+											slotsTaken.add(c.getClothingType().getSlot());
+										}
+									}
+								}
+							};
+						}
+						
+					} else if (index == 6 && inventoryNPC != null) {
+						if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to displace!"), null);
+							
+						} else {
+							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "Displace as much of [npc.name]'s clothing as possible."), INVENTORY_MENU){
+								@Override
+								public void effects(){
+									for(AbstractClothing c : inventoryNPC.getClothingCurrentlyEquipped()) {
+										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
+											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
+												inventoryNPC.isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
+												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+inventoryNPC.getDisplaceDescription()+"</p>");
+											}
+										}
+									}
+								}
+							};
+						}
+						
+					} else if (index == 7 && inventoryNPC != null) {
+						if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Replace all (them)",  UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to replace!"), null);
+							
+						} else {
+							return new Response("Replace all (them)", UtilText.parse(inventoryNPC, "Replace as much of [npc.name]'s clothing as possible."), INVENTORY_MENU){
+								@Override
+								public void effects(){
+									
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(inventoryNPC.getClothingCurrentlyEquipped());
+									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
+									
+									for(AbstractClothing c : zlayerClothing) {
+										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
+											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
+												inventoryNPC.isAbleToBeReplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
+												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+inventoryNPC.getReplaceDescription()+"</p>");
+											}
+										}
+									}
+								}
+							};
+						}
+						
+					} else if (index == 8 && inventoryNPC != null) {
+						if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to remove!"), null);
+							
+						} else {
+							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "Remove as much of [npc.name]'s clothing as possible."), INVENTORY_MENU){
+								@Override
+								public void effects(){
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(inventoryNPC.getClothingCurrentlyEquipped());
+									zlayerClothing.sort(new ClothingZLayerComparator());
+									
+									for(AbstractClothing c : zlayerClothing) { 
+										inventoryNPC.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+										Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+inventoryNPC.getUnequipDescription()+"</p>");
+									}
+								}
+							};
+						}
+						
+					} else if (index == 10 && !Main.game.isInSex() && !Main.game.isInCombat()) {
+						return getQuickTradeResponse();
+						
+					} else {
+						return null;
+					}
+					
+				case TRADING:
+					if (index == 1) {
+						if(inventoryNPC != null ||Main.game.getPlayerCell().getInventory().getInventorySlotsTaken()==0 || Main.game.isInCombat() || Main.game.isInSex()) {
+							return new Response("Take all", "Pick up everything on the ground.", null);
+							
+						} else {
+							return new Response("Take all", "Pick up everything on the ground.", INVENTORY_MENU){
+								@Override
+								public void effects(){
+									//TODO if this starts printing it will complain about the player's inventory being full
+									//TODO optimize (what if someone stores a thousand panties somewhere?)
+									int i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
+									while(i > 0) {
+										Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true);
+										i--;
+									}
+									
+									i = Main.game.getPlayerCell().getInventory().getClothingInInventory().size();
+									while(i > 0) {
+										Main.game.getPlayer().addClothing(Main.game.getPlayerCell().getInventory().getClothingInInventory().get(i-1), true);
+										i--;
+									}
+									
+									i = Main.game.getPlayerCell().getInventory().getWeaponsInInventory().size();
+									while(i > 0) {
+										Main.game.getPlayer().addWeapon(Main.game.getPlayerCell().getInventory().getWeaponsInInventory().get(i-1), true);
+										i--;
+									}
+								}
+							};
+						}
+						
+					} else if (index == 2) {
+						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Displace all", "You aren't wearing any clothing, so there's nothing to displace!", null);
+							
+						} else {
+							return new Response("Displace all", "Displace as much of your clothing as possible.", INVENTORY_MENU){
+								@Override
+								public void effects(){
+									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
+										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
+											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
+												Main.game.getPlayer().isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
+												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getDisplaceDescription()+"</p>");
+											}
+										}
+									}
+								}
+							};
+						}
+						
+					} else if (index == 3) {
+						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Replace all", "You aren't wearing any clothing, so there's nothing to replace!", null);
+							
+						} else {
+							return new Response("Replace all", "Replace as much of your clothing as possible.", INVENTORY_MENU){
+								@Override
+								public void effects(){
+									
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
+									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
+									
+									for(AbstractClothing c : zlayerClothing) {
+										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
+											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
+												Main.game.getPlayer().isAbleToBeReplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
+												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getReplaceDescription()+"</p>");
+											}
+										}
+									}
+								}
+							};
+						}
+						
+					} else if (index == 4) {
+						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Unequip all", "You aren't wearing any clothing, so there's nothing to remove!", null);
+							
+						} else {
+							return new Response("Unequip all", "Remove as much of your clothing as possible.", INVENTORY_MENU){
+								@Override
+								public void effects(){
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
+									zlayerClothing.sort(new ClothingZLayerComparator());
+									
+									for(AbstractClothing c : zlayerClothing) { 
+										Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+										Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
+									}
+								}
+							};
+						}
+						
+					} else if (index == 5) {
+						if(Main.game.getPlayer().getAllClothingInInventory().isEmpty()) {
+							return new Response("Equip all", "You don't have any clothing, so there's nothing to equip!", null);
+							
+						} else {
+							return new Response("Equip all", "Equip as much of the clothing in your inventory as possible.", INVENTORY_MENU){
+								@Override
+								public void effects(){
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getAllClothingInInventory());
+									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
+									Set<InventorySlot> slotsTaken = new HashSet<>();
+									
+									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
+										slotsTaken.add(c.getClothingType().getSlot());
+									}
+									
+									for(AbstractClothing c : zlayerClothing) {
+										if(!slotsTaken.contains(c.getClothingType().getSlot())) {
+											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer())+"</p>");
+											slotsTaken.add(c.getClothingType().getSlot());
+										}
+									}
+								}
+							};
+						}
+						
+					} else if (index == 9 && inventoryNPC!=null) {
+						return getBuybackResponse();
+						
+					} else if (index == 10 && !Main.game.isInSex() && !Main.game.isInCombat()) {
+						return getQuickTradeResponse();
+						
+					} else {
+						return null;
+					}
+					
+				case SEX:
+					if(index == 1) {
+						return new Response("Take all", "Pick up everything on the ground.", null);
+						
+					} else if (index == 2) {
+						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Displace all", "You aren't wearing any clothing, so there's nothing to displace!", null);
+							
+						} else {
+							return new Response("Displace all", "Displace as much of your clothing as possible.", Sex.SEX_DIALOGUE){
+								@Override
+								public void effects(){
+									responseSB.setLength(0);
+									
+									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
+										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
+											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
+												Main.game.getPlayer().isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
+												responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getDisplaceDescription()+"</p>");
+											}
+										}
+									}
+									
+									Sex.setUnequipClothingText(responseSB.toString());
+									Main.game.restoreSavedContent();
+									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+									Sex.setSexStarted(true);
+								}
+							};
+						}
+						
+					} else if (index == 3) {
+						return new Response("Replace all", "You can't replace clothing in sex!", null);
+						
+					} else if (index == 4) {
+						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Unequip all", "You aren't wearing any clothing, so there's nothing to remove!", null);
+							
+						} else {
+							return new Response("Unequip all", "Remove as much of your clothing as possible.", Sex.SEX_DIALOGUE){
+								@Override
+								public void effects(){
+									responseSB.setLength(0);
+									
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
+									zlayerClothing.sort(new ClothingZLayerComparator());
+									
+									for(AbstractClothing c : zlayerClothing) { 
+										Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+										responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
+									}
+									
+									Sex.setUnequipClothingText(responseSB.toString());
+									Main.game.restoreSavedContent();
+									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+									Sex.setSexStarted(true);
+								}
+							};
+						}
+						
+					} else if (index == 5) {
+						return new Response("Equip all", "You can't equip clothing in sex!", null);
+							
+					} else if (index == 6 && inventoryNPC != null) {
+						if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to displace!"), null);
+							
+						} else {
+							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "Displace as much of [npc.name]'s clothing as possible."), Sex.SEX_DIALOGUE){
+								@Override
+								public void effects(){
+									responseSB.setLength(0);
+									
+									for(AbstractClothing c : inventoryNPC.getClothingCurrentlyEquipped()) {
+										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
+											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
+												inventoryNPC.isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
+												responseSB.append("<p style='text-align:center;'>"+inventoryNPC.getDisplaceDescription()+"</p>");
+											}
+										}
+									}
+									
+									Sex.setUnequipClothingText(responseSB.toString());
+									Main.game.restoreSavedContent();
+									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+									Sex.setSexStarted(true);
+								}
+							};
+						}
+						
+					} else if (index == 7) {
+						return new Response("Replace all (them)", "You can't replace clothing in sex!", null);
+						
+					} else if (index == 8) {
+						if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
+							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to remove!"), null);
+							
+						} else {
+							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "Remove as much of [npc.name]'s clothing as possible."), Sex.SEX_DIALOGUE){
+								@Override
+								public void effects(){
+									responseSB.setLength(0);
+									
+									List<AbstractClothing> zlayerClothing = new ArrayList<>(inventoryNPC.getClothingCurrentlyEquipped());
+									zlayerClothing.sort(new ClothingZLayerComparator());
+									
+									for(AbstractClothing c : zlayerClothing) { 
+										inventoryNPC.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+										responseSB.append("<p style='text-align:center;'>"+inventoryNPC.getUnequipDescription()+"</p>");
+									}
+									
+									Sex.setUnequipClothingText(responseSB.toString());
+									Main.game.restoreSavedContent();
+									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+									Sex.setSexStarted(true);
+								}
+							};
+						}
+						
+					} else {
+						return null;
+					}
+			}
+			
+			return null;
 		}
 
 		@Override
@@ -2079,8 +2619,8 @@ public class InventoryDialogue {
 										}
 										@Override
 										public void effects(){
+											Main.game.getPlayer().addSlave(inventoryNPC);
 											inventoryNPC.setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION);
-											System.out.println(inventoryNPC.getWorldLocation() + " "+ inventoryNPC.getLocationPlace().getName());
 											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.equipClothingFromInventory(clothing, true, Main.game.getPlayer(), Main.game.getPlayer()) + "</p>");
 											populateJinxedClothingList();
 										}
@@ -3177,7 +3717,7 @@ public class InventoryDialogue {
 							
 						} else if (index==4) {
 							if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)) {
-								return new Response("Dye", "Use a dye-brush to dye this item of clothing.", DYE_CLOTHING);
+								return new Response("Dye", "Use a dye-brush to dye this item of clothing.", DYE_EQUIPPED_CLOTHING);
 							} else {
 								return new Response("Dye", "You need a dye-brush in order to dye this item of clothing.", null);
 							}
@@ -3270,6 +3810,10 @@ public class InventoryDialogue {
 							return new Response("Enchant", "You can't enchant equipped clothing!", null);
 							
 						} else if(index == 6) {
+							if(!Sex.getSexManager().isPlayerCanRemoveOwnClothes()) {
+								return new Response("Unequip", "You can't unequip the " + clothing.getName() + " in this sex scene!", null);
+							}
+							
 							if (owner.isAbleToUnequip(clothing, false, Main.game.getPlayer())) {
 								return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
 									@Override
@@ -3291,31 +3835,16 @@ public class InventoryDialogue {
 						} else if (index > 10 && index - 11 < clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().size()){
 							
 							if (clothing.getDisplacedList().contains(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11))) {
-
-								if(owner.isAbleToBeReplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11), false, false, Main.game.getPlayer())){
-									
-									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getOppositeDescription()),
-											Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getOppositeDescription()) + " the " + clothing.getName() + ". "
-													+ clothing.getClothingBlockingDescription(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11), Main.game.getPlayer(),
-															" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>This will cover your ", ".</span>"),
-													Sex.SEX_DIALOGUE){
-										@Override
-										public void effects(){
-											Main.game.getPlayer().isAbleToBeReplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11), true, true, Main.game.getPlayer());
-											Sex.setUnequipClothingText(owner.getReplaceDescription());
-											Main.game.restoreSavedContent();
-											Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-											Sex.setSexStarted(true);
-										}
-									};
-									
-								} else {
-									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription()),
-											"You can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription() + " the " + clothing.getName() + ", as other clothing is in the way!", null);
-								}
+								return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription()),
+										"You can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription() + " your " + clothing.getName() + " during sex!", null);
 								
 							} else {
-
+								
+								if(!Sex.getSexManager().isPlayerCanRemoveOwnClothes()) {
+									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()),
+											"You can't can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription() + " your " + clothing.getName() + " in this sex scene!", null);
+								}
+								
 								if(owner.isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11), false, false, Main.game.getPlayer())){
 									
 									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()),
@@ -3411,7 +3940,7 @@ public class InventoryDialogue {
 							
 						} else if (index==4) {
 							if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)) {
-								return new Response("Dye", "Use a dye-brush to dye this item of clothing.", DYE_CLOTHING);
+								return new Response("Dye", "Use a dye-brush to dye this item of clothing.", DYE_EQUIPPED_CLOTHING);
 								
 							} else {
 								return new Response("Dye", UtilText.parse(inventoryNPC, "You'll need to find a dye-brush if you want to dye [npc.name]'s clothes."), null);
@@ -3505,6 +4034,10 @@ public class InventoryDialogue {
 							return new Response("Enchant", "You can't enchant equipped clothing!", null);
 							
 						} else if(index == 6) {
+							if(!Sex.getSexManager().isPlayerCanRemovePartnersClothes()) {
+								return new Response("Unequip", "You can't unequip the " + clothing.getName() + " in this sex scene!", null);
+							}
+							
 							return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
 								@Override
 								public void effects(){
@@ -3523,31 +4056,18 @@ public class InventoryDialogue {
 							
 							if (clothing.getDisplacedList().contains(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11))) {
 
-								if(owner.isAbleToBeReplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11), false, false, Main.game.getPlayer())){
-									
-									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getOppositeDescription()),
-											Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getOppositeDescription()) + " the " + clothing.getName() + ". "
-													+ clothing.getClothingBlockingDescription(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11), owner,
-															" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>This will cover your ", ".</span>"),
-													Sex.SEX_DIALOGUE){
-										@Override
-										public void effects(){
-											owner.isAbleToBeReplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11), true, true, Main.game.getPlayer());
-											Sex.setUnequipClothingText(owner.getReplaceDescription());
-											Main.game.restoreSavedContent();
-											Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-											Sex.setSexStarted(true);
-										}
-									};
-									
-								} else {
-									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription()),
-											"You can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription() + " the " + clothing.getName() + ", as other clothing is in the way!", null);
-								}
+								return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription()),
+										"You can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription() + " the " + clothing.getName() + " during sex!", null);
 								
 							} else {
 
 								if(owner.isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11), false, false, Main.game.getPlayer())){
+									
+
+									if(!Sex.getSexManager().isPlayerCanRemovePartnersClothes()) {
+										return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()),
+												"You "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription() + " the " + clothing.getName() + " in this sex scene!", null);
+									}
 									
 									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()),
 											Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()) + " the " + clothing.getName() + ". "
@@ -3715,7 +4235,7 @@ public class InventoryDialogue {
 							+ ". This action is permanent, and you'll need another dye-brush if you want to change its colour again.", INVENTORY_MENU){
 					@Override
 					public void effects(){
-						Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
+						Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), owner, false);
 						Main.game.getTextEndStringBuilder().append(
 								"<p style='text-align:center;'>"
 									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, clothing.getClothingType().getAvailableColours().get(index - 1))
@@ -3730,9 +4250,9 @@ public class InventoryDialogue {
 													+ "</b> dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
 											:"You have <b>0</b> dye-brushes left!")
 								+ "</p>");
-						Main.game.getPlayer().removeClothing(clothing);
+						owner.removeClothing(clothing);
 						clothing.setColour(clothing.getClothingType().getAvailableColours().get(index - 1));
-						Main.game.getPlayer().addClothing(clothing, false);
+						owner.addClothing(clothing, false);
 					}
 				};
 
@@ -3773,12 +4293,12 @@ public class InventoryDialogue {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 0) {
-				return new Response("Back", "Return to the previous menu.", CLOTHING_EQUIPPED);
+				return new Response("Back", "Return to the previous menu.", INVENTORY_MENU);
 
 			} else if (index - 1 < clothing.getClothingType().getAvailableColours().size()) {
 				return new Response("Dye: " + Util.capitaliseSentence(clothing.getClothingType().getAvailableColours().get(index - 1).getName()),
 						"Dye the " + clothing.getName() + " " + Util.capitaliseSentence(clothing.getClothingType().getAvailableColours().get(index - 1).getName())
-						+ ". This action is permanent, and you'll need another dye-brush if you want to change its colour again.", CLOTHING_EQUIPPED){
+						+ ". This action is permanent, and you'll need another dye-brush if you want to change its colour again.", INVENTORY_MENU){
 					@Override
 					public void effects(){
 						Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
@@ -3797,75 +4317,6 @@ public class InventoryDialogue {
 											:"You have <b>0</b> dye-brushes left!")
 								+ "</p>");
 						clothing.setColour(clothing.getClothingType().getAvailableColours().get(index - 1));
-					}
-				};
-
-			} else
-				return null;
-		}
-
-		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
-		}
-	};
-	
-	public static final DialogueNodeOld DYE_CLOTHING_SEX = new DialogueNodeOld("Dye clothing", "", true) { //TODO is this working?
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			inventorySB = new StringBuilder(
-					"<div class='inventoryImage'>"
-						+ "<div class='inventoryImage-content'>"
-							+ clothing.getSVGString()
-						+ "</div>"
-					+ "</div>"
-					+ "<p><b>"+clothing.getDisplayName(true)+"</b></p>"
-					+ clothing.getDescription()
-					+ clothing.clothingExtraInformation(Main.game.getPlayer())
-					+ "<p>"
-						+ "Available colours for this item (hover over to view preview):"
-					+ "</p>");
-
-			for (Colour c : clothing.getClothingType().getAvailableColours()) {
-				inventorySB.append("<div class='phone-item-colour' id='" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "' style='background-color:" + c.toWebHexString() + ";'></div>");
-			}
-			
-			return inventorySB.toString();
-		}
-		
-		@Override
-		public Response getResponse(int index) {
-			if (index == 0) {
-				return new Response("Back", "Return to the previous menu.", CLOTHING_EQUIPPED);
-
-			} else if (index - 1 < clothing.getClothingType().getAvailableColours().size()) {
-				return new Response("Dye: " + Util.capitaliseSentence(clothing.getClothingType().getAvailableColours().get(index - 1).getName()),
-						"Dye the " + clothing.getName() + " " + Util.capitaliseSentence(clothing.getClothingType().getAvailableColours().get(index - 1).getName())
-						+ ". This action is permanent, and you'll need another dye-brush if you want to change its colour again.",  Sex.SEX_DIALOGUE){
-					@Override
-					public void effects(){
-						Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
-						Sex.setDyeClothingText(
-								"<p style='text-align:center;'>"
-									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, clothing.getClothingType().getAvailableColours().get(index - 1))
-								+ "</p>"
-								+ "<p>"
-									+ "<b>"+(owner.isPlayer()?"Your":"[npc.Name]'s")+" " + clothing.getName() + " " + (clothing.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b> <b style='color:"
-										+ clothing.getClothingType().getAvailableColours().get(index - 1).toWebHexString() + ";'>" + clothing.getClothingType().getAvailableColours().get(index - 1).getName() + "</b>!"
-								+ "</p>"
-								+ "<p>"
-									+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
-											?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
-													+ "</b> dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
-											:"You have <b>0</b> dye-brushes left!")
-								+ "</p>");
-						clothing.setColour(clothing.getClothingType().getAvailableColours().get(index - 1));
-
-						Main.game.restoreSavedContent();
-						Sex.endSexTurn(SexActionUtility.CLOTHING_DYE);
-						Sex.setSexStarted(true);
 					}
 				};
 
@@ -3923,38 +4374,41 @@ public class InventoryDialogue {
 	}
 	
 	private static Response getQuickTradeResponse() {
-		if (Main.game.getDialogueFlags().quickTrade) {
-			return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-					"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
-				+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
-				
-				@Override
-				public DialogueNodeOld getNextDialogue() {
-					return Main.game.getCurrentDialogueNode();
-				}
-				
-				@Override
-				public void effects(){
-					Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-				}
-			};
-			
-		} else {
-			return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-					"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
-				+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
-
-				@Override
-				public DialogueNodeOld getNextDialogue() {
-					return Main.game.getCurrentDialogueNode();
-				}
-				
-				@Override
-				public void effects(){
-					Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
-				}
-			};
-		}
+		
+		return null;
+		
+//		if (Main.game.getDialogueFlags().quickTrade) {
+//			return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
+//					"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+//							+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
+//				
+//				@Override
+//				public DialogueNodeOld getNextDialogue() {
+//					return Main.game.getCurrentDialogueNode();
+//				}
+//				
+//				@Override
+//				public void effects(){
+//					Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
+//				}
+//			};
+//			
+//		} else {
+//			return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
+//					"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+//							+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
+//
+//				@Override
+//				public DialogueNodeOld getNextDialogue() {
+//					return Main.game.getCurrentDialogueNode();
+//				}
+//				
+//				@Override
+//				public void effects(){
+//					Main.game.getDialogueFlags().quickTrade = !Main.game.getDialogueFlags().quickTrade;
+//				}
+//			};
+//		}
 	}
 
 	// Items:

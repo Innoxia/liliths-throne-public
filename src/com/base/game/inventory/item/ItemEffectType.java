@@ -872,7 +872,7 @@ public enum ItemEffectType {
 			}
 			
 			// Non-racial changes
-			if(target.getFemininity()<95) {
+			if(target.getFemininityValue()<95) {
 				sb.append("</br>" + target.setFemininity(95));
 			}
 			if(target.getBreastSize().getMeasurement()<CupSize.DD.getMeasurement()) {
@@ -951,7 +951,7 @@ public enum ItemEffectType {
 			}
 			
 			// Non-racial changes
-			if(target.getFemininity()<95) {
+			if(target.getFemininityValue()<95) {
 				sb.append("</br>" + target.setFemininity(95));
 			}
 			if(target.getBreastSize().getMeasurement()<CupSize.C.getMeasurement()) {
@@ -1039,7 +1039,7 @@ public enum ItemEffectType {
 			}
 			
 			// Non-racial changes
-			if(target.getFemininity()<95) {
+			if(target.getFemininityValue()<95) {
 				sb.append("</br>" + target.setFemininity(95));
 			}
 			if(target.getBreastSize().getMeasurement()<CupSize.C.getMeasurement()) {

@@ -201,7 +201,7 @@ public class HarpyNestDominant {
 							+ "</p>"
 							+ "<p>"
 								+ "Just as you're about to say something, [harpyDominant.Name], up until now having ignored your presence, calls out,"
-								+ (Main.game.getPlayer().getFemininity()>Femininity.FEMININE_STRONG.getMinimumFemininity()
+								+ (Main.game.getPlayer().getFemininityValue()>Femininity.FEMININE_STRONG.getMinimumFemininity()
 										?" [harpyDominant.speech([harpyDominantCompanion.Name]! That hungry slut is back for more of our attention!)]"
 										:" [harpyDominant.speech([harpyDominantCompanion.Name]! That bitch is back for more of our attention!)]")
 							+ "</p>"
@@ -210,7 +210,7 @@ public class HarpyNestDominant {
 							+ "</p>"
 							+ "<p>"
 								+ "Standing up on top of her podium, [harpyDominant.name] growls down at you, "
-								+ (Main.game.getPlayer().getFemininity()>Femininity.FEMININE_STRONG.getMinimumFemininity()
+								+ (Main.game.getPlayer().getFemininityValue()>Femininity.FEMININE_STRONG.getMinimumFemininity()
 										?"[harpyDominant.speech(So?! What do you want, whore?!)]"
 										:"[harpyDominant.speech(So?! What do you want, bitch?!)]")
 							+ "</p>";
@@ -246,7 +246,7 @@ public class HarpyNestDominant {
 						+ "</p>"
 						+ "<p>"
 							+ "Just as you're about to say something, the matriarch, up until now having ignored your presence, calls out,"
-							+ (Main.game.getPlayer().getFemininity()>Femininity.FEMININE_STRONG.getMinimumFemininity()
+							+ (Main.game.getPlayer().getFemininityValue()>Femininity.FEMININE_STRONG.getMinimumFemininity()
 									?" [harpyDominant.speech([harpyDominantCompanion.Name]! You can finish with your fuck-toy later! There's another hungry slut right here that needs our attention!)]"
 									:" [harpyDominant.speech([harpyDominantCompanion.Name]! You can finish with your fuck-toy later! There's some bitch here that needs our attention!)]")
 						+ "</p>"
@@ -262,7 +262,7 @@ public class HarpyNestDominant {
 						+ "</p>"
 						+ "<p>"
 							+ "As you're taking in her gorgeous appearance, she growls down at you, "
-							+ (Main.game.getPlayer().getFemininity()>Femininity.FEMININE_STRONG.getMinimumFemininity()
+							+ (Main.game.getPlayer().getFemininityValue()>Femininity.FEMININE_STRONG.getMinimumFemininity()
 									?"[harpyDominant.speech(So?! What do you want, whore?!)]"
 									:"[harpyDominant.speech(So?! What do you want, bitch?!)]")
 						+ "</p>";

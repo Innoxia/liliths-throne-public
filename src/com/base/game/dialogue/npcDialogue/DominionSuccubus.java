@@ -37,8 +37,8 @@ public class DominionSuccubus {
 		@Override
 		public String getContent() {
 			
-			if(Main.game.getCurrentRandomAttacker().isVisiblyPregnant()){
-				if(Main.game.getCurrentRandomAttacker().isReactedToPregnancy()) {
+			if(Main.game.getActiveNPC().isVisiblyPregnant()){
+				if(Main.game.getActiveNPC().isReactedToPregnancy()) {
 					return("<p>"
 								+ "Although Dominion's alleyways are eerily quiet for most of the time, you suddenly start to feel a deep, unsettling stillness descending upon you."
 								+ " Stopping in your tracks, you glance back the way you came, before looking all around for any sign of danger."
@@ -54,25 +54,25 @@ public class DominionSuccubus {
 							+ "</p>"
 							+ "<p>"
 								+ "As she steps over the fallen webbing, you recognise your tormentor as the"
-								+ " <b style='color:"+Femininity.valueOf(Main.game.getCurrentRandomAttacker().getFemininity()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getCurrentRandomAttacker().getFemininity(), false)+"</b>"
-								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getCurrentRandomAttacker().getRaceStage().getName()+"</b>"
-								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRace().getColour().toWebHexString()+";'>" + Main.game.getCurrentRandomAttacker().getName() + "</b>"
+								+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), false)+"</b>"
+								+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
+								+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
 								+ " you've run into before."
 							+ "</p>"
 							+ "<p>"
-								+ UtilText.genderParsing(Main.game.getCurrentRandomAttacker(),
-										UtilText.parseSpeech("It's <i>you</i> again?!", Main.game.getCurrentRandomAttacker())
+								+ UtilText.genderParsing(Main.game.getActiveNPC(),
+										UtilText.parseSpeech("It's <i>you</i> again?!", Main.game.getActiveNPC())
 										+ " <she> growls, failing to conceal the angry look in her eyes, "
-										+ UtilText.parseSpeech("Look what you fucking did!", Main.game.getCurrentRandomAttacker()))
+										+ UtilText.parseSpeech("Look what you fucking did!", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
 							+ "As she walks towards you, she points down to her stomach, and you feel your eyes going wide as you see a clearly pregnant bump in her belly."
 							+ "</p>"
 							+ "<p>"
-							+ UtilText.genderParsing(Main.game.getCurrentRandomAttacker(),
-									UtilText.parseThought("Do you have any idea how hard it is to ambush people when I've got to carry your little brood of imps around?", Main.game.getCurrentRandomAttacker())
+							+ UtilText.genderParsing(Main.game.getActiveNPC(),
+									UtilText.parseThought("Do you have any idea how hard it is to ambush people when I've got to carry your little brood of imps around?", Main.game.getActiveNPC())
 									+ " <she> shouts, but this time, she doesn't speak out loud, and you realise that you're hearing her angry voice in your head, "
-									+ UtilText.parseThought("So get down on your knees, <b>right now</b>, and beg to let me fuck you! Maybe then I won't be quite so mad at you!", Main.game.getCurrentRandomAttacker()))
+									+ UtilText.parseThought("So get down on your knees, <b>right now</b>, and beg to let me fuck you! Maybe then I won't be quite so mad at you!", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
 							+ "Although she obviously still has a couple of tricks up her sleeve, you haven't seen any arcane elements materialising around her arms."
@@ -96,25 +96,25 @@ public class DominionSuccubus {
 							+ "</p>"
 							+ "<p>"
 								+ "As she steps over the fallen webbing, you recognise your tormentor as the"
-								+ " <b style='color:"+Femininity.valueOf(Main.game.getCurrentRandomAttacker().getFemininity()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getCurrentRandomAttacker().getFemininity(), false)+"</b>"
-								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getCurrentRandomAttacker().getRaceStage().getName()+"</b>"
-								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRace().getColour().toWebHexString()+";'>" + Main.game.getCurrentRandomAttacker().getName() + "</b>"
+								+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), false)+"</b>"
+								+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
+								+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
 								+ " you've run into before."
 							+ "</p>"
 							+ "<p>"
-								+ UtilText.genderParsing(Main.game.getCurrentRandomAttacker(),
-										UtilText.parseSpeech("It's <i>you</i> again?!", Main.game.getCurrentRandomAttacker())
+								+ UtilText.genderParsing(Main.game.getActiveNPC(),
+										UtilText.parseSpeech("It's <i>you</i> again?!", Main.game.getActiveNPC())
 										+ " <she> growls, failing to conceal the angry look in her eyes, "
-										+ UtilText.parseSpeech("I'm still carrying around your children, you fucking asshole!", Main.game.getCurrentRandomAttacker()))
+										+ UtilText.parseSpeech("I'm still carrying around your children, you fucking asshole!", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
 							+ "As she walks towards you, she points down to her stomach, and you see that the pregnant bump in her belly has only gotten bigger since the last time you saw her."
 							+ "</p>"
 							+ "<p>"
-							+ UtilText.genderParsing(Main.game.getCurrentRandomAttacker(),
-									UtilText.parseThought("Do you have any idea how hard it is to ambush people when I've got to carry your little brood of imps around?", Main.game.getCurrentRandomAttacker())
+							+ UtilText.genderParsing(Main.game.getActiveNPC(),
+									UtilText.parseThought("Do you have any idea how hard it is to ambush people when I've got to carry your little brood of imps around?", Main.game.getActiveNPC())
 									+ " <she> shouts, but this time, she doesn't speak out loud, and you realise that you're hearing her angry voice in your head, "
-									+ UtilText.parseThought("So get down on your knees, <b>right now</b>, and beg to let me fuck you! Maybe then I won't be quite so mad at you!", Main.game.getCurrentRandomAttacker()))
+									+ UtilText.parseThought("So get down on your knees, <b>right now</b>, and beg to let me fuck you! Maybe then I won't be quite so mad at you!", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
 							+ "Although she obviously still has a couple of tricks up her sleeve, you haven't seen any arcane elements materialising around her arms."
@@ -125,7 +125,7 @@ public class DominionSuccubus {
 				
 			}else{
 				// You've encountered this demon before:
-				if(Main.game.getCurrentRandomAttacker().getLastTimeEncountered()!=-1) {
+				if(Main.game.getActiveNPC().getLastTimeEncountered()!=-1) {
 					return("<p>"
 							+ "Although Dominion's alleyways are eerily quiet for most of the time, you suddenly start to feel a deep, unsettling stillness descending upon you."
 							+ " Stopping in your tracks, you glance back the way you came, before looking all around for any sign of danger."
@@ -141,16 +141,16 @@ public class DominionSuccubus {
 						+ "</p>"
 						+ "<p>"
 							+ "As she steps over the fallen webbing, you recognise your tormentor as the"
-							+ " <b style='color:"+Femininity.valueOf(Main.game.getCurrentRandomAttacker().getFemininity()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getCurrentRandomAttacker().getFemininity(), false)+"</b>"
-							+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getCurrentRandomAttacker().getRaceStage().getName()+"</b>"
-							+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRace().getColour().toWebHexString()+";'>" + Main.game.getCurrentRandomAttacker().getName() + "</b>"
+							+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), false)+"</b>"
+							+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
+							+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
 							+ " you've run into before."
 						+ "</p>"
 						+ "<p>"
-							+ UtilText.genderParsing(Main.game.getCurrentRandomAttacker(),
-									UtilText.parseSpeech("It's you again?!", Main.game.getCurrentRandomAttacker())
+							+ UtilText.genderParsing(Main.game.getActiveNPC(),
+									UtilText.parseSpeech("It's you again?!", Main.game.getActiveNPC())
 									+ " [npc.she] laughs, and you see the same hungry look in her eyes that [npc.she] had the last time you saw [npc.herHim], "
-									+ UtilText.parseSpeech("You're just asking to get fucked!", Main.game.getCurrentRandomAttacker()))
+									+ UtilText.parseSpeech("You're just asking to get fucked!", Main.game.getActiveNPC()))
 						+ "</p>"
 						+ "<p>"
 							+ "It doesn't look like [npc.she]'s any more capable than [npc.she] was the last time you fought [npc.herHim], and you still don't see any arcane elements materialising around her arms."
@@ -176,29 +176,29 @@ public class DominionSuccubus {
 							+ "</p>"
 							+ "<p>"
 								+ "As she steps over the fallen webbing, you see that your tormentor is, in fact, "
-								+ " <b style='color:"+Femininity.valueOf(Main.game.getCurrentRandomAttacker().getFemininity()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getCurrentRandomAttacker().getFemininity(), true)+"</b>"
-								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getCurrentRandomAttacker().getRaceStage().getName()+"</b>"
-								+ " <b style='color:"+Main.game.getCurrentRandomAttacker().getRace().getColour().toWebHexString()+";'>" + Main.game.getCurrentRandomAttacker().getName() + "</b>"
+								+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), true)+"</b>"
+								+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
+								+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
 								+ ". Unlike Lilaya"+(Main.game.getDialogueFlags().kateIntroduced?" or Kate":"")+", this demon has a hungry, primal look in her eyes, and as she moves closer, she starts to talk."
 							+ "</p>"
 							+ "<p>"
-								+ UtilText.genderParsing(Main.game.getCurrentRandomAttacker(),
-										UtilText.parseSpeech("Aww, how did you see my little surprise?", Main.game.getCurrentRandomAttacker())
+								+ UtilText.genderParsing(Main.game.getActiveNPC(),
+										UtilText.parseSpeech("Aww, how did you see my little surprise?", Main.game.getActiveNPC())
 										+ " <she> asks, failing to conceal the desperate look in her eyes, "
 										+ UtilText.parseSpeech("You must know how to use the arcane!"
 												+ " Y'know, I'm not angry, but that little trick takes me quite a while to set up, so when someone comes along and ruins it..."
 												+ " Actually, no, I <i>am</i> pretty angry!"
 												+ " Do you know how long it's been since I fucked someone?! Huh?!"
-												+ " <i>Five fucking hours!</i>", Main.game.getCurrentRandomAttacker()))
+												+ " <i>Five fucking hours!</i>", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
 							+ "Although she's been steadily walking towards you this whole time, she suddenly stops, about three metres in front of you, and you realise that she's a little unsure of what you're capable of."
 							+ "</p>"
 							+ "<p>"
-							+ UtilText.genderParsing(Main.game.getCurrentRandomAttacker(),
-									UtilText.parseThought("So you're going to make it up to me for ruining my trap, understand?", Main.game.getCurrentRandomAttacker())
+							+ UtilText.genderParsing(Main.game.getActiveNPC(),
+									UtilText.parseThought("So you're going to make it up to me for ruining my trap, understand?", Main.game.getActiveNPC())
 									+ " <she> demands, but this time, she doesn't speak out loud, and you realise that you're hearing her voice in your head, "
-									+ UtilText.parseThought("So get down on your knees, <b>right now</b>, and beg to let me fuck you!", Main.game.getCurrentRandomAttacker()))
+									+ UtilText.parseThought("So get down on your knees, <b>right now</b>, and beg to let me fuck you!", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
 							+ "Although she obviously still has a couple of tricks up her sleeve, you haven't seen any arcane elements materialising around her arms."
@@ -212,11 +212,11 @@ public class DominionSuccubus {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "This demon doesn't look so tough! You're pretty sure you can beat her.", ALLEY_DEMON_ATTACK, Main.game.getCurrentRandomAttacker()){
+				return new ResponseCombat("Fight", "This demon doesn't look so tough! You're pretty sure you can beat her.", ALLEY_DEMON_ATTACK, Main.game.getActiveNPC()){
 					@Override
 					public void effects() {
-						if(Main.game.getCurrentRandomAttacker().isVisiblyPregnant())
-							Main.game.getCurrentRandomAttacker().setReactedToPregnancy(true);
+						if(Main.game.getActiveNPC().isVisiblyPregnant())
+							Main.game.getActiveNPC().setReactedToPregnancy(true);
 					}
 				};
 				
@@ -224,8 +224,8 @@ public class DominionSuccubus {
 				return new Response("Kneel", "Maybe she'll go easy on you if you were to do as she says?", SUBMITTING){
 					@Override
 					public void effects() {
-						if(Main.game.getCurrentRandomAttacker().isVisiblyPregnant())
-							Main.game.getCurrentRandomAttacker().setReactedToPregnancy(true);
+						if(Main.game.getActiveNPC().isVisiblyPregnant())
+							Main.game.getActiveNPC().setReactedToPregnancy(true);
 					}
 				};
 				
@@ -240,19 +240,19 @@ public class DominionSuccubus {
 
 		@Override
 		public String getDescription() {
-			return "You have defeated " + Main.game.getCurrentRandomAttacker().getName("the") + "!";
+			return "You have defeated " + Main.game.getActiveNPC().getName("the") + "!";
 		}
 
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ Main.game.getCurrentRandomAttacker().getName("The") + " lets out a manic, passionate moan as she collapses back against a nearby wall."
+						+ Main.game.getActiveNPC().getName("The") + " lets out a manic, passionate moan as she collapses back against a nearby wall."
 						+ " Much to your surprise, the hungry look in her eyes only seems to grow even fiercer in defeat, and she pouts at you before starting to desperately plead for sex."
 					+ "</p>"
 					+ "<p>"
-						+ UtilText.parseSpeech("Please! Let's just fuck already! I'll let you use my pussy! Or my mouth! Or even my ass! I just need to get off so badly!", Main.game.getCurrentRandomAttacker())
+						+ UtilText.parseSpeech("Please! Let's just fuck already! I'll let you use my pussy! Or my mouth! Or even my ass! I just need to get off so badly!", Main.game.getActiveNPC())
 						+" she whines, letting out a little cry as she hungrily looks up and down your body, "
-						+ UtilText.parseSpeech("You know how demons can transform themselves, right? You want me to grow a cock? I can do that too! Anything! Please!", Main.game.getCurrentRandomAttacker())
+						+ UtilText.parseSpeech("You know how demons can transform themselves, right? You want me to grow a cock? I can do that too! Anything! Please!", Main.game.getActiveNPC())
 					+ "</p>"
 					+ "<p>"
 					+ "With that, she reaches down between her legs and starts pressing her dress up against her concealed pussy, clenching her thighs down around her hand as she carries on whining and pleading for you to use her."
@@ -286,28 +286,28 @@ public class DominionSuccubus {
 								+ " Perhaps you could cheer her up by <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submitting to her</b> and letting her use your body?",
 						AFTER_SEX_DEFEAT,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-						Main.game.getCurrentRandomAttacker(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+						Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 						"<p>"
-							+ "As "+Main.game.getCurrentRandomAttacker().getName("the")+" carries on whining and desperately touching herself, you start to feel incredibly sorry for her."
-							+ " Stepping forwards, you lean down and look up into her "+Main.game.getCurrentRandomAttacker().getEyeName()+", "
+							+ "As "+Main.game.getActiveNPC().getName("the")+" carries on whining and desperately touching herself, you start to feel incredibly sorry for her."
+							+ " Stepping forwards, you lean down and look up into her "+Main.game.getActiveNPC().getEyeName()+", "
 							+UtilText.parsePlayerSpeech("I'm sorry! I didn't mean to upset you!")
 						+ "</p>"
 						+ "<p>"
-						+ "Your efforts at calming "+Main.game.getCurrentRandomAttacker().getName("the")+" down only seem to make her whine out even more, and,"
+						+ "Your efforts at calming "+Main.game.getActiveNPC().getName("the")+" down only seem to make her whine out even more, and,"
 								+ " feeling extremely sorry for the poor, horny demon, you make an offer that you might soon regret..."
 						+ "</p>"
 						+ "<p>"
 						+UtilText.parsePlayerSpeech("So, you need me to help you get some release?")
 						+ "</p>"
 						+ "<p>"
-						+ Main.game.getCurrentRandomAttacker().getName("The")+"'s eyes flick up as she stops whining for a moment, "
-						+ UtilText.parseSpeech("Yes... But I can't get off unless I'm the one in charge...", Main.game.getCurrentRandomAttacker())
+						+ Main.game.getActiveNPC().getName("The")+"'s eyes flick up as she stops whining for a moment, "
+						+ UtilText.parseSpeech("Yes... But I can't get off unless I'm the one in charge...", Main.game.getActiveNPC())
 						+ "</p>"
 						+ "<p>"
 						+UtilText.parsePlayerSpeech("Well, in that case, I'm happy to let yo- ~Mrph!~")
 						+ "</p>"
 						+ "<p>"
-						+ Main.game.getCurrentRandomAttacker().getName("The")+" suddenly rocks forwards, pressing her lips against yours as she pulls you into a passionate kiss."
+						+ Main.game.getActiveNPC().getName("The")+" suddenly rocks forwards, pressing her lips against yours as she pulls you into a passionate kiss."
 							+ " Her whining instantly stopped as you started to offer your body to her, and as she grinds up against you, the only noises that come from her mouth are deep, pleasurable moans."
 						+ "</p>"
 						+ "<p>"
@@ -318,7 +318,7 @@ public class DominionSuccubus {
 						+ "<p>"
 							+ "Seeing what you're looking at, the succubus lets out a playful giggle, "
 							+ UtilText.parseSpeech("What? You didn't seriously think I'd let you use my pussy, did you?"
-									+ " You're the one who's offering to help here, remember?! If you didn't want to be my little fuck-toy, perhaps you should have just walked away!", Main.game.getCurrentRandomAttacker())
+									+ " You're the one who's offering to help here, remember?! If you didn't want to be my little fuck-toy, perhaps you should have just walked away!", Main.game.getActiveNPC())
 						+ "</p>"
 						+ "<p>"
 							+ "Before you can respond, she leans forwards and presses her lips against yours once more, thrusting her forked tongue into your mouth as she lets out a happy moan."
@@ -326,10 +326,10 @@ public class DominionSuccubus {
 						+ "</p>"){
 					@Override
 					public void effects() {
-						Main.game.getCurrentRandomAttacker().setPenisType(PenisType.DEMON_COMMON);
-						Main.game.getCurrentRandomAttacker().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
-						Main.game.getCurrentRandomAttacker().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
-						Main.game.getCurrentRandomAttacker().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
+						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
+						Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
+						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
+						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
 					}
 				};
 				
@@ -337,14 +337,14 @@ public class DominionSuccubus {
 				return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
 					@Override
 					public void effects() {
-						Main.mainController.openInventory(Main.game.getCurrentRandomAttacker(), InventoryInteraction.FULL_MANAGEMENT);
+						Main.mainController.openInventory(Main.game.getActiveNPC(), InventoryInteraction.FULL_MANAGEMENT);
 					}
 				};
 				
 			} else if (index == 10) {
 				return new Response(
 						"Remove character",
-						"Scare "+Main.game.getCurrentRandomAttacker().getName("the")+" away. <b>This will remove "+Main.game.getCurrentRandomAttacker().getName("the")+" from this area, allowing another NPC to move into this tile.</b>",
+						"Scare "+Main.game.getActiveNPC().getName("the")+" away. <b>This will remove "+Main.game.getActiveNPC().getName("the")+" from this area, allowing another NPC to move into this tile.</b>",
 						AFTER_COMBAT_VICTORY){
 					
 					@Override
@@ -353,7 +353,7 @@ public class DominionSuccubus {
 					}
 					@Override
 					public void effects() {
-						Main.game.removeNPC(Main.game.getCurrentRandomAttacker());
+						Main.game.removeNPC(Main.game.getActiveNPC());
 					}
 				};
 				
@@ -372,7 +372,7 @@ public class DominionSuccubus {
 		public String getContent() {
 			return "<p>"
 						+ "You can't pass up an opportunity like this, and as you step towards the horny succubus, she lets out a delighted squeal, "
-						+ UtilText.parseSpeech("Yes! Come fuck me!", Main.game.getCurrentRandomAttacker())
+						+ UtilText.parseSpeech("Yes! Come fuck me!", Main.game.getActiveNPC())
 					+ "</p>"
 					+ "<p>"
 					+ "Jumping up onto her feet, she leaps forwards and tries to pull you into a kiss."
@@ -392,7 +392,7 @@ public class DominionSuccubus {
 					}
 					@Override
 					public void effects() {
-						Main.game.getCurrentRandomAttacker().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
+						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Not really liking the sound of having her grow a cock, you tell her as much, "
@@ -400,7 +400,7 @@ public class DominionSuccubus {
 								+ "</p>"
 								+ "<p>"
 								+ "Trying to wriggle out of your grasp, the succubus moans, "
-								+ UtilText.parseSpeech("Aww! You're no fun... Let's just get started already!", Main.game.getCurrentRandomAttacker())
+								+ UtilText.parseSpeech("Aww! You're no fun... Let's just get started already!", Main.game.getActiveNPC())
 								+"</p>");
 					}
 				};
@@ -415,11 +415,11 @@ public class DominionSuccubus {
 					}
 					@Override
 					public void effects() {
-						Main.game.getCurrentRandomAttacker().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
-						Main.game.getCurrentRandomAttacker().setPenisType(PenisType.DEMON_COMMON);
-						Main.game.getCurrentRandomAttacker().setPenisSize(1);
-						Main.game.getCurrentRandomAttacker().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
-						Main.game.getCurrentRandomAttacker().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
+						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
+						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
+						Main.game.getActiveNPC().setPenisSize(1);
+						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
+						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Deciding that she should have a cute little sissy-cock, you order the succubus to grow one, "
@@ -427,7 +427,7 @@ public class DominionSuccubus {
 								+ "</p>"
 								+ "<p>"
 								+ "Trying to wriggle out of your grasp, the succubus moans, "
-								+ UtilText.parseSpeech("Fine! Just... Aah... Hold on... Ok, all done, can we start now?!", Main.game.getCurrentRandomAttacker())
+								+ UtilText.parseSpeech("Fine! Just... Aah... Hold on... Ok, all done, can we start now?!", Main.game.getActiveNPC())
 								+"</p>"
 								+ "<p>"
 								+ "Looking down at her crotch, you don't see any sign of a bulge beneath her dress, but then again, if she's kept it tiny like you asked, you wouldn't expect to see anything there anyway."
@@ -445,11 +445,11 @@ public class DominionSuccubus {
 					}
 					@Override
 					public void effects() {
-						Main.game.getCurrentRandomAttacker().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
-						Main.game.getCurrentRandomAttacker().setPenisType(PenisType.DEMON_COMMON);
-						Main.game.getCurrentRandomAttacker().setPenisSize(6);
-						Main.game.getCurrentRandomAttacker().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
-						Main.game.getCurrentRandomAttacker().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
+						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
+						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
+						Main.game.getActiveNPC().setPenisSize(6);
+						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
+						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Deciding that she should have an average-sized cock, you order the succubus to grow one, "
@@ -457,7 +457,7 @@ public class DominionSuccubus {
 								+ "</p>"
 								+ "<p>"
 								+ "Trying to wriggle out of your grasp, the succubus moans, "
-								+ UtilText.parseSpeech("Fine! Just... Aah... Hold on... Ok, all done, can we start now?!", Main.game.getCurrentRandomAttacker())
+								+ UtilText.parseSpeech("Fine! Just... Aah... Hold on... Ok, all done, can we start now?!", Main.game.getActiveNPC())
 								+"</p>"
 								+ "<p>"
 								+ "Looking down at her crotch, you see a small bulge beneath her dress, and you find yourself smiling in delight as you realise that the succubus is going to do anything you command."
@@ -475,11 +475,11 @@ public class DominionSuccubus {
 					}
 					@Override
 					public void effects() {
-						Main.game.getCurrentRandomAttacker().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
-						Main.game.getCurrentRandomAttacker().setPenisType(PenisType.DEMON_COMMON);
-						Main.game.getCurrentRandomAttacker().setPenisSize(11);
-						Main.game.getCurrentRandomAttacker().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
-						Main.game.getCurrentRandomAttacker().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
+						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
+						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
+						Main.game.getActiveNPC().setPenisSize(11);
+						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
+						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Deciding that she should have a nice, big cock, you order the succubus to grow one, "
@@ -487,7 +487,7 @@ public class DominionSuccubus {
 								+ "</p>"
 								+ "<p>"
 								+ "Trying to wriggle out of your grasp, the succubus moans, "
-								+ UtilText.parseSpeech("Fine! Just... Aah... Hold on... Ok, all done, can we start now?!", Main.game.getCurrentRandomAttacker())
+								+ UtilText.parseSpeech("Fine! Just... Aah... Hold on... Ok, all done, can we start now?!", Main.game.getActiveNPC())
 								+"</p>"
 								+ "<p>"
 								+ "Looking down at her crotch, you see a large bulge beneath her dress, and you find yourself smiling in delight as you realise that the succubus is going to do anything you command."
@@ -505,11 +505,11 @@ public class DominionSuccubus {
 					}
 					@Override
 					public void effects() {
-						Main.game.getCurrentRandomAttacker().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
-						Main.game.getCurrentRandomAttacker().setPenisType(PenisType.DEMON_COMMON);
-						Main.game.getCurrentRandomAttacker().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
-						Main.game.getCurrentRandomAttacker().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
-						Main.game.getCurrentRandomAttacker().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
+						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
+						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
+						Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
+						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
+						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Deciding that she should have the biggest cock she's able to grow, you order the succubus to get started, "
@@ -517,7 +517,7 @@ public class DominionSuccubus {
 								+ "</p>"
 								+ "<p>"
 								+ "Trying to wriggle out of your grasp, the succubus moans, "
-								+ UtilText.parseSpeech("Fine! Just... Aah... Hold on... Ok, all done, can we start now?!", Main.game.getCurrentRandomAttacker())
+								+ UtilText.parseSpeech("Fine! Just... Aah... Hold on... Ok, all done, can we start now?!", Main.game.getActiveNPC())
 								+"</p>"
 								+ "<p>"
 								+ "Looking down at her crotch, you see a massive bulge beneath her dress, and you find yourself smiling in delight as you realise that the succubus is going to do anything you command."
@@ -540,7 +540,7 @@ public class DominionSuccubus {
 		public String getContent() {
 			return "<p>"
 						+ "Panting and moaning, the succubus pleads with you, "
-						+ UtilText.parseSpeech("Come on! There isn't anything else is there? Let's just get going already!", Main.game.getCurrentRandomAttacker())
+						+ UtilText.parseSpeech("Come on! There isn't anything else is there? Let's just get going already!", Main.game.getActiveNPC())
 					+ "</p>";
 		}
 		
@@ -556,7 +556,7 @@ public class DominionSuccubus {
 					}
 					@Override
 					public void effects() {
-						Main.game.getCurrentRandomAttacker().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
+						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Wanting to make sure that she keeps her pussy, you order her once more, "
@@ -564,7 +564,7 @@ public class DominionSuccubus {
 								+ "</p>"
 								+ "<p>"
 								+ "By now the succubus has stopped trying to get out of your grasp, and just obediently sighs, "
-								+ UtilText.parseSpeech("Ok, ok! I wasn't planning on getting rid of it anyway! Now let's start! Come on!", Main.game.getCurrentRandomAttacker())
+								+ UtilText.parseSpeech("Ok, ok! I wasn't planning on getting rid of it anyway! Now let's start! Come on!", Main.game.getActiveNPC())
 								+"</p>");
 					}
 				};
@@ -579,8 +579,8 @@ public class DominionSuccubus {
 					}
 					@Override
 					public void effects() {
-						Main.game.getCurrentRandomAttacker().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
-						Main.game.getCurrentRandomAttacker().setVaginaType(VaginaType.NONE);
+						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
+						Main.game.getActiveNPC().setVaginaType(VaginaType.NONE);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Not having any plans to use her pussy, you decide to humiliate her a little, and bark out your second order, "
@@ -588,14 +588,14 @@ public class DominionSuccubus {
 								+ "</p>"
 								+ "<p>"
 								+ "By now the succubus has stopped trying to get out of your grasp, but as you order her to remove her pussy, she shuffles around uncomfortably and lets out a mortified groan, "
-								+ UtilText.parseSpeech("No! Please, not my pussy! It's not a real orgasm if I don't have one!", Main.game.getCurrentRandomAttacker())
+								+ UtilText.parseSpeech("No! Please, not my pussy! It's not a real orgasm if I don't have one!", Main.game.getActiveNPC())
 								+"</p>"
 								+ "<p>"
 								+ "Unimpressed by her reluctance to do as she's told, you give her a final ultimatum, "
 								+	UtilText.parsePlayerSpeech("If you don't do as you're told, I'll just walk away, and you can wait for another five hours before someone else comes walking by.")
 								+ "</p>"
 								+ "<p>"
-								+ UtilText.parseSpeech("Fine! Fine... Just... Hold on... Aww, it feels so weird down there now... It's gone...", Main.game.getCurrentRandomAttacker())
+								+ UtilText.parseSpeech("Fine! Fine... Just... Hold on... Aww, it feels so weird down there now... It's gone...", Main.game.getActiveNPC())
 								+"</p>");
 					}
 				};
@@ -613,7 +613,7 @@ public class DominionSuccubus {
 		public String getContent() {
 			return "<p>"
 						+ "Letting out a pitiful whine, the succubus stares up into your eyes, "
-						+ UtilText.parseSpeech("You can't drag this out any more! Come on already!", Main.game.getCurrentRandomAttacker())
+						+ UtilText.parseSpeech("You can't drag this out any more! Come on already!", Main.game.getActiveNPC())
 					+ "</p>"
 					+ "<p>"
 						+ "Ignoring her request, you wonder if you should get her to perform one final transformation."
@@ -627,14 +627,14 @@ public class DominionSuccubus {
 				return new ResponseSex("AA-cup",
 						"Tell the succubus to make her breasts tiny little AA-cups.",
 						AFTER_SEX_VICTORY,
-						Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY,
+						Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 						"<p>"
 							+ "Wanting to humiliate her a little, you order her to get rid of her breasts, "
 							+	UtilText.parsePlayerSpeech("These massive tits of yours are far too big! You're going to shrink them right down, understand? If they're anything bigger than little double-A's, I'm walking away!")
 						+ "</p>"
 						+ "<p>"
 							+ "With a desperate sob, the succubus does as you command, "
-							+ UtilText.parseSpeech("Really?! Aah... I just need to get fucked so bad... Fine!", Main.game.getCurrentRandomAttacker())
+							+ UtilText.parseSpeech("Really?! Aah... I just need to get fucked so bad... Fine!", Main.game.getActiveNPC())
 						+"</p>"
 						+ "<p>"
 							+ "Looking down at her chest, you see her huge, E-cup breasts rapidly shrink down, and after just a couple of seconds, she's almost completely flat-chested."
@@ -643,7 +643,7 @@ public class DominionSuccubus {
 						+ "</p>"){
 					@Override
 					public void effects() {
-						Main.game.getCurrentRandomAttacker().setBreastSize(CupSize.AA.getMeasurement());
+						Main.game.getActiveNPC().setBreastSize(CupSize.AA.getMeasurement());
 					}
 				};
 				
@@ -651,14 +651,14 @@ public class DominionSuccubus {
 				return new ResponseSex("C-cup",
 						"Tell the succubus to make her breasts a more reasonable, C-cup size.",
 						AFTER_SEX_VICTORY,
-						Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY,
+						Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 						"<p>"
 							+ "Wanting to reduce the size of her huge breasts a little, you order her to make the change, "
 							+	UtilText.parsePlayerSpeech("These massive tits of yours are far too big! Make them a more reasonable size! C-cups should do just fine.")
 						+ "</p>"
 						+ "<p>"
 							+ "With a desperate moan, the succubus does as you command, "
-							+ UtilText.parseSpeech("Aww... Fine!", Main.game.getCurrentRandomAttacker())
+							+ UtilText.parseSpeech("Aww... Fine!", Main.game.getActiveNPC())
 						+"</p>"
 						+ "<p>"
 							+ "Looking down at her chest, you see her huge, E-cup breasts rapidly shrink down, and after just a couple of seconds, she's left with a much more reasonable bust."
@@ -667,7 +667,7 @@ public class DominionSuccubus {
 						+ "</p>"){
 					@Override
 					public void effects() {
-						Main.game.getCurrentRandomAttacker().setBreastSize(CupSize.C.getMeasurement());
+						Main.game.getActiveNPC().setBreastSize(CupSize.C.getMeasurement());
 					}
 				};
 				
@@ -675,7 +675,7 @@ public class DominionSuccubus {
 				return new ResponseSex("E-cup",
 						"Tell the succubus to keep her breasts as E-cups.",
 						AFTER_SEX_VICTORY,
-						Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY,
+						Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 						"<p>"
 							+ "Looking down at her chest, you find yourself happy enough already as you see her huge, E-cup breasts."
 							+ " Satisfied with your changes, you decide to finally give the succubus what she wants, and, releasing her shoulders, you allow her to step forwards and grind herself up against you."
@@ -683,7 +683,7 @@ public class DominionSuccubus {
 						+ "</p>"){
 					@Override
 					public void effects() {
-						Main.game.getCurrentRandomAttacker().setBreastSize(CupSize.E.getMeasurement());
+						Main.game.getActiveNPC().setBreastSize(CupSize.E.getMeasurement());
 					}
 				};
 				
@@ -691,7 +691,7 @@ public class DominionSuccubus {
 				return new ResponseSex("H-cup",
 						"Tell the succubus to grow her breasts into huge H-cups.",
 						AFTER_SEX_VICTORY,
-						Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY,
+						Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 						"<p>"
 							+ "Wanting to make her breasts a little bigger, you order her to make the change, "
 							+	UtilText.parsePlayerSpeech("I thought succubi liked having big breasts? I don't know what you'd call those things, but they're definitely not big by my standards."
@@ -699,7 +699,7 @@ public class DominionSuccubus {
 						+ "</p>"
 						+ "<p>"
 							+ "You see the succubus's cheeks flash red, and you realise that you've obviously touched a nerve, "
-							+ UtilText.parseSpeech("W-What?! But everyone always says that these are big enough! F-Fine... I can make them bigger for you...", Main.game.getCurrentRandomAttacker())
+							+ UtilText.parseSpeech("W-What?! But everyone always says that these are big enough! F-Fine... I can make them bigger for you...", Main.game.getActiveNPC())
 						+"</p>"
 						+ "<p>"
 							+ "Looking down at her chest, you see her huge, E-cup breasts start to expand, and after just a couple of seconds, she's left with a massive, H-cup bust."
@@ -708,7 +708,7 @@ public class DominionSuccubus {
 						+ "</p>"){
 					@Override
 					public void effects() {
-						Main.game.getCurrentRandomAttacker().setBreastSize(CupSize.H.getMeasurement());
+						Main.game.getActiveNPC().setBreastSize(CupSize.H.getMeasurement());
 					}
 				};
 				
@@ -716,7 +716,7 @@ public class DominionSuccubus {
 				return new ResponseSex("N-cup",
 						"Tell the succubus that you want her to make her breasts as large as possible, which will leave her with massive N-cup tits.",
 						AFTER_SEX_VICTORY,
-						Main.game.getCurrentRandomAttacker(), new SMDomStanding(), AFTER_SEX_VICTORY,
+						Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 						"<p>"
 								+ "Wanting to make her breasts as big as possible, you order her to make the change, "
 								+	UtilText.parsePlayerSpeech("I thought succubi liked having big breasts? I don't know what you'd call those things, but they're definitely not big by my standards."
@@ -724,7 +724,7 @@ public class DominionSuccubus {
 							+ "</p>"
 							+ "<p>"
 								+ "You see the succubus's cheeks flash red, and you realise that you've obviously touched a nerve, "
-								+ UtilText.parseSpeech("W-What?! But everyone always says that these are big enough! F-Fine... I can make them bigger...", Main.game.getCurrentRandomAttacker())
+								+ UtilText.parseSpeech("W-What?! But everyone always says that these are big enough! F-Fine... I can make them bigger...", Main.game.getActiveNPC())
 							+"</p>"
 							+ "<p>"
 								+ "Looking down at her chest, you see her huge, E-cup breasts start to expand, and after just a couple of seconds, she's left with an absolutely massive, N-cup bust."
@@ -733,7 +733,7 @@ public class DominionSuccubus {
 							+ "</p>"){
 					@Override
 					public void effects() {
-						Main.game.getCurrentRandomAttacker().setBreastSize(CupSize.N.getMeasurement());
+						Main.game.getActiveNPC().setBreastSize(CupSize.N.getMeasurement());
 					}
 				};
 				
@@ -750,7 +750,7 @@ public class DominionSuccubus {
 
 		@Override
 		public String getDescription() {
-			return "You have been defeated by " + Main.game.getCurrentRandomAttacker().getName("the") + "!";
+			return "You have been defeated by " + Main.game.getActiveNPC().getName("the") + "!";
 		}
 
 		@Override
@@ -761,7 +761,7 @@ public class DominionSuccubus {
 					+ "</p>"
 					+ "<p>"
 						+ "Moving up close before starting to grind herself up against your leg, she moans in your ear, "
-						+ UtilText.parseSpeech("~Aah!~ Yes! Finally, I can get some release!", Main.game.getCurrentRandomAttacker())
+						+ UtilText.parseSpeech("~Aah!~ Yes! Finally, I can get some release!", Main.game.getActiveNPC())
 					+ "</p>"
 					+ "<p>"
 						+ "As her body presses tightly against yours, you feel a strange bulge pressing against your leg."
@@ -770,7 +770,7 @@ public class DominionSuccubus {
 					+ "</p>"
 					+ "<p>"
 						+ "Seeing what you're looking at, the succubus lets out a playful giggle, "
-						+ UtilText.parseSpeech("What? You didn't seriously think I'd let you use my pussy, did you? Perhaps if you didn't want to be my little fuck-toy, you should have fought harder, hmm?", Main.game.getCurrentRandomAttacker())
+						+ UtilText.parseSpeech("What? You didn't seriously think I'd let you use my pussy, did you? Perhaps if you didn't want to be my little fuck-toy, you should have fought harder, hmm?", Main.game.getActiveNPC())
 					+ "</p>"
 					+ "<p>"
 						+ "Before you can respond, she leans forwards and presses her lips against yours, thrusting her forked tongue into your mouth as she lets out a happy moan."
@@ -784,13 +784,13 @@ public class DominionSuccubus {
 				return new ResponseSex("Succubus's toy",
 						"The succubus is ready to use you as her little fuck-toy...",
 						AFTER_SEX_DEFEAT,
-						Main.game.getCurrentRandomAttacker(), new SMSubStanding(), AFTER_SEX_DEFEAT){
+						Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT){
 					@Override
 					public void effects() {
-						Main.game.getCurrentRandomAttacker().setPenisType(PenisType.DEMON_COMMON);
-						Main.game.getCurrentRandomAttacker().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
-						Main.game.getCurrentRandomAttacker().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
-						Main.game.getCurrentRandomAttacker().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
+						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
+						Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
+						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
+						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
 					}
 				};
 				
@@ -813,13 +813,13 @@ public class DominionSuccubus {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "You don't really want to fight " + Main.game.getCurrentRandomAttacker().getName("the") + ", and decide to just do as she asks."
+					+ "You don't really want to fight " + Main.game.getActiveNPC().getName("the") + ", and decide to just do as she asks."
 					+ " Sinking to your knees, you look up at her and beg, "
 					+ UtilText.parsePlayerSpeech("Please! Can you fuck me?")
 				+ "</p>"
 				+ "<p>"
 					+ "Looking a little surprised for a moment, the succubus quickly regains her composure and strides towards you, "
-					+ UtilText.parseSpeech("Hah! Well, that was easy! What a good little submissive thing you are!", Main.game.getCurrentRandomAttacker())
+					+ UtilText.parseSpeech("Hah! Well, that was easy! What a good little submissive thing you are!", Main.game.getActiveNPC())
 				+ "</p>"
 				+ "<p>"
 					+ "Quickly coming to a halt just in front of you, she leans down and grabs your arm, pulling you back up to your feet before pressing her body up tightly against yours."
@@ -830,7 +830,7 @@ public class DominionSuccubus {
 				+ "<p>"
 					+ "Seeing what you're looking at, the succubus lets out a playful giggle, "
 					+ UtilText.parseSpeech("What? You didn't seriously think I'd let a submissive little bitch like you use my pussy, did you?"
-							+ " But you're an obedient little thing, I just know that you're going to love my cock!", Main.game.getCurrentRandomAttacker())
+							+ " But you're an obedient little thing, I just know that you're going to love my cock!", Main.game.getActiveNPC())
 				+ "</p>"
 				+ "<p>"
 					+ "Before you can respond, she leans forwards and presses her lips against yours, thrusting her forked tongue into your mouth as she lets out a happy moan."
@@ -844,13 +844,13 @@ public class DominionSuccubus {
 				return new ResponseSex("Succubus's toy",
 						"The succubus is ready to use you as her little fuck-toy...",
 						AFTER_SEX_DEFEAT,
-						Main.game.getCurrentRandomAttacker(), new SMSubStanding(), AFTER_SEX_DEFEAT){
+						Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT){
 					@Override
 					public void effects() {
-						Main.game.getCurrentRandomAttacker().setPenisType(PenisType.DEMON_COMMON);
-						Main.game.getCurrentRandomAttacker().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
-						Main.game.getCurrentRandomAttacker().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
-						Main.game.getCurrentRandomAttacker().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
+						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
+						Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
+						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
+						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
 					}
 				};
 				
@@ -870,28 +870,28 @@ public class DominionSuccubus {
 		
 		@Override
 		public String getDescription(){
-			return "Now that you've had your fun, you can step back and leave "+Main.game.getCurrentRandomAttacker().getName("the")+" to recover.";
+			return "Now that you've had your fun, you can step back and leave "+Main.game.getActiveNPC().getName("the")+" to recover.";
 		}
 
 		@Override
 		public String getContent() {
 			if(Sex.getNumberOfPartnerOrgasms()==0) {
-				return UtilText.genderParsing(Main.game.getCurrentRandomAttacker(),
+				return UtilText.genderParsing(Main.game.getActiveNPC(),
 						"<p>"
-							+ "As you step back from "+Main.game.getCurrentRandomAttacker().getName("the")+", she sinks to the floor, whining and desperately touching herself as she tries to get herself off."
+							+ "As you step back from "+Main.game.getActiveNPC().getName("the")+", she sinks to the floor, whining and desperately touching herself as she tries to get herself off."
 							+ " Looking up at you, she moans, "
-							+ UtilText.parseSpeech("Aaah! Why did you stop?! I was so close!", Main.game.getCurrentRandomAttacker())
+							+ UtilText.parseSpeech("Aaah! Why did you stop?! I was so close!", Main.game.getActiveNPC())
 						+ "</p>"
 						+ "<p>"
 							+ "You decide to leave the succubus to her own devices, and, stepping past her as she desperately masturbates on the floor, you carry on your way."
 						+ "</p>");
 				
 			} else {
-				return UtilText.genderParsing(Main.game.getCurrentRandomAttacker(),
+				return UtilText.genderParsing(Main.game.getActiveNPC(),
 						"<p>"
-							+ "As you step back from "+Main.game.getCurrentRandomAttacker().getName("the")+", she sinks to the floor, letting out a deeply satisfied sigh as she slowly starts touching herself."
+							+ "As you step back from "+Main.game.getActiveNPC().getName("the")+", she sinks to the floor, letting out a deeply satisfied sigh as she slowly starts touching herself."
 							+ " Despite the fact that you just brought her to a climax, she's already starting to get horny again, and she looks up at you as she moans, "
-							+ UtilText.parseSpeech("Mmm! Thanks for that... Perhaps we could do this again some time?", Main.game.getCurrentRandomAttacker())
+							+ UtilText.parseSpeech("Mmm! Thanks for that... Perhaps we could do this again some time?", Main.game.getActiveNPC())
 						+ "</p>"
 						+ "<p>"
 							+ "Wondering what it must be like to be in a perpetual state of uncontrollable lust,"
@@ -922,7 +922,7 @@ public class DominionSuccubus {
 					}
 					@Override
 					public void effects() {
-						Main.game.removeNPC(Main.game.getCurrentRandomAttacker());
+						Main.game.removeNPC(Main.game.getActiveNPC());
 					}
 				};
 				
@@ -942,17 +942,17 @@ public class DominionSuccubus {
 		
 		@Override
 		public String getDescription(){
-			return "You're completely worn out from "+Main.game.getCurrentRandomAttacker().getName("the")+"'s dominant treatment, and need a while to recover.";
+			return "You're completely worn out from "+Main.game.getActiveNPC().getName("the")+"'s dominant treatment, and need a while to recover.";
 		}
 
 		@Override
 		public String getContent() {
-			return UtilText.genderParsing(Main.game.getCurrentRandomAttacker(),
+			return UtilText.genderParsing(Main.game.getActiveNPC(),
 					"<p>"
-					+ Main.game.getCurrentRandomAttacker().getName("The")+" steps back and allows you to sink to the floor, totally worn out from her dominant treatment of you."
+					+ Main.game.getActiveNPC().getName("The")+" steps back and allows you to sink to the floor, totally worn out from her dominant treatment of you."
 					+ " Glancing up at the horny demon, you see her demonic cock start to shrink, and within moments, it's completely disappeared back into the flesh of her groin."
 					+ " Leaning down, she grins devilishly at you as she sighs, "
-					+ UtilText.parseSpeech("Good little fuck toy! Perhaps I'll use you again some time!", Main.game.getCurrentRandomAttacker())
+					+ UtilText.parseSpeech("Good little fuck toy! Perhaps I'll use you again some time!", Main.game.getActiveNPC())
 					+ "</p>"
 					+ "<p>"
 					+ "Turning her back on you, she walks off down a nearby alleyway, leaving you to recover on the floor."
@@ -986,7 +986,7 @@ public class DominionSuccubus {
 
 		@Override
 		public String getContent() {//TODO
-			return UtilText.parse(Main.game.getCurrentRandomAttacker(),
+			return UtilText.parse(Main.game.getActiveNPC(),
 					"<p>"
 						+ "TODO</br>"
 						+ "You clasp the collar around [npc.name]'s neck.</br>"

@@ -421,10 +421,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 					+ (cummedIn ? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "have" : "has") + " been <b style='color: " + Colour.CUMMED.toWebHexString() + ";'>covered in sexual fluids</b>!</p>" : "")
 
-					+ (getClothingType().getFemininityMaximum() < Main.game.getPlayer().getFemininity()
+					+ (getClothingType().getFemininityMaximum() < Main.game.getPlayer().getFemininityValue()
 							? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "are" : "is") + " <b style='color: " + Colour.MASCULINE.toWebHexString() + ";'>too masculine</b> for you.</p>" : "")
 
-					+ (getClothingType().getFemininityMinimum() > Main.game.getPlayer().getFemininity()
+					+ (getClothingType().getFemininityMinimum() > Main.game.getPlayer().getFemininityValue()
 							? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "are" : "is") + " <b style='color: " + Colour.FEMININE.toWebHexString() + ";'>too feminine</b> for you.</p>" : "")
 
 					+ (incompatibleClothing.isEmpty() ? ""
@@ -440,10 +440,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 					+ (cummedIn ? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "have" : "has") + " been <b style='color: " + Colour.CUMMED.toWebHexString() + ";'>covered in sexual fluids</b>!</p>" : "")
 
-					+ (getClothingType().getFemininityMaximum() < equippedToCharacter.getFemininity()
+					+ (getClothingType().getFemininityMaximum() < equippedToCharacter.getFemininityValue()
 							? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "are" : "is") + " <b style='color: " + Colour.MASCULINE.toWebHexString() + ";'>too masculine</b> for you.</p>" : "")
 
-					+ (getClothingType().getFemininityMinimum() > equippedToCharacter.getFemininity()
+					+ (getClothingType().getFemininityMinimum() > equippedToCharacter.getFemininityValue()
 							? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "are" : "is") + " <b style='color: " + Colour.FEMININE.toWebHexString() + ";'>too feminine</b> for you.</p>" : "")
 
 					+ (!displacedList.isEmpty() ? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "have been" : "has been") + " <b style='color: " + Colour.FEMININE.toWebHexString() + ";'>"
@@ -462,10 +462,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 							+ (cummedIn ? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "have" : "has") + " been <b style='color: " + Colour.CUMMED.toWebHexString() + ";'>covered in sexual fluids</b>!</p>" : "")
 
-							+ (getClothingType().getFemininityMaximum() < equippedToCharacter.getFemininity()
+							+ (getClothingType().getFemininityMaximum() < equippedToCharacter.getFemininityValue()
 									? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "are" : "is") + " <b style='color: " + Colour.MASCULINE.toWebHexString() + ";'>too masculine</b> for <herPro>.</p>" : "")
 
-							+ (getClothingType().getFemininityMinimum() > equippedToCharacter.getFemininity()
+							+ (getClothingType().getFemininityMinimum() > equippedToCharacter.getFemininityValue()
 									? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "are" : "is") + " <b style='color: " + Colour.FEMININE.toWebHexString() + ";'>too feminine</b> for <herPro>.</p>" : "")
 
 							+ (!displacedList.isEmpty() ? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "have been" : "has been") + " <b style='color: " + Colour.FEMININE.toWebHexString() + ";'>"
@@ -520,11 +520,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				descriptionsList.add("<b style='color: " + Colour.CUMMED.toWebHexString() + ";'>Dirty</b>");
 			}
 
-			if (getClothingType().getFemininityMaximum() < Main.game.getPlayer().getFemininity()) {
+			if (getClothingType().getFemininityMaximum() < Main.game.getPlayer().getFemininityValue()) {
 				descriptionsList.add("<b style='color: " + Colour.MASCULINE.toWebHexString() + ";'>Too masculine</b>");
 			}
 
-			if (getClothingType().getFemininityMinimum() > Main.game.getPlayer().getFemininity()) {
+			if (getClothingType().getFemininityMinimum() > Main.game.getPlayer().getFemininityValue()) {
 				descriptionsList.add("<b style='color: " + Colour.FEMININE.toWebHexString() + ";'>Too feminine</b>");
 			}
 
@@ -550,11 +550,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				descriptionsList.add("<b style='color: " + Colour.CUMMED.toWebHexString() + ";'>Dirty</b>");
 			}
 
-			if (getClothingType().getFemininityMaximum() < equippedToCharacter.getFemininity()) {
+			if (getClothingType().getFemininityMaximum() < equippedToCharacter.getFemininityValue()) {
 				descriptionsList.add("<b style='color: " + Colour.MASCULINE.toWebHexString() + ";'>Too masculine</b>");
 			}
 
-			if (getClothingType().getFemininityMinimum() > equippedToCharacter.getFemininity()) {
+			if (getClothingType().getFemininityMinimum() > equippedToCharacter.getFemininityValue()) {
 				descriptionsList.add("<b style='color: " + Colour.FEMININE.toWebHexString() + ";'>Too feminine</b>");
 			}
 

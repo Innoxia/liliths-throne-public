@@ -47,7 +47,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.1.84
+ * @version 0.1.85
  * @author Innoxia
  */
 public class Main extends Application {
@@ -61,7 +61,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.84.1",
+	public static final String VERSION_NUMBER = "0.1.84.5",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/base/res/images/windowIcon32.png");
@@ -71,7 +71,8 @@ public class Main extends Application {
 	public static String patchNotes =
 			
 		"<h1 style='text-align:center;'>Version " + Main.VERSION_NUMBER + "</h1>"
-		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha release!</b></h6>"
+		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>VERY BUGGY PREVIEW!</b></h6>"
+//		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha release!</b></h6>"
 		
 		+ "<p><b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Important information:</b> <i>If you don't see a mini-map in the bottom-left corner of the screen after starting the game, please update your java!</i></p>"
 		
@@ -80,17 +81,9 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I didn't manage to achieve all of my goals this week, and I feel particularly guilty about not getting the basic slavery mechanics into the game."
-			+ " I also forgot to make a mid-week progress report, so I'm really sorry about that as well."
-			+ " To try and make it up to you, I'll work on getting paizuri (breast fucking) added to the game over the weekend, and I'll (hopefully) release a hotfix with that in it by Monday."
+			+ "This version is just a preview of my current progress, and contains a lot of bugs and half-finished content!"
+			+ " I'm really sorry that it's in such a rough state, but implementing the system to allow clothing and item management between the player and any NPC was an absolute nightmare to create, and took all of my time. ;_;"
 		+ "</p>"
-			
-		+ "<p>"
-			+ "Anyway, in this version, I've managed to add forced transformations, a better UI for Kate's shop (which took far longer than I anticipated,"
-			+ " and still has a couple of minor formating bugs), and did some behind-the-scenes work on improving the engine."
-			+ " I'm planning on focusing solely on slavery content and bug fixing next week, so there will (finally) be slavery added to the game in the next version!"
-		+ "</p>"
-			
 		
 		+ "<p>"
 			+ "If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
@@ -100,189 +93,36 @@ public class Main extends Application {
 
 		+ "<list>"
 		
-		+ "<h6>Hotfix (v0.1.84.1)</h6>"
-		
-		+"<li>Gameplay:</li>"
-		+"<ul>Slightly tweaked gender preferences for NPC's forced TFs.</ul>"
-		+"<ul>You can now use elixirs and potions on your offspring in consensual sex, as well as if you're the dom in non-consensual.</ul>"
-		+"<ul>NPCs applying forced transformations will now shrink your cock and reduce your vagina's capacity down to minimum values before removing them.</ul>"
-		
-		+"<li>Sex:</li>"
-		+"<ul>Added: Paizuri and Naizuri. All paizuri actions have three variations; one for breasts larger than B-cups, one for completely flat chests, and another for the other sizes in-between.</ul>"
-		+"<ul>Added Paizuri to 69, kneeling, and cow-girl positions.</ul>"
-		+"<ul>Added nipple-fucking to cow-girl position.</ul>"
-		+"<ul>Very minor change to AI in sex to make them uninterested in getting access to your nipples if your groin is already exposed. (I'm going to massively improve the AI within the next couple of versions.)</ul>"
-		
-		+"<li>Other:</li>"
-		+"<ul>You can now dye Enforcer's clothing to any colour.</ul>"
-		+"<ul>Split Nyan's 'Female lingerie' up into 'Female underwear' and 'Female lingerie' to prevent item overflow. (You'll be able to buy enchanted clothing from her again now. :3)</ul>"
-		+"<ul>Added squirrel-morph (and cow-morph) potions and essences to Vicky's shop.</ul>"
-		+"<ul>Tweaked NPC's forced TF preferences to have a chance to be a related race (i.e. cat morphs may prefer to TF you into a harpy, or dog/wolf-morphs may TF you into a cat-morph).</ul>"
-		+"<ul>Added fur highlighting options.</ul>"
-		+"<ul>Added afro hair style.</ul>"
-		
-		+"<li>Bugs:</li>"
-		+"<ul>Fixed game freeze once NPC finished transforming you into their preferred body type.</ul>"
-		+"<ul>Fixed major bug where items and weapons would sometimes not stack in inventory.</ul>"
-		+"<ul>Fixed items showing up in sex as disabled, even if they were available to be used.</ul>"
-		+"<ul>Fixed weapons not having any spells.</ul>"
-		+"<ul>Fixed bug where the main quest couldn't be progressed if you started an imported character.</ul>"
-		+"<ul>Minor typo fixes.</ul>"
-		+"<ul>Fixed parsing bugs (which was causing the parser's 'Commands' action to be unresponsive.)</ul>"
-		+"<ul>Vicky will now buy Bottled Squirrel-Morph Essence.</ul>"
-		+"<ul>Horn transformations now apply the correct horn type, based on whether the target to be transformed is masculine or feminine.</ul>"
-			
-		+"<li>Contributors:</li>"
-			
-		+"<li>Pimgd:</li>"
-		+"<ul>Disallowed quick manage drop if cell is full, thereby preventing item loss.</ul>"
-		
-		+"<li>Rfpnj:</li>"
-		+"<ul>Cow-morph:</ul>"
-		+"<ul>Added all cow-morph transformations and body parts.</ul>"
-		+"<ul>Added 'Milking Cows' (lore book).</ul>"
-		+"<ul>Added bottled cow-morph essence.</ul>"
-		+"<ul>Added Bubble Milk. (Icon design help from Blue999.)</ul>"
-		+"<ul>Added Bubble Cream.</ul>"
-		+"<ul>Added Ear tag (no femininity requirements, ear piercing slot).</ul>"
-		+"<ul>Added Cowbell collar (no femininity requirements, neck slot).</ul>"
-		+"<ul>Added bovine nose ring (no femininity requirements, nose piercing slot).</ul>"
-		
-		+"<li>Blue999:</li>"
-		+"<ul>Added: Milk Maid's headdress (Feminine, head slot, Milk Maid set).</ul>"
-
-		+ "</list>"
-		
-		+ "</br>"
-		
-		+ "<list>"
-		
-		+ "<h6>Patch Notes - <b>Version 0.1.83.5</b></h6>"
-		
-		+"<li>Gameplay:</li>"
-		+"<ul>Reverted penis/vagina loss when shrinking past minimum size/capacity respectively. You now remove a penis or vagina by adding the 'remove' effect to a potion.</ul>"
-		+"<ul>Ralph now stocks squirrel-morph consumables.</ul>"
-			
-		+"<li>Sex:</li>"
-		+"<ul>Converted the following actions into the new cowgirl position for both sub and dom positions: Starting kiss, penetrating anus, penetrating vagina.</ul>"
-			
-		+"<li>Clothing:</li>"
-		+"<ul><b>Temporarily added:</b> Special clothing to Nyan's store, allowing you to buy the rainbow, Maid, and Milk Maid clothing. (I'm going to change this in the future!)</ul>"
-		+"<ul>Added: 'Milk Maid' Set, requires Milk Maid's Dress and Kerchief to be worn. (I'll change the set's effects to increase lactation when I convert the attributes over to the new system.)</ul>"
-		+"<ul>Added: Milk Maid's Dress (Feminine, Torso slot). (Created by Blue999)</ul>"
-		+"<ul>Added: Kerchief (Unisex, head slot).</ul>"
-		+"<ul>Added: Nursing bra (Feminine, Chest slot). (Created by Blue999)</ul>"
-		+"<ul>Added: Crotchless thong (Feminine, groin slot).</ul>"
-		+"<ul>Added: Keyhole sweater (Feminine, torso slot).</ul>"
-		+"<ul>Added: Jeans (Unisex, leg slot).</ul>"
-			
-		+"<li>Other:</li>"
-		+"<ul>Testicle-related actions are now correctly disabled if they are internal.</ul>"
-		+"<ul>Added correct descriptions for multiple tails in the character view screen.</ul>"
-			
-		+"<li>Bugs:</li>"
-		+"<ul>Fixed some typos.</ul>"
-		+"<ul>Fixed some incorrect gender pronouns.</ul>"
-		+"<ul>Fixed some minor UI issues in Kate's shop.</ul>"
-		
-		+ "</list>"
-		
-		+ "<list>"
-
-		+ "<h6>Patch Notes - <b>Version " + Main.VERSION_NUMBER + "</b></h6>"
+		+ "<h6>Preview (v0.1.84.5)</h6>"
 		
 		+"<li>Engine:</li>"
-		+"<ul>Moved ClothingTypes, ItemTypes, and WeaponTypes from Enum values over to static classes.</ul>"
-		+"<ul>Added support for different genital arrangements (normal, cloaca, etc.).</ul>"
-			
+		+"<ul><b>Added:</b> Functionality to give/take clothing, items, and weapons to/from NPCs. This took ages. x_x</ul>"
+		+"<ul><b>Added:</b> All of the inventory slots that I had planned, including orifice-related ones (to allow for insertion of toys into orifices).</ul>"
+		+"<ul><b>Added:</b> An option (in the options menu) to disable the 'fade in' effect on the main text window (which removes the input lag if using the mouse to click the map for movement).</ul>"
+		
 		+"<li>Gameplay:</li>"
-		+"<ul><b>Changed:</b> Encyclopedia entries for clothing, items, weapons, and races are now stored in the properties file, so discoveries are carried over between characters.</ul>"
-		+"<ul><b>Added:</b> Forced transformations by random NPCs after combat loss. (You'll need to turn this on in the content preferences first.) (Also, it's only working for the alleyway attackers and harpies in the Nests at the moment.)</ul>"
-		+"<ul>Transformation fetish now increases the amount of forced transformations applied after combat defeat from 1 to 3.</ul>"
-		+"<ul>Finished Alexa/Scarlett's quest content. (More Alexa content related to her shop will be added soon.)</ul>"
-		+"<ul>Reduced the size of Lilaya's home to make navigation more manageable. (I'll add in the larger version later on as an upgrade to the house.)</ul>"
-		+"<ul>Made the nursing bra have random enchantments.</ul>"
-		+"<ul>Added the hair styles: mohawk, sidecut.</ul>"
-		+"<ul>Added colours for pupils and irises: aqua, grey, lilac, purple, violet, crimson, golden.</ul>"
-		+"<ul>Added character-specific quicksaves. (Quicksave will now save as 'QuickSave_X', where X is your character's name.)</ul>"
-			
-		+"<li>Sex:</li>"
-		+"<ul>Finished converting old cowgirl position descriptions into the new one.</ul>"
-		+"<ul>Converted Brax's cowgirl scene into the new format. (The facesitting descriptions are absent, but I'll add those back in for a proper facesitting position.)</ul>"
-			
+		+"<ul><b>Added:</b> Functionality to convert the rooms in Lilaya's house into slave's quarters, along with functionality to apply upgrades those rooms.</ul>"
+		
 		+"<li>UI:</li>"
-		+"<ul><b>Finished:</b> Remade all the options in Kate's shop to use proper buttons. (I'll use this system for the character creation menu as well.)</ul>"
-		+"<ul>Fixed the annoying way the screen would jump back to the top every time you clicked a button (e.g. in preferences menu).</ul>"
-		+"<ul>Moved content preferences into its own option in the main menu to make it more obvious.</ul>"
-		
-		+"<li>Bugs:</li>"
-		+"<ul>Fixed some typos.</ul>"
-		+"<ul>Fixed some incorrect descriptions in the selfie view.</ul>"
-		+"<ul>Several other small bug fixes that I forgot to keep track of...</ul>"
+		+"<ul><b>Remade & expanded:</b> Inventory screen.</ul>"
+		+"<ul>Moved the map from the bottom-left up into the main section of dialogue.</ul>"
+		+"<ul>	While playing, I felt as though my focus was mostly on the tiny section at the bottom-left of the screen, and I was having to move my eyes a lot between the map and the main content panel. This was an attempt to address this situation.</ul>"
+		+"<ul>Added an event log in the bottom-left of the screen.</ul>"
+		+"<ul>Moved all 'Remove character' actions to button 10.</ul>"
 			
-		+"<li>Contributors:</li>"
-		
-		+"<li>Contributed by Pimgd:</li>"
-		+"<li>Inventory-related bugs fixed:</li>"
-			+"<ul>Take all from floor doesn't handle stackables well if your inventory is full.</ul>"
-			+"<ul>Take all weapon doesn't work if inventory is full.</ul>"
-			+"<ul>Jinxed items don't stack when unjinxed.</ul>"
-			+"<ul>You can't store stackables if the area is full.</ul>"
-			+"<ul>Unidentified items will show their state in the buyback menu.</ul>"
-			+"<ul>Jinxed items can't be selected if you're carrying a dye brush and just identified them.</ul>"
-			+"<ul>Unidentified items will sell for their real value and not the fixed value you get for an unidentified item.</ul>"
-			+"<ul>That includes the 'vendor will buy for x' text (not overlay) and the button.</ul>"
-			+"<ul>'These items will disappear when you leave the area' when trading on a tile with dropped stuff.</ul>"
-			+"<ul>Can't buy/buyback a stackable with full inventory? Check item/weapon/clothing!</ul>"
-			+"<ul>Can't unequip weapons/clothing even although they would stack if you have a full inventory.</ul>"
-			+"<ul>Unequipping clothing (weapons too?) causing your inventory to be full claims it gets dropped when it doesn't.</ul>"
-			+"<ul>Equipping clothing (weapons too?) when you're already wearing something with a full inventory will drop that already worn item to the ground, even if it was stackable in your inventory.</ul>"
-			+"<ul>Displaced clothing is dropped even if it could be stacked with a full inventory.</ul>"
-			+"<ul>Equipping an item may reset the string builder halfway through causing some warnings not to display.</ul>"
-			+"<ul>Sell All has improper rounding as it rounds after all items instead of each item individually (same goes for buy all).</ul>"
-			+"<ul>Getting transformed with full inventory will drop your clothing even although it fits in inventory as stackable.</ul>"
-			+"<ul>Improvement: Deduplicate printing items now that weapon/clothing/item is similar.</ul>"
-			+"<ul>The overlay display 'Vendor wants x' in the buyback shows the wrong price.</ul>"
-
-		+"<li>Body-related fixes:</li>"
-			+"<ul>Fixed lip size increment from rolling over causing a constant resize.</ul>"
-			+"<ul>Fixed descriptions that go beyond size limits for TongueLength.</ul>"
-			+"<ul>Cleaned code for antenna, arms, ass/assSize/hipSize, breasts, eyes, face, hair, horn, mouth, nipples, anus, penis, orifices, tail, testicles, tongue, and vagina.</ul>"
-			+"<ul>Fixed nose piercing returning descriptions of lip being pierced.</ul>"
-			+"<ul>Fixed a lot of identity mistakes between pc and npc.</ul>"
-			+"<ul>Improved nipple and nippleShape changes to properly account of multiple changes form one transformative item.</ul>"
-			+"<ul>Tidied up a lot of other formatting.</ul>"
-
-		+"<li>Other fixes:</li>"
-			+"<ul>Simplified a lot of if statements.</ul>"
-			+"<ul>Removed a lot of empty statements (i.e. removing a ton of unnecessary semi-colons).</ul>"
-			+"<ul>Removed a lot of unnecessary casts.</ul>"
-			+"<ul>Made all public static SexActions final.</ul>"
-			+"<ul>Reordered modifiers to comply with java language specification.</ul>"
-		
-		+"<li>Contributed by Rfpnj:</li>"
-			+"<ul>Expanded and reorganised the Library in Lilaya's house.</ul>"
-			+"<ul>Added green skin for demons.</ul>"
-		
-		+"<li>Contributed by CognitiveMist:</li>"
-			+"<ul>Did a huge amount of spelling corrections.</ul>"
-			+"<ul>Code cleanup, involving:</ul>"
-			+"<ul>List sorting uses comparator class</ul>"
-			+"<ul>Use addAll instead of for loops</ul>"
-			+"<ul>String comparison don't use ==</ul>"
-			+"<ul>Javadoc stuff</ul>"
-			+"<ul>Spelling</ul>"
-			+"<ul>Change some variables to local, that were only used in one spot</ul>"
-			+"<ul>Eliminated some dead/constant logic</ul>"
-			+"<ul>Any other cleanup that I could find</ul>"
-			+"<ul>Util methods cleanup:</ul>"
-			+"<ul>Removed Util.getFileExtention, replaced by a FilenameFilter</ul>"
-			+"<ul>Fleshed out / fixed up some Javadocs</ul>"
-			+"<ul>Did some witchcraftery on the stringList functions :)</ul>"
-		
-		+"<li>Contributed by Blue999:</li>"
-			+"<ul>Added: Lacy panties (feminine, groin slot).</ul>"
-			+"<ul>Added: Lacy plunge bra (feminine, chest slot).</ul>"
+		+"<li>Other:</li>"
+		+"<ul>Moved Rose's dialogue out of the generic rooms and into her room's tile.</ul>"
+		+"<ul>Ralph no longer feels the need to wear socks over his hooves.</ul>"
+		+"<ul>Added more values for Body Hair.</ul>"
+		+"<ul>NPCs should no longer be taking their own virginites.</ul>"
+		+"<ul><b>A few more minor things:</b> But I forgot to make note of them...</ul>"
+			
+		+"<li>Bugs:</li>"
+		+"<ul>Fixed bug where the potency of Bubble Cream's enchantments couldn't be changed.</ul>"
+		+"<ul>NPCs with cow-morph body-type preference will now correctly TF you into a cow-morph instead of a human.</ul>"
+		+"<ul>Fixed some issues with Bubble Milk displaying a large letter A in its icon.</ul>"
+		+"<ul>Fixed 'null' being returned in text when cow-leg transformation caused you to be unable to wear shoes.</ul>"
+		+"<ul>Fixed some typos.</ul>"
 		+"</list>"
 		;
 	
@@ -630,7 +470,7 @@ public class Main extends Application {
 //			System.out.println("Difference: "+(System.nanoTime()-timeStart)/1000000000f);
 
 			properties.lastSaveLocation = name;//"data/saves/"+name+".lts";
-			properties.nameColour = Femininity.valueOf(game.getPlayer().getFemininity()).getColour().toWebHexString();
+			properties.nameColour = Femininity.valueOf(game.getPlayer().getFemininityValue()).getColour().toWebHexString();
 			properties.name = game.getPlayer().getName();
 			properties.level = game.getPlayer().getLevel();
 			properties.money = game.getPlayer().getMoney();
@@ -737,7 +577,7 @@ public class Main extends Application {
 				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file, Main.game.getPlayer()));
 				
 				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_SHORTS, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_HOODIE, false), true, Main.game.getPlayer());
+				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, false), true, Main.game.getPlayer());
 				Main.game.setRenderAttributesSection(true);
 				Main.game.clearTextStartStringBuilder();
 				Main.game.clearTextEndStringBuilder();
