@@ -21,9 +21,9 @@ div {
 	background-color: transparent;
 }
 #main-content{
-	height:100%;
-	overflow-y:scroll;
-	overflow-x:hidden;
+	display: flex;
+	flex-flow: column;
+	height: 100%;
 	cursor:default;
 }
 #header-content{
@@ -45,10 +45,18 @@ div {
     }
 }
 
-
 .div-center{
-	margin:0 auto;
-	padding:8px;
+	margin-left:20px;
+	overflow-x:hidden;
+	
+	display: flex;
+	flex-flow: column;
+	box-sizing:border-box;
+	-webkit-flex: 1;
+	-webkit-column-fill: auto;
+}
+.inner-text-content{
+	margin:8px auto 8px auto;
 	max-width:800px;
 }
 
@@ -772,12 +780,11 @@ position:relative;
 	background-color:#19191a;
 	border-radius: 5px;
 	text-align:center;
-	width:40%;
+	width:50%;
 	padding-left:8px;
 	-webkit-user-select: none;
 	box-sizing: border-box;
 }
-
 .inventory-not-equipped {
 	position: relative;
 	float:left;
@@ -884,7 +891,7 @@ position:relative;
 	background-color: #4b4b4e;
 	border-radius: 5px;
 	margin:4px 4px 0 0;
-	width:30%;
+	width:25%;
 }
 .inventoryImage:after{
 	content: "";
@@ -1712,8 +1719,8 @@ border-radius:5px;
 
 #copy-content-button{
 	position:absolute;
-	left:8px;
-	top:8px;
+	left:4px;
+	top:4px;
 	width:20px;
 	height:20px;
 	border-radius:5px;

@@ -24,7 +24,7 @@ import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Util.ListValue;
 
-public class HarpyNestsAttacker {
+public class HarpyNestsAttackerDialogue {
 	public static final DialogueNodeOld HARPY_ATTACKS = new DialogueNodeOld("Angry harpy", "An angry harpy swoops down on you!", true) {
 		private static final long serialVersionUID = 1L;
 		

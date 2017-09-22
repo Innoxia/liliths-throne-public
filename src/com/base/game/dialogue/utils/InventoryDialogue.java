@@ -698,10 +698,10 @@ public class InventoryDialogue {
 			}
 		}
 
-//		@Override
-//		public String getHeaderContent() {
-//			return inventoryView();
-//		}
+		@Override
+		public String getHeaderContent() {
+			return inventoryView();
+		}
 		
 		@Override
 		public String getContent() {
@@ -1490,10 +1490,10 @@ public class InventoryDialogue {
 			}
 		}
 		
-//		@Override
-//		public String getHeaderContent() {
-//			return inventoryView();
-//		}
+		@Override
+		public String getHeaderContent() {
+			return inventoryView();
+		}
 		
 		@Override
 		public String getContent() {
@@ -2298,10 +2298,10 @@ public class InventoryDialogue {
 			}
 		}
 		
-//		@Override
-//		public String getHeaderContent() {
-//			return inventoryView();
-//		}
+		@Override
+		public String getHeaderContent() {
+			return inventoryView();
+		}
 
 		@Override
 		public String getContent() {
@@ -3136,10 +3136,10 @@ public class InventoryDialogue {
 			}
 		}
 		
-//		@Override
-//		public String getHeaderContent() {
-//			return inventoryView();
-//		}
+		@Override
+		public String getHeaderContent() {
+			return inventoryView();
+		}
 
 		@Override
 		public String getContent() {
@@ -3545,10 +3545,10 @@ public class InventoryDialogue {
 			}
 		}
 		
-//		@Override
-//		public String getHeaderContent() {
-//			return inventoryView();
-//		}
+		@Override
+		public String getHeaderContent() {
+			return inventoryView();
+		}
 
 		@Override
 		public String getContent() {

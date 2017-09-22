@@ -10,7 +10,7 @@ import com.base.game.character.race.RaceStage;
 import com.base.game.character.race.RacialBody;
 import com.base.game.combat.Attack;
 import com.base.game.dialogue.DialogueNodeOld;
-import com.base.game.dialogue.npcDialogue.DominionOffspring;
+import com.base.game.dialogue.npcDialogue.DominionOffspringDialogue;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.CharacterInventory;
@@ -85,7 +85,7 @@ public class NPCOffspring extends NPC {
 
 		CharacterUtils.equipClothing(this, true, false);
 
-		this.setEnslavementDialogue(DominionOffspring.ENSLAVEMENT_DIALOGUE);
+		this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
 		
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -157,7 +157,7 @@ public class NPCOffspring extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-		return DominionOffspring.OFFSPRING_ENCOUNTER;
+		return DominionOffspringDialogue.OFFSPRING_ENCOUNTER;
 	}
 
 	// Combat:
@@ -273,9 +273,9 @@ public class NPCOffspring extends NPC {
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
-			return new Response("", "", DominionOffspring.AFTER_COMBAT_VICTORY);
+			return new Response("", "", DominionOffspringDialogue.AFTER_COMBAT_VICTORY);
 		} else {
-			return new Response ("", "", DominionOffspring.AFTER_COMBAT_DEFEAT);
+			return new Response ("", "", DominionOffspringDialogue.AFTER_COMBAT_DEFEAT);
 		}
 	}
 	

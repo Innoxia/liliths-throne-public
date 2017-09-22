@@ -136,9 +136,9 @@ public class MainController implements Initializable {
 
 	// UI-related elements:
 	@FXML
-	private WebView webViewMain, webViewAttributes, webViewButtons, webViewResponse;
+	private WebView webViewMain, webViewAttributes, webViewRight, webViewButtons, webViewResponse;
 
-	private WebEngine webEngine, webEngineTooltip, webEngineAttributes, webEngineButtons, webEngineResponse;
+	private WebEngine webEngine, webEngineTooltip, webEngineAttributes, webEngineRight, webEngineButtons, webEngineResponse;
 	private WebView webviewTooltip;
 	private Tooltip tooltip;
 	private EventHandler<KeyEvent> actionKeyPressed, actionKeyReleased;
@@ -729,7 +729,7 @@ public class MainController implements Initializable {
 		EventListenerDataMap.get(document).add(new EventListenerData(ID, type, listener, useCapture));
 	}
 	
-	public static Document document, documentResponse, documentButtons, documentAttributes, documentInventory, documentMap, documentMapTitle;
+	public static Document document, documentResponse, documentButtons, documentAttributes, documentRight, documentInventory, documentMap, documentMapTitle;
 	private boolean debugAllowListeners = true;
 	/**
 	 * Sets up all WebView EventListeners and WebEngines.
@@ -830,6 +830,26 @@ public class MainController implements Initializable {
 				manageAttributeListeners();
 			}
 		});
+		
+		// Attributes WebView:
+		webViewRight.setContextMenuEnabled(false);
+		webEngineRight = webViewRight.getEngine();
+		webEngineRight.getHistory().setMaxSize(0);
+		
+		if (Main.getProperties().lightTheme) {
+			webEngineRight.setUserStyleSheetLocation(getClass().getResource("/com/base/res/css/webViewAttributes_stylesheet_light.css").toExternalForm());
+		} else {
+			webEngineRight.setUserStyleSheetLocation(getClass().getResource("/com/base/res/css/webViewAttributes_stylesheet.css").toExternalForm());
+		}
+		
+		if(debugAllowListeners)
+			webEngineRight.getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
+			if (newState == State.SUCCEEDED) {
+				unbindListeners(documentRight);
+				manageRightListeners();
+			}
+		});
+		
 	}
 	
 	private void manageMainListeners() {
@@ -2535,8 +2555,6 @@ public class MainController implements Initializable {
 		documentAttributes = (Document) webEngineAttributes.executeScript("document");
 		EventListenerDataMap.put(documentAttributes, new ArrayList<>());
 		
-
-		
 		// Map:
 		if (((EventTarget) documentAttributes.getElementById("upButton")) != null) {
 			addEventListener(documentAttributes, "upButton", "click", moveNorthListener, true);
@@ -2549,6 +2567,23 @@ public class MainController implements Initializable {
 		}
 		if (((EventTarget) documentAttributes.getElementById("rightButton")) != null) {
 			addEventListener(documentAttributes, "rightButton", "click", moveEastListener, true);
+		}
+		
+		// Inventory:
+		// For all equipped clothing slots:
+		String id;
+		for (InventorySlot invSlot : InventorySlot.values()) {
+			id = invSlot.toString() + "Slot";
+			if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
+				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
+					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(Main.game.getPlayer(),invSlot);
+					addEventListener(documentAttributes, id, "click", el, false);
+					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
+					addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
+					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, Main.game.getPlayer());
+					addEventListener(documentAttributes, id, "mouseenter", el2, false);
+				}
+			}
 		}
 		
 		Attribute[] attributes = {
@@ -2623,7 +2658,7 @@ public class MainController implements Initializable {
 			addEventListener(documentAttributes, "EXTRA_ATTRIBUTES", "mousemove", moveTooltipListener, false);
 			addEventListener(documentAttributes, "EXTRA_ATTRIBUTES", "mouseleave", hideTooltipListener, false);
 
-			TooltipInformationEventListener el = new TooltipInformationEventListener().setExtraAttributes();
+			TooltipInformationEventListener el = new TooltipInformationEventListener().setExtraAttributes(Main.game.getPlayer());
 			addEventListener(documentAttributes, "EXTRA_ATTRIBUTES", "mouseenter", el, false);
 		}
 		
@@ -2728,6 +2763,122 @@ public class MainController implements Initializable {
 			}
 	}
 	
+	private void manageRightListeners() {
+		documentRight = (Document) webEngineRight.executeScript("document");
+		EventListenerDataMap.put(documentRight, new ArrayList<>());
+		
+		// Inventory:
+		String id;
+		for (InventorySlot invSlot : InventorySlot.values()) {
+			id = invSlot.toString() + "Slot";
+			if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
+				if (((EventTarget) documentRight.getElementById(id)) != null) {
+					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(InventoryDialogue.getInventoryNPC(), invSlot);
+					addEventListener(documentRight, id, "click", el, false);
+					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
+					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, InventoryDialogue.getInventoryNPC());
+					addEventListener(documentRight, id, "mouseenter", el2, false);
+				}
+			}
+		}
+		
+		if(Main.game.getActiveNPC()!=null) {
+			Attribute[] attributes = {
+					Attribute.HEALTH_MAXIMUM,
+					Attribute.MANA_MAXIMUM,
+					Attribute.STAMINA_MAXIMUM,
+					Attribute.EXPERIENCE,
+					Attribute.STRENGTH,
+					Attribute.INTELLIGENCE,
+					Attribute.CORRUPTION,
+					Attribute.FITNESS,
+					Attribute.AROUSAL };
+			for (Attribute a : attributes) {
+				if (((EventTarget) documentRight.getElementById("NPC_"+a.getName())) != null) {
+					addEventListener(documentRight, "NPC_"+a.getName(), "mousemove", moveTooltipListener, false);
+					addEventListener(documentRight, "NPC_"+a.getName(), "mouseleave", hideTooltipListener, false);
+	
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setAttribute(a, Main.game.getActiveNPC());
+					addEventListener(documentRight, "NPC_"+a.getName(), "mouseenter", el, false);
+				}
+			}
+			
+			// Extra attribute info:
+			if(((EventTarget) documentRight.getElementById("NPC_ATTRIBUTES"))!=null){
+				addEventListener(documentRight, "NPC_ATTRIBUTES", "mousemove", moveTooltipListener, false);
+				addEventListener(documentRight, "NPC_ATTRIBUTES", "mouseleave", hideTooltipListener, false);
+	
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setExtraAttributes(Main.game.getActiveNPC());
+				addEventListener(documentRight, "NPC_ATTRIBUTES", "mouseenter", el, false);
+			}
+			
+			// For status effect slots:
+			for (StatusEffect se : Main.game.getActiveNPC().getStatusEffects()) {
+				if (((EventTarget) documentRight.getElementById("SE_NPC_" + se)) != null) {
+					addEventListener(documentRight, "SE_NPC_" + se, "mousemove", moveTooltipListener, false);
+					addEventListener(documentRight, "SE_NPC_" + se, "mouseleave", hideTooltipListener, false);
+	
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(se, Main.game.getActiveNPC());
+					addEventListener(documentRight, "SE_NPC_" + se, "mouseenter", el, false);
+				}
+			}
+			
+			// For perk slots:
+			for (PerkInterface p : Main.game.getActiveNPC().getPerks()) {
+				if (((EventTarget) documentRight.getElementById("PERK_NPC_" + p)) != null) {
+					addEventListener(documentRight, "PERK_NPC_" + p, "mousemove", moveTooltipListener, false);
+					addEventListener(documentRight, "PERK_NPC_" + p, "mouseleave", hideTooltipListener, false);
+	
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setPerk(p, Main.game.getActiveNPC());
+					addEventListener(documentRight, "PERK_NPC_" + p, "mouseenter", el, false);
+				}
+			}
+			if(Main.game.isInSex()) {
+				for (Fetish f : Sex.getPartner().getFetishes()) {
+					if (((EventTarget) documentRight.getElementById("FETISH_NPC_" + f)) != null) {
+						addEventListener(documentRight, "FETISH_NPC_" + f, "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, "FETISH_NPC_" + f, "mouseleave", hideTooltipListener, false);
+	
+						TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, Main.game.getActiveNPC());
+						addEventListener(documentRight, "FETISH_NPC_" + f, "mouseenter", el, false);
+					}
+				}
+			}
+			for (SpecialAttack sa : Main.game.getActiveNPC().getSpecialAttacks()) {
+				if (((EventTarget) documentRight.getElementById("SA_" + sa)) != null) {
+					addEventListener(documentRight, "SA_" + sa, "mousemove", moveTooltipListener, false);
+					addEventListener(documentRight, "SA_" + sa, "mouseleave", hideTooltipListener, false);
+	
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setSpecialAttack(sa, Main.game.getActiveNPC());
+					addEventListener(documentRight, "SA_" + sa, "mouseenter", el, false);
+				}
+			}
+			if (Main.game.getActiveNPC().getMainWeapon() != null) {
+				for (Spell s : Main.game.getActiveNPC().getMainWeapon().getSpells()) {
+					if (((EventTarget) documentRight.getElementById("SPELL_MAIN_" + s)) != null) {
+						addEventListener(documentRight, "SPELL_MAIN_" + s, "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, "SPELL_MAIN_" + s, "mouseleave", hideTooltipListener, false);
+	
+						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, Main.game.getActiveNPC().getLevel(), Main.game.getActiveNPC());
+						addEventListener(documentRight, "SPELL_MAIN_" + s, "mouseenter", el, false);
+					}
+				}
+			}
+			if (Main.game.getActiveNPC().getOffhandWeapon() != null) {
+				for (Spell s : Main.game.getActiveNPC().getOffhandWeapon().getSpells()) {
+					if (((EventTarget) documentRight.getElementById("SPELL_OFFHAND_" + s)) != null) {
+						addEventListener(documentRight, "SPELL_OFFHAND_" + s, "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, "SPELL_OFFHAND_" + s, "mouseleave", hideTooltipListener, false);
+	
+						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, Main.game.getActiveNPC().getLevel(), Main.game.getActiveNPC());
+						addEventListener(documentRight, "SPELL_OFFHAND_" + s, "mouseenter", el, false);
+					}
+				}
+			}
+		}
+	}
+	
 	
 	private boolean useJavascriptToSetContent = true;
 	
@@ -2767,6 +2918,16 @@ public class MainController implements Initializable {
 			manageAttributeListeners();
 		} else {
 			webEngineAttributes.loadContent(content);
+		}
+	}
+	
+	public void setRightPanelContent(String content) {
+		if(useJavascriptToSetContent) {
+			unbindListeners(documentRight);
+			setWebEngineContent(webEngineRight, content);
+			manageRightListeners();
+		} else {
+			webEngineRight.loadContent(content);
 		}
 	}
 	
@@ -2824,6 +2985,7 @@ public class MainController implements Initializable {
 	public void updateUI() {
 		if (Main.game.isRenderAttributesSection()) {
 			RenderingEngine.ENGINE.renderAttributesPanel();
+			RenderingEngine.ENGINE.renderAttributesPanelRight();
 		}
 		RenderingEngine.ENGINE.renderButtons();
 	}

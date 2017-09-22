@@ -9,9 +9,9 @@ import com.base.game.Weather;
 import com.base.game.character.QuestLine;
 import com.base.game.character.gender.GenderPreference;
 import com.base.game.character.npc.NPC;
-import com.base.game.character.npc.dominion.NPCRandomDominion;
-import com.base.game.character.npc.dominion.NPCRandomHarpy;
-import com.base.game.character.npc.dominion.NPCRandomSuccubus;
+import com.base.game.character.npc.generic.DominionAlleywayAttacker;
+import com.base.game.character.npc.generic.HarpyNestsAttacker;
+import com.base.game.character.npc.generic.DominionSuccubusAttacker;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.AbstractClothingType;
@@ -47,7 +47,7 @@ public enum Encounter {
 		@Override
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
 			
-			Main.game.setActiveNPC(new NPCRandomDominion(GenderPreference.getGenderFromUserPreferences()));
+			Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
 
 			try {
 				Main.game.addNPC(Main.game.getActiveNPC());
@@ -102,7 +102,7 @@ public enum Encounter {
 					
 				}
 				
-				Main.game.setActiveNPC(new NPCRandomDominion(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC());
 				} catch (Exception e) {
@@ -156,7 +156,7 @@ public enum Encounter {
 				return Main.game.getActiveNPC().getEncounterDialogue();
 			}
 			
-			Main.game.setActiveNPC(new NPCRandomSuccubus());
+			Main.game.setActiveNPC(new DominionSuccubusAttacker());
 
 			try {
 				Main.game.addNPC(Main.game.getActiveNPC());
@@ -192,7 +192,7 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 
-				Main.game.setActiveNPC(new NPCRandomHarpy(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
@@ -212,7 +212,7 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 
-				Main.game.setActiveNPC(new NPCRandomHarpy(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
@@ -268,7 +268,7 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 
-				Main.game.setActiveNPC(new NPCRandomHarpy(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
@@ -288,7 +288,7 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 
-				Main.game.setActiveNPC(new NPCRandomHarpy(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				

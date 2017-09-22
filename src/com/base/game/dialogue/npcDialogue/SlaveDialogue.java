@@ -14,7 +14,7 @@ import com.base.main.Main;
  * @version 0.1.85
  * @author Innoxia
  */
-public class LilayasHouseSlave {
+public class SlaveDialogue {
 	
 	public static final DialogueNodeOld SLAVE_START = new DialogueNodeOld("", ".", true) {
 		private static final long serialVersionUID = 1L;

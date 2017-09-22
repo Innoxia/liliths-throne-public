@@ -25,7 +25,7 @@ import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Util.ListValue;
 
-public class DominionSuccubus {
+public class DominionSuccubusDialogue {
 	public static final DialogueNodeOld ALLEY_DEMON_ATTACK = new DialogueNodeOld("", "You've ended up walking right into a trap!", true) {
 		private static final long serialVersionUID = 1L;
 		

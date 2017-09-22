@@ -165,7 +165,8 @@ public enum Sex {
 		SexFlags.reset();
 		// Re-initialise all sex action variables:
 		sexManager.initSexActions();
-
+		
+		Main.game.setActiveNPC(partner);
 		Sex.partner = partner;
 		Sex.sexManager = sexManager;
 		Sex.postSexDialogue = postSexDialogue;

@@ -123,24 +123,24 @@ public class CharacterModificationUtils {
 				setHairStyleIfAvailable(HairStyle.STRAIGHT);
 				break;
 			case STRAIGHT:
+				setHairStyleIfAvailable(HairStyle.AFRO);
+				break;
+			case AFRO:
+				setHairStyleIfAvailable(HairStyle.SIDECUT);
+				break;
+			case SIDECUT:
 				setHairStyleIfAvailable(HairStyle.MOHAWK);
 				break;
 			case MOHAWK:
 				setHairStyleIfAvailable(HairStyle.WAVY);
 				break;
 			case WAVY:
-				setHairStyleIfAvailable(HairStyle.SIDECUT);
-				break;
-			case SIDECUT:
 				setHairStyleIfAvailable(HairStyle.PONYTAIL);
 				break;
 			case PONYTAIL:
 				setHairStyleIfAvailable(HairStyle.TWIN_TAILS);
 				break;
 			case TWIN_TAILS:
-				setHairStyleIfAvailable(HairStyle.AFRO);
-				break;
-			case AFRO:
 				setHairStyleIfAvailable(HairStyle.BRAIDED);
 				break;
 			case BRAIDED:

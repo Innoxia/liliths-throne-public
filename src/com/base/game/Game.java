@@ -622,12 +622,38 @@ public class Game implements Serializable {
 					
 					currentDialogue = "<body onLoad='scrollToElement()'>"
 								+ " <script>function scrollToElement() {"
-										+ "document.getElementById('main-content').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop;"
+										+ "document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;"
 									+ "}</script>"
-								+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
 								+ "<div id='main-content'>"
 									+ getTitleDiv(dialogueTitle)
-									+ "<div class='div-center'>"
+									+ "<div class='div-center' id='content-block'>"
+										+ "<div class='inner-text-content'>"
+											+ getMapDiv()
+											+ (headerContent != null
+												? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+													+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
+													+ "</div>"
+												: "")
+											+ (content != null
+													? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+															+ pastDialogueSB.toString()
+														+ "</div>"
+													: "")
+	//												+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+										+ "</div>"
+									+ "</div>"
+									+"<div id='bottom-text'>Game saved!</div>"
+								+ "</div>"
+
+							+ "</body>";
+
+				} else {
+					currentDialogue = "<body>"
+							+ "<div id='main-content'>"
+								+ getTitleDiv(dialogueTitle)
+								+ "<span id='position" + positionAnchor + "'></span>"
+								+ "<div class='div-center' id='content-block'>"
+									+ "<div class='inner-text-content'>"
 										+ getMapDiv()
 										+ (headerContent != null
 											? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
@@ -639,32 +665,8 @@ public class Game implements Serializable {
 														+ pastDialogueSB.toString()
 													+ "</div>"
 												: "")
-//												+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+	//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
 									+ "</div>"
-									+"<div id='bottom-text'>Game saved!</div>"
-								+ "</div>"
-
-							+ "</body>";
-
-				} else {
-					currentDialogue = "<body>"
-							+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
-							+ "<div id='main-content'>"
-								+ getTitleDiv(dialogueTitle)
-								+ "<span id='position" + positionAnchor + "'></span>"
-								+ "<div class='div-center'>"
-									+ getMapDiv()
-									+ (headerContent != null
-										? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
-											+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
-											+ "</div>"
-										: "")
-									+ (content != null
-											? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
-													+ pastDialogueSB.toString()
-												+ "</div>"
-											: "")
-//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
 								+ "</div>"
 								+"<div id='bottom-text'>Game saved!</div>"
 							+ "</div>"
@@ -701,7 +703,7 @@ public class Game implements Serializable {
 		
 		int currentPosition = 0;
 		if(getCurrentDialogueNode()!=null) {
-			currentPosition =  (int) Main.mainController.getWebEngine().executeScript("document.getElementById('main-content').scrollTop");
+			currentPosition =  (int) Main.mainController.getWebEngine().executeScript("document.getElementById('content-block').scrollTop");
 		}
 		
 		String headerContent = node.getHeaderContent();
@@ -783,22 +785,23 @@ public class Game implements Serializable {
 			currentDialogue =
 					"<body onLoad='scrollToElement()'>"
 					+ " <script>function scrollToElement() {"
-							+ "document.getElementById('main-content').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop;"
+							+ "document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;"
 					+ "}</script>"
-					+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
 					+ "<div id='main-content'>"
 						+ getTitleDiv(dialogueTitle)
-						+ "<div class='div-center'>"
-							+ getMapDiv()
-							+ (headerContent != null
-								? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
-									+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
-									+ "</div>"
-								: "") 
-							+ (content != null
-								? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
-								+ pastDialogueSB.toString() + "</div>" : "")
-//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+						+ "<div class='div-center' id='content-block'>"
+							+ "<div class='inner-text-content'>"
+								+ getMapDiv()
+								+ (headerContent != null
+									? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+										+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
+										+ "</div>"
+									: "") 
+								+ (content != null
+									? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+									+ pastDialogueSB.toString() + "</div>" : "")
+	//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+							+ "</div>"
 						+ "</div>"
 						+"<div id='bottom-text'>Game saved!</div>"
 					+ "</div>"
@@ -809,25 +812,26 @@ public class Game implements Serializable {
 			currentDialogue =
 					"<body onLoad='scrollBack()'>"
 					+ " <script>function scrollBack() {"
-							+ "document.getElementById('main-content').scrollTop = "+currentPosition+";"
+							+ "document.getElementById('content-block').scrollTop = "+currentPosition+";"
 					+ "}</script>"
-					+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
 					+ "<div id='main-content'>"
 						+ getTitleDiv(dialogueTitle)
 						+ "<span id='position" + positionAnchor + "'></span>"
-							+ "<div class='div-center'>"
-								+ getMapDiv()
-								+ (headerContent != null
-									? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
-										+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
-										+ "</div>"
-									: "")
-								+ (content != null
-									? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
-											+ pastDialogueSB.toString()
-										+ "</div>"
-									: "")
-//								+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+							+ "<div class='div-center' id='content-block'>"
+								+ "<div class='inner-text-content'>"
+									+ getMapDiv()
+									+ (headerContent != null
+										? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+											+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
+											+ "</div>"
+										: "")
+									+ (content != null
+										? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+												+ pastDialogueSB.toString()
+											+ "</div>"
+										: "")
+	//								+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+								+ "</div>"
 							+ "</div>"
 						+"<div id='bottom-text'>Game saved!</div>"
 					+ "</div>"
@@ -911,7 +915,8 @@ public class Game implements Serializable {
 			return "";
 		}
 		
-		return "<div style='width:100%; max-width:800px; -webkit-box-sizing: border-box; height:56px; padding:8px; margin:4px auto 0px auto; border-radius:5px; background:#19191a;'>"
+		return "<div style='width:100%; -webkit-box-sizing: border-box; height:56px; padding:8px; margin:0 auto 0 auto; border-radius:5px; background:#19191a;'>"
+					+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
 					+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
 				+ "</div>";
 	}
@@ -975,7 +980,7 @@ public class Game implements Serializable {
 			resetResponsePointer();
 		
 		choicesDialogueSB = new StringBuilder("");
-		choicesDialogueSB.append("<div class='response-full-container'>");
+		choicesDialogueSB.append("<body><div class='response-full-container'>");
 		
 		if (responsePage > 0) {
 			choicesDialogueSB.append("<div class='response-switcher left' id='switch_left'><b class='hotkey-icon'>"
@@ -1041,7 +1046,7 @@ public class Game implements Serializable {
 					+ "</b><span class='option-disabled'>&#62</span></div>");
 		}
 		
-		choicesDialogueSB.append("</div>");
+		choicesDialogueSB.append("</div></body>");
 		
 		Main.mainController.setResponsesContent(choicesDialogueSB.toString());
 	}

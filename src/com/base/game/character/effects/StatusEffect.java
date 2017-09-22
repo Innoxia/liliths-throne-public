@@ -1915,7 +1915,7 @@ public enum StatusEffect {
 			if(target.isPlayer()) {
 				return "You are sexually attracted to males and masculinity.";
 			} else {
-				return UtilText.parse("[npc.Name] is sexually attracted to males and masculinity.");
+				return UtilText.parse(target, "[npc.Name] is sexually attracted to males and masculinity.");
 			}
 		}
 
@@ -1950,7 +1950,7 @@ public enum StatusEffect {
 			if(target.isPlayer()) {
 				return "You are sexually attracted to females and femininity.";
 			} else {
-				return UtilText.parse("[npc.Name] is sexually attracted to females and femininity.");
+				return UtilText.parse(target, "[npc.Name] is sexually attracted to females and femininity.");
 			}
 		}
 
@@ -1983,7 +1983,7 @@ public enum StatusEffect {
 			if(target.isPlayer()) {
 				return "You are sexually attracted to both masculine and feminine people.";
 			} else {
-				return UtilText.parse("[npc.Name] is sexually attracted to both masculine and feminine people.");
+				return UtilText.parse(target, "[npc.Name] is sexually attracted to both masculine and feminine people.");
 			}
 		}
 

@@ -11,6 +11,7 @@ import com.base.game.character.effects.Fetish;
 import com.base.game.character.gender.Gender;
 import com.base.game.character.gender.GenderPreference;
 import com.base.game.character.npc.NPC;
+import com.base.game.character.npc.generic.DominionAlleywayAttacker;
 import com.base.game.character.race.RaceStage;
 import com.base.game.character.race.RacialBody;
 import com.base.game.combat.Attack;
@@ -96,7 +97,7 @@ public class Alexa extends NPC {
 			this.slavesOwned.clear();
 			
 			for(int i=0; i<5; i++) {
-				NPC newSlave = new NPCRandomDominion(GenderPreference.getGenderFromUserPreferences());
+				NPC newSlave = new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences());
 				newSlave.setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP);
 				addSlave(newSlave);
 				newSlave.resetInventory();

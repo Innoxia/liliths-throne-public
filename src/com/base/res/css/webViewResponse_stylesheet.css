@@ -32,9 +32,10 @@ p{
 .response-full-container{
 	background-color:#19191a;
 	padding:0;
-	margin:0;
+	margin:0 auto 0 auto;
 	border-radius: 5px;
 	width:100%;
+	max-width:800px;
 	overflow:hidden;
 	-webkit-user-select: none;
 }

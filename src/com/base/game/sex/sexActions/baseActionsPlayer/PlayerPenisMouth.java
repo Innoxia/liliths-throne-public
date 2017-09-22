@@ -344,7 +344,7 @@ public class PlayerPenisMouth {
 			
 			if(Main.game.getPlayer().hasPenisModifier(PenisModifier.BARBED)) {
 				barbedSpecial = "[npc.Name] slides [npc.her] head back, letting out a muffled [npc.moan] as the barbs lining your [pc.cock] rake their way up [npc.her] throat."
-									+ " Leaving just the [pc.cockHead+] pushed past [npc.her] [npc.lips+], [np.she] then starts to passionately kiss and suck the tip of your [pc.cock+].";
+									+ " Leaving just the [pc.cockHead+] pushed past [npc.her] [npc.lips+], [npc.she] then starts to passionately kiss and suck the tip of your [pc.cock+].";
 			}
 			if(Main.game.getPlayer().hasPenisModifier(PenisModifier.FLARED)) {
 				flaredSpecial="Sliding [npc.her] head back, [npc.name] allows your [pc.cock+] to slip almost completely out of [npc.her] mouth,"

@@ -21,7 +21,7 @@ import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Util.ListValue;
 
-public class DominionAlleywayAttacker {
+public class DominionAlleywayAttackerDialogue {
 	public static final DialogueNodeOld ALLEY_ATTACK = new DialogueNodeOld("Assaulted!", "A figure jumps out from the shadows!", true) {
 		private static final long serialVersionUID = 1L;
 		

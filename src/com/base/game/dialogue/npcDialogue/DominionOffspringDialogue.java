@@ -20,7 +20,7 @@ import com.base.utils.Util;
 import com.base.utils.Util.ListValue;
 import com.base.world.places.Dominion;
 
-public class DominionOffspring {
+public class DominionOffspringDialogue {
 	
 	public static final DialogueNodeOld OFFSPRING_ENCOUNTER = new DialogueNodeOld("A familiar face", "You encounter a certain special someone in the alleyway.", true) {
 		private static final long serialVersionUID = 1L;

@@ -1,4 +1,4 @@
-package com.base.game.character.npc.dominion;
+package com.base.game.character.npc.generic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import com.base.game.character.race.RaceStage;
 import com.base.game.character.race.RacialBody;
 import com.base.game.combat.Attack;
 import com.base.game.dialogue.DialogueNodeOld;
-import com.base.game.dialogue.npcDialogue.DominionSuccubus;
+import com.base.game.dialogue.npcDialogue.DominionSuccubusDialogue;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.CharacterInventory;
@@ -44,11 +44,11 @@ import com.base.world.places.Dominion;
  * @version 0.1.82
  * @author Innoxia
  */
-public class NPCRandomSuccubus extends NPC {
+public class DominionSuccubusAttacker extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	public NPCRandomSuccubus() {
+	public DominionSuccubusAttacker() {
 		super(null, "", 5, Gender.FEMALE, RacialBody.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, Dominion.CITY_BACK_ALLEYS, false);
 
@@ -107,7 +107,7 @@ public class NPCRandomSuccubus extends NPC {
 		clothingChoices.add(ClothingType.FOOT_HEELS);
 		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
 
-		this.setEnslavementDialogue(DominionSuccubus.ENSLAVEMENT_DIALOGUE);
+		this.setEnslavementDialogue(DominionSuccubusDialogue.ENSLAVEMENT_DIALOGUE);
 		
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -144,7 +144,7 @@ public class NPCRandomSuccubus extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-		return DominionSuccubus.ALLEY_DEMON_ATTACK;
+		return DominionSuccubusDialogue.ALLEY_DEMON_ATTACK;
 	}
 
 	// Combat:
@@ -342,9 +342,9 @@ public class NPCRandomSuccubus extends NPC {
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
-			return new Response("", "", DominionSuccubus.AFTER_COMBAT_VICTORY);
+			return new Response("", "", DominionSuccubusDialogue.AFTER_COMBAT_VICTORY);
 		} else {
-			return new Response ("", "", DominionSuccubus.AFTER_COMBAT_DEFEAT);
+			return new Response ("", "", DominionSuccubusDialogue.AFTER_COMBAT_DEFEAT);
 		}
 	}
 	

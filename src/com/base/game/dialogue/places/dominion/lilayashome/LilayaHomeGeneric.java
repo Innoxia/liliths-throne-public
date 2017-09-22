@@ -6,7 +6,7 @@ import com.base.game.character.body.valueEnums.Femininity;
 import com.base.game.character.npc.NPC;
 import com.base.game.character.npc.dominion.Rose;
 import com.base.game.dialogue.DialogueNodeOld;
-import com.base.game.dialogue.npcDialogue.LilayasHouseSlave;
+import com.base.game.dialogue.npcDialogue.SlaveDialogue;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.responses.ResponseSex;
@@ -129,7 +129,7 @@ public class LilayaHomeGeneric {
 			}
 			
 		} else if(index-3<charactersPresent.size()) {
-			return new Response(UtilText.parse(charactersPresent.get(index-3), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-3), "Interact with [npc.name]."), LilayasHouseSlave.SLAVE_START) {
+			return new Response(UtilText.parse(charactersPresent.get(index-3), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-3), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 				@Override
 				public void effects() {
 					Main.game.setActiveNPC(charactersPresent.get(index-3));

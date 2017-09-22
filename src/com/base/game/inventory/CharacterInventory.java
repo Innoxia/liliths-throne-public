@@ -837,9 +837,10 @@ public class CharacterInventory implements Serializable {
 				equipTextSB.append((equipTextSB.length() == 0 ? "" : "</br>") + newClothing.onEquipApplyEffects(characterClothingOwner, characterClothingEquipper, false));// (Main.game.isInSex()?Sex.isSubResisting():false)));
 
 				clothingToBeReplaced.sort(new ReverseClothingZLayerComparator());
-				if (!clothingToBeReplaced.isEmpty())// clothingCountToBeReplaced-incompatibleUnequippableClothing.size()>0)
-					equipTextSB.append("</br>You replace your " + Util.clothesToStringList(clothingToBeReplaced) + ".");
-
+				if (!clothingToBeReplaced.isEmpty()) {// clothingCountToBeReplaced-incompatibleUnequippableClothing.size()>0)
+					equipTextSB.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName("the")+"'s")+" " + Util.clothesToStringList(clothingToBeReplaced) + ".");
+				}
+				
 				// Check for clothing sets:
 				if (newClothing.getClothingType().getClothingSet() != null) {
 					if (clothingSetCount.get(newClothing.getClothingType().getClothingSet()) == null)

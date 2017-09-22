@@ -864,12 +864,12 @@ public enum Combat {
 
 		@Override
 		public String getContent() {
-			return "<div style='width:368px; padding:8px;margin:8px;float:left;text-align:center;'>"
+			return "<div style='width:50%; padding:4%; float:left; text-align:center; box-sizing: border-box;'>"
 						+ "<h6 style='width:100%;margin:0 0 8px 0;'>"+playerActionText+"</h6>"
 						+ playerTurnText
 					+ "</div>"
 					
-					+"<div style='width:368px; padding:8px;margin:8px;float:left;text-align:center;'>"
+					+"<div style='width:50%; padding:4%; float:left; text-align:center; box-sizing: border-box;'>"
 						+ "<h6 style='width:100%;margin:0 0 8px 0;'>"+opponentActionText+"</h6>"
 						+ opponentTurnText 
 					+ "</div>";

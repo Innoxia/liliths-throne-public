@@ -7,49 +7,76 @@
 	Patch notes:
 	
 	
-	Engine:
-		Changed the way NPCs are tracked in an effort to make them easier to save and access.
-	
-	Slavery:
-		<b>Added:</b> Room management, Slave management UI (access from Slavery Administration, or any of the rooms in Lilaya's House).
-		<b>Added:</b> Basic slave buying/selling. Once you've completed the part of the main quest involving Alexa, her shop will restock five slaves every day.
-		<b>Added:</b> A lot of slave-related engine work. x_x
-		<b>Added:</b> Placeholder dialogue for slaves. (This is the same as the offspring placeholders for now, I'm going to massively expand all these options over the next few versions.)
 	
 	UI:
-		Moved the map back down to the bottom-left (I'll find a place for the event log next week ^^).
-		Swapped the finger and hips slots in the inventory UI.
-		Added 'Displace all', 'Replace all', 'Unequip all', and 'Equip all' actions to the inventory menu, along with NPC-targeted versions for displace, replace, and unequip.
-		Temporarily disabled quick manage in the inventory until I can get it fixed. (Sorry!)
+		Due to the inventory rework, I'm trying to improve the UI to properly display the new options. I've added a third column to the UI, but I'm still not entirely sure about this...
 	
 	Other:
-		Added 'unzip' displacement type for trousers, jeans, and shorts.
-		Added pattern options (striping/spotting/mottling) for demon and human skin in Kate's shop.
-		Added a fast travel option from your room to Lilaya's Lab, and vice versa. Also added fast travel back to the entrance from each of the shops in the arcade.
-		Moved Cowbell collar, Ear tag, and Bovine nose ring into a new 'Cattle' set. (The status effect buffs are boring at the moment, but I'll make them far more exciting when I move lactation/cum production into enchantable stats.)
-		Added 'silver' to eye colours.
+		Reduced minimum hair length requirements for the Sidecut and Afro hair styles.
 	
 	Bugs:
-		You should now properly be able to access your parnter's clothing during sex.
-		Enslaving someone by forcing them to equip a slave collar now correctly marks them as your slave.
-		Blazers are now correctly unisex.
-		Fixed bug where clothing would be duplicated after sex scenes.
-		Fixed a lot of incorrect descriptions of clothing management during sex.
-		You can now access the inventory of the people who try to rob you, as well as those who try to rape you.
-		Fixed bug where dying equipped clothes would cause those clothes to be duplicated into the owner's inventory.
-		Descriptions for adding a penis modifier will no longer display if the target has no penis.
-		Fixed demonic nipples always being described as nipple-cunts (even if they were regular nipples).
-		Arcane storm notifications should now properly trigger when in a vulnerable area.
-		Fixed starting hairstyle being random (your hair will now always start with a 'natural' style in the character creation).
-		Fixed bug where enforcer shirt, maid's dress, and Mega Milk T-shirt would not be able to be unequipped if you wore something over the top (like a hoodie).
-		Possibly fixed the bug that was causing the properties file to get re-created on a new game start.
-		Fixed minor bug where the text on the screen would disappear when pressing enter in the City Hall's change name box.
-		Scarlett's slave collar should now correctly be sealed.
+		Fixed some typos
 	
 	
 	
 	
 	
+	
+	
+	
+	BUGS
+	
+	SLAVERY fixes, jobs, assignments
+	
+	INCEST 
+	
+	
+	
+	
+	
+	
+	Cannot sell item if vendor's inventory is full
+	
+	Finch not respawning items
+	
+	History for NPCs
+	Personality for NPCs
+	
+	: I can't unzip the enforcer's shorts.
+	
+	Slave sex always ends with dialogue suggesting you just got dominated
+	
+	: Sex still causes item duplication
+
+hmm, I can't seem to fuck Ralph
+[07:17] sleepyFluffer: as in, I can't press the "accept" button
+
+When saving if you type the name and hit enter all the text on the screen disappears
+
+Need to re-add "Use all"
+
+Rough Paizuri is not tied to Sadist fetish like other rough pace actions.
+	
+	Couple slave content related bugs:  Slaves taken from alley ways can not be renamed, and auto-generate clothing after sex.  This may not be a bug, but if you sell slaves to Finch they hang out in the slave administration forever.
+	
+	Also can you make it so it doesn't exit the inventory screen every time you remove a partner's clothing
+	
+	
+	The selfie description for bovine horns still seem off to me. Are masculine bovine horns supposed to be described as being swept back? When you first grow them they are described as curving up the side of your head. But on the selfie screen they share the same description as female demon horns. The only difference is that the word "forehead" is changed to "temples"
+The feminine bovine horns similarly share almost the same selfie description as male demon horns. Swapping out the word "forehead" for "temples" seems to be the only difference for them as well.
+	
+	
+	You cannot fuck your slaves even if they are attracted to you but i don't know if that was just not finished yet
+	
+	Small display bug. If you tweak a slave via the slavery inventory management system (that is, if you make them drink potions/elixirs), their desc doesn't update within said management system. It does update if you leave the room and enter it again, though. (so, if I were to hazard a guess, it caches the desc when you enter the slave management system?)
+	
+	using the used condom on someone else still has you be the one to drink it. :V
+	
+	She also replaced the maid outfit I equipped her with
+	
+	and she refuses to be impregnated, by the looks of things. Silly Scarlett
+	
+	Properties is still being reset
 	
 	MANAGEMENT
 	
@@ -73,7 +100,18 @@
 	
 	
 	
-	
+	quad nipples on less tahn greater cows
+
+ A trickle of milk runs out into her no_clothing_covering_nipples as you squeeze down on her wet teats
+ 
+ can we get glue like as a fluid mod? IE like how pig cum hardens in contact with air to seal up the female's vagina and trap the rest of the cum inside
+ congealing
+ 
+ dying equipped items duplicates them
+ 
+ Alright so it seems like we can give NPC's clothes and they seem to keep wearing them even when you leave and return. They only seem to equip new clothes if you have sex and  by the end of it they have a major slot thats empty. As much as i hate to say it though unless the NPC is an exhibitionist they should probably try to change out of exposing clothing unless it's jinxed
+ 
+ pull out breasts from keyhole sweater
 	
 	
 	
@@ -91,6 +129,11 @@
 	
 	Fertility cycle (96 hours)
 	And when in the 'risky' or 'fertile' stages, it will be impossible to get a 0% impregnation chance
+	'Pregnancy risk', and 'inseminated'
+	Pregnancy fetishes and 'in heat/rut' alter timings and pregnancy chance
+	You could make Heat a vagina tf and then put a "heat fetish" that increases it's stregnth~ something like
+		 "You love loosing yourself and giving in to your womb's deisre for fresh seed~ The feeling of being fucked while being at your most fertile drives you insane with lust"~ :3
+	Impregnation fetish should also probably be the strength/weekness to it~ where as a tease from either of them will break the other~
 	
 	"H&D-only", "MG", "FF"
 	
