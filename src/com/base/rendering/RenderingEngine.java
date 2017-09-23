@@ -24,6 +24,7 @@ import com.base.game.character.npc.NPC;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.eventLog.EventLogEntry;
+import com.base.game.dialogue.utils.CharactersPresentDialogue;
 import com.base.game.dialogue.utils.InventoryDialogue;
 import com.base.game.dialogue.utils.InventoryInteraction;
 import com.base.game.dialogue.utils.UtilText;
@@ -40,6 +41,7 @@ import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Vector2i;
 import com.base.world.places.GenericPlaces;
+import com.base.world.places.PlaceInterface;
 
 /**
  * @since 0.1.0
@@ -50,7 +52,8 @@ public enum RenderingEngine {
 	ENGINE;
 	
 	private static boolean zoomedIn = true, renderedDisabledMap = false;
-	
+
+	private static Colour[] orgasmColours = new Colour[]{Colour.AROUSAL_STAGE_ZERO, Colour.AROUSAL_STAGE_ONE, Colour.AROUSAL_STAGE_TWO, Colour.AROUSAL_STAGE_THREE, Colour.AROUSAL_STAGE_FOUR, Colour.AROUSAL_STAGE_FIVE, Colour.GENERIC_ARCANE};
 
 	private static InventorySlot[] inventorySlots = {
 			InventorySlot.EYES,			InventorySlot.HEAD,			InventorySlot.NECK,		InventorySlot.HAIR,		InventorySlot.HORNS,
@@ -552,6 +555,8 @@ public enum RenderingEngine {
 								+ "</span>"
 							+ "</div>"
 						+ "</div>"
+						
+						// Attributes:
 						+"<div class='attribute-container'>"
 							+ "<p style='text-align:center;padding:0;margin:0;'><b>Attributes</b></p>"
 				
@@ -619,9 +624,14 @@ public enum RenderingEngine {
 						+ "</div>");
 						
 		if(Main.game.isInSex()) {
+			Colour playerOrgasmColour = Colour.GENERIC_ARCANE;
+			if(Sex.getNumberOfPlayerOrgasms()<=orgasmColours.length) {
+				playerOrgasmColour = orgasmColours[Sex.getNumberOfPlayerOrgasms()];
+			}
 			
 			uiAttributeSB.append("<div class='attribute-container'>"
-					+ "<p style='text-align:center;padding:0;margin:0;'><b>Sex</b></p>"
+					+ "<p style='text-align:center;padding:0;margin:0;'><b>Sex - </b>"+(Sex.isPlayerDom()?"<b style='color:"+Colour.BASE_CRIMSON.toWebHexString()+";'>Dom</b>":"<b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Sub</b>")+"</p>"
+					+ "<p style='text-align:center;padding:0;margin:0;'><b>Orgasms: </b><b style='color:"+playerOrgasmColour.toWebHexString()+";'>"+Sex.getNumberOfPlayerOrgasms()+"</b></p>"
 					
 					// Arousal:
 					+ "<div class='full-width-container' style='margin:8 0 0 0; margin:0; padding:0;'>"
@@ -837,6 +847,11 @@ public enum RenderingEngine {
 		Main.mainController.setAttributePanelContent(uiAttributeSB.toString());
 	}
 	
+	private static NPC npcToRender = null;
+	public static NPC getNpcToRender() {
+		return npcToRender;
+	}
+
 	public void renderAttributesPanelRight() {
 		uiAttributeSB.setLength(0);
 		
@@ -847,15 +862,19 @@ public enum RenderingEngine {
 						+ "</script>"
 						+ "<div class='full'>");
 			
-			NPC npcToRender = Main.game.getActiveNPC();
+			npcToRender = Main.game.getActiveNPC();
 			
 			if(InventoryDialogue.getInventoryNPC()!=null) {
 				npcToRender = InventoryDialogue.getInventoryNPC();
 			}
 			
+			if(Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.CHARACTERS_PRESENT) {
+				npcToRender = (NPC) CharactersPresentDialogue.characterViewed;
+			}
+			
 			if(npcToRender!=null
-					&& (Main.game.isInCombat() || Main.game.isInSex()
-							|| (Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.INVENTORY && InventoryDialogue.getNPCInventoryInteraction()==InventoryInteraction.FULL_MANAGEMENT && InventoryDialogue.getInventoryNPC()!=null))) {
+					&& (Main.game.isInCombat() || Main.game.isInSex() || Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.CHARACTERS_PRESENT
+							|| (Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.INVENTORY && InventoryDialogue.getInventoryNPC()!=null))) {
 							
 				uiAttributeSB.append(
 						// Name box:
@@ -962,9 +981,14 @@ public enum RenderingEngine {
 				
 				
 			if(Main.game.isInSex()) {
+				Colour NPCOrgasmColour = Colour.GENERIC_ARCANE;
+				if(Sex.getNumberOfPartnerOrgasms()<=orgasmColours.length) {
+					NPCOrgasmColour = orgasmColours[Sex.getNumberOfPartnerOrgasms()];
+				}
 				
 				uiAttributeSB.append("<div class='attribute-container'>"
-						+ "<p style='text-align:center;padding:0;margin:0;'><b>Sex</b></p>"
+						+ "<p style='text-align:center;padding:0;margin:0;'><b>Sex - </b>"+(Sex.isPlayerDom()?"<b style='color:"+Colour.BASE_CRIMSON.toWebHexString()+";'>Dom</b>":"<b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Sub</b>")+"</p>"
+						+ "<p style='text-align:center;padding:0;margin:0;'><b>Orgasms: </b><b style='color:"+NPCOrgasmColour.toWebHexString()+";'>"+Sex.getNumberOfPartnerOrgasms()+"</b></p>"
 						
 						// Partner arousal:
 						+ "<div class='full-width-container' style='margin:8 0 0 0; margin:0; padding:0;'>"
@@ -1088,8 +1112,7 @@ public enum RenderingEngine {
 			uiAttributeSB.append("</div>");
 			
 			
-			
-			//TODO
+			// Inventory:
 			Set<InventorySlot> blockedSlots = new HashSet<>();
 			
 			for (AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
@@ -1147,41 +1170,162 @@ public enum RenderingEngine {
 			uiAttributeSB.append("</div>");
 				
 		} else {
-		
+			//TODO
+			if(!Main.game.isInNewWorld()) {
+				uiAttributeSB.append(
+						// Name box:
+						"<div class='attribute-container'>"
+							+ "<div class='full-width-container'>"
+								+ "<p class='character-name' style='color:"+ Colour.BASE_BROWN.toWebHexString() + ";'>"
+									+ "City"
+								+ "</p>"
+							+ "</div>"
+							+ "<div class='full-width-container' style='margin:0;padding:0;'>"
+								+ "<p style='text-align:center; color:"+ Colour.BASE_TAN.toWebHexString() + ";'>"
+									+ "Museum"
+								+"</p>"
+							+ "</div>"
+						+ "</div>");
+				
+			} else {
+				PlaceInterface place = Main.game.getPlayer().getWorldLocation().getStandardPlace();
+				if(Main.game.getPlayer().getLocationPlace()!=null) {
+					place = Main.game.getPlayer().getLocationPlace().getPlaceType();
+				}
+				uiAttributeSB.append(
+								// Name box:
+								"<div class='attribute-container'>"
+									+ "<div class='full-width-container'>"
+										+ "<p class='character-name' style='color:"+ Main.game.getPlayer().getWorldLocation().getColour().toWebHexString() + ";'>"
+											+ Main.game.getPlayer().getWorldLocation().getName()
+										+ "</p>"
+									+ "</div>"
+									+ "<div class='full-width-container' style='margin:0;padding:0;'>"
+										+ "<p style='text-align:center;"+ (place.getColour()==null?"":" color:"+place.getColour().toWebHexString()) + ";'>"
+											+ place.getName()
+										+"</p>"
+									+ "</div>"
+								+ "</div>");
+			}
+			
+			// Characters Present:
+			uiAttributeSB.append("<div class='attribute-container effects'>"
+								+ "<p style='text-align:center;padding:0;margin:0;'><b>Characters Present</b></p>");
+			List <NPC> charactersPresent = Main.game.getCharactersPresent();
+			if(charactersPresent.isEmpty()) {
+				uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>None...</span></p>");
+			} else {
+				int count = 0;
+				for(NPC character : charactersPresent) {
+					if(count%2==0) {
+						uiAttributeSB.append(
+								"<div class='event-log-entry' style='background:#222222;'>"
+									+ "<span style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"+character.getName("A")+"</span>"
+									+ " - <span style='color:"+character.getRace().getColour().toWebHexString()+";'>"
+										+Util.capitaliseSentence((character.isFeminine()?character.getRace().getSingularFemaleName():character.getRace().getSingularMaleName()))+"</span>"
+									+ "<div class='overlay-inventory' id='CHARACTERS_PRESENT_"+character.getId()+"'></div>"
+								+ "</div>");
+					} else {
+						uiAttributeSB.append(
+								"<div class='event-log-entry' style='background:#292929;'>"
+									+ "<span style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"+character.getName("A")+"</span>"
+									+ " - <span style='color:"+character.getRace().getColour().toWebHexString()+";'>"
+										+Util.capitaliseSentence((character.isFeminine()?character.getRace().getSingularFemaleName():character.getRace().getSingularMaleName()))+"</span>"
+									+ "<div class='overlay-inventory' id='CHARACTERS_PRESENT_"+character.getId()+"'></div>"
+								+ "</div>");
+					}
+					count++;
+				}
+			}
+			uiAttributeSB.append("</div>");
+			
+			
+			// Items Present:
+			uiAttributeSB.append("<div class='attribute-container effects'>"
+								+ "<p style='text-align:center;padding:0;margin:0;'><b>Items Present</b></p>");
+			
+			int count = 0;
+			for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
+				if(count%2==0) {
+					uiAttributeSB.append(
+							"<div class='event-log-entry' style='background:#222222;'>"
+									+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
+									+ "<div class='overlay-inventory' id='WEAPON_FLOOR_"+entry.getKey().hashCode()+"'></div>"
+							+"</div>");
+				} else {
+					uiAttributeSB.append(
+							"<div class='event-log-entry' style='background:#292929;'>"
+									+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
+									+ "<div class='overlay-inventory' id='WEAPON_FLOOR_"+entry.getKey().hashCode()+"'></div>"
+							+"</div>");
+				}
+				count++;
+			}
+			for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
+				if(count%2==0) {
+					uiAttributeSB.append(
+							"<div class='event-log-entry' style='background:#222222;'>"
+									+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
+									+ "<div class='overlay-inventory' id='CLOTHING_FLOOR_"+entry.getKey().hashCode()+"'></div>"
+							+"</div>");
+				} else {
+					uiAttributeSB.append(
+							"<div class='event-log-entry' style='background:#292929;'>"
+									+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
+									+ "<div class='overlay-inventory' id='CLOTHING_FLOOR_"+entry.getKey().hashCode()+"'></div>"
+							+"</div>");
+				}
+				count++;
+			}
+			for(Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
+				if(count%2==0) {
+					uiAttributeSB.append(
+							"<div class='event-log-entry' style='background:#222222;'>"
+									+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
+									+ "<div class='overlay-inventory' id='ITEM_FLOOR_"+entry.getKey().hashCode()+"'></div>"
+							+"</div>");
+				} else {
+					uiAttributeSB.append(
+							"<div class='event-log-entry' style='background:#292929;'>"
+									+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
+									+ "<div class='overlay-inventory' id='ITEM_FLOOR_"+entry.getKey().hashCode()+"'></div>"
+							+"</div>");
+				}
+				count++;
+			}
+			if(count==0) {
+				uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>None...</span></p>");
+			}
 			uiAttributeSB.append(
-//					"<div style='height:100%; border-radius:5px; background:#19191a;'></div>"+
+					"</div>");
+						
+			
+			// Event log:
+			uiAttributeSB.append(
 					"</div>"
 						+ "<div class='event-log'>"
 							+ "<p style='text-align:center;padding:0;margin:0;'><b>Event Log</b></p>"
 							+ "<div class='event-log-inner' id='event-log-inner-id'>");
 			
 			if(Main.game.getEventLog().isEmpty()) {
-				uiAttributeSB.append("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No events yet...</span>");
+				uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No events yet...</span></p>");
 			}
-			int count = 0;
+			count = 0;
 			if(Main.game.getEventLog().size()>50) {
 				for(EventLogEntry event : Main.game.getEventLog().subList(Main.game.getEventLog().size()-50, Main.game.getEventLog().size()-1)) {
-					if(count==0) {
-						uiAttributeSB.append("<div class='event-log-entry' style='background:#222;'>"+event.getFormattedEntry()+"</div>");
+					if(count%2==0) {
+						uiAttributeSB.append("<div class='event-log-entry' style='background:#222222;'>"+event.getFormattedEntry()+"</div>");
 					} else {
-						if(count%2==0) {
-							uiAttributeSB.append("<div class='event-log-entry' style='background:#222222;'>"+event.getFormattedEntry()+"</div>");
-						} else {
-							uiAttributeSB.append("<div class='event-log-entry' style='background:#292929;'>"+event.getFormattedEntry()+"</div>");
-						}
+						uiAttributeSB.append("<div class='event-log-entry' style='background:#292929;'>"+event.getFormattedEntry()+"</div>");
 					}
 					count++;
 				}
 			} else {
 				for(EventLogEntry event : Main.game.getEventLog()) {
-					if(count==0) {
-						uiAttributeSB.append("<div class='event-log-entry' style='background:#222;'>"+event.getFormattedEntry()+"</div>");
+					if(count%2==0) {
+						uiAttributeSB.append("<div class='event-log-entry' style='background:#222222;'>"+event.getFormattedEntry()+"</div>");
 					} else {
-						if(count%2==0) {
-							uiAttributeSB.append("<div class='event-log-entry' style='background:#222222;'>"+event.getFormattedEntry()+"</div>");
-						} else {
-							uiAttributeSB.append("<div class='event-log-entry' style='background:#292929;'>"+event.getFormattedEntry()+"</div>");
-						}
+						uiAttributeSB.append("<div class='event-log-entry' style='background:#292929;'>"+event.getFormattedEntry()+"</div>");
 					}
 					count++;
 				}
@@ -1224,6 +1368,12 @@ public enum RenderingEngine {
 		mapSB.setLength(0);
 
 		mapSB.append("<div class='map-container'>");
+		
+		if(!Main.game.isInNewWorld()) {
+			mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:#19191a; border-radius:5px;'></div>");
+			renderedDisabledMap = true;
+			
+		}
 
 		int mapSize = zoomedIn ? 2 : 3;
 		float unit = zoomedIn ? 4.5f : 3f, borderSizeReduction = 2.5f;
@@ -1414,11 +1564,13 @@ public enum RenderingEngine {
 
 		}
 		
-		if (Main.game.getCurrentDialogueNode().isTravelDisabled()) {
-			mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:#000; opacity:0.7; border-radius:5px;'></div>");
-			renderedDisabledMap = true;
-		} else {
-			renderedDisabledMap = false;
+		if(Main.game.isInNewWorld()) {
+			if (Main.game.getCurrentDialogueNode().isTravelDisabled()) {
+				mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:#000; opacity:0.7; border-radius:5px;'></div>");
+				renderedDisabledMap = true;
+			} else {
+				renderedDisabledMap = false;
+			}
 		}
 		
 		mapSB.append("</div>");

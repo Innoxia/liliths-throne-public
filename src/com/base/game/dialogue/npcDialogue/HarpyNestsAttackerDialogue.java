@@ -873,6 +873,10 @@ public class HarpyNestsAttackerDialogue {
 						+ "TODO</br>"
 						+ "You clasp the collar around [npc.name]'s neck.</br>"
 						+ "The arcane enchantment recognises [npc.herHim] as being a criminal, and, with a purple flash, <b>they're teleported to the 'Slave Administration' building in Slaver Alley, where they'll be waiting for you to pick them up</b>."
+					+ "</p>"
+					+ "<p>"
+						+ "Just before they disappear, glowing purple lettering appears on the collar's surface, which reads:</br>"
+						+ "Slave identification: [style.boldArcane("+Main.game.getActiveNPC().getNameIgnoresPlayerKnowledge()+")]"
 					+ "</p>");
 		}
 
@@ -880,6 +884,10 @@ public class HarpyNestsAttackerDialogue {
 		public Response getResponse(int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
+					@Override
+					public void effects() {
+						Main.game.getActiveNPC().setPlayerKnowsName(true);
+					}
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						return GenericDialogue.getDefaultDialogueNoEncounter();

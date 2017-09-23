@@ -116,16 +116,16 @@ public class LilayaHomeGeneric {
 			
 		} else if (index == 1) {
 			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return new Response("Slave Management", "Enter the slave management screen.",  MiscDialogue.getSlaveryManagementDialogue(Main.game.getPlayerCell().getPlace().getDialogue(false), null));
+				return new Response("Slave Manager", "Enter the slave management screen.",  MiscDialogue.getSlaveryManagementDialogue(Main.game.getPlayerCell().getPlace().getDialogue(false), null));
 			} else {
-				return new Response("Slave Management", "You'll need a slaver license before you can access this menu!",  null);
+				return new Response("Slave Manager", "You'll need a slaver license before you can access this menu!",  null);
 			}
 			
 		} else if (index == 2) {
 			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return new Response("Room Modifications", "Enter the room upgrades options screen.", ROOM_UPGRADES);
+				return new Response("Room Manager", "Enter the room upgrades options screen.", ROOM_UPGRADES);
 			} else {
-				return new Response("Room Modifications", "You'll need a slaver license before you can access this menu!",  null);
+				return new Response("Room Manager", "You'll need a slaver license before you can access this menu!",  null);
 			}
 			
 		} else if(index-3<charactersPresent.size()) {

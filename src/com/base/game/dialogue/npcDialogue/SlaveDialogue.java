@@ -76,48 +76,6 @@ public class SlaveDialogue {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Talk", "Talk with [npc.name].", SLAVE_TALK);
-				
-			} else if (index == 0) {
-				return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", SLAVE_START) {
-						@Override
-						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
-						}
-					};
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld SLAVE_TALK = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public String getLabel(){
-			return "Talking with [npc.Name]";
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "<i>All of the slave-interaction dialogue is currently placeholder!</i>"
-					+ "</p>"
-					+ "<p>"
-						+ "You talk to [npc.name]."
-					+ "</p>"
-					+ "<p>"
-					+ (Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()
-						?"[npc.She] keeps glancing at your body..."
-						:"[npc.She] doesn't show any interest in being attracted to you.")
-					+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int index) {
-			if (index == 1) {
 				return new Response("Background", "Ask [npc.name] about [npc.her] past life.", SLAVE_PROGRESSION);
 				
 			} else if (index == 2) {
@@ -145,11 +103,11 @@ public class SlaveDialogue {
 			} else if (index == 6) {
 				if(Main.game.isNonConEnabled() && !Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()) {
 					return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
-							AFTER_SEX_RAPE,
-							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_RAPE,
+							AFTER_SEX,
+							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
 							"<p>"
 								+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
-								+ " [npc.She] desperately tries to push you away, [npc.moaningVerb]"
+								+ " [npc.She] desperately tries to push you away, [npc.moaning]"
 								+ " [npc.speech(No! Stop!)]"
 							+ "</p>") {
 						@Override
@@ -159,26 +117,20 @@ public class SlaveDialogue {
 					};
 					
 				} else {
-					if(Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()) {
-						return new ResponseSex("Sex", "Have sex with [npc.name].", 
-								AFTER_SEX,
-								Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
-								"<p>"
-									+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
-									+ " [npc.She] desperately leans into you, [npc.moaningVerb]"
-									+ " [npc.speech(~Mmm!~ Yes!)]"
-								+ "</p>") {
-							@Override
-							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
-							}
-						};
-						
-					} else {
-						return new Response("Sex", "[npc.Name] s clearly not interested in having sex with you.", null);
-					}
+					return new ResponseSex("Sex", "Have sex with [npc.name].", 
+							AFTER_SEX,
+							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
+							"<p>"
+								+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
+								+ " [npc.She] desperately leans into you, [npc.moaning]"
+								+ " [npc.speech(~Mmm!~ Yes!)]"
+							+ "</p>") {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+						}
+					};
 				}
-				
 			} else if (index == 0) {
 				return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.her] some other time.", SLAVE_START) {
 					@Override
@@ -222,7 +174,7 @@ public class SlaveDialogue {
 				return new Response("Background", "Ask [npc.name] how [npc.she] makes a living.", null);
 				
 			} else {
-				return SLAVE_TALK.getResponse(index);
+				return SLAVE_START.getResponse(index);
 			}
 		}
 	};
@@ -256,7 +208,7 @@ public class SlaveDialogue {
 				return new Response("Hug", "Hug [npc.name].", null);
 				
 			} else {
-				return SLAVE_TALK.getResponse(index);
+				return SLAVE_START.getResponse(index);
 			}
 		}
 	};
@@ -290,7 +242,7 @@ public class SlaveDialogue {
 				return new Response("Small talk", "Chat about this and that with [npc.name].", null);
 				
 			} else {
-				return SLAVE_TALK.getResponse(index);
+				return SLAVE_START.getResponse(index);
 			}
 		}
 	};
@@ -324,7 +276,7 @@ public class SlaveDialogue {
 				return new Response("Gift", "Give [npc.name] a gift.", null);
 				
 			} else {
-				return SLAVE_TALK.getResponse(index);
+				return SLAVE_START.getResponse(index);
 			}
 		}
 	};
@@ -358,12 +310,12 @@ public class SlaveDialogue {
 				return new Response("Punish", "Punish [npc.name].", null);
 				
 			} else {
-				return SLAVE_TALK.getResponse(index);
+				return SLAVE_START.getResponse(index);
 			}
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_RAPE = new DialogueNodeOld("Step back", "", true) {
+	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("Step back", "", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -402,45 +354,6 @@ public class SlaveDialogue {
 							+ "</p>");
 				}
 			}
-		}
-
-		@Override
-		public Response getResponse(int index) {
-			if (index == 1) {
-				return new Response("Continue", "Decide what to do next.", SLAVE_START);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("Collapse", "", true) {
-		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public int getMinutesPassed(){
-			return 30;
-		}
-		
-		@Override
-		public String getDescription(){
-			return "You're completely worn out from [npc.name]'s dominant treatment, and need a while to recover.";
-		}
-
-		@Override
-		public String getContent() {
-			return UtilText.parse(Main.game.getActiveNPC(),
-					"<p>"
-						+ "As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you."
-						+ " [npc.She] looks down at you, and you glance up to see a very satisfied smile cross [npc.her] face."
-						+ " [npc.She] leans down and pats you on the head,"
-						+ " [npc.speech(Good job [npc.pcName]! We should do this again some time!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "With that, [npc.she] walks off, leaving you panting on the floor."
-						+ " It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way."
-					+ "</p>");
 		}
 
 		@Override

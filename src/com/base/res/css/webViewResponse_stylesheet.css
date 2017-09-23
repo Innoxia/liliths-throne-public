@@ -35,7 +35,7 @@ p{
 	margin:0 auto 0 auto;
 	border-radius: 5px;
 	width:100%;
-	max-width:800px;
+	max-width:1000px;
 	overflow:hidden;
 	-webkit-user-select: none;
 }
@@ -95,6 +95,7 @@ p{
 	width:91%;
 	overflow:hidden;
 	-webkit-user-select: none;
+	white-space: nowrap;
 }
 .hotkey-icon{
 	position:absolute;
@@ -159,7 +160,7 @@ p{
 }
 
 .response-text{
-	padding: 4px 4px 4px 14px;
+	padding: 4px 4px 4px 4px;
 	margin:0;
 	font-size:1em;
 	line-height:24px;

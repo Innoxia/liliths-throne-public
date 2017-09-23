@@ -74,6 +74,11 @@ public class Scarlett extends NPC {
 	}
 	
 	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
+	
+	@Override
 	public String getDescription() {
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
 			return UtilText.parse(this,

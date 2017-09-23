@@ -19,12 +19,14 @@ public class CharactersPresentDialogue {
 	private static String menuContent, menuTitle;
 	public static GameCharacter characterViewed = null;
 
-	public static void resetContent() {
-		
-		characterViewed = Main.game.getCharactersPresent().get(0);
-		
-		menuTitle = "Characters present ("+Util.capitaliseSentence(Main.game.getCharactersPresent().get(0).getName())+")";
-		menuContent = NPC.getCharacterInformationScreen((NPC) Main.game.getCharactersPresent().get(0));
+	public static void resetContent(GameCharacter characterViewed) {
+		if(characterViewed==null) {
+			CharactersPresentDialogue.characterViewed = Main.game.getCharactersPresent().get(0);
+		} else {
+			CharactersPresentDialogue.characterViewed = characterViewed;
+		}
+		menuTitle = "Characters present ("+Util.capitaliseSentence(CharactersPresentDialogue.characterViewed.getName())+")";
+		menuContent = NPC.getCharacterInformationScreen((NPC) CharactersPresentDialogue.characterViewed);
 	}
 	
 	public static final DialogueNodeOld MENU = new DialogueNodeOld("", "", true) {

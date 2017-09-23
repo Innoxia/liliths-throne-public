@@ -1687,6 +1687,7 @@ public class CharacterCreation {
 						Main.game.clearTextEndStringBuilder();
 						
 						Main.game.setRenderMap(true);
+						Main.game.setInNewWorld(true);
 
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
@@ -1874,6 +1875,7 @@ public class CharacterCreation {
 						Main.game.clearTextEndStringBuilder();
 						
 						Main.game.setRenderMap(true);
+						Main.game.setInNewWorld(true);
 
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());

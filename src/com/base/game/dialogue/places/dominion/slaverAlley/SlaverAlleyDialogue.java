@@ -366,7 +366,7 @@ public class SlaverAlleyDialogue {
 					return new ResponseTrade("Trade", "Buy slavery-related items.", Main.game.getFinch());
 
 				} else if (index == 5) {
-					return new Response("Manage slaves", "Open the slave management screen.", MiscDialogue.getSlaveryManagementDialogue(SLAVERY_ADMINISTRATION, Main.game.getFinch()));
+					return new Response("Slave Manager", "Open the slave management screen.", MiscDialogue.getSlaveryManagementDialogue(SLAVERY_ADMINISTRATION, null));
 
 				} else if (index == 0) {
 					return new Response("Leave", "Step back outside.", SLAVERY_ADMINISTRATION_EXTERIOR);

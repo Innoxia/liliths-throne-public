@@ -154,9 +154,11 @@ public class MiscDialogue {
 										+ "<div class='SM-button' id='"+slave.getId()+"' style='width:100%; margin:4px 0 4px 0;'>"
 											+ "Detailed Management"
 										+ "</div>"
-										+ "<div class='SM-button"+(place.getCapacity()<=Main.game.getCharactersPresent(Main.game.getPlayerCell()).size()
-												?" disabled'"
-												:"' id='"+slave.getId()+"_TRANSFER'")+" style='width:100%; margin:4px 0 4px 0;'>"
+										+ "<div class='SM-button"
+											+((place.getCapacity()<=Main.game.getCharactersPresent(Main.game.getPlayerCell()).size())
+													|| (slave.getLocation().equals(Main.game.getPlayer().getLocation()) && slave.getWorldLocation().equals(Main.game.getPlayer().getWorldLocation()))
+															?" disabled'"
+															:"' id='"+slave.getId()+"_TRANSFER'")+" style='width:100%; margin:4px 0 4px 0;'>"
 											+ "Transfer Here"
 										+ "</div>");
 					
@@ -225,7 +227,10 @@ public class MiscDialogue {
 		return SLAVE_MANAGEMENT_DETAILED_VIEW;
 	}
 	
-	private static final DialogueNodeOld SLAVE_MANAGEMENT_DETAILED_VIEW = new DialogueNodeOld("Slave Management", ".", true) {
+	/**
+	 * <b>Use getSlaveryManagementDetailedDialogue(NPC slave) to initialise this!!!</b>
+	 */
+	public static final DialogueNodeOld SLAVE_MANAGEMENT_DETAILED_VIEW = new DialogueNodeOld("Slave Management", ".", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -324,6 +329,11 @@ public class MiscDialogue {
 		
 		@Override
 		public boolean isMapDisabled() {
+			return true;
+		}
+		
+		@Override
+		public boolean reloadOnRestore() {
 			return true;
 		}
 	};

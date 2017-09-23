@@ -88,6 +88,7 @@ h6{
 }
 
 .attribute-container{
+	position:relative;
 	box-sizing:border-box;
 	background-color:#19191a;
 	border-radius: 5px;
@@ -112,7 +113,7 @@ h6{
 .character-name{
 	vertical-align: middle;
 	text-align: center;
-	font-size:1.2em;
+	font-size:1.4em;
 	margin:0;
 	-webkit-user-select: none;
 }
@@ -242,6 +243,7 @@ h6{
 }
 
 .event-log-entry {
+	position:relative;
 	box-sizing:border-box;
 	border-radius: 5px;
 	padding:4px;

@@ -287,6 +287,9 @@ public class PrologueDialogue {
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
 
 						Main.game.setRenderMap(true);
+						Main.game.setInNewWorld(true);
+						
+						Main.mainController.updateUI();
 						
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.DOMINION),

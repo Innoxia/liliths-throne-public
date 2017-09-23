@@ -2081,7 +2081,19 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return "Untying the top of the used condom, you bring it up to your lips and swallow its slimy contents.";
+			if(user.isPlayer()) {
+				if(target.isPlayer()) {
+					return "Untying the top of the used condom, you bring it up to your lips and swallow the slimy contents.";
+				} else {
+					return UtilText.parse(target, "Untying the top of the used condom, you bring it up to [npc.name]'s [npc.lips], and force [npc.her] to swallow the slimy contents.");
+				}
+			} else {
+				if(target.isPlayer()) {
+					return UtilText.parse(target, "Untying the top of the used condom, [npc.name] brings it up to your [pc.lips], and forces you to swallow the slimy contents.");
+				} else {
+					return UtilText.parse(target, "Untying the top of the used condom, [npc.name] brings it up to [npc.her] [npc.lips], and swallows the slimy contents.");
+				}
+			}
 		}
 
 		@Override

@@ -122,7 +122,7 @@ public class Game implements Serializable {
 	private Cell currentCell;
 	private Encounter currentEncounter;
 
-	private boolean hintsOn, started;
+	private boolean hintsOn, started, inNewWorld;
 
 	private Weather currentWeather;
 	private long nextStormTime;
@@ -161,6 +161,7 @@ public class Game implements Serializable {
 
 		hintsOn = false;
 		started = false;
+		inNewWorld = false;
 
 		// Start in clouds:
 		currentWeather = Weather.CLOUD;
@@ -384,6 +385,7 @@ public class Game implements Serializable {
 			nyan.applyReset();
 			vicky.applyReset();
 			kate.applyReset();
+			finch.applyReset();
 			
 			alexa.applyReset();
 			
@@ -627,7 +629,7 @@ public class Game implements Serializable {
 								+ "<div id='main-content'>"
 									+ getTitleDiv(dialogueTitle)
 									+ "<div class='div-center' id='content-block'>"
-										+ "<div class='inner-text-content'>"
+//										+ "<div class='inner-text-content'>"
 											+ getMapDiv()
 											+ (headerContent != null
 												? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
@@ -640,7 +642,7 @@ public class Game implements Serializable {
 														+ "</div>"
 													: "")
 	//												+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
-										+ "</div>"
+//										+ "</div>"
 									+ "</div>"
 									+"<div id='bottom-text'>Game saved!</div>"
 								+ "</div>"
@@ -653,7 +655,7 @@ public class Game implements Serializable {
 								+ getTitleDiv(dialogueTitle)
 								+ "<span id='position" + positionAnchor + "'></span>"
 								+ "<div class='div-center' id='content-block'>"
-									+ "<div class='inner-text-content'>"
+//									+ "<div class='inner-text-content'>"
 										+ getMapDiv()
 										+ (headerContent != null
 											? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
@@ -666,7 +668,7 @@ public class Game implements Serializable {
 													+ "</div>"
 												: "")
 	//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
-									+ "</div>"
+//									+ "</div>"
 								+ "</div>"
 								+"<div id='bottom-text'>Game saved!</div>"
 							+ "</div>"
@@ -790,7 +792,7 @@ public class Game implements Serializable {
 					+ "<div id='main-content'>"
 						+ getTitleDiv(dialogueTitle)
 						+ "<div class='div-center' id='content-block'>"
-							+ "<div class='inner-text-content'>"
+//							+ "<div class='inner-text-content'>"
 								+ getMapDiv()
 								+ (headerContent != null
 									? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
@@ -801,7 +803,7 @@ public class Game implements Serializable {
 									? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
 									+ pastDialogueSB.toString() + "</div>" : "")
 	//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
-							+ "</div>"
+//							+ "</div>"
 						+ "</div>"
 						+"<div id='bottom-text'>Game saved!</div>"
 					+ "</div>"
@@ -818,7 +820,7 @@ public class Game implements Serializable {
 						+ getTitleDiv(dialogueTitle)
 						+ "<span id='position" + positionAnchor + "'></span>"
 							+ "<div class='div-center' id='content-block'>"
-								+ "<div class='inner-text-content'>"
+//								+ "<div class='inner-text-content'>"
 									+ getMapDiv()
 									+ (headerContent != null
 										? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
@@ -831,7 +833,7 @@ public class Game implements Serializable {
 											+ "</div>"
 										: "")
 	//								+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
-								+ "</div>"
+//								+ "</div>"
 							+ "</div>"
 						+"<div id='bottom-text'>Game saved!</div>"
 					+ "</div>"
@@ -915,7 +917,7 @@ public class Game implements Serializable {
 			return "";
 		}
 		
-		return "<div style='width:100%; -webkit-box-sizing: border-box; height:56px; padding:8px; margin:0 auto 0 auto; border-radius:5px; background:#19191a;'>"
+		return "<div class='content-title'>"
 					+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
 					+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
 				+ "</div>";
@@ -1115,11 +1117,9 @@ public class Game implements Serializable {
 		
 		float fontSize = 1;
 		String strippedTitle = UtilText.parse(response.getTitle()).replaceAll("<.*?>", "");
-		// <test ok>test<...>
-		if(strippedTitle.length()>18) {
-			fontSize-=(strippedTitle.length()-18)*0.03f;
+		if(strippedTitle.length()>14) {
+			fontSize-=(strippedTitle.length()-14)*0.03f;
 		}
-		
 		style = "style='font-size:"+fontSize+"em;'";
 		
 		if (response.isCombatHighlight()) {
@@ -1398,28 +1398,60 @@ public class Game implements Serializable {
 		if (currentDialogueNode.reloadOnRestore()) {
 			String headerContent = currentDialogueNode.getHeaderContent();
 			String content = currentDialogueNode.getContent();
-			currentDialogue = "<body onLoad='scrollToElement()'>"
-					+ " <script>function scrollToElement() {"
-					+ "document.getElementById('main-content').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop;"
+			currentDialogue =
+//					"<body onLoad='scrollToElement()'>"
+//					+ " <script>function scrollToElement() {"
+//					+ "document.getElementById('main-content').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop;"
+//			+ "}</script>"
+//			+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
+//			+ "<div id='main-content'>"
+//			+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
+//				+ "<div class='div-center'>"
+//					+ (headerContent != null
+//						? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+//							+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
+//							+ "</div>"
+//						: "") 
+//					+ (content != null
+//						? "<div id='text-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+//						+ pastDialogueSB.toString() + "</div>" : "")
+////							+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+//				+ "</div>"
+//				+"<div id='bottom-text'>Game saved!</div>"
+//			+ "</div>"
+//
+//		+ "</body>";
+			
+			
+			"<body onLoad='scrollBack()'>"
+			+ " <script>function scrollBack() {"
+					+ "document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop;"
 			+ "}</script>"
-			+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
 			+ "<div id='main-content'>"
-			+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
-				+ "<div class='div-center'>"
-					+ (headerContent != null
-						? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
-							+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
-							+ "</div>"
-						: "") 
-					+ (content != null
-						? "<div id='text-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
-						+ pastDialogueSB.toString() + "</div>" : "")
-//							+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
-				+ "</div>"
+				+ getTitleDiv(dialogueTitle)
+				+ "<span id='position" + positionAnchor + "'></span>"
+					+ "<div class='div-center' id='content-block'>"
+//						+ "<div class='inner-text-content'>"
+							+ getMapDiv()
+							+ (headerContent != null
+								? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+									+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
+									+ "</div>"
+								: "")
+							+ (content != null
+								? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+										+ content
+									+ "</div>"
+								: "")
+//								+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+//						+ "</div>"
+					+ "</div>"
 				+"<div id='bottom-text'>Game saved!</div>"
 			+ "</div>"
-
+//			
 		+ "</body>";
+			
+			
 		} else {
 			currentDialogue = savedDialogue;
 		}
@@ -1770,6 +1802,14 @@ public class Game implements Serializable {
 	}
 
 	// Dialogues:
+
+	public boolean isInNewWorld() {
+		return inNewWorld;
+	}
+
+	public void setInNewWorld(boolean inNewWorld) {
+		this.inNewWorld = inNewWorld;
+	}
 
 	public StringBuilder getTextStartStringBuilder() {
 		return textStartStringBuilder;

@@ -1208,7 +1208,6 @@ public abstract class NPC extends GameCharacter {
 	public SexPace getSexPaceSubPreference(){
 		if(!isWantsToHaveSexWithPlayer()) {
 			if(Main.game.isNonConEnabled()) {
-				
 				if(isSlave()) {
 					if(this.getObedience()>=ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMinimumValue()) {
 						return SexPace.SUB_EAGER;
@@ -1332,7 +1331,7 @@ public abstract class NPC extends GameCharacter {
 		infoScreenSB.setLength(0);
 		
 		infoScreenSB.append(
-				"<div class='inventory-container left'>"
+				"<div class='inventory-container right'>"
 					+ RenderingEngine.ENGINE.getInventoryEquippedPanel(character)
 				+ "</div>"
 				+ getCharacterInfoBox(character)

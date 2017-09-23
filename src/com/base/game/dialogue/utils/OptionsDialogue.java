@@ -131,7 +131,7 @@ public class OptionsDialogue {
 				};
 
 			} else if (index == 4) {
-				return new Response("Content preferences", "Set your preferred content settings.", CONTENT_PREFERENCE){
+				return new Response("Content Options", "Set your preferred content settings.", CONTENT_PREFERENCE){
 					@Override
 					public void effects() {
 						confirmNewGame=false;
@@ -1028,7 +1028,7 @@ public class OptionsDialogue {
 	};
 	
 	
-	public static final DialogueNodeOld CONTENT_PREFERENCE = new DialogueNodeOld("Content preferences", "", true) {
+	public static final DialogueNodeOld CONTENT_PREFERENCE = new DialogueNodeOld("Content Options", "", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override

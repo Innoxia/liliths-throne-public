@@ -4343,7 +4343,7 @@ public class InventoryDialogue {
 	}
 	
 	private static ResponseEffectsOnly getCloseInventoryResponse() { 
-		return new ResponseEffectsOnly("Back", "Close the Inventory menu."){
+		return new ResponseEffectsOnly("Close Inventory", "Close the Inventory menu."){
 			@Override
 			public void effects(){
 				Main.game.restoreSavedContent();
@@ -4352,7 +4352,8 @@ public class InventoryDialogue {
 	}
 	
 	private static Response getReturnToInventoryMenuResponse() { 
-		return new Response("Back", "Return to the inventory menu.", INVENTORY_MENU);
+//		return getCloseInventoryResponse();
+		return new Response("Back", "Return to the main inventory options.", INVENTORY_MENU);
 	}
 	
 	private static Response getBuybackResponse() {
@@ -4455,7 +4456,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellItems(GameCharacter from, GameCharacter to, AbstractItem item, int count, int itemPrice) {
-		if (!to.isInventoryFull() || to.hasItem(item)) {
+		if (to.isPlayer()?(!to.isInventoryFull() || to.hasItem(item)):true) {
 			
 			if(buyback && to.isPlayer()) {
 				Main.game.getPlayer().incrementMoney(-itemPrice);

@@ -61,7 +61,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.84.6",
+	public static final String VERSION_NUMBER = "0.1.85",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/base/res/images/windowIcon32.png");
@@ -71,27 +71,36 @@ public class Main extends Application {
 	public static String patchNotes =
 			
 		"<h1 style='text-align:center;'>Version " + Main.VERSION_NUMBER + "</h1>"
-		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>Moderately Buggy Preview!</b></h6>"
-//		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha release!</b></h6>"
+//		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>Moderately Buggy Preview!</b></h6>"
+		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha!</b></h6>"
 		
 		+ "<p><b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Important information:</b> <i>If you don't see a mini-map in the bottom-left corner of the screen after starting the game, please update your java!</i></p>"
+
+		+ "<p><b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Important information:</b> <i>The 'light theme' is broken in this version! I'll get it fixed for 0.1.86, sorry! ;_;</i></p>"
 		
 		+ "<p>"
 			+ "Hello again everyone! ^^"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "This version is just a preview of my current progress, and contains a lot of bugs and half-finished content!"
-			+ " It does contain some expansion on the slavery content, but there's still more for me to do before I can truly say that the basics are in."
-			+ " I'll be finishing it off over the next week. ^^"
+			+ "For this version I was mainly focused on slavery content, which led to several large problems that I hadn't anticipated."
+			+ " First, I had to do a huge rework of the inventory system to enable PC-NPC inventory management."
+			+ " As part of this, I also added new orifice slots, which then led to the second problem of the UI not being able to fit in the new slots."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "I'm sure you've already noticed this change to the UI, and <b>please be aware that I'm still working on it!</b>"
+			+ " The event log is in a very rough state, as is the entire right-hand panel."
+			+ " It should be functional, but there are definitely a lot of improvements that I can make."
+		+ "</p>"
+		
+		+ "<p>"
+			+ "I didn't get enough time to write in new incest content, but, as I'm sure you'll all be pleased to hear, this next version is going to be completely focused on <b>adding in new content and fixing bugs!</b>"
+			+ " I'm not going to do any engine work (except from getting some progress done on the save compatibility), so there should be lots of new and exciting things in for the next version (0.1.86)! :3"
 		+ "</p>"
 			
 		+ "<p>"
 			+ "Oh, also, The UI is still being worked on. I <i>should</i> have it done for Friday, but if not, then it will be finished in next week's update. :3"
-		+ "</p>"
-			
-		+ "<p>"
-			+ "(Scroll all the way down for the patch notes.)"
 		+ "</p>"
 		
 		+ "<p>"
@@ -178,6 +187,46 @@ public class Main extends Application {
 		+"<ul>Possibly fixed the bug that was causing the properties file to get re-created on a new game start.</ul>"
 		+"<ul>Fixed minor bug where the text on the screen would disappear when pressing enter in the City Hall's change name box.</ul>"
 		+"<ul>Scarlett's slave collar should now correctly be sealed.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+		
+		+ "<h6>Version 0.1.85</h6>"
+		
+		+"<li>Engine:</li>"
+		+"<ul>Added support for personality types and backgrounds for NPCs. This is the precursor to writing in proper dialogue with random NPCs.</ul>"
+		
+		+"<li>UI:</li>"
+		+"<ul><b>Large rework:</b> Due to the inventory rework (adding in orifice slots), I've had to try and rework the UI to properly display the new options, while trying to retain the functionality of the old system.</ul>"
+		+"<ul>As part of this rework, I've added a third column to the UI, but I'm still not entirely happy about it, and will most likely continue to tweak it over the next couple of weeks...</ul>"
+			
+		+"<li>Other:</li>"
+		+"<ul>Reduced minimum hair length requirements for the Sidecut and Afro hair styles.</ul>"
+		+"<ul>NPCs' name is now revealed when you enslave them.</ul>"
+		+"<ul>You can no longer sell slaves to Finch (this was unintended behaviour).</ul>"
+		+"<ul>Minor improvements to slave management UI.</ul>"
+		+"<ul>Slightly changed bovine horn descriptions.</ul>"
+		+"<ul>Scarlett can now be impregnated.</ul>"
+		+"<ul>Added the displacement type 'pull down' to the keyhole sweater, which will expose your breasts.</ul>"
+		+"<ul>Exhibitionist males will no longer wear clothing that blocks their nipples.</ul>"
+		+"<ul>Added correct fetish associations to the 'Rough ride' option in sex.</ul>"
+			
+		+"<li>Bugs:</li>"
+		+"<ul>Fixed some typos</ul>"
+		+"<ul>You can now sell your items even if the vendor's inventory is full.</ul>"
+		+"<ul>Finch should now properly restock his inventory each day.</ul>"
+		+"<ul>Enforcer Shorts can now be unzipped.</ul>"
+		+"<ul>Slave sex should no longer end with dialogue suggesting you got dominated.</ul>"
+		+"<ul>Fixed bug where Ralph's sex scene wouldn't start (and a series of associated bugs that were causing it in the background).</ul>"
+		+"<ul>Text boxes should now respond correctly to pressing the 'Enter' key. (Fixes issues related to not being able to rename slaves, as well as all the text on the screen disappearing in the save dialogue.)</ul>"
+		+"<ul>Rough Paizuri is now correctly tied to Sadist fetish like other rough pace actions.</ul>"
+		+"<ul>Slaves no longer regenerate clothing after sex.</ul>"
+		+"<ul>You should now be able to have sex with all of your slaves.</ul>"
+		+"<ul>Fixed bug where transforming a slave and then returning to the management screen wouldn't update their appearance.</ul>"
+		+"<ul>Using the used condom on an NPC now returns a more accurate description.</ul>"
+		+"<ul>Cow and squirrel-morph potions now have correct titles.</ul>"
 		+ "</list>"
 		;
 	

@@ -35,6 +35,9 @@ public class InventorySelectedItemEventListener implements EventListener {
 		TooltipUpdateThread.cancelThreads=true;
 		
 		if (item != null) {
+			if(Main.game.getCurrentDialogueNode().getMapDisplay()!=MapDisplay.INVENTORY) {
+				Main.mainController.openInventory();
+			}
 			if(Main.game.getDialogueFlags().quickTrade) {
 				switch(InventoryDialogue.getNPCInventoryInteraction()) {
 					case COMBAT:
@@ -56,24 +59,36 @@ public class InventorySelectedItemEventListener implements EventListener {
 			}
 			
 		} else if (clothing != null) {
+			if(Main.game.getCurrentDialogueNode().getMapDisplay()!=MapDisplay.INVENTORY) {
+				Main.mainController.openInventory();
+			}
 			InventoryDialogue.setOwner(owner);
 			InventoryDialogue.setClothing(clothing);
 			InventoryDialogue.setBuyBackIndex(buyBackIndex);
 			Main.game.setContent(new Response("", "", InventoryDialogue.CLOTHING_INVENTORY));
 			
 		} else if (weapon != null) {
+			if(Main.game.getCurrentDialogueNode().getMapDisplay()!=MapDisplay.INVENTORY) {
+				Main.mainController.openInventory();
+			}
 			InventoryDialogue.setOwner(owner);
 			InventoryDialogue.setWeapon(weapon);
 			InventoryDialogue.setBuyBackIndex(buyBackIndex);
 			Main.game.setContent(new Response("", "", InventoryDialogue.WEAPON_INVENTORY));
 
 		} else if (clothingEquipped != null) {
+			if(Main.game.getCurrentDialogueNode().getMapDisplay()!=MapDisplay.INVENTORY) {
+				Main.mainController.openInventory();
+			}
 			InventoryDialogue.setOwner(owner);
 			InventoryDialogue.setClothing(clothingEquipped);
 			InventoryDialogue.setBuyBackIndex(buyBackIndex);
 			Main.game.setContent(new Response("", "", InventoryDialogue.CLOTHING_EQUIPPED));
 
 		} else if (weaponEquipped != null) {
+			if(Main.game.getCurrentDialogueNode().getMapDisplay()!=MapDisplay.INVENTORY) {
+				Main.mainController.openInventory();
+			}
 			InventoryDialogue.setOwner(owner);
 			InventoryDialogue.setWeapon(weaponEquipped);
 			InventoryDialogue.setBuyBackIndex(buyBackIndex);

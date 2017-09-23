@@ -402,7 +402,7 @@ public class ScarlettsShop {
 					}
 					
 				} else {
-					return new Response("Slave Management", "Enter the slave management screen.",  MiscDialogue.getSlaveryManagementDialogue(ALEXAS_SHOP, Main.game.getAlexa()));
+					return new Response("Slave Manager", "Enter the slave management screen.",  MiscDialogue.getSlaveryManagementDialogue(ALEXAS_SHOP, Main.game.getAlexa()));
 				}
 
 			} else if (index == 0 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {

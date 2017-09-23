@@ -508,22 +508,26 @@ public class GameCharacter implements Serializable {
 			}
 			
 		} else {
-			if(getFemininityValue()>Femininity.ANDROGYNOUS.getMaximumFemininity()) {
-				return nameTriplet.getFeminine();
-				
-			} else if(getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity()) {
-				return nameTriplet.getAndrogynous();
-				
-			} else {
-				return nameTriplet.getMasculine();
-			}
+			return getNameIgnoresPlayerKnowledge();
 		}
 	}
-
+	
 	public void setName(NameTriplet nameTriplet) {
 		this.nameTriplet = nameTriplet;
 	}
-
+	
+	public String getNameIgnoresPlayerKnowledge() {
+		if(getFemininityValue()>Femininity.ANDROGYNOUS.getMaximumFemininity()) {
+			return nameTriplet.getFeminine();
+			
+		} else if(getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity()) {
+			return nameTriplet.getAndrogynous();
+			
+		} else {
+			return nameTriplet.getMasculine();
+		}
+	}
+	
 	public NameTriplet getNameTriplet() {
 		return nameTriplet;
 	}

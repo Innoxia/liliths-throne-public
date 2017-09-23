@@ -133,13 +133,13 @@ public class Horn implements BodyPartInterface, Serializable {
 			case BOVINE_FEMALE:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
-							" Hard nubs push out from your upper temples, and you gasp as you feel "+getDeterminer(owner)+" short, sleek horns pushing out to curve up the sides of your head."
+							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" short, sleek horns, much like a cow's."
 							+ "</br>"
 							+ "You now have "+getDeterminer(owner)+" [style.boldCowMorph(feminine-looking bovine horns)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-								" Hard nubs push out from [npc.her] upper temples, and [npc.she] gasps as [npc.she] feels "+getDeterminer(owner)+" short, sleek horns pushing out to curve up the sides of [npc.her] head."
+								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" short, sleek horns, much like a cow's."
 								+ "</br>"
 								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldCowMorph(feminine-looking bovine horns)]."
 								+ "</p>");
@@ -148,13 +148,13 @@ public class Horn implements BodyPartInterface, Serializable {
 			case BOVINE_MALE:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
-							" Hard nubs push out from your upper temples, and you gasp as you feel "+getDeterminer(owner)+" long, smooth horns push out and curve up the sides of your head."
+							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" long, curved horns, much like a bull's."
 							+ "</br>"
 							+ "You now have "+getDeterminer(owner)+" [style.boldCowMorph(masculine-looking bovine horns)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-								" Hard nubs push out from [npc.her] upper temples, and [npc.she] gasps as [npc.she] feels "+getDeterminer(owner)+" long, smooth horns push out and curve up the sides of [npc.her] head."
+								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" long, curved horns, much like a bull's."
 								+ "</br>"
 								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldCowMorph(masculine-looking bovine horns)]."
 								+ "</p>");

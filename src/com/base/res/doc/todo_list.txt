@@ -6,16 +6,42 @@
 	
 	Patch notes:
 	
-	
-	
+	Engine:
+		Added support for personality types and backgrounds for NPCs. This is the precursor to writing in proper dialogue with random NPCs.
+		
 	UI:
-		Due to the inventory rework, I'm trying to improve the UI to properly display the new options. I've added a third column to the UI, but I'm still not entirely sure about this...
+		<b>Large rework:</b> Due to the inventory rework (adding in orifice slots), I've had to try and rework the UI to properly display the new options, while trying to retain the functionality of the old system.
+		As part of this rework, I've added a third column to the UI, but I'm still not entirely happy about it, and will most likely continue to tweak it over the next couple of weeks...
 	
 	Other:
 		Reduced minimum hair length requirements for the Sidecut and Afro hair styles.
+		NPCs' name is now revealed when you enslave them.
+		You can no longer sell slaves to Finch (this was unintended behaviour).
+		Minor improvements to slave management UI.
+		Slightly changed bovine horn descriptions.
+		Scarlett can now be impregnated.
+		Added the displacement type 'pull down' to the keyhole sweater, which will expose your breasts.
+		Exhibitionist males will no longer wear clothing that blocks their nipples.
+		Added correct fetish associations to the 'Rough ride' option in sex.
 	
 	Bugs:
 		Fixed some typos
+		You can now sell your items even if the vendor's inventory is full.
+		Finch should now properly restock his inventory each day.
+		Enforcer Shorts can now be unzipped.
+		Slave sex should no longer end with dialogue suggesting you got dominated.
+		Fixed bug where Ralph's sex scene wouldn't start (and a series of associated bugs that were causing it in the background).
+		Text boxes should now respond correctly to pressing the 'Enter' key. (Fixes issues related to not being able to rename slaves, as well as all the text on the screen disappearing in the save dialogue.)
+		Rough Paizuri is now correctly tied to Sadist fetish like other rough pace actions.
+		Slaves no longer regenerate clothing after sex.
+		You should now be able to have sex with all of your slaves.
+		Fixed bug where transforming a slave and then returning to the management screen wouldn't update their appearance.
+		Using the used condom on an NPC now returns a more accurate description.
+		Cow and squirrel-morph potions now have correct titles.
+	
+	
+	
+	
 	
 	
 	
@@ -33,48 +59,11 @@
 	
 	
 	
+	(Couldn't replicate)
+		Sex still causes item duplication
 	
+	Need to re-add "Use all"
 	
-	Cannot sell item if vendor's inventory is full
-	
-	Finch not respawning items
-	
-	History for NPCs
-	Personality for NPCs
-	
-	: I can't unzip the enforcer's shorts.
-	
-	Slave sex always ends with dialogue suggesting you just got dominated
-	
-	: Sex still causes item duplication
-
-hmm, I can't seem to fuck Ralph
-[07:17] sleepyFluffer: as in, I can't press the "accept" button
-
-When saving if you type the name and hit enter all the text on the screen disappears
-
-Need to re-add "Use all"
-
-Rough Paizuri is not tied to Sadist fetish like other rough pace actions.
-	
-	Couple slave content related bugs:  Slaves taken from alley ways can not be renamed, and auto-generate clothing after sex.  This may not be a bug, but if you sell slaves to Finch they hang out in the slave administration forever.
-	
-	Also can you make it so it doesn't exit the inventory screen every time you remove a partner's clothing
-	
-	
-	The selfie description for bovine horns still seem off to me. Are masculine bovine horns supposed to be described as being swept back? When you first grow them they are described as curving up the side of your head. But on the selfie screen they share the same description as female demon horns. The only difference is that the word "forehead" is changed to "temples"
-The feminine bovine horns similarly share almost the same selfie description as male demon horns. Swapping out the word "forehead" for "temples" seems to be the only difference for them as well.
-	
-	
-	You cannot fuck your slaves even if they are attracted to you but i don't know if that was just not finished yet
-	
-	Small display bug. If you tweak a slave via the slavery inventory management system (that is, if you make them drink potions/elixirs), their desc doesn't update within said management system. It does update if you leave the room and enter it again, though. (so, if I were to hazard a guess, it caches the desc when you enter the slave management system?)
-	
-	using the used condom on someone else still has you be the one to drink it. :V
-	
-	She also replaced the maid outfit I equipped her with
-	
-	and she refuses to be impregnated, by the looks of things. Silly Scarlett
 	
 	Properties is still being reset
 	
@@ -101,27 +90,20 @@ The feminine bovine horns similarly share almost the same selfie description as 
 	
 	
 	quad nipples on less tahn greater cows
-
- A trickle of milk runs out into her no_clothing_covering_nipples as you squeeze down on her wet teats
- 
- can we get glue like as a fluid mod? IE like how pig cum hardens in contact with air to seal up the female's vagina and trap the rest of the cum inside
- congealing
- 
- dying equipped items duplicates them
- 
- Alright so it seems like we can give NPC's clothes and they seem to keep wearing them even when you leave and return. They only seem to equip new clothes if you have sex and  by the end of it they have a major slot thats empty. As much as i hate to say it though unless the NPC is an exhibitionist they should probably try to change out of exposing clothing unless it's jinxed
- 
- pull out breasts from keyhole sweater
-	
+	 
+	 can we get glue like as a fluid mod? IE like how pig cum hardens in contact with air to seal up the female's vagina and trap the rest of the cum inside
+	 congealing
+	 
+	 dying equipped items duplicates them
+	 
+	 Alright so it seems like we can give NPC's clothes and they seem to keep wearing them even when you leave and return.
+	  They only seem to equip new clothes if you have sex and  by the end of it they have a major slot thats empty.
+	   As much as i hate to say it though unless the NPC is an exhibitionist they should probably try to change out of exposing clothing unless it's jinxed
+	 
 	
 	
 	
 	Taking own anal and oral virginity with tail
-	
-	
-	UI -> make a right panel for NPC and event log
-	
-	
 	
 	
 	
@@ -139,8 +121,6 @@ The feminine bovine horns similarly share almost the same selfie description as 
 	
 	MAKE DEV BRANCH (I forgot, and now Anon will be mad :NotLikeBlob:)
 	
-	exhibs tag is only hasBreasts(). Add || isFeminine() and also get males to go topless
-	
 	imported character, all actions and moving around are laggy
 	
 	a toggle to prevent clothing replacing after sex (for PC and NPC)
@@ -153,16 +133,12 @@ The feminine bovine horns similarly share almost the same selfie description as 
 	
 	Quick manage
 	
-	On another note, it seems that having a thing in the Torso slot and the Over-Torso slot causes an infinite loop to occur when the game tries to determine if it can unequip it or not.
-	
 	#################
 	
 	the ongoing penetration status effects only affect the one that's penetrated
 	no ongoing status for breasts as well, so I don't think anyone's gaining any arousal for ongoing paizuri
 	
 	foreskin
-	
-	Cow Morph and Squirrel Morph elixirs sold by Vicky of Arcane Arts lack the changes in the title, i.e. Cow Morph leg TF item is call Elixir of Legs rather than Bovine Elixir of Legs.
 	
 	add a 'request TF' action in the post-victory screen
 	

@@ -135,7 +135,9 @@ public class NPCOffspring extends NPC {
 	@Override
 	public void endSex(boolean applyEffects) {
 		if(applyEffects) {
-			setPendingClothingDressing(true);
+			if(!isSlave()) {
+				setPendingClothingDressing(true);
+			}
 		}
 	}
 	

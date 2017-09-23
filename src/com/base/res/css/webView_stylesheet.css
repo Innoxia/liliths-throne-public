@@ -46,8 +46,10 @@ div {
 }
 
 .div-center{
-	margin-left:20px;
+	margin: 8px auto 8px auto;
 	overflow-x:hidden;
+	max-width:1000px;
+	padding:16px;
 	
 	display: flex;
 	flex-flow: column;
@@ -57,7 +59,17 @@ div {
 }
 .inner-text-content{
 	margin:8px auto 8px auto;
-	max-width:800px;
+	max-width:1000px;
+}
+.content-title{
+	width:100%;
+	max-width:1000px;
+	-webkit-box-sizing: border-box;
+	height:56px;
+	padding:8px;
+	margin:0 auto 0 auto;
+	border-radius:5px;
+	background:#19191a;
 }
 
 p{

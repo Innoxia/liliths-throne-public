@@ -1277,7 +1277,7 @@ public class CharacterInventory implements Serializable {
 	}
 
 	
-	public SimpleEntry<AbstractClothing, DisplacementType> getNextClothingToRemoveForCoverableAreaAccess(CoverableArea coverableArea) {
+	public SimpleEntry<AbstractClothing, DisplacementType> getNextClothingToRemoveForCoverableAreaAccess(CoverableArea coverableArea) { //TODO
 
 		AbstractClothing clothingToRemove = null;
 		DisplacementType displacement = null;
@@ -1285,11 +1285,12 @@ public class CharacterInventory implements Serializable {
 		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
 			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList())
 				if (bp.blockedBodyParts.contains(coverableArea) && !clothing.getDisplacedList().contains(bp.displacementType)) {
-					// this clothing is blocking the part we want access to, so
-					// make that our starting point:
-					clothingToRemove = clothing;
-					displacement = bp.displacementType;
-					break;
+					if(!isCoverableAreaExposedFromElsewhere(clothing, coverableArea)) {
+						// this clothing is blocking the part we want access to, so make that our starting point:
+						clothingToRemove = clothing;
+						displacement = bp.displacementType;
+						break;
+					}
 				}
 		}
 
@@ -1299,23 +1300,24 @@ public class CharacterInventory implements Serializable {
 		boolean finished = false;
 
 		while (!finished) {
-
 			finished = true;
-
 			outerloop: for (BlockedParts bp : clothingToRemove.getClothingType().getBlockedPartsList())
 				if (bp.displacementType == displacement) {
 					for (ClothingAccess ca : bp.clothingAccessRequired)
 						for (AbstractClothing clothing : clothingCurrentlyEquipped) {
-							if (clothing != clothingToRemove)
+							if (clothing != clothingToRemove) {
 								for (BlockedParts bpIterated : clothing.getClothingType().getBlockedPartsList()) {
 									if (bpIterated.clothingAccessBlocked.contains(ca) && !clothing.getDisplacedList().contains(bpIterated.displacementType)) {
-										// this clothing is blocking the clothing we wanted to displace, so now we re-start by wanting to  displace this new clothing:
-										clothingToRemove = clothing;
-										displacement = bpIterated.displacementType;
-										finished = false;
-										break outerloop;
+										if(!isCoverableAreaExposedFromElsewhere(clothing, coverableArea)) {
+											// this clothing is blocking the clothing we wanted to displace, so now we re-start by wanting to  displace this new clothing:
+											clothingToRemove = clothing;
+											displacement = bpIterated.displacementType;
+											finished = false;
+											break outerloop;
+										}
 									}
 								}
+							}
 						}
 				}
 		}
@@ -1361,14 +1363,17 @@ public class CharacterInventory implements Serializable {
 		// Iterate through currently worn clothing:
 		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
 			// If this clothing is blocking the slot you are trying to access:
-			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList())
+			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
 				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
-					// Replace if ZLayer is lower than previous found clothing:
-					if (c == null)
-						c = clothing;
-					else if (clothing.getClothingType().getzLayer() < c.getClothingType().getzLayer())
-						c = clothing;
+					if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
+						// Replace if ZLayer is lower than previous found clothing:
+						if (c == null)
+							c = clothing;
+						else if (clothing.getClothingType().getzLayer() < c.getClothingType().getzLayer())
+							c = clothing;
+					}
 				}
+			}
 		}
 
 		return c;
@@ -1385,16 +1390,19 @@ public class CharacterInventory implements Serializable {
 		// Iterate through currently worn clothing:
 		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
 			// If this clothing is blocking the slot you are trying to access:
-			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList())
+			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
 				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
-					// Replace if ZLayer is higher than previous found clothing:
-					if (c == null)
-						c = clothing;
-					else if (clothing.getClothingType().getzLayer() > c.getClothingType().getzLayer())
-						c = clothing;
+					if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
+						// Replace if ZLayer is higher than previous found clothing:
+						if (c == null)
+							c = clothing;
+						else if (clothing.getClothingType().getzLayer() > c.getClothingType().getzLayer())
+							c = clothing;
+					}
 				}
+			}
 		}
-
+		
 		return c;
 	}
 

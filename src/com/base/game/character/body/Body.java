@@ -542,15 +542,15 @@ public class Body implements Serializable {
 				break;
 			case BOVINE_MALE:
 				if (owner.isPlayer())
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from your upper temples.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, curved horns, looking much like ones that you'd see on a bull, protrude from the sides of your head.");
 				else
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from [npc.her] upper temples.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, curved horns, looking much like ones that you'd see on a bull, protrude from the sides of [npc.her] head.");
 				break;
 			case BOVINE_FEMALE:
 				if (owner.isPlayer())
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from your upper temples.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, slightly-curved horns, looking much like ones that you'd see on a cow, protrude from the sides of your head.");
 				else
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from [npc.her] upper temples.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, slightly-curved horns, looking much like ones that you'd see on a cow, protrude from the sides of [npc.her] head.");
 				break;
 			default:
 				if (owner.isPlayer())

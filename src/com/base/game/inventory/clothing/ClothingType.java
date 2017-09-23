@@ -1802,6 +1802,13 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
 					new ListValue<BlockedParts>(
+							new BlockedParts(DisplacementType.PULLS_DOWN,
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST)))),
+					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
@@ -8158,6 +8165,76 @@ public class ClothingType {
 					null);
 		}
 	};
+
+	public static AbstractClothingType ENFORCER_SHORTS = new AbstractClothingType("a pair of",
+			true,
+			"Enforcer's shorts",
+			"Enforcer's shorts",
+			"A pair of shorts, they come with a utility belt.",
+			2,
+			null,
+			InventorySlot.LEG,
+			Rarity.EPIC,
+			ClothingSet.ENFORCER,
+			"enforcerShorts",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5),
+					new Value<Attribute, Integer>(Attribute.FITNESS, 5)),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_DOWN,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.UNZIPS,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									null))),
+
+			null,
+			Colour.allClothingColours) {
+		
+		
+				private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the shorts before pulling them up to your waist.",
+					"You pull the shorts all the way up [npc.name]'s [npc.legs] to [npc.her] waist.",
+					null,
+					"[npc.Name] steps into the shorts before pulling them up to [npc.her] waist.",
+					"[npc.Name] pull the shorts all the way up your [pc.legs] to your waist.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your shorts and kick them off your [pc.feet].",
+					"You pull [npc.name]'s shorts down and slide them off [npc.her] [npc.feet].",
+					null,
+					"[npc.Name] pulls [npc.her] shorts down and kicks them off [npc.her] [npc.feet].",
+					"[npc.Name] pulls your shorts down and slides them off your [pc.feet].",
+					null);
+		}
+	};
 	
 	public static AbstractClothingType CATTLE_PIERCING_EAR_TAGS = new AbstractClothingType("an",
 			true,
@@ -8296,55 +8373,6 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType ENFORCER_SHORTS = new AbstractClothingType("a pair of",
-			true,
-			"Enforcer's shorts",
-			"Enforcer's shorts",
-			"A pair of shorts, they come with a utility belt.",
-			2,
-			null,
-			InventorySlot.LEG,
-			Rarity.EPIC,
-			ClothingSet.ENFORCER,
-			"enforcerShorts",
-			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5),
-					new Value<Attribute, Integer>(Attribute.FITNESS, 5)),
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_DOWN, null,
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-
-			null,
-			Colour.allClothingColours) {
-		
-		
-				private static final long serialVersionUID = 1L;
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You step into the shorts before pulling them up to your waist.",
-					"You pull the shorts all the way up [npc.name]'s [npc.legs] to [npc.her] waist.",
-					null,
-					"[npc.Name] steps into the shorts before pulling them up to [npc.her] waist.",
-					"[npc.Name] pull the shorts all the way up your [pc.legs] to your waist.",
-					null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull down your shorts and kick them off your [pc.feet].",
-					"You pull [npc.name]'s shorts down and slide them off [npc.her] [npc.feet].",
-					null,
-					"[npc.Name] pulls [npc.her] shorts down and kicks them off [npc.her] [npc.feet].",
-					"[npc.Name] pulls your shorts down and slides them off your [pc.feet].",
-					null);
-		}
-	};
 	
 	public static AbstractClothingType MILK_MAID_TORSO_DRESS = new AbstractClothingType("a",
 			false,
