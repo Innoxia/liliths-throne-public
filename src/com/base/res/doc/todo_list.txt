@@ -46,9 +46,11 @@
 	
 	
 	
+	The pace no longer displays
 	
+	Also I think I pinned it down with that odd feeling. The map doesn't seem to have border, infact almost nothing seems to except the button panel and the event log.
 	
-	
+	Sometimes NPCs will ignore an article of clothing during a scene. NPCs seem to not like removing my character's bra for whatever reason.
 	
 	BUGS
 	

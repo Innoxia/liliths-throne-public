@@ -554,10 +554,11 @@ public enum RenderingEngine {
 									+ UtilText.getColouredMoneySymbol("b")+" <b>"+Main.game.getPlayer().getMoney()+"</b>"
 								+ "</span>"
 							+ "</div>"
-						+ "</div>"
-						
-						// Attributes:
-						+"<div class='attribute-container'>"
+						+ "</div>");
+		
+		if(Main.mainController.getWebViewAttributes().getHeight()>=750) {
+			uiAttributeSB.append(
+					"<div class='attribute-container'>"
 							+ "<p style='text-align:center;padding:0;margin:0;'><b>Attributes</b></p>"
 				
 							// Strength:
@@ -622,6 +623,43 @@ public enum RenderingEngine {
 							+ "</div>"
 									
 						+ "</div>");
+		} else {
+			uiAttributeSB.append(
+					"<div class='attribute-container'>"
+					+ "<p style='text-align:center;padding:0;margin:0;'><b>Attributes</b></p>"
+						+ "<div class='quarter-width-container'>"
+						+ "<div class='icon' style='width:45%'><div class='icon-content'>"
+							+ StrengthLevel.getStrengthLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
+							+ "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>"+ "<b style='color:" + Attribute.STRENGTH.getColour().toWebHexString() + ";'>"
+								+ (int) Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH) + "</b>" + "</div>"
+							+ "<div class='overlay' id='PLAYER_"+ Attribute.STRENGTH.getName() + "'></div>"
+						+ "</div>"
+
+						+ "<div class='quarter-width-container'>"
+						+ "<div class='icon' style='width:45%'><div class='icon-content'>"
+							+ IntelligenceLevel.getIntelligenceLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
+							+ "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>" + "<b style='color:" + Attribute.INTELLIGENCE.getColour().toWebHexString() + ";'>"
+								+ (int) Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE) + "</b>" + "</div>"
+							+ "<div class='overlay' id='PLAYER_" + Attribute.INTELLIGENCE.getName() + "'></div>"
+						+ "</div>"
+
+						+ "<div class='quarter-width-container'>"
+						+ "<div class='icon' style='width:45%'><div class='icon-content'>"
+							+ FitnessLevel.getFitnessLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
+							+ "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>" + "<b style='color:" + Attribute.FITNESS.getColour().toWebHexString() + ";'>"
+								+ (int) Main.game.getPlayer().getAttributeValue(Attribute.FITNESS) + "</b>" + "</div>"
+							+ "<div class='overlay' id='PLAYER_" + Attribute.FITNESS.getName() + "'></div>"
+						+ "</div>"
+
+						+ "<div class='quarter-width-container'>"
+						+ "<div class='icon' style='width:45%'><div class='icon-content'>"
+							+ CorruptionLevel.getCorruptionLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
+							+ "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>" + "<b style='color:"+ Attribute.CORRUPTION.getColour().toWebHexString() + ";'>"
+								+ (int) Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION) + "</b>" + "</div>"
+							+ "<div class='overlay' id='PLAYER_" + Attribute.CORRUPTION.getName() + "'></div>"
+						+ "</div>"
+					+ "</div>");
+		}
 						
 		if(Main.game.isInSex()) {
 			Colour playerOrgasmColour = Colour.GENERIC_ARCANE;
@@ -630,7 +668,12 @@ public enum RenderingEngine {
 			}
 			
 			uiAttributeSB.append("<div class='attribute-container'>"
-					+ "<p style='text-align:center;padding:0;margin:0;'><b>Sex - </b>"+(Sex.isPlayerDom()?"<b style='color:"+Colour.BASE_CRIMSON.toWebHexString()+";'>Dom</b>":"<b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Sub</b>")+"</p>"
+					+ "<p style='text-align:center;padding:0;margin:0;'>"
+						+(Sex.isPlayerDom()?"<b style='color:"+Colour.BASE_CRIMSON.toWebHexString()+";'>Dominant</b>":"<b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Submissive</b>")+"<b> partner</b>"
+					+"</p>"
+					+ "<p style='text-align:center;padding:0;margin:0;'>"
+						+ "<b style='color:"+Sex.getSexPacePlayer().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Sex.getSexPacePlayer().getName())+"</b><b> pace</b>"
+					+ "</p>"
 					+ "<p style='text-align:center;padding:0;margin:0;'><b>Orgasms: </b><b style='color:"+playerOrgasmColour.toWebHexString()+";'>"+Sex.getNumberOfPlayerOrgasms()+"</b></p>"
 					
 					// Arousal:
@@ -875,7 +918,8 @@ public enum RenderingEngine {
 			if(npcToRender!=null
 					&& (Main.game.isInCombat() || Main.game.isInSex() || Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.CHARACTERS_PRESENT
 							|| (Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.INVENTORY && InventoryDialogue.getInventoryNPC()!=null))) {
-							
+			
+			
 				uiAttributeSB.append(
 						// Name box:
 						"<div class='attribute-container'>"
@@ -910,9 +954,11 @@ public enum RenderingEngine {
 										+ UtilText.getColouredMoneySymbol("b")+" <b>"+npcToRender.getMoney()+"</b>"
 									+ "</span>"
 								+ "</div>"
-							+ "</div>"
+							+ "</div>");
+				
+				if(Main.mainController.getWebViewAttributes().getHeight()>=750) {
 						
-						+ "<div class='attribute-container'>"
+						uiAttributeSB.append("<div class='attribute-container'>"
 							+ "<p style='text-align:center;padding:0;margin:0;'><b>Attributes</b></p>"
 				
 							// Strength:
@@ -977,6 +1023,43 @@ public enum RenderingEngine {
 							+ "</div>"
 									
 						+ "</div>");
+				} else {
+					uiAttributeSB.append(
+							"<div class='attribute-container'>"
+							+ "<p style='text-align:center;padding:0;margin:0;'><b>Attributes</b></p>"
+								+ "<div class='quarter-width-container'>"
+								+ "<div class='icon' style='width:45%'><div class='icon-content'>"
+									+ StrengthLevel.getStrengthLevelFromValue(npcToRender.getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(npcToRender) + "</div></div>"
+									+ "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>"+ "<b style='color:" + Attribute.STRENGTH.getColour().toWebHexString() + ";'>"
+										+ (int) npcToRender.getAttributeValue(Attribute.STRENGTH) + "</b>" + "</div>"
+									+ "<div class='overlay' id='NPC_"+ Attribute.STRENGTH.getName() + "'></div>"
+								+ "</div>"
+
+								+ "<div class='quarter-width-container'>"
+								+ "<div class='icon' style='width:45%'><div class='icon-content'>"
+									+ IntelligenceLevel.getIntelligenceLevelFromValue(npcToRender.getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(npcToRender) + "</div></div>"
+									+ "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>" + "<b style='color:" + Attribute.INTELLIGENCE.getColour().toWebHexString() + ";'>"
+										+ (int) npcToRender.getAttributeValue(Attribute.INTELLIGENCE) + "</b>" + "</div>"
+									+ "<div class='overlay' id='NPC_" + Attribute.INTELLIGENCE.getName() + "'></div>"
+								+ "</div>"
+
+								+ "<div class='quarter-width-container'>"
+								+ "<div class='icon' style='width:45%'><div class='icon-content'>"
+									+ FitnessLevel.getFitnessLevelFromValue(npcToRender.getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(npcToRender) + "</div></div>"
+									+ "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>" + "<b style='color:" + Attribute.FITNESS.getColour().toWebHexString() + ";'>"
+										+ (int) npcToRender.getAttributeValue(Attribute.FITNESS) + "</b>" + "</div>"
+									+ "<div class='overlay' id='NPC_" + Attribute.FITNESS.getName() + "'></div>"
+								+ "</div>"
+
+								+ "<div class='quarter-width-container'>"
+								+ "<div class='icon' style='width:45%'><div class='icon-content'>"
+									+ CorruptionLevel.getCorruptionLevelFromValue(npcToRender.getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(npcToRender) + "</div></div>"
+									+ "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>" + "<b style='color:"+ Attribute.CORRUPTION.getColour().toWebHexString() + ";'>"
+										+ (int) npcToRender.getAttributeValue(Attribute.CORRUPTION) + "</b>" + "</div>"
+									+ "<div class='overlay' id='NPC_" + Attribute.CORRUPTION.getName() + "'></div>"
+								+ "</div>"
+							+ "</div>");
+				}
 				
 				
 				
@@ -987,7 +1070,12 @@ public enum RenderingEngine {
 				}
 				
 				uiAttributeSB.append("<div class='attribute-container'>"
-						+ "<p style='text-align:center;padding:0;margin:0;'><b>Sex - </b>"+(Sex.isPlayerDom()?"<b style='color:"+Colour.BASE_CRIMSON.toWebHexString()+";'>Dom</b>":"<b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Sub</b>")+"</p>"
+						+ "<p style='text-align:center;padding:0;margin:0;'>"
+							+(!Sex.isPlayerDom()?"<b style='color:"+Colour.BASE_CRIMSON.toWebHexString()+";'>Dominant</b>":"<b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Submissive</b>")+"<b> partner</b>"
+						+"</p>"
+						+ "<p style='text-align:center;padding:0;margin:0;'>"
+							+ "<b style='color:"+Sex.getSexPacePartner().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Sex.getSexPacePartner().getName())+"</b><b> pace</b>"
+						+ "</p>"
 						+ "<p style='text-align:center;padding:0;margin:0;'><b>Orgasms: </b><b style='color:"+NPCOrgasmColour.toWebHexString()+";'>"+Sex.getNumberOfPartnerOrgasms()+"</b></p>"
 						
 						// Partner arousal:
