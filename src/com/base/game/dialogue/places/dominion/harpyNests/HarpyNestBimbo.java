@@ -177,7 +177,7 @@ public class HarpyNestBimbo {
 							+ " [bimboHarpyCompanion.speechNoEffects(Mistress! Like, that [pc.race] is back!)]"
 						+ "</p>"
 						+ "<p>"
-						+ (Main.game.getPlayer().getFemininity()>=Femininity.FEMININE_STRONG.getMinimumFemininity()
+						+ (Main.game.getPlayer().getFemininityValue()>=Femininity.FEMININE_STRONG.getMinimumFemininity()
 							?"Letting out an annoyed sigh, [bimboHarpy.name] props herself up on the sunbed, and, raising her aviators to look you up-and-down, she makes a dismissive gesture,"
 								+ " [bimboHarpy.speechNoEffects(Eugh! Like, what are <i>you</i> doin' here again? Why don't you, like go get your own flock or something!"
 								+ " You're, like, being super rude and stuff comin' here and flaunting yourself in front of my girls!)]"
@@ -217,7 +217,7 @@ public class HarpyNestBimbo {
 					+ "<p>"
 						+ "Instantly, all eyes are on you, and [bimboHarpy.Name] stand up from the sunbed upon which she was lying."
 						+ " Stepping forwards, she rests one of her feathered hands on her hips, striking a pose as she speaks,"
-						+ (Main.game.getPlayer().getFemininity()>=Femininity.FEMININE_STRONG.getMinimumFemininity()
+						+ (Main.game.getPlayer().getFemininityValue()>=Femininity.FEMININE_STRONG.getMinimumFemininity()
 							?" [bimboHarpy.speechNoEffects(Like, who do you think you are?! I hope you're not, like, thinkin' of tryin' to steal girls from my flock!"
 									+ " You, like, might have the looks, but they aren't gonna listen to some stupid slut like you! What do you, like, even want? Coming up here uninvited is, like, super rude y'know?!)]"
 							:" [bimboHarpy.speechNoEffects(Like, who do you think you are?! Coming up here uninvited is, like, super rude y'know?!)]")

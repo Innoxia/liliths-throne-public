@@ -30,6 +30,7 @@ public class ClothingType {
 	public static AbstractClothingType HEAD_CHEATERS_CIRCLET = new AbstractClothingType("a",
 			false,
 			"cheater's circlet",
+			"cheater's circlets",
 			"A thin band of metal that sits on top of your head. On the inside, an engraved message reads: 'FOR INTERNAL TESTING ONLY!'",
 			1,
 			null,
@@ -79,6 +80,7 @@ public class ClothingType {
 	// PIERCINGS:
 	public static AbstractClothingType PIERCING_EAR_BASIC_RING = new AbstractClothingType("a pair of",
 			true,
+			"earring",
 			"earrings",
 			"A pair of very basic earrings.",
 			0,
@@ -117,51 +119,11 @@ public class ClothingType {
 		}
 	};
 
-
-	public static AbstractClothingType PIERCING_EAR_TAGS = new AbstractClothingType("an",
-			true,
-			"ear tag",
-			"A bright yellow ear tag, made from plastic and used for identification of domestic animals.",
-			0,
-			null,
-			InventorySlot.PIERCING_EAR,
-			Rarity.COMMON,
-			null,
-			"piercing_livestock_tags",
-			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Util.newArrayListOfValues(new ListValue<>(Colour.CLOTHING_YELLOW))) {
-		
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You clip the tag into place.",
-					"You clip [npc.name]'s new tag into place.",
-					null,
-					"[npc.Name] clips [npc.her] tag into place.",
-					"[npc.Name] clips your new tag into place.",
-					null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You unclip your tag.",
-					"You unclip [npc.name]'s tag.",
-					null,
-					"[npc.Name] unclips [npc.her] tag.",
-					"[npc.Name] unclips your tag.",
-					null);
-		}
-	};
-
 	public static AbstractClothingType PIERCING_NOSE_BASIC_RING = new AbstractClothingType("a",
 
 			false,
 			"nose ring",
+			"nose rings",
 			"A simple nose ring. The little disc found on one end rests inside the nostril, holding it in place, while the rest of the ring is on display.",
 			0,
 			null,
@@ -200,48 +162,9 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType PIERCING_NOSE_BOVINE_RING = new AbstractClothingType("a",
-			false,
-			"bovine nose ring",
-			"A large nose ring, similar to one worn by cows and bulls.",
-			0,
-			null,
-			InventorySlot.PIERCING_NOSE,
-			Rarity.COMMON,
-			null,
-			"piercing_nose_cow_ring",
-			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours) {
-		
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You slide the nose ring into place.",
-					"You slide [npc.name]'s new nose ring into place.",
-					null,
-					"[npc.Name] slides [npc.her] nose ring into place.",
-					"[npc.Name] slides your new nose ring into place.",
-					null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You slide the nose ring out.",
-					"You slide [npc.name]'s nose ring out.",
-					null,
-					"[npc.Name] slides [npc.her] nose ring out.",
-					"[npc.Name] slides your nose ring out.",
-					null);
-		}
-	};
-
 	public static AbstractClothingType PIERCING_LIP_RINGS = new AbstractClothingType("a pair of",
 			true,
+			"lip ring",
 			"lip rings",
 			"A pair of thin, simple lip rings.",
 			0,
@@ -284,6 +207,7 @@ public class ClothingType {
 	public static AbstractClothingType PIERCING_TONGUE_BAR = new AbstractClothingType("a",
 			false,
 			"tongue bar",
+			"tongue bars",
 			"A bar that can be slid into place through a tongue piercing.",
 			0,
 			null,
@@ -325,6 +249,7 @@ public class ClothingType {
 	public static AbstractClothingType PIERCING_NAVEL_GEM = new AbstractClothingType("a",
 			false,
 			"navel gem barbell",
+			"navel gem barbells",
 			"A bar with a gemstone embedded on one end. It's designed to fit into a navel piercing.",
 			0,
 			Femininity.FEMININE,
@@ -365,6 +290,7 @@ public class ClothingType {
 
 	public static AbstractClothingType PIERCING_NIPPLE_BARS = new AbstractClothingType("a pair of",
 			true,
+			"nipple bar",
 			"nipple bars",
 			"A pair of bars that are designed to fit into nipple piercings.",
 			0,
@@ -407,6 +333,7 @@ public class ClothingType {
 	public static AbstractClothingType PIERCING_VAGINA_BARBELL_RING = new AbstractClothingType("a",
 			false,
 			"ringed barbell",
+			"ringed barbells",
 			"A barbell with a freely-moving hinged ring on one end. It's designed for a clitoral hood or Christina piercing.",
 			0,
 			null,
@@ -453,6 +380,7 @@ public class ClothingType {
 	public static AbstractClothingType PIERCING_PENIS_RING = new AbstractClothingType("a",
 			false,
 			"piercing ring",
+			"piercing rings",
 			"A ring that's designed to fit into piercings in male genitalia. A removable segment on one side allows the wearer to easily slide the ring into place.",
 			0,
 			null,
@@ -490,13 +418,12 @@ public class ClothingType {
 					null);
 		}
 	};
-
-	// TODO organise clothing types from here:
 	
 	// HEAD
 	public static AbstractClothingType HEAD_CIRCLET = new AbstractClothingType("a",
 			false,
 			"circlet",
+			"circlets",
 			"A thin band of metal that sits atop your head.",
 			1,
 			Femininity.FEMININE,
@@ -538,6 +465,7 @@ public class ClothingType {
 	public static AbstractClothingType HEAD_TIARA = new AbstractClothingType("a",
 			false,
 			"tiara",
+			"tiaras",
 			"A delicate band of precious metal, formed into an ornamental crown, that sits on top of your head.",
 			1,
 			Femininity.FEMININE,
@@ -579,6 +507,7 @@ public class ClothingType {
 	public static AbstractClothingType HEAD_HEADBAND = new AbstractClothingType("a",
 			false,
 			"headband",
+			"headbands",
 			"A plain headband, designed to keep your hair pushed back out of your face.",
 			1,
 			null,
@@ -619,6 +548,7 @@ public class ClothingType {
 	public static AbstractClothingType HEAD_HEADBAND_BOW = new AbstractClothingType("a",
 			false,
 			"bow headband",
+			"bow headbands",
 			"A headband with a cute bow attached to the top, designed to keep your hair pushed back out of your face.",
 			1,
 			Femininity.FEMININE,
@@ -659,6 +589,7 @@ public class ClothingType {
 	public static AbstractClothingType HEAD_CAP = new AbstractClothingType("a",
 			false,
 			"cap",
+			"caps",
 			"A soft cap with a stiff peak that projects from the front.",
 			1,
 			null,
@@ -700,6 +631,7 @@ public class ClothingType {
 	public static AbstractClothingType HEAD_COWBOY_HAT = new AbstractClothingType("a",
 			false,
 			"cowboy hat",
+			"cowboy hats",
 			"A high-crowned, wide-brimmed hat.",
 			1,
 			null,
@@ -716,10 +648,7 @@ public class ClothingType {
 					new ListValue<Colour>(Colour.CLOTHING_BROWN),
 					new ListValue<Colour>(Colour.CLOTHING_TAN))) {
 		
-		/**
-						 * 
-						 */
-						private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -745,7 +674,19 @@ public class ClothingType {
 	};
 
 	// EYES
-	public static AbstractClothingType EYES_GLASSES = new AbstractClothingType("a pair of", true, "glasses", "A pair of thin-rimmed glasses.", 0, null, InventorySlot.EYES, Rarity.COMMON, null, "eye_glasses", null,
+	public static AbstractClothingType EYES_GLASSES = new AbstractClothingType(
+			"a pair of",
+			true,
+			"glasses",
+			"glasses",
+			"A pair of thin-rimmed glasses.",
+			0,
+			null,
+			InventorySlot.EYES,
+			Rarity.COMMON,
+			null,
+			"eye_glasses",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.EYES)), null, null))),
 
@@ -798,7 +739,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType EYES_AVIATORS = new AbstractClothingType("a pair of", true, "aviators", "A pair of aviator sunglasses.", 0, null, InventorySlot.EYES, Rarity.COMMON, null, "eye_aviators", null,
+	public static AbstractClothingType EYES_AVIATORS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"aviators",
+			"aviators",
+			"A pair of aviator sunglasses.",
+			0,
+			null,
+			InventorySlot.EYES,
+			Rarity.COMMON,
+			null,
+			"eye_aviators",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.EYES)), null, null))),
 
@@ -851,7 +804,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType EYES_SAFETY_GOGGLES = new AbstractClothingType("a pair of", true, "safety goggles", "A pair of safety goggles. They're the type worn by scientists when handling chemicals.", 0, null, InventorySlot.EYES, Rarity.UNCOMMON, null, "eye_safety_goggles", null,
+	public static AbstractClothingType EYES_SAFETY_GOGGLES = new AbstractClothingType(
+			"a pair of",
+			true,
+			"safety goggles",
+			"safety goggles",
+			"A pair of safety goggles. They're the type worn by scientists when handling chemicals.",
+			0,
+			null,
+			InventorySlot.EYES,
+			Rarity.UNCOMMON,
+			null,
+			"eye_safety_goggles",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -944,7 +909,19 @@ public class ClothingType {
 	};
 
 	// MOUTH
-	public static AbstractClothingType MOUTH_BANDANA = new AbstractClothingType("a", false, "bandana", "A square piece of cloth, which can be folded and tied so as to cover the wearer's mouth.", 1, null, InventorySlot.MOUTH, Rarity.COMMON, null, "mouth_bandana", null,
+	public static AbstractClothingType MOUTH_BANDANA = new AbstractClothingType(
+			"a",
+			false,
+			"bandana",
+			"bandanas",
+			"A square piece of cloth, which can be folded and tied so as to cover the wearer's mouth.",
+			1,
+			null,
+			InventorySlot.MOUTH,
+			Rarity.COMMON,
+			null,
+			"mouth_bandana",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
@@ -1026,7 +1003,19 @@ public class ClothingType {
 	// NECK
 	// Choker, Collar
 
-	public static AbstractClothingType NECK_HEART_NECKLACE = new AbstractClothingType("a", false, "heart necklace", "A necklace with a little heart-shaped pendant.", 0, Femininity.FEMININE, InventorySlot.NECK, Rarity.COMMON, null, "neck_heartNecklace", null,
+	public static AbstractClothingType NECK_HEART_NECKLACE = new AbstractClothingType(
+			"a",
+			false,
+			"heart necklace",
+			"heart necklaces",
+			"A necklace with a little heart-shaped pendant.",
+			0,
+			Femininity.FEMININE,
+			InventorySlot.NECK,
+			Rarity.COMMON,
+			null,
+			"neck_heartNecklace",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 
@@ -1087,8 +1076,20 @@ public class ClothingType {
 			}
 		}
 	};
-	
-	public static AbstractClothingType NECK_ANKH_NECKLACE = new AbstractClothingType("an", false, "ankh necklace", "A necklace with a cross-shaped pendant, which has a loop instead of the top arm.", 0, null, InventorySlot.NECK, Rarity.COMMON, null, "neck_ankhNecklace", null,
+
+	public static AbstractClothingType NECK_ANKH_NECKLACE = new AbstractClothingType(
+			"an",
+			false,
+			"ankh necklace",
+			"ankh necklaces",
+			"A necklace with a cross-shaped pendant, which has a loop instead of the top arm.",
+			0,
+			null,
+			InventorySlot.NECK,
+			Rarity.COMMON,
+			null,
+			"neck_ankhNecklace",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 
@@ -1149,56 +1150,19 @@ public class ClothingType {
 			}
 		}
 	};
-	
-	public static AbstractClothingType NECK_COWBELL_COLLAR  = new AbstractClothingType("a", //TODO
+
+	public static AbstractClothingType NECK_SCARF = new AbstractClothingType("a",
 			false,
-			"cowbell collar",
-			"A leather collar, with a cowbell attached to the front.",
-			0,
+			"scarf",
+			"scarfs",
+			"A unisex scarf, made of a soft, wooly fabric.",
+			1,
 			null,
 			InventorySlot.NECK,
 			Rarity.COMMON,
 			null,
-			"neck_cowbell_collar",
+			"neck_scarf",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours) {
-		
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You put on the cowbell collar, fastening the clasp at the back of your neck.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner,
-						Util.capitaliseSentence(clothingOwner.getName("the")) + " puts a " + clothing.getName(true) + " around <her> neck, reaching around to fasten the clasp at the back.");
-			else {
-				if (clothingOwner.isPlayer())
-					return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " fastens " + clothing.getName(true) + " around your neck.");
-				else
-					return UtilText.genderParsing(clothingOwner, "You fasten the cowbell collar around " + clothingOwner.getName("the") + "'s neck.");
-			}
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You unfasten the cowbell collar and take it off.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " unfastens <her> cowbell collar and takes it off.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " unfastens your cowbell collar and removes it from around your neck.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You unfasten " + clothingOwner.getName("the") + "'s cowbell collar and remove it from <her> neck.");
-
-			}
-		}
-	};
-	
-	public static AbstractClothingType NECK_SCARF = new AbstractClothingType("a", false, "scarf", "A unisex scarf, made of a soft, wooly fabric.", 1, null, InventorySlot.NECK, Rarity.COMMON, null, "neck_scarf", null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 
@@ -1262,6 +1226,7 @@ public class ClothingType {
 	public static AbstractClothingType NECK_SLAVE_COLLAR = new AbstractClothingType("a",
 			false,
 			"slave collar",
+			"slave collars",
 			"A heavy metal collar, of the type worn by slaves. It carries a potent enchantment that suppresses the wearer's arcane aura and ability to resist direct commands.",
 			0,
 			null,
@@ -1274,13 +1239,15 @@ public class ClothingType {
 			null,
 			Colour.allMetalColours) {
 		
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 
 			if(applyEffects) {
-				clothing.setSealed(true);
+				if(clothingOwner.isAbleToBeEnslaved() || clothingOwner.isSlave()) {
+					clothing.setSealed(true);
+				}
 			}
 			
 			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
@@ -1314,19 +1281,37 @@ public class ClothingType {
 
 	// TORSO
 
-	public static AbstractClothingType TORSO_OXFORD_SHIRT = new AbstractClothingType("a", false, "long-sleeved shirt", "A men's long-sleeved shirt.", 1, Femininity.MASCULINE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_oxfordShirt", null,
-
+	public static AbstractClothingType TORSO_OXFORD_SHIRT = new AbstractClothingType("a",
+			false,
+			"long-sleeved shirt",
+			"long-sleeved shirts",
+			"A men's long-sleeved shirt.",
+			1,
+			Femininity.MASCULINE,
+			InventorySlot.TORSO_UNDER,
+			Rarity.COMMON,
+			null,
+			"torso_oxfordShirt",
+			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.UNBUTTONS, null, Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST), new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-
-			null, // List<InventorySlot> incompatibleSlots
-
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
+							null,
+							null)),
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.UNBUTTONS,
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
+			null,
 			Colour.allClothingColours) {
 		
-				private static final long serialVersionUID = 1L;
+			private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1426,19 +1411,38 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_SHORT_SLEEVE_SHIRT = new AbstractClothingType("a", false, "short-sleeved shirt", "A unisex short-sleeved shirt.", 1, null, InventorySlot.TORSO, Rarity.COMMON, null, "torso_shortSleeveShirt", null,
-
+	
+	public static AbstractClothingType TORSO_SHORT_SLEEVE_SHIRT = new AbstractClothingType("a",
+			false,
+			"short-sleeved shirt",
+			"short-sleeved shirts",
+			"A unisex short-sleeved shirt.",
+			1,
+			null,
+			InventorySlot.TORSO_UNDER,
+			Rarity.COMMON,
+			null,
+			"torso_shortSleeveShirt",
+			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.UNBUTTONS, null, Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST), new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-
-			null, // List<InventorySlot> incompatibleSlots
-
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
+							null,
+							null)),
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.UNBUTTONS,
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
+			null,
 			Colour.allClothingColours) {
 		
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1538,68 +1542,62 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_HOODIE = new AbstractClothingType("a", false, "hoodie", "A loose-fitting hoodie.", 1, null, InventorySlot.TORSO, Rarity.COMMON, null, "torso_hoodie", null,
-
+	
+	public static AbstractClothingType TORSO_OVER_HOODIE = new AbstractClothingType("a",
+			false,
+			"hoodie",
+			"hoodies",
+			"A loose-fitting hoodie.",
+			1,
+			null,
+			InventorySlot.TORSO_OVER,
+			Rarity.COMMON,
+			null,
+			"torso_hoodie",
+			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null, Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST), new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-
-			null, // List<InventorySlot> incompatibleSlots
-
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER))
+							)),
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
+			null,
 			Colour.allClothingColours) {
 		
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull on the hoodie.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls on " + clothing.getName(true) + ".");
-			else {
-				if (rough) {
-					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " yanks " + clothing.getName(true) + " down over your head, pushing your " + clothingOwner.getArmName() + " through the sleeves.";
-					else
-						return UtilText.genderParsing(clothingOwner,
-								"You yank the hoodie down over " + clothingOwner.getName("the") + "'s head, and push <her> " + clothingOwner.getArmName() + " through the sleeves.");
-				} else {
-					if (clothingOwner.isPlayer())
-						return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " guides your " + clothingOwner.getArmName() + " through "
-								+ clothing.getName(true) + "'s sleeves" + " as <she> pulls it down over your head.");
-					else
-						return UtilText.genderParsing(clothingOwner,
-								"You guide " + clothingOwner.getName("the") + "'s " + clothingOwner.getArmName() + " through the hoodie's sleeves as you pull it down over <her> head.");
-				}
-			}
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull on the hoodie.",
+					"You guide [npc.name]'s [npc.arms] through the hoodie's sleeves as you pull it on [npc.herHim].",
+					null,
+					"[npc.Name] pulls on the hoodie.",
+					"[npc.Name] guides your [pc.arms] through the hoodie's sleeves as [npc.she] pulls it on you.",
+					null);
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull off your hoodie.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls off <her> hoodie.");
-			else {
-				if (rough) {
-					if (clothingOwner.isPlayer())
-						if (clothing.getDisplacedList().contains(DisplacementType.PULLS_UP))
-							return Util.capitaliseSentence(clothingRemover.getName("the")) + " finishes pulling your hoodie up and over your head.";
-						else
-							return Util.capitaliseSentence(clothingRemover.getName("the")) + " yanks your hoodie up and over your head.";
-					else if (clothing.getDisplacedList().contains(DisplacementType.PULLS_UP))
-						return UtilText.genderParsing(clothingOwner, "You finish pulling " + clothingOwner.getName("the") + "'s hoodie up and over <her> head.");
-					else
-						return UtilText.genderParsing(clothingOwner, "You yank " + clothingOwner.getName("the") + "'s hoodie up and over <her> head.");
-				} else {
-					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " slides your hoodie up and over your head.";
-					else
-						return UtilText.genderParsing(clothingOwner, "You slide " + clothingOwner.getName("the") + "'s hoodie up and over <her> head.");
-				}
-			}
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your hoodie.",
+					"You pull off [npc.name]'s hoodie.",
+					null,
+					"[npc.Name] takes [npc.her] hoodie off.",
+					"[npc.Name] pulls your hoodie off.",
+					null);
 		}
 
 		@Override
@@ -1646,8 +1644,119 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_RIBBED_SWEATER = new AbstractClothingType("a", false, "ribbed sweater", "A unisex ribbed sweater, made from some sort of woolly fabric.", 1, null, InventorySlot.TORSO, Rarity.COMMON, null, "torso_ribbed_sweater", null,
 
+	public static AbstractClothingType TORSO_OVER_OPEN_CARDIGAN = new AbstractClothingType("an",
+			false,
+			"open-front cardigan",
+			"open-front cardigans",
+			"A very feminine, open-front cardigan. It's made from a thin, woolly fabric.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO_OVER,
+			Rarity.COMMON,
+			null,
+			"torso_open_cardigan",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.REMOVE_OR_EQUIP,
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER))
+									))),
+			null,
+			Colour.allClothingColours) {
+		
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull on the cardigan.",
+					"You guide [npc.name]'s [npc.arms] through the cardigan's sleeves as you pull it on [npc.herHim].",
+					null,
+					"[npc.Name] pulls on the cardigan.",
+					"[npc.Name] guides your [pc.arms] through the cardigan's sleeves as [npc.she] pulls it on you.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your cardigan.",
+					"You pull off [npc.name]'s cardigan.",
+					null,
+					"[npc.Name] takes [npc.her] cardigan off.",
+					"[npc.Name] pulls your cardigan off.",
+					null);
+		}
+	};
+	
+	public static AbstractClothingType TORSO_OVER_BLAZER = new AbstractClothingType("a",
+			false,
+			"blazer",
+			"blazers",
+			"A smart, unisex blazer.",
+			1,
+			null,
+			InventorySlot.TORSO_OVER,
+			Rarity.COMMON,
+			null,
+			"torso_over_blazer",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.REMOVE_OR_EQUIP,
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER))
+									))),
+			null,
+			Colour.allClothingColours) {
+		
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull on the blazer.",
+					"You guide [npc.name]'s [npc.arms] through the blazer's sleeves as you pull it on [npc.herHim].",
+					null,
+					"[npc.Name] pulls on the blazer.",
+					"[npc.Name] guides your [pc.arms] through the blazer's sleeves as [npc.she] pulls it on you.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your blazer.",
+					"You pull off [npc.name]'s blazer.",
+					null,
+					"[npc.Name] takes [npc.her] blazer off.",
+					"[npc.Name] pulls your blazer off.",
+					null);
+		}
+	};
+	
+	public static AbstractClothingType TORSO_RIBBED_SWEATER = new AbstractClothingType("a",
+			false,
+			"ribbed sweater",
+			"ribbed sweaters",
+			"A unisex ribbed sweater, made from some sort of woolly fabric.",
+			1,
+			null,
+			InventorySlot.TORSO_OVER,
+			Rarity.COMMON,
+			null,
+			"torso_ribbed_sweater",
+			null,
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -1665,114 +1774,20 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-
-			null, // List<InventorySlot> incompatibleSlots
-
+			null,
 			Colour.allClothingColours) {
 		
-				private static final long serialVersionUID = 1L;
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull on the sweater.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls on " + clothing.getName(true) + ".");
-			else {
-				if (rough) {
-					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " yanks " + clothing.getName(true) + " down over your head, pushing your " + clothingOwner.getArmName() + " through the sleeves.";
-					else
-						return UtilText.genderParsing(clothingOwner,
-								"You yank the sweater down over " + clothingOwner.getName("the") + "'s head, and push <her> " + clothingOwner.getArmName() + " through the sleeves.");
-				} else {
-					if (clothingOwner.isPlayer())
-						return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " guides your " + clothingOwner.getArmName() + " through "
-								+ clothing.getName(true) + "'s sleeves" + " as <she> pulls it down over your head.");
-					else
-						return UtilText.genderParsing(clothingOwner,
-								"You guide " + clothingOwner.getName("the") + "'s " + clothingOwner.getArmName() + " through the sweater's sleeves as you pull it down over <her> head.");
-				}
-			}
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull off your sweater.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls off <her> sweater.");
-			else {
-				if (rough) {
-					if (clothingOwner.isPlayer())
-						if (clothing.getDisplacedList().contains(DisplacementType.PULLS_UP))
-							return Util.capitaliseSentence(clothingRemover.getName("the")) + " finishes pulling your sweater up and over your head.";
-						else
-							return Util.capitaliseSentence(clothingRemover.getName("the")) + " yanks your sweater up and over your head.";
-					else if (clothing.getDisplacedList().contains(DisplacementType.PULLS_UP))
-						return UtilText.genderParsing(clothingOwner, "You finish pulling " + clothingOwner.getName("the") + "'s sweater up and over <her> head.");
-					else
-						return UtilText.genderParsing(clothingOwner, "You yank " + clothingOwner.getName("the") + "'s sweater up and over <her> head.");
-				} else {
-					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " slides your sweater up and over your head.";
-					else
-						return UtilText.genderParsing(clothingOwner, "You slide " + clothingOwner.getName("the") + "'s sweater up and over <her> head.");
-				}
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull your sweater up to just below your chin, its elastic rim holding it in place.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner,
-						Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> sweater up to just below <her> chin," + " its elastic rim holding it in place.");
-			else {
-				if (rough) {
-					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " roughly yanks up your sweater.";
-					else
-						return UtilText.genderParsing(clothingOwner, "You roughly yank up " + clothingOwner.getName("the") + "'s sweater.");
-				} else {
-					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls up your sweater.";
-					else
-						return UtilText.genderParsing(clothingOwner, "You pull up " + clothingOwner.getName("the") + "'s sweater.");
-				}
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull your sweater back down, covering your torso.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> sweater back down to cover <her> torso.");
-			else {
-				if (rough) {
-					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " roughly pulls down your sweater.";
-					else
-						return UtilText.genderParsing(clothingOwner, "You roughly pull down " + clothingOwner.getName("the") + "'s sweater.");
-				} else {
-					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls down your sweater.";
-					else
-						return UtilText.genderParsing(clothingOwner, "You pull down " + clothingOwner.getName("the") + "'s sweater.");
-				}
-			}
-		}
+		private static final long serialVersionUID = 1L;
 	};
 
 	public static AbstractClothingType TORSO_KEYHOLE_SWEATER = new AbstractClothingType("a",
 			false,
 			"keyhole sweater",
+			"keyhole sweaters",
 			"A feminine sweater, with a section at the front cut out to reveal the wearer's cleavage.",
 			1,
 			Femininity.FEMININE,
-			InventorySlot.TORSO,
+			InventorySlot.TORSO_OVER,
 			Rarity.COMMON,
 			null,
 			"torso_keyhole_sweater",
@@ -1787,6 +1802,13 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
 					new ListValue<BlockedParts>(
+							new BlockedParts(DisplacementType.PULLS_DOWN,
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST)))),
+					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
@@ -1797,24 +1819,43 @@ public class ClothingType {
 
 			null,
 			Colour.allClothingColours) {
-
-				
-				private static final long serialVersionUID = 1L;
+		
+			private static final long serialVersionUID = 1L;
 	};
 	
-	public static AbstractClothingType TORSO_TSHIRT = new AbstractClothingType("a", false, "T-shirt", "A plain T-shirt that would look good on any figure.", 1, null, InventorySlot.TORSO, Rarity.COMMON, null, "torso_tshirt", null,
-
+	public static AbstractClothingType TORSO_TSHIRT = new AbstractClothingType("a",
+			false,
+			"T-shirt",
+			"T-shirts",
+			"A plain T-shirt that would look good on any figure.",
+			1,
+			null,
+			InventorySlot.TORSO_UNDER,
+			Rarity.COMMON,
+			null,
+			"torso_tshirt",
+			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null, Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST), new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-
-			null, // List<InventorySlot> incompatibleSlots
-
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							null,
+							null
+							)),
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
+			null,
 			Colour.allClothingColours) {
 		
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1875,19 +1916,40 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_KEYHOLE_CROPTOP = new AbstractClothingType("a", false, "keyhole crop top", "A small, sleeveless crop top with a stylish cutout that reveals some cleavage.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_keyhole_croptop", null,
-
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null, Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST), new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-
+	public static AbstractClothingType TORSO_KEYHOLE_CROPTOP = new AbstractClothingType(
+			"a",
+			false,
+			"keyhole crop top",
+			"keyhole crop tops",
+			"A small, sleeveless crop top with a stylish cutout that reveals some cleavage.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO_UNDER,
+			Rarity.COMMON,
+			null,
+			"torso_keyhole_croptop",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							null,
+							null)),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_UP,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+											new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
 			null, // List<InventorySlot> incompatibleSlots
-
 			Colour.allClothingColours) {
 		
-				private static final long serialVersionUID = 1L;
+			private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1948,19 +2010,41 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_SHORT_CROPTOP = new AbstractClothingType("a", false, "short croptop", "A small, sleeveless croptop that leaves its wearer's stomach completely exposed.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_short_croptop", null,
+	
+	public static AbstractClothingType TORSO_SHORT_CROPTOP = new AbstractClothingType(
+			"a",
+			false,
+			"short croptop",
+			"short croptops",
+			"A small, sleeveless croptop that leaves its wearer's stomach completely exposed.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO_UNDER,
+			Rarity.COMMON,
+			null,
+			"torso_short_croptop",
+			null,
 
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							null,
+							null)),
 					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_UP, null, Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)), Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST))))),
-
-			null, // List<InventorySlot> incompatibleSlots
-
+							new BlockedParts(
+									DisplacementType.PULLS_UP,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST))))),
+			null,
 			Colour.allClothingColours) {
 		
-				private static final long serialVersionUID = 1L;
+			private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2021,8 +2105,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_FISHNET_TOP = new AbstractClothingType("a", false, "fishnet top", "A small fishnet top that leaves its wearer's stomach completely exposed, while not doing much to conceal anything else, either.",
-			1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_fishnet_top", null,
+	public static AbstractClothingType TORSO_FISHNET_TOP = new AbstractClothingType(
+			"a",
+			false,
+			"fishnet top",
+			"fishnet tops",
+			"A small fishnet top that leaves its wearer's stomach completely exposed, while not doing much to conceal anything else, either.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO_UNDER,
+			Rarity.COMMON,
+			null,
+			"torso_fishnet_top",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -2032,8 +2127,7 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 											new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 									null,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
+									null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
@@ -2106,13 +2200,37 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_BLOUSE = new AbstractClothingType("a", false, "blouse", "A delicate blouse, made of very fine fabric.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_blouse", null,
-
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null, Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST), new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
+	
+	public static AbstractClothingType TORSO_BLOUSE = new AbstractClothingType(
+			"a",
+			false,
+			"blouse",
+			"blouses",
+			"A delicate blouse, made of very fine fabric.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO_UNDER,
+			Rarity.COMMON,
+			null,
+			"torso_blouse",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							null,
+							null)),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_UP,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+											new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
 
 			null, // List<InventorySlot> incompatibleSlots
 
@@ -2178,61 +2296,38 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_OPEN_CARDIGAN = new AbstractClothingType("an", false, "open-front cardigan", "A very feminine, open-front cardigan. It's made from a thin, woolly fabric.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_open_cardigan", null,
+	
 
-			Util.newArrayListOfValues(
+	public static AbstractClothingType TORSO_CAMITOP_STRAPS = new AbstractClothingType(
+			"a",
+			false,
+			"cami top",
+			"cami tops",
+			"A short cami top with straps that loop over the wearer's shoulders. It's short enough that the wearer's stomach is left on display.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO_UNDER,
+			Rarity.COMMON,
+			null,
+			"torso_cami_straps",
+			null,
+
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							null,
+							null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
+									DisplacementType.PULLS_UP,
 									null,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER))
-									))),
-
-			null, // List<InventorySlot> incompatibleSlots
-
-			Colour.allClothingColours) {
-		
-				private static final long serialVersionUID = 1L;
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull on the cardigan.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls on " + clothing.getName(true) + ".");
-			else {
-				if (clothingOwner.isPlayer())
-					return UtilText.genderParsing(clothingOwner,
-							Util.capitaliseSentence(clothingOwner.getName("the")) + " guides your " + clothingOwner.getArmName() + " through " + clothing.getName(true) + "'s sleeves as <she> pulls it on for you.");
-				else
-					return UtilText.genderParsing(clothingOwner,
-							"You guide " + clothingOwner.getName("the") + "'s " + clothingOwner.getArmName() + " through the cardigan's sleeves as you pull it on for <herPro>.");
-			}
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull off your cardigan.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls off <her> cardigan.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " slides your cardigan off.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You slide " + clothingOwner.getName("the") + "'s cardigan off.");
-			}
-		}
-	};
-	public static AbstractClothingType TORSO_CAMITOP_STRAPS = new AbstractClothingType("a", false, "cami top", "A short cami top with straps that loop over the wearer's shoulders. It's short enough that the wearer's stomach is left on display.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null,
-			"torso_cami_straps", null,
-
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_UP, null, Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)), Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST))))),
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST))))),
 
 			null, // List<InventorySlot> incompatibleSlots
 
@@ -2299,15 +2394,41 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_SKATER_DRESS = new AbstractClothingType("a", false, "skater dress", "A sleeveless skater dress, held up by a pair of thin straps that loop over the wearer's shoulders.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_skater_dress", null,
 
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.CHEST), new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null,
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+	public static AbstractClothingType TORSO_SKATER_DRESS = new AbstractClothingType(
+			"a",
+			false,
+			"skater dress",
+			"skater dresses",
+			"A sleeveless skater dress, held up by a pair of thin straps that loop over the wearer's shoulders.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO_UNDER,
+			Rarity.COMMON,
+			null,
+			"torso_skater_dress",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_UP,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
 
 			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
 
@@ -2392,10 +2513,11 @@ public class ClothingType {
 	public static AbstractClothingType TORSO_VIRGIN_KILLER_SWEATER = new AbstractClothingType("a",
 			false,
 			"'Virgin-killer' sweater",
+			"'Virgin-killer' sweaters",
 			"A long, dress-like sweater, with a large portion cut out of the back.",
 			1,
 			Femininity.FEMININE,
-			InventorySlot.TORSO,
+			InventorySlot.TORSO_UNDER,
 			Rarity.COMMON,
 			null,
 			"torso_virgin_killer_sweater",
@@ -2409,8 +2531,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(
-									ClothingAccess.ARMS_UP_TO_SHOULDER),
+							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
 					new ListValue<BlockedParts>(new BlockedParts(
@@ -2428,16 +2549,41 @@ public class ClothingType {
 				
 				private static final long serialVersionUID = 1L;
 	};
-	
-	public static AbstractClothingType TORSO_SLIP_DRESS = new AbstractClothingType("a", false, "slip dress", "A long, silky, sleeveless dress.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_slip_dress", null,
 
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.CHEST), new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null,
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+	public static AbstractClothingType TORSO_SLIP_DRESS = new AbstractClothingType(
+			"a",
+			false,
+			"slip dress",
+			"slip dresses",
+			"A long, silky, sleeveless dress.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO_UNDER,
+			Rarity.COMMON,
+			null,
+			"torso_slip_dress",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_UP,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
 
 			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
 
@@ -2465,7 +2611,7 @@ public class ClothingType {
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You unzip your slip and wriggle out of it as it drops to your feet.";
+				return "You unzip your slip dress and wriggle out of it as it drops to your feet.";
 			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " unzips <her> slip dress and wriggles out of it as it drops to <her> feet.");
 			else {
@@ -2504,8 +2650,20 @@ public class ClothingType {
 			}
 		}
 	};
-	
-	public static AbstractClothingType TORSO_PLUNGE_DRESS = new AbstractClothingType("a", false, "plunge dress", "An elegant dress with a plunging v-neckline, perfect for showing off its wearer's cleavage.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_plunge_dress", null,
+
+	public static AbstractClothingType TORSO_PLUNGE_DRESS = new AbstractClothingType(
+			"a",
+			false,
+			"plunge dress",
+			"plunge dresses",
+			"An elegant dress with a plunging v-neckline, perfect for showing off its wearer's cleavage.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO_UNDER,
+			Rarity.COMMON,
+			null,
+			"torso_plunge_dress",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -2516,7 +2674,6 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 											new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
 					new ListValue<BlockedParts>(
@@ -2596,15 +2753,40 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_LONG_SLEEVE_DRESS = new AbstractClothingType("a", false, "long-sleeved dress", "A long-sleeved bodycon dress with a high neck.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_long_sleeve_dress", null,
-
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.CHEST), new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null,
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+	public static AbstractClothingType TORSO_LONG_SLEEVE_DRESS = new AbstractClothingType(
+			"a",
+			false,
+			"long-sleeved dress",
+			"long-sleeved dresses",
+			"A long-sleeved bodycon dress with a high neck.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO_UNDER,
+			Rarity.COMMON,
+			null,
+			"torso_long_sleeve_dress",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_UP,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
 
 			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
 
@@ -2673,16 +2855,46 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_BODYCONZIP_DRESS = new AbstractClothingType("a", false, "frontal-zip dress", "A tight fitting bodycon dress with a zip that runs the entire way up the front.", 1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.COMMON, null, "torso_bodyconzip_dress", null,
+	public static AbstractClothingType TORSO_BODYCONZIP_DRESS = new AbstractClothingType(
+			"a",
+			false,
+			"frontal-zip dress",
+			"frontal-zip dresses",
+			"A tight fitting bodycon dress with a zip that runs the entire way up the front.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO_UNDER,
+			Rarity.COMMON,
+			null,
+			"torso_bodyconzip_dress",
+			null,
 
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null,
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.UNZIPS, null, Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST), new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
+							null,
+							null)),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_UP,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.UNZIPS,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+											new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
 
 			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
 
@@ -2757,7 +2969,19 @@ public class ClothingType {
 
 	// CHEST
 
-	public static AbstractClothingType CHEST_SWIMSUIT = new AbstractClothingType("a", false, "one-piece swimsuit", "A sporty one-piece swimsuit.", 1, Femininity.FEMININE, InventorySlot.CHEST, Rarity.COMMON, null, "chest_swimsuit", null,
+	public static AbstractClothingType CHEST_SWIMSUIT = new AbstractClothingType(
+			"a",
+			false,
+			"one-piece swimsuit",
+			"one-piece swimsuits",
+			"A sporty one-piece swimsuit.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.CHEST,
+			Rarity.COMMON,
+			null,
+			"chest_swimsuit",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -2862,6 +3086,7 @@ public class ClothingType {
 	public static AbstractClothingType CHEST_CHEMISE = new AbstractClothingType("a",
 			false,
 			"chemise",
+			"chemises",
 			"A silky chemise, of the sort usually worn as part of a sexy lingerie outfit.",
 			1,
 			Femininity.FEMININE,
@@ -3037,6 +3262,7 @@ public class ClothingType {
 	public static AbstractClothingType CHEST_PLUNGE_BRA = new AbstractClothingType("a",
 			false,
 			"plunge bra",
+			"plunge bras",
 			"A low-cut bra that reveals a lot of the wearer's cleavage.",
 			1,
 			Femininity.FEMININE,
@@ -3120,6 +3346,7 @@ public class ClothingType {
 	public static AbstractClothingType CHEST_LACY_PLUNGE_BRA = new AbstractClothingType("a",
 			false,
 			"lacy plunge bra",
+			"lacy plunge bras",
 			"A low-cut bra that reveals a lot of the wearer's cleavage. This particular design is made from a soft, thin fabric, and has a lot of lace trimmings.",
 			1,
 			Femininity.FEMININE,
@@ -3203,6 +3430,7 @@ public class ClothingType {
 	public static AbstractClothingType CHEST_OPEN_CUP_BRA = new AbstractClothingType("an",
 			false,
 			"open cup bra",
+			"open cup bras",
 			"More of a series of straps than a proper bra, this piece of clothing fails to conceal any part of its wearer's breasts.",
 			1,
 			Femininity.FEMININE,
@@ -3250,7 +3478,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType CHEST_SPORTS_BRA = new AbstractClothingType("a", false, "sports bra", "An elastic sports bra that's designed to firmly support the wearer's breasts during exercise.", 1, Femininity.FEMININE, InventorySlot.CHEST, Rarity.COMMON, null, "chest_sports_bra", null,
+	public static AbstractClothingType CHEST_SPORTS_BRA = new AbstractClothingType(
+			"a",
+			false,
+			"sports bra",
+			"sports bras",
+			"An elastic sports bra that's designed to firmly support the wearer's breasts during exercise.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.CHEST,
+			Rarity.COMMON,
+			null,
+			"chest_sports_bra",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -3321,7 +3561,19 @@ public class ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> sports bra back down.");
 		}
 	};
-	public static AbstractClothingType CHEST_CROPTOP_BRA = new AbstractClothingType("a", false, "croptop bra", "A loose fitting bra which resembles a short croptop.", 1, Femininity.FEMININE, InventorySlot.CHEST, Rarity.COMMON, null, "chest_croptop_bra", null,
+	public static AbstractClothingType CHEST_CROPTOP_BRA = new AbstractClothingType(
+			"a",
+			false,
+			"croptop bra",
+			"croptop bras",
+			"A loose fitting bra which resembles a short croptop.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.CHEST,
+			Rarity.COMMON,
+			null,
+			"chest_croptop_bra",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -3392,7 +3644,19 @@ public class ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> croptop bra back down.");
 		}
 	};
-	public static AbstractClothingType CHEST_FULLCUP_BRA = new AbstractClothingType("a", false, "fullcup bra", "A fullcup bra, it conceals a large portion of the wearer's breasts.", 1, Femininity.FEMININE, InventorySlot.CHEST, Rarity.COMMON, null, "chest_fullcup_bra", null,
+	public static AbstractClothingType CHEST_FULLCUP_BRA = new AbstractClothingType(
+			"a",
+			false,
+			"fullcup bra",
+			"fullcup bras",
+			"A fullcup bra, it conceals a large portion of the wearer's breasts.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.CHEST,
+			Rarity.COMMON,
+			null,
+			"chest_fullcup_bra",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -3468,6 +3732,7 @@ public class ClothingType {
 	public static AbstractClothingType CHEST_NURSING_BRA = new AbstractClothingType("a",
 			false,
 			"nursing bra",
+			"nursing bras",
 			"This nursing bra provides additional support to lactating breasts, and has specially designed cups which can be opened to expose the wearer's nipples.",
 			1,
 			Femininity.FEMININE,
@@ -3496,8 +3761,7 @@ public class ClothingType {
 			null,
 			Colour.lingerieColours) {
 		
-		
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3547,8 +3811,20 @@ public class ClothingType {
 			}
 		}
 	};
-	
-	public static AbstractClothingType CHEST_BIKINI = new AbstractClothingType("a", false, "bikini top", "A triangle-shaped bikini top. It uses loose strings tied at the back to keep it in place.", 1, Femininity.FEMININE, InventorySlot.CHEST, Rarity.COMMON, null, "chest_bikini", null,
+
+	public static AbstractClothingType CHEST_BIKINI = new AbstractClothingType(
+			"a",
+			false,
+			"bikini top",
+			"bikini tops",
+			"A triangle-shaped bikini top. It uses loose strings tied at the back to keep it in place.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.CHEST,
+			Rarity.COMMON,
+			null,
+			"chest_bikini",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -3621,8 +3897,19 @@ public class ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> bikini top back up to cover <her> chest.");
 		}
 	};
-	public static AbstractClothingType CHEST_TAPE_CROSSES = new AbstractClothingType("a pair of", false, "tape crosses", "A pair of crosses, made out of shiny electrician's tape. They are only just large enough to fully cover a pair of nipples.", 1, null, InventorySlot.CHEST, Rarity.COMMON, null,
-			"chest_tapecrosses", null,
+	public static AbstractClothingType CHEST_TAPE_CROSSES = new AbstractClothingType(
+			"a pair of",
+			true,
+			"tape cross",
+			"tape crosses",
+			"A pair of crosses, made out of shiny electrician's tape. They are only just large enough to fully cover a pair of nipples.",
+			1,
+			null,
+			InventorySlot.CHEST,
+			Rarity.COMMON,
+			null,
+			"chest_tapecrosses",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST)), Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)), null))),
@@ -3660,9 +3947,20 @@ public class ClothingType {
 			return false;
 		}
 	};
-	
-	public static AbstractClothingType CHEST_SARASHI = new AbstractClothingType("a", false, "chest sarashi", "A long strip of thick cotton, wrapped around the chest as an added layer of protection, or to flatten the wearer's breasts.", 1, null, InventorySlot.CHEST, Rarity.COMMON, null,
-			"chest_sarashi", null,
+
+	public static AbstractClothingType CHEST_SARASHI = new AbstractClothingType(
+			"a",
+			false,
+			"chest sarashi",
+			"chest sarashis",
+			"A long strip of thick cotton, wrapped around the chest as an added layer of protection, or to flatten the wearer's breasts.",
+			1,
+			null,
+			InventorySlot.CHEST,
+			Rarity.COMMON,
+			null,
+			"chest_sarashi",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST)), Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)), null))),
@@ -3705,7 +4003,19 @@ public class ClothingType {
 
 	// STOMACH
 
-	public static AbstractClothingType STOMACH_LOWBACK_BODY = new AbstractClothingType("a", false, "lowback bodysuit", "A bodysuit with a scooped low back and removable straps.", 1, Femininity.FEMININE, InventorySlot.STOMACH, Rarity.COMMON, null, "stomach_lowback_body", null,
+	public static AbstractClothingType STOMACH_LOWBACK_BODY = new AbstractClothingType(
+			"a",
+			false,
+			"lowback bodysuit",
+			"lowback bodysuits",
+			"A bodysuit with a scooped low back and removable straps.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.STOMACH,
+			Rarity.COMMON,
+			null,
+			"stomach_lowback_body",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -3806,8 +4116,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType STOMACH_UNDERBUST_CORSET = new AbstractClothingType("an", false, "underbust corset", "A corset that keeps the wearer's stomach nicely shaped, while leaving their breasts totally exposed. It has a series of laces at the back that are used to tighten it.", 1,
-			Femininity.FEMININE, InventorySlot.STOMACH, Rarity.COMMON, null, "stomach_underbust_corset", null,
+	public static AbstractClothingType STOMACH_UNDERBUST_CORSET = new AbstractClothingType(
+			"an",
+			false,
+			"underbust corset",
+			"underbust corsets",
+			"A corset that keeps the wearer's stomach nicely shaped, while leaving their breasts totally exposed. It has a series of laces at the back that are used to tighten it.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.STOMACH,
+			Rarity.COMMON,
+			null,
+			"stomach_underbust_corset",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -3846,8 +4167,18 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType STOMACH_OVERBUST_CORSET = new AbstractClothingType("an", false, "overbust corset", "A corset that keeps the wearer's stomach nicely shaped, while also covering their breasts. It has a series of laces at the back that are used to tighten it.", 1, Femininity.FEMININE,
-			InventorySlot.STOMACH, Rarity.COMMON, null, "stomach_overbust_corset", null,
+	public static AbstractClothingType STOMACH_OVERBUST_CORSET = new AbstractClothingType(
+			"an",
+			false,
+			"overbust corset",
+			"overbust corsets",
+			"A corset that keeps the wearer's stomach nicely shaped, while also covering their breasts. It has a series of laces at the back that are used to tighten it.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.STOMACH,
+			Rarity.COMMON,
+			null,
+			"stomach_overbust_corset", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -3891,8 +4222,19 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType STOMACH_SARASHI = new AbstractClothingType("a", false, "stomach sarashi", "A long strip of thick cotton, wrapped around the stomach as an added layer of protection, or to gain a slim figure.", 2,
-			null, InventorySlot.STOMACH, Rarity.COMMON, null, "stomach_sarashi", null,
+	public static AbstractClothingType STOMACH_SARASHI = new AbstractClothingType(
+			"a",
+			false,
+			"stomach sarashi",
+			"stomach sarashis",
+			"A long strip of thick cotton, wrapped around the stomach as an added layer of protection, or to gain a slim figure.",
+			2,
+			null,
+			InventorySlot.STOMACH,
+			Rarity.COMMON,
+			null,
+			"stomach_sarashi",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -3934,7 +4276,19 @@ public class ClothingType {
 	};
 
 	// HAND
-	public static AbstractClothingType HAND_GLOVES = new AbstractClothingType("a pair of", true, "gloves", "A pair of normal-looking gloves, they're designed to keep the wearer's hands warm.", 1, null, InventorySlot.HAND, Rarity.COMMON, null, "hand_gloves", null,
+	public static AbstractClothingType HAND_GLOVES = new AbstractClothingType(
+			"a pair of",
+			true,
+			"glove",
+			"gloves",
+			"A pair of normal-looking gloves, they're designed to keep the wearer's hands warm.",
+			1,
+			null,
+			InventorySlot.HAND,
+			Rarity.COMMON,
+			null,
+			"hand_gloves",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FINGERS)), null,
 					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FINGERS))))),
@@ -3968,8 +4322,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType HAND_FINGERLESS_GLOVES = new AbstractClothingType("a pair of", true, "fingerless gloves", "A pair of fingerless gloves. They are the sort worn by cyclists and runners, and are made out of a thin, breathable material.", 1, null, InventorySlot.HAND, Rarity.COMMON, null,
-			"hand_fingerless_gloves", null,
+	public static AbstractClothingType HAND_FINGERLESS_GLOVES = new AbstractClothingType(
+			"a pair of",
+			true,
+			"fingerless glove",
+			"fingerless gloves",
+			"A pair of fingerless gloves. They are the sort worn by cyclists and runners, and are made out of a thin, breathable material.",
+			1,
+			null,
+			InventorySlot.HAND,
+			Rarity.COMMON,
+			null,
+			"hand_fingerless_gloves",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
@@ -4008,7 +4373,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType HAND_ELBOWLENGTH_GLOVES = new AbstractClothingType("a pair of", true, "elbow-length gloves", "A pair of elbow-length gloves, they're made from a thin, soft fabric.", 1, Femininity.FEMININE, InventorySlot.HAND, Rarity.COMMON, null, "hand_elbowlength_gloves", null,
+	public static AbstractClothingType HAND_ELBOWLENGTH_GLOVES = new AbstractClothingType(
+			"a pair of",
+			true,
+			"elbow-length glove",
+			"elbow-length gloves",
+			"A pair of elbow-length gloves, they're made from a thin, soft fabric.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.HAND,
+			Rarity.COMMON,
+			null,
+			"hand_elbowlength_gloves",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -4050,6 +4427,7 @@ public class ClothingType {
 
 	public static AbstractClothingType HAND_WRAPS = new AbstractClothingType("a pair of",
 			true,
+			"arm wrap",
 			"arm wraps",
 			"A long strip of thick cotton, wrapped around the forearms as an added layer of protection.",
 			1,
@@ -4096,7 +4474,19 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType HAND_FISHNET_GLOVES = new AbstractClothingType("a pair of", true, "fishnet gloves", "A pair of fishnet gloves.", 1, Femininity.FEMININE, InventorySlot.HAND, Rarity.COMMON, null, "hand_fishnet_gloves", null,
+	public static AbstractClothingType HAND_FISHNET_GLOVES = new AbstractClothingType(
+			"a pair of",
+			true,
+			"fishnet glove",
+			"fishnet gloves",
+			"A pair of fishnet gloves.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.HAND,
+			Rarity.COMMON,
+			null,
+			"hand_fishnet_gloves",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -4141,7 +4531,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType HAND_RAINBOW_FINGERLESS_GLOVES = new AbstractClothingType("a pair of", true, "rainbow gloves", "A pair of brightly-coloured rainbow fingerless gloves.", 1, Femininity.FEMININE, InventorySlot.HAND, Rarity.EPIC, ClothingSet.RAINBOW, "hand_rainbow_fingerless_gloves", null,
+	public static AbstractClothingType HAND_RAINBOW_FINGERLESS_GLOVES = new AbstractClothingType(
+			"a pair of",
+			true,
+			"rainbow glove",
+			"rainbow gloves",
+			"A pair of brightly-coloured rainbow fingerless gloves.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.HAND,
+			Rarity.EPIC,
+			ClothingSet.RAINBOW,
+			"hand_rainbow_fingerless_gloves",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
@@ -4184,7 +4586,19 @@ public class ClothingType {
 
 	// WRIST
 
-	public static AbstractClothingType WRIST_WOMENS_WATCH = new AbstractClothingType("a", false, "feminine watch", "A feminine-looking watch. Like others of its kind, its primary purpose is to keep track of the time.", 1, Femininity.FEMININE, InventorySlot.WRIST, Rarity.COMMON, null, "wrist_womens_watch", null,
+	public static AbstractClothingType WRIST_WOMENS_WATCH = new AbstractClothingType(
+			"a",
+			false,
+			"feminine watch",
+			"feminine watches",
+			"A feminine-looking watch. Like others of its kind, its primary purpose is to keep track of the time.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.WRIST,
+			Rarity.COMMON,
+			null,
+			"wrist_womens_watch",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null,
 					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS))))),
@@ -4221,7 +4635,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType WRIST_MENS_WATCH = new AbstractClothingType("a", false, "masculine watch", "A masculine-looking watch. Like others of its kind, its primary purpose is to keep track of the time.", 1, Femininity.MASCULINE, InventorySlot.WRIST, Rarity.COMMON, null, "wrist_mens_watch", null,
+	public static AbstractClothingType WRIST_MENS_WATCH = new AbstractClothingType(
+			"a",
+			false,
+			"masculine watch",
+			"masculine watches",
+			"A masculine-looking watch. Like others of its kind, its primary purpose is to keep track of the time.",
+			1,
+			Femininity.MASCULINE,
+			InventorySlot.WRIST,
+			Rarity.COMMON,
+			null,
+			"wrist_mens_watch",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null,
 					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS))))),
@@ -4256,7 +4682,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType WRIST_BANGLE = new AbstractClothingType("a", false, "bangle", "A simple metal bangle that fits comfortably around the wearer's wrist.", 1, Femininity.FEMININE, InventorySlot.WRIST, Rarity.COMMON, null, "wrist_bangle", null,
+	public static AbstractClothingType WRIST_BANGLE = new AbstractClothingType(
+			"a",
+			false,
+			"bangle",
+			"bangles",
+			"A simple metal bangle that fits comfortably around the wearer's wrist.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.WRIST,
+			Rarity.COMMON,
+			null,
+			"wrist_bangle",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null,
 					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS))))),
@@ -4293,7 +4731,19 @@ public class ClothingType {
 
 	// FINGER
 
-	public static AbstractClothingType FINGER_RING = new AbstractClothingType("a", false, "ring", "A plain band of metal that fits onto a person's finger.", 0, null, InventorySlot.FINGER, Rarity.COMMON, null, "finger_ring", null,
+	public static AbstractClothingType FINGER_RING = new AbstractClothingType(
+			"a",
+			false,
+			"ring",
+			"rings",
+			"A plain band of metal that fits onto a person's finger.",
+			0,
+			null,
+			InventorySlot.FINGER,
+			Rarity.COMMON,
+			null,
+			"finger_ring",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -4334,7 +4784,19 @@ public class ClothingType {
 
 	// LEG
 
-	public static AbstractClothingType LEG_SKIRT = new AbstractClothingType("a", false, "skirt", "A plain skirt, there's nothing especially interesting about it.", 1, Femininity.FEMININE, InventorySlot.LEG, Rarity.COMMON, null, "leg_skirt", null,
+	public static AbstractClothingType LEG_SKIRT = new AbstractClothingType(
+			"a",
+			false,
+			"skirt",
+			"skirts",
+			"A plain skirt, there's nothing especially interesting about it.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.LEG,
+			Rarity.COMMON,
+			null,
+			"leg_skirt",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null,
 					Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
@@ -4391,7 +4853,19 @@ public class ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> skirt back down.");
 		}
 	};
-	public static AbstractClothingType LEG_PENCIL_SKIRT = new AbstractClothingType("a", false, "pencil skirt", "A pencil skirt that clings tightly to the wearer's hips and legs.", 1, Femininity.FEMININE, InventorySlot.LEG, Rarity.COMMON, null, "leg_pencil_skirt", null,
+	public static AbstractClothingType LEG_PENCIL_SKIRT = new AbstractClothingType(
+			"a",
+			false,
+			"pencil skirt",
+			"pencil skirts",
+			"A pencil skirt that clings tightly to the wearer's hips and legs.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.LEG,
+			Rarity.COMMON,
+			null,
+			"leg_pencil_skirt",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null,
 					Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
@@ -4448,7 +4922,19 @@ public class ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> skirt back down.");
 		}
 	};
-	public static AbstractClothingType LEG_MINI_SKIRT = new AbstractClothingType("a", false, "miniskirt", "A very short skirt that barely reaches down to mid-thigh.", 1, Femininity.FEMININE, InventorySlot.LEG, Rarity.COMMON, null, "leg_mini_skirt", null,
+	public static AbstractClothingType LEG_MINI_SKIRT = new AbstractClothingType(
+			"a",
+			false,
+			"miniskirt",
+			"miniskirts",
+			"A very short skirt that barely reaches down to mid-thigh.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.LEG,
+			Rarity.COMMON,
+			null,
+			"leg_mini_skirt",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null,
 					Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
@@ -4512,9 +4998,20 @@ public class ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> miniskirt back down.");
 		}
 	};
-	
-	public static AbstractClothingType LEG_MICRO_SKIRT_PLEATED = new AbstractClothingType("a", false, "pleated microskirt", "An extremely tiny pleated skirt. It's so short that it does nothing to conceal its wearer's private parts",
-			1, Femininity.FEMININE, InventorySlot.LEG, Rarity.COMMON, null, "leg_micro_skirt_pleated", null,
+
+	public static AbstractClothingType LEG_MICRO_SKIRT_PLEATED = new AbstractClothingType(
+			"a",
+			false,
+			"pleated microskirt",
+			"pleated microskirts",
+			"An extremely tiny pleated skirt. It's so short that it does nothing to conceal its wearer's private parts",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.LEG,
+			Rarity.COMMON,
+			null,
+			"leg_micro_skirt_pleated",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 
@@ -4551,8 +5048,19 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType LEG_MICRO_SKIRT_BELTED = new AbstractClothingType("a", false, "belted microskirt", "An extremely tiny skirt, with an accompanying belt. It's so short that it does nothing to conceal its wearer's private parts.",
-			1, Femininity.FEMININE, InventorySlot.LEG, Rarity.COMMON, null, "leg_micro_skirt_belted", null,
+	public static AbstractClothingType LEG_MICRO_SKIRT_BELTED = new AbstractClothingType(
+			"a",
+			false,
+			"belted microskirt",
+			"belted microskirts",
+			"An extremely tiny skirt, with an accompanying belt. It's so short that it does nothing to conceal its wearer's private parts.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.LEG,
+			Rarity.COMMON,
+			null,
+			"leg_micro_skirt_belted",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 
@@ -4588,205 +5096,195 @@ public class ClothingType {
 			}
 		}
 	};
+
+	public static AbstractClothingType LEG_SHORTS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"shorts",
+			"shorts",
+			"A pair of ordinary unisex shorts.",
+			1,
+			null,
+			InventorySlot.LEG,
+			Rarity.COMMON,
+			null,
+			"leg_shorts",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_DOWN,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.UNZIPS,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									null))),
+			null,
+			Colour.allClothingColours) {
+			
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the shorts before pulling them up to your waist.",
+					"You pull the shorts up [npc.name]'s [npc.legs] and button them up around [npc.her] waist.",
+					null,
+					"[npc.Name] steps into the shorts before pulling them up to [npc.her] waist.",
+					"[npc.Name] pulls the shorts up your [pc.legs] and buttons them up around your waist.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your shorts and kick them off your feet.",
+					"You pull [npc.name]'s shorts down and slide them off [npc.her] feet.",
+					null,
+					"[npc.Name] pulls down [npc.her] shorts, before kicking them off [npc.her] feet.",
+					"[npc.Name] pulls your shorts down, before sliding them off your feet.",
+					null);
+		}
+	};
 	
-	public static AbstractClothingType LEG_SHORTS = new AbstractClothingType("a pair of", true, "shorts", "A pair of ordinary unisex shorts.", 1, null, InventorySlot.LEG, Rarity.COMMON, null, "leg_shorts", null,
-
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_DOWN, null,
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-
+	public static AbstractClothingType LEG_BIKE_SHORTS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"bike shorts",
+			"bike shorts",
+			"A pair of very tight lycra bike shorts (sometimes referred to as 'spats'). The elastic material hugs to the wearer's body, showing off their curves.",
+			1,
 			null,
-
+			InventorySlot.LEG,
+			Rarity.COMMON,
+			null,
+			"leg_bikeShorts",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_DOWN,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+			null,
 			Colour.allClothingColours) {
 		
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You step into the shorts before pulling them up to your waist.";
-			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] steps into the shorts before pulling them up to [npc.her] waist.");
-			}
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the bike shorts before pulling them up to your waist.",
+					"You pull the bike shorts up [npc.name]'s [npc.legs] to [npc.her] waist.",
+					null,
+					"[npc.Name] steps into the bike shorts before pulling them up to [npc.her] waist.",
+					"[npc.Name] pulls the bike shorts up your [pc.legs] to your waist.",
+					null);
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You pull down your shorts and kick them off your feet.";
-				
-			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls down [npc.her] shorts, before kicking them off [npc.her] feet.");
-				
-			}else {
-				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingRemover, "[npc.Name] pulls your shorts down, before sliding them off your feet.");
-				} else {
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s shorts down and slide them off [npc.her] feet.");
-				}
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You pull down your shorts.";
-				
-			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls down [npc.her] shorts.");
-				
-			} else {
-				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingRemover, "[npc.Name] pulls your shorts down.");
-				} else {
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s shorts down.");
-				}
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You pull your shorts back up.";
-			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls [npc.her] shorts back up.");
-			}
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your bike shorts and kick them off your feet.",
+					"You pull [npc.name]'s bike shorts down and slide them off [npc.her] feet.",
+					null,
+					"[npc.Name] pulls down [npc.her] bike shorts, before kicking them off [npc.her] feet.",
+					"[npc.Name] pulls your bike shorts down, before sliding them off your feet.",
+					null);
 		}
 	};
-	public static AbstractClothingType LEG_BIKE_SHORTS = new AbstractClothingType("a pair of", true, "bike shorts", "A pair of very tight lycra bike shorts (sometimes referred to as 'spats'). The elastic material hugs to the wearer's body, showing off their curves.",
-			1, null, InventorySlot.LEG, Rarity.COMMON, null, "leg_bikeShorts", null,
-
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_DOWN, null,
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-
+	
+	public static AbstractClothingType LEG_HOTPANTS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"hotpants",
+			"hotpants",
+			"A pair of very small, very tight shorts, commonly referred to as hotpants.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.LEG,
+			Rarity.COMMON,
 			null,
-
+			"leg_hotpants",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_DOWN,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+			null,
 			Colour.allClothingColours) {
 		
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You step into the bike shorts before pulling them up to your waist.";
-			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] steps into the bike shorts before pulling them up to [npc.her] waist.");
-			}
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the hotpants before pulling them up to your waist.",
+					"You pull the hotpants up [npc.name]'s [npc.legs] to [npc.her] waist.",
+					null,
+					"[npc.Name] steps into the hotpants before pulling them up to [npc.her] waist.",
+					"[npc.Name] pulls the hotpants up your [pc.legs] to your waist.",
+					null);
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You pull down your bike shorts and kick them off your feet.";
-				
-			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls down [npc.her] bike shorts, before kicking them off [npc.her] feet.");
-				
-			}else {
-				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingRemover, "[npc.Name] pulls your bike shorts down, before sliding them off your feet.");
-				} else {
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s bike shorts down and slide them off [npc.her] feet.");
-				}
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You pull down your bike shorts.";
-				
-			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls down [npc.her] bike shorts.");
-				
-			} else {
-				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingRemover, "[npc.Name] pulls your bike shorts down.");
-				} else {
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s bike shorts down.");
-				}
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You pull your bike shorts back up.";
-			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls [npc.her] bike shorts back up.");
-			}
-		}
-	};
-	public static AbstractClothingType LEG_HOTPANTS = new AbstractClothingType("a pair of", true, "hotpants", "A pair of very small, very tight shorts, commonly referred to as hotpants.", 1, Femininity.FEMININE, InventorySlot.LEG, Rarity.COMMON, null, "leg_hotpants", null,
-
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_DOWN, null,
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-
-			null,
-
-			Colour.allClothingColours) {
-		
-				private static final long serialVersionUID = 1L;
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You step into the hotpants before pulling them up to your waist.";
-			else
-				return UtilText.genderParsing(clothingOwner,
-						Util.capitaliseSentence(clothingOwner.getName("the")) + " steps into " + clothing.getName(true) + " before pulling them up to <her> waist.");
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your hotpants and kick them off your feet.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> hotpants, kicking them off <her> feet.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your hotpants down and slides them off your feet.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s hotpants down and slide them off <her> feet.");
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your hotpants.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> hotpants.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your hotpants down.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s hotpants down.");
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull your hotpants back up.";
-			else
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> hotpants back up.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your hotpants and kick them off your feet.",
+					"You pull [npc.name]'s hotpants down and slide them off [npc.her] feet.",
+					null,
+					"[npc.Name] pulls down [npc.her] hotpants, before kicking them off [npc.her] feet.",
+					"[npc.Name] pulls your hotpants down, before sliding them off your feet.",
+					null);
 		}
 	};
 	
 	public static AbstractClothingType LEG_TIGHT_TROUSERS = new AbstractClothingType("a pair of",
 			true,
+			"tight jeans",
 			"tight jeans",
 			"A pair of tight jeans that hug the wearer's legs.",
 			1,
@@ -4796,12 +5294,33 @@ public class ClothingType {
 			null,
 			"leg_tight_jeans",
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
-							null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_DOWN, null,
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.FEET),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_DOWN,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.UNZIPS,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									null))),
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<Colour>(Colour.CLOTHING_BLUE),
@@ -4809,59 +5328,35 @@ public class ClothingType {
 					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
 					new ListValue<Colour>(Colour.CLOTHING_WHITE),
 					new ListValue<Colour>(Colour.CLOTHING_BLACK))) {
-		/**
-						 * 
-						 */
-						private static final long serialVersionUID = 1L;
+		
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You step into the jeans before pulling them up to your waist.";
-			else
-				return UtilText.genderParsing(clothingOwner,
-						Util.capitaliseSentence(clothingOwner.getName("the")) + " steps into " + clothing.getName(true) + " before pulling them up to <her> waist.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the tight jeans before pulling them up to your waist.",
+					"You pull the tight jeans up [npc.name]'s [npc.legs] and button them up around [npc.her] waist.",
+					null,
+					"[npc.Name] steps into the tight jeans before pulling them up to [npc.her] waist.",
+					"[npc.Name] pulls the tight jeans up your [pc.legs] and buttons them up around your waist.",
+					null);
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your jeans and kick them off your feet.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> jeans, kicking them off <her> feet.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your jeans down and slides them off your feet.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s jeans down and slide them off <her> feet.");
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your jeans.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> jeans.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your jeans down.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s jeans down.");
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull your jeans back up.";
-			else
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> jeans back up.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your tight jeans and kick them off your feet.",
+					"You pull [npc.name]'s tight jeans down and slide them off [npc.her] feet.",
+					null,
+					"[npc.Name] pulls down [npc.her] tight jeans, before kicking them off [npc.her] feet.",
+					"[npc.Name] pulls your tight jeans down, before sliding them off your feet.",
+					null);
 		}
 	};
 	
 	public static AbstractClothingType LEG_JEANS = new AbstractClothingType("a pair of",
 			true,
+			"jeans",
 			"jeans",
 			"A pair of unisex jeans.",
 			1,
@@ -4871,136 +5366,9 @@ public class ClothingType {
 			null,
 			"leg_jeans",
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
-							null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_DOWN, null,
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE),
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK))) {
-		/**
-						 * 
-						 */
-						private static final long serialVersionUID = 1L;
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You step into the jeans before pulling them up to your waist.";
-			else
-				return UtilText.genderParsing(clothingOwner,
-						Util.capitaliseSentence(clothingOwner.getName("the")) + " steps into " + clothing.getName(true) + " before pulling them up to <her> waist.");
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your jeans and kick them off your feet.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> jeans, kicking them off <her> feet.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your jeans down and slides them off your feet.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s jeans down and slide them off <her> feet.");
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your jeans.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> jeans.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your jeans down.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s jeans down.");
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull your jeans back up.";
-			else
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> jeans back up.");
-		}
-	};
-	
-	public static AbstractClothingType LEG_TROUSERS = new AbstractClothingType("a pair of", true, "trousers", "A pair of men's trousers that hang loosely around the legs.", 1, Femininity.MASCULINE, InventorySlot.LEG, Rarity.COMMON, null, "leg_trousers", null,
-
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
-							null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_DOWN, null,
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-
-			null,
-
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE), new ListValue<Colour>(Colour.CLOTHING_BLACK))) {
-		
-				private static final long serialVersionUID = 1L;
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You step into the trousers before pulling them up to your waist.";
-			else
-				return UtilText.genderParsing(clothingOwner,
-						Util.capitaliseSentence(clothingOwner.getName("the")) + " steps into " + clothing.getName(true) + " before pulling them up to <her> waist.");
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your trousers and kick them off your feet.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> trousers, kicking them off <her> feet.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your trousers down and slides them off your feet.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s trousers down and slide them off <her> feet.");
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your trousers.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> trousers.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your trousers down.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s trousers down.");
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull your trousers back up.";
-			else
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> trousers back up.");
-		}
-	};
-	
-	public static AbstractClothingType LEG_CARGO_TROUSERS = new AbstractClothingType("a pair of", true, "cargo trousers", "A pair of men's baggy cargo trousers, made of a hard-wearing fabric.", 1, Femininity.MASCULINE, InventorySlot.LEG, Rarity.COMMON, null, "leg_cargo_trousers", null,
-
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.FEET),
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
@@ -5008,74 +5376,210 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
 					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_DOWN, null,
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(
-									ClothingAccess.GROIN))))),
-
+							new BlockedParts(
+									DisplacementType.PULLS_DOWN,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.UNZIPS,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									null))),
 			null,
-
 			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_BROWN),
-					new ListValue<Colour>(Colour.CLOTHING_TAN))) {
-		/**
-						 * 
-						 */
-						private static final long serialVersionUID = 1L;
+					new ListValue<Colour>(Colour.CLOTHING_BLUE),
+					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
+					new ListValue<Colour>(Colour.CLOTHING_WHITE),
+					new ListValue<Colour>(Colour.CLOTHING_BLACK))) {
+		
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You step into the cargo trousers before pulling them up to your waist.";
-			} else {
-				return UtilText.genderParsing(clothingOwner,
-						Util.capitaliseSentence(clothingOwner.getName("the")) + " steps into " + clothing.getName(true) + " before pulling them up to <her> waist.");
-			}
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the jeans before pulling them up to your waist.",
+					"You pull the jeans up [npc.name]'s [npc.legs] and button them up around [npc.her] waist.",
+					null,
+					"[npc.Name] steps into the jeans before pulling them up to [npc.her] waist.",
+					"[npc.Name] pulls the jeans up your [pc.legs] and buttons them up around your waist.",
+					null);
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your cargo trousers and kick them off your feet.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> cargo trousers, kicking them off <her> feet.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your cargo trousers down and slides them off your feet.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s cargo trousers down and slide them off <her> feet.");
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your cargo trousers.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> cargo trousers.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your cargo trousers down.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s cargo trousers down.");
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull your cargo trousers back up.";
-			else
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> cargo trousers back up.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your jeans and kick them off your feet.",
+					"You pull [npc.name]'s jeans down and slide them off [npc.her] feet.",
+					null,
+					"[npc.Name] pulls down [npc.her] jeans, before kicking them off [npc.her] feet.",
+					"[npc.Name] pulls your jeans down, before sliding them off your feet.",
+					null);
 		}
 	};
 	
-	public static AbstractClothingType LEG_YOGA_PANTS = new AbstractClothingType("a pair of", true, "yoga pants", "A pair of very tight yoga pants, made from a stretchable and thin fabric.", 1, Femininity.FEMININE, InventorySlot.LEG, Rarity.COMMON, null, "leg_yoga_pants", null,
+	public static AbstractClothingType LEG_TROUSERS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"trousers",
+			"trousers",
+			"A pair of men's trousers that hang loosely around the legs.",
+			1,
+			Femininity.MASCULINE,
+			InventorySlot.LEG,
+			Rarity.COMMON,
+			null,
+			"leg_trousers",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.FEET),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_DOWN,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.UNZIPS,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									null))),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_WHITE),
+					new ListValue<Colour>(Colour.CLOTHING_BLACK))) {
+		
+		private static final long serialVersionUID = 1L;
 
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the trousers before pulling them up to your waist.",
+					"You pull the trousers up [npc.name]'s [npc.legs] and button them up around [npc.her] waist.",
+					null,
+					"[npc.Name] steps into the trousers before pulling them up to [npc.her] waist.",
+					"[npc.Name] pulls the trousers up your [pc.legs] and buttons them up around your waist.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your trousers and kick them off your feet.",
+					"You pull [npc.name]'s trousers down and slide them off [npc.her] feet.",
+					null,
+					"[npc.Name] pulls down [npc.her] trousers, before kicking them off [npc.her] feet.",
+					"[npc.Name] pulls your trousers down, before sliding them off your feet.",
+					null);
+		}
+	};
+	
+	public static AbstractClothingType LEG_CARGO_TROUSERS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"cargo trousers",
+			"cargo trousers",
+			"A pair of men's baggy cargo trousers, made of a hard-wearing fabric.",
+			1,
+			Femininity.MASCULINE,
+			InventorySlot.LEG,
+			Rarity.COMMON,
+			null,
+			"leg_cargo_trousers",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.FEET),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_DOWN,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.UNZIPS,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									null))),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK),
+					new ListValue<Colour>(Colour.CLOTHING_BROWN),
+					new ListValue<Colour>(Colour.CLOTHING_TAN))) {
+		
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the cargo trousers before pulling them up to your waist.",
+					"You pull the cargo trousers up [npc.name]'s [npc.legs] and button them up around [npc.her] waist.",
+					null,
+					"[npc.Name] steps into the cargo trousers before pulling them up to [npc.her] waist.",
+					"[npc.Name] pulls the cargo trousers up your [pc.legs] and buttons them up around your waist.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your cargo trousers and kick them off your feet.",
+					"You pull [npc.name]'s cargo trousers down and slide them off [npc.her] feet.",
+					null,
+					"[npc.Name] pulls down [npc.her] cargo trousers, before kicking them off [npc.her] feet.",
+					"[npc.Name] pulls your cargo trousers down, before sliding them off your feet.",
+					null);
+		}
+	};
+
+	public static AbstractClothingType LEG_YOGA_PANTS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"yoga pants",
+			"yoga pants",
+			"A pair of very tight yoga pants, made from a stretchable and thin fabric.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.LEG,
+			Rarity.COMMON,
+			null,
+			"leg_yoga_pants",
+			null,
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -5085,7 +5589,6 @@ public class ClothingType {
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
-					
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_DOWN,
 							null,
 							Util.newArrayListOfValues(
@@ -5093,60 +5596,47 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.PENIS),
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-
 			null,
-
 			Colour.allClothingColours) {
 		
-				private static final long serialVersionUID = 1L;
-
+		private static final long serialVersionUID = 1L;
+		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You step into the yoga pants before pulling them up to your waist.";
-			else
-				return UtilText.genderParsing(clothingOwner,
-						Util.capitaliseSentence(clothingOwner.getName("the")) + " steps into " + clothing.getName(true) + " before pulling them up to <her> waist.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the yoga pants before pulling them up to your waist.",
+					"You pull the yoga pants up [npc.name]'s [npc.legs] and button them up around [npc.her] waist.",
+					null,
+					"[npc.Name] steps into the yoga pants before pulling them up to [npc.her] waist.",
+					"[npc.Name] pulls the yoga pants up your [pc.legs] and buttons them up around your waist.",
+					null);
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your yoga pants and kick them off your feet.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> yoga pants, kicking them off <her> feet.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your yoga pants down and slides them off your feet.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s yoga pants down and slide them off <her> feet.");
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your yoga pants.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls down <her> yoga pants.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your yoga pants down.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s yoga pants down.");
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull your yoga pants back up.";
-			else
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> yoga pants back up.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your yoga pants and kick them off your feet.",
+					"You pull [npc.name]'s yoga pants down and slide them off [npc.her] feet.",
+					null,
+					"[npc.Name] pulls down [npc.her] yoga pants, before kicking them off [npc.her] feet.",
+					"[npc.Name] pulls your yoga pants down, before sliding them off your feet.",
+					null);
 		}
 	};
-	public static AbstractClothingType LEG_ASSLESS_CHAPS = new AbstractClothingType("a pair of", true, "assless chaps", "These leather chaps are missing a large piece at the rear, which leaves the wearer's ass completely exposed.",
-			1, null, InventorySlot.LEG, Rarity.COMMON, null, "leg_assless_chaps", null,
+	
+	public static AbstractClothingType LEG_ASSLESS_CHAPS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"assless chaps",
+			"assless chaps",
+			"These leather chaps are missing a large piece at the rear, which leaves the wearer's ass completely exposed.",
+			1,
+			null,
+			InventorySlot.LEG,
+			Rarity.COMMON,
+			null,
+			"leg_assless_chaps",
+			null,
 
 			Util.newArrayListOfValues(
 					
@@ -5219,9 +5709,20 @@ public class ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> assless chaps back up.");
 		}
 	};
-	
-	public static AbstractClothingType LEG_CROTCHLESS_CHAPS = new AbstractClothingType("a pair of", true, "crotchless chaps", "These leather chaps are missing a large piece at the front and back, which leaves the wearer's ass and groin completely exposed.",
-			1, null, InventorySlot.LEG, Rarity.COMMON, null, "leg_crotchless_chaps", null,
+
+	public static AbstractClothingType LEG_CROTCHLESS_CHAPS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"crotchless chaps",
+			"crotchless chaps",
+			"These leather chaps are missing a large piece at the front and back, which leaves the wearer's ass and groin completely exposed.",
+			1,
+			null,
+			InventorySlot.LEG,
+			Rarity.COMMON,
+			null,
+			"leg_crotchless_chaps",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
@@ -5266,6 +5767,7 @@ public class ClothingType {
 
 	public static AbstractClothingType GROIN_PANTIES = new AbstractClothingType("a pair of",
 			true,
+			"panties",
 			"panties",
 			"A pair of distinctly feminine panties, made from soft cotton.",
 			1,
@@ -5324,6 +5826,7 @@ public class ClothingType {
 	public static AbstractClothingType GROIN_LACY_PANTIES = new AbstractClothingType("a pair of",
 			true,
 			"lacy panties",
+			"lacy panties",
 			"A pair of distinctly feminine panties, made from soft cotton. This particular design has large sections of semi-transparent fabric, and is trimmed with lace.",
 			1,
 			Femininity.FEMININE,
@@ -5380,6 +5883,7 @@ public class ClothingType {
 	
 	public static AbstractClothingType GROIN_BACKLESS_PANTIES = new AbstractClothingType("a pair of",
 			true,
+			"backless panties",
 			"backless panties",
 			"A large piece of fabric is missing from the rear end of these panties, leaving their wearer's bottom completely exposed.",
 			1,
@@ -5462,6 +5966,7 @@ public class ClothingType {
 	public static AbstractClothingType GROIN_CROTCHLESS_PANTIES = new AbstractClothingType("a pair of",
 			true,
 			"crotchless panties",
+			"crotchless panties",
 			"These panties have a strip of fabric missing in the most vital area, leaving their wearer's genitalia and asshole completely exposed.",
 			1,
 			Femininity.FEMININE,
@@ -5513,6 +6018,7 @@ public class ClothingType {
 	public static AbstractClothingType GROIN_CROTCHLESS_THONG = new AbstractClothingType("a",
 			true,
 			"crotchless thong",
+			"crotchless thongs",
 			"This thong has a strip of fabric missing in the most vital area, leaving their wearer's genitalia completely exposed."
 					+ " The tiny string at the back does nothing to conceal the wearer's asshole, effectively leaving that exposed as well.",
 			1,
@@ -5560,8 +6066,20 @@ public class ClothingType {
 					null);
 		}
 	};
-	
-	public static AbstractClothingType GROIN_VSTRING = new AbstractClothingType("a pair of", true, "v-string panties", "A pair of v-string panties made from thin cotton.", 1, Femininity.FEMININE, InventorySlot.GROIN, Rarity.COMMON, null, "groin_vstring", null,
+
+	public static AbstractClothingType GROIN_VSTRING = new AbstractClothingType(
+			"a pair of",
+			true,
+			"v-string panties",
+			"v-string panties",
+			"A pair of v-string panties made from thin cotton.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.GROIN,
+			Rarity.COMMON,
+			null,
+			"groin_vstring",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -5624,7 +6142,19 @@ public class ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " moves <her> v-string panties back into their proper place.");
 		}
 	};
-	public static AbstractClothingType GROIN_THONG = new AbstractClothingType("a", false, "thong", "A thong with a decorative cross stitched into the front.", 1, Femininity.FEMININE, InventorySlot.GROIN, Rarity.COMMON, null, "groin_thong", null,
+	public static AbstractClothingType GROIN_THONG = new AbstractClothingType(
+			"a",
+			false,
+			"thong",
+			"thongs",
+			"A thong with a decorative cross stitched into the front.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.GROIN,
+			Rarity.COMMON,
+			null,
+			"groin_thong",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
@@ -5695,7 +6225,19 @@ public class ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " moves <her> thong back into its proper place.");
 		}
 	};
-	public static AbstractClothingType GROIN_BIKINI = new AbstractClothingType("a pair of", true, "bikini bottoms", "The part of a bikini that covers the wearer's private parts.", 1, Femininity.FEMININE, InventorySlot.GROIN, Rarity.COMMON, null, "groin_bikini", null,
+	public static AbstractClothingType GROIN_BIKINI = new AbstractClothingType(
+			"a pair of",
+			true,
+			"bikini bottoms",
+			"bikini bottoms",
+			"The part of a bikini that covers the wearer's private parts.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.GROIN,
+			Rarity.COMMON,
+			null,
+			"groin_bikini",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -5758,7 +6300,19 @@ public class ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " moves <her> bikini bottoms back into their proper place.");
 		}
 	};
-	public static AbstractClothingType GROIN_BOYSHORTS = new AbstractClothingType("a pair of", true, "boyshorts", "Despite their name, these underwear are intended to be worn by women.", 1, Femininity.FEMININE, InventorySlot.GROIN, Rarity.COMMON, null, "groin_boyshorts", null,
+	public static AbstractClothingType GROIN_BOYSHORTS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"boyshorts",
+			"boyshorts",
+			"Despite their name, these underwear are intended to be worn by women.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.GROIN,
+			Rarity.COMMON,
+			null,
+			"groin_boyshorts",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -5821,7 +6375,19 @@ public class ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " moves <her> boyshorts back into their proper place.");
 		}
 	};
-	public static AbstractClothingType GROIN_BRIEFS = new AbstractClothingType("a pair of", true, "briefs", "A pair of men's briefs.", 1, Femininity.MASCULINE, InventorySlot.GROIN, Rarity.COMMON, null, "groin_briefs", null,
+	public static AbstractClothingType GROIN_BRIEFS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"briefs",
+			"briefs",
+			"A pair of men's briefs.",
+			1,
+			Femininity.MASCULINE,
+			InventorySlot.GROIN,
+			Rarity.COMMON,
+			null,
+			"groin_briefs",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -5887,8 +6453,15 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType GROIN_CROTCHLESS_BRIEFS = new AbstractClothingType("a pair of", true, "crotchless briefs", "A pair of men's briefs, with a section cut out at the front that leaves the wearer's genitalia completely exposed.",
-			1, Femininity.MASCULINE, InventorySlot.GROIN, Rarity.COMMON, null, "groin_crotchless_briefs", null,
+	public static AbstractClothingType GROIN_CROTCHLESS_BRIEFS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"crotchless briefs",
+			"crotchless briefs",
+			"A pair of men's briefs, with a section cut out at the front that leaves the wearer's genitalia completely exposed.",
+			1,
+			Femininity.MASCULINE,
+			InventorySlot.GROIN, Rarity.COMMON, null, "groin_crotchless_briefs", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -5960,7 +6533,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType GROIN_BOXERS = new AbstractClothingType("a pair of", true, "boxer shorts", "A pair of loose-fitting men's underwear.", 1, Femininity.MASCULINE, InventorySlot.GROIN, Rarity.COMMON, null, "groin_boxers", null,
+	public static AbstractClothingType GROIN_BOXERS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"boxer shorts",
+			"boxer shorts",
+			"A pair of loose-fitting men's underwear.",
+			1,
+			Femininity.MASCULINE,
+			InventorySlot.GROIN,
+			Rarity.COMMON,
+			null,
+			"groin_boxers",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -6026,7 +6611,18 @@ public class ClothingType {
 
 	// SOCK
 
-	public static AbstractClothingType SOCK_RAINBOW_STOCKINGS = new AbstractClothingType("a pair of", true, "rainbow stockings", "A pair of brightly coloured rainbow stockings that reach up to mid-thigh.", 1, Femininity.FEMININE, InventorySlot.SOCK, Rarity.EPIC, ClothingSet.RAINBOW, "sock_rainbow_stockings",
+	public static AbstractClothingType SOCK_RAINBOW_STOCKINGS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"rainbow stockings",
+			"rainbow stockings",
+			"A pair of brightly coloured rainbow stockings that reach up to mid-thigh.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.SOCK,
+			Rarity.EPIC,
+			ClothingSet.RAINBOW,
+			"sock_rainbow_stockings",
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
@@ -6061,7 +6657,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType SOCK_SOCKS = new AbstractClothingType("a pair of", true, "socks", "A pair of standard socks, made from cotton and with an elastic band at the top.", 1, null, InventorySlot.SOCK, Rarity.COMMON, null, "sock_socks", null,
+	public static AbstractClothingType SOCK_SOCKS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"socks",
+			"socks",
+			"A pair of standard socks, made from cotton and with an elastic band at the top.",
+			1,
+			null,
+			InventorySlot.SOCK,
+			Rarity.COMMON,
+			null,
+			"sock_socks",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null))),
 
@@ -6093,7 +6701,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType SOCK_KNEEHIGH_SOCKS = new AbstractClothingType("a pair of", true, "knee-high socks", "A pair of knee-high socks, made from cotton and with an elastic band at the top.", 1, Femininity.FEMININE, InventorySlot.SOCK, Rarity.COMMON, null, "sock_kneehigh_socks", null,
+	public static AbstractClothingType SOCK_KNEEHIGH_SOCKS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"knee-high socks",
+			"knee-high socks",
+			"A pair of knee-high socks, made from cotton and with an elastic band at the top.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.SOCK,
+			Rarity.COMMON,
+			null,
+			"sock_kneehigh_socks",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null, null))),
@@ -6129,6 +6749,7 @@ public class ClothingType {
 
 	public static AbstractClothingType SOCK_THIGHHIGH_SOCKS = new AbstractClothingType("a pair of",
 			true,
+			"thigh-high socks",
 			"thigh-high socks",
 			"A pair of thigh-high socks, made from cotton and with an elastic band at the top.",
 			1,
@@ -6174,8 +6795,20 @@ public class ClothingType {
 					null);
 		}
 	};
-	
-	public static AbstractClothingType SOCK_TIGHTS = new AbstractClothingType("a pair of", true, "pantyhose", "A pair of pantyhose that reach up to the wearer's lower abdomen.", 1, Femininity.FEMININE, InventorySlot.SOCK, Rarity.COMMON, null, "sock_tights", null,
+
+	public static AbstractClothingType SOCK_TIGHTS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"pantyhose",
+			"pantyhose",
+			"A pair of pantyhose that reach up to the wearer's lower abdomen.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.SOCK,
+			Rarity.COMMON,
+			null,
+			"sock_tights",
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -6236,7 +6869,19 @@ public class ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> pantyhose back up to <her> waist.");
 		}
 	};
-	public static AbstractClothingType SOCK_FISHNET_STOCKINGS = new AbstractClothingType("a pair of", true, "fishnet stockings", "A pair of fishnet stockings that reach up to the wearer's mid-thigh.", 1, Femininity.FEMININE, InventorySlot.SOCK, Rarity.COMMON, null, "sock_fishnets", null,
+	public static AbstractClothingType SOCK_FISHNET_STOCKINGS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"fishnet stockings",
+			"fishnet stockings",
+			"A pair of fishnet stockings that reach up to the wearer's mid-thigh.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.SOCK,
+			Rarity.COMMON,
+			null,
+			"sock_fishnets",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null, null))),
@@ -6272,7 +6917,19 @@ public class ClothingType {
 
 	// ANKLE
 
-	public static AbstractClothingType ANKLE_BRACELET = new AbstractClothingType("an", false, "anklet", "A delicate ankle bracelet, it consists of a series of metallic orbs threaded onto a fine metal wire.", 1, Femininity.FEMININE, InventorySlot.ANKLE, Rarity.COMMON, null, "ankle_bracelet", null,
+	public static AbstractClothingType ANKLE_BRACELET = new AbstractClothingType(
+			"an",
+			false,
+			"anklet",
+			"anklets",
+			"A delicate ankle bracelet, it consists of a series of metallic orbs threaded onto a fine metal wire.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.ANKLE,
+			Rarity.COMMON,
+			null,
+			"ankle_bracelet",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null,
 					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CALVES))))),
@@ -6306,8 +6963,20 @@ public class ClothingType {
 			}
 		}
 	};
-	
-	public static AbstractClothingType ANKLE_SHIN_GUARDS = new AbstractClothingType("a par of", true, "shin guards", "A pair of protective shin guards, designed to protect the lower half of the wearer's legs from physical blows.", 2, null, InventorySlot.ANKLE, Rarity.COMMON, null, "ankle_shin_guards", null,
+
+	public static AbstractClothingType ANKLE_SHIN_GUARDS = new AbstractClothingType(
+			"a par of",
+			true,
+			"shin guards",
+			"shin guards",
+			"A pair of protective shin guards, designed to protect the lower half of the wearer's legs from physical blows.",
+			2,
+			null,
+			InventorySlot.ANKLE,
+			Rarity.COMMON,
+			null,
+			"ankle_shin_guards",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null,
 					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CALVES))))),
@@ -6346,7 +7015,19 @@ public class ClothingType {
 	// FOOT
 	// Trainers
 	// Smart shoes
-	public static AbstractClothingType FOOT_HEELS = new AbstractClothingType("a pair of", true, "heels", "A pair of high heels.", 1, Femininity.FEMININE, InventorySlot.FOOT, Rarity.COMMON, null, "foot_heels", null,
+	public static AbstractClothingType FOOT_HEELS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"heels",
+			"heels",
+			"A pair of high heels.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.FOOT,
+			Rarity.COMMON,
+			null,
+			"foot_heels",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
@@ -6379,7 +7060,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType FOOT_ANKLE_BOOTS = new AbstractClothingType("a pair of", true, "ankle boots", "A pair of feminine ankle boots.", 1, Femininity.FEMININE, InventorySlot.FOOT, Rarity.COMMON, null, "foot_ankle_boots", null,
+	public static AbstractClothingType FOOT_ANKLE_BOOTS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"ankle boots",
+			"ankle boots",
+			"A pair of feminine ankle boots.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.FOOT,
+			Rarity.COMMON,
+			null,
+			"foot_ankle_boots",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
@@ -6413,7 +7106,20 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType FOOT_PLATFORM_BOOTS = new AbstractClothingType("a pair of", true, "platform boots", "A pair of platform boots.", 1, Femininity.FEMININE, InventorySlot.FOOT, Rarity.COMMON, null, "foot_platform_boots", null,
+
+	public static AbstractClothingType FOOT_PLATFORM_BOOTS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"platform boots",
+			"platform boots",
+			"A pair of platform boots.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.FOOT,
+			Rarity.COMMON,
+			null,
+			"foot_platform_boots",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
@@ -6447,7 +7153,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType FOOT_THIGH_HIGH_BOOTS = new AbstractClothingType("a pair of", true, "thigh high boots", "A pair of thigh high boots.", 1, Femininity.FEMININE, InventorySlot.FOOT, Rarity.COMMON, null, "foot_thigh_high_boots", null,
+	public static AbstractClothingType FOOT_THIGH_HIGH_BOOTS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"thigh high boots",
+			"thigh high boots",
+			"A pair of thigh high boots.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.FOOT,
+			Rarity.COMMON,
+			null,
+			"foot_thigh_high_boots",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
@@ -6481,7 +7199,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType FOOT_MENS_SMART_SHOES = new AbstractClothingType("a pair of", true, "men's shoes", "A pair of smart men's shoes, suitable for all occasions.", 1, Femininity.MASCULINE, InventorySlot.FOOT, Rarity.COMMON, null, "foot_mens_smart_shoes", null,
+	public static AbstractClothingType FOOT_MENS_SMART_SHOES = new AbstractClothingType(
+			"a pair of",
+			true,
+			"men's shoes",
+			"men's shoes",
+			"A pair of smart men's shoes, suitable for all occasions.",
+			1,
+			Femininity.MASCULINE,
+			InventorySlot.FOOT,
+			Rarity.COMMON,
+			null,
+			"foot_mens_smart_shoes",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
@@ -6515,7 +7245,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType FOOT_WORK_BOOTS = new AbstractClothingType("a pair of", true, "work boots", "A pair of heavy, steel-capped work boots.", 2, Femininity.MASCULINE, InventorySlot.FOOT, Rarity.COMMON, null, "foot_work_boots", null,
+	public static AbstractClothingType FOOT_WORK_BOOTS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"work boots",
+			"work boots",
+			"A pair of heavy, steel-capped work boots.",
+			2,
+			Femininity.MASCULINE,
+			InventorySlot.FOOT,
+			Rarity.COMMON,
+			null,
+			"foot_work_boots",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
@@ -6555,7 +7297,19 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType FOOT_TRAINERS = new AbstractClothingType("a pair of", true, "trainers", "A pair of unisex trainers, ideal for any kind of exercise.", 1, null, InventorySlot.FOOT, Rarity.COMMON, null, "foot_trainers", null,
+	public static AbstractClothingType FOOT_TRAINERS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"trainers",
+			"trainers",
+			"A pair of unisex trainers, ideal for any kind of exercise.",
+			1,
+			null,
+			InventorySlot.FOOT,
+			Rarity.COMMON,
+			null,
+			"foot_trainers",
+			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
@@ -6593,8 +7347,19 @@ public class ClothingType {
 	// CLOTHING SETS:
 
 	// MAID:
-	public static AbstractClothingType MAID_HEADPIECE = new AbstractClothingType("a", false, "Maid's headpiece", "A heavily stylised Maid's headpiece, it consists of a coloured headband with a decorative white lace attached on top.", 1, Femininity.FEMININE, InventorySlot.HEAD, Rarity.EPIC, ClothingSet.MAID,
-			"maidHeadband", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 2)),
+	public static AbstractClothingType MAID_HEADPIECE = new AbstractClothingType(
+			"a",
+			false,
+			"Maid's headpiece",
+			"Maid's headpieces",
+			"A heavily stylised Maid's headpiece, it consists of a coloured headband with a decorative white lace attached on top.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.HEAD,
+			Rarity.EPIC,
+			ClothingSet.MAID,
+			"maidHeadband",
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 2)),
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
 
@@ -6627,22 +7392,48 @@ public class ClothingType {
 		}
 
 	};
-	public static AbstractClothingType MAID_DRESS = new AbstractClothingType("a", false, "Maid's dress", "A heavily stylised Maid's dress, it consists of a coloured one-piece dress with decorative white lace trimmings." + " A small white apron is attached to the front, and is similarly trimmed in white lace.",
-			1, Femininity.FEMININE, InventorySlot.TORSO, Rarity.EPIC, ClothingSet.MAID, "maidDress", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 6)),
-
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER), new ListValue<ClothingAccess>(ClothingAccess.CHEST), new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null,
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-
+	
+	public static AbstractClothingType MAID_DRESS = new AbstractClothingType(
+			"a",
+			false,
+			"Maid's dress",
+			"Maid's dresses",
+			"A heavily stylised Maid's dress, it consists of a coloured one-piece dress with decorative white lace trimmings."
+					+ " A small white apron is attached to the front, and is similarly trimmed in white lace.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO_UNDER,
+			Rarity.EPIC,
+			ClothingSet.MAID,
+			"maidDress",
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(
+					Attribute.DAMAGE_MANA,
+					6)),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_UP,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
 			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-
 			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT), new ListValue<Colour>(Colour.CLOTHING_BLACK))) {
 		
-				private static final long serialVersionUID = 1L;
+			private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6713,8 +7504,21 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType MAID_STOCKINGS = new AbstractClothingType("a pair of", true, "Maid's stockings", "A pair of cotton Maid's stockings, with a coloured bow near the top.", 1, Femininity.FEMININE, InventorySlot.SOCK, Rarity.EPIC, ClothingSet.MAID, "maidStockings",
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 2)),
+	public static AbstractClothingType MAID_STOCKINGS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"Maid's stockings",
+			"Maid's stockings",
+			"A pair of cotton Maid's stockings, with a coloured bow near the top.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.SOCK,
+			Rarity.EPIC,
+			ClothingSet.MAID,
+			"maidStockings",
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(
+					Attribute.DAMAGE_MANA,
+					2)),
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null, null))),
@@ -6747,8 +7551,22 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType MAID_HEELS = new AbstractClothingType("a pair of", true, "Maid's high heels", "A pair of Maid's high heels, they are made of coloured leather with a small amount of white lace decoration.", 1, Femininity.FEMININE, InventorySlot.FOOT, Rarity.EPIC, ClothingSet.MAID,
-			"maidHeels", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 2)),
+	
+	public static AbstractClothingType MAID_HEELS = new AbstractClothingType(
+			"a pair of",
+			true,
+			"Maid's high heels",
+			"Maid's high heels",
+			"A pair of Maid's high heels, they are made of coloured leather with a small amount of white lace decoration.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.FOOT,
+			Rarity.EPIC,
+			ClothingSet.MAID,
+			"maidHeels",
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(
+					Attribute.DAMAGE_MANA,
+					2)),
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null))),
 
@@ -6780,8 +7598,20 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType MAID_SLEEVES = new AbstractClothingType("a pair of", true, "Maid's sleeves", "A pair of Maid's sleeves that end just past the elbow. They are made of soft coloured fabric with white lace trimmings.", 1, Femininity.FEMININE, InventorySlot.HAND, Rarity.EPIC,
-			ClothingSet.MAID, "maidGloves", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 2)),
+	
+	public static AbstractClothingType MAID_SLEEVES = new AbstractClothingType(
+			"a pair of",
+			true,
+			"Maid's sleeves",
+			"Maid's sleeves",
+			"A pair of Maid's sleeves that end just past the elbow. They are made of soft coloured fabric with white lace trimmings.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.HAND,
+			Rarity.EPIC,
+			ClothingSet.MAID,
+			"maidGloves",
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 2)),
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null, null))),
 
@@ -6819,6 +7649,7 @@ public class ClothingType {
 	public static AbstractClothingType BDSM_BALLGAG = new AbstractClothingType("a",
 			false,
 			"ball gag",
+			"ball gags",
 			"A leather strap with a rubber ball fixed into one side. [style.colourArcane(You can sense a powerful enchantment in this item!)]",
 			0,
 			null,
@@ -6882,6 +7713,7 @@ public class ClothingType {
 	public static AbstractClothingType BDSM_RINGGAG = new AbstractClothingType("a",
 			false,
 			"ring gag",
+			"ring gags",
 			"A leather strap with a metal ring fixed into one side. [style.colourArcane(You can sense a powerful enchantment in this item!)]",
 			0,
 			null,
@@ -6933,6 +7765,7 @@ public class ClothingType {
 	public static AbstractClothingType BDSM_CHOKER = new AbstractClothingType("a",
 			false,
 			"tagged choker",
+			"tagged chokers",
 			"A leather choker with a loose metallic tag attached to the front. [style.colourArcane(You can sense a powerful enchantment in this item!)]",
 			0,
 			null,
@@ -6983,6 +7816,7 @@ public class ClothingType {
 	
 	public static AbstractClothingType BDSM_WRIST_RESTRAINTS = new AbstractClothingType("a pair of",
 			true,
+			"wrist restraints",
 			"wrist restraints",
 			"A pair of leather wrist restraints. [style.colourArcane(You can sense a powerful enchantment in this item!)]",
 			0,
@@ -7036,6 +7870,7 @@ public class ClothingType {
 	public static AbstractClothingType BDSM_SPREADER_BAR = new AbstractClothingType("a",
 			false,
 			"spreader bar",
+			"spreader bars",
 			"A pair of ankle restraints, attached to one another by a long metal pole. When worn, the wearer's legs are forced open. [style.colourArcane(You can sense a powerful enchantment in this item!)]",
 			0,
 			null,
@@ -7090,6 +7925,7 @@ public class ClothingType {
 	public static AbstractClothingType BDSM_CHASTITY_BELT = new AbstractClothingType("a",
 			false,
 			"chastity belt",
+			"chastity belts",
 			"A chastity belt, designed to deny access to the wearer's vagina. A hole in the rear strap provides access to the wearer's asshole. [style.colourArcane(You can sense a powerful enchantment in this item!)]",
 			0,
 			null,
@@ -7146,6 +7982,7 @@ public class ClothingType {
 	public static AbstractClothingType BDSM_CHASTITY_CAGE = new AbstractClothingType("a",
 			false,
 			"chastity cage",
+			"chastity cages",
 			"A little cage designed to imprison a cock. [style.colourArcane(You can sense a powerful enchantment in this item!)]",
 			0,
 			null,
@@ -7216,6 +8053,7 @@ public class ClothingType {
 	public static AbstractClothingType BDSM_KARADA = new AbstractClothingType("an",
 			false,
 			"enchanted karada",
+			"enchanted karadas",
 			"A length of rope that, thanks to a special enchantment, ties itself into a rope harness that loops around the wearer's neck, around their body, and under their crotch. [style.colourArcane(You can sense a powerful enchantment in this item!)]",
 			0,
 			null,
@@ -7273,10 +8111,11 @@ public class ClothingType {
 	public static AbstractClothingType ENFORCER_SHIRT = new AbstractClothingType("an",
 			false,
 			"Enforcer's shirt",
+			"Enforcer's shirts",
 			"An Enforcer's shirt, it comes with what appears to be a stab-proof vest.",
 			5,
 			null,
-			InventorySlot.TORSO,
+			InventorySlot.TORSO_UNDER,
 			Rarity.EPIC,
 			ClothingSet.ENFORCER,
 			"enforcerShirt",
@@ -7289,8 +8128,7 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
+							null)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.UNBUTTONS,
 							null,
@@ -7331,6 +8169,7 @@ public class ClothingType {
 	public static AbstractClothingType ENFORCER_SHORTS = new AbstractClothingType("a pair of",
 			true,
 			"Enforcer's shorts",
+			"Enforcer's shorts",
 			"A pair of shorts, they come with a utility belt.",
 			2,
 			null,
@@ -7341,12 +8180,32 @@ public class ClothingType {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5),
 					new Value<Attribute, Integer>(Attribute.FITNESS, 5)),
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_DOWN, null,
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_DOWN,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.UNZIPS,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									null))),
 
 			null,
 			Colour.allClothingColours) {
@@ -7377,14 +8236,153 @@ public class ClothingType {
 		}
 	};
 	
+	public static AbstractClothingType CATTLE_PIERCING_EAR_TAGS = new AbstractClothingType("an",
+			true,
+			"ear tag",
+			"ear tags",
+			"A bright yellow ear tag, made from plastic and used for identification of domestic animals.",
+			0,
+			null,
+			InventorySlot.PIERCING_EAR,
+			Rarity.EPIC,
+			ClothingSet.CATTLE,
+			"piercing_livestock_tags",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.STRENGTH, 2),
+					new Value<Attribute, Integer>(Attribute.FITNESS, 3)),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
+			null,
+			Util.newArrayListOfValues(new ListValue<>(Colour.CLOTHING_YELLOW))) {
+		
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You clip the tag into place.",
+					"You clip [npc.name]'s new tag into place.",
+					null,
+					"[npc.Name] clips [npc.her] tag into place.",
+					"[npc.Name] clips your new tag into place.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You unclip your tag.",
+					"You unclip [npc.name]'s tag.",
+					null,
+					"[npc.Name] unclips [npc.her] tag.",
+					"[npc.Name] unclips your tag.",
+					null);
+		}
+	};
+
+	public static AbstractClothingType CATTLE_PIERCING_NOSE_BOVINE_RING = new AbstractClothingType("a",
+			false,
+			"bovine nose ring",
+			"bovine nose rings",
+			"A large nose ring, similar to one worn by cows and bulls.",
+			0,
+			null,
+			InventorySlot.PIERCING_NOSE,
+			Rarity.EPIC,
+			ClothingSet.CATTLE,
+			"piercing_nose_cow_ring",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.STRENGTH, 3),
+					new Value<Attribute, Integer>(Attribute.FITNESS, 2)),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
+			null,
+			Colour.allMetalColours) {
+		
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the nose ring into place.",
+					"You slide [npc.name]'s new nose ring into place.",
+					null,
+					"[npc.Name] slides [npc.her] nose ring into place.",
+					"[npc.Name] slides your new nose ring into place.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the nose ring out.",
+					"You slide [npc.name]'s nose ring out.",
+					null,
+					"[npc.Name] slides [npc.her] nose ring out.",
+					"[npc.Name] slides your nose ring out.",
+					null);
+		}
+	};
+	
+	public static AbstractClothingType CATTLE_NECK_COWBELL_COLLAR  = new AbstractClothingType("a",
+			false,
+			"cowbell collar",
+			"cowbell collars",
+			"A leather collar, with a cowbell attached to the front.",
+			0,
+			null,
+			InventorySlot.NECK,
+			Rarity.EPIC,
+			ClothingSet.CATTLE,
+			"neck_cowbell_collar",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.STRENGTH, 3),
+					new Value<Attribute, Integer>(Attribute.FITNESS, 3)),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
+			null,
+			Colour.allMetalColours) {
+		
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You put on the cowbell collar, fastening the clasp at the back of your neck.";
+			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
+				return UtilText.genderParsing(clothingOwner,
+						Util.capitaliseSentence(clothingOwner.getName("the")) + " puts a " + clothing.getName(true) + " around <her> neck, reaching around to fasten the clasp at the back.");
+			else {
+				if (clothingOwner.isPlayer())
+					return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " fastens " + clothing.getName(true) + " around your neck.");
+				else
+					return UtilText.genderParsing(clothingOwner, "You fasten the cowbell collar around " + clothingOwner.getName("the") + "'s neck.");
+			}
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You unfasten the cowbell collar and take it off.";
+			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
+				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " unfastens <her> cowbell collar and takes it off.");
+			else {
+				if (clothingOwner.isPlayer())
+					return Util.capitaliseSentence(clothingRemover.getName("the")) + " unfastens your cowbell collar and removes it from around your neck.";
+				else
+					return UtilText.genderParsing(clothingOwner, "You unfasten " + clothingOwner.getName("the") + "'s cowbell collar and remove it from <her> neck.");
+
+			}
+		}
+	};
+
+	
 	public static AbstractClothingType MILK_MAID_TORSO_DRESS = new AbstractClothingType("a",
 			false,
 			"Milk Maid's dress",
+			"Milk Maid's dresses",
 			"A milk maid's dress; consisting of shirt, skirt, and corset. The shirt is made of a light, comfortable material, which gets very transparent when wet."
 					+ " The corset, just like the skirt, is made of a soft fabric, and its strings can be pulled tight to flatter the wearer's figure and push their breasts slighter closer together.",
 			1,
 			Femininity.FEMININE,
-			InventorySlot.TORSO,
+			InventorySlot.TORSO_UNDER,
 			Rarity.EPIC,
 			ClothingSet.MILK_MAID,
 			"milk_maid_dress",
@@ -7399,8 +8397,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(
-									ClothingAccess.ARMS_UP_TO_SHOULDER),
+							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
 					new ListValue<BlockedParts>(new BlockedParts(
@@ -7431,6 +8428,7 @@ public class ClothingType {
 	public static AbstractClothingType MILK_MAID_HEADBAND = new AbstractClothingType("a",
 			false,
 			"Milk Maid's headband",
+			"Milk Maid's headbands",
 			"A frilly headband, with lots of decorative lace attached to the top.",
 			1,
 			Femininity.FEMININE,
@@ -7480,6 +8478,7 @@ public class ClothingType {
 	public static AbstractClothingType MILK_MAID_KERCHIEF = new AbstractClothingType("a",
 			false,
 			"kerchief",
+			"kerchiefs",
 			"A triangular piece of cloth that covers the top of the wearer's head.",
 			1,
 			null,
@@ -7523,10 +8522,11 @@ public class ClothingType {
 	public static AbstractClothingType MEGA_MILK = new AbstractClothingType("a",
 			false,
 			"Mega Milk T-shirt",
+			"Mega Milk T-shirts",
 			"A T-shirt with the words 'Mega Milk' written on the front.",
 			1,
 			null,
-			InventorySlot.TORSO,
+			InventorySlot.TORSO_UNDER,
 			Rarity.UNCOMMON,
 			null,
 			"torso_tshirt_megamilk",
@@ -7539,8 +8539,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
+							null)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.PULLS_UP,
 							null,
@@ -7619,7 +8618,7 @@ public class ClothingType {
 			commonClothingMapMaleIncludingAndrogynous.put(slot, new ArrayList<>());
 		}
 		
-		coreClothingSlots = Util.newArrayListOfValues(new ListValue<>(InventorySlot.TORSO), new ListValue<>(InventorySlot.LEG));
+		coreClothingSlots = Util.newArrayListOfValues(new ListValue<>(InventorySlot.TORSO_UNDER), new ListValue<>(InventorySlot.LEG));
 		lingerieSlots = Util.newArrayListOfValues(new ListValue<>(InventorySlot.CHEST), new ListValue<>(InventorySlot.GROIN), new ListValue<>(InventorySlot.STOMACH), new ListValue<>(InventorySlot.SOCK));
 
 		allClothing = new ArrayList<>();

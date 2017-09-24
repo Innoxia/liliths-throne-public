@@ -38,7 +38,6 @@ import com.base.game.sex.sexActions.SexActionInterface;
 import com.base.game.sex.sexActions.SexActionType;
 import com.base.game.sex.sexActions.SexActionUtility;
 import com.base.main.Main;
-import com.base.rendering.RenderingEngine;
 import com.base.utils.BaseColour;
 import com.base.utils.Colour;
 import com.base.utils.Util;
@@ -48,7 +47,7 @@ import com.base.utils.Util;
  * startSex(), which returns the starting DialogueNode.
  *
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.85
  * @author Innoxia
  */
 public enum Sex {
@@ -166,7 +165,8 @@ public enum Sex {
 		SexFlags.reset();
 		// Re-initialise all sex action variables:
 		sexManager.initSexActions();
-
+		
+		Main.game.setActiveNPC(partner);
 		Sex.partner = partner;
 		Sex.sexManager = sexManager;
 		Sex.postSexDialogue = postSexDialogue;
@@ -264,7 +264,6 @@ public enum Sex {
 
 		Main.game.setInSex(true);
 
-		RenderingEngine.ENGINE.setCharactersInventoryToRender(partner);
 		Main.mainController.openInventory();
 
 		// Main.mainController.updateUI();
@@ -303,21 +302,29 @@ public enum Sex {
 	}
 
 	private static void endSex() {
-		RenderingEngine.ENGINE.setCharactersInventoryToRender(Main.game.getPlayer());
-
 		Main.game.setInSex(false);
 
 		// Restore clothes:
 		for (AbstractClothing c : playerClothingPreSex) {
-			if (!Main.game.getPlayer().getClothingCurrentlyEquipped().contains(c))
-				Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
-			else {
+			if (!Main.game.getPlayer().getClothingCurrentlyEquipped().contains(c)) {
+				if(Main.game.getPlayer().getAllClothingInInventory().contains(c)) {
+					Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer());
+				} else {
+					Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
+				}
+				
+			} else {
 				c.getDisplacedList().clear();
 			}
 		}
 		for (AbstractClothing c : partnerClothingPreSex) {
-			if (!partner.getClothingCurrentlyEquipped().contains(c) && Main.game.getActiveWorld().getCell(partner.getLocation()).getInventory().hasClothing(c)) {
-				partner.equipClothingFromGround(c, true, partner);
+			if(!partner.getClothingCurrentlyEquipped().contains(c)) {
+				if(partner.getAllClothingInInventory().contains(c)) {
+					partner.equipClothingFromInventory(c, true, partner, partner);
+				} else {
+					partner.equipClothingFromGround(c, true, partner);
+				}
+				
 			} else {
 				c.getDisplacedList().clear();
 			}

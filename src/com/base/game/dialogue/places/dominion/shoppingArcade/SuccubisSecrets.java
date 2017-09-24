@@ -17,6 +17,7 @@ import com.base.game.character.body.valueEnums.PiercingType;
 import com.base.game.character.npc.dominion.Kate;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
+import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.responses.ResponseSex;
 import com.base.game.dialogue.responses.ResponseTrade;
 import com.base.game.dialogue.utils.CharacterModificationUtils;
@@ -26,6 +27,8 @@ import com.base.main.Main;
 import com.base.utils.Util;
 import com.base.utils.Util.ListValue;
 import com.base.utils.Util.Value;
+import com.base.world.WorldType;
+import com.base.world.places.ShoppingArcade;
 
 /**
  * @since 0.1.66
@@ -111,6 +114,14 @@ public class SuccubisSecrets {
 					return new Response("Enter", "Step inside Succubi's Secrets.", SHOP_BEAUTY_SALON);
 				}
 				
+			} else if (index == 6) {
+				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
+					@Override
+					public void effects() {
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), ShoppingArcade.ARCADE_ENTRANCE, true);
+					}
+				};
+
 			} else {
 				return null;
 			}

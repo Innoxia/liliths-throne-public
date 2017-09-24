@@ -23,6 +23,7 @@ import com.base.game.character.body.valueEnums.AssSize;
 import com.base.game.character.body.valueEnums.BodySize;
 import com.base.game.character.body.valueEnums.CoveringPattern;
 import com.base.game.character.body.valueEnums.CupSize;
+import com.base.game.character.body.valueEnums.HairStyle;
 import com.base.game.character.body.valueEnums.Muscle;
 import com.base.game.character.body.valueEnums.OrificeModifier;
 import com.base.game.character.body.valueEnums.PenisSize;
@@ -47,6 +48,7 @@ import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.world.WorldType;
+import com.base.world.places.GenericPlace;
 import com.base.world.places.LilayasHome;
 
 /**
@@ -90,7 +92,7 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_SHORTS, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_HOODIE, false), true, Main.game.getPlayer());
+						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, false), true, Main.game.getPlayer());
 						Main.game.setRenderAttributesSection(true);
 						Main.game.getPlayer().setName(new NameTriplet("Hero", "Heroine", "Heroine"));
 						setSkin();
@@ -103,6 +105,8 @@ public class CharacterCreation {
 						Main.getProperties().setNewClothingDiscovered(false);
 						Main.getProperties().setNewItemDiscovered(false);
 						Main.game.getPlayer().calculateStatusEffects(0);
+						Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+						Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BROWN), true);
 					}
 				};
 				
@@ -193,6 +197,7 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						unsuitableName = false;
+						Main.game.getPlayer().setHairStyle(HairStyle.NONE);
 					}
 				};
 				
@@ -1662,8 +1667,6 @@ public class CharacterCreation {
 				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.</br></br><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
 					@Override
 					public void effects() {
-
-						Main.game.setRenderMapSection(true);
 						applyGameStart();
 
 						Main.game.getPlayer().resetInventory();
@@ -1674,14 +1677,17 @@ public class CharacterCreation {
 						if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE)
 							Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_SPORTS_BRA, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
 						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_YOGA_PANTS, Colour.CLOTHING_PINK_LIGHT, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_HOODIE, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
+						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
 						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
 						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_PINK, false), true, Main.game.getPlayer());
 
-						Main.game.getPlayer().equipMainWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE), false);
+						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
 
 						Main.game.clearTextStartStringBuilder();
 						Main.game.clearTextEndStringBuilder();
+						
+						Main.game.setRenderMap(true);
+						Main.game.setInNewWorld(true);
 
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
@@ -1696,7 +1702,7 @@ public class CharacterCreation {
 						
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(LilayasHome.LILAYA_HOME_ROOM_PLAYER),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
 								true);
 					}
 				};
@@ -1789,8 +1795,6 @@ public class CharacterCreation {
 					public void effects() {
 						Main.mainController.setAttributePanelContent("");
 						Main.mainController.setButtonsContent("");
-						Main.mainController.setMapViewContent("");
-						Main.mainController.setMapTitleContent("");
 						
 						Main.startNewGame(CharacterCreation.CHARACTER_CREATION_START);
 					}
@@ -1850,7 +1854,6 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 
-						Main.game.setRenderMapSection(true);
 						applyGameStart();
 
 						Main.game.getPlayer().resetInventory();
@@ -1862,14 +1865,17 @@ public class CharacterCreation {
 						if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE)
 							Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_SPORTS_BRA, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
 						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_YOGA_PANTS, Colour.CLOTHING_PINK_LIGHT, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_HOODIE, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
+						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
 						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
 						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_PINK, false), true, Main.game.getPlayer());
 
-						Main.game.getPlayer().equipMainWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE), false);
+						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
 
 						Main.game.clearTextStartStringBuilder();
 						Main.game.clearTextEndStringBuilder();
+						
+						Main.game.setRenderMap(true);
+						Main.game.setInNewWorld(true);
 
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 						Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
@@ -1884,7 +1890,7 @@ public class CharacterCreation {
 						
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(LilayasHome.LILAYA_HOME_ROOM_PLAYER),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
 								true);
 					}
 				};
@@ -1895,8 +1901,6 @@ public class CharacterCreation {
 					public void effects() {
 						Main.mainController.setAttributePanelContent("");
 						Main.mainController.setButtonsContent("");
-						Main.mainController.setMapViewContent("");
-						Main.mainController.setMapTitleContent("");
 						
 						Main.startNewGame(CharacterCreation.CHARACTER_CREATION_START);
 					}

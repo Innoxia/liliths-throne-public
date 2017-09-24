@@ -108,6 +108,14 @@ public class RoomPlayer {
 				}
 			};
 
+		} else if (index == 7) {
+			return new ResponseEffectsOnly("Lilaya's Lab", "Fast travel down to Lilaya's laboratory."){
+				@Override
+				public void effects() {
+					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), LilayasHome.LILAYA_HOME_LAB, true);
+				}
+			};
+
 		} else {
 			return null;
 		}

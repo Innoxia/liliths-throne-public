@@ -13,11 +13,11 @@ public enum TesticleType implements BodyPartTypeInterface {
 	
 	NONE(null, FluidType.CUM_HUMAN, null, false),
 
-	HUMAN(BodyCoveringType.HUMAN, FluidType.CUM_HUMAN, Race.HUMAN, false),
+	HUMAN(BodyCoveringType.PENIS, FluidType.CUM_HUMAN, Race.HUMAN, false),
 
-	ANGEL(BodyCoveringType.ANGEL, FluidType.CUM_ANGEL, Race.ANGEL, false),
+	ANGEL(BodyCoveringType.PENIS, FluidType.CUM_ANGEL, Race.ANGEL, false),
 
-	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, FluidType.CUM_DEMON, Race.DEMON, false),
+	DEMON_COMMON(BodyCoveringType.PENIS, FluidType.CUM_DEMON, Race.DEMON, false),
 
 	BOVINE(BodyCoveringType.BOVINE_FUR, FluidType.CUM_COW_MORPH, Race.COW_MORPH, false),
 	
@@ -27,11 +27,11 @@ public enum TesticleType implements BodyPartTypeInterface {
 
 	FELINE(BodyCoveringType.FELINE_FUR, FluidType.CUM_CAT_MORPH, Race.CAT_MORPH, false),
 
-	EQUINE(BodyCoveringType.HORSE_HAIR, FluidType.CUM_HORSE_MORPH, Race.HORSE_MORPH, false),
+	EQUINE(BodyCoveringType.PENIS, FluidType.CUM_HORSE_MORPH, Race.HORSE_MORPH, false),
 
 	SLIME(BodyCoveringType.SLIME, FluidType.CUM_SLIME, Race.SLIME, false),
 
-	AVIAN(BodyCoveringType.FEATHERS, FluidType.CUM_HARPY, Race.HARPY, true),
+	AVIAN(BodyCoveringType.PENIS, FluidType.CUM_HARPY, Race.HARPY, true),
 	
 	SQUIRREL(BodyCoveringType.SQUIRREL_FUR, FluidType.CUM_SQUIRREL_MORPH, Race.SQUIRREL_MORPH, false);
 

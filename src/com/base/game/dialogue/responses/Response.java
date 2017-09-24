@@ -492,15 +492,15 @@ public class Response {
 		
 		switch(femininityRequired){
 			case ANDROGYNOUS:
-				return Femininity.valueOf(Main.game.getPlayer().getFemininity()) == Femininity.ANDROGYNOUS;
+				return Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.ANDROGYNOUS;
 			case FEMININE:
-				return Main.game.getPlayer().getFemininity() >= Femininity.FEMININE.getMinimumFemininity();
+				return Main.game.getPlayer().getFemininityValue() >= Femininity.FEMININE.getMinimumFemininity();
 			case FEMININE_STRONG:
-				return Main.game.getPlayer().getFemininity() >= Femininity.FEMININE_STRONG.getMinimumFemininity();
+				return Main.game.getPlayer().getFemininityValue() >= Femininity.FEMININE_STRONG.getMinimumFemininity();
 			case MASCULINE:
-				return Main.game.getPlayer().getFemininity() <= Femininity.MASCULINE.getMaximumFemininity();
+				return Main.game.getPlayer().getFemininityValue() <= Femininity.MASCULINE.getMaximumFemininity();
 			case MASCULINE_STRONG:
-				return Main.game.getPlayer().getFemininity() <= Femininity.MASCULINE_STRONG.getMaximumFemininity();
+				return Main.game.getPlayer().getFemininityValue() <= Femininity.MASCULINE_STRONG.getMaximumFemininity();
 			default:
 				return true;
 		}

@@ -106,7 +106,7 @@ public class ShoppingArcadeDialogue {
 					}
 				};
 
-			} if (index == 6) {
+			} else if (index == 6) {
 				return new ResponseEffectsOnly("Ralph's Snacks", "Fast travel to Ralph's Snacks."){
 					@Override
 					public void effects() {
@@ -114,7 +114,7 @@ public class ShoppingArcadeDialogue {
 					}
 				};
 
-			} if (index == 7) {
+			} else if (index == 7) {
 				return new ResponseEffectsOnly("Nyan's Clothing Emporium", "Fast travel to Nyan's Clothing Emporium."){
 					@Override
 					public void effects() {
@@ -122,7 +122,7 @@ public class ShoppingArcadeDialogue {
 					}
 				};
 
-			} if (index == 8) {
+			} else if (index == 8) {
 				return new ResponseEffectsOnly("Arcane Arts", "Fast travel to Arcane Arts."){
 					@Override
 					public void effects() {
@@ -130,7 +130,7 @@ public class ShoppingArcadeDialogue {
 					}
 				};
 
-			} if (index == 9) {
+			} else if (index == 9) {
 				return new ResponseEffectsOnly("Succubi's Secrets", "Fast travel to Succubi's Secrets."){
 					@Override
 					public void effects() {
@@ -138,7 +138,7 @@ public class ShoppingArcadeDialogue {
 					}
 				};
 
-			} if (index == 10) {
+			} else if (index == 10) {
 				return new ResponseEffectsOnly("City Gym", "Fast travel to the City Gym."){
 					@Override
 					public void effects() {

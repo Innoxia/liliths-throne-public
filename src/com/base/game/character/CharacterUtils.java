@@ -226,7 +226,7 @@ public class CharacterUtils {
 			characterBody.appendChild(bodyCore);
 			addAttribute(doc, bodyCore, "piercedStomach", String.valueOf(character.isPiercedNavel()));
 			addAttribute(doc, bodyCore, "height", String.valueOf(character.getRawHeightValue()));
-			addAttribute(doc, bodyCore, "femininity", String.valueOf(character.getFemininity()));
+			addAttribute(doc, bodyCore, "femininity", String.valueOf(character.getFemininityValue()));
 			addAttribute(doc, bodyCore, "bodySize", String.valueOf(character.getBodySizeValue()));
 			addAttribute(doc, bodyCore, "muscle", String.valueOf(character.getMuscleValue()));
 			addAttribute(doc, bodyCore, "pubicHair", String.valueOf(character.getPubicHair()));
@@ -1568,9 +1568,9 @@ public class CharacterUtils {
 				lingerieColour = Colour.lingerieColours.get(Util.random.nextInt(Colour.lingerieColours.size()));
 		
 		List<InventorySlot> inventorySlotsInPriorityOrder = new ArrayList<>();
-		inventorySlotsInPriorityOrder.add(InventorySlot.TORSO); // Torso needs to be randomly decided first, to give girls a chance to wear a dress.
+		inventorySlotsInPriorityOrder.add(InventorySlot.TORSO_UNDER); // Torso needs to be randomly decided first, to give girls a chance to wear a dress.
 		for(InventorySlot slot : InventorySlot.values()) {
-			if(slot!=InventorySlot.TORSO) {
+			if(slot!=InventorySlot.TORSO_UNDER) {
 				inventorySlotsInPriorityOrder.add(slot);
 			}
 		}
@@ -1659,7 +1659,7 @@ public class CharacterUtils {
 				
 				for(BlockedParts bp : ct.getBlockedPartsList()) {
 					boolean leavesAnusExposed = character.isCoverableAreaExposed(CoverableArea.ANUS) && !bp.blockedBodyParts.contains(CoverableArea.ANUS),
-							leavesNipplesExposed = character.hasBreasts()?(character.isCoverableAreaExposed(CoverableArea.NIPPLES) && !bp.blockedBodyParts.contains(CoverableArea.NIPPLES)):true,
+							leavesNipplesExposed = character.isCoverableAreaExposed(CoverableArea.NIPPLES) && !bp.blockedBodyParts.contains(CoverableArea.NIPPLES),
 							leavesPenisExposed = character.hasPenis()?(character.isCoverableAreaExposed(CoverableArea.PENIS) && !bp.blockedBodyParts.contains(CoverableArea.PENIS)):true,
 							leavesVaginaExposed = character.hasVagina()?(character.isCoverableAreaExposed(CoverableArea.VAGINA) && !bp.blockedBodyParts.contains(CoverableArea.VAGINA)):true;
 					//TODO

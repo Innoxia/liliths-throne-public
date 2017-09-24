@@ -3,96 +3,251 @@
 		Patch notes in Main
 		Update README
 		Create .exe version
-		
-	Version goals:
-		Make save games compatible. This will probably not be completed for Friday, but should be done for the full release next Friday (18th).
-		Finish the next stage of the main quest. Scarlett and Alexa's content.
-		Implement generic NPC enslavement, romance, and moving into Lilaya's house.
-		Finish Incest and Transformation fetish content.
-		Add Paizuri, thigh sex, and hotdogging.
-		Add a position that allows for dominantly receiving anal. Either adding 'Cowgirl' or adding anal actions to the 'Back-to-wall' position. (Or maybe both :3)
-		Do a lot of bug fixing, add several minor suggestions, and add some more content here and there.
-		
-	
 	
 	Patch notes:
 	
-	Gameplay:
-		Slightly tweaked gender preferences for NPC's forced TFs.
-		You can now use elixirs and potions on your offspring in consensual sex, as well as if you're the dom in non-consensual.
-		NPCs applying forced transformations will now shrink your cock and reduce your vagina's capacity down to minimum values before removing them.
+	Engine:
+		Added support for personality types and backgrounds for NPCs. This is the precursor to writing in proper dialogue with random NPCs.
 		
-	Sex:
-		Added: Paizuri and Naizuri. All paizuri actions have three variations; one for breasts larger than B-cups, one for completely flat chests, and another for the other sizes in-between.
-		Added Paizuri to 69, kneeling, and cow-girl positions.
-		Added nipple-fucking to cow-girl position.
-		Very minor change to AI in sex to make them uninterested in getting access to your nipples if your groin is already exposed. (I'm going to massively improve the AI within the next couple of versions.)
-		
+	UI:
+		<b>Large rework:</b> Due to the inventory rework (adding in orifice slots), I've had to try and rework the UI to properly display the new options, while trying to retain the functionality of the old system.
+		As part of this rework, I've added a third column to the UI, but I'm still not entirely happy about it, and will most likely continue to tweak it over the next couple of weeks...
+	
 	Other:
-		You can now dye Enforcer's clothing to any colour.
-		Split Nyan's 'Female lingerie' up into 'Female underwear' and 'Female lingerie' to prevent item overflow. (You'll be able to buy enchanted clothing from her again now. :3)
-		Added squirrel-morph (and cow-morph) potions and essences to Vicky's shop.
-		Tweaked NPC's forced TF preferences to have a chance to be a related race (i.e. cat morphs may prefer to TF you into a harpy, or dog/wolf-morphs may TF you into a cat-morph).
-		Added fur highlighting options.
-		Added afro hair style.
-		
+		Reduced minimum hair length requirements for the Sidecut and Afro hair styles.
+		NPCs' name is now revealed when you enslave them.
+		You can no longer sell slaves to Finch (this was unintended behaviour).
+		Minor improvements to slave management UI.
+		Slightly changed bovine horn descriptions.
+		Scarlett can now be impregnated.
+		Added the displacement type 'pull down' to the keyhole sweater, which will expose your breasts.
+		Exhibitionist males will no longer wear clothing that blocks their nipples.
+		Added correct fetish associations to the 'Rough ride' option in sex.
+	
 	Bugs:
-		Fixed game freeze once NPC finished transforming you into their preferred body type.
-		Fixed major bug where items and weapons would sometimes not stack in inventory.
-		Fixed items showing up in sex as disabled, even if they were available to be used.
-		Fixed weapons not having any spells.
-		Fixed bug where the main quest couldn't be progressed if you started an imported character.
-		Minor typo fixes.
-		Fixed parsing bugs (which was causing the parser's 'Commands' action to be unresponsive.)
-		Vicky will now buy Bottled Squirrel-Morph Essence.
-		Horn transformations now apply the correct horn type, based on whether the target to be transformed is masculine or feminine.
+		Fixed some typos
+		You can now sell your items even if the vendor's inventory is full.
+		Finch should now properly restock his inventory each day.
+		Enforcer Shorts can now be unzipped.
+		Slave sex should no longer end with dialogue suggesting you got dominated.
+		Fixed bug where Ralph's sex scene wouldn't start (and a series of associated bugs that were causing it in the background).
+		Text boxes should now respond correctly to pressing the 'Enter' key. (Fixes issues related to not being able to rename slaves, as well as all the text on the screen disappearing in the save dialogue.)
+		Rough Paizuri is now correctly tied to Sadist fetish like other rough pace actions.
+		Slaves no longer regenerate clothing after sex.
+		You should now be able to have sex with all of your slaves.
+		Fixed bug where transforming a slave and then returning to the management screen wouldn't update their appearance.
+		Using the used condom on an NPC now returns a more accurate description.
+		Cow and squirrel-morph potions now have correct titles.
 	
-	Contributors:
 	
-	Pimgd:
-		Disallowed quick manage drop if cell is full, thereby preventing item loss.
+	
+	
+	
+	
+	
+	
+	The pace no longer displays
+	
+	Also I think I pinned it down with that odd feeling. The map doesn't seem to have border, infact almost nothing seems to except the button panel and the event log.
+	
+	Sometimes NPCs will ignore an article of clothing during a scene. NPCs seem to not like removing my character's bra for whatever reason.
+	
+	BUGS
+	
+	SLAVERY fixes, jobs, assignments
+	
+	INCEST 
+	
+	
+	
+	
+	(Couldn't replicate)
+		Sex still causes item duplication
+	
+	Need to re-add "Use all"
+	
+	
+	Properties is still being reset
+	
+	MANAGEMENT
+	
+	Slaves (Overview)
+		Assignments
+		Rules
 		
-	Rfpnj:
-		Cow-morph:
-			Added all cow-morph transformations and body parts.
-			Added 'Milking Cows' (lore book).
-			Added bottled cow-morph essence.
-			Added Bubble Milk. (Icon design help from Blue999.)
-			Added Bubble Cream.
-			Added Ear tag (no femininity requirements, ear piercing slot).
-			Added Cowbell collar (no femininity requirements, neck slot).
-			Added bovine nose ring (no femininity requirements, nose piercing slot).
-			
-	Blue999:
-		Added: Milk Maid's headdress (Feminine, head slot, Milk Maid set).
+	Slave panel - Detailed
+		Assignments
+		Rules
+		
+	Auction - random price (40% chance to be higher than Alexa, +1% chance per fetish the slave has for a very high price)
+	
+	
+	Assignments: Primary job, two secondary jobs, fetish training/removal, diet
+	
+	Rules: Masturbation, inter-slave sex (allow vaginal/anal/oral/breast give & receive), crawling, silence, bowing, 
+	
+	
+	Daily Reports (Calculated at midnight)
 	
 	
 	
+	quad nipples on less tahn greater cows
+	 
+	 can we get glue like as a fluid mod? IE like how pig cum hardens in contact with air to seal up the female's vagina and trap the rest of the cum inside
+	 congealing
+	 
+	 dying equipped items duplicates them
+	 
+	 Alright so it seems like we can give NPC's clothes and they seem to keep wearing them even when you leave and return.
+	  They only seem to equip new clothes if you have sex and  by the end of it they have a major slot thats empty.
+	   As much as i hate to say it though unless the NPC is an exhibitionist they should probably try to change out of exposing clothing unless it's jinxed
+	 
 	
 	
 	
+	Taking own anal and oral virginity with tail
 	
 	
 	
-	Add udder
+	Light theme!
+	
+	Fertility cycle (96 hours)
+	And when in the 'risky' or 'fertile' stages, it will be impossible to get a 0% impregnation chance
+	'Pregnancy risk', and 'inseminated'
+	Pregnancy fetishes and 'in heat/rut' alter timings and pregnancy chance
+	You could make Heat a vagina tf and then put a "heat fetish" that increases it's stregnth~ something like
+		 "You love loosing yourself and giving in to your womb's deisre for fresh seed~ The feeling of being fucked while being at your most fertile drives you insane with lust"~ :3
+	Impregnation fetish should also probably be the strength/weekness to it~ where as a tease from either of them will break the other~
+	
+	"H&D-only", "MG", "FF"
+	
+	MAKE DEV BRANCH (I forgot, and now Anon will be mad :NotLikeBlob:)
+	
+	imported character, all actions and moving around are laggy
+	
+	a toggle to prevent clothing replacing after sex (for PC and NPC)
+	
+	Switch to ground/NPC view
+	
+	the tooltip trying to render behind your mouse in top-right slots
+	
+	I would like to steal their TF potions and use it on them (gen potions in inv, not at moment of TF)
+	
+	Quick manage
+	
+	#################
+	
+	the ongoing penetration status effects only affect the one that's penetrated
+	no ongoing status for breasts as well, so I don't think anyone's gaining any arousal for ongoing paizuri
+	
+	foreskin
+	
+	add a 'request TF' action in the post-victory screen
+	
+	balance Kate's prices and add confirmation
+	
+	Make harpies a rare dominion alley encounter, it is odd that they're currently singled out as never showing up there when they live on top of the buildings
+	
+	I played 0.1.84.1 for a few hours last night, and the longer I played, the more lag I noticed. Ending post-combat sex scenes brought out the worst of it, with the game freezing up for 10--30 seconds or so right after hitting the Stop Sex button
+	
+	import's still borked
+		The color of the hair on my head changed, my dick became prehensile, my cum became slimy and oily, and if I'm in danger of pregnant during import I lose my vagina
+	
+	convert handjobs to ongoing acts
+	
+	bell gag and bell collar
+	
+	Liquid basic encahntment allow +/- potency
+	Lactation base transformation (small increase in lactation) is duplicated in breasts, which also increase lactation (wetness).
+	
+	Did Lilaya's tests twice, Essences quest didn't unlock
+	
+	Make Brax/harpy forced TFs an option in the scene
+	
+	pubic hair spawns
+	NPC spawn with extra hair pls
+	
+	turn the negative clothing status effect into an arousal gain one
+	
+	So the harpy matriarchs are initially missing some positions such as Back to Wall, but those positions com back immediately when I move into a different position.
+	
+	Also think I ran into a bug where I was having non-con with an impregnation fetish male, and I asked him to pull out and the game had him pull out but stay at 100 orgasm and whatever option I hit just had him respond with "the man is waiting"
+	 or something along those lines
+	
+	Forced TF isn't good for human-only playthroughs
+	
+	I'll add in a preferences screen for the forced TF content as soon as I can, to allow you to define the limits of what you're comfortable being transformed into. ^^
+	
+	Both with TF fetish -> all in one
+	
+	I'll add a way to submit to forced TFs after a combat victory, thanks for the suggestion. ^^
+
+	I'll also add some correct virginity-loss descriptions for self-actions. ^^
+	
+	add in say innerlocking figures as a continuous activited during sex to turn people with it on~/also prevent them from doing things with their hands
+	
+	the middle 4 locations could always include the house, shopping district, and tower. Then define locations as N/S/E/W
+	
+	whenever I beat cow-morphs everything freezes (when entering sex scene) (both were broodmothers)
+	
+	slots for extra arms if you have more then one set
+	
+	Add 'penetration-type' requests (request to fuck them, or to have paizuri)
+	
+	Add udders
+	
+	You can't learn partner's ass virginity by removing her clothes. You only discover it by performing anal
+	
+	They both lead to default no penetration orgasm texts.
+		That's probably because there's no dick or breast statuses.
+	
+	flared & tapered make mutually exclusive
+	
+	Fluid falvours and addiction
+	
+	Really need to improve sex AI
+	
+	I'll also add a way to save potions (possibly through an XML or JSON save, so that they're available cross-character). I'll try and get this done for the next version.
+	
+	Fetish training (or very expensive potions)
+	
+	Possible bug when advancing story past first Arthur
+	
+	bug where chars switch between being interested and not interested in sex in the same encounter
+		It happens in the incest scenes and I think in the regular ones as well, but I could be misremembering.
+	
+	creampie fetish
+	
+	add 'excessive' precum as a modifier
+	
+	More Orgasms!
+	
+	every character I make with a cock has milk-flavored right out of the box. Shouldn't it be, you know, cum-flavored cum instead unless you TF it later
+	
+	1. Encounter prostitutes in alleyways.
+	2. Sell your body to random NPCs in alleyways.
+	3. Assign slaves to selling themselves in the streets, then later I'll add a brothel for you to buy, and then assign your slaves to there.
+	
 	
 	Common sense colourings for each race
 	
+	breast feeding/nipple sucking
+	
 	Child genetics
+	
+	Cowgirl (self)
 	
 	Start trading with Ralph and jinxed clothes re-apply themselves happens
 	
 	Essence inventory too big
 	
-	The right side tab on the blog didn't get updated for this release
-	
 	After giving birth I seem to be stuck with a recovering vagina from slightly loose to extremely tight... I have max plasticity and 1 elasticity
 	
 	Head pats
+	Headpats and scritches during oral when
 	
 	adding a "TF preferences" screen to allow you to define what you're ok with being transformed into
 	
-	Headpats and scritches during oral when
 	
 	I'll also definitely add an options menu to set NPC transformation ratios, as well as making them take your preferences into account. They should already be doing that, but there must be a bug in my method.
 	
@@ -112,13 +267,18 @@
 	Maybe a non-furry version of forced TF would change the character's body type and such. For example, changing femininity, breast size, etc.
 	I think bimbofication and sissification are common, fur-free, fetishes on TFgamessite. So maybe the human-only forced TFs could do something like that?
 	
-	
 	Now, one other thought, maybe have fetishes figure in a little bit for what gear they end up with?
 		Not for normal peps, but when deciding whether to be a herm or off-gender sex.
 		If someone has a cum feitsh or receiving cock feitsh, they should probably prefer a partner with a cock.
 		If they have impregnation fetishes, it would make sense for them to prefer a partner with a vagina.
 		This could actually be tested after the random roll has been done, and adjusts the result then.
 		That will save a fair bit of coding work.
+	
+	making demon PC able to tf
+	
+	Reduce offsping. Increase pregnancy time.
+	
+	Add sensible colours and gentics.
 	
 	
 	they should focus on adding desired organs before removing

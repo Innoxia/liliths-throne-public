@@ -927,7 +927,6 @@ public class PlayerFingerNipple {
 		@Override
 		public String getDescription() {
 			if(!Sex.getPartner().isCoverableAreaExposed(CoverableArea.NIPPLES)){
-
 				UtilText.nodeContentSB.setLength(0);
 				
 				switch(Sex.getSexPacePartner()) {
@@ -1124,25 +1123,25 @@ public class PlayerFingerNipple {
 				
 				switch (Sex.getPartner().getBreastLactation()) {
 					case ONE_TRICKLE:
-						UtilText.nodeContentSB.append(" A small trickle of [npc.milk] leaks out into [npc.her] [npc.lowClothing(nipples)] as you squeeze down on [npc.her] [npc.nipples+].");
+						UtilText.nodeContentSB.append(" A small trickle of [npc.milk] leaks out over your [pc.fingers] as you squeeze down on [npc.her] [npc.nipples+].");
 						break;
 					case TWO_SMALL_AMOUNT:
-						UtilText.nodeContentSB.append(" A small squirt of [npc.milk] leaks out into [npc.her] [npc.lowClothing(nipples)] as you squeeze down on [npc.her] [npc.nipples+].");
+						UtilText.nodeContentSB.append(" A small squirt of [npc.milk] leaks out over your [pc.fingers] as you squeeze down on [npc.her] [npc.nipples+].");
 						break;
 					case THREE_DECENT_AMOUNT:
-						UtilText.nodeContentSB.append(" A trickle of [npc.milk] runs out into [npc.her] [npc.lowClothing(nipples)] as you squeeze down on [npc.her] [npc.nipples+].");
+						UtilText.nodeContentSB.append(" A trickle of [npc.milk] runs out over your [pc.fingers] as you squeeze down on [npc.her] [npc.nipples+].");
 						break;
 					case FOUR_LARGE_AMOUNT:
-						UtilText.nodeContentSB.append(" [npc.Her] [npc.milk] starts to flow out into [npc.her] [npc.lowClothing(nipples)], causing [npc.herHim] to let out [npc.a_moan+].");
+						UtilText.nodeContentSB.append(" [npc.Her] [npc.milk] starts to flow out over your [pc.fingers], and [npc.she] lets out a deep moan as it starts running down over [npc.her] [npc.breasts+].");
 						break;
 					case FIVE_VERY_LARGE_DROOLING:
-						UtilText.nodeContentSB.append(" [npc.Her] [npc.milk] starts drooling out in a little stream into [npc.her] [npc.lowClothing(nipples)] as you squeeze down on [npc.her] [npc.nipples+].");
+						UtilText.nodeContentSB.append(" [npc.Her] [npc.milk] starts drooling out in a little stream over your [pc.fingers] as you squeeze down on [npc.her] [npc.nipples+].");
 						break;
 					case SIX_EXTREME_AMOUNT_DRIPPING:
-						UtilText.nodeContentSB.append(" [npc.Her] [npc.milk] starts pouring out in a constant stream, quickly soaking [npc.her] [npc.lowClothing(nipples)].");
+						UtilText.nodeContentSB.append(" [npc.Her] [npc.milk] starts pouring out in a constant stream, quickly soaking [npc.her] breasts and dripping down onto the floor beneath [npc.herHim].");
 						break;
 					case SEVEN_MONSTROUS_AMOUNT_POURING:
-						UtilText.nodeContentSB.append(" [npc.Her] [npc.milk] starts pouring out in a heavy flow, quickly soaking [npc.her] [npc.lowClothing(nipples)].");
+						UtilText.nodeContentSB.append(" [npc.Her] [npc.milk] starts pouring out in a heavy flow, quickly soaking [npc.her] breasts and dripping down to form a large pool on the floor beneath [npc.herHim].");
 						break;
 					default:
 						break;

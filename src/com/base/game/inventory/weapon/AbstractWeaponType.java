@@ -15,12 +15,12 @@ import com.base.game.combat.DamageLevel;
 import com.base.game.combat.DamageType;
 import com.base.game.combat.DamageVariance;
 import com.base.game.combat.Spell;
+import com.base.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreType;
 import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.Rarity;
 import com.base.main.Main;
-import com.base.utils.Colour;
 import com.base.utils.Util;
 
 /**
@@ -32,7 +32,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 
 	protected static final long serialVersionUID = 1L;
 	
-	private String determiner, pronoun, name, description, pathName;
+	private String determiner, pronoun, name, namePlural, description, pathName;
 	protected DamageLevel damageLevel;
 	protected DamageVariance damageVariance;
 	private InventorySlot slot;
@@ -42,12 +42,13 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 	private Map<DamageType, String> SVGStringMap;
 	private List<Spell> spells;
 
-	public AbstractWeaponType(String determiner, String pronoun, String name, String description, InventorySlot slot, String pathName, Rarity rarity, List<DamageType> availableDamageTypes, DamageLevel damageLevel, DamageVariance damageVariance,
-			Map<Attribute, Integer> attributeModifiers, List<Spell> spells) {
+	public AbstractWeaponType(String determiner, String pronoun, String name, String namePlural, String description, InventorySlot slot, String pathName, Rarity rarity, List<DamageType> availableDamageTypes, DamageLevel damageLevel,
+			DamageVariance damageVariance, Map<Attribute, Integer> attributeModifiers, List<Spell> spells) {
 
 		this.determiner = determiner;
 		this.pronoun = pronoun;
 		this.name = name;
+		this.namePlural = namePlural;
 		this.description = description;
 		this.rarity = rarity;
 
@@ -143,12 +144,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 			public String onEquip(GameCharacter character) {
 				if (character.isPlayer()) {
 					if (Main.getProperties().addWeaponDiscovered(wt)) {
-						Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center;'>"
-									+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
-									+ "</br>"
-									+ "<b>Weapon:</b> <b style='color:"+wt.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(wt.getName())+"</b>"
-								+ "</p>");
+						Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(wt.getName(), wt.getRarity().getColour()), true);
 					}
 				}
 				return wt.equipText(character);
@@ -225,6 +221,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getNamePlural() {
+		return namePlural;
 	}
 
 	public String getDescription() {

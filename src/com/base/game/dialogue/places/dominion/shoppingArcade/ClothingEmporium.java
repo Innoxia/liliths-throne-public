@@ -3,9 +3,12 @@ package com.base.game.dialogue.places.dominion.shoppingArcade;
 import com.base.game.character.npc.dominion.Nyan;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
+import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.responses.ResponseTrade;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.main.Main;
+import com.base.world.WorldType;
+import com.base.world.places.ShoppingArcade;
 
 /**
  * @since 0.1.82
@@ -35,6 +38,14 @@ public class ClothingEmporium {
 					return new Response("Enter", "Step inside Nyan's Clothing Emporium.", SHOP_CLOTHING);
 				}
 				
+			} else if (index == 6) {
+				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
+					@Override
+					public void effects() {
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), ShoppingArcade.ARCADE_ENTRANCE, true);
+					}
+				};
+
 			} else {
 				return null;
 			}

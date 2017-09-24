@@ -1,8 +1,8 @@
 package com.base.game.dialogue.places.dominion;
 
 import com.base.game.Weather;
+import com.base.game.character.GameCharacter;
 import com.base.game.character.body.valueEnums.Femininity;
-import com.base.game.character.npc.NPC;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
@@ -249,12 +249,11 @@ public class CityPlaces {
 					+ " These less-travelled parts of Dominion have a dangerous feel to them, and you can't shake the feeling that you're being followed."
 					+ "</p>");
 			
-			for(NPC npc : Main.game.getNPCList()){
-				if(npc.getLocation().equals(Main.game.getPlayer().getLocation()) && npc.getWorldLocation()==Main.game.getActiveWorld().getWorldType()) {
+			for(GameCharacter npc : Main.game.getCharactersPresent()) {
 					UtilText.nodeContentSB.append(
 							UtilText.genderParsing(npc,
 									"<p style='text-align:center;'>"
-									+ "<b style='color:"+Femininity.valueOf(npc.getFemininity()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
+									+ "<b style='color:"+Femininity.valueOf(npc.getFemininityValue()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
 									+ " <b style='color:"+npc.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
 									+ " <b style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</b> <b>is prowling this area!</b></p>"
 									
@@ -328,9 +327,6 @@ public class CityPlaces {
 								UtilText.nodeContentSB.append(Util.intToString(npc.getSexAsSubCount())+" times.");
 							}
 							UtilText.nodeContentSB.append("</b></p>");
-							
-							
-				}
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -370,13 +366,12 @@ public class CityPlaces {
 						+ " Back-doors and steaming vents line the dark brick walls, and you often have to navigate around overflowing bins and stacks of empty crates in order to make progress."
 						+ " You're far away from the safety of the main street, and you can't shake the feeling that there's something <b>extremely dangerous</b> lurking around the next corner..."
 					+ "</p>");
-			
-			for(NPC npc : Main.game.getNPCList()){
-				if(npc.getLocation().equals(Main.game.getPlayer().getLocation()) && npc.getWorldLocation()==Main.game.getActiveWorld().getWorldType()) {
+
+			for(GameCharacter npc : Main.game.getCharactersPresent()) {
 					UtilText.nodeContentSB.append(
 							UtilText.genderParsing(npc,
 									"<p style='text-align:center;'>"
-									+ "<b style='color:"+Femininity.valueOf(npc.getFemininity()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
+									+ "<b style='color:"+Femininity.valueOf(npc.getFemininityValue()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
 									+ " <b style='color:"+npc.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
 									+ " <b style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</b> <b>is prowling this area!</b></p>"
 									
@@ -450,9 +445,6 @@ public class CityPlaces {
 								UtilText.nodeContentSB.append(Util.intToString(npc.getSexAsSubCount())+" times.");
 							}
 							UtilText.nodeContentSB.append("</b></p>");
-							
-							
-				}
 			}
 			
 			return UtilText.nodeContentSB.toString();

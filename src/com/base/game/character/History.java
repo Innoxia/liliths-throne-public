@@ -17,33 +17,126 @@ import com.base.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.85
  * @author Innoxia
  */
 public enum History {
+	
+	/*
+	 * Sociable:
+	Prostitute
+	Stripper
+	Barmaid/tender
+	Massage therapist
+	Waitress
+	Receptionist
+	Beautician
+	Musician/singer
+	Fitness trainer
+	
+Dominant:
+	Mugger
+	Gang leader
+	Construction worker
+	Mechanic
+	Teacher
+	Enforcer (low rank)
+	Enforcer (high rank)
+	
+Compliant:
+	Con-artist
+	Librarian
+	University student
+	Writer
+	Engineer
+	Architect
+	Lawyer
+	Doctor
+	Arcane researcher
+	
+Calm:
+	Loafer
+	Maid/Butler
+	Receptionist
+	Shop assistant
+	Painter
+	Nurse
+	Chef
+	Athlete
+	Model
+	 */
+	
+	// Partner histories:
+	
+	// Sociable personality:
+	
+	PROSTITUTE(false, true, "prostitute", "-", null),
+	STRIPPER(false, true, "stripper", "-", null),
+	BAR_TENDER(false, true, "barmaid", "-", null),
+	MASSAGE_THERAPIST(false, true, "massage therapist", "-", null),
+	WAITRESS(false, true, "waitress", "-", null),
+	BEAUTICIAN(false, true, "beautician", "-", null),
+	MUSICIAN(false, true, "musician", "-", null),
+	FITNESS_INSTRUCTOR(false, true, "fitness instructor", "-", null),
+	
+	// Commanding personality:
+	
+	MUGGER(false, true, "mugger", "-", null),
+	CONSTRUCTION_WORKER(false, true, "construction worker", "-", null),
+	MECHANIC(false, true, "mechanic", "-", null),
+	TEACHER(false, true, "teacher", "-", null),
+	ENFORCER(false, true, "enforcer", "-", null),
+	HIGH_RANKING_ENFORCER(false, true, "enforcer chief", "-", null),
+	
+	// Analytical personality:
+
+	CON_ARTIST(false, true, "con-artist", "-", null),
+	LIBRARIAN(false, true, "librarian", "-", null),
+	UNIVERSITY_STUDENT(false, true, "university student", "-", null),
+	WRITER(false, true, "writer", "-", null),
+	ENGINEER(false, true, "engineer", "-", null),
+	ARCHITECT(false, true, "architect", "-", null),
+	DOCTOR(false, true, "doctor", "-", null),
+	ARCANE_RESEARCHER(false, true, "arcane researcher", "-", null),
+	
+	// Calm personality:
+
+	UNEMPLOYED(false, true, "unemployed", "-", null),
+	MAID(false, true, "maid", "-", null),
+	RECEPTIONIST(false, true, "receptionist", "-", null),
+	SHOP_ASSISTANT(false, true, "shop assistant", "-", null),
+	ARTIST(false, true, "artist", "-", null),
+	NURSE(false, true, "nurse", "-", null),
+	CHEF(false, true, "chef", "-", null),
+	ATHLETE(false, true, "athlete", "-", null),
+	MODEL(false, true, "model", "-", null),
+	
+	
+	
+	// Player histories:
 
 	// Neutral:
-	NEUTRAL("Average", "You're average in every way.", Util.newHashMapOfValues()),
+	NEUTRAL(true, false, "Average", "You're average in every way.", Util.newHashMapOfValues()),
 
 	// Good:
-	STRONG("Strong", "You work out at the gym almost every day. You're stronger than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 5))),
+	STRONG(true, false, "Strong", "You work out at the gym almost every day. You're stronger than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 5))),
 
-	STUDIOUS("Intelligent", "You spend a lot of time reading and studying. You're more intelligent than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.INTELLIGENCE, 5))),
+	STUDIOUS(true, false, "Intelligent", "You spend a lot of time reading and studying. You're more intelligent than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.INTELLIGENCE, 5))),
 
-	HEALTHY("Healthy", "You make sure to stick to a very healthy diet and go out running every day. As a result, you're fitter than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FITNESS, 5))),
+	HEALTHY(true, false, "Healthy", "You make sure to stick to a very healthy diet and go out running every day. As a result, you're fitter than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FITNESS, 5))),
 
-	INNOCENT("Innocent", "People don't <i>really</i> have sex before marriage, right?!"
+	INNOCENT(true, false, "Innocent", "People don't <i>really</i> have sex before marriage, right?!"
 			+ " But I suppose if they only do it once, it's ok, as you can't get pregnant from the first time!", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CORRUPTION, -5))),
 	
 	// Bad:
-	WEAK("Weak", "You've got a small frame and puny muscles. You're weaker than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, -5))),
+	WEAK(true, false, "Weak", "You've got a small frame and puny muscles. You're weaker than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, -5))),
 
-	BIRD_BRAIN("Bird brain", "You sometimes forget what you were doing halfway throu- Ooh a penny! You're less intelligent than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.INTELLIGENCE, -5))),
+	BIRD_BRAIN(true, false, "Bird brain", "You sometimes forget what you were doing halfway throu- Ooh a penny! You're less intelligent than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.INTELLIGENCE, -5))),
 
-	UNFIT("Unfit", "You've never done any exercise in your life, leaving you quite out of shape. You are less fit than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FITNESS, -5))),
+	UNFIT(true, false, "Unfit", "You've never done any exercise in your life, leaving you quite out of shape. You are less fit than an average person.", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FITNESS, -5))),
 
 	// Other:
-	TOWN_BIKE("Slut", "You've lost count of the amount of guys (and sometimes girls) that you've slept with. You have a lot of experience with flirting and seducing people." + " <span style='color:" + Colour.GENERIC_SEX.toWebHexString()
+	TOWN_BIKE(true, false, "Slut", "You've lost count of the amount of guys (and sometimes girls) that you've slept with. You have a lot of experience with flirting and seducing people." + " <span style='color:" + Colour.GENERIC_SEX.toWebHexString()
 			+ ";'>You start the game having already lost your virginity.</span>", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 5))) {
 		@Override
 		public void applyExtraEffects(GameCharacter character) {
@@ -120,28 +213,39 @@ public enum History {
 		}
 	};
 
-	private String name, descriptionPlayer;
-	// Attributes modified by this Trait:
-	private HashMap<Attribute, Integer> attributeModifiers;
-
-	private History(String name, String descriptionPlayer, HashMap<Attribute, Integer> attributeModifiers) {
-		this.name = name;
-		this.descriptionPlayer = descriptionPlayer;
-		this.attributeModifiers = attributeModifiers;
-	}
-
 	private static List<History> historiesList;
 	
 	public static List<History> getAvailableHistories(GameCharacter character) {
 		historiesList = new ArrayList<>();
 
-		for(History history : History.values())
-			if(history.isAvailable(character))
+		for(History history : History.values()) {
+			if(history.isAvailable(character) && (character.isPlayer()?history.isAvailableToPlayer():true) && (!character.isPlayer()?history.isAvailableToPartner():true)) {
 				historiesList.add(history);
-
+			}
+		}
+		
 		return historiesList;
 	}
 
+
+	private String name, descriptionPlayer;
+	private boolean availableToPlayer, availableToPartner;
+	// Attributes modified by this Trait:
+	private HashMap<Attribute, Integer> attributeModifiers;
+
+	private History(boolean availableToPlayer, boolean availableToPartner, String name, String descriptionPlayer, HashMap<Attribute, Integer> attributeModifiers) {
+		this.availableToPlayer = availableToPlayer;
+		this.availableToPartner = availableToPartner;
+		this.name = name;
+		this.descriptionPlayer = descriptionPlayer;
+		
+		if(attributeModifiers == null) {
+			this.attributeModifiers = Util.newHashMapOfValues();
+		} else {
+			this.attributeModifiers = attributeModifiers;
+		}
+	}
+	
 	public boolean isAvailable(GameCharacter character) {
 		return true;
 	}
@@ -152,6 +256,12 @@ public enum History {
 	public void revertExtraEffects(GameCharacter character) {
 	}
 
+	public boolean isAvailableToPlayer() {
+		return availableToPlayer;
+	}
+	public boolean isAvailableToPartner() {
+		return availableToPartner;
+	}
 	public String getName() {
 		return name;
 	}

@@ -527,32 +527,32 @@ public class TooltipInformationEventListener implements EventListener {
 			Main.mainController.setTooltipSize(360, 600);
 
 			tooltipSB.setLength(0);
-			tooltipSB.append("<div class='title' style='color:" + Femininity.valueOf(Main.game.getPlayer().getFemininity()).getColour().toWebHexString() + ";'>"
-					+ (Main.game.getPlayer().getName().length() == 0 ? (Main.game.getPlayer().getFemininity() <= Femininity.MASCULINE.getMaximumFemininity() ? "Hero" : "Heroine") : Main.game.getPlayer().getName()) + "</div>"
+			tooltipSB.append("<div class='title' style='color:" + Femininity.valueOf(Main.game.getPlayer().getFemininityValue()).getColour().toWebHexString() + ";'>"
+					+ (owner.getName().length() == 0 ? (owner.getFemininityValue() <= Femininity.MASCULINE.getMaximumFemininity() ? "Hero" : "Heroine") : owner.getName()) + "</div>"
 
-					+ extraAttributeBonus(Main.game.getPlayer(), Attribute.CRITICAL_CHANCE)
-					+ extraAttributeBonus(Main.game.getPlayer(), Attribute.CRITICAL_DAMAGE)
+					+ extraAttributeBonus(owner, Attribute.CRITICAL_CHANCE)
+					+ extraAttributeBonus(owner, Attribute.CRITICAL_DAMAGE)
 
 					// Header:
 					+ "<div class='subTitle-third combatValue'>" + "Type" + "</div>" + "<div class='subTitle-third combatValue'>" + "Damage" + "</div>" + "<div class='subTitle-third combatValue'>" + "Resist" + "</div>"
 
 					// Values:
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Melee", Attribute.DAMAGE_ATTACK, Attribute.RESISTANCE_ATTACK)
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Spell", Attribute.DAMAGE_SPELLS, Attribute.RESISTANCE_SPELLS)
+					+ extraAttributeTableRow(owner, "Melee", Attribute.DAMAGE_ATTACK, Attribute.RESISTANCE_ATTACK)
+					+ extraAttributeTableRow(owner, "Spell", Attribute.DAMAGE_SPELLS, Attribute.RESISTANCE_SPELLS)
 
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Physical", Attribute.DAMAGE_PHYSICAL, Attribute.RESISTANCE_PHYSICAL)
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Fire", Attribute.DAMAGE_FIRE, Attribute.RESISTANCE_FIRE)
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Cold", Attribute.DAMAGE_ICE, Attribute.RESISTANCE_ICE)
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Poison", Attribute.DAMAGE_POISON, Attribute.RESISTANCE_POISON)
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Willpower", Attribute.DAMAGE_MANA, Attribute.RESISTANCE_MANA)
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Stamina", Attribute.DAMAGE_STAMINA, Attribute.RESISTANCE_STAMINA)
+					+ extraAttributeTableRow(owner, "Physical", Attribute.DAMAGE_PHYSICAL, Attribute.RESISTANCE_PHYSICAL)
+					+ extraAttributeTableRow(owner, "Fire", Attribute.DAMAGE_FIRE, Attribute.RESISTANCE_FIRE)
+					+ extraAttributeTableRow(owner, "Cold", Attribute.DAMAGE_ICE, Attribute.RESISTANCE_ICE)
+					+ extraAttributeTableRow(owner, "Poison", Attribute.DAMAGE_POISON, Attribute.RESISTANCE_POISON)
+					+ extraAttributeTableRow(owner, "Willpower", Attribute.DAMAGE_MANA, Attribute.RESISTANCE_MANA)
+					+ extraAttributeTableRow(owner, "Stamina", Attribute.DAMAGE_STAMINA, Attribute.RESISTANCE_STAMINA)
 
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Pure", Attribute.DAMAGE_PURE, Attribute.DAMAGE_PURE)
+					+ extraAttributeTableRow(owner, "Pure", Attribute.DAMAGE_PURE, Attribute.DAMAGE_PURE)
 					
-					+ extraAttributeBonus(Main.game.getPlayer(), Attribute.FERTILITY)
-					+ extraAttributeBonus(Main.game.getPlayer(), Attribute.VIRILITY)
+					+ extraAttributeBonus(owner, Attribute.FERTILITY)
+					+ extraAttributeBonus(owner, Attribute.VIRILITY)
 					
-					+ extraAttributeBonus(Main.game.getPlayer(), Attribute.SPELL_COST_MODIFIER));
+					+ extraAttributeBonus(owner, Attribute.SPELL_COST_MODIFIER));
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
@@ -567,7 +567,7 @@ public class TooltipInformationEventListener implements EventListener {
 			} else {
 				target = CharactersPresentDialogue.characterViewed;
 			}
-			tooltipSB.append("<div class='title' style='color:" + Femininity.valueOf(target.getFemininity()).getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(target.getName()) + "</div>");
+			tooltipSB.append("<div class='title' style='color:" + Femininity.valueOf(target.getFemininityValue()).getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(target.getName()) + "</div>");
 
 			tooltipSB.append(
 					extraAttributeBonus(target, Attribute.CRITICAL_CHANCE)
@@ -713,9 +713,10 @@ public class TooltipInformationEventListener implements EventListener {
 		return this;
 	}
 
-	public TooltipInformationEventListener setExtraAttributes() {
+	public TooltipInformationEventListener setExtraAttributes(GameCharacter owner) {
 		resetFields();
 		extraAttributes = true;
+		this.owner = owner;
 
 		return this;
 	}

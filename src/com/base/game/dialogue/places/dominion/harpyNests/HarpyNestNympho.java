@@ -207,7 +207,7 @@ public class HarpyNestNympho {
 						+ "</p>"
 						+ "<p>"
 							+ "Upon hearing your voice, [harpyNympho.name] spins around, and, catching sight of you, she lets out a frustrated sigh,"
-								+ (Main.game.getPlayer().getFemininity()>Femininity.FEMININE_STRONG.getMinimumFemininity()
+								+ (Main.game.getPlayer().getFemininityValue()>Femininity.FEMININE_STRONG.getMinimumFemininity()
 									?" [harpyNympho.speech(Eugh! It's <i>you</i> again! You'd better not be trying to steal any of my playthings!)]"
 									:" [harpyNympho.speech(Eugh! It's <i>you</i> again?! What do you want this time?!)]")
 						+ "</p>"
@@ -246,7 +246,7 @@ public class HarpyNestNympho {
 					+ "</p>"
 					+ "<p>"
 						+ "Upon hearing your voice, [harpyNympho.name] spins around, and, catching sight of you, she lets out a frustrated sigh,"
-							+ (Main.game.getPlayer().getFemininity()>Femininity.FEMININE_STRONG.getMinimumFemininity()
+							+ (Main.game.getPlayer().getFemininityValue()>Femininity.FEMININE_STRONG.getMinimumFemininity()
 								?" [harpyNympho.speech(Who are you?! What are you doing here?! You'd better not be trying to steal any of my playthings!)]"
 								:" [harpyNympho.speech(Who are you?! What are you doing here?! What do you want?!)]")
 					+ "</p>"

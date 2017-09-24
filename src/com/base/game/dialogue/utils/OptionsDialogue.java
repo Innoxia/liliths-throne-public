@@ -25,7 +25,6 @@ import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.story.CharacterCreation;
 import com.base.main.Main;
-import com.base.rendering.RenderingEngine;
 import com.base.utils.BaseColour;
 import com.base.utils.Colour;
 import com.base.utils.CreditsSlot;
@@ -33,7 +32,7 @@ import com.base.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.85
  * @author Innoxia
  */
 public class OptionsDialogue {
@@ -86,13 +85,11 @@ public class OptionsDialogue {
 							if (Main.game.isStarted()) {
 								Main.game.setInCombat(false);
 								Main.game.setInSex(false);
-								RenderingEngine.ENGINE.renderMapTitle();
 							}
 							
 							Main.mainController.setAttributePanelContent("");
 							Main.mainController.setButtonsContent("");
-							Main.mainController.setMapViewContent("");
-							Main.mainController.setMapTitleContent("");
+							Main.game.setRenderMap(false);
 							
 							Main.startNewGame(CharacterCreation.CHARACTER_CREATION_START);
 							confirmNewGame = false;
@@ -134,7 +131,7 @@ public class OptionsDialogue {
 				};
 
 			} else if (index == 4) {
-				return new Response("Content preferences", "Set your preferred content settings.", CONTENT_PREFERENCE){
+				return new Response("Content Options", "Set your preferred content settings.", CONTENT_PREFERENCE){
 					@Override
 					public void effects() {
 						confirmNewGame=false;
@@ -404,6 +401,11 @@ public class OptionsDialogue {
 					+"<p>"
 					+ "<b>Font-size:</b>"
 					+ "</br>This cycles the game's base font size. This currently only affects the size of the text in the main dialogue, but in the future I'll expand it to include every display element."
+					+ "</p>"
+
+					+"<p>"
+					+ "<b>Fade-in:</b>"
+					+ "</br>This option is responsible for fading in the main part of the text each time a new scene is displayed. It is off by default, as having it on may cause some annoying lag in inventory screens."
 					+ "</p>";
 		}
 		
@@ -452,9 +454,19 @@ public class OptionsDialogue {
 				};
 			
 			} else if (index == 4) {
-				return new Response("Gender pronouns", "Customise all gender pronouns and names.", OPTIONS_PRONOUNS);
+				return new Response("Fade-in: "+(Main.getProperties().fadeInText?"[style.boldGood(ON)]":"[style.boldBad(OFF)]"), "Toggle the fading in of the game's text. If turned on, it may cause some minor lag in inventory screens.", OPTIONS){
+					@Override
+					public void effects() {
+						Main.getProperties().fadeInText = !Main.getProperties().fadeInText;
+
+						Main.saveProperties();
+					}
+				};
 				
 			} else if (index == 5) {
+				return new Response("Gender pronouns", "Customise all gender pronouns and names.", OPTIONS_PRONOUNS);
+				
+			} else if (index == 6) {
 				if(Main.game.isStarted()) {
 					return new ResponseEffectsOnly("Export character", "Exports your character file to the 'data/characters/' folder."){
 						@Override
@@ -468,13 +480,13 @@ public class OptionsDialogue {
 					return new Response("Export character", "You'll need to start a game first!", null);
 				}
 			
-			} else if (index == 6) {
+			} else if (index == 7) {
 				return new Response("Patch notes", "View the patch notes for this version.", PATCH_NOTES);
 			
-			} else if (index == 7) {
+			} else if (index == 8) {
 				return new Response("Gender preferences", "Set your preferred gender encounter rates.", GENDER_PREFERENCE);
 			
-			} else if (index == 8) {
+			} else if (index == 9) {
 				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
 			
 			} else if (index == 0) {
@@ -1016,7 +1028,7 @@ public class OptionsDialogue {
 	};
 	
 	
-	public static final DialogueNodeOld CONTENT_PREFERENCE = new DialogueNodeOld("Content preferences", "", true) {
+	public static final DialogueNodeOld CONTENT_PREFERENCE = new DialogueNodeOld("Content Options", "", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override

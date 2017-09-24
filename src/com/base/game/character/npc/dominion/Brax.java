@@ -100,9 +100,15 @@ public class Brax extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLACK, false), true, this);
 
-		this.equipMainWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE), false);
+		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE));
 		
 		this.addFetish(Fetish.FETISH_DOMINANT);
+	}
+	
+	public void setBraxsPostQuestStatus() {
+		Main.game.getBrax().setLocation(WorldType.ENFORCER_HQ, EnforcerHQ.RECEPTION_DESK);
+		Main.game.getBrax().setPendingClothingDressing(true);
+		Main.game.getCandi().addSlave(Main.game.getBrax());
 	}
 	
 	@Override
@@ -420,8 +426,7 @@ public class Brax extends NPC {
 					@Override
 					public void effects() {
 						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_ENFORCER_HQ, true);
-						Main.game.getBrax().setLocation(WorldType.ENFORCER_HQ, EnforcerHQ.RECEPTION_DESK);
-						Main.game.getBrax().setPendingClothingDressing(true);
+						((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
 					}
 				};
 			} else {
@@ -855,8 +860,7 @@ public class Brax extends NPC {
 					@Override
 					public void effects() {
 						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_ENFORCER_HQ, true);
-						Main.game.getBrax().setLocation(WorldType.ENFORCER_HQ, EnforcerHQ.RECEPTION_DESK);
-						Main.game.getBrax().setPendingClothingDressing(true);
+						((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
 					}
 				};
 				

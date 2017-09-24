@@ -5,10 +5,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumMap;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.base.controller.MainController;
 import com.base.controller.TooltipUpdateThread;
 import com.base.game.character.GameCharacter;
@@ -31,7 +30,6 @@ import com.base.game.character.npc.dominion.HarpyNympho;
 import com.base.game.character.npc.dominion.HarpyNymphoCompanion;
 import com.base.game.character.npc.dominion.Kate;
 import com.base.game.character.npc.dominion.Lilaya;
-import com.base.game.character.npc.dominion.NPCRandomDominion;
 import com.base.game.character.npc.dominion.Nyan;
 import com.base.game.character.npc.dominion.Pazu;
 import com.base.game.character.npc.dominion.Pix;
@@ -43,17 +41,17 @@ import com.base.game.character.npc.dominion.Vicky;
 import com.base.game.character.npc.generic.GenericAndrogynousNPC;
 import com.base.game.character.npc.generic.GenericFemaleNPC;
 import com.base.game.character.npc.generic.GenericMaleNPC;
-import com.base.game.character.race.Race;
 import com.base.game.dialogue.DialogueFlags;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.MapDisplay;
 import com.base.game.dialogue.encounters.Encounter;
+import com.base.game.dialogue.eventLog.EventLogEntry;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseCombat;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.responses.ResponseSex;
 import com.base.game.dialogue.responses.ResponseTrade;
-import com.base.game.dialogue.utils.MiscellaneousDialogue;
+import com.base.game.dialogue.utils.MiscDialogue;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.clothing.CoverableArea;
 import com.base.main.Main;
@@ -66,11 +64,12 @@ import com.base.world.Cell;
 import com.base.world.World;
 import com.base.world.WorldType;
 import com.base.world.places.Dominion;
+import com.base.world.places.GenericPlace;
 import com.base.world.places.PlaceInterface;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.85
  * @author Innoxia
  */
 public class Game implements Serializable {
@@ -105,24 +104,25 @@ public class Game implements Serializable {
 		candiReceptionist,		// Receptionist at the Enforcer HQ.	 
 		finch;					// Manager of Slaver Alley's 'Slave Administration'
 	
-	// Generic NPCS:
+	// Generic NPCs:
 	private NPC genericMaleNPC, genericFemaleNPC, genericAndrogynousNPC;
 	
 	// NPCs:
-	private NPC currentRandomAttacker;
-	private List<NPC> NPCList;
+	private NPC activeNPC;
+	private int npcTally = 0;
+	private Map<String, NPC> NPCMap;
 	private List<NPC> playerOffspring;
 	private List<NPC> offspringSpawned;
 	
 	private World activeWorld;
 	private Map<WorldType, World> worlds;
 	private long minutesPassed;
-	private boolean debugMode, renderAttributesSection, renderMapSection, inCombat, inSex, imperialMeasurements;
+	private boolean debugMode, renderAttributesSection, renderMap, inCombat, inSex, imperialMeasurements;
 
 	private Cell currentCell;
 	private Encounter currentEncounter;
 
-	private boolean hintsOn, started;
+	private boolean hintsOn, started, inNewWorld;
 
 	private Weather currentWeather;
 	private long nextStormTime;
@@ -140,6 +140,9 @@ public class Game implements Serializable {
 	private int initialPositionAnchor = 0, responsePage = 0;
 	private StringBuilder pastDialogueSB = new StringBuilder(), choicesDialogueSB = new StringBuilder();
 	private StringBuilder textEndStringBuilder = new StringBuilder(), textStartStringBuilder = new StringBuilder();
+	
+	// Log:
+	private List<EventLogEntry> eventLog = new ArrayList<>();
 
 	public Game() throws ClassNotFoundException, IOException {
 		activeWorld = null;
@@ -150,7 +153,7 @@ public class Game implements Serializable {
 		inCombat = false;
 		inSex = false;
 		renderAttributesSection = false;
-		renderMapSection = false;
+		renderMap = false;
 		debugMode = false;
 		imperialMeasurements = false;
 
@@ -158,6 +161,7 @@ public class Game implements Serializable {
 
 		hintsOn = false;
 		started = false;
+		inNewWorld = false;
 
 		// Start in clouds:
 		currentWeather = Weather.CLOUD;
@@ -167,96 +171,99 @@ public class Game implements Serializable {
 
 	public void initNewGame(DialogueNodeOld startingDialogueNode) {
 		// Set up NPCs:
-		NPCList = new ArrayList<>();
+		NPCMap = new HashMap<>();
 		
 		playerOffspring = new ArrayList<>();
 		offspringSpawned = new ArrayList<>();
-		
-		testNPC = new TestNPC();
-		NPCList.add(testNPC);
-		
-		lilaya = new Lilaya();
-		NPCList.add(lilaya);
-		lilaya.setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
-		
-		rose = new Rose();
-		NPCList.add(rose);
-		rose.setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
-		lilaya.addSlave(rose);
-		rose.setObedience(ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMedianValue());
-		lilaya.setAffection(rose, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-		rose.setAffection(lilaya, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-		
-		brax = new Brax();
-		NPCList.add(brax);
 
-		candiReceptionist = new CandiReceptionist();
-		NPCList.add(candiReceptionist);
-
-		brax.setAffection(candiReceptionist, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
-		candiReceptionist.setAffection(brax, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
-		
-		ralph = new Ralph();
-		NPCList.add(ralph);
-		
-		nyan = new Nyan();
-		NPCList.add(nyan);
-		
-		vicky = new Vicky();
-		NPCList.add(vicky);
-		
-//		arthur = new Arthur();
-//		NPCList.add(arthur);
-		
-		pix = new Pix();
-		NPCList.add(pix);
-		
-		kate = new Kate();
-		NPCList.add(kate);
-		
-		scarlett = new Scarlett();
-		NPCList.add(scarlett);
-		
-		alexa = new Alexa();
-		NPCList.add(alexa);
-		
-		alexa.setAffection(scarlett, AffectionLevel.NEGATIVE_FOUR_HATE.getMedianValue());
-		scarlett.setAffection(alexa, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-		scarlett.setAffection(Main.game.getPlayer(), AffectionLevel.NEGATIVE_TWO_DISLIKE.getMedianValue());
-		
-		harpyBimbo = new HarpyBimbo();
-		NPCList.add(harpyBimbo);
-		
-		harpyBimboCompanion = new HarpyBimboCompanion();
-		NPCList.add(harpyBimboCompanion);
-
-		harpyBimbo.setAffection(harpyBimboCompanion, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
-		harpyBimboCompanion.setAffection(harpyBimbo, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
-		
-		harpyDominant = new HarpyDominant();
-		NPCList.add(harpyDominant);
-
-		harpyDominantCompanion = new HarpyDominantCompanion();
-		NPCList.add(harpyDominantCompanion);
-
-		harpyDominant.setAffection(harpyDominantCompanion, AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
-		harpyDominantCompanion.setAffection(harpyDominant, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
-		
-		harpyNympho = new HarpyNympho();
-		NPCList.add(harpyNympho);
-
-		harpyNymphoCompanion = new HarpyNymphoCompanion();
-		NPCList.add(harpyNymphoCompanion);
-
-		harpyNympho.setAffection(harpyNymphoCompanion, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-		harpyNymphoCompanion.setAffection(harpyNympho, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
-		
-		pazu = new Pazu();
-		NPCList.add(pazu);
-		
-		finch = new Finch();
-		NPCList.add(finch);
-		
+		try {
+			testNPC = new TestNPC();
+			addNPC(testNPC);
+			
+			lilaya = new Lilaya();
+			addNPC(lilaya);
+			lilaya.setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+			
+			rose = new Rose();
+			addNPC(rose);
+			rose.setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+			lilaya.addSlave(rose);
+			rose.setObedience(ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMedianValue());
+			lilaya.setAffection(rose, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+			rose.setAffection(lilaya, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+			
+			brax = new Brax();
+			addNPC(brax);
+	
+			candiReceptionist = new CandiReceptionist();
+			addNPC(candiReceptionist);
+	
+			brax.setAffection(candiReceptionist, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+			candiReceptionist.setAffection(brax, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+			
+			ralph = new Ralph();
+			addNPC(ralph);
+			
+			nyan = new Nyan();
+			addNPC(nyan);
+			
+			vicky = new Vicky();
+			addNPC(vicky);
+			
+	//		arthur = new Arthur();
+	//		addNPC(arthur);
+			
+			pix = new Pix();
+			addNPC(pix);
+			
+			kate = new Kate();
+			addNPC(kate);
+			
+			scarlett = new Scarlett();
+			addNPC(scarlett);
+			
+			alexa = new Alexa();
+			addNPC(alexa);
+			
+			alexa.setAffection(scarlett, AffectionLevel.NEGATIVE_FOUR_HATE.getMedianValue());
+			scarlett.setAffection(alexa, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			scarlett.setAffection(Main.game.getPlayer(), AffectionLevel.NEGATIVE_TWO_DISLIKE.getMedianValue());
+			
+			harpyBimbo = new HarpyBimbo();
+			addNPC(harpyBimbo);
+			
+			harpyBimboCompanion = new HarpyBimboCompanion();
+			addNPC(harpyBimboCompanion);
+	
+			harpyBimbo.setAffection(harpyBimboCompanion, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			harpyBimboCompanion.setAffection(harpyBimbo, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
+			
+			harpyDominant = new HarpyDominant();
+			addNPC(harpyDominant);
+	
+			harpyDominantCompanion = new HarpyDominantCompanion();
+			addNPC(harpyDominantCompanion);
+	
+			harpyDominant.setAffection(harpyDominantCompanion, AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
+			harpyDominantCompanion.setAffection(harpyDominant, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
+			
+			harpyNympho = new HarpyNympho();
+			addNPC(harpyNympho);
+	
+			harpyNymphoCompanion = new HarpyNymphoCompanion();
+			addNPC(harpyNymphoCompanion);
+	
+			harpyNympho.setAffection(harpyNymphoCompanion, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+			harpyNymphoCompanion.setAffection(harpyNympho, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
+			
+			pazu = new Pazu();
+			addNPC(pazu);
+			
+			finch = new Finch();
+			addNPC(finch);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		genericMaleNPC = new GenericMaleNPC();
 		genericFemaleNPC = new GenericFemaleNPC();
@@ -268,10 +275,10 @@ public class Game implements Serializable {
 		Main.game.getActiveWorld().getCell(1, 0).setDiscovered(false);
 		
 		// Set starting locations:
-		player.setLocation(worlds.get(player.getWorldLocation()).getPlacesOfInterest().get(player.getStartingPlace()));
+		player.setLocation(worlds.get(player.getWorldLocation()).getPlacesOfInterest().get(new GenericPlace(player.getStartingPlace())));
 		
-		for(NPC npc : NPCList) {
-			npc.setLocation(worlds.get(npc.getWorldLocation()).getPlacesOfInterest().get(npc.getStartingPlace()));
+		for(NPC npc : NPCMap.values()) {
+			npc.setLocation(worlds.get(npc.getWorldLocation()).getPlacesOfInterest().get(new GenericPlace(npc.getStartingPlace())));
 		}
 		
 		started = true;
@@ -285,7 +292,7 @@ public class Game implements Serializable {
 	}
 	
 	public void endTurn(int turnTime, boolean advanceTime) {
-
+		
 		if(advanceTime) {
 			minutesPassed += turnTime;
 			setResponses(currentDialogueNode, false);
@@ -293,24 +300,26 @@ public class Game implements Serializable {
 
 		handleAtmosphericConditions(turnTime);
 
-		// Remove Dominion attackers if they aren't in alleyways:
-		Iterator<NPC> npcIterator = NPCList.iterator();
-		while(npcIterator.hasNext()) {
-			NPC npc = npcIterator.next();
-			if(npc instanceof NPCRandomDominion) {
-				if(npc.getLocationPlace()!=Dominion.CITY_BACK_ALLEYS && !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
-					// Remove ongoing pregnancies for NPCs that are removed:
-					if(npc.isPregnant()) {
-						npc.endPregnancy(false);
-					}
-					npcIterator.remove();
-				}
-			}
-		}
+		// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
+		NPCMap.entrySet().removeIf(e -> (e.getValue().getLocationPlace().getPlaceType() != Dominion.CITY_BACK_ALLEYS && e.getValue().getWorldLocation()==WorldType.DOMINION && !Main.game.getPlayer().getLocation().equals(e.getValue().getLocation())));
+		
+//		Iterator<NPC> npcIterator = NPCList.iterator();
+//		while(npcIterator.hasNext()) {
+//			NPC npc = npcIterator.next();
+//			if(npc instanceof NPCRandomDominion) {
+//				if(npc.getLocationPlace().getPlaceType() != Dominion.CITY_BACK_ALLEYS && npc.getWorldLocation()==WorldType.DOMINION && !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
+//					// Remove ongoing pregnancies for NPCs that are removed:
+//					if(npc.isPregnant()) {
+//						npc.endPregnancy(false);
+//					}
+//					npcIterator.remove();
+//				}
+//			}
+//		}
 		
 		boolean randomAttackerSEApplied=false;
 		// Apply status effects for all NPCs:
-		for (NPC npc : NPCList) {
+		for (NPC npc : NPCMap.values()) {
 			npc.calculateStatusEffects(turnTime);
 			
 			if(npc.isPendingClothingDressing()) {
@@ -332,7 +341,7 @@ public class Game implements Serializable {
 				}
 			}
 			
-			if(npc==currentRandomAttacker) {
+			if(npc==activeNPC) {
 				randomAttackerSEApplied = true;
 			}
 			
@@ -345,15 +354,15 @@ public class Game implements Serializable {
 			}
 		}
 		
-		if (currentRandomAttacker!=null && !randomAttackerSEApplied) {
-			currentRandomAttacker.calculateStatusEffects(turnTime);
+		if (activeNPC!=null && !randomAttackerSEApplied) {
+			activeNPC.calculateStatusEffects(turnTime);
 		}
 		
 		// If not in combat:
 		if (!inCombat) {
 			currentCell = activeWorld.getCell(player.getLocation());
 			
-			if(Main.game.getCurrentDialogueNode()!=MiscellaneousDialogue.STATUS_EFFECTS) {
+			if(Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS) {
 				Main.game.getPlayer().calculateStatusEffects(turnTime);
 			}
 			
@@ -376,23 +385,26 @@ public class Game implements Serializable {
 			nyan.applyReset();
 			vicky.applyReset();
 			kate.applyReset();
+			finch.applyReset();
+			
+			alexa.applyReset();
+			
+			for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
+				slave.incrementAffection(Main.game.getPlayer(), slave.getDailyAffectionChange());
+				slave.incrementObedience(slave.getDailyObedienceChange());
+			}
 		}
 		
-		if (Main.game.isRenderMapSection()) {
-			RenderingEngine.ENGINE.renderMapTitle();
-			Main.mainController.renderMap();
-			RenderingEngine.ENGINE.renderButtons();
-		}
-
+		RenderingEngine.ENGINE.renderButtons();
 		Main.mainController.updateUI();
 		
 		Main.mainController.getTooltip().hide();
 		
-		if(!Main.game.getPlayer().getStatusEffectDescriptions().isEmpty() && Main.game.getCurrentDialogueNode()!=MiscellaneousDialogue.STATUS_EFFECTS){
+		if(!Main.game.getPlayer().getStatusEffectDescriptions().isEmpty() && Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS){
 			if(Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.NORMAL)
 				Main.game.saveDialogueNode();
 			
-			Main.game.setContent(new Response("", "", MiscellaneousDialogue.STATUS_EFFECTS){
+			Main.game.setContent(new Response("", "", MiscDialogue.STATUS_EFFECTS){
 				
 				@Override
 				public void effects() {
@@ -456,7 +468,7 @@ public class Game implements Serializable {
 					
 				case MAGIC_STORM_GATHERING:
 					currentWeather = Weather.MAGIC_STORM;
-					Main.game.getDialogueFlags().stormTextUpdate=true;
+					Main.game.getDialogueFlags().stormTextUpdateRequired=true;
 					weatherTimeRemaining = 8 * 60 + Util.random.nextInt(4 * 60); // Storm lasts 8-12 hours
 					break;
 					
@@ -540,9 +552,7 @@ public class Game implements Serializable {
 									if (((NPC) character).isAddedToContacts()) {
 										Main.game.getPlayer().addCharacterEncountered(character);
 									} 
-									if(Main.getProperties().addRaceDiscovered(character.getRace())) {
-										Main.game.getTextEndStringBuilder().append(getRaceDiscoveredMessage(character.getRace()));
-									}
+									Main.getProperties().addRaceDiscovered(character.getRace());
 									((NPC) character).setLastTimeEncountered(minutesPassed);
 								}
 							}
@@ -614,20 +624,25 @@ public class Game implements Serializable {
 					
 					currentDialogue = "<body onLoad='scrollToElement()'>"
 								+ " <script>function scrollToElement() {"
-										+ "document.getElementById('main-content').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop;"
+										+ "document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;"
 									+ "}</script>"
-								+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
 								+ "<div id='main-content'>"
-								+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
-									+ "<div class='div-center'>"
-										+ (headerContent != null
-											? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
-												+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
-												+ "</div>"
-											: "")
-										+ (content != null ? "<div id='text-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
-												+ pastDialogueSB.toString() + "</div>" : "")
-//												+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+									+ getTitleDiv(dialogueTitle)
+									+ "<div class='div-center' id='content-block'>"
+//										+ "<div class='inner-text-content'>"
+											+ getMapDiv()
+											+ (headerContent != null
+												? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+													+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
+													+ "</div>"
+												: "")
+											+ (content != null
+													? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+															+ pastDialogueSB.toString()
+														+ "</div>"
+													: "")
+	//												+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+//										+ "</div>"
 									+ "</div>"
 									+"<div id='bottom-text'>Game saved!</div>"
 								+ "</div>"
@@ -636,19 +651,24 @@ public class Game implements Serializable {
 
 				} else {
 					currentDialogue = "<body>"
-							+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
 							+ "<div id='main-content'>"
-								+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
+								+ getTitleDiv(dialogueTitle)
 								+ "<span id='position" + positionAnchor + "'></span>"
-								+ "<div class='div-center'>"
-									+ (headerContent != null
-										? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
-											+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
-											+ "</div>"
-										: "")
-									+ (content != null ? "<div id='text-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
-											+ pastDialogueSB.toString() + "</div>" : "")
-//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+								+ "<div class='div-center' id='content-block'>"
+//									+ "<div class='inner-text-content'>"
+										+ getMapDiv()
+										+ (headerContent != null
+											? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+												+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
+												+ "</div>"
+											: "")
+										+ (content != null
+												? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+														+ pastDialogueSB.toString()
+													+ "</div>"
+												: "")
+	//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+//									+ "</div>"
 								+ "</div>"
 								+"<div id='bottom-text'>Game saved!</div>"
 							+ "</div>"
@@ -685,9 +705,9 @@ public class Game implements Serializable {
 		
 		int currentPosition = 0;
 		if(getCurrentDialogueNode()!=null) {
-			currentPosition =  (int) Main.mainController.getWebEngine().executeScript("document.getElementById('main-content').scrollTop");
-			
+			currentPosition =  (int) Main.mainController.getWebEngine().executeScript("document.getElementById('content-block').scrollTop");
 		}
+		
 		String headerContent = node.getHeaderContent();
 		String content = node.getContent();
 		boolean resetPointer = false;
@@ -705,9 +725,7 @@ public class Game implements Serializable {
 						if (((NPC) character).isAddedToContacts()) {
 							Main.game.getPlayer().addCharacterEncountered(character);
 						}
-						if(Main.getProperties().addRaceDiscovered(character.getRace())) {
-							Main.game.getTextEndStringBuilder().append(getRaceDiscoveredMessage(character.getRace()));
-						}
+						Main.getProperties().addRaceDiscovered(character.getRace());
 						
 						((NPC) character).setLastTimeEncountered(minutesPassed);
 					}
@@ -766,51 +784,60 @@ public class Game implements Serializable {
 
 
 		if (node.isContinuesDialogue()) {
-			currentDialogue = "<body onLoad='scrollToElement()'>"
+			currentDialogue =
+					"<body onLoad='scrollToElement()'>"
 					+ " <script>function scrollToElement() {"
-							+ "document.getElementById('main-content').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop;"
+							+ "document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;"
 					+ "}</script>"
-					+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
 					+ "<div id='main-content'>"
-					+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
-						+ "<div class='div-center'>"
-							+ (headerContent != null
-								? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
-									+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
-									+ "</div>"
-								: "") 
-							+ (content != null
-								? "<div id='text-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
-								+ pastDialogueSB.toString() + "</div>" : "")
-//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+						+ getTitleDiv(dialogueTitle)
+						+ "<div class='div-center' id='content-block'>"
+//							+ "<div class='inner-text-content'>"
+								+ getMapDiv()
+								+ (headerContent != null
+									? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+										+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
+										+ "</div>"
+									: "") 
+								+ (content != null
+									? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+									+ pastDialogueSB.toString() + "</div>" : "")
+	//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+//							+ "</div>"
 						+ "</div>"
 						+"<div id='bottom-text'>Game saved!</div>"
 					+ "</div>"
-
+//
 				+ "</body>";
 
 		} else {
-			currentDialogue = "<body onLoad='scrollBack()'>"
+			currentDialogue =
+					"<body onLoad='scrollBack()'>"
 					+ " <script>function scrollBack() {"
-							+ "document.getElementById('main-content').scrollTop = "+currentPosition+";"
+							+ "document.getElementById('content-block').scrollTop = "+currentPosition+";"
 					+ "}</script>"
-					+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
 					+ "<div id='main-content'>"
-					+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
-					+ "<span id='position" + positionAnchor + "'></span>"
-						+ "<div class='div-center'>"
-							+ (headerContent != null
-								? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
-									+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
-									+ "</div>"
-								: "")
-							+ (content != null ? "<div id='text-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
-								+ pastDialogueSB.toString() + "</div>" : "")
-//								+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
-						+ "</div>"
-					+"<div id='bottom-text'>Game saved!</div>"
+						+ getTitleDiv(dialogueTitle)
+						+ "<span id='position" + positionAnchor + "'></span>"
+							+ "<div class='div-center' id='content-block'>"
+//								+ "<div class='inner-text-content'>"
+									+ getMapDiv()
+									+ (headerContent != null
+										? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+											+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
+											+ "</div>"
+										: "")
+									+ (content != null
+										? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+												+ pastDialogueSB.toString()
+											+ "</div>"
+										: "")
+	//								+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+//								+ "</div>"
+							+ "</div>"
+						+"<div id='bottom-text'>Game saved!</div>"
 					+ "</div>"
-					
+//					
 				+ "</body>";
 
 		}
@@ -836,6 +863,78 @@ public class Game implements Serializable {
 		}
 		//--------------------
 			
+	}
+	
+	
+	
+	/*
+	 * + "<p style='text-align:center;margin:0;padding:0;width:75vw;float:left;'>"
+					+ "<b>" 
+					+ (Main.game.isDayTime() ? "Day " : "Night ") + Main.game.getDayNumber() + ", " + String.format("%02d", (Main.game.getMinutesPassed() % (24 * 60)) / 60) + ":" + String.format("%02d", (Main.game.getMinutesPassed() % (24 * 60)) % 60)
+					+ "</b>"
+					+ "</br>"
+					+ title
+					+ "</p>"
+					+ "<p style='float:left;width:20vw;text-align:center;margin-top:8px;padding:0;'>"
+						+ "<b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + Main.game.getPlayer().getMoney() + "</b>"
+					+ "</p>"
+	 * 
+	 */
+	
+	private String getTitleDiv(String title) {
+//		String header = "";
+//		
+//		MapDisplay display = Main.game.getCurrentDialogueNode().getMapDisplay();
+//
+//		if ((Main.game.isInSex() || Main.game.isInCombat()) && display != MapDisplay.CHARACTERS_PRESENT)
+//			display = MapDisplay.INVENTORY;
+//
+//		switch (display) {
+//			case NORMAL: case STATUS_EFFECT_MESSAGE:
+//				header = Util.capitaliseSentence(Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getName());
+//				break;
+//			case INVENTORY:
+//				header = (RenderingEngine.ENGINE.getCharactersInventoryToRender().isPlayer()
+//								? "Your Equipped Items"
+//								: Util.capitaliseSentence(RenderingEngine.ENGINE.getCharactersInventoryToRender().getName()));
+//				break;
+//			case PHONE:
+//				header = "Using your phone";
+//				break;
+//			case OPTIONS:
+//				header = "Options menu";
+//				break;
+//			case CHARACTERS_PRESENT:
+//				header = (RenderingEngine.ENGINE.getCharactersInventoryToRender() == null
+//								? "Examining characters"
+//								: Util.capitaliseSentence(RenderingEngine.ENGINE.getCharactersInventoryToRender().getName()));
+//				break;
+//			default:
+//				break;
+//		}
+		
+		if(dialogueTitle.isEmpty()) {
+			return "";
+		}
+		
+		return "<div class='content-title'>"
+					+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
+					+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
+				+ "</div>";
+	}
+	
+	private String getMapDiv() {
+		return "";
+//		return (Main.game.getActiveWorld() != null && isStarted() && isRenderMap()
+//					&& !Main.game.getCurrentDialogueNode().isMapDisabled() && Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL && !Main.game.isInSex() && !Main.game.isInCombat()
+//				? "<div style='float:left; width:250px; height:250px; padding:8px; margin:8px; border-radius:5px; background:#333;'>"
+//					+ (Main.game.isStarted()?RenderingEngine.ENGINE.renderedHTMLMap():"")
+//				+ "</div>"
+//				:"");
+	}
+	
+	public void reloadContent() {
+		setContent(new Response("", "", currentDialogueNode));
 	}
 	
 	/**
@@ -883,7 +982,7 @@ public class Game implements Serializable {
 			resetResponsePointer();
 		
 		choicesDialogueSB = new StringBuilder("");
-		choicesDialogueSB.append("<div class='response-full-container'>");
+		choicesDialogueSB.append("<body><div class='response-full-container'>");
 		
 		if (responsePage > 0) {
 			choicesDialogueSB.append("<div class='response-switcher left' id='switch_left'><b class='hotkey-icon'>"
@@ -949,7 +1048,7 @@ public class Game implements Serializable {
 					+ "</b><span class='option-disabled'>&#62</span></div>");
 		}
 		
-		choicesDialogueSB.append("</div>");
+		choicesDialogueSB.append("</div></body>");
 		
 		Main.mainController.setResponsesContent(choicesDialogueSB.toString());
 	}
@@ -1018,11 +1117,9 @@ public class Game implements Serializable {
 		
 		float fontSize = 1;
 		String strippedTitle = UtilText.parse(response.getTitle()).replaceAll("<.*?>", "");
-		// <test ok>test<...>
-		if(strippedTitle.length()>18) {
-			fontSize-=(strippedTitle.length()-18)*0.03f;
+		if(strippedTitle.length()>14) {
+			fontSize-=(strippedTitle.length()-14)*0.03f;
 		}
-		
 		style = "style='font-size:"+fontSize+"em;'";
 		
 		if (response.isCombatHighlight()) {
@@ -1301,28 +1398,60 @@ public class Game implements Serializable {
 		if (currentDialogueNode.reloadOnRestore()) {
 			String headerContent = currentDialogueNode.getHeaderContent();
 			String content = currentDialogueNode.getContent();
-			currentDialogue = "<body onLoad='scrollToElement()'>"
-					+ " <script>function scrollToElement() {"
-					+ "document.getElementById('main-content').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop;"
+			currentDialogue =
+//					"<body onLoad='scrollToElement()'>"
+//					+ " <script>function scrollToElement() {"
+//					+ "document.getElementById('main-content').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop;"
+//			+ "}</script>"
+//			+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
+//			+ "<div id='main-content'>"
+//			+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
+//				+ "<div class='div-center'>"
+//					+ (headerContent != null
+//						? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+//							+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
+//							+ "</div>"
+//						: "") 
+//					+ (content != null
+//						? "<div id='text-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+//						+ pastDialogueSB.toString() + "</div>" : "")
+////							+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+//				+ "</div>"
+//				+"<div id='bottom-text'>Game saved!</div>"
+//			+ "</div>"
+//
+//		+ "</body>";
+			
+			
+			"<body onLoad='scrollBack()'>"
+			+ " <script>function scrollBack() {"
+					+ "document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop;"
 			+ "}</script>"
-			+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
 			+ "<div id='main-content'>"
-			+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
-				+ "<div class='div-center'>"
-					+ (headerContent != null
-						? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
-							+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
-							+ "</div>"
-						: "") 
-					+ (content != null
-						? "<div id='text-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
-						+ pastDialogueSB.toString() + "</div>" : "")
-//							+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
-				+ "</div>"
+				+ getTitleDiv(dialogueTitle)
+				+ "<span id='position" + positionAnchor + "'></span>"
+					+ "<div class='div-center' id='content-block'>"
+//						+ "<div class='inner-text-content'>"
+							+ getMapDiv()
+							+ (headerContent != null
+								? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+									+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
+									+ "</div>"
+								: "")
+							+ (content != null
+								? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+										+ content
+									+ "</div>"
+								: "")
+//								+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+//						+ "</div>"
+					+ "</div>"
 				+"<div id='bottom-text'>Game saved!</div>"
 			+ "</div>"
-
+//			
 		+ "</body>";
+			
+			
 		} else {
 			currentDialogue = savedDialogue;
 		}
@@ -1357,12 +1486,20 @@ public class Game implements Serializable {
 
 	}
 	
-	private List<GameCharacter> charactersPresent = new ArrayList<>();
-	public List<GameCharacter> getCharactersPresent() {
+	private List<NPC> charactersPresent = new ArrayList<>();
+	public List<NPC> getCharactersPresent() {
+		return getCharactersPresent(player.getWorldLocation(), player.getLocation());
+	}
+	
+	public List<NPC> getCharactersPresent(Cell cell) {
+		return getCharactersPresent(cell.getType(), cell.getLocation());
+	}
+	
+	public List<NPC> getCharactersPresent(WorldType worldType, Vector2i location) {
 		charactersPresent.clear();
 		
-		for(NPC npc : NPCList) {
-			if(npc.getWorldLocation()==player.getWorldLocation() && npc.getLocation().equals(player.getLocation())) {
+		for(NPC npc : NPCMap.values()) {
+			if(npc.getWorldLocation()==worldType && npc.getLocation().equals(location)) {
 				charactersPresent.add(npc);
 			}
 		}
@@ -1442,14 +1579,14 @@ public class Game implements Serializable {
 	public void setActiveWorld(World world, PlaceInterface placeType, boolean setDefaultDialogue) {
 		setActiveWorld(
 				world,
-				world.getPlacesOfInterest().get(placeType),
+				world.getPlacesOfInterest().get(new GenericPlace(placeType)),
 				setDefaultDialogue);
 	}
 	
 	public void setActiveWorld(boolean setDefaultDialogue) {
 		setActiveWorld(
 				getWorlds().get(getPlayerCell().getPlace().getLinkedWorldType()),
-				getWorlds().get(getPlayerCell().getPlace().getLinkedWorldType()).getPlacesOfInterest().get(getPlayerCell().getPlace().getLinkedPlaceInterface()),
+				getWorlds().get(getPlayerCell().getPlace().getLinkedWorldType()).getPlacesOfInterest().get(new GenericPlace(getPlayerCell().getPlace().getLinkedPlaceInterface())),
 				setDefaultDialogue);
 	}
 
@@ -1612,10 +1749,6 @@ public class Game implements Serializable {
 	public NPC getGenericAndrogynousNPC() {
 		return genericAndrogynousNPC;
 	}
-
-	public List<NPC> getNPCList() {
-		return NPCList;
-	}
 	
 	public List<NPC> getOffspring() {
 		return playerOffspring;
@@ -1625,23 +1758,35 @@ public class Game implements Serializable {
 		return offspringSpawned;
 	}
 	
-	public boolean addNPC(NPC npc) {
-		return NPCList.add(npc);
+	public NPC getNPCById(String id) {
+		return NPCMap.get(id);
 	}
 	
-	public boolean removeNPC(NPC npc) {
+	public void addNPC(NPC npc) throws Exception {
+		npcTally++;
+		npc.setId(npc.getNameTriplet().toString()+"-"+npcTally);
+		
+		if(NPCMap.keySet().contains(npc.getId())) {
+			throw new Exception("NPC map already contained an NPC with this Id. SOMETHING HAS GONE HORRIBLY WRONG! PANIC!");
+		}
+		
+		NPCMap.put(npc.getId(), npc);
+	}
+	
+	public void removeNPC(NPC npc) {
 		if(npc.isPregnant()) {
 			npc.endPregnancy(false);
 		}
-		return NPCList.remove(npc);
+		
+		NPCMap.remove(npc.getId());
 	}
 
-	public NPC getCurrentRandomAttacker() {
-		return currentRandomAttacker;
+	public NPC getActiveNPC() {
+		return activeNPC;
 	}
 
-	public void setCurrentRandomAttacker(NPC currentDominionAttacker) {
-		this.currentRandomAttacker = currentDominionAttacker;
+	public void setActiveNPC(NPC activeNPC) {
+		this.activeNPC = activeNPC;
 	}
 
 	public boolean isHintsOn() {
@@ -1657,6 +1802,14 @@ public class Game implements Serializable {
 	}
 
 	// Dialogues:
+
+	public boolean isInNewWorld() {
+		return inNewWorld;
+	}
+
+	public void setInNewWorld(boolean inNewWorld) {
+		this.inNewWorld = inNewWorld;
+	}
 
 	public StringBuilder getTextStartStringBuilder() {
 		return textStartStringBuilder;
@@ -1691,14 +1844,6 @@ public class Game implements Serializable {
 
 	public void setRenderAttributesSection(boolean renderAttributesSection) {
 		this.renderAttributesSection = renderAttributesSection;
-	}
-
-	public boolean isRenderMapSection() {
-		return renderMapSection;
-	}
-
-	public void setRenderMapSection(boolean renderMapSection) {
-		this.renderMapSection = renderMapSection;
 	}
 
 	public int getResponsePage() {
@@ -1769,19 +1914,30 @@ public class Game implements Serializable {
 		return Main.getProperties().bodyHairContent;
 	}
 	
-	public static String getRaceDiscoveredMessage(Race race) {
-		return "<p style='text-align:center;'>"
-					+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia!</b>"
-					+ "</br>"
-					+ "<b>Race:</b> <b style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</b>"
-				+ "</p>";
+	public boolean isRenderMap() {
+		return renderMap;
+	}
+
+	public void setRenderMap(boolean renderMap) {
+		this.renderMap = renderMap;
+	}
+
+	public List<EventLogEntry> getEventLog() {
+		return eventLog;
 	}
 	
-	public static String getRaceAdvancedKnowledgeMessage(Race race) {
-		return "<p style='text-align:center;'>"
-					+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Advanced knowledge unlocked in your phone's encyclopedia!</b>"
-					+ "</br>"
-					+ "<b>Race:</b> <b style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</b>"
-				+ "</p>";
+	public void addEvent(EventLogEntry event, boolean appendAdditionTextToMainDialogue) {
+		eventLog.add(event);
+		if(appendAdditionTextToMainDialogue) {
+			Main.game.getTextEndStringBuilder().append(event.getMainDialogueDescription());
+		}
+	}
+	
+	public void setEventLog(List<EventLogEntry> eventLog) {
+		this.eventLog = eventLog;
+	}
+
+	public int getNpcTally() {
+		return npcTally;
 	}
 }

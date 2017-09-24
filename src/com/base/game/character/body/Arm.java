@@ -359,6 +359,13 @@ public class Arm implements BodyPartInterface, Serializable {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>There is no longer any trace of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
 					}
 					break;
+				case STUBBLE:
+					if(owner.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>You now have stubbly patches of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
+					} else {
+						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has stubbly patches of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
+					}
+					break;
 				case MANICURED:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a well-manicured patch of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
@@ -368,16 +375,37 @@ public class Arm implements BodyPartInterface, Serializable {
 					break;
 				case TRIMMED:
 					if(owner.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>You now have a trimmed patch of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
+						UtilText.transformationContentSB.append("<p>You now have trimmed patches of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
 					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a trimmed patch of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
+						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has trimmed patches of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
+					}
+					break;
+				case NATURAL:
+					if(owner.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>You now have a natural amount of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
+					} else {
+						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a natural amount of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
+					}
+					break;
+				case UNKEMPT:
+					if(owner.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>You now have an unkempt mass of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
+					} else {
+						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has an unkempt mass of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
 					}
 					break;
 				case BUSHY:
 					if(owner.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>You now have a thick mass of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
+						UtilText.transformationContentSB.append("<p>You now have thick, bushy masses of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
 					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a thick mass of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
+						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has thick, bushy masses of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
+					}
+					break;
+				case WILD:
+					if(owner.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>You now have wild, bushy masses of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
+					} else {
+						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has wild, bushy masses of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
 					}
 					break;
 			}

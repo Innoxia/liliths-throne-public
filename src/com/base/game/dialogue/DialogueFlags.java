@@ -8,7 +8,7 @@ import com.base.game.inventory.enchanting.TFEssence;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.85
  * @author Innoxia
  */
 public class DialogueFlags implements Serializable {
@@ -20,16 +20,18 @@ public class DialogueFlags implements Serializable {
 	public int ralphDiscount, scarlettPrice;
 	
 	public BodyCoveringType skinTypeSelected;
-
-	public NPC tradePartner;
 	
 	public TFEssence focusedEssence;
 	
+	public DialogueNodeOld slaveryManagerRootDialogue;
+	public NPC slaveTrader, slaveryManagerSlaveSelected;
+	
 	public boolean
 			// Misc:
+			
 			quickTrade,
 			jinxedClothingDiscovered,
-			stormTextUpdate,
+			stormTextUpdateRequired,
 	
 			// Gym:
 			gymIntroduced, gymHadTour, gymIsMember,
@@ -38,7 +40,7 @@ public class DialogueFlags implements Serializable {
 			ralphIntroduced,
 			nyanIntroduced,
 			kateIntroduced, reactedToKatePregnancy,
-
+			
 			// Aunt's Home:
 			auntHomeJustEntered, hadSexWithLilaya, reactedToPregnancyLilaya, waitingOnLilayaPregnancyResults,
 			essenceExtractionKnown,
@@ -58,11 +60,13 @@ public class DialogueFlags implements Serializable {
 
 		quickTrade = false;
 		jinxedClothingDiscovered = false;
-		stormTextUpdate = false;
-
-		tradePartner = null;
+		stormTextUpdateRequired = false;
 		
 		focusedEssence = null;
+		
+		slaveryManagerRootDialogue = null;
+		slaveryManagerSlaveSelected = null;
+		slaveTrader = null;
 		
 		ralphDiscountStartTime=-1;
 		ralphDiscount=0;

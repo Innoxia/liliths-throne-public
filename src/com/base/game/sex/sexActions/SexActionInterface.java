@@ -172,6 +172,12 @@ public interface SexActionInterface {
 			// If this is a 'start penetration' action, check to see if all the requirements are met:
 			} else if(getActionType()==SexActionType.PLAYER_PENETRATION || getActionType() == SexActionType.PARTNER_PENETRATION) {
 				
+				if(getActionType() == SexActionType.PARTNER_PENETRATION
+						&& (getAssociatedOrificeType() == OrificeType.VAGINA_PARTNER && getAssociatedPenetrationType().isTakesVirginity()
+								&& (Sex.getPartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)) || Sex.getPartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN_LUSTY_MAIDEN))) {
+					return null;
+				}
+				
 				// Penetration actions (not including self-penetration actions) are only available in consensual sex or if the penetrator is the dom:
 				if(getAssociatedPenetrationType()!=null && getAssociatedOrificeType()!=null) {
 					if(getAssociatedPenetrationType().isPlayer() != getAssociatedOrificeType().isPlayer()) { // This is a penetrative action between both partners:
@@ -181,9 +187,7 @@ public interface SexActionInterface {
 							}
 							
 						} else { // Partner is performing action:
-							if((!Sex.getSexManager().isConsensualSex() && Sex.isPlayerDom())
-									|| (getAssociatedOrificeType().isVagina() && getAssociatedPenetrationType().isTakesVirginity()
-											&& (Sex.getPartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)) || Sex.getPartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN_LUSTY_MAIDEN))) {
+							if((!Sex.getSexManager().isConsensualSex() && Sex.isPlayerDom())) {
 								return null;
 							}
 						}

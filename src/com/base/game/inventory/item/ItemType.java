@@ -306,6 +306,7 @@ public class ItemType {
 			"a bottle of",
 			false,
 			"Equine Cider",
+			"Equine Ciders",
 			"The thick glass bottle of 'Equine Cider' appears to contain, much as its name would suggest, a generous helping of some sort of alcoholic cider."
 				+ " On the label, there's an incredibly lewd illustration of a horse-boy slamming his massive cock deep into a girl's eager pussy.",
 			"attributeHorseMorphDrink",
@@ -315,10 +316,7 @@ public class ItemType {
 			TFEssence.HORSE_MORPH,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_EQUINE_CIDER, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -353,6 +351,7 @@ public class ItemType {
 	public static AbstractItemType STR_INGREDIENT_BUBBLE_MILK = new AbstractItemType("a bottle of",
 			false,
 			"Bubble Milk",
+			"Bubble Milks",
 			"The thick glass bottle of 'Bubble Milk' appears to contain, much as its name would suggest, a generous helping of milk."
 				+ " Looking through the glass, you see that there are little bubbles fizzing up in the liquid within, making this milk appear to be carbonated.",
 			"attributeCowMorphDrink",
@@ -396,9 +395,9 @@ public class ItemType {
 	};
 	
 	public static AbstractItemType STR_INGREDIENT_WOLF_WHISKEY = new AbstractItemType("a bottle of",
-
 			false,
 			"Wolf Whiskey",
+			"Wolf Whiskeys",
 			"Although labelled as a whiskey, the liquid inside the glass bottle looks more like a thick cream."
 					+ " The label on the front shows a greater wolf-boy ejaculating into a bottle just like this one, making it quite clear what this 'whiskey' really is.",
 			"attributeWolfMorphDrink",
@@ -446,6 +445,7 @@ public class ItemType {
 			"a bottle of",
 			false,
 			"Feline's Fancy",
+			"Feline's Fancies",
 			"A delicate glass bottle filled with a thick, cream-like liquid."
 				+ " A label on the front shows a pair of cat-girls lovingly kissing one another, with the dominant partner slipping a hand down between her partner's thighs.",
 			"attributeCatMorphDrink",
@@ -496,6 +496,7 @@ public class ItemType {
 			"a bottle of",
 			false,
 			"Vanilla Water",
+			"Vanilla Waters",
 			"A plastic bottle filled with what appears to be nothing but water."
 				+ " While there's no label on the bottle, there is a slight indentation in its surface, and, holding it up to the light to get a better look, you see that the impression spells the words 'Vanilla Water'.",
 			"attributeHumanDrink",
@@ -548,6 +549,7 @@ public class ItemType {
 			"a bottle of",
 			false,
 			"Canine Crush",
+			"Canine Crushes",
 			"A glass bottle of what looks to be some kind of beer."
 				+ " A label on the front shows a dog-boy lining himself up behind a beautiful girl, who's down on all fours, presenting her naked, dripping pussy to the throbbing dog-cock behind her.",
 			"attributeDogMorphDrink",
@@ -599,6 +601,7 @@ public class ItemType {
 			"a bottle of",
 			false,
 			"Squirrel Java",
+			"Squirrel Javas",
 			"A glass bottle of what looks to be some kind of coffee."
 				+ " A label on the front shows a squirrel-girl fingering herself over the top of a bottle just like this one; her juices dripping down into the coffee to provide some extra cream.",
 			"attributeSquirrelMorphDrink",
@@ -650,6 +653,7 @@ public class ItemType {
 			"a bottle of",
 			false,
 			"Harpy Perfume",
+			"Harpy Perfumes",
 			"A glass bottle of what looks to be a kind of feminine perfume."
 				+ " There's a stylised image of a harpy's wings on the front of the bottle.",
 			"attributeHarpyPerfume",
@@ -701,6 +705,7 @@ public class ItemType {
 	public static AbstractItemType COR_INGREDIENT_LILITHS_GIFT = new AbstractItemType("a bottle of",
 			false,
 			"Lilith's Gift",
+			"Lilith's Gifts",
 			"A glass bottle, filled with bubbling pink liquid."
 					+ " On the bottle's label, there is an image of Lilith's perfectly-formed, heart-shaped ass."
 					+ " Her delicate hands are reaching down to pull apart her soft ass cheeks, fully exposing her asshole and pussy, both of which are dripping wet from excitement.",
@@ -752,6 +757,7 @@ public class ItemType {
 			"a bottle of",
 			false,
 			"Innoxia's Gift",
+			"Innoxia's Gifts",
 			"A glass bottle, filled with bubbling golden liquid."
 					+ " Someone's stuck a crude little sticker to one side of the bottle, and as you look closer, you see that it reads: 'Temporary item! Demon TFs don't work like this!'",
 			"raceDemonInnoxiasGift",
@@ -800,7 +806,8 @@ public class ItemType {
 	public static AbstractItemType RACE_INGREDIENT_HUMAN = new AbstractItemType(
 			"a vial of",
 			false,
-			"angel's tears",
+			"Angel's Tears",
+			"Angel's Tears",
 			"A delicate glass vial full of a light turquoise liquid."
 					+ " There's an image of a weeping angel engraved into the glass, and you see that her tears are falling into a vial just like this one.",
 			"raceHumanAngelsTears",
@@ -851,6 +858,7 @@ public class ItemType {
 			"a",
 			false,
 			"Kitty's Reward",
+			"Kitty's Rewards",
 			"A small, square food tin with a ring-pull lid."
 					+ " A label on the side shows a greater cat-girl devouring a plate of what looks to be this can's contents; some sort of tinned salmon.",
 			"raceCatMorphKittysReward",
@@ -860,10 +868,7 @@ public class ItemType {
 			TFEssence.CAT_MORPH,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_KITTYS_REWARD, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -903,8 +908,9 @@ public class ItemType {
 			"a pot of",
 			false,
 			"Bubble Cream",
+			"Bubble Creams",
 			"A small pot of yoghurt, with a black-and-white cow-pattern styled onto the lid."
-					+ " A label on side declares it to be 'Bubble Cream', which seems to be a little misleading, as there isn't any sort of bubbling going on in the creamy mixture contained within.",
+					+ " A label on the side declares it to be 'Bubble Cream', which seems to be a little misleading, as there isn't any sort of bubbling going on in the creamy mixture contained within.",
 			"raceCowMorphBubbleCream",
 			Colour.RACE_COW_MORPH,
 			40,
@@ -953,6 +959,7 @@ public class ItemType {
 			"a bag of",
 			false,
 			"Round Nuts",
+			"Round Nuts",
 			"A small bag of round nuts. A label on one side shows a greater squirrel-girl stuffing a handful of nuts into her mouth.",
 			"raceSquirrelMorphRoundNuts",
 			Colour.RACE_SQUIRREL_MORPH,
@@ -1000,6 +1007,7 @@ public class ItemType {
 			"a",
 			false,
 			"Canine Crunch",
+			"Canine Crunches",
 			"An individually-wrapped biscuit in the shape of a bone.",
 			"raceDogMorphCanineCrunch",
 			Colour.RACE_DOG_MORPH,
@@ -1049,6 +1057,7 @@ public class ItemType {
 			"a",
 			false,
 			"Sugar Carrot Cube",
+			"Sugar Carrot Cubes",
 			"An individually-wrapped sugar cube, which, except for the fact that it's bright orange and smells of carrots, appears to be identical to every other sugar cube you've seen.",
 			"raceHorseMorphSugarCarrotCube",
 			Colour.RACE_HORSE_MORPH,
@@ -1098,6 +1107,7 @@ public class ItemType {
 			"a package of",
 			false,
 			"Meat and Marrow",
+			"Meat and Marrows",
 			"A package of 'Meat and Marrow', which consists of a slab of some sort of raw meat, wrapped in grease-proof paper and tied up with brown string.",
 			"raceWolfMorphMeatAndMarrow",
 			Colour.RACE_WOLF_MORPH,
@@ -1148,6 +1158,7 @@ public class ItemType {
 			"a",
 			false,
 			"bubblegum lollipop",
+			"bubblegum lollipops",
 			"A bright pink lollipop, with a little ball of gum at its core."
 				+ " Although it doesn't look out of the ordinary, it's somewhat unusual in the fact that it has an incredibly strong smell of bubblegum.",
 			"raceHarpyLollipop",
@@ -1233,6 +1244,7 @@ public class ItemType {
 			null,
 			false,
 			"Bottled Arcane Essence",
+			"Bottled Arcane Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+Colour.GENERIC_ARCANE.getName()+" glow of an arcane essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceArcane",
@@ -1273,6 +1285,7 @@ public class ItemType {
 			null,
 			false,
 			"Bottled Cat-morph Essence",
+			"Bottled Cat-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+Colour.RACE_CAT_MORPH.getName()+" glow of a cat-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceCatMorph",
@@ -1314,6 +1327,7 @@ public class ItemType {
 			null,
 			false,
 			"Bottled Cow-morph Essence",
+			"Bottled Cow-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+Colour.RACE_COW_MORPH.getName()+" glow of a cow-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceCowMorph",
@@ -1352,6 +1366,7 @@ public class ItemType {
 			null,
 			false,
 			"Bottled Demon Essence",
+			"Bottled Demon Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+Colour.RACE_DEMON.getName()+" glow of a demon essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceDemon",
@@ -1392,6 +1407,7 @@ public class ItemType {
 			null,
 			false,
 			"Bottled squirrel-morph Essence",
+			"Bottled squirrel-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+Colour.RACE_SQUIRREL_MORPH.getName()+" glow of a squirrel-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceSquirrelMorph",
@@ -1432,6 +1448,7 @@ public class ItemType {
 			null,
 			false,
 			"Bottled Dog-morph Essence",
+			"Bottled Dog-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+Colour.RACE_DOG_MORPH.getName()+" glow of a dog-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceDogMorph",
@@ -1472,6 +1489,7 @@ public class ItemType {
 			null,
 			false,
 			"Bottled Harpy Essence",
+			"Bottled Harpy Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+Colour.RACE_HARPY.getName()+" glow of a harpy essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceHarpy",
@@ -1512,6 +1530,7 @@ public class ItemType {
 			null,
 			false,
 			"Bottled Horse-morph Essence",
+			"Bottled Horse-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+Colour.RACE_HORSE_MORPH.getName()+" glow of a horse-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceHorseMorph",
@@ -1552,6 +1571,7 @@ public class ItemType {
 			null,
 			false,
 			"Bottled Human Essence",
+			"Bottled Human Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+Colour.RACE_HUMAN.getName()+" glow of a human essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceHuman",
@@ -1592,6 +1612,7 @@ public class ItemType {
 			null,
 			false,
 			"Bottled Wolf-morph Essence",
+			"Bottled Wolf-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+Colour.RACE_WOLF_MORPH.getName()+" glow of a wolf-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceWolfMorph",
@@ -1636,6 +1657,7 @@ public class ItemType {
 			null,
 			false,
 			"[bimboHarpy.name]'s lollipop",
+			"[bimboHarpy.name]'s lollipops",
 			"A swirly lollipop that you got from the harpy matriarch [bimboHarpy.name]."
 				+ " Although it doesn't look out of the ordinary, you're pretty sure that eating it would result in a potent transformation...",
 			"bimboLollipop",
@@ -1676,6 +1698,7 @@ public class ItemType {
 			null,
 			false,
 			"[nymphoHarpy.name]'s lollipop",
+			"[nymphoHarpy.name]'s lollipops",
 			"A cock-shaped lollipop that you got from the harpy matriarch [nymphoHarpy.name]."
 				+ " Although it looks to be made from regular candy, you're pretty sure that eating it would result in a potent transformation...",
 			"nymphoLollipop",
@@ -1716,6 +1739,7 @@ public class ItemType {
 			null,
 			false,
 			"[dominantHarpy.name]'s perfume",
+			"[dominantHarpy.name]'s perfumes",
 			"A bottle of perfume that you got from the harpy matriarch [nymphoHarpy.name]."
 				+ " Although it looks to contain normal perfume, you're pretty sure that using it would result in a potent transformation...",
 			"dominantPerfume",
@@ -1810,6 +1834,7 @@ public class ItemType {
 	public static AbstractItemType POTION = new AbstractItemType("",
 			false,
 			"potion",
+			"potions",
 			"Refined potion.",
 			"refined_potion_container",
 			Colour.CLOTHING_PINK,
@@ -1864,6 +1889,7 @@ public class ItemType {
 	public static AbstractItemType ELIXIR = new AbstractItemType("",
 			false,
 			"elixir",
+			"elixirs",
 			"Refined elixir.",
 			"refined_elixir_container",
 			Colour.CLOTHING_PINK,
@@ -1921,6 +1947,7 @@ public class ItemType {
 	public static AbstractItemType DYE_BRUSH = new AbstractItemType("a",
 			false,
 			"dye-brush",
+			"dye-brushes",
 			"A small, very ordinary-looking brush, of the sort used for fine detailing on canvas or models."
 					+ " On closer inspection, you notice a very faint purple glow emanating from the brush's tip, revealing its true nature as an arcane-enchanted dye-brush.",
 			"dyeBrush",
@@ -1969,6 +1996,7 @@ public class ItemType {
 	public static AbstractItemType CONDOM = new AbstractItemType("a",
 			false,
 			"condom",
+			"condoms",
 			"A condom, wrapped in a square piece of foil. The brand name 'Stallion' is clearly displayed in bold red lettering, and a small description on the other side informs you that, due to an arcane enchantment, 'one-size fits all'.",
 			"condom",
 			Colour.CLOTHING_WHITE,
@@ -2035,6 +2063,7 @@ public class ItemType {
 	public static AbstractItemType CONDOM_USED = new AbstractItemType("a",
 			false,
 			"used condom",
+			"used condoms",
 			"A used condom, tied at the top and filled with someone's cum. You'd have to be pretty dirty-minded to think of a use for this... <b>(Currently not implemented...)</b>",
 			"condomUsed",
 			Colour.CLOTHING_WHITE,
@@ -2052,7 +2081,19 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return "Untying the top of the used condom, you bring it up to your lips and swallow its slimy contents.";
+			if(user.isPlayer()) {
+				if(target.isPlayer()) {
+					return "Untying the top of the used condom, you bring it up to your lips and swallow the slimy contents.";
+				} else {
+					return UtilText.parse(target, "Untying the top of the used condom, you bring it up to [npc.name]'s [npc.lips], and force [npc.her] to swallow the slimy contents.");
+				}
+			} else {
+				if(target.isPlayer()) {
+					return UtilText.parse(target, "Untying the top of the used condom, [npc.name] brings it up to your [pc.lips], and forces you to swallow the slimy contents.");
+				} else {
+					return UtilText.parse(target, "Untying the top of the used condom, [npc.name] brings it up to [npc.her] [npc.lips], and swallows the slimy contents.");
+				}
+			}
 		}
 
 		@Override
@@ -2080,6 +2121,7 @@ public class ItemType {
 	public static AbstractItemType VIXENS_VIRILITY = new AbstractItemType("a",
 			false,
 			"Vixen's Virility",
+			"Vixen's Virilities",
 			"A small pill, packaged in a little foil and plastic wrapper. On the front of the foil, there's a small stylised picture of a heavily pregnant girl, lying back and smiling as she strokes her swollen belly.",
 			"vixensVirility",
 			Colour.CLOTHING_PINK,
@@ -2116,6 +2158,7 @@ public class ItemType {
 	public static AbstractItemType PROMISCUITY_PILL = new AbstractItemType("a",
 			false,
 			"Promiscuity Pill",
+			"Promiscuity Pills",
 			"A small pill, packaged in a little foil and plastic wrapper."
 					+ " On the front of the foil, there's a before-and-after picture of a line of faceless men waiting their turn to ejaculate into a willing girl's hungry pussy."
 					+ " The after image is of the girl showing off her flat stomach as she gives a thumbs up.",
@@ -2153,6 +2196,7 @@ public class ItemType {
 	public static AbstractItemType MOTHERS_MILK = new AbstractItemType("a bottle of",
 			false,
 			"Mother's Milk",
+			"Mother's Milks",
 			"A baby bottle filled with a rich, creamy milk."
 			+ " On the side, a little sticker declares that this drink is able to speed up your pregnancy.",
 			"mothers_milk",
@@ -2190,6 +2234,7 @@ public class ItemType {
 			null,
 			false,
 			"Curious kitties",
+			"Curious kitties'",
 			"A book that details cat-morph society.",
 			"book_race_cat_morph",
 			Colour.RACE_CAT_MORPH,
@@ -2231,6 +2276,7 @@ public class ItemType {
 			null,
 			false,
 			"Milking Cows",
+			"Milking Cows'",
 			"A book that details cow-morph society.",
 			"book_race_cow_morph",
 			Colour.RACE_COW_MORPH,
@@ -2269,6 +2315,7 @@ public class ItemType {
 			null,
 			false,
 			"Demonic origins",
+			"Demonic origins'",
 			"A book about demons and where they come from.",
 			"book_race_demon",
 			Colour.RACE_DEMON,
@@ -2311,6 +2358,7 @@ public class ItemType {
 			null,
 			false,
 			"Canine culture",
+			"Canine cultures",
 			"A book about dog-morphs and their culture.",
 			"book_race_dog_morph",
 			Colour.RACE_DOG_MORPH,
@@ -2356,6 +2404,7 @@ public class ItemType {
 			null,
 			false,
 			"All about Harpies",
+			"All about Harpies'",
 			"A book all about harpies, detailing their society and place within Dominion.",
 			"book_race_harpy",
 			Colour.RACE_HARPY,
@@ -2401,6 +2450,7 @@ public class ItemType {
 			null,
 			false,
 			"Equine Encyclopedia",
+			"Equine Encyclopedias",
 			"A book all about horse-morphs.",
 			"book_race_horse_morph",
 			Colour.RACE_HORSE_MORPH,
@@ -2446,6 +2496,7 @@ public class ItemType {
 			null,
 			false,
 			"Concerning Humans",
+			"Concerning Humans'",
 			"A book about humans and their place within Dominion society.",
 			"book_race_human",
 			Colour.RACE_HUMAN,
@@ -2491,6 +2542,7 @@ public class ItemType {
 			null,
 			false,
 			"Chasing Squirrels",
+			"Chasing Squirrels'",
 			"A book that details squirrel-morph society.",
 			"book_race_squirrel_morph",
 			Colour.RACE_SQUIRREL_MORPH,
@@ -2531,6 +2583,7 @@ public class ItemType {
 			null,
 			false,
 			"Prowling Lupines",
+			"Prowling Lupines'",
 			"A book all about wolf-morphs.",
 			"book_race_wolf_morph",
 			Colour.RACE_WOLF_MORPH,
@@ -2577,6 +2630,7 @@ public class ItemType {
 			null,
 			false,
 			"Eggplant",
+			"Eggplants",
 			"A delicate, tropical perennial often cultivated as a tender or half-hardy annual in temperate climates. Also it kind of looks like a penis if you squint.",
 			"eggplant",
 			Colour.GENERIC_ARCANE,

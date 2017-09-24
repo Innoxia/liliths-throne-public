@@ -28,6 +28,7 @@ public class WeaponType {
 	public static AbstractWeaponType MELEE_CHAOS_RARE = new AbstractWeaponType("an",
 			"it",
 			"opaque demonstone",
+			"opaque demonstones",
 			"A common type of demonstone, the power of which can be harnessed as a weapon."
 					+ " Demonstones are rumoured to be crystallised essences of a Lilin's orgasm.",
 			InventorySlot.WEAPON_MAIN,
@@ -60,6 +61,7 @@ public class WeaponType {
 	public static AbstractWeaponType MELEE_CHAOS_EPIC = new AbstractWeaponType("a",
 			"it",
 			"misty demonstone",
+			"misty demonstones",
 			"A powerful demonstone, the power of which can be harnessed as a weapon."
 					+ " Demonstones are rumoured to be crystallised essences of a Lilin's orgasm.",
 			InventorySlot.WEAPON_MAIN,
@@ -92,6 +94,7 @@ public class WeaponType {
 	public static AbstractWeaponType MELEE_CHAOS_LEGENDARY = new AbstractWeaponType("a",
 			"it",
 			"clear demonstone",
+			"clear demonstones",
 			"An extremely powerful demonstone, the power of which can be harnessed as a weapon."
 					+ " Demonstones are rumoured to be crystallised essences of a Lilin's orgasm.",
 			InventorySlot.WEAPON_MAIN,
@@ -128,6 +131,7 @@ public class WeaponType {
 	public static AbstractWeaponType OFFHAND_CHAOS_RARE = new AbstractWeaponType("a",
 			"it",
 			"chaos feather",
+			"chaos feathers",
 			"A magical feather, the power of which can be harnessed as a weapon."
 					+ " Feathers like this are rumoured to have been plucked from a Lilin's wings.",
 			InventorySlot.WEAPON_OFFHAND,
@@ -160,6 +164,7 @@ public class WeaponType {
 	public static AbstractWeaponType OFFHAND_CHAOS_EPIC = new AbstractWeaponType("a",
 			"it",
 			"chaos feather",
+			"chaos feathers",
 			"A well-preserved magical feather, the power of which can be harnessed as a weapon."
 					+ " Feathers like this are rumoured to have been plucked from a Lilin's wings.",
 			InventorySlot.WEAPON_OFFHAND,

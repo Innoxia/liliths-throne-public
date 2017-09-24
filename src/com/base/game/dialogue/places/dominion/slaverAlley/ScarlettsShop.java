@@ -8,6 +8,7 @@ import com.base.game.character.attributes.ObedienceLevel;
 import com.base.game.character.effects.Fetish;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
+import com.base.game.dialogue.utils.MiscDialogue;
 import com.base.game.inventory.InventorySlot;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.AbstractClothingType;
@@ -271,7 +272,9 @@ public class ScarlettsShop {
 							Main.game.getAlexa().addSlave(Main.game.getScarlett());
 							Main.game.getScarlett().setObedience(ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMedianValue());
 							Main.game.getScarlett().resetInventory();
-							Main.game.getScarlett().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getAlexa());
+							AbstractClothing collar = AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false);
+							collar.setSealed(true);
+							Main.game.getScarlett().equipClothingFromNowhere(collar, true, Main.game.getAlexa());
 							Main.game.getScarlett().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_BALLGAG, Colour.CLOTHING_PINK, false), true, Main.game.getAlexa());
 							Main.game.getScarlett().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, Colour.CLOTHING_PINK, false), true, Main.game.getAlexa());
 						}
@@ -287,7 +290,7 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNodeOld ALEXAS_SHOP = new DialogueNodeOld("Alexa's Pet Shop", ".", true, true) {
+	public static final DialogueNodeOld ALEXAS_SHOP = new DialogueNodeOld("Alexa's Pet Shop", ".", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -348,7 +351,7 @@ public class ScarlettsShop {
 						+ "Pushing open the front door, you're greeted yet again by the beautiful matriarch, Alexa, sitting down behind the shop's counter."
 						+ " She throws you a warm smile as you step inside the shop,"
 						+ " [alexa.speech(Hello again!)]"
-					+ "</p>";	
+					+ "</p>";
 			}
 		}
 
@@ -399,7 +402,7 @@ public class ScarlettsShop {
 					}
 					
 				} else {
-					return new Response("Trade", "Not yet implemented.", null);
+					return new Response("Slave Manager", "Enter the slave management screen.",  MiscDialogue.getSlaveryManagementDialogue(ALEXAS_SHOP, Main.game.getAlexa()));
 				}
 
 			} else if (index == 0 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {

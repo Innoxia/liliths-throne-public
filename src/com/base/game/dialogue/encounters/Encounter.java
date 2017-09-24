@@ -9,9 +9,9 @@ import com.base.game.Weather;
 import com.base.game.character.QuestLine;
 import com.base.game.character.gender.GenderPreference;
 import com.base.game.character.npc.NPC;
-import com.base.game.character.npc.dominion.NPCRandomDominion;
-import com.base.game.character.npc.dominion.NPCRandomHarpy;
-import com.base.game.character.npc.dominion.NPCRandomSuccubus;
+import com.base.game.character.npc.generic.DominionAlleywayAttacker;
+import com.base.game.character.npc.generic.HarpyNestsAttacker;
+import com.base.game.character.npc.generic.DominionSuccubusAttacker;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.AbstractClothingType;
@@ -29,7 +29,7 @@ import com.base.utils.Vector2i;
 
 /**
  * @since 0.1.0
- * @version 0.1.82
+ * @version 0.1.85
  * @author Innoxia
  */
 public enum Encounter {
@@ -47,11 +47,15 @@ public enum Encounter {
 		@Override
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
 			
-			Main.game.setCurrentRandomAttacker(new NPCRandomDominion(GenderPreference.getGenderFromUserPreferences()));
+			Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
 
-			Main.game.addNPC(Main.game.getCurrentRandomAttacker());
+			try {
+				Main.game.addNPC(Main.game.getActiveNPC());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-			return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
+			return Main.game.getActiveNPC().getEncounterDialogue();
 		}
 	},
 
@@ -66,11 +70,9 @@ public enum Encounter {
 			if (node == EncounterType.DOMINION_ALLEY_ATTACK) {
 				
 				// Prioritise re-encountering the NPC on this tile:
-				for (NPC npc : Main.game.getNPCList()) {
-					if(npc.getLocation().equals(Main.game.getPlayer().getLocation()) && npc.getWorldLocation()==Main.game.getActiveWorld().getWorldType()) {
-						Main.game.setCurrentRandomAttacker(npc);
-						return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
-					}
+				for(NPC npc : Main.game.getCharactersPresent()) {
+						Main.game.setActiveNPC(npc);
+						return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
 				if(Main.game.isIncestEnabled() && Math.random()>0.75f) { // Incest
@@ -85,16 +87,24 @@ public enum Encounter {
 						offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
 						
-						Main.game.setCurrentRandomAttacker(offspring);
-						Main.game.addNPC(offspring);
-						return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
+						Main.game.setActiveNPC(offspring);
+						try {
+							Main.game.addNPC(offspring);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						return Main.game.getActiveNPC().getEncounterDialogue();
 					}
 					
 				}
 				
-				Main.game.setCurrentRandomAttacker(new NPCRandomDominion(GenderPreference.getGenderFromUserPreferences()));
-				Main.game.addNPC(Main.game.getCurrentRandomAttacker());
-				return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
+				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
+				try {
+					Main.game.addNPC(Main.game.getActiveNPC());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return Main.game.getActiveNPC().getEncounterDialogue();
 					
 
 			} else if (node == EncounterType.DOMINION_FIND_ITEM) {
@@ -137,17 +147,19 @@ public enum Encounter {
 		@Override
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
 				
-			for (NPC npc : Main.game.getNPCList()) {
-				if(npc.getLocation().equals(Main.game.getPlayer().getLocation()) && npc.getWorldLocation()==Main.game.getActiveWorld().getWorldType()) {
-					Main.game.setCurrentRandomAttacker(npc);
-					return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
-				}
+			for (NPC npc : Main.game.getCharactersPresent()) {
+				Main.game.setActiveNPC(npc);
+				return Main.game.getActiveNPC().getEncounterDialogue();
 			}
 			
-			Main.game.setCurrentRandomAttacker(new NPCRandomSuccubus());
+			Main.game.setActiveNPC(new DominionSuccubusAttacker());
 
-			Main.game.addNPC(Main.game.getCurrentRandomAttacker());
-			return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
+			try {
+				Main.game.addNPC(Main.game.getActiveNPC());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return Main.game.getActiveNPC().getEncounterDialogue();
 		}
 	},
 	
@@ -171,38 +183,42 @@ public enum Encounter {
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
 			if (node == EncounterType.HARPY_NEST_ATTACK && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
 
-				for (NPC npc : Main.game.getNPCList()) {
-					if(npc.getLocation().equals(Main.game.getPlayer().getLocation()) && npc.getWorldLocation()==Main.game.getActiveWorld().getWorldType()) {
-						Main.game.setCurrentRandomAttacker(npc);
-						return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
-					}
+				for (NPC npc : Main.game.getCharactersPresent()) {
+					Main.game.setActiveNPC(npc);
+					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 
-				Main.game.setCurrentRandomAttacker(new NPCRandomHarpy(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
 				
-				Main.game.getCurrentRandomAttacker().setLocation(Main.game.getPlayer().getLocation());
+				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
-				Main.game.addNPC(Main.game.getCurrentRandomAttacker());
+				try {
+					Main.game.addNPC(Main.game.getActiveNPC());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				
-				return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
+				return Main.game.getActiveNPC().getEncounterDialogue();
 			}
 			
 			if (node == EncounterType.HARPY_NEST_ATTACK_STORM) {
 
-				for (NPC npc : Main.game.getNPCList()) {
-					if(npc.getLocation().equals(Main.game.getPlayer().getLocation()) && npc.getWorldLocation()==Main.game.getActiveWorld().getWorldType()) {
-						Main.game.setCurrentRandomAttacker(npc);
-						return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
-					}
+				for (NPC npc : Main.game.getCharactersPresent()) {
+					Main.game.setActiveNPC(npc);
+					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 
-				Main.game.setCurrentRandomAttacker(new NPCRandomHarpy(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
 				
-				Main.game.getCurrentRandomAttacker().setLocation(Main.game.getPlayer().getLocation());
+				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
-				Main.game.addNPC(Main.game.getCurrentRandomAttacker());
+				try {
+					Main.game.addNPC(Main.game.getActiveNPC());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				
-				return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
+				return Main.game.getActiveNPC().getEncounterDialogue();
 			}
 			
 			if (node == EncounterType.HARPY_NEST_FIND_ITEM) {
@@ -243,38 +259,42 @@ public enum Encounter {
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
 			if (node == EncounterType.HARPY_NEST_ATTACK) {
 
-				for (NPC npc : Main.game.getNPCList()) {
-					if(npc.getLocation().equals(Main.game.getPlayer().getLocation()) && npc.getWorldLocation()==Main.game.getActiveWorld().getWorldType()) {
-						Main.game.setCurrentRandomAttacker(npc);
-						return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
-					}
+				for (NPC npc : Main.game.getCharactersPresent()) {
+					Main.game.setActiveNPC(npc);
+					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 
-				Main.game.setCurrentRandomAttacker(new NPCRandomHarpy(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
 				
-				Main.game.getCurrentRandomAttacker().setLocation(Main.game.getPlayer().getLocation());
+				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
-				Main.game.addNPC(Main.game.getCurrentRandomAttacker());
+				try {
+					Main.game.addNPC(Main.game.getActiveNPC());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				
-				return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
+				return Main.game.getActiveNPC().getEncounterDialogue();
 			}
 			
 			if (node == EncounterType.HARPY_NEST_ATTACK_STORM) {
 
-				for (NPC npc : Main.game.getNPCList()) {
-					if(npc.getLocation().equals(Main.game.getPlayer().getLocation()) && npc.getWorldLocation()==Main.game.getActiveWorld().getWorldType()) {
-						Main.game.setCurrentRandomAttacker(npc);
-						return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
-					}
+				for (NPC npc : Main.game.getCharactersPresent()) {
+					Main.game.setActiveNPC(npc);
+					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 
-				Main.game.setCurrentRandomAttacker(new NPCRandomHarpy(GenderPreference.getGenderFromUserPreferences()));
+				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
 				
-				Main.game.getCurrentRandomAttacker().setLocation(Main.game.getPlayer().getLocation());
+				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
-				Main.game.addNPC(Main.game.getCurrentRandomAttacker());
+				try {
+					Main.game.addNPC(Main.game.getActiveNPC());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				
-				return Main.game.getCurrentRandomAttacker().getEncounterDialogue();
+				return Main.game.getActiveNPC().getEncounterDialogue();
 			}
 			
 			if (node == EncounterType.HARPY_NEST_FIND_ITEM) {

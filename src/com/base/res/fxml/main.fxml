@@ -24,12 +24,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<GridPane fx:id="mainPane" minHeight="600.0" minWidth="800.0" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.base.controller.MainController">
+<GridPane fx:id="mainPane" minHeight="600.0" minWidth="800.0" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.base.controller.MainController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="4.0" minWidth="4.0" prefWidth="4.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="250.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" minWidth="240.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="4.0" minWidth="4.0" prefWidth="4.0" />
     <ColumnConstraints hgrow="SOMETIMES" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="4.0" minWidth="4.0" prefWidth="4.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" minWidth="240.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="4.0" minWidth="4.0" prefWidth="4.0" />
   </columnConstraints>
   <rowConstraints>
@@ -42,14 +44,7 @@
       <WebView fx:id="webViewMain" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <VBox fx:id="vBoxLeft" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <children>
-            <WebView fx:id="webViewAttributes" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <WebView fx:id="webViewMapTitle" maxHeight="40.0" minHeight="40.0" minWidth="200.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
-            <AnchorPane fx:id="anchorPaneCanvas" minHeight="250.0" minWidth="250.0">
-               <children>
-                  <WebView fx:id="webViewInventory" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <WebView fx:id="webViewMap" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
+            <WebView fx:id="webViewAttributes" prefHeight="-1.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <HBox alignment="CENTER" maxHeight="32.0" minHeight="32.0" prefHeight="32.0">
                <children>
                   <WebView fx:id="webViewButtons" prefHeight="200.0" prefWidth="250.0" />
@@ -59,8 +54,14 @@
       </VBox>
       <HBox alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2">
          <children>
-            <WebView fx:id="webViewResponse" maxWidth="938.0" prefHeight="-1.0" prefWidth="938.0" />
+            <WebView fx:id="webViewResponse" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.rowSpan="2">
+         <children>
+            <WebView fx:id="webViewRight" prefHeight="-1.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <HBox maxHeight="32.0" minHeight="32.0" prefHeight="32.0" prefWidth="200.0" />
+         </children>
+      </VBox>
    </children>
 </GridPane>

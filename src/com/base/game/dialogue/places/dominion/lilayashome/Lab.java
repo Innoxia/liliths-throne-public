@@ -28,6 +28,7 @@ import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Util.ListValue;
 import com.base.world.WorldType;
+import com.base.world.places.GenericPlace;
 import com.base.world.places.LilayasHome;
 
 /**
@@ -322,6 +323,14 @@ public class Lab {
 							}
 						};
 			
+					} else if (index == 7) {
+						return new ResponseEffectsOnly("Your Room", "Fast travel up to your room."){
+							@Override
+							public void effects() {
+								Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), LilayasHome.LILAYA_HOME_ROOM_PLAYER, true);
+							}
+						};
+
 					} else {
 						return null;
 					}
@@ -1404,8 +1413,7 @@ public class Lab {
 	};
 	
 	public static final DialogueNodeOld LILAYA_SLAVER_RECOMMENDATION = new DialogueNodeOld("", "", true, true) {
-		/**
-		 */
+
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -1836,7 +1844,7 @@ public class Lab {
 								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_PLAYER);
 								Main.game.setActiveWorld(
 										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(LilayasHome.LILAYA_HOME_ROOM_PLAYER),
+										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
 										false);
 							}
 						};
@@ -1847,7 +1855,7 @@ public class Lab {
 								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_BIRTHING_ROOM);
 								Main.game.setActiveWorld(
 										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR),
-										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(LilayasHome.LILAYA_HOME_BIRTHING_ROOM),
+										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_BIRTHING_ROOM)),
 										false);
 							}
 						};
@@ -2195,7 +2203,7 @@ public class Lab {
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(LilayasHome.LILAYA_HOME_ROOM_PLAYER),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
 								false);
 					}
 				};
@@ -2250,7 +2258,7 @@ public class Lab {
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(LilayasHome.LILAYA_HOME_ROOM_PLAYER),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
 								false);
 					}
 				};

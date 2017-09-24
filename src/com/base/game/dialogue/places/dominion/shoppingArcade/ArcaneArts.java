@@ -2,8 +2,11 @@ package com.base.game.dialogue.places.dominion.shoppingArcade;
 
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
+import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.responses.ResponseTrade;
 import com.base.main.Main;
+import com.base.world.WorldType;
+import com.base.world.places.ShoppingArcade;
 
 /**
  * @since 0.1.82
@@ -29,6 +32,14 @@ public class ArcaneArts {
 			if (index == 1) {
 				return new Response("Enter", "Step inside Arcane Arts.", SHOP_WEAPONS);
 				
+			} else if (index == 6) {
+				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
+					@Override
+					public void effects() {
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), ShoppingArcade.ARCADE_ENTRANCE, true);
+					}
+				};
+
 			} else {
 				return null;
 			}

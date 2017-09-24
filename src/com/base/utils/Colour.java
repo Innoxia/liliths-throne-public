@@ -18,6 +18,7 @@ public enum Colour {
 	// This class and BaseColour are beyond saving x_x
 	
 	BASE_WHITE(BaseColour.WHITE, "white"),
+	BASE_GREY(BaseColour.GREY, "grey"),
 	
 	BASE_ROSE(BaseColour.ROSE, "rose"),
 	BASE_LILAC(BaseColour.LILAC, "lilac"),
@@ -343,6 +344,7 @@ public enum Colour {
 	EYE_VIOLET(BaseColour.VIOLET, "violet"),
 	EYE_CRIMSON(BaseColour.CRIMSON, "crimson"),
 	EYE_GOLD(BaseColour.GOLD, "golden"),
+	EYE_SILVER(BaseColour.SILVER, "silver"),
 	
 	EYE_YELLOW(BaseColour.YELLOW, "yellow"),
 	EYE_RED(BaseColour.RED, "red"),
@@ -505,6 +507,7 @@ public enum Colour {
 			new ListValue<Colour>(Colour.EYE_GREY));
 	
 	public static List<Colour> dyeIrisColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.EYE_SILVER),
 			new ListValue<Colour>(Colour.EYE_YELLOW),
 			new ListValue<Colour>(Colour.EYE_GOLD),
 			new ListValue<Colour>(Colour.EYE_RED),
@@ -520,6 +523,7 @@ public enum Colour {
 			new ListValue<Colour>(Colour.EYE_BLACK));
 	
 	public static List<Colour> dyePupilColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.EYE_SILVER),
 			new ListValue<Colour>(Colour.EYE_BROWN),
 			new ListValue<Colour>(Colour.EYE_BLUE),
 			new ListValue<Colour>(Colour.EYE_AQUA),

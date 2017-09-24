@@ -31,7 +31,6 @@ import com.base.game.inventory.item.AbstractItem;
 import com.base.game.inventory.weapon.AbstractWeapon;
 import com.base.game.inventory.weapon.AbstractWeaponType;
 import com.base.main.Main;
-import com.base.rendering.RenderingEngine;
 import com.base.utils.Colour;
 import com.base.utils.Util;
 
@@ -40,7 +39,7 @@ import com.base.utils.Util;
  * Call initialiseCombat() before using.
  *
  * @since 0.1.0
- * @version 0.1.84
+ * @version 0.1.85
  * @author Innoxia
  */
 public enum Combat {
@@ -110,9 +109,6 @@ public enum Combat {
 		renderedPlayerStaminaValue = Main.game.getPlayer().getStamina();
 
 		Main.game.setInCombat(true);
-
-		// Set to opponent, as when the inventory opens, it switches to the opposite (in MainController openInventory())
-		RenderingEngine.ENGINE.setCharactersInventoryToRender(opponent);
 		
 		Main.mainController.openInventory();
 		
@@ -157,7 +153,6 @@ public enum Combat {
 					}
 				}
 			}
-			
 			if(opponent.getLootEssenceDrops()!=null) {
 				
 				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
@@ -205,7 +200,6 @@ public enum Combat {
 				}
 				
 			}
-			
 			opponent.setLostCombatCount(opponent.getLostCombatCount()+1);
 			
 		} else {
@@ -223,8 +217,6 @@ public enum Combat {
 			opponent.setWonCombatCount(opponent.getWonCombatCount()+1);
 		}
 
-		RenderingEngine.ENGINE.setCharactersInventoryToRender(Main.game.getPlayer());
-
 		Main.game.setInCombat(false);
 
 		// Sort out effects after combat:
@@ -239,7 +231,7 @@ public enum Combat {
 		opponent.setMana(opponent.getAttributeValue(Attribute.MANA_MAXIMUM));
 		opponent.setHealth(opponent.getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		opponent.setStamina(opponent.getAttributeValue(Attribute.STAMINA_MAXIMUM));
-		
+
 		postCombatString = postCombatStringBuilder.toString();
 		
 		Main.game.getTextStartStringBuilder().append(postCombatString);
@@ -258,7 +250,7 @@ public enum Combat {
 		descriptionStringBuilder.append("<div class='combat-inner-container'>"
 					+ "<div class='combat-container name'>"
 						+ "<div class='combat-container'>"
-							+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(Main.game.getPlayer().getFemininity()).getColour().toWebHexString() + ";'>" 
+							+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(Main.game.getPlayer().getFemininityValue()).getColour().toWebHexString() + ";'>" 
 								+ "<b>" + Util.capitaliseSentence(Main.game.getPlayer().getName()) + "</b>"
 							+ "</p>"
 						+ "</div>"
@@ -396,7 +388,7 @@ public enum Combat {
 		descriptionStringBuilder.append("<div class='combat-inner-container'>"
 				+ "<div class='combat-container name'>"
 					+ "<div class='combat-container'>"
-						+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(opponent.getFemininity()).getColour().toWebHexString() + ";'>" 
+						+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(opponent.getFemininityValue()).getColour().toWebHexString() + ";'>" 
 							+ "<b>" + Util.capitaliseSentence(opponent.getName()) + "</b>"
 						+ "</p>"
 					+ "</div>"
@@ -838,7 +830,6 @@ public enum Combat {
 					return new ResponseEffectsOnly("Escaped!", "You got away!"){
 						@Override
 						public void effects() {
-							RenderingEngine.ENGINE.setCharactersInventoryToRender(Main.game.getPlayer());
 							Main.game.setInCombat(false);
 							Main.game.setContent(new Response("", "", GenericDialogue.getDefaultDialogueNoEncounter()));
 						}
@@ -873,12 +864,12 @@ public enum Combat {
 
 		@Override
 		public String getContent() {
-			return "<div style='width:368px; padding:8px;margin:8px;float:left;text-align:center;'>"
+			return "<div style='width:50%; padding:4%; float:left; text-align:center; box-sizing: border-box;'>"
 						+ "<h6 style='width:100%;margin:0 0 8px 0;'>"+playerActionText+"</h6>"
 						+ playerTurnText
 					+ "</div>"
 					
-					+"<div style='width:368px; padding:8px;margin:8px;float:left;text-align:center;'>"
+					+"<div style='width:50%; padding:4%; float:left; text-align:center; box-sizing: border-box;'>"
 						+ "<h6 style='width:100%;margin:0 0 8px 0;'>"+opponentActionText+"</h6>"
 						+ opponentTurnText 
 					+ "</div>";
@@ -891,7 +882,6 @@ public enum Combat {
 					return new ResponseEffectsOnly("Escaped!", "You got away!"){
 						@Override
 						public void effects() {
-							RenderingEngine.ENGINE.setCharactersInventoryToRender(Main.game.getPlayer());
 							Main.game.setInCombat(false);
 							Main.game.setContent(new Response("", "", GenericDialogue.getDefaultDialogueNoEncounter()));
 						}

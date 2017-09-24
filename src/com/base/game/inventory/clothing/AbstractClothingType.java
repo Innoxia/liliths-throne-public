@@ -28,7 +28,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 
 	protected static final long serialVersionUID = 1L;
 	
-	private String determiner, name, description, pathName;
+	private String determiner, name, namePlural, description, pathName;
 
 	private boolean plural;
 	private int physicalResistance, femininityMinimum, femininityMaximum;
@@ -53,6 +53,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 			String determiner,
 			boolean plural,
 			String name,
+			String namePlural,
 			String description,
 			int physicalResistance,
 			Femininity femininityRestriction,
@@ -67,6 +68,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		this.determiner = determiner;
 		this.plural = plural;
 		this.name = name;
+		this.namePlural = namePlural;
 		this.description = description;
 
 		this.physicalResistance = physicalResistance;
@@ -94,23 +96,26 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		this.pathName = pathName;
 
 		// Attribute modifiers:
-		if (attributeModifiers != null)
+		if (attributeModifiers != null) {
 			this.attributeModifiers = attributeModifiers;
-		else
+		} else {
 			this.attributeModifiers = new EnumMap<>(Attribute.class);
-
+		}
+		
 		// Blocked Parts:
-		if (blockedPartsList != null)
+		if (blockedPartsList != null) {
 			this.blockedPartsList = blockedPartsList;
-		else
+		} else {
 			this.blockedPartsList = new ArrayList<>();
-
+		}
+		
 		// Incompatible slots:
-		if (incompatibleSlots != null)
+		if (incompatibleSlots != null) {
 			this.incompatibleSlots = incompatibleSlots;
-		else
+		} else {
 			this.incompatibleSlots = new ArrayList<>();
-
+		}
+		
 		this.availableColours = new ArrayList<>();
 		if (availableColours == null) {
 			this.availableColours.add(Colour.CLOTHING_BLACK);
@@ -121,9 +126,11 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		SVGStringMap = new EnumMap<>(Colour.class);
 
 		displacementTypesAvailableWithoutNONE = new ArrayList<>();
-		for (BlockedParts bp : blockedPartsList)
-			if (bp.displacementType != DisplacementType.REMOVE_OR_EQUIP)
+		for (BlockedParts bp : blockedPartsList) {
+			if (bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
 				displacementTypesAvailableWithoutNONE.add(bp.displacementType);
+			}
+		}
 		Collections.sort(displacementTypesAvailableWithoutNONE);
 	}
 	
@@ -271,67 +278,107 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 					return UtilText.parse(clothingEquipper, npcEquippingPlayer);
 				}
 			} else {
-				return UtilText.parse(clothingEquipper, npcEquipping);
+				return UtilText.parse(clothingOwner, npcEquipping);
 			}
 		}
 	}
 	
 	public String equipText(GameCharacter clothingOwner, GameCharacter clothingEquipper, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-		if (clothingOwner.isPlayer() && clothingEquipper.isPlayer()) {
-			return "You equip the "+clothing.getName()+".";
-			
-		}else if (!clothingOwner.isPlayer() && !clothingEquipper.isPlayer()) {
-			return UtilText.parse(clothingOwner, "[npc.Name] equips "+clothing.getName(true)+".");
-			
-		}else {
-			if (clothingOwner.isPlayer()) {
-				return UtilText.parse(clothingEquipper, "[npc.Name] gets you to put on "+clothing.getName(true)+".");
+		if (clothingEquipper.isPlayer()) {
+			if(clothingOwner.isPlayer()) {
+				return "You equip the "+clothing.getName()+"";
 			} else {
-				return UtilText.parse(clothingOwner, "You get [npc.name] to put on "+clothing.getName(true)+".");
+				if(rough) {
+					return UtilText.parse(clothingOwner, "You roughly force "+clothing.getName(true)+" onto [npc.name].");
+				} else {
+					return UtilText.parse(clothingOwner, "You put "+clothing.getName(true)+" on [npc.name].");
+				}
+			}
+			
+		} else {
+			if (clothingOwner.isPlayer()) {
+				if(rough) {
+					return UtilText.parse(clothingEquipper, "[npc.Name] roughly forces "+clothing.getName(true)+" onto you.");
+				} else {
+					return UtilText.parse(clothingEquipper, "[npc.Name] puts "+clothing.getName(true)+" on you.");
+				}
+			} else {
+				return UtilText.parse(clothingOwner, "[npc.Name] equips "+clothing.getName(true)+".");
 			}
 		}
 	}
 
 	public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-		if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-			return "You unequip the "+clothing.getName()+".";
-			
-		}else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
-			return UtilText.parse(clothingOwner, "[npc.Name] takes off [npc.her] "+clothing.getName()+".");
-			
-		}else {
-			if (clothingOwner.isPlayer()) {
-				return UtilText.parse(clothingRemover, "[npc.Name] gets you to take off your "+clothing.getName()+".");
+		if (clothingRemover.isPlayer()) {
+			if(clothingOwner.isPlayer()) {
+				return "You unequip the "+clothing.getName()+"";
 			} else {
-				return UtilText.parse(clothingOwner, "You get [npc.name] to take off [npc.her] "+clothing.getName()+".");
+				if(rough) {
+					return UtilText.parse(clothingOwner, "You roughly take off [npc.name]'s "+clothing.getName()+".");
+				} else {
+					return UtilText.parse(clothingOwner, "You take off [npc.name]'s "+clothing.getName()+".");
+				}
+			}
+			
+		} else {
+			if (clothingOwner.isPlayer()) {
+				if(rough) {
+					return UtilText.parse(clothingRemover, "[npc.Name] roughly takes off your "+clothing.getName()+".");
+				} else {
+					return UtilText.parse(clothingRemover, "[npc.Name] takes off your "+clothing.getName()+".");
+				}
+			} else {
+				return UtilText.parse(clothingOwner, "[npc.Name] unequips [npc.her] "+clothing.getName()+".");
 			}
 		}
 	}
 
 	public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-		if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-			return "You "+dt.getDescription()+" your "+this.getName()+".";
-		} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
-			return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getDescriptionThirdPerson()+" [npc.her] "+this.getName()+".");
+		if (clothingRemover.isPlayer()) {
+			if(clothingOwner.isPlayer()) {
+				return "You "+dt.getDescription()+" your "+this.getName()+"";
+			} else {
+				if(rough) {
+					return UtilText.parse(clothingOwner, "You roughly "+dt.getDescription()+" [npc.name]'s "+this.getName()+".");
+				} else {
+					return UtilText.parse(clothingOwner, "You "+dt.getDescription()+" [npc.name]'s "+this.getName()+".");
+				}
+			}
+			
 		} else {
 			if (clothingOwner.isPlayer()) {
-				return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getDescriptionThirdPerson()+" your "+this.getName()+".");
+				if(rough) {
+					return UtilText.parse(clothingRemover, "[npc.Name] roughly "+dt.getDescription()+" your "+this.getName()+".");
+				} else {
+					return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getDescription()+" your "+this.getName()+".");
+				}
 			} else {
-				return UtilText.parse(clothingRemover, "You "+dt.getDescription()+" [npc.name]'s "+this.getName()+".");
+				return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getDescription()+" [npc.her] "+this.getName()+".");
 			}
 		}
 	}
 
 	public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-		if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-			return "You "+dt.getOppositeDescription()+" your "+this.getName()+".";
-		} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
-			return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getOppositeDescriptionThirdPerson()+" [npc.her] "+this.getName()+".");
+		if (clothingRemover.isPlayer()) {
+			if(clothingOwner.isPlayer()) {
+				return "You "+dt.getOppositeDescription()+" your "+this.getName()+"";
+			} else {
+				if(rough) {
+					return UtilText.parse(clothingOwner, "You roughly "+dt.getOppositeDescription()+" [npc.name]'s "+this.getName()+".");
+				} else {
+					return UtilText.parse(clothingOwner, "You "+dt.getOppositeDescription()+" [npc.name]'s "+this.getName()+".");
+				}
+			}
+			
 		} else {
 			if (clothingOwner.isPlayer()) {
-				return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getOppositeDescriptionThirdPerson()+" your "+this.getName()+".");
+				if(rough) {
+					return UtilText.parse(clothingRemover, "[npc.Name] roughly "+dt.getOppositeDescription()+" your "+this.getName()+".");
+				} else {
+					return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getOppositeDescription()+" your "+this.getName()+".");
+				}
 			} else {
-				return UtilText.parse(clothingRemover, "You "+dt.getOppositeDescription()+" [npc.name]'s "+this.getName()+".");
+				return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getOppositeDescription()+" [npc.her] "+this.getName()+".");
 			}
 		}
 	}
@@ -366,7 +413,14 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	}
 
 	public String getName() {
+		if(isPlural()) {
+			return namePlural;
+		}
 		return name;
+	}
+	
+	public String getNamePlural() {
+		return namePlural;
 	}
 
 	public String getDescription() {

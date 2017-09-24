@@ -97,6 +97,9 @@ import com.base.game.character.race.RacialBody;
 import com.base.game.combat.Combat;
 import com.base.game.combat.SpecialAttack;
 import com.base.game.combat.Spell;
+import com.base.game.dialogue.DialogueNodeOld;
+import com.base.game.dialogue.eventLog.EventLogEntryAttributeChange;
+import com.base.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.AbstractCoreItem;
 import com.base.game.inventory.CharacterInventory;
@@ -120,25 +123,19 @@ import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Vector2i;
 import com.base.world.WorldType;
+import com.base.world.places.GenericPlace;
 import com.base.world.places.PlaceInterface;
 
 /**
  * The class for all the game's characters. I think this is the biggest class in the game.
  * 
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.85
  * @author Innoxia
  */
 public class GameCharacter implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	public String test = "hello!";
-	public String getTest() {
-		if(test==null)
-			return "NULL";
-		return test;
-	}
 	
 	/** Calculation description as used in getAttributeValue() */
 	public static final String HEALTH_CALCULATION = "Level*10 + STR + Bonus HP";
@@ -148,6 +145,7 @@ public class GameCharacter implements Serializable {
 	public static final String STAMINA_CALCULATION = "Level*10 + FIT + Bonus ST";
 
 	// Core variables:
+	protected String id;
 	protected NameTriplet nameTriplet;
 	protected boolean playerKnowsName;
 	protected String playerPetName = "";
@@ -165,8 +163,9 @@ public class GameCharacter implements Serializable {
 
 	protected History history;
 
-	protected List<GameCharacter> slavesOwned;
+	protected List<NPC> slavesOwned;
 	protected GameCharacter owner;
+	protected DialogueNodeOld enslavementDialogue;
 	
 	protected SexualOrientation sexualOrientation;
 	
@@ -228,7 +227,9 @@ public class GameCharacter implements Serializable {
 	protected static List<CharacterChangeEventListener> playerInventoryChangeEventListeners = new ArrayList<>();
 
 	protected GameCharacter(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace, RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceInterface startingPlace) {
-
+		
+		id = "NPC-"+(Main.game.getNpcTally()+1); // id gets set in Game's addNPC method, so it doesn't matter if this is unique or not... Right?
+		
 		this.nameTriplet = nameTriplet;
 		playerKnowsName = true;
 		this.description = description;
@@ -242,6 +243,7 @@ public class GameCharacter implements Serializable {
 
 		slavesOwned = new ArrayList<>();
 		owner = null;
+		enslavementDialogue = null;
 		
 		sexualOrientation = startingRace.getSexualOrientation(startingGender);
 		
@@ -313,6 +315,18 @@ public class GameCharacter implements Serializable {
 		setBody(startingGender, startingRace, stage);
 	}
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getMapIcon() {
+		return getRace().getStatusEffect().getSVGString(this);
+	}
+
 	public String speech(String text) {
 		return UtilText.parseSpeech(text, this);
 	}
@@ -341,13 +355,13 @@ public class GameCharacter implements Serializable {
 	}
 
 	public String getSpeechColour() {
-		if (Femininity.valueOf(getFemininity()) == Femininity.MASCULINE || Femininity.valueOf(getFemininity()) == Femininity.MASCULINE_STRONG) {
+		if (Femininity.valueOf(getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(getFemininityValue()) == Femininity.MASCULINE_STRONG) {
 			if(isPlayer())
 				return Colour.MASCULINE.toWebHexString();
 			else
 				return Colour.MASCULINE_NPC.toWebHexString();
 
-		} else if (Femininity.valueOf(getFemininity()) == Femininity.ANDROGYNOUS){
+		} else if (Femininity.valueOf(getFemininityValue()) == Femininity.ANDROGYNOUS){
 			if(isPlayer())
 				return Colour.ANDROGYNOUS.toWebHexString();
 			else
@@ -494,22 +508,26 @@ public class GameCharacter implements Serializable {
 			}
 			
 		} else {
-			if(getFemininity()>Femininity.ANDROGYNOUS.getMaximumFemininity()) {
-				return nameTriplet.getFeminine();
-				
-			} else if(getFemininity()>=Femininity.ANDROGYNOUS.getMinimumFemininity()) {
-				return nameTriplet.getAndrogynous();
-				
-			} else {
-				return nameTriplet.getMasculine();
-			}
+			return getNameIgnoresPlayerKnowledge();
 		}
 	}
-
+	
 	public void setName(NameTriplet nameTriplet) {
 		this.nameTriplet = nameTriplet;
 	}
-
+	
+	public String getNameIgnoresPlayerKnowledge() {
+		if(getFemininityValue()>Femininity.ANDROGYNOUS.getMaximumFemininity()) {
+			return nameTriplet.getFeminine();
+			
+		} else if(getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity()) {
+			return nameTriplet.getAndrogynous();
+			
+		} else {
+			return nameTriplet.getMasculine();
+		}
+	}
+	
 	public NameTriplet getNameTriplet() {
 		return nameTriplet;
 	}
@@ -562,11 +580,23 @@ public class GameCharacter implements Serializable {
 	
 	// Slavery:
 	
-	public List<GameCharacter> getSlavesOwned() {
+	public DialogueNodeOld getEnslavementDialogue() {
+		return enslavementDialogue;
+	}
+	
+	public void setEnslavementDialogue(DialogueNodeOld enslavementDialogue) {
+		this.enslavementDialogue = enslavementDialogue;
+	}
+	
+	public boolean isAbleToBeEnslaved() {
+		return getEnslavementDialogue()!=null;
+	}
+	
+	public List<NPC> getSlavesOwned() {
 		return slavesOwned;
 	}
 	
-	public boolean addSlave(GameCharacter slave) {
+	public boolean addSlave(NPC slave) {
 		boolean added = slavesOwned.add(slave);
 		
 		if(added) {
@@ -604,7 +634,6 @@ public class GameCharacter implements Serializable {
 	public boolean isSlave() {
 		return owner != null;
 	}
-
 	
 	
 	public SexualOrientation getSexualOrientation() {
@@ -828,6 +857,10 @@ public class GameCharacter implements Serializable {
 				value = 100;
 		}
 		attributes.put(att, value);
+		
+		if(isPlayer() && att != Attribute.AROUSAL) {
+			Main.game.addEvent(new EventLogEntryAttributeChange(att, increment, true), true);
+		}
 
 		// Increment health, mana and stamina based on the change:
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM) * healthPercentage);
@@ -835,7 +868,7 @@ public class GameCharacter implements Serializable {
 		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM) * staminaPercentage);
 
 		updateAttributeListeners();
-
+		
 		return att.getAttributeChangeText(this, increment);
 	}
 
@@ -1753,7 +1786,7 @@ public class GameCharacter implements Serializable {
 		this.worldLocation = worldLocation;
 	}
 	
-	public PlaceInterface getLocationPlace() {
+	public GenericPlace getLocationPlace() {
 		return Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getPlace();
 	}
 	
@@ -2021,20 +2054,16 @@ public class GameCharacter implements Serializable {
 		
 		if(ItemType.allItems.contains(item.getItemType()) && isPlayer()) {
 			if(Main.getProperties().addItemDiscovered(item.getItemType())) {
-				Main.game.getTextEndStringBuilder().append(
-						"<p style='text-align:center;'>"
-							+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
-							+ "</br>"
-							+ "<b>Item:</b> <b style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(item.getName())+"</b>"
-						+ "</p>");
+				Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(item.getItemType().getName(false), item.getRarity().getColour()), true);
 			}
 		}
 		
 		if (item.getItemType().isConsumedOnUse()) {
-			if(removingFromFloor)
+			if(removingFromFloor) {
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().removeItem(item);
-			else
+			} else {
 				removeItem(item);
+			}
 		}
 		
 		if(onlyReturnEffects) {
@@ -2061,11 +2090,13 @@ public class GameCharacter implements Serializable {
 	
 	public String addWeapon(AbstractWeapon weapon, boolean removingFromFloor) {
 		if (inventory.addWeapon(weapon)) {
-			if (removingFromFloor)
+			if (removingFromFloor) {
 				Main.game.getActiveWorld().getCell(location).getInventory().removeWeapon(weapon);
+			}
 			return "<p style='text-align:center;'>" + addedItemToInventoryText(weapon)+"</p>";
 			
 		} else {
+			Main.game.getActiveWorld().getCell(location).getInventory().addWeapon(weapon);
 			return inventoryFullText() + "</br>" + droppedItemText(weapon);
 		}
 	}
@@ -2089,16 +2120,29 @@ public class GameCharacter implements Serializable {
 	public AbstractWeapon getMainWeapon() {
 		return inventory.getMainWeapon();
 	}
-	
-	/**
-	 * @return Description of equipping this weapon.
-	 */
-	public String equipMainWeapon(AbstractWeapon weapon, boolean removingFromFloor) {
-		if (weapon == null)
-			throw new NullPointerException("null weapon was passed.");
 
-		if (hasWeapon(weapon))
-			removeWeapon(weapon);
+	
+	/** @return Description of equipping this weapon. */
+	public String equipMainWeaponFromInventory(AbstractWeapon weapon, GameCharacter fromCharactersInventory) {
+		fromCharactersInventory.removeWeapon(weapon);
+		return equipMainWeapon(weapon);
+	}
+
+	/** @return Description of equipping this weapon. */
+	public String equipMainWeaponFromFloor(AbstractWeapon weapon) {
+		Main.game.getActiveWorld().getCell(location).getInventory().removeWeapon(weapon);
+		return equipMainWeapon(weapon);
+	}
+
+	/** @return Description of equipping this weapon. */
+	public String equipMainWeaponFromNowhere(AbstractWeapon weapon) {
+		return equipMainWeapon(weapon);
+	}
+	
+	private String equipMainWeapon(AbstractWeapon weapon) {
+		if (weapon == null) {
+			throw new NullPointerException("null weapon was passed.");
+		}
 		
 		String s = "";
 		
@@ -2106,23 +2150,23 @@ public class GameCharacter implements Serializable {
 			s += addWeapon(getMainWeapon(), false);
 
 			// Revert old melee weapon's attribute bonuses:
-			if (getMainWeapon().getAttributeModifiers() != null)
-				for (Entry<Attribute, Integer> e : getMainWeapon().getAttributeModifiers().entrySet())
+			if (getMainWeapon().getAttributeModifiers() != null) {
+				for (Entry<Attribute, Integer> e : getMainWeapon().getAttributeModifiers().entrySet()) {
 					incrementBonusAttribute(e.getKey(), -e.getValue());
-
+				}
+			}
 		}
 
 		s += weapon.onEquip(this);
 		// Apply its attribute bonuses:
-		if (weapon.getAttributeModifiers() != null)
-			for (Entry<Attribute, Integer> e : weapon.getAttributeModifiers().entrySet())
+		if (weapon.getAttributeModifiers() != null) {
+			for (Entry<Attribute, Integer> e : weapon.getAttributeModifiers().entrySet()) {
 				incrementBonusAttribute(e.getKey(), e.getValue());
-				
+			}
+		}
+		
 		inventory.equipMainWeapon(weapon);
 		updateInventoryListeners();
-		
-		if (removingFromFloor)
-			Main.game.getActiveWorld().getCell(location).getInventory().removeWeapon(weapon);
 		
 		return s;
 	}
@@ -2155,38 +2199,54 @@ public class GameCharacter implements Serializable {
 		return inventory.getOffhandWeapon();
 	}
 	
-	/**
-	 * @return Description of equipping this weapon.
-	 */
-	public String equipOffhandWeapon(AbstractWeapon weapon, boolean removingFromFloor) {
-		if (weapon == null)
+	
+	/** @return Description of equipping this weapon. */
+	public String equipOffhandWeaponFromInventory(AbstractWeapon weapon, GameCharacter fromCharactersInventory) {
+		String s = equipOffhandWeapon(weapon);
+		fromCharactersInventory.removeWeapon(weapon);
+		return s;
+	}
+
+	/** @return Description of equipping this weapon. */
+	public String equipOffhandWeaponFromFloor(AbstractWeapon weapon) {
+		String s = equipOffhandWeapon(weapon);
+		Main.game.getActiveWorld().getCell(location).getInventory().removeWeapon(weapon);
+		return s;
+	}
+
+	/** @return Description of equipping this weapon. */
+	public String equipOffhandWeaponFromNowhere(AbstractWeapon weapon) {
+		return equipOffhandWeapon(weapon);
+	}
+	
+	public String equipOffhandWeapon(AbstractWeapon weapon) {
+		if (weapon == null) {
 			throw new NullPointerException("null weapon was passed.");
-
-		if (hasWeapon(weapon))
-			removeWeapon(weapon);
-
+		}
+		
 		String s = "";
 		
 		if (getOffhandWeapon() != null) {
 			s += addWeapon(getOffhandWeapon(), false);
 
 			// Revert old weapon's attribute bonuses:
-			if (getOffhandWeapon().getAttributeModifiers() != null)
-				for (Entry<Attribute, Integer> e : getOffhandWeapon().getAttributeModifiers().entrySet())
+			if (getOffhandWeapon().getAttributeModifiers() != null) {
+				for (Entry<Attribute, Integer> e : getOffhandWeapon().getAttributeModifiers().entrySet()) {
 					incrementBonusAttribute(e.getKey(), -e.getValue());
-
+				}
+			}
 		}
 		
 		s += weapon.onEquip(this);
 		// Apply its attribute bonuses:
-		if (weapon.getAttributeModifiers() != null)
-			for (Entry<Attribute, Integer> e : weapon.getAttributeModifiers().entrySet())
+		if (weapon.getAttributeModifiers() != null) {
+			for (Entry<Attribute, Integer> e : weapon.getAttributeModifiers().entrySet()) {
 				incrementBonusAttribute(e.getKey(), e.getValue());
+			}
+		}
 		
 		inventory.equipOffhandWeapon(weapon);
 		updateInventoryListeners();
-		if (removingFromFloor)
-			Main.game.getActiveWorld().getCell(location).getInventory().removeWeapon(weapon);
 		
 		return s;
 	}
@@ -2294,18 +2354,25 @@ public class GameCharacter implements Serializable {
 		equippedClothing.clear();
 	}
 
-	public String equipClothingFromInventory(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
+	/**
+	 * 
+	 * @param newClothing The clothing to equip to this character.
+	 * @param automaticClothingManagement Whether clothing should automatically be shifted/removed in order to equip this clothing.
+	 * @param characterClothingEquipper The character who is equipping the clothing to this character.
+	 * @param fromCharactersInventory The character who has this clothing in their inventory.
+	 * @return Equip description
+	 */
+	public String equipClothingFromInventory(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper, GameCharacter fromCharactersInventory) {
 		boolean wasAbleToEquip = inventory.isAbleToEquip(newClothing, true, automaticClothingManagement, this, characterClothingEquipper);
 
-		// If this item was able to be equipped, and it was equipped, apply it's
-		// attribute bonuses:
+		// If this item was able to be equipped, and it was equipped, apply its attribute bonuses:
 		if (wasAbleToEquip) {
 			incrementBonusAttribute(Attribute.RESISTANCE_PHYSICAL, newClothing.getClothingType().getPhysicalResistance());
 			for (Entry<Attribute, Integer> e : newClothing.getAttributeModifiers().entrySet()) {
 				incrementBonusAttribute(e.getKey(), e.getValue());
 			}
 			
-			removeClothing(newClothing);
+			fromCharactersInventory.removeClothing(newClothing);
 
 			newClothing.setEnchantmentKnown(true);
 
@@ -2313,12 +2380,7 @@ public class GameCharacter implements Serializable {
 
 			if (isPlayer()) {
 				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
-					Main.game.getTextEndStringBuilder().append(
-							"<p style='text-align:center;'>"
-								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
-								+ "</br>"
-								+ "<b>Clothing:</b> <b style='color:"+newClothing.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(newClothing.getName())+"</b>"
-							+ "</p>");
+					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getName(), newClothing.getRarity().getColour()), true);
 				}
 			}
 		}
@@ -2344,12 +2406,7 @@ public class GameCharacter implements Serializable {
 
 			if (isPlayer()) {
 				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
-					Main.game.getTextEndStringBuilder().append(
-							"<p style='text-align:center;'>"
-								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
-								+ "</br>"
-								+ "<b>Clothing:</b> <b style='color:"+newClothing.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(newClothing.getName())+"</b>"
-							+ "</p>");
+					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getName(), newClothing.getRarity().getColour()), true);
 				}
 			}
 		}
@@ -2376,12 +2433,7 @@ public class GameCharacter implements Serializable {
 
 			if (isPlayer()) {
 				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
-					Main.game.getTextEndStringBuilder().append(
-							"<p style='text-align:center;'>"
-								+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>New entry in your phone's encyclopedia:</b>"
-								+ "</br>"
-								+ "<b>Clothing:</b> <b style='color:"+newClothing.getRarity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(newClothing.getName())+"</b>"
-							+ "</p>");
+					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getName(), newClothing.getRarity().getColour()), true);
 				}
 			}
 		}
@@ -2898,7 +2950,7 @@ public class GameCharacter implements Serializable {
 	public boolean isFeminine() {
 		boolean isFeminine = body.isFeminine();
 		
-		if(Femininity.valueOf(getFemininity()) == Femininity.ANDROGYNOUS) {
+		if(Femininity.valueOf(getFemininityValue()) == Femininity.ANDROGYNOUS) {
 			switch(Main.getProperties().androgynousIdentification){
 				case FEMININE:
 					isFeminine = true;
@@ -2998,12 +3050,14 @@ public class GameCharacter implements Serializable {
 						if(isPlayer()) {
 							postTFSB.append(
 									"<b>You have discovered that your natural</b>"
-									+" <b style='color:"+bp.getType().getBodyCoveringType().getRace().getColour().toWebHexString()+";'>"+bp.getType().getBodyCoveringType().getRace().getName()+"'s</b> <b>"+bp.getType().getBodyCoveringType().getName(this)+" colour is "
+									+" <b style='color:"+bp.getType().getBodyCoveringType().getRace().getColour().toWebHexString()+";'>"+bp.getType().getBodyCoveringType().getRace().getName()+"'s</b>"
+											+ " <b>"+bp.getType().getBodyCoveringType().getName(this)+" colour is "
 									+getCovering(bp.getType().getBodyCoveringType()).getColourDescriptor(true)+"!</b>");
 						} else {
 							postTFSB.append(UtilText.parse(this,
 									"<b>[npc.Name] has discovered that [npc.her] natural</b>"
-									+" <b style='color:"+bp.getType().getBodyCoveringType().getRace().getColour().toWebHexString()+";'>"+bp.getType().getBodyCoveringType().getRace().getName()+"'s</b> <b>"+bp.getType().getBodyCoveringType().getName(this)+" colour is</b>"
+									+" <b style='color:"+bp.getType().getBodyCoveringType().getRace().getColour().toWebHexString()+";'>"+bp.getType().getBodyCoveringType().getRace().getName()+"'s</b>"
+											+ " <b>"+bp.getType().getBodyCoveringType().getName(this)+" colour is</b>"
 									+ " <b style='color:"+getCovering(bp.getType().getBodyCoveringType()).getPrimaryColour().toWebHexString()+";'>"+getCovering(bp.getType().getBodyCoveringType()).getColourDescriptor(false)+"</b><b>!</b>"));
 						}
 					}
@@ -3064,7 +3118,11 @@ public class GameCharacter implements Serializable {
 
 	// Femininity:
 
-	public int getFemininity() {
+	public Femininity getFemininity() {
+		return Femininity.valueOf(body.getFemininity());
+	}
+	
+	public int getFemininityValue() {
 		return body.getFemininity();
 	}
 	
@@ -3089,14 +3147,14 @@ public class GameCharacter implements Serializable {
 				if(isPlayer()) {
 						return "<p>"
 									+ "You feel your body subtly shifting to become <b style='color:" + Colour.FEMININE.toWebHexString() + ";'>more feminine</b>.</br>"
-									+ "You now have <b style='color:"+ Femininity.valueOf(getFemininity()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininity(), true) + "</b> body."
+									+ "You now have <b style='color:"+ Femininity.valueOf(getFemininityValue()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininityValue(), true) + "</b> body."
 							+ "</p>"
 							+beardLoss;
 				} else {
 					return UtilText.parse(this,
 							"<p>"
 								+ "[npc.Name]'s body subtly shifts to become <b style='color:" + Colour.FEMININE.toWebHexString() + ";'>more feminine</b>.</br>"
-								+ "[npc.She] now has <b style='color:"+ Femininity.valueOf(getFemininity()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininity(), true) + "</b> body."
+								+ "[npc.She] now has <b style='color:"+ Femininity.valueOf(getFemininityValue()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininityValue(), true) + "</b> body."
 							+ "</p>"
 							+beardLoss);
 				}
@@ -3106,14 +3164,14 @@ public class GameCharacter implements Serializable {
 				if(isPlayer()) {
 					return "<p>"
 								+ "You feel your body subtly shifting to become <b style='color:" + Colour.MASCULINE.toWebHexString() + ";'>more masculine</b>.</br>"
-								+ "You have <b style='color:"+ Femininity.valueOf(getFemininity()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininity(), true) + "</b> body."
+								+ "You have <b style='color:"+ Femininity.valueOf(getFemininityValue()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininityValue(), true) + "</b> body."
 							+ "</p>"
 							+beardLoss;
 				} else {
 					return UtilText.parse(this,
 							"<p>"
 								+ "[npc.Name]'s body subtly shifts to become <b style='color:" + Colour.MASCULINE.toWebHexString() + ";'>more masculine</b>.</br>"
-								+ "[npc.She] now has <b style='color:"+ Femininity.valueOf(getFemininity()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininity(), true) + "</b> body."
+								+ "[npc.She] now has <b style='color:"+ Femininity.valueOf(getFemininityValue()).getColour().toWebHexString() + ";'>" + Femininity.getFemininityName(getFemininityValue(), true) + "</b> body."
 							+ "</p>"
 							+beardLoss);
 				}
@@ -3132,7 +3190,7 @@ public class GameCharacter implements Serializable {
 	}
 
 	public String incrementFemininity(int increment) {
-		return setFemininity(getFemininity() + increment);
+		return setFemininity(getFemininityValue() + increment);
 	}
 
 	// Body size:
@@ -3357,6 +3415,13 @@ public class GameCharacter implements Serializable {
 						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>There is no longer any trace of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
+				case STUBBLE:
+					if(this.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>You now have a stubbly patch of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
+					} else {
+						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a stubbly patch of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
+					}
+					break;
 				case MANICURED:
 					if(this.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a well-manicured patch of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
@@ -3371,11 +3436,32 @@ public class GameCharacter implements Serializable {
 						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a trimmed patch of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
+				case NATURAL:
+					if(this.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>You now have a natural bush of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
+					} else {
+						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a natural bush of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
+					}
+					break;
+				case UNKEMPT:
+					if(this.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>You now have an unkempt mass of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
+					} else {
+						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has an unkempt mass of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
+					}
+					break;
 				case BUSHY:
 					if(this.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a thick mass of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a thick mass of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
+					}
+					break;
+				case WILD:
+					if(this.isPlayer()) {
+						UtilText.transformationContentSB.append("<p>You now have a wild, bushy mass of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
+					} else {
+						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a wild, bushy mass of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
 			}

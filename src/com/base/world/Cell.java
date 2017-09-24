@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 import com.base.game.inventory.CharacterInventory;
 import com.base.utils.Vector2i;
-import com.base.world.places.PlaceInterface;
+import com.base.world.places.GenericPlace;
 
 /**
  * @since 0.1.0
- * @version 0.1.75
+ * @version 0.1.85
  * @author Innoxia
  */
 public class Cell implements Serializable {
@@ -20,7 +20,7 @@ public class Cell implements Serializable {
 
 	private String name;
 	private boolean discovered, northAccess, southAccess, eastAccess, westAccess, blocked;
-	private PlaceInterface place;
+	private GenericPlace place;
 	private CharacterInventory inventory;
 
 	public Cell(WorldType type, Vector2i location) {
@@ -29,7 +29,7 @@ public class Cell implements Serializable {
 		
 		name = "";
 		discovered = false;
-		place = type.getStandardPlace();
+		place = new GenericPlace(type.getStandardPlace());
 		
 		inventory = new CharacterInventory(0);
 		
@@ -69,11 +69,11 @@ public class Cell implements Serializable {
 		this.discovered = discovered;
 	}
 
-	public PlaceInterface getPlace() {
+	public GenericPlace getPlace() {
 		return place;
 	}
 
-	public void setPlace(PlaceInterface place) {
+	public void setPlace(GenericPlace place) {
 		this.place = place;
 	}
 

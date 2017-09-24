@@ -24,7 +24,7 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 
 	protected static final long serialVersionUID = 1L;
 	
-	private String determiner, name, description, pathName;
+	private String determiner, name, namePlural, description, pathName;
 	private boolean plural;
 	private Colour colourShade;
 	private int value;
@@ -37,6 +37,7 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 			String determiner,
 			boolean plural,
 			String name,
+			String namePlural,
 			String description,
 			String pathName,
 			Colour colourShade,
@@ -48,6 +49,7 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		this.determiner = determiner;
 		this.plural = plural;
 		this.name = name;
+		this.namePlural = namePlural;
 		this.description = description;
 		this.pathName = pathName;
 
@@ -163,6 +165,14 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 			return Util.capitaliseSentence((determiner!=null?determiner:"") + " <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>");
 		} else {
 			return name;
+		}
+	}
+	
+	public String getNamePlural(boolean displayName) {
+		if(displayName) {
+			return Util.capitaliseSentence((determiner!=null?determiner:"") + " <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>");
+		} else {
+			return namePlural;
 		}
 	}
 

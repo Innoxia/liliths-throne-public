@@ -4,12 +4,13 @@ import java.awt.Color;
 import java.util.List;
 import java.util.Map;
 
+import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Util.ListValue;
 import com.base.utils.Util.Value;
 import com.base.world.places.Dominion;
 import com.base.world.places.EnforcerHQ;
-import com.base.world.places.GenericPlace;
+import com.base.world.places.GenericPlaces;
 import com.base.world.places.HarpyNests;
 import com.base.world.places.Jungle;
 import com.base.world.places.LilayasHome;
@@ -20,7 +21,7 @@ import com.base.world.places.Submission;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.85
  * @author Innoxia
  */
 public enum WorldType {
@@ -28,7 +29,8 @@ public enum WorldType {
 	// Dominion:
 	
 	DOMINION(6,
-			"dominion",
+			"Dominion",
+			Colour.BASE_PURPLE,
 			1,
 			Dominion.CITY_STREET,
 			Dominion.CITY_BACK_ALLEYS,
@@ -54,11 +56,12 @@ public enum WorldType {
 
 	
 	LILAYAS_HOUSE_GROUND_FLOOR("Lilaya's home",
+			Colour.BASE_BLUE_LIGHT,
 			1,
 			"/com/base/res/map/dominion/lilayasHome/lilayas_home_ground_floor.png",
 			Util.newHashMapOfValues(
 					
-					new Value<>(new Color(0xFFFFFF), GenericPlace.IMPASSABLE),
+					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
 					new Value<>(new Color(0x808080), LilayasHome.LILAYA_HOME_CORRIDOR),
 					new Value<>(new Color(0xff0000), LilayasHome.LILAYA_HOME_ENTRANCE_HALL),
 					new Value<>(new Color(0x008000), LilayasHome.LILAYA_HOME_GARDEN),
@@ -81,14 +84,15 @@ public enum WorldType {
 	},
 	
 	LILAYAS_HOUSE_FIRST_FLOOR("Lilaya's home",
+			Colour.BASE_BLUE_LIGHT,
 			1,
 			"/com/base/res/map/dominion/lilayasHome/lilayas_home_first_floor.png",
 			Util.newHashMapOfValues(
-					new Value<>(new Color(0xFFFFFF), GenericPlace.IMPASSABLE),
+					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
 					new Value<>(new Color(0x808080), LilayasHome.LILAYA_HOME_CORRIDOR),
 					new Value<>(new Color(0xff00ff), LilayasHome.LILAYA_HOME_ROOM_WINDOW),
 					new Value<>(new Color(0xff0080), LilayasHome.LILAYA_HOME_ROOM_GARDEN),
-					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_ROOM),
+//					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_ROOM),
 					new Value<>(new Color(0xff80ff), LilayasHome.LILAYA_HOME_ROOM_LILAYA),
 					new Value<>(new Color(0x0080ff), LilayasHome.LILAYA_HOME_ROOM_ROSE),
 					new Value<>(new Color(0x00ffff), LilayasHome.LILAYA_HOME_ROOM_PLAYER),
@@ -104,9 +108,10 @@ public enum WorldType {
 
 	HARPY_NEST(4,
 			"Harpy nests",
+			Colour.BASE_CRIMSON,
 			5,
 			HarpyNests.WALKWAYS,
-			GenericPlace.IMPASSABLE,
+			GenericPlaces.IMPASSABLE,
 			Util.newArrayListOfValues(
 					new ListValue<PlaceInterface>(HarpyNests.ENTRANCE_ENFORCER_POST),
 					new ListValue<PlaceInterface>(HarpyNests.HARPY_NEST_RED),
@@ -116,11 +121,12 @@ public enum WorldType {
 			null),
 	
 	SLAVER_ALLEY("Slaver Alley",
+			Colour.BASE_RED,
 			1,
 			"/com/base/res/map/dominion/slaverAlley/slaverAlley.png",
 			Util.newHashMapOfValues(
 					
-					new Value<>(new Color(0xFFFFFF), GenericPlace.IMPASSABLE),
+					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
 					new Value<>(new Color(0x808080), SlaverAlley.ALLEY),
 					new Value<>(new Color(0xff0000), SlaverAlley.ALLEY_ENTRANCE),
 					new Value<>(new Color(0xff00ff), SlaverAlley.MARKET_STALL),
@@ -132,11 +138,12 @@ public enum WorldType {
 			WorldType.DOMINION),
 	
 	SHOPPING_ARCADE("Shopping arcade",
+			Colour.BASE_YELLOW,
 			1,
 			"/com/base/res/map/dominion/shoppingArcade/shoppingArcade.png",
 			Util.newHashMapOfValues(
 					
-					new Value<>(new Color(0xFFFFFF), GenericPlace.IMPASSABLE),
+					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
 					new Value<>(new Color(0x808080), ShoppingArcade.ARCADE),
 					new Value<>(new Color(0xff0000), ShoppingArcade.ARCADE_ENTRANCE),
 					new Value<>(new Color(0x00ffff), ShoppingArcade.RALPHS_SHOP_ITEMS),
@@ -155,11 +162,12 @@ public enum WorldType {
 	},
 	
 	ENFORCER_HQ("Enforcer HQ",
+			Colour.BASE_BLUE,
 			1,
 			"/com/base/res/map/dominion/enforcerHQ/enforcerHQ.png",
 			Util.newHashMapOfValues(
 					
-					new Value<>(new Color(0xFFFFFF), GenericPlace.IMPASSABLE),
+					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
 					new Value<>(new Color(0x808080), EnforcerHQ.CORRIDOR),
 					new Value<>(new Color(0xff0000), EnforcerHQ.ENTRANCE),
 					new Value<>(new Color(0xffff00), EnforcerHQ.GUARDED_DOOR),
@@ -173,10 +181,11 @@ public enum WorldType {
 	// Other:
 	
 	SEWERS(6,
-			"submission",
+			"Submission",
+			Colour.BASE_GREEN,
 			5,
 			Submission.SEWER_WALKWAYS,
-			GenericPlace.IMPASSABLE,
+			GenericPlaces.IMPASSABLE,
 			Util.newArrayListOfValues(
 					new ListValue<PlaceInterface>(Submission.SEWER_RAT_TUNNELS),
 					new ListValue<PlaceInterface>(Submission.SEWER_IMP_PALACE),
@@ -186,6 +195,7 @@ public enum WorldType {
 
 	JUNGLE(6,
 			"jungle",
+			Colour.BASE_GREEN_LIME,
 			240,
 			Jungle.JUNGLE_PATH,
 			Jungle.JUNGLE_DENSE_JUNGLE,
@@ -198,6 +208,7 @@ public enum WorldType {
 
 	
 	private final String name, fileLocation;
+	private Colour colour;
 	private int worldSize, timeToTransition;
 	
 	private int tileSetRowNumber, moveCost;
@@ -210,11 +221,12 @@ public enum WorldType {
 	private WorldType previousWorldType;
 	
 
-	WorldType(int worldSize, String name, int timeToTransition, PlaceInterface standardPlace, PlaceInterface cutOffZone, List<PlaceInterface> places, List<PlaceInterface> dangerousPlaces) {
+	WorldType(int worldSize, String name, Colour colour, int timeToTransition, PlaceInterface standardPlace, PlaceInterface cutOffZone, List<PlaceInterface> places, List<PlaceInterface> dangerousPlaces) {
 		
 		this.worldSize=worldSize;
 		
 		this.name = name;
+		this.colour = colour;
 		this.timeToTransition=timeToTransition;
 		this.moveCost = 5;
 
@@ -231,9 +243,10 @@ public enum WorldType {
 		
 	}
 	
-	WorldType(String name, int timeToTransition, String fileLocation, Map<Color, PlaceInterface> placesMap, PlaceInterface previousWorldExitType, WorldType previousWorldType) {
+	WorldType(String name, Colour colour, int timeToTransition, String fileLocation, Map<Color, PlaceInterface> placesMap, PlaceInterface previousWorldExitType, WorldType previousWorldType) {
 
 		this.name = name;
+		this.colour = colour;
 		this.timeToTransition=timeToTransition;
 		moveCost = 5;
 
@@ -257,6 +270,10 @@ public enum WorldType {
 
 	public String getName() {
 		return name;
+	}
+
+	public Colour getColour() {
+		return colour;
 	}
 
 	public int getTimeToTransition() {

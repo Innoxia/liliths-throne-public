@@ -16,12 +16,12 @@ public enum HairStyle {
 	LOOSE("loose", HairLength.ONE_VERY_SHORT),
 	CURLY("curly", HairLength.ONE_VERY_SHORT),
 	STRAIGHT("straight", HairLength.ONE_VERY_SHORT),
+	AFRO("afro", HairLength.ONE_VERY_SHORT),
+	SIDECUT("sidecut", HairLength.TWO_SHORT),
 	MOHAWK("mohawk", HairLength.TWO_SHORT),
 	WAVY("wavy", HairLength.THREE_SHOULDER_LENGTH),
-	SIDECUT("sidecut", HairLength.THREE_SHOULDER_LENGTH),
 	PONYTAIL("ponytail", HairLength.THREE_SHOULDER_LENGTH),
 	TWIN_TAILS("twintails", HairLength.THREE_SHOULDER_LENGTH),
-	AFRO("afro", HairLength.THREE_SHOULDER_LENGTH),
 	BRAIDED("braided", HairLength.FOUR_MID_BACK);
 	
 	private String descriptor;

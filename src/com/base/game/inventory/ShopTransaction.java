@@ -26,5 +26,4 @@ public class ShopTransaction implements Serializable {
 	public int getPrice() {
 		return price;
 	}
-
 }

@@ -1,135 +1,169 @@
 package com.base.world.places;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.base.game.dialogue.DialogueNodeOld;
-import com.base.game.dialogue.encounters.Encounter;
 import com.base.utils.BaseColour;
 import com.base.utils.Bearing;
-import com.base.utils.Util;
 import com.base.world.EntranceType;
 import com.base.world.WorldType;
 
-/**
- * @since 0.1.75
- * @version 0.1.75
- * @author Innoxia
- */
-public enum GenericPlace implements PlaceInterface {
-	
-	IMPASSABLE(null, null, null, null, null, false, false);
-	
-	private String name, SVGString;
-	private BaseColour colour;
-	private DialogueNodeOld dialogue;
-	private Encounter encounterType;
-	private boolean populated, dangerous;
+public class GenericPlace implements Serializable {
 
-	GenericPlace(String name,
-			String SVGPath,
-			BaseColour colour,
-			DialogueNodeOld dialogue,
-			Encounter encounterType,
-			boolean populated,
-			boolean dangerous) {
-		
-		this.name = name;
-		this.colour = colour;
-		this.dialogue = dialogue;
-		this.encounterType = encounterType;
-		this.populated = populated;
-		this.dangerous = dangerous;
+	private static final long serialVersionUID = 1L;
+	
+	private String name;
+	private PlaceInterface placeType;
+	private Set<PlaceUpgrade> placeUpgrades;
 
-		if(SVGPath!=null) {
-			try {
-				InputStream is = this.getClass().getResourceAsStream("/com/base/res/map/" + SVGPath + ".svg");
-				String s = Util.inputStreamToString(is);
-				
-				if(colour!=null) {
-					s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
-					s = s.replaceAll("#ff5555", this.colour.getShades()[1]);
-					s = s.replaceAll("#ff8080", this.colour.getShades()[2]);
-					s = s.replaceAll("#ffaaaa", this.colour.getShades()[3]);
-					s = s.replaceAll("#ffd5d5", this.colour.getShades()[4]);
-				}
-				SVGString = s;
-	
-				is.close();
-	
-			} catch (IOException e1) {
-				e1.printStackTrace();
+	public GenericPlace(PlaceInterface placeType) {
+		this.placeType=placeType;
+		placeUpgrades = new HashSet<>();
+		if(placeType!=null) {
+			this.name = placeType.getName();
+			for(PlaceUpgrade pu : placeType.getStartingPlaceUpgrades()) {
+				placeUpgrades.add(pu);
 			}
 		} else {
-			SVGString = null;
+			this.name = "-";
 		}
 	}
-
+	
+	@Override
+	public boolean equals (Object o) {
+		if(o instanceof GenericPlace){
+			if(((GenericPlace)o).getPlaceType() == placeType
+				&& ((GenericPlace)o).getPlaceUpgrades().equals(placeUpgrades)){
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = 31 * result + placeType.hashCode();
+		result = 31 * result + placeUpgrades.hashCode();
+		return result;
+	}
+	
 	public String getName() {
 		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public BaseColour getColour() {
-		return colour;
+		return placeType.getColour();
 	}
 
 	public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
-		if (encounterType != null && withRandomEncounter) {
-			DialogueNodeOld dn = encounterType.getRandomEncounter();
-			if (dn != null)
-				return dn;
-		}
-
-		return dialogue;
+		return placeType.getDialogue(withRandomEncounter);
 	}
 
 	public boolean isPopulated() {
-		return populated;
+		return placeType.isPopulated();
 	}
 
 	public boolean isDangerous() {
-		return dangerous;
-	}
-	
-	public boolean isStormImmune() {
-		return false;
+		return placeType.isDangerous();
 	}
 
+	public boolean isStormImmune() {
+		return placeType.isStormImmune();
+	}
+	
 	public boolean isItemsDisappear() {
-		return true;
+		return placeType.isItemsDisappear();
 	}
 
 	public String getSVGString() {
-		return SVGString;
+		return placeType.getSVGString();
 	}
 	
 	
 	// For determining where this place should be placed:
 	
 	public Bearing getBearing() {
-		return null;
+		return placeType.getBearing();
 	}
 	
 	public WorldType getParentWorldType() {
-		return null;
+		return placeType.getParentWorldType();
 	}
 	
 	public PlaceInterface getParentPlaceInterface() {
-		return null;
+		return placeType.getParentPlaceInterface();
 	}
 	
 	public EntranceType getParentAlignment() {
-		return null;
+		return placeType.getParentAlignment();
 	}
 	
 	
 	// For porting to another world:
 	
 	public WorldType getLinkedWorldType() {
-		return null;
+		return placeType.getLinkedWorldType();
 	}
 	
 	public PlaceInterface getLinkedPlaceInterface() {
-		return null;
+		return placeType.getLinkedPlaceInterface();
 	}
+	
+	public boolean addPlaceUpgrade(PlaceUpgrade upgrade) {
+		if(placeUpgrades.add(upgrade)) {
+			upgrade.applyInstallationEffects(this);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean removePlaceUpgrade(PlaceUpgrade upgrade) {
+		if(placeUpgrades.remove(upgrade)) {
+			upgrade.applyRemovalEffects(this);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public Set<PlaceUpgrade> getPlaceUpgrades() {
+		return placeUpgrades;
+	}
+	
+	public int getCapacity() {
+		int c = 0;
+		for(PlaceUpgrade pu : placeUpgrades) {
+			c+=pu.getCapacity();
+		}
+		return c;
+	}
+	
+	public int getUpkeep() {
+		int upkeep = 0;
+		for(PlaceUpgrade pu : placeUpgrades) {
+			upkeep+=pu.getUpkeep();
+		}
+		if(upkeep<0) {
+			return 0;
+		}
+		return upkeep;
+	}
+	
+
+	public PlaceInterface getPlaceType() {
+		return placeType;
+	}
+
+	public void setPlaceType(PlaceInterface placeType) {
+		this.placeType = placeType;
+	}
+
 }

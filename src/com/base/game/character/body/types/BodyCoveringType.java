@@ -25,11 +25,15 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"skin",
 			"skin",
 			"normal",
-			null,
-			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
+					new ListValue<CoveringPattern>(CoveringPattern.STRIPED),
+					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED)),
 			Colour.humanSkinColours,
 			null,
-			null,
+			Colour.humanSkinColours,
 			null),
 
 	ANGEL(Race.ANGEL,
@@ -38,11 +42,15 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"skin",
 			"skin",
 			"flawless",
-			null,
-			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
+					new ListValue<CoveringPattern>(CoveringPattern.STRIPED),
+					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED)),
 			Colour.humanSkinColours,
 			null,
-			null,
+			Colour.humanSkinColours,
 			null),
 
 	DEMON_COMMON(Race.DEMON,
@@ -51,11 +59,15 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"skin",
 			"skin",
 			"flawless",
-			null,
-			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
+					new ListValue<CoveringPattern>(CoveringPattern.STRIPED),
+					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED)),
 			Colour.demonSkinColours,
 			null,
-			null,
+			Colour.demonSkinColours,
 			null),
 
 	CANINE_FUR(Race.DOG_MORPH,
@@ -387,8 +399,21 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			null),
 
 	// MISC:
-
-	HORN(Race.DEMON,
+	
+	HORN_DEMON(Race.DEMON,
+			"a layer of",
+			false,
+			"keratin",
+			"keratin",
+			"hard",
+			null,
+			null,
+			Util.newArrayListOfValues(new ListValue<Colour>(Colour.HORN_WHITE)),
+			null,
+			Util.newArrayListOfValues(new ListValue<Colour>(Colour.HORN_WHITE)),
+			null),
+	
+	HORN_COW(Race.COW_MORPH,
 			"a layer of",
 			false,
 			"keratin",

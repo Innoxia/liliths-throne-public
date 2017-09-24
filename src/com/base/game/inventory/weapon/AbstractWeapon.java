@@ -31,7 +31,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 	private List<Spell> spells;
 
 	public AbstractWeapon(AbstractWeaponType weaponType, DamageType dt) {
-		super(weaponType.getName(), weaponType.getPathName(), dt.getMultiplierAttribute().getColour(), weaponType.getRarity(), weaponType.getAttributeModifiers());
+		super(weaponType.getName(), weaponType.getNamePlural(), weaponType.getPathName(), dt.getMultiplierAttribute().getColour(), weaponType.getRarity(), weaponType.getAttributeModifiers());
 		this.weaponType = weaponType;
 		damageType = dt;
 		
@@ -127,7 +127,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 	public String getDescription() {
 		descriptionSB = new StringBuilder();
 
-		descriptionSB.append("<p style='text-align:center;'><b>" + Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN) + "-" + Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN) + "</b>" + " <b style='color:"
+		descriptionSB.append("<p'><b>" + Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN) + "-" + Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN) + "</b>" + " <b style='color:"
 				+ damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b> damage</p>");
 
 		descriptionSB.append("<p>" + weaponType.getDescription() + "</p>");

@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 public enum BaseColour {
 
 	WHITE(Util.newColour(0xFFFFFF), Util.newColour(0x636363)),
+	SILVER(Util.newColour(0xF3F3F3), Util.newColour(0x636363)),
 	
 	ROSE(Util.newColour(0xEBC2FF), Util.newColour(0xB800E6)),
 	LILAC(Util.newColour(0x978AFF), Util.newColour(0x8170FF)),

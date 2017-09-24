@@ -15,7 +15,10 @@ import com.base.game.character.SexualOrientation;
 import com.base.game.character.attributes.AffectionLevel;
 import com.base.game.character.attributes.Attribute;
 import com.base.game.character.attributes.CorruptionLevel;
+import com.base.game.character.attributes.FitnessLevel;
+import com.base.game.character.attributes.IntelligenceLevel;
 import com.base.game.character.attributes.ObedienceLevel;
+import com.base.game.character.attributes.StrengthLevel;
 import com.base.game.character.body.Arm;
 import com.base.game.character.body.Ass;
 import com.base.game.character.body.Body;
@@ -58,12 +61,14 @@ import com.base.game.character.body.valueEnums.PenisSize;
 import com.base.game.character.body.valueEnums.TesticleSize;
 import com.base.game.character.body.valueEnums.Wetness;
 import com.base.game.character.effects.Fetish;
+import com.base.game.character.effects.Perk;
 import com.base.game.character.effects.StatusEffect;
 import com.base.game.character.gender.Gender;
 import com.base.game.character.race.Race;
 import com.base.game.character.race.RaceStage;
 import com.base.game.character.race.RacialBody;
 import com.base.game.combat.Attack;
+import com.base.game.combat.SpecialAttack;
 import com.base.game.combat.Spell;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
@@ -86,13 +91,16 @@ import com.base.game.sex.Sex;
 import com.base.game.sex.SexPace;
 import com.base.game.sex.SexPosition;
 import com.base.main.Main;
+import com.base.rendering.RenderingEngine;
 import com.base.utils.Colour;
 import com.base.utils.Util;
 import com.base.utils.Util.ListValue;
 import com.base.utils.Util.Value;
 import com.base.utils.Vector2i;
 import com.base.world.WorldType;
+import com.base.world.places.GenericPlace;
 import com.base.world.places.PlaceInterface;
+import com.base.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
@@ -115,10 +123,10 @@ public abstract class NPC extends GameCharacter {
 	protected Body bodyPreference = null;
 	
 	// Relationship stats:
-	private Map<GameCharacter, Integer> relationships;
+	private Map<GameCharacter, Float> relationships;
 	
 	// Slavery:
-	private int obedience;
+	private float obedience;
 	
 	protected NPC(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace,
 			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceInterface startingPlace, boolean addedToContacts) {
@@ -134,7 +142,7 @@ public abstract class NPC extends GameCharacter {
 		buyModifier=0.75f;
 		sellModifier=1.5f;
 		
-		relationships = new HashMap<GameCharacter,Integer>();
+		relationships = new HashMap<GameCharacter,Float>();
 		obedience = 0;
 		
 		if(getLocation().equals(Main.game.getPlayer().getLocation()) && getWorldLocation()==Main.game.getPlayer().getWorldLocation()) {
@@ -163,18 +171,17 @@ public abstract class NPC extends GameCharacter {
 		return false;
 	}
 	
-	public String getMapIcon() {
-		return getRace().getStatusEffect().getSVGString(this);
-	}
-	
 	public void setLocation(WorldType worldType, Vector2i location) {
 		setWorldLocation(worldType);
 		setLocation(location);
-		Main.mainController.renderMap();
 	}
 	
 	public void setLocation(WorldType worldType, PlaceInterface placeType) {
-		setLocation(worldType, Main.game.getWorlds().get(worldType).getPlacesOfInterest().get(placeType));
+		setLocation(worldType, Main.game.getWorlds().get(worldType).getPlacesOfInterest().get(new GenericPlace(placeType)));
+	}
+	
+	public void setLocation(WorldType worldType, GenericPlace place) {
+		setLocation(worldType, Main.game.getWorlds().get(worldType).getPlacesOfInterest().get(place));
 	}
 	
 	// Trader:
@@ -341,15 +348,15 @@ public abstract class NPC extends GameCharacter {
 	/**
 	 * Do not use this method to alter the map!
 	 */
-	public Map<GameCharacter, Integer> getRelationshipsMap() {
+	public Map<GameCharacter, Float> getRelationshipsMap() {
 		return relationships;
 	}
 	
-	public int getAffection(GameCharacter character) {
+	public float getAffection(GameCharacter character) {
 		if(relationships.containsKey(character)) {
 			return relationships.get(character);
 		} else {
-			relationships.put(character, 0);
+			relationships.put(character, 0f);
 			return 0;
 		}
 	}
@@ -369,7 +376,7 @@ public abstract class NPC extends GameCharacter {
 	 * @param affection
 	 * @return
 	 */
-	public String setAffection(GameCharacter character, int affection) {
+	public String setAffection(GameCharacter character, float affection) {
 		
 		relationships.put(character, Math.max(-100, Math.min(100, affection)));
 		
@@ -396,7 +403,7 @@ public abstract class NPC extends GameCharacter {
 	 * @param affectionIncrement
 	 * @return
 	 */
-	public String incrementAffection(GameCharacter character, int affectionIncrement) {
+	public String incrementAffection(GameCharacter character, float affectionIncrement) {
 		setAffection(character, getAffection(character) + affectionIncrement);
 		
 		return UtilText.parse(character,
@@ -406,24 +413,58 @@ public abstract class NPC extends GameCharacter {
 			
 	}
 	
+	public float getDailyAffectionChange() {
+		// Forgive me, for I am tired x_x
+		
+		float affectionTrack = getAffection(Main.game.getPlayer());
+		
+		for(PlaceUpgrade upgrade : this.getLocationPlace().getPlaceUpgrades()) {
+			if(upgrade.getAffectionCap()==null) {
+				affectionTrack += upgrade.getAffectionGain();
+				
+			} else {
+				if(upgrade.getAffectionGain()>0) {
+					if(getAffection(Main.game.getPlayer()) < upgrade.getAffectionCap().getMaximumValue()) {
+						if(getAffection(Main.game.getPlayer()) + upgrade.getAffectionGain() > upgrade.getAffectionCap().getMaximumValue()) {
+							affectionTrack = upgrade.getAffectionCap().getMaximumValue();
+						} else {
+							affectionTrack += upgrade.getAffectionGain();
+						}
+					}
+					
+				} else if(upgrade.getAffectionGain()<0) {
+					if(getAffection(Main.game.getPlayer()) > upgrade.getAffectionCap().getMinimumValue()) {
+						if(getAffection(Main.game.getPlayer()) + upgrade.getAffectionGain() < upgrade.getAffectionCap().getMinimumValue()) {
+							affectionTrack = upgrade.getAffectionCap().getMinimumValue();
+						} else {
+							affectionTrack += upgrade.getAffectionGain();
+						}
+					}
+				}
+			}
+		}
+		
+		return affectionTrack - getAffection(Main.game.getPlayer());
+	}
+	
 	// Obedience:
 	
-	public int getObedience() {
+	public float getObedience() {
 		return obedience;
 	}
 
-	public String setObedience(int obedience) {
+	public String setObedience(float obedience) {
 		
 		this.obedience = Math.max(-100, Math.min(100, obedience));
 		
 		return UtilText.parse(this,
 					"<p style='text-align:center'>"
 						+ "[npc.Name] now has <b>"+(obedience>0?"+":"")+obedience+"</b> [style.boldObedience(obedience)]!</br>"
-						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true)
+						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
 					+ "</p>");
 	}
 	
-	public String incrementObedience(int increment) {
+	public String incrementObedience(float increment) {
 		
 		setObedience(getObedience()+increment);
 		
@@ -433,6 +474,49 @@ public abstract class NPC extends GameCharacter {
 					+ "</p>");
 	}
 	
+	public float getDailyObedienceChange() {
+		// Forgive me, for I am tired x_x
+		
+		float obedienceTrack = getObedience();
+		
+		for(PlaceUpgrade upgrade : this.getLocationPlace().getPlaceUpgrades()) {
+			if(upgrade.getObedienceCap()==null) {
+				obedienceTrack += upgrade.getObedienceGain();
+				
+			} else {
+				if(upgrade.getObedienceGain()>0) {
+					if(getObedience() < upgrade.getObedienceCap().getMaximumValue()) {
+						if(getObedience() + upgrade.getObedienceGain() > upgrade.getObedienceCap().getMaximumValue()) {
+							obedienceTrack = upgrade.getObedienceCap().getMaximumValue();
+						} else {
+							obedienceTrack += upgrade.getObedienceGain();
+						}
+					}
+					
+				} else if(upgrade.getObedienceGain()<0) {
+					if(getObedience() > upgrade.getObedienceCap().getMinimumValue()) {
+						if(getObedience() + upgrade.getObedienceGain() < upgrade.getObedienceCap().getMinimumValue()) {
+							obedienceTrack = upgrade.getObedienceCap().getMinimumValue();
+						} else {
+							obedienceTrack += upgrade.getObedienceGain();
+						}
+					}
+				}
+			}
+		}
+		
+		return obedienceTrack - getObedience();
+	}
+	
+	public int getValueAsSlave() {
+		int value = 1000;
+		
+		value += (getFetishes().size()*50);
+		
+		value *= (100+(getObedience()/2))/100f;
+		
+		return value;
+	}
 	
 	
 	// Misc:
@@ -539,7 +623,13 @@ public abstract class NPC extends GameCharacter {
 				itemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
 				reaction = "Time to turn you into a "+raceName+"!";
 				break;
-			default:
+			case COW_MORPH:
+				itemType = ItemType.RACE_INGREDIENT_COW_MORPH;
+				break;
+			case ANGEL:
+			case DEMON:
+			case SLIME:
+			case HUMAN:
 				itemType = ItemType.RACE_INGREDIENT_HUMAN;
 				break;
 		}
@@ -636,10 +726,10 @@ public abstract class NPC extends GameCharacter {
 		// Other transformations:
 		
 		// Femininity:
-		if(Main.game.getPlayer().getFemininity() < getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininity()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
+		if(Main.game.getPlayer().getFemininityValue() < getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
 			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.BOOST, 1), "I'm gonna need you to be more feminine!");
 			
-		} else if(Main.game.getPlayer().getFemininity() > getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininity()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
+		} else if(Main.game.getPlayer().getFemininityValue() > getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
 			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.DRAIN, 1), "I'm gonna need you to be more of a man!");
 		}
 		
@@ -1091,6 +1181,12 @@ public abstract class NPC extends GameCharacter {
 			return true;
 		}
 		
+		if(isSlave()) {
+			if(this.getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue()) {
+				return false;
+			}
+		}
+		
 		if(hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
 				|| (getSexualOrientation()==SexualOrientation.ANDROPHILIC && Main.game.getPlayer().isFeminine())
 				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !Main.game.getPlayer().isFeminine())
@@ -1112,6 +1208,15 @@ public abstract class NPC extends GameCharacter {
 	public SexPace getSexPaceSubPreference(){
 		if(!isWantsToHaveSexWithPlayer()) {
 			if(Main.game.isNonConEnabled()) {
+				if(isSlave()) {
+					if(this.getObedience()>=ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMinimumValue()) {
+						return SexPace.SUB_EAGER;
+						
+					} else if(this.getObedience()>=ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMinimumValue()) {
+						return SexPace.SUB_NORMAL;
+					}
+				}
+				
 				return SexPace.SUB_RESISTING;
 				
 			} else {
@@ -1220,7 +1325,266 @@ public abstract class NPC extends GameCharacter {
 		}
 	}
 	
-	// Dirty talk:
+	private static StringBuilder infoScreenSB = new StringBuilder();
+	
+	public static String getCharacterInformationScreen(NPC character) {
+		infoScreenSB.setLength(0);
+		
+		infoScreenSB.append(
+				"<div class='inventory-container right'>"
+					+ RenderingEngine.ENGINE.getInventoryEquippedPanel(character)
+				+ "</div>"
+				+ getCharacterInfoBox(character)
+				+ "<h4>Background</h4>"
+				+ "<p>"
+					+ character.getDescription()
+				+ "</p>"
+				+ "</br>"
+				+ "<h4>Relationships</h4>"
+				+ "<p>"
+					+ "[style.boldAffection(Affection:)]</br>"
+					+ AffectionLevel.getDescription(character, Main.game.getPlayer(),
+							AffectionLevel.getAffectionLevelFromValue(character.getAffection(Main.game.getPlayer())), true));
+		
+		for(Entry<GameCharacter, Float> entry : character.getRelationshipsMap().entrySet()) {
+			if(!entry.getKey().isPlayer()) {
+				infoScreenSB.append("</br>" + AffectionLevel.getDescription(character, entry.getKey(), AffectionLevel.getAffectionLevelFromValue(character.getAffection(entry.getKey())), true));
+			}
+		}
+		
+		infoScreenSB.append("</br></br>"
+					+ "[style.boldObedience(Obedience:)]</br>"
+					+ UtilText.parse(character,
+							(character.isSlave()
+								?"[npc.Name] [style.boldArcane(is a slave)], owned by "+(character.getOwner().isPlayer()?"you!":character.getOwner().getName("a")+".")
+								:"[npc.Name] [style.boldGood(is not a slave)]."))
+					+ "</br>"+ObedienceLevel.getDescription(character, ObedienceLevel.getObedienceLevelFromValue(character.getObedience()), true, true)
+					+"</br></br>"
+					+ "[style.boldArcane(Slaves owned:)]");
+		
+		if(character.getSlavesOwned().isEmpty()) {
+			infoScreenSB.append("</br>[style.colourDisabled(None)]");
+		} else {
+			for(GameCharacter slave : character.getSlavesOwned()) {
+				infoScreenSB.append(UtilText.parse(slave, "</br>[npc.Name]"));
+			}
+		}
+		
+		infoScreenSB.append("</p>"
+				+ "</br>"
+					+ "<h4>Appearance</h4>"
+				+ "<p>"
+					+ character.getBodyDescription()
+				+ "</p>"
+				+ getStats(character));
+		
+		return infoScreenSB.toString();
+	}
+
+	private static StringBuilder infoBoxSB = new StringBuilder();
+
+	public static String getCharacterInfoBox(NPC character) {
+		infoBoxSB.setLength(0);
+		
+		infoBoxSB.append("<div class='combat-display left' style='float:right;'>"
+
+		// Display Name and level:
+		+ "<div class='combat-inner-container'>"
+				+ "<div class='combat-container name'>"
+					+ "<div class='combat-container'>"
+						+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>" 
+							+ "<b>" + Util.capitaliseSentence(character.getName()) + "</b>"
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='combat-container'>"
+						+ "<p class='combatant-title level'>"
+							+ "<b>Level " + character.getLevel() +"</b>"
+							+ "</br>"
+							+(character.getRaceStage().getName()!=""
+								?"<b style='color:"+character.getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(character.getRaceStage().getName())+"</b> ":"")
+							+ "<b style='color:"+character.getRace().getColour().toWebHexString()+";'>"
+							+ (character.isFeminine()?Util.capitaliseSentence(character.getRace().getSingularFemaleName()):Util.capitaliseSentence(character.getRace().getSingularMaleName()))
+							+ "</b>"
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_ATTRIBUTES'></div>" 
+				+ "</div>"
+				+ "</div>"
+
+		// Attributes:
+		+ "<div class='combat-inner-container'>"
+			+ "<div class='combat-container attribute'>"
+				+ "<div class='combat-resource-icon'>" + StrengthLevel.getStrengthLevelFromValue(character.getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(character) + "</div>"
+				+ "<div class='combat-resource-number'>"
+					+ "<b style='color:" + Attribute.STRENGTH.getColour().toWebHexString() + ";'>" + (int) character.getAttributeValue(Attribute.STRENGTH) + "</b>"
+				+ "</div>"
+				+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.STRENGTH + "'></div>"
+			+ "</div>"
+
+			+ "<div class='combat-container attribute'>"
+				+ "<div class='combat-resource-icon'>" + IntelligenceLevel.getIntelligenceLevelFromValue(character.getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(character) + "</div>"
+				+ "<div class='combat-resource-number'>"
+				+ "<b style='color:" + Attribute.INTELLIGENCE.getColour().toWebHexString() + ";'>" + (int) character.getAttributeValue(Attribute.INTELLIGENCE) + "</b>"
+				+ "</div>"
+				+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.INTELLIGENCE + "'></div>"
+			+ "</div>"
+
+			+ "<div class='combat-container attribute'>"
+				+ "<div class='combat-resource-icon'>" + FitnessLevel.getFitnessLevelFromValue(character.getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(character) + "</div>"
+				+ "<div class='combat-resource-number'>"
+				+ "<b style='color:" + Attribute.FITNESS.getColour().toWebHexString() + ";'>" + (int) character.getAttributeValue(Attribute.FITNESS) + "</b>"
+				+ "</div>"
+				+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.FITNESS + "'></div>"
+			+ "</div>"
+
+			+ "<div class='combat-container attribute'>"
+				+ "<div class='combat-resource-icon'>" + CorruptionLevel.getCorruptionLevelFromValue(character.getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(character) + "</div>"
+				+ "<div class='combat-resource-number'>"
+				+ "<b style='color:" + Attribute.CORRUPTION.getColour().toWebHexString() + ";'>" + (int) character.getAttributeValue(Attribute.CORRUPTION) + "</b>"
+				+ "</div>"
+				+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.CORRUPTION + "'></div>"
+			+ "</div>"
+		+ "</div>"
+
+		// Display health, willpower and stamina:
+		+ "<div class='combat-inner-container'>"
+
+				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.HEALTH_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
+				+ (int) ((character.getHealth() / character.getAttributeValue(Attribute.HEALTH_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
+				+ "<div class='combat-resource-number'>"
+				+ (int) Math.ceil(character.getHealth()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.HEALTH_MAXIMUM + "'></div>" + "</div>"
+
+				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.MANA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
+				+ (int) ((character.getMana() / character.getAttributeValue(Attribute.MANA_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_MANA.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
+				+ "<div class='combat-resource-number'>" + (int) Math.ceil(character.getMana()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.MANA_MAXIMUM + "'></div>" + "</div>"
+
+				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.STAMINA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
+				+ (int) ((character.getStamina() / character.getAttributeValue(Attribute.STAMINA_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
+				+ "<div class='combat-resource-number'>"
+				+ (int) Math.ceil(character.getStamina()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.STAMINA_MAXIMUM + "'></div>" + "</div>"
+
+				+ "</div>"
+
+		// Display status effects:
+		+ "<div class='combat-inner-container status-effects'>");
+		
+		for (Perk p : character.getPerks()) {
+			infoBoxSB.append("<div class='combat-status-effect'>" + p.getSVGString() + "<div class='overlay no-pointer' id='PERK_COMBAT_" + p + "'></div>" + "</div>");
+		}
+		for (Fetish f : character.getFetishes()) {
+			infoBoxSB.append("<div class='combat-status-effect'>" + f.getSVGString() + "<div class='overlay no-pointer' id='FETISH_COMBAT_" + f + "'></div>" + "</div>");
+		}
+		for (StatusEffect se : character.getStatusEffects()) {
+			if (se.renderInEffectsPanel()) {
+				if (se.isCombatEffect()) {
+					infoBoxSB.append("<div class='combat-status-effect" + (!se.isBeneficial() ? " negativeCombat" : " positiveCombat") + "'>"
+								+ se.getSVGString(character) + "<div class='overlay no-pointer' id='SE_COMBAT_" + se + "'></div>" + "</div>");
+				} else {
+					infoBoxSB.append(
+							"<div class='combat-status-effect'>" + se.getSVGString(character) + "<div class='overlay no-pointer' id='SE_COMBAT_" + se + "'></div>" + "</div>");
+				}
+			}
+		}
+		for (SpecialAttack sa : character.getSpecialAttacks()) {
+			infoBoxSB.append(
+					"<div class='combat-status-effect'>" + sa.getSVGString() + "<div class='overlay no-pointer' id='SA_COMBAT_" + sa + "'></div>" + "</div>");
+		}
+		if (character.getMainWeapon() != null) {
+			for (Spell s : character.getMainWeapon().getSpells()) {
+				infoBoxSB
+						.append("<div class='combat-status-effect'>" + s.getSVGString() + "<div class='overlay' id='SPELL_MAIN_COMBAT_" + s + "'></div>" + "</div>");
+			}
+		}
+		if (character.getOffhandWeapon() != null) {
+			for (Spell s : character.getOffhandWeapon().getSpells()) {
+				infoBoxSB
+						.append("<div class='combat-status-effect'>" + s.getSVGString() + "<div class='overlay' id='SPELL_OFFHAND_COMBAT_" + s + "'></div>" + "</div>");
+			}
+		}
+		
+		infoBoxSB.append("</div></div>");
+			
+		return infoBoxSB.toString();
+	}
+	
+	public static String getStats(NPC character) {
+		return "<h4 style='text-align:center;'>Stats</h4>"
+				+"<table align='center'>"
+
+				+ "<tr style='height:8px; color:"+character.getGender().getColour().toWebHexString()+";'><th>Core</th></tr>"
+				+ statRow("Femininity", String.valueOf(character.getFemininityValue()))
+				+ statRow("Height (cm)", String.valueOf(character.getHeight()))
+				+ statRow("Hair length (cm)", String.valueOf(Util.conversionInchesToCentimetres(character.getHairRawLengthValue())))
+				+ "<tr style='height:8px;'></tr>"
+
+				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Breasts</th></tr>"
+				+ statRow("Cup size", character.getBreastRawSizeValue() == 0 ? "N/A" : Util.capitaliseSentence(character.getBreastSize().getCupSizeName()))
+				+ (character.getPlayerKnowsAreasMap().get(CoverableArea.NIPPLES)
+					?statRow("Milk production (mL)", String.valueOf(character.getBreastRawLactationValue()))
+						+ statRow("Capacity (inches)", String.valueOf(character.getNippleRawCapacityValue()))
+						+ statRow("Elasticity", String.valueOf(character.getNippleElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getNippleElasticity().getDescriptor())+")")
+					:statRow("Milk production (mL)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Capacity (inches)","<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
+				+ "<tr style='height:8px;'></tr>"
+
+				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Penis</th></tr>"
+				+ (character.getPlayerKnowsAreasMap().get(CoverableArea.PENIS)
+					?statRow("Length (inches)", character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawSizeValue()))
+						+ statRow("Ball size", character.getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(character.getTesticleSize().getDescriptor()))
+						+ statRow("Cum production (mL)", character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawCumProductionValue()))
+					:statRow("Length (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Ball size", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Cum production (mL)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
+				+ "<tr style='height:8px;'></tr>"
+
+				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Vagina</th></tr>"
+				+ (character.getPlayerKnowsAreasMap().get(CoverableArea.VAGINA)
+					?statRow("Capacity (inches)", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawCapacityValue()))
+						+ statRow("Elasticity", String.valueOf(character.getVaginaElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getVaginaElasticity().getDescriptor())+")")
+						+ statRow("Wetness", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaWetness().getValue()) +" ("+Util.capitaliseSentence(character.getVaginaWetness().getDescriptor())+")")
+						+ statRow("Clit size (inches)", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawClitorisSizeValue()))
+					:statRow("Capacity (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Wetness", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Clit size (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
+				+ "<tr style='height:8px;'></tr>"
+
+				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Anus</th></tr>"
+				+ (character.getPlayerKnowsAreasMap().get(CoverableArea.ANUS)
+					?statRow("Capacity (inches)", String.valueOf(character.getAssRawCapacityValue()))
+						+ statRow("Elasticity", String.valueOf(character.getAssElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getAssElasticity().getDescriptor())+")")
+						+ statRow("Wetness", String.valueOf(character.getAssWetness().getValue()) +" ("+Util.capitaliseSentence(character.getAssWetness().getDescriptor())+")")
+					:statRow("Capacity (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+						+ statRow("Wetness", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
+				+ "</table>";
+	}
+	
+	private static String statRow(String title, String value) {
+		return "<tr>"
+					+ "<td style='min-width:100px;'>"
+						+ "<b>"+title+"</b>"
+					+ "</td>"
+					+ "<td style='min-width:100px;'>"
+						+ "<b>"+value+"</b>"
+					+ "</td>"
+				+ "</tr>";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// ****************** Dirty talk: ***************************
 	
 	/**
 	 * @return A <b>formatted</b> piece of NPC speech, reacting to any current penetration.

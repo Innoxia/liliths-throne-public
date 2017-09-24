@@ -4,11 +4,14 @@ import com.base.game.character.attributes.Attribute;
 import com.base.game.character.npc.dominion.Pix;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
+import com.base.game.dialogue.responses.ResponseEffectsOnly;
 import com.base.game.dialogue.responses.ResponseSex;
 import com.base.game.dialogue.utils.UtilText;
 import com.base.game.sex.managers.dominion.SMPixShowerTime;
 import com.base.main.Main;
 import com.base.utils.Colour;
+import com.base.world.WorldType;
+import com.base.world.places.ShoppingArcade;
 
 /**
  * @since 0.1.66
@@ -111,6 +114,14 @@ public class PixsPlayground {
 				}
 				
 				
+			} else if (index == 6) {
+				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
+					@Override
+					public void effects() {
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), ShoppingArcade.ARCADE_ENTRANCE, true);
+					}
+				};
+
 			} else {
 				return null;
 			}
