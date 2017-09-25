@@ -84,10 +84,6 @@ public class HarpyDominantCompanion extends NPC {
 	}
 	
 	@Override
-	public void applyReset() {
-	}
-	
-	@Override
 	public void changeFurryLevel(){
 	}
 	
@@ -98,8 +94,6 @@ public class HarpyDominantCompanion extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
-		if (applyEffects)
-			applyReset();
 	}
 
 	// Combat:

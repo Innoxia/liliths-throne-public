@@ -1594,7 +1594,7 @@ public class GameCharacter implements Serializable {
 		
 		float pregnancyChance = 0;
 		
-		if(partner.getAttributeValue(Attribute.VIRILITY)==0 || getAttributeValue(Attribute.FERTILITY)==0) {
+		if(partner.getAttributeValue(Attribute.VIRILITY)<=0 || getAttributeValue(Attribute.FERTILITY)<=0) {
 			pregnancyChance = 0;
 			
 		} else {
@@ -2667,8 +2667,14 @@ public class GameCharacter implements Serializable {
 	}
 	
 	private GenderAppearance calculateGenderAppearance() {
-		boolean visibleVagina = isCoverableAreaExposed(CoverableArea.VAGINA) && hasVagina(),
-				visiblePenis = isCoverableAreaExposed(CoverableArea.PENIS) && hasPenis();
+		boolean visibleVagina = isCoverableAreaExposed(CoverableArea.VAGINA) && hasVagina();
+		boolean visiblePenis = isCoverableAreaExposed(CoverableArea.PENIS) && hasPenis();
+		boolean bulgeFromCock = hasPenis() && (hasPenisModifier(PenisModifier.SHEATHED)
+									? getPenisRawSizeValue()>=PenisSize.FOUR_HUGE.getMaximumValue()
+									: getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue());
+		boolean bulgeFromBalls = hasPenis() && (isInternalTesticles()
+									? false
+									: getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue());
 		
 		if(isFeminine()) {
 			if(visibleVagina && visiblePenis) {
@@ -2681,20 +2687,22 @@ public class GameCharacter implements Serializable {
 					}
 					
 			} else if(visibleVagina) {
-				if((getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue() || getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue()) && hasPenis()) {
-					// Exposed vagina and obvious penis bulge:
+				// Exposed vagina and obvious penis bulge:
+				if(bulgeFromCock) {
 					if(isPlayer()) {
-						if(getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue()) {
-							return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with the fact that your [pc.vagina] is exposed, reveals to everyone that you're [pc.a_gender].", Gender.FUTANARI);
-						} else {
-							return new GenderAppearance("The "+getTesticleSize().getDescriptor()+" bulge of your [pc.balls] between your legs, combined with the fact that your [pc.vagina] is exposed, reveals to everyone that you're [pc.a_gender].",
-									Gender.FUTANARI);
-						}
+						return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with the fact that your [pc.vagina] is exposed, reveals to everyone that you're [pc.a_gender].", Gender.FUTANARI);
 					} else {
-						return new GenderAppearance(UtilText.parse(this,
-								"The [npc.cockSize] bulge between [npc.her] legs, combined with the fact that [npc.her] [npc.vagina] is exposed, reveals to everyone that [npc.she]'s [npc.a_gender]."), Gender.FUTANARI);
+						return new GenderAppearance(
+								UtilText.parse(this, "The [npc.cockSize] bulge between [npc.her] legs, combined with the fact that [npc.her] [npc.vagina] is exposed, reveals to everyone that [npc.she]'s [npc.a_gender]."), Gender.FUTANARI);
 					}
 					
+				} else if (bulgeFromBalls) {
+					if(isPlayer()) {
+						return new GenderAppearance("The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with the fact that your [pc.vagina] is exposed, reveals to everyone that you're [pc.a_gender].", Gender.FUTANARI);
+					} else {
+						return new GenderAppearance(
+								UtilText.parse(this, "The [npc.ballSize] bulge between [npc.her] legs, combined with the fact that [npc.her] [npc.vagina] is exposed, reveals to everyone that [npc.she]'s [npc.a_gender]."), Gender.FUTANARI);
+					}
 				}
 				
 				if(hasPenis()) {
@@ -2730,75 +2738,78 @@ public class GameCharacter implements Serializable {
 				}
 				
 			} else {
-				if((getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue() || getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue()) && hasPenis()) {
-					// Obvious penis bulge:
+				// Obvious bulge:
+				if(bulgeFromCock) {
 					if(isPlayer()) {
-						if(getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue()) {
-							return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_gender].", Gender.SHEMALE);
-						} else {
-							return new GenderAppearance("The "+getTesticleSize().getDescriptor()+" bulge of your [pc.balls] between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_gender].", Gender.SHEMALE);
-						}
+						return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_gender].", Gender.SHEMALE);
+					} else {
+						return new GenderAppearance(
+								UtilText.parse(this, "The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.she]'s [npc.a_gender]."), Gender.SHEMALE);
+					}
+					
+				} else if (bulgeFromBalls) {
+					if(isPlayer()) {
+						return new GenderAppearance("The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_gender].", Gender.SHEMALE);
+					} else {
+						return new GenderAppearance(
+								UtilText.parse(this, "The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.she]'s [npc.a_gender]."), Gender.SHEMALE);
+					}
+				}
+				
+				if(hasPenis()) {
+					// Assume female, as penis is not visible:
+					if(isPlayer()) {
+						return new GenderAppearance("Your [pc.penis] is concealed, so, due to your feminine appearance, strangers assume that you're "
+								+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+".", Gender.FEMALE);
 					} else {
 						return new GenderAppearance(UtilText.parse(this,
-								"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.she]'s [npc.a_gender]."), Gender.SHEMALE);
+								"Due to [npc.her] feminine appearance, [npc.she] appears to be "
+										+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+"."), Gender.FEMALE);
+					}
+					
+				} else if(hasVagina()) {
+					// Correctly assume female:
+					if(isPlayer()) {
+						return new GenderAppearance("Your feminine appearance leads everyone to correctly assume that you're "
+								+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+".", Gender.FEMALE);
+					} else {
+						return new GenderAppearance(UtilText.parse(this,
+								"Due to [npc.her] feminine appearance, [npc.she] appears to be "
+										+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+"."), Gender.FEMALE);
 					}
 					
 				} else {
-					if(hasPenis()) {
-						// Assume female, as penis is not visible:
+					if(isCoverableAreaExposed(CoverableArea.VAGINA) && isCoverableAreaExposed(CoverableArea.PENIS)) {
+						// Can see doll:
 						if(isPlayer()) {
-							return new GenderAppearance("Your [pc.penis] is concealed, so, due to your feminine appearance, strangers assume that you're "
-									+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+".", Gender.FEMALE);
+							if(isFeminine()) {
+								return new GenderAppearance("Your genderless mound is exposed, so, due to your feminine appearance, strangers treat you like "
+										+UtilText.generateSingularDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+".", Gender.GENDERLESS_FEMININE);
+							} else {
+								return new GenderAppearance("Your genderless mound is exposed, so, due to your masculine appearance, strangers treat you like "
+										+UtilText.generateSingularDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+".", Gender.GENDERLESS_MASCULINE);
+							}
 						} else {
-							return new GenderAppearance(UtilText.parse(this,
-									"Due to [npc.her] feminine appearance, [npc.she] appears to be "
-											+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+"."), Gender.FEMALE);
-						}
-						
-					} else if(hasVagina()) {
-						// Correctly assume female:
-						if(isPlayer()) {
-							return new GenderAppearance("Your feminine appearance leads everyone to correctly assume that you're "
-									+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+".", Gender.FEMALE);
-						} else {
-							return new GenderAppearance(UtilText.parse(this,
-									"Due to [npc.her] feminine appearance, [npc.she] appears to be "
-											+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+"."), Gender.FEMALE);
+							if(isFeminine()) {
+								return new GenderAppearance(UtilText.parse(this,
+										"Due to [npc.her] genderless mound being exposed, everyone can tell that [npc.she]'s "
+												+UtilText.generateSingularDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+"."), Gender.GENDERLESS_FEMININE);
+							} else {
+								return new GenderAppearance(UtilText.parse(this,
+										"Due to [npc.her] genderless mound being exposed, everyone can tell that [npc.she]'s "
+												+UtilText.generateSingularDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+"."), Gender.GENDERLESS_MASCULINE);
+							}
 						}
 						
 					} else {
-						if(isCoverableAreaExposed(CoverableArea.VAGINA) && isCoverableAreaExposed(CoverableArea.PENIS)) {
-							// Can see doll:
-							if(isPlayer()) {
-								if(isFeminine()) {
-									return new GenderAppearance("Your genderless mound is exposed, so, due to your feminine appearance, strangers treat you like "
-											+UtilText.generateSingularDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+".", Gender.GENDERLESS_FEMININE);
-								} else {
-									return new GenderAppearance("Your genderless mound is exposed, so, due to your masculine appearance, strangers treat you like "
-											+UtilText.generateSingularDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+".", Gender.GENDERLESS_MASCULINE);
-								}
-							} else {
-								if(isFeminine()) {
-									return new GenderAppearance(UtilText.parse(this,
-											"Due to [npc.her] genderless mound being exposed, everyone can tell that [npc.she]'s "
-													+UtilText.generateSingularDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+"."), Gender.GENDERLESS_FEMININE);
-								} else {
-									return new GenderAppearance(UtilText.parse(this,
-											"Due to [npc.her] genderless mound being exposed, everyone can tell that [npc.she]'s "
-													+UtilText.generateSingularDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+"."), Gender.GENDERLESS_MASCULINE);
-								}
-							}
-							
+						// Correctly assume doll:
+						if(isPlayer()) {
+							return new GenderAppearance("Your genderless mound is concealed, so, due to your feminine appearance, strangers assume that you're "
+									+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+".", Gender.FEMALE);
 						} else {
-							// Correctly assume doll:
-							if(isPlayer()) {
-								return new GenderAppearance("Your genderless mound is concealed, so, due to your feminine appearance, strangers assume that you're "
-										+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+".", Gender.FEMALE);
-							} else {
-								return new GenderAppearance(UtilText.parse(this,
-										"Due to [npc.her] feminine appearance, [npc.she] appears to be "
-												+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+"."), Gender.FEMALE);
-							}
+							return new GenderAppearance(UtilText.parse(this,
+									"Due to [npc.her] feminine appearance, [npc.she] appears to be "
+											+UtilText.generateSingularDeterminer(Gender.FEMALE.getName())+" "+Gender.FEMALE.getName()+"."), Gender.FEMALE);
 						}
 					}
 				}
@@ -2816,20 +2827,21 @@ public class GameCharacter implements Serializable {
 				}
 				
 			} else if(visibleVagina) {
-				if((getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue() || getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue()) && hasPenis()) {
-					// Exposed vagina and obvious penis bulge:
+				if(bulgeFromCock) {
 					if(isPlayer()) {
-						if(getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue()) {
-							return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with the fact that your [pc.vagina] is exposed, reveals to everyone that you're [pc.a_gender].", Gender.HERMAPHRODITE);
-						} else {
-							return new GenderAppearance("The "+getTesticleSize().getDescriptor()+" bulge of your [pc.balls] between your legs, combined with the fact that your [pc.vagina] is exposed, reveals to everyone that you're [pc.a_gender].",
-									Gender.HERMAPHRODITE);
-						}
+						return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with the fact that your [pc.vagina] is exposed, reveals to everyone that you're [pc.a_gender].", Gender.HERMAPHRODITE);
 					} else {
-						return new GenderAppearance(UtilText.parse(this,
-								"The [npc.cockSize] bulge between [npc.her] legs, combined with the fact that [npc.her] [npc.vagina] is exposed, reveals to everyone that [npc.she]'s [npc.a_gender]."), Gender.HERMAPHRODITE);
+						return new GenderAppearance(
+								UtilText.parse(this, "The [npc.cockSize] bulge between [npc.her] legs, combined with the fact that [npc.her] [npc.vagina] is exposed, reveals to everyone that [npc.she]'s [npc.a_gender]."), Gender.HERMAPHRODITE);
 					}
 					
+				} else if (bulgeFromBalls) {
+					if(isPlayer()) {
+						return new GenderAppearance("The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with the fact that your [pc.vagina] is exposed, reveals to everyone that you're [pc.a_gender].", Gender.HERMAPHRODITE);
+					} else {
+						return new GenderAppearance(
+								UtilText.parse(this, "The [npc.ballSize] bulge between [npc.her] legs, combined with the fact that [npc.her] [npc.vagina] is exposed, reveals to everyone that [npc.she]'s [npc.a_gender]."), Gender.HERMAPHRODITE);
+					}
 				}
 				
 				if(hasPenis()) {
@@ -2858,85 +2870,89 @@ public class GameCharacter implements Serializable {
 			} else if(visiblePenis) {
 				// Exposed penis:
 				if(isPlayer()) {
-					return new GenderAppearance("Due to the fact that your [pc.penis] is exposed, everyone assumes that you're [pc.a_gender] on first glance.", Gender.MALE);
+					return new GenderAppearance(
+							"Due to the fact that your [pc.penis] is exposed, everyone assumes that you're "+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+" on first glance.", Gender.MALE);
 				} else {
 					return new GenderAppearance(UtilText.parse(this,
-							"Due to the fact that [npc.her] [npc.penis] is exposed, everyone assumes that [npc.she]'s [npc.a_gender] on first glance."), Gender.MALE);
+							"Due to the fact that [npc.her] [npc.penis] is exposed, everyone assumes that [npc.she]'s "+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+" on first glance."), Gender.MALE);
 				}
 				
 			} else {
-				if((getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue() || getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue()) && hasPenis()) {
-					// Obvious penis bulge:
+				if(bulgeFromCock) {
 					if(isPlayer()) {
-						if(getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue()) {
-							return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_gender].", Gender.MALE);
-						} else {
-							return new GenderAppearance("The "+getTesticleSize().getDescriptor()+" bulge of your [pc.balls] between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_gender].", Gender.MALE);
-						}
+						return new GenderAppearance("The [pc.cockSize] bulge between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_gender].", Gender.MALE);
+					} else {
+						return new GenderAppearance(
+								UtilText.parse(this, "The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.she]'s [npc.a_gender]."), Gender.MALE);
+					}
+					
+				} else if (bulgeFromBalls) {
+					if(isPlayer()) {
+						return new GenderAppearance("The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_gender].", Gender.MALE);
+					} else {
+						return new GenderAppearance(
+								UtilText.parse(this, "The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.she]'s [npc.a_gender]."), Gender.MALE);
+					}
+				}
+				
+				if(hasPenis()) {
+					// Assume male, as penis is not visible:
+					if(isPlayer()) {
+						return new GenderAppearance("Your [pc.penis] is concealed, so, due to your masculine appearance, strangers assume that you're "
+								+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+".", Gender.MALE);
 					} else {
 						return new GenderAppearance(UtilText.parse(this,
-								"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.she]'s [npc.a_gender]."), Gender.MALE);
+								"Due to [npc.her] masculine appearance, [npc.she] appears to be "
+										+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+"."), Gender.MALE);
+					}
+					
+				} else if(hasVagina()) {
+					// Assume male:
+					if(isPlayer()) {
+						return new GenderAppearance("Your masculine appearance leads everyone to assume that you're "
+								+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+".", Gender.MALE);
+					} else {
+						return new GenderAppearance(UtilText.parse(this,
+								"Due to [npc.her] masculine appearance, [npc.she] appears to be "
+										+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+"."), Gender.MALE);
 					}
 					
 				} else {
-					if(hasPenis()) {
-						// Assume male, as penis is not visible:
+					if(isCoverableAreaExposed(CoverableArea.VAGINA) && isCoverableAreaExposed(CoverableArea.PENIS)) {
+						// Can see doll:
 						if(isPlayer()) {
-							return new GenderAppearance("Your [pc.penis] is concealed, so, due to your masculine appearance, strangers assume that you're "
-									+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+".", Gender.MALE);
+							if(isFeminine()) {
+								return new GenderAppearance("Your genderless mound is exposed, so strangers treat you like "
+										+UtilText.generateSingularDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+".", Gender.GENDERLESS_FEMININE);
+							} else {
+								return new GenderAppearance("Your genderless mound is exposed, so strangers treat you like "
+										+UtilText.generateSingularDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+".", Gender.GENDERLESS_MASCULINE);
+							}
 						} else {
-							return new GenderAppearance(UtilText.parse(this,
-									"Due to [npc.her] masculine appearance, [npc.she] appears to be "
-											+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+"."), Gender.MALE);
-						}
-						
-					} else if(hasVagina()) {
-						// Assume male:
-						if(isPlayer()) {
-							return new GenderAppearance("Your masculine appearance leads everyone to assume that you're "
-									+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+".", Gender.MALE);
-						} else {
-							return new GenderAppearance(UtilText.parse(this,
-									"Due to [npc.her] masculine appearance, [npc.she] appears to be "
-											+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+"."), Gender.MALE);
+							if(isFeminine()) {
+								return new GenderAppearance(UtilText.parse(this,
+										"Due to [npc.her] genderless mound being exposed, everyone can tell that [npc.she]'s "
+												+UtilText.generateSingularDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+"."), Gender.GENDERLESS_FEMININE);
+							} else {
+								return new GenderAppearance(UtilText.parse(this,
+										"Due to [npc.her] genderless mound being exposed, everyone can tell that [npc.she]'s "
+												+UtilText.generateSingularDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+"."), Gender.GENDERLESS_MASCULINE);
+							}
 						}
 						
 					} else {
-						if(isCoverableAreaExposed(CoverableArea.VAGINA) && isCoverableAreaExposed(CoverableArea.PENIS)) {
-							// Can see doll:
-							if(isPlayer()) {
-								if(isFeminine()) {
-									return new GenderAppearance("Your genderless mound is exposed, so strangers treat you like "
-											+UtilText.generateSingularDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+".", Gender.GENDERLESS_FEMININE);
-								} else {
-									return new GenderAppearance("Your genderless mound is exposed, so strangers treat you like "
-											+UtilText.generateSingularDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+".", Gender.GENDERLESS_MASCULINE);
-								}
-							} else {
-								if(isFeminine()) {
-									return new GenderAppearance(UtilText.parse(this,
-											"Due to [npc.her] genderless mound being exposed, everyone can tell that [npc.she]'s "
-													+UtilText.generateSingularDeterminer(Gender.GENDERLESS_FEMININE.getName())+" "+Gender.GENDERLESS_FEMININE.getName()+"."), Gender.GENDERLESS_FEMININE);
-								} else {
-									return new GenderAppearance(UtilText.parse(this,
-											"Due to [npc.her] genderless mound being exposed, everyone can tell that [npc.she]'s "
-													+UtilText.generateSingularDeterminer(Gender.GENDERLESS_MASCULINE.getName())+" "+Gender.GENDERLESS_MASCULINE.getName()+"."), Gender.GENDERLESS_MASCULINE);
-								}
-							}
-							
+						// Correctly assume doll:
+						if(isPlayer()) {
+							return new GenderAppearance("Your genderless mound is concealed, so, due to your masculine appearance, strangers assume that you're "
+									+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+".", Gender.MALE);
 						} else {
-							// Correctly assume doll:
-							if(isPlayer()) {
-								return new GenderAppearance("Your genderless mound is concealed, so, due to your masculine appearance, strangers assume that you're "
-										+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+".", Gender.MALE);
-							} else {
-								return new GenderAppearance(UtilText.parse(this,
-										"Due to [npc.her] masculine appearance, [npc.she] appears to be "
-												+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+"."), Gender.MALE);
-							}
+							return new GenderAppearance(UtilText.parse(this,
+									"Due to [npc.her] masculine appearance, [npc.she] appears to be "
+											+UtilText.generateSingularDeterminer(Gender.MALE.getName())+" "+Gender.MALE.getName()+"."), Gender.MALE);
 						}
 					}
 				}
+				
 			}
 		}
 	}

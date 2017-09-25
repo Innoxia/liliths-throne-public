@@ -3897,7 +3897,7 @@ public class ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> bikini top back up to cover <her> chest.");
 		}
 	};
-	public static AbstractClothingType CHEST_TAPE_CROSSES = new AbstractClothingType(
+	public static AbstractClothingType NIPPLE_TAPE_CROSSES = new AbstractClothingType(
 			"a pair of",
 			true,
 			"tape cross",
@@ -3905,20 +3905,23 @@ public class ClothingType {
 			"A pair of crosses, made out of shiny electrician's tape. They are only just large enough to fully cover a pair of nipples.",
 			1,
 			null,
-			InventorySlot.CHEST,
+			InventorySlot.NIPPLE,
 			Rarity.COMMON,
 			null,
 			"chest_tapecrosses",
 			null,
-
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
-					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST)), Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.NIPPLES)), null))),
-
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							null))),
 			null,
-
 			Colour.allClothingColours) {
 		
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5133,8 +5136,7 @@ public class ClothingType {
 									DisplacementType.UNZIPS,
 									null,
 									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									null))),
 			null,
 			Colour.allClothingColours) {
@@ -5318,8 +5320,7 @@ public class ClothingType {
 									DisplacementType.UNZIPS,
 									null,
 									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									null))),
 			null,
 			Util.newArrayListOfValues(
@@ -5390,8 +5391,7 @@ public class ClothingType {
 									DisplacementType.UNZIPS,
 									null,
 									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									null))),
 			null,
 			Util.newArrayListOfValues(
@@ -5463,8 +5463,7 @@ public class ClothingType {
 									DisplacementType.UNZIPS,
 									null,
 									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									null))),
 			null,
 			Util.newArrayListOfValues(
@@ -5533,8 +5532,7 @@ public class ClothingType {
 									DisplacementType.UNZIPS,
 									null,
 									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									null))),
 			null,
 			Util.newArrayListOfValues(
@@ -6016,7 +6014,7 @@ public class ClothingType {
 	};
 	
 	public static AbstractClothingType GROIN_CROTCHLESS_THONG = new AbstractClothingType("a",
-			true,
+			false,
 			"crotchless thong",
 			"crotchless thongs",
 			"This thong has a strip of fabric missing in the most vital area, leaving their wearer's genitalia completely exposed."
@@ -8203,8 +8201,7 @@ public class ClothingType {
 									DisplacementType.UNZIPS,
 									null,
 									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									null))),
 
 			null,

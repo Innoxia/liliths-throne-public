@@ -176,39 +176,76 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 
 	public abstract String unequipText(GameCharacter character);
 	
-	public abstract String getAttackDescription(GameCharacter character, GameCharacter target);
+	public abstract String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit);
 
-	
-	public static String genericMeleeAttackDescription(GameCharacter character, GameCharacter target) {
-		if(character.isPlayer()) {
-			return UtilText.returnStringAtRandom(
-					"Darting forwards, you deliver a solid punch to [npc.name]'s [npc.arm].",
-					
-					"You throw a punch at [npc.name], grinning as you feel it connect with [npc.her] [npc.arm].",
-					
-					"You kick out at [npc.name], smiling to yourself as you feel your foot connect with [npc.her] [npc.leg].");
+	public static String genericMeleeAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+		if(isHit) {
+			if(character.isPlayer()) {
+				return UtilText.parse(target,
+						UtilText.returnStringAtRandom(
+							"Darting forwards, you deliver a solid punch to [npc.name]'s [npc.arm].",
+							"You throw a punch at [npc.name], grinning as you feel it connect with [npc.her] [npc.arm].",
+							"You kick out at [npc.name], smiling to yourself as you feel your [pc.foot] connect with [npc.her] [npc.leg]."));
+				
+			} else {
+				return UtilText.parse(character,
+						UtilText.returnStringAtRandom(
+							"Darting forwards, [npc.name] delivers a solid punch to your [pc.arm].",
+							"[npc.Name] throws a punch at you, grinning as [npc.her] attack connects with your [pc.arm].",
+							"[npc.Name] kicks out at you, smiling to [npc.herself] as [npc.her] [npc.foot] connects with your [pc.leg]."));
+			}
 			
 		} else {
-			return UtilText.returnStringAtRandom(
-					character.getName("The")+" punches you!");
-			
-		}	
+			if(character.isPlayer()) {
+				return UtilText.parse(target,
+						UtilText.returnStringAtRandom(
+							"Darting forwards, you try to deliver a punch to [npc.name]'s [npc.arm], but [npc.she] manages to step out of the way in time.",
+							"You try to throw a punch at [npc.name], but fail to make contact with any part of [npc.her] body.",
+							"You kick out at [npc.name], but your [pc.foot] sails harmlessly through the air."));
+				
+			} else {
+				return UtilText.parse(character,
+						UtilText.returnStringAtRandom(
+							"Darting forwards, [npc.name] tries to deliver a punch to your [pc.arm], but you manage to step out of he way in time.",
+							"[npc.Name] throws a punch at you, but fails to make contact with any part of your body.",
+							"[npc.Name] kicks out at you, but [npc.her] [npc.foot] sails harmlessly through the air."));
+			}
+		}
 	}
 	
-	public static String genericRangedAttackDescription(GameCharacter character, GameCharacter target) {
-		if(character.isPlayer()) {
-			return UtilText.returnStringAtRandom(
-					"Punching your fist out towards [npc.name], a bolt of arcane energy shoots out to strike [npc.her] [npc.arm].",
-					
-					"Striking out towards [npc.name], a bolt of arcane energy shoots out of your fist to connect with [npc.her] [npc.arm].",
-					
-					"You kick out at [npc.name], and as you do, a bolt of arcane energy shoots out of your foot to connect with [npc.her] [npc.leg].");
+	public static String genericRangedAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+		if(isHit) {
+			if(character.isPlayer()) {
+				return UtilText.parse(target,
+						UtilText.returnStringAtRandom(
+							"Punching your fist out towards [npc.name], a bolt of arcane energy shoots out to strike [npc.her] [npc.arm].",
+							"Striking out towards [npc.name], a bolt of arcane energy shoots out of your fist to connect with [npc.her] [npc.arm].",
+							"You kick out at [npc.name], and as you do, a bolt of arcane energy shoots out of your [pc.foot] to connect with [npc.her] [npc.leg]."));
+				
+			} else {
+				return UtilText.parse(character,
+						UtilText.returnStringAtRandom(
+							"Punching [npc.her] fist out towards you, a bolt of arcane energy shoots out to strike your [pc.arm].",
+							"Striking out towards you, a bolt of arcane energy shoots out of [npc.name]'s fist to connect with your [pc.arm].",
+							"[npc.Name] kicks out at you, and as [npc.she] does so, a bolt of arcane energy shoots out of [npc.her] [npc.foot] to connect with your [pc.leg]."));
+			}
 			
 		} else {
-			return UtilText.returnStringAtRandom(
-					character.getName("The")+" punches you!");
-			
-		}	
+			if(character.isPlayer()) {
+				return UtilText.parse(target,
+						UtilText.returnStringAtRandom(
+							"Punching your fist out towards [npc.name], a bolt of arcane energy shoots out of your fist, sailing harmlessly through the air as [npc.she] dodges your attack.",
+							"Striking out towards [npc.name], a bolt of arcane energy shoots out of your fist to sail harmlessly through the air as [npc.she] dodges your attack.",
+							"You kick out at [npc.name], and as you do, a bolt of arcane energy shoots out of your [pc.foot] to sail harmlessly through the air as [npc.she] dodges your attack."));
+				
+			} else {
+				return UtilText.parse(character,
+						UtilText.returnStringAtRandom(
+							"Punching [npc.her] fist out towards you, a bolt of arcane energy shoots out to sail harmlessly through the air as you dodge [npc.her] attack.",
+							"Striking out towards you, a bolt of arcane energy shoots out of [npc.name]'s fist to sail harmlessly through the air as you dodge [npc.her] attack.",
+							"[npc.Name] kicks out at you, and as [npc.she] does so, a bolt of arcane energy shoots out of [npc.her] [npc.foot] to sail harmlessly through the air as you dodge [npc.her] attack."));
+			}
+		}
 	}
 	
 	public String getDeterminer() {

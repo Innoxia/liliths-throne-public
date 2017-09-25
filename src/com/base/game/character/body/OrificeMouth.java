@@ -100,6 +100,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 	public String setCapacity(GameCharacter owner, float capacity) {
 		float oldCapacity = this.capacity;
 		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue()));
+		this.stretchedCapacity = this.capacity;
 		float capacityChange = this.capacity - oldCapacity;
 		
 		if (capacityChange == 0) {

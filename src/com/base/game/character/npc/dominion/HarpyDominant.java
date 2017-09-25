@@ -93,10 +93,6 @@ public class HarpyDominant extends NPC {
 	public boolean isAbleToBeImpregnated() {
 		return true;
 	}
-
-	@Override
-	public void applyReset() {
-	}
 	
 	@Override
 	public void changeFurryLevel(){
@@ -109,8 +105,6 @@ public class HarpyDominant extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
-		if (applyEffects)
-			applyReset();
 	}
 	
 	@Override

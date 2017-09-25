@@ -157,7 +157,8 @@ public abstract class NPC extends GameCharacter {
 	/**
 	 * Resets this character to their default state.
 	 */
-	public abstract void applyReset();
+	public void dailyReset() {
+	}
 
 	public abstract void changeFurryLevel();
 	
@@ -199,6 +200,13 @@ public abstract class NPC extends GameCharacter {
 
 	public boolean willBuy(AbstractCoreItem item) {
 		return false;
+	}
+	
+	/**
+	 * Handles any extra effects that need to be taken into account when selling an item to the player.
+	 * @param item
+	 */
+	public void handleSellingEffects(AbstractCoreItem item, int count, int itemPrice) {
 	}
 
 	public float getBuyModifier() {

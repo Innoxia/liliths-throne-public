@@ -70,14 +70,7 @@ public class Kate extends NPC {
 		
 		this.addFetish(Fetish.FETISH_SUBMISSIVE);
 		this.addFetish(Fetish.FETISH_PREGNANCY);
-		
-		applyReset();
-	}
 
-	@Override
-	public void applyReset() {
-		resetInventory();
-		
 		this.setMoney(10);
 		
 		this.equipClothingFromNowhere(skirt, true, this);
@@ -85,18 +78,27 @@ public class Kate extends NPC {
 		this.equipClothingFromNowhere(socks, true, this);
 		this.equipClothingFromNowhere(shoes, true, this);
 		
+		dailyReset();
+	}
+
+	@Override
+	public void dailyReset() {
+		clearNonEquippedInventory();
 		
 		int iterations = 3 + Util.random.nextInt(3);
-		for (int i = 0; i < iterations; i++)
+		for (int i = 0; i < iterations; i++) {
 			this.addClothing(AbstractClothingType.generateClothingWithEnchantment(ClothingType.getCommonJewellery().get(Util.random.nextInt(ClothingType.getCommonJewellery().size()))), false);
+		}
 		
-		for(int i=0; i<getClothingCount(); i++)
+		for(int i=0; i<getClothingCount(); i++) {
 			getClothing(i).setEnchantmentKnown(true);
+		}
 		
 		for (AbstractClothingType ct : ClothingType.getCommonJewellery()) {
 			iterations = 1 + Util.random.nextInt(2);
-			for(int i=0; i<iterations; i++)
+			for(int i=0; i<iterations; i++) {
 				this.addClothing(AbstractClothingType.generateClothing(ct, false), false);
+			}
 		}
 		
 	}

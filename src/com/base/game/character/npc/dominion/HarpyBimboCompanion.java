@@ -89,10 +89,6 @@ public class HarpyBimboCompanion extends NPC {
 			return "#F986E7";
 		}
 	}
-
-	@Override
-	public void applyReset() {
-	}
 	
 	@Override
 	public void changeFurryLevel(){
@@ -105,8 +101,6 @@ public class HarpyBimboCompanion extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
-		if (applyEffects)
-			applyReset();
 	}
 	
 	// Combat:

@@ -64,13 +64,6 @@ public class Finch extends NPC {
 		this.addFetish(Fetish.FETISH_SADIST);
 		this.addFetish(Fetish.FETISH_DEFLOWERING);
 
-		applyReset();
-	}
-
-	@Override
-	public void applyReset() {
-		resetInventory();
-		
 		this.setMoney(10);
 		
 		this.equipClothingFromNowhere(groin, true, this);
@@ -78,7 +71,14 @@ public class Finch extends NPC {
 		this.equipClothingFromNowhere(torso, true, this);
 		this.equipClothingFromNowhere(socks, true, this);
 		this.equipClothingFromNowhere(shoes, true, this);
+		
+		dailyReset();
+	}
 
+	@Override
+	public void dailyReset() {
+		clearNonEquippedInventory();
+		
 		for(int i = 0; i<6; i++) {
 			this.addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), false);
 		}
@@ -121,8 +121,6 @@ public class Finch extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
-		if (applyEffects)
-			applyReset();
 	}
 
 	// Combat:

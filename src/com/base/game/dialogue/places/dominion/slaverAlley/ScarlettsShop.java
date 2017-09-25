@@ -6,6 +6,7 @@ import com.base.game.character.attributes.AffectionLevel;
 import com.base.game.character.attributes.CorruptionLevel;
 import com.base.game.character.attributes.ObedienceLevel;
 import com.base.game.character.effects.Fetish;
+import com.base.game.character.npc.dominion.Scarlett;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.utils.MiscDialogue;
@@ -740,7 +741,7 @@ public class ScarlettsShop {
 					collar.setSealed(false);
 					Main.game.getScarlett().unequipClothingIntoVoid(collar, true, Main.game.getAlexa());
 					
-					Main.game.getScarlett().applyReset();
+					((Scarlett) Main.game.getScarlett()).getDressed();
 					
 					Main.game.getScarlett().setLocation(WorldType.HARPY_NEST, HarpyNests.ALEXAS_NEST);
 					Main.game.getScarlett().setObedience(ObedienceLevel.ZERO_FREE_WILLED.getMedianValue());

@@ -171,7 +171,7 @@ public class Ass implements BodyPartInterface, Serializable {
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-							"[npc.She] now has a [style.boldCowMorph(feline ass)], covered in [npc.assFullDescription].</br>"
+							"[npc.She] now has a [style.boldCowMorph(bovine ass)], covered in [npc.assFullDescription].</br>"
 							+ "[npc.She] has also been left with [style.boldCowMorph(a bovine)] [npc.assholeFullDescription]."
 							+ "</p>");
 				}

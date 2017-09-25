@@ -102,8 +102,18 @@ public class OrificeUrethra implements OrificeInterface, Serializable {
 
 	@Override
 	public String setCapacity(GameCharacter owner, float capacity) {
+		if (!owner.hasPenis()) {
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourDisabled(You lack a penis, so nothing happens...)]</p>";
+				
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] lacks a penis, so nothing happens...)]</p>");
+			}
+		}
+		
 		float oldCapacity = this.capacity;
 		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue()));
+		this.stretchedCapacity = this.capacity;
 		float capacityChange = this.capacity - oldCapacity;
 		
 		if (capacityChange == 0) {

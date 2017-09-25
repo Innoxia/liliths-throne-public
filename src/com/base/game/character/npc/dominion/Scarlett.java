@@ -64,7 +64,11 @@ public class Scarlett extends NPC {
 		this.setHeight(155);
 		
 		this.setPiercedEar(true);
-
+		
+		getDressed();
+	}
+	
+	public void getDressed() {
 		this.equipClothingFromNowhere(underwear, true, this);
 		this.equipClothingFromNowhere(bra, true, this);
 		this.equipClothingFromNowhere(torso, true, this);
@@ -100,16 +104,6 @@ public class Scarlett extends NPC {
 			return "#FF94BD";
 		}
 	}
-
-	@Override
-	public void applyReset() {
-		this.equipClothingFromNowhere(underwear, true, this);
-		this.equipClothingFromNowhere(bra, true, this);
-		this.equipClothingFromNowhere(torso, true, this);
-		this.equipClothingFromNowhere(skirt, true, this);
-		this.equipClothingFromNowhere(neck, true, this);
-		this.equipClothingFromNowhere(ear, true, this);
-	}
 	
 	@Override
 	public void changeFurryLevel(){
@@ -122,8 +116,6 @@ public class Scarlett extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
-		if (applyEffects)
-			applyReset();
 	}
 
 	// Combat (you never fight):

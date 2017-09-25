@@ -28,10 +28,6 @@ public class GenericAndrogynousNPC extends NPC {
 		
 		this.setFemininity(50);
 	}
-
-	@Override
-	public void applyReset() {
-	}
 	
 	@Override
 	public void changeFurryLevel(){

@@ -145,13 +145,6 @@ public class NPCOffspring extends NPC {
 	public boolean isAbleToBeImpregnated() {
 		return true;
 	}
-
-	@Override
-	public void applyReset() {
-		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
-		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
-	}
 	
 	@Override
 	public void changeFurryLevel(){
@@ -306,7 +299,7 @@ public class NPCOffspring extends NPC {
 							Main.game.getPlayer().useItem(item, target, false);
 							if(Sex.isPlayerDom()) {
 								return "<p>"
-										+ "Holding out a condom to [npc.name], you force [npc.her] to take it and put it on."
+										+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
 										+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
 										+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
 										+ "</p>";

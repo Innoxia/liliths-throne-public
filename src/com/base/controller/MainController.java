@@ -412,6 +412,9 @@ public class MainController implements Initializable {
 //						 System.out.println(event.getCode());
 						 if(event.getCode()==KeyCode.END){
 							 
+							 
+//							 System.out.println(ClothingType.getAllClothing().size());
+							 
 //							 System.out.println(Main.game.getPlayer().getNextClothingToRemoveForCoverableAreaAccess(CoverableArea.VAGINA).getKey().getName());
 							 
 //							 webViewMain = new WebView();

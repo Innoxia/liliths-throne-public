@@ -94,13 +94,24 @@ public class Ralph extends NPC {
 		this.addFetish(Fetish.FETISH_IMPREGNATION);
 
 		// Items:
-		for(int i=0;i<5;i++)
+		for(int i=0;i<5;i++) {
 			this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), false);
+		}
+		
 		for (AbstractItemType item : itemsForSale) {
 			for (int i = 0; i < (Util.random.nextInt(5) + 1); i++) {
 				this.addItem(AbstractItemType.generateItem(item), false);
 			}
 		}
+		
+		this.setMoney(10);
+
+		this.equipClothingFromNowhere(underwear, true, this);
+		this.equipClothingFromNowhere(legs, true, this);
+		this.equipClothingFromNowhere(torso, true, this);
+		this.equipClothingFromNowhere(shoes, true, this);
+		
+		dailyReset();
 	}
 	
 	/**
@@ -115,21 +126,17 @@ public class Ralph extends NPC {
 	}
 
 	@Override
-	public void applyReset() {
-		resetInventory();
-		
-		this.setMoney(10);
+	public void dailyReset() {
+		clearNonEquippedInventory();
 
-		this.equipClothingFromNowhere(underwear, true, this);
-		this.equipClothingFromNowhere(legs, true, this);
-		this.equipClothingFromNowhere(torso, true, this);
-		this.equipClothingFromNowhere(shoes, true, this);
-
-		for(int i=0;i<5;i++)
+		for(int i=0;i<5;i++) {
 			this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), false);
+		}
+		
 		for (AbstractItemType item : itemsForSale) {
-			for (int i = 0; i < (Util.random.nextInt(5) + 1); i++)
+			for (int i = 0; i < (Util.random.nextInt(5) + 1); i++) {
 				this.addItem(AbstractItemType.generateItem(item), false);
+			}
 		}
 	}
 	

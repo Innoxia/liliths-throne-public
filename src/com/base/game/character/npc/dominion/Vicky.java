@@ -78,13 +78,6 @@ public class Vicky extends NPC {
 		this.setVaginaVirgin(false);
 		this.setVaginaCapacity(Capacity.FIVE_ROOMY.getMedianValue());
 		this.setBreastSize(CupSize.C.getMeasurement());
-
-		applyReset();
-	}
-
-	@Override
-	public void applyReset() {
-		resetInventory();
 		
 		this.setMoney(10);
 		
@@ -94,6 +87,13 @@ public class Vicky extends NPC {
 		this.equipClothingFromNowhere(torso, true, this);
 		this.equipClothingFromNowhere(socks, true, this);
 		this.equipClothingFromNowhere(shoes, true, this);
+		
+		dailyReset();
+	}
+
+	@Override
+	public void dailyReset() {
+		clearNonEquippedInventory();
 
 		for(int i=0;i<2;i++){
 			this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_RARE), false);
@@ -191,8 +191,6 @@ public class Vicky extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
-		if (applyEffects)
-			applyReset();
 	}
 
 	// Combat:

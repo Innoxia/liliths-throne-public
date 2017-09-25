@@ -28,7 +28,7 @@ public enum InventorySlot {
 	TORSO_OVER(50, "over-torso", false, false), // Coats
 	TORSO_UNDER(40, "torso", true, false), // Shirts
 	CHEST(10, "chest", true, false), // Bras
-	NIPPLES(5, "nipples", false, false), // Nipple shields, insertables
+	NIPPLE(5, "nipples", false, false), // Nipple shields, insertables
 	STOMACH(10, "stomach", false, false), // Corsets
 
 	// HAND:

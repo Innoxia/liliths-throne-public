@@ -53,8 +53,8 @@ public class WeaponType {
 		}
 
 		@Override
-		public String getAttackDescription(GameCharacter character, GameCharacter target) {
-			return genericMeleeAttackDescription(character, target);
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			return genericMeleeAttackDescription(character, target, isHit);
 		}
 	};
 	
@@ -86,8 +86,8 @@ public class WeaponType {
 		}
 
 		@Override
-		public String getAttackDescription(GameCharacter character, GameCharacter target) {
-			return genericMeleeAttackDescription(character, target);
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			return genericMeleeAttackDescription(character, target, isHit);
 		}
 	};
 	
@@ -122,8 +122,8 @@ public class WeaponType {
 		}
 
 		@Override
-		public String getAttackDescription(GameCharacter character, GameCharacter target) {
-			return genericMeleeAttackDescription(character, target);
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			return genericMeleeAttackDescription(character, target, isHit);
 		}
 	};
 
@@ -156,8 +156,8 @@ public class WeaponType {
 		}
 
 		@Override
-		public String getAttackDescription(GameCharacter character, GameCharacter target) {
-			return genericRangedAttackDescription(character, target);
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			return genericRangedAttackDescription(character, target, isHit);
 		}
 	};
 	
@@ -189,8 +189,8 @@ public class WeaponType {
 		}
 
 		@Override
-		public String getAttackDescription(GameCharacter character, GameCharacter target) {
-			return genericRangedAttackDescription(character, target);
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			return genericRangedAttackDescription(character, target,isHit);
 		}
 	};
 

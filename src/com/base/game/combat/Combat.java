@@ -1140,9 +1140,9 @@ public enum Combat {
 		String attack;
 		
 		if(Main.game.getPlayer().getMainWeapon()!= null) {
-			attack = Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), opponent);
+			attack = Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), opponent, true);
 		} else {
-			attack = AbstractWeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent);
+			attack = AbstractWeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent, true);
 		}
 
 		return (opponent.isVisiblyPregnant()
@@ -1185,9 +1185,9 @@ public enum Combat {
 		String attack;
 		
 		if(Main.game.getPlayer().getOffhandWeapon()!= null) {
-			attack = Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), opponent);
+			attack = Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), opponent, true);
 		} else {
-			attack = AbstractWeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent);
+			attack = AbstractWeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent, true);
 		}
 
 		return (opponent.isVisiblyPregnant()
@@ -1207,9 +1207,10 @@ public enum Combat {
 
 		combatStringBuilder = new StringBuilder("");
 
-		combatStringBuilder.append(getDualDescription());
 		
 		if (Math.random()<0.5) {
+			combatStringBuilder.append(getDualDescription(true));
+			
 			critical = isCriticalHit(Main.game.getPlayer());
 
 			damageMain = Attack.calculateDamage(Main.game.getPlayer(), opponent, Attack.MAIN, critical);
@@ -1222,9 +1223,11 @@ public enum Combat {
 					+ "<b>You " + (critical ? "<b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> " : "") +"hit for "
 					+ damageMain + " <b style='color: " + damageMainAttribute.getColour().toWebHexString() + ";'>" + damageMainAttribute.getName() + "</b>, and then again for "
 					+ damageOffhand + " <b style='color: " + damageOffhandAttribute.getColour().toWebHexString() + ";'>" + damageOffhandAttribute.getName() + "</b>!</b></p>");
-		} else
+		} else {
+			combatStringBuilder.append(getDualDescription(false));
 			combatStringBuilder.append("<p><b>You missed!</b></p>");
-
+		}
+		
 		combatStringBuilder.append(opponent.incrementHealth(-(damageMain+damageOffhand)));
 		combatStringBuilder.append(endCombatTurn(true));
 
@@ -1232,15 +1235,15 @@ public enum Combat {
 		playerTurnText = combatStringBuilder.toString();
 	}
 
-	private static String getDualDescription() {
+	private static String getDualDescription(boolean isHit) {
 		String attack;
 		
 		if(Main.game.getPlayer().getMainWeapon()!= null) {
-			attack = Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), opponent);
+			attack = Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), opponent, isHit);
 		} else if(Main.game.getPlayer().getOffhandWeapon()!= null) {
-			attack = Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), opponent);
+			attack = Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), opponent, isHit);
 		} else {
-			attack = AbstractWeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent);
+			attack = AbstractWeaponType.genericMeleeAttackDescription(Main.game.getPlayer(), opponent, isHit);
 		}
 
 		return (opponent.isVisiblyPregnant()

@@ -101,10 +101,6 @@ public class CandiReceptionist extends NPC {
 		this.equipClothingFromNowhere(navel, true, this);
 		this.equipClothingFromNowhere(vagina, true, this);
 	}
-
-	@Override
-	public void applyReset() {
-	}
 	
 	@Override
 	public void changeFurryLevel(){
@@ -117,8 +113,6 @@ public class CandiReceptionist extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
-		if (applyEffects)
-			applyReset();
 	}
 
 	@Override

@@ -89,7 +89,7 @@ public class Alexa extends NPC {
 	}
 	
 	@Override
-	public void applyReset() {
+	public void dailyReset() {
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
 			for(NPC slave : slavesOwned) {
 				Main.game.removeNPC(slave);
@@ -123,8 +123,6 @@ public class Alexa extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
-		if (applyEffects)
-			applyReset();
 	}
 
 	// Combat (you never fight Rose):

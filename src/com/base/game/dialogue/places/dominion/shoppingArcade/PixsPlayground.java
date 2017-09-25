@@ -1,7 +1,6 @@
 package com.base.game.dialogue.places.dominion.shoppingArcade;
 
 import com.base.game.character.attributes.Attribute;
-import com.base.game.character.npc.dominion.Pix;
 import com.base.game.dialogue.DialogueNodeOld;
 import com.base.game.dialogue.responses.Response;
 import com.base.game.dialogue.responses.ResponseEffectsOnly;
@@ -15,7 +14,7 @@ import com.base.world.places.ShoppingArcade;
 
 /**
  * @since 0.1.66
- * @version 0.1.82
+ * @version 0.1.85
  * @author Innoxia
  */
 public class PixsPlayground {
@@ -624,7 +623,7 @@ public class PixsPlayground {
 				return new ResponseSex("Too tired",
 						"Tell Pix that you're far too tired to do any more physical exercise right now.",
 						GYM,
-						Main.game.getPix(), new SMPixShowerTime(), Pix.PIX_POST_SEX,
+						Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX,
 						"<p>"
 							+ "You're far too tired to do any more physical exercise right now, and tell Pix as such, "
 							+UtilText.parsePlayerSpeech("I wasn't avoiding you, I'm just too tired for this right now. Maybe we can carry on in about half an hour or something?")
@@ -650,7 +649,7 @@ public class PixsPlayground {
 				return new ResponseSex("Make it up to her",
 						"Tell Pix that you can make it up to her right now.",
 						GYM,
-						Main.game.getPix(), new SMPixShowerTime(), Pix.PIX_POST_SEX,
+						Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX,
 						"<p>"
 							+ "As tired as you are, Pix turns you on far too much to refuse her advances, and you turn your head to one side as you eagerly respond, "
 							+UtilText.parsePlayerSpeech("Perhaps you'll let me make it up to you?")
@@ -676,7 +675,7 @@ public class PixsPlayground {
 				return new ResponseSex("Apologise",
 						"Apologise to Pix and accept her punishment.",
 						GYM,
-						Main.game.getPix(), new SMPixShowerTime(), Pix.PIX_POST_SEX,
+						Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX,
 						"<p>"
 							+ "You don't want Pix to think that you've been avoiding her, and you turn your head to one side as you apologise, "
 							+UtilText.parsePlayerSpeech("Sorry Pix, I wasn't trying to avoid you, I just didn't see you anywhere nearby!")
@@ -698,6 +697,45 @@ public class PixsPlayground {
 								+ " I can see that you're made of tougher stuff though, so I'm sure you won't mind helping me have a little fun!", Main.game.getPix())
 						+ "</p>");
 				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+
+	
+	public static final DialogueNodeOld PIX_POST_SEX = new DialogueNodeOld("Pix dresses you", "You're too tired to complain as Pix starts dressing you.", false) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public int getMinutesPassed(){
+			return 60;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "Pix hooks her arms under yours and drags your almost-comatose body out from the showers."
+					+ " You worry for a moment that she's going to continue with her 'fun', but instead, she quickly darts of to fetch a towel, before starting to gently dry your body off."
+					+ "</p>"
+					+ "<p>"
+					+ UtilText.parseSpeech("You're, like, the best, y'know! Thanks for letting me have some fun, I hope you enjoyed it too!", Main.game.getPix())
+					+ "</p>"
+					+ "<p>"
+					+ "You're far too tired to respond, and instead simply let out a satisfied groan as the dog-girl quickly dresses you."
+					+ " After making sure that you're lying down comfortably on one of the benches, she gives you one last passionate kiss before giggling and running off."
+					+ "</p>"
+					+ "<p>"
+					+ "It takes some time before you finally recover enough energy to get up and leave the gym."
+					+ " Unusually, Pix is nowhere to be seen, and you wonder if she's avoiding you until you've had some time to fully recover from her 'one-to-one cooldown exercise'..."
+					+ "</p>";
+		}
+		
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Exit gym", "Leave the gym and carry on your way.", GYM_EXTERIOR);
 			} else {
 				return null;
 			}

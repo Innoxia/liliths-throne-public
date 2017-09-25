@@ -6,47 +6,178 @@
 	
 	Patch notes:
 	
-	Engine:
-		Added support for personality types and backgrounds for NPCs. This is the precursor to writing in proper dialogue with random NPCs.
-		
-	UI:
-		<b>Large rework:</b> Due to the inventory rework (adding in orifice slots), I've had to try and rework the UI to properly display the new options, while trying to retain the functionality of the old system.
-		As part of this rework, I've added a third column to the UI, but I'm still not entirely happy about it, and will most likely continue to tweak it over the next couple of weeks...
 	
 	Other:
-		Reduced minimum hair length requirements for the Sidecut and Afro hair styles.
-		NPCs' name is now revealed when you enslave them.
-		You can no longer sell slaves to Finch (this was unintended behaviour).
-		Minor improvements to slave management UI.
-		Slightly changed bovine horn descriptions.
-		Scarlett can now be impregnated.
-		Added the displacement type 'pull down' to the keyhole sweater, which will expose your breasts.
-		Exhibitionist males will no longer wear clothing that blocks their nipples.
-		Added correct fetish associations to the 'Rough ride' option in sex.
+		Assumed gender from appearance now takes into account whether your balls are internal, and whether your penis is sheathed. (A bulge won't be visible for internal balls, and will only be visible for very large sheathed penises.)
+		Moved tape crosses from chest to nipple slot.
 	
 	Bugs:
-		Fixed some typos
-		You can now sell your items even if the vendor's inventory is full.
-		Finch should now properly restock his inventory each day.
-		Enforcer Shorts can now be unzipped.
-		Slave sex should no longer end with dialogue suggesting you got dominated.
-		Fixed bug where Ralph's sex scene wouldn't start (and a series of associated bugs that were causing it in the background).
-		Text boxes should now respond correctly to pressing the 'Enter' key. (Fixes issues related to not being able to rename slaves, as well as all the text on the screen disappearing in the save dialogue.)
-		Rough Paizuri is now correctly tied to Sadist fetish like other rough pace actions.
-		Slaves no longer regenerate clothing after sex.
-		You should now be able to have sex with all of your slaves.
-		Fixed bug where transforming a slave and then returning to the management screen wouldn't update their appearance.
-		Using the used condom on an NPC now returns a more accurate description.
-		Cow and squirrel-morph potions now have correct titles.
+		Typo fixes.
+		Fixed crotchless thong being called 'crotchless thongs'.
+		Negative values for fertility or virility now correctly prevent pregnancy.
+		Clothing unequipping in sex is now correctly blocked by other clothing. (e.g. can't unequip your partner's panties if they're wearing yoga pants.)
+		Changing the capacity of an orifice (through drinking potions) now sets yours stretched capacity to the new value.
+		Fixed bug where Nyan would sometimes get the clothing she sold to you back in her inventory.
+		Unzipping trousers and shorts no longer grants access to vagina. (You can still pull them down to do this.)
+		Scarlett should no longer regenerate her clothing after sex.
+		Fixed description in combat's dual attack always saying that you hit, even if you missed.
+		Fixed Pix's post-sex scene leading to the arcade's entrance dialogue, instead of the gym's exterior dialogue.
+	
+	
+	[20:00]
+	Bugs
+	
+	[22:00]
+	Personality, background
+	
+	[00:00]
+	Character creation
+	
+	[02:00]
+	Bugs & incest design
 	
 	
 	
 	
 	
+	Make Ralph greater horse-boy
+	
+	Stretched out instantly?
+	
+	AI:
+	
+	FINGERS IN MOUTH
+	Had a naizuri scene freeze at 100% after asking the npc to "pull out", had to break out of the scene with the debug code.
+		scene got stuck with the NPC "doing nothing" every turn no matter what I did, never got to the orgasm scene.
+	Ralph needs own AI
 	
 	
 	
-	The pace no longer displays
+	Gynephilic females will not transform you. Each and every time there is a gynephilic female, they will be criminals for enslavement.
+	 The only time I was able to get a transformation was during the arcane storm. Also, no female transformations, just "cuntboy" and "hermaphrodite."
+	
+	
+	Is there any way to make all breast have equal size? If you make more than one pair of breast, the lower ones are always smaller and I would like some way to have all breast have the same cup size.
+	
+	
+	
+	
+	equip collar from within their inv
+
+	consumable targets (mothers milk)
+	
+	 I think the code for selecting items needs to be refined, theres a decent hang whenever i select an item and also a slightly smaller one whenever i try to sell/move/use one
+ 
+	 add another effect if someone with a pure virginity fetish loses it to someone they have high affection with
+	 
+	Add wait button
+	
+	Make mother's milk work instantly
+	
+	 fight them to regain the flames and items they stole
+When you defeat them you will get the option to "reclaim" giving you back only items that they took
+	
+	Scarletts transfer buttons not working (in .exe???)
+	
+	in buyback if you sold a shit load of essence. It takes up a slot individually. Example being I sold 70 of them it ended up like being 1 in each slot of buyback
+	
+	the three harpy items names dont appear right in the item present box when you store them ([harpy.name] in right panel)
+	
+	people assuming hermaphrodite? :/
+	
+	saliva
+	
+	negative fertility/vir values in rollForPreg aren't working
+	
+	moving the chastity cage into the new 'penis' inventory slot, so that problem should be resolved by the next version
+	
+	making the NPCs forcibly transform you even if they aren't attracted to you soon
+	
+	Enslaving a free-spirited person should probably damage their opinion of you
+	
+	Add lube item
+	
+	arousal bars have frozen
+	After continuing It still reached the next orgasm, it looks like it just didn't display arousal
+	
+	rape affection changes
+	
+	Can't sell enslaved offspring???
+	
+	Alexa's shop has a small display bug, if you don't have enough money to buy from her it'll display the Sell prices of her slaves on a greyed out button. It's a minor problem given how lucrative slaving is right now, of course.
+	
+	So, I'm trying to move Scarlett into one of the slave rooms, but "Transfer Here" isn't actually doing anything on her. When I try to click "Detailed Management", it also does nothing.
+	
+	Noticed a bit of a bug with the selfie description. Internal Testicles still cause a bulge somehow.
+	> a futanari partial succubus. The massive bulge of your testicles between your legs, combined with your feminine appearance, leads everyone to believe that you're a futanari.
+	...
+	>Your two massive balls have shifted to sit inside your body, leaving your shaft as the only visible part of your male reproductive organs
+	
+	
+	the Frustrated effect should be removed by orgasm in later sex
+	
+	Seems to be an order of operations issue, probably on my end... Stripped a criminal, stole her clothes, had sex, before sex scene ended put on the collar, and when I went to pick her up she had an inventory full of clothes... Only time I've had that happen...  I just started collaring them before sexing them to prevent it...
+	
+	It appears that in this release, Succubi will disappear from the dark alleyway they were encountered in the moment you leave the tile, regardless of your choices.
+	
+	Thigh sex and hotdogging
+	
+	Forced jinxed clothing
+	
+	Scarlett room transfer issues
+	
+	It no longer shows pc or npc's wearing condoms on the penis slot
+	
+	Add clothing preview to debug
+	
+	status effect for stuffed with toys
+	
+	tongue length in stats page
+	
+	Chinese dress (feminine, torso and legs slot), and hair bun covers (head slot, exists in single and double version)
+	Japanese Loose Socks
+	
+	Split forced TF content into sexual dn racial
+	
+	feedback on the edited Ashley's shop I sent you weeks ago, just to see if my editing has improved
+	
+	Add tracking of who you had sex with.
+	
+	The issue with NPCs removing bras might be related to the Maid set. It only seems to happen when I have that set equipped
+	
+	Non con fetishist NPCs don't seem to rape you...
+		They had the right orientation
+		They put up a resistance and make you rape them if you win even if they have an orientation that likes you. But that makes sense cause of thier fetish they want to be raped/ struggle during sex.
+			But As it is currently they don't seem to be willing to be on the dominant end of a rape scense which contradicts the fetishes's current description text.
+			It might perhaps be a good idea to split up the Non con fetish anyways though. Into giving and recieving versions.
+	
+	the dialogue boxes are not automatically scrolling to the bottom anymore
+	This is sex scene dialogue, it won't scroll down automatically when a new message appears
+	 sometimes scrolls down, and sometimes doesn't
+	
+	There seems to be a bug with scrolling on the main screen during large scenes.  Intermittently it will not scroll to new text.  EDIT: This may have been confusion over especially long text sequences.  I have not had any issues for awhile now
+	Hmm, the default screen width isn't enough to make the +/- buttons work right on the level-up screen
+	
+	Because hands are not tracked separately, fluids can travel from one hand to the other in unexpected ways.  If a partner fingers your ass, then somehow lubricates their other fingers while still fingering you, your ass will also become lubricated
+	
+	Forgot to ping you earlier and editing it in doesn't help but giving an NPC the collar then equipping it to them doesn't make them your slave. Probably would have liked that before the release but yeah I have memory that looks worse than swiss cheese
+	
+	The AI seems to be fixating on chest-play when in the kneeling position for some reason.  Oral and oral performers are more into paizuri/naizuri than breast and breast lovers.  There is possibly also too much of a focus on anal fingering, but this may be due to a lack of other options
+	
+	in the characters present screen if you mouse over the closing the NPC is wearing it only shows you what slot it is not what the item is
+	
+	watches are still handless
+	
+	Scarlett refuses to take a vixen's virility. I don't think slaves should get to do that
+	
+	Also, she's still replacing her maid's dress
+	I  gave Scarlett a maid dress and had sex with her, when I checked her inventory she was back in the clothes she had when she owned the slave shop
+	
+	
+	
+	Remove jinxed clothing from slave
+	
+	restore the option to acces an NPC's inventory right after sex
 	
 	Also I think I pinned it down with that odd feeling. The map doesn't seem to have border, infact almost nothing seems to except the button panel and the event log.
 	
@@ -58,7 +189,14 @@
 	
 	INCEST 
 	
+	bandana shit aside
 	
+	tooltips for slave management
+	
+	
+	Tolerance during sex to determine pace
+	Fetish levels and experience
+	Sex experience (determines arousal gain)
 	
 	
 	(Couldn't replicate)
@@ -89,7 +227,7 @@
 	
 	Daily Reports (Calculated at midnight)
 	
-	
+	Sex actions -> partner-on-partner
 	
 	quad nipples on less tahn greater cows
 	 

@@ -135,10 +135,6 @@ public class DominionSuccubusAttacker extends NPC {
 	public boolean isAbleToBeImpregnated() {
 		return true;
 	}
-
-	@Override
-	public void applyReset() {
-	}
 	
 	@Override
 	public void changeFurryLevel(){
@@ -193,7 +189,7 @@ public class DominionSuccubusAttacker extends NPC {
 							} else if(target.hasPenis()) {
 								Main.game.getPlayer().useItem(item, target, false);
 								return "<p>"
-										+ "Holding out a condom to [npc.name], you force [npc.her] to take it and put it on."
+										+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
 										+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
 										+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
 										+ "</p>";

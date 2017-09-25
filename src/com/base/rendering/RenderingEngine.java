@@ -58,7 +58,7 @@ public enum RenderingEngine {
 	private static InventorySlot[] inventorySlots = {
 			InventorySlot.EYES,			InventorySlot.HEAD,			InventorySlot.NECK,		InventorySlot.HAIR,		InventorySlot.HORNS,
 			InventorySlot.TORSO_OVER,	InventorySlot.TORSO_UNDER,	InventorySlot.CHEST,	InventorySlot.MOUTH,	InventorySlot.WINGS,
-			InventorySlot.HAND,			InventorySlot.FINGER,		InventorySlot.STOMACH,	InventorySlot.NIPPLES,	InventorySlot.TAIL,
+			InventorySlot.HAND,			InventorySlot.FINGER,		InventorySlot.STOMACH,	InventorySlot.NIPPLE,	InventorySlot.TAIL,
 			InventorySlot.WRIST,		InventorySlot.LEG,			InventorySlot.GROIN,	InventorySlot.HIPS,		InventorySlot.PENIS,
 			InventorySlot.ANKLE,		InventorySlot.FOOT,			InventorySlot.SOCK,		InventorySlot.ANUS,		InventorySlot.VAGINA };
 

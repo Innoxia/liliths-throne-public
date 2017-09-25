@@ -13,21 +13,18 @@ import com.base.game.character.race.RaceStage;
 import com.base.game.character.race.RacialBody;
 import com.base.game.combat.Attack;
 import com.base.game.dialogue.DialogueNodeOld;
-import com.base.game.dialogue.places.dominion.shoppingArcade.ShoppingArcadeDialogue;
 import com.base.game.dialogue.responses.Response;
-import com.base.game.dialogue.utils.UtilText;
 import com.base.game.inventory.CharacterInventory;
 import com.base.game.inventory.clothing.AbstractClothing;
 import com.base.game.inventory.clothing.AbstractClothingType;
 import com.base.game.inventory.clothing.ClothingType;
-import com.base.main.Main;
 import com.base.utils.Colour;
 import com.base.world.WorldType;
 import com.base.world.places.ShoppingArcade;
 
 /**
  * @since 0.1.6x
- * @version 0.1.82
+ * @version 0.1.86
  * @author Innoxia
  */
 public class Pix extends NPC {
@@ -67,10 +64,6 @@ public class Pix extends NPC {
 		this.addFetish(Fetish.FETISH_DENIAL);
 		this.addFetish(Fetish.FETISH_DOMINANT);
 	}
-
-	@Override
-	public void applyReset() {
-	}
 	
 	@Override
 	public void changeFurryLevel(){
@@ -84,43 +77,6 @@ public class Pix extends NPC {
 	@Override
 	public void endSex(boolean applyEffects) {
 	}
-	
-	public static final DialogueNodeOld PIX_POST_SEX = new DialogueNodeOld("Pix dresses you", "You're too tired to complain as Pix starts dressing you.", false) {
-		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public int getMinutesPassed(){
-			return 60;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "Pix hooks her arms under yours and drags your almost-comatose body out from the showers."
-					+ " You worry for a moment that she's going to continue with her 'fun', but instead, she quickly darts of to fetch a towel, before starting to gently dry your body off."
-					+ "</p>"
-					+ "<p>"
-					+ UtilText.parseSpeech("You're, like, the best, y'know! Thanks for letting me have some fun, I hope you enjoyed it too!", Main.game.getPix())
-					+ "</p>"
-					+ "<p>"
-					+ "You're far too tired to respond, and instead simply let out a satisfied groan as the dog-girl quickly dresses you."
-					+ " After making sure that you're lying down comfortably on one of the benches, she gives you one last passionate kiss before giggling and running off."
-					+ "</p>"
-					+ "<p>"
-					+ "It takes some time before you finally recover enough energy to get up and leave the gym."
-					+ " Unusually, Pix is nowhere to be seen, and you wonder if she's avoiding you until you've had some time to fully recover from her 'one-to-one cooldown exercise'..."
-					+ "</p>";
-		}
-		
-		@Override
-		public Response getResponse(int index) {
-			if (index == 1) {
-				return new Response("Exit gym", "Leave the gym and carry on your way.", ShoppingArcadeDialogue.ENTRY);
-			} else {
-				return null;
-			}
-		}
-	};
 
 	// Combat (you never fight Pix):
 	@Override

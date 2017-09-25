@@ -79,10 +79,6 @@ public class Lilaya extends NPC {
 	public String getSpeechColour() {
 		return "#ff66a3";
 	}
-
-	@Override
-	public void applyReset() {
-	}
 	
 	@Override
 	public void changeFurryLevel(){

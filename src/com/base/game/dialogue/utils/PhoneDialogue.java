@@ -1796,11 +1796,6 @@ public class PhoneDialogue {
 											: Colour.TEXT_GREY.toWebHexString() + ";") + "'>"
 									: " locked' style='border:4px solid " + Colour.TEXT_GREY.toWebHexString() + ";'>"))
 							+ "<div class='fetish-icon-content'>"+fetish.getSVGString()+"</div>"
-							+ (Main.game.getPlayer().hasFetish(fetish) || levelUpFetishes.contains(fetish) // Overlay to create disabled effect:
-									? ""
-									: (fetish.isAvailable(Main.game.getPlayer())
-											? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
-											: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>"))
 							+ "</div>");
 				}
 			}
@@ -1825,11 +1820,6 @@ public class PhoneDialogue {
 											: Colour.TEXT_GREY.toWebHexString() + ";") + "'>"
 									: " locked' style='border:4px solid " + Colour.TEXT_GREY.toWebHexString() + ";'>"))
 							+ "<div class='fetish-icon-content'>"+fetish.getSVGString()+"</div>"
-							+ (Main.game.getPlayer().hasFetish(fetish) || levelUpFetishes.contains(fetish) // Overlay to create disabled effect:
-									? ""
-									: (fetish.isAvailable(Main.game.getPlayer())
-											? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
-											: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>"))
 							+ "</div>");
 				}
 			}

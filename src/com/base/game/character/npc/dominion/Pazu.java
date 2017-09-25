@@ -88,10 +88,6 @@ public class Pazu extends NPC {
 			return "#C18FFF";
 		}
 	}
-
-	@Override
-	public void applyReset() {
-	}
 	
 	@Override
 	public void changeFurryLevel(){
@@ -104,8 +100,6 @@ public class Pazu extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
-		if (applyEffects)
-			applyReset();
 	}
 
 	// Combat (you never fight Pazu):

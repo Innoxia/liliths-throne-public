@@ -4038,16 +4038,20 @@ public class InventoryDialogue {
 								return new Response("Unequip", "You can't unequip the " + clothing.getName() + " in this sex scene!", null);
 							}
 							
-							return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
-								@Override
-								public void effects(){
-									inventoryNPC.unequipClothingIntoInventory(clothing, true, Main.game.getPlayer());
-									Sex.setUnequipClothingText(inventoryNPC.getUnequipDescription());
-									Main.game.restoreSavedContent();
-									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-									Sex.setSexStarted(true);
-								}
-							};
+							if (owner.isAbleToUnequip(clothing, false, Main.game.getPlayer())) {
+								return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
+									@Override
+									public void effects(){
+										inventoryNPC.unequipClothingIntoInventory(clothing, true, Main.game.getPlayer());
+										Sex.setUnequipClothingText(inventoryNPC.getUnequipDescription());
+										Main.game.restoreSavedContent();
+										Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+										Sex.setSexStarted(true);
+									}
+								};
+							} else {
+								return new Response("Unequip", "You can't unequip the " + clothing.getName() + ", as other clothing is blocking you from doing so!", null);
+							}
 							
 						} else if (index == 10) {
 							return getQuickTradeResponse();
@@ -4480,6 +4484,10 @@ public class InventoryDialogue {
 					from.removeItem(items.get(i));
 				}
 			}
+			
+			if(to.isPlayer()) {
+				((NPC) from).handleSellingEffects(item, count, itemPrice);
+			}
 		}
 	}
 	
@@ -4553,6 +4561,10 @@ public class InventoryDialogue {
 					from.removeWeapon(weapons.get(i));
 				}
 			}
+			
+			if(to.isPlayer()) {
+				((NPC) from).handleSellingEffects(weapon, count, itemPrice);
+			}
 		}
 	}
 	
@@ -4624,6 +4636,10 @@ public class InventoryDialogue {
 					to.incrementMoney(-itemPrice);
 					from.removeClothing(clothings.get(i));
 				}
+			}
+			
+			if(to.isPlayer()) {
+				((NPC) from).handleSellingEffects(clothing, count, itemPrice);
 			}
 		}
 	}

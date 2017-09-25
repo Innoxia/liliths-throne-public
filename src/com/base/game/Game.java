@@ -297,27 +297,15 @@ public class Game implements Serializable {
 			minutesPassed += turnTime;
 			setResponses(currentDialogueNode, false);
 		}
-
+		
+		// If the time has passed midnight on this turn:
+		boolean newDay = ((int) (minutesPassed / (60 * 24)) != (int) (((minutesPassed - turnTime) / (60 * 24))));
+		
 		handleAtmosphericConditions(turnTime);
 
 		// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
 		NPCMap.entrySet().removeIf(e -> (e.getValue().getLocationPlace().getPlaceType() != Dominion.CITY_BACK_ALLEYS && e.getValue().getWorldLocation()==WorldType.DOMINION && !Main.game.getPlayer().getLocation().equals(e.getValue().getLocation())));
 		
-//		Iterator<NPC> npcIterator = NPCList.iterator();
-//		while(npcIterator.hasNext()) {
-//			NPC npc = npcIterator.next();
-//			if(npc instanceof NPCRandomDominion) {
-//				if(npc.getLocationPlace().getPlaceType() != Dominion.CITY_BACK_ALLEYS && npc.getWorldLocation()==WorldType.DOMINION && !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
-//					// Remove ongoing pregnancies for NPCs that are removed:
-//					if(npc.isPregnant()) {
-//						npc.endPregnancy(false);
-//					}
-//					npcIterator.remove();
-//				}
-//			}
-//		}
-		
-		boolean randomAttackerSEApplied=false;
 		// Apply status effects for all NPCs:
 		for (NPC npc : NPCMap.values()) {
 			npc.calculateStatusEffects(turnTime);
@@ -341,10 +329,6 @@ public class Game implements Serializable {
 				}
 			}
 			
-			if(npc==activeNPC) {
-				randomAttackerSEApplied = true;
-			}
-			
 			if(npc.getLocation().equals(Main.game.getPlayer().getLocation()) && npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation()) {
 				for(CoverableArea ca : CoverableArea.values()) {
 					if(npc.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
@@ -352,14 +336,18 @@ public class Game implements Serializable {
 					}
 				}
 			}
-		}
-		
-		if (activeNPC!=null && !randomAttackerSEApplied) {
-			activeNPC.calculateStatusEffects(turnTime);
+			
+			if(newDay) {
+				npc.dailyReset();
+				if(npc.isSlave()) {
+					npc.incrementAffection(npc.getOwner(), npc.getDailyAffectionChange());
+					npc.incrementObedience(npc.getDailyObedienceChange());
+				}
+			}
 		}
 		
 		// If not in combat:
-		if (!inCombat) {
+		if (!isInCombat()) {
 			currentCell = activeWorld.getCell(player.getLocation());
 			
 			if(Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS) {
@@ -374,24 +362,6 @@ public class Game implements Serializable {
 					Main.game.getPlayer().incrementHealth(turnTime * 0.1f);
 				if (Main.game.getPlayer().getManaPercentage() < 1)
 					Main.game.getPlayer().incrementMana(turnTime * 0.1f);
-			}
-
-		}
-
-		// At the stroke of midnight (sort of):
-		if ((int) (minutesPassed / (60 * 24)) != (int) (((minutesPassed - turnTime) / (60 * 24)))) {
-			// Reset all shops:
-			ralph.applyReset();
-			nyan.applyReset();
-			vicky.applyReset();
-			kate.applyReset();
-			finch.applyReset();
-			
-			alexa.applyReset();
-			
-			for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
-				slave.incrementAffection(Main.game.getPlayer(), slave.getDailyAffectionChange());
-				slave.incrementObedience(slave.getDailyObedienceChange());
 			}
 		}
 		

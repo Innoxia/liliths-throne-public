@@ -65,27 +65,6 @@ public class Rose extends NPC {
 		this.equipClothingFromNowhere(stockings, true, this);
 		this.equipClothingFromNowhere(heels, true, this);
 	}
-
-	@Override
-	public void applyReset() {
-		for (AbstractClothing c : this.getClothingCurrentlyEquipped())
-			c.getDisplacedList().clear();
-
-		if (this.getClothingInSlot(underwear.getClothingType().getSlot()) == null)
-			this.equipClothingFromNowhere(underwear, true, this);
-		if (this.getClothingInSlot(bra.getClothingType().getSlot()) == null)
-			this.equipClothingFromNowhere(bra, true, this);
-		if (this.getClothingInSlot(dress.getClothingType().getSlot()) == null)
-			this.equipClothingFromNowhere(dress, true, this);
-		if (this.getClothingInSlot(headpiece.getClothingType().getSlot()) == null)
-			this.equipClothingFromNowhere(headpiece, true, this);
-		if (this.getClothingInSlot(sleeves.getClothingType().getSlot()) == null)
-			this.equipClothingFromNowhere(sleeves, true, this);
-		if (this.getClothingInSlot(stockings.getClothingType().getSlot()) == null)
-			this.equipClothingFromNowhere(stockings, true, this);
-		if (this.getClothingInSlot(heels.getClothingType().getSlot()) == null)
-			this.equipClothingFromNowhere(heels, true, this);
-	}
 	
 	@Override
 	public void changeFurryLevel(){
@@ -98,8 +77,6 @@ public class Rose extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
-		if (applyEffects)
-			applyReset();
 	}
 
 	// Combat (you never fight Rose):

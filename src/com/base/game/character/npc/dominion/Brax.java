@@ -149,7 +149,7 @@ public class Brax extends NPC {
 		if(isFeminine()) {
 			if(hasFetish(Fetish.FETISH_BIMBO)) {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_PANTIES, Colour.CLOTHING_PINK, false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_TAPE_CROSSES, Colour.CLOTHING_PINK, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NIPPLE_TAPE_CROSSES, Colour.CLOTHING_PINK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_FISHNET_TOP, Colour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_PLEATED, Colour.CLOTHING_PINK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_FISHNET_STOCKINGS, Colour.CLOTHING_WHITE, false), true, this);
@@ -234,10 +234,6 @@ public class Brax extends NPC {
 				return "#ADB4FF";
 			}
 		}
-	}
-
-	@Override
-	public void applyReset() {
 	}
 
 	@Override

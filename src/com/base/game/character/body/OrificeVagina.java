@@ -109,6 +109,7 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		
 		float oldCapacity = this.capacity;
 		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue()));
+		this.stretchedCapacity = this.capacity;
 		float capacityChange = this.capacity - oldCapacity;
 		
 		if (capacityChange == 0) {

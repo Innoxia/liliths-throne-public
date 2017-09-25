@@ -73,13 +73,6 @@ public class Nyan extends NPC {
 		commonAndrogynousLingerie = new ArrayList<>();
 		commonAndrogynousAccessories = new ArrayList<>();
 		specials = new ArrayList<>();
-
-		applyReset();
-	}
-
-	@Override
-	public void applyReset() {
-		resetInventory();
 		
 		this.setMoney(10);
 		
@@ -89,6 +82,13 @@ public class Nyan extends NPC {
 		this.equipClothingFromNowhere(torso, true, this);
 		this.equipClothingFromNowhere(socks, true, this);
 		this.equipClothingFromNowhere(shoes, true, this);
+
+		dailyReset();
+	}
+
+	@Override
+	public void dailyReset() {
+		clearNonEquippedInventory();
 		
 		commonFemaleClothing.clear();
 		commonFemaleUnderwear.clear();
@@ -219,21 +219,22 @@ public class Nyan extends NPC {
 		}
 	}
 	
-	public void removeClothingFromLists(AbstractClothing clothing){
-		commonFemaleClothing.remove(clothing);
-		commonFemaleUnderwear.remove(clothing);
-		commonFemaleOtherLingerie.remove(clothing);
-		commonFemaleAccessories.remove(clothing);
+	@Override
+	public void handleSellingEffects(AbstractCoreItem item, int count, int itemPrice){
+		commonFemaleClothing.remove(item);
+		commonFemaleUnderwear.remove(item);
+		commonFemaleOtherLingerie.remove(item);
+		commonFemaleAccessories.remove(item);
 		
-		commonMaleClothing.remove(clothing);
-		commonMaleLingerie.remove(clothing);
-		commonMaleAccessories.remove(clothing);
+		commonMaleClothing.remove(item);
+		commonMaleLingerie.remove(item);
+		commonMaleAccessories.remove(item);
 		
-		commonAndrogynousClothing.remove(clothing);
-		commonAndrogynousLingerie.remove(clothing);
-		commonAndrogynousAccessories.remove(clothing);
+		commonAndrogynousClothing.remove(item);
+		commonAndrogynousLingerie.remove(item);
+		commonAndrogynousAccessories.remove(item);
 		
-		specials.remove(clothing);
+		specials.remove(item);
 	}
 	
 	@Override
@@ -265,8 +266,6 @@ public class Nyan extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
-		if (applyEffects)
-			applyReset();
 	}
 	
 	public List<AbstractClothing> getCommonFemaleClothing() {

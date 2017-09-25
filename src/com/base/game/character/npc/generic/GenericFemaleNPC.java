@@ -26,10 +26,6 @@ public class GenericFemaleNPC extends NPC {
 				1, Gender.FEMALE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.JUNGLE, Jungle.JUNGLE_CLUB, true); //TODO move to null tile
 	}
-
-	@Override
-	public void applyReset() {
-	}
 	
 	@Override
 	public void changeFurryLevel(){
