@@ -507,9 +507,7 @@ public class Response {
 	}
 	
 	public boolean isRequiredRace() {
-		return (raceRequired==null
-					? true
-					: Main.game.getPlayer().getRace() == raceRequired);
+		return raceRequired == null || Main.game.getPlayer().getRace() == raceRequired;
 	}
 	
 	public boolean isPenetrationTypeAvailable() {

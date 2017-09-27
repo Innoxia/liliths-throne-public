@@ -219,7 +219,9 @@ Calm:
 		historiesList = new ArrayList<>();
 
 		for(History history : History.values()) {
-			if(history.isAvailable(character) && (character.isPlayer()?history.isAvailableToPlayer():true) && (!character.isPlayer()?history.isAvailableToPartner():true)) {
+			if(history.isAvailable(character) &&
+					((character.isPlayer() && history.isAvailableToPlayer()) ||
+					(!character.isPlayer() && history.isAvailableToPartner()))) {
 				historiesList.add(history);
 			}
 		}

@@ -218,10 +218,7 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		return true;
 	}
 	public boolean isAbleToBeUsed(GameCharacter target) {
-		if(Main.game.isInCombat() && !target.isPlayer())
-			return false;
-		else
-			return true;
+		return !Main.game.isInCombat() || target.isPlayer();
 	}
 	public boolean isAbleToBeUsedInSex() {
 		return true;

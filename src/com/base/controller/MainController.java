@@ -577,12 +577,8 @@ public class MainController implements Initializable {
 										 
 										Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
 										if(Main.mainController.getWebEngine().getDocument()!=null) {
-											if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-													|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-												unsuitableName = true;
-											else {
-												unsuitableName = false;
-											}
+											unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+															|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 										}
 										
 										if (!unsuitableName) {
@@ -623,12 +619,8 @@ public class MainController implements Initializable {
 									 
 										Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInput').value;");
 										if(Main.mainController.getWebEngine().getDocument()!=null) {
-											if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-													|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-												unsuitableName = true;
-											else {
-												unsuitableName = false;
-											}
+											unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+															|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 										}
 										
 										if (!unsuitableName) {
@@ -651,12 +643,8 @@ public class MainController implements Initializable {
 									 
 										Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveNameInput').value;");
 										if(Main.mainController.getWebEngine().getDocument()!=null) {
-											if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-													|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-												unsuitableName = true;
-											else {
-												unsuitableName = false;
-											}
+											unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+															|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 										}
 										
 										if (!unsuitableName) {
@@ -1645,12 +1633,8 @@ public class MainController implements Initializable {
 						 
 						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
 						if(Main.mainController.getWebEngine().getDocument()!=null) {
-							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-									|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-								unsuitableName = true;
-							else {
-								unsuitableName = false;
-							}
+							unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+											|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 						}
 						
 						if (!unsuitableName) {
@@ -1676,12 +1660,8 @@ public class MainController implements Initializable {
 						 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveNameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-									unsuitableName = true;
-								else {
-									unsuitableName = false;
-								}
+								unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+												|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 							}
 							
 							if (!unsuitableName) {
@@ -1707,12 +1687,8 @@ public class MainController implements Initializable {
 						 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-									unsuitableName = true;
-								else {
-									unsuitableName = false;
-								}
+								unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+												|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 							}
 							
 							if (!unsuitableName) {
@@ -1739,12 +1715,8 @@ public class MainController implements Initializable {
 					 
 						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInput').value;");
 						if(Main.mainController.getWebEngine().getDocument()!=null) {
-							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-									|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-								unsuitableName = true;
-							else {
-								unsuitableName = false;
-							}
+							unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+											|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 						}
 						
 						if (!unsuitableName) {
@@ -1799,30 +1771,30 @@ public class MainController implements Initializable {
 			}
 			
 
-			if(Main.game.getDialogueFlags().slaveTrader!=null)
-			for(NPC slave : Main.game.getDialogueFlags().slaveTrader.getSlavesOwned()) {
-				id = slave.getId();
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementDetailedDialogue(Main.game.getNPCById(slave.getId()))));
-					}, false);
-				}
-				
-				id = slave.getId()+"_BUY";
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
-							@Override
-							public void effects() {
-								Main.game.getPlayer().incrementMoney(-(int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()));
-								Main.game.getPlayer().addSlave(Main.game.getNPCById(slave.getId()));
-								Main.game.getNPCById(slave.getId()).setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION);
-							}
-						});
-					}, false);
+			if(Main.game.getDialogueFlags().slaveTrader!=null) {
+				for (NPC slave : Main.game.getDialogueFlags().slaveTrader.getSlavesOwned()) {
+					id = slave.getId();
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementDetailedDialogue(Main.game.getNPCById(slave.getId()))));
+						}, false);
+					}
+
+					id = slave.getId() + "_BUY";
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-(int) (slave.getValueAsSlave() * Main.game.getDialogueFlags().slaveTrader.getSellModifier()));
+									Main.game.getPlayer().addSlave(Main.game.getNPCById(slave.getId()));
+									Main.game.getNPCById(slave.getId()).setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION);
+								}
+							});
+						}, false);
+					}
 				}
 			}
-			
 			
 			// -------------------- Cosmetics --------------------
 			
@@ -1969,7 +1941,7 @@ public class MainController implements Initializable {
 												bct,
 												Main.game.getPlayer().getCovering(bct).getPattern(),
 												colour,
-												(colour == Colour.COVERING_NONE ? false : Main.game.getPlayer().getCovering(bct).isPrimaryGlowing()),
+												(colour != Colour.COVERING_NONE) && Main.game.getPlayer().getCovering(bct).isPrimaryGlowing(),
 												Main.game.getPlayer().getCovering(bct).getSecondaryColour(),
 												Main.game.getPlayer().getCovering(bct).isSecondaryGlowing()), false);
 										
@@ -1995,7 +1967,7 @@ public class MainController implements Initializable {
 												Main.game.getPlayer().getCovering(bct).getPrimaryColour(),
 												Main.game.getPlayer().getCovering(bct).isPrimaryGlowing(),
 												colour,
-												(colour == Colour.COVERING_NONE ? false : Main.game.getPlayer().getCovering(bct).isSecondaryGlowing())), false);
+												(colour != Colour.COVERING_NONE) && Main.game.getPlayer().getCovering(bct).isSecondaryGlowing()), false);
 										
 									}
 								});
