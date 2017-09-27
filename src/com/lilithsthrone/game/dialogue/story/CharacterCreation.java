@@ -916,7 +916,7 @@ public class CharacterCreation {
 						History.getAvailableHistories(Main.game.getPlayer()).get(index - 1).getDescriptionPlayer()
 						+ (History.getAvailableHistories(Main.game.getPlayer()).get(index - 1).getModifiersAsStringList().length() == 0
 							? ""
-							: "</br>" + History.getAvailableHistories(Main.game.getPlayer()).get(index - 1).getModifiersAsStringList()), CHOOSE_NAME){
+							: "</br>" + History.getAvailableHistories(Main.game.getPlayer()).get(index - 1).getModifiersAsStringList()), START_GAME){
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setHistory(History.getAvailableHistories(Main.game.getPlayer()).get(index - 1));

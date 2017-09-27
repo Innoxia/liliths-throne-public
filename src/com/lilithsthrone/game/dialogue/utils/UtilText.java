@@ -3103,10 +3103,10 @@ public class UtilText {
 			public String parse(String command, String arguments, String target) {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType()).getColourDescriptor(true);
+						return character.getCovering(character.getEyeType().getBodyCoveringType()).getColourDescriptor(true, parseCapitalise);
 					}
 				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType()).getColourDescriptor(false);
+				return character.getCovering(character.getEyeType().getBodyCoveringType()).getColourDescriptor(false, parseCapitalise);
 			}
 		});
 		
@@ -3197,10 +3197,10 @@ public class UtilText {
 			public String parse(String command, String arguments, String target) {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_PUPILS).getColourDescriptor(true);
+						return character.getCovering(BodyCoveringType.EYE_PUPILS).getColourDescriptor(true, parseCapitalise);
 					}
 				}
-				return character.getCovering(BodyCoveringType.EYE_PUPILS).getColourDescriptor(false);
+				return character.getCovering(BodyCoveringType.EYE_PUPILS).getColourDescriptor(false, parseCapitalise);
 			}
 		});
 		
@@ -3495,10 +3495,10 @@ public class UtilText {
 				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getColourDescriptor(true);
+						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getColourDescriptor(true, parseCapitalise);
 					}
 				}
-				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getColourDescriptor(false);
+				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getColourDescriptor(false, parseCapitalise);
 			}
 		});
 		

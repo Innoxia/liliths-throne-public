@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.FitnessLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.StrengthLevel;
+import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -32,6 +33,7 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -416,7 +418,7 @@ public class TooltipInformationEventListener implements EventListener {
 			} else if (attribute == Attribute.EXPERIENCE) {
 				// Special tooltip for experience/transformation combo:
 
-				Main.mainController.setTooltipSize(360, 550);
+				Main.mainController.setTooltipSize(420, 560);
 
 				tooltipSB.setLength(0);
 				tooltipSB.append("<div class='title' style='color:" + owner.getRace().getColour().toWebHexString() + ";'>"
@@ -446,10 +448,16 @@ public class TooltipInformationEventListener implements EventListener {
 				tooltipSB.append(getBodyPartDiv("Hair", owner.getHairRace(), owner.getHairType().getBodyCoveringType()));
 				tooltipSB.append(getBodyPartDiv("Eyes", owner.getEyeRace(), owner.getEyeType().getBodyCoveringType()));
 				tooltipSB.append(getBodyPartDiv("Ears", owner.getEarRace(), owner.getEarType().getBodyCoveringType()));
+				tooltipSB.append(getBodyPartDiv("Tongue", owner.getTongueRace(), owner.getTongueType().getBodyCoveringType()));
 				if (owner.getHornType() != HornType.NONE) {
 					tooltipSB.append(getBodyPartDiv("Horns", owner.getHornRace(), owner.getHornType().getBodyCoveringType()));
 				} else {
 					tooltipSB.append("<div class='subTitle-half body'>" + "Horns - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+				}
+				if (owner.getAntennaType() != AntennaType.NONE) {
+					tooltipSB.append(getBodyPartDiv("Antennae", owner.getAntennaRace(), owner.getAntennaType().getBodyCoveringType()));
+				} else {
+					tooltipSB.append("<div class='subTitle-half body'>" + "Antenna - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
 				}
 				if (owner.getWingType() != WingType.NONE) {
 					tooltipSB.append(getBodyPartDiv("Wings", owner.getWingRace(), owner.getWingType().getBodyCoveringType()));
@@ -463,15 +471,24 @@ public class TooltipInformationEventListener implements EventListener {
 				}
 				
 				// SEXUAL:
-				if (owner.getVaginaType() != VaginaType.NONE) {
-					tooltipSB.append(getBodyPartDiv("Vagina", owner.getVaginaRace(), owner.getVaginaType().getBodyCoveringType()));
+				if(!owner.isPlayer() && !owner.getPlayerKnowsAreasMap().get(CoverableArea.VAGINA)) {
+					tooltipSB.append("<div class='subTitle-half body'>Vagina - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Unknown!</span></div>");
 				} else {
-					tooltipSB.append("<div class='subTitle-half body'>" + "Vagina - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+					if (owner.getVaginaType() != VaginaType.NONE) {
+						tooltipSB.append(getBodyPartDiv("Vagina", owner.getVaginaRace(), owner.getVaginaType().getBodyCoveringType()));
+					} else {
+						tooltipSB.append("<div class='subTitle-half body'>" + "Vagina - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+					}
 				}
-				if (owner.getPenisType() != PenisType.NONE) {
-					tooltipSB.append(getBodyPartDiv("Penis", owner.getPenisRace(), owner.getPenisType().getBodyCoveringType()));
+				
+				if(!owner.isPlayer() && !owner.getPlayerKnowsAreasMap().get(CoverableArea.PENIS)) {
+					tooltipSB.append("<div class='subTitle-half body'>Penis - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Unknown!</span></div>");
 				} else {
-					tooltipSB.append("<div class='subTitle-half body'>" + "Penis - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+					if (owner.getPenisType() != PenisType.NONE) {
+						tooltipSB.append(getBodyPartDiv("Penis", owner.getPenisRace(), owner.getPenisType().getBodyCoveringType()));
+					} else {
+						tooltipSB.append("<div class='subTitle-half body'>" + "Penis - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+					}
 				}
 				tooltipSB.append(getBodyPartDiv("Ass", owner.getAssRace(), owner.getAssType().getBodyCoveringType()));
 				tooltipSB.append(getBodyPartDiv("Breasts", owner.getBreastRace(), owner.getBreastType().getBodyCoveringType()));
@@ -651,52 +668,36 @@ public class TooltipInformationEventListener implements EventListener {
 		}
 
 		(new Thread(new TooltipUpdateThread())).start();
-		// Main.mainController.getTooltip().show(Main.primaryStage);
 	}
 	
 	private String getBodyPartDiv(String name, Race race, BodyCoveringType covering) {
 		return "<div class='subTitle-half body'>"+ name + " - <span style='color:" + race.getColour().toWebHexString() + ";'>"+ Util.capitaliseSentence(race.getName()) + "</span></br>"
-					+ Util.capitaliseSentence(owner.getCovering(covering).getColourDescriptor(true))+ " "+ owner.getCovering(covering).getName(owner)
+					+ owner.getCovering(covering).getColourDescriptor(true, true)+ " "+ owner.getCovering(covering).getName(owner)
 				+ "</div>";
 	}
 	
 
 	private String extraAttributeTableRow(GameCharacter owner, String type, Attribute damage, Attribute resist) {
-//		if (owner.isPlayer() || Main.game.getPlayer().getPerks().contains(Perk.OBSERVANT))
-			return "<div class='subTitle-third combatValue'>" + "<span style='color:" + damage.getColour().toWebHexString() + ";'>" + type + "</span>" + "</div>" + "<div class='subTitle-third combatValue'>"
-					+ (owner.getAttributeValue(damage) > damage.getBaseValue()
-											? "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
-											: (owner.getAttributeValue(damage) < damage.getBaseValue()
-													? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"
-													: ""))
-					+ owner.getAttributeValue(damage)
-					+ "</span>" + "</div>" + "<div class='subTitle-third combatValue'>"
-					+ (resist == null ? "0.0"
-							: (owner.getAttributeValue(resist) > 0 ? "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
-									: (owner.getAttributeValue(resist) < 0 ? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" : "")) + owner.getAttributeValue(resist) + "</span>")
-					+ "</div>";
-//		else
-//			return "<div class='subTitle-third combatValue'>" + "<span style='color:" + damage.getColour().toWebHexString() + ";'>" + type + "</span>" + "</div>" + "<div class='subTitle-third combatValue'>" + "<span style='color:"
-//					+ Colour.TEXT_GREY.toWebHexString() + ";'>???</span>" + "</div>" + "<div class='subTitle-third combatValue'>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>???</span>" + "</div>";
+		return "<div class='subTitle-third combatValue'>" + "<span style='color:" + damage.getColour().toWebHexString() + ";'>" + type + "</span>" + "</div>" + "<div class='subTitle-third combatValue'>"
+				+ (owner.getAttributeValue(damage) > damage.getBaseValue()
+										? "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
+										: (owner.getAttributeValue(damage) < damage.getBaseValue()
+												? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"
+												: ""))
+				+ owner.getAttributeValue(damage)
+				+ "</span>" + "</div>" + "<div class='subTitle-third combatValue'>"
+				+ (resist == null ? "0.0"
+						: (owner.getAttributeValue(resist) > 0 ? "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
+								: (owner.getAttributeValue(resist) < 0 ? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" : "")) + owner.getAttributeValue(resist) + "</span>")
+				+ "</div>";
 	}
 
 	private String extraAttributeBonus(GameCharacter owner, Attribute bonus) {
-//		if (owner.isPlayer() || Main.game.getPlayer().getPerks().contains(Perk.OBSERVANT))
-			return "<div class='subTitle-half'>" + "<span style='color:"
-					+ bonus.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(bonus.getName()) + "</span></br>" + (owner.getAttributeValue(bonus) > bonus.getBaseValue()
-							? "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" : (owner.getAttributeValue(bonus) < bonus.getBaseValue() ? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" : ""))
-					+ owner.getAttributeValue(bonus) + "</span>" + "</div>";
-//		else
-//			return "<div class='subTitle-half'>" + "<span style='color:" + bonus.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(bonus.getName()) + "</span></br>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString()
-//					+ ";'>???</span>" + "</div>";
+		return "<div class='subTitle-half'>" + "<span style='color:"
+				+ bonus.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(bonus.getName()) + "</span></br>" + (owner.getAttributeValue(bonus) > bonus.getBaseValue()
+						? "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" : (owner.getAttributeValue(bonus) < bonus.getBaseValue() ? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" : ""))
+				+ owner.getAttributeValue(bonus) + "</span>" + "</div>";
 	}
-//	
-//	private String corruptionLevelRow(AttributeLevelCorruption level){
-//		if(Main.game.getPlayer().getCorruptionLevel()==level)
-//			return "<div class='subTitle'><span style='color:"+level.getColour().toWebHexString()+";'>"+Utilities.capitaliseSentence(level.getName())+"</span>" + " ("+level.getMinimumValue()+"-"+level.getMaximumValue()+")</div>";
-//		else
-//			return "<div class='subTitle'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Utilities.capitaliseSentence(level.getName())+"" + " ("+level.getMinimumValue()+"-"+level.getMaximumValue()+")</span></div>";
-//	}
 
 	public TooltipInformationEventListener setInformation(String title, String description) {
 		resetFields();

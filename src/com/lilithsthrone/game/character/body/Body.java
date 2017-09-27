@@ -427,9 +427,9 @@ public class Body implements Serializable {
 
 		if(owner.getBlusher().getPrimaryColour()!=Colour.COVERING_NONE) {
 			if (owner.isPlayer()) {
-				sb.append(" You are wearing "+owner.getBlusher().getColourDescriptor(true)+" blusher.");
+				sb.append(" You are wearing "+owner.getBlusher().getColourDescriptor(true, false)+" blusher.");
 			} else {
-				sb.append(" [npc.She] is wearing "+owner.getBlusher().getColourDescriptor(true)+" blusher.");
+				sb.append(" [npc.She] is wearing "+owner.getBlusher().getColourDescriptor(true, false)+" blusher.");
 			}
 		}
 		
@@ -655,16 +655,16 @@ public class Body implements Serializable {
 		// Eye makeup:
 		if(owner.getEyeLiner().getPrimaryColour()!=Colour.COVERING_NONE) {
 			if(owner.isPlayer()) {
-				sb.append(" Around your [pc.eyes], you've got a layer of "+owner.getEyeLiner().getColourDescriptor(true)+" eye liner.");
+				sb.append(" Around your [pc.eyes], you've got a layer of "+owner.getEyeLiner().getColourDescriptor(true, false)+" eye liner.");
 			} else {
-				sb.append(" Around [npc.her] [npc.eyes], [npc.she]'s got a layer of "+owner.getEyeLiner().getColourDescriptor(true)+" eye liner.");
+				sb.append(" Around [npc.her] [npc.eyes], [npc.she]'s got a layer of "+owner.getEyeLiner().getColourDescriptor(true, false)+" eye liner.");
 			}
 		}
 		if(owner.getEyeShadow().getPrimaryColour()!=Colour.COVERING_NONE) {
 			if(owner.isPlayer()) {
-				sb.append(" You're wearing a tasteful amount of "+owner.getEyeShadow().getColourDescriptor(true)+" eye shadow.");
+				sb.append(" You're wearing a tasteful amount of "+owner.getEyeShadow().getColourDescriptor(true, false)+" eye shadow.");
 			} else {
-				sb.append(" [npc.She]'s wearing a tasteful amount of "+owner.getEyeShadow().getColourDescriptor(true)+" eye shadow.");
+				sb.append(" [npc.She]'s wearing a tasteful amount of "+owner.getEyeShadow().getColourDescriptor(true, false)+" eye shadow.");
 			}
 		}
 		
@@ -810,7 +810,7 @@ public class Body implements Serializable {
 		if (owner.isPlayer()) {
 			sb.append(" You have [pc.lipSize], [pc.mouthColourPrimary(true)] [pc.lips]");
 			if(owner.getLipstick().getPrimaryColour()!=Colour.COVERING_NONE) {
-				sb.append((owner.isPiercedLip()?", which have been pierced, and":", which")+" are currently covered in "+owner.getLipstick().getColourDescriptor(true)+" lipstick.");
+				sb.append((owner.isPiercedLip()?", which have been pierced, and":", which")+" are currently covered in "+owner.getLipstick().getColourDescriptor(true, false)+" lipstick.");
 			} else {
 				sb.append((owner.isPiercedLip()?", which have been pierced.":"."));
 			}
@@ -818,7 +818,7 @@ public class Body implements Serializable {
 		} else {
 			sb.append(" [npc.She] has [npc.lipSize], [npc.mouthColourPrimary(true)] [pc.lips]");
 			if(owner.getLipstick().getPrimaryColour()!=Colour.COVERING_NONE) {
-				sb.append((owner.isPiercedLip()?", which have been pierced, and":", which")+" are currently covered in "+owner.getLipstick().getColourDescriptor(true)+" lipstick.");
+				sb.append((owner.isPiercedLip()?", which have been pierced, and":", which")+" are currently covered in "+owner.getLipstick().getColourDescriptor(true, false)+" lipstick.");
 			} else {
 				sb.append((owner.isPiercedLip()?", which have been pierced.":"."));
 			}
@@ -3205,79 +3205,79 @@ public class Body implements Serializable {
 		switch (vagina.getType()) {
 			case HUMAN:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" human pussy, with [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" human pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" human pussy, with [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" human pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case ANGEL:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" angelic pussy, with [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" angelic pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" angelic pussy, with [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" angelic pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case DEMON_COMMON:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" demonic pussy, with [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" demonic pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" demonic pussy, with [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" demonic pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case DOG_MORPH:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" canine pussy, with [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" canine pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" canine pussy, with [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" canine pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case WOLF_MORPH:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" lupine pussy, with [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" lupine pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" lupine pussy, with [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" lupine pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case CAT_MORPH:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" feline pussy, with [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" feline pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" feline pussy, with [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" feline pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case COW_MORPH:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" bovine pussy, with [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" bovine pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" bovine pussy, with [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" bovine pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case SQUIRREL_MORPH:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" squirrel-morph's pussy, with [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" squirrel-morph's pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" squirrel-morph's pussy, with [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" squirrel-morph's pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case HORSE_MORPH:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" equine pussy, with [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" equine pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" equine pussy, with [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" equine pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case HARPY:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" avian pussy, with [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" avian pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" avian pussy, with [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" avian pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case SLIME:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" slime pussy, with [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" slime pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" slime pussy, with [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" slime pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			default:

@@ -86,7 +86,8 @@ h6{
 	margin:8px 8px 0 8px;
 	padding:8px;
 	
-	width: calc(360px - 32px - 8px);
+	box-sizing: border-box;
+	width: calc(100% - 16px);
 }
 
 .subTitle{
@@ -98,7 +99,9 @@ h6{
 	
 	margin:8px 8px 0 8px;
 	padding:8px;
-	width:calc(352px - 32px);
+	
+	box-sizing: border-box;
+	width: calc(100% - 16px);
 }
 .subTitle-third{
 	font-size:1.2em;
@@ -109,7 +112,9 @@ h6{
 	
 	margin:8px 8px 0 8px;
 	padding:8px;
-	width:calc(352px/3 - 32px);
+	
+	box-sizing: border-box;
+	width: calc(33.3% - 16px);
 }
 .subTitle-third.combatValue{
 	height:16px;
@@ -124,7 +129,9 @@ h6{
 	
 	margin:8px 8px 0 8px;
 	padding:8px;
-	width:calc(352px/2 - 32px);
+	
+	box-sizing: border-box;
+	width: calc(50% - 16px);
 }
 .subTitle-half.body{
 	height:40px;

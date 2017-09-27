@@ -825,8 +825,6 @@ position:relative;
 	box-sizing: border-box;
 }
 
-
-
 .item-inline{
 	background-color: #333333;
 	position:relative;
@@ -858,56 +856,6 @@ position:relative;
 	pointer-events: none;
 	text-shadow: 2px 0 0 #19191a, -2px 0 0 #19191a, 0 2px 0 #19191a, 0 -2px 0 #19191a, 1px 1px #19191a, -1px -1px 0 #19191a, 1px -1px 0 #19191a, -1px 1px 0 #19191a;
 }
-
-.item-background.empty {
-	background-color:#242424;
-}
-.item-background.transparent {
-	background-color:transparent;
-}
-.item-background.unknown {
-	background-color:#252527;
-}
-.item-background.unknown:hover{
-	background-color:#3e3e41;
-}
-.item-background.common {
-	background-color:#4b4b4e;
-}
-.item-background.common:hover{
-	background-color:#646468;
-}
-.item-background.uncommon {
-	background-color:#3D5C47;
-}
-.item-background.uncommon:hover{
-	background-color:#5A8767;
-}
-.item-background.rare {
-	background-color:#4b4b6c;
-}
-.item-background.rare:hover{
-	background-color:#5e5e87;
-}
-.item-background.epic {
-	background-color:#523455;
-}
-.item-background.epic:hover{
-	background-color:#6b446f;
-}
-.item-background.legendary {
-	background-color:#4b4b33;
-}
-.item-background.legendary:hover{
-	background-color:#6a6a48;
-}
-.item-background.jinxed {
-	background-color:#694b4e;
-}
-.item-background.jinxed:hover{
-	background-color:#865f63;
-}
-
 
 
 /***********************************************************/
@@ -1783,130 +1731,6 @@ border-radius:5px;
 }
 
 /***********************************************************/
-/*MAP*/
-
-.map-container{
-	float:left;
-	display:inline-block;
-	background-color:#19191a;
-	width:100%;
-	height:100%;
-	margin:0;
-	padding:0;
-	border-radius:5px;
-	overflow:hidden;
-	-webkit-user-select: none;
-}
-
-.place-icon{
-	position:absolute;
-	float:left;
-	margin:15%;
-	width:70%;
-	height:70%;
-	padding:0;
-	-webkit-user-select: none;
-}
-.place-icon:after {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-}
-
-.map-tile{
-	position: relative;
-	float:left;
-	padding:0;
-	margin:1%;
-	border-radius:5px;
-	background-color:#808080;
-	-webkit-user-select: none;
-}
-.map-tile:after {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-}
-.map-tile-content {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.map-tile.blank{
-	background-color:transparent;
-	-webkit-user-select: none;
-}
-.map-tile.player{
-	background-color:#CCC;
-}
-.map-tile.dangerous{
-	background-color:#262626;
-}
-.map-tile.player.dangerous{
-	background-color:#404040;
-}
-
-.map-tile.movement{
-	border-style: solid;
-	background-color:#CCC;
-	border-color:#6163DB;
-}
-.map-tile.movement.dangerous{
-	background-color:#404040;
-	border-color:#E74663;
-}
-.map-tile.movement:hover{
-	cursor:pointer;
-	border-color:#9798e7;
-	-webkit-user-select: none;
-}
-.map-tile.movement.dangerous:hover{
-	cursor:pointer;
-	border-color:#e74696;
-	-webkit-user-select: none;
-}
-
-.npc-icon{
-	position:absolute;
-	height:33%;
-	width:33%;
-	top:2px;
-	left:2px;
-}
-
-.item-icon{
-	position:absolute;
-	height:33%;
-	width:33%;
-	bottom:2px;
-	left:2px;
-}
-
-.hotkey-icon{
-	position:absolute;
-	float:left;
-	width:100%;
-	height:100%;
-	right:2px;
-	top:2px;
-	font-size:10px;
-	line-height:12px;
-	pointer-events: none;
-	-webkit-user-select: none;
-	text-align: right;
-	color: #555;
-}
-.hotkey-icon.dangerous{
-	color: #BBB;
-	-webkit-user-select: none;
-}
-.hotkey-icon.disabled{
-	color: #444;
-	-webkit-user-select: none;
-}
-
-/***********************************************************/
 /*INVENTORY*/
 
 
@@ -1950,42 +1774,6 @@ border-radius:5px;
     width: 18vw;
 	height: 18vw;
 	-webkit-user-select: none;
-}
-.common {
-	background-color:#4b4b4e;
-}
-.common:hover{
-	background-color:#646468;
-}
-.uncommon {
-	background-color:#3D5C47;
-}
-.uncommon:hover{
-	background-color:#5A8767;
-}
-.rare {
-	background-color:#4b4b6c;
-}
-.rare:hover{
-	background-color:#5e5e87;
-}
-.epic {
-	background-color:#523455;
-}
-.epic:hover{
-	background-color:#6b446f;
-}
-.legendary {
-	background-color:#4b4b33;
-}
-.legendary:hover{
-	background-color:#6a6a48;
-}
-.jinxed {
-	background-color:#694b4e;
-}
-.jinxed:hover{
-	background-color:#865f63;
 }
 
 /*RIGHT PANEL*/

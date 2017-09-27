@@ -80,43 +80,44 @@ h6{
 	font-size:20px;
 	font-weight: bold;
 	text-align:center;
-	line-height:20px;
+	line-height:22px;
 	background-color:#19191a;
 	
 	margin:8px 8px 0 8px;
 	padding:8px;
 	
-	width: calc(360px - 32px - 8px);
+	box-sizing: border-box;
+	width: calc(100% - 16px);
 }
-
 .subTitle{
-	font-size:1.2em;
+	font-size:16px;
 	font-weight: bold;
 	text-align:center;
 	line-height:18px;
 	background-color:#19191a;
 	
 	margin:8px 8px 0 8px;
-	padding:8px;
-	width:calc(352px - 32px);
+	padding:4px;
+	
+	box-sizing: border-box;
+	width: calc(100% - 16px);
 }
 .subTitle-third{
-	font-size:1.2em;
+	font-size:16px;
 	font-weight: bold;
 	text-align:center;
 	line-height:18px;
 	background-color:#19191a;
 	
 	margin:8px 8px 0 8px;
-	padding:8px;
-	width:calc(352px/3 - 32px);
+	padding:4px;
+	
+	box-sizing: border-box;
+	width: calc(33.3% - 16px);
 }
-.subTitle-third.combatValue{
-	height:16px;
-	margin:4px 8px 0 8px;
-}
+
 .subTitle-half{
-	font-size:1.1em;
+	font-size:16px;
 	font-weight: bold;
 	text-align:center;
 	line-height:18px;
@@ -124,17 +125,16 @@ h6{
 	
 	margin:8px 8px 0 8px;
 	padding:8px;
-	width:calc(352px/2 - 32px);
+	
+	box-sizing: border-box;
+	width: calc(50% - 16px);
 }
 .subTitle-half.body{
-	height:40px;
-}
-.subTitle-half.combatValue{
-	line-height:16px;
+	height:50px;
 }
 
 .subTitle-picture{
-	font-size:1.2em;
+	font-size:16px;
 	font-weight: bold;
 	text-align:center;
 	line-height:18px;
@@ -167,22 +167,28 @@ h6{
 .description{
 	margin:8px 8px 0 8px;
 	padding:8px;
-	width:calc(352px - 32px);
-	height:90px;
+	height:106px;
 	background-color:#19191a;
+	
+	box-sizing: border-box;
+	width: calc(100% - 16px);
 }
 .description-half{
 	margin:8px 8px 0 8px;
 	padding:8px;
-	width:calc(352px - 32px);
-	height:50px;
+	height:66px;
 	background-color:#19191a;
+	
+	box-sizing: border-box;
+	width: calc(100% - 16px);
 }
 .description-small{
 	text-align:center;
 	margin:8px 8px 0 8px;
 	padding:8px;
-	width:calc(352px - 32px);
-	height:30px;
+	height:46px;
 	background-color:#19191a;
+	
+	box-sizing: border-box;
+	width: calc(100% - 16px);
 }

@@ -218,7 +218,7 @@ public class InventoryTooltipEventListener implements EventListener {
 
 				if (equippedToCharacter != null) {
 					if (equippedToCharacter.getClothingInSlot(invSlot) == null) {
-
+						
 						List<String> clothingBlockingThisSlot = new ArrayList<>();
 						for (AbstractClothing c : equippedToCharacter.getClothingCurrentlyEquipped())
 							if (c.getClothingType().getIncompatibleSlots().contains(invSlot))

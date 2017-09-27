@@ -24,6 +24,21 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.Arm;
+import com.lilithsthrone.game.character.body.Ass;
+import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.Breast;
+import com.lilithsthrone.game.character.body.Ear;
+import com.lilithsthrone.game.character.body.Eye;
+import com.lilithsthrone.game.character.body.Face;
+import com.lilithsthrone.game.character.body.Hair;
+import com.lilithsthrone.game.character.body.Horn;
+import com.lilithsthrone.game.character.body.Leg;
+import com.lilithsthrone.game.character.body.Penis;
+import com.lilithsthrone.game.character.body.Skin;
+import com.lilithsthrone.game.character.body.Tail;
+import com.lilithsthrone.game.character.body.Vagina;
+import com.lilithsthrone.game.character.body.Wing;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -51,6 +66,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
+import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
@@ -437,10 +453,11 @@ public class CharacterUtils {
 				addAttribute(doc, bodyTail, "type", character.getTailType().toString());
 				addAttribute(doc, bodyTail, "count", String.valueOf(character.getTailCount()));
 			
-			// Vagina:TODO
+			// Vagina
 			Element bodyVagina = doc.createElement("vagina");
 			characterBody.appendChild(bodyVagina);
 				addAttribute(doc, bodyVagina, "type", character.getVaginaType().toString());
+				addAttribute(doc, bodyVagina, "labiaSize", String.valueOf(character.getVaginaRawLabiaSizeValue()));
 				addAttribute(doc, bodyVagina, "clitSize", String.valueOf(character.getVaginaRawClitorisSizeValue()));
 				addAttribute(doc, bodyVagina, "pierced", String.valueOf(character.isPiercedVagina()));
 				
@@ -1262,6 +1279,9 @@ public class CharacterUtils {
 				try {
 					Element vagina = (Element)((Element) nodes.item(0)).getElementsByTagName("vagina").item(0);
 					importedCharacter.setVaginaType(VaginaType.valueOf(vagina.getAttribute("type")));
+					if(vagina.getAttribute("labiaSize").length()!=0) {
+						importedCharacter.setVaginaLabiaSize(Integer.valueOf(vagina.getAttribute("labiaSize")));
+					}
 					importedCharacter.setVaginaClitorisSize(Integer.valueOf(vagina.getAttribute("clitSize")));
 					importedCharacter.setPiercedVagina(Boolean.valueOf(vagina.getAttribute("pierced")));
 
@@ -1386,6 +1406,85 @@ public class CharacterUtils {
 		}
 		
 		return importedCharacter;
+	}
+	
+	
+	public static Body generateBody(Gender startingGender, GameCharacter mother, GameCharacter father) {
+		RacialBody startingBodyType = RacialBody.HUMAN;
+		RaceStage stage = RaceStage.HUMAN;
+		
+		
+		
+		
+		return generateBody(startingGender, startingBodyType, stage);
+	}
+	
+	public static Body generateBody(Gender startingGender, RacialBody startingBodyType, RaceStage stage) {
+		
+		Body body = new Body.BodyBuilder(
+				new Arm((stage.isArmFurry()?startingBodyType.getArmType():ArmType.HUMAN), startingBodyType.getArmRows()),
+				new Ass(stage.isAssFurry()?startingBodyType.getAssType():AssType.HUMAN,
+						(startingGender.isFeminine() ? startingBodyType.getFemaleAssSize() : startingBodyType.getMaleAssSize()),
+						startingBodyType.getAnusWetness(),
+						startingBodyType.getAnusCapacity(),
+						startingBodyType.getAnusElasticity(),
+						startingBodyType.getAnusPlasticity(),
+						true),
+				new Breast(stage.isBreastFurry()?startingBodyType.getBreastType():BreastType.HUMAN,
+						BreastShape.getRandomBreastShape(),
+						(startingGender.isFeminine() ? startingBodyType.getFemaleBreastSize() : startingBodyType.getMaleBreastSize()),
+						(startingGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
+						((stage.isSkinFurry() && Main.getProperties().multiBreasts==1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
+								?(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale())
+								:1),
+						(startingGender.isFeminine() ? startingBodyType.getFemaleNippleSize() : startingBodyType.getMaleNippleSize()),
+						(startingGender.isFeminine() ? startingBodyType.getFemaleNippleShape() : startingBodyType.getMaleNippleShape()),
+						(startingGender.isFeminine() ? startingBodyType.getFemaleAreolaeSize() : startingBodyType.getMaleAreolaeSize()),
+						(startingGender.isFeminine() ? startingBodyType.getFemaleNippleCountPerBreast() : startingBodyType.getMaleNippleCountPerBreast()),
+						(startingGender.isFeminine() ? startingBodyType.getFemaleBreastCapacity() : startingBodyType.getMaleBreastCapacity()),
+						(startingGender.isFeminine() ? startingBodyType.getFemaleBreastElasticity() : startingBodyType.getMaleBreastElasticity()),
+						(startingGender.isFeminine() ? startingBodyType.getFemaleBreastPlasticity() : startingBodyType.getMaleBreastPlasticity()), 
+						true),
+				new Face((stage.isFaceFurry()?startingBodyType.getFaceType():FaceType.HUMAN),
+						(startingGender.isFeminine() ? startingBodyType.getFemaleLipSize() : startingBodyType.getMaleLipSize())),
+				new Eye(stage.isEyeFurry()?startingBodyType.getEyeType():EyeType.HUMAN),
+				new Ear(stage.isEarFurry()?startingBodyType.getEarType():EarType.HUMAN),
+				new Hair(stage.isHairFurry()?startingBodyType.getHairType():HairType.HUMAN,
+						(startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()),
+						HairStyle.getRandomHairStyle((startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))),
+				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN),
+				new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN),
+				startingBodyType.getBodyMaterial(),
+				startingBodyType.getGenitalArrangement(),
+				(startingGender.isFeminine() ? startingBodyType.getFemaleHeight() : startingBodyType.getMaleHeight()),
+				(startingGender.isFeminine() ? startingBodyType.getFemaleFemininity() : startingBodyType.getMaleFemininity()),
+				(startingGender.isFeminine() ? startingBodyType.getFemaleBodySize() : startingBodyType.getMaleBodySize()),
+				(startingGender.isFeminine() ? startingBodyType.getFemaleMuscle() : startingBodyType.getMaleMuscle()))
+						.vagina((startingGender.getGenderName().isHasVagina())
+								? new Vagina(stage.isVaginaFurry()?startingBodyType.getVaginaType():VaginaType.HUMAN,
+										LabiaSize.getRandomLabiaSize().getValue(),
+										startingBodyType.getClitSize(),
+										startingBodyType.getVaginaWetness(),
+										startingBodyType.getVaginaCapacity(),
+										startingBodyType.getVaginaElasticity(),
+										startingBodyType.getVaginaPlasticity(),
+										true)
+								: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true))
+						.penis((startingGender.getGenderName().isHasPenis())
+								? new Penis(stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN,
+									startingBodyType.getPenisSize(),
+									startingBodyType.getTesticleSize(),
+									startingBodyType.getCumProduction(),
+									startingBodyType.getTesticleQuantity())
+								: new Penis(PenisType.NONE, 0, 0, 0, 2))
+						.horn(startingBodyType.getHornTypeFemale() == HornType.NONE ? new Horn(HornType.NONE) : new Horn(!startingGender.isFeminine()
+								? (stage.isHornFurry()?startingBodyType.getHornTypeMale():HornType.NONE)
+								: (stage.isHornFurry()?startingBodyType.getHornTypeFemale():HornType.NONE)))
+						.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
+						.wing(new Wing(stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE))
+						.build();
+		
+		return body;
 	}
 	
 	public static void randomiseBody(GameCharacter character) {

@@ -1004,7 +1004,7 @@ public enum Perk implements PerkInterface {
 				return UtilText.parse(owner, "[npc.Name] is highly unlikely to get pregnant.");
 			}
 		}
-	},;
+	};
 
 	private int renderingPriority;
 	protected String name;

@@ -14,12 +14,14 @@
 	
 	UI:
 		Updated the content preferences screen.
+		Updated the light theme to work with the new UI elements. (It could still do with a lot of improvements though.)
 	
 	Other:
 		Assumed gender from appearance now takes into account whether your balls are internal, whether your penis is sheathed, and whether you have a cloaca. (A bulge won't be visible for internal balls or cloacas, and will only be visible for very large sheathed penises.)
 		Moved tape crosses from chest to nipple slot.
 		Improved gender detection and naming to take into account whether the person has breasts or not.
 		Added more pattern availability to nail polish and lipstick.
+		Improved parser capitalisation detection for body part colours.
 	
 	Bugs:
 		Typo fixes.
@@ -34,30 +36,66 @@
 		Fixed Pix's post-sex scene leading to the arcade's entrance dialogue, instead of the gym's exterior dialogue.
 		You should no longer be assumed to be a hermaphrodite if only your penis is visible.
 		Possibly fixed a cause of the Properties file being reset now and again.
+		Fixed ability to see NPC's vagina and penis in the tooltip when hovering over their level when you did not know what their genitals looked like.
+		Fixed tooltip for NPC's equipped clothing not displaying the correct information.
+		Fixed broken description in selfie for 'almost unnoticable' breast sizes.
 	
 	
 	
 	
 	
-	check all kate's stuff, cosmetics
 	
-	add labia description in body
+	Body
+		Mother & father
+			Genetics
+		Race
 	
 	
+	
+	Personality, backgrounds, and sex xp
+	character creation
+	
+	
+	Bugs
+	
+	
+	
+	I've enslaved a succubus but there's no 'grow cock' action during sex (as with Lilaya), has something to do with affection or obedience level
+	
+	NPC TF fetish to TF race
+	
+	hide undergarments
 	
 	genetics system based on eye/skin/fur/hair colour, and height/build/stats
 	presets based on ethnicity
 	
-	he has one pair of no chest, which fit comfortably into a no-cup bra
-		 I gave a flat-chested person a potion with one small breast growth
+	So my character is a dom... huge build, huge cock, huge balls, etc. I'm taking off my clothes to a female, no penis or anything...
+		"She lets out a patronizing 'aww' as your huge cock is revealed. "Look at that cute little thing!""
 	
-	PATREON VOTE
+	Pure virgins, when defeated, should have their first sex scene be automatically marked as a non-con scene if non-con scenes are enabled
+		
+	jinxed clothing on slaves to remove
 	
-	Content preferences buttons
+	bovine clothing to nyan's shop
+	
+	Lilaya, Kate, Ralph, sex update
+	
+	temp NPC level scaling
+	
+	taking self-virginity desriptions
+	
+	Minor Bug report
+	When I started the latest version I exported my character from the older version and did a start (import)
+	This retained that my character was pregnant, and when it came time to give birth, nothing happened, the status was removed, my phone said I had never been pregnant before
+	Also (probably not a bug)
+	I bought Scarlett and while being raped they refuse to use elixirs/potions. Using Slave Management/Inventory then no problems, they take them fine.
+	
 	
 	giving greater demon tfs being able to transform
 	
 	>referred to as a horse-girl just because my character has a horse penis
+	
+	Lilaya she never asked my character to pull out, but she latter acted as if she had
 	
 	The denial options need to work in submissive stance, I think
 	Although with different text
@@ -82,7 +120,7 @@
 	
 	Make Ralph greater horse-boy
 	
-	Stretched out instantly?
+	Stretched out instantly in sex? (it only takes one thrust?)
 	
 	AI:
 	

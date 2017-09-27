@@ -3302,11 +3302,11 @@ public class MainController implements Initializable {
 			id = invSlot.toString() + "Slot";
 			if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(InventoryDialogue.getInventoryNPC(), invSlot);
+					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(RenderingEngine.getNpcToRender(), invSlot);
 					addEventListener(documentRight, id, "click", el, false);
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, InventoryDialogue.getInventoryNPC());
+					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, RenderingEngine.getNpcToRender());
 					addEventListener(documentRight, id, "mouseenter", el2, false);
 				}
 			}
@@ -3676,10 +3676,15 @@ public class MainController implements Initializable {
 	public WebEngine getWebEngineTooltip() {
 		return webEngineTooltip;
 	}
+	
 	public WebEngine getWebEngineAttributes() {
 		return webEngineAttributes;
 	}
-
+	
+	public WebEngine getWebEngineRight() {
+		return webEngineRight;
+	}
+	
 	public WebEngine getWebEngineButtons() {
 		return webEngineButtons;
 	}
@@ -3710,21 +3715,23 @@ public class MainController implements Initializable {
 	
 	public void switchTheme() {
 		if (Main.getProperties().lightTheme) {
-			Main.mainController.getWebEngineTooltip().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewTooltip_stylesheet.css").toExternalForm());
-			Main.mainController.getWebEngine().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webView_stylesheet.css").toExternalForm());
-			Main.mainController.getWebEngineButtons().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet.css").toExternalForm());
-			Main.mainController.getWebEngineAttributes().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet.css").toExternalForm());
-			Main.mainController.getWebEngineResponse().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewResponse_stylesheet.css").toExternalForm());
+			getWebEngineTooltip().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewTooltip_stylesheet.css").toExternalForm());
+			getWebEngine().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webView_stylesheet.css").toExternalForm());
+			getWebEngineButtons().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet.css").toExternalForm());
+			getWebEngineAttributes().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet.css").toExternalForm());
+			getWebEngineResponse().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewResponse_stylesheet.css").toExternalForm());
+			getWebEngineRight().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet.css").toExternalForm());
 	
 			Main.mainScene.getStylesheets().clear();
 			Main.mainScene.getStylesheets().add("/com/lilithsthrone/res/css/stylesheet.css");
 			Main.primaryStage.setScene(Main.mainScene);
 		} else {
-			Main.mainController.getWebEngineTooltip().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewTooltip_stylesheet_light.css").toExternalForm());
-			Main.mainController.getWebEngine().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webView_stylesheet_light.css").toExternalForm());
-			Main.mainController.getWebEngineButtons().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet_light.css").toExternalForm());
-			Main.mainController.getWebEngineAttributes().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet_light.css").toExternalForm());
-			Main.mainController.getWebEngineResponse().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewResponse_stylesheet_light.css").toExternalForm());
+			getWebEngineTooltip().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewTooltip_stylesheet_light.css").toExternalForm());
+			getWebEngine().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webView_stylesheet_light.css").toExternalForm());
+			getWebEngineButtons().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet_light.css").toExternalForm());
+			getWebEngineAttributes().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet_light.css").toExternalForm());
+			getWebEngineResponse().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewResponse_stylesheet_light.css").toExternalForm());
+			getWebEngineRight().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet_light.css").toExternalForm());
 	
 			Main.mainScene.getStylesheets().clear();
 			Main.mainScene.getStylesheets().add("/com/lilithsthrone/res/css/stylesheet_light.css");

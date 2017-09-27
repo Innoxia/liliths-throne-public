@@ -3535,7 +3535,11 @@ public class GameCharacter implements Serializable {
 	public Race getRace() {
 		return body.getRace();
 	}
-
+	
+	public Race getAntennaRace() {
+		return body.getAntenna().getType().getRace();
+	}
+	
 	public Race getArmRace() {
 		return body.getArm().getType().getRace();
 	}
@@ -3583,6 +3587,10 @@ public class GameCharacter implements Serializable {
 	public Race getTailRace() {
 		return body.getTail().getType().getRace();
 	}
+	
+	public Race getTongueRace() {
+		return body.getFace().getTongue().getType().getRace();
+	}
 
 	public Race getVaginaRace() {
 		return body.getVagina().getType().getRace();
@@ -3609,13 +3617,13 @@ public class GameCharacter implements Serializable {
 									"<b>You have discovered that your natural</b>"
 									+" <b style='color:"+bp.getType().getBodyCoveringType().getRace().getColour().toWebHexString()+";'>"+bp.getType().getBodyCoveringType().getRace().getName()+"'s</b>"
 											+ " <b>"+bp.getType().getBodyCoveringType().getName(this)+" colour is "
-									+getCovering(bp.getType().getBodyCoveringType()).getColourDescriptor(true)+"!</b>");
+									+getCovering(bp.getType().getBodyCoveringType()).getColourDescriptor(true, false)+"!</b>");
 						} else {
 							postTFSB.append(UtilText.parse(this,
 									"<b>[npc.Name] has discovered that [npc.her] natural</b>"
 									+" <b style='color:"+bp.getType().getBodyCoveringType().getRace().getColour().toWebHexString()+";'>"+bp.getType().getBodyCoveringType().getRace().getName()+"'s</b>"
-											+ " <b>"+bp.getType().getBodyCoveringType().getName(this)+" colour is</b>"
-									+ " <b style='color:"+getCovering(bp.getType().getBodyCoveringType()).getPrimaryColour().toWebHexString()+";'>"+getCovering(bp.getType().getBodyCoveringType()).getColourDescriptor(false)+"</b><b>!</b>"));
+											+ " <b>"+bp.getType().getBodyCoveringType().getName(this)+" colour is</b> "
+											+getCovering(bp.getType().getBodyCoveringType()).getColourDescriptor(true, false)+"!</b>"));
 						}
 					}
 				}
@@ -4174,7 +4182,7 @@ public class GameCharacter implements Serializable {
 						+ "</p>";
 			} else {
 				return "<p>"
-							+ "You are [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(true)+" nail polish."
+							+ "You are [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(true, false)+" nail polish."
 						+ "</p>";
 			}
 			
@@ -4185,7 +4193,7 @@ public class GameCharacter implements Serializable {
 						+ "</p>");
 			} else {
 				return UtilText.parse(this,"<p>"
-							+ "[npc.Name] is [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(true)+" nail polish."
+							+ "[npc.Name] is [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(true, false)+" nail polish."
 						+ "</p>");
 			}
 		}
@@ -4737,7 +4745,7 @@ public class GameCharacter implements Serializable {
 						+ "</p>";
 			} else {
 				return "<p>"
-							+ "You are [style.boldGrow(now wearing)] "+eyeLiner.getColourDescriptor(true)+" eye liner."
+							+ "You are [style.boldGrow(now wearing)] "+eyeLiner.getColourDescriptor(true, false)+" eye liner."
 						+ "</p>";
 			}
 			
@@ -4748,7 +4756,7 @@ public class GameCharacter implements Serializable {
 						+ "</p>");
 			} else {
 				return UtilText.parse(this,"<p>"
-							+ "[npc.Name] is [style.boldGrow(now wearing)] "+eyeLiner.getColourDescriptor(true)+" eye liner."
+							+ "[npc.Name] is [style.boldGrow(now wearing)] "+eyeLiner.getColourDescriptor(true, false)+" eye liner."
 						+ "</p>");
 			}
 		}
@@ -4765,7 +4773,7 @@ public class GameCharacter implements Serializable {
 						+ "</p>";
 			} else {
 				return "<p>"
-							+ "You are [style.boldGrow(now wearing)] "+eyeShadow.getColourDescriptor(true)+" eye shadow."
+							+ "You are [style.boldGrow(now wearing)] "+eyeShadow.getColourDescriptor(true, false)+" eye shadow."
 						+ "</p>";
 			}
 			
@@ -4776,7 +4784,7 @@ public class GameCharacter implements Serializable {
 						+ "</p>");
 			} else {
 				return UtilText.parse(this,"<p>"
-							+ "[npc.Name] is [style.boldGrow(now wearing)] "+eyeShadow.getColourDescriptor(true)+" eye shadow."
+							+ "[npc.Name] is [style.boldGrow(now wearing)] "+eyeShadow.getColourDescriptor(true, false)+" eye shadow."
 						+ "</p>");
 			}
 		}
@@ -4895,7 +4903,7 @@ public class GameCharacter implements Serializable {
 						+ "</p>";
 			} else {
 				return "<p>"
-							+ "You are [style.boldGrow(now wearing)] "+lipstick.getColourDescriptor(true)+" lipstick."
+							+ "You are [style.boldGrow(now wearing)] "+lipstick.getColourDescriptor(true, false)+" lipstick."
 						+ "</p>";
 			}
 			
@@ -4906,7 +4914,7 @@ public class GameCharacter implements Serializable {
 						+ "</p>");
 			} else {
 				return UtilText.parse(this,"<p>"
-							+ "[npc.Name] is [style.boldGrow(now wearing)] "+lipstick.getColourDescriptor(true)+" lipstick."
+							+ "[npc.Name] is [style.boldGrow(now wearing)] "+lipstick.getColourDescriptor(true, false)+" lipstick."
 						+ "</p>");
 			}
 		}
@@ -4923,7 +4931,7 @@ public class GameCharacter implements Serializable {
 						+ "</p>";
 			} else {
 				return "<p>"
-							+ "You are [style.boldGrow(now wearing)] "+blusher.getColourDescriptor(true)+" blusher."
+							+ "You are [style.boldGrow(now wearing)] "+blusher.getColourDescriptor(true, false)+" blusher."
 						+ "</p>";
 			}
 			
@@ -4934,7 +4942,7 @@ public class GameCharacter implements Serializable {
 						+ "</p>");
 			} else {
 				return UtilText.parse(this,"<p>"
-							+ "[npc.Name] is [style.boldGrow(now wearing)] "+blusher.getColourDescriptor(true)+" blusher."
+							+ "[npc.Name] is [style.boldGrow(now wearing)] "+blusher.getColourDescriptor(true, false)+" blusher."
 						+ "</p>");
 			}
 		}
@@ -5210,7 +5218,7 @@ public class GameCharacter implements Serializable {
 						+ "</p>";
 			} else {
 				return "<p>"
-							+ "You are [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(true)+" toenail polish."
+							+ "You are [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(true, false)+" toenail polish."
 						+ "</p>";
 			}
 			
@@ -5221,7 +5229,7 @@ public class GameCharacter implements Serializable {
 						+ "</p>");
 			} else {
 				return UtilText.parse(this,"<p>"
-							+ "[npc.Name] is [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(true)+" toenail polish."
+							+ "[npc.Name] is [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(true, false)+" toenail polish."
 						+ "</p>");
 			}
 		}
