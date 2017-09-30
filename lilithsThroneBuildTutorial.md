@@ -28,7 +28,7 @@ http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.h
 17. You should now be able to run the exported .jar file!
 
 ## Help
-#### No Launch Configuration
+#### No Launch Configuration OR "Could not find main method from given launch configuration."
 1. First close the Export wizard
 2. Select the Project in the Package Explorer
 3. In the top bar, click Project, and then Properties
@@ -36,7 +36,7 @@ http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.h
 5. In the right column, click New
 6. Choose Java Application, and click OK
 7. A Wizard will open, click Search next to the "Main Class" Box
-8. Another Window will open, there will be one matching item called "Main - com.base.main" Select this and click OK
+8. Another Window will open, there will be one matching item called "Main - com.lilithsthrone.main" Select this and click OK
 9. Click OK
 10. Click Apply and Close
 11. Try Exporting Again
