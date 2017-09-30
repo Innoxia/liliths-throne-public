@@ -2,10 +2,10 @@ package com.lilithsthrone.game.character.npc;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
@@ -24,12 +24,14 @@ import com.lilithsthrone.world.places.Jungle;
 
 /**
  * @since 0.1.82
- * @version 0.1.82
+ * @version 0.1.86
  * @author Innoxia
  */
 public class NPCOffspring extends NPC {
 
 	private static final long serialVersionUID = 1L;
+	
+	public boolean flagIntroduced = false;
 
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
 		super(null, "", 3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER,
@@ -52,23 +54,42 @@ public class NPCOffspring extends NPC {
 		if(Math.random()<0.5) {
 			gender = Gender.M_P_MALE;
 		}
-
-		Race race = Race.DOG_MORPH;
-		RaceStage raceStage = RaceStage.PARTIAL;
-		double chance = Math.random();
-		if(chance<=0.5) {
-			race = mother.getRace();
-			raceStage = mother.getRaceStage();
-		} else {
-			race = father.getRace();
-			raceStage = father.getRaceStage();
-		}
 		
-		setBody(gender, RacialBody.valueOfRace(race), raceStage);
+		setBody(gender, mother, father);
 		
 		setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(getGender()));
 
-		setName(Name.getRandomTriplet(race));
+		setName(Name.getRandomTriplet(getRace()));
+
+		// PERSONALITY & BACKGROUND:
+		
+		if(this.isFeminine()) {
+			if(Math.random()>0.25f) {
+				this.setHistory(History.PROSTITUTE);
+			} else {
+				this.setHistory(History.MUGGER);
+			}
+			
+		} else {
+			if(Math.random()>0.95f) {
+				this.setHistory(History.PROSTITUTE);
+			} else {
+				this.setHistory(History.MUGGER);
+			}
+		}
+		
+//		switch(personality) {
+//			case AIR_SOCIABLE:
+//				if()
+//				break;
+//			case EARTH_CALM:
+//				break;
+//			case FIRE_COMMANDING:
+//				break;
+//			case WATER_ANALYTICAL:
+//				break;
+//		
+//		}
 		
 		// ADDING FETISHES:
 		
@@ -82,7 +103,7 @@ public class NPCOffspring extends NPC {
 		
 		resetInventory();
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-
+		
 		CharacterUtils.equipClothing(this, true, false);
 
 		this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);

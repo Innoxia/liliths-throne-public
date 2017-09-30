@@ -40,7 +40,9 @@ import com.lilithsthrone.game.KeyboardAction;
 import com.lilithsthrone.game.character.CharacterChangeEventListener;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
+import com.lilithsthrone.game.character.Personality;
 import com.lilithsthrone.game.character.QuestLine;
+import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -265,7 +267,10 @@ public class MainController implements Initializable {
 	}
 
 	public void openInventory() {
-		if(Main.game.isInCombat()) {
+		if(!Main.game.isInNewWorld()) {
+			openInventory(null, InventoryInteraction.CHARACTER_CREATION);
+			
+		} else if(Main.game.isInCombat()) {
 			openInventory((NPC) Combat.getOpponent(), InventoryInteraction.COMBAT);
 			
 		} else if(Main.game.isInSex()) {
@@ -1856,6 +1861,7 @@ public class MainController implements Initializable {
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.game.getPlayer().setFemininity(Femininity.MASCULINE_STRONG.getMedianFemininity());
+						CharacterCreation.getDressed();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -1863,6 +1869,7 @@ public class MainController implements Initializable {
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.game.getPlayer().setFemininity(Femininity.MASCULINE.getMedianFemininity());
+						CharacterCreation.getDressed();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -1870,6 +1877,7 @@ public class MainController implements Initializable {
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.game.getPlayer().setFemininity(Femininity.ANDROGYNOUS.getMedianFemininity());
+						CharacterCreation.getDressed();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -1877,6 +1885,7 @@ public class MainController implements Initializable {
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.game.getPlayer().setFemininity(Femininity.FEMININE.getMedianFemininity());
+						CharacterCreation.getDressed();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -1884,9 +1893,35 @@ public class MainController implements Initializable {
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.game.getPlayer().setFemininity(Femininity.FEMININE_STRONG.getMedianFemininity());
+						CharacterCreation.getDressed();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
+				
+				
+				// Personality:
+				for(Personality personality : Personality.values()) {
+					id = "PERSONALITY_"+personality;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.getPlayer().setPersonality(personality);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				// Orientation:
+				for(SexualOrientation orientation : SexualOrientation.values()) {
+					id = "SEXUAL_ORIENTATION_"+orientation;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.getPlayer().setSexualOrientation(orientation);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				
 			
 				// Height:
 				for(int i : CharacterModificationUtils.heightChoices) {

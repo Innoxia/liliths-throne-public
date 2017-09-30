@@ -42,6 +42,8 @@ import com.lilithsthrone.game.character.npc.dominion.Vicky;
 import com.lilithsthrone.game.character.npc.generic.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.generic.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.generic.GenericMaleNPC;
+import com.lilithsthrone.game.character.npc.prologue.PrologueFemale;
+import com.lilithsthrone.game.character.npc.prologue.PrologueMale;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
@@ -83,6 +85,8 @@ public class Game implements Serializable {
 	
 	// Unique NPCs:
 	private NPC
+		prologueMale,			// Male NPC in the prologue.
+		prologueFemale,			// Female NPC in the prologue.
 		testNPC,				// NPC for testing purposes.
 		lilaya,		 			// The player's aunt.
 		rose,		 			// Lilaya's slave.
@@ -178,6 +182,12 @@ public class Game implements Serializable {
 		offspringSpawned = new ArrayList<>();
 
 		try {
+			prologueMale = new PrologueMale();
+			addNPC(prologueMale);
+			
+			prologueFemale = new PrologueFemale();
+			addNPC(prologueFemale);
+			
 			testNPC = new TestNPC();
 			addNPC(testNPC);
 			
@@ -292,6 +302,9 @@ public class Game implements Serializable {
 		endTurn(turnTime, true);
 	}
 	
+	private boolean isInNPCUpdateLoop = false;
+	private List<NPC> npcsToRemove = new ArrayList<>();
+	private List<NPC> npcsToAdd = new ArrayList<>();
 	public void endTurn(int turnTime, boolean advanceTime) {
 		
 		if(advanceTime) {
@@ -308,6 +321,7 @@ public class Game implements Serializable {
 		NPCMap.entrySet().removeIf(e -> (e.getValue().getLocationPlace().getPlaceType() != Dominion.CITY_BACK_ALLEYS && e.getValue().getWorldLocation()==WorldType.DOMINION && !Main.game.getPlayer().getLocation().equals(e.getValue().getLocation())));
 		
 		// Apply status effects for all NPCs:
+		isInNPCUpdateLoop = true;
 		for (NPC npc : NPCMap.values()) {
 			npc.calculateStatusEffects(turnTime);
 			
@@ -346,6 +360,15 @@ public class Game implements Serializable {
 				}
 			}
 		}
+		isInNPCUpdateLoop = false;
+		for(NPC npc : npcsToRemove) {
+			NPCMap.remove(npc.getId());
+		}
+		for(NPC npc : npcsToAdd) {
+			NPCMap.put(npc.getId(), npc);
+		}
+		npcsToRemove.clear();
+		npcsToAdd.clear();
 		
 		// If not in combat:
 		if (!isInCombat()) {
@@ -1630,6 +1653,14 @@ public class Game implements Serializable {
 		this.currentEncounter = currentEncounter;
 	}
 
+	public NPC getPrologueMale() {
+		return prologueMale;
+	}
+
+	public NPC getPrologueFemale() {
+		return prologueFemale;
+	}
+
 	public NPC getTestNPC() {
 		return testNPC;
 	}
@@ -1746,15 +1777,23 @@ public class Game implements Serializable {
 			throw new Exception("NPC map already contained an NPC with this Id. SOMETHING HAS GONE HORRIBLY WRONG! PANIC!");
 		}
 		
-		NPCMap.put(npc.getId(), npc);
+		if(isInNPCUpdateLoop) {
+			npcsToAdd.add(npc);
+		} else {
+			NPCMap.put(npc.getId(), npc);
+		}
 	}
 	
 	public void removeNPC(NPC npc) {
-		if(npc.isPregnant()) {
-			npc.endPregnancy(false);
+		if(isInNPCUpdateLoop) {
+			npcsToRemove.add(npc);
+		} else {
+			if(npc.isPregnant()) {
+				npc.endPregnancy(false);
+			}
+			
+			NPCMap.remove(npc.getId());
 		}
-		
-		NPCMap.remove(npc.getId());
 	}
 
 	public NPC getActiveNPC() {

@@ -44,7 +44,7 @@ import com.lilithsthrone.main.Main;
  */
 public class Properties implements Serializable {
 	private static final long serialVersionUID = 1L;
-	public String lastSaveLocation = "", nameColour = "", name = "", race = "", quest = "", versionNumber="";
+	public String lastSaveLocation = "", lastQuickSaveName = "", nameColour = "", name = "", race = "", quest = "", versionNumber="";
 	public int fontSize = 18, level = 1, money = 0, humanEncountersLevel = 1, multiBreasts = 1;
 	public boolean lightTheme = false, overwriteWarning = true, fadeInText=false,
 			furryTailPenetrationContent = false,
@@ -144,6 +144,8 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, previousSave, "level", String.valueOf(level));
 			createXMLElementWithValue(doc, previousSave, "money", String.valueOf(money));
 			createXMLElementWithValue(doc, previousSave, "versionNumber", Main.VERSION_NUMBER);
+			createXMLElementWithValue(doc, previousSave, "lastQuickSaveName", lastQuickSaveName);
+			
 			
 			// Game settings:
 			Element settings = doc.createElement("settings");
@@ -402,6 +404,9 @@ public class Properties implements Serializable {
 				level = Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value"));
 				money = Integer.valueOf(((Element)element.getElementsByTagName("money").item(0)).getAttribute("value"));
 				versionNumber = ((Element)element.getElementsByTagName("versionNumber").item(0)).getAttribute("value");
+				if(element.getElementsByTagName("lastQuickSaveName").item(0)!=null) {
+					lastQuickSaveName = ((Element)element.getElementsByTagName("lastQuickSaveName").item(0)).getAttribute("value");
+				}
 				
 				// Settings:
 				nodes = doc.getElementsByTagName("settings");

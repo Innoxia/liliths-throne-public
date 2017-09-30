@@ -193,6 +193,39 @@ public class WeaponType {
 			return genericRangedAttackDescription(character, target,isHit);
 		}
 	};
+	
+	// I made this in one of my lunch breaks x_x
+	public static AbstractWeaponType MAIN_WESTERN_KKP = new AbstractWeaponType("a",
+			"it",
+			"Western KKP",
+			"Western KKPs",
+			"A blowback-operated semi-automatic pistol, featuring an exposed hammer, a traditional double-action trigger mechanism, a single-column magazine, and a fixed barrel that also acts as the guide rod for the recoil spring.",
+			InventorySlot.WEAPON_MAIN,
+			"western_kkp",
+			Rarity.LEGENDARY,
+			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL)),
+			DamageLevel.ABSURD,
+			DamageVariance.LOW,
+			null,
+			null) {
+		
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter character) {
+			return "You ready your pistol.";
+		}
+
+		@Override
+		public String unequipText(GameCharacter character) {
+			return "You stow your pistol away.";
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			return "You just shoot them... Thankfully, there seems to be some kind of arcane force preventing your gun from actually killing them...";
+		}
+	};
 
 	public static List<AbstractWeaponType> rareWeapons = new ArrayList<>(), allweapons = new ArrayList<>();
 	
@@ -216,10 +249,12 @@ public class WeaponType {
 					weaponToIdMap.put(weapon, f.getName());
 					idToWeaponMap.put(f.getName(), weapon);
 					
-					allweapons.add(weapon);
+					if(weapon != MAIN_WESTERN_KKP) {
+						allweapons.add(weapon);
 					
-					if (weapon.getRarity() == Rarity.RARE) {
-						rareWeapons.add(weapon);
+						if (weapon.getRarity() == Rarity.RARE) {
+							rareWeapons.add(weapon);
+						}
 					}
 					
 				} catch (IllegalArgumentException | IllegalAccessException e) {

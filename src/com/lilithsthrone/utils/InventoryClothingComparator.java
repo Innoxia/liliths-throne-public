@@ -27,7 +27,7 @@ public class InventoryClothingComparator implements Comparator<AbstractClothing>
 		if (result != 0) {
 			return result;
 		} else {
-			result = first.getName().compareTo(second.getName());
+			result = first.getClothingType().getSlot().compareTo(second.getClothingType().getSlot());
 			
 			if(result!=0)
 				return result;

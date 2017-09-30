@@ -74,6 +74,10 @@ public class CharacterInventory implements Serializable {
 	private int maxInventorySpace;
 
 	public CharacterInventory(int money) {
+		this(money, 24);
+	}
+		
+	public CharacterInventory(int money, int maxInventorySpace) {
 
 		this.money = money;
 
@@ -96,7 +100,7 @@ public class CharacterInventory implements Serializable {
 		clothingCurrentlyEquipped = new ArrayList<>();
 		clothingSetCount = new EnumMap<>(ClothingSet.class);
 
-		maxInventorySpace = 24;
+		this.maxInventorySpace = maxInventorySpace;
 	}
 	
 	public List<AbstractItem> getItemsInInventory() {
@@ -811,7 +815,11 @@ public class CharacterInventory implements Serializable {
 					else
 						equipTextSB.append("</br>" + characterClothingOwner.droppedItemText(c));
 					String oldEquipText = equipTextSB.toString();// this is a hack to fix the string builder being overwritten
-					characterClothingOwner.unequipClothingIntoInventory(c, true, characterClothingEquipper);
+					if(Main.game.isInNewWorld()) {
+						characterClothingOwner.unequipClothingIntoInventory(c, true, characterClothingEquipper);
+					} else {
+						characterClothingOwner.unequipClothingOntoFloor(c, true, characterClothingEquipper);
+					}
 					equipTextSB.setLength(0);
 					equipTextSB.append(oldEquipText);
 				}
@@ -821,12 +829,17 @@ public class CharacterInventory implements Serializable {
 
 				// Remove the old clothing in this slot using the owner's accessor method:
 				if (getClothingInSlot(newClothing.getClothingType().getSlot()) != null) {
-					if (!characterClothingOwner.isInventoryFull() || characterClothingOwner.hasClothing(getClothingInSlot(newClothing.getClothingType().getSlot())))
+					if ((!characterClothingOwner.isInventoryFull() || characterClothingOwner.hasClothing(getClothingInSlot(newClothing.getClothingType().getSlot()))) && Main.game.isInNewWorld()) {
 						equipTextSB.append("</br>" + characterClothingOwner.addedItemToInventoryText(getClothingInSlot(newClothing.getClothingType().getSlot())));
-					else
+					} else {
 						equipTextSB.append("</br>" + characterClothingOwner.droppedItemText(getClothingInSlot(newClothing.getClothingType().getSlot())));
+					}
 					String oldEquipText = equipTextSB.toString();// this is a hack to fix the string builder being overwritten
-					characterClothingOwner.unequipClothingIntoInventory(getClothingInSlot(newClothing.getClothingType().getSlot()), true, characterClothingEquipper);
+					if(Main.game.isInNewWorld()) {
+						characterClothingOwner.unequipClothingIntoInventory(getClothingInSlot(newClothing.getClothingType().getSlot()), true, characterClothingEquipper);
+					} else {
+						characterClothingOwner.unequipClothingOntoFloor(getClothingInSlot(newClothing.getClothingType().getSlot()), true, characterClothingEquipper);
+					}
 					equipTextSB.setLength(0);
 					equipTextSB.append(oldEquipText);
 				}

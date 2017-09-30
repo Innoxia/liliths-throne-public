@@ -12,25 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.body.Arm;
-import com.lilithsthrone.game.character.body.Ass;
+import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
-import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.Ear;
-import com.lilithsthrone.game.character.body.Eye;
-import com.lilithsthrone.game.character.body.Face;
-import com.lilithsthrone.game.character.body.Hair;
-import com.lilithsthrone.game.character.body.Horn;
-import com.lilithsthrone.game.character.body.Leg;
-import com.lilithsthrone.game.character.body.Penis;
-import com.lilithsthrone.game.character.body.Skin;
-import com.lilithsthrone.game.character.body.Tail;
-import com.lilithsthrone.game.character.body.Vagina;
-import com.lilithsthrone.game.character.body.Wing;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -127,6 +115,7 @@ import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceInterface;
+import com.lilithsthrone.world.places.PlaceUpgrade;
 
 import java.util.Set;
 
@@ -167,13 +156,20 @@ public class GameCharacter implements Serializable {
 	protected CharacterInventory inventory;
 
 	protected History history;
+	protected Personality personality;
+	protected SexualOrientation sexualOrientation;
 
+	// Relationship stats:
+	private Map<GameCharacter, Float> affectionMap;
+	
+	// Slavery:
+	private float obedience;
+	
 	protected List<NPC> slavesOwned;
 	protected GameCharacter owner;
 	protected DialogueNodeOld enslavementDialogue;
 	
-	protected SexualOrientation sexualOrientation;
-	
+	// Family:
 	protected GameCharacter mother, father;
 	protected int dayOfConception, dayOfBirth;
 
@@ -206,7 +202,6 @@ public class GameCharacter implements Serializable {
 
 	// Clothes:
 	protected int nakedSlots;
-	
 	
 	// Stats:
 	// Combat stats:
@@ -245,13 +240,17 @@ public class GameCharacter implements Serializable {
 		this.startingPlace = startingPlace;
 		location = new Vector2i(0, 0);
 		
-		history = History.NEUTRAL;
+		history = History.UNEMPLOYED;
+		personality = startingRace.getPersionality();
+		sexualOrientation = startingRace.getSexualOrientation(startingGender);
 
+		affectionMap = new HashMap<GameCharacter,Float>();
+		
+		obedience = 0;
+		
 		slavesOwned = new ArrayList<>();
 		owner = null;
 		enslavementDialogue = null;
-		
-		sexualOrientation = startingRace.getSexualOrientation(startingGender);
 		
 		mother = null;
 		father = null;
@@ -427,71 +426,15 @@ public class GameCharacter implements Serializable {
 	public String getBodyDescription() {
 		return body.getDescription(this);
 	}
+	
+	public void setBody(Gender startingGender, GameCharacter mother, GameCharacter father) {
+		body = CharacterUtils.generateBody(startingGender, mother, father);
 
-	// This is messy ;_;
+		postTransformationCalculation();
+	}
+	
 	public void setBody(Gender startingGender, RacialBody startingBodyType, RaceStage stage) {
-		body = new Body.BodyBuilder(
-				new Arm((stage.isArmFurry()?startingBodyType.getArmType():ArmType.HUMAN), startingBodyType.getArmRows()),
-				new Ass(stage.isAssFurry()?startingBodyType.getAssType():AssType.HUMAN,
-						(startingGender.isFeminine() ? startingBodyType.getFemaleAssSize() : startingBodyType.getMaleAssSize()),
-						startingBodyType.getAnusWetness(),
-						startingBodyType.getAnusCapacity(),
-						startingBodyType.getAnusElasticity(),
-						startingBodyType.getAnusPlasticity(),
-						true),
-				new Breast(stage.isBreastFurry()?startingBodyType.getBreastType():BreastType.HUMAN,
-						BreastShape.getRandomBreastShape(),
-						(startingGender.isFeminine() ? startingBodyType.getFemaleBreastSize() : startingBodyType.getMaleBreastSize()),
-						(startingGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
-						((stage.isSkinFurry() && Main.getProperties().multiBreasts==1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
-								?(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale())
-								:1),
-						(startingGender.isFeminine() ? startingBodyType.getFemaleNippleSize() : startingBodyType.getMaleNippleSize()),
-						(startingGender.isFeminine() ? startingBodyType.getFemaleNippleShape() : startingBodyType.getMaleNippleShape()),
-						(startingGender.isFeminine() ? startingBodyType.getFemaleAreolaeSize() : startingBodyType.getMaleAreolaeSize()),
-						(startingGender.isFeminine() ? startingBodyType.getFemaleNippleCountPerBreast() : startingBodyType.getMaleNippleCountPerBreast()),
-						(startingGender.isFeminine() ? startingBodyType.getFemaleBreastCapacity() : startingBodyType.getMaleBreastCapacity()),
-						(startingGender.isFeminine() ? startingBodyType.getFemaleBreastElasticity() : startingBodyType.getMaleBreastElasticity()),
-						(startingGender.isFeminine() ? startingBodyType.getFemaleBreastPlasticity() : startingBodyType.getMaleBreastPlasticity()), 
-						true),
-				new Face((stage.isFaceFurry()?startingBodyType.getFaceType():FaceType.HUMAN),
-						(startingGender.isFeminine() ? startingBodyType.getFemaleLipSize() : startingBodyType.getMaleLipSize())),
-				new Eye(stage.isEyeFurry()?startingBodyType.getEyeType():EyeType.HUMAN),
-				new Ear(stage.isEarFurry()?startingBodyType.getEarType():EarType.HUMAN),
-				new Hair(stage.isHairFurry()?startingBodyType.getHairType():HairType.HUMAN,
-						(startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()),
-						HairStyle.getRandomHairStyle((startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))),
-				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN),
-				new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN),
-				startingBodyType.getBodyMaterial(),
-				startingBodyType.getGenitalArrangement(),
-				(startingGender.isFeminine() ? startingBodyType.getFemaleHeight() : startingBodyType.getMaleHeight()),
-				(startingGender.isFeminine() ? startingBodyType.getFemaleFemininity() : startingBodyType.getMaleFemininity()),
-				(startingGender.isFeminine() ? startingBodyType.getFemaleBodySize() : startingBodyType.getMaleBodySize()),
-				(startingGender.isFeminine() ? startingBodyType.getFemaleMuscle() : startingBodyType.getMaleMuscle()))
-						.vagina((startingGender.getGenderName().isHasVagina())
-								? new Vagina(stage.isVaginaFurry()?startingBodyType.getVaginaType():VaginaType.HUMAN,
-										LabiaSize.getRandomLabiaSize().getValue(),
-										startingBodyType.getClitSize(),
-										startingBodyType.getVaginaWetness(),
-										startingBodyType.getVaginaCapacity(),
-										startingBodyType.getVaginaElasticity(),
-										startingBodyType.getVaginaPlasticity(),
-										true)
-								: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true))
-						.penis((startingGender.getGenderName().isHasPenis())
-								? new Penis(stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN,
-									startingBodyType.getPenisSize(),
-									startingBodyType.getTesticleSize(),
-									startingBodyType.getCumProduction(),
-									startingBodyType.getTesticleQuantity())
-								: new Penis(PenisType.NONE, 0, 0, 0, 2))
-						.horn(startingBodyType.getHornTypeFemale() == HornType.NONE ? new Horn(HornType.NONE) : new Horn(!startingGender.isFeminine()
-								? (stage.isHornFurry()?startingBodyType.getHornTypeMale():HornType.NONE)
-								: (stage.isHornFurry()?startingBodyType.getHornTypeFemale():HornType.NONE)))
-						.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
-						.wing(new Wing(stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE))
-						.build();
+		body = CharacterUtils.generateBody(startingGender, startingBodyType, stage);
 
 		postTransformationCalculation();
 	}
@@ -576,7 +519,6 @@ public class GameCharacter implements Serializable {
 		return history;
 	}
 
-
 	public void setHistory(History history) {
 		// Revert attributes from old History:
 		for (Attribute att : this.history.getAttributeModifiers().keySet())
@@ -593,6 +535,162 @@ public class GameCharacter implements Serializable {
 		updateAttributeListeners();
 	}
 	
+	public Personality getPersonality() {
+		return personality;
+	}
+
+	public void setPersonality(Personality personality) {
+		this.personality = personality;
+	}
+
+	public SexualOrientation getSexualOrientation() {
+		return sexualOrientation;
+	}
+
+	public void setSexualOrientation(SexualOrientation sexualOrientation) {
+		this.sexualOrientation = sexualOrientation;
+	}
+
+	
+	// Obedience:
+	
+	public float getObedience() {
+		return obedience;
+	}
+
+	public String setObedience(float obedience) {
+		
+		this.obedience = Math.max(-100, Math.min(100, obedience));
+		
+		return UtilText.parse(this,
+					"<p style='text-align:center'>"
+						+ "[npc.Name] now has <b>"+(obedience>0?"+":"")+obedience+"</b> [style.boldObedience(obedience)]!</br>"
+						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
+					+ "</p>");
+	}
+	
+	public String incrementObedience(float increment) {
+		
+		setObedience(getObedience()+increment);
+		
+		return UtilText.parse(this,
+				"<p style='text-align:center'>"
+						+ "[npc.Name] "+(increment>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!"
+					+ "</p>");
+	}
+	
+	public float getDailyObedienceChange() {
+		// Forgive me, for I am tired x_x
+		
+		float obedienceTrack = getObedience();
+		
+		for(PlaceUpgrade upgrade : this.getLocationPlace().getPlaceUpgrades()) {
+			if(upgrade.getObedienceCap()==null) {
+				obedienceTrack += upgrade.getObedienceGain();
+				
+			} else {
+				if(upgrade.getObedienceGain()>0) {
+					if(getObedience() < upgrade.getObedienceCap().getMaximumValue()) {
+						if(getObedience() + upgrade.getObedienceGain() > upgrade.getObedienceCap().getMaximumValue()) {
+							obedienceTrack = upgrade.getObedienceCap().getMaximumValue();
+						} else {
+							obedienceTrack += upgrade.getObedienceGain();
+						}
+					}
+					
+				} else if(upgrade.getObedienceGain()<0) {
+					if(getObedience() > upgrade.getObedienceCap().getMinimumValue()) {
+						if(getObedience() + upgrade.getObedienceGain() < upgrade.getObedienceCap().getMinimumValue()) {
+							obedienceTrack = upgrade.getObedienceCap().getMinimumValue();
+						} else {
+							obedienceTrack += upgrade.getObedienceGain();
+						}
+					}
+				}
+			}
+		}
+		
+		return obedienceTrack - getObedience();
+	}
+	
+	public int getValueAsSlave() {
+		int value = 1000;
+		
+		value += (getFetishes().size()*50);
+		
+		value *= (100+(getObedience()/2))/100f;
+		
+		return value;
+	}
+	
+	// Affection:
+	/**
+	 * Do not use this method to alter the map!
+	 */
+	public Map<GameCharacter, Float> getAffectionMap() {
+		return affectionMap;
+	}
+	
+	public float getAffection(GameCharacter character) {
+		if(affectionMap.containsKey(character)) {
+			return affectionMap.get(character);
+		} else {
+			affectionMap.put(character, 0f);
+			return 0;
+		}
+	}
+	
+	public AffectionLevel getAffectionLevel(GameCharacter character) {
+		if(affectionMap.containsKey(character)) {
+			return AffectionLevel.getAffectionLevelFromValue(affectionMap.get(character));
+		} else {
+			return AffectionLevel.getAffectionLevelFromValue(0);
+		}
+	}
+	
+	/**
+	 * Sets this character's affection towards the supplied GameCharacter.
+	 * 
+	 * @param character
+	 * @param affection
+	 * @return
+	 */
+	public String setAffection(GameCharacter character, float affection) {
+		
+		affectionMap.put(character, Math.max(-100, Math.min(100, affection)));
+		
+		if(character.isPlayer()) {
+			return UtilText.parse(this,
+					"<p style='text-align:center'>"
+						+ "[npc.Name] now has <b>"+(affection>0?"+":"")+affection+"</b> [style.boldAffection(affection)] towards you!</br>"
+						+ AffectionLevel.getDescription(this, character, AffectionLevel.getAffectionLevelFromValue(affection), true)
+					+ "</p>");
+			
+		} else {
+			return UtilText.parse(character,
+					"<p style='text-align:center'>"
+						+ getName("The")+" now has <b>"+(affection>0?"+":"")+affection+"</b> [style.boldAffection(affection)] towards [npc.name]!</br>"
+						+ AffectionLevel.getDescription(this, character, AffectionLevel.getAffectionLevelFromValue(affection), true)
+					+ "</p>");
+		}
+	}
+	
+	/**
+	 * Increments this character's affection towards the supplied GameCharacter.
+	 * 
+	 * @param character
+	 * @param affectionIncrement
+	 * @return
+	 */
+	public String incrementAffection(GameCharacter character, float affectionIncrement) {
+		setAffection(character, getAffection(character) + affectionIncrement);
+		
+		return UtilText.parse(character,
+				"<p style='text-align:center'>"
+						+ getName("The") + " "+(affectionIncrement>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(affectionIncrement)+"</b> [style.boldAffection(affection)] towards "+(character.isPlayer()?"you":"[npc.name]")+"!"
+					+ "</p>");
+	}
+	
 	
 	// Slavery:
 	
@@ -602,6 +700,11 @@ public class GameCharacter implements Serializable {
 	
 	public void setEnslavementDialogue(DialogueNodeOld enslavementDialogue) {
 		this.enslavementDialogue = enslavementDialogue;
+	}
+	
+	public void applyEnslavementEffects(GameCharacter enslaver) {
+		this.setAffection(enslaver, -200);
+		this.setObedience(-100);
 	}
 	
 	public boolean isAbleToBeEnslaved() {
@@ -652,13 +755,6 @@ public class GameCharacter implements Serializable {
 	}
 	
 	
-	public SexualOrientation getSexualOrientation() {
-		return sexualOrientation;
-	}
-
-	public void setSexualOrientation(SexualOrientation sexualOrientation) {
-		this.sexualOrientation = sexualOrientation;
-	}
 	
 	public GameCharacter getMother() {
 		return mother;
@@ -2394,7 +2490,7 @@ public class GameCharacter implements Serializable {
 
 			updateInventoryListeners();
 
-			if (isPlayer()) {
+			if (isPlayer() && Main.game.isInNewWorld()) {
 				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
 					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getName(), newClothing.getRarity().getColour()), true);
 				}
@@ -2420,7 +2516,7 @@ public class GameCharacter implements Serializable {
 
 			updateInventoryListeners();
 
-			if (isPlayer()) {
+			if (isPlayer() && Main.game.isInNewWorld()) {
 				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
 					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getName(), newClothing.getRarity().getColour()), true);
 				}
@@ -2447,7 +2543,7 @@ public class GameCharacter implements Serializable {
 
 			updateInventoryListeners();
 
-			if (isPlayer()) {
+			if (isPlayer() && Main.game.isInNewWorld()) {
 				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
 					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getName(), newClothing.getRarity().getColour()), true);
 				}
@@ -5744,6 +5840,9 @@ public class GameCharacter implements Serializable {
 	// Type:
 	public VaginaType getVaginaType() {
 		return body.getVagina().getType();
+	}
+	public String setVaginaType(VaginaType type, boolean overridePregnancyPrevention) {
+		return body.getVagina().setType(this, type, overridePregnancyPrevention);
 	}
 	public String setVaginaType(VaginaType type) {
 		return body.getVagina().setType(this, type);

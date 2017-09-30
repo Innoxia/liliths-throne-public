@@ -1,10 +1,11 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.1.85
+ * @version 0.1.86
  * @author Innoxia
  */
 public enum BodyHair {
@@ -38,6 +39,10 @@ public enum BodyHair {
 
 	public Colour getColour() {
 		return colour;
+	}
+	
+	public static BodyHair getRandomBodyHair() {
+		return BodyHair.values()[Util.random.nextInt(BodyHair.values().length)];
 	}
 	
 	public static BodyHair getBodyHairFromValue(int value) {

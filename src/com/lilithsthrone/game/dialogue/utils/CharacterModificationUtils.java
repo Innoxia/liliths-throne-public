@@ -3,6 +3,8 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.character.Personality;
+import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -1247,6 +1249,75 @@ public class CharacterModificationUtils {
 		
 		return contentSB.toString();
 	}
+	
+	public static String getPersonalityChoiceDiv() {
+		contentSB.setLength(0);
+		
+		contentSB.append(
+				"<div class='cosmetics-inner-container'>"
+						+ "<h5 style='text-align:center;'>"
+							+"Personality"
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ "Your personality will have a minor influence on how your character speaks or reacts."
+							+ " It will not lock out any options during the game, and is more for roleplaying purposes."
+						+ "</p>");
+		
+		for(Personality personality : Personality.values()) {
+			if(Main.game.getPlayer().getPersonality() == personality) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+personality.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(personality.getName())+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='PERSONALITY_"+personality+"' class='cosmetics-button'>"
+							+ "<span style='color:"+personality.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(personality.getName())+"</span>"
+						+ "</div>");
+			}
+		}
+		
+		contentSB.append("</div>");
+		
+		return contentSB.toString();
+	}
+	
+	public static String getOrientationChoiceDiv() {
+		contentSB.setLength(0);
+		
+		contentSB.append(
+				"<div class='container-full-width'>"
+						+"<div class='cosmetics-inner-container full'>"
+						+ "<h5 style='text-align:center;'>"
+							+"Sexual Orientation"
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ "Sexual orientation in Lilith's Throne is determined by your attraction towards femininity or masculinity."
+							+ " Each orientation has a related status effect (hover over the related icon in the left-hand panel to see the effects)."
+						+ "</p>");
+		
+		for(SexualOrientation orientation : SexualOrientation.values()) {
+			if(Main.game.getPlayer().getSexualOrientation() == orientation) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+orientation.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(orientation.getName())+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='SEXUAL_ORIENTATION_"+orientation+"' class='cosmetics-button'>"
+							+ "<span style='color:"+orientation.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(orientation.getName())+"</span>"
+						+ "</div>");
+			}
+		}
+		
+		contentSB.append("</div></div>");
+		
+		return contentSB.toString();
+	}
+	
+	
 	
 	// Advanced:
 	

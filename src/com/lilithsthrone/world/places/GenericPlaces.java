@@ -13,12 +13,16 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.75
- * @version 0.1.75
+ * @version 0.1.86
  * @author Innoxia
  */
 public enum GenericPlaces implements PlaceInterface {
 	
 	IMPASSABLE(null, null, null, null, null, false, false);
+	
+//	EMPTY_TILE("Empty", "slaverAlleyIcon",  BaseColour.CRIMSON, SlaverAlleyDialogue.OUTSIDE, null, true, false),
+//	
+//	MUSEUM("Museum", "slaverAlleyIcon",  BaseColour.CRIMSON, SlaverAlleyDialogue.OUTSIDE, null, true, false);
 	
 	private String name, SVGString;
 	private BaseColour colour;

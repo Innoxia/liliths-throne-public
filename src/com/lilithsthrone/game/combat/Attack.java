@@ -4,6 +4,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 
 /**
  * @since 0.1.0
@@ -76,13 +77,15 @@ public enum Attack {
 	 * @param attacker
 	 * @return
 	 */
-	public static float getMeleeDamage(GameCharacter attacker) {
-		if (attacker == null)
+	public static float getMeleeDamage(GameCharacter attacker, AbstractWeapon weapon) {
+		if (attacker == null) {
 			return 0;
-		if (attacker.getMainWeapon() == null)
+		}
+		if (weapon == null) {
 			return 4 + attacker.getLevel();
-		else
-			return ((4 + attacker.getLevel()) * (attacker.getMainWeapon().getWeaponType().getDamageLevel().getDamageModifier()));
+		} else {
+			return ((4 + attacker.getLevel()) * (weapon.getWeaponType().getDamageLevel().getDamageModifier()));
+		}
 	}
 
 	/**
@@ -138,17 +141,17 @@ public enum Attack {
 	 *            Type of this attack.
 	 * @return Minimum damage possible for this attack.
 	 */
-	public static float getMinimumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType) {
+	public static float getMinimumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon) {
 		
 		float damage = 0;
 		
 		if (attackType == MAIN) {
-			damage = getModifiedDamage(attacker, defender, attackType, (attacker.getMainWeapon() == null ? DamageType.PHYSICAL : attacker.getMainWeapon().getDamageType()),
-						getMeleeDamage(attacker) * (attacker.getMainWeapon() == null ? 1 - DamageVariance.MEDIUM.getPercentage() : 1f - attacker.getMainWeapon().getWeaponType().getDamageVariance().getPercentage()));
+			damage = getModifiedDamage(attacker, defender, attackType, (weapon == null ? DamageType.PHYSICAL : weapon.getDamageType()),
+						getMeleeDamage(attacker, weapon) * (weapon == null ? 1 - DamageVariance.MEDIUM.getPercentage() : 1f - weapon.getWeaponType().getDamageVariance().getPercentage()));
 		
 		} else if (attackType == OFFHAND) {
-			damage = getModifiedDamage(attacker, defender, attackType, (attacker.getOffhandWeapon() == null ? DamageType.PHYSICAL : attacker.getOffhandWeapon().getDamageType()),
-					getMeleeDamage(attacker) * (attacker.getOffhandWeapon() == null ? 1 - DamageVariance.MEDIUM.getPercentage() : 1f - attacker.getOffhandWeapon().getWeaponType().getDamageVariance().getPercentage()));
+			damage = getModifiedDamage(attacker, defender, attackType, (weapon == null ? DamageType.PHYSICAL : weapon.getDamageType()),
+					getMeleeDamage(attacker, weapon) * (weapon == null ? 1 - DamageVariance.MEDIUM.getPercentage() : 1f - weapon.getWeaponType().getDamageVariance().getPercentage()));
 	
 		} else {
 			damage =  (getModifiedDamage(attacker, defender, attackType, DamageType.MANA, getSeductionDamage(attacker) * 0.8f));
@@ -158,6 +161,9 @@ public enum Attack {
 		damage = (Math.round(damage*10))/10f;
 		
 		return damage;
+	}
+	public static float getMinimumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType) {
+		return getMinimumDamage(attacker, defender, attackType, (attackType == MAIN ? attacker.getMainWeapon() : attackType == OFFHAND ? attacker.getOffhandWeapon() : null));
 	}
 
 	/**
@@ -173,17 +179,17 @@ public enum Attack {
 	 *            Type of this attack.
 	 * @return Minimum damage possible for this attack.
 	 */
-	public static float getMaximumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType) {
+	public static float getMaximumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon) {
 
 		float damage = 0;
 		
 		if (attackType == MAIN) {
-			damage = (getModifiedDamage(attacker, defender, attackType, (attacker.getMainWeapon() == null ? DamageType.PHYSICAL : attacker.getMainWeapon().getDamageType()),
-					getMeleeDamage(attacker) * (attacker.getMainWeapon() == null ? 1 + DamageVariance.MEDIUM.getPercentage() : 1f + attacker.getMainWeapon().getWeaponType().getDamageVariance().getPercentage())));
+			damage = (getModifiedDamage(attacker, defender, attackType, (weapon == null ? DamageType.PHYSICAL : weapon.getDamageType()),
+					getMeleeDamage(attacker, weapon) * (weapon == null ? 1 + DamageVariance.MEDIUM.getPercentage() : 1f + weapon.getWeaponType().getDamageVariance().getPercentage())));
 
 		}  else if (attackType == OFFHAND) {
-			damage = getModifiedDamage(attacker, defender, attackType, (attacker.getOffhandWeapon() == null ? DamageType.PHYSICAL : attacker.getOffhandWeapon().getDamageType()),
-					getMeleeDamage(attacker) * (attacker.getOffhandWeapon() == null ? 1 + DamageVariance.MEDIUM.getPercentage() : 1f + attacker.getOffhandWeapon().getWeaponType().getDamageVariance().getPercentage()));
+			damage = getModifiedDamage(attacker, defender, attackType, (weapon == null ? DamageType.PHYSICAL : weapon.getDamageType()),
+					getMeleeDamage(attacker, weapon) * (weapon == null ? 1 + DamageVariance.MEDIUM.getPercentage() : 1f + weapon.getWeaponType().getDamageVariance().getPercentage()));
 	
 		} else {
 			damage = (getModifiedDamage(attacker, defender, attackType, DamageType.MANA, getSeductionDamage(attacker) * 1.2f));
@@ -193,6 +199,9 @@ public enum Attack {
 		damage = (Math.round(damage*10))/10f;
 		
 		return damage;
+	}
+	public static float getMaximumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType) {
+		return getMinimumDamage(attacker, defender, attackType, (attackType == MAIN ? attacker.getMainWeapon() : attackType == OFFHAND ? attacker.getOffhandWeapon() : null));
 	}
 
 	/**

@@ -8,23 +8,45 @@
 	
 	
 	Gameplay:
-		Improved the flow of the character creation screens.
-		Added breast shape, along with breast shape enchantment elements.
+		<b>Added to and improved:</b> Character creation. (I still have a little more to add to this.)
+		<b>Changed:</b> You now start the game with whatever clothes you picked in the character creation process. (Rip hoodie and yoga pants. ;_;)
+		<b>Added:</b> (A very basic) genetics system to offspring. Offspring's features will now be inherited and influenced by their parents. (I will improve this at some stage in the future, but it should be ok as a placeholder.)
+		<b>Added:</b> Four personality types. These will be used to influence the random NPCs' dialogue, obedience & affection gains/losses, and other minor things.
+		Added breast shape, along with breast shape enchantment elements. (Round, pointy, side-set, wide, and narrow.)
 		Added labia size.
+		Increased storage capacity for each tile's ground inventory from 24 to 48.
 	
 	UI:
 		Updated the content preferences screen.
 		Updated the light theme to work with the new UI elements. (It could still do with a lot of improvements though.)
 	
+	Clothing:
+		(I needed to add some more clothing for the character creation.)
+		Added: Stiletto heels (feminine, foot slot).
+		Added: Trainer socks (unisex, sock slot).
+		Added: Low-top skater shoes (unisex, foot slot).
+		Added: Tie (unisex, neck slot).
+		Added: Suit jacket (masculine, over-torso slot).
+	
 	Other:
+		<b>Improved:</b> Gender detection and naming to take into account whether the person has breasts or not.
 		Assumed gender from appearance now takes into account whether your balls are internal, whether your penis is sheathed, and whether you have a cloaca. (A bulge won't be visible for internal balls or cloacas, and will only be visible for very large sheathed penises.)
+		Added 'Use all' to inventory options.
 		Moved tape crosses from chest to nipple slot.
-		Improved gender detection and naming to take into account whether the person has breasts or not.
 		Added more pattern availability to nail polish and lipstick.
 		Improved parser capitalisation detection for body part colours.
+		Inventory is now ordered by slot type.
+		Nyan now stocks the cattle set's items.
+		Enabled 'Take all' in inventory for taking all of an NPC's items at once.
+		Changed bovine penis default modifier from flared to tapered. (Thanks Rfpnj!)
+		NPCs will now only spawn with non-con, incest, or transformation fetishes if you have the associated option turned on in the content preferences.
+		NPCs can now span with up to five fetishes.
+		Increased chance (to 50%) for your offspring to have the incest fetish.
+		NPCs that you enslave will start off loathing you and will be very disobedient.
 	
 	Bugs:
-		Typo fixes.
+		The icon for watches now have their hands pointing to the correct in-game time again.
+		Typo and formatting fixes.
 		Fixed crotchless thong being called 'crotchless thongs'.
 		Negative values for fertility or virility now correctly prevent pregnancy.
 		Clothing unequipping in sex is now correctly blocked by other clothing. (e.g. can't unequip your partner's panties if they're wearing yoga pants.)
@@ -39,24 +61,78 @@
 		Fixed ability to see NPC's vagina and penis in the tooltip when hovering over their level when you did not know what their genitals looked like.
 		Fixed tooltip for NPC's equipped clothing not displaying the correct information.
 		Fixed broken description in selfie for 'almost unnoticable' breast sizes.
+		Pubic, facial, and body hair for NPCs should now be displayed if you have those options turned on.
+		Fixed weapon tooltips displaying incorrect damage.
+		Fixed bugs which would allow you to use dye-brushes in an incorrect manner, thereby wasting them.
+		Fixed bug related to Alexa's unsold slaves not being cleared from the game's memory.
+		<b>Fixed:</b> You no longer lose your vagina when importing a character that's either pregnant, or has the pregnancy risk effect.
+		Importing a character now correctly sets your virginity loss description.
+		Equipping a slave collar on an NPC from their inventory should now correctly trigger enslavement.
+	
+	
+	
+	Not sure about the personality thing...
+	I think just backgrounds for now...
 	
 	
 	
 	
-	
-	
-	Body
-		Mother & father
-			Genetics
-		Race
+	PROLOGUE MESH
+	CLOTHING Your clothes will get scattered around the lab
 	
 	
 	
-	Personality, backgrounds, and sex xp
-	character creation
+	fix finger sucking
+	
+	fix scarlett - Can't replicate ;_;
+	
+	
+	
+	personality for named NPCs
+	
+	
+	
+	shrug it off an approach the crowd, where a guy/girl approaches you and starts talking [background, xp points]
+	
+	the strange atmosphere seems to be growing in intensity, and you suddenly find yourself talking about sex [sex background, sex exp]
+	
+	React differently based on if you're virgin, "normal" or slut, start heading towards the museum bathroom
+	Get stopped by Lily, she's panicking about Arthur (partner sighs and says they'll find you later).
+	
+	
+	are content toggle settings supposed to influence the fetishes NPCs can spawn with?
+	 Cause they currently don't seem to do so and it seems like they should. IE non con and incest fetishes probably shouldnt be in the NPC spawn list if those fetishes are toggled off.
+	
+	
+	
+	incest dialogue
+	
+	
+	udders & crotch breasts
+	
+	
+	
+	
 	
 	
 	Bugs
+	
+	
+	
+	- Backalley neutral:
+		- Vending machine (lesser TF items)
+		DONE Package (package is still wrapped but the label has been soaked in cum, can't read it)
+		- Item hidden under grate/behind box/in pipe
+		- See people having sex down alley
+		- Friendly shopkeeper
+		- Someone runs past and drops something
+	- Fights:
+		- Enforcer
+		DONE Harpy nest
+		DONE Male (dog, wolf, cat, horse) mugger
+		- Female (dog, wolf, cat, horse) prostitute (may fight you if you don't pay)
+		- Gang ambush (dog, wolf, cat, horse) males & females
+		- Girl getting mugged (can intervene, she runs off shouting thanks behind her)
 	
 	
 	
@@ -64,10 +140,11 @@
 	
 	NPC TF fetish to TF race
 	
+	bimbo lollipop TF pubes don't match
+	
 	hide undergarments
 	
-	genetics system based on eye/skin/fur/hair colour, and height/build/stats
-	presets based on ethnicity
+	colour presets based on ethnicity
 	
 	So my character is a dom... huge build, huge cock, huge balls, etc. I'm taking off my clothes to a female, no penis or anything...
 		"She lets out a patronizing 'aww' as your huge cock is revealed. "Look at that cute little thing!""
@@ -75,8 +152,6 @@
 	Pure virgins, when defeated, should have their first sex scene be automatically marked as a non-con scene if non-con scenes are enabled
 		
 	jinxed clothing on slaves to remove
-	
-	bovine clothing to nyan's shop
 	
 	Lilaya, Kate, Ralph, sex update
 	
@@ -104,10 +179,10 @@
 	But when you talk to them, it says they're not
 	
 	
-	what do you think about having orgasms affect NPC affection/ obedience? IE consensual sex orgasms could increase affection. Meanwhile non con orgasms increase obedience (And if they have the non con fetish then non con orgasms also raise affection.)
+	what do you think about having orgasms affect NPC affection/ obedience? IE consensual sex orgasms could increase affection.
+		Meanwhile non con orgasms increase obedience (And if they have the non con fetish then non con orgasms also raise affection.)
 	
-	
-	If incest off, do not show incest fetish
+	improve forced transformation descriptions
 	
 	incest encounter offspring, sex option do not appear if incest off
 		incest fetish increases encounter rate
@@ -178,7 +253,9 @@ When you defeat them you will get the option to "reclaim" giving you back only i
 	
 	Alexa's shop has a small display bug, if you don't have enough money to buy from her it'll display the Sell prices of her slaves on a greyed out button. It's a minor problem given how lucrative slaving is right now, of course.
 	
+	Scarlett room transfer issues
 	So, I'm trying to move Scarlett into one of the slave rooms, but "Transfer Here" isn't actually doing anything on her. When I try to click "Detailed Management", it also does nothing.
+	
 	
 	the Frustrated effect should be removed by orgasm in later sex
 	
@@ -189,8 +266,6 @@ When you defeat them you will get the option to "reclaim" giving you back only i
 	Thigh sex and hotdogging
 	
 	Forced jinxed clothing
-	
-	Scarlett room transfer issues
 	
 	It no longer shows pc or npc's wearing condoms on the penis slot
 	
@@ -231,8 +306,6 @@ When you defeat them you will get the option to "reclaim" giving you back only i
 	The AI seems to be fixating on chest-play when in the kneeling position for some reason.  Oral and oral performers are more into paizuri/naizuri than breast and breast lovers.  There is possibly also too much of a focus on anal fingering, but this may be due to a lack of other options
 	
 	in the characters present screen if you mouse over the closing the NPC is wearing it only shows you what slot it is not what the item is
-	
-	watches are still handless
 	
 	Scarlett refuses to take a vixen's virility. I don't think slaves should get to do that
 	
@@ -2770,10 +2843,6 @@ I would also suggest the following addition :
 	
 	- Fix descriptions in inventory 
 	
-	- Can consume weapon to add enchantment based on weapon rarity. (can enchant multiple times for weaker weapons. Max +5)
-	
-	- Allow to change hotkeys
-	
 	- Refine selfie.
 	
 	- Fix all RacialBody parts to use parts specific to their race
@@ -2784,24 +2853,13 @@ I would also suggest the following addition :
 	
 	- Make method to set body to partial, lesser & greater. (For random character generation)
 	
-	Each tf item will give a ~1 hour long boost. i.e. dog morph tf gives +10 stamina and +5 str for an hour
-	
 	Katie's gang (the three you saw in prologue)
 	1 Victory: fuck Katie (can use horse-boys on her or not)
 	1 Defeat: Get fucked by horse-boys as Katie forces you to eat her out
 	
-	SIDE ONE:
-	
-	- Sex needs to progress time
-	- Also apply "recently orgasmed" status effect, which increases willpower resistance
 	- Also after sex, need to reset mana to max
 	
 	- Make all encounters & places
-	
-	
-	- Make consumables give core stats (main attributes only from legendaries)
-	
-	- Weapons, items & perk pictures will need gradient names changed
 	
 	Extremely High wetness should soak panties instantly
 	Move wetness methods & tracking from sex into character

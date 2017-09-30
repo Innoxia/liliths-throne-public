@@ -1127,7 +1127,7 @@ public class OptionsDialogue {
 					"FORCED_TF",
 					Colour.BASE_GREEN_LIGHT,
 					"Forced Transformations",
-					"This makes random NPCs forcibly transform you if you lose combat against them.",
+					"With this turned on, random NPCs will forcibly transform you if you lose combat against them.",
 					Main.getProperties().forcedTransformationContent));
 
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(

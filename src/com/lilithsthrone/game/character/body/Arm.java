@@ -344,6 +344,10 @@ public class Arm implements BodyPartInterface, Serializable {
 	}
 
 	public String setUnderarmHair(GameCharacter owner, BodyHair underarmHair) {
+		if(owner==null) {
+			this.underarmHair = underarmHair;
+			return "";
+		}
 		
 		if(getUnderarmHair() == underarmHair) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";

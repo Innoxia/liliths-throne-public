@@ -15,7 +15,9 @@ public enum DamageLevel {
 	HIGH("good",
 			1.25f),
 	EXTREME("excellent",
-			1.5f);
+			1.5f),
+	ABSURD("absurd",
+			1000f);
 
 	private String name;
 	private float damageModifier;

@@ -54,8 +54,19 @@ public enum WorldType {
 					new ListValue<PlaceInterface>(Dominion.CITY_DARK_ALLEYS),
 					new ListValue<PlaceInterface>(Dominion.CITY_DARK_ALLEYS))),
 
+	// Empty:
+//	EMPTY("Empty",
+//			Colour.BASE_YELLOW,
+//			1,
+//			"/com/lilithsthrone/res/map/empty.png",
+//			Util.newHashMapOfValues(
+//					new Value<>(new Color(0xff0000), GenericPlaces.EMPTY_TILE),
+//					new Value<>(new Color(0x0080ff), GenericPlaces.MUSEUM)),
+//			
+//			Dominion.CITY_EXIT_TO_SEA,
+//			WorldType.DOMINION),
 	
-	LILAYAS_HOUSE_GROUND_FLOOR("Lilaya's home",
+	LILAYAS_HOUSE_GROUND_FLOOR("Lilaya's Home",
 			Colour.BASE_BLUE_LIGHT,
 			1,
 			"/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_ground_floor.png",
@@ -83,7 +94,7 @@ public enum WorldType {
 		}
 	},
 	
-	LILAYAS_HOUSE_FIRST_FLOOR("Lilaya's home",
+	LILAYAS_HOUSE_FIRST_FLOOR("Lilaya's Home",
 			Colour.BASE_BLUE_LIGHT,
 			1,
 			"/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_first_floor.png",
@@ -107,7 +118,7 @@ public enum WorldType {
 	},
 
 	HARPY_NEST(4,
-			"Harpy nests",
+			"Harpy Nests",
 			Colour.BASE_CRIMSON,
 			5,
 			HarpyNests.WALKWAYS,
@@ -137,7 +148,7 @@ public enum WorldType {
 			Dominion.CITY_SLAVER_ALLEY,
 			WorldType.DOMINION),
 	
-	SHOPPING_ARCADE("Shopping arcade",
+	SHOPPING_ARCADE("Shopping Arcade",
 			Colour.BASE_YELLOW,
 			1,
 			"/com/lilithsthrone/res/map/dominion/shoppingArcade/shoppingArcade.png",

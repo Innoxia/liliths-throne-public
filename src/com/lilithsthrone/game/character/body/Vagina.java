@@ -107,6 +107,10 @@ public class Vagina implements BodyPartInterface, Serializable {
 	}
 	
 	public String setType(GameCharacter owner, VaginaType type) {
+		return setType(owner, type, false);
+	}
+	
+	public String setType(GameCharacter owner, VaginaType type, boolean overridePregnancyPrevention) {
 		if (type == owner.getVaginaType()) {
 			if(owner.isPlayer()) {
 				if(type == VaginaType.NONE) {
@@ -127,7 +131,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 		UtilText.transformationContentSB.setLength(0);
 		
 		// Cannot transform if pregnant:
-		if (owner.isPregnant() || owner.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+		if (!overridePregnancyPrevention && (owner.isPregnant() || owner.hasStatusEffect(StatusEffect.PREGNANT_0))) {
 			if(owner.isPlayer()) {
 				UtilText.transformationContentSB.append(
 						"<p>"

@@ -134,6 +134,10 @@ public class Anus implements BodyPartInterface, Serializable {
 	}
 	
 	public String setAssHair(GameCharacter owner, BodyHair assHair) {
+		if(owner==null) {
+			this.assHair=assHair;
+			return "";
+		}
 		String transformation = "";
 		
 		if(getAssHair() == assHair) {

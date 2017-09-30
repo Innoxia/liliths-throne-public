@@ -184,6 +184,10 @@ public class Nyan extends NPC {
 		specials.add(AbstractClothingType.generateClothing(ClothingType.MAID_HEELS));
 		specials.add(AbstractClothingType.generateClothing(ClothingType.MAID_SLEEVES));
 		specials.add(AbstractClothingType.generateClothing(ClothingType.MAID_STOCKINGS));
+		
+		specials.add(AbstractClothingType.generateClothing(ClothingType.CATTLE_PIERCING_NOSE_BOVINE_RING));
+		specials.add(AbstractClothingType.generateClothing(ClothingType.CATTLE_NECK_COWBELL_COLLAR));
+		specials.add(AbstractClothingType.generateClothing(ClothingType.CATTLE_PIERCING_EAR_TAGS));
 
 		specials.add(AbstractClothingType.generateClothing(ClothingType.MEGA_MILK));
 		

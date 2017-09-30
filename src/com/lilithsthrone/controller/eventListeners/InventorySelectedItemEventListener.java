@@ -48,6 +48,8 @@ public class InventorySelectedItemEventListener implements EventListener {
 						break;
 					case TRADING:
 						break;
+					case CHARACTER_CREATION:
+						break;
 				}
 				
 				

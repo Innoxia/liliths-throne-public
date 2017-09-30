@@ -16,13 +16,10 @@ import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.Dominion;
 import com.lilithsthrone.world.places.GenericPlace;
@@ -30,7 +27,7 @@ import com.lilithsthrone.world.places.LilayasHome;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.86
  * @author Innoxia
  */
 public class PrologueDialogue {
@@ -120,11 +117,12 @@ public class PrologueDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>You decide that you'll go and search for Arthur, and set off into the museum."
-					+ " The steady hum of voices from the entrance hall quickly fades away into silence as you delve deep into the museum's deserted rooms and corridors."
-					+ " It's a lot larger in here than you anticipated, and before long you realise that you've become hopelessly lost."
-					+ " As you step into yet another cavernous hall lined with glass cabinets and ancient stonework, you thankfully see a map of the museum on the far"
-					+ " side of the room. Muttering thanks to whoever put that there, you quickly make your way towards it, hoping to find a route out of here."
+			return "<p>"
+						+ "Having agreed to help Lily by finding Arthur, you set off into the museum."
+						+ " The steady hum of voices from the entrance hall quickly fades away into silence as you delve deep into the museum's deserted rooms and corridors."
+						+ " It's a lot larger in here than you anticipated, and before long you realise that you've become hopelessly lost."
+						+ " As you step into yet another cavernous hall lined with glass cabinets and ancient stonework, you thankfully see a map of the museum on the far"
+						+ " side of the room. Muttering thanks to whoever put that there, you quickly make your way towards it, hoping to find a route out of here."
 					+ "</p>"
 
 					+ "<p>The sound of your footfalls echoing off the walls are suddenly interrupted as a seductive female voice sounds in your ear, "
@@ -924,8 +922,7 @@ public class PrologueDialogue {
 						tempList.addAll(Main.game.getPlayer().getClothingCurrentlyEquipped());
 
 						for (AbstractClothing c : tempList) {
-							Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-							Main.game.getPlayer().removeClothing(c);
+							Main.game.getPlayer().unequipClothingOntoFloor(c, true, Main.game.getPlayer());
 						}
 					}
 				};
@@ -942,77 +939,72 @@ public class PrologueDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "You blink once, then twice, then try rubbing your eyes."
-					+ " No matter what you do, all you can see is a pulsating pink glow."
-					+ " You start to panic as you realise that you've been blinded by Lilaya's test."
+						+ "You blink once, then twice, then try rubbing your eyes."
+						+ " No matter what you do, all you can see is a pulsating pink glow."
+						+ " You start to panic as you realise that you've been blinded by Lilaya's test."
 					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.parsePlayerSpeech("Umm, Lilaya! I can't see!")
-					+ " you call out."
+						+ "[pc.speech(Umm, Lilaya! I can't see!)] you call out."
 					+ "</p>"
 
 					+ "<p>"
-					+ "Thankfully, Lilaya quickly responds with some good news, "
-					+ UtilText.parseSpeech("O-Oh, s-sorry! I should have m-mentioned that! E-Erm... Don't worry, it'll pass in j-just a few moments!", Main.game.getLilaya())
-					+ " She sounds incredibly nervous, and you wonder what's happened to embarrass her this time."
+						+ "Thankfully, Lilaya quickly responds with some good news,"
+						+ " [lilaya.speech(O-Oh, s-sorry! I should have m-mentioned that! E-Erm... Don't worry, it'll pass in j-just a few moments!)]"
+						+ " She sounds incredibly nervous, and you wonder what's happened to embarrass her this time."
 					+ "</p>"
 
 					+ "<p>"
-					+ " True to her word, after a few moments the blindness starts to recede."
-					+ " Slowly at first, you start to make out the figure of Lilaya standing in front of you."
-					+ " After a few more blinks, your vision is completely back to normal, and you see that you're surrounded by a faint pink mist."
-					+ " You look up to see that Lilaya is holding her hands up at arms-length in front of her, as though she's trying to block part of her view of you."
-					+ " Her cheeks look like they're about to burst into flames, so red they've gone, and it's at that moment you notice a cool breeze blowing over your chest."
+						+ "True to her word, after a few moments the blindness starts to recede."
+						+ " Slowly at first, you start to make out the figure of Lilaya standing in front of you."
+						+ " After a few more blinks, your vision is completely back to normal, and you see that you're surrounded by a faint pink mist."
+						+ " You look up to see that Lilaya is holding her hands up at arms-length in front of her, as though she's trying to block part of her view of you."
+						+ " Her cheeks look like they're about to burst into flames, so red they've gone, and it's at that moment you notice a cool breeze blowing over your chest."
 					+ "</p>"
 
 					+ "<p>"
-					+ "As you look down, Lilaya makes a little startled cry and somehow manages to blush even more, "
-					+ UtilText.parseSpeech("~Eek!~ S-sorry! I-I didn't know that would happen!", Main.game.getLilaya())
+						+ "As you look down, Lilaya makes a little startled cry and somehow manages to blush even more,"
+						+ " [lilaya.speech(~Eek!~ S-sorry! I-I didn't know that would happen!)]"
 					+ "</p>"
 
 					+ "<p>"
-					+ " Now it's your turn to blush, as you look down to see that all of your clothes have disappeared."
-					+ " You quickly push your legs together, moving your hands to cover yourself up as you try to hide your naked body from Lilaya's sight."
-					+ " It's at this moment that the door to the lab swings open, and you and Lilaya turn to see Rose entering the room, carrying a tray with a couple of cups of tea on it."
-					+ " She looks across at the two of you, and suddenly there are three blushing people in the room."
+						+ "Now it's your turn to blush, as you look down to see that all of your clothes have disappeared."
+						+ " You quickly push your legs together, moving your hands to cover yourself up as you try to hide your naked body from Lilaya's sight."
+						+ " It's at this moment that the door to the lab swings open, and you and Lilaya turn to see Rose entering the room, carrying a tray with a couple of cups of tea on it."
+						+ " She looks across at the two of you, and suddenly there are three blushing people in the room."
 					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.parseSpeech("Rose! Quick, go fetch... erm...", Main.game.getLilaya())
+						+ "[lilaya.speech(Rose! Quick, d-do something!)] Lilaya shouts, frantically hopping up and down on the spot, [lilaya.speech([pc.Name]'s c-clothes have gone!)]"
+					+ "</p>"
+						
+					+ "<p>"
+						+ "Rose quickly places the tray of tea down on one of the tables, and, obeying her mistress's command, points up at one of the room's many chandeliers."
+						+ " Immediately, you and Lilaya both turn your heads up to look at what the cat-girl maid is pointing at."
+						+ " There, hanging from the light-fixture above you, you see some of the clothes that you were wearing just moments ago."
+						+ " Glancing around, you see the other pieces of your outfit similarly scattered throughout the lab."
 					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.parsePlayerSpeech(Main.game.getPlayer().getName())
-					+ " you offer helpfully, realising that you hadn't told Lilaya your name up until this moment."
+						+ "[rose.speech(I'll retrieve your clothing now,)] Rose states, casting her gaze back down at the floor as her cheeks continue to burn bright red, [rose.speech(this will only take a moment.)]"
+					+ "</p>"
+						
+					+ "<p>"
+						+ "As Rose hurries to fetch a ladder, Lilaya turns her gaze back towards you,"
+						+ "[lilaya.speech(This is amazing...)]"
+						+ " she says, looking at the strange pink mist that's hovering all around you, "
+						+ " [lilaya.speech(I thought you wouldn't have any arcane aura at all, but... well... yours is easily as powerful as a demon's!)]"
 					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.parseSpeech("Yes! Go fetch "
-							+ Main.game.getPlayer().getName()
-							+ " some clothes! Just leave the tea on the table there!", Main.game.getLilaya())
+						+ "[pc.speech(Uum... So is that good?)]"
+						+ " you venture, shifting uncomfortably as you try to conceal more of your naked body."
 					+ "</p>"
 
 					+ "<p>"
-					+ "Rose quickly places the tray down on one of the tables, and, casting one last curious glance your way, hurries off to do as she's told."
-					+ " Lilaya keeps holding her hands up to block your more private parts from her sight, though she doesn't seem able to look away completely."
-					+ "</p>"
-
-					+ "<p>"
-					+ UtilText.parseSpeech("This is amazing...", Main.game.getLilaya())
-					+ " she says, looking at the strange pink mist that's hovering all around you, "
-					+ UtilText.parseSpeech("I thought you wouldn't have any arcane aura at all, but... well... yours is as powerful as a demon's!", Main.game.getLilaya())
-					+ "</p>"
-
-					+ "<p>"
-					+ UtilText.parsePlayerSpeech("Uum... So is that good?")
-					+ " you venture, shifting uncomfortably as you try to conceal more of your naked body."
-					+ "</p>"
-
-					+ "<p>"
-					+ UtilText.parseSpeech("Well, only people with weak auras are affected by the arcane thunder, so having one that you'd normally find on a demon is kind of good in that regard.", Main.game.getLilaya())
-					+ " she explains, "
-					+ UtilText.parseSpeech("But if you've got an aura like a demon... Then you should be able to harness the arcane like a demon!", Main.game.getLilaya())
+						+ UtilText.parseSpeech("Well, only people with weak auras are affected by the arcane thunder, so having one that you'd normally find on a demon is kind of good in that regard.", Main.game.getLilaya())
+						+ " she explains, "
+						+ UtilText.parseSpeech("But if you've got an aura like a demon... Then you should be able to harness the arcane like a demon!", Main.game.getLilaya())
 					+ "</p>";
 		}
 
@@ -1022,16 +1014,16 @@ public class PrologueDialogue {
 				return new Response("I'm a demon?!", "Lilaya keeps using the word 'Demon' to describe your 'aura'. You're starting to worry that something must have changed deep inside of you...", INTRO_NEW_WORLD_6){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-						if (Main.game.getPlayer().isFeminine())
-							Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_SPORTS_BRA, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_YOGA_PANTS, Colour.CLOTHING_PINK_LIGHT, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-						Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_PINK, false), true, Main.game.getPlayer());
+						// Equip clothing:
+						List<AbstractClothing> tempList = new ArrayList<>();
+						tempList.addAll(Main.game.getPlayerCell().getInventory().getAllClothingInInventory());
 
+						for (AbstractClothing c : tempList) {
+							Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
+						}
+						
 						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
-
+						
 						Main.game.clearTextStartStringBuilder();
 						Main.game.clearTextEndStringBuilder();
 					}
@@ -1055,8 +1047,8 @@ public class PrologueDialogue {
 
 					+ "<p>"
 					+ UtilText.parseSpeech("W-What do you mean, l-like me? C-Can't you see that I'm only a... a <i>half</i>-demon?", Main.game.getLilaya())
-					+ " Lilaya says, sounding more than a little upset. Before you can offer any sort of apology, she waves it off with one hand before turning around to search around the lab for something."
-					+ " She shouts back at you as she searches, "
+					+ " Lilaya says, sounding more than a little upset. Before you can offer any sort of apology, she waves it off with one hand before turning around to search a nearby desk for something."
+					+ " She shouts back at you as she pulls open drawers and shifts piles of paperwork aside, "
 					+ UtilText.parseSpeech("Anyway, you're not an <i>actual</i> demon. I mean, not having horns or anything is kind of a giveaway there!"
 							+ " You mentioned that Lilith had something to do with this, and if that's the case, then she's probably the one who's given you an aura this strong."
 							+ " Oh, I guess you don't know, but Lilith is the ruler of this world."
@@ -1065,67 +1057,43 @@ public class PrologueDialogue {
 					+ "</p>"
 
 					+ "<p>"
-					+ "Just as Lilaya finds what she's looking for, there's a short knock on the door before it swings open, and Rose walks back into the room."
-					+ (!Main.game.getPlayer().isFeminine() ? " She's carrying a bundle of clothes, but as she walks over to you, averting her gaze from your naked form, you see that something's wrong."
-							+ " Rose quickly hands you the clothes, and you groan as you see what she's given you."
-							+ " Although the hoodie and trainers don't seem too bad, it's the pair of white panties and tight yoga pants that are causing you some distress."
-							+ "</p>"
-
-							+ "<p>"
-							+ UtilText.parsePlayerSpeech("Are these Lilaya's gym clothes?! Didn't you have anything for... <i>guys</i>? And will these even fit?")
-							+ " you ask."
-							+ "</p>"
-
-							+ "<p>"
-							+ UtilText.parseSpeech("I'm sorry sir, but this is all we have available, so I'm afraid it's either this or nothing. And the clothing will adjust to fit your body.", Main.game.getRose())
-							+ " Rose replies, before quickly turning to Lilaya, "
-							+ UtilText.parseSpeech("Is there anything else you need Mistress?", Main.game.getRose())
-							+ "</p>"
-
-							+ "<p>"
-							+ UtilText.parseSpeech("Yes, if you could just wait by the door for a few moments, I'll need you again in a minute,", Main.game.getLilaya())
-							+ " Lilaya says, before turning to address you, "
-							+ UtilText.parseSpeech("Those clothes will be more than suitable for now. You can go out and get some other ones tomorrow. Just put them on so we can try out this demonstone!", Main.game.getLilaya())
-							+ "</p>"
-
-							+ "<p>"
-							+ "It doesn't look like you really have much of a choice, so as the two women turn their backs on you, you quickly pull on the spare set of Lilaya's gym clothes."
-							+ " Just like Rose said, the clothing shifts to fit to your body, and you wonder what else is magical in this world."
-							+ " Once you're done, you inform your host that you've finished, and she turns around, smiling, before quickly moving over to you."
-							+ "</p>"
-
-							: " She's carrying a bundle of clothes, and as she walks over to you, averting her gaze from your naked form, you see that they look somewhat familiar."
-									+ " Rose quickly hands you the clothes, and you let out a curious hum as you see what she's given you."
-									+ " It looks like you're being given a set of Lilaya's gym clothes to wear, complete with hoodie, yoga pants and trainers."
-									+ "</p>"
-
-									+ "<p>"
-									+ UtilText.parsePlayerSpeech("Are these all you have? And will these even fit?")
-									+ " you ask, nervously looking at the size of Lilaya's sports bra."
-									+ "</p>"
-
-									+ "<p>"
-									+ UtilText.parseSpeech("I'm sorry miss, but yes, this is all we have, so I'm afraid it's either this or nothing. And the clothing will adjust to fit your body.", Main.game.getRose())
-									+ " Rose replies, before quickly turning to Lilaya, "
-									+ UtilText.parseSpeech("Is there anything else you need Mistress?", Main.game.getRose())
-									+ "</p>"
-
-									+ "<p>"
-									+ UtilText.parseSpeech("Yes, if you could just wait by the door for a few moments, I'll need you again in a minute,", Main.game.getLilaya())
-									+ " Lilaya says, before turning to address you, "
-									+ UtilText.parseSpeech("Those clothes will be more than suitable for now. You can go out and get some other ones tomorrow. Just put them on so we can try out this demonstone!", Main.game.getLilaya())
-									+ "</p>"
-
-									+ "<p>"
-									+ "It doesn't look like you really have much of a choice, so as the two women turn their backs on you, you quickly pull on Lilaya's spare clothes."
-									+ " Just like Rose said, the clothes shift to fit to your body, and you wonder what else is magical in this world."
-									+ " Once you're done, you inform your host that you've finished, and she turns around, smiling, before quickly moving over to you."
-									+ "</p>")
+						+ "Just as Lilaya finds what she's looking for, Rose similarly finishes with her task, and, climbing back down the ladder she erected to retrieve your clothing, she starts moving towards you."
+						+ " Averting her gaze from your naked form, she folds your clothing neatly in her arms, before bowing her head a little and presenting them to you."
+						+ " As you take back your clothing, you groan as you see that there's something terribly wrong."
+						+ " Although all of your clothing is accounted for, the arcane power that caused them to teleport up onto the chandelier appears to have also shrunk them."
+						+ " Holding them up in your hands, they look to be at least several sizes too small."
+					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.parseSpeech("Right, so just hold out your hand, yes, like that,", Main.game.getLilaya())
+						+ "[pc.speech(Erm... Lilaya? Your test has kind of... well, shrunk everything...)] you groan."
+					+ "</p>"
+
+					+ "<p>"
+						+ "[lilaya.speech(So? Just put it on! I'm not looking, promise!)] Lilaya responds, barely reacting to your predicament."
+					+ "</p>"
+
+					+ "<p>"
+						+ "Sensing that you don't know what to do, Rose bows her head a little once more, and addresses you,"
+						+ " [rose.speech("+(Main.game.getPlayer().isFeminine()?"Ma'am":"Sir")+", please forgive the interruption, but I assume that you're not aware of the fact that the arcane causes clothing to adjust to fit to your body."
+								+ " If you start pulling them on, your clothes will fit themselves to you.)]"
+					+ "</p>"
+
+					+ "<p>"
+						+ "[lilaya.speech(T-Thank you Rose,)]"
+						+ " Lilaya says, clearly flustered by her inability to identify the problem you were having,"
+						+ " [lilaya.speech(if you could just wait by the door for a few moments, I'll need you again in a minute.)]"
+					+ "</p>"
+
+					+ "<p>"
+						+ "As the two women turn their backs on you, you start to quickly pull on your clothes again."
+						+ " Just like Rose said, they shift to fit to your body, and you wonder what else is magical in this world."
+						+ " Once you're done, you inform your host that you've finished, and she turns around, smiling, before quickly moving over to you."
+					+ "</p>"
+						
+					+ "<p>"
+					+ UtilText.parseSpeech("Right, so lets try out this demonstone! Just hold out your hand, yes, like that,", Main.game.getLilaya())
 					+ " Lilaya instructs, "
-					+ UtilText.parseSpeech("Now, when I place this demonstone on your hand, just let its energy flow into you. Don't worry, you can draw it back out at any time, but for now, just let it in...", Main.game.getLilaya())
+					+ UtilText.parseSpeech("Now, when I place it on your hand, just let the energy flow into you. Don't worry, you can draw it back out at any time, but for now, just let it in...", Main.game.getLilaya())
 					+ "</p>"
 
 					+ "<p>"

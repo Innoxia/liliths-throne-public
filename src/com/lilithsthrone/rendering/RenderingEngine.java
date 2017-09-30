@@ -58,9 +58,9 @@ public enum RenderingEngine {
 	private static InventorySlot[] inventorySlots = {
 			InventorySlot.EYES,			InventorySlot.HEAD,			InventorySlot.NECK,		InventorySlot.HAIR,		InventorySlot.HORNS,
 			InventorySlot.TORSO_OVER,	InventorySlot.TORSO_UNDER,	InventorySlot.CHEST,	InventorySlot.MOUTH,	InventorySlot.WINGS,
-			InventorySlot.HAND,			InventorySlot.FINGER,		InventorySlot.STOMACH,	InventorySlot.NIPPLE,	InventorySlot.TAIL,
-			InventorySlot.WRIST,		InventorySlot.LEG,			InventorySlot.GROIN,	InventorySlot.HIPS,		InventorySlot.PENIS,
-			InventorySlot.ANKLE,		InventorySlot.FOOT,			InventorySlot.SOCK,		InventorySlot.ANUS,		InventorySlot.VAGINA };
+			InventorySlot.HAND,			InventorySlot.HIPS,			InventorySlot.STOMACH,	InventorySlot.NIPPLE,	InventorySlot.TAIL,
+			InventorySlot.FINGER,		InventorySlot.LEG,			InventorySlot.GROIN,	InventorySlot.ANKLE,	InventorySlot.PENIS,
+			InventorySlot.WRIST,		InventorySlot.FOOT,			InventorySlot.SOCK,		InventorySlot.ANUS,		InventorySlot.VAGINA };
 
 	private RenderingEngine() {
 	}
@@ -367,7 +367,6 @@ public enum RenderingEngine {
 	}
 	
 	
-	@SuppressWarnings("unused")
 	private String getInventoryDivGround() {
 		
 		inventorySB.setLength(0);
@@ -376,7 +375,9 @@ public enum RenderingEngine {
 
 		inventorySB.append(
 				"<p style='width:100%; text-align:center; padding:0 margin:0;'>"
-					+"<b style='color:"+Colour.BASE_TAN.toWebHexString()+";'>In this Area</b>"
+					+(InventoryDialogue.getNPCInventoryInteraction() ==  InventoryInteraction.CHARACTER_CREATION
+							?"<b style='color:"+Colour.BASE_TAN.toWebHexString()+";'>Your wardrobe</b>"
+							:"<b style='color:"+Colour.BASE_TAN.toWebHexString()+";'>In this Area</b>")
 				+"</p>");
 		
 //		
@@ -390,31 +391,31 @@ public enum RenderingEngine {
 		
 		
 		// Right panel:
-		inventorySB.append("<div class='inventory-accessories'>");
-
-		// Weapons:
-		inventorySB.append("<div class='inventory-item-slot weapon disabled'></div>");
-		inventorySB.append("<div class='inventory-item-slot weapon disabled'></div>");
-
-		inventorySB.append("</div><div class='inventory-accessories'>");
-
-		// Piercings:
-		InventorySlot[] piercingSlots = {
-				InventorySlot.PIERCING_EAR,
-				InventorySlot.PIERCING_NOSE,
-				InventorySlot.PIERCING_TONGUE,
-				InventorySlot.PIERCING_LIP,
-				InventorySlot.PIERCING_NIPPLE,
-				InventorySlot.PIERCING_STOMACH,
-				InventorySlot.PIERCING_VAGINA,
-				InventorySlot.PIERCING_PENIS };
-		for (InventorySlot invSlot : piercingSlots) {
-			inventorySB.append("<div class='inventory-item-slot piercing disabled'></div>");
-		}
-		
-		inventorySB.append(
-//				"<p style='text-align:center; display:inline-block; height:48px; vertical-align: middle; top:0;'>"+UtilText.formatAsMoney(Main.game.getPlayerCell().getInventory().getMoney())+
-				"</div>");
+//		inventorySB.append("<div class='inventory-accessories'>");
+//
+//		// Weapons:
+//		inventorySB.append("<div class='inventory-item-slot weapon disabled'></div>");
+//		inventorySB.append("<div class='inventory-item-slot weapon disabled'></div>");
+//
+//		inventorySB.append("</div><div class='inventory-accessories'>");
+//
+//		// Piercings:
+//		InventorySlot[] piercingSlots = {
+//				InventorySlot.PIERCING_EAR,
+//				InventorySlot.PIERCING_NOSE,
+//				InventorySlot.PIERCING_TONGUE,
+//				InventorySlot.PIERCING_LIP,
+//				InventorySlot.PIERCING_NIPPLE,
+//				InventorySlot.PIERCING_STOMACH,
+//				InventorySlot.PIERCING_VAGINA,
+//				InventorySlot.PIERCING_PENIS };
+//		for (InventorySlot invSlot : piercingSlots) {
+//			inventorySB.append("<div class='inventory-item-slot piercing disabled'></div>");
+//		}
+//		
+//		inventorySB.append(
+////				"<p style='text-align:center; display:inline-block; height:48px; vertical-align: middle; top:0;'>"+UtilText.formatAsMoney(Main.game.getPlayerCell().getInventory().getMoney())+
+//				"</div>");
 
 		inventorySB.append("<div class='inventory-not-equipped'>");
 		// Weapons:
@@ -1333,53 +1334,55 @@ public enum RenderingEngine {
 								+ "<p style='text-align:center;padding:0;margin:0;'><b>Items Present</b></p>");
 			
 			int count = 0;
-			for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
-				if(count%2==0) {
-					uiAttributeSB.append(
-							"<div class='event-log-entry' style='background:#222222;'>"
-									+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
-									+ "<div class='overlay-inventory' id='WEAPON_FLOOR_"+entry.getKey().hashCode()+"'></div>"
-							+"</div>");
-				} else {
-					uiAttributeSB.append(
-							"<div class='event-log-entry' style='background:#292929;'>"
-									+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
-									+ "<div class='overlay-inventory' id='WEAPON_FLOOR_"+entry.getKey().hashCode()+"'></div>"
-							+"</div>");
+			if(Main.game.isInNewWorld()) {
+				for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
+					if(count%2==0) {
+						uiAttributeSB.append(
+								"<div class='event-log-entry' style='background:#222222;'>"
+										+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
+										+ "<div class='overlay-inventory' id='WEAPON_FLOOR_"+entry.getKey().hashCode()+"'></div>"
+								+"</div>");
+					} else {
+						uiAttributeSB.append(
+								"<div class='event-log-entry' style='background:#292929;'>"
+										+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
+										+ "<div class='overlay-inventory' id='WEAPON_FLOOR_"+entry.getKey().hashCode()+"'></div>"
+								+"</div>");
+					}
+					count++;
 				}
-				count++;
-			}
-			for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
-				if(count%2==0) {
-					uiAttributeSB.append(
-							"<div class='event-log-entry' style='background:#222222;'>"
-									+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
-									+ "<div class='overlay-inventory' id='CLOTHING_FLOOR_"+entry.getKey().hashCode()+"'></div>"
-							+"</div>");
-				} else {
-					uiAttributeSB.append(
-							"<div class='event-log-entry' style='background:#292929;'>"
-									+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
-									+ "<div class='overlay-inventory' id='CLOTHING_FLOOR_"+entry.getKey().hashCode()+"'></div>"
-							+"</div>");
+				for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
+					if(count%2==0) {
+						uiAttributeSB.append(
+								"<div class='event-log-entry' style='background:#222222;'>"
+										+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
+										+ "<div class='overlay-inventory' id='CLOTHING_FLOOR_"+entry.getKey().hashCode()+"'></div>"
+								+"</div>");
+					} else {
+						uiAttributeSB.append(
+								"<div class='event-log-entry' style='background:#292929;'>"
+										+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
+										+ "<div class='overlay-inventory' id='CLOTHING_FLOOR_"+entry.getKey().hashCode()+"'></div>"
+								+"</div>");
+					}
+					count++;
 				}
-				count++;
-			}
-			for(Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
-				if(count%2==0) {
-					uiAttributeSB.append(
-							"<div class='event-log-entry' style='background:#222222;'>"
-									+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
-									+ "<div class='overlay-inventory' id='ITEM_FLOOR_"+entry.getKey().hashCode()+"'></div>"
-							+"</div>");
-				} else {
-					uiAttributeSB.append(
-							"<div class='event-log-entry' style='background:#292929;'>"
-									+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
-									+ "<div class='overlay-inventory' id='ITEM_FLOOR_"+entry.getKey().hashCode()+"'></div>"
-							+"</div>");
+				for(Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
+					if(count%2==0) {
+						uiAttributeSB.append(
+								"<div class='event-log-entry' style='background:#222222;'>"
+										+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
+										+ "<div class='overlay-inventory' id='ITEM_FLOOR_"+entry.getKey().hashCode()+"'></div>"
+								+"</div>");
+					} else {
+						uiAttributeSB.append(
+								"<div class='event-log-entry' style='background:#292929;'>"
+										+entry.getValue()+"x "+entry.getKey().getDisplayName(true)
+										+ "<div class='overlay-inventory' id='ITEM_FLOOR_"+entry.getKey().hashCode()+"'></div>"
+								+"</div>");
+					}
+					count++;
 				}
-				count++;
 			}
 			if(count==0) {
 				uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>None...</span></p>");

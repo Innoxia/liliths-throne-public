@@ -11,7 +11,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69.9
- * @version 0.1.79
+ * @version 0.1.86
  * @author Innoxia
  */
 public enum ParserTarget {
@@ -67,7 +67,30 @@ public enum ParserTarget {
 				}
 			},
 	
-	//NPCambiguous
+	PROLOGUE_MALE(Util.newArrayListOfValues(
+			new ListValue<>("prologueMale")), ""){
+		public String getDescription() {
+			return Main.game.getPrologueMale().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter() {
+			return Main.game.getPrologueMale();
+		}
+	},
+	
+	PROLOGUE_FEMALE(Util.newArrayListOfValues(
+			new ListValue<>("prologueFemale")), ""){
+		public String getDescription() {
+			return Main.game.getPrologueFemale().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter() {
+			return Main.game.getPrologueFemale();
+		}
+	},
+	
 	NPC_MALE(Util.newArrayListOfValues(
 			new ListValue<>("NPCmale"),
 			new ListValue<>("maleNPC")), ""){

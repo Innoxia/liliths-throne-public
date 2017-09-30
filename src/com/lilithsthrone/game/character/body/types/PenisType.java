@@ -22,7 +22,7 @@ public enum PenisType implements BodyPartTypeInterface {
 
 	ANGEL(BodyCoveringType.PENIS, TesticleType.ANGEL, Race.ANGEL),
 
-	BOVINE(BodyCoveringType.PENIS, TesticleType.BOVINE, Race.COW_MORPH, PenisModifier.FLARED, PenisModifier.VEINY, PenisModifier.SHEATHED),
+	BOVINE(BodyCoveringType.PENIS, TesticleType.BOVINE, Race.COW_MORPH, PenisModifier.TAPERED, PenisModifier.VEINY, PenisModifier.SHEATHED),
 
 	DEMON_COMMON(BodyCoveringType.PENIS, TesticleType.DEMON_COMMON, Race.DEMON, PenisModifier.RIBBED, PenisModifier.TENTACLED, PenisModifier.PREHENSILE),
 

@@ -362,6 +362,7 @@ public enum Colour {
 			new ListValue<Colour>(CLOTHING_RED),
 			new ListValue<Colour>(CLOTHING_ORANGE),
 			new ListValue<Colour>(CLOTHING_BROWN),
+			new ListValue<Colour>(CLOTHING_TAN),
 			new ListValue<Colour>(CLOTHING_YELLOW),
 			new ListValue<Colour>(CLOTHING_GREEN_LIME),
 			new ListValue<Colour>(CLOTHING_GREEN),

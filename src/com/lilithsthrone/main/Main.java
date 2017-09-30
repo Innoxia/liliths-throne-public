@@ -75,8 +75,6 @@ public class Main extends Application {
 //		"<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha!</b></h6>"
 		
 		"<p><b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Important information:</b> <i>If you don't see a mini-map in the bottom-left corner of the screen after starting the game, please update your java!</i></p>"
-
-		+ "<p><b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Important information:</b> <i>The 'light theme' is broken in this version! I'll get it fixed for 0.1.86, sorry! ;_;</i></p>"
 		
 		+ "<p>"
 			+ "Hello again everyone! ^^"
@@ -509,12 +507,19 @@ public class Main extends Application {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Can only quicksave in a normal scene!");
 			
 		} else {
+			Main.getProperties().lastQuickSaveName = "QuickSave_"+Main.game.getPlayer().getName();
 			saveGame("QuickSave_"+Main.game.getPlayer().getName(), true);
 		}
 	}
 
 	public static void quickLoadGame() {
-		loadGame("QuickSave_"+Main.game.getPlayer().getName());
+		String name = "QuickSave_"+Main.game.getPlayer().getName();
+		
+//		if(new File("data/saves/"+name+".lts").exists()) {
+			loadGame(name);
+//		} else {
+//			loadGame(Main.getProperties().lastQuickSaveName);
+//		}
 	}
 
 	public static void saveGame(String name, boolean allowOverwrite) {

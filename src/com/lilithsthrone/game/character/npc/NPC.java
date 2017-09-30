@@ -125,11 +125,6 @@ public abstract class NPC extends GameCharacter {
 	
 	protected Body bodyPreference = null;
 	
-	// Relationship stats:
-	private Map<GameCharacter, Float> relationships;
-	
-	// Slavery:
-	private float obedience;
 	
 	protected NPC(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace,
 			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceInterface startingPlace, boolean addedToContacts) {
@@ -144,9 +139,6 @@ public abstract class NPC extends GameCharacter {
 		
 		buyModifier=0.75f;
 		sellModifier=1.5f;
-		
-		relationships = new HashMap<GameCharacter,Float>();
-		obedience = 0;
 		
 		if(getLocation().equals(Main.game.getPlayer().getLocation()) && getWorldLocation()==Main.game.getPlayer().getWorldLocation()) {
 			for(CoverableArea ca : CoverableArea.values()) {
@@ -356,73 +348,7 @@ public abstract class NPC extends GameCharacter {
 	
 	// Relationships:
 	
-	/**
-	 * Do not use this method to alter the map!
-	 */
-	public Map<GameCharacter, Float> getRelationshipsMap() {
-		return relationships;
-	}
 	
-	public float getAffection(GameCharacter character) {
-		if(relationships.containsKey(character)) {
-			return relationships.get(character);
-		} else {
-			relationships.put(character, 0f);
-			return 0;
-		}
-	}
-	
-	public AffectionLevel getAffectionLevel(GameCharacter character) {
-		if(relationships.containsKey(character)) {
-			return AffectionLevel.getAffectionLevelFromValue(relationships.get(character));
-		} else {
-			return AffectionLevel.getAffectionLevelFromValue(0);
-		}
-	}
-	
-	/**
-	 * Sets this character's affection towards the supplied GameCharacter.
-	 * 
-	 * @param character
-	 * @param affection
-	 * @return
-	 */
-	public String setAffection(GameCharacter character, float affection) {
-		
-		relationships.put(character, Math.max(-100, Math.min(100, affection)));
-		
-		if(character.isPlayer()) {
-			return UtilText.parse(this,
-					"<p style='text-align:center'>"
-						+ "[npc.Name] now has <b>"+(affection>0?"+":"")+affection+"</b> [style.boldAffection(affection)] towards you!</br>"
-						+ AffectionLevel.getDescription(this, character, AffectionLevel.getAffectionLevelFromValue(affection), true)
-					+ "</p>");
-			
-		} else {
-			return UtilText.parse(character,
-					"<p style='text-align:center'>"
-						+ getName("The")+" now has <b>"+(affection>0?"+":"")+affection+"</b> [style.boldAffection(affection)] towards [npc.name]!</br>"
-						+ AffectionLevel.getDescription(this, character, AffectionLevel.getAffectionLevelFromValue(affection), true)
-					+ "</p>");
-		}
-	}
-	
-	/**
-	 * Increments this character's affection towards the supplied GameCharacter.
-	 * 
-	 * @param character
-	 * @param affectionIncrement
-	 * @return
-	 */
-	public String incrementAffection(GameCharacter character, float affectionIncrement) {
-		setAffection(character, getAffection(character) + affectionIncrement);
-		
-		return UtilText.parse(character,
-				"<p style='text-align:center'>"
-						+ getName("The") + " "+(affectionIncrement>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(affectionIncrement)+"</b> [style.boldAffection(affection)] towards "+(character.isPlayer()?"you":"[npc.name]")+"!"
-					+ "</p>");
-			
-	}
 	
 	public float getDailyAffectionChange() {
 		// Forgive me, for I am tired x_x
@@ -456,77 +382,6 @@ public abstract class NPC extends GameCharacter {
 		}
 		
 		return affectionTrack - getAffection(Main.game.getPlayer());
-	}
-	
-	// Obedience:
-	
-	public float getObedience() {
-		return obedience;
-	}
-
-	public String setObedience(float obedience) {
-		
-		this.obedience = Math.max(-100, Math.min(100, obedience));
-		
-		return UtilText.parse(this,
-					"<p style='text-align:center'>"
-						+ "[npc.Name] now has <b>"+(obedience>0?"+":"")+obedience+"</b> [style.boldObedience(obedience)]!</br>"
-						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
-					+ "</p>");
-	}
-	
-	public String incrementObedience(float increment) {
-		
-		setObedience(getObedience()+increment);
-		
-		return UtilText.parse(this,
-				"<p style='text-align:center'>"
-						+ "[npc.Name] "+(increment>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!"
-					+ "</p>");
-	}
-	
-	public float getDailyObedienceChange() {
-		// Forgive me, for I am tired x_x
-		
-		float obedienceTrack = getObedience();
-		
-		for(PlaceUpgrade upgrade : this.getLocationPlace().getPlaceUpgrades()) {
-			if(upgrade.getObedienceCap()==null) {
-				obedienceTrack += upgrade.getObedienceGain();
-				
-			} else {
-				if(upgrade.getObedienceGain()>0) {
-					if(getObedience() < upgrade.getObedienceCap().getMaximumValue()) {
-						if(getObedience() + upgrade.getObedienceGain() > upgrade.getObedienceCap().getMaximumValue()) {
-							obedienceTrack = upgrade.getObedienceCap().getMaximumValue();
-						} else {
-							obedienceTrack += upgrade.getObedienceGain();
-						}
-					}
-					
-				} else if(upgrade.getObedienceGain()<0) {
-					if(getObedience() > upgrade.getObedienceCap().getMinimumValue()) {
-						if(getObedience() + upgrade.getObedienceGain() < upgrade.getObedienceCap().getMinimumValue()) {
-							obedienceTrack = upgrade.getObedienceCap().getMinimumValue();
-						} else {
-							obedienceTrack += upgrade.getObedienceGain();
-						}
-					}
-				}
-			}
-		}
-		
-		return obedienceTrack - getObedience();
-	}
-	
-	public int getValueAsSlave() {
-		int value = 1000;
-		
-		value += (getFetishes().size()*50);
-		
-		value *= (100+(getObedience()/2))/100f;
-		
-		return value;
 	}
 	
 	
@@ -1362,7 +1217,7 @@ public abstract class NPC extends GameCharacter {
 					+ AffectionLevel.getDescription(character, Main.game.getPlayer(),
 							AffectionLevel.getAffectionLevelFromValue(character.getAffection(Main.game.getPlayer())), true));
 		
-		for(Entry<GameCharacter, Float> entry : character.getRelationshipsMap().entrySet()) {
+		for(Entry<GameCharacter, Float> entry : character.getAffectionMap().entrySet()) {
 			if(!entry.getKey().isPlayer()) {
 				infoScreenSB.append("</br>" + AffectionLevel.getDescription(character, entry.getKey(), AffectionLevel.getAffectionLevelFromValue(character.getAffection(entry.getKey())), true));
 			}

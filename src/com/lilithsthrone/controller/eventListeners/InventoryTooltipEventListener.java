@@ -451,14 +451,17 @@ public class InventoryTooltipEventListener implements EventListener {
 				+ "<div class='subTitle-half'>" + Util.capitaliseSentence(absWep.getDamageType().getName()) + " damage</b></br>"
 				+ (absWep.getWeaponType().getSlot() == InventorySlot.WEAPON_MAIN ? "Main Weapon" : "Offhand Weapon") + "</div>" + "<div class='subTitle-half'>");
 
-		if (equippedToCharacter != null)
-			tooltipSB.append("<b>" + Attack.getMinimumDamage(owner, null, Attack.MAIN) + " - " + Attack.getMaximumDamage(owner, null, Attack.MAIN) + "</b>"
+		if (equippedToCharacter != null) {
+			tooltipSB.append("<b>" + Attack.getMinimumDamage(owner, null, absWep.getWeaponType().getSlot() == InventorySlot.WEAPON_MAIN ? Attack.MAIN : Attack.OFFHAND, absWep)
+						+ " - " + Attack.getMaximumDamage(owner, null, absWep.getWeaponType().getSlot() == InventorySlot.WEAPON_MAIN ? Attack.MAIN : Attack.OFFHAND, absWep) + "</b>"
 						+ "</br><b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(absWep.getDamageType().getName()) + "</b> damage");
-		else
-			tooltipSB.append("<b>" + Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN) + " - " + Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN) + "</b>"
+		} else {
+			tooltipSB.append("<b>" + Attack.getMinimumDamage(Main.game.getPlayer(), null, absWep.getWeaponType().getSlot() == InventorySlot.WEAPON_MAIN ? Attack.MAIN : Attack.OFFHAND, absWep)
+					+ " - " + Attack.getMaximumDamage(Main.game.getPlayer(), null, absWep.getWeaponType().getSlot() == InventorySlot.WEAPON_MAIN ? Attack.MAIN : Attack.OFFHAND, absWep) + "</b>"
 					+ "</br><b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>"
 					+ Util.capitaliseSentence(absWep.getDamageType().getName()) + "</b> damage");
-
+		}
+		
 		tooltipSB.append("</div>"
 
 				+ "<div class='description'>" + UtilText.parse(absWep.getWeaponType().getDescription()) + "</div>");

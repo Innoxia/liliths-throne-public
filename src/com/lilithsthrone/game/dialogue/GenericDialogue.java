@@ -26,6 +26,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -293,6 +294,8 @@ public class GenericDialogue {
 		}
 	};
 	
+	private static NPC activeOffspring = null;
+	
 	public static final DialogueNodeOld OFFSPRING = new DialogueNodeOld("", "", false) {
 		private static final long serialVersionUID = 1L;
 
@@ -307,6 +310,9 @@ public class GenericDialogue {
 					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getFather().getName()+"sson ("+npc.getRace().getName()+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"</br>");
 				}
 			}
+			if(activeOffspring!=null) {
+				UtilText.nodeContentSB.append("</br>" + activeOffspring.getBodyDescription());
+			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -316,12 +322,22 @@ public class GenericDialogue {
 			if (index == 0) {
 				return new Response("Back", "", DEBUG_MENU);
 				
+			} else if(index-1 < Main.game.getOffspring().size()) {
+				return new Response(Main.game.getOffspring().get(index-1).getName(), "", OFFSPRING) {
+					@Override
+					public void effects() {
+						activeOffspring = Main.game.getOffspring().get(index-1);
+						for(CoverableArea ca : CoverableArea.values()) {
+							activeOffspring.getPlayerKnowsAreasMap().put(ca, true);
+						}
+					}
+				};
 			} else {
 				return null;
 			}
 		}
 	};
-
+	
 	private static List<AbstractClothingType> clothingTotal = new ArrayList<>();
 	static {
 		for (AbstractClothingType c : ClothingType.getAllClothing())

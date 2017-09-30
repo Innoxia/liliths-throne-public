@@ -446,6 +446,9 @@ position:relative;
 	float:right;
 	width:56%;
 }
+.cosmetics-inner-container.full{
+	width:96%;
+}
 .cosmetics-button {
 	display:inline-block;
 	
@@ -459,8 +462,8 @@ position:relative;
 	border-radius: 5px;
 	min-width:100px;
 	/*width:18%;*/
-	margin:1%;
-	padding:2%;
+	margin:4px;
+	padding:4px;
 	
 	background: -webkit-gradient(
 		linear, left top, left bottom,
@@ -478,8 +481,8 @@ position:relative;
 }
 .cosmetics-button.active{
 	/*width:16%;*/
-	border:1%;
-	padding:1%;
+	border:2px;
+	margin:2px;
 	border-style:solid;
 	border-color:#777;
 }

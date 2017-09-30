@@ -1,7 +1,10 @@
 package com.lilithsthrone.game.character.race;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.Personality;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -107,6 +110,11 @@ public enum RacialBody {
 			VaginaType.ANGEL, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
 			WingType.ANGEL,
 			GenitalArrangement.NORMAL) {
+
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(50, 10, 20, 20);
+		}
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
@@ -144,6 +152,11 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 		
 		@Override
+		public Personality getPersionality() {
+			return generatePersonality(40, 10, 30, 20);
+		}
+		
+		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
 			return SexualOrientation.AMBIPHILIC;
 		}
@@ -177,7 +190,13 @@ public enum RacialBody {
 			TailType.COW_MORPH,
 			VaginaType.COW_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			WingType.NONE,
-			GenitalArrangement.NORMAL),
+			GenitalArrangement.NORMAL) {
+
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(30, 50, 10, 10);
+		}
+	},
 	
 	// CANINES:
 	DOG_MORPH(
@@ -207,7 +226,13 @@ public enum RacialBody {
 			TailType.DOG_MORPH,
 			VaginaType.DOG_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			WingType.NONE,
-			GenitalArrangement.NORMAL),
+			GenitalArrangement.NORMAL) {
+
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(60, 10, 20, 10);
+		}
+	},
 	
 	WOLF_MORPH(
 			Util.newHashMapOfValues(
@@ -236,7 +261,13 @@ public enum RacialBody {
 			TailType.LYCAN,
 			VaginaType.WOLF_MORPH, Wetness.FOUR_SLIMY, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			WingType.NONE,
-			GenitalArrangement.NORMAL),
+			GenitalArrangement.NORMAL) {
+
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(20, 10, 60, 10);
+		}
+	},
 
 	// FELINES:
 	CAT_MORPH(
@@ -266,7 +297,13 @@ public enum RacialBody {
 			TailType.CAT_MORPH,
 			VaginaType.CAT_MORPH, Wetness.TWO_MOIST, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			WingType.NONE,
-			GenitalArrangement.NORMAL),
+			GenitalArrangement.NORMAL) {
+
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(30, 20, 10, 40);
+		}
+	},
 
 	// EQUINES:
 	HORSE_MORPH(
@@ -296,7 +333,13 @@ public enum RacialBody {
 			TailType.HORSE_MORPH,
 			VaginaType.HORSE_MORPH, Wetness.THREE_WET, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			WingType.NONE,
-			GenitalArrangement.NORMAL),
+			GenitalArrangement.NORMAL) {
+
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(20, 40, 30, 10);
+		}
+	},
 
 	// SLIMES:
 	SLIME(Util.newHashMapOfValues(
@@ -354,7 +397,13 @@ public enum RacialBody {
 			TailType.SQUIRREL_MORPH,
 			VaginaType.SQUIRREL_MORPH, Wetness.TWO_MOIST, Capacity.FOUR_LOOSE, ClitorisSize.ONE_BIG, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			WingType.NONE,
-			GenitalArrangement.NORMAL),
+			GenitalArrangement.NORMAL) {
+
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(40, 10, 10, 40);
+		}
+	},
 
 	// AVIAN:
 	HARPY(Util.newHashMapOfValues(
@@ -384,6 +433,12 @@ public enum RacialBody {
 			VaginaType.HARPY, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			WingType.NONE,
 			GenitalArrangement.CLOACA) {
+		
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(70, 10, 10, 10);
+		}
+		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
 			double chance = Math.random();
@@ -571,6 +626,40 @@ public enum RacialBody {
 				return RacialBody.SQUIRREL_MORPH;
 		}
 		return RacialBody.HUMAN;
+	}
+	
+	public Personality getPersionality() {
+		return generatePersonality(25, 25, 25, 25);
+	}
+	
+	private static Personality generatePersonality(int sociableChance, int calmChance, int commandingChance, int analyticalChance) {
+		Map<Personality, Integer> personalityChance = new HashMap<>();
+		
+		for(Personality p : Personality.values()) {
+			switch(p) {
+				case AIR_SOCIABLE:
+					personalityChance.put(p, sociableChance);
+					break;
+				case EARTH_CALM:
+					personalityChance.put(p, calmChance);
+					break;
+				case FIRE_COMMANDING:
+					personalityChance.put(p, commandingChance);
+					break;
+				case WATER_ANALYTICAL:
+					personalityChance.put(p, analyticalChance);
+					break;
+			}
+		}
+		int roll = Util.random.nextInt(sociableChance + calmChance + commandingChance + analyticalChance)+1;
+		int total = 0;
+		for(Entry<Personality, Integer> e : personalityChance.entrySet()) {
+			total+=e.getValue();
+			if(roll <= total) {
+				return e.getKey();
+			}
+		}
+		return Personality.AIR_SOCIABLE;
 	}
 	
 	public SexualOrientation getSexualOrientation(Gender gender) {

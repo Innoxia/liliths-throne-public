@@ -319,6 +319,10 @@ public class Face implements BodyPartInterface, Serializable {
 	}
 
 	public String setFacialHair(GameCharacter owner, BodyHair facialHair) {
+		if(owner==null) {
+			this.facialHair = facialHair;
+			return "";
+		}
 		
 		if(owner.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity() && facialHair!=BodyHair.NONE) {
 			if(owner.isPlayer()) {

@@ -31,7 +31,7 @@ public class Cell implements Serializable {
 		discovered = false;
 		place = new GenericPlace(type.getStandardPlace());
 		
-		inventory = new CharacterInventory(0);
+		inventory = new CharacterInventory(0, 48);
 		
 		northAccess = false;
 		southAccess = false;
@@ -126,7 +126,7 @@ public class Cell implements Serializable {
 	}
 	
 	public void resetInventory(){
-		this.inventory = new CharacterInventory(0);
+		this.inventory = new CharacterInventory(0, 48);
 	}
 
 	public CharacterInventory getInventory() {
