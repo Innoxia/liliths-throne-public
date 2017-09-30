@@ -112,7 +112,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_2 = new DialogueNodeOld("Search", "", true, true) {
+	public static final DialogueNodeOld INTRO_2 = new DialogueNodeOld("In the Museum", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override

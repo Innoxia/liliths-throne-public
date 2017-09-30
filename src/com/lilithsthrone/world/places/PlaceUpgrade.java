@@ -134,9 +134,9 @@ public enum PlaceUpgrade {
 			25,
 			-1,
 			0,
-			-0.25f,
+			-1f,
 			AffectionLevel.NEGATIVE_ONE_ANNOYED,
-			0.1f,
+			0.5f,
 			ObedienceLevel.ZERO_FREE_WILLED,
 			null) {
 		
@@ -166,9 +166,9 @@ public enum PlaceUpgrade {
 			50,
 			5,
 			0,
-			0.25f,
+			1f,
 			AffectionLevel.POSITIVE_ONE_FRIENDLY,
-			-0.1f,
+			-0.5f,
 			ObedienceLevel.ZERO_FREE_WILLED,
 			null) {
 		

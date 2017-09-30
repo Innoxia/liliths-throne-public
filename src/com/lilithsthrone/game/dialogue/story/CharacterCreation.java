@@ -1406,8 +1406,9 @@ public class CharacterCreation {
 				return new Response("Start", "Use this character and start the game at the very beginning.", PrologueDialogue.INTRO_2){
 					@Override
 					public void effects() {
-						applyGameStart();
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
+						
+						applyGameStart();
 					}
 				};
 				
@@ -1415,6 +1416,13 @@ public class CharacterCreation {
 				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.</br></br><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
 					@Override
 					public void effects() {
+						
+						Main.game.setRenderMap(true);
+						Main.game.setInNewWorld(true);
+						
+						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
+						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
+						
 						applyGameStart();
 
 					}
@@ -1448,9 +1456,6 @@ public class CharacterCreation {
 
 		Main.game.clearTextStartStringBuilder();
 		Main.game.clearTextEndStringBuilder();
-		
-		Main.game.setRenderMap(true);
-		Main.game.setInNewWorld(true);
 
 		Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
 		Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
@@ -1459,9 +1464,6 @@ public class CharacterCreation {
 		Main.getProperties().addRaceDiscovered(Main.game.getRose().getRace());
 
 		Main.game.setWeather(Weather.MAGIC_STORM, 300);
-		
-		Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
-		Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 		
 		Main.game.getPlayerCell().resetInventory();
 		moveNPCOutOfPlayerTile();
@@ -1580,8 +1582,9 @@ public class CharacterCreation {
 				return new Response("Start", "Use this character and start the game at the very beginning.", PrologueDialogue.INTRO_2){
 					@Override
 					public void effects() {
-						applyGameStart();
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
+						
+						applyGameStart();
 					}
 				};
 				
@@ -1590,6 +1593,13 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						getDressed();
+						
+						Main.game.setRenderMap(true);
+						Main.game.setInNewWorld(true);
+						
+						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
+						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
+						
 						applyGameStart();
 					}
 				};
