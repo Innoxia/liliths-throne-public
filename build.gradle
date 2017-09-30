@@ -1,0 +1,17 @@
+plugins {
+	id 'java'
+	id "edu.sc.seis.launch4j" version "2.4.1"
+}
+
+sourceSets.main.java.srcDirs = ['src']
+sourceSets.main.resources.srcDirs = ['res']
+
+jar {
+	manifest {
+		attributes 'Main-Class': 'com.base.main.Main'
+	}
+}
+
+launch4j {
+    mainClassName = 'com.base.main.Main'
+}

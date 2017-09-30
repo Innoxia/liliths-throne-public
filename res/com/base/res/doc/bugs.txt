@@ -1,0 +1,199 @@
+﻿
+	Long hotkeys overflow on the world map
+	It isn't possible to use a hotkey with CTRL in it for map navigation as this will move the response selection cursor instead
+
+	--------
+	
+	loading a savegame with a new version doesn't work (not that surprising) but the menu is still available and if you turn off confirmation you get stuck in the load menu,
+	 I d recomment not to show saves of incompatible versions  or display them as disabled with a note or smth.
+	
+	you still haven't put in a way to change the keybinds for the third row of commands.
+	
+	Perhaps adding a �cute� element to responses under the different Talks to include hearts?
+
+	dnieing selfaction still has no effect :/
+
+	NPCs don�t have pace change mechanic it seems. I am certain you�ll work on that, just putting it out there.
+	
+	Suggestion for fetish gain: Fetishes normally are developed over time so gaining the anal fetish after fucking a few times is to be expected.
+	 What could be added is a small dialogue display asking if the player is interested in gaining a certain fetish after some conditions are met.
+	
+	I know that this version you�ll be adding more content as you�ve wrapped up with the pace mechanic, so I�d suggest to add more skin tones to be available to random NPCs and to Kate�s shop.
+	
+	Succubus encounter, submitting: She apparently selected to kiss the PC but not actual text shows up to that effect. There is a gap where her action description should be; 
+	After selecting one of the request choices, they disappear never to be seen as options again.
+	
+	�Beg her/him to stop� says �Talk dirty to �� in the hover-over text.
+	
+	�Resisting� should have the same or similar effect on Arousal as �Calm Down� as, even if the rapist is still molesting you, you should not be getting aroused because you�re resisting and trying to get away.
+	
+	some times see contrasting fetishes on mobs like androphilic + impregnation fetish
+	--------
+	
+	Still issues with tooltips now showing up on 3 bottom-right icons in floor inventory on smaller resolution
+	
+	apparently no way to be a subby male if you win and forfeit
+	
+	multiple TF potion
+		there was a little bit of gender pronoun confusion, since it seemed to apply the feminity change before writing out the actual transformation
+	
+	UI: Status effects & Fetishes are causing the UI to be pushed behind the map/clothing panel.
+	
+	I'll also get that pure virgin fetish on males bug fixed. (I don't understand how this is happening)
+	
+	I'm finding the levelup system kind of annoying. Firstly, it feels like there's not enough of a notification on a level up... 
+	it seems like there should be some kind of indication when you have unallocated points. Also, the perk system doesn't do enough to distinguish perks you already have from perks that you are eligible to select.
+	 When you are choosing a perk, it becomes highlighted in yellow until you hit apply; any chance that highlighting could remain afterwards, to indicate perks that you own?
+	
+	1# When you are in 69 bottom position, and the character who is forcing you gives you a blowjob.
+		 The description says: "You slide your shaft into the woman's mouth." While it should be something like: "The woman forces your shaft into her mouth."
+		
+	2# Where is the cowgirl position? (Hint hint. Please add)
+	Or threesomes, if it's worth the headache programming all that. :p
+	
+	3# Would be nice if we can edit our character at the start a bit more. Heigth, hips, ass etc. 
+	Those stats do anything in this game? Or not right now?
+	
+	5# The AI doesn't use tails on my character. 
+	
+	Make human encounter setting take into account race humanity
+	
+	So is it me or is it not a bit incongruous that my first action after Lilaya pulls away as she climaxes, (rough talk), the actions are that my PC is suddenly fucking her again? shouldn't there be a transition back to coitus?
+	
+	why do hung PCs always get detected by NPCs, but hung NPCs are always a surprise?
+	
+	NPCs with the pure virgin perk should be eager for sex during an arcane storm, but that behaviour (where they willingly lose their virginity) is unintentional.
+	 I'll make them eager for anal/oral, but block them from actions that would make them lose their virginity, thanks for the report!
+
+	The anal action in dominant back-to-wall was removed due to the way I reworked the engine, but I have plans to add in a sub-position called 'Back-to-wall (anal)' that will re-enable that action.
+	 I'll try to get this in as a priority within the next couple of versions, as it's important that players who want to have dominant anal sex have that option. ^^
+	
+	androgynous female: he seems to have relapsed back to being referred to as an androgynous wolf-boy in all the rest of the combat
+	
+	"You now have hair."
+	
+	An NPC wearing both assless chaps and backless panties doesn't count as having exposed their ass even if you're in the middle of fucking it. As long as you haven't shifted asside thier panties to see thier pussy/ cock.
+		(In-sex behaviour)
+		
+	The request options may have been affected by this new sex pace update, so they might not be working properly at the moment.
+		I'll make sure that they're working for Friday's release! (I'm probably going to make it so that only sadistic NPCs will refuse requests, and they'll make it quite clear why they're refusing you.)
+		
+	The cupless bras will give an exposed debuff to players without the exhibitionist fetish, but not NPCs without it.
+		
+	Vixen's virility description doesn't reference virility.
+	
+	Spell cost reduction has no discernable effect
+	
+	there's no sound effects when you beg someone to stop while they have their dick in your mouth  (I think I fixed this)
+	
+	Importer removing vagina for some reason
+	the Importer still removes vaginas
+	
+	Sorry I also discovered that if you climax with anal tease when domninating the police wolf it bugs out the game and all choices disappear locking the player in the scene.
+	
+	Just found bug that made the "stop sex" button not do anything when dominating a cat girl, don't know what caused it, haven't been able to recreate it, but it forced me to reload my save to get out of it.
+	
+	I'm not sure if anyone has said this already (I didn't look back through the comments on the other posts, sorry), but sometimes during vaginal sex, there's a section that talks about a rear end, back entrance, that sort of thing.
+	 There might have been multiple sections (I should've screenshotted). It confused me at first lol until I checked that, no, it was still vaginal, not anal.
+	
+	The arousal increases are only applying to the person with the orifice at the moment
+	
+	Just got into a dominant 69 position with a shemale, and there's no options to interact with her genitals at all
+	
+	You might already know this, but in the current build, AI characters can end up locked into not doing anything if they get into a sex position for something they don't have a fetish for.
+		For example, an enemy might force you onto your knees for oral after defeating you, then do nothing after that except taunt the player.
+		
+	I also just encountered a (human) woman while I had human encounters off
+		
+	after being transformed by Brax I tried transforming back to human (female) by making human transformation potions.
+		I managed to get most things reversed, except the wolf breasts. Neither the breast nor the skin transformation potion seem to do the trick
+	
+	~Maybe fixed?~
+	There are some serious bugs with NPCs gaining xp. (gained 199999998xp)
+		"that npc's do not gain experience if player.level - enemy.level >= 3. I believe that this is intended to be enemy.level - player.level >= 3"
+	
+	~Improve description~
+		(Fixed) Bug: If you genderbend an NPC completely, the first line of the NPC's description still holds on to the original gender even after leaving the tile and returning.
+		
+	Rose says she looks familiar in prologue?
+	
+	~I cant get the extra discount anymore, I do the blowjob scene but if I press the second discount button on ralph, nothing happens and the blowjob scene continues.~
+	: but then at the end he acts as if no one was alerted and you get it all
+	
+	I'm not certain as to this, but it appears there is a bug when if you unlock a perk, and a perk that requires that perk at the same time, you don't get the affect of the latter.
+		Or atleast it visually appears as a perk you don't have
+		
+	Spell cost reduction does not affect the cost of the main hand weapon's associated attack spell, but all other spell costs are reduced normally.
+		Correction: It's the fireball spell itself that does not conform to spell cost reduction.
+		
+	(Possibly referring to brax) -> NPC also refuse feminization potion still, despite being available and noted as usable in sex, they never work
+	
+	Futa enemy -> im stroking her penis -> she says: "go on keep using your fingers"
+	
+	
+	The only thing allowed to be done at the Lab are "tests"
+		somehow the options magically appeared because I got a birthing notice
+		NOTE: I think this is just from people not reading the "Lilaya's pregnancy reaction" dialogue. Better add the other options to that dialogue.
+	
+	Ejaculating during 69 while being on top (but not receiving oral sex!) causes you to hit the floor, when it should have landed on the partners face.
+	Repeatedly doing nothing during submissive sex makes the NPC behave like an idiot.
+	~Finally, displaced clothing can't be replaced during scenes/removed clothing can't be equipped during scenes~
+	
+	Pulling aside backless panties with nothing else equipped gets rid of the exposed breasts status
+		Actually, it's just being completely exposed in general
+		I think it's trying to merge the statuses into one, but it doesn't increase the penalty
+		Or maybe it's supposed to get rid of the exposed breasts status effect when you wear backless panties, but it doesnt?
+	
+	(Maybe fixed) I just ran into a horse girl thats wearing assless chaps and backless panties but I don't know what her asshole looks like
+	
+	Nyan responds to you going back to the general choice of which type of clothing as if you just entered the back warehouse
+	
+	69 doesn't allow change of position
+		that and doggy have been a problem for a while now
+		
+	The names of the partners you lost your 3 virginities to in the phone menu are blank on imported character
+	
+	The virginity bug you had fixed (You lost your _ virginity to (blank)) is still there when using an imported character, whose virginity has already been taken before importing.
+	 This will, of course, not be relevant for long, but maybe you can use this intel for something.
+	 
+	69 oral doesn't count as having given oral in the description ~ You've never given head before, so you don't know what you could fit down your throat.
+	
+	When enchanting potions fast, the hover-over description window window of the bottles you scroll through to get to the first empty potion attribute button, gets stuck.
+	 Until you push the cursor out of the window. This is a minor issue and it might not be relevant when you make the "Create last potion" button (I hope you understand what I mean, I can't use screenshots in this comment section).
+	 
+	 The unidentified items in Ralph's shop act in odd ways. Sometimes the items sell for 0 and sometimes they sell for 5. I thought this was a way of telling whether the item is cursed or not, but that's not the case.
+	 After selling a 0 cost item and buying it back, it'll cost 5 like the others. Items that cost 5 in the inventory menu, will actually sell for 0 and Nyan will also only ask for 0 in the description
+	  (I could literally post a single screenshot image to explain this, I hope you understand what I mean. Maybe I can send them in discord or something, if you're interested).
+	  
+	When using enchanting to remove genitals, all the 3 options available: draught, potion and elixir, but they all do the same thing except for the cost.
+	
+	In combat, the shield (Poison Shield, Ice Shield, Arcane Shield, Fire Shield) descriptions say, that they deal damage. I have yet to see that happen.
+	
+	Double check the weather as it seems to apply inside buildings. I see it apply in Enforcer HQ.
+	Vaginal statues are still applied even with no vagina. This is due to the importer removing vaginas.
+	Fluff: The replace pans dialogue shows up before replacing panties, after which the replace pants dialogue shows up again. I don’t think women wear their panties on top of skirts or pants or w/e lol.
+	
+	female (didn't encounter male, so I don't know if it affects them too) harpy parser pronouns not working? (they display as blank)
+	After Brax defeat/transformation (starting as male - androgynous) - "Your precum quickly lubricates your ." and "Your precum quickly lubricates your hard ."
+	"You lost your anal virginity to ." even though no anal sex yet
+	
+	
+	Hard to replicate:
+	I was grinding for Exp from a level 2 enemy, and after I leveled up to lv4 I went into the house to sleep.
+	Afterward I was unable to click on anything above the bottom row of buttons.
+	For example the Load, Overwrite, Deletes buttons when you click on the Save/load bottom button.
+	Or anything in the inventory?
+	I'm seriously unsure as to what caused this bug.
+	It could even be because I spammed the 1/6/9 keys to finish fights faster.
+	Or it could have been the fact after I leveled up I accidentally pressed the explore button again which activated a fight.
+	
+	
+	
+	Not quite bugs
+	If you ask Lilaya about 'tests', then you cannot do any other dialogue options (such as asking about essences) until you leave and return.
+	in Pix encounter in shower, if you continue to use "Calm down", then she will continue to orgasm indefinitely. (Is this only with 'genderless mound' or with any genitalia?)
+	Brax scene repeatable after defeat, but if defeated again, you drink the potion again with same dialogue
+	sometimes if you use the scroll wheel on the "Continue" box at the main menu, then a scroll bar will appear (which, while not causing any problems, does not fit with everything else appearance-wise).
+		I think slightly enlarging the box may mitigate this, but I'm not sure.
+		
+	Create a character -> choose slut -> back -> choose strong and you get "Recovering orfices" on a virgin

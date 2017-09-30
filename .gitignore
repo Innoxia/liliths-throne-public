@@ -1,8 +1,11 @@
 bin/
+build/
 data/
+out/
 .*
 *.bak
 *~
 *.old
 *.class
 *.log
+*.iml

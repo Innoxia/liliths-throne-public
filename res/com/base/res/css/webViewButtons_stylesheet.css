@@ -1,0 +1,169 @@
+html {
+	background: #1e1e20;
+    font-family:Calibri;
+	font-size:11pt;
+	font-size:7vw; /*font-size:2vw;*/
+	color: #ffffff;
+	overflow:hidden;
+	cursor:default;
+	margin:0;
+	padding:0;
+}
+
+body{
+	margin:0;
+	padding:0;
+}
+
+div {
+    width: 100%;
+	margin:0;
+    padding: 0;
+	background-color: transparent;
+}
+
+p{
+	margin:0;
+	padding:0;
+}
+
+table{
+	width:90vw;
+	padding:0;
+	margin:0;
+	border:0;
+	border-collapse:collapse;
+}
+td{
+	font-size:1em;
+	margin:0;
+	padding:2 2 2 2;
+	/*background:#000000;*/
+}
+tr{
+	padding:0 0 8 0;
+	margin:0;
+}
+
+h1{
+	font-size:2.5em;
+	font-weight: bold;
+	padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+h2{
+	font-size:2em;
+	font-weight: bold;
+	padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+h3{
+	font-size:1.8em;
+	font-weight: bold;
+	padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+h4{
+	font-size:1.6em;
+	font-weight: bold;
+	padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+h5{
+	font-size:1.4em;
+	font-weight: bold;
+	padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+h6{
+	font-size:1.2em;
+	font-weight: bold;
+	padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+.quarterContainer{
+	position:relative;
+	float:left;
+	width:20%;
+	height:100%;
+	-webkit-user-select: none;
+}
+
+.button {
+	position:relative;
+	width:30px;
+	height:30px;
+	padding:0;
+	margin-left: auto;
+    margin-right: auto;
+	border-radius: 5px;
+	/*background-color: #333333;*/
+	-webkit-user-select: none;
+	
+	background: -webkit-gradient(
+		linear, left top, left bottom,
+		from(#555),
+		color-stop(0.50, #444),
+		color-stop(0.92, #333),
+		to(#222));
+	text-shadow:
+		1px 1px 2px rgba(000,000,000,0.7),
+		0px 1px 0px rgba(000,000,000,0.4);
+}
+.button.highlight{
+	/*background: #ffdf80;*/
+	-webkit-user-select: none;
+	
+	background: -webkit-gradient(
+		linear, left top, left bottom,
+		from(#ffecb3),
+		color-stop(0.50, #ffdf80),
+		color-stop(0.92, #ffd966),
+		to(#ffd24d));
+	text-shadow:
+		1px 1px 2px rgba(000,000,000,0.7),
+		0px 1px 0px rgba(000,000,000,0.4);
+}
+.button.disabled{
+	background:#333333;
+	cursor:default;
+}
+.button:hover{
+	background:#666666;
+	cursor:pointer;
+}
+.button.disabled:hover{
+	background:#333333;
+	cursor:default;
+}
+.button.highlight:hover{
+	background:#fff2cc;
+	cursor:pointer;
+}
+.button.highlight.disabled:hover{
+	background: #ffdf80;
+	cursor:default;
+}
+
+.overlay {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	-webkit-user-select: none;
+}
+
+.disabledLayer{
+	position:absolute;
+	left:0;
+	top:0;
+	margin:0;
+	padding:0;
+	width:100%;
+	height:100%;
+	background-color:#000;
+	opacity:0.5;
+	border-radius:5px;
+}
