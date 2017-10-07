@@ -600,14 +600,8 @@ public class Main extends Application {
 		File file = new File("data/saves/"+name+".lts");
 		
 		if (file.exists()) {
-			try {
-				Main.game = new Game();
-				FileInputStream fin = new FileInputStream(file);
-				ObjectInputStream ois = new ObjectInputStream(fin);
-				Game loadedGame = (Game) ois.readObject();
-				ois.close();
-				fin.close();
-				Main.game = loadedGame;
+			try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+				Main.game = (Game) ois.readObject();
 				Main.game.reloadContent();
 				if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.OPTIONS) {
 					Main.mainController.openOptions();
