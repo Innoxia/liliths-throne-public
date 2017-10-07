@@ -46,7 +46,7 @@ public class PartnerPenisAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex();
+			return !Sex.isPlayerDom() ||Sex.isConsensual();
 		}
 
 		@Override
@@ -147,7 +147,7 @@ public class PartnerPenisAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex();
+			return Sex.isPlayerDom() ||Sex.isConsensual();
 		}
 
 		@Override
@@ -883,7 +883,7 @@ public class PartnerPenisAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex(); // Partner can only stop if they're in charge (otherwise, this is the player fucking themselves on the partner's cock).
+			return !Sex.isPlayerDom() ||Sex.isConsensual(); // Partner can only stop if they're in charge (otherwise, this is the player fucking themselves on the partner's cock).
 		}
 		
 		@Override
@@ -949,9 +949,9 @@ public class PartnerPenisAnus {
 			// You can't penetrate if you're already fucking your partner, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
 			
 			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER)==null) {
-				return (Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom());
+				return (Sex.isConsensual() || Sex.isPlayerDom());
 			} else {
-				return false;//(Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom()) && !Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER).contains(OrificeType.VAGINA_PARTNER);
+				return false;//(Sex.isConsensual() || Sex.isPlayerDom()) && !Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER).contains(OrificeType.VAGINA_PARTNER);
 			}
 		}
 		
@@ -1098,7 +1098,7 @@ public class PartnerPenisAnus {
 				return UtilText.returnStringAtRandom(
 						"Gently pushing your [pc.ass] into [npc.name]'s groin, you let out a soft [pc.moan] as you help to sink [npc.her] [npc.cock+] deep into your [pc.asshole+].",
 						"With a soft [pc.moan], you gently start gyrating your [pc.hips] into [npc.name]'s [npc.ass], forcing [npc.her] [npc.cock+] ever deeper into your [pc.asshole+].",
-						"Slowly thrusting your [pc.ass] into [npc.name]'s groin, a soft [pc.moan] drifts out from between your [pc.lips+] as your movements force [npc.her] [npc.cock+] deep into your [npc.asshole+].");
+						"Slowly thrusting your [pc.ass] into [npc.name]'s groin, a soft [pc.moan] drifts out from between your [pc.lips+] as your movements force [npc.her] [npc.cock+] deep into your [pc.asshole+].");
 			}
 		}
 		
@@ -1148,7 +1148,7 @@ public class PartnerPenisAnus {
 				return UtilText.returnStringAtRandom(
 						"Eagerly pushing your [pc.ass] into [npc.name]'s groin, you let out [pc.a_moan+] as you energetically help to sink [npc.her] [npc.cock+] deep into your [pc.asshole+].",
 						"With [pc.a_moan+], you energetically start gyrating your [pc.hips] into [npc.name]'s [npc.ass], forcing [npc.her] [npc.cock+] ever deeper into your [pc.asshole+].",
-						"Enthusiastically thrusting your [pc.ass] into [npc.name]'s groin, [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.her] [npc.cock+] deep into your [npc.asshole+].");
+						"Enthusiastically thrusting your [pc.ass] into [npc.name]'s groin, [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.her] [npc.cock+] deep into your [pc.asshole+].");
 			
 			}
 		}
@@ -1199,7 +1199,7 @@ public class PartnerPenisAnus {
 				return UtilText.returnStringAtRandom(
 						"Violently slamming your [pc.ass] into [npc.name]'s groin, you let out [pc.a_moan+] as you roughly force [npc.her] [npc.cock+] deep into your [pc.asshole+].",
 						"With [pc.a_moan+], you aggressively start gyrating your [pc.hips] into [npc.name]'s [npc.ass], roughly forcing [npc.her] [npc.cock+] ever deeper into your [pc.asshole+].",
-						"Roughly thrusting your [pc.ass] into [npc.name]'s groin, [pc.a_moan+] bursts out from between your [pc.lips+] as your forceful movements drive [npc.her] [npc.cock+] deep into your [npc.asshole+].");
+						"Roughly thrusting your [pc.ass] into [npc.name]'s groin, [pc.a_moan+] bursts out from between your [pc.lips+] as your forceful movements drive [npc.her] [npc.cock+] deep into your [pc.asshole+].");
 			}
 		}
 		
@@ -1258,7 +1258,7 @@ public class PartnerPenisAnus {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Pushing your [pc.ass] out into [npc.name]'s groin, you let out [pc.a_moan+] as you help to sink [npc.her] [npc.cock+] deep into your [pc.asshole+].",
 						"With [pc.a_moan+], you start gyrating your [pc.ass] into [npc.name]'s groin, forcing [npc.her] [npc.cock+] ever deeper into your [pc.asshole+].",
-						"Thrusting your [pc.ass] into [npc.name]'s groin, [pc.a_moan+] drifts out from between your [pc.lips+] as your movements force [npc.her] [npc.cock+] deep into your [npc.asshole+]."));
+						"Thrusting your [pc.ass] into [npc.name]'s groin, [pc.a_moan+] drifts out from between your [pc.lips+] as your movements force [npc.her] [npc.cock+] deep into your [pc.asshole+]."));
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -1307,7 +1307,7 @@ public class PartnerPenisAnus {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly pushing your [pc.ass] out into [npc.name]'s groin, you let out [pc.a_moan+] as you energetically help to sink [npc.her] [npc.cock+] deep into your [pc.asshole+].",
 					"With [pc.a_moan+], you energetically start gyrating your [pc.ass] into [npc.name]'s groin, forcing [npc.her] [npc.cock+] ever deeper into your [pc.asshole+].",
-					"Enthusiastically thrusting your [pc.ass] into [npc.name]'s groin, [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.her] [npc.cock+] deep into your [npc.asshole+]."));
+					"Enthusiastically thrusting your [pc.ass] into [npc.name]'s groin, [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.her] [npc.cock+] deep into your [pc.asshole+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1405,7 +1405,7 @@ public class PartnerPenisAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override

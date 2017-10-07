@@ -80,11 +80,16 @@ public class Mouth implements BodyPartInterface, Serializable {
 	}
 
 	public String getLipsDescriptor(GameCharacter gc) {
+		List<String> descriptorList = new ArrayList<>();
+		
+		descriptorList.add(getLipSize().getName());
+		
 		if (gc.isFeminine()) {
-			return UtilText.returnStringAtRandom("soft", "plump", "full");
-		} else {
-			return UtilText.returnStringAtRandom("");
+			descriptorList.add("soft");
+			descriptorList.add("delicate");
 		}
+		
+		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}
 
 	public void setType(MouthType type) {

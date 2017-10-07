@@ -346,22 +346,22 @@ public enum SpecialAttack {
 			
 			if(caster.isPlayer()) {
 				attackText = (UtilText.returnStringAtRandom(
-						"You open your mouth, sticking out your [pc.tongue] and making a suggestive gesture with one of your [npc.hands], "
+						"You open your mouth, sticking out your [pc.tongue] and making a suggestive gesture with one of your [pc.hands], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[pc.speech(You know, I'm pretty skilled with my tongue!)]"
 									:"[pc.speech(Want to find out how deep I can take it?)]"),
 
-						"You open your mouth, sticking out your [pc.tongue] and making a suggestive gesture with one of your [npc.hands], "
+						"You open your mouth, sticking out your [pc.tongue] and making a suggestive gesture with one of your [pc.hands], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[pc.speech(You'd love the feeling of my tongue!)]"
 									:"[pc.speech(Want to stick your cock down my throat?)]"),
 
-						"You open your mouth, sticking out your [pc.tongue] and making a suggestive gesture with one of your [npc.hands], "
+						"You open your mouth, sticking out your [pc.tongue] and making a suggestive gesture with one of your [pc.hands], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[pc.speech(I'm the best at eating girls out! Want to see?)]"
 									:"[pc.speech(I'm the best at blowjobs! Want to see?)]"),
 
-						"You open your mouth, sticking out your [pc.tongue] and making a suggestive gesture with one of your [npc.hands], "
+						"You open your mouth, sticking out your [pc.tongue] and making a suggestive gesture with one of your [pc.hands], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[pc.speech(You know you want to feel my tongue!)]"
 									:"[pc.speech(You know you want me to suck your cock!)]")));

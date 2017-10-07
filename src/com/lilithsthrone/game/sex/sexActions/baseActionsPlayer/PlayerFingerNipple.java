@@ -921,7 +921,7 @@ public class PlayerFingerNipple {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().hasBreasts() && (!Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex());
+			return Sex.getPartner().hasBreasts() && (!Sex.isPlayerDom() ||Sex.isConsensual());
 		}
 
 		@Override
@@ -1308,7 +1308,7 @@ public class PlayerFingerNipple {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || !Sex.isPlayerDom(); // Partner can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || !Sex.isPlayerDom(); // Partner can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override

@@ -842,8 +842,8 @@ position:relative;
 	vertical-align: middle;
 }
 .item-count{
-	font-size:18px;
-	line-height:18px;
+	font-size:14px;
+	line-height:14px;
 	position:absolute;
 	text-align: right;
 	right:2px;
@@ -852,8 +852,8 @@ position:relative;
 	text-shadow: 2px 0 0 #fcfcfc, -2px 0 0 #fcfcfc, 0 2px 0 #fcfcfc, 0 -2px 0 #fcfcfc, 1px 1px #fcfcfc, -1px -1px 0 #fcfcfc, 1px -1px 0 #fcfcfc, -1px 1px 0 #fcfcfc;
 }
 .item-price{
-	font-size:18px;
-	line-height:18px;
+	font-size:14px;
+	line-height:14px;
 	position:absolute;
 	text-align: right;
 	left:2px;

@@ -34,7 +34,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.86
  * @author Innoxia
  */
 public class UtilText {
@@ -492,21 +492,69 @@ public class UtilText {
 		return formatAsMoney(money, "b");
 	}
 	
-	public static String getColouredMoneySymbol(String tag) {
-		return "<" + tag + " style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</" + tag + ">";
-	}
+//	public static String getColouredMoneySymbolGold(String tag) {
+//		return "<" + tag + " style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</" + tag + ">";
+//	}
 	
 	public static String formatAsMoney(int money, String tag) {
-		return "<" + tag + " style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</" + tag + "><" + tag + ">" + money + "</" + tag + ">";
+		return formatAsMoney(money, tag, null);
+	}
+	
+	//private static NumberFormat formatter = new DecimalFormat("#0.00");   formatter.format(money/100d)
+	
+	public static String formatAsMoney(int money, String tag, Colour amountColour) {
+//		int moneyGold = money/10000;
+//		int moneySilver = (money%10000)/100;
+//		int moneyCopper = (money%10000)%100;
+		
+		String tagColour;
+		if(amountColour==null ) {
+			tagColour = Colour.TEXT.getShades(8)[3];
+		} else {
+			tagColour = amountColour.toWebHexString();
+		}
+		
+		return "<" + tag + " style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+					+ "<" + tag + " style='color:" + tagColour + ";'>" + money + "</" + tag + ">";
+		
+//		return "<" + tag + " style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//				+ "<" + tag + " style='color:" + tagColour + ";'>" + money/100 + "</" + tag + "> "
+//				+"<" + tag + " style='color:" + Colour.GENERIC_SEX.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//				+ "<" + tag + " style='color:" + tagColour + ";'>" + money%100 + "</" + tag + "> ";
+		
+//		return (moneyGold>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//					+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyGold + "</" + tag + "> ":"")
+//				+(moneyGold+moneySilver>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_SILVER.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//						+ "<" + tag + " style='color:" + tagColour + ";'>" + moneySilver + "</" + tag + "> ":"")
+//				+(money>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_COPPER.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//						+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyCopper + "</" + tag + ">":"");
 	}
 	
 	public static String formatAsMoneyUncoloured(int money, String tag) {
-		return "<" + tag + ">" + Main.game.getCurrencySymbol() + "</" + tag + "><" + tag + ">" + money + "</" + tag + ">";
+//		int moneyGold = money/10000;
+//		int moneySilver = (money%10000)/100;
+//		int moneyCopper = (money%10000)%100;
+		
+		String tagColour = Colour.TEXT_GREY.toWebHexString();
+
+		return "<" + tag + " style='color:" + tagColour + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+					+ "<" + tag + " style='color:" + tagColour + ";'>" + money + "</" + tag + ">";
+		
+//		return "<" + tag + " style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//				+ "<" + tag + " style='color:" + tagColour + ";'>" + money/100 + "</" + tag + "> "
+//				+"<" + tag + " style='color:" + Colour.GENERIC_SEX.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//				+ "<" + tag + " style='color:" + tagColour + ";'>" + money%100 + "</" + tag + "> ";
+		
+//		return (moneyGold>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_GOLD.getShades()[0] + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//					+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyGold + "</" + tag + "> ":"")
+//				+(moneyGold+moneySilver>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_SILVER.getShades()[0] + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//						+ "<" + tag + " style='color:" + tagColour + ";'>" + moneySilver + "</" + tag + "> ":"")
+//				+(money>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_COPPER.getShades()[0] + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//						+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyCopper + "</" + tag + ">":"");
 	}
 	
 	public static String formatAsItemPrice(int money) {
-		String tag = "b";
-		return "<" + tag + " style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</" + tag + "><" + tag + ">" + money + "</" + tag + ">";
+		return formatAsMoney(money, "b");
 	}
 	
 	public static String formatVirginityLoss(String s) {
@@ -776,6 +824,43 @@ public class UtilText {
 					return "daughter";
 				} else {
 					return "son";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("mother"),
+						new ListValue<>("father")),
+				true,
+				true,
+				"",//TODO
+				"Description of method"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
+					return "mother";
+				} else {
+					return "father";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("mom"),
+						new ListValue<>("mum"),
+						new ListValue<>("dad")),
+				true,
+				true,
+				"",//TODO
+				"Description of method"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
+					return "mom";
+				} else {
+					return "dad";
 				}
 			}
 		});

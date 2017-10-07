@@ -390,7 +390,7 @@ public class SlaverAlleyDialogue {
 						
 					} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_RECOMMENDATION_OBTAINED) {
 						if(Main.game.getPlayer().getMoney() >= slaverLicenseCost) {
-							return new Response("Present letter (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+slaverLicenseCost+")",
+							return new Response("Present letter (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+slaverLicenseCost+")",
 									"Show Finch the letter of recommendation you obtained from Lilaya, and then pay "+slaverLicenseCost+" flames to obtain a slaver license.", SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED) {
 								@Override
 								public void effects() {

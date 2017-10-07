@@ -11,7 +11,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 
 /**
  * @since 0.1.0
- * @version 0.1.79
+ * @version 0.1.86
  * @author Innoxia
  */
 public interface SexManagerInterface {
@@ -28,14 +28,11 @@ public interface SexManagerInterface {
 	public List<SexActionInterface> getMutualOrgasmActions();
 	
 	/**
-	 * @param sexActionPlayer
-	 *            The action that the player just took before the partner's
-	 *            turn.
+	 * @param sexActionPlayer The action that the player just took before the partner's turn.
 	 * @return The action that the partner takes.
 	 */
 	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer);
 	
-	public boolean isConsensualSex();
 	public boolean isPlayerAbleToStopSex();
 	
 	public SexPace getStartingSexPacePlayer();

@@ -21,7 +21,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
- * @version 0.1.79
+ * @version 0.1.86
  * @author Innoxia
  */
 public class GenericActions {
@@ -38,7 +38,7 @@ public class GenericActions {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() && !Sex.getSexManager().isConsensualSex();
+			return !Sex.isPlayerDom();
 		}
 		
 		@Override
@@ -112,7 +112,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() && !Sex.getSexManager().isConsensualSex())
+			return (Sex.isPlayerDom() && !Sex.isConsensual())
 					&& Sex.isPartnerAllowedToUseSelfActions();
 		}
 
@@ -211,7 +211,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() && !Sex.getSexManager().isConsensualSex())
+			return (Sex.isPlayerDom() && !Sex.isConsensual())
 					&& !Sex.isPartnerAllowedToUseSelfActions();
 		}
 
@@ -246,7 +246,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() && !Sex.getSexManager().isConsensualSex())
+			return (Sex.isPlayerDom() && !Sex.isConsensual())
 					&& (Sex.isPartnerCanRemovePlayersClothes());
 		}
 
@@ -281,7 +281,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() && !Sex.getSexManager().isConsensualSex())
+			return (Sex.isPlayerDom() && !Sex.isConsensual())
 					&& (!Sex.isPartnerCanRemovePlayersClothes());
 		}
 
@@ -316,7 +316,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() && !Sex.getSexManager().isConsensualSex())
+			return (Sex.isPlayerDom() && !Sex.isConsensual())
 					&& (Sex.isPartnerCanRemoveOwnClothes());
 		}
 
@@ -351,7 +351,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() && !Sex.getSexManager().isConsensualSex())
+			return (Sex.isPlayerDom() && !Sex.isConsensual())
 					&& (!Sex.isPartnerCanRemoveOwnClothes());
 		}
 
@@ -388,7 +388,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPartnerSelfPenetrationHappening()
-					&& (Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex());
+					&& (Sex.isPlayerDom() ||Sex.isConsensual());
 		}
 
 		@Override
@@ -474,7 +474,7 @@ public class GenericActions {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom() && !Sex.getSexManager().isConsensualSex();
+			return Sex.isPlayerDom() && !Sex.isConsensual();
 		}
 		
 		@Override
@@ -552,7 +552,7 @@ public class GenericActions {
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPlayerSelfPenetrationHappening()
 					&& !Sex.isAnyNonSelfPenetrationHappening()
-					&& (!Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex());
+					&& (!Sex.isPlayerDom() ||Sex.isConsensual());
 		}
 
 		@Override
@@ -681,7 +681,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			if(!Sex.getSexManager().isConsensualSex()) {
+			if(!Sex.isConsensual()) {
 				return !Sex.isPlayerDom() && Sex.getNumberOfPartnerOrgasms()>=1;
 			} else {
 				return Sex.getNumberOfPartnerOrgasms()>=1 && Sex.getNumberOfPlayerOrgasms()>=1;

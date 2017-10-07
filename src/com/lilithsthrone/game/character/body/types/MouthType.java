@@ -64,15 +64,13 @@ public enum MouthType implements BodyPartTypeInterface {
 	@Override
 	public String getNameSingular(GameCharacter gc) {
 		return UtilText.returnStringAtRandom(
-				"mouth",
-				"throat");
+				"mouth");
 	}
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
 		return UtilText.returnStringAtRandom(
-				"mouths",
-				"throats");
+				"mouths");
 	}
 	
 	@Override

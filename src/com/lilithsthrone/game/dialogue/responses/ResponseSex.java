@@ -15,11 +15,13 @@ import com.lilithsthrone.game.sex.managers.SexManagerInterface;
 
 /**
  * @since 0.1.69
- * @version 0.1.78
+ * @version 0.1.86
  * @author Innoxia
  */
 public class ResponseSex extends Response {
 	
+	private boolean consensual;
+	private boolean canResist;
 	private NPC partner;
 	private SexManagerInterface sexManager;
 	private DialogueNodeOld postSexDialogue;
@@ -27,32 +29,34 @@ public class ResponseSex extends Response {
 	protected SexPace sexPacePlayer, sexPacePartner;
 
 	public ResponseSex(String title, String tooltipText, DialogueNodeOld nextDialogue,
-			NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue) {
+			boolean consensual, boolean canResist, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue) {
 		this(title, tooltipText, nextDialogue,
-				 partner, sexManager, postSexDialogue, "");
+				 consensual, canResist, partner, sexManager, postSexDialogue, "");
 	}
 	
 	public ResponseSex(String title, String tooltipText, DialogueNodeOld nextDialogue,
-			NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue, String sexStartDescription) {
+			boolean consensual, boolean canResist, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue, String sexStartDescription) {
 		this(title, tooltipText, nextDialogue,
 				null, null, null,
 				null, null, null,
-				 partner, sexManager, postSexDialogue, sexStartDescription);
+				consensual, canResist, partner, sexManager, postSexDialogue, sexStartDescription);
 	}
 	
 	public ResponseSex(String title, String tooltipText, DialogueNodeOld nextDialogue,
 			List<Fetish> fetishesForUnlock, List<Fetish> fetishesBlocking, CorruptionLevel corruptionBypass,
 			List<Perk> perksRequired, Femininity femininityRequired, Race raceRequired,
-			NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue, String sexStartDescription
+			boolean consensual, boolean canResist, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue, String sexStartDescription
 			) {
 		super(title, tooltipText, nextDialogue,
 				fetishesForUnlock, corruptionBypass,
 				perksRequired, femininityRequired, raceRequired);
 		
-		this.partner=partner;
-		this.sexManager=sexManager;
-		this.postSexDialogue=postSexDialogue;
-		this.sexStartDescription=sexStartDescription;
+		this.consensual = consensual;
+		this.canResist = canResist;
+		this.partner = partner;
+		this.sexManager = sexManager;
+		this.postSexDialogue = postSexDialogue;
+		this.sexStartDescription = sexStartDescription;
 	}
 	
 	@Override
@@ -61,7 +65,7 @@ public class ResponseSex extends Response {
 	}
 	
 	public DialogueNodeOld initSex() {
-		return Sex.SEX.initialiseSex(partner, sexManager, postSexDialogue, sexStartDescription, sexPacePlayer, sexPacePartner);
+		return Sex.SEX.initialiseSex(consensual, canResist, partner, sexManager, postSexDialogue, sexStartDescription, sexPacePlayer, sexPacePartner);
 	}
 	
 

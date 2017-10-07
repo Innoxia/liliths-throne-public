@@ -1858,7 +1858,7 @@ public class ConChairTop {
 					"As [npc.she] lets out [npc.a_moan+], you suddenly feel [npc.name]'s [npc.tail] start to thrust in and out of your [pc.ass],"
 							+ " and you notice a devious smile flash across [npc.her] [npc.face] as [npc.she] delights in using her [npc.tail] to fuck your [pc.asshole].",
 					
-					"[npc.Name] blows you a kiss, and as [npc.she] does so, you feel [npc.her] [npc.tail] roughly press up into your [npc.ass], causing you to let out [pc.a_moan+].");
+					"[npc.Name] blows you a kiss, and as [npc.she] does so, you feel [npc.her] [npc.tail] roughly press up into your [pc.ass], causing you to let out [pc.a_moan+].");
 		}
 		
 		@Override
@@ -1899,7 +1899,7 @@ public class ConChairTop {
 					"As [npc.she] lets out [npc.a_moan+], you suddenly feel [npc.name]'s [npc.tail] start to thrust in and out of your [pc.pussy+],"
 							+ " and you notice a devious smile flash across [npc.her] [npc.face] as [npc.she] delights in using her [npc.tail] to fuck you.",
 					
-					"[npc.Name] blows you a kiss, and as [npc.she] does so, you feel [npc.her] [npc.tail] roughly press up into your [npc.pussy+], causing you to let out [pc.a_moan+].");
+					"[npc.Name] blows you a kiss, and as [npc.she] does so, you feel [npc.her] [npc.tail] roughly press up into your [pc.pussy+], causing you to let out [pc.a_moan+].");
 		}
 	};
 	

@@ -42,7 +42,7 @@ public class PartnerTailAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex();
+			return !Sex.isPlayerDom() ||Sex.isConsensual();
 		}
 
 		@Override
@@ -137,7 +137,7 @@ public class PartnerTailAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex();
+			return Sex.isPlayerDom() ||Sex.isConsensual();
 		}
 
 		@Override
@@ -741,7 +741,7 @@ public class PartnerTailAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex(); // Partner can only stop if they're in charge (otherwise, this is the player fucking themselves on the partner's cock).
+			return !Sex.isPlayerDom() ||Sex.isConsensual(); // Partner can only stop if they're in charge (otherwise, this is the player fucking themselves on the partner's cock).
 		}
 		
 		@Override
@@ -802,7 +802,7 @@ public class PartnerTailAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom());
+			return (Sex.isConsensual() || Sex.isPlayerDom());
 		}
 		
 		@Override
@@ -931,7 +931,7 @@ public class PartnerTailAnus {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Gently pushing your [pc.hips] back, you let out a soft [pc.moan] as you help to sink [npc.name]'s [npc.tail+] deep into your [pc.asshole+].",
 					"With a soft [pc.moan], you gently start gyrating your [pc.hips], forcing [npc.name]'s [npc.tail+] ever deeper into your [pc.asshole+].",
-					"Slowly thrusting your [pc.hips] back, a soft [pc.moan] drifts out from between your [pc.lips+] as your movements force [npc.name]'s [npc.tail+] deep into your [npc.asshole+]."));
+					"Slowly thrusting your [pc.hips] back, a soft [pc.moan] drifts out from between your [pc.lips+] as your movements force [npc.name]'s [npc.tail+] deep into your [pc.asshole+]."));
 
 			return UtilText.nodeContentSB.toString();
 		}
@@ -979,7 +979,7 @@ public class PartnerTailAnus {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly pushing your [pc.hips] back, you let out [pc.a_moan+] as you energetically help to sink [npc.her] [npc.tail+] deep into your [pc.asshole+].",
 					"With [pc.a_moan+], you energetically start gyrating your [pc.hips], forcing [npc.name]'s [npc.tail+] ever deeper into your [pc.asshole+].",
-					"Enthusiastically thrusting your [pc.hips] back, [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.name]'s [npc.tail+] deep into your [npc.asshole+]."));
+					"Enthusiastically thrusting your [pc.hips] back, [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.name]'s [npc.tail+] deep into your [pc.asshole+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1027,19 +1027,19 @@ public class PartnerTailAnus {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Violently slamming your [pc.hips] back, you let out [pc.a_moan+] as you roughly force [npc.her] [npc.tail+] deep into your [pc.asshole+].",
 					"With [pc.a_moan+], you aggressively start gyrating your [pc.hips] against [npc.name], forcing [npc.her] [npc.tail+] ever deeper into your [pc.asshole+].",
-					"Roughly thrusting your [pc.hips] back, [pc.a_moan+] bursts out from between your [pc.lips+] as your forceful movements drive [npc.name]'s [npc.tail+] deep into your [npc.asshole+]."));
+					"Roughly thrusting your [pc.hips] back, [pc.a_moan+] bursts out from between your [pc.lips+] as your forceful movements drive [npc.name]'s [npc.tail+] deep into your [pc.asshole+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 		@Override
 		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_SADIST));
 		}
 		
 		@Override
 		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_MASOCHIST));
 		}
 	};
 	
@@ -1123,7 +1123,7 @@ public class PartnerTailAnus {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly pushing your [pc.hips] out, you let out [pc.a_moan+] as you energetically help to sink [npc.her] [npc.tail+] deep into your [pc.asshole+].",
 					"With [pc.a_moan+], you energetically start gyrating your [pc.hips], forcing [npc.name]'s [npc.tail+] ever deeper into your [pc.asshole+].",
-					"Enthusiastically thrusting your [pc.hips], [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.name]'s [npc.tail+] deep into your [npc.asshole+]."));
+					"Enthusiastically thrusting your [pc.hips], [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.name]'s [npc.tail+] deep into your [pc.asshole+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1221,7 +1221,7 @@ public class PartnerTailAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override

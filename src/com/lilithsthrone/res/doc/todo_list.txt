@@ -6,117 +6,261 @@
 	
 	Patch notes:
 	
+	Engine:
+		Slightly reworked the detection system for consensual sex detection, in order to better support different sex scenes. (Some actions might be available when they shouldn't; I'll get this fixed for the next version.)
 	
 	Gameplay:
-		<b>Added to and improved:</b> Character creation. (I still have a little more to add to this.)
-		<b>Changed:</b> You now start the game with whatever clothes you picked in the character creation process. (Rip hoodie and yoga pants. ;_;)
-		<b>Added:</b> (A very basic) genetics system to offspring. Offspring's features will now be inherited and influenced by their parents. (I will improve this at some stage in the future, but it should be ok as a placeholder.)
-		<b>Added:</b> Four personality types. These will be used to influence the random NPCs' dialogue, obedience & affection gains/losses, and other minor things.
-		Added breast shape, along with breast shape enchantment elements. (Round, pointy, side-set, wide, and narrow.)
-		Added labia size.
-		Increased storage capacity for each tile's ground inventory from 24 to 48.
+		<b>Added:</b> Incest dialogue. Your offspring's reactions and dialogue will alter based on your affection with them, as well as their personality and history (at the moment, the available histories are just 'mugger' and 'prostitute').
+		Finished the basics of the character creator. (There's still more to add!)
+		Added a couple more room upgrades for slaves, as well as some placeholder actions for conversation with them.
 	
-	UI:
-		Updated the content preferences screen.
-		Updated the light theme to work with the new UI elements. (It could still do with a lot of improvements though.)
-	
-	Clothing:
-		(I needed to add some more clothing for the character creation.)
-		Added: Stiletto heels (feminine, foot slot).
-		Added: Trainer socks (unisex, sock slot).
-		Added: Low-top skater shoes (unisex, foot slot).
-		Added: Tie (unisex, neck slot).
-		Added: Suit jacket (masculine, over-torso slot).
+	AI:
+		NPCs will now only use anal actions if they have an anal fetish, or if there is no vagina available.
+		NPCs will no longer suck their own fingers.
 	
 	Other:
-		<b>Improved:</b> Gender detection and naming to take into account whether the person has breasts or not.
-		Assumed gender from appearance now takes into account whether your balls are internal, whether your penis is sheathed, and whether you have a cloaca. (A bulge won't be visible for internal balls or cloacas, and will only be visible for very large sheathed penises.)
-		Added 'Use all' to inventory options.
-		Moved tape crosses from chest to nipple slot.
-		Added more pattern availability to nail polish and lipstick.
-		Improved parser capitalisation detection for body part colours.
-		Inventory is now ordered by slot type.
-		Nyan now stocks the cattle set's items.
-		Enabled 'Take all' in inventory for taking all of an NPC's items at once.
-		Changed bovine penis default modifier from flared to tapered. (Thanks Rfpnj!)
-		NPCs will now only spawn with non-con, incest, or transformation fetishes if you have the associated option turned on in the content preferences.
-		NPCs can now span with up to five fetishes.
-		Increased chance (to 50%) for your offspring to have the incest fetish.
-		NPCs that you enslave will start off loathing you and will be very disobedient.
+		<b>Reworked:</b> Condoms are now a 'clothing' item, and can be equipped into the penis slot just like any other clothing.
+			Just as they worked before, once the wearer orgasms, a 'filled condom' item is added to their inventory. (Jinxed condoms are affected just like regular ones.)
+		Unequipping all during sex will no longer remove piercings.
+		Added the ability for NPCs to use the 'self-doggy' position (where they're the dom, but are the ones on all fours).
+		Characters with a furry rating of 'Minor' or 'Partial' will no longer spawn with multiple nipples.
+		Added 'perky' to breast shapes.
+		Added a couple more options for gender encounter rate settings.
+		NPCs will now spawn wearing makeup.
+		Tweaked hair style spawn probabilities.
 	
 	Bugs:
-		The icon for watches now have their hands pointing to the correct in-game time again.
-		Typo and formatting fixes.
-		Fixed crotchless thong being called 'crotchless thongs'.
-		Negative values for fertility or virility now correctly prevent pregnancy.
-		Clothing unequipping in sex is now correctly blocked by other clothing. (e.g. can't unequip your partner's panties if they're wearing yoga pants.)
-		Changing the capacity of an orifice (through drinking potions) now sets yours stretched capacity to the new value.
-		Fixed bug where Nyan would sometimes get the clothing she sold to you back in her inventory.
-		Unzipping trousers and shorts no longer grants access to vagina. (You can still pull them down to do this.)
-		Scarlett should no longer regenerate her clothing after sex.
-		Fixed description in combat's dual attack always saying that you hit, even if you missed.
-		Fixed Pix's post-sex scene leading to the arcade's entrance dialogue, instead of the gym's exterior dialogue.
-		You should no longer be assumed to be a hermaphrodite if only your penis is visible.
-		Possibly fixed a cause of the Properties file being reset now and again.
-		Fixed ability to see NPC's vagina and penis in the tooltip when hovering over their level when you did not know what their genitals looked like.
-		Fixed tooltip for NPC's equipped clothing not displaying the correct information.
-		Fixed broken description in selfie for 'almost unnoticable' breast sizes.
-		Pubic, facial, and body hair for NPCs should now be displayed if you have those options turned on.
-		Fixed weapon tooltips displaying incorrect damage.
-		Fixed bugs which would allow you to use dye-brushes in an incorrect manner, thereby wasting them.
-		Fixed bug related to Alexa's unsold slaves not being cleared from the game's memory.
-		<b>Fixed:</b> You no longer lose your vagina when importing a character that's either pregnant, or has the pregnancy risk effect.
-		Importing a character now correctly sets your virginity loss description.
-		Equipping a slave collar on an NPC from their inventory should now correctly trigger enslavement.
+		Fixed Scarlett slave interactions sometimes being broken.
+		Fixed default gender spawn preferences only being males and traps.
+		Setting all gender preferences to 0 now defaults to a 50/50 male/female chance, instead of making no encounters happen.
+		Fixed bug where you'd start with two demonstones.
+		Fixed masculine characters being assumed to be a cuntboy instead of a male.
+		Fixed bug where loading a previously saved game might sometimes cut off sections of dialogue.
+		Fixed NPCs dropping items in random tiles.
+		Fixed bug where Vicky's inventory (and possibly Ralph's, under certain circumstances) would sometimes break.
+		'Buy (5)' and 'Buy (All)' options in inventory dialogue should now correctly be greyed-out if you can't afford the cost.
+		Typo fixes.
+		Fixed bug where hotkey input was being registered when typing into a text field.
+		Fixed exposed & exhibitionist tooltips not returning the correct descriptions for NPCs.
+		Rough tail-pegging/tail fucking now have the correct related fetishes.
+		Fixed combat damage calculations not taking into account damage range.
+		Skin colourings for lips, anus, vagina, penis, and nipples will now be correctly updated to the skin colour of the rest of your body in the character creator.
+		Random name/surname buttons in the character creator will no loner reset the other field when pressed.
+		Fixed the availability of clothing's unequipping/drop actions in sex.
+		Fixed cocks being described as sheathed during sex.
+		Fixed NPCs not raping you if they had the non-con fetish. (Oops)
+		Fixed lips always being described as full.
+		Cow-morph consumables can now be used on alleyway attackers and harpies in the nests.
+		
 	
 	
 	
-	Not sure about the personality thing...
-	I think just backgrounds for now...
-	
-	Character creation is still rough!
 	
 	
 	
-	PROLOGUE MESH
-	CLOTHING Your clothes will get scattered around the lab
 	
+	
+	
+	
+	Sex: Some actions might be available when they shouldn't; I'll get this fixed for the next version
+	
+	
+	-----------------
+	
+	Finish character creation
+		I need to finish the backgrounds, add in sex experience stuff, then add in an opportunity to have sex with the random NPC, then integrate the end of the character creator into the rest of the prologue
+		
+		shrug it off an approach the crowd, where a guy/girl approaches you and starts talking [background, xp points]
+		
+		the strange atmosphere seems to be growing in intensity, and you suddenly find yourself talking about sex [sex background, sex exp]
+		
+		React differently based on if you're virgin, "normal" or slut, start heading towards the museum bathroom
+		Get stopped by Lily, she's panicking about Arthur (partner sighs and says they'll find you later).
+	
+		hoodies
+	
+	
+	Add more ways to influence affection and obedience.
+		take for walks
+		punish
+		talk
+		hug
+		kiss
+	Sex with slaves for some reason when you end it you collapse and they walk away after doming you.
+		
+	CUM EFFECTS
+	
+	-----------------
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	Condoms:
+		track cum
+		inseminate action
+			Filled condoms keep track of the type of cum that they're holding, and can now be used to artificially inseminate characters.
+			The offspring of any resulting pregnancy will have traits based on the the cum's stored body values.
+			E.g. Obtaining a filled condom from a dog-boy, and then transforming him into a cat-girl, then impregnating her with the filled condom, will result in offspring inheriting traits from her old dog-boy body, as well as her new cat-girl one.
+		
+	* all the slave equipment you buy is jinxed and you can neither unjinx (because it only shows selection options for your own jinxed equipment) nor otherwise take it off your slaves.
+		Condense essences into just arcane essences
+		Use essences to unjinx something
+	
+	Add self-doggy actions to SubDoggy and DomDoggy
+	
+	exhibitionist fetish should give some penalties for being covered up
+	
+	busty boys not working
+	Neuter Androgynous have breasts
+	: I think anything that requires breasts won't be working
+	
+	personality for named NPCs
+	
+	are content toggle settings supposed to influence the fetishes NPCs can spawn with?
+		Cause they currently don't seem to do so and it seems like they should. IE non con and incest fetishes probably shouldnt be in the NPC spawn list if those fetishes are toggled off.
+	
+	And you can't change your surname in the city hall
+	
+	
+	Add items used to event log
+	
+	inverted nipples
+	
+	
+	Gate getPlayerVaginaVirginityLossDescription() descriptions behind masochist/virginity fetishes
+	
+	
+	
+	Reduce number of children
+	Pregnancy rework to take into account safe days
+	
+	Save items
+	
+	Save NPCs
+	
+	
+	Full screen
+	
+	Even if you have thin or normal lips, most of the sex actions describe them as plump or full.
+	
+	[Need to make it so if there's only one partner, possibility is certain]
+		And the game's not recognizing that my character is already preggo. It still shows only as High probabillity
+	
+	
+
+	Also some of the clothing has to be manually removed by going into inventory as the npc's or you cant do it themselves mostly seems to affect undies layer clothing
+	
+	Selling the magic gems and feathers, you cant sell them some times sell all sell one nothing happens and they stay in inventory
+	
+	more cum-covered status effects, as well as cum-inflation scenes.
+	
+	I would love to take slaves out on a leash, even if its just to get their makeup/hair done.
+	
+	-bug: this is kind of funny, but you can use an elixir to remove your vagina while you have something in it (as in- by drinking the potion during sex),
+		 which does not stop the penetration (though it does make the game reference what I assume to be an empty string, because description text is still printed but with the word for the pussy missing).
+		  You might even be able to get pregnant from it, though I haven't managed to pull that off (I got the "might be pregnant" box to appear, but the 5 times I tried it I didn't get knocked up).
+	
+	Can unequip Rose's clothing in sex
+	
+	Add makeup wipes
+	Add nailpolish remover
+	
+	
+	Add freckles
+	
+	a pink slave collar that increased fertility
+		glowing pink
+	
+	post sex NPC inventory interaction still on the to do list
+	
+	
+	It worked once but now for some unknown reason enchanting is no longer working at all
+	
+	NPCs not listening to requests (Brax always anal)
+	
+	Ralph does nothing if ask for discount too early x_x
+	Okay he did it after blowing him to at least 30
+	maybe the if statement that displays the 'big discount' button is borked? Or maybe it doesnt have one. At any rate it should only pop up when it'll actually succeed/do something
+	
+	hotdogging & intercrural
+	
+	I'll be adding more orgasm options (including NPC using ass/pussy-to-mouth) both this and next week! :3
+
+	And I'm also planning on expanding those harpy punishment scenes to be a little longer and more interactive in the future. ^^
+	
+	I'll also add that condom-force-feeding action for NPCs at some point soon, thanks for the suggestion!
+	
+	
+	I dropped stolen panties (with almost full inventiory) and game just closed. Fucking hell.
+	
+	Despite putting in the settings, a 0-spawn rate for males, when I come across my kids in alleyways, most of them appear as males.
+	
+	I was considering using stamina in sex to determine for how long you can keep on going (with the option to drink stamina restoration potions for those that want to get to 60 orgasms).
+	 disassociate the state of your hymen from your virginity, so that once you've lost it, you can never be a true virgin again
+	
+	
+	
+	when I imported my old character, it reset all the gender preferences to a strange selection like 100% towards male characters and 100% towards futanari, with everything else 0%.
+	
+	
+	
+	 Also, I wound up with 2 of Brittany's lollipop after fighting her, doing nothing, then having sex. 
+	
+	
+	Combine gender prefs and pronouns
+	
+	turning off shemale encounters in "gender preferences" tab - doesn't prevent them from appearing in game
+	
+	
+	
+	could you make some "lore" explanation for protagonist's ability to use arcane energy for chosing fetishes
+	
+	
+	Oh wanted to ask, have you ever got around to changing the description of the virginity and lusty maiden perks? While she doesn't want to ever lose it, she has nothing wrong with using her pussy to seduce, tease and drive her friends/foes with lust ;D Cock tease and spreads come to mind.
+
+	Also, any follow ups on already exposed states pre combat/sex? Being an exhibitionist virtually removes all npc reactions from the game, which is wierd!
+	
+	
+	Forced TF:
+	-Height: very often go below 5 feet, is there that many who like midgets?:P
+	-hair:...or repunzels? Very often get floor length hair and never anything less then backlength. Figure common values should be shoulder to back length, with others being outliers.
+	-Breasts: Never target below c cup, and even in non breastfetish/cowmorph scenarios often get DD+. I'm figuring common values should be B-C and even A be allowed.
+	-Cow morphs: Get if they desire female and your male they will continue to try to transform horns with no luck. Also, should 4 titted teats on breasts and/or udders be a tf possibility?
+	-I think with forced tf on and/or tf fetish, if you aren't the desired gender of npc they should transform you when you are defeated rather than just robbing you.
+	-I'm wondering if there is a way to fine tune color combinations that happen. I understand this is hard with a random system, but fairly often you get unatural combinations or something that would make a color coordinator cry. IE: Blond fur, ginger hair, brown eyes. Perhaps have some "presets" that you have a medium chance of being assigned?
+	
+	
+	Add cloaca TF
+	
+	Add fisting
+	
+	
+	Offspring:
+		I'll make sure to add in unique dialogue for if you're keeping their other parent a slave as well.
+	
+	
+	Add pecs as flat-chest quivalent to breasts
+	Posing fetish for when you love showing off, Muscle worship fetish for when you love admiring. Each would be weak to the opposite's associated tease.
+	Could unlock some muscle worship sex scenes too.
+	
+	
+	while unzipping them gives access to your genitals, it doesn't actually let you shift aside your undergarments to allow access to them. 
+	shifting aside clothing can only be done when you have access to the groin slot on a character, which creates some problems when you can gain access to the penis or vagina slot without also gaining access to the groin slot at the same time.
 	
 	
 	fix finger sucking
 	
-	fix scarlett - Can't replicate ;_;
-	
-	
-	
-	personality for named NPCs
-	
-	
-	
-	shrug it off an approach the crowd, where a guy/girl approaches you and starts talking [background, xp points]
-	
-	the strange atmosphere seems to be growing in intensity, and you suddenly find yourself talking about sex [sex background, sex exp]
-	
-	React differently based on if you're virgin, "normal" or slut, start heading towards the museum bathroom
-	Get stopped by Lily, she's panicking about Arthur (partner sighs and says they'll find you later).
-	
-	
-	are content toggle settings supposed to influence the fetishes NPCs can spawn with?
-	 Cause they currently don't seem to do so and it seems like they should. IE non con and incest fetishes probably shouldnt be in the NPC spawn list if those fetishes are toggled off.
-	
-	
-	
-	incest dialogue
-	
-	
 	udders & crotch breasts
 	
 	
+	------------
 	
-	
-	
-	
-	Bugs
 	
 	
 	
@@ -2347,20 +2491,10 @@ Also noticed the Stop partner self action option disappears.
 	
 	Melee spells: basic damage and basic protection/shields. Ranged spells: offensive and defensive utility, which can take many forms
 	add steal spell (steals a random piece of clothing). If steal panties or bra, the opponent misses their next turn "W-What are your doing?! Y-You pervert!"
-	(You've been watching too much kono suba!)
+		Add display rack for stolen panties
 	
 	
-	!!!FINISH ADD ITEMS IN SEX!!!
-	
-	
-	<b>Added:</b> NPC pregnancies. NPCs follow the same pregnancy rules/timings as you do, so if you get an NPC pregnant, you won't know it until enough time has passed to move onto a visible stage of pregnancy.
-	<b>Added:</b> Dominion's "random attacker" impregnations. If you get a random girl pregnant, there's a chance that she'll turn up later in another encounter (and react to you getting her pregnant).
-	
-	
-	
-	
-	-----------------------------------------------------------------------------------------------------------
-	
+	---------------------------------------------------------------------------
 	
 	simple and detailed version of icons (for performance and better artwork)
 	

@@ -13,7 +13,6 @@ import javafx.scene.paint.Color;
  * @author Innoxia
  */
 public enum Colour {
-
 	
 	// This class and BaseColour are beyond saving x_x
 	
@@ -229,13 +228,16 @@ public enum Colour {
 	RARITY_LEGENDARY(Util.newColour(0xffcc00), Util.newColour(0xffcc00), "gold", Util.newArrayListOfValues(new ListValue<>("legendary"))),
 
 	// Inventory colours:
-	CURRENCY(BaseColour.GOLD, "gold"),
+	CURRENCY_GOLD(BaseColour.GOLD, "gold"),
+	CURRENCY_SILVER(BaseColour.SILVER, "gold"),
+	CURRENCY_COPPER(BaseColour.COPPER, "gold"),
 
 	SEALED(BaseColour.PINK_DEEP, "red"),
-	CUMMED(Util.newColour(0xE1E49B), Util.newColour(0xE1E49B), "light yellow"),
+	CUMMED(Util.newColour(0xE1E49B), Util.newColour(0xE1E49B), "light yellow",  Util.newArrayListOfValues(new ListValue<>("cummed"), new ListValue<>("dirty"))),
 	DISPLACED(BaseColour.CRIMSON, "crimson"),
 
 	// Text colours:
+	TEXT(Util.newColour(0xDDDDDD), Util.newColour(0x262626), "grey",  Util.newArrayListOfValues(new ListValue<>("text"))),
 	TEXT_GREY(Util.newColour(0x777777), Util.newColour(0x777777), "grey",  Util.newArrayListOfValues(new ListValue<>("disabled"))),
 
 	// Standard colours used for clothing:

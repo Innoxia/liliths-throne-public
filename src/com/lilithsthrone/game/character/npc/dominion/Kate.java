@@ -268,20 +268,8 @@ public class Kate extends NPC {
 		if(user.isPlayer()){
 			// Player uses item on themselves:
 			if(target.isPlayer()){
-				if(item.getItemType().equals(ItemType.CONDOM)) {
-							Main.game.getPlayer().removeItem(item);
-							return "<p>"
-								+ "As you pull out a condom, a worried frown flashes across Kate's face, "
-								+ UtilText.parseSpeech("Oh! Erm, let me put that on for you!", Main.game.getKate())
-								+"</br>"
-								+ "Before you can react, Kate snatches the condom out of your hands, and with a devious smile, uses her sharp little canines to bite a big hole straight through the centre."
-								+ " She laughs at your shocked reaction, "
-								+ UtilText.parseSpeech("It's no fun if I don't get any cum!", Main.game.getKate())
-							+ "</p>";
-				} else {
-						return Main.game.getPlayer().useItem(item, target, false);
-				}
-				
+				return Main.game.getPlayer().useItem(item, target, false);
+						
 			// Player uses item on NPC:
 			}else{
 				if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
@@ -302,6 +290,41 @@ public class Kate extends NPC {
 			return Sex.getPartner().useItem(item, target, false);
 		}
 	}
+	
+	
+	
+	
+	
+	@Override
+	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
+		if(Main.game.isInSex()) {
+			if(!target.isPlayer()) {
+				return "<p>"
+							+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
+							+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
+							+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
+						+ "</p>";
+			} else {
+				Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, equipper);
+				return "<p>"
+							+ "As you pull out a condom, a worried frown flashes across Kate's face, "
+							+ UtilText.parseSpeech("Oh! Erm, let me put that on for you!", Main.game.getKate())
+							+"</br>"
+							+ "Before you can react, Kate snatches the condom out of your hands, and with a devious smile, uses her sharp little canines to bite a big hole straight through the centre."
+							+ " She laughs at your shocked reaction, "
+							+ UtilText.parseSpeech("It's no fun if I don't get any cum!", Main.game.getKate())
+						+ "</p>";
+			}
+		}
+		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
+				"You tear open the packet and roll the condom down the length of your [pc.penis].",
+				"You tear open the packet and roll the condom down the length of [npc.name]'s [npc.penis].",
+				"You tear open the packet and forcefully roll the condom down the length [npc.name]'s [npc.penis].",
+				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
+				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
+				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].");
+	}
+	
 	
 	// Dirty talk:
 

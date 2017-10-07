@@ -41,7 +41,7 @@ import java.util.Set;
  * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.
  * 
  * @since 0.1.0
- * @version 0.1.84
+ * @version 0.1.86
  * @author Innoxia
  */
 public class CharacterInventory implements Serializable {
@@ -161,6 +161,8 @@ public class CharacterInventory implements Serializable {
 		itemsInInventory.clear();
 		weaponsInInventory.clear();
 		clothingInInventory.clear();
+		recalculateMapOfDuplicateItems();
+		recalculateMapOfDuplicateWeapons();
 		recalculateMapOfDuplicateClothing();
 		money=0;
 	}
@@ -815,6 +817,7 @@ public class CharacterInventory implements Serializable {
 					else
 						equipTextSB.append("</br>" + characterClothingOwner.droppedItemText(c));
 					String oldEquipText = equipTextSB.toString();// this is a hack to fix the string builder being overwritten
+					
 					if(Main.game.isInNewWorld()) {
 						characterClothingOwner.unequipClothingIntoInventory(c, true, characterClothingEquipper);
 					} else {
@@ -829,25 +832,33 @@ public class CharacterInventory implements Serializable {
 
 				// Remove the old clothing in this slot using the owner's accessor method:
 				if (getClothingInSlot(newClothing.getClothingType().getSlot()) != null) {
-					if ((!characterClothingOwner.isInventoryFull() || characterClothingOwner.hasClothing(getClothingInSlot(newClothing.getClothingType().getSlot()))) && Main.game.isInNewWorld()) {
-						equipTextSB.append("</br>" + characterClothingOwner.addedItemToInventoryText(getClothingInSlot(newClothing.getClothingType().getSlot())));
+					if(getClothingInSlot(newClothing.getClothingType().getSlot()).getClothingType().isDiscardedOnUnequip()) {
+						String oldEquipText = equipTextSB.toString();// this is a hack to fix the string builder being overwritten
+						characterClothingOwner.unequipClothingIntoVoid(getClothingInSlot(newClothing.getClothingType().getSlot()), true, characterClothingEquipper);
+						equipTextSB.setLength(0);
+						equipTextSB.append(oldEquipText);
+						
 					} else {
-						equipTextSB.append("</br>" + characterClothingOwner.droppedItemText(getClothingInSlot(newClothing.getClothingType().getSlot())));
+						if ((!characterClothingOwner.isInventoryFull() || characterClothingOwner.hasClothing(getClothingInSlot(newClothing.getClothingType().getSlot()))) && Main.game.isInNewWorld()) {
+							equipTextSB.append("</br>" + characterClothingOwner.addedItemToInventoryText(getClothingInSlot(newClothing.getClothingType().getSlot())));
+						} else {
+							equipTextSB.append("</br>" + characterClothingOwner.droppedItemText(getClothingInSlot(newClothing.getClothingType().getSlot())));
+						}
+						String oldEquipText = equipTextSB.toString();// this is a hack to fix the string builder being overwritten
+						if(Main.game.isInNewWorld()) {
+							characterClothingOwner.unequipClothingIntoInventory(getClothingInSlot(newClothing.getClothingType().getSlot()), true, characterClothingEquipper);
+						} else {
+							characterClothingOwner.unequipClothingOntoFloor(getClothingInSlot(newClothing.getClothingType().getSlot()), true, characterClothingEquipper);
+						}
+						equipTextSB.setLength(0);
+						equipTextSB.append(oldEquipText);
 					}
-					String oldEquipText = equipTextSB.toString();// this is a hack to fix the string builder being overwritten
-					if(Main.game.isInNewWorld()) {
-						characterClothingOwner.unequipClothingIntoInventory(getClothingInSlot(newClothing.getClothingType().getSlot()), true, characterClothingEquipper);
-					} else {
-						characterClothingOwner.unequipClothingOntoFloor(getClothingInSlot(newClothing.getClothingType().getSlot()), true, characterClothingEquipper);
-					}
-					equipTextSB.setLength(0);
-					equipTextSB.append(oldEquipText);
 				}
 
 				// Actually equip the newClothing:
 				clothingCurrentlyEquipped.add(newClothing);
 				// newClothing.getClothingType().setColourShade(newClothing.getColourShade());
-
+				
 				equipTextSB.append((equipTextSB.length() == 0 ? "" : "</br>") + newClothing.onEquipApplyEffects(characterClothingOwner, characterClothingEquipper, false));// (Main.game.isInSex()?Sex.isSubResisting():false)));
 
 				clothingToBeReplaced.sort(new ReverseClothingZLayerComparator());
@@ -857,9 +868,9 @@ public class CharacterInventory implements Serializable {
 				
 				// Check for clothing sets:
 				if (newClothing.getClothingType().getClothingSet() != null) {
-					if (clothingSetCount.get(newClothing.getClothingType().getClothingSet()) == null)
+					if (clothingSetCount.get(newClothing.getClothingType().getClothingSet()) == null) {
 						clothingSetCount.put(newClothing.getClothingType().getClothingSet(), 1);
-					else {
+					} else {
 						clothingSetCount.put(newClothing.getClothingType().getClothingSet(), clothingSetCount.get(newClothing.getClothingType().getClothingSet()) + 1);
 					}
 				}
@@ -869,8 +880,13 @@ public class CharacterInventory implements Serializable {
 			clothingCurrentlyEquipped.sort(new AbstractClothingRarityComparator());
 
 		} else {
-			equipTextSB.append(Util.capitaliseSentence("Before" + newClothing.getClothingType().getDeterminer()) + " " + newClothing.getName() + " is able to be equipped, " + Util.clothesToStringList(clothingToRemove.keySet()) + " need"
-					+ (clothingToRemove.size() > 1 ? "" : "s") + " to be removed.");
+			if(clothingToRemove.isEmpty()) {
+				equipTextSB.append(Util.capitaliseSentence(newClothing.getName(true))+ " "+(newClothing.getClothingType().isPlural()?"are":"is")+" able to be equipped.");
+			} else {
+				equipTextSB.append(Util.capitaliseSentence("Before" + newClothing.getClothingType().getDeterminer()) + " " + newClothing.getName()
+					+ " is able to be equipped, " + Util.clothesToStringList(clothingToRemove.keySet()) + " need"
+						+ (clothingToRemove.size() > 1 ? "" : "s") + " to be removed.");
+			}
 		}
 
 		return true;

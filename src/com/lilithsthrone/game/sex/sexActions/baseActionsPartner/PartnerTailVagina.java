@@ -43,7 +43,7 @@ public class PartnerTailVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex();
+			return !Sex.isPlayerDom() ||Sex.isConsensual();
 		}
 
 		@Override
@@ -139,7 +139,7 @@ public class PartnerTailVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex();
+			return Sex.isPlayerDom() ||Sex.isConsensual();
 		}
 
 		@Override
@@ -249,7 +249,7 @@ public class PartnerTailVagina {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Roughly grinding the [npc.tailTip+] of [npc.her] [npc.tail] against your outer labia, [npc.name] lets out [npc.a_moan+] before violently slamming forwards,"
 									+ " forcing [npc.her] [npc.tail+] deep into your [pc.pussy+].",
-							"[npc.Name] positions the [npc.tailTip+] of [npc.her] [npc.tail] between your [npc.legs+], and with a forceful thrust, [npc.she] roughly slams it deep into your [pc.pussy+]."));
+							"[npc.Name] positions the [npc.tailTip+] of [npc.her] [npc.tail] between your [pc.legs+], and with a forceful thrust, [npc.she] roughly slams it deep into your [pc.pussy+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -693,7 +693,7 @@ public class PartnerTailVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex(); // Partner can only stop if they're in charge (otherwise, this is the player fucking themselves on the partner's cock).
+			return !Sex.isPlayerDom() ||Sex.isConsensual(); // Partner can only stop if they're in charge (otherwise, this is the player fucking themselves on the partner's cock).
 		}
 		
 		@Override
@@ -754,7 +754,7 @@ public class PartnerTailVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom());
+			return (Sex.isConsensual() || Sex.isPlayerDom());
 		}
 		
 		@Override
@@ -883,7 +883,7 @@ public class PartnerTailVagina {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Gently pushing your [pc.hips] out, you let out a soft [pc.moan] as you help to sink [npc.her] [npc.tail+] deep into your [pc.pussy+].",
 					"With a soft [pc.moan], you gently start gyrating your [pc.hips], forcing [npc.name]'s [npc.tail+] ever deeper into your [pc.pussy+].",
-					"Slowly thrusting your [pc.hips], a soft [pc.moan] drifts out from between your [pc.lips+] as your movements force [npc.name]'s [npc.tail+] deep into your [npc.pussy+]."));
+					"Slowly thrusting your [pc.hips], a soft [pc.moan] drifts out from between your [pc.lips+] as your movements force [npc.name]'s [npc.tail+] deep into your [pc.pussy+]."));
 
 			return UtilText.nodeContentSB.toString();
 		}
@@ -921,7 +921,7 @@ public class PartnerTailVagina {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly pushing your [pc.hips] out, you let out [pc.a_moan+] as you energetically help to sink [npc.her] [npc.tail+] deep into your [pc.pussy+].",
 					"With [pc.a_moan+], you energetically start gyrating your [pc.hips], forcing [npc.name]'s [npc.tail+] ever deeper into your [pc.pussy+].",
-					"Enthusiastically thrusting your [pc.hips], [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.name]'s [npc.tail+] deep into your [npc.pussy+]."));
+					"Enthusiastically thrusting your [pc.hips], [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.name]'s [npc.tail+] deep into your [pc.pussy+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -959,9 +959,19 @@ public class PartnerTailVagina {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Violently slamming your [pc.hips] out, you let out [pc.a_moan+] as you roughly force [npc.her] [npc.tail+] deep into your [pc.pussy+].",
 					"With [pc.a_moan+], you aggressively start gyrating your [pc.hips] against [npc.name], forcing [npc.her] [npc.tail+] ever deeper into your [pc.pussy+].",
-					"Roughly thrusting your [pc.hips], [pc.a_moan+] bursts out from between your [pc.lips+] as your forceful movements drive [npc.name]'s [npc.tail+] deep into your [npc.pussy+]."));
+					"Roughly thrusting your [pc.hips], [pc.a_moan+] bursts out from between your [pc.lips+] as your forceful movements drive [npc.name]'s [npc.tail+] deep into your [pc.pussy+]."));
 			
 			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public List<Fetish> getFetishesPlayer() {
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_SADIST));
+		}
+		
+		@Override
+		public List<Fetish> getFetishesPartner() {
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_MASOCHIST));
 		}
 	};
 	
@@ -1035,7 +1045,7 @@ public class PartnerTailVagina {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly pushing your [pc.hips] out, you let out [pc.a_moan+] as you energetically help to sink [npc.her] [npc.tail+] deep into your [pc.pussy+].",
 					"With [pc.a_moan+], you energetically start gyrating your [pc.hips], forcing [npc.name]'s [npc.tail+] ever deeper into your [pc.pussy+].",
-					"Enthusiastically thrusting your [pc.hips], [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.name]'s [npc.tail+] deep into your [npc.pussy+]."));
+					"Enthusiastically thrusting your [pc.hips], [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.name]'s [npc.tail+] deep into your [pc.pussy+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1123,7 +1133,7 @@ public class PartnerTailVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override
@@ -1199,7 +1209,7 @@ public class PartnerTailVagina {
 					"Letting out [pc.a_moan+], you concentrate on squeezing the tentacles and demonic muscles within your [pc.pussy] down around [npc.name]'s [npc.tail+].",
 					"You let out a cheeky giggle as you focus on controlling the tentacles lining your [pc.pussy]."
 							+ " Wriggling and squeezing them down around [npc.name]'s [npc.tail+], you cause [npc.herHim] to let out an involuntary cry of pleasure.",
-					"You find your [pc.moans] falling into a steady rhythm as you concentrate on squeezing the tentacles and extra muscles within your [npc.pussy+] down around [npc.name]'s [npc.tail+].",
+					"You find your [pc.moans] falling into a steady rhythm as you concentrate on squeezing the tentacles and extra muscles within your [pc.pussy+] down around [npc.name]'s [npc.tail+].",
 					"With [pc.a_moan+], you focus on controlling the demonic tentacles deep within your [pc.pussy], gripping them down and massaging [npc.name]'s [npc.tail+] as you squeal in pleasure.");
 		}
 	};

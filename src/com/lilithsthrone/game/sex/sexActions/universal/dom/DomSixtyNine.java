@@ -55,7 +55,7 @@ public class DomSixtyNine {
 						"You roughly grind your [pc.lips+] down against [npc.name]'s doll-like mound, forcefully snogging and licking at [npc.her] sensitive crotch as [npc.she] [npc.moansVerb+] beneath you.",
 						"[npc.Name] lets out [npc.a_moan+] as you drop your head between [npc.her] [npc.legs], before starting to roughly snog [npc.her] doll-like mound.",
 						"Dropping your head down into [npc.name]'s crotch, you roughly grind your mouth against [npc.her] genderless crotch, snogging and licking [npc.her] sensitive mound as [npc.she] [npc.moansVerb+] beneath you.",
-						"Pushing your [npc.face] down into [npc.name]'s groin, you start grinding your [pc.lips+] against [npc.her] genderless mound,"
+						"Pushing your [pc.face] down into [npc.name]'s groin, you start grinding your [pc.lips+] against [npc.her] genderless mound,"
 								+ " roughly snogging and licking [npc.her] sensitive crotch as [npc.she] [npc.moansVerb+] beneath you.");
 		}
 		
@@ -100,7 +100,7 @@ public class DomSixtyNine {
 					"You eagerly press your [pc.lips+] down against [npc.name]'s doll-like mound, passionately snogging and licking at [npc.her] sensitive crotch as [npc.she] [npc.moansVerb+] beneath you.",
 					"[npc.Name] lets out [npc.a_moan+] as you drop your head between [npc.her] [npc.legs], before starting to passionately snog [npc.her] doll-like mound.",
 					"Dropping your head down into [npc.name]'s crotch, you passionately press your mouth against [npc.her] genderless crotch, snogging and licking [npc.her] sensitive mound as [npc.she] [npc.moansVerb+] beneath you.",
-					"Pushing your [npc.face] down into [npc.name]'s groin, you start pressing your [pc.lips+] against [npc.her] genderless mound,"
+					"Pushing your [pc.face] down into [npc.name]'s groin, you start pressing your [pc.lips+] against [npc.her] genderless mound,"
 							+ " eagerly snogging and licking [npc.her] sensitive crotch as [npc.she] [npc.moansVerb+] beneath you.");
 		}
 		
@@ -145,7 +145,7 @@ public class DomSixtyNine {
 					"You gently press your [pc.lips+] down against [npc.name]'s doll-like mound, planting delicate kisses on [npc.her] sensitive crotch as [npc.she] [npc.moansVerb+] beneath you.",
 					"[npc.Name] lets out [npc.a_moan+] as you drop your head between [npc.her] [npc.legs], before starting to gently kiss and lick [npc.her] doll-like mound.",
 					"Dropping your head down into [npc.name]'s crotch, you press your mouth against [npc.her] genderless crotch, planting a series of gentle kisses on [npc.her] sensitive mound as [npc.she] [npc.moansVerb+] beneath you.",
-					"Pushing your [npc.face] down into [npc.name]'s groin, you start pressing your [pc.lips+] against [npc.her] genderless mound,"
+					"Pushing your [pc.face] down into [npc.name]'s groin, you start pressing your [pc.lips+] against [npc.her] genderless mound,"
 							+ " gently kissing and licking [npc.her] sensitive crotch as [npc.she] [npc.moansVerb+] beneath you.");
 		}
 		

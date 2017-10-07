@@ -537,21 +537,21 @@ public class PartnerPenisMouth {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Reaching down to grab your head, [npc.name] lines the [npc.cockHead+] of [npc.her] [npc.cock] up to your [pc.lips+],"
 										+ " before gently pushing [npc.her] [npc.hips] forwards and sliding [npc.her] [npc.cock+] into your mouth.",
-								"Reaching down to take hold of your head, [npc.name] pushes the [npc.cockHead+] of [npc.her] [npc.cock] against your [npc.lips+],"
+								"Reaching down to take hold of your head, [npc.name] pushes the [npc.cockHead+] of [npc.her] [npc.cock] against your [pc.lips+],"
 										+ " before slowly bucking [npc.her] [npc.hips] into your [pc.face] and gently sliding [npc.her] [npc.cock+] into your mouth."));
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Reaching down to grab your head, [npc.name] lines the [npc.cockHead+] of [npc.her] [npc.cock] up to your [pc.lips+],"
 										+ " before eagerly pushing [npc.her] [npc.hips] forwards and sliding [npc.her] [npc.cock+] into your mouth.",
-								"Reaching down to take hold of your head, [npc.name] pushes the [npc.cockHead+] of [npc.her] [npc.cock] against your [npc.lips+],"
+								"Reaching down to take hold of your head, [npc.name] pushes the [npc.cockHead+] of [npc.her] [npc.cock] against your [pc.lips+],"
 										+ " before eagerly bucking [npc.her] [npc.hips] into your [pc.face] and sliding [npc.her] [npc.cock+] into your mouth."));
 						break;
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Reaching down to grab your head, [npc.name] lines the [npc.cockHead+] of [npc.her] [npc.cock] up to your [pc.lips+],"
 										+ " before roughly slamming [npc.her] [npc.hips] forwards and forcing [npc.her] [npc.cock+] into your mouth.",
-								"Reaching down to take hold of your head, [npc.name] pushes the [npc.cockHead+] of [npc.her] [npc.cock] against your [npc.lips+],"
+								"Reaching down to take hold of your head, [npc.name] pushes the [npc.cockHead+] of [npc.her] [npc.cock] against your [pc.lips+],"
 										+ " before roughly slamming [npc.her] [npc.hips] into your [pc.face] and forcing [npc.her] [npc.cock+] into your mouth."));
 						break;
 					default:
@@ -592,27 +592,27 @@ public class PartnerPenisMouth {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Lining the [npc.cockHead+] of [npc.her] [npc.cock] up to your [pc.lips+], [npc.name] gently pushes [npc.her] [npc.hips] forwards and slides [npc.her] [npc.cock+] into your mouth.",
-								"Pushing the [npc.cockHead+] of [npc.her] [npc.cock] against your [npc.lips+], [npc.name] slowly bucks [npc.her] [npc.hips] into your [pc.face], gently sliding [npc.her] [npc.cock+] into your mouth."));
+								"Pushing the [npc.cockHead+] of [npc.her] [npc.cock] against your [pc.lips+], [npc.name] slowly bucks [npc.her] [npc.hips] into your [pc.face], gently sliding [npc.her] [npc.cock+] into your mouth."));
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Lining the [npc.cockHead+] of [npc.her] [npc.cock] up to your [pc.lips+], [npc.name] eagerly pushes [npc.her] [npc.hips] forwards and slides [npc.her] [npc.cock+] into your mouth.",
-								"Pushing the [npc.cockHead+] of [npc.her] [npc.cock] against your [npc.lips+], [npc.name] eagerly bucks [npc.her] [npc.hips] into your [pc.face], sliding [npc.her] [npc.cock+] into your mouth."));
+								"Pushing the [npc.cockHead+] of [npc.her] [npc.cock] against your [pc.lips+], [npc.name] eagerly bucks [npc.her] [npc.hips] into your [pc.face], sliding [npc.her] [npc.cock+] into your mouth."));
 						break;
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Lining the [npc.cockHead+] of [npc.her] [npc.cock] up to your [pc.lips+], [npc.name] roughly slams [npc.her] [npc.hips] forwards and forces [npc.her] [npc.cock+] into your mouth.",
-								"Grinding the [npc.cockHead+] of [npc.her] [npc.cock] against your [npc.lips+], [npc.name] roughly slams [npc.her] [npc.hips] into your [pc.face], forcing [npc.her] [npc.cock+] into your mouth."));
+								"Grinding the [npc.cockHead+] of [npc.her] [npc.cock] against your [pc.lips+], [npc.name] roughly slams [npc.her] [npc.hips] into your [pc.face], forcing [npc.her] [npc.cock+] into your mouth."));
 						break;
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Lining the [npc.cockHead+] of [npc.her] [npc.cock] up to your [pc.lips+], [npc.name] eagerly pushes [npc.her] [npc.hips] forwards and slides [npc.her] [npc.cock+] into your mouth.",
-								"Pushing the [npc.cockHead+] of [npc.her] [npc.cock] against your [npc.lips+], [npc.name] eagerly bucks [npc.her] [npc.hips] into your [pc.face], sliding [npc.her] [npc.cock+] into your mouth."));
+								"Pushing the [npc.cockHead+] of [npc.her] [npc.cock] against your [pc.lips+], [npc.name] eagerly bucks [npc.her] [npc.hips] into your [pc.face], sliding [npc.her] [npc.cock+] into your mouth."));
 						break;
 					case SUB_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Lining the [npc.cockHead+] of [npc.her] [npc.cock] up to your [pc.lips+], [npc.name] pushes [npc.her] [npc.hips] forwards and slides [npc.her] [npc.cock+] into your mouth.",
-								"Pushing the [npc.cockHead+] of [npc.her] [npc.cock] against your [npc.lips+], [npc.name] bucks [npc.her] [npc.hips] into your [pc.face], sliding [npc.her] [npc.cock+] into your mouth."));
+								"Pushing the [npc.cockHead+] of [npc.her] [npc.cock] against your [pc.lips+], [npc.name] bucks [npc.her] [npc.hips] into your [pc.face], sliding [npc.her] [npc.cock+] into your mouth."));
 						break;
 					default:
 						break;
@@ -1180,7 +1180,7 @@ public class PartnerPenisMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || !Sex.isPlayerDom(); // Partner can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || !Sex.isPlayerDom(); // Partner can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override
@@ -1247,7 +1247,7 @@ public class PartnerPenisMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom(); // Player can only start in consensual sex or if they're the dom.
+			return Sex.isConsensual() || Sex.isPlayerDom(); // Player can only start in consensual sex or if they're the dom.
 		}
 		
 		@Override
@@ -1774,7 +1774,7 @@ public class PartnerPenisMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override

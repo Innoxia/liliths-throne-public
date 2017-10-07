@@ -14,6 +14,7 @@ public enum BreastShape {
 
 	ROUND("round"),
 	POINTY("pointy"),
+	PERKY("perky"),
 	SIDE_SET("side-set"),
 	WIDE("wide"),
 	NARROW("narrow");

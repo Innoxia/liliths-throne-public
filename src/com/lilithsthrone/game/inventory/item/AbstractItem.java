@@ -4,17 +4,16 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.8
+ * @version 0.1.86
  * @author Innoxia
  */
 public abstract class AbstractItem extends AbstractCoreItem implements Serializable {
@@ -173,7 +172,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 
 		sb.append("</p>"
 				+ "<p>"
-					+ "It has a value of <b style='color: " + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + getValue() + "</b>."
+					+ "It has a value of " + UtilText.formatAsMoney(getValue()) + "."
 				+ "</p>");
 		
 		return sb.toString();

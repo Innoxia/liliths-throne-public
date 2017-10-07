@@ -377,9 +377,9 @@ public enum Fetish {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				return "You often find yourself fantasising about filling a girl's womb with your seed, and the idea of breeding girls like animals drives you crazy with lust.";
+				return "You often find yourself fantasising about filling fertile wombs with your seed, and the idea of breeding your sexual partner like an animal drives you crazy with lust.";
 			} else {
-				return UtilText.parse(owner, "[npc.Name] has a fetish for getting girls pregnant.");
+				return UtilText.parse(owner, "[npc.Name] has a fetish for impregnating [npc.her] partner during sex.");
 			}
 		}
 		

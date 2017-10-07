@@ -32,6 +32,12 @@ public class SubDoggy {
 			null,
 			SexPace.SUB_EAGER,
 			null) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Sex.isPlayerDom();
+		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Seductive look";
@@ -61,6 +67,12 @@ public class SubDoggy {
 			null,
 			null,
 			SexPace.DOM_ROUGH) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Sex.isPlayerDom();
+		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Slap ass";

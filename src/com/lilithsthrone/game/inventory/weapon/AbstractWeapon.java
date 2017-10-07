@@ -10,15 +10,15 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.66
+ * @version 0.1.86
  * @author Innoxia
  */
 public abstract class AbstractWeapon extends AbstractCoreItem implements Serializable {
@@ -166,7 +166,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 			descriptionSB.append(".</p>");
 		}
 
-		descriptionSB.append("<p>It has a value of <b style='color: " + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + getValue() + "</b>.</p>");
+		descriptionSB.append("<p>It has a value of " + UtilText.formatAsMoney(getValue()) + ".</p>");
 
 		return descriptionSB.toString();
 	}

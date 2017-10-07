@@ -300,25 +300,25 @@ public class PartnerFingerVagina {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [pc.A_moan+] bursts out from your mouth as you eagerly push your [pc.hips] back against [npc.name]'s touch.",
 							" You eagerly push your [pc.hips] against [npc.name]'s [npc.hand], [pc.moaning] in delight as you enthusiastically encourage [npc.herHim] to continue playing with your [pc.clit+].",
-							" You eagerly push your [npc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you desperately press your [pc.clit+] down against [npc.her] touch."));
+							" You eagerly push your [pc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you desperately press your [pc.clit+] down against [npc.her] touch."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [pc.A_moan+] bursts out from your mouth as you roughly push your [pc.hips] back against [npc.name]'s touch.",
 							" You roughly grind your [pc.hips] against [npc.name]'s [npc.hand], [pc.moaning] in delight as you order [npc.herHim] to continue playing with your [pc.clit+].",
-							" You forcefully thrust your [npc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you roughly grind your [pc.clit+] down against [npc.her] touch."));
+							" You forcefully thrust your [pc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you roughly grind your [pc.clit+] down against [npc.her] touch."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [pc.A_moan+] bursts out from your mouth as you eagerly push your [pc.hips] back against [npc.name]'s touch.",
 							" You eagerly push your [pc.hips] against [npc.name]'s [npc.hand], [pc.moaning] in delight as you enthusiastically encourage [npc.herHim] to continue playing with your [pc.clit+].",
-							" You eagerly push your [npc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you desperately press your [pc.clit+] down against [npc.her] touch."));
+							" You eagerly push your [pc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you desperately press your [pc.clit+] down against [npc.her] touch."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [pc.A_moan+] bursts out from your mouth as you push your [pc.hips] back against [npc.name]'s touch.",
 							" You push your [pc.hips] against [npc.name]'s [npc.hand], [pc.moaning] in delight as you encourage [npc.herHim] to continue playing with your [pc.clit+].",
-							" You push your [npc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you press your [pc.clit+] down against [npc.her] touch."));
+							" You push your [pc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you press your [pc.clit+] down against [npc.her] touch."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -424,25 +424,25 @@ public class PartnerFingerVagina {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [pc.A_moan+] bursts out from your mouth as you eagerly push your [pc.hips] back against [npc.name]'s touch.",
 							" You eagerly push your [pc.hips] against [npc.name]'s [npc.hand], [pc.moaning] in delight as you enthusiastically encourage [npc.herHim] to continue playing with your [pc.clit+].",
-							" You eagerly push your [npc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you desperately press your [pc.clit+] down against [npc.her] touch."));
+							" You eagerly push your [pc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you desperately press your [pc.clit+] down against [npc.her] touch."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [pc.A_moan+] bursts out from your mouth as you roughly push your [pc.hips] back against [npc.name]'s touch.",
 							" You roughly grind your [pc.hips] against [npc.name]'s [npc.hand], [pc.moaning] in delight as you order [npc.herHim] to continue playing with your [pc.clit+].",
-							" You forcefully thrust your [npc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you roughly grind your [pc.clit+] down against [npc.her] touch."));
+							" You forcefully thrust your [pc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you roughly grind your [pc.clit+] down against [npc.her] touch."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [pc.A_moan+] bursts out from your mouth as you eagerly push your [pc.hips] back against [npc.name]'s touch.",
 							" You eagerly push your [pc.hips] against [npc.name]'s [npc.hand], [pc.moaning] in delight as you enthusiastically encourage [npc.herHim] to continue playing with your [pc.clit+].",
-							" You eagerly push your [npc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you desperately press your [pc.clit+] down against [npc.her] touch."));
+							" You eagerly push your [pc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you desperately press your [pc.clit+] down against [npc.her] touch."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [pc.A_moan+] bursts out from your mouth as you push your [pc.hips] back against [npc.name]'s touch.",
 							" You push your [pc.hips] against [npc.name]'s [npc.hand], [pc.moaning] in delight as you encourage [npc.herHim] to continue playing with your [pc.clit+].",
-							" You push your [npc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you press your [pc.clit+] down against [npc.her] touch."));
+							" You push your [pc.hips] out against [npc.name]'s [npc.fingers], [pc.moaning] and arching your back as you press your [pc.clit+] down against [npc.her] touch."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -549,7 +549,7 @@ public class PartnerFingerVagina {
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" You let out [pc.a_sob+] as you feel [npc.her] [npc.fingers] enter you, and try, in vain, to pull your [npc.hips] back from [npc.her] unwanted penetration, struggling and [pc.sobbing] all the while.",
+							" You let out [pc.a_sob+] as you feel [npc.her] [npc.fingers] enter you, and try, in vain, to pull your [pc.hips] back from [npc.her] unwanted penetration, struggling and [pc.sobbing] all the while.",
 							" With [pc.a_sob+], you try, in vain, to pull away from the unwanted penetration, [pc.sobbing] and struggling against [npc.name] as [npc.her] unwelcome [npc.fingers] push deep into your [pc.pussy+]."));
 					break;
 				default:
@@ -614,7 +614,7 @@ public class PartnerFingerVagina {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Failing to recoil your [pc.pussy] away from [npc.her] unwanted touch, you let out [pc.a_sob+] before weakly trying to struggle away from [npc.name]'s intruding [npc.fingers].",
-							" [pc.A_sob+] bursts out from between your [npc.lips] as you weakly try to push [npc.name] away, squirming and protesting as [npc.she] continues to gently finger your [pc.pussy+].",
+							" [pc.A_sob+] bursts out from between your [pc.lips] as you weakly try to push [npc.name] away, squirming and protesting as [npc.she] continues to gently finger your [pc.pussy+].",
 							" [pc.Sobbing] in distress, you try, in vain, to recoil away from [npc.name]'s touch, struggling against [npc.herHim] as [npc.her] [npc.fingers+] continue gently sliding deep into your [pc.pussy+]"));
 					break;
 				default: // SUB_NORMAL and in case anything goes wrong:
@@ -683,7 +683,7 @@ public class PartnerFingerVagina {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Failing to recoil your [pc.pussy] away from [npc.her] unwanted touch, you let out [pc.a_sob+] before weakly trying to struggle away from [npc.name]'s intruding [npc.fingers].",
-							" [pc.A_sob+] bursts out from between your [npc.lips] as you weakly try to push [npc.name] away, squirming and protesting as [npc.she] continues to gently finger your [pc.pussy+].",
+							" [pc.A_sob+] bursts out from between your [pc.lips] as you weakly try to push [npc.name] away, squirming and protesting as [npc.she] continues to gently finger your [pc.pussy+].",
 							" [pc.Sobbing] in distress, you try, in vain, to recoil away from [npc.name]'s touch, struggling against [npc.herHim] as [npc.her] [npc.fingers+] continue gently sliding deep into your [pc.pussy+]"));
 					break;
 				default: // SUB_NORMAL and in case anything goes wrong:
@@ -753,7 +753,7 @@ public class PartnerFingerVagina {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Failing to recoil your [pc.pussy] away from [npc.her] unwanted touch, you let out [pc.a_sob+] before weakly trying to struggle away from [npc.name]'s intruding [npc.fingers].",
-							" [pc.A_sob+] bursts out from between your [npc.lips] as you weakly try to push [npc.name] away, squirming and protesting as [npc.she] continues to gently finger your [pc.pussy+].",
+							" [pc.A_sob+] bursts out from between your [pc.lips] as you weakly try to push [npc.name] away, squirming and protesting as [npc.she] continues to gently finger your [pc.pussy+].",
 							" [pc.Sobbing] in distress, you try, in vain, to recoil away from [npc.name]'s touch, struggling against [npc.herHim] as [npc.her] [npc.fingers+] continue gently sliding deep into your [pc.pussy+]"));
 					break;
 				default: // SUB_NORMAL and in case anything goes wrong:
@@ -983,7 +983,7 @@ public class PartnerFingerVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom(); // Player can only start fingering in consensual sex or if they're the dom.
+			return Sex.isConsensual() || Sex.isPlayerDom(); // Player can only start fingering in consensual sex or if they're the dom.
 		}
 		
 		@Override
@@ -1399,7 +1399,7 @@ public class PartnerFingerVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override

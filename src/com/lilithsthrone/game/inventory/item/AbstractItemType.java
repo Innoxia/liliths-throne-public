@@ -124,6 +124,12 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		};
 	}
 	
+	public static AbstractItem generateFilledCondom(AbstractItemType itemType) {
+		return new AbstractItem(itemType) {
+			private static final long serialVersionUID = 1L;
+		};
+	}
+	
 	public String getId() {
 		return ItemType.itemToIdMap.get(this);
 	}

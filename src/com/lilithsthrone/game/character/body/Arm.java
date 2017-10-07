@@ -23,7 +23,7 @@ public class Arm implements BodyPartInterface, Serializable {
 	public Arm(ArmType type, int armRows) {
 		this.type = type;
 		this.armRows = armRows;
-		underarmHair = BodyHair.NONE;
+		underarmHair = BodyHair.ZERO_NONE;
 	}
 	
 	@Override
@@ -237,7 +237,7 @@ public class Arm implements BodyPartInterface, Serializable {
 								" Within a matter of moments, a layer of [npc.armFullDescription] quickly sprout out all over them, and, looking down, [npc.she] sees [npc.her] feathers growing over the backs of [npc.her] hands as well."
 								+ " Just as [npc.she] thinks that the transformation has finished, [npc.she] cries out in shock as [npc.her] bones grow and snap into a new form."
 								+ " Thankfully for [npc.herHim], the transformation is quickly over, leaving [npc.herHim] with a pair of huge, feathered wings in place of arms."
-								+ " Where [npc.her] hands once were, [npc.her] fingers have shrunk down into the middle-joint of your [npc.her] appendages."
+								+ " Where [npc.her] hands once were, [npc.her] fingers have shrunk down into the middle-joint of [npc.her] appendages."
 								+ " All that's left is a feathered opposable thumb, which ends in a blunt claw."
 								+ " By folding [npc.her] wings back onto themselves, [npc.she] can thankfully still use [npc.her] thumb to grasp and manipulate objects."
 								+ " Where [npc.her] new wings meet [npc.her] body at the shoulder, [npc.her] feathers smoothly cover the transition into the [npc.skin] that's covering the rest of [npc.her] torso.</br>"
@@ -356,56 +356,56 @@ public class Arm implements BodyPartInterface, Serializable {
 			UtilText.transformationContentSB.setLength(0);
 			
 			switch(underarmHair) {
-				case NONE:
+				case ZERO_NONE:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>There is no longer any trace of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>There is no longer any trace of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
 					}
 					break;
-				case STUBBLE:
+				case ONE_STUBBLE:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have stubbly patches of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has stubbly patches of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
 					}
 					break;
-				case MANICURED:
+				case TWO_MANICURED:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a well-manicured patch of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a well-manicured patch of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
 					}
 					break;
-				case TRIMMED:
+				case THREE_TRIMMED:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have trimmed patches of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has trimmed patches of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
 					}
 					break;
-				case NATURAL:
+				case FOUR_NATURAL:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a natural amount of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a natural amount of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
 					}
 					break;
-				case UNKEMPT:
+				case FIVE_UNKEMPT:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have an unkempt mass of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has an unkempt mass of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
 					}
 					break;
-				case BUSHY:
+				case SIX_BUSHY:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have thick, bushy masses of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has thick, bushy masses of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in [npc.her] armpits.</p>"));
 					}
 					break;
-				case WILD:
+				case SEVEN_WILD:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have wild, bushy masses of "+getUnderarmHairType(owner).getFullDescription(owner, true)+" in your armpits.</p>");
 					} else {

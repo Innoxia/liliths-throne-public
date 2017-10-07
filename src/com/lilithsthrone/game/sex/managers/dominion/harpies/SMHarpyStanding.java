@@ -103,11 +103,6 @@ public class SMHarpyStanding extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isConsensualSex(){
-		return true;
-	}
-	
-	@Override
 	public boolean isPlayerAbleToStopSex() {
 		return true;
 	}

@@ -174,7 +174,7 @@ public class CharacterModificationUtils {
 		for (BodyHair value : BodyHair.values()) {
 			if (Main.game.getPlayer().getFacialHair() == value) {
 				stringsList.add("<b style='color:" + value.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(value.getName()) + "</b>");
-			} else if (Main.game.getPlayer().isFeminine() && value != BodyHair.NONE) {
+			} else if (Main.game.getPlayer().isFeminine() && value != BodyHair.ZERO_NONE) {
 				stringsList.add("[style.colourBad(" + Util.capitaliseSentence(value.getName()) + ")]");
 			} else {
 				stringsList.add("<span class='option-disabled'>" + Util.capitaliseSentence(value.getName()) + "</span>");
@@ -218,120 +218,120 @@ public class CharacterModificationUtils {
 	
 	public static void incrementFacialHair(BodyHair hair) {
 		switch(hair) {
-			case NONE:
-				setFacialHairIfAvailable(BodyHair.STUBBLE);
+			case ZERO_NONE:
+				setFacialHairIfAvailable(BodyHair.ONE_STUBBLE);
 				break;
-			case STUBBLE:
-				setFacialHairIfAvailable(BodyHair.MANICURED);
+			case ONE_STUBBLE:
+				setFacialHairIfAvailable(BodyHair.TWO_MANICURED);
 				break;
-			case MANICURED:
-				setFacialHairIfAvailable(BodyHair.TRIMMED);
+			case TWO_MANICURED:
+				setFacialHairIfAvailable(BodyHair.THREE_TRIMMED);
 				break;
-			case TRIMMED:
-				setFacialHairIfAvailable(BodyHair.NATURAL);
+			case THREE_TRIMMED:
+				setFacialHairIfAvailable(BodyHair.FOUR_NATURAL);
 				break;
-			case NATURAL:
-				setFacialHairIfAvailable(BodyHair.UNKEMPT);
+			case FOUR_NATURAL:
+				setFacialHairIfAvailable(BodyHair.FIVE_UNKEMPT);
 				break;
-			case UNKEMPT:
-				setFacialHairIfAvailable(BodyHair.BUSHY);
+			case FIVE_UNKEMPT:
+				setFacialHairIfAvailable(BodyHair.SIX_BUSHY);
 				break;
-			case BUSHY:
-				setFacialHairIfAvailable(BodyHair.WILD);
+			case SIX_BUSHY:
+				setFacialHairIfAvailable(BodyHair.SEVEN_WILD);
 				break;
-			case WILD:
-				setFacialHairIfAvailable(BodyHair.NONE);
+			case SEVEN_WILD:
+				setFacialHairIfAvailable(BodyHair.ZERO_NONE);
 				break;
 		}
 	}
 	private static void setFacialHairIfAvailable(BodyHair hair) {
-		if(Main.game.getPlayer().isFeminine() && hair != BodyHair.NONE) {
-			Main.game.getPlayer().setFacialHair(BodyHair.NONE);
+		if(Main.game.getPlayer().isFeminine() && hair != BodyHair.ZERO_NONE) {
+			Main.game.getPlayer().setFacialHair(BodyHair.ZERO_NONE);
 		} else {
 			Main.game.getPlayer().setFacialHair(hair);
 		}
 	}
 	public static void incrementPubicHair() {
 		switch(Main.game.getPlayer().getPubicHair()) {
-			case NONE:
-				Main.game.getPlayer().setPubicHair(BodyHair.STUBBLE);
+			case ZERO_NONE:
+				Main.game.getPlayer().setPubicHair(BodyHair.ONE_STUBBLE);
 				break;
-			case STUBBLE:
-				Main.game.getPlayer().setPubicHair(BodyHair.MANICURED);
+			case ONE_STUBBLE:
+				Main.game.getPlayer().setPubicHair(BodyHair.TWO_MANICURED);
 				break;
-			case MANICURED:
-				Main.game.getPlayer().setPubicHair(BodyHair.TRIMMED);
+			case TWO_MANICURED:
+				Main.game.getPlayer().setPubicHair(BodyHair.THREE_TRIMMED);
 				break;
-			case TRIMMED:
-				Main.game.getPlayer().setPubicHair(BodyHair.NATURAL);
+			case THREE_TRIMMED:
+				Main.game.getPlayer().setPubicHair(BodyHair.FOUR_NATURAL);
 				break;
-			case NATURAL:
-				Main.game.getPlayer().setPubicHair(BodyHair.UNKEMPT);
+			case FOUR_NATURAL:
+				Main.game.getPlayer().setPubicHair(BodyHair.FIVE_UNKEMPT);
 				break;
-			case UNKEMPT:
-				Main.game.getPlayer().setPubicHair(BodyHair.BUSHY);
+			case FIVE_UNKEMPT:
+				Main.game.getPlayer().setPubicHair(BodyHair.SIX_BUSHY);
 				break;
-			case BUSHY:
-				Main.game.getPlayer().setPubicHair(BodyHair.WILD);
+			case SIX_BUSHY:
+				Main.game.getPlayer().setPubicHair(BodyHair.SEVEN_WILD);
 				break;
-			case WILD:
-				Main.game.getPlayer().setPubicHair(BodyHair.NONE);
+			case SEVEN_WILD:
+				Main.game.getPlayer().setPubicHair(BodyHair.ZERO_NONE);
 				break;
 		}
 	}
 	public static void incrementUnderarmHair() {
 		switch(Main.game.getPlayer().getUnderarmHair()) {
-			case NONE:
-				Main.game.getPlayer().setUnderarmHair(BodyHair.STUBBLE);
+			case ZERO_NONE:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.ONE_STUBBLE);
 				break;
-			case STUBBLE:
-				Main.game.getPlayer().setUnderarmHair(BodyHair.MANICURED);
+			case ONE_STUBBLE:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.TWO_MANICURED);
 				break;
-			case MANICURED:
-				Main.game.getPlayer().setUnderarmHair(BodyHair.TRIMMED);
+			case TWO_MANICURED:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.THREE_TRIMMED);
 				break;
-			case TRIMMED:
-				Main.game.getPlayer().setUnderarmHair(BodyHair.NATURAL);
+			case THREE_TRIMMED:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.FOUR_NATURAL);
 				break;
-			case NATURAL:
-				Main.game.getPlayer().setUnderarmHair(BodyHair.UNKEMPT);
+			case FOUR_NATURAL:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.FIVE_UNKEMPT);
 				break;
-			case UNKEMPT:
-				Main.game.getPlayer().setUnderarmHair(BodyHair.BUSHY);
+			case FIVE_UNKEMPT:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.SIX_BUSHY);
 				break;
-			case BUSHY:
-				Main.game.getPlayer().setUnderarmHair(BodyHair.WILD);
+			case SIX_BUSHY:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.SEVEN_WILD);
 				break;
-			case WILD:
-				Main.game.getPlayer().setUnderarmHair(BodyHair.NONE);
+			case SEVEN_WILD:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.ZERO_NONE);
 				break;
 		}
 	}
 	public static void incrementAssHair() {
 		switch(Main.game.getPlayer().getAssHair()) {
-			case NONE:
-				Main.game.getPlayer().setAssHair(BodyHair.STUBBLE);
+			case ZERO_NONE:
+				Main.game.getPlayer().setAssHair(BodyHair.ONE_STUBBLE);
 				break;
-			case STUBBLE:
-				Main.game.getPlayer().setAssHair(BodyHair.MANICURED);
+			case ONE_STUBBLE:
+				Main.game.getPlayer().setAssHair(BodyHair.TWO_MANICURED);
 				break;
-			case MANICURED:
-				Main.game.getPlayer().setAssHair(BodyHair.TRIMMED);
+			case TWO_MANICURED:
+				Main.game.getPlayer().setAssHair(BodyHair.THREE_TRIMMED);
 				break;
-			case TRIMMED:
-				Main.game.getPlayer().setAssHair(BodyHair.NATURAL);
+			case THREE_TRIMMED:
+				Main.game.getPlayer().setAssHair(BodyHair.FOUR_NATURAL);
 				break;
-			case NATURAL:
-				Main.game.getPlayer().setAssHair(BodyHair.UNKEMPT);
+			case FOUR_NATURAL:
+				Main.game.getPlayer().setAssHair(BodyHair.FIVE_UNKEMPT);
 				break;
-			case UNKEMPT:
-				Main.game.getPlayer().setAssHair(BodyHair.BUSHY);
+			case FIVE_UNKEMPT:
+				Main.game.getPlayer().setAssHair(BodyHair.SIX_BUSHY);
 				break;
-			case BUSHY:
-				Main.game.getPlayer().setAssHair(BodyHair.WILD);
+			case SIX_BUSHY:
+				Main.game.getPlayer().setAssHair(BodyHair.SEVEN_WILD);
 				break;
-			case WILD:
-				Main.game.getPlayer().setAssHair(BodyHair.NONE);
+			case SEVEN_WILD:
+				Main.game.getPlayer().setAssHair(BodyHair.ZERO_NONE);
 				break;
 		}
 	}
@@ -1294,7 +1294,7 @@ public class CharacterModificationUtils {
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
 							+ "Sexual orientation in Lilith's Throne is determined by your attraction towards femininity or masculinity."
-							+ " Each orientation has a related status effect (hover over the related icon in the left-hand panel to see the effects)."
+							+ " Each orientation has a related status effect (hover over the icon in the left-hand panel to see the effects)."
 						+ "</p>");
 		
 		for(SexualOrientation orientation : SexualOrientation.values()) {
@@ -2133,10 +2133,9 @@ public class CharacterModificationUtils {
 							+title
 							+(noCost
 									?""
-									:" "+UtilText.getColouredMoneySymbol("span")+" "
-										+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_LENGTH_COST
-											? SuccubisSecrets.BASE_HAIR_LENGTH_COST
-											: "[style.colourBad("+SuccubisSecrets.BASE_HAIR_LENGTH_COST+")]"))
+									:" "+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_LENGTH_COST
+											? UtilText.formatAsMoney(SuccubisSecrets.BASE_HAIR_LENGTH_COST, "b")
+											: UtilText.formatAsMoney(SuccubisSecrets.BASE_HAIR_LENGTH_COST, "b", Colour.GENERIC_BAD)))
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
 							+ description
@@ -2179,10 +2178,9 @@ public class CharacterModificationUtils {
 							+title
 							+(noCost
 									?""
-									:" "+UtilText.getColouredMoneySymbol("span")+" "
-										+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_STYLE_COST
-											? SuccubisSecrets.BASE_HAIR_STYLE_COST
-											: "[style.colourBad("+SuccubisSecrets.BASE_HAIR_STYLE_COST+")]"))
+									:" "+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_STYLE_COST
+										? UtilText.formatAsMoney(SuccubisSecrets.BASE_HAIR_STYLE_COST, "b")
+										: UtilText.formatAsMoney(SuccubisSecrets.BASE_HAIR_STYLE_COST, "b", Colour.GENERIC_BAD)))
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
 							+ description
@@ -2248,10 +2246,9 @@ public class CharacterModificationUtils {
 							+title
 							+(noCost
 								?""
-								:" "+UtilText.getColouredMoneySymbol("span")+" "
-									+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST
-										? SuccubisSecrets.BASE_BODY_HAIR_COST
-										: "[style.colourBad("+SuccubisSecrets.BASE_BODY_HAIR_COST+")]"))
+								:" "+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_BODY_HAIR_COST
+									? UtilText.formatAsMoney(SuccubisSecrets.BASE_BODY_HAIR_COST, "b")
+									: UtilText.formatAsMoney(SuccubisSecrets.BASE_BODY_HAIR_COST, "b", Colour.GENERIC_BAD)))
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
 							+ description
@@ -2314,15 +2311,19 @@ public class CharacterModificationUtils {
 	
 	public static String getKatesDivAnalBleaching(String title, String description) {
 		contentSB.setLength(0);
+
+		boolean noCost = !Main.game.isInNewWorld();
 		
 		contentSB.append(
 				"<div class='container-full-width'>"
 					+ "<div class='cosmetics-inner-container left'>"
 						+ "<h5 style='text-align:center;'>"
-							+title+" "+UtilText.getColouredMoneySymbol("span")+" "
-								+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_ANAL_BLEACHING_COST
-									? SuccubisSecrets.BASE_ANAL_BLEACHING_COST
-									: "[style.colourBad("+SuccubisSecrets.BASE_ANAL_BLEACHING_COST+")]")
+							+ title
+							+ (noCost
+									?""
+									:" "+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_ANAL_BLEACHING_COST
+										? UtilText.formatAsMoney(SuccubisSecrets.BASE_ANAL_BLEACHING_COST, "b")
+										: UtilText.formatAsMoney(SuccubisSecrets.BASE_ANAL_BLEACHING_COST, "b", Colour.GENERIC_BAD)))
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
 							+ description
@@ -2369,10 +2370,9 @@ public class CharacterModificationUtils {
 							+title
 							+(noCost
 									?""
-									:" "+UtilText.getColouredMoneySymbol("span")+" "
-										+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
-											? SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
-											: "[style.colourBad("+SuccubisSecrets.getBodyCoveringTypeCost(coveringType)+")]"))
+									:" "+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
+										? UtilText.formatAsMoney(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b")
+										: UtilText.formatAsMoney(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b", Colour.GENERIC_BAD)))
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
 							+ description
@@ -2568,10 +2568,9 @@ public class CharacterModificationUtils {
 							+title
 							+(noCost
 									?""
-									:" "+UtilText.getColouredMoneySymbol("span")+" "
-										+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
-											? SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
-											: "[style.colourBad("+SuccubisSecrets.getBodyCoveringTypeCost(coveringType)+")]"))
+									:" "+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
+										? UtilText.formatAsMoney(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b")
+										: UtilText.formatAsMoney(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b", Colour.GENERIC_BAD)))
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
 							+ description
@@ -2796,14 +2795,13 @@ public class CharacterModificationUtils {
 					+ "<div class='cosmetics-inner-container left'>"
 						+ "<h5 style='text-align:center;'>"
 							+(canPierce
-								? title+
-									(noCost
+								? title
+									+(noCost
 											?""
-										:" "+UtilText.getColouredMoneySymbol("span")+" "
-											+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getPiercingCost(type)
-												? SuccubisSecrets.getPiercingCost(type)
-												: "[style.colourBad("+SuccubisSecrets.getPiercingCost(type)+")]"))
-								:"[style.colourDisabled("+title+" "+Main.game.getCurrencySymbol()+" "+SuccubisSecrets.getPiercingCost(type)+")]")
+													:" "+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.getPiercingCost(type)
+														? UtilText.formatAsMoney(SuccubisSecrets.getPiercingCost(type), "b")
+														: UtilText.formatAsMoney(SuccubisSecrets.getPiercingCost(type), "b", Colour.GENERIC_BAD)))
+								:"[style.colourDisabled("+title + ")] " + UtilText.formatAsMoneyUncoloured(SuccubisSecrets.getPiercingCost(type), "b"))
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
 							+ description

@@ -73,6 +73,7 @@ public class HarpyNestsAttacker extends NPC {
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
 		CharacterUtils.equipClothing(this, true, false);
+		CharacterUtils.applyMakeup(this, true);
 
 		this.setEnslavementDialogue(HarpyNestsAttackerDialogue.ENSLAVEMENT_DIALOGUE);
 		
@@ -234,34 +235,7 @@ public class HarpyNestsAttacker extends NPC {
 				
 			// Player uses item on NPC:
 			}else{
-				if(item.getItemType().equals(ItemType.CONDOM)) {
-					if(target.isWearingCondom()) {
-						return "<p>"
-								+ "[npc.Name] is already wearing a condom, and [npc.she] refuses to wear two at once."
-								+ "</p>";
-						
-					} else if(target.hasPenis()) {
-						Main.game.getPlayer().useItem(item, target, false);
-						if(Sex.isPlayerDom()) {
-							return "<p>"
-									+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
-									+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
-									+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
-									+ "</p>";
-						} else {
-							return "<p>"
-									+ "Holding out a condom to [npc.name], you let out a sigh of relief as [npc.she] reluctantly takes it."
-									+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] growls at you,"
-									+ " [npc.speech(You'd better be glad that I'm in a good mood!)]"
-									+ "</p>";
-						}
-					} else {
-						return "<p>"
-								+ "[npc.Name] doesn't have a penis, so [npc.she] can't use the condom!"
-								+ "</p>";
-					}
-					
-				} else if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
+				if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
 						Main.game.getPlayer().useItem(item, target, false);
 						if(Sex.isPlayerDom()) {
 							return "<p>"
@@ -343,7 +317,8 @@ public class HarpyNestsAttacker extends NPC {
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HARPY)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HORSE_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)
-						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_WOLF_MORPH)) {
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_WOLF_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_COW_MORPH)) {
 					
 						if(Sex.isPlayerDom()) {
 							return "<p>"
@@ -393,7 +368,8 @@ public class HarpyNestsAttacker extends NPC {
 						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)
 						|| item.getItemType().equals(ItemType.INT_INGREDIENT_FELINE_FANCY)
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_EQUINE_CIDER)
-						|| item.getItemType().equals(ItemType.STR_INGREDIENT_WOLF_WHISKEY)) {
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_WOLF_WHISKEY)
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_BUBBLE_MILK)) {
 					
 						if(Sex.isPlayerDom()) {
 							return "<p>"

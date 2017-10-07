@@ -92,11 +92,6 @@ public class SMChairBottomLilaya extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isConsensualSex(){
-		return true;
-	}
-	
-	@Override
 	public boolean isPlayerAbleToStopSex() {
 		return true;
 	}

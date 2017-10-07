@@ -72,6 +72,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkInterface;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -417,7 +418,9 @@ public class MainController implements Initializable {
 						 if(event.getCode()==KeyCode.END){
 							 
 							 
-//							 System.out.println(ClothingType.getAllClothing().size());
+							 System.out.println(Main.game.getVicky().getMaximumInventorySpace());
+							 System.out.println(Main.game.getVicky().getUniqueItemCount());
+							System.out.println(Main.game.getVicky().getUniqueItemCount() + " " + Main.game.getVicky().getItemCount());
 							 
 //							 System.out.println(Main.game.getPlayer().getNextClothingToRemoveForCoverableAreaAccess(CoverableArea.VAGINA).getKey().getName());
 							 
@@ -567,7 +570,7 @@ public class MainController implements Initializable {
 						boolean allowInput = true;
 						
 						// Name selections:
-						if(Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME){
+						if(Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME || Main.game.getCurrentDialogueNode() == CityHall.CITY_HALL_NAME_CHANGE_FORM){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
@@ -685,13 +688,23 @@ public class MainController implements Initializable {
 							}
 						}
 						
+						if(((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput') === document.activeElement"))) {
+							allowInput = false;
+						}
 						
 						
 						if(Main.game.getCurrentDialogueNode() == OptionsDialogue.OPTIONS_PRONOUNS){
-							for(GenderPronoun gp : GenderPronoun.values())
+							for(GenderPronoun gp : GenderPronoun.values()) {
 								if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('feminine_" + gp + "') === document.activeElement")
 									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('masculine_" + gp + "') === document.activeElement"))
 									allowInput = false;
+							}
+							for(GenderNames genderName : GenderNames.values()) {
+								if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_MASCULINE_" + genderName + "') === document.activeElement")
+									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_ANDROGYNOUS_" + genderName + "') === document.activeElement")
+									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_FEMININE_" + genderName + "') === document.activeElement"))
+									allowInput = false;
+							}
 						}
 						
 						if(Main.game.getCurrentDialogueNode() == GenericDialogue.PARSER){
@@ -1777,7 +1790,7 @@ public class MainController implements Initializable {
 			}
 			
 			for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
-				id = slave.getId();
+				id = slave.getId(); //TODO this is returning null for Scarlett sometimes????
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementDetailedDialogue(Main.game.getNPCById(slave.getId()))));
@@ -1835,6 +1848,43 @@ public class MainController implements Initializable {
 					}, false);
 				}
 			}
+			
+			
+			// -------------------- Incest Renaming -------------------- //
+			
+			if(Main.game.getActiveNPC()!=null) {
+				id = Main.game.getActiveNPC().getId()+"_PET_NAME";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+	
+						boolean unsuitableName = false;
+					 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput')")!=null) {
+						 
+							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('offspringPetNameInput').value;");
+							if(Main.mainController.getWebEngine().getDocument()!=null) {
+								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
+										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
+									unsuitableName = true;
+								else {
+									unsuitableName = false;
+								}
+							}
+							
+							if (!unsuitableName) {
+								Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
+									@Override
+									public void effects() {
+										Main.game.getActiveNPC().setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+									}
+								});
+							}
+							
+						}
+							
+					}, false);
+				}
+			}
+			
 			
 			// -------------------- Character Creation -------------------- //
 			
@@ -2312,6 +2362,16 @@ public class MainController implements Initializable {
 												Main.game.getPlayer().getCovering(bct).getSecondaryColour(),
 												Main.game.getPlayer().getCovering(bct).isSecondaryGlowing()), false);
 										
+										if(noCost) {
+//											if(bct == BodyCoveringType.HAIR_HUMAN) {
+//												Main.game.getPlayer().getBody().updateCoverings(false, false, true, false);
+//												
+//											} else 
+											if(bct == BodyCoveringType.HUMAN) {
+												Main.game.getPlayer().getBody().updateCoverings(false, false, false, true);
+											}
+										}
+										
 									}
 								});
 							}
@@ -2658,30 +2718,15 @@ public class MainController implements Initializable {
 		// Gender preferences:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.GENDER_PREFERENCE) {
 			for (Gender g : Gender.values()) {
-				if (((EventTarget) document.getElementById("gender_preference_off_"+g)) != null)
-					((EventTarget) document.getElementById("gender_preference_off_"+g)).addEventListener("click", e -> {
-						Main.getProperties().genderPreferencesMap.put(g, GenderPreference.NONE.getValue());
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-				if (((EventTarget) document.getElementById("gender_preference_low_"+g)) != null)
-					((EventTarget) document.getElementById("gender_preference_low_"+g)).addEventListener("click", e -> {
-						Main.getProperties().genderPreferencesMap.put(g, GenderPreference.LOW.getValue());
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-				if (((EventTarget) document.getElementById("gender_preference_normal_"+g)) != null)
-					((EventTarget) document.getElementById("gender_preference_normal_"+g)).addEventListener("click", e -> {
-						Main.getProperties().genderPreferencesMap.put(g, GenderPreference.NORMAL.getValue());
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-				if (((EventTarget) document.getElementById("gender_preference_high_"+g)) != null)
-					((EventTarget) document.getElementById("gender_preference_high_"+g)).addEventListener("click", e -> {
-						Main.getProperties().genderPreferencesMap.put(g, GenderPreference.HIGH.getValue());
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
+				for(GenderPreference preference : GenderPreference.values()) {
+					if (((EventTarget) document.getElementById(preference+"_"+g)) != null) {
+						((EventTarget) document.getElementById(preference+"_"+g)).addEventListener("click", e -> {
+							Main.getProperties().genderPreferencesMap.put(g, preference.getValue());
+							Main.saveProperties();
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
 			}
 		}
 		

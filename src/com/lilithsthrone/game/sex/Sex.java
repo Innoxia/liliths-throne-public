@@ -27,6 +27,7 @@ import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
@@ -112,6 +113,8 @@ public enum Sex {
 	private static Map<PenetrationType, Set<OrificeType>> ongoingPenetrationMap;
 
 	private static boolean sexStarted = false;
+	private static boolean consensual;
+	private static boolean canResist;
 
 	private static NPC partner;
 	private static SexManagerInterface sexManager;
@@ -149,8 +152,8 @@ public enum Sex {
 	private Sex() {
 	}
 
-	public DialogueNodeOld initialiseSex(NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue){
-		return initialiseSex(partner, sexManager, postSexDialogue, "", null, null);
+	public DialogueNodeOld initialiseSex(boolean consensual, boolean canResist, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue){
+		return initialiseSex(consensual, canResist, partner, sexManager, postSexDialogue, "", null, null);
 	}
 
 	/**
@@ -161,9 +164,13 @@ public enum Sex {
 	 * @param timeTaken
 	 * @return
 	 */
-	public DialogueNodeOld initialiseSex(NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue, String sexStartDescription, SexPace sexPacePlayer, SexPace sexPacePartner) {
+	public DialogueNodeOld initialiseSex(boolean consensual, boolean canResist, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue, String sexStartDescription, SexPace sexPacePlayer, SexPace sexPacePartner) {
 
 		SexFlags.reset();
+		
+		Sex.consensual = consensual;
+		Sex.canResist = canResist;
+		
 		// Re-initialise all sex action variables:
 		sexManager.initSexActions();
 		
@@ -187,7 +194,7 @@ public enum Sex {
 
 		partner.setLocation(Main.game.getPlayer().getLocation());
 
-		if(sexManager.isConsensualSex()) {
+		if(isConsensual()) {
 			partner.setSexConsensualCount(partner.getSexConsensualCount()+1);
 
 		} else if(isPlayerDom()) {
@@ -336,9 +343,6 @@ public enum Sex {
 				c.getDisplacedList().clear();
 			}
 		}
-		
-		Main.game.getPlayer().setWearingCondom(false);
-		partner.setWearingCondom(false);
 		
 		partner.endSex(true);
 	}
@@ -860,7 +864,7 @@ public enum Sex {
 			availableSexActionsPlayer.add(SexActionUtility.PLAYER_CALM_DOWN);
 
 			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_DENIAL)) {
-				if(sexManager.isConsensualSex() || isPlayerDom())
+				if(isConsensual() || isPlayerDom())
 					availableSexActionsPlayer.add(SexActionUtility.DENIAL_FETISH_DENY);
 			}
 
@@ -1109,7 +1113,8 @@ public enum Sex {
 		if(sexAction.getActionType()==SexActionType.PLAYER_ORGASM) {
 			// Condom removal:
 			if(Main.game.getPlayer().isWearingCondom()){
-				Main.game.getPlayer().setWearingCondom(false);
+				Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).setSealed(false);
+				Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, Main.game.getPlayer());
 				if(Main.game.getPlayer().getPenisRawCumProductionValue()>0)
 					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CONDOM_USED), false));
 
@@ -1127,7 +1132,8 @@ public enum Sex {
 		if(sexAction.getActionType()==SexActionType.PARTNER_ORGASM) {
 			// Condom removal:
 			if(partner.isWearingCondom()){
-				partner.setWearingCondom(false);
+				partner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).setSealed(false);
+				partner.unequipClothingIntoVoid(partner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, partner);
 				if(partner.getPenisRawCumProductionValue()>0)
 					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CONDOM_USED), false));
 
@@ -1145,12 +1151,14 @@ public enum Sex {
 		if(sexAction.getActionType()==SexActionType.MUTUAL_ORGASM) {
 			// Condom removal:
 			if(Main.game.getPlayer().isWearingCondom()){
-				Main.game.getPlayer().setWearingCondom(false);
+				Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).setSealed(false);
+				Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, Main.game.getPlayer());
 				if(Main.game.getPlayer().getPenisRawCumProductionValue()>0)
 					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CONDOM_USED), false));
 			}
 			if(partner.isWearingCondom()){
-				partner.setWearingCondom(false);
+				partner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).setSealed(false);
+				partner.unequipClothingIntoVoid(partner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, partner);
 				if(partner.getPenisRawCumProductionValue()>0)
 					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CONDOM_USED), false));
 
@@ -1984,6 +1992,22 @@ public enum Sex {
 	}
 
 	// Getters & Setters:
+
+	public static boolean isConsensual() {
+		return consensual;
+	}
+
+	public static void setConsensual(boolean consensual) {
+		Sex.consensual = consensual;
+	}
+
+	public static boolean isCanResist() {
+		return canResist;
+	}
+
+	public static void setCanResist(boolean canResist) {
+		Sex.canResist = canResist;
+	}
 
 	public static NPC getPartner() {
 		return partner;

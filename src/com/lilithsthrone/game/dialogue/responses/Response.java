@@ -53,7 +53,7 @@ public class Response {
 	
 	public Response(String title,
 			String tooltipText,
-			DialogueNodeOld nextDialogue, 
+			DialogueNodeOld nextDialogue,
 			List<Fetish> fetishesForUnlock,
 			CorruptionLevel corruptionBypass,
 			List<Perk> perksRequired,

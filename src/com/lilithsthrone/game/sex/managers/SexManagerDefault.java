@@ -425,20 +425,20 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		// --- Fingering the player: ---
 		
-		// If the partner is able to finger the player, start sucking on fingers to lubricate them:
-		if(Main.game.getPlayer().hasVagina()
-				&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
-				&& Sex.getWetPenetrationTypes().get(PenetrationType.FINGER_PARTNER).isEmpty()) {
-			if(availableActions.contains(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION)) {
-				return PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION;
-			}
-		} else {
+//		// If the partner is able to finger the player, start sucking on fingers to lubricate them:
+//		if(Main.game.getPlayer().hasVagina()
+//				&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
+//				&& Sex.getWetPenetrationTypes().get(PenetrationType.FINGER_PARTNER).isEmpty()) {
+//			if(availableActions.contains(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION)) {
+//				return PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION;
+//			}
+//		} else {
 			bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
-		}
-		// If the partner is able to stop sucking on fingers, stop it:
-		if(availableActions.contains(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_STOP_PENETRATION)) {
-			return PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_STOP_PENETRATION;
-		}
+//		}
+//		// If the partner is able to stop sucking on fingers, stop it:
+//		if(availableActions.contains(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_STOP_PENETRATION)) {
+//			return PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_STOP_PENETRATION;
+//		}
 		// Start fingering the player:
 		if(availableActions.contains(PartnerFingerVagina.PARTNER_FINGERING_START)) {
 			return PartnerFingerVagina.PARTNER_FINGERING_START;
@@ -548,6 +548,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					}
 				}
 			}
+			returnableActions.removeAll(bannedActions);
 			if(!returnableActions.isEmpty()) {
 				return (SexAction) returnableActions.get(Util.random.nextInt(returnableActions.size()));
 			}
@@ -563,11 +564,6 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		}
 		
 		return null;
-	}
-	
-	@Override
-	public boolean isConsensualSex(){
-		return true;
 	}
 
 	@Override

@@ -19,6 +19,9 @@ public class DialogueFlags implements Serializable {
 	public long ralphDiscountStartTime;
 	public int ralphDiscount, scarlettPrice;
 	
+	// Amount of dialogue choices you can make before offspring interaction ends:
+	public int offspringDialogueTokens = 2;
+	
 	public BodyCoveringType skinTypeSelected;
 	
 	public TFEssence focusedEssence;

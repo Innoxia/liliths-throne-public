@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.69
- * @version 0.1.69
+ * @version 0.1.86
  * @author Innoxia
  */
 public enum BaseColour {
@@ -34,6 +34,7 @@ public enum BaseColour {
 	BROWN_DARK(Util.newColour(0x9F775B), Util.newColour(0x785945)),
 	ORANGE(Util.newColour(0xFF9970), Util.newColour(0xFA4700)),
 	GINGER(Util.newColour(0xFF9147), Util.newColour(0xF06000)),
+	COPPER(Util.newColour(0xD46F2B), Util.newColour(0xB96227)),
 	
 	GOLD(Util.newColour(0xFFCC00), Util.newColour(0xCCA300)),
 	YELLOW(Util.newColour(0xECEC5B), Util.newColour(0xC4C700)),

@@ -1238,7 +1238,7 @@ public class PlayerPenisBreasts {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex(); // Player can only stop if they're in charge (otherwise, this is the partner fucking themselves on the player's cock).
+			return Sex.isPlayerDom() ||Sex.isConsensual(); // Player can only stop if they're in charge (otherwise, this is the partner fucking themselves on the player's cock).
 		}
 		
 		@Override
@@ -2004,7 +2004,7 @@ public class PlayerPenisBreasts {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || !Sex.isPlayerDom(); // Partner can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || !Sex.isPlayerDom(); // Partner can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override

@@ -12,6 +12,7 @@ import java.util.Map;
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -57,6 +58,8 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
@@ -232,6 +235,8 @@ public class Game implements Serializable {
 			
 			scarlett = new Scarlett();
 			addNPC(scarlett);
+//			System.out.println(addNPC(scarlett));
+//			System.out.println(scarlett.getId());
 			
 			alexa = new Alexa();
 			addNPC(alexa);
@@ -330,6 +335,11 @@ public class Game implements Serializable {
 				npc.setPendingClothingDressing(false);
 			}
 			
+			// Prostitutes stay on promiscuity pills to avoid pregnancies
+			if(!npc.isPregnant() && !npc.isSlave() && npc.getHistory()==History.PROSTITUTE && !npc.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)) {
+				npc.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), npc, false);
+			}
+			
 			if(npc.hasStatusEffect(StatusEffect.PREGNANT_3) && (minutesPassed - npc.getTimeProgressedToFinalPregnancyStage())>(12*60)) {
 				if(npc == lilaya) {
 					if(!Main.game.getDialogueFlags().reactedToPregnancyLilaya) { // Lilaya will only end pregnancy after you've seen it.
@@ -357,6 +367,7 @@ public class Game implements Serializable {
 				if(npc.isSlave()) {
 					npc.incrementAffection(npc.getOwner(), npc.getDailyAffectionChange());
 					npc.incrementObedience(npc.getDailyObedienceChange());
+					npc.resetSlaveFlags();
 				}
 			}
 		}
@@ -928,7 +939,20 @@ public class Game implements Serializable {
 	}
 	
 	public void reloadContent() {
-		setContent(new Response("", "", currentDialogueNode));
+		reloadContent(null, null);
+	}
+	
+	public void reloadContent(Colour colour, String messageString) {
+		Main.mainController.setFlashMessageColour(colour);
+		Main.mainController.setFlashMessageText(messageString);
+
+		//-------------------- MEMORY LEAK PROBLEM
+		Main.mainController.setMainContent(currentDialogue);
+		setResponses(currentDialogueNode, false);
+
+		if(started) {
+			Main.game.endTurn(0);
+		}
 	}
 	
 	/**
@@ -1765,11 +1789,15 @@ public class Game implements Serializable {
 		return offspringSpawned;
 	}
 	
+	public List<NPC> getAllNPCs() {
+		return new ArrayList<NPC>(NPCMap.values());
+	}
+	
 	public NPC getNPCById(String id) {
 		return NPCMap.get(id);
 	}
 	
-	public void addNPC(NPC npc) throws Exception {
+	public String addNPC(NPC npc) throws Exception {
 		npcTally++;
 		npc.setId(npc.getNameTriplet().toString()+"-"+npcTally);
 		
@@ -1782,16 +1810,18 @@ public class Game implements Serializable {
 		} else {
 			NPCMap.put(npc.getId(), npc);
 		}
+		
+		return npc.getId();
 	}
 	
 	public void removeNPC(NPC npc) {
+		if(npc.isPregnant()) {
+			npc.endPregnancy(false);
+		}
+		
 		if(isInNPCUpdateLoop) {
 			npcsToRemove.add(npc);
 		} else {
-			if(npc.isPregnant()) {
-				npc.endPregnancy(false);
-			}
-			
 			NPCMap.remove(npc.getId());
 		}
 	}

@@ -933,7 +933,7 @@ public class PlayerTongueVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex(); // Player can only stop if they're in charge.
+			return Sex.isPlayerDom() ||Sex.isConsensual(); // Player can only stop if they're in charge.
 		}
 		
 		@Override
@@ -995,7 +995,7 @@ public class PlayerTongueVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || !Sex.isPlayerDom(); // Partner can only start cunnilingus in consensual sex or if they're the dom.
+			return Sex.isConsensual() || !Sex.isPlayerDom(); // Partner can only start cunnilingus in consensual sex or if they're the dom.
 		}
 		
 		@Override
@@ -1635,7 +1635,7 @@ public class PlayerTongueVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || !Sex.isPlayerDom(); // Partner can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || !Sex.isPlayerDom(); // Partner can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override

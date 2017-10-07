@@ -97,7 +97,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 			}
 		}
 		descriptorList.add(wetnessDescriptor);
-		if((owner.getPubicHair()==BodyHair.BUSHY || owner.getPubicHair()==BodyHair.TRIMMED) && Main.game.isBodyHairEnabled()) {
+		if((owner.getPubicHair()==BodyHair.SIX_BUSHY || owner.getPubicHair()==BodyHair.FIVE_UNKEMPT) && Main.game.isBodyHairEnabled()) {
 			descriptorList.add("hairy");
 		}
 		descriptorList.add(type.getDescriptor(owner));

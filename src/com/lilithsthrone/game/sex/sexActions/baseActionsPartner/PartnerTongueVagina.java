@@ -605,7 +605,7 @@ public class PartnerTongueVagina {
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Pushing [npc.her] [npc.face] into your groin, [npc.name] greedily drives [npc.her] [npc.tongue+] deep into your [npc.pussy+],"
+							"Pushing [npc.her] [npc.face] into your groin, [npc.name] greedily drives [npc.her] [npc.tongue+] deep into your [pc.pussy+],"
 									+ " eagerly eating you out as you struggle against [npc.herHim], [pc.sobbing] and squirming as you plead for [npc.herHim] to stop.",
 							"Pressing [npc.her] [npc.lips+] into your groin, [npc.name] eagerly drives [npc.her] [npc.tongue+] as deep as possible into your [pc.pussy+],"
 									+ " causing you to let out [pc.a_sob+] as you desperately try to pull away from [npc.her] [npc.face].",
@@ -676,7 +676,7 @@ public class PartnerTongueVagina {
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Grinding [npc.her] [npc.face] into your groin, [npc.name] roughly drives [npc.her] [npc.tongue+] deep into your [npc.pussy+],"
+							"Grinding [npc.her] [npc.face] into your groin, [npc.name] roughly drives [npc.her] [npc.tongue+] deep into your [pc.pussy+],"
 									+ " greedily eating you out as you struggle against [npc.herHim], [pc.sobbing] and squirming as you plead for [npc.herHim] to stop.",
 							"Roughly grinding [npc.her] [npc.lips+] into your groin, [npc.name] aggressively drives [npc.her] [npc.tongue+] as deep as possible into your [pc.pussy+],"
 									+ " causing you to let out [pc.a_sob+] as you desperately try to pull away from [npc.her] [npc.face].",
@@ -940,7 +940,7 @@ public class PartnerTongueVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex(); // Partner can only stop if they're in charge.
+			return !Sex.isPlayerDom() ||Sex.isConsensual(); // Partner can only stop if they're in charge.
 		}
 		
 		@Override
@@ -1002,7 +1002,7 @@ public class PartnerTongueVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom(); // Player can only start fingering in consensual sex or if they're the dom.
+			return Sex.isConsensual() || Sex.isPlayerDom(); // Player can only start fingering in consensual sex or if they're the dom.
 		}
 		
 		@Override
@@ -1202,7 +1202,7 @@ public class PartnerTongueVagina {
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"You gently buck your [pc.hips] into [npc.name]'s [npc.face], letting out a soft [pc.moan] as [npc.she] desperately tries to struggle and pull away from your [npc.pussy+].",
+							"You gently buck your [pc.hips] into [npc.name]'s [npc.face], letting out a soft [pc.moan] as [npc.she] desperately tries to struggle and pull away from your [pc.pussy+].",
 							"Letting out a soft [pc.moan], you gently press your [pc.pussy+] against [npc.name]'s [npc.lips+], and, [npc.sobbing] and struggling in distress, [npc.she] desperately tries to pull away from your groin.",
 							"With a soft [pc.moan], you gently thrust your [pc.hips] into [npc.name]'s [npc.face], and [npc.she] scrunches [npc.her] [npc.eyes] closed in response,"
 									+ " letting out a muffled [npc.sob] as you continue pressing your [pc.pussy+] against [npc.her] [npc.lips+]."));
@@ -1269,7 +1269,7 @@ public class PartnerTongueVagina {
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"You eagerly buck your [pc.hips] into [npc.name]'s [npc.face], letting out [pc.a_moan+] as [npc.she] desperately tries to struggle and pull away from your [npc.pussy+].",
+							"You eagerly buck your [pc.hips] into [npc.name]'s [npc.face], letting out [pc.a_moan+] as [npc.she] desperately tries to struggle and pull away from your [pc.pussy+].",
 							"Letting out [pc.a_moan+], you desperately press your [pc.pussy+] against [npc.name]'s [npc.lips+], and, [npc.sobbing] and struggling in distress, [npc.she] desperately tries to pull away from your groin.",
 							"With [pc.a_moan+], you enthusiastically thrust your [pc.hips] into [npc.name]'s [npc.face], and [npc.she] scrunches [npc.her] [npc.eyes] closed in response,"
 									+ " letting out a muffled [npc.sob] as you continue eagerly pressing your [pc.pussy+] against [npc.her] [npc.lips+]."));
@@ -1396,7 +1396,7 @@ public class PartnerTongueVagina {
 						break;
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"You roughly grind your [pc.hips] into [npc.name]'s [npc.face], letting out [pc.a_moan+] as [npc.she] desperately tries to struggle and pull away from your [npc.pussy+].",
+								"You roughly grind your [pc.hips] into [npc.name]'s [npc.face], letting out [pc.a_moan+] as [npc.she] desperately tries to struggle and pull away from your [pc.pussy+].",
 								"Letting out [pc.a_moan+], you roughly grind your [pc.pussy+] against [npc.name]'s [npc.lips+], and, [npc.sobbing] and struggling in distress, [npc.she] frantically tries to pull away from your groin.",
 								"With [pc.a_moan+], you violently thrust your [pc.hips] into [npc.name]'s [npc.face], and [npc.she] scrunches [npc.her] [npc.eyes] closed in response,"
 										+ " letting out a muffled [npc.sob] as you continue roughly grinding your [pc.pussy+] against [npc.her] [npc.lips+]."));
@@ -1644,7 +1644,7 @@ public class PartnerTongueVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override

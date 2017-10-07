@@ -37,6 +37,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTai
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailVagina;
 import com.lilithsthrone.game.sex.sexActions.universal.GenericOrgasms;
+import com.lilithsthrone.game.sex.sexActions.universal.sub.SubDoggy;
 
 /**
  * @since 0.1.69
@@ -75,6 +76,8 @@ public class SMDomSelfDoggy extends SexManagerDefault {
 				
 				// Scene-specific:
 				
+				SubDoggy.class,
+				
 				PlayerTailVagina.class,
 				PlayerTailAnus.class,
 				
@@ -108,11 +111,6 @@ public class SMDomSelfDoggy extends SexManagerDefault {
 	@Override
 	public String getStartSexDescription() {
 		return "";
-	}
-	
-	@Override
-	public boolean isConsensualSex(){
-		return false;
 	}
 	
 	@Override

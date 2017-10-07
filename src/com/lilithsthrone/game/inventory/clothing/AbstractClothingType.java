@@ -30,7 +30,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 
 	protected static final long serialVersionUID = 1L;
 	
-	private String determiner, name, namePlural, description, pathName;
+	private String determiner, name, namePlural, description, pathName, pathNameEquipped;
 
 	private boolean plural;
 	private int physicalResistance, femininityMinimum, femininityMaximum;
@@ -44,13 +44,14 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	private Map<Attribute, Integer> attributeModifiers;
 
 	private Map<Colour, String> SVGStringMap;
+	private Map<Colour, String> SVGStringEquippedMap;
 
 	private ClothingSet clothingSet;
 	private Rarity rarity;
 	private List<Colour> availableColours;
 
 	private List<DisplacementType> displacementTypesAvailableWithoutNONE;
-
+	
 	public AbstractClothingType(
 			String determiner,
 			boolean plural,
@@ -63,6 +64,39 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 			Rarity rarity,
 			ClothingSet clothingSet,
 			String pathName,
+			Map<Attribute, Integer> attributeModifiers,
+			List<BlockedParts> blockedPartsList, List<InventorySlot> incompatibleSlots,
+			List<Colour> availableColours) {
+		this(determiner,
+				plural,
+				name,
+				namePlural,
+				description,
+				physicalResistance,
+				femininityRestriction,
+				slot,
+				rarity,
+				clothingSet,
+				pathName,
+				null,
+				attributeModifiers,
+				blockedPartsList, incompatibleSlots,
+				availableColours);
+	}
+	
+	public AbstractClothingType(
+			String determiner,
+			boolean plural,
+			String name,
+			String namePlural,
+			String description,
+			int physicalResistance,
+			Femininity femininityRestriction,
+			InventorySlot slot,
+			Rarity rarity,
+			ClothingSet clothingSet,
+			String pathName,
+			String pathNameEquipped,
 			Map<Attribute, Integer> attributeModifiers,
 			List<BlockedParts> blockedPartsList, List<InventorySlot> incompatibleSlots,
 			List<Colour> availableColours) {
@@ -96,6 +130,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		this.clothingSet = clothingSet;
 
 		this.pathName = pathName;
+		this.pathNameEquipped = pathNameEquipped;
 
 		// Attribute modifiers:
 		if (attributeModifiers != null) {
@@ -126,6 +161,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		}
 
 		SVGStringMap = new EnumMap<>(Colour.class);
+		SVGStringEquippedMap = new EnumMap<>(Colour.class);
 
 		displacementTypesAvailableWithoutNONE = new ArrayList<>();
 		for (BlockedParts bp : blockedPartsList) {
@@ -259,7 +295,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		return setOfClothing;
 	}
 	
-	protected String getEquipDescriptions(GameCharacter clothingOwner, GameCharacter clothingEquipper, boolean rough,
+	public static String getEquipDescriptions(GameCharacter clothingOwner, GameCharacter clothingEquipper, boolean rough,
 			String playerEquipping, String playerEquippingNpc, String playerEquippingNpcRough, String npcEquipping, String npcEquippingPlayer, String npcEquippingPlayerRough) {
 		if (clothingEquipper.isPlayer()) {
 			if(clothingOwner.isPlayer()) {
@@ -405,7 +441,15 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	}
 	
 	// Getters & setters:
-
+	
+	public boolean isDiscardedOnUnequip() {
+		return false;
+	}
+	
+	public boolean isAbleToBeEquippedDuringSex() {
+		return false;
+	}
+	
 	public String getDeterminer() {
 		return determiner;
 	}
@@ -461,6 +505,10 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		return pathName;
 	}
 
+	public String getPathNameEquipped() {
+		return pathNameEquipped;
+	}
+
 	public int getzLayer() {
 		return slot.getZLayer();
 	}
@@ -476,80 +524,110 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	public Map<Colour, String> getSVGStringMap() {
 		return SVGStringMap;
 	}
+	
+	public Map<Colour, String> getSVGStringEquippedMap() {
+		return SVGStringEquippedMap;
+	}
 
 	public String getSVGImage(Colour colour) {
+		return getSVGImage(colour, false);
+	}
+	
+	public String getSVGEquippedImage(Colour colour) {
+		return getSVGImage(colour, true);
+	}
+	
+	private String getSVGImage(Colour colour, boolean equippedVariant) {
 		if (!availableColours.contains(colour)) {
 			return "";
 		}
 		
-//		if (SVGStringMap.containsKey(colour))  {
-//			return SVGStringMap.get(colour);
-//			
-//		}else {
-//			if (availableColours.contains(colour)) {
-//				try {
-//					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathName + ".svg");
-//					String s = Util.inputStreamToString(is);
-//
-//					for (int i = 0; i <= 14; i++)
-//						s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + "linearGradient" + i);
-//					s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-//					s = s.replaceAll("#ff5555", colour.getShades()[1]);
-//					s = s.replaceAll("#ff8080", colour.getShades()[2]);
-//					s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
-//					s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
-//					
-//					SVGStringMap.put(colour, s);
-//
-//					is.close();
-//
-//					return s;
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-		
-//		return "";
-//		
-//		//TODO
-		
-		if (SVGStringMap.containsKey(colour) && this != ClothingType.WRIST_WOMENS_WATCH && this != ClothingType.WRIST_MENS_WATCH) {
-			return SVGStringMap.get(colour);
+		if(equippedVariant && pathNameEquipped!=null) {
+			if (SVGStringEquippedMap.containsKey(colour) && this != ClothingType.WRIST_WOMENS_WATCH && this != ClothingType.WRIST_MENS_WATCH) {
+				return SVGStringEquippedMap.get(colour);
+				
+			}else {
+				if (availableColours.contains(colour)) {
+					try {
+						InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathNameEquipped + ".svg");
+						String s = Util.inputStreamToString(is);
+	
+						for (int i = 0; i <= 14; i++)
+							s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + "linearGradient" + i);
+						s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
+						s = s.replaceAll("#ff5555", colour.getShades()[1]);
+						s = s.replaceAll("#ff8080", colour.getShades()[2]);
+						s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
+						s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
+						
+						// Add minute and hour hands to women's and men's watches:
+						s += (this == ClothingType.WRIST_WOMENS_WATCH
+								? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
+									+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>"
+									+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
+									+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>"
+								: "")
+								+ (this == ClothingType.WRIST_MENS_WATCH
+									? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
+										+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>"
+										+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
+										+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
+									: "");
+						
+						SVGStringEquippedMap.put(colour, s);
+						
+						is.close();
+	
+						return s;
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
 			
-		}else {
-			if (availableColours.contains(colour)) {
-				try {
-					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathName + ".svg");
-					String s = Util.inputStreamToString(is);
-
-					for (int i = 0; i <= 14; i++)
-						s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + "linearGradient" + i);
-					s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-					s = s.replaceAll("#ff5555", colour.getShades()[1]);
-					s = s.replaceAll("#ff8080", colour.getShades()[2]);
-					s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
-					s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
-					
-					// Add minute and hour hands to women's and men's watches:
-					s += (this == ClothingType.WRIST_WOMENS_WATCH ? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
-							+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>" + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
-							+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>" : "")
-							+ (this == ClothingType.WRIST_MENS_WATCH ? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
-									+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>" + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
-									+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>" : "");
-					
-					SVGStringMap.put(colour, s);
-
-					is.close();
-
-					return s;
-				} catch (IOException e) {
-					e.printStackTrace();
+		} else {
+			if (SVGStringMap.containsKey(colour) && this != ClothingType.WRIST_WOMENS_WATCH && this != ClothingType.WRIST_MENS_WATCH) {
+				return SVGStringMap.get(colour);
+				
+			}else {
+				if (availableColours.contains(colour)) {
+					try {
+						InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathName + ".svg");
+						String s = Util.inputStreamToString(is);
+	
+						for (int i = 0; i <= 14; i++)
+							s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + "linearGradient" + i);
+						s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
+						s = s.replaceAll("#ff5555", colour.getShades()[1]);
+						s = s.replaceAll("#ff8080", colour.getShades()[2]);
+						s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
+						s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
+						
+						// Add minute and hour hands to women's and men's watches:
+						s += (this == ClothingType.WRIST_WOMENS_WATCH
+								? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
+									+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>"
+									+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
+									+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>"
+								: "")
+								+ (this == ClothingType.WRIST_MENS_WATCH
+									? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
+										+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>"
+										+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
+										+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
+									: "");
+						
+						SVGStringMap.put(colour, s);
+						
+						is.close();
+	
+						return s;
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
-
 		return "";
 	}
 

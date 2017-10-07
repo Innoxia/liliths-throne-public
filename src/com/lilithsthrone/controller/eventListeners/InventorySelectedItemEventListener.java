@@ -39,7 +39,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 				Main.mainController.openInventory();
 			}
 			if(Main.game.getDialogueFlags().quickTrade) {
-				switch(InventoryDialogue.getNPCInventoryInteraction()) {
+				switch(InventoryDialogue.getNPCInventoryInteraction()) { //TODO
 					case COMBAT:
 						break;
 					case FULL_MANAGEMENT:

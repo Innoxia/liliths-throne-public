@@ -48,7 +48,6 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryBookAddedToLibrary;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
@@ -59,7 +58,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.7
- * @version 0.1.83
+ * @version 0.1.86
  * @author Innoxia
  */
 public enum ItemEffectType {
@@ -72,7 +71,7 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return target.incrementMuscle(-25)
 					+ target.incrementBodySize(25)
-					+ target.setUnderarmHair(BodyHair.BUSHY);
+					+ target.setUnderarmHair(BodyHair.SIX_BUSHY);
 		}
 	},
 	
@@ -84,21 +83,6 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return "<p>"
 					+ "You use the dye brush."
-					+ "</p>";
-		}
-	},
-	
-	APPLY_CONDOM(Util.newArrayListOfValues(
-			new ListValue<>("Prevents pregnancy.")),
-			Colour.GENERIC_SEX) {
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			if(target.getPenisType()!=PenisType.NONE && target.isCoverableAreaExposed(CoverableArea.PENIS) && !target.isWearingCondom())
-				target.setWearingCondom(true);
-			
-			return "<p>"
-					+ "You pull a condom out from your inventory, and, quickly tearing open the wrapper, you roll the rubber down the length of your cock."
 					+ "</p>";
 		}
 	},
@@ -1882,6 +1866,7 @@ public enum ItemEffectType {
 
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_BREAST_SHAPE_ROUND, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_BREAST_SHAPE_POINTY, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_BREAST_SHAPE_PERKY, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_BREAST_SHAPE_SIDESET, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_BREAST_SHAPE_WIDE, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_BREAST_SHAPE_NARROW, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
@@ -2291,6 +2276,8 @@ public enum ItemEffectType {
 
 					case TF_MOD_BREAST_SHAPE_ROUND:
 						return new RacialEffectUtil("Transforms breast shape into being round.") { @Override public String applyEffect() { return target.setBreastShape(BreastShape.ROUND); } };
+					case TF_MOD_BREAST_SHAPE_PERKY:
+						return new RacialEffectUtil("Transforms breast shape into being perky.") { @Override public String applyEffect() { return target.setBreastShape(BreastShape.PERKY); } };
 					case TF_MOD_BREAST_SHAPE_POINTY:
 						return new RacialEffectUtil("Transforms breast shape into being pointy.") { @Override public String applyEffect() { return target.setBreastShape(BreastShape.POINTY); } };
 					case TF_MOD_BREAST_SHAPE_SIDESET:

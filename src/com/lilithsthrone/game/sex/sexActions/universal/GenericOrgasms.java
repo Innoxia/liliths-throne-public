@@ -356,7 +356,7 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex()) && Sex.isAnyPenetrationHappening();
+			return (Sex.isPlayerDom() ||Sex.isConsensual()) && Sex.isAnyPenetrationHappening();
 		}
 
 		@Override
@@ -950,7 +950,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
-			return !Sex.isPlayerDom() && !Sex.getSexManager().isConsensualSex();
+			return !Sex.isPlayerDom() && !Sex.isConsensual();
 		}
 	};
 		
@@ -979,7 +979,7 @@ public class GenericOrgasms {
 		public boolean isBaseRequirementsMet() {
 			return Sex.isAnyPenetrationHappening()
 					&& (SexFlags.playerRequestedPullOut || (!SexFlags.playerRequestedPullOut && !SexFlags.playerRequestedCreampie));
-//			(!Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex())
+//			(!Sex.isPlayerDom() ||Sex.isConsensual())
 		}
 
 		@Override
@@ -1285,7 +1285,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
-			return !Sex.isPlayerDom() && !Sex.getSexManager().isConsensualSex();
+			return !Sex.isPlayerDom() && !Sex.isConsensual();
 		}
 	};
 	
@@ -1367,7 +1367,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
-			return !Sex.isPlayerDom() && !Sex.getSexManager().isConsensualSex();
+			return !Sex.isPlayerDom() && !Sex.isConsensual();
 		}
 	};
 	
@@ -1390,7 +1390,7 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex()) && Sex.isAnyPenetrationHappening();
+			return (Sex.isPlayerDom() ||Sex.isConsensual()) && Sex.isAnyPenetrationHappening();
 		}
 
 		@Override
@@ -1408,7 +1408,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean endsSex() {
-			return !Sex.isPlayerDom() && !Sex.getSexManager().isConsensualSex();
+			return !Sex.isPlayerDom() && !Sex.isConsensual();
 		}
 	};
 }

@@ -96,6 +96,7 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingSet;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
@@ -191,7 +192,6 @@ public class GameCharacter implements Serializable {
 
 	// Sex:
 	protected Map<CoverableArea, Boolean> playerKnowsAreasMap;
-	protected boolean wearingCondom;
 	protected Map<OrificeType, Set<GameCharacter>> cummedInAreaMap;
 	
 	// Pregnancy:
@@ -746,7 +746,7 @@ public class GameCharacter implements Serializable {
 	 * Do not call this method directly! Use the owner's addSlave() and removeSlave() methods!
 	 * @param owner
 	 */
-	public void setOwner(GameCharacter owner) {
+	protected void setOwner(GameCharacter owner) {
 		this.owner = owner;
 	}
 	
@@ -1681,11 +1681,7 @@ public class GameCharacter implements Serializable {
 	}
 
 	public boolean isWearingCondom() {
-		return wearingCondom;
-	}
-
-	public void setWearingCondom(boolean wearingCondom) {
-		this.wearingCondom = wearingCondom;
+		return this.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot())!=null && this.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getClothingType() == ClothingType.PENIS_CONDOM;
 	}
 	
 	public boolean isExhibitionist() {
@@ -2105,7 +2101,7 @@ public class GameCharacter implements Serializable {
 		if (removingFromFloor) {
 			if (inventory.addItem(item)) {
 				updateInventoryListeners();
-				Main.game.getActiveWorld().getCell(location).getInventory().removeItem(item);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeItem(item);
 				return addedItemToInventoryText(item);
 			} else {
 				return inventoryFullText() + droppedItemText(item);
@@ -2116,7 +2112,7 @@ public class GameCharacter implements Serializable {
 				updateInventoryListeners();
 				return addedItemToInventoryText(item);
 			} else {
-				Main.game.getActiveWorld().getCell(location).getInventory().addItem(item);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addItem(item);
 				return inventoryFullText() + droppedItemText(item);
 			}
 		}
@@ -2172,7 +2168,7 @@ public class GameCharacter implements Serializable {
 		
 		if (item.getItemType().isConsumedOnUse()) {
 			if(removingFromFloor) {
-				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().removeItem(item);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeItem(item);
 			} else {
 				removeItem(item);
 			}
@@ -2203,12 +2199,12 @@ public class GameCharacter implements Serializable {
 	public String addWeapon(AbstractWeapon weapon, boolean removingFromFloor) {
 		if (inventory.addWeapon(weapon)) {
 			if (removingFromFloor) {
-				Main.game.getActiveWorld().getCell(location).getInventory().removeWeapon(weapon);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeWeapon(weapon);
 			}
 			return "<p style='text-align:center;'>" + addedItemToInventoryText(weapon)+"</p>";
 			
 		} else {
-			Main.game.getActiveWorld().getCell(location).getInventory().addWeapon(weapon);
+			Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addWeapon(weapon);
 			return inventoryFullText() + "</br>" + droppedItemText(weapon);
 		}
 	}
@@ -2242,7 +2238,7 @@ public class GameCharacter implements Serializable {
 
 	/** @return Description of equipping this weapon. */
 	public String equipMainWeaponFromFloor(AbstractWeapon weapon) {
-		Main.game.getActiveWorld().getCell(location).getInventory().removeWeapon(weapon);
+		Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeWeapon(weapon);
 		return equipMainWeapon(weapon);
 	}
 
@@ -2293,7 +2289,7 @@ public class GameCharacter implements Serializable {
 			boolean mustDropToFloor = isInventoryFull() && !hasWeapon(getMainWeapon());
 			String s;
 			if (mustDropToFloor || dropToFloor) {
-				Main.game.getActiveWorld().getCell(location).getInventory().addWeapon(getMainWeapon());
+				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addWeapon(getMainWeapon());
 				s = getMainWeapon().getWeaponType().unequipText(this) + (mustDropToFloor && !dropToFloor ? inventoryFullText() : "") + droppedItemText(getMainWeapon());
 			} else {
 				addWeapon(getMainWeapon(), false);
@@ -2322,7 +2318,7 @@ public class GameCharacter implements Serializable {
 	/** @return Description of equipping this weapon. */
 	public String equipOffhandWeaponFromFloor(AbstractWeapon weapon) {
 		String s = equipOffhandWeapon(weapon);
-		Main.game.getActiveWorld().getCell(location).getInventory().removeWeapon(weapon);
+		Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeWeapon(weapon);
 		return s;
 	}
 
@@ -2373,7 +2369,7 @@ public class GameCharacter implements Serializable {
 			boolean mustDropToFloor = isInventoryFull() && !hasWeapon(getOffhandWeapon());
 			String s;
 			if (mustDropToFloor || dropToFloor) {
-				Main.game.getActiveWorld().getCell(location).getInventory().addWeapon(getOffhandWeapon());
+				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addWeapon(getOffhandWeapon());
 				s = getOffhandWeapon().getWeaponType().unequipText(this) + (mustDropToFloor && !dropToFloor ? inventoryFullText() : "") + droppedItemText(getOffhandWeapon());
 			} else {
 				addWeapon(getOffhandWeapon(), false);
@@ -2410,7 +2406,7 @@ public class GameCharacter implements Serializable {
 		if (inventory.addClothing(clothing)) {
 			updateInventoryListeners();
 			if (removingFromFloor)
-				Main.game.getActiveWorld().getCell(location).getInventory().removeClothing(clothing);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeClothing(clothing);
 			return "<p style='text-align:center;'>" + addedItemToInventoryText(clothing)+"</p>";
 		} else
 			return inventoryFullText() + droppedItemText(clothing);
@@ -2537,7 +2533,7 @@ public class GameCharacter implements Serializable {
 			for (Entry<Attribute, Integer> e : newClothing.getAttributeModifiers().entrySet())
 				incrementBonusAttribute(e.getKey(), e.getValue());
 
-			Main.game.getActiveWorld().getCell(location).getInventory().removeClothing(newClothing);
+			Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeClothing(newClothing);
 
 			newClothing.setEnchantmentKnown(true);
 
@@ -2581,7 +2577,7 @@ public class GameCharacter implements Serializable {
 			if (fitsIntoInventory)
 				addClothing(clothing, false);
 			else
-				Main.game.getActiveWorld().getCell(location).getInventory().addClothing(clothing);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addClothing(clothing);
 
 			updateInventoryListeners();
 			
@@ -2612,7 +2608,7 @@ public class GameCharacter implements Serializable {
 			}
 
 			// Place the clothing on the floor:
-			Main.game.getActiveWorld().getCell(location).getInventory().addClothing(clothing);
+			Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addClothing(clothing);
 
 			updateInventoryListeners();
 		}
@@ -3488,7 +3484,7 @@ public class GameCharacter implements Serializable {
 					}
 					
 					if(hasPenis()) {
-						// Assume female, as penis is not visible:
+						// Assume cuntboy, as penis is not visible:
 						return new GenderAppearance(
 								isPlayer()
 								?"Due to your exposed [pc.vagina], and the fact that your [pc.penis] remains concealed, everyone assumes that you're "
@@ -3499,7 +3495,7 @@ public class GameCharacter implements Serializable {
 								Gender.M_V_CUNTBOY);
 						
 					} else {
-						// Correctly assume female:
+						// Correctly assume cuntboy:
 						return new GenderAppearance(
 								isPlayer()
 								?"Due to your exposed [pc.vagina], everyone correctly assumes that you're "
@@ -3545,26 +3541,26 @@ public class GameCharacter implements Serializable {
 					}
 					
 					if(hasPenis()) {
-						// Assume female, as penis is not visible:
+						// Assume male, as penis is not visible:
 						return new GenderAppearance(
 								isPlayer()
 								?"Your [pc.penis] is concealed, so, due to your masculine appearance, everyone assumes that you're "
-										+UtilText.generateSingularDeterminer(Gender.M_V_CUNTBOY.getName())+" "+Gender.M_V_CUNTBOY.getName()+" on first glance."
+										+UtilText.generateSingularDeterminer(Gender.M_P_MALE.getName())+" "+Gender.M_P_MALE.getName()+" on first glance."
 								:UtilText.parse(this,
 										"Due to [npc.her] masculine appearance, everyone assumes that [npc.she]'s "
-											+UtilText.generateSingularDeterminer(Gender.M_V_CUNTBOY.getName())+" "+Gender.M_V_CUNTBOY.getName()+" on first glance."),
-								Gender.M_V_CUNTBOY);
+											+UtilText.generateSingularDeterminer(Gender.M_P_MALE.getName())+" "+Gender.M_P_MALE.getName()+" on first glance."),
+								Gender.M_P_MALE);
 						
 					} else if(hasVagina()) {
-						// Correctly assume female:
+						// Correctly assume male:
 						return new GenderAppearance(
 								isPlayer()
 								?"Your masculine appearance leads everyone to correctly assume that you're "
-										+UtilText.generateSingularDeterminer(Gender.M_V_CUNTBOY.getName())+" "+Gender.M_V_CUNTBOY.getName()+"."
+										+UtilText.generateSingularDeterminer(Gender.M_P_MALE.getName())+" "+Gender.M_P_MALE.getName()+"."
 								:UtilText.parse(this,
 										"Due to [npc.her] masculine appearance, everyone assumes that [npc.she]'s "
-											+UtilText.generateSingularDeterminer(Gender.M_V_CUNTBOY.getName())+" "+Gender.M_V_CUNTBOY.getName()+"."),
-								Gender.M_V_CUNTBOY);
+											+UtilText.generateSingularDeterminer(Gender.M_P_MALE.getName())+" "+Gender.M_P_MALE.getName()+"."),
+								Gender.M_P_MALE);
 						
 					} else {
 						if(isCoverableAreaExposed(CoverableArea.VAGINA) && isCoverableAreaExposed(CoverableArea.PENIS)) {
@@ -3791,7 +3787,7 @@ public class GameCharacter implements Serializable {
 		
 		String beardLoss = "";
 		
-		if(femininity>=Femininity.ANDROGYNOUS.getMinimumFemininity() && this.getFacialHair()!=BodyHair.NONE) {
+		if(femininity>=Femininity.ANDROGYNOUS.getMinimumFemininity() && this.getFacialHair()!=BodyHair.ZERO_NONE) {
 			if(isPlayer()) {
 				beardLoss = "<p>"
 								+ "As your body shifts into a more feminine form, you feel your facial hair falling out; evidence that you're no longer able to grow a beard."
@@ -4060,56 +4056,56 @@ public class GameCharacter implements Serializable {
 			UtilText.transformationContentSB.setLength(0);
 			
 			switch(pubicHair) {
-				case NONE:
+				case ZERO_NONE:
 					if(this.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>There is no longer any trace of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>There is no longer any trace of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
-				case STUBBLE:
+				case ONE_STUBBLE:
 					if(this.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a stubbly patch of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a stubbly patch of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
-				case MANICURED:
+				case TWO_MANICURED:
 					if(this.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a well-manicured patch of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a well-manicured patch of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
-				case TRIMMED:
+				case THREE_TRIMMED:
 					if(this.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a trimmed patch of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a trimmed patch of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
-				case NATURAL:
+				case FOUR_NATURAL:
 					if(this.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a natural bush of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a natural bush of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
-				case UNKEMPT:
+				case FIVE_UNKEMPT:
 					if(this.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have an unkempt mass of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has an unkempt mass of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
-				case BUSHY:
+				case SIX_BUSHY:
 					if(this.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a thick mass of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a thick mass of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					}
 					break;
-				case WILD:
+				case SEVEN_WILD:
 					if(this.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a wild, bushy mass of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
 					} else {
@@ -5046,7 +5042,7 @@ public class GameCharacter implements Serializable {
 	// Facial hair:
 	public BodyHair getFacialHair() {
 		if(isFeminine()) {
-			setFacialHair(BodyHair.NONE);
+			setFacialHair(BodyHair.ZERO_NONE);
 		}
 		return body.getFace().getFacialHair();
 	}
@@ -5208,9 +5204,7 @@ public class GameCharacter implements Serializable {
 		if(!getHairCovering().equals(covering)) {
 			body.getCoverings().put(covering.getType(), covering);
 			
-			if(updateBodyHair) {
-				body.updateBodyHairColour();
-			}
+			body.updateCoverings(false, false, updateBodyHair, false);
 			
 			if (isPlayer()) {
 				return "<p>"
@@ -5759,9 +5753,7 @@ public class GameCharacter implements Serializable {
 			
 			body.getCoverings().put(coveringType, covering);
 			
-			if(updateAllSkinColours) {
-				body.updateAllSkinCoverings();
-			}
+			body.updateCoverings(false, false, false, updateAllSkinColours);
 			
 			List<String> affectedParts = new ArrayList<>();
 			for (BodyPartInterface part : body.getAllBodyParts()) {

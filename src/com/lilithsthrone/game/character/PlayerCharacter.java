@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ShopTransaction;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SizedStack;
 import com.lilithsthrone.world.WorldType;
@@ -198,7 +199,7 @@ public class PlayerCharacter extends GameCharacter {
 	}
 	
 	public boolean isHasSlaverLicense() {
-		return isQuestCompleted(QuestLine.SIDE_SLAVERY);
+		return isQuestCompleted(QuestLine.SIDE_SLAVERY) || Main.game.isDebugMode();
 	}
 	
 	public boolean isQuestProgressGreaterThan(QuestLine questLine, Quest quest) {

@@ -381,7 +381,7 @@ public class ScarlettsShop {
 						return new Response("Buy Scarlett (" + Main.game.getCurrencySymbol() + " "+Main.game.getDialogueFlags().scarlettPrice+")", "You don't have enough money to buy Scarlett.", null);
 						
 					} else {
-						return new Response("Buy Scarlett (<span style='color:" + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+Main.game.getDialogueFlags().scarlettPrice+")"
+						return new Response("Buy Scarlett (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+Main.game.getDialogueFlags().scarlettPrice+")"
 								, "Buy Scarlett for "+Main.game.getDialogueFlags().scarlettPrice+" flames.", ALEXAS_SHOP_BUYING_SCARLETT) {
 							@Override
 							public void effects() {

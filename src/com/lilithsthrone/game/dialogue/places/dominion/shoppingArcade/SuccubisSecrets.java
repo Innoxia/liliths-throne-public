@@ -194,7 +194,7 @@ public class SuccubisSecrets {
 		public Response getResponse(int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex", "You can't resist the horny succubus's request...", null,
-						Main.game.getKate(), new SMChairTop(), Kate.AFTER_SEX,
+						true, false, Main.game.getKate(), new SMChairTop(), Kate.AFTER_SEX,
 							 "<p>"
 							+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
 							+ " You notice little vibrations running down her tail's length, and you realise that her demonic pussy is eagerly massaging and squeezing down on the intruding object."
@@ -264,7 +264,7 @@ public class SuccubisSecrets {
 		public Response getResponse(int index) {
 			if (index == 1) {
 				return new ResponseSex("Fuck her", "Do as she says and start having sex with her.", null,
-						Main.game.getKate(), new SMChairTop(), Kate.AFTER_SEX,
+						true, false, Main.game.getKate(), new SMChairTop(), Kate.AFTER_SEX,
 								"<p>"
 								+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
 								+ " You notice little vibrations running down her tail's length, and you realise that her demonic pussy is eagerly massaging and squeezing down on the intruding object."
@@ -598,7 +598,7 @@ public class SuccubisSecrets {
 		} else if (index == 9) {
 			return new ResponseSex("Sex", "You roll your eyes as you reach the end of the brochure. On a double-page spread, there's an extremely lewd collection of pictures of Kate inserting her tail into her various orifices,"
 					+ " with the suggestive caption 'Don't make me do it myself...'", null,
-					Main.game.getKate(), new SMChairTop(), Kate.AFTER_SEX_REPEATED,
+					true, false, Main.game.getKate(), new SMChairTop(), Kate.AFTER_SEX_REPEATED,
 							"<p>"
 							+ "Turning to the back of the brochure, you find a double-page spread that's filled with extremely explicit pictures of Kate inserting her tail into her various orifices."
 							+ " Looking over at the sleeping demon next to you, the words of the caption 'Don't make me do it myself...' echo through your mind."

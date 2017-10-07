@@ -68,7 +68,7 @@ public class OptionsDialogue {
 							:"<h4 style='text-align:center;'>Last save:</h4>"
 								+ "<h5 style='color:" + Main.getProperties().nameColour + ";text-align:center;'>" + Main.getProperties().name + "</h5>"
 								+ "<p style='text-align:center;'><b>Level " + Main.getProperties().level + " " + Util.capitaliseSentence(Main.getProperties().race) + "</b></p>"
-								+ "<p style='text-align:center;'><b style='color: " + com.lilithsthrone.utils.Colour.CURRENCY.toWebHexString() + ";'>&#164</b> " + Main.getProperties().money + "</p>"
+								+ "<p style='text-align:center;'>" + UtilText.formatAsMoney(Main.getProperties().money, "span") + "</p>"
 								+ "<p style='text-align:center;'>Quest: " + Util.capitaliseSentence(Main.getProperties().quest) + "</p>");
 		}
 		
@@ -914,10 +914,8 @@ public class OptionsDialogue {
 					"<div class='statsDescriptionBox'>"
 					+ "These options will determine the gender encounter rates of random NPCs."
 					+ " Some NPCs, such as random succubi attackers, have restrictions on their gender, but your preferences will be taken into account wherever possible.</br>"
-					+ "A visual representation of the encounter chances can be seen in the bar below."
-					+ getGenderRepresentation()
-					+ "</div>"
-					+ "<span style='height:16px;width:800px;float:left;'></span>");
+					+ "A visual representation of the encounter chances can be seen in the bars at the bottom of each section."
+					+ "</div>");
 			
 			UtilText.nodeContentSB.append(getGenerPreferencesPanel(PronounType.MASCULINE));
 			UtilText.nodeContentSB.append(getGenerPreferencesPanel(PronounType.NEUTRAL));
@@ -974,19 +972,21 @@ public class OptionsDialogue {
 						"<div style='display:inline-block; margin:4px auto;width:100%;'>"
 							+ "<span style='height:16px;float:left;'></span>"
 							+ "<div style='display:inline-block; margin:0 auto;'>"
-								+ "<div style='width:140px; float:left;'><b style='color:"+colour.getShades(8)[count]+";'>" +Util.capitaliseSentence(g.getName())+"</b></div>"
-								+ "<div id='gender_preference_off_"+g+"' class='preference-button"
-									+(Main.getProperties().genderPreferencesMap.get(g)==GenderPreference.NONE.getValue()?" selected":"")+"'>Off</div>"
-								+ "<div id='gender_preference_low_"+g+"' class='preference-button"+(Main.getProperties().genderPreferencesMap.get(g)==GenderPreference.LOW.getValue()?" selected":"")+"'>Low</div>"
-								+ "<div id='gender_preference_normal_"+g+"' class='preference-button"+(Main.getProperties().genderPreferencesMap.get(g)==GenderPreference.NORMAL.getValue()?" selected":"")+"'>Normal</div>"
-								+ "<div id='gender_preference_high_"+g+"' class='preference-button"+(Main.getProperties().genderPreferencesMap.get(g)==GenderPreference.HIGH.getValue()?" selected":"")+"'>High</div>"
-							+ "</div>"
+								+ "<div style='width:140px; float:left;'><b style='color:"+colour.getShades(8)[count]+";'>" +Util.capitaliseSentence(g.getName())+"</b></div>");
+				
+				for(GenderPreference preference : GenderPreference.values()) {
+					sb.append("<div id='"+preference+"_"+g+"' class='preference-button"+(Main.getProperties().genderPreferencesMap.get(g)==preference.getValue()?" selected":"")+"'>"+Util.capitaliseSentence(preference.getName())+"</div>");
+				}
+								
+				sb.append("</div>"
 						+ "</div>");
 				count++;
 			}
 		}
 		
-		sb.append("</div>");
+		sb.append(
+				getGenderRepresentation()
+				+"</div>");
 		
 		return sb.toString();
 	}

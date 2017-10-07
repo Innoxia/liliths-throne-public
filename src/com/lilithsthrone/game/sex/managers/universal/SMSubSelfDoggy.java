@@ -1,9 +1,23 @@
-package com.lilithsthrone.game.sex.managers.dominion.lilaya;
+package com.lilithsthrone.game.sex.managers.universal;
 
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioning;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
@@ -22,18 +36,17 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTai
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailVagina;
-import com.lilithsthrone.game.sex.sexActions.dominion.lilaya.ConChairTopPositionsLilaya;
 import com.lilithsthrone.game.sex.sexActions.universal.GenericOrgasms;
-import com.lilithsthrone.game.sex.sexActions.universal.consensual.ConChairTop;
+import com.lilithsthrone.game.sex.sexActions.universal.dom.DomDoggy;
 
 /**
- * @since 0.1.7
- * @version 0.1.79
+ * @since 0.1.86
+ * @version 0.1.86
  * @author Innoxia
  */
-public class SMChairTopLilaya extends SexManagerDefault {
+public class SMSubSelfDoggy extends SexManagerDefault {
 
-	public SMChairTopLilaya() {
+	public SMSubSelfDoggy() {
 		super(// Self actions:
 				
 				PlayerSelfFingerAnus.class,
@@ -63,22 +76,35 @@ public class SMChairTopLilaya extends SexManagerDefault {
 				
 				// Scene-specific:
 				
-				ConChairTop.class,
+				DomDoggy.class,
+
+				PartnerTailVagina.class,
+				PartnerTailAnus.class,
 				
-				ConChairTopPositionsLilaya.class,
+				PlayerFingerNipple.class,
+				PlayerFingerUrethra.class,
+				PlayerFingerVagina.class,
+				PlayerFingerAnus.class,
+				PlayerPenisVagina.class,
+				PlayerPenisAnus.class,
+				PlayerTailVagina.class,
+				PlayerTailAnus.class,
+				
+				// Positioning:
+				
+				GenericPositioning.class,
 				
 				// Universal:
-
+				
+				PlayerTalk.class,
+				PartnerTalk.class,
 				GenericActions.class,
 				GenericOrgasms.class);
-		
-//		removeAction(GenericSelf.PARTNER_ASK_FOR_CREAMPIE);
-//		removeAction(GenericSelf.PARTNER_ASK_FOR_PULL_OUT);
 	}
 	
 	@Override
 	public SexPosition getPosition() {
-		return SexPosition.CHAIR_TOP;
+		return SexPosition.DOGGY_PARTNER_AS_DOM_ON_ALL_FOURS;
 	}
 
 	@Override
@@ -88,7 +114,7 @@ public class SMChairTopLilaya extends SexManagerDefault {
 	
 	@Override
 	public boolean isPlayerAbleToStopSex() {
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -113,12 +139,12 @@ public class SMChairTopLilaya extends SexManagerDefault {
 
 	@Override
 	public SexPace getStartingSexPacePlayer() {
-		return SexPace.DOM_NORMAL;
+		return SexPace.SUB_NORMAL;
 	}
 
 	@Override
 	public SexPace getStartingSexPacePartner() {
-		return SexPace.SUB_NORMAL;
+		return Sex.getPartner().getSexPaceDomPreference();
 	}
 
 }

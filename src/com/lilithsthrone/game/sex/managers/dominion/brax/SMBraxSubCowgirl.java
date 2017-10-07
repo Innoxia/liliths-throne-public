@@ -113,11 +113,6 @@ public class SMBraxSubCowgirl extends SexManagerDefault {
 	public SexPosition getPosition() {
 		return SexPosition.COWGIRL_PLAYER_TOP;
 	}
-	
-	@Override
-	public boolean isConsensualSex(){
-		return false;
-	}
 
 	@Override
 	public boolean isPlayerAbleToStopSex() {

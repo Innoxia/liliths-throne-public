@@ -63,8 +63,6 @@ public class Ralph extends NPC {
 			ItemType.COR_INGREDIENT_LILITHS_GIFT,
 			ItemType.FIT_INGREDIENT_SQUIRREL_JAVA,
 
-			ItemType.DYE_BRUSH,
-			ItemType.CONDOM,
 			ItemType.VIXENS_VIRILITY,
 			ItemType.PROMISCUITY_PILL,
 			ItemType.MOTHERS_MILK };
@@ -94,7 +92,7 @@ public class Ralph extends NPC {
 		this.addFetish(Fetish.FETISH_IMPREGNATION);
 
 		// Items:
-		for(int i=0;i<5;i++) {
+		for(int i=5;i<15;i++) {
 			this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), false);
 		}
 		
@@ -102,6 +100,10 @@ public class Ralph extends NPC {
 			for (int i = 0; i < (Util.random.nextInt(5) + 1); i++) {
 				this.addItem(AbstractItemType.generateItem(item), false);
 			}
+		}
+
+		for (int i = 0; i < (Util.random.nextInt(5) + 1); i++) {
+			this.addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, Colour.CLOTHING_WHITE, false), false);
 		}
 		
 		this.setMoney(10);
@@ -128,7 +130,7 @@ public class Ralph extends NPC {
 	@Override
 	public void dailyReset() {
 		clearNonEquippedInventory();
-
+		
 		for(int i=0;i<5;i++) {
 			this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), false);
 		}
@@ -202,6 +204,9 @@ public class Ralph extends NPC {
 			if(((AbstractItem)item).getItemType().canBeSold())
 				return true;
 		}
+		if(item instanceof AbstractClothing) {
+			return ((AbstractClothing)item).getClothingType()==ClothingType.PENIS_CONDOM;
+		}
 		
 		return false;
 	}
@@ -263,6 +268,49 @@ public class Ralph extends NPC {
 		return "as you earned a discount";
 	}
 	
+	
+	@Override
+	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
+		if(Main.game.isInSex() && !target.isPlayer()) {
+			if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==(PenetrationType.PENIS_PARTNER)) {
+				return "<p>"
+						+ "You pull out a condom from your inventory, and, making a muffled questioning sound, hold it up to Ralph."
+							+ " He looks down at you before nodding and stepping back, sliding his huge cock free from your mouth."
+							+ " You get a moment to catch your breath as Ralph tears opens the little foil package before rolling the condom down the length of his massive shaft."
+							+ " Stepping forwards once more, he shoves his rubber-bound dick back down your throat, and you let out a muffled sigh of relief, happy that he did as you asked."
+					+ "</p>";
+			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==(PenetrationType.PENIS_PARTNER)) {
+				return "<p>"
+							+ "As Ralph carries on slamming his huge cock in and out of your pussy, you fumble around in your inventory and produce a condom."
+								+ " Suppressing your moans, you turn back, holding out your hand as you ask him to put it on."
+								+ " He lets out a disappointed sigh, but doesn't openly object as he pulls his cock free from your pussy, giving you a moment to breathe as he"
+									+ " tears opens the little foil package before rolling the condom down the length of his massive shaft."
+								+ " Once the condom is securely in place, he lines himself up and pushes forwards, burying his rubber-bound dick deep into your pussy."
+						+ "</p>";
+			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==(PenetrationType.PENIS_PARTNER)) {
+				return "<p>"
+					+ "As Ralph carries on slamming his huge cock in and out of your ass, you fumble around in your inventory and produce a condom."
+						+ " Suppressing your groans, you turn back, holding out your hand as you ask him to put it on."
+						+ " He lets out a disappointed sigh, but doesn't openly object as he pulls his cock free from your rear entrance, giving you a moment to breathe as he"
+							+ " tears opens the little foil package before rolling the condom down the length of his massive shaft."
+						+ " Once the condom is securely in place, he lines himself up and pushes forwards, burying his rubber-bound dick deep into your waiting asshole."
+					+ "</p>";
+			} else {
+				return "<p>"
+					+ "Producing a condom from your inventory, you lean forwards, looking up at Ralph and asking him to put it on as you hold the little foil package up to him."
+							+ " With a sigh, he takes the condom from you, and, tearing the package open, quickly rolls the condom down the length of his massive shaft."
+							+ " You thank him for doing as you asked, and he replies that he's happy to respect your request."
+				+ "</p>";
+			}
+		}
+		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
+				"You tear open the packet and roll the condom down the length of your [pc.penis].",
+				"You tear open the packet and roll the condom down the length of [npc.name]'s [npc.penis].",
+				"You tear open the packet and forcefully roll the condom down the length [npc.name]'s [npc.penis].",
+				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
+				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
+				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].");
+	}
 	
 	
 	@Override
@@ -354,39 +402,7 @@ public class Ralph extends NPC {
 				
 			// Player uses item on NPC:
 			}else{
-				if(item.getItemType().equals(ItemType.CONDOM)) {
-						Main.game.getPlayer().useItem(item, target, false);
-						if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==(PenetrationType.PENIS_PARTNER))
-							return "<p>"
-									+ "You pull out a condom from your inventory, and, making a muffled questioning sound, hold it up to Ralph."
-										+ " He looks down at you before nodding and stepping back, sliding his huge cock free from your mouth."
-										+ " You get a moment to catch your breath as Ralph tears opens the little foil package before rolling the condom down the length of his massive shaft."
-										+ " Stepping forwards once more, he shoves his rubber-bound dick back down your throat, and you let out a muffled sigh of relief, happy that he did as you asked."
-								+ "</p>";
-						else if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==(PenetrationType.PENIS_PARTNER))
-							return "<p>"
-										+ "As Ralph carries on slamming his huge cock in and out of your pussy, you fumble around in your inventory and produce a condom."
-											+ " Suppressing your moans, you turn back, holding out your hand as you ask him to put it on."
-											+ " He lets out a disappointed sigh, but doesn't openly object as he pulls his cock free from your pussy, giving you a moment to breathe as he"
-												+ " tears opens the little foil package before rolling the condom down the length of his massive shaft."
-											+ " Once the condom is securely in place, he lines himself up and pushes forwards, burying his rubber-bound dick deep into your pussy."
-									+ "</p>";
-						else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==(PenetrationType.PENIS_PARTNER))
-							return "<p>"
-								+ "As Ralph carries on slamming his huge cock in and out of your ass, you fumble around in your inventory and produce a condom."
-									+ " Suppressing your groans, you turn back, holding out your hand as you ask him to put it on."
-									+ " He lets out a disappointed sigh, but doesn't openly object as he pulls his cock free from your rear entrance, giving you a moment to breathe as he"
-										+ " tears opens the little foil package before rolling the condom down the length of his massive shaft."
-									+ " Once the condom is securely in place, he lines himself up and pushes forwards, burying his rubber-bound dick deep into your waiting asshole."
-								+ "</p>";
-						else
-							return "<p>"
-								+ "Producing a condom from your inventory, you lean forwards, looking up at Ralph and asking him to put it on as you hold the little foil package up to him."
-										+ " With a sigh, he takes the condom from you, and, tearing the package open, quickly rolls the condom down the length of his massive shaft."
-										+ " You thank him for doing as you asked, and he replies that he's happy to respect your request."
-							+ "</p>";
-
-				} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+				if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
 					
 						Main.game.getPlayer().useItem(item, target, false);
 						if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==(PenetrationType.PENIS_PARTNER))
@@ -453,5 +469,5 @@ public class Ralph extends NPC {
 			return Sex.getPartner().useItem(item, target, false);
 		}
 	}
-
+	
 }

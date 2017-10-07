@@ -122,7 +122,7 @@ public class PartnerTongueMouth {
 						break;
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"Looking into your [npc.eyes], [npc.name] leans forwards, eagerly pressing [npc.her] [npc.lips+] against yours as [npc.she] lets out lewd little [npc.moaning] noises,"
+								"Looking into your [pc.eyes], [npc.name] leans forwards, eagerly pressing [npc.her] [npc.lips+] against yours as [npc.she] lets out lewd little [npc.moaning] noises,"
 										+ " encouraging you to pull [npc.herHim] into a passionate kiss.",
 								"[npc.Name] leans forwards, and you find yourself breathing in [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+" as [npc.she] eagerly presses [npc.her] [npc.lips+] against yours.",
 								"[npc.Name] leans in against your [pc.breasts+], tilting [npc.her] head slightly to one side before planting a desperate, passionate kiss on your [pc.lips+]."));
@@ -990,7 +990,7 @@ public class PartnerTongueMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override

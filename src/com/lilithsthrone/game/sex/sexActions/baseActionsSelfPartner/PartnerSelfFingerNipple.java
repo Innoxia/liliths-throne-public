@@ -64,7 +64,7 @@ public class PartnerSelfFingerNipple {
 					UtilText.nodeContentSB.append(" A trickle of [npc.milk] runs out around [npc.her] fingertips.");
 					break;
 				case FOUR_LARGE_AMOUNT:
-					UtilText.nodeContentSB.append(" Your [npc.milk] starts to flow out around [npc.her] fingers and run down [npc.her] [npc.breasts+].");
+					UtilText.nodeContentSB.append(" [npc.Her] [npc.milk] starts to flow out around [npc.her] fingers and run down [npc.her] [npc.breasts+].");
 					break;
 				case FIVE_VERY_LARGE_DROOLING:
 					UtilText.nodeContentSB.append(" [npc.Milk] starts drooling out in a little stream around [npc.her] fingers.");

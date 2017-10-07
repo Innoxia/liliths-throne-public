@@ -186,6 +186,47 @@ public enum PlaceUpgrade {
 		}
 	},
 	
+	LILAYA_SLAVE_ROOM_OBEDIENCE_TRAINER(false,
+			Colour.GENERIC_ARCANE,
+			"Obedience Trainer",
+			"Lilaya has asked you if you'd consider installing one of her experimental devices in this room; a so-called 'obedience trainer'."
+					+ " This particular addition takes the form of a large, glowing crystal that is to be placed in the centre of the room."
+					+ " Whenever the room's occupant thinks a disobedient thought, the crystal will shoot out a shocking bolt of arcane energy, thereby training a slave's obedience in the most intrusive fashion imaginable.",
+			"You've installed one one of Lilaya's experimental devices in this room; a so-called 'obedience trainer'."
+					+ " This particular addition takes the form of a large, glowing crystal that has been placed in the centre of the room."
+					+ " Whenever the room's occupant thinks a disobedient thought, the crystal shoots out a shocking bolt of arcane energy, thereby training a slave's obedience in the most intrusive fashion imaginable.",
+			"One of Lilaya's experimental devices, a so-called 'obedience trainer', has been installed in the middle of this room."
+					+ " Taking the form of a large, glowing crystal, the obedience trainer will shoot a shocking bolt of arcane energy at any slave nearby that dares to think a disobedient thought."
+					+ " Although highly effective at training obedience, any slaves subjected to this intrusive training method will be sure to loathe you before long...",
+			1000,
+			500,
+			5,
+			0,
+			-4f,
+			AffectionLevel.NEGATIVE_FIVE_LOATHE,
+			8f,
+			ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT,
+			null),
+	
+	LILAYA_SLAVE_ROOM_ROOM_SERVICE(false,
+			Colour.GENERIC_ARCANE,
+			"Room service",
+			"You could offer this room's occupant unlimited room service."
+					+ " This isn't exactly how most owners treat their slaves, and while it's sure to make the occupant like you more, it's also going to cost quite a bit in upkeep, as well as have some negative effects on their obedience...",
+			"You've offered unlimited room service to the occupant of this room."
+					+ " It's definitely making them like you more, but it's also costing a fair amount in upkeep, and is having a negative effect on your slave's obedience...",
+			"An little push-trolley with a few empty silver plates and glasses stacked on top of it is evidence that the slave who lives here is taking full advantage of the unlimited room service you've offered to them."
+					+ " It's definitely making them like you more, but having such a luxury available to them is also having a negative impact on their obedience, not to mention the damage it's doing to your bank account...",
+			20,
+			0,
+			50,
+			0,
+			8f,
+			AffectionLevel.POSITIVE_THREE_CARING,
+			-4f,
+			ObedienceLevel.NEGATIVE_FIVE_REBELLIOUS,
+			null),
+	
 	LILAYA_SLAVE_ROOM_ARCANE_INSTRUMENTS(false,
 			Colour.GENERIC_ARCANE,
 			"Arcane Instruments",
@@ -213,9 +254,14 @@ public enum PlaceUpgrade {
 				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM));
 		
 		slaveQuartersUpgrades = Util.newArrayListOfValues(
+				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_ROOM_SERVICE),
+				
 				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED),
 				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED),
+				
 				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_ARCANE_INSTRUMENTS),
+				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_OBEDIENCE_TRAINER),
+				
 				new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
 	}
 	

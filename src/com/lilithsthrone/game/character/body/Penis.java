@@ -87,7 +87,9 @@ public class Penis implements BodyPartInterface, Serializable {
 		List<String> list = new ArrayList<>();
         
 		for(PenisModifier pm : penisModifiers) {
-			list.add(pm.getName());
+			if(!(Main.game.isInSex() && pm == PenisModifier.SHEATHED)) {
+				list.add(pm.getName());
+			}
 		}
 		list.add(type.getDescriptor(owner));
 		if(Main.game.isInSex()) {

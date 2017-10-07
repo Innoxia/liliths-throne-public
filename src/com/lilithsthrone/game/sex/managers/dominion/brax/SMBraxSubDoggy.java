@@ -110,11 +110,6 @@ public class SMBraxSubDoggy extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isConsensualSex(){
-		return false;
-	}
-	
-	@Override
 	public boolean isPlayerAbleToStopSex() {
 		return true;
 	}

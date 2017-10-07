@@ -90,7 +90,7 @@ public class Alexa extends NPC {
 	
 	@Override
 	public void dailyReset() {
-		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
+		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
 			for(NPC slave : slavesOwned) {
 				Main.game.removeNPC(slave);
 			}

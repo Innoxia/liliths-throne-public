@@ -175,9 +175,9 @@ public class LilayaHomeGeneric {
 									?"<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+place.getCapacity()+"</b></br>"
 									:"<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>0</b></br>")
 							
-							+ "<b>Total upkeep:</b> "+UtilText.getColouredMoneySymbol("b")+(place.getUpkeep()>0
-									?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
-									:"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>")+place.getUpkeep()+"</b><b>/day</b></br>");
+							+ "<b>Total upkeep:</b> "+(place.getUpkeep()>0
+									?UtilText.formatAsMoney(place.getUpkeep(), "b", Colour.GENERIC_BAD)
+									:UtilText.formatAsMoney(place.getUpkeep(), "b", Colour.GENERIC_GOOD))+"<b>/day</b></br>");
 
 			UtilText.nodeContentSB.append("<b>Modifications:</b>");
 			if(place.getPlaceUpgrades().isEmpty()) {
@@ -1157,7 +1157,8 @@ public class LilayaHomeGeneric {
 			if (index == 1) {
 				return new ResponseSex("Hand-holding", "Warning: This content contains extreme descriptions of hand-holding, finger sucking, and even palm-licking."
 						+ " <b>Please remember that you need to have read the disclaimer before playing this game!</b> <b style='color:"+BaseColour.CRIMSON.toWebHexString()+";'>18+ only!</b>",
-						ROSE_HANDS, Main.game.getRose(), new SMRoseHands(), Rose.END_HAND_SEX);
+						ROSE_HANDS,
+						true, false, Main.game.getRose(), new SMRoseHands(), Rose.END_HAND_SEX);
 
 			} else {
 				return null;

@@ -10,6 +10,8 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -20,7 +22,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.84
- * @version 0.1.84
+ * @version 0.1.86
  * @author Innoxia
  */
 public class ClothingType {
@@ -2710,7 +2712,7 @@ public class ClothingType {
 				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " unzips <her> slip dress and wriggles out of it as it drops to <her> feet.");
 			else {
 				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " unzips your slip dress and pulls it up your body and past your feet.";
+					return Util.capitaliseSentence(clothingRemover.getName("the")) + " unzips your slip dress and pulls it down your body and past your feet.";
 				else
 					return UtilText.genderParsing(clothingOwner, "You unzip " + clothingOwner.getName("the") + "'s slip dress and pull it down off <her> body and past <her> feet.");
 			}
@@ -7596,6 +7598,89 @@ public class ClothingType {
 			}
 	};
 	
+	public static AbstractClothingType PENIS_CONDOM = new AbstractClothingType(
+			"a",
+			false,
+			"condom",
+			"condoms",
+			"A sheath-shaped rubbery barrier device, designed to fit over a penis and prevent any semen from entering the body of a sexual partner.",
+			1,
+			null,
+			InventorySlot.PENIS,
+			Rarity.COMMON,
+			null,
+			"penis_condom_unequipped", "penis_condom_equipped",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+							null,
+							null))),
+			null,
+			Colour.allClothingColours) {
+		
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public boolean isDiscardedOnUnequip() {
+			return true;
+		}
+
+		@Override
+		public boolean isAbleToBeEquippedDuringSex() {
+			return true;
+		}
+		
+		@Override
+		public boolean isCanBeEquipped(GameCharacter clothingOwner) {
+			if(clothingOwner.hasPenis()) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		@Override
+		public String getCannotBeEquippedText(GameCharacter characterClothingOwner) {
+			if(characterClothingOwner.isPlayer()) {
+				return "You don't have a penis, so you can't wear a condom!";
+			} else {
+				return UtilText.parse(characterClothingOwner, "[npc.Name] doesn't have a penis, so can't wear a condom!");
+			}
+		}
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			
+			if(applyEffects) {
+				if(InventoryDialogue.getInventoryNPC()!=null) {
+					return ((NPC) InventoryDialogue.getInventoryNPC()).getCondomEquipEffects(clothingRemover, clothingOwner, rough);
+				}
+			}
+			
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You tear open the packet and roll the condom down the length of your [pc.penis].",
+					"You tear open the packet and roll the condom down the length of [npc.name]'s [npc.penis].",
+					"You tear open the packet and forcefully roll the condom down the length [npc.name]'s [npc.penis].",
+					"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
+					"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
+					"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].");
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slip off your condom and throw it away.",
+					"You slip [npc.name]'s condom off and throw it away.",
+					"You grab [npc.name]'s [npc.penis] and pull [npc.her] condom off, before throwing it away.",
+					"[npc.Name] slips off [npc.her] condom and throws it away.",
+					"[npc.Name] slips off your condom and throws it away.",
+					"[npc.Name] grabs your [pc.penis] and pulls your condom off, before throwing it away.");
+		}
+	};
+	
 	
 	// CLOTHING SETS:
 
@@ -8489,7 +8574,7 @@ public class ClothingType {
 	};
 	
 	public static AbstractClothingType CATTLE_PIERCING_EAR_TAGS = new AbstractClothingType("an",
-			true,
+			false,
 			"ear tag",
 			"ear tags",
 			"A bright yellow ear tag, made from plastic and used for identification of domestic animals.",

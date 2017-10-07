@@ -8,11 +8,9 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.Rarity;
-import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -21,7 +19,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.84
- * @version 0.1.84
+ * @version 0.1.86
  * @author Innoxia
  */
 public class ItemType {
@@ -1993,72 +1991,72 @@ public class ItemType {
 		}
 	};
 
-	public static AbstractItemType CONDOM = new AbstractItemType("a",
-			false,
-			"condom",
-			"condoms",
-			"A condom, wrapped in a square piece of foil. The brand name 'Stallion' is clearly displayed in bold red lettering, and a small description on the other side informs you that, due to an arcane enchantment, 'one-size fits all'.",
-			"condom",
-			Colour.CLOTHING_WHITE,
-			5,
-			Rarity.COMMON,
-			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.APPLY_CONDOM, null, null, null, 0)))) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getUseName() {
-			return "use";
-		}
-
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			// This has a special description in sex (I think :s), so don't worry about giving it a good description.
-			return "<p>"
-					+ "You put the condom on."
-					+ "</p>"; 
-		}
-
-		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getPenisType()!=PenisType.NONE && target.isCoverableAreaExposed(CoverableArea.PENIS) && !target.isWearingCondom();
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			if(target.getPenisType()==PenisType.NONE){
-				if(target.isPlayer())
-					return "You can't use a condom (in the way that it's meant to be used) without a penis!";
-				else
-					return "[npc.Name] can't use a condom as [npc.she] doesn't have a penis!";
-				
-			}else if(!target.isCoverableAreaExposed(CoverableArea.PENIS)){
-				if(target.isPlayer())
-					return "You'll need to get access to your penis before you can use a condom on it!";
-				else
-					return "You'll need to get access to [npc.name]'s [npc.cock] before you can get [npc.herHim] to use a condom!";
-				
-			}else if(target.isWearingCondom()){
-				if(target.isPlayer())
-					return "You're already wearing a condom!";
-				else
-					return target.getName("the")+" is already wearing a condom!";
-					
-			}else
-				return "This item cannot be used in this way!";
-		}
-
-		@Override
-		public boolean isAbleToBeUsedInCombat() {
-			return false;
-		}
-
-		@Override
-		public boolean isAbleToBeUsedFromInventory() {
-			return false;
-		}
-	};
+//	public static AbstractItemType CONDOM = new AbstractItemType("a",
+//			false,
+//			"condom",
+//			"condoms",
+//			"A condom, wrapped in a square piece of foil. The brand name 'Stallion' is clearly displayed in bold red lettering, and a small description on the other side informs you that, due to an arcane enchantment, 'one-size fits all'.",
+//			"condom",
+//			Colour.CLOTHING_WHITE,
+//			5,
+//			Rarity.COMMON,
+//			null,
+//			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.APPLY_CONDOM, null, null, null, 0)))) {
+//
+//		private static final long serialVersionUID = 1L;
+//
+//		@Override
+//		public String getUseName() {
+//			return "use";
+//		}
+//
+//		@Override
+//		public String getUseDescription(GameCharacter user, GameCharacter target) {
+//			// This has a special description in sex (I think :s), so don't worry about giving it a good description.
+//			return "<p>"
+//					+ "You put the condom on."
+//					+ "</p>"; 
+//		}
+//
+//		@Override
+//		public boolean isAbleToBeUsed(GameCharacter target) {
+//			return target.getPenisType()!=PenisType.NONE && target.isCoverableAreaExposed(CoverableArea.PENIS) && !target.isWearingCondom();
+//		}
+//
+//		@Override
+//		public String getUnableToBeUsedDescription(GameCharacter target) {
+//			if(target.getPenisType()==PenisType.NONE){
+//				if(target.isPlayer())
+//					return "You can't use a condom (in the way that it's meant to be used) without a penis!";
+//				else
+//					return "[npc.Name] can't use a condom as [npc.she] doesn't have a penis!";
+//				
+//			}else if(!target.isCoverableAreaExposed(CoverableArea.PENIS)){
+//				if(target.isPlayer())
+//					return "You'll need to get access to your penis before you can use a condom on it!";
+//				else
+//					return "You'll need to get access to [npc.name]'s [npc.cock] before you can get [npc.herHim] to use a condom!";
+//				
+//			}else if(target.isWearingCondom()){
+//				if(target.isPlayer())
+//					return "You're already wearing a condom!";
+//				else
+//					return target.getName("the")+" is already wearing a condom!";
+//					
+//			}else
+//				return "This item cannot be used in this way!";
+//		}
+//
+//		@Override
+//		public boolean isAbleToBeUsedInCombat() {
+//			return false;
+//		}
+//
+//		@Override
+//		public boolean isAbleToBeUsedFromInventory() {
+//			return false;
+//		}
+//	};
 
 	public static AbstractItemType CONDOM_USED = new AbstractItemType("a",
 			false,
@@ -2159,8 +2157,8 @@ public class ItemType {
 			false,
 			"Promiscuity Pill",
 			"Promiscuity Pills",
-			"A small pill, packaged in a little foil and plastic wrapper."
-					+ " On the front of the foil, there's a before-and-after picture of a line of faceless men waiting their turn to ejaculate into a willing girl's hungry pussy."
+			"Commonly referred to as 'slut pills', this promiscuity pill is packaged in a foil and plastic wrapper."
+					+ " On the front of the foil, there's a before-and-after picture of a girl's hungry pussy overflowing with cum."
 					+ " The after image is of the girl showing off her flat stomach as she gives a thumbs up.",
 			"vixensVirility",
 			Colour.CLOTHING_BLUE,
@@ -2169,10 +2167,7 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.PROMISCUITY_PILL, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {

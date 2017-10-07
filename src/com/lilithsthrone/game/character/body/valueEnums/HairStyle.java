@@ -49,6 +49,13 @@ public enum HairStyle {
 			}
 		}
 		
+		// Most likely to have a "normal" hair style:
+		if(Math.random()>0.2f) {
+			availableStyles.remove(HairStyle.AFRO);
+			availableStyles.remove(HairStyle.SIDECUT);
+			availableStyles.remove(HairStyle.MOHAWK);
+		}
+		
 		return availableStyles.get(Util.random.nextInt(availableStyles.size()));
 	}
 }

@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -76,6 +77,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
@@ -119,11 +121,17 @@ public abstract class NPC extends GameCharacter {
 	
 	protected float buyModifier, sellModifier;
 
-	protected boolean knowsPlayerGender = false, addedToContacts, reactedToPregnancy, pendingClothingDressing;
+	protected boolean knowsPlayerGender = false, addedToContacts, pendingClothingDressing;
+	
+	protected boolean reactedToPregnancy, reactedToPlayerPregnancy;
 	
 	protected Set<SexPosition> sexPositionPreferences;
 	
 	protected Body bodyPreference = null;
+	
+	public boolean flagSlaveBackground = false, flagSlaveSmallTalk = false,
+						flagSlaveEncourage = false, flagSlaveHug = false, flagSlavePettings = false,
+						flagSlaveInspect = false, flagSlaveSpanking = false, flagSlaveMolest = false;
 	
 	
 	protected NPC(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace,
@@ -133,6 +141,7 @@ public abstract class NPC extends GameCharacter {
 		this.addedToContacts = addedToContacts;
 		
 		reactedToPregnancy = false;
+		reactedToPlayerPregnancy = false;
 		pendingClothingDressing = false;
 		
 		sexPositionPreferences = new HashSet<>();
@@ -148,7 +157,18 @@ public abstract class NPC extends GameCharacter {
 			}
 		}
 	}
-
+	
+	public void resetSlaveFlags() {
+		flagSlaveBackground = false;
+		flagSlaveSmallTalk = false;
+		flagSlaveEncourage = false;
+		flagSlaveHug = false;
+		flagSlavePettings = false;
+		flagSlaveInspect = false;
+		flagSlaveSpanking = false;
+		flagSlaveMolest = false;
+	}
+	
 	/**
 	 * Resets this character to their default state.
 	 */
@@ -1020,6 +1040,7 @@ public abstract class NPC extends GameCharacter {
 			
 			if(hasFetish(Fetish.FETISH_ANAL_RECEIVING) && playerCanUsePenis() && canUseAnus()) {
 				sexPositionPreferences.add(SexPosition.COWGIRL_PARTNER_TOP);
+				sexPositionPreferences.add(SexPosition.DOGGY_PARTNER_AS_DOM_ON_ALL_FOURS);
 			}
 			
 			if((hasFetish(Fetish.FETISH_IMPREGNATION) || hasFetish(Fetish.FETISH_SEEDER)) && canUsePenis() && playerCanUseVagina()) {
@@ -1031,6 +1052,7 @@ public abstract class NPC extends GameCharacter {
 			if((hasFetish(Fetish.FETISH_PREGNANCY) || hasFetish(Fetish.FETISH_BROODMOTHER)) && playerCanUsePenis() && canUseVagina()) {
 				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
 				sexPositionPreferences.add(SexPosition.COWGIRL_PARTNER_TOP);
+				sexPositionPreferences.add(SexPosition.DOGGY_PARTNER_AS_DOM_ON_ALL_FOURS);
 			}
 			
 			if(sexPositionPreferences.isEmpty()) { // If no preferences found, add 'standard' positions
@@ -1061,7 +1083,8 @@ public abstract class NPC extends GameCharacter {
 		if(hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
 				|| (getSexualOrientation()==SexualOrientation.ANDROPHILIC && Main.game.getPlayer().isFeminine())
 				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !Main.game.getPlayer().isFeminine())
-				|| hasFetish(Fetish.FETISH_NON_CON)) {
+//				|| hasFetish(Fetish.FETISH_NON_CON)
+				) {
 			return false;
 		}
 		
@@ -1085,6 +1108,16 @@ public abstract class NPC extends GameCharacter {
 						
 					} else if(this.getObedience()>=ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMinimumValue()) {
 						return SexPace.SUB_NORMAL;
+					}
+				}
+				
+				if(mother!=null && father!=null) {
+					if(mother.isPlayer() || father.isPlayer()) {
+						if (!hasFetish(Fetish.FETISH_INCEST) && getHistory() == History.PROSTITUTE) {
+							if(Sex.isConsensual())  {
+								return SexPace.SUB_NORMAL;
+							}
+						}
 					}
 				}
 				
@@ -1152,20 +1185,23 @@ public abstract class NPC extends GameCharacter {
 		return Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true);
 	}
 	
-	
 	public boolean isReactedToPregnancy() {
 		return reactedToPregnancy;
 	}
-
 	public void setReactedToPregnancy(boolean reactedToPregnancy) {
 		this.reactedToPregnancy = reactedToPregnancy;
+	}
+	
+	public boolean isReactedToPlayerPregnancy() {
+		return reactedToPlayerPregnancy;
+	}
+	public void setReactedToPlayerPregnancy(boolean reactedToPlayerPregnancy) {
+		this.reactedToPlayerPregnancy = reactedToPlayerPregnancy;
 	}
 	
 	public boolean isPendingClothingDressing() {
 		return pendingClothingDressing;
 	}
-
-
 	public void setPendingClothingDressing(boolean pendingClothingDressing) {
 		this.pendingClothingDressing = pendingClothingDressing;
 	}
@@ -1455,7 +1491,32 @@ public abstract class NPC extends GameCharacter {
 	
 	
 	
-	// ****************** Dirty talk: ***************************
+	// ****************** Sex & Dirty talk: ***************************
+	
+	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
+		if(Main.game.isInSex() && !target.isPlayer()) {
+			if(Sex.isPlayerDom() ||Sex.isConsensual()) {
+				return "<p>"
+						+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
+						+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
+						+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
+						+ "</p>";
+			} else {
+				return "<p>"
+						+ "Holding out a condom to [npc.name], you let out a sigh of relief as [npc.she] reluctantly takes it."
+						+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] growls at you,"
+						+ " [npc.speech(You'd better be glad that I'm in a good mood!)]"
+						+ "</p>";
+			}
+		}
+		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
+				"You tear open the packet and roll the condom down the length of your [pc.penis].",
+				"You tear open the packet and roll the condom down the length of [npc.name]'s [npc.penis].",
+				"You tear open the packet and forcefully roll the condom down the length [npc.name]'s [npc.penis].",
+				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
+				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
+				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].");
+	}
 	
 	/**
 	 * @return A <b>formatted</b> piece of NPC speech, reacting to any current penetration.
@@ -4654,7 +4715,7 @@ public abstract class NPC extends GameCharacter {
 	}
 
 	public String getPlayerBreastsRevealReaction(boolean isPlayerDom) {
-		if(Sex.getSexManager().isConsensualSex()) {
+		if(Sex.isConsensual()) {
 			switch(Sex.getSexPacePartner()) {
 				case DOM_GENTLE:
 					return "<p>"
@@ -4954,7 +5015,7 @@ public abstract class NPC extends GameCharacter {
 	}
 
 	public String getPlayerPenisRevealReaction(boolean isPlayerDom) {
-		if(Sex.getSexManager().isConsensualSex()) {
+		if(Sex.isConsensual()) {
 			switch(Sex.getSexPacePartner()) {
 				case DOM_GENTLE:
 					return "<p>"
@@ -5266,7 +5327,7 @@ public abstract class NPC extends GameCharacter {
 	}
 
 	public String getPlayerVaginaRevealReaction(boolean isPlayerDom) {
-		if(Sex.getSexManager().isConsensualSex()) {
+		if(Sex.isConsensual()) {
 			switch(Sex.getSexPacePartner()) {
 				case DOM_GENTLE:
 					return "<p>"
@@ -5362,7 +5423,7 @@ public abstract class NPC extends GameCharacter {
 	}
 
 	public String getPlayerMoundRevealReaction(boolean isPlayerDom) {
-		if(Sex.getSexManager().isConsensualSex()) {
+		if(Sex.isConsensual()) {
 			switch(Sex.getSexPacePartner()) {
 				case DOM_GENTLE:
 					return "<p>"

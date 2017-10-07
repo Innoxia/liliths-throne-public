@@ -266,13 +266,13 @@ public class ConChairBottom {
 			descriptionSB.append(
 					UtilText.returnStringAtRandom(
 					"Reaching down, [npc.name] circles [npc.her] fingers around your [pc.nipples+], before pushing forwards and sinking [npc.her] digits into the warm flesh of your [pc.breasts]."
-							+ " You let out [pc.a_moan+] at the sudden penetration, and as [npc.she] starts eagerly fingering your [npc.nipples], you look up at [npc.herHim] and continue moaning in pleasure.",
+							+ " You let out [pc.a_moan+] at the sudden penetration, and as [npc.she] starts eagerly fingering your [pc.nipples], you look up at [npc.herHim] and continue moaning in pleasure.",
 							
 					"[npc.Name] presses [npc.her] fingers down against your [pc.nipples+], and, with a steady pressure, [npc.she] sinks [npc.her] digits deep inside."
 							+ " You find yourself crying out and pushing your chest up into [npc.her] hands as [npc.she] starts rapidly fingering your [pc.breasts+].",
 							
 					"Your [pc.nipples+] prove to be too tempting for [npc.name] to ignore any longer."
-							+ " In one swift motion, [npc.she] brings [npc.her] [npc.hands+] down to your [npc.breasts], pushing [npc.her] digits inside as [npc.she] starts fingering your [pc.nipples+].",
+							+ " In one swift motion, [npc.she] brings [npc.her] [npc.hands+] down to your [pc.breasts], pushing [npc.her] digits inside as [npc.she] starts fingering your [pc.nipples+].",
 							
 					"Circling your [pc.nipples+] with [npc.her] fingers, [npc.name] decides to take it one step further, and, sinking [npc.her] digits into your inviting [npc.nipples],"
 							+ " [npc.she] starts fingering your [pc.breasts+], causing you to [pc.moan] and sigh in delight."));
@@ -1017,7 +1017,7 @@ public class ConChairBottom {
 			return UtilText.returnStringAtRandom(
 					(Main.game.getPlayer().hasHorns()
 						?"Reaching down, [npc.name] roughly grabs your [pc.horns+], using them for support as [npc.she] starts to rapidly bounce up and down on your [pc.cock+]."
-						:"Reaching down, [npc.name] roughly grabs your [pc.hips+], using them for support as [npc.she] starts to rapidly bounce up and down on your [npc.cock+]."),
+						:"Reaching down, [npc.name] roughly grabs your [pc.hips+], using them for support as [npc.she] starts to rapidly bounce up and down on your [pc.cock+]."),
 							
 					"Placing [npc.her] [npc.hands+] down on your [pc.breasts+], [npc.name] leans into you for support as [npc.she] starts roughly slamming [npc.her] [npc.pussy+] up and down on your [pc.cock+].",
 							
@@ -1150,7 +1150,7 @@ public class ConChairBottom {
 			return UtilText.returnStringAtRandom(
 					(Main.game.getPlayer().hasHorns()
 						?"Reaching down, [npc.name] roughly grabs your [pc.horns+], using them for support as [npc.she] starts to rapidly bounce up and down on your [pc.cock+]."
-						:"Reaching down, [npc.name] roughly grabs your [pc.hips+], using them for support as [npc.she] starts to rapidly bounce up and down on your [npc.cock+]."),
+						:"Reaching down, [npc.name] roughly grabs your [pc.hips+], using them for support as [npc.she] starts to rapidly bounce up and down on your [pc.cock+]."),
 							
 					"Placing [npc.her] [npc.hands+] down on your [pc.breasts+], [npc.name] leans into you for support as [npc.she] starts roughly slamming [npc.her] [npc.ass+] up and down on your [pc.cock+].",
 							
@@ -1636,7 +1636,7 @@ public class ConChairBottom {
 			return UtilText.returnStringAtRandom(
 					"Grinning up at [npc.name], you force a surprised [npc.moan] out of [npc.her] mouth as you suddenly drive your [pc.tail] deep into [npc.her] [npc.ass].",
 					
-					"Winking at [npc.name], you thrust your [npc.tail+] up hard into [npc.her] [npc.asshole+], causing [npc.herHim] to let out [npc.a_moan+].",
+					"Winking at [npc.name], you thrust your [pc.tail+] up hard into [npc.her] [npc.asshole+], causing [npc.herHim] to let out [npc.a_moan+].",
 					
 					"Letting out [pc.a_moan+], you start thrusting your [pc.tail] in and out of [npc.name]'s [npc.ass],"
 							+ " quickly causing [npc.her] to join [npc.her] [npc.moans] with yours as you carry on using your [pc.tail] to fuck [npc.her] [npc.asshole].",
@@ -1677,7 +1677,7 @@ public class ConChairBottom {
 			return UtilText.returnStringAtRandom(
 					"Grinning up at [npc.name], you force a surprised [npc.moan] out of [npc.her] mouth as you suddenly drive your [pc.tail] deep into [npc.her] [npc.pussy+].",
 					
-					"Winking at [npc.name], you thrust your [npc.tail+] up hard into [npc.her] [npc.pussy+], causing [npc.herHim] to let out [npc.a_moan+].",
+					"Winking at [npc.name], you thrust your [pc.tail+] up hard into [npc.her] [npc.pussy+], causing [npc.herHim] to let out [npc.a_moan+].",
 					
 					"Letting out [pc.a_moan+], you start thrusting your [pc.tail] in and out of [npc.name]'s [npc.pussy],"
 							+ " quickly causing [npc.her] to join [npc.her] [npc.moans] with yours as you carry on using your [pc.tail] to fuck [npc.her] [npc.pussy+].",
@@ -2285,7 +2285,7 @@ public class ConChairBottom {
 
 		@Override
 		public String getDescription() {
-			return "You push [npc.name] back, forcing [npc.her] [npc.cock+] to slide out of your [npc.asshole+], and ignoring the disappointed whine that [npc.she] makes.";
+			return "You push [npc.name] back, forcing [npc.her] [npc.cock+] to slide out of your [pc.asshole+], and ignoring the disappointed whine that [npc.she] makes.";
 		}
 	};
 	
@@ -2308,7 +2308,7 @@ public class ConChairBottom {
 
 		@Override
 		public String getDescription() {
-			return "You push [npc.name] back, forcing [npc.her] [npc.cock+] to slide out of your [npc.nipple+], and ignoring the disappointed whine that [npc.she] makes.";
+			return "You push [npc.name] back, forcing [npc.her] [npc.cock+] to slide out of your [pc.nipple+], and ignoring the disappointed whine that [npc.she] makes.";
 		}
 	};
 	

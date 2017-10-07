@@ -46,7 +46,7 @@ public class PlayerPenisAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex();
+			return Sex.isPlayerDom() ||Sex.isConsensual();
 		}
 
 		@Override
@@ -147,7 +147,7 @@ public class PlayerPenisAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex();
+			return !Sex.isPlayerDom() ||Sex.isConsensual();
 		}
 
 		@Override
@@ -873,7 +873,7 @@ public class PlayerPenisAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex(); // Player can only stop if they're in charge (otherwise, this is the partner fucking themselves on the player's cock).
+			return Sex.isPlayerDom() ||Sex.isConsensual(); // Player can only stop if they're in charge (otherwise, this is the partner fucking themselves on the player's cock).
 		}
 		
 		@Override
@@ -937,9 +937,9 @@ public class PlayerPenisAnus {
 			// Partner can only start fucking themselves on the player's cock in consensual sex or if they're the dom.
 			// You can't penetrate if your partner is already fucking you, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
 			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER)==null) {
-				return (Sex.getSexManager().isConsensualSex() || !Sex.isPlayerDom());
+				return (Sex.isConsensual() || !Sex.isPlayerDom());
 			} else {
-				return false; //(Sex.getSexManager().isConsensualSex() || !Sex.isPlayerDom()) && !Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER).contains(OrificeType.VAGINA_PLAYER);
+				return false; //(Sex.isConsensual() || !Sex.isPlayerDom()) && !Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER).contains(OrificeType.VAGINA_PLAYER);
 			}
 		}
 		
@@ -1397,7 +1397,7 @@ public class PlayerPenisAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || !Sex.isPlayerDom(); // Partner can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || !Sex.isPlayerDom(); // Partner can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override

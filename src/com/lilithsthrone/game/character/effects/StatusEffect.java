@@ -1261,7 +1261,30 @@ public enum StatusEffect {
 	
 	
 	// STANDARD EFFECTS:
+	
+	WEATHER_PROLOGUE(100,
+			"Strange Atmosphere",
+			"weatherNightStormIncoming",
+			Colour.CLOTHING_WHITE,
+			false,
+			null,
+			Util.newArrayListOfValues(new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"))) {
 
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return "There's a strange atmosphere surrounding the museum this evening, and you inexplicably find yourself feeling incredibly aroused...";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return !Main.game.isInNewWorld();
+		}
+	},
 	WEATHER_CLEAR(100,
 			"Clear skies",
 			"weatherDayClear",
@@ -1287,7 +1310,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.getCurrentWeather()==Weather.CLEAR;
+			return Main.game.getCurrentWeather()==Weather.CLEAR && Main.game.isInNewWorld();
 		}
 		
 		@Override
@@ -1319,7 +1342,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.getCurrentWeather()==Weather.CLOUD;
+			return Main.game.getCurrentWeather()==Weather.CLOUD && Main.game.isInNewWorld();
 		}
 		
 		@Override
@@ -1355,7 +1378,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.getCurrentWeather()==Weather.RAIN;
+			return Main.game.getCurrentWeather()==Weather.RAIN && Main.game.isInNewWorld();
 		}
 		
 		@Override
@@ -1388,7 +1411,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.getCurrentWeather()==Weather.MAGIC_STORM_GATHERING;
+			return Main.game.getCurrentWeather()==Weather.MAGIC_STORM_GATHERING && Main.game.isInNewWorld();
 		}
 		
 		@Override
@@ -1441,7 +1464,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if((target.isPlayer() || !target.getRace().isVulnerableToLilithsLustStorm()) && !target.getLocationPlace().isStormImmune()) {
-				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM;
+				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.isInNewWorld();
 				
 			} else {
 				return false;
@@ -1484,7 +1507,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(target.getRace().isVulnerableToLilithsLustStorm() && !target.isPlayer() && !target.getLocationPlace().isStormImmune()) {
-				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM;
+				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.isInNewWorld();
 			} else {
 				return false;
 			}
@@ -1540,7 +1563,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(target.getLocationPlace().isStormImmune()) {
-				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM;
+				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM && Main.game.isInNewWorld();
 			} else {
 				return false;
 			}
@@ -1558,13 +1581,13 @@ public enum StatusEffect {
 	
 	// RACES:
 	// HUMAN:
-	PURE_HUMAN(
+	PURE_HUMAN_PROLOGUE(
 			90,
 			"human",
 			"raceHuman",
 			Colour.CLOTHING_WHITE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, 10f)),
+			null,
 			null) {
 
 		@Override
@@ -1574,13 +1597,41 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "Humans are more easily able to resist corruption.";
+			return "You're a human, just like every other person in this world.";
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.HUMAN
-					&& target.getRaceStage() == RaceStage.HUMAN;
+					&& target.getRaceStage() == RaceStage.HUMAN
+					&& !Main.game.isInNewWorld();
+		}
+	},
+	
+	PURE_HUMAN(
+			90,
+			"human",
+			"raceHuman",
+			Colour.CLOTHING_WHITE,
+			true,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, 20f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return "Humans have a much higher resistance to the arousing effects of the arcane than any other race.";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.HUMAN
+					&& target.getRaceStage() == RaceStage.HUMAN
+					&& Main.game.isInNewWorld();
 		}
 	},
 
@@ -2513,8 +2564,15 @@ public enum StatusEffect {
 		
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
-			if(target instanceof NPC)
+			if(target instanceof NPC) {
 				((NPC)target).setReactedToPregnancy(false);
+			} else {
+				if(target.isPlayer()) {
+					for(NPC npc : Main.game.getAllNPCs()) {
+						npc.setReactedToPlayerPregnancy(false);
+					}
+				}
+			}
 			
 			return "";
 		}
@@ -3191,6 +3249,9 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
+			if(target!=null && !target.isPlayer()) {
+				return UtilText.parse(target, "[npc.Name]'s clothing doesn't cover [npc.her] private parts, and [npc.she] feels highly embarrassed to be walking around in such an exposed fashion.");
+			}
 			return "Your clothing doesn't cover your private parts, and you feel highly embarrassed to be walking around in such an exposed fashion.";
 		}
 
@@ -3221,6 +3282,9 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
+			if(target!=null && !target.isPlayer()) {
+				return UtilText.parse(target, "[npc.Name]'s clothing doesn't cover [npc.her] breasts, and [npc.she] feels highly embarrassed to be walking around in such an exposed fashion.");
+			}
 			return "Your clothing doesn't cover your breasts, and you feel highly embarrassed to be walking around in such an exposed fashion.";
 		}
 
@@ -3251,6 +3315,9 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
+			if(target!=null && !target.isPlayer()) {
+				return UtilText.parse(target, "[npc.Name]'s breasts and private parts are naked for the world to see, and [npc.she] feels highly embarrassed to be walking around in such an exposed fashion.");
+			}
 			return "Your breasts and private parts are naked for the world to see, and you feel highly embarrassed to be walking around in such an exposed fashion.";
 		}
 
@@ -3281,6 +3348,9 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
+			if(target!=null && !target.isPlayer()) {
+				return UtilText.parse(target, "[npc.Name]'s clothing doesn't cover [npc.her] private parts, and [npc.she] feels incredibly sexy every time [npc.she] catches someone staring at [npc.her] exposed groin.");
+			}
 			return "Your clothing doesn't cover your private parts, and you feel incredibly sexy every time you catch someone staring at your exposed groin.";
 		}
 
@@ -3311,6 +3381,9 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
+			if(target!=null && !target.isPlayer()) {
+				return UtilText.parse(target, "[npc.Name]'s clothing doesn't cover [npc.her] breasts, and [npc.she] feels incredibly sexy every time [npc.she] catches someone staring at [npc.her] exposed chest.");
+			}
 			return "Your clothing doesn't cover your breasts, and you feel incredibly sexy every time you catch someone staring at your exposed chest.";
 		}
 
@@ -3340,6 +3413,9 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
+			if(target!=null && !target.isPlayer()) {
+				return UtilText.parse(target, "[npc.Name]'s breasts and private parts are naked for the world to see, and [npc.she] feels incredibly sexy as [npc.she] walks around with all [npc.her] goods on display.");
+			}
 			return "Your breasts and private parts are naked for the world to see, and you feel incredibly sexy as you walk around with all your goods on display.";
 		}
 

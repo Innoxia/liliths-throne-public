@@ -136,7 +136,7 @@ public enum Combat {
 			// Give the player money, or take money away, depending on victory or defeat:
 			Main.game.getPlayer().incrementMoney(opponent.getLootMoney());
 			if (opponent.getLootMoney() > 0)
-				postCombatStringBuilder.append(" and <b style='color: " + com.lilithsthrone.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + opponent.getLootMoney() + "</b>!</h6>");
+				postCombatStringBuilder.append(" and " + UtilText.formatAsMoney(opponent.getLootMoney()) + "!</h6>");
 			else
 				postCombatStringBuilder.append("!</h6>");
 
@@ -211,8 +211,8 @@ public enum Combat {
 			
 			int money = Main.game.getPlayer().getMoney();
 			Main.game.getPlayer().incrementMoney(-opponent.getLootMoney()/2);
-			postCombatStringBuilder.append("<h6 style='text-align:center;'>You <b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>lost</b>"
-					+ " <b style='color: " + com.lilithsthrone.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b><b>" + (Main.game.getPlayer().getMoney()==0?money:opponent.getLootMoney()/2) + "</b>!</h6>");
+			postCombatStringBuilder.append("<h6 style='text-align:center;'>You <b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>lost</b> "
+					+ UtilText.formatAsMoney((Main.game.getPlayer().getMoney()==0?money:opponent.getLootMoney()/2)) + "!</h6>");
 
 			opponent.setWonCombatCount(opponent.getWonCombatCount()+1);
 		}

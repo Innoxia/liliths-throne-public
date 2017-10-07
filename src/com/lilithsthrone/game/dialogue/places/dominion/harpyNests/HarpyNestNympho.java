@@ -262,7 +262,7 @@ public class HarpyNestNympho {
 			if(Main.game.getDialogueFlags().nymphoPacified) {
 				if (index == 1) {
 					return new ResponseSex("Sex", "Have dominant sex with [harpyNympho.name].", HARPY_NEST_NYMPHO_APPROACH,
-							Main.game.getHarpyNympho(), new SMHarpyStanding(), HARPY_NEST_NYMPHO_AFTER_SEX,
+							true, false, Main.game.getHarpyNympho(), new SMHarpyStanding(), HARPY_NEST_NYMPHO_AFTER_SEX,
 							"<p>"
 								+ "Eager to help satisfy [harpyNympho.name]'s craving for sex, you reach down and grab her wings."
 								+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+]."
@@ -532,7 +532,7 @@ public class HarpyNestNympho {
 		public Response getResponse(int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [harpyNympho.name].", HARPY_NEST_NYMPHO_QUEEN,
-						Main.game.getHarpyNympho(), new SMHarpyStanding(), HARPY_NEST_NYMPHO_AFTER_SEX,
+						true, false, Main.game.getHarpyNympho(), new SMHarpyStanding(), HARPY_NEST_NYMPHO_AFTER_SEX,
 						"<p>"
 							+ "Eager to help satisfy [harpyNympho.name]'s craving for sex, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+]."
@@ -771,7 +771,7 @@ public class HarpyNestNympho {
 		public Response getResponse(int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [harpyNympho.name].", HARPY_NEST_NYMPHO_FIGHT_BEAT_NYMPHO,
-						Main.game.getHarpyNympho(), new SMHarpyStanding(), HARPY_NEST_NYMPHO_AFTER_SEX,
+						true, false, Main.game.getHarpyNympho(), new SMHarpyStanding(), HARPY_NEST_NYMPHO_AFTER_SEX,
 						"<p>"
 							+ "Eager to show this nest who's in charge, you reach down and grab [harpyNympho.name]'s wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+]."

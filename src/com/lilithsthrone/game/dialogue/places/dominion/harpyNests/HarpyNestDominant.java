@@ -274,7 +274,7 @@ public class HarpyNestDominant {
 			if(Main.game.getDialogueFlags().dominantPacified) {
 				if (index == 1) {
 					return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", HARPY_NEST_DOMINANT_APPROACH,
-							Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX,
+							true, false, Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX,
 							"<p>"
 								+ "Eager to put [harpyDominant.name] in her place in front of her flock, you reach down and grab her wings."
 								+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
@@ -539,7 +539,7 @@ public class HarpyNestDominant {
 		public Response getResponse(int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", HARPY_NEST_DOMINANT_QUEEN,
-						Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX,
+						true, false, Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX,
 						"<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
@@ -784,7 +784,7 @@ public class HarpyNestDominant {
 		public Response getResponse(int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", HARPY_NEST_DOMINANT_FIGHT_BEAT_DOMINANT,
-						Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX,
+						true, false, Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX,
 						"<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."

@@ -43,7 +43,7 @@ public class PartnerPenisNipple {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (!Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex()) && Main.game.getPlayer().isBreastFuckableNipplePenetration();
+			return (!Sex.isPlayerDom() ||Sex.isConsensual()) && Main.game.getPlayer().isBreastFuckableNipplePenetration();
 		}
 
 		@Override
@@ -140,7 +140,7 @@ public class PartnerPenisNipple {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex()) && Main.game.getPlayer().isBreastFuckableNipplePenetration();
+			return (Sex.isPlayerDom() ||Sex.isConsensual()) && Main.game.getPlayer().isBreastFuckableNipplePenetration();
 		}
 
 		@Override
@@ -935,7 +935,7 @@ public class PartnerPenisNipple {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Gently pushing your chest out into [npc.name]'s groin, you let out a soft [pc.moan] as you help to sink [npc.her] [npc.cock+] deep into your [pc.nipple+].",
 					"With a soft [pc.moan], you gently start pushing your chest out, forcing [npc.name]'s [npc.cock+] ever deeper into your [pc.nipple+].",
-					"Slowly pushing your chest out, a soft [pc.moan] drifts out from between your [pc.lips+] as your movements force [npc.her] [npc.cock+] deep into your [npc.nipple+]."));
+					"Slowly pushing your chest out, a soft [pc.moan] drifts out from between your [pc.lips+] as your movements force [npc.her] [npc.cock+] deep into your [pc.nipple+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -983,7 +983,7 @@ public class PartnerPenisNipple {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly thrusting your chest out into [npc.name]'s groin, you let out [pc.a_moan+] as you energetically help to sink [npc.her] [npc.cock+] deep into your [pc.nipple+].",
 					"With [pc.a_moan+], you energetically start thrusting your [pc.hips] out, forcing [npc.name]'s [npc.cock+] ever deeper into your [pc.nipple+].",
-					"Enthusiastically thrusting your chest out, [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.her] [npc.cock+] deep into your [npc.nipple+]."));
+					"Enthusiastically thrusting your chest out, [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.her] [npc.cock+] deep into your [pc.nipple+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1031,7 +1031,7 @@ public class PartnerPenisNipple {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Violently slamming your chest out into [npc.name]'s groin, you let out [pc.a_moan+] as you roughly force [npc.her] [npc.cock+] deep into your [pc.nipple+].",
 					"With [pc.a_moan+], you aggressively start thrusting your chest out, forcing [npc.name]'s [npc.cock+] ever deeper into your [pc.nipple+].",
-					"Roughly thrusting your chest out, [pc.a_moan+] bursts out from between your [pc.lips+] as your forceful movements drive [npc.name]'s [npc.cock+] deep into your [npc.nipple+]."));
+					"Roughly thrusting your chest out, [pc.a_moan+] bursts out from between your [pc.lips+] as your forceful movements drive [npc.name]'s [npc.cock+] deep into your [pc.nipple+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1127,7 +1127,7 @@ public class PartnerPenisNipple {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly thrusting your chest out into [npc.name]'s groin, you let out [pc.a_moan+] as you energetically help to sink [npc.her] [npc.cock+] deep into your [pc.nipple+].",
 					"With [pc.a_moan+], you energetically start thrusting your [pc.hips] out, forcing [npc.name]'s [npc.cock+] ever deeper into your [pc.nipple+].",
-					"Enthusiastically thrusting your chest out, [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.her] [npc.cock+] deep into your [npc.nipple+]."));
+					"Enthusiastically thrusting your chest out, [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.her] [npc.cock+] deep into your [pc.nipple+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}

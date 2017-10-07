@@ -115,11 +115,6 @@ public class SMSubFaceToWall extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isConsensualSex(){
-		return false;
-	}
-	
-	@Override
 	public boolean isPlayerAbleToStopSex() {
 		return false;
 	}

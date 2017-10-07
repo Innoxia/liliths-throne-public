@@ -61,7 +61,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.85.5",
+	public static final String VERSION_NUMBER = "0.1.86",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -81,27 +81,23 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "To get the bad news out of the way first, the incest content hasn't made it into this preview. ;_;"
-		+ "</p>"
-			
-		+ "<p>"
-			+ "I <i>had</i> got a version of it written up by Thursday evening, but as I started adding it into the game on Friday, I felt as though I hadn't done a very good job of it..."
-			+ " I thought that it would be better to temporarily take it back out and continue working on it, rather than release something that I wasn't happy with."
-			+ " <b>As you've all been waiting so long for the incest content, I'm going to get it done over the next four days, and push out another update on Tuesday or Wednesday.</b>"
-		+ "</p>"
-			
-		+ "<p>"
-			+ "I really am so sorry that the incest stuff still hasn't been finished. I promise you that it will be the only thing I work on until it's finished! ;_;"
+			+ "So, finally, the incest content is done. The reason that it took so much time is that it's the first content I've written that's tried to take into account multiple different background factors (job, affection, and personality)."
+			+ " After quite a bit of trial-and-error (and two complete rewrites), I think it's in a decent enough state now."
+			+ " I will definitely be expanding upon it and improving it in the future, but I really need to move on and get work done on slavery, sex content, and new transformation content."
 		+ "</p>"
 		
 		+ "<p>"
-			+ "And as to the other stuff that made it into this version, it was mostly the character creation update, lots of bug fixes, and several other minor changes."
+			+ "For the next version, I'll be focusing on those three things, alongside adding in more main story content. ^^"
+		+ "</p>"
+			
+		+ "<p>"
+			+ "I hope you enjoy this version, and there will be lots more in the next! :3"
 		+ "</p>"
 		
 		+ "<p>"
 			+ "If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
 		+ "</p>"
-
+			
 		+ "</br>"
 
 		+ "<list>"
@@ -169,6 +165,58 @@ public class Main extends Application {
 		+"<ul><b>Fixed:</b> You no longer lose your vagina when importing a character that's either pregnant, or has the pregnancy risk effect.</ul>"
 		+"<ul>Importing a character now correctly sets your virginity loss description.</ul>"
 		+"<ul>Equipping a slave collar on an NPC from their inventory should now correctly trigger enslavement.</ul>"
+		+ "</list>"
+		
+		+ "</br>"
+		
+		+ "<list>"
+
+		+ "<h6>Full release (v0.1.86)</h6>"
+		+"<li>Engine:</li>"
+		+"<ul>Slightly reworked the detection system for consensual sex detection, in order to better support different sex scenes. (Some actions might be available when they shouldn't; I'll get this fixed for the next version.)</ul>"
+			
+		+"<li>Gameplay:</li>"
+		+"<ul><b>Added:</b> Incest dialogue. Your offspring's reactions and dialogue will alter based on your affection with them, as well as their personality and history (at the moment, the available histories are just 'mugger' and 'prostitute').</ul>"
+		+"<ul>Finished the basics of the character creator. (There's still more to add!)</ul>"
+		+"<ul>Added a couple more room upgrades for slaves, as well as some placeholder actions for conversation with them.</ul>"
+			
+		+"<li>AI:</li>"
+		+"<ul>NPCs will now only use anal actions if they have an anal fetish, or if there is no vagina available.</ul>"
+		+"<ul>NPCs will no longer suck their own fingers.</ul>"
+			
+		+"<li>Other:</li>"
+		+"<ul><b>Reworked:</b> Condoms are now a 'clothing' item, and can be equipped into the penis slot just like any other clothing."
+		+"</br>Just as they worked before, once the wearer orgasms, a 'filled condom' item is added to their inventory. (Jinxed condoms are affected just like regular ones.)</ul>"
+		+"<ul>Unequipping all during sex will no longer remove piercings.</ul>"
+		+"<ul>Added the ability for NPCs to use the 'self-doggy' position (where they're the dom, but are the ones on all fours).</ul>"
+		+"<ul>Characters with a furry rating of 'Minor' or 'Partial' will no longer spawn with multiple nipples.</ul>"
+		+"<ul>Added 'perky' to breast shapes.</ul>"
+		+"<ul>Added a couple more options for gender encounter rate settings.</ul>"
+		+"<ul>NPCs will now spawn wearing makeup.</ul>"
+		+"<ul>Tweaked hair style spawn probabilities.</ul>"
+			
+		+"<li>Bugs:</li>"
+		+"<ul>Fixed Scarlett slave interactions sometimes being broken.</ul>"
+		+"<ul>Fixed default gender spawn preferences only being males and traps.</ul>"
+		+"<ul>Setting all gender preferences to 0 now defaults to a 50/50 male/female chance, instead of making no encounters happen.</ul>"
+		+"<ul>Fixed bug where you'd start with two demonstones.</ul>"
+		+"<ul>Fixed masculine characters being assumed to be a cuntboy instead of a male.</ul>"
+		+"<ul>Fixed bug where loading a previously saved game might sometimes cut off sections of dialogue.</ul>"
+		+"<ul>Fixed NPCs dropping items in random tiles.</ul>"
+		+"<ul>Fixed bug where Vicky's inventory (and possibly Ralph's, under certain circumstances) would sometimes break.</ul>"
+		+"<ul>'Buy (5)' and 'Buy (All)' options in inventory dialogue should now correctly be greyed-out if you can't afford the cost.</ul>"
+		+"<ul>Typo fixes.</ul>"
+		+"<ul>Fixed bug where hotkey input was being registered when typing into a text field.</ul>"
+		+"<ul>Fixed exposed & exhibitionist tooltips not returning the correct descriptions for NPCs.</ul>"
+		+"<ul>Rough tail-pegging/tail fucking now have the correct related fetishes.</ul>"
+		+"<ul>Fixed combat damage calculations not taking into account damage range.</ul>"
+		+"<ul>Skin colourings for lips, anus, vagina, penis, and nipples will now be correctly updated to the skin colour of the rest of your body in the character creator.</ul>"
+		+"<ul>Random name/surname buttons in the character creator will no loner reset the other field when pressed.</ul>"
+		+"<ul>Fixed the availability of clothing's unequipping/drop actions in sex.</ul>"
+		+"<ul>Fixed cocks being described as sheathed during sex.</ul>"
+		+"<ul>Fixed NPCs not raping you if they had the non-con fetish. (Oops)</ul>"
+		+"<ul>Fixed lips always being described as full.</ul>"
+		+"<ul>Cow-morph consumables can now be used on alleyway attackers and harpies in the nests.</ul>"
 		+ "</list>"
 		;
 	
@@ -241,8 +289,8 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Odd8Ball", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("SchALLieS", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Calrak", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("C.T.", "", 0, 0, 0, 1)); // TODO
-		credits.add(new CreditsSlot("Torsten015", "", 0, 0, 0, 1)); // TODO
+		credits.add(new CreditsSlot("Sxythe ", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Torsten015", "", 0, 0, 0, 1));
 		
 		credits.add(new CreditsSlot("Nelson Adams", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Swift Shot", "", 0, 0, 2, 0));
@@ -560,7 +608,7 @@ public class Main extends Application {
 				ois.close();
 				fin.close();
 				Main.game = loadedGame;
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), Colour.GENERIC_GOOD, "Game loaded!");
+				Main.game.reloadContent();
 				if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.OPTIONS) {
 					Main.mainController.openOptions();
 				}

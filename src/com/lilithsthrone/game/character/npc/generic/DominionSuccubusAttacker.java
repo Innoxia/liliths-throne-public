@@ -106,6 +106,8 @@ public class DominionSuccubusAttacker extends NPC {
 		clothingChoices.clear();
 		clothingChoices.add(ClothingType.FOOT_HEELS);
 		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
+		
+		CharacterUtils.applyMakeup(this, true);
 
 		this.setEnslavementDialogue(DominionSuccubusDialogue.ENSLAVEMENT_DIALOGUE);
 		
@@ -179,35 +181,7 @@ public class DominionSuccubusAttacker extends NPC {
 				
 			// Player uses item on NPC:
 			}else{
-				if(item.getItemType().equals(ItemType.CONDOM)) {
-						if(Sex.isPlayerDom()) {
-							if(target.isWearingCondom()) {
-								return "<p>"
-										+ "[npc.Name] is already wearing a condom, and [npc.she] refuses to wear two at once."
-										+ "</p>";
-								
-							} else if(target.hasPenis()) {
-								Main.game.getPlayer().useItem(item, target, false);
-								return "<p>"
-										+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
-										+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
-										+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
-										+ "</p>";
-							} else {
-								return "<p>"
-										+ "[npc.Name] doesn't have a penis, so [npc.she] can't use the condom!"
-										+ "</p>";
-							}
-						} else {
-							Main.game.getPlayer().removeItem(item);
-							return "<p>"
-								+ "You pull out a condom and try to give it to the horny succubus, but she simply laughs in your face before grabbing the little foil packet and tearing it in two."
-								+ " Letting out a little laugh, she mocks your attempt at trying to get her to wear a rubber, "
-								+ "[npc.speech(Hah! I don't think so!)]"
-							+ "</p>";
-						}
-
-				} else if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
+				if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
 					
 						Main.game.getPlayer().useItem(item, target, false);
 						if(Sex.isPlayerDom()) {
@@ -347,7 +321,35 @@ public class DominionSuccubusAttacker extends NPC {
 	}
 	
 	
-
+	// ****************** Sex & Dirty talk: ***************************
+	
+	@Override
+	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
+		if(Main.game.isInSex()) {
+			if((Sex.isPlayerDom() || Sex.isConsensual()) && !target.isPlayer()) {
+				return "<p>"
+							+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
+							+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
+							+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
+						+ "</p>";
+			} else if (!target.isPlayer()){
+				Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, equipper);
+				return "<p>"
+							+ "You pull out a condom and try to give it to the horny succubus, but she simply laughs in your face before grabbing the little foil packet and tearing it in two."
+							+ " Letting out a little laugh, she mocks your attempt at trying to get her to wear a rubber, "
+							+ "[npc.speech(Hah! I don't think so!)]"
+						+ "</p>";
+			}
+		}
+		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
+				"You tear open the packet and roll the condom down the length of your [pc.penis].",
+				"You tear open the packet and roll the condom down the length of [npc.name]'s [npc.penis].",
+				"You tear open the packet and forcefully roll the condom down the length [npc.name]'s [npc.penis].",
+				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
+				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
+				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].");
+	}
+	
 	// Losing virginity:
 	private static StringBuilder StringBuilderSB;
 	public String getPlayerVaginaVirginityLossDescription(boolean isPlayerDom){

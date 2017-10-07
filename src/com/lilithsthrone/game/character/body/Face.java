@@ -30,7 +30,7 @@ public class Face implements BodyPartInterface, Serializable {
 	public Face(FaceType type, int lipSize) {
 		this.type = type;
 		piercedNose = false;
-		facialHair = BodyHair.NONE;
+		facialHair = BodyHair.ZERO_NONE;
 		
 		mouth = new Mouth(type.getMouthType(), lipSize, Wetness.THREE_WET.getValue(), Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue(), OrificeElasticity.FOUR_LIMBER.getValue(), OrificePlasticity.THREE_RESILIENT.getValue(), true);
 		tongue = new Tongue(type.getTongueType());
@@ -324,7 +324,7 @@ public class Face implements BodyPartInterface, Serializable {
 			return "";
 		}
 		
-		if(owner.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity() && facialHair!=BodyHair.NONE) {
+		if(owner.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity() && facialHair!=BodyHair.ZERO_NONE) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You're too feminine to be able to grow a beard...)]</p>";
 			} else {
@@ -339,56 +339,56 @@ public class Face implements BodyPartInterface, Serializable {
 			UtilText.transformationContentSB.setLength(0);
 			
 			switch(facialHair) {
-				case NONE:
+				case ZERO_NONE:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>There is no longer any trace of "+getFacialHairType(owner).getFullDescription(owner, true)+" on your face.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>There is no longer any trace of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
 					}
 					break;
-				case STUBBLE:
+				case ONE_STUBBLE:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a stubbly layer of "+getFacialHairType(owner).getFullDescription(owner, true)+" on your face.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a stubbly layer of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
 					}
 					break;
-				case MANICURED:
+				case TWO_MANICURED:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a small amount of "+getFacialHairType(owner).getFullDescription(owner, true)+" on your face.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a small amount of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
 					}
 					break;
-				case TRIMMED:
+				case THREE_TRIMMED:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a well-trimmed beard of "+getFacialHairType(owner).getFullDescription(owner, true)+" on your face.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a well-trimmed beard of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
 					}
 					break;
-				case NATURAL:
+				case FOUR_NATURAL:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>"));
 					}
 					break;
-				case UNKEMPT:
+				case FIVE_UNKEMPT:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have an unkempt, bushy beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has an unkempt, bushy beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>"));
 					}
 					break;
-				case BUSHY:
+				case SIX_BUSHY:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a large, bushy beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a large, bushy beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>"));
 					}
 					break;
-				case WILD:
+				case SEVEN_WILD:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a wild, thick beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>");
 					} else {

@@ -332,7 +332,7 @@ public class PartnerFingerNipple {
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Reaching up to your [pc.breasts+], [npc.name] lets out [npc.a_moan+] as [npc.she] starts to eagerly pinch and rub at your [pc.nipples+].",
-							"Your [pc.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore, and with [npc.a_moan+], [npc.she] starts eagerly tugging and pinching your [npc.nipples+].",
+							"Your [pc.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore, and with [npc.a_moan+], [npc.she] starts eagerly tugging and pinching your [pc.nipples+].",
 							"Teasing [npc.her] [npc.fingers] over your [pc.breastRows] [pc.breasts+], [npc.name] starts eagerly tugging and pinching at your [pc.nipples+]."));
 					break;
 				case DOM_ROUGH:
@@ -344,13 +344,13 @@ public class PartnerFingerNipple {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Reaching up to your [pc.breasts+], [npc.name] lets out [npc.a_moan+] as [npc.she] starts to eagerly pinch and rub at your [pc.nipples+].",
-							"Your [pc.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore, and with [npc.a_moan+], [npc.she] starts eagerly tugging and pinching your [npc.nipples+].",
+							"Your [pc.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore, and with [npc.a_moan+], [npc.she] starts eagerly tugging and pinching your [pc.nipples+].",
 							"Teasing [npc.her] [npc.fingers] over your [pc.breastRows] [pc.breasts+], [npc.name] starts eagerly tugging and pinching at your [pc.nipples+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Reaching up to your [pc.breasts+], [npc.name] lets out [npc.a_moan+] as [npc.she] starts to pinch and rub at your [pc.nipples+].",
-							"Your [pc.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore, and with [npc.a_moan+], [npc.she] starts tugging and pinching your [npc.nipples+].",
+							"Your [pc.breasts+], fully on display, prove to be too tempting a target for [npc.name] to ignore, and with [npc.a_moan+], [npc.she] starts tugging and pinching your [pc.nipples+].",
 							"Teasing [npc.her] [npc.fingers] over your [pc.breastRows] [pc.breasts+], [npc.name] starts tugging and pinching at your [pc.nipples+]."));
 					break;
 				default:
@@ -976,7 +976,7 @@ public class PartnerFingerNipple {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.game.getPlayer().hasBreasts() && (Sex.isPlayerDom() || Sex.getSexManager().isConsensualSex());
+			return Main.game.getPlayer().hasBreasts() && (Sex.isPlayerDom() ||Sex.isConsensual());
 		}
 
 		@Override
@@ -1304,7 +1304,7 @@ public class PartnerFingerNipple {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override

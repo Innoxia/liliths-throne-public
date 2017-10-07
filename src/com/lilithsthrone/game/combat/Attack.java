@@ -201,7 +201,7 @@ public enum Attack {
 		return damage;
 	}
 	public static float getMaximumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType) {
-		return getMinimumDamage(attacker, defender, attackType, (attackType == MAIN ? attacker.getMainWeapon() : attackType == OFFHAND ? attacker.getOffhandWeapon() : null));
+		return getMaximumDamage(attacker, defender, attackType, (attackType == MAIN ? attacker.getMainWeapon() : attackType == OFFHAND ? attacker.getOffhandWeapon() : null));
 	}
 
 	/**

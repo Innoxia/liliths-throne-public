@@ -230,7 +230,7 @@ public class HarpyNestBimbo {
 			if(Main.game.getDialogueFlags().bimboPacified) {
 				if (index == 1) {
 					return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name].", HARPY_NEST_BIMBO_APPROACH,
-							Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX,
+							true, false, Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX,
 							"<p>"
 								+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 								+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
@@ -490,7 +490,7 @@ public class HarpyNestBimbo {
 		public Response getResponse(int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name] in front of her flock.", HARPY_NEST_BIMBO_QUEEN,
-						Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX,
+						true, false, Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX,
 						"<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 							+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
@@ -726,7 +726,7 @@ public class HarpyNestBimbo {
 		public Response getResponse(int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name].", HARPY_NEST_BIMBO_FIGHT_BEAT_BIMBO,
-						Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX,
+						true, false, Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX,
 						"<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 							+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."

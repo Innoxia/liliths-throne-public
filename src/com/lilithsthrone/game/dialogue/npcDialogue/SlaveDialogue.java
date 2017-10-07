@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue;
 
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.GenericDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -11,10 +12,14 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.85
- * @version 0.1.85
+ * @version 0.1.86
  * @author Innoxia
  */
 public class SlaveDialogue {
+	
+	private static NPC slave() {
+		return Main.game.getActiveNPC();
+	}
 	
 	public static final DialogueNodeOld SLAVE_START = new DialogueNodeOld("", ".", true) {
 		private static final long serialVersionUID = 1L;
@@ -75,36 +80,127 @@ public class SlaveDialogue {
 
 		@Override
 		public Response getResponse(int index) {
+			/*
+			 * flagSlaveBackground, flagSlaveSmallTalk,
+						flagSlaveEncourage, flagSlaveHug, flagSlavePettings,
+						flagSlaveInspect, flagSlaveSpanking, flagSlaveMolest;
+			 */
+			
 			if (index == 1) {
-				return new Response("Background", "Ask [npc.name] about [npc.her] past life.", SLAVE_PROGRESSION);
+				if(!slave().flagSlaveBackground) {
+					return new Response("Background", "Ask [npc.name] about [npc.her] past life.", SLAVE_PROGRESSION) {
+						@Override
+						public void effects() {
+							slave().flagSlaveBackground = true;
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 3));
+						}
+					};
+				} else {
+					return new Response("Background", "You've already talked with [npc.name] about [npc.her] past life today.", null);
+				}
 				
 			} else if (index == 2) {
-				return new Response("Hug", "Hug [npc.name].", SLAVE_PHYSICAL) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 3));
-					}
-				};
-				
-			} else if (index == 3) {
-				return new Response("Small talk", "Chat about this and that with [npc.name].", SLAVE_MINOR) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 1));
-					}
-				};
-				
-			} else if (index == 4) {
-				return new Response("Gift", "Give [npc.name] a gift.", SLAVE_GIFT);
-				
-			} else if (index == 5) {
-				return new Response("Punish", "Punish [npc.name].", SLAVE_PUNISHMENT);
+				if(!slave().flagSlaveSmallTalk) {
+					return new Response("Small talk", "Chat about this and that with [npc.name].", SLAVE_MINOR) {
+						@Override
+						public void effects() {
+							slave().flagSlaveSmallTalk = true;
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 2));
+						}
+					};
+				} else {
+					return new Response("Small talk", "You've already spent time talking with [npc.name] today.", null);
+				}
 				
 			} else if (index == 6) {
+				if(!slave().flagSlaveEncourage) {
+					return new Response("Encourage", "Encourage [npc.name] by telling [npc.her] how good [npc.she] is.", SLAVE_ENCOURAGE) {
+						@Override
+						public void effects() {
+							slave().flagSlaveEncourage = true;
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(-2));
+						}
+					};
+				} else {
+					return new Response("Encourage", "You've encouraged [npc.name] today.", null);
+				}
+				
+			} else if (index == 7) {
+				if(!slave().flagSlaveHug) {
+					return new Response("Hug", "Hug [npc.name].", SLAVE_HUG) {
+						@Override
+						public void effects() {
+							slave().flagSlaveHug = true;
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(-2));
+						}
+					};
+				} else {
+					return new Response("Hug", "You've already spent time hugging [npc.name] today.", null);
+				}
+				
+			} else if (index == 8) {
+				if(!slave().flagSlavePettings) {
+					return new Response("Pettings", "Give [npc.name] some loving pettings.", SLAVE_PETTINGS) {
+						@Override
+						public void effects() {
+							slave().flagSlavePettings = true;
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(-2));
+						}
+					};
+				} else {
+					return new Response("Pettings", "You've already spent time petting [npc.name] today.", null);
+				}
+				
+			} else if (index == 11) {
+				if(!slave().flagSlaveInspect) {
+					return new Response("Inspect", "Make [npc.name] strip and parade around [npc.her] room for your inspection.", SLAVE_INSPECT) {
+						@Override
+						public void effects() {
+							slave().flagSlaveInspect = true;
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -5));
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(5));
+						}
+					};
+				} else {
+					return new Response("Inspect", "You've already inspected [npc.name] today.", null);
+				}
+				
+			} else if (index == 12) {
+				if(!slave().flagSlaveSpanking) {
+					return new Response("Spanking", "Bend [npc.name] over your knee and give [npc.herHim] a rough spanking.", SLAVE_SPANKING) {
+						@Override
+						public void effects() {
+							slave().flagSlaveSpanking = true;
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -5));
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(10));
+						}
+					};
+				} else {
+					return new Response("Spanking", "You've already spanked [npc.name] today.", null);
+				}
+				
+			} else if (index == 13) {
+				if(!slave().flagSlaveMolest) {
+					return new Response("Molest", "Make [npc.name] sit still as you grope and molest [npc.her] body.", SLAVE_MOLEST) {
+						@Override
+						public void effects() {
+							slave().flagSlaveMolest = true;
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -10));
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(5));
+						}
+					};
+				} else {
+					return new Response("Molest", "You've already molested [npc.name] today.", null);
+				}
+				
+			} else if (index == 5) {
 				if(Main.game.isNonConEnabled() && !Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()) {
 					return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
 							AFTER_SEX,
-							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
+							false, true, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
 							"<p>"
 								+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
 								+ " [npc.She] desperately tries to push you away, [npc.moaning]"
@@ -119,7 +215,7 @@ public class SlaveDialogue {
 				} else {
 					return new ResponseSex("Sex", "Have sex with [npc.name].", 
 							AFTER_SEX,
-							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
+							true, true, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
 							"<p>"
 								+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
 								+ " [npc.She] desperately leans into you, [npc.moaning]"
@@ -145,6 +241,14 @@ public class SlaveDialogue {
 		}
 	};
 	
+	private static String getFooterText() {
+		return "<p>"
+					+ (Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()
+						?"[npc.She] keeps glancing at your body..."
+						:"[npc.She] doesn't show any interest in being attracted to you.")
+				+ "</p>";
+	}
+	
 	public static final DialogueNodeOld SLAVE_PROGRESSION = new DialogueNodeOld("", "", true, true) {
 		private static final long serialVersionUID = 1L;
 		
@@ -155,61 +259,19 @@ public class SlaveDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "<i>All of the slave-interaction dialogue is currently placeholder!</i>"
-					+ "</p>"
+			return 
+					"<div class='container-full-width' style='text-align:center;'>"
+						+ "<i>The slave interactions are currently placeholders! I'll get all this added soon!</i>"
+					+ "</div>"
 					+ "<p>"
-						+ "This will be the main progression option, and will change based on [npc.name]'s affection."
+						+ "This will be the main progression option, where you'll talk about [npc.her] old life, [npc.her] hopes for the future, etc."
 					+ "</p>"
-					+ "<p>"
-					+ (Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()
-						?"[npc.She] keeps glancing at your body..."
-						:"[npc.She] doesn't show any interest in being attracted to you.")
-					+ "</p>";
+					+getFooterText();
 		}
 
 		@Override
 		public Response getResponse(int index) {
-			if (index == 1) {
-				return new Response("Background", "Ask [npc.name] how [npc.she] makes a living.", null);
-				
-			} else {
-				return SLAVE_START.getResponse(index);
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld SLAVE_PHYSICAL = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public String getLabel(){
-			return "Talking with [npc.Name]";
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "<i>All of the slave-interaction dialogue is currently placeholder!</i>"
-					+ "</p>"
-					+ "<p>"
-						+ "This will be the 'physical' action, and will change based on [npc.name]'s affection."
-					+ "</p>"
-					+ "<p>"
-					+ (Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()
-						?"[npc.She] keeps glancing at your body..."
-						:"[npc.She] doesn't show any interest in being attracted to you.")
-					+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int index) {
-			if (index == 2) {
-				return new Response("Hug", "Hug [npc.name].", null);
-				
-			} else {
-				return SLAVE_START.getResponse(index);
-			}
+			return SLAVE_START.getResponse(index);
 		}
 	};
 	
@@ -223,95 +285,176 @@ public class SlaveDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "<i>All of the slave-interaction dialogue is currently placeholder!</i>"
-					+ "</p>"
+			return 
+					"<div class='container-full-width' style='text-align:center;'>"
+						+ "<i>The slave interactions are currently placeholders! I'll get all this added soon!</i>"
+					+ "</div>"
 					+ "<p>"
-						+ "This will be the 'minor affection boost' action, and will change based on [npc.name]'s affection, as well as having a few different varieties."
+						+ "This will be a minor small-talk action, which will be a generated section of dialogue based on what's been happening to [npc.herHim] lately."
 					+ "</p>"
-					+ "<p>"
-					+ (Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()
-						?"[npc.She] keeps glancing at your body..."
-						:"[npc.She] doesn't show any interest in being attracted to you.")
-					+ "</p>";
+					+getFooterText();
 		}
 
 		@Override
 		public Response getResponse(int index) {
-			if (index == 3) {
-				return new Response("Small talk", "Chat about this and that with [npc.name].", null);
-				
-			} else {
-				return SLAVE_START.getResponse(index);
-			}
+			return SLAVE_START.getResponse(index);
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_GIFT = new DialogueNodeOld("", "", true, true) {
+	public static final DialogueNodeOld SLAVE_ENCOURAGE = new DialogueNodeOld("", "", true, true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return "Encouraging [npc.Name]";
 		}
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "<i>All of the slave-interaction dialogue is currently placeholder!</i>"
-					+ "</p>"
+			return 
+					"<div class='container-full-width' style='text-align:center;'>"
+						+ "<i>The slave interactions are currently placeholders! I'll get all this added soon!</i>"
+					+ "</div>"
 					+ "<p>"
-						+ "This will be the 'major affection boost' option, and will either cost Flames or an item in your inventory to use [npc.name]'s affection."
+						+ "This will be a generic affection-boost option, where you'll talk about [npc.name]'s current assignment."
 					+ "</p>"
-					+ "<p>"
-					+ (Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()
-						?"[npc.She] keeps glancing at your body..."
-						:"[npc.She] doesn't show any interest in being attracted to you.")
-					+ "</p>";
+					+getFooterText();
 		}
 
 		@Override
 		public Response getResponse(int index) {
-			if (index == 4) {
-				return new Response("Gift", "Give [npc.name] a gift.", null);
-				
-			} else {
-				return SLAVE_START.getResponse(index);
-			}
+			return SLAVE_START.getResponse(index);
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_PUNISHMENT = new DialogueNodeOld("", "", true, true) {
+	public static final DialogueNodeOld SLAVE_HUG = new DialogueNodeOld("", "", true, true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public String getLabel(){
-			return "Talking with [npc.Name]";
+			return "Hugging [npc.Name]";
 		}
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "<i>All of the slave-interaction dialogue is currently placeholder!</i>"
-					+ "</p>"
+			return 
+					"<div class='container-full-width' style='text-align:center;'>"
+						+ "<i>The slave interactions are currently placeholders! I'll get all this added soon!</i>"
+					+ "</div>"
 					+ "<p>"
-						+ "This will be a way to increase obedience at the cost of affection."
+						+ "This will be a generic affection-boost action, which will have a chance to backfire if the slave doesn't like you enough already."
 					+ "</p>"
-					+ "<p>"
-					+ (Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()
-						?"[npc.She] keeps glancing at your body..."
-						:"[npc.She] doesn't show any interest in being attracted to you.")
-					+ "</p>";
+					+getFooterText();
 		}
 
 		@Override
 		public Response getResponse(int index) {
-			if (index == 5) {
-				return new Response("Punish", "Punish [npc.name].", null);
-				
-			} else {
-				return SLAVE_START.getResponse(index);
-			}
+			return SLAVE_START.getResponse(index);
+		}
+	};
+	
+	public static final DialogueNodeOld SLAVE_PETTINGS = new DialogueNodeOld("", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel(){
+			return "Petting [npc.Name]";
+		}
+
+		@Override
+		public String getContent() {
+			return 
+					"<div class='container-full-width' style='text-align:center;'>"
+						+ "<i>The slave interactions are currently placeholders! I'll get all this added soon!</i>"
+					+ "</div>"
+					+ "<p>"
+						+ "This will be a large affection-boost action, which will have a significant chance to backfire if the slave doesn't like you enough already."
+					+ "</p>"
+					+getFooterText();
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return SLAVE_START.getResponse(index);
+		}
+	};
+	
+	public static final DialogueNodeOld SLAVE_INSPECT = new DialogueNodeOld("", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel(){
+			return "Petting [npc.Name]";
+		}
+
+		@Override
+		public String getContent() {
+			return 
+					"<div class='container-full-width' style='text-align:center;'>"
+						+ "<i>The slave interactions are currently placeholders! I'll get all this added soon!</i>"
+					+ "</div>"
+					+ "<p>"
+						+ "This will be an obedience-training action, which will have variations based on your slave's affection and obedience."
+					+ "</p>"
+					+getFooterText();
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return SLAVE_START.getResponse(index);
+		}
+	};
+	
+	
+	public static final DialogueNodeOld SLAVE_SPANKING = new DialogueNodeOld("", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel(){
+			return "Spanking [npc.Name]";
+		}
+
+		@Override
+		public String getContent() {
+			return 
+					"<div class='container-full-width' style='text-align:center;'>"
+						+ "<i>The slave interactions are currently placeholders! I'll get all this added soon!</i>"
+					+ "</div>"
+					+ "<p>"
+						+ "This will be a large obedience-training action, which will have variations based on your slave's affection and obedience."
+					+ "</p>"
+					+getFooterText();
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return SLAVE_START.getResponse(index);
+		}
+	};
+	
+	public static final DialogueNodeOld SLAVE_MOLEST = new DialogueNodeOld("", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel(){
+			return "Molesting [npc.Name]";
+		}
+
+		@Override
+		public String getContent() {
+			return 
+					"<div class='container-full-width' style='text-align:center;'>"
+						+ "<i>The slave interactions are currently placeholders! I'll get all this added soon!</i>"
+					+ "</div>"
+					+ "<p>"
+						+ "This will be another large obedience-training action, which will have variations based on your slave's affection and obedience."
+					+ "</p>"
+					+getFooterText();
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return SLAVE_START.getResponse(index);
 		}
 	};
 	
