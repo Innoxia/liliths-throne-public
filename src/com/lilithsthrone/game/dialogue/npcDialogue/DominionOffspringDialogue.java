@@ -2112,164 +2112,15 @@ public class DominionOffspringDialogue {
 		@Override
 		public Response getResponse(int index) {
 			
-				if (index == 1) {
-					return new Response("Apologise", "Maybe you went too far... Perhaps you should apologise?", null){
-						@Override
-						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
-						}
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "Looking down at your [npc.daughter] as [npc.she] shuffles about on the floor, you're suddenly overcome with regret, and, kneeling down next to [npc.herHim], you pull [npc.herHim] into a loving hug."
-										+ " Leaning in over [npc.her] shoulder as you press yourself to [npc.herHim], you apologise for what you've done,"
-										+ " [pc.speech([npc.Name], I'm so sorry! I don't know what came over me! Please forgive me!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "[npc.She] hesitantly wraps [npc.her] [npc.arms] around you, and after a few moments, you feel [npc.her] grip tightening, before [npc.she] speaks out in a surprisingly stern voice,"
-										+ " [npc.speech(I can't believe what you've done, [npc.pcName]! I'm going to need some time...)]"
-									+ "</p>"
-									+ "<p>"
-										+ "[pc.speech(I understand,)]"
-										+ " you say, pulling back from your [npc.daughter],"
-										+ " [pc.speech(I really am sorry...)]"
-									+ "</p>"
-									+ "<p>"
-										+ "[npc.Name] walks you to the door in silence, and after trying to say sorry once more, only to have your [npc.daughter] slam the door in your face,"
-											+ " you find yourself back out in the alleyways once again..."
-									+ "</p>");
-							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 25));
-							offspring().flagFightApologyNeeded = false;
-						}
-					};
-					
-				} else if (index == 2) {
-					if(offspring().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
-						return new ResponseSex("Sex",
-								"Well, [npc.she] <i>is</i> asking for it!",
-								AFTER_SEX_VICTORY,
-								null, null, null, null, null, null,
-								true, false, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
-								"<p>"
-									+ "Reaching down to take hold of one of [npc.name]'s [npc.arms], you pull [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards."
-									+ " Tilting your head to one side, you press your [pc.lips+] against [npc.hers] and start passionately thrusting your [pc.tongue+] into [npc.her] mouth."
-								+ "</p>"
-								+ "<p>"
-									+ "Much to your delight, you feel [npc.herHim] returning your kiss, and as your [npc.daughter] leans into you, [npc.she] mumbles,"
-									+ " [npc.speech(Yes [npc.pcName]... Fuck me...)]"
-								+ "</p>");
-						
-					} else {
-						return new ResponseSex(
-								"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", AFTER_SEX_VICTORY,
-								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
-								null, null, null,
-								false, true, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
-								"<p>"
-									+ "Reaching down, you grab [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]."
-									+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace."
-								+ "</p>"
-								+ "<p>"
-									+ "[npc.speech([npc.pcName]! No! Please!)]"
-								+ "</p>") {
-							@Override
-							public void effects() {
-								offspring().flagRapeApologyNeeded = true;
-							}
-						};
+			if (index == 1) {
+				return new Response("Apologise", "Maybe you went too far... Perhaps you should apologise?", null){
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return GenericDialogue.getDefaultDialogueNoEncounter();
 					}
-					
-				} else if (index == 3) {
-					if(offspring().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
-						return new ResponseSex("Gentle sex",
-								"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
-								AFTER_SEX_VICTORY,
-								null, null, null, null, null, null,
-								true, false, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
-								"<p>"
-									+ "Reaching down to take hold of one of [npc.name]'s [npc.arms], you gently lift [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards."
-									+ " Tilting your head to one side, you softly press your [pc.lips+] against [npc.hers] and start slowly thrusting your [pc.tongue+] into [npc.her] mouth."
-								+ "</p>"
-								+ "<p>"
-									+ "Much to your delight, you feel [npc.herHim] returning your loving kiss, and as your [npc.daughter] leans into you, [npc.she] mumbles,"
-									+ " [npc.speech(Yes [npc.pcName]... Fuck me...)]"
-								+ "</p>") {
-							@Override
-							public void effects() {
-								sexPacePlayer = (SexPace.DOM_GENTLE);
-							}
-						};
-						
-					} else {
-						return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", AFTER_SEX_VICTORY,
-								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
-								null, null, null,
-								false, true, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
-								"<p>"
-									+ "Reaching down, you take hold of [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]."
-									+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace."
-								+ "</p>"
-								+ "<p>"
-									+ "[npc.speech([npc.pcName]! No! Please!)]"
-								+ "</p>") {
-							@Override
-							public void effects() {
-								sexPacePlayer = (SexPace.DOM_GENTLE);
-								offspring().flagRapeApologyNeeded = true;
-							}
-						};
-					}
-					
-				} else if (index == 4) {
-					if(offspring().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
-						return new ResponseSex("Rough sex",
-								"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
-								AFTER_SEX_VICTORY,
-								null, null, null, null, null, null,
-								true, false, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
-								"<p>"
-									+ "Reaching down to take hold of one of [npc.name]'s [npc.arms], you roughly yank [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards."
-									+ " Tilting your head to one side, you greedily press your [pc.lips+] against [npc.hers] and start dominantly thrusting your [pc.tongue+] into [npc.her] mouth."
-								+ "</p>"
-								+ "<p>"
-									+ "Much to your delight, you feel [npc.herHim] returning your forceful kiss, and as your [npc.daughter] leans into you, [npc.she] mumbles,"
-									+ " [npc.speech(Yes [npc.pcName]... Fuck me...)]"
-								+ "</p>") {
-							@Override
-							public void effects() {
-								sexPacePlayer = (SexPace.DOM_ROUGH);
-							}
-						};
-						
-					} else {
-						return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", AFTER_SEX_VICTORY,
-								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
-								null, null, null,
-								false, true, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
-								"<p>"
-									+ "Reaching down, you grab [npc.name]'s [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]."
-									+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace."
-								+ "</p>"
-								+ "<p>"
-									+ "[npc.speech([npc.pcName]! No! Please!)]"
-								+ "</p>") {
-							@Override
-							public void effects() {
-								sexPacePlayer = (SexPace.DOM_ROUGH);
-								offspring().flagRapeApologyNeeded = true;
-							}
-						};
-					}
-					
-				} else if (index == 5) {
-					if(offspring().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
-						return new ResponseSex("Submit",
-								"You're not really sure what to do now...</br>"
-									+ "Perhaps it would be best to let [npc.name] choose what to do next?",
-								AFTER_SEX_DEFEAT,
-								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-								true, false, offspring(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 									+ "Looking down at your [npc.daughter] as [npc.she] shuffles about on the floor, you're suddenly overcome with regret, and, kneeling down next to [npc.herHim], you pull [npc.herHim] into a loving hug."
 									+ " Leaning in over [npc.her] shoulder as you press yourself to [npc.herHim], you apologise for what you've done,"
@@ -2277,111 +2128,260 @@ public class DominionOffspringDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "[npc.She] hesitantly wraps [npc.her] [npc.arms] around you, and after a few moments, you feel [npc.her] grip tightening, before [npc.she] speaks out in a surprisingly stern voice,"
-									+ " [npc.speech(If you're really sorry, you're going to prove it to me! Show me how much you <i>really</i> love me!)]"
+									+ " [npc.speech(I can't believe what you've done, [npc.pcName]! I'm going to need some time...)]"
 								+ "</p>"
 								+ "<p>"
-									+ "As you pull away in order to respond, [npc.name] suddenly leans forwards and grabs your head, before pressing [npc.her] [npc.lips+] against yours."
-									+ " Shuffling forwards, [npc.she] pins you back against the wall behind you, thrusting [npc.her] [npc.tongue+] into your mouth as [npc.she] takes advantage of your guilty state of mind."
+									+ "[pc.speech(I understand,)]"
+									+ " you say, pulling back from your [npc.daughter],"
+									+ " [pc.speech(I really am sorry...)]"
 								+ "</p>"
 								+ "<p>"
-									+ "Eventually, [npc.she] pulls back in order to demand a response from you, and, eager to earn your [npc.daughter]'s forgiveness, you reply,"
-									+ " [pc.speech(I love you [npc.name]! Please, do whatever you want to me!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "A hungry grin spreads across [npc.name]'s face, before [npc.she] pulls you to your feet and starts to kiss you once more..."
-								+ "</p>") {
-							@Override
-							public void effects() {
-								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 50));
-								offspring().flagFightApologyNeeded = false;
-							}
-						};
-					} else {
-						return new Response("Submit",
-								"You can't submit to [npc.herHim], as [npc.she] has no interest in having sex with you!",
-								null);
+									+ "[npc.Name] walks you to the door in silence, and after trying to say sorry once more, only to have your [npc.daughter] slam the door in your face,"
+										+ " you find yourself back out in the alleyways once again..."
+								+ "</p>");
+						Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 25));
+						offspring().flagFightApologyNeeded = false;
 					}
+				};
+				
+			} else if (index == 2) {
+				if(offspring().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
+					return new ResponseSex("Sex",
+							"Well, [npc.she] <i>is</i> asking for it!",
+							AFTER_SEX_VICTORY,
+							null, null, null, null, null, null,
+							false, true, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
+								+ "Reaching down to take hold of one of [npc.name]'s [npc.arms], you pull [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards."
+								+ " Tilting your head to one side, you press your [pc.lips+] against [npc.hers] and start passionately thrusting your [pc.tongue+] into [npc.her] mouth."
+							+ "</p>"
+							+ "<p>"
+								+ "Much to your delight, you feel [npc.herHim] returning your kiss, and as your [npc.daughter] leans into you, [npc.she] mumbles,"
+								+ " [npc.speech(Yes [npc.pcName]... Fuck me...)]"
+							+ "</p>");
 					
-				} else if (index == 6) {
-					return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
+				} else {
+					return new ResponseSex(
+							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", AFTER_SEX_VICTORY,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+							null, null, null,
+							false, true, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
+								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]."
+								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace."
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech([npc.pcName]! No! Please!)]"
+							+ "</p>") {
 						@Override
 						public void effects() {
-							Main.mainController.openInventory(offspring(), InventoryInteraction.FULL_MANAGEMENT);
+							offspring().flagRapeApologyNeeded = true;
 						}
 					};
-					
-				} else if (index == 10) {
-					return new Response(
-							"Remove character",
-							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
-							AFTER_COMBAT_VICTORY){
-						@Override
-						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
-						}
-						@Override
-						public void effects() {
-							if(offspring().fightInApartment) {
-								Main.game.getTextStartStringBuilder().append(
-										"<p>"
-											+ "Looking down at your [npc.daughter] as [npc.she] shuffles about on the floor, you remind yourself that you're doing this for [npc.her] own good."
-											+ " With your [pc.hands] on your [pc.hips], you speak down to [npc.herHim],"
-											+ " [pc.speech([npc.Name], this is the end of your shameful lifestyle! You're going to pack everything up and move elsewhere! It's time for you to find a respectable job and lead an honest life!)]"
-										+ "</p>"
-										+ "<p>"
-											+ "[npc.She] doesn't offer much resistance, and you watch as your [npc.daughter] packs up [npc.her] things and prepares to move out."
-											+ " After a short while, [npc.she]'s ready, and before [npc.she] leaves your life forever, [npc.she] turns around and mutters,"
-											+ " [npc.speech(I'll make you proud, [pc.mom]...)]"
-										+ "</p>"
-										+ "<p>"
-											+ "With that, [npc.she]'s gone, and you're left with little else to do but set off into the alleyways once again..."
-										+ "</p>");
-								
-							} else {
-								Main.game.getTextStartStringBuilder().append(
-										"<p>"
-											+ "Looking down at your [npc.daughter] as [npc.she] shuffles about on the floor, you remind yourself that you're doing this for [npc.her] own good."
-											+ " With your [pc.hands] on your [pc.hips], you speak down to [npc.herHim],"
-											+ " [pc.speech([npc.Name], this is the end of your shameful lifestyle! You're going to pack everything up and move elsewhere! It's time for you to find a respectable job and lead an honest life!)]"
-										+ "</p>"
-										+ "<p>"
-											+ "[npc.She] doesn't offer much resistance, and you watch as your [npc.daughter] meekly hangs [npc.her] head and agrees to do as you say."
-											+ " Before [npc.she] walks off and leaves your life forever, [npc.she] turns around and mutters,"
-											+ " [npc.speech(I'll make you proud, [pc.mom]...)]"
-										+ "</p>"
-										+ "<p>"
-											+ "With that, [npc.she]'s gone, and you're left with little else to do but set off into the alleyways once again..."
-										+ "</p>");
-								
-							}
-							Main.game.removeNPC(offspring());
-						}
-					};
-					
-				} else if (index == 0) {
-					return new Response("Leave", "Now that you've taught [npc.name] a lesson, you can be on your way...", AFTER_COMBAT_VICTORY){
-						@Override
-						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
-						}
+				}
+				
+			} else if (index == 3) {
+				if(offspring().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
+					return new ResponseSex("Gentle sex",
+							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
+							AFTER_SEX_VICTORY,
+							null, null, null, null, null, null,
+							true, false, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
+								+ "Reaching down to take hold of one of [npc.name]'s [npc.arms], you gently lift [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards."
+								+ " Tilting your head to one side, you softly press your [pc.lips+] against [npc.hers] and start slowly thrusting your [pc.tongue+] into [npc.her] mouth."
+							+ "</p>"
+							+ "<p>"
+								+ "Much to your delight, you feel [npc.herHim] returning your loving kiss, and as your [npc.daughter] leans into you, [npc.she] mumbles,"
+								+ " [npc.speech(Yes [npc.pcName]... Fuck me...)]"
+							+ "</p>") {
 						@Override
 						public void effects() {
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "[pc.speech(I hope you've learned your lesson,)]"
-										+ " you say, speaking down to your [npc.daughter] as [npc.she] shuffles about on the floor,"
-										+ " [pc.speech(Maybe I'll come and visit you another time, but I need to be going now.)]"
-									+ "</p>"
-									+ "<p>"
-										+ "With that, you turn around and walk over to the front door, ignoring the little whimpers coming from your defeated [npc.daughter]."
-										+ " Turning the handle, you open the door and make your exit, and within a few minutes, find yourself walking through the alleyways once again..."
-									+ "</p>");
+							sexPacePlayer = (SexPace.DOM_GENTLE);
 						}
 					};
 					
 				} else {
-					return null;
+					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", AFTER_SEX_VICTORY,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+							null, null, null,
+							false, true, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
+								+ "Reaching down, you take hold of [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]."
+								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace."
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech([npc.pcName]! No! Please!)]"
+							+ "</p>") {
+						@Override
+						public void effects() {
+							sexPacePlayer = (SexPace.DOM_GENTLE);
+							offspring().flagRapeApologyNeeded = true;
+						}
+					};
 				}
+				
+			} else if (index == 4) {
+				if(offspring().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
+					return new ResponseSex("Rough sex",
+							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
+							AFTER_SEX_VICTORY,
+							null, null, null, null, null, null,
+							false, true, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
+								+ "Reaching down to take hold of one of [npc.name]'s [npc.arms], you roughly yank [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards."
+								+ " Tilting your head to one side, you greedily press your [pc.lips+] against [npc.hers] and start dominantly thrusting your [pc.tongue+] into [npc.her] mouth."
+							+ "</p>"
+							+ "<p>"
+								+ "Much to your delight, you feel [npc.herHim] returning your forceful kiss, and as your [npc.daughter] leans into you, [npc.she] mumbles,"
+								+ " [npc.speech(Yes [npc.pcName]... Fuck me...)]"
+							+ "</p>") {
+						@Override
+						public void effects() {
+							sexPacePlayer = (SexPace.DOM_ROUGH);
+						}
+					};
+					
+				} else {
+					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", AFTER_SEX_VICTORY,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+							null, null, null,
+							false, true, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
+								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]."
+								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace."
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech([npc.pcName]! No! Please!)]"
+							+ "</p>") {
+						@Override
+						public void effects() {
+							sexPacePlayer = (SexPace.DOM_ROUGH);
+							offspring().flagRapeApologyNeeded = true;
+						}
+					};
+				}
+				
+			} else if (index == 5) {
+				if(offspring().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
+					return new ResponseSex("Submit",
+							"You're not really sure what to do now...</br>"
+								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
+							AFTER_SEX_DEFEAT,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
+							false, true, offspring(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							"<p>"
+								+ "Looking down at your [npc.daughter] as [npc.she] shuffles about on the floor, you're suddenly overcome with regret, and, kneeling down next to [npc.herHim], you pull [npc.herHim] into a loving hug."
+								+ " Leaning in over [npc.her] shoulder as you press yourself to [npc.herHim], you apologise for what you've done,"
+								+ " [pc.speech([npc.Name], I'm so sorry! I don't know what came over me! Please forgive me!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.She] hesitantly wraps [npc.her] [npc.arms] around you, and after a few moments, you feel [npc.her] grip tightening, before [npc.she] speaks out in a surprisingly stern voice,"
+								+ " [npc.speech(If you're really sorry, you're going to prove it to me! Show me how much you <i>really</i> love me!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "As you pull away in order to respond, [npc.name] suddenly leans forwards and grabs your head, before pressing [npc.her] [npc.lips+] against yours."
+								+ " Shuffling forwards, [npc.she] pins you back against the wall behind you, thrusting [npc.her] [npc.tongue+] into your mouth as [npc.she] takes advantage of your guilty state of mind."
+							+ "</p>"
+							+ "<p>"
+								+ "Eventually, [npc.she] pulls back in order to demand a response from you, and, eager to earn your [npc.daughter]'s forgiveness, you reply,"
+								+ " [pc.speech(I love you [npc.name]! Please, do whatever you want to me!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "A hungry grin spreads across [npc.name]'s face, before [npc.she] pulls you to your feet and starts to kiss you once more..."
+							+ "</p>") {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 50));
+							offspring().flagFightApologyNeeded = false;
+						}
+					};
+				} else {
+					return new Response("Submit",
+							"You can't submit to [npc.herHim], as [npc.she] has no interest in having sex with you!",
+							null);
+				}
+				
+			} else if (index == 6) {
+				return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
+					@Override
+					public void effects() {
+						Main.mainController.openInventory(offspring(), InventoryInteraction.FULL_MANAGEMENT);
+					}
+				};
+				
+			} else if (index == 10) {
+				return new Response(
+						"Remove character",
+						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
+						AFTER_COMBAT_VICTORY){
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return GenericDialogue.getDefaultDialogueNoEncounter();
+					}
+					@Override
+					public void effects() {
+						if(offspring().fightInApartment) {
+							Main.game.getTextStartStringBuilder().append(
+									"<p>"
+										+ "Looking down at your [npc.daughter] as [npc.she] shuffles about on the floor, you remind yourself that you're doing this for [npc.her] own good."
+										+ " With your [pc.hands] on your [pc.hips], you speak down to [npc.herHim],"
+										+ " [pc.speech([npc.Name], this is the end of your shameful lifestyle! You're going to pack everything up and move elsewhere! It's time for you to find a respectable job and lead an honest life!)]"
+									+ "</p>"
+									+ "<p>"
+										+ "[npc.She] doesn't offer much resistance, and you watch as your [npc.daughter] packs up [npc.her] things and prepares to move out."
+										+ " After a short while, [npc.she]'s ready, and before [npc.she] leaves your life forever, [npc.she] turns around and mutters,"
+										+ " [npc.speech(I'll make you proud, [pc.mom]...)]"
+									+ "</p>"
+									+ "<p>"
+										+ "With that, [npc.she]'s gone, and you're left with little else to do but set off into the alleyways once again..."
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextStartStringBuilder().append(
+									"<p>"
+										+ "Looking down at your [npc.daughter] as [npc.she] shuffles about on the floor, you remind yourself that you're doing this for [npc.her] own good."
+										+ " With your [pc.hands] on your [pc.hips], you speak down to [npc.herHim],"
+										+ " [pc.speech([npc.Name], this is the end of your shameful lifestyle! You're going to pack everything up and move elsewhere! It's time for you to find a respectable job and lead an honest life!)]"
+									+ "</p>"
+									+ "<p>"
+										+ "[npc.She] doesn't offer much resistance, and you watch as your [npc.daughter] meekly hangs [npc.her] head and agrees to do as you say."
+										+ " Before [npc.she] walks off and leaves your life forever, [npc.she] turns around and mutters,"
+										+ " [npc.speech(I'll make you proud, [pc.mom]...)]"
+									+ "</p>"
+									+ "<p>"
+										+ "With that, [npc.she]'s gone, and you're left with little else to do but set off into the alleyways once again..."
+									+ "</p>");
+							
+						}
+						Main.game.removeNPC(offspring());
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Leave", "Now that you've taught [npc.name] a lesson, you can be on your way...", AFTER_COMBAT_VICTORY){
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return GenericDialogue.getDefaultDialogueNoEncounter();
+					}
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(
+								"<p>"
+									+ "[pc.speech(I hope you've learned your lesson,)]"
+									+ " you say, speaking down to your [npc.daughter] as [npc.she] shuffles about on the floor,"
+									+ " [pc.speech(Maybe I'll come and visit you another time, but I need to be going now.)]"
+								+ "</p>"
+								+ "<p>"
+									+ "With that, you turn around and walk over to the front door, ignoring the little whimpers coming from your defeated [npc.daughter]."
+									+ " Turning the handle, you open the door and make your exit, and within a few minutes, find yourself walking through the alleyways once again..."
+								+ "</p>");
+					}
+				};
+				
+			} else {
+				return null;
+			}
 		}
 	};
 
@@ -2449,7 +2449,7 @@ public class DominionOffspringDialogue {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							AFTER_SEX_DEFEAT,
-							true, true, offspring(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							false, true, offspring(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
@@ -2467,7 +2467,7 @@ public class DominionOffspringDialogue {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							AFTER_SEX_DEFEAT,
-							true, true, offspring(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							false, true, offspring(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."

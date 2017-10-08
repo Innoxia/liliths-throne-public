@@ -911,10 +911,13 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(
-					"<div class='statsDescriptionBox'>"
+					"<div class='container-full-width'>"
 					+ "These options will determine the gender encounter rates of random NPCs."
 					+ " Some NPCs, such as random succubi attackers, have restrictions on their gender, but your preferences will be taken into account wherever possible.</br>"
-					+ "A visual representation of the encounter chances can be seen in the bars at the bottom of each section."
+					+ "<b>A visual representation of the encounter chances can be seen in the bars at the bottom of each section.</b>"
+					+ " (The different shades of each gender are solely for recognition in the bars, and don't mean anything other than that.)"
+					+ "</br>"
+					+ "A character is considered to have breasts if they are at least an AA-cup."
 					+ "</div>");
 			
 			UtilText.nodeContentSB.append(getGenerPreferencesPanel(PronounType.MASCULINE));
@@ -963,14 +966,13 @@ public class OptionsDialogue {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("<div class='statsDescriptionBox' style='text-align:center;'>"
+		sb.append("<div class='container-full-width' style='text-align:center;'>"
 				+ "<p><b style='color:"+type.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(type.getName())+"</b></p>");
 		
 		for(Gender g : Gender.values()) {
 			if(g.getType()==type) {
 				sb.append(
 						"<div style='display:inline-block; margin:4px auto;width:100%;'>"
-							+ "<span style='height:16px;float:left;'></span>"
 							+ "<div style='display:inline-block; margin:0 auto;'>"
 								+ "<div style='width:140px; float:left;'><b style='color:"+colour.getShades(8)[count]+";'>" +Util.capitaliseSentence(g.getName())+"</b></div>");
 				
@@ -978,8 +980,15 @@ public class OptionsDialogue {
 					sb.append("<div id='"+preference+"_"+g+"' class='preference-button"+(Main.getProperties().genderPreferencesMap.get(g)==preference.getValue()?" selected":"")+"'>"+Util.capitaliseSentence(preference.getName())+"</div>");
 				}
 								
-				sb.append("</div>"
-						+ "</div>");
+				sb.append("<p></br>"
+								+ "<span style='color:"+colour.getShades(8)[count]+";'>" +Util.capitaliseSentence(g.getName())+"s</span> have "
+										+(g.getGenderName().isHasVagina()?"a [style.colourGood(vagina)]":"no [style.colourBad(vagina)]")+", "
+										+(g.getGenderName().isHasPenis()?"a [style.colourGood(penis)]":"no [style.colourBad(penis)]")+", and "
+										+ (g.getGenderName().isHasBreasts()?"[style.colourGood(breasts)]":"no [style.colourBad(breasts)]")+"."
+								+ "</p>"
+							+ "</div>"
+						+ "</div>"
+						+ "<hr></hr>");
 				count++;
 			}
 		}
@@ -999,7 +1008,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(
-					"<div class='statsDescriptionBox'>"
+					"<div class='container-full-width'>"
 						+ "These options determine the amount of furry content that you'll encounter in the game."
 						+ " The 'Human encounters' option determines what the chance is for random NPCs to be fully human."
 						+ " <b>These options only affect random NPCs at the moment, but I'll do my best to add reduced-furry versions of each major NPC as well!</b>"
@@ -1015,7 +1024,7 @@ public class OptionsDialogue {
 							
 					+ "<span style='height:16px;width:800px;float:left;'></span>"
 					
-					+ "<div class='statsDescriptionBox' style='text-align: center;'>"
+					+ "<div class='container-full-width' style='text-align: center;'>"
 					+ "<div style='display:inline-block; margin:0 auto;'>");
 			
 			UtilText.nodeContentSB.append(

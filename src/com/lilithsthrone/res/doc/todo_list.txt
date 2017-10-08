@@ -6,52 +6,38 @@
 	
 	Patch notes:
 	
-	Engine:
-		Slightly reworked the detection system for consensual sex detection, in order to better support different sex scenes. (Some actions might be available when they shouldn't; I'll get this fixed for the next version.)
-	
-	Gameplay:
-		<b>Added:</b> Incest dialogue. Your offspring's reactions and dialogue will alter based on your affection with them, as well as their personality and history (at the moment, the available histories are just 'mugger' and 'prostitute').
-		Finished the basics of the character creator. (There's still more to add!)
-		Added a couple more room upgrades for slaves, as well as some placeholder actions for conversation with them.
-	
-	AI:
-		NPCs will now only use anal actions if they have an anal fetish, or if there is no vagina available.
-		NPCs will no longer suck their own fingers.
-	
 	Other:
-		<b>Reworked:</b> Condoms are now a 'clothing' item, and can be equipped into the penis slot just like any other clothing.
-			Just as they worked before, once the wearer orgasms, a 'filled condom' item is added to their inventory. (Jinxed condoms are affected just like regular ones.)
-		Unequipping all during sex will no longer remove piercings.
-		Added the ability for NPCs to use the 'self-doggy' position (where they're the dom, but are the ones on all fours).
-		Characters with a furry rating of 'Minor' or 'Partial' will no longer spawn with multiple nipples.
-		Added 'perky' to breast shapes.
-		Added a couple more options for gender encounter rate settings.
-		NPCs will now spawn wearing makeup.
-		Tweaked hair style spawn probabilities.
+		Added: Ability to remove jinxes from any NPC's clothing.
+		Added: Breeder collar (feminine, neck slot). Can be bought from Nyan's 'Specials' menu.
+		Removing a jinx from clothing no longer removes its negative attributes.
+		Enabled futanari as a minimal gender encounter by default.
+		Improved the gender preferences screen to show how each gender is defined.
 	
 	Bugs:
-		Fixed Scarlett slave interactions sometimes being broken.
-		Fixed default gender spawn preferences only being males and traps.
-		Setting all gender preferences to 0 now defaults to a 50/50 male/female chance, instead of making no encounters happen.
-		Fixed bug where you'd start with two demonstones.
-		Fixed masculine characters being assumed to be a cuntboy instead of a male.
-		Fixed bug where loading a previously saved game might sometimes cut off sections of dialogue.
-		Fixed NPCs dropping items in random tiles.
-		Fixed bug where Vicky's inventory (and possibly Ralph's, under certain circumstances) would sometimes break.
-		'Buy (5)' and 'Buy (All)' options in inventory dialogue should now correctly be greyed-out if you can't afford the cost.
+		Fixed the strange behaviour in sex scenes, where dom/sub would sometimes switch, as well as sex ending when either one of you came.
+		Fixed game freeze/crash when trying to remove your offspring.
+		Fixed character import bug (where characters from pre-0.1.86 were not being imported correctly).
+		Character import now correctly loads in your surname.
+		Fixed no_clothing_covering_nipples error that was appearing in some sex actions.
+		Fixed nipples being described as "dry".
 		Typo fixes.
-		Fixed bug where hotkey input was being registered when typing into a text field.
-		Fixed exposed & exhibitionist tooltips not returning the correct descriptions for NPCs.
-		Rough tail-pegging/tail fucking now have the correct related fetishes.
-		Fixed combat damage calculations not taking into account damage range.
-		Skin colourings for lips, anus, vagina, penis, and nipples will now be correctly updated to the skin colour of the rest of your body in the character creator.
-		Random name/surname buttons in the character creator will no loner reset the other field when pressed.
-		Fixed the availability of clothing's unequipping/drop actions in sex.
-		Fixed cocks being described as sheathed during sex.
-		Fixed NPCs not raping you if they had the non-con fetish. (Oops)
-		Fixed lips always being described as full.
-		Cow-morph consumables can now be used on alleyway attackers and harpies in the nests.
-		
+		Changed flat-chested [breasts] parser description to output 'pecs' instead of 'chest'. (Hopefully this hasn't broken descriptions in places. x_x)
+		Condoms will no longer magically re-equip themselves after sex.
+		Fixed formatting in all stats pages.
+		Succubi in the Dark Alleyway tiles will no longer disappear as soon as you move away.
+		Feeding your prostitute daughter a Vixen's Virility pill will now correctly override her promiscuity pill's effects.
+		Fixed 'Paizuri into mouth' action being available even if your mouth was blocked.
+		Fixed Nyan stocking condoms, and added them to Ralph's inventory again.
+		Fixed an instance of an NPC's orgasm not describing them wearing a condom.
+		Piercings should now correctly appear in the character creation.
+		Fixed virginity loss description being printed twice.
+		Fixed an import bug marking cum as milk.
+		Fixed a couple of inconsistencies in the prologue dialogue.
+		Fixed genders with breast requirements (such as busty-boys or flat-chested traps) not spawning.	
+		Fixed random encounters of certain genders when they were supposed to be turned off.
+		Prostitute offspring will no longer resist after you've paid to have sex with them.
+		Fixed all starting characters having 5 corruption (it's going to be based on your sexual experience until I add in the final parts of the character creation process).
+		Fixed slave room description not taking into account bed upgrades.
 	
 	
 	
@@ -62,7 +48,43 @@
 	
 	
 	
-	Sex: Some actions might be available when they shouldn't; I'll get this fixed for the next version
+	
+	
+	 add 'spit lubrication' actions for all orifices as a replacement for the finger sucking
+	
+	I will definitely add options for offspring to willingly be enslaved later on. :3
+
+And I will get submissive sex with your offspring added for the next release! :3
+	
+	you know you can't hover over effects in the slave management
+	
+	harem gauze
+	
+	 I could only tease anal, and then it let me tease pussy, and then I could penetrate
+	 
+	When you are the submissive partner during sex, you are still given the option to pull out when you orgasm even when there's nothing to pull out from.
+
+	NPCs seem to almost exclusively prioritize playing with their breasts
+	
+	lust seems to build up crazy fast
+	
+	submissive sex with slaves
+	
+	i submitted to a wolf boy, he said he wanted to turn me into his wolf girl, and then decided i dont need a pussy?
+		("wolf-girl" first of all, then "shemale wolf-morph")
+	
+	offspring were androphiles and I was playing as masculine. One was actually into it, but then later was grossed out. Seemed weird.
+	
+	NPC multi-orgasm
+	Pregnancy/Impreg, and Cum Stud/Addict fetishes have a chance to make the NPC decide to go for a second(or third!) round after their orgasm. 
+	
+	If you climax inside and potentially get a NPC pregnant but then remove the character, they stay on the pregnancy stats screen forever without making any progress.
+	 Got a character here that it says is certainly pregnant but it's been saying that for weeks in-game after I removed her.
+	
+		debug:
+		1: 'pacify harpies', which essentially completes the harpy matriarch quest for you.
+		2: Trigger arcane storm
+	
 	
 	
 	-----------------
@@ -93,13 +115,13 @@
 	-----------------
 		
 		
+		talk our kids into taking another name. Or just make the decision for them
+		
+		Incest Content still says Not Implemented when selecting the fetish.
 		
 		
-		
-		
-		
-		
-		
+		orgasm denial
+		rimming
 		
 	Condoms:
 		track cum
@@ -132,10 +154,11 @@
 	
 	inverted nipples
 	
+	spiked and messy hair
 	
 	Gate getPlayerVaginaVirginityLossDescription() descriptions behind masochist/virginity fetishes
 	
-	
+	Limit NPC hair styles based on maximum length
 	
 	Reduce number of children
 	Pregnancy rework to take into account safe days
@@ -170,9 +193,8 @@
 	
 	Add makeup wipes
 	Add nailpolish remover
-	
-	
 	Add freckles
+	lipstick: different colored bottom and top lips
 	
 	a pink slave collar that increased fertility
 		glowing pink
@@ -204,7 +226,7 @@
 	I was considering using stamina in sex to determine for how long you can keep on going (with the option to drink stamina restoration potions for those that want to get to 60 orgasms).
 	 disassociate the state of your hymen from your virginity, so that once you've lost it, you can never be a true virgin again
 	
-	
+	fingers in partner's mouth, and tongue actions
 	
 	when I imported my old character, it reset all the gender preferences to a strange selection like 100% towards male characters and 100% towards futanari, with everything else 0%.
 	

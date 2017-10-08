@@ -1412,7 +1412,7 @@ public class CharacterInventory implements Serializable {
 	/**
 	 * The highest piece of clothing that is blocking this slot.</br>
 	 * <b>Note:</b> This takes into account displacement, so, for example, if your yoga pants are displaced, and are revealing your panties,
-	 *  this method will return panties for getLowestZLayerCoverableArea(CoverableArea.VAGINA)!
+	 *  this method will return panties for getHighestZLayerCoverableArea(CoverableArea.VAGINA)!
 	 */
 	public AbstractClothing getHighestZLayerCoverableArea(CoverableArea area) {
 		AbstractClothing c = null;

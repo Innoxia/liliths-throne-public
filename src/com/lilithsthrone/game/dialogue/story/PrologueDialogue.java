@@ -777,16 +777,18 @@ public class PrologueDialogue {
 							+ " S-So call me that!", Main.game.getLilaya())
 					+ " she suddenly exclaims, quickly turning back round to face the door."
 					+ "</p>"
-
-					+ "<p>"
-					+ "You don't have to see her face to know that she's blushing again, and, not wanting to make matters worse for her, decide to hold your tongue."
-					+ "</p>"
+					
 					+ "<p>"
 					+ UtilText.parsePlayerThought("Damn, she's even getting embarrassed about telling me her own name? Does she never speak to people or something?")
 					+ "</p>"
 
 					+ "<p>"
-					+ "Before you have any more time to think about Lilaya's awkwardness, the door before you suddenly opens, casting a warm glow out onto the street behind you."
+					+ "You don't have to see her face to know that she's blushing again, and, not wanting to make matters worse for her, decide to try and put her at ease by introducing yourself,"
+					+ " [pc.speech(Well, I'm [pc.name], by the way. It seems quite strange to be telling you that, I mean, I've known you forever!)]"
+					+ "</p>"
+
+					+ "<p>"
+					+ "Before you get to hear Lilaya's response, the door before you suddenly opens, casting a warm glow out onto the street behind you."
 					+ " Whoever opened the door must have moved to one side, and as Lilaya enters, you follow in her footsteps, looking to greet the person who's let you inside."
 					+ "</p>"
 
@@ -1146,7 +1148,7 @@ public class PrologueDialogue {
 
 					+ "<p>"
 					+ "Lilaya rushes off to one of the bookcases, pulling out old tomes and piling them up on one of the tables."
-					+ " You're left standing there, feeling rather awkward in her spare clothes, wondering what to do."
+					+ " You're left standing there, feeling more than a little alarmed with everything that's going on."
 					+ "</p>"
 
 					+ "<p>"

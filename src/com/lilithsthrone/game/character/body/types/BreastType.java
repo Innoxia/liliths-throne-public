@@ -80,7 +80,7 @@ public enum BreastType implements BodyPartTypeInterface {
 	@Override
 	public String getNamePlural(GameCharacter gc) {
 		if(gc.getBreastSize()==CupSize.FLAT) {
-			return "chest";
+			return "pecs";
 		}
 		
 		switch(this){

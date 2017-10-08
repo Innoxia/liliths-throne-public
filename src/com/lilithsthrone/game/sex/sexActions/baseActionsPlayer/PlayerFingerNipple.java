@@ -1063,19 +1063,19 @@ public class PlayerFingerNipple {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Taking your [pc.hands] in [npc.hers], [npc.name] yanks them up to [npc.her] chest, letting out [npc.a_moan+] as [npc.she] roughly presses them into [npc.her] [npc.breasts+].",
 								"[npc.Name] grabs hold of your [pc.hands], before roughly yanking them up to press into [npc.her] [npc.breasts].",
-								"Taking hold of your [pc.hands], [npc.name] violently pulls them up to [npc.her] chest, forcing your [pc.fingers] to press into the [npc.topClothing(nipples)] that's covering [npc.her] [npc.breasts+]."));
+								"Taking hold of your [pc.hands], [npc.name] violently pulls them up to [npc.her] chest, forcing your [pc.fingers] to press into the soft flesh of [npc.her] [npc.breasts+]."));
 						break;
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Taking your [pc.hands] in [npc.hers], [npc.name] guides them up to [npc.her] chest, letting out [npc.a_moan+] as [npc.she] eagerly presses them into [npc.her] [npc.breasts+].",
 								"[npc.Name] takes hold of your [pc.hands], eagerly guiding them up to press into [npc.her] [npc.breasts].",
-								"Taking hold of your [pc.hands], [npc.name] eagerly guides your [pc.fingers] up to [npc.her] [npc.topClothing(nipples)], before enthusiastically pressing them into [npc.her] [npc.breasts+]."));
+								"Taking hold of your [pc.hands], [npc.name] eagerly guides your [pc.fingers] up to [npc.her] chest, before enthusiastically pressing them into [npc.her] [npc.breasts+]."));
 						break;
 					case SUB_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Taking your [pc.hands] in [npc.hers], [npc.name] guides them up to [npc.her] chest, letting out [npc.a_moan+] as [npc.she] presses them into [npc.her] [npc.breasts+].",
 								"[npc.Name] takes hold of your [pc.hands], guiding them up to press into [npc.her] [npc.breasts].",
-								"Taking hold of your [pc.hands], [npc.name] guides your [pc.fingers] up to [npc.her] [npc.topClothing(nipples)], before enthusiastically pressing them into [npc.her] [npc.breasts+]."));
+								"Taking hold of your [pc.hands], [npc.name] guides your [pc.fingers] up to [npc.her] chest, before enthusiastically pressing them into [npc.her] [npc.breasts+]."));
 						break;
 					default:
 						break;

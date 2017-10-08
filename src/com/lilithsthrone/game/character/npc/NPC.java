@@ -840,7 +840,7 @@ public abstract class NPC extends GameCharacter {
 						true),
 				new Breast(stage.isBreastFurry()?startingBodyType.getBreastType():BreastType.HUMAN,
 						BreastShape.getRandomBreastShape(),
-						(preferredGender.isFeminine() ? startingBodyType.getFemaleBreastSize() : startingBodyType.getMaleBreastSize()),
+						(preferredGender.isFeminine() ? startingBodyType.getBreastSize() : startingBodyType.getNoBreastSize()),
 						(preferredGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
 						((stage.isSkinFurry() && Main.getProperties().multiBreasts==1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
 								?(preferredGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale())
@@ -1113,8 +1113,8 @@ public abstract class NPC extends GameCharacter {
 				
 				if(mother!=null && father!=null) {
 					if(mother.isPlayer() || father.isPlayer()) {
-						if (!hasFetish(Fetish.FETISH_INCEST) && getHistory() == History.PROSTITUTE) {
-							if(Sex.isConsensual())  {
+						if (getHistory() == History.PROSTITUTE) {
+							if(Sex.isConsensual()) {
 								return SexPace.SUB_NORMAL;
 							}
 						}

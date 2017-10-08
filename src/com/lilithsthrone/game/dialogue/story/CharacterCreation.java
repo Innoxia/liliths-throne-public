@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.Personality;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.QuestType;
 import com.lilithsthrone.game.character.SexualOrientation;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -30,6 +31,7 @@ import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
@@ -229,38 +231,80 @@ public class CharacterCreation {
 		CharacterCreation.resetBodyAppearance();
 	}
 	
-	public static void getDressed() {
-		Main.game.getPlayer().resetInventory();
-		Main.game.getPlayerCell().resetInventory();
-
-		
+	private static void equipPiercings() {
 		Colour colour1 = Main.game.getPlayer().isFeminine()?Colour.CLOTHING_GOLD:Colour.CLOTHING_BLACK_STEEL;
 		Colour colour2 = Main.game.getPlayer().isFeminine()?Colour.CLOTHING_ROSE_GOLD:Colour.CLOTHING_SILVER;
 		
+		// Ear piercings:
 		if(Main.game.getPlayer().isPiercedEar()) {
 			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, colour1, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_EAR)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_EAR), true, Main.game.getPlayer());
 		}
+		
+		// Lip piercings:
 		if(Main.game.getPlayer().isPiercedLip()) {
 			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_LIP_RINGS, colour1, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_LIP)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_LIP), true, Main.game.getPlayer());
 		}
+		
+		// Navel piercings:
 		if(Main.game.getPlayer().isPiercedNavel() && Main.game.getPlayer().isFeminine()) {
 			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, colour2, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_STOMACH)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_STOMACH), true, Main.game.getPlayer());
 		}
+
+		// Nipples piercings:
 		if(Main.game.getPlayer().isPiercedNipple()) {
 			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NIPPLE_BARS, colour2, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NIPPLE)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NIPPLE), true, Main.game.getPlayer());
 		}
+
+		// Nose piercings:
 		if(Main.game.getPlayer().isPiercedNose()) {
 			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_BASIC_RING, colour1, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NOSE)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NOSE), true, Main.game.getPlayer());
 		}
+
+		// Penis piercings:
 		if(Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isPiercedPenis()) {
 			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_PENIS_RING, colour2, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_PENIS)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_PENIS), true, Main.game.getPlayer());
 		}
+
+		// Tongue piercings:
 		if(Main.game.getPlayer().isPiercedTongue()) {
 			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_TONGUE_BAR, colour1, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_TONGUE)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_TONGUE), true, Main.game.getPlayer());
 		}
+
+		// Vagina piercings:
 		if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isPiercedVagina()) {
 			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_VAGINA_BARBELL_RING, colour2, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_VAGINA)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_VAGINA), true, Main.game.getPlayer());
 		}
+	}
+	
+	public static void getDressed() {
+		Main.game.getPlayer().resetInventory();
+		Main.game.getPlayerCell().resetInventory();
+		
+		equipPiercings();
 		
 		switch(Main.game.getPlayer().getFemininity()) {
 			case MASCULINE_STRONG:
@@ -779,6 +823,7 @@ public class CharacterCreation {
 				return new ResponseEffectsOnly("Check clothes", "Your clothes are a little messy after rushing here. Tidy yourself up before proceeding to the main stage.") {
 					@Override
 					public void effects() {
+						equipPiercings();
 						InventoryDialogue.setBuyback(false);
 						InventoryDialogue.setInventoryNPC(null);
 						InventoryDialogue.setNPCInventoryInteraction(InventoryInteraction.CHARACTER_CREATION);
@@ -1380,6 +1425,10 @@ public class CharacterCreation {
 	//TODO
 	
 	private static void resetVirginity() {
+		if(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)>0) {
+			Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, 0);
+		}
+		
 		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), 0);
 		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), "");
 
@@ -1505,9 +1554,9 @@ public class CharacterCreation {
 								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 5 + Util.random.nextInt(10));
 								
 							} else {
-								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PLAYER), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PLAYER), 10 + Util.random.nextInt(20));
-								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PLAYER), 5 + Util.random.nextInt(10));
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), 10 + Util.random.nextInt(20));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), 5 + Util.random.nextInt(10));
 
 								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), virginityLossText);
 								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 10 + Util.random.nextInt(20));
@@ -1515,6 +1564,7 @@ public class CharacterCreation {
 								
 							}
 						}
+						Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, 5);
 
 					}
 				};
@@ -1575,6 +1625,7 @@ public class CharacterCreation {
 								
 							}
 						}
+						Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, 10);
 
 					}
 				};
@@ -1618,9 +1669,9 @@ public class CharacterCreation {
 							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC?"some guy in a club's restroom":"some girl in her apartment";
 							
 							if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC) {
-								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PLAYER), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PLAYER), 50 + Util.random.nextInt(30));
-								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PLAYER), 25 + Util.random.nextInt(15));
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), 50 + Util.random.nextInt(30));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), 25 + Util.random.nextInt(15));
 
 								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), virginityLossText);
 								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 50 + Util.random.nextInt(30));
@@ -1642,6 +1693,7 @@ public class CharacterCreation {
 								
 							}
 						}
+						Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, 15);
 
 					}
 				};

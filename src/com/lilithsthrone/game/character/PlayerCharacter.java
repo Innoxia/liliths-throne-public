@@ -5,6 +5,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -57,6 +58,8 @@ public class PlayerCharacter extends GameCharacter {
 		buybackStack = new SizedStack<>(24);
 
 		charactersEncountered = new ArrayList<>();
+		
+		attributes.put(Attribute.CORRUPTION, 0f);
 	}
 
 	@Override

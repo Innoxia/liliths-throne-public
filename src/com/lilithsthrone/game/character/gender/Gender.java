@@ -21,7 +21,7 @@ public enum Gender {
 	M_MANNEQUIN(GenderNames.N_PENIS_N_VAGINA_N_BREASTS, PronounType.MASCULINE, Colour.MASCULINE, GenderPreference.ZERO_NONE),
 	
 	// Feminine:
-	F_P_V_B_FUTANARI(GenderNames.Y_PENIS_Y_VAGINA_Y_BREASTS, PronounType.FEMININE, Colour.FEMININE, GenderPreference.ZERO_NONE),
+	F_P_V_B_FUTANARI(GenderNames.Y_PENIS_Y_VAGINA_Y_BREASTS, PronounType.FEMININE, Colour.FEMININE, GenderPreference.ONE_MINIMAL),
 	F_P_V_FUTANARI(GenderNames.Y_PENIS_Y_VAGINA_N_BREASTS, PronounType.FEMININE, Colour.FEMININE, GenderPreference.ZERO_NONE),
 	F_P_B_SHEMALE(GenderNames.Y_PENIS_N_VAGINA_Y_BREASTS, PronounType.FEMININE, Colour.FEMININE, GenderPreference.ZERO_NONE),
 	F_P_TRAP(GenderNames.Y_PENIS_N_VAGINA_N_BREASTS, PronounType.FEMININE, Colour.FEMININE, GenderPreference.ONE_MINIMAL),

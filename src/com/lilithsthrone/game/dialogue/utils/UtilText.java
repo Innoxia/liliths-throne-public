@@ -580,17 +580,17 @@ public class UtilText {
 			return "a";
 	}
 
-	private static String[] assNames = new String[] { "ass", "rear end", "butt", "rump" };
-
-	public static String getAssName() {
-		return assNames[Util.random.nextInt(assNames.length)];
-	}
-
-	private static String[] breastsNames = new String[] { "breasts", "boobs", "mammaries", "tits" };
-
-	public static String getBreastsName() {
-		return breastsNames[Util.random.nextInt(breastsNames.length)];
-	}
+//	private static String[] assNames = new String[] { "ass", "rear end", "butt", "rump" };
+//
+//	public static String getAssName() {
+//		return assNames[Util.random.nextInt(assNames.length)];
+//	}
+//
+//	private static String[] breastsNames = new String[] { "breasts", "boobs", "mammaries", "tits" };
+//
+//	public static String getBreastsName() {
+//		return breastsNames[Util.random.nextInt(breastsNames.length)];
+//	}
 
 	// private static String[] penisNames = new String[]{"cock", "dick", "knob",
 	// "member", "penis", "prick", "shaft", "manhood"};
@@ -604,11 +604,11 @@ public class UtilText {
 //		return vaginaNames[Util.random.nextInt(vaginaNames.length)];
 //	}
 
-	private static String[] cumNames = new String[] { "cum", "cream", "jism", "jizz", "load", "seed", "spooge" };
-
-	public static String getCumName() {
-		return cumNames[Util.random.nextInt(cumNames.length)];
-	}
+//	private static String[] cumNames = new String[] { "cum", "cream", "jism", "jizz", "load", "seed", "spooge" };
+//
+//	public static String getCumName() {
+//		return cumNames[Util.random.nextInt(cumNames.length)];
+//	}
 
 	private static String[] femaleCumNames = new String[] { "juices" };
 
@@ -2492,20 +2492,20 @@ public class UtilText {
 			}
 		});
 		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						new ListValue<>("milk"),
-						new ListValue<>("milkName")),
-				true,
-				true,
-				"",
-				"Description of method",
-				BodyPartType.BREAST){//TODO
-			@Override
-			public String parse(String command, String arguments, String target) {
-				return character.getMilkName();
-			}
-		});
+//		commandsList.add(new ParserCommand(
+//				Util.newArrayListOfValues(
+//						new ListValue<>("milk"),
+//						new ListValue<>("milkName")),
+//				true,
+//				true,
+//				"",
+//				"Description of method",
+//				BodyPartType.BREAST){//TODO
+//			@Override
+//			public String parse(String command, String arguments, String target) {
+//				return character.getMilkName();
+//			}
+//		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(

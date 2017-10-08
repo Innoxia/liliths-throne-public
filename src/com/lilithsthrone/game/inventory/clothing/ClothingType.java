@@ -1265,6 +1265,51 @@ public class ClothingType {
 		}
 	};
 	
+	public static AbstractClothingType NECK_BREEDER_COLLAR = new AbstractClothingType("a",
+			false,
+			"breeder collar",
+			"breeder collars",
+			"A <span style='color:"+Colour.BASE_PINK.toWebHexString()+"; text-shadow: 0px 0px 4px "+Colour.BASE_PINK.getShades()[4]+";'>glowing pink</span> leather collar,"
+					+ " with bold metal lettering attached to the front spelling out the word 'BREEDER'.",
+			1,
+			null,
+			InventorySlot.NECK,
+			Rarity.EPIC,
+			null,
+			"neck_breeder_collar",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.FITNESS, 10),
+					new Value<Attribute, Integer>(Attribute.FERTILITY, 50)),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_PINK))) {
+		
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You can't help but let out a little moan as you fasten the enchanted collar around your neck.",
+					"A little moan drifts out from [npc.name]'s mouth as you fasten the enchanted collar around [npc.her] neck.",
+					null,
+					"[npc.Name] can't help but let out a little moan as [npc.she] fastens the collar around [npc.her] neck.",
+					"You can't help but let out a little moan as [npc.name] fastens the collar around your neck.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your collar.",
+					"You take off [npc.name]'s collar.",
+					null,
+					"[npc.Name] takes [npc.her] collar off.",
+					"[npc.Name] takes your collar off.",
+					null);
+		}
+	};
+	
 	public static AbstractClothingType NECK_SLAVE_COLLAR = new AbstractClothingType("a",
 			false,
 			"slave collar",
@@ -1285,39 +1330,24 @@ public class ClothingType {
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-
-			if(applyEffects) {
-				if(clothingOwner.isAbleToBeEnslaved() || clothingOwner.isSlave()) {
-					clothing.setSealed(true);
-				}
-			}
-			
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You put on the slave collar, fastening the clasp at the back of your neck.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner,
-						Util.capitaliseSentence(clothingOwner.getName("the")) + " puts a " + clothing.getName(true) + " around <her> neck, reaching around" + " to fasten the clasp at the back.");
-			else {
-				if (clothingOwner.isPlayer())
-					return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " fastens " + clothing.getName(true) + " around your neck.");
-				else
-					return UtilText.genderParsing(clothingOwner, "You fasten the slave collar around " + clothingOwner.getName("the") + "'s neck.");
-			}
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You clasp the heavy metal slave collar around your neck.",
+					"You clasp the heavy metal slave collar around [npc.name]'s neck.",
+					null,
+					"[npc.Name] clasps the heavy metal slave collar around [npc.her] neck.",
+					"[npc.Name] clasps the heavy metal slave collar around your neck.",
+					null);
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You unfasten the slave collar and take it off.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " unfastens <her> slave collar and takes it off.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " unfastens your slave collar and removes it from around your neck.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You unfasten " + clothingOwner.getName("the") + "'s slave collar and remove it from <her> neck.");
-
-			}
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your slave collar.",
+					"You take off [npc.name]'s slave collar.",
+					null,
+					"[npc.Name] takes [npc.her] slave collar off.",
+					"[npc.Name] takes your slave collar off.",
+					null);
 		}
 	};
 
@@ -8008,8 +8038,7 @@ public class ClothingType {
 			null,
 			Colour.allClothingColours) {
 		
-		
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8993,6 +9022,10 @@ public class ClothingType {
 					idToClothingMap.put(f.getName(), ct);
 					
 					allClothing.add(ct);
+					
+					if(ct==ClothingType.PENIS_CONDOM) {
+						continue;
+					}
 					
 					if(ct.getRarity()==Rarity.COMMON) {
 						commonClothingMap.get(ct.getSlot()).add(ct);

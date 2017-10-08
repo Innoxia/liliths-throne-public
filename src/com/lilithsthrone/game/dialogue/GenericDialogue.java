@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -311,6 +312,9 @@ public class GenericDialogue {
 				}
 			}
 			if(activeOffspring!=null) {
+				for(Fetish f : activeOffspring.getFetishes()) {
+					UtilText.nodeContentSB.append("</br>[style.boldSex(Fetish:)] "+f.getName(activeOffspring));
+				}
 				UtilText.nodeContentSB.append("</br>" + activeOffspring.getBodyDescription());
 			}
 			

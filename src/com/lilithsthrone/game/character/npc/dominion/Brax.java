@@ -528,7 +528,7 @@ public class Brax extends NPC {
 		public Response getResponse(int index) {
 			if (index == 1) {
 				return new ResponseSex("Obey", "Do as Brax says and present yourself for him.", EnforcerHQDialogue.EXTERIOR,
-						true, true, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
+						false, true, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
 						"<p>"
 							+ "You obediently do as Brax commands and drop down on all fours right there in the middle of his office."
 							+ (Main.game.getPlayer().getTailType() == TailType.LYCAN

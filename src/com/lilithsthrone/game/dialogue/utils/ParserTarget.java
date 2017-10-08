@@ -57,6 +57,8 @@ public enum ParserTarget {
 							return CharactersPresentDialogue.characterViewed;
 						} else if (!Main.game.getCharactersPresent().isEmpty()) {
 							return Main.game.getCharactersPresent().get(0);
+						} else if(Main.game.getActiveNPC()!=null) {
+							return Main.game.getActiveNPC();
 						} else {
 							throw new NullPointerException();
 						}

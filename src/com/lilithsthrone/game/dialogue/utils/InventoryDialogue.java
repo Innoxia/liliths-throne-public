@@ -60,6 +60,7 @@ public class InventoryDialogue {
 	private static StringBuilder inventorySB = new StringBuilder(), responseSB = new StringBuilder();
 
 	private static List<AbstractClothing> jinxedClothing = new ArrayList<>();
+	private static List<AbstractClothing> jinxedNPCClothing = new ArrayList<>();
 
 	private static boolean jinxRemovalFromFloor, buyback;
 
@@ -2978,7 +2979,7 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								if(clothing.getClothingType().equals(ClothingType.NECK_SLAVE_COLLAR) && inventoryNPC.isAbleToBeEnslaved()) {
+								if(clothing.getClothingType().equals(ClothingType.NECK_SLAVE_COLLAR) && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
 										@Override
 										public DialogueNodeOld getNextDialogue() {
@@ -3427,7 +3428,7 @@ public class InventoryDialogue {
 								
 							} else if(index == 11) {
 
-								if(clothing.getClothingType().equals(ClothingType.NECK_SLAVE_COLLAR) && inventoryNPC.isAbleToBeEnslaved()) {
+								if(clothing.getClothingType().equals(ClothingType.NECK_SLAVE_COLLAR) && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
 										@Override
 										public DialogueNodeOld getNextDialogue() {
@@ -4776,15 +4777,45 @@ public class InventoryDialogue {
 			}
 		}
 		inventorySB.append("</div>");
+		
+		if(inventoryNPC!=null) {
+			inventorySB.append("<p style='text-align: center;'>" + "<b>[npc.Name]'s jinxed clothing:</b>"
+					+ "</p>");
+
+			inventorySB.append("<div class='inventory-not-equipped'>");
+
+			if (!jinxedNPCClothing.isEmpty()) {
+				for (int i = 0; i < jinxedNPCClothing.size(); i++) {
+					inventorySB.append(
+							"<div class='inventory-item-slot'>"
+								+ "<div class='inventory-icon-content'>"
+									+ jinxedNPCClothing.get(i).getSVGString()
+								+ "</div>"
+								+"<div class='overlay' id='JINXED_NPC_" + i + "'></div>"
+							+ "</div>");
+				}
+			}
+			inventorySB.append("</div>");
+		}
 
 		return inventorySB.toString();
 	}
 
 	public static void populateJinxedClothingList() {
 		jinxedClothing.clear();
-		for (AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped())
-			if (c.isSealed() || c.isBadEnchantment())
+		for (AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
+			if (c.isSealed() || c.isBadEnchantment()) {
 				jinxedClothing.add(c);
+			}
+		}
+		jinxedNPCClothing.clear();
+		if(inventoryNPC!=null) {
+			for (AbstractClothing c : inventoryNPC.getClothingCurrentlyEquipped()) {
+				if (c.isSealed() || c.isBadEnchantment()) {
+					jinxedNPCClothing.add(c);
+				}
+			}
+		}
 	}
 
 	public static final DialogueNodeOld REMOVE_JINX = new DialogueNodeOld("Choose a jinxed item", "", true) {
@@ -5417,6 +5448,10 @@ public class InventoryDialogue {
 
 	public static List<AbstractClothing> getJinxedClothing() {
 		return jinxedClothing;
+	}
+	
+	public static List<AbstractClothing> getJinxedNPCClothing() {
+		return jinxedNPCClothing;
 	}
 
 	public static boolean isJinxRemovalFromFloor() {

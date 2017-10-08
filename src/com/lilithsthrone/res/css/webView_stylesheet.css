@@ -207,7 +207,6 @@ input:focus {
 	text-align:center;
 	line-height:30px;
 	
-	
 	width:88vw;
 	height:30px;
 	
@@ -888,23 +887,6 @@ position:relative;
 
 /***********************************************************/
 /*PHONE VIEW*/
-.title{
-	float:left;
-	background-color: transparent;
-	background:#19191a;
-	border-radius:5px;
-	
-	font-size:28px;
-	font-weight: bold;
-	text-align:center;
-	line-height:32px;
-	
-	width:92vw;
-	margin:8px 8px 4px 8px;
-	padding:8px;
-	max-width:768px;
-	-webkit-user-select: none;
-}
 .subTitle{
 	float:left;
 	background-color: transparent;
@@ -916,64 +898,11 @@ position:relative;
 	text-align:center;
 	line-height:24px;
 	
-	margin:4px 8px 4px 8px;
+	margin:4px 1%;
 	padding:8px;
-	width:92vw;
-	max-width:768px;
+	width:98%;
 	-webkit-user-select: none;
-}
-.statsDescriptionBox{
-	float:left;
-	background-color: transparent;
-	background:#19191a;
-	border-radius:5px;
-	
-	margin:4px 8px 4px 8px;
-	padding:8px;
-	width:100%;
-	
-	box-sizing: border-box;
-	-webkit-user-select: none;
-}
-.phone-details{
-	float:left;
-	width:100vw;
-	max-width:800px;
-	-webkit-user-select: none;
-}
-.summaryTitle{
-	float:left;
-	font-size:1.4em;
-	font-weight: bold;
-	text-align:center;
-	line-height:30px;
-	
-	width:98vw;
-	margin:8px auto 8px auto;
-	padding:8px;
-	max-width:784px;
-	
-	background:#333;
-	border-radius:5px;
-	-webkit-user-select: none;
-}
-.summaryTitle:hover{
-	background:#444;
-	cursor:pointer;
-	-webkit-user-select: none;
-}
-.description{
-	float:left;
-	background-color: transparent;
-	background:#19191a;
-	border-radius:5px;
-	
-	margin:2vw 2vw 0 2vw;
-	padding:2vw;
-	width:92vw;
-	max-width:800px;
-	height:80px;
-	-webkit-user-select: none;
+	-webkit-box-sizing: border-box;
 }
 /*EXTRA ATTRIBUTE SPECIFIC*/
 .extraAttribute-third{
@@ -987,23 +916,37 @@ position:relative;
 	text-align:center;
 	line-height:24px;
 	
-	margin:2px 8px 2px 8px;
+	margin:4px 1%;
 	padding:8px;
-	width:33vw;
-	max-width:234px;/*266.6666px;*/
+	width:31.3%;
 	-webkit-user-select: none;
+	-webkit-box-sizing: border-box;
 }
 .extraAttribute-third.type{
-	width:40vw;
-	max-width:288px;/*320px;*/
+	width:38%;
 }
 .extraAttribute-third.damage{
-	width:30vw;
-	max-width:208px;/*240px;*/
+	width:28%;
 }
 .extraAttribute-third.resist{
-	width:30vw;
-	max-width:208px;/*240px;*/
+	width:28%;
+}
+.extraAttribute-two-thirds{
+	float:left;
+	background-color: transparent;
+	background:#19191a;
+	border-radius:5px;
+	
+	font-size:20px;
+	font-weight: bold;
+	text-align:center;
+	line-height:24px;
+	
+	margin:4px 1%;
+	padding:8px;
+	width:64.6%;
+	-webkit-user-select: none;
+	-webkit-box-sizing: border-box;
 }
 .extraAttribute-quarter{
 	float:left;
@@ -1016,10 +959,11 @@ position:relative;
 	text-align:center;
 	line-height:22px;
 	
-	margin:2px 8px 2px 8px;
+	margin:4px 1%;
 	padding:8px;
-	width:168px;
+	width:23%;
 	-webkit-user-select: none;
+	-webkit-box-sizing: border-box;
 }
 .extraAttribute-half{
 	float:left;
@@ -1032,11 +976,11 @@ position:relative;
 	text-align:center;
 	line-height:24px;
 	
-	margin:2px 8px 2px 8px;
+	margin:4px 1%;
 	padding:8px;
-	width:42vw;
-	max-width:368px;
+	width:48%;
 	-webkit-user-select: none;
+	-webkit-box-sizing: border-box;
 }
 .extraAttribute-half.doubleHeight{
 	min-height:48px;
@@ -1054,49 +998,13 @@ position:relative;
 	text-align:center;
 	line-height:24px;
 	
-	margin:2px 8px 2px 8px;
+	margin:4px 1%;
 	padding:8px;
-	width:16vw;
-	max-width:101px;/*266.6666px;*/
+	width:14.66%;
 	-webkit-user-select: none;
+	-webkit-box-sizing: border-box;
 }
 /*ITEM VIEW SPECIFIC*/
-.phone-item-third{
-	float:left;
-	background-color: transparent;
-	background:#222222;
-	border-radius:5px;
-	
-	font-size:18px;
-	font-weight: bold;
-	text-align:center;
-	line-height:22px;
-	
-	margin:2px 8px 2px 8px;
-	padding:8px;
-	width:33vw;
-	max-width:234px;/*266.6666px;*/
-	height:22px;
-	max-height:22px;
-	-webkit-user-select: none;
-}
-.phone-item-third.phone-item-third-large{
-	height:44px;
-	max-height:44px;
-}
-.phone-item-third.slot{
-	width:25vw;
-	max-width:168px;/*320px;*/
-}
-.phone-item-third.name{
-	width:25vw;
-	max-width:168px;/*240px;*/
-}
-.phone-item-third.colours{
-	display:inline-block;
-	width:50vw;
-	max-width:368px;/*240px;*/
-}
 .phone-item-colour {
 	position:relative;
 	float:left;
@@ -1107,38 +1015,6 @@ position:relative;
 	border-radius: 5px;
 	background-color: #333333;
 	-webkit-user-select: none;
-}
-.phone-item-half-table {
-	display: table;
-	border-spacing: 16px 5px;
-}
-.phone-item-half-table-row {
-	display: table-row;
-}
-.phone-item-half-table-row .phone-item-half{
-	display: table-cell;
-	background-color: transparent;
-	background:#222222;
-	border-radius:5px;
-	
-	font-size:20px;
-	font-weight: bold;
-	text-align:center;
-	line-height:24px;
-	
-	margin:2px 8px 2px 8px;
-	padding:8px;
-	width:48vw;
-	max-width:226px;/*266.6666px;*/
-	-webkit-user-select: none;
-}
-.phone-item-half.name{
-	width:38vw;
-	max-width:288px;
-}
-.phone-item-half.effects{
-	width:58vw;
-	max-width:448px;
 }
 
 /***********************************************************/

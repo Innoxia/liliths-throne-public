@@ -167,9 +167,9 @@ public class Nyan extends NPC {
 		for(AbstractClothingType ct : ClothingType.getCommonAndrogynousAccessories()) {
 			commonAndrogynousAccessories.add(AbstractClothingType.generateClothing(ct, false));
 		}
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++) {
 			commonAndrogynousAccessories.add(AbstractClothingType.generateClothingWithEnchantment(ClothingType.getCommonAndrogynousAccessories().get(Util.random.nextInt(ClothingType.getCommonAndrogynousAccessories().size()))));
-		
+		}
 		
 		// Specials:
 		specials.add(AbstractClothingType.generateClothing(ClothingType.SOCK_RAINBOW_STOCKINGS));
@@ -190,6 +190,8 @@ public class Nyan extends NPC {
 		specials.add(AbstractClothingType.generateClothing(ClothingType.CATTLE_PIERCING_EAR_TAGS));
 
 		specials.add(AbstractClothingType.generateClothing(ClothingType.MEGA_MILK));
+
+		specials.add(AbstractClothingType.generateClothing(ClothingType.NECK_BREEDER_COLLAR));
 		
 		for(AbstractClothing c : commonFemaleClothing) {
 			c.setEnchantmentKnown(true);

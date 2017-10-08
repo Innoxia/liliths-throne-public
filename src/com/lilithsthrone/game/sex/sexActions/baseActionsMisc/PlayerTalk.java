@@ -195,10 +195,11 @@ public class PlayerTalk {
 			null) {
 		@Override
 		public String getActionTitle() {
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER)
+			if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER || Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER) == PenetrationType.PENIS_PARTNER) {
 				return "Ask for cum";
-			else
+			} else {
 				return "Ask for creampie";
+			}
 		}
 
 		@Override
@@ -238,6 +239,10 @@ public class PlayerTalk {
 			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum, "
 						+ " [pc.speech(Fuck! Cum in me! I need your cum!)]";
+				
+			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER) == PenetrationType.PENIS_PARTNER) {
+				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum, "
+						+ " [pc.speech(Yes! Cum for me! Cover my tits with your cum!)]";
 				
 			} else {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum, "

@@ -415,7 +415,7 @@ public enum RacialBody {
 			ArmType.HARPY, 1,
 			AssType.HARPY, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.HARPY,
-			CupSize.AA, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+			CupSize.TRAINING, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
 			CupSize.B, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			154, 75, BodySize.ZERO_SKINNY.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			154, 95, BodySize.ZERO_SKINNY.getMedianValue(), Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue(),
@@ -480,7 +480,7 @@ public enum RacialBody {
 	private int armRows,
 			anusCapacity, anusWetness, maleAssSize, femaleAssSize, anusElasticity, anusPlasticity,
 			maleHairLength, femaleHairLength,
-			maleBreastSize, femaleBreastSize, maleLactationRate, femaleLactationRate, femaleBreastCapacity, maleBreastCapacity,
+			noBreastSize, breastSize, maleLactationRate, femaleLactationRate, femaleBreastCapacity, maleBreastCapacity,
 			femaleBreastElasticity, maleBreastElasticity, femaleBreastPlasticity, maleBreastPlasticity, maleNippleCountPerBreast, femaleNippleCountPerBreast, maleAreolaeSize, femaleAreolaeSize, maleNippleSize, femaleNippleSize,
 			clitSize,
 			maleHeight, femaleHeight, maleFemininity, femaleFemininity, maleBodySize, femaleBodySize, maleMuscle, femaleMuscle,
@@ -548,7 +548,7 @@ public enum RacialBody {
 		this.maleHairLength = maleHairLength.getMedianValue();
 		this.femaleHairLength = femaleHairLength.getMedianValue();
 		
-		this.maleBreastSize = maleBreastSize.getMeasurement();
+		this.noBreastSize = maleBreastSize.getMeasurement();
 		this.breastCountMale = breastCountMale;
 		this.maleLactationRate = maleLactationRate.getMedianValue();
 		this.maleBreastCapacity = maleBreastCapacity.getMedianValue();
@@ -559,7 +559,7 @@ public enum RacialBody {
 		this.maleAreolaeSize = maleAreolaeSize.getValue();
 		this.maleNippleCountPerBreast = maleNippleCountPerBreast;
 		
-		this.femaleBreastSize = femaleBreastSize.getMeasurement();
+		this.breastSize = femaleBreastSize.getMeasurement();
 		this.breastCountFemale = breastCountFemale;
 		this.femaleLactationRate = femaleLactationRate.getMedianValue();
 		this.femaleBreastCapacity = femaleBreastCapacity.getMedianValue();
@@ -830,12 +830,12 @@ public enum RacialBody {
 		return femaleHairLength;
 	}
 
-	public int getMaleBreastSize() {
-		return maleBreastSize;
+	public int getNoBreastSize() {
+		return noBreastSize;
 	}
 
-	public int getFemaleBreastSize() {
-		return femaleBreastSize;
+	public int getBreastSize() {
+		return breastSize;
 	}
 
 	public int getMaleLactationRate() {

@@ -418,9 +418,7 @@ public class MainController implements Initializable {
 						 if(event.getCode()==KeyCode.END){
 							 
 							 
-							 System.out.println(Main.game.getVicky().getMaximumInventorySpace());
-							 System.out.println(Main.game.getVicky().getUniqueItemCount());
-							System.out.println(Main.game.getVicky().getUniqueItemCount() + " " + Main.game.getVicky().getItemCount());
+//							 System.out.println((1==1?0<(1<1?1:0):0==(0>0?0:0)));
 							 
 //							 System.out.println(Main.game.getPlayer().getNextClothingToRemoveForCoverableAreaAccess(CoverableArea.VAGINA).getKey().getName());
 							 
@@ -1461,7 +1459,7 @@ public class MainController implements Initializable {
 			
 			for(int i=0; i<InventoryDialogue.getJinxedClothing().size(); i++) {
 				if (((EventTarget) document.getElementById("JINXED_" + i)) != null) {
-					addEventListener(document, "JINXED_" + i, "click", new InventoryRemoveJinx().setJinxIndex(i), false);
+					addEventListener(document, "JINXED_" + i, "click", new InventoryRemoveJinx().setJinxIndex(i, Main.game.getPlayer()), false);
 					
 					addEventListener(document, "JINXED_" + i, "mousemove", moveTooltipListener, false);
 					addEventListener(document, "JINXED_" + i, "mouseleave", hideTooltipListener, false);
@@ -1469,7 +1467,17 @@ public class MainController implements Initializable {
 					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(InventoryDialogue.getJinxedClothing().get(i), Main.game.getPlayer(), null);
 					addEventListener(document, "JINXED_" + i, "mouseenter", el2, false);
 				}
-				
+			}
+			for(int i=0; i<InventoryDialogue.getJinxedNPCClothing().size(); i++) {
+				if (((EventTarget) document.getElementById("JINXED_NPC_" + i)) != null) {
+					addEventListener(document, "JINXED_NPC_" + i, "click", new InventoryRemoveJinx().setJinxIndex(i, InventoryDialogue.getInventoryNPC()), false);
+					
+					addEventListener(document, "JINXED_NPC_" + i, "mousemove", moveTooltipListener, false);
+					addEventListener(document, "JINXED_NPC_" + i, "mouseleave", hideTooltipListener, false);
+					
+					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(InventoryDialogue.getJinxedClothing().get(i), InventoryDialogue.getInventoryNPC(), null);
+					addEventListener(document, "JINXED_NPC_" + i, "mouseenter", el2, false);
+				}
 			}
 			
 			for(TFEssence essence : TFEssence.values()) {

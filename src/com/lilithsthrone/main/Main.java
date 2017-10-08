@@ -47,7 +47,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.1.85.5
+ * @version 0.1.86.1
  * @author Innoxia
  */
 public class Main extends Application {
@@ -61,7 +61,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.86",
+	public static final String VERSION_NUMBER = "0.1.86.1",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -79,6 +79,8 @@ public class Main extends Application {
 		+ "<p>"
 			+ "Hello again everyone! ^^"
 		+ "</p>"
+		
+		+ "<p><b>Hotfix version!</b> Scroll to the very bottom to see the hotfix patch notes. :3</p>"
 			
 		+ "<p>"
 			+ "So, finally, the incest content is done. The reason that it took so much time is that it's the first content I've written that's tried to take into account multiple different background factors (job, affection, and personality)."
@@ -217,6 +219,47 @@ public class Main extends Application {
 		+"<ul>Fixed NPCs not raping you if they had the non-con fetish. (Oops)</ul>"
 		+"<ul>Fixed lips always being described as full.</ul>"
 		+"<ul>Cow-morph consumables can now be used on alleyway attackers and harpies in the nests.</ul>"
+		+ "</list>"
+		
+		
+
+		+ "</br>"
+		
+		+ "<list>"
+
+		+ "<h6>Hotfix (v0.1.86.1)</h6>"
+		+"<li>Other:</li>"
+		+"<ul>Added: Ability to remove jinxes from any NPC's clothing.</ul>"
+		+"<ul>Added: Breeder collar (feminine, neck slot). Can be bought from Nyan's 'Specials' menu.</ul>"
+		+"<ul>Removing a jinx from clothing no longer removes its negative attributes.</ul>"
+		+"<ul>Enabled futanari as a minimal gender encounter by default.</ul>"
+		+"<ul>Improved the gender preferences screen to show how each gender is defined.</ul>"
+			
+		+"<li>Bugs:</li>"
+		+"<ul>Fixed the strange behaviour in sex scenes, where dom/sub would sometimes switch, as well as sex ending when either one of you came.</ul>"
+		+"<ul>Fixed game freeze/crash when trying to remove your offspring.</ul>"
+		+"<ul>Fixed character import bug (where characters from pre-0.1.86 were not being imported correctly).</ul>"
+		+"<ul>Character import now correctly loads in your surname.</ul>"
+		+"<ul>Fixed no_clothing_covering_nipples error that was appearing in some sex actions.</ul>"
+		+"<ul>Fixed nipples being described as 'dry'.</ul>"
+		+"<ul>Typo fixes.</ul>"
+		+"<ul>Changed flat-chested 'breasts' parser description to output 'pecs' instead of 'chest'. (Hopefully this hasn't broken descriptions in places. x_x)</ul>"
+		+"<ul>Condoms will no longer magically re-equip themselves after sex.</ul>"
+		+"<ul>Fixed formatting in all stats pages.</ul>"
+		+"<ul>Succubi in the Dark Alleyway tiles will no longer disappear as soon as you move away.</ul>"
+		+"<ul>Feeding your prostitute daughter a Vixen's Virility pill will now correctly override her promiscuity pill's effects.</ul>"
+		+"<ul>Fixed 'Paizuri into mouth' action being available even if your mouth was blocked.</ul>"
+		+"<ul>Fixed Nyan stocking condoms, and added them to Ralph's inventory again.</ul>"
+		+"<ul>Fixed an instance of an NPC's orgasm not describing them wearing a condom.</ul>"
+		+"<ul>Piercings should now correctly appear in the character creation.</ul>"
+		+"<ul>Fixed virginity loss description being printed twice.</ul>"
+		+"<ul>Fixed an import bug marking cum as milk.</ul>"
+		+"<ul>Fixed a couple of inconsistencies in the prologue dialogue.</ul>"
+		+"<ul>Fixed genders with breast requirements (such as busty-boys or flat-chested traps) not spawning.</ul>"
+		+"<ul>Fixed random encounters of certain genders when they were supposed to be turned off.</ul>"
+		+"<ul>Prostitute offspring will no longer rsist after you've paid to have sex with them.</ul>"
+		+"<ul>Fixed all starting characters having 5 corruption (it's going to be based on your sexual experience until I add in the final parts of the character creation process).</ul>"
+		+"<ul>Fixed slave room description not taking into account bed upgrades.</ul>"
 		+ "</list>"
 		;
 	

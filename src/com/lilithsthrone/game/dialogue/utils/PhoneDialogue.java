@@ -483,33 +483,34 @@ public class PhoneDialogue {
 			// TODO: Perks, status effects & special attacks</p>"
 				"<div class='subTitle'>" + "Attributes" + "</div>"
 
-					+ "<div class='extraAttribute-third'>" + attributeValue(Main.game.getPlayer(), Attribute.STRENGTH) + "</div>" + "<div class='extraAttribute-third'>" + attributeValue(Main.game.getPlayer(), Attribute.INTELLIGENCE) + "</div>"
-					+ "<div class='extraAttribute-third'>" + attributeValue(Main.game.getPlayer(), Attribute.FITNESS) + "</div>"
+				+ "<div class='extraAttribute-third'>" + attributeValue(Main.game.getPlayer(), Attribute.STRENGTH) + "</div>"
+				+ "<div class='extraAttribute-third'>" + attributeValue(Main.game.getPlayer(), Attribute.INTELLIGENCE) + "</div>"
+				+ "<div class='extraAttribute-third'>" + attributeValue(Main.game.getPlayer(), Attribute.FITNESS) + "</div>"
 
-					+ "<span style='height:16px;width:800px;float:left;'></span>"
+				+ "<span style='height:16px;width:800px;float:left;'></span>"
 
-					+ "<div class='subTitle'>" + "Combat Attributes" + "</div>"
-					+ extraAttributeBonus(Main.game.getPlayer(), Attribute.CRITICAL_CHANCE)
-					+ extraAttributeBonus(Main.game.getPlayer(), Attribute.CRITICAL_DAMAGE)
+				+ "<div class='subTitle'>" + "Combat Attributes" + "</div>"
+				+ extraAttributeBonus(Main.game.getPlayer(), Attribute.CRITICAL_CHANCE)
+				+ extraAttributeBonus(Main.game.getPlayer(), Attribute.CRITICAL_DAMAGE)
 
 			// Header:
-					+ "<div class='extraAttribute-third type'>" + "Type" + "</div>" + "<div class='extraAttribute-third damage'>" + "&#8224 Damage &#8224" + "</div>" + "<div class='extraAttribute-third resist'>" + "&#8225 Resist &#8225" + "</div>"
+				+ "<div class='extraAttribute-third type'>" + "Type" + "</div>" + "<div class='extraAttribute-third damage'>" + "&#8224 Damage &#8224" + "</div>" + "<div class='extraAttribute-third resist'>" + "&#8225 Resist &#8225" + "</div>"
 
 			// Values:
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Attack", Attribute.DAMAGE_ATTACK, Attribute.RESISTANCE_ATTACK)
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Spell", Attribute.DAMAGE_SPELLS, Attribute.RESISTANCE_SPELLS)
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Willpower", Attribute.DAMAGE_MANA, Attribute.RESISTANCE_MANA)
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Stamina", Attribute.DAMAGE_STAMINA, Attribute.RESISTANCE_STAMINA)
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Physical", Attribute.DAMAGE_PHYSICAL, Attribute.RESISTANCE_PHYSICAL)
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Fire", Attribute.DAMAGE_FIRE, Attribute.RESISTANCE_FIRE)
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Cold", Attribute.DAMAGE_ICE, Attribute.RESISTANCE_ICE)
-					+ extraAttributeTableRow(Main.game.getPlayer(), "Poison", Attribute.DAMAGE_POISON, Attribute.RESISTANCE_POISON)
+				+ extraAttributeTableRow(Main.game.getPlayer(), "Attack", Attribute.DAMAGE_ATTACK, Attribute.RESISTANCE_ATTACK)
+				+ extraAttributeTableRow(Main.game.getPlayer(), "Spell", Attribute.DAMAGE_SPELLS, Attribute.RESISTANCE_SPELLS)
+				+ extraAttributeTableRow(Main.game.getPlayer(), "Willpower", Attribute.DAMAGE_MANA, Attribute.RESISTANCE_MANA)
+				+ extraAttributeTableRow(Main.game.getPlayer(), "Stamina", Attribute.DAMAGE_STAMINA, Attribute.RESISTANCE_STAMINA)
+				+ extraAttributeTableRow(Main.game.getPlayer(), "Physical", Attribute.DAMAGE_PHYSICAL, Attribute.RESISTANCE_PHYSICAL)
+				+ extraAttributeTableRow(Main.game.getPlayer(), "Fire", Attribute.DAMAGE_FIRE, Attribute.RESISTANCE_FIRE)
+				+ extraAttributeTableRow(Main.game.getPlayer(), "Cold", Attribute.DAMAGE_ICE, Attribute.RESISTANCE_ICE)
+				+ extraAttributeTableRow(Main.game.getPlayer(), "Poison", Attribute.DAMAGE_POISON, Attribute.RESISTANCE_POISON)
 
-					+ "<span style='height:16px;width:800px;float:left;'></span>"
+				+ "<span style='height:16px;width:800px;float:left;'></span>"
 
-					+ "<div class='subTitle'>" + "Other Attributes" + "</div>"
+				+ "<div class='subTitle'>" + "Other Attributes" + "</div>"
 
-					+ extraAttributeBonus(Main.game.getPlayer(), Attribute.FERTILITY) + extraAttributeBonus(Main.game.getPlayer(), Attribute.VIRILITY) + extraAttributeBonus(Main.game.getPlayer(), Attribute.SPELL_COST_MODIFIER);
+				+ extraAttributeBonus(Main.game.getPlayer(), Attribute.FERTILITY) + extraAttributeBonus(Main.game.getPlayer(), Attribute.VIRILITY) + extraAttributeBonus(Main.game.getPlayer(), Attribute.SPELL_COST_MODIFIER);
 		}
 
 		@Override
@@ -712,26 +713,28 @@ public class PhoneDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append("<div class='extraAttribute-quarter'>"
-						+ "Mothered <b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Sons</b></br>" + sonsBirthed
+						+ "Mothered</br><b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Sons</b></br>" + sonsBirthed
 					+ "</div>"
 					+ "<div class='extraAttribute-quarter'>"
-						+ "Mothered <b style='color:"+Colour.FEMININE.toWebHexString()+";'>Daughters</b></br>" + daughtersBirthed
+						+ "Mothered</br><b style='color:"+Colour.FEMININE.toWebHexString()+";'>Daughters</b></br>" + daughtersBirthed
 					+ "</div>"
 					
 					+ "<div class='extraAttribute-quarter'>"
-						+ "Fathered <b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Sons</b></br>" + sonsFathered
+						+ "Fathered</br><b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Sons</b></br>" + sonsFathered
 					+ "</div>"
 					+ "<div class='extraAttribute-quarter'>"
-						+ "Fathered <b style='color:"+Colour.FEMININE.toWebHexString()+";'>Daughters</b></br>" + daughtersFathered
+						+ "Fathered</br><b style='color:"+Colour.FEMININE.toWebHexString()+";'>Daughters</b></br>" + daughtersFathered
 					+ "</div>"
 					+"<div class='subTitle'>Total offspring: "+(sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered)+"</div>"
 					
-					+"<div class='statsDescriptionBox'>"
-						+ "Due to the incredible speed of both pregnancies and the development of children, the attachment between a child and his or her parents is far weaker in this world than what you're used to."
-						+ " After reaching full maturity within a matter of hours, the vast majority of children will immediately leave their parents in order to strike out for themselves in the world."
-						+ "</br></br>"
-						+ "Despite this, however, a parent will always share a special maternal or paternal bond with their children, and, whether due to the arcane or natural intuition,"
-							+ " a parent and child will always recognise each other at first sight."
+					+"<div class='container-full-width'>"
+						+ "<p>"
+							+ "Due to the incredible speed of both pregnancies and the development of children, the attachment between a child and his or her parents is far weaker in this world than what you're used to."
+							+ " After reaching full maturity within a matter of hours, the vast majority of children will immediately leave their parents in order to strike out for themselves in the world."
+							+ "</br></br>"
+							+ "Despite this, however, a parent will always share a special maternal or paternal bond with their children, and, whether due to the arcane or natural intuition,"
+								+ " a parent and child will always recognise each other at first sight."
+						+ "</p>"
 					+ "</div>"
 					
 					+ "<span style='height:16px;width:800px;float:left;'></span>"
@@ -740,7 +743,7 @@ public class PhoneDialogue {
 
 					+ "<span style='height:16px;width:800px;float:left;'></span>"
 					+"<div class='subTitle'>Offspring list</div>"
-					+ "<div class='statsDescriptionBox' style='text-align:center;'>"
+					+ "<div class='container-full-width' style='text-align:center;'>"
 					
 					+ "<table align='center'>"
 					+ "<tr><th>Name</th><th>Race</th><th>Mother</th><th>Father</th></tr>"
@@ -836,7 +839,7 @@ public class PhoneDialogue {
 				|| Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_2)
 				|| Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_3)){
 			
-			contentSB.append("<div class='statsDescriptionBox' style='text-align:center;'>"
+			contentSB.append("<div class='container-full-width' style='text-align:center;'>"
 					+ "[style.boldBad(Ongoing pregnancy)]"
 					+ "</br>"
 					+ "[style.bold(Possible partners:)]"
@@ -878,7 +881,7 @@ public class PhoneDialogue {
 			for (Litter litter : Main.game.getPlayer().getLittersBirthed()) {
 				if(litter.getFather()!=null) {
 					contentSB.append(UtilText.parse(litter.getFather(),
-							"<div class='statsDescriptionBox' style='text-align:center;'>"
+							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "</br>"
 								+ "Conceived with [npc.name(a)] on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
@@ -887,7 +890,7 @@ public class PhoneDialogue {
 							+ "</div>"));
 				} else {
 					contentSB.append(
-							"<div class='statsDescriptionBox' style='text-align:center;'>"
+							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "</br>"
 								+ "Conceived with someone you can't remember on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
@@ -917,7 +920,7 @@ public class PhoneDialogue {
 			for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsFather()){
 				if(pp.getMother()!=null) {
 					contentSB.append(UtilText.parse(pp.getMother(),
-							"<div class='statsDescriptionBox' style='text-align:center;'>"
+							"<div class='container-full-width' style='text-align:center;'>"
 							+ "[style.boldBad(Ongoing pregnancy)]"
 							+ "</br>"
 							+"<b>[npc.Name(A)] (</b>"
@@ -967,7 +970,7 @@ public class PhoneDialogue {
 			for (Litter litter : Main.game.getPlayer().getLittersFathered()) {
 				if(litter.getMother()!=null) {
 					contentSB.append(UtilText.parse(litter.getMother(),
-							"<div class='statsDescriptionBox' style='text-align:center;'>"
+							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "</br>"
 								+ "Conceived with [npc.name(a)] on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
@@ -977,7 +980,7 @@ public class PhoneDialogue {
 					
 				} else {
 					contentSB.append(
-							"<div class='statsDescriptionBox' style='text-align:center;'>"
+							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
 								+ "</br>"
 								+ "Conceived with someone you can't remember on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
@@ -1221,25 +1224,25 @@ public class PhoneDialogue {
 
 			// All known weapons:
 
-			journalSB.append("<div class='phone-item-third slot'>Slot</div>");
-			journalSB.append("<div class='phone-item-third name'>Weapon</div>");
-			journalSB.append("<div class='phone-item-third colours'>Damage types <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
+			journalSB.append("<div class='extraAttribute-third slot'>Slot</div>");
+			journalSB.append("<div class='extraAttribute-third name'>Weapon</div>");
+			journalSB.append("<div class='extraAttribute-third colours'>Damage types <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
 
 			for (AbstractWeaponType weapon : weaponsDiscoveredList) {
 				if (Main.getProperties().isWeaponDiscovered(weapon)) {
-					journalSB.append("<div class='phone-item-third slot'>" + Util.capitaliseSentence(weapon.getSlot().getName()) + "</div>");
-					journalSB.append("<div class='phone-item-third name' style='color:" + weapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(weapon.getName()) + "</div>");
+					journalSB.append("<div class='extraAttribute-third slot'>" + Util.capitaliseSentence(weapon.getSlot().getName()) + "</div>");
+					journalSB.append("<div class='extraAttribute-third name' style='color:" + weapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(weapon.getName()) + "</div>");
 
-					journalSB.append("<div class='phone-item-third colours'>");
+					journalSB.append("<div class='extraAttribute-third colours'>");
 					for (DamageType dt : weapon.getAvailableDamageTypes())
 						journalSB.append("<div class='phone-item-colour' id='" + (weapon.hashCode() + "_" + dt.toString()) + "' style='background-color:" + dt.getMultiplierAttribute().getColour().toWebHexString() + ";'></div>");
 					journalSB.append("</div>");
 
 				} else {
-					journalSB.append("<div class='phone-item-third slot'>" + Util.capitaliseSentence(weapon.getSlot().getName()) + "</div>");
-					journalSB.append("<div class='phone-item-third name'>???</div>");
+					journalSB.append("<div class='extraAttribute-third slot'>" + Util.capitaliseSentence(weapon.getSlot().getName()) + "</div>");
+					journalSB.append("<div class='extraAttribute-third name'>???</div>");
 
-					journalSB.append("<div class='phone-item-third colours'>???</div>");
+					journalSB.append("<div class='extraAttribute-third colours'>???</div>");
 				}
 			}
 
@@ -1271,29 +1274,29 @@ public class PhoneDialogue {
 
 			// All known weapons:
 
-			journalSB.append("<div class='phone-item-third slot'>Slot</div>");
-			journalSB.append("<div class='phone-item-third name'>Clothing</div>");
-			journalSB.append("<div class='phone-item-third colours'>Colours <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
+			journalSB.append("<div class='extraAttribute-third slot'>Slot</div>");
+			journalSB.append("<div class='extraAttribute-third name'>Clothing</div>");
+			journalSB.append("<div class='extraAttribute-third colours'>Colours <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
 
 			for (AbstractClothingType clothing : clothingDiscoveredList) {
 				if (Main.getProperties().isClothingDiscovered(clothing)) {
 					String sizeClass = ""; //hack to prevent overflow... works for up to 30 colours
 					if (clothing.getAvailableColours().size() > 15){
-						sizeClass = "phone-item-third-large";
+						sizeClass = "extraAttribute-third-large";
 					}
-					journalSB.append("<div class='phone-item-third "+sizeClass+" slot'>" + Util.capitaliseSentence(clothing.getSlot().getName()) + "</div>");
-					journalSB.append("<div class='phone-item-third "+sizeClass+" name' style='color:" + clothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(clothing.getName()) + "</div>");
+					journalSB.append("<div class='extraAttribute-third "+sizeClass+" slot'>" + Util.capitaliseSentence(clothing.getSlot().getName()) + "</div>");
+					journalSB.append("<div class='extraAttribute-third "+sizeClass+" name' style='color:" + clothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(clothing.getName()) + "</div>");
 
-					journalSB.append("<div class='phone-item-third "+sizeClass+" colours'>");
+					journalSB.append("<div class='extraAttribute-third "+sizeClass+" colours'>");
 					for (Colour c : clothing.getAvailableColours())
 						journalSB.append("<div class='phone-item-colour' id='" + (clothing.hashCode() + "_" + c.toString()) + "' style='background-color:" + c.toWebHexString() + ";'></div>");
 					journalSB.append("</div>");
 
 				} else {
-					journalSB.append("<div class='phone-item-third slot'>" + Util.capitaliseSentence(clothing.getSlot().getName()) + "</div>");
-					journalSB.append("<div class='phone-item-third name'>???</div>");
+					journalSB.append("<div class='extraAttribute-third slot'>" + Util.capitaliseSentence(clothing.getSlot().getName()) + "</div>");
+					journalSB.append("<div class='extraAttribute-third name'>???</div>");
 
-					journalSB.append("<div class='phone-item-third colours'>???</div>");
+					journalSB.append("<div class='extraAttribute-third colours'>???</div>");
 				}
 			}
 
@@ -1323,22 +1326,17 @@ public class PhoneDialogue {
 
 			// All known items:
 			journalSB = new StringBuilder();
-			journalSB.append("<div class='phone-item-half-table'>");
-
-			journalSB.append("<div class='phone-item-half-table-row'>");
-			journalSB.append("<div class='phone-item-half name'>Item</div>");
-			journalSB.append("<div class='phone-item-half effects'>Effects</div>");
-			journalSB.append("</div>");
+			journalSB.append("<div class='extraAttribute-third'>Item</div>");
+			journalSB.append("<div class='extraAttribute-two-thirds'>Effects</div>");
 
 			for (AbstractItemType item : itemsDiscoveredList) {
-				journalSB.append("<div class='phone-item-half-table-row'>");
 				if (Main.getProperties().isItemDiscovered(item)) {
-					journalSB.append("<div class='phone-item-half name' style='color:" + item.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(item.getName(false)) + "</div>");
+					journalSB.append("<div class='extraAttribute-third' style='color:" + item.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(item.getName(false)) + "</div>");
 
-					journalSB.append("<div class='phone-item-half effects'>");
+					journalSB.append("<div class='extraAttribute-two-thirds'>");
 					if (item.getEffects().isEmpty()) {
 						journalSB.append("-");
-					} else { 
+					} else {
 						int i=1;
 						for(ItemEffect ie : item.getEffects()) {
 							for(String s : ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
@@ -1352,13 +1350,11 @@ public class PhoneDialogue {
 					journalSB.append("</div>");
 
 				} else {
-					journalSB.append("<div class='phone-item-half name'>???</div>");
+					journalSB.append("<div class='extraAttribute-third'>???</div>");
 
-					journalSB.append("<div class='phone-item-half effects'>???</div>");
+					journalSB.append("<div class='extraAttribute-two-thirds'>???</div>");
 				}
-				journalSB.append("</div>"); //end table row
 			}
-			journalSB.append("</div>"); //end table
 
 			return journalSB.toString();
 		}
@@ -1449,12 +1445,12 @@ public class PhoneDialogue {
 									+ "</tr>"
 									+ "<tr>"
 										+ "<td>Breast size</td>"
-										+ "<td>"+(racialBody.getFemaleBreastSize()==0
+										+ "<td>"+(racialBody.getBreastSize()==0
 													?"Flat"
-													:CupSize.getCupSizeFromInt(racialBody.getFemaleBreastSize()).getCupSizeName()+"-cup")+"</td>"
-										+ "<td>"+(racialBody.getMaleBreastSize()==0
+													:CupSize.getCupSizeFromInt(racialBody.getBreastSize()).getCupSizeName()+"-cup")+"</td>"
+										+ "<td>"+(racialBody.getNoBreastSize()==0
 													?"Flat"
-													:CupSize.getCupSizeFromInt(racialBody.getMaleBreastSize()).getCupSizeName()+"-cup")+"</td>"
+													:CupSize.getCupSizeFromInt(racialBody.getNoBreastSize()).getCupSizeName()+"-cup")+"</td>"
 									+ "</tr>"
 									+ "<tr>"
 										+ "<td>Penis size (inches)</td>"
@@ -1729,7 +1725,7 @@ public class PhoneDialogue {
 		@Override
 		public String getHeaderContent() {
 			journalSB = new StringBuilder(
-					"<div class='statsDescriptionBox'>"
+					"<div class='container-full-width'>"
 						+ "You can unlock fetishes by using <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>arcane essences</b> (gained from from orgasming in sex)."
 						+ " Fetishes cost <b>five</b> arcane essences each."
 						+ " Derived fetishes cannot be directly unlocked, but are instead automatically unlocked when you meet their requirements."

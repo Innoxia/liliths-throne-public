@@ -2501,13 +2501,13 @@ public class Body implements Serializable {
 			
 			switch(owner.getNippleShape()) {
 				case NORMAL:
-					descriptionSB.append(" [npc.nipplePrimaryColour(true)] nipples,");
+					descriptionSB.append(" [npc.nipplePrimaryColour(true)] [npc.nipple],");
 					break;
 				case LIPS:
-					descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped lipples,");
+					descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped [npc.nipple],");
 					break;
 				case VAGINA:
-					descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped nipple-cunts,");
+					descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped [npc.nipple],");
 					break;
 			}
 			
@@ -3374,8 +3374,7 @@ public class Body implements Serializable {
 				
 				for(PenetrationType pt : PenetrationType.values()) {
 					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER))!=null && pt.isTakesVirginity()) {
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your virginity to "
-								+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER)) + ".</span>");
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your virginity to "+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER)) + ".</span>");
 					}
 				}
 				

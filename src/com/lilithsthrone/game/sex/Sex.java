@@ -321,22 +321,25 @@ public enum Sex {
 		// Restore clothes:
 		for (AbstractClothing c : playerClothingPreSex) {
 			if (!Main.game.getPlayer().getClothingCurrentlyEquipped().contains(c)) {
-				if(Main.game.getPlayer().getAllClothingInInventory().contains(c)) {
-					Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer());
-				} else {
-					Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
+				if(!c.getClothingType().isDiscardedOnUnequip()) {
+					if(Main.game.getPlayer().getAllClothingInInventory().contains(c)) {
+						Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer());
+					} else {
+						Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
+					}
 				}
-				
 			} else {
 				c.getDisplacedList().clear();
 			}
 		}
 		for (AbstractClothing c : partnerClothingPreSex) {
 			if(!partner.getClothingCurrentlyEquipped().contains(c)) {
-				if(partner.getAllClothingInInventory().contains(c)) {
-					partner.equipClothingFromInventory(c, true, partner, partner);
-				} else {
-					partner.equipClothingFromGround(c, true, partner);
+				if(!c.getClothingType().isDiscardedOnUnequip()) {
+					if(partner.getAllClothingInInventory().contains(c)) {
+						partner.equipClothingFromInventory(c, true, partner, partner);
+					} else {
+						partner.equipClothingFromGround(c, true, partner);
+					}
 				}
 				
 			} else {
@@ -2191,7 +2194,7 @@ public enum Sex {
 	
 	// Player mouth:
 	public static boolean isPlayerFreeMouth() {
-		return getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==null && !ongoingPenetrationMap.containsKey(PenetrationType.TONGUE_PLAYER);
+		return getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==null && !ongoingPenetrationMap.containsKey(PenetrationType.TONGUE_PLAYER) && Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.MOUTH);
 	}
 	public static boolean isPlayerMouthNoPartnerPenetration() {
 		if(isPlayerFreeMouth()) {
@@ -2273,7 +2276,7 @@ public enum Sex {
 	
 	// Partner mouth:
 	public static boolean isPartnerFreeMouth() {
-		return getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER)==null && !ongoingPenetrationMap.containsKey(PenetrationType.TONGUE_PARTNER);
+		return getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER)==null && !ongoingPenetrationMap.containsKey(PenetrationType.TONGUE_PARTNER) && partner.isCoverableAreaExposed(CoverableArea.MOUTH);
 	}
 	public static boolean isPartnerMouthNoPlayerPenetration() {
 		if(isPartnerFreeMouth()) {

@@ -323,7 +323,7 @@ public class Game implements Serializable {
 		handleAtmosphericConditions(turnTime);
 
 		// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
-		NPCMap.entrySet().removeIf(e -> (e.getValue().getLocationPlace().getPlaceType() != Dominion.CITY_BACK_ALLEYS && e.getValue().getWorldLocation()==WorldType.DOMINION && !Main.game.getPlayer().getLocation().equals(e.getValue().getLocation())));
+		NPCMap.entrySet().removeIf(e -> (e.getValue().getLocationPlace().getPlaceType() == Dominion.CITY_STREET && !Main.game.getPlayer().getLocation().equals(e.getValue().getLocation())));
 		
 		// Apply status effects for all NPCs:
 		isInNPCUpdateLoop = true;
@@ -336,7 +336,7 @@ public class Game implements Serializable {
 			}
 			
 			// Prostitutes stay on promiscuity pills to avoid pregnancies
-			if(!npc.isPregnant() && !npc.isSlave() && npc.getHistory()==History.PROSTITUTE && !npc.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)) {
+			if(!npc.isPregnant() && !npc.isSlave() && npc.getHistory()==History.PROSTITUTE && !npc.hasStatusEffect(StatusEffect.PROMISCUITY_PILL) && !npc.getLocation().equals(Main.game.getPlayer().getLocation())) {
 				npc.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), npc, false);
 			}
 			
@@ -1811,6 +1811,7 @@ public class Game implements Serializable {
 			NPCMap.put(npc.getId(), npc);
 		}
 		
+//		System.out.println("Added: " + npc.getId());
 		return npc.getId();
 	}
 	
@@ -1824,6 +1825,8 @@ public class Game implements Serializable {
 		} else {
 			NPCMap.remove(npc.getId());
 		}
+		
+//		System.out.println("Removed: " + npc.getId());
 	}
 
 	public NPC getActiveNPC() {

@@ -99,15 +99,21 @@ public class Nipples implements BodyPartInterface, Serializable {
 			descriptorList.add(om.getName());
 		}
 		
-		String wetnessDescriptor = owner.getBreastLactation().getAssociatedWetness().getDescriptor();
+		switch(owner.getBreastLactation().getAssociatedWetness()) {
+			case ONE_SLIGHTLY_MOIST: case TWO_MOIST: case THREE_WET: case FOUR_SLIMY: case FIVE_SLOPPY: case SIX_SOPPING_WET: case SEVEN_DROOLING:
+				descriptorList.add(owner.getBreastLactation().getAssociatedWetness().getDescriptor());
+				break;
+			default:
+				break;
+		}
+		
 		if(Main.game.isInSex()) {
 			if(owner.isPlayer() && !Sex.getWetOrificeTypes().get(OrificeType.NIPPLE_PLAYER).isEmpty()) {
-				wetnessDescriptor = "wet";
+				descriptorList.add("wet");
 			} else if(!owner.isPlayer() && !Sex.getWetOrificeTypes().get(OrificeType.NIPPLE_PARTNER).isEmpty()) {
-				wetnessDescriptor = "wet";
+				descriptorList.add("wet");
 			}
 		}
-		descriptorList.add(wetnessDescriptor);
 		descriptorList.add(type.getDescriptor(owner));
 		descriptorList.add(orificeNipples.getCapacity().getDescriptor());
 		

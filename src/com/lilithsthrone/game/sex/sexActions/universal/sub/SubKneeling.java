@@ -264,33 +264,37 @@ public class SubKneeling {
 			}
 
 			UtilText.nodeContentSB.append(" [npc.Her] [npc.balls+] tense up, and as [npc.she] lets out [npc.a_moan+]");
-			switch (Sex.getPartner().getPenisCumProduction()) {
-				case ZERO_NONE:
-					UtilText.nodeContentSB.append(", you realise that [npc.she]'s not able to produce even one drop of cum.");
-					break;
-				case ONE_TRICKLE:
-					UtilText.nodeContentSB.append(", you feel a small trickle of [npc.cum+] squirting down your throat into your stomach.");
-					break;
-				case TWO_SMALL_AMOUNT:
-					UtilText.nodeContentSB.append(", you feel a small amount of [npc.cum+] squirting down your throat into your stomach.");
-					break;
-				case THREE_AVERAGE:
-					UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] squirting down your throat into your stomach.");
-					break;
-				case FOUR_LARGE:
-					UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] shooting down your throat into your stomach.");
-					break;
-				case FIVE_HUGE:
-					UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] pouring down your throat into your stomach.");
-					break;
-				case SIX_EXTREME:
-					UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] pouring down your throat into your stomach.");
-					break;
-				case SEVEN_MONSTROUS:
-					UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] pouring down your throat into your stomach.");
-					break;
-				default:
-					break;
+			if(Sex.getPartner().isWearingCondom()) {
+				UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] pours out into the condom that [npc.she]'s wearing.");
+			} else {
+				switch (Sex.getPartner().getPenisCumProduction()) {
+					case ZERO_NONE:
+						UtilText.nodeContentSB.append(", you realise that [npc.she]'s not able to produce even one drop of cum.");
+						break;
+					case ONE_TRICKLE:
+						UtilText.nodeContentSB.append(", you feel a small trickle of [npc.cum+] squirting down your throat into your stomach.");
+						break;
+					case TWO_SMALL_AMOUNT:
+						UtilText.nodeContentSB.append(", you feel a small amount of [npc.cum+] squirting down your throat into your stomach.");
+						break;
+					case THREE_AVERAGE:
+						UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] squirting down your throat into your stomach.");
+						break;
+					case FOUR_LARGE:
+						UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] shooting down your throat into your stomach.");
+						break;
+					case FIVE_HUGE:
+						UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] pouring down your throat into your stomach.");
+						break;
+					case SIX_EXTREME:
+						UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] pouring down your throat into your stomach.");
+						break;
+					case SEVEN_MONSTROUS:
+						UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] pouring down your throat into your stomach.");
+						break;
+					default:
+						break;
+				}
 			}
 			
 			if(Sex.getPartner().hasVagina()) {

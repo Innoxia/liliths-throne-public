@@ -63,6 +63,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
@@ -126,6 +127,7 @@ public class CharacterUtils {
 			Comment comment = doc.createComment("If you want to edit any of these values, just be warned that it might break the game...");
 			properties.appendChild(characterCoreInfo);
 			createXMLElementWithValue(doc, characterCoreInfo, "name", character.getName());
+			createXMLElementWithValue(doc, characterCoreInfo, "surname", character.getSurname());
 			createXMLElementWithValue(doc, characterCoreInfo, "level", String.valueOf(character.getLevel()));
 			createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
 			createXMLElementWithValue(doc, characterCoreInfo, "sexualOrientation", String.valueOf(character.getSexualOrientation()));
@@ -437,7 +439,7 @@ public class CharacterUtils {
 			
 			Element bodyCum = doc.createElement("cum");
 			characterBody.appendChild(bodyCum);
-				addAttribute(doc, bodyCum, "flavour", String.valueOf(character.getMilkFlavour()));
+				addAttribute(doc, bodyCum, "flavour", String.valueOf(character.getCumFlavour()));
 				Element cumModifiers = doc.createElement("cumModifiers");
 				bodyCum.appendChild(cumModifiers);
 				for(FluidModifier fm : FluidModifier.values()) {
@@ -640,6 +642,12 @@ public class CharacterUtils {
 				importedCharacter.setName(new NameTriplet(((Element)element.getElementsByTagName("name").item(0)).getAttribute("value")));
 				characterImportLog.append("</br>Set name: " + ((Element)element.getElementsByTagName("name").item(0)).getAttribute("value"));
 				
+				// Surname:
+				if(element.getElementsByTagName("surname")!=null && element.getElementsByTagName("surname").getLength()>0) {
+					importedCharacter.setSurname(((Element)element.getElementsByTagName("surname").item(0)).getAttribute("value"));
+					characterImportLog.append("</br>Set surname: " + ((Element)element.getElementsByTagName("surname").item(0)).getAttribute("value"));
+				}
+				
 				// Level:
 				importedCharacter.setLevel(Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")));
 				characterImportLog.append("</br>Set level: " + Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")));
@@ -790,29 +798,32 @@ public class CharacterUtils {
 				// Core:
 				nodes = doc.getElementsByTagName("body");
 				element = (Element) ((Element) nodes.item(0)).getElementsByTagName("bodyCore").item(0);
-					importedCharacter.setFemininity(Integer.valueOf(element.getAttribute("femininity")));
-					characterImportLog.append("</br>Body: Set femininity: "+Integer.valueOf(element.getAttribute("femininity")));
-					
-					importedCharacter.setHeight(Integer.valueOf(element.getAttribute("height")));
-					characterImportLog.append("</br>Body: Set height: "+Integer.valueOf(element.getAttribute("height")));
-					
-					importedCharacter.setPiercedNavel(Boolean.valueOf(element.getAttribute("piercedStomach")));
-					characterImportLog.append("</br>Body: Set piercedStomach: "+Boolean.valueOf(element.getAttribute("piercedStomach")));
-					
-					if(element.getAttribute("bodySize")!=null && element.getAttribute("bodySize").length()>0) {
-						importedCharacter.setBodySize(Integer.valueOf(element.getAttribute("bodySize")));
-						characterImportLog.append("</br>Body: Set body size: "+Integer.valueOf(element.getAttribute("bodySize")));
-					}
-					
-					if(element.getAttribute("muscle")!=null && element.getAttribute("muscle").length()>0) {
-						importedCharacter.setMuscle(Integer.valueOf(element.getAttribute("muscle")));
-						characterImportLog.append("</br>Body: Set muscle: "+Integer.valueOf(element.getAttribute("muscle")));
-					}
-
+				importedCharacter.setFemininity(Integer.valueOf(element.getAttribute("femininity")));
+				characterImportLog.append("</br>Body: Set femininity: "+Integer.valueOf(element.getAttribute("femininity")));
+				
+				importedCharacter.setHeight(Integer.valueOf(element.getAttribute("height")));
+				characterImportLog.append("</br>Body: Set height: "+Integer.valueOf(element.getAttribute("height")));
+				
+				importedCharacter.setPiercedNavel(Boolean.valueOf(element.getAttribute("piercedStomach")));
+				characterImportLog.append("</br>Body: Set piercedStomach: "+Boolean.valueOf(element.getAttribute("piercedStomach")));
+				
+				if(element.getAttribute("bodySize")!=null && element.getAttribute("bodySize").length()>0) {
+					importedCharacter.setBodySize(Integer.valueOf(element.getAttribute("bodySize")));
+					characterImportLog.append("</br>Body: Set body size: "+Integer.valueOf(element.getAttribute("bodySize")));
+				}
+				
+				if(element.getAttribute("muscle")!=null && element.getAttribute("muscle").length()>0) {
+					importedCharacter.setMuscle(Integer.valueOf(element.getAttribute("muscle")));
+					characterImportLog.append("</br>Body: Set muscle: "+Integer.valueOf(element.getAttribute("muscle")));
+				}
+				
+				try {
 					if(element.getAttribute("pubicHair")!=null && element.getAttribute("pubicHair").length()>0) {
 						importedCharacter.setPubicHair(BodyHair.valueOf(element.getAttribute("pubicHair")));
 						characterImportLog.append("</br>Body: Set pubicHair: "+importedCharacter.getPubicHair());
 					}
+				}catch(IllegalArgumentException ex){
+				}
 				
 				
 				for(int i=0; i<element.getElementsByTagName("bodyCovering").getLength(); i++){
@@ -1983,6 +1994,10 @@ public class CharacterUtils {
 	
 	public static Body generateBody(Gender startingGender, RacialBody startingBodyType, RaceStage stage) {
 		
+		boolean hasVagina = startingGender.getGenderName().isHasVagina();
+		boolean hasPenis = startingGender.getGenderName().isHasPenis();
+		boolean hasBreasts = startingGender.getGenderName().isHasBreasts();
+		
 		Body body = new Body.BodyBuilder(
 				new Arm((stage.isArmFurry()?startingBodyType.getArmType():ArmType.HUMAN), startingBodyType.getArmRows()),
 				new Ass(stage.isAssFurry()?startingBodyType.getAssType():AssType.HUMAN,
@@ -1994,7 +2009,7 @@ public class CharacterUtils {
 						true),
 				new Breast(stage.isBreastFurry()?startingBodyType.getBreastType():BreastType.HUMAN,
 						BreastShape.getRandomBreastShape(),
-						(startingGender.isFeminine() ? startingBodyType.getFemaleBreastSize() : startingBodyType.getMaleBreastSize()),
+						(hasBreasts? startingBodyType.getBreastSize() : startingBodyType.getNoBreastSize()),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
 						((stage.isSkinFurry() && Main.getProperties().multiBreasts==1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
 								?(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale())
@@ -2022,7 +2037,7 @@ public class CharacterUtils {
 				(startingGender.isFeminine() ? startingBodyType.getFemaleFemininity() : startingBodyType.getMaleFemininity()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleBodySize() : startingBodyType.getMaleBodySize()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleMuscle() : startingBodyType.getMaleMuscle()))
-						.vagina((startingGender.getGenderName().isHasVagina())
+						.vagina(hasVagina
 								? new Vagina(stage.isVaginaFurry()?startingBodyType.getVaginaType():VaginaType.HUMAN,
 										LabiaSize.getRandomLabiaSize().getValue(),
 										startingBodyType.getClitSize(),
@@ -2032,7 +2047,7 @@ public class CharacterUtils {
 										startingBodyType.getVaginaPlasticity(),
 										true)
 								: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true))
-						.penis((startingGender.getGenderName().isHasPenis())
+						.penis(hasPenis
 								? new Penis(stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN,
 									startingBodyType.getPenisSize(),
 									startingBodyType.getTesticleSize(),
@@ -2108,8 +2123,8 @@ public class CharacterUtils {
 			}
 		}
 		
-		if(character.getBreastSize().getMeasurement()>0) {
-			character.setBreastSize(character.getBreastSize().getMeasurement() -2 +(Util.random.nextInt(5))); // Random size between -2 and +2 of base value.
+		if(character.hasBreasts()) {
+			character.setBreastSize(Math.max(CupSize.AA.getMeasurement(), character.getBreastSize().getMeasurement() -2 +(Util.random.nextInt(5)))); // Random size between -2 and +2 of base value.
 		}
 		
 		// Face:

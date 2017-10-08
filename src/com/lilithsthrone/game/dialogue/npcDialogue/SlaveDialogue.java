@@ -215,7 +215,7 @@ public class SlaveDialogue {
 				} else {
 					return new ResponseSex("Sex", "Have sex with [npc.name].", 
 							AFTER_SEX,
-							true, true, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
+							true, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
 							"<p>"
 								+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
 								+ " [npc.She] desperately leans into you, [npc.moaning]"

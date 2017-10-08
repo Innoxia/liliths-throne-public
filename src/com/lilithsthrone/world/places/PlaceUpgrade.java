@@ -102,6 +102,29 @@ public enum PlaceUpgrade {
 			0,
 			null,
 			null) {
+		
+		@Override
+		public String getRoomDescription(GenericPlace place) {
+			if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED)) {
+				return "You've paid to have this room converted into basic slave's quarters."
+						+ " A comfortable double size bed, covered in a warm fully duvet, sits against one wall."
+						+ " Beside it, there's a simple bedside cabinet, complete with arcane-powered lamp."
+						+ " Other than that, the only other pieces of furniture in here are a wooden wardrobe and chest of drawers.";
+				
+			} else if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED)) {
+				return "You've paid to have this room converted into basic slave's quarters."
+						+ " An uncomfortable single-size bed, covered in a thin blanket, sits against one wall."
+						+ " Beside it, there's a simple bedside cabinet, complete with arcane-powered lamp."
+						+ " Other than that, the only other pieces of furniture in here are a wooden wardrobe and chest of drawers.";
+		
+			}else {
+				return "You've paid to have this room converted into basic slave's quarters."
+						+ " A single-size bed, covered in a plain white duvet, sits against one wall."
+						+ " Beside it, there's a simple bedside cabinet, complete with arcane-powered lamp."
+						+ " Other than that, the only other pieces of furniture in here are a wooden wardrobe and chest of drawers.";
+			}
+		}
+		
 		@Override
 		public void applyInstallationEffects(GenericPlace place) {
 			if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_WINDOW) {
@@ -327,7 +350,7 @@ public enum PlaceUpgrade {
 		return name;
 	}
 
-	public String getRoomDescription() {
+	public String getRoomDescription(GenericPlace place) {
 		return roomDescription;
 	}
 
