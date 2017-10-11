@@ -46,11 +46,11 @@ public class Properties implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public String lastSaveLocation = "", lastQuickSaveName = "", nameColour = "", name = "", race = "", quest = "", versionNumber="";
 	public int fontSize = 18, level = 1, money = 0, humanEncountersLevel = 1, multiBreasts = 1;
-	public boolean lightTheme = false, overwriteWarning = true, fadeInText=false,
+	public boolean lightTheme = false, overwriteWarning = true, fadeInText=true,
 			furryTailPenetrationContent = false,
 			nonConContent = false,
 			incestContent = false,
-			forcedTransformationContent = false,
+//			forcedTransformationContent = false,
 			facialHairContent = false,
 			pubicHairContent = false,
 			bodyHairContent = false,
@@ -70,6 +70,8 @@ public class Properties implements Serializable {
 	public Map<Gender, Integer> genderPreferencesMap;
 
 	public Map<Race, FurryPreference> raceFemininePreferencesMap, raceMasculinePreferencesMap;
+	
+	public FurryPreference forcedTFPreference;
 	
 	// Discoveries:
 	private Set<AbstractItemType> itemsDiscovered;
@@ -109,11 +111,18 @@ public class Properties implements Serializable {
 			genderPreferencesMap.put(g, g.getGenderPreferenceDefault().getValue());
 		}
 		
+		forcedTFPreference = FurryPreference.NORMAL;
+		
 		raceFemininePreferencesMap = new EnumMap<>(Race.class);
 		raceMasculinePreferencesMap = new EnumMap<>(Race.class);
 		for(Race r : Race.values()) {
-			raceFemininePreferencesMap.put(r, FurryPreference.NORMAL);
-			raceMasculinePreferencesMap.put(r, FurryPreference.NORMAL);
+			if(r.isAffectedByFurryPreference()) {
+				raceFemininePreferencesMap.put(r, r.getDefaultFemininePreference());
+				raceMasculinePreferencesMap.put(r, r.getDefaultMasculinePreference());
+			} else {
+				raceFemininePreferencesMap.put(r, FurryPreference.NORMAL);
+				raceMasculinePreferencesMap.put(r, FurryPreference.NORMAL);
+			}
 		}
 		
 		itemsDiscovered = new HashSet<>();
@@ -155,7 +164,7 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "furryTailPenetrationContent", String.valueOf(furryTailPenetrationContent));
 			createXMLElementWithValue(doc, settings, "nonConContent", String.valueOf(nonConContent));
 			createXMLElementWithValue(doc, settings, "incestContent", String.valueOf(incestContent));
-			createXMLElementWithValue(doc, settings, "forcedTransformationContent", String.valueOf(forcedTransformationContent));
+//			createXMLElementWithValue(doc, settings, "forcedTransformationContent", String.valueOf(forcedTransformationContent));
 			createXMLElementWithValue(doc, settings, "facialHairContent", String.valueOf(facialHairContent));
 			createXMLElementWithValue(doc, settings, "pubicHairContent", String.valueOf(pubicHairContent));
 			createXMLElementWithValue(doc, settings, "bodyHairContent", String.valueOf(bodyHairContent));
@@ -275,6 +284,9 @@ public class Properties implements Serializable {
 				value.setValue(String.valueOf(genderPreferencesMap.get(g).intValue()));
 				element.setAttributeNode(value);
 			}
+			
+			// Forced TF preference:
+			createXMLElementWithValue(doc, settings, "forcedTFPreference", String.valueOf(forcedTFPreference));
 			
 			// Race preferences:
 			Element racePreferences = doc.createElement("furryPreferences");
@@ -417,7 +429,7 @@ public class Properties implements Serializable {
 				furryTailPenetrationContent = ((((Element)element.getElementsByTagName("furryTailPenetrationContent").item(0)).getAttribute("value")).equals("true"));
 				nonConContent = ((((Element)element.getElementsByTagName("nonConContent").item(0)).getAttribute("value")).equals("true"));
 				incestContent = ((((Element)element.getElementsByTagName("incestContent").item(0)).getAttribute("value")).equals("true"));
-				forcedTransformationContent = ((((Element)element.getElementsByTagName("forcedTransformationContent").item(0)).getAttribute("value")).equals("true"));
+//				forcedTransformationContent = ((((Element)element.getElementsByTagName("forcedTransformationContent").item(0)).getAttribute("value")).equals("true"));
 				facialHairContent = ((((Element)element.getElementsByTagName("facialHairContent").item(0)).getAttribute("value")).equals("true"));
 				pubicHairContent = ((((Element)element.getElementsByTagName("pubicHairContent").item(0)).getAttribute("value")).equals("true"));
 				bodyHairContent = ((((Element)element.getElementsByTagName("bodyHairContent").item(0)).getAttribute("value")).equals("true"));
@@ -529,6 +541,11 @@ public class Properties implements Serializable {
 						} catch(IllegalArgumentException ex){
 						}
 					}
+				}
+				
+				// Forced TF preference:
+				if(element.getElementsByTagName("forcedTFPreference").item(0)!=null) {
+					forcedTFPreference = FurryPreference.valueOf(((Element)element.getElementsByTagName("forcedTFPreference").item(0)).getAttribute("value"));
 				}
 				
 				// Race preferences:

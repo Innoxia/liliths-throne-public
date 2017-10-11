@@ -437,13 +437,38 @@ public enum Fetish {
 		}
 	},
 	
-	FETISH_TRANSFORMATION(60,
-			"transformation",
-			"fetish_transformation",
+	FETISH_TRANSFORMATION_GIVING(60,
+			"transformer",
+			"fetish_transformation_giving",
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Increases</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>potency of forced transformations</span>")),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all potion making</span>")),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You love the idea of transforming others. Watching their bodies change, either voluntarily or otherwise, is a massive turn-on for you.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] loves transforming others. Watching their bodies change, either voluntarily or otherwise, is a massive turn-on for [npc.herHim].");
+			}
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.ONE_VANILLA;
+		}
+	},
+	
+	FETISH_TRANSFORMATION_RECEIVING(60,
+			"transformation test subject",
+			"fetish_transformation_receiving",
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Increases</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>receiving potency of forced transformations</span>"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Removes ability to resist forced transformations</span>")),
 			null) {
 
 		@Override
@@ -451,8 +476,7 @@ public enum Fetish {
 			if (owner.isPlayer()) {
 				return "You love the idea of being transformed. Having your body parts changed, either voluntarily or otherwise, is a massive turn-on for you.";
 			} else {
-				return UtilText.parse(owner,
-						"[npc.Name] loves being transformed!");
+				return UtilText.parse(owner, "[npc.Name] loves being transformed. Having [npc.her] body parts changed, either voluntarily or otherwise, is a massive turn-on for [npc.herHim].");
 			}
 		}
 		

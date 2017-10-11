@@ -1946,9 +1946,9 @@ public class Game implements Serializable {
 		return Main.getProperties().incestContent;
 	}
 	
-	public boolean isForcedTFEnabled() {
-		return Main.getProperties().forcedTransformationContent;
-	}
+//	public boolean isForcedTFEnabled() {
+//		return Main.getProperties().forcedTransformationContent;
+//	}
 	
 	public boolean isFacialHairEnabled() {
 		return Main.getProperties().facialHairContent;

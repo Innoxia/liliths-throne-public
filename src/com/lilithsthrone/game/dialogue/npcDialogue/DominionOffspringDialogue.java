@@ -315,7 +315,7 @@ public class DominionOffspringDialogue {
 							if(playerPregnant) {
 								if(reactedToPlayerPregnancy) {
 									UtilText.nodeContentSB.append("As you continue to approach your [npc.daughter], [npc.she] lets out a happy gasp as [npc.her] [npc.eyes] move down to rest on your pregnant belly,"
-																	+ " [npc.speech(You're still pregnant, I see. I wonder if I'll end up meeting any of my new bothers and sisters?)]");
+																	+ " [npc.speech(You're still pregnant, I see. I wonder if I'll end up meeting any of my new brothers and sisters?)]");
 								} else {
 									UtilText.nodeContentSB.append("As you continue to approach your [npc.daughter], [npc.she] lets out a surprised gasp as [npc.her] [npc.eyes] move down to rest on your pregnant belly,"
 																	+ " [npc.speech(You're pregnant?! Oh, [npc.pcName], I'm so happy for you! I'm going to have some new brothers and sisters!)]");

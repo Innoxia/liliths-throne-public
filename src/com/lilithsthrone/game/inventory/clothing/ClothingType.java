@@ -1290,11 +1290,11 @@ public class ClothingType {
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You can't help but let out a little moan as you fasten the enchanted collar around your neck.",
-					"A little moan drifts out from [npc.name]'s mouth as you fasten the enchanted collar around [npc.her] neck.",
+					"You can't help but let out a small, needy moan as you fasten the enchanted collar around your neck.",
+					"A small, needy moan drifts out from [npc.name]'s mouth as you fasten the enchanted collar around [npc.her] neck.",
 					null,
-					"[npc.Name] can't help but let out a little moan as [npc.she] fastens the collar around [npc.her] neck.",
-					"You can't help but let out a little moan as [npc.name] fastens the collar around your neck.",
+					"[npc.Name] can't help but let out a small, needy moan as [npc.she] fastens the collar around [npc.her] neck.",
+					"You can't help but let out a small, needy moan as [npc.name] fastens the collar around your neck.",
 					null);
 		}
 

@@ -172,7 +172,7 @@ public class ShoppingArcadeDialogue {
 				+ "</p>"
 				+ "<p>"
 					+ "Busy throngs of the arcade's patrons jostle to and fro, and you often find yourself having to push your way through idling crowds that inexplicably gather right in the middle of your path."
-					+ " Their chatter reverberates off the windows and walls on either side of you to fill the arcade with a loud, energetic atmosphere."
+					+ " Their chatter reverberates off the windows and walls on either side of you to create a loud, energetic atmosphere all the way through the arcade."
 				+ "</p>";
 		}
 		

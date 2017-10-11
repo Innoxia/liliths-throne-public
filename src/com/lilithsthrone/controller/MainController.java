@@ -2739,14 +2739,20 @@ public class MainController implements Initializable {
 		}
 		
 		// Furry preferences:
-		// Human encounter rates:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.FURRY_PREFERENCE) {
+
+			// Human encounter rates:
 			if (((EventTarget) document.getElementById("furry_preference_human_encounter_zero")) != null) {
 				((EventTarget) document.getElementById("furry_preference_human_encounter_zero")).addEventListener("click", e -> {
 					Main.getProperties().humanEncountersLevel=0;
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
+
+				addEventListener(document, "furry_preference_human_encounter_zero", "mousemove", moveTooltipListener, false);
+				addEventListener(document, "furry_preference_human_encounter_zero", "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Disabled", "Randomly generated NPCs will never be fully human, unless all of the other furry preference options are set to disabled.");
+				addEventListener(document, "furry_preference_human_encounter_zero", "mouseenter", el, false);
 			}
 			if (((EventTarget) document.getElementById("furry_preference_human_encounter_one")) != null) {
 				((EventTarget) document.getElementById("furry_preference_human_encounter_one")).addEventListener("click", e -> {
@@ -2754,6 +2760,12 @@ public class MainController implements Initializable {
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
+
+				addEventListener(document, "furry_preference_human_encounter_one", "mousemove", moveTooltipListener, false);
+				addEventListener(document, "furry_preference_human_encounter_one", "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("5%",
+						"There will be a 5% chance for any randomly generated NPC to be fully human. (It will be 100% if all of the other furry preference options are set to disabled)");
+				addEventListener(document, "furry_preference_human_encounter_one", "mouseenter", el, false);
 			}
 			if (((EventTarget) document.getElementById("furry_preference_human_encounter_two")) != null) {
 				((EventTarget) document.getElementById("furry_preference_human_encounter_two")).addEventListener("click", e -> {
@@ -2761,6 +2773,12 @@ public class MainController implements Initializable {
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
+
+				addEventListener(document, "furry_preference_human_encounter_two", "mousemove", moveTooltipListener, false);
+				addEventListener(document, "furry_preference_human_encounter_two", "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("25%",
+						"There will be a 25% chance for any randomly generated NPC to be fully human. (It will be 100% if all of the other furry preference options are set to disabled)");
+				addEventListener(document, "furry_preference_human_encounter_two", "mouseenter", el, false);
 			}
 			if (((EventTarget) document.getElementById("furry_preference_human_encounter_three")) != null) {
 				((EventTarget) document.getElementById("furry_preference_human_encounter_three")).addEventListener("click", e -> {
@@ -2768,6 +2786,12 @@ public class MainController implements Initializable {
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
+
+				addEventListener(document, "furry_preference_human_encounter_three", "mousemove", moveTooltipListener, false);
+				addEventListener(document, "furry_preference_human_encounter_three", "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("50%",
+						"There will be a 50% chance for any randomly generated NPC to be fully human. (It will be 100% if all of the other furry preference options are set to disabled)");
+				addEventListener(document, "furry_preference_human_encounter_three", "mouseenter", el, false);
 			}
 			if (((EventTarget) document.getElementById("furry_preference_human_encounter_four")) != null) {
 				((EventTarget) document.getElementById("furry_preference_human_encounter_four")).addEventListener("click", e -> {
@@ -2775,7 +2799,87 @@ public class MainController implements Initializable {
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
+
+				addEventListener(document, "furry_preference_human_encounter_four", "mousemove", moveTooltipListener, false);
+				addEventListener(document, "furry_preference_human_encounter_four", "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("75%",
+						"There will be a 75% chance for any randomly generated NPC to be fully human. (It will be 100% if all of the other furry preference options are set to disabled)");
+				addEventListener(document, "furry_preference_human_encounter_four", "mouseenter", el, false);
 			}
+			
+			
+			// Forced TF racial limits:
+			id = "forced_tf_limit_human";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().forcedTFPreference = FurryPreference.HUMAN;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Human Only",
+						"Forced transformations from NPCs will only ever affect your body's non-racial stats, and if a new part is required (such as a vagina or penis) it will always grow to be a human one.");
+				addEventListener(document, id, "mouseenter", el, false);
+			}
+			id = "forced_tf_limit_minimum";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().forcedTFPreference = FurryPreference.MINIMUM;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Minimum Furry",
+						"Forced transformations from NPCs will have the chance to give you non-human hair, ears, eyes, tails, horns, antenna, and wings. All other parts will always remain human.");
+				addEventListener(document, id, "mouseenter", el, false);
+			}
+			id = "forced_tf_limit_reduced";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().forcedTFPreference = FurryPreference.REDUCED;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Lesser Furry",
+						"Forced transformations from NPCs will have the chance to give you non-human hair, ears, eyes, tails, horns, antenna, wings, breasts, ass, genitalia, arms, and legs. Your skin and face will always remain human.");
+				addEventListener(document, id, "mouseenter", el, false);
+			}
+			id = "forced_tf_limit_normal";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().forcedTFPreference = FurryPreference.NORMAL;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Greater Furry",
+						"Forced transformations from NPCs will have the chance to give you non-human hair, ears, eyes, tails, horns, antenna, wings, breasts, ass, genitalia, arms, legs, skin, and face. (So everything can be affected.)");
+				addEventListener(document, id, "mouseenter", el, false);
+			}
+			id = "forced_tf_limit_maximum";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().forcedTFPreference = FurryPreference.MAXIMUM;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Always Greater Furry",
+						"Forced transformations from NPCs will always give you non-human hair, ears, eyes, tails, horns, antenna, wings, breasts, genitalia, ass, arms, legs, skin, and face. (So everything will be affected.)");
+				addEventListener(document, id, "mouseenter", el, false);
+			}
+			
 			
 			// Multi-breast options:
 			if (((EventTarget) document.getElementById("furry_preference_multi_breast_zero")) != null) {
@@ -2878,67 +2982,137 @@ public class MainController implements Initializable {
 			}
 			
 			for (Race r : Race.values()) {
-				if (((EventTarget) document.getElementById("furry_preference_female_human_"+r)) != null)
-					((EventTarget) document.getElementById("furry_preference_female_human_"+r)).addEventListener("click", e -> {
+				// Feminine:
+				id = "furry_preference_female_human_"+r;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.HUMAN);
 						Main.saveProperties();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
-				if (((EventTarget) document.getElementById("furry_preference_female_minimum_"+r)) != null)
-					((EventTarget) document.getElementById("furry_preference_female_minimum_"+r)).addEventListener("click", e -> {
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.HUMAN.getName(), FurryPreference.HUMAN.getDescriptionFeminine(r));
+					addEventListener(document, id, "mouseenter", el, false);
+				}
+				id = "furry_preference_female_minimum_"+r;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.MINIMUM);
 						Main.saveProperties();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
-				if (((EventTarget) document.getElementById("furry_preference_female_reduced_"+r)) != null)
-					((EventTarget) document.getElementById("furry_preference_female_reduced_"+r)).addEventListener("click", e -> {
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.MINIMUM.getName(), FurryPreference.MINIMUM.getDescriptionFeminine(r));
+					addEventListener(document, id, "mouseenter", el, false);
+				}
+				id = "furry_preference_female_reduced_"+r;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.REDUCED);
 						Main.saveProperties();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
-				if (((EventTarget) document.getElementById("furry_preference_female_normal_"+r)) != null)
-					((EventTarget) document.getElementById("furry_preference_female_normal_"+r)).addEventListener("click", e -> {
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.REDUCED.getName(), FurryPreference.REDUCED.getDescriptionFeminine(r));
+					addEventListener(document, id, "mouseenter", el, false);
+				}
+				id = "furry_preference_female_normal_"+r;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.NORMAL);
 						Main.saveProperties();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
-				if (((EventTarget) document.getElementById("furry_preference_female_maximum_"+r)) != null)
-					((EventTarget) document.getElementById("furry_preference_female_maximum_"+r)).addEventListener("click", e -> {
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.NORMAL.getName(), FurryPreference.NORMAL.getDescriptionFeminine(r));
+					addEventListener(document, id, "mouseenter", el, false);
+				}
+				id = "furry_preference_female_maximum_"+r;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.MAXIMUM);
 						Main.saveProperties();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.MAXIMUM.getName(), FurryPreference.MAXIMUM.getDescriptionFeminine(r));
+					addEventListener(document, id, "mouseenter", el, false);
+				}
 				
-				if (((EventTarget) document.getElementById("furry_preference_male_human_"+r)) != null)
-					((EventTarget) document.getElementById("furry_preference_male_human_"+r)).addEventListener("click", e -> {
+				// Masculine:
+				id = "furry_preference_male_human_"+r;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.HUMAN);
 						Main.saveProperties();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
-				if (((EventTarget) document.getElementById("furry_preference_male_minimum_"+r)) != null)
-					((EventTarget) document.getElementById("furry_preference_male_minimum_"+r)).addEventListener("click", e -> {
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.HUMAN.getName(), FurryPreference.HUMAN.getDescriptionMasculine(r));
+					addEventListener(document, id, "mouseenter", el, false);
+				}
+				id = "furry_preference_male_minimum_"+r;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.MINIMUM);
 						Main.saveProperties();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
-				if (((EventTarget) document.getElementById("furry_preference_male_reduced_"+r)) != null)
-					((EventTarget) document.getElementById("furry_preference_male_reduced_"+r)).addEventListener("click", e -> {
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.MINIMUM.getName(), FurryPreference.MINIMUM.getDescriptionMasculine(r));
+					addEventListener(document, id, "mouseenter", el, false);
+				}
+				id = "furry_preference_male_reduced_"+r;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.REDUCED);
 						Main.saveProperties();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
-				if (((EventTarget) document.getElementById("furry_preference_male_normal_"+r)) != null)
-					((EventTarget) document.getElementById("furry_preference_male_normal_"+r)).addEventListener("click", e -> {
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.REDUCED.getName(), FurryPreference.REDUCED.getDescriptionMasculine(r));
+					addEventListener(document, id, "mouseenter", el, false);
+				}
+				id = "furry_preference_male_normal_"+r;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.NORMAL);
 						Main.saveProperties();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
-				if (((EventTarget) document.getElementById("furry_preference_male_maximum_"+r)) != null)
-					((EventTarget) document.getElementById("furry_preference_male_maximum_"+r)).addEventListener("click", e -> {
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.NORMAL.getName(), FurryPreference.NORMAL.getDescriptionMasculine(r));
+					addEventListener(document, id, "mouseenter", el, false);
+				}
+				id = "furry_preference_male_maximum_"+r;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.MAXIMUM);
 						Main.saveProperties();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.MAXIMUM.getName(), FurryPreference.MAXIMUM.getDescriptionMasculine(r));
+					addEventListener(document, id, "mouseenter", el, false);
+				}
 			}
 		}
 		
@@ -2979,22 +3153,22 @@ public class MainController implements Initializable {
 				}, false);
 			}
 			
-			id = "FORCED_TF_ON";
-			if (((EventTarget) document.getElementById(id)) != null) {
-				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedTransformationContent = !Main.getProperties().forcedTransformationContent;
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "FORCED_TF_OFF";
-			if (((EventTarget) document.getElementById(id)) != null) {
-				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().forcedTransformationContent = !Main.getProperties().forcedTransformationContent;
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
+//			id = "FORCED_TF_ON";
+//			if (((EventTarget) document.getElementById(id)) != null) {
+//				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+//					Main.getProperties().forcedTransformationContent = !Main.getProperties().forcedTransformationContent;
+//					Main.saveProperties();
+//					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//				}, false);
+//			}
+//			id = "FORCED_TF_OFF";
+//			if (((EventTarget) document.getElementById(id)) != null) {
+//				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+//					Main.getProperties().forcedTransformationContent = !Main.getProperties().forcedTransformationContent;
+//					Main.saveProperties();
+//					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//				}, false);
+//			}
 			
 			id = "HAIR_FACIAL_ON";
 			if (((EventTarget) document.getElementById(id)) != null) {

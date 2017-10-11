@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.attributes.FitnessLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.attributes.StrengthLevel;
+import com.lilithsthrone.game.character.body.Antenna;
 import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.Ass;
 import com.lilithsthrone.game.character.body.Body;
@@ -34,6 +35,7 @@ import com.lilithsthrone.game.character.body.Skin;
 import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.Wing;
+import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.BreastType;
@@ -470,6 +472,8 @@ public abstract class NPC extends GameCharacter {
 		 * Throat modifiers
 		 */
 		
+		int numberOfTransformations = Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)?2 + Util.random.nextInt(7):1 + Util.random.nextInt(4);
+		List<ItemEffect> effects = new ArrayList<>();
 		
 		AbstractItemType itemType = ItemType.RACE_INGREDIENT_HUMAN;
 		String reaction = "Time to transform you!", raceName = "human";
@@ -525,16 +529,23 @@ public abstract class NPC extends GameCharacter {
 		// Order of transformation preferences are: Sexual organs -> minor parts -> Legs & arms -> Face & skin 
 
 		// Sexual transformations:
+		boolean removingVagina = false;
+		boolean addingVagina = false;
+		boolean removingPenis = false;
+		boolean addingPenis = false;
 		if(!Main.game.getPlayer().isHasAnyPregnancyEffects()) { // Vagina cannot be transformed if pregnant, so skip this
 			if(Main.game.getPlayer().getVaginaType() != getPreferredBody().getVagina().getType()) {
 				if(getPreferredBody().getVagina().getType() == VaginaType.NONE) {
 					if(Main.game.getPlayer().getVaginaRawCapacityValue() > 1) {
 						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_CAPACITY, TFPotency.DRAIN, 1), "Let's get to work on getting rid of that little cunt of yours!");
+						removingVagina = true;
 					} else {
 						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that tight little cunt of yours!");
+						removingVagina = true;
 					}
 				} else {
 					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
+					addingVagina = true;
 				}
 			}
 		}
@@ -542,13 +553,45 @@ public abstract class NPC extends GameCharacter {
 			if(getPreferredBody().getPenis().getType() == PenisType.NONE) {
 				if(Main.game.getPlayer().getPenisRawSizeValue() > 1) {
 					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1), "Let's get to work on getting rid of that cock of yours!");
+					removingPenis = true;
 				} else {
 					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that pathetic little cock of yours!");
+					removingPenis = true;
 				}
 			} else {
 				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getPenis().getName(Main.game.getPlayer(), false)+"!");
+				addingPenis = true;
 			}
 		}
+		if(!possibleEffects.isEmpty()) {
+			String s = "";
+			if(possibleEffects.size()>1) {
+				if(removingVagina) {
+					s+="Let's get to work on getting rid of that cunt of yours,";
+					if(removingPenis) {
+						s+=" and I thinking it's also time to say goodbye to your pathetic cock as well!";
+					} else if(addingPenis) {
+						s+=" and give you a nice cock instead!";
+					}
+				} else if(addingVagina) {
+					s+="Let's give you a "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+",";
+					if(removingPenis) {
+						s+=" and I think I'll get rid of your pathetic cock at the same time!";
+					} else if(addingPenis) {
+						s+=" and a nice cock as well!";
+					}
+				}
+			}
+			
+			for(Entry<ItemEffect, String> entry : possibleEffects.entrySet()) {
+				if(possibleEffects.size()==1){
+					s = entry.getValue();
+				}
+				effects.add(entry.getKey());
+			}
+			return new Value<>(s, EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), effects));
+		}
+		
 		// All minor part transformations:
 		if(possibleEffects.isEmpty() || Math.random()>0.33f) {
 			if(Main.game.getPlayer().getAntennaType() != getPreferredBody().getAntenna().getType()) {
@@ -601,11 +644,18 @@ public abstract class NPC extends GameCharacter {
 		// 50% chance of type TF:
 		if(Math.random()<0.5f && !possibleEffects.isEmpty()) {
 			List<ItemEffect> keysAsArray = new ArrayList<>(possibleEffects.keySet());
-			ItemEffect effect = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
+			
+			for (int i = 0 ; i < numberOfTransformations ; i++) {
+				if(!keysAsArray.isEmpty()) {
+					ItemEffect e = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
+					effects.add(e);
+					keysAsArray.remove(e);
+				}
+			}
 			
 			return new Value<>(
-					possibleEffects.get(effect),
-					EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), Util.newArrayListOfValues(new ListValue<>(effect))));
+					reaction,
+					EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), effects));
 		}
 		
 		
@@ -700,9 +750,17 @@ public abstract class NPC extends GameCharacter {
 		List<ItemEffect> keysAsArray = new ArrayList<>(possibleEffects.keySet());
 		ItemEffect effect = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
 		
+		for (int i = 0 ; i < numberOfTransformations ; i++) {
+			if(!keysAsArray.isEmpty()) {
+				ItemEffect e = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
+				effects.add(e);
+				keysAsArray.remove(e);
+			}
+		}
+		
 		return new Value<>(
 				possibleEffects.get(effect),
-				EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), Util.newArrayListOfValues(new ListValue<>(effect))));
+				EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), effects));
 	}
 	
 	private Body generatePreferredBody() {
@@ -888,6 +946,7 @@ public abstract class NPC extends GameCharacter {
 						.horn(startingBodyType.getHornTypeFemale() == HornType.NONE ? new Horn(HornType.NONE) : new Horn(!preferredGender.isFeminine()
 								? (stage.isHornFurry()?startingBodyType.getHornTypeMale():HornType.NONE)
 								: (stage.isHornFurry()?startingBodyType.getHornTypeFemale():HornType.NONE)))
+						.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE))
 						.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
 						.wing(new Wing(stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE))
 						.build();

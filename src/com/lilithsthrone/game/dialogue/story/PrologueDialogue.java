@@ -367,19 +367,35 @@ public class PrologueDialogue {
 				return new Response("Struggle", "Try to struggle out of their grip.", INTRO_NEW_WORLD_1_STRUGGLE);
 				
 			} else if (index == 2) {
-				return new Response("Furries?!",
+				return new Response("Furries?! Yes!",
+						"Furries are real?! You <b>love</b> furries!</br>"
+						+ "<b>This will set all of your starting furry preferences to </b><b style='color:"+ RaceStage.GREATER.getColour().toWebHexString()+ ";'>"+FurryPreference.MAXIMUM.getName()+"</b><b>."
+						+ " This can be changed at any time from the options menu.</b>", 
+						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES){
+					@Override
+					public void effects(){
+						for(Race r : Race.values()) {
+							if(r.isAffectedByFurryPreference()) {
+								Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.MAXIMUM);
+								Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.MAXIMUM);
+							}
+						}
+						Main.saveProperties();
+					}
+				};
+				
+			} else if (index == 3) {
+				return new Response("Furries?! No!",
 						"Why are furries real?! You <b>hate</b> furries! Channel your rage and try to break free.</br>"
-						+ "<b>This will set your starting furry preference to </b><b style='color:"
-						+ RaceStage.PARTIAL.getColour().toWebHexString()
-						+ ";'>Minimum</b><b>."
+						+ "<b>This will set all of your starting furry preferences to </b><b style='color:"+ RaceStage.HUMAN.getColour().toWebHexString()+ ";'>"+FurryPreference.HUMAN.getName()+"</b><b>."
 						+ " This can be changed at any time from the options menu.</b>", 
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES){
 					@Override
 					public void effects(){
 						for(Race r : Race.values()) {
 							if(r.isAffectedByFurryPreference()) {
-								Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.MINIMUM);
-								Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.MINIMUM);
+								Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.HUMAN);
+								Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.HUMAN);
 							}
 						}
 						Main.saveProperties();
@@ -451,6 +467,7 @@ public class PrologueDialogue {
 			}
 		}
 	};
+	
 	public static final DialogueNodeOld INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES = new DialogueNodeOld("", "", true, true) {
 		private static final long serialVersionUID = 1L;
 
@@ -537,7 +554,74 @@ public class PrologueDialogue {
 			}
 		}
 	};
+	
+	public static final DialogueNodeOld INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES = new DialogueNodeOld("", "", true, true) {
+		private static final long serialVersionUID = 1L;
 
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ UtilText.parsePlayerThought("Furries are real?! This is amazing!")
+					+ "</p>"
+
+					+ "<p>"
+					+ "Despite your excitement upon discovering that furries are somehow real, you're still not entirely comfortable with what's going on."
+					+ " As you come to your senses, you start to struggle again, kicking and thrashing wildly as you try to free yourself."
+					+ " The cat-girl simply laughs, and in one swift movement she pounces forwards, slamming you to the floor as she straddles your chest.</p>"
+
+					+ "<p>She leans down, her cat-like pupils dilating as she pushes your head to the ground and delivers a long, slow lick up your cheek, "
+					+ (Main.game.getPlayer().getVaginaType() != VaginaType.NONE
+							? UtilText.parseNPCSpeech("Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little pussy.", Femininity.FEMININE_STRONG)
+							: UtilText.parseNPCSpeech("Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little ass.", Femininity.FEMININE_STRONG))
+					+ "</p>"
+
+					+ "<p>"
+					+ "The cat-girl sits back up, still holding her paw-like hands over your mouth, and points up to the sky."
+					+ " The two horse-boys have completely immobilised you, and being unable to do anything about your current situation, you look up to see what the cat-girl is pointing at."
+					+ "</p>"
+
+					+ "<p>"
+					+ "High above you, a roiling mass of dark black storm clouds are blotting out the evening sky."
+					+ " There's a strange pink tint around the edge of each one, and as the cat-girl stares down at you, you see a flash of the same pink tint glowing deep within her cat-like pupils."
+					+ " She seems content to simply hold you still, waiting for the storm to break, and seeing no way to gain your freedom, you take a moment to glance around and take in your surroundings.</p>"
+
+					+ "<p>"
+					+ "You're lying in the middle of a deserted street, and a series of old-fashioned street lamps are illuminating the area around you in a soft amber glow."
+					+ " You notice that the entire road is paved with clean, whitish-blue paving stones, and with the numerous wooden benches and small, leafy trees that are dotted about the place, you realise that this street is entirely pedestrianised."
+					+ " There's no sign of any cars or passersby that could come to your aid, and the imposing, neo-classical frontages of the surrounding buildings offer no hope of any help, as all their windows and curtains are tightly shut."
+					+ "</p>"
+
+					+ "<p>"
+					+ UtilText.parsePlayerThought("How am I going to get out of this...")
+					+ "</p>"
+
+					+ "<p>"
+					+ "Just as you're on the edge of losing all hope, an oddly-familiar voice suddenly rings out from somewhere behind you."
+					+ "</p>"
+
+					+ "<p>"
+					+ UtilText.parseSpeech("Do you <i>really</i> have to play your silly little games right here in the middle of the street?"
+							+ " You know, some people don't really care for that sort of thing, and by the looks of it, your little friend under there may just be one of them.", Main.game.getLilaya())
+					+ "</p>";
+		}
+
+
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Continue", "Someone's come to save you!", INTRO_NEW_WORLD_2){
+					@Override
+					public void effects() {
+						Main.game.getLilaya().setLocation(WorldType.DOMINION, Dominion.CITY_AUNTS_HOME);
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
 	public static final DialogueNodeOld INTRO_NEW_WORLD_2 = new DialogueNodeOld("", "", true, true) {
 		private static final long serialVersionUID = 1L;
 

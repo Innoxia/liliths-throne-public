@@ -24,6 +24,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.Antenna;
 import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.Ass;
 import com.lilithsthrone.game.character.body.Body;
@@ -2057,6 +2058,7 @@ public class CharacterUtils {
 						.horn(startingBodyType.getHornTypeFemale() == HornType.NONE ? new Horn(HornType.NONE) : new Horn(!startingGender.isFeminine()
 								? (stage.isHornFurry()?startingBodyType.getHornTypeMale():HornType.NONE)
 								: (stage.isHornFurry()?startingBodyType.getHornTypeFemale():HornType.NONE)))
+						.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE))
 						.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
 						.wing(new Wing(stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE))
 						.build();
@@ -2226,10 +2228,6 @@ public class CharacterUtils {
 				if(Main.getProperties().incestContent)
 					availableFetishes.add(f);
 				
-			} else if (f==Fetish.FETISH_TRANSFORMATION) {
-				if(Main.getProperties().forcedTransformationContent)
-					availableFetishes.add(f);
-				
 			} else if (f.getFetishesForAutomaticUnlock().isEmpty()){
 				availableFetishes.add(f);
 			}
@@ -2240,13 +2238,21 @@ public class CharacterUtils {
 		
 		int fetishesAssigned = 0;
 		
-		if(Main.getProperties().incestContent && ((character.getMother()!=null && character.getMother().isPlayer()) || (character.getFather()!=null && character.getFather().isPlayer()))) {
-			if(Math.random()>0.5f) {
+		if(((character.getMother()!=null && character.getMother().isPlayer()) || (character.getFather()!=null && character.getFather().isPlayer()))) {
+			if(Main.getProperties().incestContent && Math.random()>0.5f) {
 				character.addFetish(Fetish.FETISH_INCEST);
 				availableFetishes.remove(Fetish.FETISH_INCEST);
 				fetishesAssigned++;
 			}
+		} else { // If not offspring, give them a higher chance for TF fetish:
+			if(Math.random()>0.35f) {
+				character.addFetish(Fetish.FETISH_TRANSFORMATION_GIVING);
+				availableFetishes.remove(Fetish.FETISH_TRANSFORMATION_GIVING);
+				fetishesAssigned++;
+			}
 		}
+		
+		
 		
 		while(fetishesAssigned < numberOfFetishes) {
 			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));

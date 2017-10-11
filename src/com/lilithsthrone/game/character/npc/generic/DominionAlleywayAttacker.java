@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -62,24 +63,41 @@ public class DominionAlleywayAttacker extends NPC {
 			humanChance = 0.05f;
 			
 		} else if(Main.getProperties().humanEncountersLevel==2) {
-			humanChance = 0.1f;
+			humanChance = 0.25f;
 			
 		} else if(Main.getProperties().humanEncountersLevel==3) {
-			humanChance = 0.2f;
+			humanChance = 0.5f;
 			
 		} else if(Main.getProperties().humanEncountersLevel==4) {
-			humanChance = 0.5f;
+			humanChance = 0.75f;
 		}
 		
-		if(Math.random()>humanChance) {
-			Map<Race, Integer> availableRaces = Util.newHashMapOfValues(
-					new Value<>(Race.DOG_MORPH, 20),
-					new Value<>(Race.CAT_MORPH, 20),
-					new Value<>(Race.HORSE_MORPH, 20),
-					new Value<>(Race.WOLF_MORPH, 20),
-					new Value<>(Race.SQUIRREL_MORPH, 10),
-					new Value<>(Race.COW_MORPH, 10));
+		Map<Race, Integer> availableRaces = Util.newHashMapOfValues(
+				new Value<>(Race.DOG_MORPH, 20),
+				new Value<>(Race.CAT_MORPH, 20),
+				new Value<>(Race.HORSE_MORPH, 20),
+				new Value<>(Race.WOLF_MORPH, 20),
+				new Value<>(Race.SQUIRREL_MORPH, 10),
+				new Value<>(Race.COW_MORPH, 10));
+		
+		if(gender.isFeminine()) {
+			for(Entry<Race, FurryPreference> entry : Main.getProperties().raceFemininePreferencesMap.entrySet()) {
+				if(entry.getValue() == FurryPreference.HUMAN) {
+					availableRaces.remove(entry.getKey());
+				}
+			}
+		} else {
+			for(Entry<Race, FurryPreference> entry : Main.getProperties().raceMasculinePreferencesMap.entrySet()) {
+				if(entry.getValue() == FurryPreference.HUMAN) {
+					availableRaces.remove(entry.getKey());
+				}
+			}
+		}
+		
+		if(availableRaces.isEmpty() || Math.random()<humanChance) {
+			setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
 			
+		} else {
 			int total = 0;
 			for(int i : availableRaces.values()) {
 				total+=i;
@@ -102,13 +120,13 @@ public class DominionAlleywayAttacker extends NPC {
 						setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
 						break;
 					case MINIMUM:
-						setBodyFromPreferences(2, gender, race);
+						setBodyFromPreferences(1, gender, race);
 						break;
 					case REDUCED:
-						setBodyFromPreferences(3, gender, race);
+						setBodyFromPreferences(2, gender, race);
 						break;
 					case NORMAL:
-						setBodyFromPreferences(4, gender, race);
+						setBodyFromPreferences(3, gender, race);
 						break;
 					case MAXIMUM:
 						setBody(gender, RacialBody.valueOfRace(race), RaceStage.GREATER);
@@ -120,24 +138,21 @@ public class DominionAlleywayAttacker extends NPC {
 						setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
 						break;
 					case MINIMUM:
-						setBodyFromPreferences(2, gender, race);
+						setBodyFromPreferences(1, gender, race);
 						break;
 					case REDUCED:
-						setBodyFromPreferences(3, gender, race);
+						setBodyFromPreferences(2, gender, race);
 						break;
 					case NORMAL:
-						setBodyFromPreferences(4, gender, race);
+						setBodyFromPreferences(3, gender, race);
 						break;
 					case MAXIMUM:
 						setBody(gender, RacialBody.valueOfRace(race), RaceStage.GREATER);
 						break;
 				}
 			}
-			
-		} else {
-			setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
 		}
-		
+			
 		setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(gender));
 
 		setName(Name.getRandomTriplet(race));
@@ -175,8 +190,6 @@ public class DominionAlleywayAttacker extends NPC {
 		if (choice == 1) {
 			raceStage = RaceStage.PARTIAL;
 		} else if (choice == 2) {
-			raceStage = RaceStage.PARTIAL_FULL;
-		} else if (choice == 3) {
 			raceStage = RaceStage.LESSER;
 		} else {
 			raceStage = RaceStage.GREATER;

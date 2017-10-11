@@ -1827,7 +1827,13 @@ public class Body implements Serializable {
 				}
 				int currentParts = 0;
 				int nonHumanParts = 0;
-
+				
+				if (antenna.getType() == RacialBody.valueOfRace(r).getAntennaType()) {
+					currentParts++;
+					if (antenna.getType() != RacialBody.valueOfRace(Race.HUMAN).getAntennaType())
+						nonHumanParts++;
+				}
+				
 				if (ass.getType() == RacialBody.valueOfRace(r).getAssType()) {
 					currentParts++;
 					if (ass.getType() != RacialBody.valueOfRace(Race.HUMAN).getAssType())
@@ -1888,7 +1894,7 @@ public class Body implements Serializable {
 
 				if (nonHumanParts > leaderNonHumanParts) {
 					this.race = r;
-					if (currentParts == 8) {
+					if (currentParts == 9) {
 						raceStage = RaceStage.PARTIAL_FULL;
 					} else {
 						raceStage = RaceStage.PARTIAL;

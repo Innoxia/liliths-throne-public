@@ -46,6 +46,9 @@ public enum SVGImages {
 			
 			NPCWarningMale, NPCWarningFemale, NPCWarningDemon,
 			
+			scaleZero, scaleOne, scaleTwo, scaleThree, scaleFour,
+			scaleZeroDisabled, scaleOneDisabled, scaleTwoDisabled, scaleThreeDisabled, scaleFourDisabled,
+			
 			// Sex:
 			coverableAreaMouth, coverableAreaAnus, coverableAreaNipple, coverableAreaVagina,
 			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue,
@@ -234,6 +237,42 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseNPC.svg");
 			NPCWarningDemon = Util.inputStreamToString(is);
 			NPCWarningDemon = setColour(NPCWarningDemon, Colour.GENERIC_ARCANE);
+			
+			
+			// scales:
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/scale_zero.svg");
+			scaleZero = Util.inputStreamToString(is);
+			scaleZero = setColour(scaleZero, Colour.BASE_MAGENTA);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/scale_one.svg");
+			scaleOne = Util.inputStreamToString(is);
+			scaleOne = setColour(scaleOne, Colour.BASE_GREEN);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/scale_two.svg");
+			scaleTwo = Util.inputStreamToString(is);
+			scaleTwo = setColour(scaleTwo, Colour.BASE_GREEN);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/scale_three.svg");
+			scaleThree = Util.inputStreamToString(is);
+			scaleThree = setColour(scaleThree, Colour.BASE_GREEN);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/scale_four.svg");
+			scaleFour = Util.inputStreamToString(is);
+			scaleFour = setColour(scaleFour, Colour.BASE_GREEN);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/scale_zero.svg");
+			scaleZeroDisabled = Util.inputStreamToString(is);
+			scaleZeroDisabled = setColour(scaleZeroDisabled, Colour.BASE_GREY);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/scale_one.svg");
+			scaleOneDisabled = Util.inputStreamToString(is);
+			scaleOneDisabled = setColour(scaleOneDisabled, Colour.BASE_GREY);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/scale_two.svg");
+			scaleTwoDisabled = Util.inputStreamToString(is);
+			scaleTwoDisabled = setColour(scaleTwoDisabled, Colour.BASE_GREY);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/scale_three.svg");
+			scaleThreeDisabled = Util.inputStreamToString(is);
+			scaleThreeDisabled = setColour(scaleThreeDisabled, Colour.BASE_GREY);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/scale_four.svg");
+			scaleFourDisabled = Util.inputStreamToString(is);
+			scaleFourDisabled = setColour(scaleFourDisabled, Colour.BASE_GREY);
+			
 			
 			
 			// Sex:
@@ -596,6 +635,46 @@ public enum SVGImages {
 
 	public Map<Colour, String> getRefinedSwirlsMap() {
 		return refinedSwirlsMap;
+	}
+
+	public String getScaleZero() {
+		return scaleZero;
+	}
+
+	public String getScaleOne() {
+		return scaleOne;
+	}
+
+	public String getScaleTwo() {
+		return scaleTwo;
+	}
+
+	public String getScaleThree() {
+		return scaleThree;
+	}
+
+	public String getScaleFour() {
+		return scaleFour;
+	}
+
+	public String getScaleZeroDisabled() {
+		return scaleZeroDisabled;
+	}
+
+	public String getScaleOneDisabled() {
+		return scaleOneDisabled;
+	}
+
+	public String getScaleTwoDisabled() {
+		return scaleTwoDisabled;
+	}
+
+	public String getScaleThreeDisabled() {
+		return scaleThreeDisabled;
+	}
+
+	public String getScaleFourDisabled() {
+		return scaleFourDisabled;
 	}
 
 }

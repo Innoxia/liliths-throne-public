@@ -447,7 +447,7 @@ public class SlaverAlleyDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "[finch.Name] grins up at you, and you can't help but notice the slightly threatening look in his [finch.eyeColour] cat-like eyes."
-						+ " You thank him for the information and step away from the desk, determined to go and ask for a letter of recommendation from the one person you know can help you out; Lilaya."
+						+ " You thank him for the information and step away from the desk, determined to go and ask for a letter of recommendation from Lilaya, the one person you know that can help you out."
 					+ "</p>";
 		}
 
@@ -536,7 +536,7 @@ public class SlaverAlleyDialogue {
 						+ "[pc.speech(Alright,)] you reply, nodding for Finch to continue."
 					+ "</p>"
 					+ "<p>"
-						+ "[finch.speech(Now, you won't need to worry about this if you're only planning on buys and selling slaves, but if you're hoping to enslave people, then there are some *strict* limitations."
+						+ "[finch.speech(Now, you won't need to worry about this if you're only planning on buying and selling slaves, but if you're hoping to enslave people, then there are some *strict* limitations."
 							+ " You can only enslave two sorts of people; those that are willing, and those that have broken the law."
 							+ " Slave collars have a special enchantment in them that detects if the wearer falls into either one of those categories, so don't try and run around making just anyone into your slave!)]" 
 					+ "</p>"
