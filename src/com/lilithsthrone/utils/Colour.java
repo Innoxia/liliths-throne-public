@@ -93,6 +93,7 @@ public enum Colour {
 	RACE_HARPY(BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues(new ListValue<>("harpy"))),
 	RACE_SLIME(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("slime"))),
 	RACE_SQUIRREL_MORPH(BaseColour.GINGER, "ginger", Util.newArrayListOfValues(new ListValue<>("squirrelMorph"), new ListValue<>("squirrel"))),
+	RACE_GATOR_MORPH(BaseColour.GREEN, "green", Util.newArrayListOfValues(new ListValue<>("gatorMorph"), new ListValue<>("gator"))),
 	
 	QUEST_MAIN(BaseColour.PINK, "pink"),
 	QUEST_SIDE(BaseColour.BLUE, "blue"),
@@ -463,7 +464,23 @@ public enum Colour {
 			new ListValue<Colour>(Colour.COVERING_PINK),
 			new ListValue<Colour>(Colour.COVERING_PURPLE),
 			new ListValue<Colour>(Colour.COVERING_RED));
-	
+
+	public static List<Colour> naturalScaleColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.COVERING_WHITE),
+			new ListValue<Colour>(Colour.COVERING_BROWN),
+			new ListValue<Colour>(Colour.COVERING_BROWN_DARK),
+			new ListValue<Colour>(Colour.COVERING_BLACK));
+
+	public static List<Colour> dyeScaleColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.COVERING_BLEACH_BLONDE),
+			new ListValue<Colour>(Colour.COVERING_BLONDE),
+			new ListValue<Colour>(Colour.COVERING_BLUE),
+			new ListValue<Colour>(Colour.COVERING_GINGER),
+			new ListValue<Colour>(Colour.COVERING_GREEN),
+			new ListValue<Colour>(Colour.COVERING_PINK),
+			new ListValue<Colour>(Colour.COVERING_PURPLE),
+			new ListValue<Colour>(Colour.COVERING_RED));
+
 	// Orifices:
 	
 	public static List<Colour> orificeInteriors = Util.newArrayListOfValues(

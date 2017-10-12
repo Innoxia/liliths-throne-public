@@ -215,6 +215,21 @@ public class Face implements BodyPartInterface, Serializable {
 							+ "</p>"));
 				}
 				break;
+			case GATOR_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" You feel your nose and mouth twitching and transforming as they push out into an anthropomorphic reptile muzzle, and your tongue narrows and thins, turning into a gator-like tongue."
+								+ " A layer of [pc.faceSkin+] quickly grows to cover your new face, and as the transformation finally comes to an end, you're left panting as you try to recover and catch your breath.</br>"
+								+ "You now have an anthropomorphic [style.boldGatorMorph(gator-like face)], covered in [pc.faceFullDescription], and within your mouth, you have a [style.boldGatorMorph(thin, gator-like tongue)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(UtilText.parse(owner,
+								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic reptile muzzle, and [npc.her] tongue narrows and thins, turning into a gator-like tongue."
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.</br>"
+								+ "[npc.Name] now has an anthropomorphic [style.boldGatorMorph(gator-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldGatorMorph(thin, gator-like tongue)]."
+							+ "</p>"));
+				}
+				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

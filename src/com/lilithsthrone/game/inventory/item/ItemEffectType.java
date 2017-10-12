@@ -153,6 +153,17 @@ public enum ItemEffectType {
 		}
 	},
 	
+	BOOK_READ_GATOR_MORPH(Util.newArrayListOfValues(
+			new ListValue<>("Adds gator-morph encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			Colour.RACE_GATOR_MORPH) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return getBookEffect(Race.GATOR_MORPH, ItemType.BOOK_GATOR_MORPH);
+		}
+	},
+	
 	BOOK_READ_HARPY(Util.newArrayListOfValues(
 			new ListValue<>("Adds harpy encyclopedia entry."),
 			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
@@ -425,6 +436,21 @@ public enum ItemEffectType {
 		}
 	},
 	
+	STR_SWAMP_WATER(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(health)]"),
+			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
+			Colour.ATTRIBUTE_STRENGTH) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
+
+			return "A powerful wave of arcane energy washes over you..."
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.STRENGTH, 1);
+		}
+	},
+	
 	// Intelligence:
 	
 	INT_FELINE_FANCY(Util.newArrayListOfValues(
@@ -646,6 +672,21 @@ public enum ItemEffectType {
 		}
 	},
 	
+	RACE_GATORS_GUMBO(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'"),
+			new ListValue<>("[style.boldGood(+2)] [style.boldFitness(fitness)] to 'potion effects'")),
+			Colour.RACE_GATOR_MORPH) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return "You start to feel a lot stronger..."
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.STRENGTH, 3)
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.FITNESS, 2);
+		}
+	},
+	
 	RACE_BUBBLE_CREAM(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'"),
 			new ListValue<>("[style.boldGood(+2)] [style.boldFitness(fitness)] to 'potion effects'")),
@@ -765,6 +806,17 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementEssenceCount(TFEssence.SQUIRREL_MORPH, 1);
 			return "You have absorbed [style.boldGood(+1)] [style.boldSquirrel(Squirrel-morph)] essence!";
+		}
+	},
+	
+ 	BOTTLED_ESSENCE_GATOR_MORPH(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(+1)] [style.boldGator(Gator-morph)] essence")),
+			Colour.RACE_GATOR_MORPH) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			target.incrementEssenceCount(TFEssence.GATOR_MORPH, 1);
+			return "You have absorbed [style.boldGood(+1)] [style.boldGator(Gator-morph)] essence!";
 		}
 	},
 	
@@ -1424,6 +1476,35 @@ public enum ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return getRacialEffect(Race.DOG_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
+		}
+	},
+	
+	RACE_GATOR_MORPH(null,
+			Colour.RACE_GATOR_MORPH) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return TFModifier.getTFRacialBodyPartsList();
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return getRacialSecondaryModifiers(primaryModifier);
+		}
+		
+		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return getRacialPotencyModifiers(primaryModifier, secondaryModifier);
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return Util.newArrayListOfValues(new ListValue<>(getRacialEffect(Race.GATOR_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription()));
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return getRacialEffect(Race.GATOR_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
 		}
 	},
 	

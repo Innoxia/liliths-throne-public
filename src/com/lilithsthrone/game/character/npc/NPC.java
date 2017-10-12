@@ -301,6 +301,8 @@ public abstract class NPC extends GameCharacter {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME)));
 				case SLIME:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
+				case GATOR_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_SWAMP_WATER)));
 				case SQUIRREL_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)));
 			}
@@ -328,6 +330,8 @@ public abstract class NPC extends GameCharacter {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_HARPY)));
 				case SLIME:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
+				case GATOR_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_GATOR_MORPH)));
 				case SQUIRREL_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_SQUIRREL_MORPH)));
 			}
@@ -354,6 +358,8 @@ public abstract class NPC extends GameCharacter {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY)));
 				case SLIME:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
+				case GATOR_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_GATOR_MORPH)));
 				case SQUIRREL_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)));
 			}
@@ -507,6 +513,10 @@ public abstract class NPC extends GameCharacter {
 				break;
 			case WOLF_MORPH:
 				itemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
+				reaction = "Time to turn you into a "+raceName+"!";
+				break;
+			case GATOR_MORPH:
+				itemType = ItemType.RACE_INGREDIENT_GATOR_MORPH;
 				reaction = "Time to turn you into a "+raceName+"!";
 				break;
 			case COW_MORPH:
@@ -6351,6 +6361,8 @@ public abstract class NPC extends GameCharacter {
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.asshole+].";
 							case LUPINE:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s wolf-like cock push into your [pc.asshole+].";
+							case REPTILE:
+								return "You let out [pc.a_moan+] as you feel [npc.name]'s reptile-like cock push into your [pc.asshole+].";
 							case SQUIRREL:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s squirrel-like cock push into your [pc.asshole+].";
 							case DEMON_COMMON:
@@ -6421,6 +6433,8 @@ public abstract class NPC extends GameCharacter {
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.pussy+].";
 							case LUPINE:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s wolf-like cock push into your [pc.pussy+].";
+							case REPTILE:
+								return "You let out [pc.a_moan+] as you feel [npc.name]'s reptile-like cock push into your [pc.pussy+].";
 							case SQUIRREL:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s squirrel-like cock push into your [pc.pussy+].";
 							case DEMON_COMMON:
@@ -6491,6 +6505,8 @@ public abstract class NPC extends GameCharacter {
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.nipple+].";
 							case LUPINE:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s wolf-like cock push into your [pc.nipple+].";
+							case REPTILE:
+								return "You let out [pc.a_moan+] as you feel [npc.name]'s reptile-like cock push into your [pc.nipple+].";
 							case SQUIRREL:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s squirrel-like cock push into your [pc.nipple+].";
 							case DEMON_COMMON:
@@ -6561,6 +6577,8 @@ public abstract class NPC extends GameCharacter {
 								return "You let out a muffled [pc.moan] as [npc.name]'s dog-like cock pushes its way into your mouth.";
 							case LUPINE:
 								return "You let out a muffled [pc.moan] as [npc.name]'s wolf-like cock pushes its way into your mouth.";
+							case REPTILE:
+								return "You let out a muffled [pc.moan] as [npc.name]'s reptile-like cock pushes its way into your mouth.";
 							case SQUIRREL:
 								return "You let out a muffled [pc.moan] as [npc.name]'s squirrel-like cock pushes its way into your mouth.";
 							case DEMON_COMMON:
@@ -6609,6 +6627,8 @@ public abstract class NPC extends GameCharacter {
 								return "[npc.Name] lets out a muffled [npc.moan] as your dog-like cock pushes its way into [npc.her] mouth.";
 							case LUPINE:
 								return "[npc.Name] lets out a muffled [npc.moan] as your wolf-like cock pushes its way into [npc.her] mouth.";
+							case REPTILE:
+								return "[npc.Name] lets out a muffled [npc.moan] as your reptile-like cock pushes its way into [npc.her] mouth.";
 							case SQUIRREL:
 								return "[npc.Name] lets out a muffled [npc.moan] as your squirrel-like cock pushes its way into [npc.her] mouth.";
 							case DEMON_COMMON:
