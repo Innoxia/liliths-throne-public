@@ -392,7 +392,7 @@ public class Lab {
 						+ " Instructing you to sit on the chair in the middle of the chalk square, she once more adjusts the floodlight-like pieces of arcane equipment at each corner."
 					+ "</p>"
 					+ "<p>"
-						+ "[pc.speech(Wait, I'm not going to lose my clothes or anything again, am I?)] you ask."
+						+ "[pc.speech(Wait, my clothes aren't going to be teleported all over the room or anything again, are they?)] you ask."
 					+ "</p>"
 					+ "<p>"
 						+ "[lilaya.speech(No, don't worry, I fixed that little problem!)] Lilaya responds, and before you get the chance to say anything else, arcane energy suddenly crackles into life around her arm,"

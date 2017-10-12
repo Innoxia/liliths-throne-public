@@ -51,14 +51,14 @@ public enum FurryPreference {
 	NORMAL("Greater") {
 		@Override
 		public String getDescriptionFeminine(Race r) {
-			return "Feminine "+r.getNamePlural()+" will spawn with all of the furry parts that the 'Lesser' setting enables (ears, eyes, tails, horns, antenna, wings, breasts, genitalia, arms, and legs)."
-					+ " They also have the chance to spawn with furry skin/fur and furry faces.";
+			return "Feminine "+r.getNamePlural()+" will spawn with all of the furry parts that the 'Minimum' setting enables (ears, eyes, tails, horns, antenna, and wings)."
+					+ " They also have the chance to spawn with furry breasts, genitalia, arms, legs, skin/fur, and faces.";
 		}
 
 		@Override
 		public String getDescriptionMasculine(Race r) {
-			return "Masculine "+r.getNamePlural()+" will spawn with all of the furry parts that the 'Lesser' setting enables (ears, eyes, tails, horns, antenna, wings, breasts, genitalia, arms, and legs)."
-					+ " They also have the chance to spawn with furry skin/fur and furry faces.";
+			return "Masculine "+r.getNamePlural()+" will spawn with all of the furry parts that the 'Minimum' setting enables (ears, eyes, tails, horns, antenna, and wings)."
+					+ " They also have the chance to spawn with furry breasts, genitalia, arms, legs, skin/fur, and faces.";
 		}
 	},
 	

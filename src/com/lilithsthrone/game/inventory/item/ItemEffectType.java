@@ -726,111 +726,128 @@ public enum ItemEffectType {
 	},
 	
 	BOTTLED_ESSENCE_CAT_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldCat(Cat-morph)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldCat(cat-morphs)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldCat(cat-morphs)]")),
 			Colour.RACE_CAT_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.CAT_MORPH, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldCat(Cat-morph)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_CAT_MORPH, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldCat(cat-morphs)]!";
 		}
 	},
 	
 	BOTTLED_ESSENCE_COW_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldCat(Cow-morph)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldCow(cow-morphs)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldCow(cow-morphs)]")),
 			Colour.RACE_COW_MORPH) {
 		
 		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return null;
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return null;
-		}
-		
-		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.COW_MORPH, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldCat(Cow-morph)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_COW_MORPH, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldCow(cow-morphs)]!";
 		}
 	},
 
  	BOTTLED_ESSENCE_SQUIRREL_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldSquirrel(Squirrel-morph)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldSquirrel(squirrel-morphs)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldSquirrel(squirrel-morphs)]")),
 			Colour.RACE_SQUIRREL_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.SQUIRREL_MORPH, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldSquirrel(Squirrel-morph)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_SQUIRREL_MORPH, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldSquirrel(squirrel-morphs)]!";
 		}
 	},
 	
 	BOTTLED_ESSENCE_DEMON(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldDemon(Demon)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldDemon(demons)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldDemon(demons)]")),
 			Colour.RACE_DEMON) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.DEMON, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldDemon(Demon)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_DEMON, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldDemon(demons)]!";
 		}
 	},
 	
 	BOTTLED_ESSENCE_DOG_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldDog(Dog-morph)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldDog(dog-morphs)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldDog(dog-morphs)]")),
 			Colour.RACE_DOG_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.DOG_MORPH, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldDog(Dog-morph)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_DOG_MORPH, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldDog(dog-morphs)]!";
 		}
 	},
 	
 	BOTTLED_ESSENCE_HARPY(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldHarpy(Harpy)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldHarpy(harpies)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldHarpy(harpies)]")),
 			Colour.RACE_HARPY) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.HARPY, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldHarpy(Harpy)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_HARPY, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldHarpy(harpies)]!";
 		}
 	},
 	
 	BOTTLED_ESSENCE_HORSE_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldHorse(Horse-morph)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldHorse(horse-morphs)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldHorse(horse-morphs)]")),
 			Colour.RACE_HORSE_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.HORSE_MORPH, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldHorse(Horse-morph)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_HORSE_MORPH, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldHorse(horse-morphs)]!";
 		}
 	},
 	
 	BOTTLED_ESSENCE_HUMAN(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldHuman(Human)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldHuman(humans)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldHuman(humans)]")),
 			Colour.RACE_HUMAN) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.HUMAN, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldHuman(Human)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_HUMAN, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldHuman(humans)]!";
 		}
 	},
 	
 	BOTTLED_ESSENCE_WOLF_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldWolf(Wolf-morph)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldWolf(wolf-morphs)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldWolf(wolf-morphs)]")),
 			Colour.RACE_WOLF_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.WOLF_MORPH, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldWolf(Wolf-morph)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_WOLF_MORPH, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldWolf(wolf-morphs)]!";
 		}
 	},
 	

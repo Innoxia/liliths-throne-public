@@ -5,6 +5,7 @@ import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -67,14 +68,9 @@ public class Ralph extends NPC {
 			ItemType.PROMISCUITY_PILL,
 			ItemType.MOTHERS_MILK };
 
-	private AbstractClothing underwear = AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false),
-			legs = AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false),
-			torso = AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false),
-			shoes = AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false);
-
 	public Ralph() {
 		super(new NameTriplet("Ralph"), "Ralph is the owner of the shop 'Ralph's Snacks'. There's an air of confidence in the way he holds himself, and he behaves in a professional manner at all times.",
-				10, Gender.M_P_MALE, RacialBody.HORSE_MORPH, RaceStage.LESSER,
+				10, Gender.M_P_MALE, RacialBody.HORSE_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, ShoppingArcade.RALPHS_SHOP_ITEMS, true);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -83,35 +79,15 @@ public class Ralph extends NPC {
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BLACK), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BLACK), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
-
-		this.equipClothingFromNowhere(underwear, true, this);
-		this.equipClothingFromNowhere(legs, true, this);
-		this.equipClothingFromNowhere(torso, true, this);
-		this.equipClothingFromNowhere(shoes, true, this);
+		this.setHairStyle(HairStyle.LOOSE);
 		
+		this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 		this.addFetish(Fetish.FETISH_IMPREGNATION);
 
-		// Items:
-		for(int i=5;i<15;i++) {
-			this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), false);
-		}
-		
-		for (AbstractItemType item : itemsForSale) {
-			for (int i = 0; i < (Util.random.nextInt(5) + 1); i++) {
-				this.addItem(AbstractItemType.generateItem(item), false);
-			}
-		}
-
-		for (int i = 0; i < (Util.random.nextInt(5) + 1); i++) {
-			this.addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, Colour.CLOTHING_WHITE, false), false);
-		}
-		
-		this.setMoney(10);
-
-		this.equipClothingFromNowhere(underwear, true, this);
-		this.equipClothingFromNowhere(legs, true, this);
-		this.equipClothingFromNowhere(torso, true, this);
-		this.equipClothingFromNowhere(shoes, true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_GOLD, false), true, this);
 		
 		dailyReset();
 	}

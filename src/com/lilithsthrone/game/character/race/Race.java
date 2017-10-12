@@ -2,16 +2,16 @@ package com.lilithsthrone.game.character.race;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.0
- * @version 0.1.79
+ * @version 0.1.87
  * @author Innoxia
  */
 public enum Race {
@@ -54,9 +54,8 @@ public enum Race {
 			0.5f,
 			1,
 			1,
-			
-			TFEssence.HUMAN,
-			
+			Attribute.DAMAGE_HUMAN,
+			Attribute.RESISTANCE_HUMAN,
 			null,
 			null),
 
@@ -94,8 +93,8 @@ public enum Race {
 			0.25f,
 			1,
 			1,
-			
-			TFEssence.HUMAN, // TODO ANGEL
+			Attribute.DAMAGE_ANGEL,
+			Attribute.RESISTANCE_ANGEL,
 			null,
 			null),
 
@@ -136,8 +135,8 @@ public enum Race {
 			0f,
 			4,
 			8,
-			
-			TFEssence.DEMON,
+			Attribute.DAMAGE_DEMON,
+			Attribute.RESISTANCE_DEMON,
 			null,
 			null){
 		
@@ -194,8 +193,8 @@ public enum Race {
 			0.5f,
 			1,
 			2,
-			
-			TFEssence.COW_MORPH,
+			Attribute.DAMAGE_COW_MORPH,
+			Attribute.RESISTANCE_COW_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL),
 
@@ -232,8 +231,8 @@ public enum Race {
 			0.5f,
 			2,
 			6,
-			
-			TFEssence.DOG_MORPH,
+			Attribute.DAMAGE_DOG_MORPH,
+			Attribute.RESISTANCE_DOG_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL),
 
@@ -273,8 +272,8 @@ public enum Race {
 			0.5f,
 			2,
 			6,
-			
-			TFEssence.WOLF_MORPH,
+			Attribute.DAMAGE_WOLF_MORPH,
+			Attribute.RESISTANCE_WOLF_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL),
 
@@ -316,8 +315,8 @@ public enum Race {
 			0.5f,
 			2,
 			6,
-			
-			TFEssence.CAT_MORPH,
+			Attribute.DAMAGE_CAT_MORPH,
+			Attribute.RESISTANCE_CAT_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL),
 
@@ -359,8 +358,8 @@ public enum Race {
 			0.5f,
 			1,
 			2,
-			
-			TFEssence.HORSE_MORPH,
+			Attribute.DAMAGE_HORSE_MORPH,
+			Attribute.RESISTANCE_HORSE_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL),
 
@@ -403,8 +402,8 @@ public enum Race {
 			0.25f,
 			1,
 			1,
-			
-			TFEssence.SQUIRREL_MORPH,
+			Attribute.DAMAGE_SQUIRREL_MORPH,
+			Attribute.RESISTANCE_SQUIRREL_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL),
 	
@@ -450,8 +449,8 @@ public enum Race {
 			0.5f,
 			2,
 			6,
-			
-			TFEssence.HUMAN, //SLIME
+			Attribute.DAMAGE_HUMAN,
+			Attribute.RESISTANCE_HUMAN,
 			null,
 			null),
 
@@ -514,8 +513,8 @@ public enum Race {
 			0.5f,
 			4,
 			8,
-			
-			TFEssence.HARPY,
+			Attribute.DAMAGE_HARPY,
+			Attribute.RESISTANCE_HARPY,
 			null,
 			null);
 
@@ -1483,7 +1482,7 @@ public enum Race {
 	private boolean vulnerableToLilithsLustStorm;
 	private int numberOfOffspringLow, numberOfOffspringHigh;
 	private float chanceForMaleOffspring;
-	private TFEssence relatedEssence;
+	private Attribute damageMultiplier, resistanceMultiplier;
 	private FurryPreference defaultFemininePreference, defaultMasculinePreference;
 	
 	private Race(
@@ -1507,7 +1506,8 @@ public enum Race {
 			float chanceForMaleOffspring,
 			int numberOfOffspringLow, int numberOfOffspringHigh,
 			
-			TFEssence relatedEssence,
+			Attribute damageMultiplier,
+			Attribute resistanceMultiplier,
 			
 			FurryPreference defaultFemininePreference,
 			FurryPreference defaultMasculinePreference) {
@@ -1536,9 +1536,10 @@ public enum Race {
 		
 		this.numberOfOffspringLow = numberOfOffspringLow;
 		this.numberOfOffspringHigh = numberOfOffspringHigh;
-
 		
-		this.relatedEssence = relatedEssence;
+		this.damageMultiplier = damageMultiplier;
+		this.resistanceMultiplier = resistanceMultiplier;
+		
 		this.defaultFemininePreference = defaultFemininePreference;
 		this.defaultMasculinePreference = defaultMasculinePreference;
 	}
@@ -1631,8 +1632,12 @@ public enum Race {
 		return singularFemaleName;
 	}
 
-	public TFEssence getRelatedEssence() {
-		return relatedEssence;
+	public Attribute getDamageMultiplier() {
+		return damageMultiplier;
+	}
+
+	public Attribute getResistanceMultiplier() {
+		return resistanceMultiplier;
 	}
 
 	public FurryPreference getDefaultFemininePreference() {

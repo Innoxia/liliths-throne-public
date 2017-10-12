@@ -280,11 +280,13 @@ public enum Sex {
 		playerClothingPreSex = new ArrayList<>();
 		partnerClothingPreSex = new ArrayList<>();
 
-		for (AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped())
+		for (AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
 			playerClothingPreSex.add(c);
-		for (AbstractClothing c : partner.getClothingCurrentlyEquipped())
+		}
+		for (AbstractClothing c : partner.getClothingCurrentlyEquipped()) {
 			partnerClothingPreSex.add(c);
-
+		}
+		
 		List<AbstractClothing> clothingToStrip = new ArrayList<>();
 
 		if(sexManager.isPlayerStartNaked()) {
@@ -317,33 +319,32 @@ public enum Sex {
 
 	private static void endSex() {
 		Main.game.setInSex(false);
-
+		
 		// Restore clothes:
 		for (AbstractClothing c : playerClothingPreSex) {
-			if (!Main.game.getPlayer().getClothingCurrentlyEquipped().contains(c)) {
-				if(!c.getClothingType().isDiscardedOnUnequip()) {
-					if(Main.game.getPlayer().getAllClothingInInventory().contains(c)) {
-						Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer());
-					} else {
-						Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
-					}
+			if(!c.getClothingType().isDiscardedOnUnequip()) {
+				if (!Main.game.getPlayer().getClothingCurrentlyEquipped().contains(c)) {
+						if(Main.game.getPlayer().getAllClothingInInventory().contains(c)) {
+							Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer());
+						} else {
+							Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
+						}
+				} else {
+					c.getDisplacedList().clear();
 				}
-			} else {
-				c.getDisplacedList().clear();
 			}
 		}
 		for (AbstractClothing c : partnerClothingPreSex) {
-			if(!partner.getClothingCurrentlyEquipped().contains(c)) {
-				if(!c.getClothingType().isDiscardedOnUnequip()) {
-					if(partner.getAllClothingInInventory().contains(c)) {
-						partner.equipClothingFromInventory(c, true, partner, partner);
-					} else {
-						partner.equipClothingFromGround(c, true, partner);
-					}
+			if(!c.getClothingType().isDiscardedOnUnequip()) {
+				if(!partner.getClothingCurrentlyEquipped().contains(c)) {
+						if(partner.getAllClothingInInventory().contains(c)) {
+							partner.equipClothingFromInventory(c, true, partner, partner);
+						} else {
+							partner.equipClothingFromGround(c, true, partner);
+						}
+				} else {
+					c.getDisplacedList().clear();
 				}
-				
-			} else {
-				c.getDisplacedList().clear();
 			}
 		}
 		

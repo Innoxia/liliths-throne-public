@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Quest;
 import com.lilithsthrone.game.character.QuestLine;
+import com.lilithsthrone.game.character.body.types.LegType;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
@@ -35,6 +37,7 @@ import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.ClothingZLayerComparator;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.SlaverAlley;
 
@@ -477,7 +480,7 @@ public class InventoryDialogue {
 								|| Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.ANUS)
 								|| Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
 								|| Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)
-								|| Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null) {
+								|| (Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null && Main.game.getPlayer().getLegType() == LegType.HUMAN)) {
 							return new Response("To the stage", "You need to be wearing clothing that covers your body, as well as a pair of shoes.", null);
 							
 						} else {
@@ -1026,6 +1029,23 @@ public class InventoryDialogue {
 									
 								} else if (!item.isAbleToBeUsed(inventoryNPC)) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (opponent)", item.getUnableToBeUsedDescription(inventoryNPC), null);
+
+								} else if(item.getItemType().isTransformative()) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (opponent)",
+											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Combat.ENEMY_ATTACK,
+											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
+											null,
+											null,
+											null){
+										@Override
+										public void effects(){
+											Combat.setPlayerTurnText(Main.game.getPlayer().useItem(item, inventoryNPC, false));
+											Combat.attackEnemy();
+											Combat.setPreviousAction(Attack.NONE);
+											Main.mainController.openInventory();
+										}
+									};
 									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (opponent)",
@@ -1162,9 +1182,25 @@ public class InventoryDialogue {
 								} else if (!item.isAbleToBeUsed(inventoryNPC)) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)", item.getUnableToBeUsedDescription(inventoryNPC), null);
 									
+								} else if(item.getItemType().isTransformative()) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
+											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
+											INVENTORY_MENU,
+											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
+											null,
+											null,
+											null){
+										@Override
+										public void effects(){
+											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+										}
+									};
+									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", INVENTORY_MENU){
+											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
+											INVENTORY_MENU){
 										@Override
 										public void effects(){
 											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
@@ -1175,12 +1211,31 @@ public class InventoryDialogue {
 								if (!item.isAbleToBeUsedFromInventory()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)", item.getUnableToBeUsedFromInventoryDescription(), null);
 									
-								} else if(!item.isAbleToBeUsed(Main.game.getPlayer())) {
-									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)", item.getUnableToBeUsedDescription(Main.game.getPlayer()), null);
+								} else if(!item.isAbleToBeUsed(inventoryNPC)) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)", item.getUnableToBeUsedDescription(inventoryNPC), null);
+									
+								} else if(item.getItemType().isTransformative()) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
+											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " all of the " + item.getNamePlural() + " in your inventory.",
+											INVENTORY_MENU,
+											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
+											null,
+											null,
+											null){
+										@Override
+										public void effects(){
+											int itemCount = Main.game.getPlayer().getItemCount(item);
+											for(int i=0;i<itemCount;i++) {
+												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+											}
+										}
+									};
 									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
-											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " all of the " + item.getNamePlural() + " in your inventory.", INVENTORY_MENU){
+											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " all of the " + item.getNamePlural() + " in your inventory.",
+											INVENTORY_MENU){
 										@Override
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
@@ -1245,6 +1300,22 @@ public class InventoryDialogue {
 									
 								} else if (!item.isAbleToBeUsed(inventoryNPC)) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)", item.getUnableToBeUsedDescription(inventoryNPC), null);
+									
+								} else if(item.getItemType().isTransformative()) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
+											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Sex.SEX_DIALOGUE,
+											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
+											null,
+											null,
+											null){
+										@Override
+										public void effects(){
+											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+											Main.mainController.openInventory();
+											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+										}
+									};
 									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
@@ -1618,6 +1689,21 @@ public class InventoryDialogue {
 								} else if (!item.isAbleToBeUsed(inventoryNPC)) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)", item.getUnableToBeUsedDescription(inventoryNPC), null);
 									
+								} else if(item.getItemType().isTransformative()) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
+											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
+											INVENTORY_MENU,
+											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
+											null,
+											null,
+											null){
+										@Override
+										public void effects(){
+											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+										}
+									};
+									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", INVENTORY_MENU){
@@ -1634,6 +1720,24 @@ public class InventoryDialogue {
 									
 								} else if(!item.isAbleToBeUsed(inventoryNPC)) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)", item.getUnableToBeUsedDescription(inventoryNPC), null);
+									
+								} else if(item.getItemType().isTransformative()) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
+											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in [npc.her] inventory."),
+											INVENTORY_MENU,
+											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
+											null,
+											null,
+											null){
+										@Override
+										public void effects(){
+											int itemCount = inventoryNPC.getItemCount(item);
+											for(int i=0;i<itemCount;i++) {
+												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+											}
+										}
+									};
 									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
@@ -1703,6 +1807,24 @@ public class InventoryDialogue {
 									
 								} else if (!item.isAbleToBeUsed(inventoryNPC)) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)", item.getUnableToBeUsedDescription(inventoryNPC), null);
+									
+								} else if(item.getItemType().isTransformative()) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
+											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
+											Sex.SEX_DIALOGUE,
+											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
+											null,
+											null,
+											null){
+										@Override
+										public void effects(){
+											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, inventoryNPC, inventoryNPC));
+											Main.mainController.openInventory();
+											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+										}
+									};
+									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Sex.SEX_DIALOGUE){
@@ -3222,7 +3344,7 @@ public class InventoryDialogue {
 									|| Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.ANUS)
 									|| Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
 									|| Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)
-									|| Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null) {
+									|| (Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null && Main.game.getPlayer().getLegType() == LegType.HUMAN)) {
 								return new Response("To the stage", "You need to be wearing clothing that covers your body, as well as a pair of shoes.", null);
 								
 							} else {
@@ -4296,7 +4418,7 @@ public class InventoryDialogue {
 									|| Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.ANUS)
 									|| Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
 									|| Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)
-									|| Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null) {
+									|| (Main.game.getPlayer().getClothingInSlot(InventorySlot.FOOT)==null && Main.game.getPlayer().getLegType() == LegType.HUMAN)) {
 								return new Response("To the stage", "You need to be wearing clothing that covers your body, as well as a pair of shoes.", null);
 								
 							} else {
@@ -5290,7 +5412,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellWeapons(GameCharacter from, GameCharacter to, AbstractWeapon weapon, int count, int itemPrice) {
-		if (!to.isInventoryFull() || to.hasWeapon(weapon)) {
+		if (to.isPlayer()?(!to.isInventoryFull() || to.hasWeapon(weapon)):true) {
 			
 			if(buyback && to.isPlayer()) {
 				Main.game.getPlayer().incrementMoney(-itemPrice);
@@ -5366,7 +5488,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellClothing(GameCharacter from, GameCharacter to, AbstractClothing clothing, int count, int itemPrice) {
-		if (!to.isInventoryFull() || to.hasClothing(clothing)) {
+		if (to.isPlayer()?(!to.isInventoryFull() || to.hasClothing(clothing)):true) {
 			
 			if(buyback && to.isPlayer()) {
 				Main.game.getPlayer().incrementMoney(-itemPrice);

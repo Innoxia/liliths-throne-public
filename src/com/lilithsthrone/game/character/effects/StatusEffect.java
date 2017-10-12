@@ -3486,11 +3486,11 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
-				return "You represent the perfect image of a pure, righteous being. You're more than willing to use your ass, mouth, and breasts in order to retain your precious virginity, and so what if you so happen to absolutely love it?!";
+				return "You're more than willing to use your ass, mouth, breasts, and even the promise of your pussy in order to please your partners, but you'll never let anyone actually penetrate your feminine sex and take your precious virginity!";
 			} else {
 				return UtilText.parse(target,
-						"[npc.Name] represents the perfect image of a pure, righteous being."
-						+ " [npc.She]'s more than willing to use [npc.her] ass, mouth, and breasts in order to retain [npc.her] precious virginity, and so what if [npc.she] so happens to absolutely love it?!");
+						"[npc.Name] is more than willing to use [npc.her] ass, mouth, breasts, and even the promise of [npc.her] pussy in order to please [npc.her] partners,"
+								+ " but [npc.she]'ll never let anyone actually penetrate [npc.her] feminine sex and take [npc.her] precious virginity!");
 			}
 		}
 
@@ -3838,6 +3838,330 @@ public enum StatusEffect {
 		}
 	},
 	
+	// Combat bonuses:
+	
+	COMBAT_BONUS_ANGEL(
+			80,
+			"angelic intuition",
+			"combatBonusAngel",
+			Colour.RACE_ANGEL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_ANGEL, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ANGEL, 25f)),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how angels will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how angels will behave.");
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
+	COMBAT_BONUS_CAT_MORPH(
+			80,
+			"cat-morph intuition",
+			"combatBonusCatMorph",
+			Colour.RACE_CAT_MORPH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.FITNESS, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_CAT_MORPH, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_CAT_MORPH, 25f)),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how cat-morphs will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how cat-morphs will behave.");
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
+	COMBAT_BONUS_COW_MORPH(
+			80,
+			"cow-morph intuition",
+			"combatBonusCowMorph",
+			Colour.RACE_COW_MORPH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_COW_MORPH, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_COW_MORPH, 25f)),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how cow-morphs will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how cow-morphs will behave.");
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
+	COMBAT_BONUS_DEMON(
+			80,
+			"demonic intuition",
+			"combatBonusDemon",
+			Colour.RACE_DEMON,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_DEMON, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_DEMON, 25f)),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how demons will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how demons will behave.");
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
+	COMBAT_BONUS_DOG_MORPH(
+			80,
+			"dog-morph intuition",
+			"combatBonusDogMorph",
+			Colour.RACE_DOG_MORPH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_DOG_MORPH, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_DOG_MORPH, 25f)),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how dog-morphs will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how dog-morphs will behave.");
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
+	COMBAT_BONUS_HARPY(
+			80,
+			"harpy intuition",
+			"combatBonusHarpy",
+			Colour.RACE_HARPY,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_HARPY, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_HARPY, 25f)),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how harpies will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how harpies will behave.");
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
+	COMBAT_BONUS_HORSE_MORPH(
+			80,
+			"horse-morph intuition",
+			"combatBonusHorseMorph",
+			Colour.RACE_HORSE_MORPH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_HORSE_MORPH, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_HORSE_MORPH, 25f)),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how horse-morphs will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how horse-morphs will behave.");
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
+	COMBAT_BONUS_HUMAN(
+			80,
+			"human intuition",
+			"combatBonusHuman",
+			Colour.RACE_HUMAN,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_HUMAN, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_HUMAN, 25f)),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how humans will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how humans will behave.");
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
+	COMBAT_BONUS_SQUIRREL_MORPH(
+			80,
+			"squirrel-morph intuition",
+			"combatBonusSquirrelMorph",
+			Colour.RACE_SQUIRREL_MORPH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.FITNESS, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SQUIRREL_MORPH, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_SQUIRREL_MORPH, 25f)),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how squirrel-morphs will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how squirrel-morphs will behave.");
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
+	COMBAT_BONUS_WOLF_MORPH(
+			80,
+			"wolf-morph intuition",
+			"combatBonusWolfMorph",
+			Colour.RACE_WOLF_MORPH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_WOLF_MORPH, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_WOLF_MORPH, 25f)),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how wolf-morphs will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how wolf-morphs will behave.");
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
+	
+	
 
 	// COMBAT EFFECTS:
 	
@@ -3870,6 +4194,7 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
 	ZERO_MANA(
 			70,
 			"mentally fatigued",

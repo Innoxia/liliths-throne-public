@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -655,7 +656,12 @@ public class HarpyNestNympho {
 			} else if (index == 2) {
 				return new Response("Open wide",
 						"Allow [harpyNympho.Name] to push the lollipop into your mouth... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
-						HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT){
+						HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append("<p>"
@@ -762,7 +768,12 @@ public class HarpyNestNympho {
 			} else if (index == 2) {
 				return new Response("Open wide",
 						"Allow [harpyNympho.Name] to push the lollipop into your mouth... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
-						HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT){
+						HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append("<p>"

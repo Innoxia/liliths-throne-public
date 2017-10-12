@@ -334,13 +334,13 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 			case PUFFY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a tingling sensation running over your [pc.pussy], and you let out a little cry as you feel the rim of your [pc.pussy] [style.boldGrow(puff up)] into a doughnut-like ring.</br>"
-								+ "[style.boldSex(The rim of your pussy is now swollen and puffy!)]"
+								+ "You feel a tingling sensation running over your [pc.pussy], and you let out a little cry as you feel your labia [style.boldGrow(puff up)] into big, swollen pussy lips.</br>"
+								+ "[style.boldSex(Your labia are now extremely swollen and puffy!)]"
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy], before the rim of [npc.her] [npc.pussy] [style.boldGrow(puffs up)] into a doughnut-like ring.</br>"
-								+ "[style.boldSex(The rim of [npc.name]'s pussy is now swollen and puffy!)]"
+								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy], before [npc.her] labia [style.boldGrow(puffs up)] into big, swollen pussy lips.</br>"
+								+ "[style.boldSex([npc.Name]'s labia are now extremely swollen and puffy!)]"
 							+ "</p>";
 				}
 		}

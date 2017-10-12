@@ -30,6 +30,7 @@ import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.world.Generation;
@@ -657,6 +658,7 @@ public class Main extends Application {
 			properties.name = game.getPlayer().getName();
 			properties.level = game.getPlayer().getLevel();
 			properties.money = game.getPlayer().getMoney();
+			properties.arcaneEssences = game.getPlayer().getEssenceCount(TFEssence.ARCANE);
 			properties.race = game.getPlayer().getRace().getName();
 			properties.quest = game.getPlayer().getQuest(QuestLine.MAIN).getName();
 

@@ -40,6 +40,7 @@ import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.npc.dominion.Vicky;
+import com.lilithsthrone.game.character.npc.generic.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.generic.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.generic.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.generic.GenericMaleNPC;
@@ -323,7 +324,7 @@ public class Game implements Serializable {
 		handleAtmosphericConditions(turnTime);
 
 		// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
-		NPCMap.entrySet().removeIf(e -> (e.getValue().getLocationPlace().getPlaceType() == Dominion.CITY_STREET && !Main.game.getPlayer().getLocation().equals(e.getValue().getLocation())));
+		NPCMap.entrySet().removeIf(e -> (e.getValue().getLocationPlace().getPlaceType() != Dominion.CITY_BACK_ALLEYS && e.getValue() instanceof DominionAlleywayAttacker && !Main.game.getPlayer().getLocation().equals(e.getValue().getLocation())));
 		
 		// Apply status effects for all NPCs:
 		isInNPCUpdateLoop = true;
@@ -881,7 +882,7 @@ public class Game implements Serializable {
 					+ title
 					+ "</p>"
 					+ "<p style='float:left;width:20vw;text-align:center;margin-top:8px;padding:0;'>"
-						+ "<b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + Main.game.getPlayer().getMoney() + "</b>"
+						+ "<b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</b> <b>" + Main.game.getPlayer().getMoney() + "</b>"
 					+ "</p>"
 	 * 
 	 */
@@ -1908,10 +1909,6 @@ public class Game implements Serializable {
 
 	public DialogueNodeOld getSavedDialogueNode() {
 		return savedDialogueNode;
-	}
-
-	public String getCurrencySymbol() {
-		return "&#164";
 	}
 
 	public Cell getPlayerCell() {

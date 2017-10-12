@@ -359,6 +359,129 @@ public enum Attribute {
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases all damage done by 1%.";
 		}
+	},
+	
+	
+	DAMAGE_ANGEL(0, "angelic damage", "Angelic damage", "swordIcon", Colour.RACE_ANGEL, "angelic-obliteration", "angelic-mercy", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs angels by 1%.";
+		}
+	},
+	DAMAGE_CAT_MORPH(0, "cat-morph damage", "Cat-morph damage", "swordIcon", Colour.RACE_CAT_MORPH, "cat-morph-obliteration", "cat-morph-mercy", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs cat-morphs by 1%.";
+		}
+	},
+	DAMAGE_COW_MORPH(0, "cow-morph damage", "Cow-morph damage", "swordIcon", Colour.RACE_COW_MORPH, "cow-morph-obliteration", "cow-morph-mercy", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs cow-morphs by 1%.";
+		}
+	},
+	DAMAGE_DEMON(0, "demonic damage", "Demonic damage", "swordIcon", Colour.RACE_DEMON, "demonic-obliteration", "demonic-mercy", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs demons by 1%.";
+		}
+	},
+	DAMAGE_DOG_MORPH(0, "dog-morph damage", "Dog-morph damage", "swordIcon", Colour.RACE_DOG_MORPH, "dog-morph-obliteration", "dog-morph-mercy", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs dog-morphs by 1%.";
+		}
+	},
+	DAMAGE_HARPY(0, "harpy damage", "Harpy damage", "swordIcon", Colour.RACE_HARPY, "harpy-obliteration", "harpy-mercy", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs harpies by 1%.";
+		}
+	},
+	DAMAGE_HORSE_MORPH(0, "horse-morph damage", "Horse-morph damage", "swordIcon", Colour.RACE_HORSE_MORPH, "horse-morph-obliteration", "horse-morph-mercy", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs horse-morphs by 1%.";
+		}
+	},
+	DAMAGE_HUMAN(0, "human damage", "Human damage", "swordIcon", Colour.RACE_HUMAN, "human-obliteration", "human-mercy", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs humans by 1%.";
+		}
+	},
+	DAMAGE_SQUIRREL_MORPH(0, "squirrel-morph damage", "Squirrel-morph damage", "swordIcon", Colour.RACE_SQUIRREL_MORPH, "squirrel-morph-obliteration", "squirrel-morph-mercy", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs squirrel-morphs by 1%.";
+		}
+	},
+	DAMAGE_WOLF_MORPH(0, "wolf-morph damage", "Wolf-morph damage", "swordIcon", Colour.RACE_WOLF_MORPH, "wolf-morph-obliteration", "wolf-morph-mercy", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs wolf-morphs by 1%.";
+		}
+	},
+	
+	RESISTANCE_ANGEL(0, "angelic resistance", "Angelic resistance", "shieldIcon", Colour.RACE_ANGEL, "angelic-immunity", "angelic-vulnerability", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by angels by 1%.";
+		}
+	},
+	RESISTANCE_CAT_MORPH(0, "cat-morph resistance", "Cat-morph resistance", "shieldIcon", Colour.RACE_CAT_MORPH, "cat-morph-immunity", "cat-morph-vulnerability", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by cat-morphs by 1%.";
+		}
+	},
+	RESISTANCE_COW_MORPH(0, "cow-morph resistance", "Cow-morph resistance", "shieldIcon", Colour.RACE_COW_MORPH, "cow-morph-immunity", "cow-morph-vulnerability", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by cow-morphs by 1%.";
+		}
+	},
+	RESISTANCE_DEMON(0, "demonic resistance", "Demonic resistance", "shieldIcon", Colour.RACE_DEMON, "demonic-immunity", "demonic-vulnerability", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by demons by 1%.";
+		}
+	},
+	RESISTANCE_DOG_MORPH(0, "dog-morph resistance", "Dog-morph resistance", "shieldIcon", Colour.RACE_DOG_MORPH, "dog-morph-immunity", "dog-morph-vulnerability", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by dog-morphs by 1%.";
+		}
+	},
+	RESISTANCE_HARPY(0, "harpy resistance", "Harpy resistance", "shieldIcon", Colour.RACE_HARPY, "harpy-immunity", "harpy-vulnerability", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by harpies by 1%.";
+		}
+	},
+	RESISTANCE_HORSE_MORPH(0, "horse-morph resistance", "Horse-morph resistance", "shieldIcon", Colour.RACE_HORSE_MORPH, "horse-morph-immunity", "horse-morph-vulnerability", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by horse-morphs by 1%.";
+		}
+	},
+	RESISTANCE_HUMAN(0, "human resistance", "Human resistance", "shieldIcon", Colour.RACE_HUMAN, "human-immunity", "human-vulnerability", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by humans by 1%.";
+		}
+	},
+	RESISTANCE_SQUIRREL_MORPH(0, "squirrel-morph resistance", "Squirrel-morph resistance", "shieldIcon", Colour.RACE_SQUIRREL_MORPH, "squirrel-morph-immunity", "squirrel-morph-vulnerability", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by squirrel-morphs by 1%.";
+		}
+	},
+	RESISTANCE_WOLF_MORPH(0, "wolf-morph resistance", "Wolf-morph resistance", "shieldIcon", Colour.RACE_WOLF_MORPH, "wolf-morph-immunity", "wolf-morph-vulnerability", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by wolf-morphs by 1%.";
+		}
 	};
 
 	private String name, nameAbbreviation, positiveEnchantment, negativeEnchantment;

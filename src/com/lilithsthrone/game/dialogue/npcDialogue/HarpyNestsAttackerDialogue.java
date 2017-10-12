@@ -555,7 +555,12 @@ public class HarpyNestsAttackerDialogue {
 				return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
 				
 			} else if (index == 2) {
-				return new Response("Swallow", "Do as you're told and swallow the strange potion.", AFTER_COMBAT_TRANSFORMATION){
+				return new Response("Swallow", "Do as you're told and swallow the strange potion.", AFTER_COMBAT_TRANSFORMATION,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null){
 					@Override
 					public void effects(){
 						Util.Value<String, AbstractItem> potion = Main.game.getActiveNPC().generateTransformativePotion();

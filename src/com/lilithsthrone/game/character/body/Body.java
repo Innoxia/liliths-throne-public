@@ -3509,7 +3509,43 @@ public class Body implements Serializable {
 			default:
 				break;
 		}
-
+		
+		for(OrificeModifier om : OrificeModifier.values()) {
+			if(owner.hasVaginaOrificeModifier(om)) {
+				if(owner.isPlayer()) {
+					switch(om) {
+						case MUSCLE_CONTROL:
+							descriptionSB.append(" You have a series of internal muscles lining the inside of your [pc.vagina], allowing you to expertly squeeze and grip down on any intruding object.");
+							break;
+						case PUFFY:
+							descriptionSB.append(" Your labia have swollen up into big, extra-puffy pussy lips.");
+							break;
+						case RIBBED:
+							descriptionSB.append(" The inside of your [pc.vagina] is lined with sensitive, fleshy ribs, which grant you extra pleasure when stimulated.");
+							break;
+						case TENTACLED:
+							descriptionSB.append(" Your [pc.vagina] is filled with tiny little tentacles, which wriggle and squirm with a mind of their own.");
+							break;
+					}
+				} else {
+					switch(om) {
+						case MUSCLE_CONTROL:
+							descriptionSB.append(" [npc.She] has a series of internal muscles lining the inside of [npc.her] [npc.vagina], allowing [npc.herHim] to expertly squeeze and grip down on any intruding object.");
+							break;
+						case PUFFY:
+							descriptionSB.append(" [npc.Her] labia have swollen up into big, extra-puffy pussy lips.");
+							break;
+						case RIBBED:
+							descriptionSB.append(" The inside of [npc.her] [npc.vagina] is lined with sensitive, fleshy ribs, which grant [npc.herHim] extra pleasure when stimulated.");
+							break;
+						case TENTACLED:
+							descriptionSB.append(" [npc.Her] [npc.vagina] is filled with tiny little tentacles, which wriggle and squirm with a mind of their own.");
+							break;
+					}
+				}
+			}
+		}
+		
 		return UtilText.parse(owner, descriptionSB.toString());
 	}
 

@@ -457,7 +457,7 @@ public enum Fetish {
 		
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
-			return CorruptionLevel.ONE_VANILLA;
+			return CorruptionLevel.FOUR_LUSTFUL;
 		}
 	},
 	
@@ -467,8 +467,7 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Increases</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>receiving potency of forced transformations</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Removes ability to resist forced transformations</span>")),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Increases potency</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>of receiving forced transformations</span>")),
 			null) {
 
 		@Override
@@ -482,7 +481,7 @@ public enum Fetish {
 		
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
-			return CorruptionLevel.ONE_VANILLA;
+			return CorruptionLevel.TWO_HORNY;
 		}
 	},
 	
@@ -839,9 +838,11 @@ public enum Fetish {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				return "You are the ultimate tease, seducing and pleasuring others with your ass, mouth, and breasts, but never allowing anyone to touch your virgin pussy.";
+				return "You are the ultimate tease, seducing and pleasuring others with your ass, mouth, breasts, and even the promise of your pussy,"
+							+ " but you'll never actually allow anyone to penetrate your feminine sex and take your precious virginity.";
 			} else {
-				return UtilText.parse(owner, "[npc.Name] loves to pleasure others with [npc.her] ass, mouth, and breasts, but will never allow anyone to get near [npc.her] virgin pussy.");
+				return UtilText.parse(owner, "[npc.Name] loves to pleasure others with [npc.her] ass, mouth, breasts, and even the promise of [npc.her] pussy,"
+							+ " but [npc.she]'ll never actually allow anyone to penetrate [npc.her] feminine sex and take [npc.her] precious virginity.");
 			}
 		}
 		@Override

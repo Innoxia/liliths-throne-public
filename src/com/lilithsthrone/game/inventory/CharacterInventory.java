@@ -605,15 +605,7 @@ public class CharacterInventory implements Serializable {
 
 		clothingToRemove.clear();
 		equipTextSB.setLength(0);
-
-		// //Can't equip stomach clothing if have three breast rows:
-		// if(newClothing.getClothingType().getSlot()==InventorySlot.STOMACH &&
-		// Main.game.getPlayer().getBreastRows()==3){
-		// equipDescription = "Your extra breasts get in the way of equipping
-		// this item!";
-		// return false;
-		// }
-
+		
 		// Check to see if any of the character's body parts are blocking equipping this item:
 		if (newClothing.getClothingType().getSlot().slotBlockedByRace(characterClothingOwner) != null) {
 			equipTextSB.append("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" + newClothing.getClothingType().getSlot().getCannotBeWornDescription(characterClothingOwner) + "</span>");

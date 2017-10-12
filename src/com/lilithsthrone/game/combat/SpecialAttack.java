@@ -1078,19 +1078,22 @@ public enum SpecialAttack {
 			descriptionSB = new StringBuilder();
 			
 			if (caster == Main.game.getPlayer()) {
-				descriptionSB.append(UtilText.genderParsing(target,
-						"<p>" + "With a savage howl, you launch yourself at " + target.getName("the") + "."
-								+ (isHit ? " Your wolf-like muzzle clamps down on one of " + target.getName("the") + "'s " + target.getArmNameSingular() + ","
-										+ " and you rake at <her> body with your sharp claws, doing a considerable amount of damage before <she> manages to kick you off of <herPro>."
-										: target.getName("The") + " manages to jump out of the way, and you end up tumbling to the ground as you're caught off-guard by your target's sudden evasive move.")
-								+ "</p>")
+				descriptionSB.append(UtilText.parse(target,
+						"<p>"
+							+ "With a savage howl, you launch yourself at [npc.name]."
+								+ (isHit
+										? " Your wolf-like muzzle clamps down on one of [npc.her] [npc.arms], and you rake at [npc.her] body with your sharp claws,"
+												+ " doing a considerable amount of damage before [npc.she] manages to kick you off of [npc.herHim]."
+										: " [npc.She] manages to jump out of the way, and you end up tumbling to the ground as you're caught off-guard by your target's sudden evasive move.")
+							+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			} else {
-				descriptionSB.append(UtilText.genderParsing(caster,
-						"<p>" + "With a savage howl, " + caster.getName("the") + " launches <her>self at you."
-								+ (isHit ? " <Her> wolf-like muzzle clamps down on one of your " + target.getArmNameSingular() + ","
-										+ " and <she> rakes at your body with <her> sharp claws, doing a considerable amount of damage before you manage to kick <herPro> off of you."
-										: "You manage to jump out of the way, and <she> ends up tumbling to the ground as <she>'s caught off-guard by your sudden evasive move.")
+				descriptionSB.append(UtilText.parse(caster,
+						"<p>" + "With a savage howl, [npc.name] launches [npc.herself] at you."
+								+ (isHit
+										? " [npc.Her] wolf-like muzzle clamps down on one of your [pc.arms], and [npc.she] rakes at your body with [npc.her] sharp claws,"
+												+ " doing a considerable amount of damage before you manage to kick [npc.herHim] off of you."
+										: "You manage to jump out of the way, and [npc.she] ends up tumbling to the ground as [npc.she]'s caught off-guard by your sudden evasive move.")
 								+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			}
@@ -1113,13 +1116,13 @@ public enum SpecialAttack {
 			if (owner.isPlayer())
 				return "A powerful, primal energy bubbles just beneath the surface of your wolf-like body, and although you're able to keep it under control, you could always tap into it to deliver a savage attack.";
 			else
-				return UtilText.genderParsing(owner,
-						"A powerful, primal energy bubbles just beneath the surface of " + owner.getName("the") + "'s wolf-like body, and <she>'s able to use it to deliver a savage attack.");
+				return UtilText.parse(owner,
+						"A powerful, primal energy bubbles just beneath the surface of [npc.name]'s wolf-like body, and [npc.she]'s able to use it to deliver a savage attack.");
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			return owner.getArmType() == ArmType.LYCAN;
+			return owner.getArmType() == ArmType.LYCAN && owner.getFaceType() == FaceType.LYCAN;
 		}
 	},
 

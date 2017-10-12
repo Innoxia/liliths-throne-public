@@ -91,62 +91,13 @@ public enum RenderingEngine {
 		}
 		
 		equippedPanelSB.append(
-				"<p style='width:100%; text-align:center; padding:0 margin:0;'>"
-				+ "<span style='position:absolute; left:16px'>"+ UtilText.formatAsMoney(charactersInventoryToRender.getMoney(), "b") +"</span>"
+				"<div style='position:absolute; left:16px'>"+ UtilText.formatAsMoney(charactersInventoryToRender.getMoney(), "b") +"</div>"
+				+ "<div style='position:absolute; right:16px'>"+ UtilText.formatAsEssences(charactersInventoryToRender.getEssenceCount(TFEssence.ARCANE), "b", true) +"</div>"
+				+"<p style='width:100%; text-align:center; padding:0 margin:0;'>"
 					+(charactersInventoryToRender.isPlayer()
 						?"<b style='color:"+Femininity.valueOf(charactersInventoryToRender.getFemininityValue()).getColour().toWebHexString()+";'>Your</b> <b>Inventory</b>"
 						:"<b style='color:"+Femininity.valueOf(charactersInventoryToRender.getFemininityValue()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(charactersInventoryToRender.getName())+"'s</b> <b>Inventory</b>")
 				+"</p>");
-		
-		// EQUIPPED:
-//		equippedPanelSB.append("<div class='inventory-equipped'>");
-//		
-//		for (InventorySlot invSlot : inventorySlots) {
-//			
-//			clothing = charactersInventoryToRender.getClothingInSlot(invSlot);
-//			
-//			if (clothing != null) {
-//				// add to content:
-//				equippedPanelSB.append(
-//						// If slot is sealed:
-//						"<div class='inventory-item-slot" + getClassRarityIdentifier(clothing.getRarity()) + "'"
-//								+ (clothing.isSealed() ? "style='border-width:2px; border-color:#" + Colour.SEALED.toWebHexString() + "; border-style:solid;'" : "") + ">"
-//								
-//								// Picture:
-//								+ "<div class='inventory-icon-content'>"+clothing.getSVGString()+"</div>"
-//								
-//								// If clothing is displaced:
-//								+ (!clothing.getDisplacedList().isEmpty() ? "<div class='displacedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDisplacedIcon() + "</div>" : "")
-//								// If clothing is cummed in:
-//								+ (clothing.isDirty() ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>" : "")
-//								// If clothing is too masculine:
-//								+ (clothing.getClothingType().getFemininityMaximum() < charactersInventoryToRender.getFemininityValue() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getMasculineWarningIcon() + "</div>" : "")
-//								// If clothing is too feminine:
-//								+ (clothing.getClothingType().getFemininityMinimum() > charactersInventoryToRender.getFemininityValue() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getFeminineWarningIcon() + "</div>" : "")
-//
-//
-//								+ "<div class='overlay' id='" + idModifier + invSlot.toString() + "Slot'>" + "</div>" + "</div>");
-//
-//			} else {
-//				// add to content:
-//				if (blockedSlots.contains(invSlot)) {
-//					equippedPanelSB.append("<div class='inventory-item-slot disabled'><div class='overlay' id='" + idModifier + invSlot.toString() + "Slot'></div></div>");
-//					
-//				} else if (invSlot.slotBlockedByRace(charactersInventoryToRender) != null) {
-//					equippedPanelSB.append(
-//							"<div class='inventory-item-slot disabled'>"
-//								+ "<div class='overlay' id='" + idModifier + invSlot.toString() + "Slot'></div>"
-//								+ "<div class='raceBlockIcon'>" + invSlot.slotBlockedByRace(charactersInventoryToRender).getStatusEffect().getSVGString(charactersInventoryToRender) + "</div>"
-//							+ "</div>");
-//					
-//				} else {
-//					equippedPanelSB.append("<div class='inventory-item-slot' id='" + idModifier + invSlot.toString() + "Slot'></div>");
-//				}
-//			}
-//		}
-//
-//		equippedPanelSB.append("</div>");
-		
 		
 		// Right panel:
 		equippedPanelSB.append("<div class='inventory-accessories'>");
@@ -275,11 +226,7 @@ public enum RenderingEngine {
 				}
 			}
 		}
-		equippedPanelSB.append(
-//				"<p style='text-align:center; display:inline-block; vertical-align: middle; top:0;'>"
-//						+ UtilText.getColouredMoneySymbol("b")+" <b>"+charactersInventoryToRender.getMoney()+"</b>"
-//				+"</p>"
-				"</div>");
+		equippedPanelSB.append("</div>");
 		
 		return equippedPanelSB.toString();
 	}
@@ -343,22 +290,6 @@ public enum RenderingEngine {
 		inventorySB.append("</div>");
 		
 		
-		inventorySB.append("<div style='float:left; display:block; text-align:center; margin:0 auto; height:36px; padding:8px 0 8px 0;'>");
-			for(TFEssence essence : TFEssence.values()) {
-				inventorySB.append(
-						"<div style='width:26px; display:inline-block; margin:0 4px 0 4px;'>"
-							+ "<div class='item-inline " + essence.getRarity().getName() + "'>"
-								+ essence.getSVGString()
-								+ "<div class='overlay no-pointer' id='ESSENCE_"+essence.hashCode()+"'></div>"
-							+ "</div>"
-							+ " <div style='display:inline-block; height:20px; vertical-align: middle;'>"
-								+ "<b>"+charactersInventoryToRender.getEssenceCount(essence)+"</b>"
-							+ "</div>"
-						+ "</div>"
-						);
-			}
-		inventorySB.append("</div>");
-		
 		inventorySB.append("</div>");
 
 		inventorySB.append("</body>");
@@ -380,42 +311,6 @@ public enum RenderingEngine {
 							:"<b style='color:"+Colour.BASE_TAN.toWebHexString()+";'>In this Area</b>")
 				+"</p>");
 		
-//		
-//		// EQUIPPED:
-//		inventorySB.append("<div class='inventory-equipped'>");
-//		
-//		for (InventorySlot invSlot : inventorySlots) {
-//			inventorySB.append("<div class='inventory-item-slot disabled'></div>");
-//		}
-//		inventorySB.append("</div>");
-		
-		
-		// Right panel:
-//		inventorySB.append("<div class='inventory-accessories'>");
-//
-//		// Weapons:
-//		inventorySB.append("<div class='inventory-item-slot weapon disabled'></div>");
-//		inventorySB.append("<div class='inventory-item-slot weapon disabled'></div>");
-//
-//		inventorySB.append("</div><div class='inventory-accessories'>");
-//
-//		// Piercings:
-//		InventorySlot[] piercingSlots = {
-//				InventorySlot.PIERCING_EAR,
-//				InventorySlot.PIERCING_NOSE,
-//				InventorySlot.PIERCING_TONGUE,
-//				InventorySlot.PIERCING_LIP,
-//				InventorySlot.PIERCING_NIPPLE,
-//				InventorySlot.PIERCING_STOMACH,
-//				InventorySlot.PIERCING_VAGINA,
-//				InventorySlot.PIERCING_PENIS };
-//		for (InventorySlot invSlot : piercingSlots) {
-//			inventorySB.append("<div class='inventory-item-slot piercing disabled'></div>");
-//		}
-//		
-//		inventorySB.append(
-////				"<p style='text-align:center; display:inline-block; height:48px; vertical-align: middle; top:0;'>"+UtilText.formatAsMoney(Main.game.getPlayerCell().getInventory().getMoney())+
-//				"</div>");
 
 		inventorySB.append("<div class='inventory-not-equipped'>");
 		// Weapons:
@@ -555,6 +450,7 @@ public enum RenderingEngine {
 								+ "</span>"
 								+ "<span style='float:right;'>"
 									+ UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "b")
+									+ " "+ UtilText.formatAsEssences(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE), "b", true)
 								+ "</span>"
 							+ "</div>"
 						+ "</div>");
@@ -1205,7 +1101,7 @@ public enum RenderingEngine {
 			// Inventory:
 			Set<InventorySlot> blockedSlots = new HashSet<>();
 			
-			for (AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
+			for (AbstractClothing c : npcToRender.getClothingCurrentlyEquipped()) {
 				if (c.getClothingType().getIncompatibleSlots() != null) {
 					for (InventorySlot is : c.getClothingType().getIncompatibleSlots()) {
 						blockedSlots.add(is);

@@ -474,6 +474,18 @@ public class CharacterUtils {
 				addAttribute(doc, bodyVagina, "capacity", String.valueOf(character.getVaginaRawCapacityValue()));
 				addAttribute(doc, bodyVagina, "stretchedCapacity", String.valueOf(character.getVaginaStretchedCapacity()));
 				addAttribute(doc, bodyVagina, "virgin", String.valueOf(character.isVaginaVirgin()));
+				Element vaginaModifiers = doc.createElement("vaginaModifiers");
+				bodyVagina.appendChild(vaginaModifiers);
+				for(OrificeModifier om : OrificeModifier.values()) {
+					addAttribute(doc, vaginaModifiers, om.toString(), String.valueOf(character.hasVaginaOrificeModifier(om)));
+				}
+				
+				
+//				Element vaginaModifiers = doc.createElement("vaginaModifiers");
+//				bodyVagina.appendChild(vaginaModifiers);
+//				for(OrificeModifier om : OrificeModifier.values()) {
+//					addAttribute(doc, vaginaModifiers, om.toString(), String.valueOf(character.hasVaginaOrificeModifier(om)));
+//				}
 				
 			Element bodyGirlcum = doc.createElement("girlcum");
 			characterBody.appendChild(bodyGirlcum);
@@ -1308,7 +1320,6 @@ public class CharacterUtils {
 					importedCharacter.setVaginaStretchedCapacity(Float.valueOf(vagina.getAttribute("stretchedCapacity")));
 					importedCharacter.setVaginaVirgin(Boolean.valueOf(vagina.getAttribute("virgin")));
 					
-
 					characterImportLog.append("</br></br>Body: Vagina: "
 							+ "</br>type: "+importedCharacter.getVaginaType()
 							+ "</br>clitSize: "+importedCharacter.getVaginaClitorisSize()
@@ -1319,9 +1330,19 @@ public class CharacterUtils {
 							+ "</br>plasticity: "+importedCharacter.getVaginaPlasticity()
 							+ "</br>capacity: "+importedCharacter.getVaginaCapacity()
 							+ "</br>stretchedCapacity: "+importedCharacter.getVaginaStretchedCapacity()
-							+ "</br>virgin: "+importedCharacter.isVaginaVirgin()
+							+ "</br>virgin: "+importedCharacter.isVaginaVirgin());
+					
+					Element vaginaModifiers = (Element)vagina.getElementsByTagName("vaginaModifiers").item(0);
+					for(OrificeModifier om : OrificeModifier.values()) {
+						if(Boolean.valueOf(vaginaModifiers.getAttribute(om.toString()))) {
+							importedCharacter.addVaginaOrificeModifier(om);
+							characterImportLog.append("</br>"+om.toString()+":true");
+						} else {
+							characterImportLog.append("</br>"+om.toString()+":false");
+						}
+					}
 							
-							+ "</br></br>Girlcum:");
+					characterImportLog.append("</br></br>Girlcum:");
 					
 					Element girlcum = (Element)((Element) nodes.item(0)).getElementsByTagName("girlcum").item(0);
 					importedCharacter.setGirlcumFlavour(FluidFlavour.valueOf(girlcum.getAttribute("flavour")));
@@ -2200,11 +2221,11 @@ public class CharacterUtils {
 					availableFetishes.add(f);
 				
 			} else if (f==Fetish.FETISH_IMPREGNATION) {
-				if(character.hasPenis())
+				if(character.hasPenis() && character.sexualOrientation!=SexualOrientation.ANDROPHILIC)
 					availableFetishes.add(f);
 				
 			} else if (f==Fetish.FETISH_SEEDER) {
-				if(character.hasPenis())
+				if(character.hasPenis() && character.sexualOrientation!=SexualOrientation.ANDROPHILIC)
 					availableFetishes.add(f);
 				
 			} else if (f==Fetish.FETISH_BROODMOTHER) {
@@ -2215,7 +2236,7 @@ public class CharacterUtils {
 				if(character.hasPenis())
 					availableFetishes.add(f);
 				
-			}else if (f==Fetish.FETISH_BREASTS_SELF) {
+			} else if (f==Fetish.FETISH_BREASTS_SELF) {
 				if(character.hasBreasts())
 					availableFetishes.add(f);
 				

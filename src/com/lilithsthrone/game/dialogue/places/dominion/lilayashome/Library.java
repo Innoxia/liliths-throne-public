@@ -133,7 +133,7 @@ public class Library {
 					@Override
 					public void effects() {
 						if(!Main.game.getDialogueFlags().readBook1) {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f));
+							Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f);
 							Main.game.getDialogueFlags().readBook1 = true;
 						}
 					}
@@ -144,7 +144,7 @@ public class Library {
 					@Override
 					public void effects() {
 						if(!Main.game.getDialogueFlags().readBook2) {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f));
+							Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f);
 							Main.game.getDialogueFlags().readBook2 = true;
 						}
 					}

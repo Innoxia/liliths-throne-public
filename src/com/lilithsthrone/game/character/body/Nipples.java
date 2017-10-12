@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.NippleType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -115,8 +116,9 @@ public class Nipples implements BodyPartInterface, Serializable {
 			}
 		}
 		descriptorList.add(type.getDescriptor(owner));
-		descriptorList.add(orificeNipples.getCapacity().getDescriptor());
-		
+		if(orificeNipples.getCapacity()!= Capacity.ZERO_IMPENETRABLE) {
+			descriptorList.add(orificeNipples.getCapacity().getDescriptor());
+		}
 		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}
 

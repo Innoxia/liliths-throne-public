@@ -223,21 +223,29 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	public boolean isAbleToBeUsedFromInventory() {
 		return true;
 	}
+	
 	public boolean isAbleToBeUsed(GameCharacter target) {
-		if(Main.game.isInCombat() && !target.isPlayer())
+		if(Main.game.isInCombat() && !target.isPlayer()) {
 			return false;
-		else
+		} else {
 			return true;
+		}
 	}
+	
 	public boolean isAbleToBeUsedInSex() {
 		return true;
 	}
+	
 	public boolean isAbleToBeUsedInCombat() {
 		return true;
 	}
 	
 	public boolean isConsumedOnUse() {
 		return true;
+	}
+	
+	public boolean isTransformative() {
+		return false;
 	}
 	
 	public String getUnableToBeUsedFromInventoryDescription() {

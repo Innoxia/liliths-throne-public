@@ -638,7 +638,12 @@ public class Brax extends NPC {
 				return new Response("Spit", "Spit out the transformative liquid.", AFTER_DEFEAT_TRANSFORMATION_REFUSED);
 				
 			} else if (index == 2) {
-				return new Response("Swallow", "Do as Brax says and swallow the strange liquid.", AFTER_DEFEAT_TRANSFORMATION){
+				return new Response("Swallow", "Do as Brax says and swallow the strange liquid.", AFTER_DEFEAT_TRANSFORMATION,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null){
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().braxTransformedPlayer = true;
@@ -1020,7 +1025,7 @@ public class Brax extends NPC {
 	
 	@Override
 	public Map<TFEssence, Integer> getLootEssenceDrops() {
-		return Util.newHashMapOfValues(new Value<>(TFEssence.WOLF_MORPH, Util.random.nextInt(5)+4), new Value<>(TFEssence.ARCANE, 3));
+		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, 5));
 	}
 	
 	@Override

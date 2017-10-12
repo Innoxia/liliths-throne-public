@@ -254,39 +254,5 @@ public class Lilaya extends NPC {
 		
 		return speech.get(Util.random.nextInt(speech.size()));
 	}
-	
-
-	
-//	@Override
-//	public String getPartnerVaginaPenetrationDescription(boolean initialPenetration, PenetrationType penetrationType) {
-//		if(initialPenetration){
-//			return "";
-//		}else{
-//			if(Math.random()<0.3)
-//				return super.getPartnerVaginaPenetrationDescription(initialPenetration, penetrationType);
-//			else
-//				return formatPenetration(UtilText.returnStringAtRandom(
-//						"Lilaya squeals in delight as she bounces up and down on your "+Main.game.getPlayer().getPenisName(true)+".",
-//						"You carry on slamming your "+Main.game.getPlayer().getPenisName(true)+" in and out of Lilaya's "+Sex.getPartner().getVaginaName(true)+".",
-//						"Lilaya's demonic "+Sex.getPartner().getVaginaName(false)+" carries on milking your "+Main.game.getPlayer().getPenisName(true)+" with its tentacles.",
-//						"You let out a series of lewd groans and moans as your demonic aunt's tentacle-lined "+Sex.getPartner().getVaginaName(false)+" expertly massages your "+Main.game.getPlayer().getPenisName(true)+"."));
-//		}
-//	}
-//
-//	@Override
-//	public String getPartnerAnalPenetrationDescription(boolean initialPenetration, PenetrationType penetrationType) {
-//		if(initialPenetration){
-//			return "";
-//		}else{
-//			if(Math.random()<0.3)
-//				return super.getPartnerAnalPenetrationDescription(initialPenetration, penetrationType);
-//			else
-//				return formatPenetration(UtilText.returnStringAtRandom(
-//						"Lilaya squeals in delight as she bounces up and down on your "+Main.game.getPlayer().getPenisName(true)+".",
-//						"You carry on slamming your "+Main.game.getPlayer().getPenisName(true)+" in and out of Lilaya's "+Sex.getPartner().getAssholeName(true)+".",
-//						"Lilaya's pussy-like "+Sex.getPartner().getAssholeName(false)+" carries on squeezing down around your "+Main.game.getPlayer().getPenisName(true)+".",
-//						"You let out a series of lewd groans and moans as your demonic aunt's "+Sex.getPartner().getAssholeName(false)+" expertly milks your "+Main.game.getPlayer().getPenisName(true)+"."));
-//		}
-//	}
 
 }

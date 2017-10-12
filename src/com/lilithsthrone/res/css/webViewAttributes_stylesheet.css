@@ -550,3 +550,15 @@ h6{
 .jinxed:hover{
 	background-color:#865f63;
 }
+
+.item-inline{
+	background-color: transparent;
+	position:relative;
+	display:inline-block;
+	border-radius: 5px;
+	width:20px;
+	height:20px;
+	padding:0;
+	margin:0 0 2px 0;
+	vertical-align: middle;
+}

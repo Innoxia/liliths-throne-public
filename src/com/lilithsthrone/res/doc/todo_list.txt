@@ -6,6 +6,10 @@
 	
 	Patch notes:
 	
+	Gameplay:
+		Consolidated all essences into arcane essences. There were numerous problems with the old system of a unique essence for each race (unnecessary micro-management, far too many races planned, wasted resources), so I decided to remove them.
+		Repurposed all 'bottled essence' item effects into damage & resistance multipliers based on the essence's race.
+	
 	Forced TF mechanics:
 		Added forced TF preference (in the furry preferences screen).
 		Split transformation fetish into giving and receiving versions.
@@ -15,39 +19,44 @@
 			<b>You can still avoid all forced TF content, don't worry if that's not your thing!</b> ^^
 		Changed Brax's TF scene to take into account TF preferences.
 		Changed all three of the harpy's scenes to take into account TF preferences.
+		Actions related to being forcefully transformed or transforming others now have associated fetish requirements and corruption bypasses.
+		NPCs will now sort out all of their genital preferences in one potion.
 	
 	Settings:
 		Improved furry preferences screen and slightly altered what each of the settings mean. (Please make sure that everything is still suitable for you after starting up your game!)
 		
 	Other:
 		Added a minor variation ('Furries?! Yes!') to the prologue, as an opposite reaction to 'Furries?! No!'.
+		Added descriptions for all vagina modifiers to selfie.
+		Changed Ralph to a greater horse-morph (instead of lesser), and gave him new clothes and the 'receiving oral' fetish.
 	
 	Bugs:
 		Typo fixes.
-	
-	
-	
-	
-	
-	
+		Fixed bug in inventory where you'd be able to use inappropriate items on an NPC through the 'Use all' action.
+		Fixed bug where condoms wouldn't be removed upon NPC's orgasm.
+		Fixed UI bug where NPC's slots were shown as blocked based on your blocked slots.
+		Fixed 'storm generated' NPCs not being removed from place tiles.
+		Fixed body/pubic/facial hair potions not working correctly.
+		Imported characters with hooves/talons can now get past the clothing selection screen (you don't need to wear shoes to pass). (I don't know how you managed to get into the clothing selection with an imported character... ^^)
+		Fixed the description for Diana's perfume showing Lexi instead of Diana.
+		Fixed puffy vagina description not correctly referring to labia.
+		Fixed vagina modifiers not being exported/imported correctly.
+		Fixed minor inconsistency in the follow up exam with Lilaya, which was referencing your clothes being destroyed.
+		The "Savage Attack" special ability for wolf-morphs now correctly requires both wolf-morph arms and face to be available.
+		You can now sell weapons and clothing to NPCs (such as Vicky) even if their inventory is full.
+		Fixed dirty talk sometimes incorrectly referring to fingers.
+		Fixed impenetrable nipples being described as 'extremely tight'.
+		Fixed reading library books showing that you'd gained intelligence twice.
 	
 	
 	
 	Test new scenes
 	
 	Forced TF:
-		so a man with a seeder fetish got rid of my pussy and gave me a dick. (i am pretty sure the NPCs are drunk)
-		working on making npcs who are androphilic transform female players into males or vice versa instead of just stealing money after they beat the player in combat.
-			 Also, will the next release include npcs forcing the player to wear jinxed clothing (please say yes).
-		i submitted to a wolf boy, he said he wanted to turn me into his wolf girl, and then decided i dont need a pussy? ("wolf-girl" first of all, then "shemale wolf-morph")
+		Also, will the next release include npcs forcing the player to wear jinxed clothing (please say yes).
 	
 	Fetish:
-		Removes ability to knock bottle away
 		Increases potency of potions [+3 effects each for giver & taker]
-		Decreases potion making costs
-	
-	Add levelling fetishes
-	
 	
 	
 	
@@ -57,7 +66,9 @@
 		and of course when possible it adds the breeder fetish, and if possibly leaves their pussy permanently dripping wet~
 		
 	Additions:
-		lusty maiden desc
+
+		Also, any follow ups on already exposed states pre combat/sex? Being an exhibitionist virtually removes all npc reactions from the game, which is wierd!
+
 		Now that I got you thinking about dialogue, it's awesome that different characters might say "breed me" or "don't cum inside me" but I wish there was more continuity after I do or don't cum inside them.
 			It would be cool to have the 'unwanted creampie' affect i.e. "wtf, I said don't cum inside assh*le!" Ya know, especially with a huge cum attribute adding, "there's no way that doesn't knock me up!" perhaps an incest optional,
 				"I can't believe I'm going be bear by own dads' children!"
@@ -74,6 +85,7 @@
 			 And maybe some other types of rings, like a dragon ring, a Horcrux ring, the One Ring, and other cool fantasy rings.
 		
 	Sex:
+		Pussy cock tease and spread pussy
 		anilingus
 		chastity cage orgasm denial
 		suck on nipples
@@ -101,27 +113,9 @@
 		NPCs seem to almost exclusively prioritize playing with their breasts
 	
 	Bugs:
-		condoms still bugged (bo removal post-sex)
-		had an encounter outide the house during the storm, although the char is gone the symbol is remaining
-			there is 2 now
-			it appears to be when they share a tile with a location
-			[Caused by removal method]
-		And the TF increments are still broke (breast increments by more than 1 at a time)
-		if you import a character with hooves you can't get past the clothing selection screen since you need to wear shoes to pass
-		A bottle of perfume that you got from the harpy matriarch [nymphoHarpy.name]. The description for Diana's perfume is showing Lexi instead of Diana.
 		Feeding slave pot while in Finch's place makes some of the descriptions return Finch descriptions
-		Vagina mods not exported
-		Despite your clothes not being destroyed, the follow up exam with Lilaya will still reference your clothes being destroyed
-		The "Savage Attack" special ability for wolfgirls references a muzzle when you have a completely human face
 		NPCs will be revolted by the cocks that they give you with transformatives, this guy gave me a potion which gave me a feline cock then took of my dress and said "What, I thought you were a good girl!" which was pretty funny actually.
-		[?] Condoms still re-equipping themselves (jinxed)
-		[?] Small but pesky bug, seem if you find a kid some where and you want to remove them from that location game crashes, forces you to collar and sell them, to clear that location
 		Lots of offspring having flat chests
-		Can't sell weapons to Vicky, they stay in my inventory and I don't get $$$ (HAPPENS WHEN HER INVENTORY IS FULL, Already reported, as it happens with all vendors when their shop inv is full.)
-		Lilaya is dom and is using her tail on her vagina. My dirty talk refers to her using her fingers, which she is not.
-		"Lilaya reaches down and starts to eagerly pinch and rub at your extremely tight nipples, quickly causing you to start squealing and moaning in delight as you beg her not to stop."(edited) I don't think that should happen if you have normal human breasts
-		Tail self-sucking text triggers twice every action (usually different sentences)
-		reading a book (at least at the library) gives you +0.5 core int twice
 		Seems the trait of having multiple rows of breasts is randomly assigned to NPCs.
 			Even if I have maximum furry and multi-breast preferences, NPCs who are listed as having furry morphed breasts are still described more often than not as having "one pair" of breasts. 
 		seems like none of the ladies, including broodmothers, are producing any milk after giving birth. 
@@ -140,7 +134,7 @@
 	
 	
 	
-	
+	Pubic hair TF wroking?
 	
 	Do you plan to add something like "permission to have sex with you without asking"? =D Would be nice if this can happen after you went to sleep and they just join you.
 	

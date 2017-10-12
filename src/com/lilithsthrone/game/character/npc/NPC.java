@@ -111,7 +111,7 @@ import java.util.Set;
 
 /**
  * @since 0.1.0
- * @version 0.1.84
+ * @version 0.1.87
  * @author Innoxia
  */
 public abstract class NPC extends GameCharacter {
@@ -365,12 +365,11 @@ public abstract class NPC extends GameCharacter {
 	}
 	
 	public Map<TFEssence, Integer> getLootEssenceDrops() {
-		return Util.newHashMapOfValues(new Value<>(getRace().getRelatedEssence(), Util.random.nextInt(6)+6));
+		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, Util.random.nextInt(2)+1));
 	}
 	
+	
 	// Relationships:
-	
-	
 	
 	public float getDailyAffectionChange() {
 		// Forgive me, for I am tired x_x
@@ -479,9 +478,9 @@ public abstract class NPC extends GameCharacter {
 		String reaction = "Time to transform you!", raceName = "human";
 		
 		if (getPreferredBody().getGender().isFeminine()) {
-			raceName = getPreferredBody().getRace().getSingularFemaleName();
+			raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getRace().getSingularFemaleName();
 		} else {
-			raceName = getPreferredBody().getRace().getSingularMaleName();
+			raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getRace().getSingularMaleName();
 		}
 		
 		switch(getPreferredBody().getRace()) {
@@ -2613,7 +2612,7 @@ public abstract class NPC extends GameCharacter {
 								return UtilText.returnStringAtRandom(
 										"That's right, try to get yourself off!",
 										"You trying to get yourself off?",
-										"Go on, keep using your fingers!");
+										"Yes! Keep going!");
 						}
 				}
 			}
@@ -2791,7 +2790,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right, try to get yourself off!",
 									"You trying to get yourself off?",
-									"Go on, keep using your fingers!");
+									"Yes! Keep going!");
 					}
 			}
 		}
@@ -2969,7 +2968,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right, try to get yourself off!",
 									"You trying to get yourself off?",
-									"Go on, keep using your fingers!");
+									"Yes! Keep going!");
 					}
 			}
 		}
@@ -3147,7 +3146,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right, try to get yourself off!",
 									"You trying to get yourself off?",
-									"Go on, keep using your fingers!");
+									"Yes! Keep going!");
 					}
 			}
 		}
@@ -4196,7 +4195,7 @@ public abstract class NPC extends GameCharacter {
 								return UtilText.returnStringAtRandom(
 										"That's right, try to get yourself off!",
 										"You trying to get yourself off?",
-										"Go on, keep using your fingers!");
+										"Yes! Keep going!");
 						}
 				}
 			}
@@ -4374,7 +4373,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right, try to get yourself off!",
 									"You trying to get yourself off?",
-									"Go on, keep using your fingers!");
+									"Yes! Keep going!");
 					}
 			}
 		}
@@ -4551,7 +4550,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right, try to get yourself off!",
 									"You trying to get yourself off?",
-									"Go on, keep using your fingers!");
+									"Yes! Keep going!");
 					}
 			}
 		}
@@ -4728,7 +4727,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right, try to get yourself off!",
 									"You trying to get yourself off?",
-									"Go on, keep using your fingers!");
+									"Yes! Keep going!");
 					}
 			}
 		}

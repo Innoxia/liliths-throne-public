@@ -164,7 +164,7 @@ public class DominionSuccubusAttacker extends NPC {
 	
 	@Override
 	public Map<TFEssence, Integer> getLootEssenceDrops() {
-		return Util.newHashMapOfValues(new Value<>(TFEssence.DEMON, Util.random.nextInt(6)+6), new Value<>(TFEssence.ARCANE, Util.random.nextInt(2)+1));
+		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, Util.random.nextInt(5)+2));
 	}
 	
 	@Override

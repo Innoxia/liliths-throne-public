@@ -24,6 +24,7 @@ import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
+import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
@@ -491,10 +492,19 @@ public class UtilText {
 	public static String formatAsMoney(int money) {
 		return formatAsMoney(money, "b");
 	}
+
+	public static String getCurrencySymbol() {
+		return "&#164";
+	}
 	
-//	public static String getColouredMoneySymbolGold(String tag) {
-//		return "<" + tag + " style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</" + tag + ">";
-//	}
+	public static String getPentagramSymbol() {
+		return "&#9737;"; // Java doesn't support unicode 6 ;_;   No pentagram for me... ;_;  "&#9956";
+	}
+	
+	public static String formatAsEssences(int amount, String tag, boolean withOverlay) {
+		return "<div class='item-inline'>"+ TFEssence.ARCANE.getSVGString()+ (withOverlay?"<div class='overlay no-pointer' id='ESSENCE_"+TFEssence.ARCANE.hashCode()+"'></div>":"")
+					+"</div> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+amount+"</b>";
+	}
 	
 	public static String formatAsMoney(int money, String tag) {
 		return formatAsMoney(money, tag, null);
@@ -514,19 +524,19 @@ public class UtilText {
 			tagColour = amountColour.toWebHexString();
 		}
 		
-		return "<" + tag + " style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+		return "<" + tag + " style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 					+ "<" + tag + " style='color:" + tagColour + ";'>" + money + "</" + tag + ">";
 		
-//		return "<" + tag + " style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//		return "<" + tag + " style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 //				+ "<" + tag + " style='color:" + tagColour + ";'>" + money/100 + "</" + tag + "> "
-//				+"<" + tag + " style='color:" + Colour.GENERIC_SEX.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//				+"<" + tag + " style='color:" + Colour.GENERIC_SEX.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 //				+ "<" + tag + " style='color:" + tagColour + ";'>" + money%100 + "</" + tag + "> ";
 		
-//		return (moneyGold>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//		return (moneyGold>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 //					+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyGold + "</" + tag + "> ":"")
-//				+(moneyGold+moneySilver>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_SILVER.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//				+(moneyGold+moneySilver>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_SILVER.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 //						+ "<" + tag + " style='color:" + tagColour + ";'>" + moneySilver + "</" + tag + "> ":"")
-//				+(money>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_COPPER.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//				+(money>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_COPPER.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 //						+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyCopper + "</" + tag + ">":"");
 	}
 	
@@ -537,19 +547,19 @@ public class UtilText {
 		
 		String tagColour = Colour.TEXT_GREY.toWebHexString();
 
-		return "<" + tag + " style='color:" + tagColour + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+		return "<" + tag + " style='color:" + tagColour + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 					+ "<" + tag + " style='color:" + tagColour + ";'>" + money + "</" + tag + ">";
 		
-//		return "<" + tag + " style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//		return "<" + tag + " style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 //				+ "<" + tag + " style='color:" + tagColour + ";'>" + money/100 + "</" + tag + "> "
-//				+"<" + tag + " style='color:" + Colour.GENERIC_SEX.toWebHexString() + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//				+"<" + tag + " style='color:" + Colour.GENERIC_SEX.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 //				+ "<" + tag + " style='color:" + tagColour + ";'>" + money%100 + "</" + tag + "> ";
 		
-//		return (moneyGold>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_GOLD.getShades()[0] + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//		return (moneyGold>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_GOLD.getShades()[0] + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 //					+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyGold + "</" + tag + "> ":"")
-//				+(moneyGold+moneySilver>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_SILVER.getShades()[0] + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//				+(moneyGold+moneySilver>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_SILVER.getShades()[0] + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 //						+ "<" + tag + " style='color:" + tagColour + ";'>" + moneySilver + "</" + tag + "> ":"")
-//				+(money>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_COPPER.getShades()[0] + "; padding-right:2px;'>" + Main.game.getCurrencySymbol() + "</" + tag + ">"
+//				+(money>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_COPPER.getShades()[0] + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 //						+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyCopper + "</" + tag + ">":"");
 	}
 	

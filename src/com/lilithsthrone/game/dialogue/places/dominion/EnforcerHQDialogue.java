@@ -867,7 +867,12 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Turn Brax into Bree", "You and Candi force-feed [brax.name] his own potion.", INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED) {
+				return new Response("Turn Brax into Bree", "You and Candi force-feed [brax.name] his own potion.", INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+						Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().feminisedBrax = true;
@@ -1051,7 +1056,12 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Turn Bree into Brandi", "Transform Bree into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED) {
+				return new Response("Turn Bree into Brandi", "Transform Bree into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+						Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().bimbofiedBrax = true;

@@ -45,7 +45,7 @@ import com.lilithsthrone.main.Main;
 public class Properties implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public String lastSaveLocation = "", lastQuickSaveName = "", nameColour = "", name = "", race = "", quest = "", versionNumber="";
-	public int fontSize = 18, level = 1, money = 0, humanEncountersLevel = 1, multiBreasts = 1;
+	public int fontSize = 18, level = 1, money = 0, arcaneEssences = 0, humanEncountersLevel = 1, multiBreasts = 1;
 	public boolean lightTheme = false, overwriteWarning = true, fadeInText=true,
 			furryTailPenetrationContent = false,
 			nonConContent = false,
@@ -152,6 +152,7 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, previousSave, "quest", quest);
 			createXMLElementWithValue(doc, previousSave, "level", String.valueOf(level));
 			createXMLElementWithValue(doc, previousSave, "money", String.valueOf(money));
+			createXMLElementWithValue(doc, previousSave, "arcaneEssences", String.valueOf(arcaneEssences));
 			createXMLElementWithValue(doc, previousSave, "versionNumber", Main.VERSION_NUMBER);
 			createXMLElementWithValue(doc, previousSave, "lastQuickSaveName", lastQuickSaveName);
 			
@@ -415,6 +416,9 @@ public class Properties implements Serializable {
 				quest = ((Element)element.getElementsByTagName("quest").item(0)).getAttribute("value");
 				level = Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value"));
 				money = Integer.valueOf(((Element)element.getElementsByTagName("money").item(0)).getAttribute("value"));
+				if(element.getElementsByTagName("arcaneEssences").item(0)!=null) {
+					arcaneEssences = Integer.valueOf(((Element)element.getElementsByTagName("arcaneEssences").item(0)).getAttribute("value"));
+				}
 				versionNumber = ((Element)element.getElementsByTagName("versionNumber").item(0)).getAttribute("value");
 				if(element.getElementsByTagName("lastQuickSaveName").item(0)!=null) {
 					lastQuickSaveName = ((Element)element.getElementsByTagName("lastQuickSaveName").item(0)).getAttribute("value");

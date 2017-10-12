@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.8
@@ -86,6 +88,11 @@ public class ItemEffect implements Serializable {
 		if(getLimit()!=-1) {
 			cost+=1;
 		}
+
+		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
+			cost/=2;
+		}
+		
 		return cost;
 	}
 	

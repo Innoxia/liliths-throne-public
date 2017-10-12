@@ -124,7 +124,7 @@ import java.util.Set;
  * The class for all the game's characters. I think this is the biggest class in the game.
  * 
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.87
  * @author Innoxia
  */
 public class GameCharacter implements Serializable {
@@ -1681,7 +1681,9 @@ public class GameCharacter implements Serializable {
 	}
 
 	public boolean isWearingCondom() {
-		return this.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot())!=null && this.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getClothingType() == ClothingType.PENIS_CONDOM;
+//		if(Main.game.isInSex() && this == Sex.getPartner())
+//			System.out.println("condom inner: "+(this.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot())!=null));
+		return this.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot())!=null && this.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getClothingType().equals(ClothingType.PENIS_CONDOM);
 	}
 	
 	public boolean isExhibitionist() {
@@ -4126,8 +4128,8 @@ public class GameCharacter implements Serializable {
 		int value = getPubicHair().getValue() + increment;
 		if(value < 0) {
 			value = 0;
-		} else if(value > 3) {
-			value = 3;
+		} else if(value > BodyHair.SEVEN_WILD.getValue()) {
+			value = BodyHair.SEVEN_WILD.getValue();
 		}
 		return setPubicHair(BodyHair.getBodyHairFromValue(value));
 	}
@@ -4307,8 +4309,8 @@ public class GameCharacter implements Serializable {
 		int value = getUnderarmHair().getValue() + increment;
 		if(value < 0) {
 			value = 0;
-		} else if(value > 3) {
-			value = 3;
+		} else if(value > BodyHair.SEVEN_WILD.getValue()) {
+			value = BodyHair.SEVEN_WILD.getValue();
 		}
 		return body.getArm().setUnderarmHair(this, BodyHair.getBodyHairFromValue(value));
 	}
@@ -4402,8 +4404,8 @@ public class GameCharacter implements Serializable {
 		int value = getAssHair().getValue() + increment;
 		if(value < 0) {
 			value = 0;
-		} else if(value > 3) {
-			value = 3;
+		} else if(value > BodyHair.SEVEN_WILD.getValue()) {
+			value = BodyHair.SEVEN_WILD.getValue();
 		}
 		return body.getAss().getAnus().setAssHair(this, BodyHair.getBodyHairFromValue(value));
 	}
@@ -5059,8 +5061,8 @@ public class GameCharacter implements Serializable {
 		int value = getFacialHair().getValue() + increment;
 		if(value < 0) {
 			value = 0;
-		} else if(value > 3) {
-			value = 3;
+		} else if(value > BodyHair.SEVEN_WILD.getValue()) {
+			value = BodyHair.SEVEN_WILD.getValue();
 		}
 		return body.getFace().setFacialHair(this, BodyHair.getBodyHairFromValue(value));
 	}
