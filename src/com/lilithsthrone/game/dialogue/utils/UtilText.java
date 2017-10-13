@@ -748,6 +748,9 @@ public class UtilText {
 				if(arguments!=null) {
 					return character.getName(arguments);
 				} else {
+					if(character.isPlayerKnowsName() || character.isPlayer()) {
+						return character.getName();
+					}
 					return character.getName("the");
 				}
 			}

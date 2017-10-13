@@ -4,11 +4,10 @@ import java.io.Serializable;
 
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.87
  * @author Innoxia
  */
 public class DialogueFlags implements Serializable {
@@ -24,8 +23,6 @@ public class DialogueFlags implements Serializable {
 	
 	public BodyCoveringType skinTypeSelected;
 	
-	public TFEssence focusedEssence;
-	
 	public DialogueNodeOld slaveryManagerRootDialogue;
 	public NPC slaveTrader, slaveryManagerSlaveSelected;
 	
@@ -33,8 +30,13 @@ public class DialogueFlags implements Serializable {
 			// Misc:
 			
 			quickTrade,
-			jinxedClothingDiscovered,
 			stormTextUpdateRequired,
+			
+			// Essence reactions:
+			jinxedClothingDiscovered,
+			essencePostCombatDiscovered,
+			essenceOrgasmDiscovered,
+			essenceBottledDiscovered,
 	
 			// Gym:
 			gymIntroduced, gymHadTour, gymIsMember,
@@ -61,11 +63,13 @@ public class DialogueFlags implements Serializable {
 
 	public DialogueFlags() {
 
-		quickTrade = false;
 		jinxedClothingDiscovered = false;
-		stormTextUpdateRequired = false;
+		essencePostCombatDiscovered = false;
+		essenceOrgasmDiscovered = false;
+		essenceBottledDiscovered = false;
 		
-		focusedEssence = null;
+		quickTrade = false;
+		stormTextUpdateRequired = false;
 		
 		slaveryManagerRootDialogue = null;
 		slaveryManagerSlaveSelected = null;

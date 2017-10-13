@@ -1827,7 +1827,7 @@ public class GameCharacter implements Serializable {
 			if(pregnantLitter.getFather()!=null) {
 				pregnantLitter.getFather().getLittersFathered().add(birthedLitter);
 			}
-		} 
+		}
 		
 		removeStatusEffect(StatusEffect.PREGNANT_1);
 		removeStatusEffect(StatusEffect.PREGNANT_2);
@@ -1994,6 +1994,10 @@ public class GameCharacter implements Serializable {
 	
 	public int getEssenceCount(TFEssence essence) {
 		return getEssenceMap().get(essence);
+	}
+	
+	public void setEssenceCount(TFEssence essence, int amount) {
+		getEssenceMap().put(essence, amount);
 	}
 	
 	public void incrementEssenceCount(TFEssence essence, int increment) {
@@ -2498,6 +2502,21 @@ public class GameCharacter implements Serializable {
 		return inventory.getEquipDescription();
 	}
 
+	/**
+	 * <b>!!!ONLY FOR USE IN CHARACTER IMPORT!!!</b>
+	 * @param newClothing
+	 */
+	public void equipClothingOverride(AbstractClothing newClothing) {
+		inventory.getClothingCurrentlyEquipped().add(newClothing);
+		incrementBonusAttribute(Attribute.RESISTANCE_PHYSICAL, newClothing.getClothingType().getPhysicalResistance());
+		for (Entry<Attribute, Integer> e : newClothing.getAttributeModifiers().entrySet()) {
+			incrementBonusAttribute(e.getKey(), e.getValue());
+		}
+		
+		newClothing.setEnchantmentKnown(true);
+
+		updateInventoryListeners();
+	}
 
 	public String equipClothingFromNowhere(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
 		boolean wasAbleToEquip = inventory.isAbleToEquip(newClothing, true, automaticClothingManagement, this, characterClothingEquipper);
@@ -3410,26 +3429,26 @@ public class GameCharacter implements Serializable {
 					}
 					
 					if(hasPenis()) {
-						// Assume female, as penis is not visible:
+						// Correctly assume busty boy:
 						return new GenderAppearance(
 								isPlayer()
-								?"Your [pc.penis] is concealed, so, due to your masculine appearance and [pc.breastSize] breasts, everyone assumes that you're "
-										+UtilText.generateSingularDeterminer(Gender.M_V_B_BUTCH.getName())+" "+Gender.M_V_B_BUTCH.getName()+" on first glance."
+								?"Your [pc.penis] is concealed, so, due to your masculine appearance and [pc.breastSize] breasts, everyone correctly assumes that you're "
+										+UtilText.generateSingularDeterminer(Gender.M_P_B_BUSTYBOY.getName())+" "+Gender.M_P_B_BUSTYBOY.getName()+" on first glance."
 								:UtilText.parse(this,
 										"Due to [npc.her] masculine appearance and [npc.breastSize] breasts, everyone assumes that [npc.she]'s "
-											+UtilText.generateSingularDeterminer(Gender.M_V_B_BUTCH.getName())+" "+Gender.M_V_B_BUTCH.getName()+" on first glance."),
-								Gender.M_V_B_BUTCH);
+											+UtilText.generateSingularDeterminer(Gender.M_P_B_BUSTYBOY.getName())+" "+Gender.M_P_B_BUSTYBOY.getName()+" on first glance."),
+								Gender.M_P_B_BUSTYBOY);
 						
 					} else if(hasVagina()) {
-						// Correctly assume female:
+						// Assume bustyboy:
 						return new GenderAppearance(
 								isPlayer()
-								?"Your masculine appearance and [pc.breastSize] breasts leads everyone to correctly assume that you're "
-										+UtilText.generateSingularDeterminer(Gender.M_V_B_BUTCH.getName())+" "+Gender.M_V_B_BUTCH.getName()+"."
+								?"Your masculine appearance and [pc.breastSize] breasts leads everyone to assume that you're "
+										+UtilText.generateSingularDeterminer(Gender.M_P_B_BUSTYBOY.getName())+" "+Gender.M_P_B_BUSTYBOY.getName()+"."
 								:UtilText.parse(this,
 										"Due to [npc.her] masculine appearance and [npc.breastSize] breasts, everyone assumes that [npc.she]'s "
-											+UtilText.generateSingularDeterminer(Gender.M_V_B_BUTCH.getName())+" "+Gender.M_V_B_BUTCH.getName()+"."),
-								Gender.M_V_B_BUTCH);
+											+UtilText.generateSingularDeterminer(Gender.M_P_B_BUSTYBOY.getName())+" "+Gender.M_P_B_BUSTYBOY.getName()+"."),
+								Gender.M_P_B_BUSTYBOY);
 						
 					} else {
 						if(isCoverableAreaExposed(CoverableArea.VAGINA) && isCoverableAreaExposed(CoverableArea.PENIS)) {

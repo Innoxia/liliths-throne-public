@@ -34,7 +34,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -50,7 +49,7 @@ import com.lilithsthrone.world.places.LilayasHome;
 
 /**
  * @since 0.1.0
- * @version 0.1.86
+ * @version 0.1.87
  * @author Innoxia
  */
 public class CharacterCreation {
@@ -670,7 +669,7 @@ public class CharacterCreation {
 							+ "<form style='display:inline-block; padding:0; margin:0; text-align:center;'><input type='text' id='surnameInput' value='"+ Main.game.getPlayer().getSurname()+ "'></form>"
 						+ "</div>"
 						+ "</br>"
-						+ "<i>Your name must be between 2 and 16 characters long. They can only include the standard letters a-z and their respective capitals. (Surname may be left blank.)</i>"
+						+ "<i>Your name must be between 2 and 16 characters long. You cannot use the square bracket characters or full stops. (Surname may be left blank.)</i>"
 						+ (unsuitableName ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid name.</b></p>" : "")
 						+ (unsuitableSurname ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid Surname.</b></p>" : "")
 					+ "</div>"
@@ -692,7 +691,7 @@ public class CharacterCreation {
 				if(Main.mainController.getWebEngine().getDocument()!=null) {
 					if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
 							|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 16
-							|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[a-zA-Z]+"))
+							|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[^\\[\\]\\.]+"))
 						unsuitableName = true;
 					else {
 						unsuitableName = false;
@@ -703,7 +702,7 @@ public class CharacterCreation {
 				if(Main.mainController.getWebEngine().getDocument()!=null) {
 					if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
 							&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 16
-									|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[a-zA-Z]+")))
+									|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
 						unsuitableSurname = true;
 					else {
 						unsuitableSurname = false;
@@ -733,7 +732,7 @@ public class CharacterCreation {
 						if(Main.mainController.getWebEngine().getDocument()!=null) {
 							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
 									&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 16
-											|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[a-zA-Z]+")))
+											|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
 								unsuitableSurname = true;
 							else {
 								unsuitableSurname = false;
@@ -755,7 +754,7 @@ public class CharacterCreation {
 						if(Main.mainController.getWebEngine().getDocument()!=null) {
 							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
 									|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 16
-									|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[a-zA-Z]+"))
+									|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[^\\[\\]\\.]+"))
 								unsuitableName = true;
 							else {
 								unsuitableName = false;
@@ -1841,8 +1840,6 @@ public class CharacterCreation {
 
 	private static void applyGameStart() {
 		Main.getProperties().addRaceDiscovered(Race.HUMAN);
-		
-		Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 5);
 
 		Main.game.clearTextStartStringBuilder();
 		Main.game.clearTextEndStringBuilder();
@@ -1982,16 +1979,11 @@ public class CharacterCreation {
 				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.</br></br><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
 					@Override
 					public void effects() {
-						getDressed();
-						
 						Main.game.setRenderMap(true);
 						Main.game.setInNewWorld(true);
 						
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
-						
-						Main.game.getPlayer().setMoney(40);
-						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
 						
 						applyGameStart();
 					}

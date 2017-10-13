@@ -256,7 +256,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "You recently felt a strange force entering your body, and, although it doesn't seem to have had any obvious effect, you should probably have it checked out."
+			return "You recently felt a strange force entering your body, and although it doesn't seem to have had any obvious effect, you should probably have it checked out."
 					+ " Lilaya is sure to know more, so perhaps you should go and talk to her about it.";
 		}
 
@@ -266,23 +266,23 @@ public enum Quest {
 					+ " She seemed a little worried that you're able to do this, as apparently it's normally only Lilin who are able to gather essences in this fashion...";
 		}
 	},
-	SIDE_ENCHANTMENTS_ENCHANT_SOMETHING(1, QuestType.SIDE, 1, 10) {
-		@Override
-		public String getName() {
-			return "Enchant something";
-		}
-
-		@Override
-		public String getDescription() {
-			return "Lilaya informed you that essences are the vital component in infusing the arcane into objects in order to create enchanted items."
-					+ " You should try enchanting something! (Select an enchantable item in your inventory, then choose 'enchant'!)";
-		}
-
-		@Override
-		public String getCompletedDescription() {
-			return "You've managed to enchant an item!";
-		}
-	},
+//	SIDE_ENCHANTMENTS_ENCHANT_SOMETHING(1, QuestType.SIDE, 1, 10) {
+//		@Override
+//		public String getName() {
+//			return "Enchant something";
+//		}
+//
+//		@Override
+//		public String getDescription() {
+//			return "Lilaya informed you that essences are the vital component in infusing the arcane into objects in order to create enchanted items."
+//					+ " You should try enchanting something! (Select an enchantable item in your inventory, then choose 'enchant'!)";
+//		}
+//
+//		@Override
+//		public String getCompletedDescription() {
+//			return "You've managed to enchant an item!";
+//		}
+//	},
 
 	// For the first time you get pregnant:
 	

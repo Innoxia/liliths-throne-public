@@ -16,7 +16,6 @@ import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
@@ -279,8 +278,6 @@ public class PrologueDialogue {
 				return new Response("Wake up", "You slowly start to regain consciousness.", INTRO_NEW_WORLD_1){
 					@Override
 					public void effects() {
-
-						Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 5);
 						
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
 

@@ -2185,27 +2185,50 @@ public enum StatusEffect {
 							break;
 						}
 					}
+					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+						return "<p>"
+									+ "As you finish fitting the "+clothing.getName()+" in place, you start to feel a strange warmth radiating from "+(clothing.getClothingType().isPlural()?"their":"its")+" surface."
+									+ " Feeling a little uneasy about the manner of arcane enchantment that "+(clothing.getClothingType().isPlural()?"they":"it")+" must contain, you immediately try to take "
+										+(clothing.getClothingType().isPlural()?"them":"it")+" off."
+								+ "</p>"
+								+ "<p>"
+									+ "Taking hold of the "+clothing.getName()+", nothing seems to be wrong at first, but as you try to pull "+(clothing.getClothingType().isPlural()?"them":"it")+" off, you find out that you've made a big mistake."
+									+ " A jolt of arcane energy suddenly flashes up through your body, and as the invasive force shoots its way into your mind, you find yourself unwittingly releasing your grip."
+								+ "</p>"
+								+ "<p>"
+									+ "Gritting your teeth, you try once again to remove the offending article of clothing, only to find yourself instantly letting go as you try to pull "+(clothing.getClothingType().isPlural()?"them":"it")+" off."
+									+ " No matter how much you struggle, all you're able to do is move the "+clothing.getName()
+										+" around a little, and whenever it looks to be in danger of being removed, it moves back into its proper position with a mind of its own."
+								+ "</p>"
+								+ "<p>"
+									+ "Eventually giving up, you decide to go and ask Lilaya what's going on with "+(clothing.getClothingType().isPlural()?"these":"this")
+										+" <b style='color:"+Colour.RARITY_JINXED.toWebHexString()+";'>jinxed</b> "+clothing.getName()+"."
+									+ " Maybe she'll know a way to break the seal?"
+								+ "</p>"
+								+(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)?Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY):"");
 					
-					return "<p>"
-								+ "As you finish fitting the "+clothing.getName()+" in place, you start to feel a strange warmth radiating from "+(clothing.getClothingType().isPlural()?"their":"its")+" surface."
-								+ " Feeling a little uneasy about the manner of arcane enchantment that "+(clothing.getClothingType().isPlural()?"they":"it")+" must contain, you immediately try to take "
-									+(clothing.getClothingType().isPlural()?"them":"it")+" off."
-							+ "</p>"
-							+ "<p>"
-								+ "Taking hold of the "+clothing.getName()+", nothing seems to be wrong at first, but as you try to pull "+(clothing.getClothingType().isPlural()?"them":"it")+" off, you find out that you've made a big mistake."
-								+ " A jolt of arcane energy suddenly flashes up through your body, and as the invasive force shoots its way into your mind, you find yourself unwittingly releasing your grip."
-							+ "</p>"
-							+ "<p>"
-								+ "Gritting your teeth, you try once again to remove the offending article of clothing, only to find yourself instantly letting go as you try to pull "+(clothing.getClothingType().isPlural()?"them":"it")+" off."
-								+ " No matter how much you struggle, all you're able to do is move the "+clothing.getName()
-									+" around a little, and whenever it looks to be in danger of being removed, it moves back into its proper position with a mind of its own."
-							+ "</p>"
-							+ "<p>"
-								+ "Eventually giving up, you decide to go and ask Lilaya what's going on with "+(clothing.getClothingType().isPlural()?"these":"this")
-									+" <b style='color:"+Colour.RARITY_JINXED.toWebHexString()+";'>jinxed</b> "+clothing.getName()+"."
-								+ " Maybe she'll know a way to break the seal?"
-							+ "</p>"
-							+Main.game.getPlayer().incrementQuest(QuestLine.SIDE_JINXED_CLOTHING);
+					} else {
+						return "<p>"
+									+ "As you finish fitting the "+clothing.getName()+" in place, you start to feel a strange warmth radiating from "+(clothing.getClothingType().isPlural()?"their":"its")+" surface."
+									+ " Feeling a little uneasy about the manner of arcane enchantment that "+(clothing.getClothingType().isPlural()?"they":"it")+" must contain, you immediately try to take "
+										+(clothing.getClothingType().isPlural()?"them":"it")+" off."
+								+ "</p>"
+								+ "<p>"
+									+ "Taking hold of the "+clothing.getName()+", nothing seems to be wrong at first, but as you try to pull "+(clothing.getClothingType().isPlural()?"them":"it")+" off, you find out that you've made a big mistake."
+									+ " A jolt of arcane energy suddenly flashes up through your body, and as the invasive force shoots its way into your mind, you find yourself unwittingly releasing your grip."
+								+ "</p>"
+								+ "<p>"
+									+ "Gritting your teeth, you try once again to remove the offending article of clothing, only to find yourself instantly letting go as you try to pull "+(clothing.getClothingType().isPlural()?"them":"it")+" off."
+									+ " No matter how much you struggle, all you're able to do is move the "+clothing.getName()
+										+" around a little, and whenever it looks to be in danger of being removed, it moves back into its proper position with a mind of its own."
+								+ "</p>"
+								+ "<p>"
+									+ "Lilaya's warning about jinxed clothing suddenly shoots to the forefront of your mind, and you let out a groan as you realise that "+(clothing.getClothingType().isPlural()?"these ":"this ")+clothing.getName()
+										+" are <b style='color:"+Colour.RARITY_JINXED.toWebHexString()+";'>jinxed</b>."
+									+ " Remembering what Lilaya said, you should be able to remove the jinx if you focus some of your absorbed essences into it..."
+								+ "</p>";
+					}
+					
 				} else {
 					return "";
 				}
@@ -2379,7 +2402,7 @@ public enum StatusEffect {
 						+ "</p>";
 				}
 				
-			}else{
+			} else{
 				target.endPregnancy(false);
 				return "<p>"
 							+ "Enough time has passed now for you to be sure that you're in the clear."

@@ -670,51 +670,51 @@ public class Body implements Serializable {
 		switch (ear.getType()) {
 			case HUMAN:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of normal, human ears" + (ear.isPierced() ? ", which have been pierced" : "") + ".");
+					sb.append(" You have a pair of normal, human ears, which are covered in [pc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				else
-					sb.append(" [npc.She] has a pair of normal, human ears" + (ear.isPierced() ? ", which have been pierced" : "") + ".");
+					sb.append(" [npc.She] has a pair of normal, human ears, which are covered in [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				break;
 			case DEMON_COMMON:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of pointed, demonic ears" + (ear.isPierced() ? ", which have been pierced" : "") + ".");
+					sb.append(" You have a pair of pointed, demonic ears, which are covered in [pc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				else
-					sb.append(" [npc.She] has a pair of pointed, demonic ears" + (ear.isPierced() ? ", which have been pierced" : "") + ".");
+					sb.append(" [npc.She] has a pair of pointed, demonic ears, which are covered in [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				break;
 			case DOG_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on your head.");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on your head and are are covered in [pc.earFullDescription(true)].");
 				else
-					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on [npc.her] head.");
+					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on [npc.her] head and are covered in [npc.earFullDescription(true)].");
 				break;
 			case LYCAN:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, wolf-like ears, which are positioned high up on your head.");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, wolf-like ears, which are positioned high up on your head and are are covered in [pc.earFullDescription(true)].");
 				else
-					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, wolf-like ears, which are positioned high up on [npc.her] head.");
+					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, wolf-like ears, which are positioned high up on [npc.her] head and are covered in [npc.earFullDescription(true)].");
 				break;
 			case CAT_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on your head.");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on your head and are are covered in [pc.earFullDescription(true)].");
 				else
-					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on [npc.her] head.");
+					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on [npc.her] head and are covered in [npc.earFullDescription(true)].");
 				break;
 			case COW_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of oval-shaped, cow-like ears" + (ear.isPierced() ? ", which have been pierced" : "") + ".");
+					sb.append(" You have a pair of oval-shaped, cow-like ears, which are covered in [pc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				else
-					sb.append(" [npc.She] has a pair of oval-shaped, cow-like ears" + (ear.isPierced() ? ", which have been pierced" : "") + ".");
+					sb.append(" [npc.She] has a pair of oval-shaped, cow-like ears, which are covered in [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				break;
 			case SQUIRREL_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, squirrel-like ears, which are positioned high up on your head.");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, squirrel-like ears, which are positioned high up on your head and are are covered in [pc.earFullDescription(true)].");
 				else
-					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, squirrel-like ears, which are positioned high up on [npc.her] head.");
+					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, squirrel-like ears, which are positioned high up on [npc.her] head and are covered in [npc.earFullDescription(true)].");
 				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, horse-like ears, which are positioned high up on your head.");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, horse-like ears, which are positioned high up on your head and are are covered in [pc.earFullDescription(true)].");
 				else
-					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, horse-like ears, which are positioned high up on [npc.her] head.");
+					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, horse-like ears, which are positioned high up on [npc.her] head and are covered in [npc.earFullDescription(true)].");
 				break;
 			case SLIME:
 				if (owner.isPlayer())

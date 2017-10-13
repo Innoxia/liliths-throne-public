@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -39,7 +38,7 @@ import com.lilithsthrone.world.places.ShoppingArcade;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.87
  * @author Innoxia
  */
 public class Vicky extends NPC {
@@ -114,28 +113,26 @@ public class Vicky extends NPC {
 			primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
 		}
 		
-		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_ARCANE), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_CAT_MORPH), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DEMON), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DOG_MORPH), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HARPY), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HORSE_MORPH), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HUMAN), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_WOLF_MORPH), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_COW_MORPH), false);
-		}
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
+			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_ARCANE), false);
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
+			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_CAT_MORPH), false);
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
+			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DEMON), false);
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
+			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DOG_MORPH), false);
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
+			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HARPY), false);
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
+			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HORSE_MORPH), false);
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
+			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HUMAN), false);
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
+			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_WOLF_MORPH), false);
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
+			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH), false);
+		for(int i=0; i<25+Util.random.nextInt(20);i++)
+			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_COW_MORPH), false);
 	}
 	
 	@Override

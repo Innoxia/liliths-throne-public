@@ -78,13 +78,12 @@ public class CharacterInventory implements Serializable {
 	}
 		
 	public CharacterInventory(int money, int maxInventorySpace) {
-
 		this.money = money;
-
+		
 		itemsInInventory = new ArrayList<>();
 		weaponsInInventory = new ArrayList<>();
 		clothingInInventory = new ArrayList<>();
-
+		
 		weaponDuplicates = new LinkedHashMap<>();
 		clothingDuplicates = new LinkedHashMap<>();
 		itemDuplicates = new LinkedHashMap<>();
@@ -96,10 +95,10 @@ public class CharacterInventory implements Serializable {
 		
 		mainWeapon = null;
 		offhandWeapon = null;
-
+		
 		clothingCurrentlyEquipped = new ArrayList<>();
 		clothingSetCount = new EnumMap<>(ClothingSet.class);
-
+		
 		this.maxInventorySpace = maxInventorySpace;
 	}
 	

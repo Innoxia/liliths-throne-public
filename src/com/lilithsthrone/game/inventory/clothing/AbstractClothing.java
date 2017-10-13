@@ -2,11 +2,16 @@ package com.lilithsthrone.game.inventory.clothing;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -18,15 +23,16 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
 
 import java.util.Set;
 
 /**
  * @since 0.1.0
- * @version 0.1.86
+ * @version 0.1.87
  * @author Innoxia
  */
-public abstract class AbstractClothing extends AbstractCoreItem implements Serializable {
+public abstract class AbstractClothing extends AbstractCoreItem implements Serializable, XMLSaving {
 
 	private static final long serialVersionUID = 1L;
 
@@ -129,7 +135,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		}
 	}
 	
-	
 	@Override
 	public boolean equals (Object o) {
 		if(super.equals(o)){
@@ -160,6 +165,71 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			result = 31 * result + coreEnchantment.hashCode();
 		result = 31 * result + displacedList.hashCode();
 		return result;
+	}
+	
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element element = doc.createElement("clothing");
+		parentElement.appendChild(element);
+		
+		CharacterUtils.addAttribute(doc, element, "id", this.getClothingType().getId());
+		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().toString());
+		CharacterUtils.addAttribute(doc, element, "rarity", this.getRarity().toString());
+		CharacterUtils.addAttribute(doc, element, "sealed", String.valueOf(this.isSealed()));
+		CharacterUtils.addAttribute(doc, element, "isDirty", String.valueOf(this.isDirty()));
+		CharacterUtils.addAttribute(doc, element, "enchantmentKnown", String.valueOf(this.isEnchantmentKnown()));
+		CharacterUtils.addAttribute(doc, element, "badEnchantment", String.valueOf(this.isBadEnchantment()));
+		CharacterUtils.addAttribute(doc, element, "coreEnchantment", (this.getCoreEnchantment()==null?"null":this.getCoreEnchantment().toString()));
+		
+		Element attributeElement = doc.createElement("attributeModifiers");
+		element.appendChild(attributeElement);
+		for(Entry<Attribute, Integer> entry : this.getAttributeModifiers().entrySet()) {
+			Element modifier = doc.createElement("modifier");
+			attributeElement.appendChild(modifier);
+			
+			CharacterUtils.addAttribute(doc, modifier, "attribute", entry.getKey().toString());
+			CharacterUtils.addAttribute(doc, modifier, "value", String.valueOf(entry.getValue()));
+		}
+		
+		Element innerElement = doc.createElement("displacedList");
+		element.appendChild(innerElement);
+		for(DisplacementType dt : this.getDisplacedList()) {
+			Element displacementType = doc.createElement("displacementType");
+			innerElement.appendChild(displacementType);
+			CharacterUtils.addAttribute(doc, displacementType, "value", dt.toString());
+		}
+		
+		return element;
+	}
+	
+	public static AbstractClothing loadFromXML(Element parentElement, Document doc) {
+		AbstractClothing clothing = AbstractClothingType.generateClothing(ClothingType.idToClothingMap.get(parentElement.getAttribute("id")), false);
+		
+		clothing.setColour(Colour.valueOf(parentElement.getAttribute("colour")));
+		clothing.rarity = (Rarity.valueOf(parentElement.getAttribute("rarity")));
+		clothing.setSealed(Boolean.valueOf(parentElement.getAttribute("sealed")));
+		clothing.setDirty(Boolean.valueOf(parentElement.getAttribute("isDirty")));
+		clothing.setEnchantmentKnown(Boolean.valueOf(parentElement.getAttribute("enchantmentKnown")));
+		clothing.badEnchantment = (Boolean.valueOf(parentElement.getAttribute("badEnchantment")));
+		
+		if(!parentElement.getAttribute("coreEnchantment").equals("null")) {
+			clothing.coreEnchantment = Attribute.valueOf(parentElement.getAttribute("coreEnchantment"));
+		}
+		
+		clothing.setAttributeModifiers(new HashMap<Attribute, Integer>());
+		Element element = (Element)parentElement.getElementsByTagName("attributeModifiers").item(0);
+		for(int i=0; i<element.getElementsByTagName("modifier").getLength(); i++){
+			Element e = ((Element)element.getElementsByTagName("modifier").item(i));
+			clothing.getAttributeModifiers().put(Attribute.valueOf(e.getAttribute("attribute")), Integer.valueOf(e.getAttribute("value")));
+		}
+		
+		clothing.displacedList = new ArrayList<>();
+		element = (Element)parentElement.getElementsByTagName("displacedList").item(0);
+		for(int i=0; i<element.getElementsByTagName("spell").getLength(); i++){
+			Element e = ((Element)element.getElementsByTagName("displacementType").item(i));
+			clothing.displacedList.add(DisplacementType.valueOf(e.getAttribute("value")));
+		}
+		
+		return clothing;
 	}
 	
 	/**

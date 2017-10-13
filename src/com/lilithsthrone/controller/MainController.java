@@ -14,7 +14,6 @@ import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 
 import com.lilithsthrone.controller.eventListeners.EnchantmentEventListener;
-import com.lilithsthrone.controller.eventListeners.InventoryRemoveJinx;
 import com.lilithsthrone.controller.eventListeners.InventorySelectedItemEventListener;
 import com.lilithsthrone.controller.eventListeners.InventoryTooltipEventListener;
 import com.lilithsthrone.controller.eventListeners.LevelUpButtonsEventListener;
@@ -110,6 +109,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
@@ -141,7 +141,7 @@ import javafx.scene.web.WebView;
 
 /**
  * @since 0.1.0
- * @version 0.1.86
+ * @version 0.1.87
  * @author Innoxia
  */
 public class MainController implements Initializable {
@@ -300,7 +300,6 @@ public class MainController implements Initializable {
 				Main.game.saveDialogueNode();
 			}
 			
-			InventoryDialogue.populateJinxedClothingList();
 			Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 		}
 
@@ -418,7 +417,7 @@ public class MainController implements Initializable {
 						 if(event.getCode()==KeyCode.END){
 							 
 							 
-//							 System.out.println((1==1?0<(1<1?1:0):0==(0>0?0:0)));
+							 System.out.println(ItemType.BOOK_CAT_MORPH.getId());
 							 
 //							 System.out.println(Main.game.getPlayer().getNextClothingToRemoveForCoverableAreaAccess(CoverableArea.VAGINA).getKey().getName());
 							 
@@ -1454,29 +1453,6 @@ public class MainController implements Initializable {
 							addEventListener(document, "ITEM_" + i, "mouseenter", el2, false);
 						}
 					}
-				}
-			}
-			
-			for(int i=0; i<InventoryDialogue.getJinxedClothing().size(); i++) {
-				if (((EventTarget) document.getElementById("JINXED_" + i)) != null) {
-					addEventListener(document, "JINXED_" + i, "click", new InventoryRemoveJinx().setJinxIndex(i, Main.game.getPlayer()), false);
-					
-					addEventListener(document, "JINXED_" + i, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "JINXED_" + i, "mouseleave", hideTooltipListener, false);
-					
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(InventoryDialogue.getJinxedClothing().get(i), Main.game.getPlayer(), null);
-					addEventListener(document, "JINXED_" + i, "mouseenter", el2, false);
-				}
-			}
-			for(int i=0; i<InventoryDialogue.getJinxedNPCClothing().size(); i++) {
-				if (((EventTarget) document.getElementById("JINXED_NPC_" + i)) != null) {
-					addEventListener(document, "JINXED_NPC_" + i, "click", new InventoryRemoveJinx().setJinxIndex(i, InventoryDialogue.getInventoryNPC()), false);
-					
-					addEventListener(document, "JINXED_NPC_" + i, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "JINXED_NPC_" + i, "mouseleave", hideTooltipListener, false);
-					
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(InventoryDialogue.getJinxedClothing().get(i), InventoryDialogue.getInventoryNPC(), null);
-					addEventListener(document, "JINXED_NPC_" + i, "mouseenter", el2, false);
 				}
 			}
 			

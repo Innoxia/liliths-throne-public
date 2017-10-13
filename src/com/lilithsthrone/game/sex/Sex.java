@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
+import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -594,6 +595,39 @@ public enum Sex {
 				sexSB.append("<p style='text-align:center'><b>Your arcane aura is still strengthened from a previous sexual encounter, so</b> [style.boldArcane(you don't receive any arcane essences!)]</p>");
 				
 			} else {
+				if(!Main.game.getDialogueFlags().essenceOrgasmDiscovered) {
+					Main.game.getDialogueFlags().essenceOrgasmDiscovered = true;
+					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+						sexSB.append(
+								UtilText.parse(partner,
+								"<p>"
+									+ "As you disentangle yourself from [npc.name], you suddenly become aware of a strange, shimmering pink glow that's started to materialise around your body,"
+										+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
+									+ " Quickly realising that you're somehow able to see your own arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
+									+ " Just as you think that it can't get any brighter, your aura suddenly leaps back into your body, and you find yourself sharply inhaling as you feel it gaining strength."
+								+ "</p>"
+								+ "<p>"
+									+ "Looking back over at [npc.name], you see that [npc.she] seems completely oblivious to what you've just witnessed."
+									+ " You think that it would probably be best to go and ask Lilaya about what just happened..."
+								+ "</p>"
+								+(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)?Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY):"")));
+						
+					} else {
+						sexSB.append(
+								UtilText.parse(partner,
+								"<p>"
+									+ "As you disentangle yourself from [npc.name], you suddenly become aware of a strange, shimmering pink glow that's started to materialise around your body,"
+										+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
+									+ " Quickly realising that you're somehow able to see your own arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
+									+ " Just as you think that it can't get any brighter, your aura suddenly leaps back into your body, and you find yourself sharply inhaling as you feel it gaining strength."
+								+ "</p>"
+								+ "<p>"
+									+ "Looking back over at [npc.name], you see that [npc.she] seems completely oblivious to what you've just witnessed."
+									+ " You suddenly remember what Lilaya told you about absorbing essences, and how it's absolutely harmless for both parties involved, and breathe a sigh of relief..."
+								+ "</p>"));
+					}
+				}
+				
 				sexSB.append("<p style='text-align:center'>You feel your aura pulsating all around you as it draws strength from the sexual energy of your orgasm...</p>"
 						+"<div style='text-align: center; display:block; margin:0 auto; height:48px; padding:8px 0 8px 0;'>"
 						+ "<div class='item-inline"
@@ -619,11 +653,11 @@ public enum Sex {
 						+ "</div>"
 						+ "</div>");
 				
-				if(Main.game.getPlayer().hasPerk(Perk.NYMPHOMANIAC))
+				if(Main.game.getPlayer().hasPerk(Perk.NYMPHOMANIAC)) {
 					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 2);
-				else
+				} else {
 					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 1);
-				
+				}
 			}
 			Main.game.getPlayer().addStatusEffect(StatusEffect.RECOVERING_AURA, 240);	
 		}
@@ -640,6 +674,42 @@ public enum Sex {
 				sexSB.append("<p style='text-align:center'><b>[npc.Name]'s arcane aura is still strengthened from a previous sexual encounter, so</b> [style.boldArcane(you don't receive any arcane essences!)]</p>");
 				
 			} else {
+				
+				if(!Main.game.getDialogueFlags().essenceOrgasmDiscovered) {
+					Main.game.getDialogueFlags().essenceOrgasmDiscovered = true;
+					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+						sexSB.append(
+								UtilText.parse(partner,
+								"<p>"
+									+ "As you disentangle yourself from [npc.name], you suddenly become aware of a strange, shimmering pink glow that's started to materialise around [npc.her] body,"
+										+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
+									+ " Quickly realising that you're somehow able to see [npc.name]'s arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
+									+ " Just as you think that it can't get any brighter, [npc.her] aura suddenly leaps back into [npc.her] body, but as it does so, a single shard breaks off and flies towards you."
+									+ " Unable to dodge in time, you find yourself sharply inhaling as the small piece of [npc.name]'s aura shoots into your chest."
+								+ "</p>"
+								+ "<p>"
+									+ "Alarmed at what's just happened, you look back over at [npc.name], only to see that [npc.she] seems completely oblivious to what you've just witnessed."
+									+ " You think that it would probably be best to go and ask Lilaya about what just happened..."
+								+ "</p>"
+								+(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)?Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY):"")));
+						
+					} else {
+						sexSB.append(
+								UtilText.parse(partner,
+								"<p>"
+									+ "As you disentangle yourself from [npc.name], you suddenly become aware of a strange, shimmering pink glow that's started to materialise around [npc.her] body,"
+										+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
+									+ " Quickly realising that you're somehow able to see [npc.name]'s arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
+									+ " Just as you think that it can't get any brighter, [npc.her] aura suddenly leaps back into [npc.her] body, but as it does so, a single shard breaks off and flies towards you."
+									+ " Unable to dodge in time, you find yourself sharply inhaling as the small piece of [npc.name]'s aura shoots into your chest."
+								+ "</p>"
+								+ "<p>"
+									+ "Alarmed at what's just happened, you look back over at [npc.name], only to see that [npc.she] seems completely oblivious to what you've just witnessed."
+									+ " You suddenly remember what Lilaya told you about absorbing essences, and how it's absolutely harmless for both parties involved, and breathe a sigh of relief..."
+								+ "</p>"));
+					}
+				}
+				
 				sexSB.append("<p style='text-align:center'>You feel your aura drawing strength from the sexual energy of [npc.name]'s orgasm...</p>"
 						+"<div style='text-align: center; display:block; margin:0 auto; height:48px; padding:8px 0 8px 0;'>"
 						+ "<div class='item-inline"

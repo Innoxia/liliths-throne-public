@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -87,10 +88,14 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
+import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.SexType;
@@ -104,7 +109,7 @@ import com.lilithsthrone.world.places.Dominion;
 
 /**
  * @since 0.1.67
- * @version 0.1.86
+ * @version 0.1.87
  * @author Innoxia
  */
 public class CharacterUtils {
@@ -559,7 +564,56 @@ public class CharacterUtils {
 				}
 			}
 			
-
+			
+			// Inventory: TODO
+			Element characterInventory = doc.createElement("characterInventory");
+			properties.appendChild(characterInventory);
+			createXMLElementWithValue(doc, characterInventory, "money", String.valueOf(character.getMoney()));
+			createXMLElementWithValue(doc, characterInventory, "essences", String.valueOf(character.getEssenceCount(TFEssence.ARCANE)));
+			
+			if(character.getMainWeapon() != null) {
+				Element mainWeapon = doc.createElement("mainWeapon");
+				characterInventory.appendChild(mainWeapon);
+				character.getMainWeapon().saveAsXML(mainWeapon, doc);
+			}
+			
+			if(character.getOffhandWeapon() != null) {
+				Element offhandWeapon = doc.createElement("offhandWeapon");
+				characterInventory.appendChild(offhandWeapon);
+				character.getOffhandWeapon().saveAsXML(offhandWeapon, doc);
+			}
+			
+			Element clothingEquipped = doc.createElement("clothingEquipped");
+			characterInventory.appendChild(clothingEquipped);
+			for(AbstractClothing clothing : character.getClothingCurrentlyEquipped()) {
+				clothing.saveAsXML(clothingEquipped, doc);
+			}
+			
+			Element itemsInInventory = doc.createElement("itemsInInventory");
+			characterInventory.appendChild(itemsInInventory);
+			for(Entry<AbstractItem, Integer> item : character.getMapOfDuplicateItems().entrySet()) {
+				Element e = item.getKey().saveAsXML(itemsInInventory, doc);
+				addAttribute(doc, e, "count", String.valueOf(item.getValue()));
+			}
+			
+			Element clothingInInventory = doc.createElement("clothingInInventory");
+			characterInventory.appendChild(clothingInInventory);
+			for(Entry<AbstractClothing, Integer> clothing : character.getMapOfDuplicateClothing().entrySet()) {
+				Element e = clothing.getKey().saveAsXML(clothingInInventory, doc);
+				addAttribute(doc, e, "count", String.valueOf(clothing.getValue()));
+			}
+			
+			Element weaponsInInventory = doc.createElement("weaponsInInventory");
+			characterInventory.appendChild(weaponsInInventory);
+			for(Entry<AbstractWeapon, Integer> weapon : character.getMapOfDuplicateWeapons().entrySet()) {
+				Element e = weapon.getKey().saveAsXML(weaponsInInventory, doc);
+				addAttribute(doc, e, "count", String.valueOf(weapon.getValue()));
+			}
+			
+			
+			
+			
+			
 //			System.out.println("Difference2: "+(System.nanoTime()-timeStart)/1000000000f);
 			
 			TransformerFactory tf = TransformerFactory.newInstance();
@@ -619,7 +673,7 @@ public class CharacterUtils {
 		element.setAttributeNode(attr);
 	}
 	
-	private static void addAttribute(Document doc, Element parentElement, String attributeName, String value){
+	public static void addAttribute(Document doc, Element parentElement, String attributeName, String value){
 		Attr attr = doc.createAttribute(attributeName);
 		attr.setValue(value);
 		parentElement.setAttributeNode(attr);
@@ -1428,7 +1482,62 @@ public class CharacterUtils {
 
 					importedCharacter.setVirginityLoss(new SexType(PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType"))), e.getAttribute("takenBy"));
 					characterImportLog.append("</br>Added virginity loss:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" (taken by:"+e.getAttribute("takenBy")+")");
+				}
+				
+				
+				
+				// Inventory: TODO
+				importedCharacter.resetInventory();
+				nodes = doc.getElementsByTagName("characterInventory");
+				element = (Element) nodes.item(0);
+
+				importedCharacter.setMoney(Integer.valueOf(((Element)element.getElementsByTagName("money").item(0)).getAttribute("value")));
+				importedCharacter.setEssenceCount(TFEssence.ARCANE, Integer.valueOf(((Element)element.getElementsByTagName("essences").item(0)).getAttribute("value")));
+				
+				if(element.getElementsByTagName("mainWeapon").item(0)!=null) {
+					importedCharacter.equipMainWeaponFromNowhere(AbstractWeapon.loadFromXML(
+							(Element) ((Element)element.getElementsByTagName("mainWeapon").item(0)).getElementsByTagName("weapon").item(0),
+							doc));
+				}
+
+				if(element.getElementsByTagName("offhandWeapon").item(0)!=null) {
+					importedCharacter.equipOffhandWeaponFromNowhere(AbstractWeapon.loadFromXML(
+							(Element) ((Element)element.getElementsByTagName("offhandWeapon").item(0)).getElementsByTagName("weapon").item(0),
+							doc));
+				}
+				
+				Element clothingEquipped = (Element) element.getElementsByTagName("clothingEquipped").item(0);
+				for(int i=0; i<clothingEquipped.getElementsByTagName("clothing").getLength(); i++){
+					Element e = ((Element)clothingEquipped.getElementsByTagName("clothing").item(i));
 					
+					importedCharacter.equipClothingOverride(AbstractClothing.loadFromXML(e, doc));
+				}
+				//TODO count
+				Element itemsInInventory = (Element) element.getElementsByTagName("itemsInInventory").item(0);
+				for(int i=0; i<itemsInInventory.getElementsByTagName("item").getLength(); i++){
+					Element e = ((Element)itemsInInventory.getElementsByTagName("item").item(i));
+					
+					for(int itemCount = 0 ; itemCount < Integer.valueOf(e.getAttribute("count")); itemCount++) {
+						importedCharacter.addItem(AbstractItem.loadFromXML(e, doc), false);
+					}
+				}
+				
+				Element clothingInInventory = (Element) element.getElementsByTagName("clothingInInventory").item(0);
+				for(int i=0; i<clothingInInventory.getElementsByTagName("clothing").getLength(); i++){
+					Element e = ((Element)clothingInInventory.getElementsByTagName("clothing").item(i));
+
+					for(int clothingCount = 0 ; clothingCount < Integer.valueOf(e.getAttribute("count")); clothingCount++) {
+						importedCharacter.addClothing(AbstractClothing.loadFromXML(e, doc), false);
+					}
+				}
+				
+				Element weaponsInInventory = (Element) element.getElementsByTagName("weaponsInInventory").item(0);
+				for(int i=0; i<weaponsInInventory.getElementsByTagName("weapon").getLength(); i++){
+					Element e = ((Element)weaponsInInventory.getElementsByTagName("weapon").item(i));
+
+					for(int weaponCount = 0 ; weaponCount < Integer.valueOf(e.getAttribute("count")); weaponCount++) {
+						importedCharacter.addWeapon(AbstractWeapon.loadFromXML(e, doc), false);
+					}
 				}
 				
 				
@@ -1536,8 +1645,8 @@ public class CharacterUtils {
 		// Height:
 		body.setHeight(getSizeFromGenetics(
 				body.getHeightValue(),
-				true, mother.getHeightValue(),
-				true, father.getHeightValue()));
+				(body.isFeminine()?mother.isFeminine():!mother.isFeminine()), mother.getHeightValue(),
+				(body.isFeminine()?father.isFeminine():!father.isFeminine()), father.getHeightValue()));
 		
 		// Femininity:
 		switch(startingGender.getType()) {
@@ -2009,8 +2118,10 @@ public class CharacterUtils {
 		}
 		
 		int difference = variation - baseSize;
+
+		return (int) (baseSize + difference*Math.random());
 		
-		return (int) ((baseSize + (Math.signum(difference)*Util.random.nextInt(Math.abs(difference) +1)))*(0.9f+(Math.random()*0.2f)));
+//		return (int) ((baseSize + (Math.signum(difference)*Util.random.nextInt(Math.abs(difference) +1)))*(0.9f+(Math.random()*0.2f)));
 	}
 	
 	

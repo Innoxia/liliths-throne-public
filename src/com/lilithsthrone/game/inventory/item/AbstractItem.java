@@ -3,6 +3,10 @@ package com.lilithsthrone.game.inventory.item;
 import java.io.Serializable;
 import java.util.List;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -10,13 +14,14 @@ import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.1.86
+ * @version 0.1.87
  * @author Innoxia
  */
-public abstract class AbstractItem extends AbstractCoreItem implements Serializable {
+public abstract class AbstractItem extends AbstractCoreItem implements Serializable, XMLSaving {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -31,7 +36,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	}
 	
 	@Override
-	public boolean equals (Object o) {//TODO check itemEffects
+	public boolean equals (Object o) {
 		if(super.equals(o)) {
 			return (o instanceof AbstractItem)
 					&& ((AbstractItem)o).getItemType().equals(itemType)
@@ -42,11 +47,31 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	}
 	
 	@Override
-	public int hashCode() {//TODO check itemEffects
+	public int hashCode() {
 		int result = super.hashCode();
 		result = 31 * result + itemType.hashCode();
 		result = 31 * result + itemEffects.hashCode();
 		return result;
+	}
+	
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element element = doc.createElement("item");
+		parentElement.appendChild(element);
+		
+		CharacterUtils.addAttribute(doc, element, "id", this.getItemType().getId());
+		
+		Element innerElement = doc.createElement("itemEffects");
+		element.appendChild(innerElement);
+		
+		for(ItemEffect ie : this.getItemEffects()) {
+			ie.saveAsXML(innerElement, doc);
+		}
+		
+		return element;
+	}
+	
+	public static AbstractItem loadFromXML(Element parentElement, Document doc) {
+		return AbstractItemType.generateItem(ItemType.idToItemMap.get(parentElement.getAttribute("id")));
 	}
 
 	public AbstractItemType getItemType() {

@@ -379,7 +379,9 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
-			return "A powerful wave of arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A powerful wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 1);
 		}
@@ -404,7 +406,9 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
-			return "A powerful wave of arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A powerful wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 1);
 		}
@@ -419,7 +423,9 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
-			return "A powerful wave of arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A powerful wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 1);
 		}
@@ -436,7 +442,9 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
 			
-			return "A cool wave of arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A cool wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A cool wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.INTELLIGENCE, 1);
 		}
@@ -451,7 +459,9 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
 			
-			return "A cool wave of arcane energy washes over you..."
+			return (target.isPlayer()
+							?"A cool wave of arcane energy washes over you......"
+							:UtilText.parse(target, "A cool wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.INTELLIGENCE, 1);
 		}
@@ -468,7 +478,9 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)/20);
 
-			return "A soothing wave of arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A soothing wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.FITNESS, 1);
 		}
@@ -483,7 +495,9 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)/20);
 
-			return "A soothing wave of arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A soothing wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.FITNESS, 1);
 		}
@@ -496,7 +510,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "A soothing wave of arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A soothing wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.incrementFemininity(1)
 					+ "</br>"
@@ -519,7 +535,9 @@ public enum ItemEffectType {
 			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
 			target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)/20);
 
-			return "A sickly wave of corruptive arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A sickly wave of corruptive arcane energy washes over you......"
+						:UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.CORRUPTION, 1);
 		}
@@ -576,7 +594,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot healthier..."
+			return (target.isPlayer()
+						?"You start to feel a lot healthier..."
+						:UtilText.parse(target, "[npc.Name] starts to feel a lot healthier..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 1)
 					+ "</br>"
@@ -593,7 +613,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot more energetic..."
+			return (target.isPlayer()
+						?"You start to feel a lot more energetic..."
+						:UtilText.parse(target, "[npc.Name] starts to feel a lot more energetic..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.FITNESS, 3)
 					+ "</br>"
@@ -608,7 +630,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot more intelligent..."
+			return (target.isPlayer()
+							?"You start to feel a lot more intelligent..."
+							:UtilText.parse(target, "[npc.Name] starts to feel a lot more intelligent..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.INTELLIGENCE, 3)
 					+ "</br>"
@@ -623,7 +647,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot fitter..."
+			return (target.isPlayer()
+							?"You start to feel a lot fitter..."
+							:UtilText.parse(target, "[npc.Name] starts to feel a lot fitter..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.FITNESS, 3)
 					+ "</br>"
@@ -638,7 +664,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot stronger..."
+			return (target.isPlayer()
+						?"You start to feel a lot stronger..."
+						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 3)
 					+ "</br>"
@@ -653,7 +681,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot stronger..."
+			return (target.isPlayer()
+						?"You start to feel a lot stronger..."
+						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 3)
 					+ "</br>"
@@ -668,7 +698,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot stronger..."
+			return (target.isPlayer()
+						?"You start to feel a lot stronger..."
+						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 5)
 					+ "</br>"
@@ -683,7 +715,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot more feminine..."
+			return (target.isPlayer()
+						?"You start to feel more feminine..."
+						:UtilText.parse(target, "[npc.Name] starts to feel mroe feminine..."))
 					+ "</br>"
 					+ target.incrementFemininity(3)
 					+ "</br>"

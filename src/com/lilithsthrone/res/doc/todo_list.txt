@@ -9,6 +9,8 @@
 	Gameplay:
 		Consolidated all essences into arcane essences. There were numerous problems with the old system of a unique essence for each race (unnecessary micro-management, far too many races planned, wasted resources), so I decided to remove them.
 		Repurposed all 'bottled essence' item effects into damage & resistance multipliers based on the essence's race.
+		Changed jinxed clothing removal mechanics. You now need to spend arcane essences to remove a jinx, and no longer need to worry about fiddling about with weapons.
+		Consolidated Lilaya's 'discovering essences' and 'jinxed' quests into one quest.
 	
 	Forced TF mechanics:
 		Added forced TF preference (in the furry preferences screen).
@@ -20,17 +22,24 @@
 		Changed Brax's TF scene to take into account TF preferences.
 		Changed all three of the harpy's scenes to take into account TF preferences.
 		Actions related to being forcefully transformed or transforming others now have associated fetish requirements and corruption bypasses.
-		NPCs will now sort out all of their genital preferences in one potion.
+		NPCs will now apply all of their genital preferences to one potion.
 	
-	Settings:
+	Settings & UI:
 		Improved furry preferences screen and slightly altered what each of the settings mean. (Please make sure that everything is still suitable for you after starting up your game!)
+		Improved the phone's stats screens UI a little.
+		Added plasticity stats to the body stats screen, along with a description of how capacity, elasticity, and plasticity work.
 		
 	Other:
 		Added a minor variation ('Furries?! Yes!') to the prologue, as an opposite reaction to 'Furries?! No!'.
 		Added descriptions for all vagina modifiers to selfie.
 		Changed Ralph to a greater horse-morph (instead of lesser), and gave him new clothes and the 'receiving oral' fetish.
+		Removed most of the restrictions on choosing your name.
+		You no longer start the game with any essences. (This is so that the essence discovery quest makes sense. I plan on letting you choose some starting fetishes in the character creation, which is what the 5 starting essences were intended for.)
+		Added ear colour to selfie.
+		Added ability to change surname at City Hall.
 	
 	Bugs:
+		Fixed bug where you couldn't properly remove a jinx from an NPC's clothing. (This is what led to me reworking the entire jinx removal system, as I realised just how cumbersome it was...)
 		Typo fixes.
 		Fixed bug in inventory where you'd be able to use inappropriate items on an NPC through the 'Use all' action.
 		Fixed bug where condoms wouldn't be removed upon NPC's orgasm.
@@ -47,18 +56,70 @@
 		Fixed dirty talk sometimes incorrectly referring to fingers.
 		Fixed impenetrable nipples being described as 'extremely tight'.
 		Fixed reading library books showing that you'd gained intelligence twice.
+		Added NPC-specific descriptions to item effects that were lacking them.
+		Non-capitalised names will no longer automatically append 'the' in front of them if it's the player's name, or if the NPC's name is known.
+		Clothing can now be dyed if it's on the ground/being stored in an area.
+		Removing an NPC with the 'Risk of pregnancy' status effect now correctly removes the from your pregnancy stats page.
+		Fixed feminine offspring always having flat chests.
+	
+	Save compatibility:
+		Added money and essence saving.
+		Added equipped weapon saving.
+		Added equipped clothing saving.
+		Added items, clothing, and weapons in inventory saving.
 	
 	
 	
-	Test new scenes
+	
+	
+	
+	Export slaves
+	
+	
+	BUGS
+	VERY SIMPLE "hard mode"
+	
+	SEX
+	
+	
+	it just seems to happen when it one of your own children you get the dad speech etc but if you fight them to them, when you try to get them to leave the game crashes/freezes on the flip side lol at least you can earn some money for selling them.
+	
+	I just pulled a bug with Lexi, sex ends after a single orgasm
+		Affects all 3 harpies
+	
+	
+	increase multi-breasts to 5	
+	
+	
+	
+	Bug I found in the current version is that your labia refuses to change from "Tiny Labia" I have tried all manner of changing but it refuses to change its description.
+
+	What level of boosting were you using? Just the base 6 essence boost or the 7/9 (2nd/3rd) essence boost?
+	I ask because I saw the same issue with a character I made. Trying to increase their flat chest with just the minor (6 essence) boost, left them with the exact same size breasts instead of a small increment in breast size.
+		 However using 7 or 9 essences would actually increase their breast size.
+	
+	
+	
+	When loading a file from the main menu, I pressed overwrite instead of load. The game didn't like that and since will not load any files, making 3 separate saves unavailable and I'm forced to clear it of all progress. No big loss for me since it's a relatively minor issue but worth looking into.
+	
+	Short version: I pressed overwrite instead of load and have to delete 3 separate saves since they can't load anymore.
+	
+	
+	Test new TF scenes
+	
+	Fetish:
+		Increases potency of forced TF potions [+3 effects each for giver & taker]
+		
+	NPCs will now apply all of their genital preferences to one potion. (This doesn't work, as TFs are slow!)
+	Forced TF racial limits options not working yet!
 	
 	Forced TF:
 		Also, will the next release include npcs forcing the player to wear jinxed clothing (please say yes).
 	
-	Fetish:
-		Increases potency of potions [+3 effects each for giver & taker]
 	
-	
+	the ability to pierce your slaves, so book Kate to visit and pierce them for you, so you can apply items to the piercings
+	add milking machinery for your slaves, both in their rooms and in a dedicated milking shed
+	use stamina/job participation as a limitation as to how much you can interact with them each day
 	
 	Breeder collar:
 		it would be literally purrfect as a slave collar instead of just a normal clothing item.
@@ -85,6 +146,7 @@
 			 And maybe some other types of rings, like a dragon ring, a Horcrux ring, the One Ring, and other cool fantasy rings.
 		
 	Sex:
+		knotting & mutual knotting
 		Pussy cock tease and spread pussy
 		anilingus
 		chastity cage orgasm denial
@@ -98,11 +160,14 @@
 		hotdogging & intercrural
 		urethra fucking
 		leg locking
-	
+		
+		
 	Sex AI:
+		I have a minor problem with the recent hotfix, though, it seems like all NPCs tend to do p(n)aizuri in my kneeling pose, even if they have an oral fetish. I had almost 50 fights already, and I haven't been fed cum in a single one of them, which makes me sad and hungry.
 		I just tried to use a condom and not pull out with Lilaya and yet the game reacted as if it was not there.
 		selecting fingering overrides kissing. It's either or
 		I'll get it fixed for the next version so that if you request anal (and they're not being rough/doing whatever they want), they'll always go for that first
+			Worth noting, at least in what I've tested NPC's will almost never choose anal; to the point of a doll NPC with the buttslut fetish in the dominant role starting cowgirl and then kissing until the scene ends, which seems like it's probably not the intended behavior.
 		It looks like a bug crept in where it's not correctly accounting for the sub resisting during sex scenes and displaying the right dialogue for that.
 		In several cases you have the NPC or PC acting as if they're in a different pace other than the resisting one.
 		One small bug or confusing mix up I have noticed is that slaves who hate me but are obedient do a weird thing in sex where they do the "no, please don't" line before sex,
@@ -115,51 +180,57 @@
 	Bugs:
 		Feeding slave pot while in Finch's place makes some of the descriptions return Finch descriptions
 		NPCs will be revolted by the cocks that they give you with transformatives, this guy gave me a potion which gave me a feline cock then took of my dress and said "What, I thought you were a good girl!" which was pretty funny actually.
-		Lots of offspring having flat chests
 		Seems the trait of having multiple rows of breasts is randomly assigned to NPCs.
 			Even if I have maximum furry and multi-breast preferences, NPCs who are listed as having furry morphed breasts are still described more often than not as having "one pair" of breasts. 
-		seems like none of the ladies, including broodmothers, are producing any milk after giving birth. 
-		my imported character preferences changed from being attracted to female, to all
-		so even though i made my name lexi, and my slaves name bitch, it still came out as The lexi and The bitch (Change it so if name is not known, it appends 'the'?)
-		a masculine busty boy with no bulge is assumed as a butch, not assumed correctly as a busty boy
-		Angel's tears & all other items need NPC-specific effect descriptions ("You start to feel a lot healthier...")
-		not really a bug but still worth mentioning: plasticity isn't listed in the body stats or mentioned in the selfie screen.
-		ear color is also not mentioned
-		remove name restrictions
-		If you climax inside and potentially get a NPC pregnant but then remove the character, they stay on the pregnancy stats screen forever without making any progress.
-			Got a character here that it says is certainly pregnant but it's been saying that for weeks in-game after I removed her.
-		And you can't change your surname in the city hall
+		seems like none of the ladies, including broodmothers, are producing any milk after giving birth.
 	
 	
 	
 	
+	clothing: nipple crosses on flat chests
 	
-	Pubic hair TF wroking?
+	Pubic hair TF working?
 	
 	Do you plan to add something like "permission to have sex with you without asking"? =D Would be nice if this can happen after you went to sleep and they just join you.
 	
 	
+	I'll add several peaceful ways to resolve conflict (pay them, allow them to fuck you, run away, intimidate them, etc.) as soon as I can! ^^
+	
 	
 	newly grown vaginas should appear with average stats in regards to tightness, wetness, ect. Instead of the absolute minimum values
 	
-	Removing jinxed clothing from a slave doesn't seem to work. The item is listed in the unjinxing menu but clicking on it does nothing.
-As a little extra, if you give a slave a weapon and try to unjinx an item it's grayed out and it says you can't do that during sex (despite not being in a sex scene)
 	
-	
-	
-	
+	Export editing:
+		First Anon. I figured out the problem. Some of the variables have a .0 (floats) at the end and some are integers (0,1,2,3,...).
+		 I put all of my values in as floats and I think this is what messed them up. I tried just altering the numbers without altering their type and it seemed to work fine.
+		  It was just a datatype issue. Things like capacity are floats or doubles whereas size is usually an integer.
+
+		
 	
 	
 	ex. -1 elixir. the text come out 2 times but the effect is still 1 so no problem
 	-3 elixir. the text come out 5 times but the effect is still 3 so no problem
 	
 	
-	Dye brushes broken:
-		 https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/dialogue/utils/InventoryDialogue.java#L4889
-	[05:29] SomeAnnoyingPedant: It seems like it isn't possible to dye any clothing that's stored in the current tile.
-[05:30] SomeAnnoyingPedant: More specifically, I have some clothing stored in the player's room, and trying to hit the "Dye: [COLOR]" button after selecting a clothing item to dye (I have dye brushes in my inventory) does not do anything, but doesn't break anything either. Easily worked around by just picking up the clothing though.(edited)
-[05:33] SomeAnnoyingPedant: Same applies to any clothing items dropped in tiles where the inventory gets reset if you move away.
+	You seem to get lubrication alerts even when you can't see or know about the other person.
+	For example:
+	>Penis - Unknown!
+	>The horse-girl's equine cock is quickly lubricated by the horse-girl's precum.
+
+
 	
+	If you lose your character's virginity to their/someone's else tail, any kind of it - vaginal, anal or oral - then in your character's description (phone→selfie) you will have this sentence:
+You lost your anal virginity to.
+The first time you performed oral was to.
+It lacks something before the period.
+	
+	butt-plugs, dildos
+	strap on
+	nipple chain
+	Flip flops or sandals
+	Jockstraps
+	Cape & cloak
+	3d arcane-viewing glasses
 	Arcane Mantle in the wing slot
 	front-tie crop tops
 	Hunting coat, and a doublet

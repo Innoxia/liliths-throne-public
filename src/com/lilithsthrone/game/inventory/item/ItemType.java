@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -1202,6 +1203,41 @@ public class ItemType {
 //		}
 //	};
 	
+	private static String getEssenceAbsorbtionText(Colour essenceColour) {
+		if(!Main.game.getDialogueFlags().essenceBottledDiscovered) {
+			Main.game.getDialogueFlags().essenceBottledDiscovered = true;
+
+			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+				return "<p>"
+							+ "Pulling the cork stopper out from the top of the little bottle, you let out a gasp as the swirling light instantly darts out of its glass prison."
+							+ " Giving you no time to react, the essence immediately shoots straight towards you, and with a little "+essenceColour.getName()+" flash, it hits your chest and disappears from sight."
+							+ " You think that it would probably be best to go and ask Lilaya about what just happened..."
+						+ "</p>"
+						+(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)?Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY):"");
+			} else {
+				return "<p>"
+						+ "Pulling the cork stopper out from the top of the little bottle, you let out a gasp as the swirling light instantly darts out of its glass prison."
+						+ " Giving you no time to react, the essence immediately shoots straight towards you, and with a little "+essenceColour.getName()+" flash, it hits your chest and disappears from sight."
+						+ " You suddenly remember what Lilaya told you about absorbing essences, and breathe a sigh of relief..."
+					+ "</p>";
+			}
+		}
+
+		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+			return "<p>"
+						+ "Pulling the cork stopper out from the top of the little bottle, you release the arcane essence from its glass prison."
+						+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+essenceColour.getName()+" flash, it disappears from sight."
+						+ " You think that it would probably be best to go and ask Lilaya about what just happened..."
+					+ "</p>";
+		} else {
+			return "<p>"
+					+ "Pulling the cork stopper out from the top of the little bottle, you release the arcane essence from its glass prison."
+					+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+essenceColour.getName()+" flash, it disappears from sight."
+					+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
+				+ "</p>";
+		}
+	}
+	
 	public static AbstractItemType BOTTLED_ESSENCE_ARCANE = new AbstractItemType(
 			null,
 			false,
@@ -1226,11 +1262,7 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (target.isPlayer()) {
-				return "<p>"
-							+ "Pulling the cork stopper out from the top of the little bottle, you release the arcane essence from its glass prison."
-							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.GENERIC_ARCANE.getName()+" flash, it disappears from sight."
-							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
-						+ "</p>";
+				return getEssenceAbsorbtionText(Colour.GENERIC_ARCANE);
 				
 			} else {
 				return UtilText.parse(target,
@@ -1275,11 +1307,7 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (target.isPlayer()) {
-				return "<p>"
-							+ "Pulling the cork stopper out from the top of the little bottle, you release the cat-morph essence from its glass prison."
-							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_CAT_MORPH.getName()+" flash, it disappears from sight."
-							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
-						+ "</p>";
+				return getEssenceAbsorbtionText(Colour.RACE_CAT_MORPH);
 				
 			} else {
 				return UtilText.parse(target,
@@ -1325,11 +1353,7 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (target.isPlayer()) {
-				return "<p>"
-							+ "Pulling the cork stopper out from the top of the little bottle, you release the cow-morph essence from its glass prison."
-							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_COW_MORPH.getName()+" flash, it disappears from sight."
-							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
-						+ "</p>";
+				return getEssenceAbsorbtionText(Colour.RACE_COW_MORPH);
 				
 			} else {
 				return UtilText.parse(target,
@@ -1375,11 +1399,7 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (target.isPlayer()) {
-				return "<p>"
-							+ "Pulling the cork stopper out from the top of the little bottle, you release the demon essence from its glass prison."
-							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_DEMON.getName()+" flash, it disappears from sight."
-							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
-						+ "</p>";
+				return getEssenceAbsorbtionText(Colour.RACE_DEMON);
 				
 			} else {
 				return UtilText.parse(target,
@@ -1424,11 +1444,7 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (target.isPlayer()) {
-				return "<p>"
-							+ "Pulling the cork stopper out from the top of the little bottle, you release the squirrel-morph essence from its glass prison."
-							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_SQUIRREL_MORPH.getName()+" flash, it disappears from sight."
-							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
-						+ "</p>";
+				return getEssenceAbsorbtionText(Colour.RACE_SQUIRREL_MORPH);
 				
 			} else {
 				return UtilText.parse(target,
@@ -1473,11 +1489,7 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (target.isPlayer()) {
-				return "<p>"
-							+ "Pulling the cork stopper out from the top of the little bottle, you release the dog-morph essence from its glass prison."
-							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_DOG_MORPH.getName()+" flash, it disappears from sight."
-							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
-						+ "</p>";
+				return getEssenceAbsorbtionText(Colour.RACE_DOG_MORPH);
 				
 			} else {
 				return UtilText.parse(target,
@@ -1522,11 +1534,7 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (target.isPlayer()) {
-				return "<p>"
-							+ "Pulling the cork stopper out from the top of the little bottle, you release the harpy essence from its glass prison."
-							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_HARPY.getName()+" flash, it disappears from sight."
-							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
-						+ "</p>";
+				return getEssenceAbsorbtionText(Colour.RACE_HARPY);
 				
 			} else {
 				return UtilText.parse(target,
@@ -1571,11 +1579,7 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (target.isPlayer()) {
-				return "<p>"
-							+ "Pulling the cork stopper out from the top of the little bottle, you release the horse-morph essence from its glass prison."
-							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_HORSE_MORPH.getName()+" flash, it disappears from sight."
-							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
-						+ "</p>";
+				return getEssenceAbsorbtionText(Colour.RACE_HORSE_MORPH);
 				
 			} else {
 				return UtilText.parse(target,
@@ -1620,11 +1624,7 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (target.isPlayer()) {
-				return "<p>"
-							+ "Pulling the cork stopper out from the top of the little bottle, you release the human essence from its glass prison."
-							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_HUMAN.getName()+" flash, it disappears from sight."
-							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
-						+ "</p>";
+				return getEssenceAbsorbtionText(Colour.RACE_HUMAN);
 				
 			} else {
 				return UtilText.parse(target,
@@ -1669,11 +1669,7 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (target.isPlayer()) {
-				return "<p>"
-							+ "Pulling the cork stopper out from the top of the little bottle, you release the wolf-morph essence from its glass prison."
-							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_WOLF_MORPH.getName()+" flash, it disappears from sight."
-							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
-						+ "</p>";
+				return getEssenceAbsorbtionText(Colour.RACE_WOLF_MORPH);
 				
 			} else {
 				return UtilText.parse(target,

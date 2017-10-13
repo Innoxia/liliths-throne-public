@@ -59,7 +59,7 @@ public class NPCOffspring extends NPC {
 		
 		// BODY GENERATION:
 		
-		Gender gender = Gender.F_V_FEMALE;
+		Gender gender = Gender.F_V_B_FEMALE;
 		if(Math.random()<0.5) {
 			gender = Gender.M_P_MALE;
 		}

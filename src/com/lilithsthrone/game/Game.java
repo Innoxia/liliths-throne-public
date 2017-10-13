@@ -418,10 +418,6 @@ public class Game implements Serializable {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
 					}
 					
-					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING) && Main.game.getPlayer().hasStatusEffect(StatusEffect.CLOTHING_JINXED)) {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_JINXED_CLOTHING));
-					}
-					
 					if (!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) && Main.game.getPlayer().isVisiblyPregnant()) {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY));
 					}
@@ -1819,6 +1815,8 @@ public class Game implements Serializable {
 	public void removeNPC(NPC npc) {
 		if(npc.isPregnant()) {
 			npc.endPregnancy(false);
+		} else if(npc.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+			npc.removeStatusEffect(StatusEffect.PREGNANT_0);
 		}
 		
 		if(isInNPCUpdateLoop) {

@@ -28,8 +28,6 @@ import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
@@ -48,7 +46,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.1.86.1
+ * @version 0.1.87
  * @author Innoxia
  */
 public class Main extends Application {
@@ -291,8 +289,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		credits.add(new CreditsSlot("Anonymous", "", 0, 0, 5, 2));
-		// A. L2 | C.C. R2 | G. R2 | JD 1R
+		credits.add(new CreditsSlot("Anonymous", "", 0, 0, 6, 2));
+		// A. L2 | C.C. R2 | G. R2 | JD 1R | MM R1
 		
 		
 		credits.add(new CreditsSlot("A", "", 0, 0, 2, 0));
@@ -305,7 +303,6 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Argmoe", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Arkhan", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("b00marrows", "", 0, 1, 2, 0));
-		credits.add(new CreditsSlot("B H", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("B", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Blacktouch", "", 0, 0, 2, 1));
 		credits.add(new CreditsSlot("Blue999", "", 0, 0, 0, 3));
@@ -394,15 +391,16 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Avery", "", 0, 1, 1, 0));
 		credits.add(new CreditsSlot("B G", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Blackcanine", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Runehood66", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Crimson", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Alatar", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("pupslut felix", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("G", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("glocknar", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Krissy2017", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("G", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("H", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("J", "", 0, 1, 1, 0));
-		credits.add(new CreditsSlot("J M", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Bocaj91", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Krejil", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("J", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("J", "", 0, 0, 1, 0));
@@ -410,14 +408,13 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Kiroberos", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("L", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("L", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("M M", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Muhaku", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Kvernik", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Party Commissar", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("S", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Sheltem", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("S", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("T M", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("TalonMort", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("T", "", 0, 1, 1, 0));
 		credits.add(new CreditsSlot("T. Garou", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("TreenVall", "", 0, 0, 1, 0));
@@ -761,8 +758,6 @@ public class Main extends Application {
 				Main.game.setPlayer(CharacterUtils.startLoadingCharacterFromXML());
 				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file, Main.game.getPlayer()));
 				
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_SHORTS, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, false), true, Main.game.getPlayer());
 				Main.game.setRenderAttributesSection(true);
 				Main.game.clearTextStartStringBuilder();
 				Main.game.clearTextEndStringBuilder();
