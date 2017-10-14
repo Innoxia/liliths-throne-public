@@ -6,73 +6,8 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Consolidated all essences into arcane essences. There were numerous problems with the old system of a unique essence for each race (unnecessary micro-management, far too many races planned, wasted resources), so I decided to remove them.
-		Repurposed all 'bottled essence' item effects into damage & resistance multipliers based on the essence's race.
-		Changed jinxed clothing removal mechanics. You now need to spend arcane essences to remove a jinx, and no longer need to worry about fiddling about with weapons.
-		Consolidated Lilaya's 'discovering essences' and 'jinxed' quests into one quest.
-	
-	Forced TF mechanics:
-		Added forced TF preference (in the furry preferences screen).
-		Split transformation fetish into giving and receiving versions.
-		NPCs will now only try to TF you if they have the 'giving TF' fetish.
-		Removed the forced TF option in the content preferences, and instead you now have the option in each of the forced TF scenes to avoid the TF. (I might rework this a little more for the full release.)
-			I decided to change it to this method so that players are always able to see unique options (such as Brax's and the harpy matriarchs' TFs), instead of missing out on unique scenes entirely.
-			<b>You can still avoid all forced TF content, don't worry if that's not your thing!</b> ^^
-		Changed Brax's TF scene to take into account TF preferences.
-		Changed all three of the harpy's scenes to take into account TF preferences.
-		Actions related to being forcefully transformed or transforming others now have associated fetish requirements and corruption bypasses.
-		NPCs will now apply all of their genital preferences to one potion.
-	
-	Settings & UI:
-		Improved furry preferences screen and slightly altered what each of the settings mean. (Please make sure that everything is still suitable for you after starting up your game!)
-		Improved the phone's stats screens UI a little.
-		Added plasticity stats to the body stats screen, along with a description of how capacity, elasticity, and plasticity work.
-		Improved slavery manager UI.
-		
-	Other:
-		Added a very minor variation ('Furries?! Yes!') to the prologue, as an opposite reaction to 'Furries?! No!'.
-		Added descriptions for all vagina modifiers to selfie.
-		Changed Ralph to a greater horse-morph (instead of lesser), and gave him new clothes and the 'receiving oral' fetish.
-		Removed most of the restrictions on choosing your name.
-		You no longer start the game with any essences. (This is so that the essence discovery quest makes sense. I plan on letting you choose some starting fetishes in the character creation, which is what the 5 starting essences were intended for.)
-		Added ear colour to selfie.
-		Added ability to change surname at City Hall.
-		Increased limit of pairs of multi-breasts from 3 to 5.
-	
 	Bugs:
-		Fixed bug where you couldn't properly remove a jinx from an NPC's clothing. (This is what led to me reworking the entire jinx removal system, as I realised just how cumbersome it was...)
-		Typo fixes.
-		Fixed bug in inventory where you'd be able to use inappropriate items on an NPC through the 'Use all' action.
-		Fixed bug where condoms wouldn't be removed upon NPC's orgasm.
-		Fixed UI bug where NPC's slots were shown as blocked based on your blocked slots.
-		Fixed 'storm generated' NPCs not being removed from place tiles.
-		Fixed body/pubic/facial hair potions not working correctly.
-		Imported characters with hooves/talons can now get past the clothing selection screen (you don't need to wear shoes to pass). (I don't know how you managed to get into the clothing selection with an imported character... ^^)
-		Fixed the description for Diana's perfume showing Lexi instead of Diana.
-		Fixed puffy vagina description not correctly referring to labia.
-		Fixed vagina modifiers not being exported/imported correctly.
-		Fixed minor inconsistency in the follow up exam with Lilaya, which was referencing your clothes being destroyed.
-		The "Savage Attack" special ability for wolf-morphs now correctly requires both wolf-morph arms and face to be available.
-		You can now sell weapons and clothing to NPCs (such as Vicky) even if their inventory is full.
-		Fixed dirty talk sometimes incorrectly referring to fingers.
-		Fixed impenetrable nipples being described as 'extremely tight'.
-		Fixed reading library books showing that you'd gained intelligence twice.
-		Added NPC-specific descriptions to item effects that were lacking them.
-		Non-capitalised names will no longer automatically append 'the' in front of them if it's the player's name, or if the NPC's name is known.
-		Clothing can now be dyed if it's on the ground/being stored in an area.
-		Removing an NPC with the 'Risk of pregnancy' status effect now correctly removes the from your pregnancy stats page.
-		Fixed feminine offspring always having flat chests.
-		Fixed labia size always being described as 'tiny'.
-		Fixed bug where you could press 'overwrite' in the main menu (before starting a game), which would then corrupt that save file. (Sorry to those affected by this...)
-	
-	Save compatibility:
-		Slightly improved efficiency of XML exports.
-		Added money and essence saving.
-		Added equipped weapon saving.
-		Added equipped clothing saving.
-		Added items, clothing, and weapons in inventory saving.
-		Added owned slaves to exported character. (May be a little buggy... I didn't have much time left in which to test this... ;_;)
+		Fixed a cause of a UI display bug in the furry preferences screen.
 	
 	
 	
