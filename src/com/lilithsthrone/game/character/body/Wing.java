@@ -14,7 +14,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 public class Wing implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private WingType type;
+	protected WingType type;
 
 	public Wing(WingType type) {
 		this.type = type;

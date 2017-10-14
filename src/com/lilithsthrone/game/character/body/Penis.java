@@ -26,13 +26,13 @@ public class Penis implements BodyPartInterface, Serializable {
 
 	public static final float TWO_PENIS_SIZE_MULTIPLIER = 1.6f;
 
-	private PenisType type;
-	private int size;
-	private boolean pierced;
-	private Set<PenisModifier> penisModifiers;
+	protected PenisType type;
+	protected int size;
+	protected boolean pierced;
+	protected Set<PenisModifier> penisModifiers;
 	
-	private Testicle testicle;
-	private OrificeUrethra orificeUrethra;
+	protected Testicle testicle;
+	protected OrificeUrethra orificeUrethra;
 
 	public Penis(PenisType type, int size, int testicleSize, int cumProduction, int testicleCount) {
 		this.type = type;

@@ -27,15 +27,15 @@ public class Nipples implements BodyPartInterface, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private NippleType type;
-	private OrificeNipples orificeNipples;
-	private NippleShape nippleShape;
-	private AreolaeShape areolaeShape;
-	private int areolaeSize;
-	private int nippleSize;
-	private boolean pierced;
+	protected NippleType type;
+	protected OrificeNipples orificeNipples;
+	protected NippleShape nippleShape;
+	protected AreolaeShape areolaeShape;
+	protected int areolaeSize;
+	protected int nippleSize;
+	protected boolean pierced;
 
-	public Nipples(NippleType type, int nippleSize, NippleShape nippleShape, int areolaeSize, int wetness, int capacity, int elasticity, int plasticity, boolean virgin) {
+	public Nipples(NippleType type, int nippleSize, NippleShape nippleShape, int areolaeSize, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.nippleSize = nippleSize;
 		this.nippleShape = nippleShape;
@@ -115,10 +115,12 @@ public class Nipples implements BodyPartInterface, Serializable {
 				descriptorList.add("wet");
 			}
 		}
+		
 		descriptorList.add(type.getDescriptor(owner));
 		if(orificeNipples.getCapacity()!= Capacity.ZERO_IMPENETRABLE) {
 			descriptorList.add(orificeNipples.getCapacity().getDescriptor());
 		}
+		
 		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}
 

@@ -278,6 +278,11 @@ public class Game implements Serializable {
 			
 			finch = new Finch();
 			addNPC(finch);
+			
+			for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
+				addNPC(slave);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -295,7 +300,11 @@ public class Game implements Serializable {
 		player.setLocation(worlds.get(player.getWorldLocation()).getPlacesOfInterest().get(new GenericPlace(player.getStartingPlace())));
 		
 		for(NPC npc : NPCMap.values()) {
-			npc.setLocation(worlds.get(npc.getWorldLocation()).getPlacesOfInterest().get(new GenericPlace(npc.getStartingPlace())));
+			if(npc.getOwner()!=null && npc.getOwner().isPlayer()) {
+				// slave
+			} else {
+				npc.setLocation(worlds.get(npc.getWorldLocation()).getPlacesOfInterest().get(new GenericPlace(npc.getStartingPlace())));
+			}
 		}
 		
 		started = true;
@@ -324,7 +333,11 @@ public class Game implements Serializable {
 		handleAtmosphericConditions(turnTime);
 
 		// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
-		NPCMap.entrySet().removeIf(e -> (e.getValue().getLocationPlace().getPlaceType() != Dominion.CITY_BACK_ALLEYS && e.getValue() instanceof DominionAlleywayAttacker && !Main.game.getPlayer().getLocation().equals(e.getValue().getLocation())));
+		NPCMap.entrySet().removeIf(e -> (
+				e.getValue().getLocationPlace().getPlaceType() != Dominion.CITY_BACK_ALLEYS
+				&& e.getValue().getWorldLocation() == WorldType.DOMINION
+				&& e.getValue() instanceof DominionAlleywayAttacker
+				&& !Main.game.getPlayer().getLocation().equals(e.getValue().getLocation())));
 		
 		// Apply status effects for all NPCs:
 		isInNPCUpdateLoop = true;
@@ -1794,6 +1807,10 @@ public class Game implements Serializable {
 		return NPCMap.get(id);
 	}
 	
+	public Map<String, NPC> getNPCMap() {
+		return NPCMap;
+	}
+
 	public String addNPC(NPC npc) throws Exception {
 		npcTally++;
 		npc.setId(npc.getNameTriplet().toString()+"-"+npcTally);

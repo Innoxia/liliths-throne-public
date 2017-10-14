@@ -11,6 +11,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+
+import org.w3c.dom.Comment;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -109,16 +115,18 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.PregnancyDescriptor;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.slavery.SlaveJob;
+import com.lilithsthrone.game.slavery.SlaveJobSettings;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.Dominion;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceInterface;
 import com.lilithsthrone.world.places.PlaceUpgrade;
-
-import java.util.Set;
 
 /**
  * The class for all the game's characters. I think this is the biggest class in the game.
@@ -127,7 +135,7 @@ import java.util.Set;
  * @version 0.1.87
  * @author Innoxia
  */
-public class GameCharacter implements Serializable {
+public class GameCharacter implements Serializable, XMLSaving {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -169,6 +177,9 @@ public class GameCharacter implements Serializable {
 	protected List<NPC> slavesOwned;
 	protected GameCharacter owner;
 	protected DialogueNodeOld enslavementDialogue;
+	
+	protected SlaveJob slaveJob;
+	protected List<SlaveJobSettings> slaveJobSettings;
 	
 	// Family:
 	protected GameCharacter mother, father;
@@ -252,6 +263,9 @@ public class GameCharacter implements Serializable {
 		owner = null;
 		enslavementDialogue = null;
 		
+		slaveJob = SlaveJob.IDLE;
+		slaveJobSettings = new ArrayList<>();
+		
 		mother = null;
 		father = null;
 		dayOfConception = 0;
@@ -319,6 +333,587 @@ public class GameCharacter implements Serializable {
 		// Set the character's starting body based on their gender and race:
 		setBody(startingGender, startingRace, stage);
 	}
+	
+
+
+	@Override
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element properties = doc.createElement("character");
+		parentElement.appendChild(properties);
+		
+		/*TODO
+			// Family:
+			protected GameCharacter mother, father;
+			protected int dayOfConception, dayOfBirth;
+		
+			// Keep a track of what potion effects this character is experiencing:
+			protected Map<Attribute, Float> potionAttributes;
+		 */
+		
+		// Core information:
+		Element characterCoreInfo = doc.createElement("core");
+		Comment comment = doc.createComment("If you want to edit any of these values, just be warned that it might break the game...");
+		properties.appendChild(characterCoreInfo);
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "id", this.getId());
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "name", this.getName());
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "surname", this.getSurname());
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "description", this.getDescription());//TODO
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerPetName", this.getPlayerPetName());//TODO
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerKnowsName", String.valueOf(this.isPlayerKnowsName()));//TODO
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "level", String.valueOf(this.getLevel()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());//TODO
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "personality", this.getPersonality().toString());//TODO
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "sexualOrientation", this.getSexualOrientation().toString());//TODO
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "obedience", String.valueOf(this.getObedience()));//TODO
+		characterCoreInfo.getParentNode().insertBefore(comment, characterCoreInfo);
+		
+		// Relationships:
+		Element characterRelationships = doc.createElement("characterRelationships");//TODO
+		properties.appendChild(characterRelationships);
+		for(Entry<GameCharacter, Float> entry : this.getAffectionMap().entrySet()){
+			Element relationship = doc.createElement("relationship");
+			characterRelationships.appendChild(relationship);
+			
+			CharacterUtils.addAttribute(doc, relationship, "character", entry.getKey().getId());
+			CharacterUtils.addAttribute(doc, relationship, "value", String.valueOf(entry.getValue()));
+		}
+		
+		// Attributes:
+		Element characterCoreAttributes = doc.createElement("attributes");
+		properties.appendChild(characterCoreAttributes);
+		for(Attribute att : Attribute.values()){
+			Element element = doc.createElement("attribute");
+			characterCoreAttributes.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "type", att.toString());
+			CharacterUtils.addAttribute(doc, element, "value", String.valueOf(this.getBaseAttributeValue(att)));
+		}
+		
+		// Perks:
+		Element characterPerks = doc.createElement("perks");
+		properties.appendChild(characterPerks);
+		for(Perk p : this.getPerks()){
+			Element element = doc.createElement("perk");
+			characterPerks.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "type", p.toString());
+		}
+		
+		// Fetishes:
+		Element characterFetishes = doc.createElement("fetishes");
+		properties.appendChild(characterFetishes);
+		for(Fetish f : this.getFetishes()){
+			Element element = doc.createElement("fetish");
+			characterFetishes.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "type", f.toString());
+		}
+		
+		// Status effects:
+		Element characterStatusEffects = doc.createElement("statusEffects");
+		properties.appendChild(characterStatusEffects);
+		for(StatusEffect se : this.getStatusEffects()){
+			Element element = doc.createElement("statusEffect");
+			characterStatusEffects.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "type", se.toString());
+			CharacterUtils.addAttribute(doc, element, "value", String.valueOf(this.getStatusEffectDuration(se)));
+		}
+		
+		// Combat (spells and special attacks): TODO
+//		Element characterCombat = doc.createElement("combat");
+//		properties.appendChild(characterCombat);
+//		for(Spell s : Spell.values()){
+//			Element element = doc.createElement("spell");
+//			characterCombat.appendChild(element);
+//			
+//			CharacterUtils.addAttribute(doc, element, "type", s.toString());
+//			CharacterUtils.addAttribute(doc, element, "value", String.valueOf(this.getSpells().contains(s)));
+//		}
+//		for(SpecialAttack sa : SpecialAttack.values()){
+//			Element element = doc.createElement("specialAttack");
+//			characterCombat.appendChild(element);
+//			
+//			CharacterUtils.addAttribute(doc, element, "type", sa.toString());
+//			CharacterUtils.addAttribute(doc, element, "value", String.valueOf(this.getSpecialAttacks().contains(sa)));
+//		}
+		
+		// Pregnancy: TODO
+//		Element characterPregnancy = doc.createElement("pregnancy");
+//		properties.appendChild(characterPregnancy);
+//		
+//		Element characterPregnancyPossibility = doc.createElement("pregnancyPossibilities");
+//		characterPregnancy.appendChild(characterPregnancyPossibility);
+//		for(PregnancyPossibility pregPoss : this.getPotentialPartnersAsMother()) {
+//			Element element = doc.createElement("possibility");
+//			characterPregnancyPossibility.appendChild(element);
+//			
+////			CharacterUtils.addAttribute(doc, element, "fatherName", pregPoss.getFatherName());
+////			CharacterUtils.addAttribute(doc, element, "gender", pregPoss.getGender().toString());
+////			CharacterUtils.addAttribute(doc, element, "race", pregPoss.getRace().toString());
+////			CharacterUtils.addAttribute(doc, element, "raceStage", pregPoss.getRaceStage().toString());
+//			CharacterUtils.addAttribute(doc, element, "probability", String.valueOf(pregPoss.getProbability()));
+//		}
+//		
+//		Element characterPregnancyCurrentLitter = doc.createElement("pregnantLitter");
+//		characterPregnancy.appendChild(characterPregnancyCurrentLitter);
+//		if (this.getPregnantLitter() != null) {
+//			Element element = doc.createElement("litter");
+//			characterPregnancyCurrentLitter.appendChild(element);
+//
+//			CharacterUtils.addAttribute(doc, element, "dayOfConception", String.valueOf(this.getPregnantLitter().getDayOfBirth()));
+//			CharacterUtils.addAttribute(doc, element, "dayOfBirth", String.valueOf(this.getPregnantLitter().getDayOfBirth()));
+////			CharacterUtils.addAttribute(doc, element, "fatherName", this.getPregnantLitter().getPartner().getName("a"));
+////			CharacterUtils.addAttribute(doc, element, "race", this.getPregnantLitter().getRace().toString());
+//			CharacterUtils.addAttribute(doc, element, "sons", String.valueOf(this.getPregnantLitter().getSons()));
+//			CharacterUtils.addAttribute(doc, element, "daughters", String.valueOf(this.getPregnantLitter().getDaughters()));
+//		}
+//		
+//		Element characterPregnancyBirthedLitters = doc.createElement("birthedLitters");
+//		characterPregnancy.appendChild(characterPregnancyBirthedLitters);
+//		for(Litter litter : this.getLittersBirthed()) {
+//			Element element = doc.createElement("birthedLitter");
+//			characterPregnancyBirthedLitters.appendChild(element);
+//
+//			CharacterUtils.addAttribute(doc, element, "dayOfConception", String.valueOf(litter.getDayOfBirth()));
+//			CharacterUtils.addAttribute(doc, element, "dayOfBirth", String.valueOf(litter.getDayOfBirth()));
+////			CharacterUtils.addAttribute(doc, element, "fatherName", litter.getPartner().getName("a"));
+////			CharacterUtils.addAttribute(doc, element, "race", litter.getRace().toString());
+//			CharacterUtils.addAttribute(doc, element, "sons", String.valueOf(litter.getSons()));
+//			CharacterUtils.addAttribute(doc, element, "daughters", String.valueOf(litter.getDaughters()));
+//		}
+		
+		// Body:
+		Element characterBody = doc.createElement("body");
+		properties.appendChild(characterBody);
+		
+		this.body.saveAsXML(characterBody, doc);
+		
+
+//		System.out.println("Difference1: "+(System.nanoTime()-timeStart)/1000000000f);
+		
+		// PlayerCharacter specific:
+		
+		// Core:
+		Element characterPlayerCoreInfo = doc.createElement("playerCore");
+		properties.appendChild(characterPlayerCoreInfo);
+		CharacterUtils.createXMLElementWithValue(doc, characterPlayerCoreInfo, "experience", String.valueOf(this.getExperience()));
+		CharacterUtils.createXMLElementWithValue(doc, characterPlayerCoreInfo, "levelUpPoints", String.valueOf(this.getLevelUpPoints()));
+		CharacterUtils.createXMLElementWithValue(doc, characterPlayerCoreInfo, "perkPoints", String.valueOf(this.getPerkPoints()));
+		
+		// Sex stats:
+		Element characterSexStats = doc.createElement("sexStats");
+		properties.appendChild(characterSexStats);
+		
+		Element characterCumCount = doc.createElement("cumCounts");
+		characterSexStats.appendChild(characterCumCount);
+		for(PenetrationType pt : PenetrationType.values()) {
+			for(OrificeType ot : OrificeType.values()) {
+				if(this.getCumCount(new SexType(pt, ot)) > 0) {
+					Element element = doc.createElement("cumCount");
+					characterCumCount.appendChild(element);
+					
+					CharacterUtils.addAttribute(doc, element, "penetrationType", pt.toString());
+					CharacterUtils.addAttribute(doc, element, "orificeType", ot.toString());
+					CharacterUtils.addAttribute(doc, element, "count", String.valueOf(this.getCumCount(new SexType(pt, ot))));
+				}
+			}
+		}
+
+		Element characterSexCount = doc.createElement("sexCounts");
+		characterSexStats.appendChild(characterSexCount);
+		for(PenetrationType pt : PenetrationType.values()) {
+			for(OrificeType ot : OrificeType.values()) {
+				if(this.getSexCount(new SexType(pt, ot)) > 0) {
+					Element element = doc.createElement("sexCount");
+					characterSexCount.appendChild(element);
+					
+					CharacterUtils.addAttribute(doc, element, "penetrationType", pt.toString());
+					CharacterUtils.addAttribute(doc, element, "orificeType", ot.toString());
+					CharacterUtils.addAttribute(doc, element, "count", String.valueOf(this.getSexCount(new SexType(pt, ot))));
+				}
+			}
+		}
+
+		Element characterVirginityTakenBy = doc.createElement("virginityTakenBy");
+		characterSexStats.appendChild(characterVirginityTakenBy);
+		for(PenetrationType pt : PenetrationType.values()) {
+			for(OrificeType ot : OrificeType.values()) {
+				if(this.getVirginityLoss(new SexType(pt, ot))!=null && !this.getVirginityLoss(new SexType(pt, ot)).isEmpty()) {
+					Element element = doc.createElement("virginity");
+					characterVirginityTakenBy.appendChild(element);
+					
+					CharacterUtils.addAttribute(doc, element, "penetrationType", pt.toString());
+					CharacterUtils.addAttribute(doc, element, "orificeType", ot.toString());
+					CharacterUtils.addAttribute(doc, element, "takenBy", String.valueOf(this.getVirginityLoss(new SexType(pt, ot))));
+				}
+			}
+		}
+		
+		
+		// Inventory:
+		Element characterInventory = doc.createElement("characterInventory");
+		properties.appendChild(characterInventory);
+		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "money", String.valueOf(this.getMoney()));
+		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "essences", String.valueOf(this.getEssenceCount(TFEssence.ARCANE)));
+		
+		if(this.getMainWeapon() != null) {
+			Element mainWeapon = doc.createElement("mainWeapon");
+			characterInventory.appendChild(mainWeapon);
+			this.getMainWeapon().saveAsXML(mainWeapon, doc);
+		}
+		
+		if(this.getOffhandWeapon() != null) {
+			Element offhandWeapon = doc.createElement("offhandWeapon");
+			characterInventory.appendChild(offhandWeapon);
+			this.getOffhandWeapon().saveAsXML(offhandWeapon, doc);
+		}
+		
+		Element clothingEquipped = doc.createElement("clothingEquipped");
+		characterInventory.appendChild(clothingEquipped);
+		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
+			clothing.saveAsXML(clothingEquipped, doc);
+		}
+		
+		Element itemsInInventory = doc.createElement("itemsInInventory");
+		characterInventory.appendChild(itemsInInventory);
+		for(Entry<AbstractItem, Integer> item : this.getMapOfDuplicateItems().entrySet()) {
+			Element e = item.getKey().saveAsXML(itemsInInventory, doc);
+			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(item.getValue()));
+		}
+		
+		Element clothingInInventory = doc.createElement("clothingInInventory");
+		characterInventory.appendChild(clothingInInventory);
+		for(Entry<AbstractClothing, Integer> clothing : this.getMapOfDuplicateClothing().entrySet()) {
+			Element e = clothing.getKey().saveAsXML(clothingInInventory, doc);
+			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(clothing.getValue()));
+		}
+		
+		Element weaponsInInventory = doc.createElement("weaponsInInventory");
+		characterInventory.appendChild(weaponsInInventory);
+		for(Entry<AbstractWeapon, Integer> weapon : this.getMapOfDuplicateWeapons().entrySet()) {
+			Element e = weapon.getKey().saveAsXML(weaponsInInventory, doc);
+			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(weapon.getValue()));
+		}
+		
+		return properties;
+	}
+	
+	public static GameCharacter loadFromXML(StringBuilder log, Element parentElement, Document doc) {
+		GameCharacter character = new GameCharacter(new NameTriplet(""), "", 0, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(0), WorldType.DOMINION, Dominion.CITY_AUNTS_HOME);
+		
+		// Core info:
+		NodeList nodes = parentElement.getElementsByTagName("core");
+		Element element = (Element) nodes.item(0);
+
+		// Name:
+		character.setName(new NameTriplet(((Element)element.getElementsByTagName("name").item(0)).getAttribute("value")));
+		CharacterUtils.appendToImportLog(log, "</br>Set name: " + ((Element)element.getElementsByTagName("name").item(0)).getAttribute("value"));
+		
+		// Surname:
+		if(element.getElementsByTagName("surname")!=null && element.getElementsByTagName("surname").getLength()>0) {
+			character.setSurname(((Element)element.getElementsByTagName("surname").item(0)).getAttribute("value"));
+			CharacterUtils.appendToImportLog(log, "</br>Set surname: " + ((Element)element.getElementsByTagName("surname").item(0)).getAttribute("value"));
+		}
+		
+		// Level:
+		character.setLevel(Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")));
+		CharacterUtils.appendToImportLog(log, "</br>Set level: " + Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")));
+		
+		// Sexual Orientation:
+		if(element.getElementsByTagName("sexualOrientation").getLength()!=0) {
+			if(!((Element)element.getElementsByTagName("sexualOrientation").item(0)).getAttribute("value").equals("null")) {
+				character.setSexualOrientation(SexualOrientation.valueOf(((Element)element.getElementsByTagName("sexualOrientation").item(0)).getAttribute("value")));
+				CharacterUtils.appendToImportLog(log, "</br>Set Sexual Orientation: " + SexualOrientation.valueOf(((Element)element.getElementsByTagName("sexualOrientation").item(0)).getAttribute("value")));
+			} else {
+				character.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+				CharacterUtils.appendToImportLog(log, "</br>Set Sexual Orientation: " + SexualOrientation.AMBIPHILIC);
+			}
+		}
+
+		if(element.getElementsByTagName("description").getLength()!=0) {
+			character.setDescription(((Element)element.getElementsByTagName("description").item(0)).getAttribute("value"));
+		}
+		if(element.getElementsByTagName("playerPetName").getLength()!=0) {
+			character.setPlayerPetName(((Element)element.getElementsByTagName("playerPetName").item(0)).getAttribute("value"));
+		}
+		if(element.getElementsByTagName("playerKnowsName").getLength()!=0) {
+			character.setPlayerKnowsName(Boolean.valueOf(((Element)element.getElementsByTagName("playerKnowsName").item(0)).getAttribute("value")));
+		}
+		if(element.getElementsByTagName("history").getLength()!=0) {
+			character.setHistory(History.valueOf(((Element)element.getElementsByTagName("history").item(0)).getAttribute("value")));
+		}
+		if(element.getElementsByTagName("personality").getLength()!=0) {
+			character.setPersonality(Personality.valueOf(((Element)element.getElementsByTagName("personality").item(0)).getAttribute("value")));
+		}
+		if(element.getElementsByTagName("obedience").getLength()!=0) {
+			character.setObedience(Float.valueOf(((Element)element.getElementsByTagName("obedience").item(0)).getAttribute("value")));
+		}
+		
+		
+		
+		// Temp fix for perk points:
+		character.setPerkPoints((Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")))-1);
+		CharacterUtils.appendToImportLog(log, "</br>Set perkPoints: (TEMP FIX) " + (Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value"))-1));
+		
+		int extraLevelUpPoints=0;
+		// If there is a version number, attributes should be working correctly:
+		if(element.getElementsByTagName("version").item(0)!=null) {
+			nodes = parentElement.getElementsByTagName("attributes");
+			element = (Element) nodes.item(0);
+			for(int i=0; i<element.getElementsByTagName("attribute").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("attribute").item(i));
+				
+				try {
+					character.setAttribute(Attribute.valueOf(e.getAttribute("type")), Float.valueOf(e.getAttribute("value")));
+					CharacterUtils.appendToImportLog(log, "</br>Set Attribute: "+Attribute.valueOf(e.getAttribute("type")).getName() +" to "+ Float.valueOf(e.getAttribute("value")));
+				}catch(IllegalArgumentException ex){
+				}
+			}
+			
+		} else {
+			extraLevelUpPoints = (Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")) * 5);
+			CharacterUtils.appendToImportLog(log, "</br>Old character version. Extra LevelUpPoints set to: "+(Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")) * 5));
+		}
+		
+		
+		nodes = parentElement.getElementsByTagName("characterRelationships");
+		element = (Element) nodes.item(0);
+		for(int i=0; i<element.getElementsByTagName("characterRelationships").getLength(); i++){
+			Element e = ((Element)element.getElementsByTagName("relationship").item(i));
+			
+			if(e.getAttribute("character").equals("PlayerCharacter") && !character.isPlayer()) {
+				character.setAffection(Main.game.getPlayer(), Float.valueOf(e.getAttribute("value")));
+				CharacterUtils.appendToImportLog(log, "</br>Set Relationship: "+e.getAttribute("character") +" , "+ Float.valueOf(e.getAttribute("value")));
+			}
+		}
+		
+		// Fetishes:
+		nodes = parentElement.getElementsByTagName("fetishes");
+		element = (Element) nodes.item(0);
+		if(element!=null) {
+			for(int i=0; i<element.getElementsByTagName("fetish").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("fetish").item(i));
+				
+				try {
+					if(Fetish.valueOf(e.getAttribute("type")) != null) {
+						character.addFetish(Fetish.valueOf(e.getAttribute("type")));
+						CharacterUtils.appendToImportLog(log, "</br>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
+					}
+				}catch(IllegalArgumentException ex){
+				}
+			}
+		}
+		
+		// Perks:
+//		nodes = parentElement.getElementsByTagName("perks");
+//		element = (Element) nodes.item(0);
+//		for(int i=0; i<element.getElementsByTagName("perk").getLength(); i++){
+//			Element e = ((Element)element.getElementsByTagName("perk").item(i));
+//			
+//			try {
+//				if(Boolean.valueOf(e.getAttribute("value"))) {
+//					character.addPerk(Perk.valueOf(e.getAttribute("type")));
+//					CharacterUtils.appendToImportLog(log, "</br>Added Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
+//				}
+//			}catch(IllegalArgumentException ex){
+//			}
+//		}
+		
+		// Status Effects:
+		nodes = parentElement.getElementsByTagName("statusEffects");
+		element = (Element) nodes.item(0);
+		for(int i=0; i<element.getElementsByTagName("statusEffect").getLength(); i++){
+			Element e = ((Element)element.getElementsByTagName("statusEffect").item(i));
+			
+			try {
+				if(Integer.valueOf(e.getAttribute("value"))!=-1) {
+					character.addStatusEffect(StatusEffect.valueOf(e.getAttribute("type")), Integer.valueOf(e.getAttribute("value")));
+					CharacterUtils.appendToImportLog(log, "</br>Added Status Effect: "+StatusEffect.valueOf(e.getAttribute("type")).getName(character)+" ("+Integer.valueOf(e.getAttribute("value"))+" minutes)");
+				}
+			}catch(IllegalArgumentException ex){
+			}
+		}
+		
+		// Combat:
+		// TODO Combat is all derived from weapons/perks/body parts, so there's no reason for this to even be here...
+		
+		// Pregnancy: TODO
+//		nodes = parentElement.getElementsByTagName("pregnancy");
+//		// Possibilities:
+//		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("pregnancyPossibilities").item(0);
+//		for(int i=0; i<element.getElementsByTagName("possibility").getLength(); i++){
+//			Element e = ((Element)element.getElementsByTagName("possibility").item(i));
+//			
+//			try {
+//				character.getPotentialPartnersAsMother().add(new PregnancyPossibility(
+//						null,
+//						null,
+//						Float.valueOf(e.getAttribute("probability"))));
+//				CharacterUtils.appendToImportLog(log, "</br>Added Pregnancy Possibility: Father:"+e.getAttribute("fatherName"));
+//			}catch(IllegalArgumentException ex){
+//			}
+//		}
+//		// Litter:
+//		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("pregnantLitter").item(0);
+//		for(int i=0; i<element.getElementsByTagName("litter").getLength(); i++){
+//			Element e = ((Element)element.getElementsByTagName("litter").item(i));
+//			
+//			try {
+//				character.setPregnantLitter(new Litter(
+//						Integer.valueOf(e.getAttribute("dayOfConception")),
+//						Integer.valueOf(e.getAttribute("dayOfBirth")),
+//						null,
+//						null,
+//						Race.valueOf(e.getAttribute("race")),
+//						Integer.valueOf(e.getAttribute("sons")),
+//						Integer.valueOf(e.getAttribute("daughters"))));
+//				CharacterUtils.appendToImportLog(log, "</br>Added Litter: Father:"+e.getAttribute("fatherName"));
+//			}catch(IllegalArgumentException ex){
+//			}
+//		}
+//		// Birthed Litters:
+//		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("birthedLitters").item(0);
+//		for(int i=0; i<element.getElementsByTagName("birthedLitter").getLength(); i++){
+//			Element e = ((Element)element.getElementsByTagName("birthedLitter").item(i));
+//			
+//			try {
+//				character.getLittersBirthed().add(new Litter(
+//						Integer.valueOf(e.getAttribute("dayOfConception")),
+//						Integer.valueOf(e.getAttribute("dayOfBirth")),
+//						null,
+//						null,
+//						Race.valueOf(e.getAttribute("race")),
+//						Integer.valueOf(e.getAttribute("sons")),
+//						Integer.valueOf(e.getAttribute("daughters"))));
+//				CharacterUtils.appendToImportLog(log, "</br>Added Birthed Litter: Father:"+e.getAttribute("fatherName"));
+//			}catch(IllegalArgumentException ex){
+//			}
+//		}
+		
+		// Body:
+		character.body = Body.loadFromXML(log, (Element) parentElement.getElementsByTagName("body").item(0), doc);
+		
+		// Player Core info:
+		nodes = parentElement.getElementsByTagName("playerCore");
+		element = (Element) nodes.item(0);
+
+		// Experience:
+		character.incrementExperience(Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
+		CharacterUtils.appendToImportLog(log, "</br>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
+		
+		// Level up points:
+		character.setLevelUpPoints(Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints);
+		CharacterUtils.appendToImportLog(log, "</br>Set levelUpPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
+
+		// Perk points:
+		//character.setPerkPoints(Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")));
+//		character.setPerkPoints((Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value"))));
+//		
+//		CharacterUtils.appendToImportLog(log, "</br>Set perkPoints: (TEMP FIX) " + (Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value"))));
+		
+		// Sex stats:
+		nodes = parentElement.getElementsByTagName("sexStats");
+		
+		// Cum counts:
+		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("cumCounts").item(0);
+		for(int i=0; i<element.getElementsByTagName("cumCount").getLength(); i++){
+			Element e = ((Element)element.getElementsByTagName("cumCount").item(i));
+			
+			try {
+				for(int it =0 ; it<Integer.valueOf(e.getAttribute("count")) ; it++)
+					character.incrementCumCount(new SexType(PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType"))));
+				CharacterUtils.appendToImportLog(log, "</br>Added cum count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
+			}catch(IllegalArgumentException ex){
+			}
+		}
+		
+		// Sex counts:
+		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("sexCounts").item(0);
+		for(int i=0; i<element.getElementsByTagName("sexCount").getLength(); i++){
+			Element e = ((Element)element.getElementsByTagName("sexCount").item(i));
+			
+			try {
+				for(int it =0 ; it<Integer.valueOf(e.getAttribute("count")) ; it++)
+					character.incrementSexCount(new SexType(PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType"))));
+				CharacterUtils.appendToImportLog(log, "</br>Added sex count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
+			}catch(IllegalArgumentException ex){
+			}
+		}
+		
+		// Virginity losses:
+		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("virginityTakenBy").item(0);
+		for(int i=0; i<element.getElementsByTagName("virginity").getLength(); i++){
+			Element e = ((Element)element.getElementsByTagName("virginity").item(i));
+
+			character.setVirginityLoss(new SexType(PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType"))), e.getAttribute("takenBy"));
+			CharacterUtils.appendToImportLog(log, "</br>Added virginity loss:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" (taken by:"+e.getAttribute("takenBy")+")");
+		}
+		
+		
+		
+		// Inventory:
+		character.resetInventory();
+		nodes = parentElement.getElementsByTagName("characterInventory");
+		element = (Element) nodes.item(0);
+
+		character.setMoney(Integer.valueOf(((Element)element.getElementsByTagName("money").item(0)).getAttribute("value")));
+		character.setEssenceCount(TFEssence.ARCANE, Integer.valueOf(((Element)element.getElementsByTagName("essences").item(0)).getAttribute("value")));
+		
+		if(element.getElementsByTagName("mainWeapon").item(0)!=null) {
+			character.equipMainWeaponFromNowhere(AbstractWeapon.loadFromXML(
+					(Element) ((Element)element.getElementsByTagName("mainWeapon").item(0)).getElementsByTagName("weapon").item(0),
+					doc));
+		}
+
+		if(element.getElementsByTagName("offhandWeapon").item(0)!=null) {
+			character.equipOffhandWeaponFromNowhere(AbstractWeapon.loadFromXML(
+					(Element) ((Element)element.getElementsByTagName("offhandWeapon").item(0)).getElementsByTagName("weapon").item(0),
+					doc));
+		}
+		
+		Element clothingEquipped = (Element) element.getElementsByTagName("clothingEquipped").item(0);
+		for(int i=0; i<clothingEquipped.getElementsByTagName("clothing").getLength(); i++){
+			Element e = ((Element)clothingEquipped.getElementsByTagName("clothing").item(i));
+			
+			character.equipClothingOverride(AbstractClothing.loadFromXML(e, doc));
+		}
+		//TODO count
+		Element itemsInInventory = (Element) element.getElementsByTagName("itemsInInventory").item(0);
+		for(int i=0; i<itemsInInventory.getElementsByTagName("item").getLength(); i++){
+			Element e = ((Element)itemsInInventory.getElementsByTagName("item").item(i));
+			
+			for(int itemCount = 0 ; itemCount < Integer.valueOf(e.getAttribute("count")); itemCount++) {
+				character.addItem(AbstractItem.loadFromXML(e, doc), false);
+			}
+		}
+		
+		Element clothingInInventory = (Element) element.getElementsByTagName("clothingInInventory").item(0);
+		for(int i=0; i<clothingInInventory.getElementsByTagName("clothing").getLength(); i++){
+			Element e = ((Element)clothingInInventory.getElementsByTagName("clothing").item(i));
+
+			for(int clothingCount = 0 ; clothingCount < Integer.valueOf(e.getAttribute("count")); clothingCount++) {
+				character.addClothing(AbstractClothing.loadFromXML(e, doc), false);
+			}
+		}
+		
+		Element weaponsInInventory = (Element) element.getElementsByTagName("weaponsInInventory").item(0);
+		for(int i=0; i<weaponsInInventory.getElementsByTagName("weapon").getLength(); i++){
+			Element e = ((Element)weaponsInInventory.getElementsByTagName("weapon").item(i));
+
+			for(int weaponCount = 0 ; weaponCount < Integer.valueOf(e.getAttribute("count")); weaponCount++) {
+				character.addWeapon(AbstractWeapon.loadFromXML(e, doc), false);
+			}
+		}
+		
+		
+		character.setLocation(new Vector2i(0, 0));
+		
+		return character;
+	}
+	
+	
 	
 	public String getId() {
 		return id;
@@ -437,10 +1032,6 @@ public class GameCharacter implements Serializable {
 		body = CharacterUtils.generateBody(startingGender, startingBodyType, stage);
 
 		postTransformationCalculation();
-	}
-	
-	public void setBodyCoveringForXMLImport(BodyCoveringType bct, CoveringPattern pattern, Colour primary, boolean primaryGlow, Colour secondary, boolean secondaryGlow) {
-		body.getCoverings().put(bct, new Covering(bct, pattern, primary, primaryGlow, secondary, secondaryGlow));
 	}
 
 	public String getName() {
@@ -623,6 +1214,30 @@ public class GameCharacter implements Serializable {
 		return value;
 	}
 	
+	public SlaveJob getSlaveJob() {
+		return slaveJob;
+	}
+
+
+
+	public void setSlaveJob(SlaveJob slaveJob) {
+		this.slaveJob = slaveJob;
+	}
+
+
+
+	public List<SlaveJobSettings> getSlaveJobSettings() {
+		return slaveJobSettings;
+	}
+
+
+
+	public void setSlaveJobSettings(List<SlaveJobSettings> slaveJobSettings) {
+		this.slaveJobSettings = slaveJobSettings;
+	}
+
+
+
 	// Affection:
 	/**
 	 * Do not use this method to alter the map!

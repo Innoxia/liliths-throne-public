@@ -283,9 +283,10 @@ public class OptionsDialogue {
 				}
 			}
 
-			if(Main.game.isStarted())
+			if(Main.game.isStarted()) {
 				saveLoadSB.append(getSaveLoadRow(null, null));
-
+			}
+			
 			saveLoadSB.append("</table>"
 					+ "</p>"
 					+ "<p id='hiddenPField' style='display:none;'></p>");
@@ -353,9 +354,11 @@ public class OptionsDialogue {
 								:"<div class='saveLoadButton' id='load_saved_" + baseName + "' style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Load</div>")
 					+ "</td>"
 					+ "<td>"
-						+ (name.equals(overwriteConfirmationName)
-							?"<div class='saveLoadButton' id='overwrite_saved_" + baseName + "' style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Confirm</div>"
-							:"<div class='saveLoadButton' id='overwrite_saved_" + baseName + "' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Overwrite</div>")
+						+ (Main.game.isStarted()
+								?(name.equals(overwriteConfirmationName)
+									?"<div class='saveLoadButton' id='overwrite_saved_" + baseName + "' style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Confirm</div>"
+									:"<div class='saveLoadButton' id='overwrite_saved_" + baseName + "' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Overwrite</div>")
+										:"<div class='saveLoadButton disabled' style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Overwrite</div>")
 					+ "</td>"
 					+ "<td>"
 						+ (name.equals(deleteConfirmationName)

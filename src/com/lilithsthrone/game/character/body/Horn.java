@@ -15,8 +15,8 @@ import com.lilithsthrone.utils.Util;
 public class Horn implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private HornType type;
-	private int rows;
+	protected HornType type;
+	protected int rows;
 	
 	public Horn(HornType type) {
 		this.type = type;

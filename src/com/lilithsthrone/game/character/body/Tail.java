@@ -15,8 +15,8 @@ import com.lilithsthrone.utils.Util;
 public class Tail implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private TailType type;
-	private int tailCount;
+	protected TailType type;
+	protected int tailCount;
 
 	public Tail(TailType type) {
 		this.type = type;

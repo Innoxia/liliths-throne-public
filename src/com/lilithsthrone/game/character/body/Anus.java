@@ -23,12 +23,12 @@ public class Anus implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// Asshole variables:
-	private AnusType type;
-	private OrificeAnus orificeAnus;
-	private boolean bleached;
-	private BodyHair assHair;
+	protected AnusType type;
+	protected OrificeAnus orificeAnus;
+	protected boolean bleached;
+	protected BodyHair assHair;
 
-	public Anus(AnusType type, int wetness, int capacity, int elasticity, int plasticity, boolean virgin) {
+	public Anus(AnusType type, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		
 		orificeAnus = new OrificeAnus(wetness, capacity, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());

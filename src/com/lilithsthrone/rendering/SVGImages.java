@@ -48,6 +48,8 @@ public enum SVGImages {
 			
 			scaleZero, scaleOne, scaleTwo, scaleThree, scaleFour,
 			scaleZeroDisabled, scaleOneDisabled, scaleTwoDisabled, scaleThreeDisabled, scaleFourDisabled,
+
+			slaveBuy, slaveBuyDisabled, slaveSell, slaveSellDisabled, slaveInspect, slaveTransfer, slaveTransferDisabled,
 			
 			// Sex:
 			coverableAreaMouth, coverableAreaAnus, coverableAreaNipple, coverableAreaVagina,
@@ -272,6 +274,32 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/scale_four.svg");
 			scaleFourDisabled = Util.inputStreamToString(is);
 			scaleFourDisabled = setColour(scaleFourDisabled, Colour.BASE_GREY);
+			
+			
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveBuy.svg");
+			slaveBuy = Util.inputStreamToString(is);
+			slaveBuy = setColour(slaveBuy, Colour.GENERIC_BAD);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveBuyDisabled.svg");
+			slaveBuyDisabled = Util.inputStreamToString(is);
+			slaveBuyDisabled = setColour(slaveBuyDisabled, Colour.BASE_GREY);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveSell.svg");
+			slaveSell = Util.inputStreamToString(is);
+			slaveSell = setColour(slaveSell, Colour.GENERIC_GOOD);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveSellDisabled.svg");
+			slaveSellDisabled = Util.inputStreamToString(is);
+			slaveSellDisabled = setColour(slaveSellDisabled, Colour.BASE_GREY);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveInspect.svg");
+			slaveInspect = Util.inputStreamToString(is);
+			slaveInspect = setColour(slaveInspect, Colour.BASE_PURPLE_LIGHT);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveTransfer.svg");
+			slaveTransfer = Util.inputStreamToString(is);
+			slaveTransfer = setColour(slaveTransfer, Colour.GENERIC_GOOD);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveTransfer.svg");
+			slaveTransferDisabled = Util.inputStreamToString(is);
+			slaveTransferDisabled = setColour(slaveTransferDisabled, Colour.BASE_GREY);
 			
 			
 			
@@ -675,6 +703,34 @@ public enum SVGImages {
 
 	public String getScaleFourDisabled() {
 		return scaleFourDisabled;
+	}
+
+	public String getSlaveBuy() {
+		return slaveBuy;
+	}
+
+	public String getSlaveSell() {
+		return slaveSell;
+	}
+
+	public String getSlaveInspect() {
+		return slaveInspect;
+	}
+
+	public String getSlaveTransfer() {
+		return slaveTransfer;
+	}
+
+	public String getSlaveBuyDisabled() {
+		return slaveBuyDisabled;
+	}
+
+	public String getSlaveSellDisabled() {
+		return slaveSellDisabled;
+	}
+
+	public String getSlaveTransferDisabled() {
+		return slaveTransferDisabled;
 	}
 
 }

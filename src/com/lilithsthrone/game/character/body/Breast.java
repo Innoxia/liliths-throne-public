@@ -20,21 +20,22 @@ import com.lilithsthrone.utils.Util;
 public class Breast implements BodyPartInterface, Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	public static final int MAXIMUM_BREAST_ROWS = 5;
 	public static final int MAXIMUM_NIPPLES_PER_BREAST = 4;
 	
-	private BreastType type;
-	private BreastShape shape;
-	private int size, rows, lactation, nippleCountPerBreast;
+	protected BreastType type;
+	protected BreastShape shape;
+	protected int size, rows, lactation, nippleCountPerBreast;
 	
-	private Nipples nipples;
-	private FluidMilk milk;
+	protected Nipples nipples;
+	protected FluidMilk milk;
 	
 	/**
 	 * @param size in inches from bust to underbust using the UK system.
 	 * @param lactation in mL.
 	 */
-	public Breast(BreastType type, BreastShape shape, int size, int lactation, int rows, int nippleSize, NippleShape nippleShape, int areolaeSize, int nippleCountPerBreast, int capacity, int elasticity, int plasticity, boolean virgin) {
+	public Breast(BreastType type, BreastShape shape, int size, int lactation, int rows, int nippleSize, NippleShape nippleShape, int areolaeSize, int nippleCountPerBreast, float capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.shape = shape;
 		this.size = size;
@@ -141,7 +142,7 @@ public class Breast implements BodyPartInterface, Serializable {
 	}
 
 	public String getLactationDescription(GameCharacter gc) {
-		if (lactation <= Lactation.ZERO_NONE.getMaximumValue()) {
+		if (lactation < Lactation.ZERO_NONE.getMaximumValue()) {
 			return " aren't producing any " + milk.getName(gc);
 		} else {
 			return " are producing " + getLactation().getDescriptor() + " " + milk.getName(gc) + ", averaging about " + lactation + "mL each time you are milked.";
@@ -501,7 +502,7 @@ public class Breast implements BodyPartInterface, Serializable {
 	}
 
 	public String setRows(GameCharacter owner, int rows) {
-		rows = Math.max(0, Math.min(rows, 3));
+		rows = Math.max(1, Math.min(rows, MAXIMUM_BREAST_ROWS));
 		
 		if(rows == getRows()) {
 			if(owner.isPlayer()) {
@@ -513,29 +514,27 @@ public class Breast implements BodyPartInterface, Serializable {
 		
 		String transformation = "";
 		
+		int rowsDifference = Math.abs(rows - getRows());
+		
 		if (rows < getRows()) {
 			if (owner.isPlayer()) {
 				transformation =
 						"<p>"
-							+ "You feel a strange bubbling sensation within your [pc.breasts], and before you have time to react, "
-							+ (getRows() == 3
-								? (rows == 2
-									? "the lowest of your extra pairs"
-									: "your two extra pairs")
-								: "your extra pair")
-							+ " of " + (hasBreasts() ? "breasts" : "pecs") + " rapidly shrink away and [style.boldShrink(disappear)] into the [pc.skin] of your torso.</br>"
+							+ "You feel a strange bubbling sensation within your [pc.breasts], and before you have time to react, your"
+								+ (rowsDifference==1
+									?"lowest pair of [pc.breasts]"
+									:"lowest "+Util.intToString(rowsDifference)+" pairs of [pc.breasts]")
+							+ " rapidly shrink away and [style.boldShrink(disappear)] into the [pc.skin] of your torso.</br>"
 							+ "You now have [style.boldSex("+ Util.intToString(rows) + " pair"+ (rows > 1 ? "s" : "") + " of " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
 						+ "</p>";
 			} else {
 				transformation = UtilText.parse(owner,
 							"<p>"
-								+ "[npc.Name] glances down worriedly at [npc.her] [npc.breasts], and before [npc.she] has time to react, "
-								+ (getRows() == 3
-									? (rows == 2
-										? "the lowest of [npc.her] extra pairs"
-										: "[npc.her] two extra pairs")
-									: "[npc.her] extra pair")
-								+ " of " + (hasBreasts() ? "breasts" : "pecs") + " rapidly shrink away and [style.boldShrink(disappear)] into the [npc.skin] of [npc.her] torso.</br>"
+								+ "[npc.Name] glances down worriedly at [npc.her] [npc.breasts], and before [npc.she] has time to react, [npc.her] "
+								+ (rowsDifference==1
+									?"lowest pair of [npc.breasts]"
+									:"lowest "+Util.intToString(rowsDifference)+" pairs of [npc.breasts]")
+								+ " rapidly shrink away and [style.boldShrink(disappear)] into the [npc.skin] of [npc.her] torso.</br>"
 								+ "[npc.Name] now has [style.boldSex("+ Util.intToString(rows) + " pair"+ (rows > 1 ? "s" : "") + " of " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
 							+ "</p>");
 			}
@@ -545,24 +544,20 @@ public class Breast implements BodyPartInterface, Serializable {
 				transformation =
 						"<p>"
 							+ "You feel a strange bubbling sensation within your [pc.breasts], and before you have time to react, "
-							+ (getRows() == 1
-								? (rows == 3
-									? "two extra pairs"
-									: "an extra pair")
-								: "an extra pair")
-							+ " of " + (hasBreasts() ? "breasts" : "pecs") + " rapidly [style.boldGrow(grow)] out of the [pc.skin] of your torso.</br>"
+							+ (rowsDifference==1
+								?"an extra pair of [pc.breasts]"
+								:Util.intToString(rowsDifference)+" extra pairs of [pc.breasts]")
+							+ " rapidly [style.boldGrow(grow)] out of the [pc.skin] of your torso.</br>"
 							+ "You now have [style.boldSex("+ Util.intToString(rows) + " pair"+ (rows > 1 ? "s" : "") + " of " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
 						+ "</p>";
 			} else {
 				transformation = UtilText.parse(owner,
 							"<p>"
 								+ "[npc.Name] glances down worriedly at [npc.her] [npc.breasts], and before [npc.she] has time to react, "
-								+ (getRows() == 1
-									? (rows == 3
-										? "two extra pairs"
-										: "an extra pair")
-									: "an extra pair")
-								+ " of " + (hasBreasts() ? "breasts" : "pecs") + " rapidly [style.boldGrow(grow)] out of the [npc.skin] of [npc.her] torso.</br>"
+								+ (rowsDifference==1
+									?"an extra pair of [npc.breasts]"
+									:Util.intToString(rowsDifference)+" extra pairs of [npc.breasts]")
+								+ " rapidly [style.boldGrow(grow)] out of the [npc.skin] of [npc.her] torso.</br>"
 								+ "[npc.Name] now has [style.boldSex("+ Util.intToString(rows) + " pair"+ (rows > 1 ? "s" : "") + " of " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
 							+ "</p>");
 			}

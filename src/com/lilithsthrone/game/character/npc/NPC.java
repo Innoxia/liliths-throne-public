@@ -160,6 +160,9 @@ public abstract class NPC extends GameCharacter {
 		}
 	}
 	
+	
+	
+	
 	public void resetSlaveFlags() {
 		flagSlaveBackground = false;
 		flagSlaveSmallTalk = false;

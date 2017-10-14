@@ -562,9 +562,10 @@ public class PrologueDialogue {
 					+ "</p>"
 
 					+ "<p>"
-					+ "Despite your excitement upon discovering that furries are somehow real, you're still not entirely comfortable with what's going on."
-					+ " As you come to your senses, you start to struggle again, kicking and thrashing wildly as you try to free yourself."
-					+ " The cat-girl simply laughs, and in one swift movement she pounces forwards, slamming you to the floor as she straddles your chest.</p>"
+						+ "Despite your excitement upon discovering that furries are no longer simply a fantasy, you're still not entirely comfortable with what's going on."
+						+ " As you come to your senses, you start to struggle again, kicking and thrashing wildly as you try to free yourself."
+						+ " The cat-girl simply laughs, and in one swift movement she pounces forwards, slamming you to the floor as she straddles your chest."
+					+ "</p>"
 
 					+ "<p>She leans down, her cat-like pupils dilating as she pushes your head to the ground and delivers a long, slow lick up your cheek, "
 					+ (Main.game.getPlayer().getVaginaType() != VaginaType.NONE

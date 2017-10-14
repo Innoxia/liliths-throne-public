@@ -21,13 +21,13 @@ public class Testicle implements BodyPartInterface, Serializable {
 	public static final int MIN_TESTICLE_COUNT = 2;
 	public static final int MAX_TESTICLE_COUNT = 8;
 	
-	private TesticleType type;
-	private int testicleSize;
-	private int cumProduction;
-	private int testicleCount;
-	private boolean internal;
+	protected TesticleType type;
+	protected int testicleSize;
+	protected int cumProduction;
+	protected int testicleCount;
+	protected boolean internal;
 	
-	private FluidCum cum;
+	protected FluidCum cum;
 
 	public Testicle(TesticleType type, int testicleSize, int cumProduction, int testicleCount) {
 		this.type = type;

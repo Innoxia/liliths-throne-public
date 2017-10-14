@@ -99,6 +99,7 @@ import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -109,7 +110,6 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
-import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
@@ -416,8 +416,13 @@ public class MainController implements Initializable {
 //						 System.out.println(event.getCode());
 						 if(event.getCode()==KeyCode.END){
 							 
-							 
-							 System.out.println(ItemType.BOOK_CAT_MORPH.getId());
+
+//							 System.out.println("-------------------------");
+//							 for(String npc : Main.game.getNPCMap().keySet()) {
+//								 System.out.println(npc);
+//							 }
+//							 
+//							 System.out.println(ItemType.BOOK_CAT_MORPH.getId());
 							 
 //							 System.out.println(Main.game.getPlayer().getNextClothingToRemoveForCoverableAreaAccess(CoverableArea.VAGINA).getKey().getName());
 							 
@@ -1774,11 +1779,18 @@ public class MainController implements Initializable {
 			}
 			
 			for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
-				id = slave.getId(); //TODO this is returning null for Scarlett sometimes????
+				
+				id = slave.getId();
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementDetailedDialogue(Main.game.getNPCById(slave.getId()))));
 					}, false);
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Inspect Slave",
+							UtilText.parse(slave, "Take a detailed look at [npc.name]."));
+					addEventListener(document, id, "mouseenter", el, false);
 				}
 				
 				id = slave.getId()+"_TRANSFER";
@@ -1791,6 +1803,22 @@ public class MainController implements Initializable {
 							}
 						});
 					}, false);
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Move Slave To Here",
+							UtilText.parse(slave, "Move [npc.name] to this location."));
+					addEventListener(document, id, "mouseenter", el, false);
+				}
+				
+				id = slave.getId()+"_TRANSFER_DISABLED";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Move Slave To Here",
+							UtilText.parse(slave, "You cannot move [npc.name] to this location, as there's no room for [npc.herHim] here."));
+					addEventListener(document, id, "mouseenter", el, false);
 				}
 				
 				id = slave.getId()+"_SELL";
@@ -1805,6 +1833,23 @@ public class MainController implements Initializable {
 							}
 						});
 					}, false);
+					
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Sell Slave",
+							"Sell "+slave.getName()+" for "+UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getBuyModifier()))+".");
+					addEventListener(document, id, "mouseenter", el, false);
+				}
+				
+				id = slave.getId()+"_SELL_DISABLED";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Sell Slave",
+							UtilText.parse(slave, "You cannot sell [npc.name], as there's nobody here to sell [npc.herHim] to."));
+					addEventListener(document, id, "mouseenter", el, false);
 				}
 			}
 			
@@ -1816,6 +1861,22 @@ public class MainController implements Initializable {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementDetailedDialogue(Main.game.getNPCById(slave.getId()))));
 					}, false);
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Inspect Slave",
+							UtilText.parse(slave, "Take a detailed look at [npc.name]."));
+					addEventListener(document, id, "mouseenter", el, false);
+				}
+				
+				id = slave.getId()+"_TRANSFER_DISABLED";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Move Slave To Here",
+							UtilText.parse(slave, "You cannot move [npc.name] to this location as you don't own [npc.herHim], as well as due to the fact that [npc.she]'s already here!"));
+					addEventListener(document, id, "mouseenter", el, false);
 				}
 				
 				id = slave.getId()+"_BUY";
@@ -1830,6 +1891,32 @@ public class MainController implements Initializable {
 							}
 						});
 					}, false);
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Buy Slave",
+							UtilText.parse(slave, "Buy [npc.name] for "+UtilText.formatAsMoney((int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()))+"."));
+					addEventListener(document, id, "mouseenter", el, false);
+				}
+				
+				id = slave.getId()+"_BUY_DISABLED";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
+							@Override
+							public void effects() {
+								Main.game.getPlayer().incrementMoney(-(int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()));
+								Main.game.getPlayer().addSlave(Main.game.getNPCById(slave.getId()));
+								Main.game.getNPCById(slave.getId()).setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION);
+							}
+						});
+					}, false);
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Buy Slave",
+							UtilText.parse(slave, "You cannot buy [npc.name], as you don't have enough money!"));
+					addEventListener(document, id, "mouseenter", el, false);
 				}
 			}
 			

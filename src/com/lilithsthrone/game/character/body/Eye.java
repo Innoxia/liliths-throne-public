@@ -17,9 +17,9 @@ import com.lilithsthrone.utils.Util;
 public class Eye implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private EyeType type;
-	private int eyePairs;
-	private EyeShape irisShape, pupilShape;
+	protected EyeType type;
+	protected int eyePairs;
+	protected EyeShape irisShape, pupilShape;
 	
 	public Eye(EyeType type) {
 		this.type = type;

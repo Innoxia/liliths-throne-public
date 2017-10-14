@@ -14,11 +14,11 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
  * @author Innoxia
  */
 public class Hair implements BodyPartInterface, Serializable {
-
 	private static final long serialVersionUID = 1L;
-	private HairType type;
-	private int length;
-	private HairStyle style;
+	
+	protected HairType type;
+	protected int length;
+	protected HairStyle style;
 
 	public Hair(HairType type, int length, HairStyle style) {
 		this.type = type;

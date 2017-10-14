@@ -16,9 +16,9 @@ import com.lilithsthrone.utils.Util;
 public class Arm implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private ArmType type;
-	private int armRows;
-	private BodyHair underarmHair;
+	protected ArmType type;
+	protected int armRows;
+	protected BodyHair underarmHair;
 
 	public Arm(ArmType type, int armRows) {
 		this.type = type;

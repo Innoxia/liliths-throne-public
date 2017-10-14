@@ -17,13 +17,13 @@ public class Ass implements BodyPartInterface, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private AssType type;
-	private int assSize;
-	private int hipSize;
+	protected AssType type;
+	protected int assSize;
+	protected int hipSize;
 	
-	private Anus anus;
+	protected Anus anus;
 
-	public Ass(AssType type, int size, int wetness, int capacity, int elasticity, int plasticity, boolean virgin) {
+	public Ass(AssType type, int size, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		assSize = size;
 		hipSize = size;

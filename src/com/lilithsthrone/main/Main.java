@@ -60,7 +60,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.86.1",
+	public static final String VERSION_NUMBER = "0.1.86.5",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -78,21 +78,20 @@ public class Main extends Application {
 		+ "<p>"
 			+ "Hello again everyone! ^^"
 		+ "</p>"
-		
-		+ "<p><b>Hotfix version!</b> Scroll to the very bottom to see the hotfix patch notes. :3</p>"
 			
 		+ "<p>"
-			+ "So, finally, the incest content is done. The reason that it took so much time is that it's the first content I've written that's tried to take into account multiple different background factors (job, affection, and personality)."
-			+ " After quite a bit of trial-and-error (and two complete rewrites), I think it's in a decent enough state now."
-			+ " I will definitely be expanding upon it and improving it in the future, but I really need to move on and get work done on slavery, sex content, and new transformation content."
+			+ "So, for version 0.1.87's preview release, I've got all of the most pressing bugs and minor improvements done."
+			+ " I only had four days in which to work this week (as I had to rest on Monday after working through the weekend on v0.1.86's hotfix), so although I've got everything planned out and designed for it (and even some parts added into the code),"
+				+ " I haven't managed to get the new slavery stuff implemented just yet. (I'm so sorry. ;_;)"
+		+ "</p>"
+				
+		+ "<p>"
+			+ "If there are any severe bugs, I'll put together a hotfix over the weekend, but if not, then I'll spend some of the weekend adding in slavery content (that really is at the very top of my list now)!"
+			+ " I promise that it will be in for the full version next Friday, along with (at least some of) the transformation and orgasm content."
 		+ "</p>"
 		
 		+ "<p>"
-			+ "For the next version, I'll be focusing on those three things, alongside adding in more main story content. ^^"
-		+ "</p>"
-			
-		+ "<p>"
-			+ "I hope you enjoy this version, and there will be lots more in the next! :3"
+			+ "Thank you all for playing Lilith's Throne! And a very big thank you to all the people supporting me on Patreon! :3"
 		+ "</p>"
 		
 		+ "<p>"
@@ -103,162 +102,75 @@ public class Main extends Application {
 
 		+ "<list>"
 		
-		+ "<h6>Preview (v0.1.85.5)</h6>"
+		+ "<h6>Preview (v0.1.86.5)</h6>"
 		
 		+"<li>Gameplay:</li>"
-		+"<ul><b>Added to and improved:</b> Character creation. (I still have a little more to add to this.)</ul>"
-		+"<ul><b>Changed:</b> You now start the game with whatever clothes you picked in the character creation process. (Rip hoodie and yoga pants. ;_;)</ul>"
-		+"<ul><b>Added:</b> (A very basic) genetics system to offspring. Offspring's features will now be inherited and influenced by their parents. (I will improve this at some stage in the future, but it should be ok as a placeholder.)</ul>"
-		+"<ul><b>Added:</b> Four personality types. These will be used to influence the random NPCs' dialogue, obedience & affection gains/losses, and other minor things.</ul>"
-		+"<ul>Added breast shape, along with breast shape enchantment elements. (Round, pointy, side-set, wide, and narrow.)</ul>"
-		+"<ul>Added labia size.</ul>"
-		+"<ul>Increased storage capacity for each tile's ground inventory from 24 to 48.</ul>"
+		+"<ul>Consolidated all essences into arcane essences. There were numerous problems with the old system of a unique essence for each race (unnecessary micro-management, far too many races planned, wasted resources), so I decided to remove them.</ul>"
+		+"<ul>Repurposed all 'bottled essence' item effects into damage & resistance multipliers based on the essence's race.</ul>"
+		+"<ul>Changed jinxed clothing removal mechanics. You now need to spend arcane essences to remove a jinx, and no longer need to worry about fiddling about with weapons.</ul>"
+		+"<ul>Consolidated Lilaya's 'discovering essences' and 'jinxed' quests into one quest.</ul>"
 			
-		+"<li>UI:</li>"
-		+"<ul>Updated the content preferences screen.</ul>"
-		+"<ul>Updated the light theme to work with the new UI elements. (It could still do with a lot of improvements though.)</ul>"
+		+"<li>Forced TF mechanics:</li>"
+		+"<ul>Added forced TF preference (in the furry preferences screen).</ul>"
+		+"<ul>Split transformation fetish into giving and receiving versions.</ul>"
+		+"<ul>NPCs will now only try to TF you if they have the 'giving TF' fetish.</ul>"
+		+"<ul>Removed the forced TF option in the content preferences, and instead you now have the option in each of the forced TF scenes to avoid the TF. (I might rework this a little more for the full release.)"
+		+" I decided to change it to this method so that players are always able to see unique options (such as Brax's and the harpy matriarchs' TFs), instead of missing out on unique scenes entirely."
+		+" <b>You can still avoid all forced TF content, don't worry if that's not your thing!</b> ^^</ul>"
+		+"<ul>Changed Brax's TF scene to take into account TF preferences.</ul>"
+		+"<ul>Changed all three of the harpy's scenes to take into account TF preferences.</ul>"
+		+"<ul>Actions related to being forcefully transformed or transforming others now have associated fetish requirements and corruption bypasses.</ul>"
+		+"<ul>NPCs will now apply all of their genital preferences to one potion.</ul>"
 			
-		+"<li>Clothing:</li>"
-		+"<ul>(I needed to add some more clothing for the character creation.)</ul>"
-		+"<ul>Added: Stiletto heels (feminine, foot slot).</ul>"
-		+"<ul>Added: Trainer socks (unisex, sock slot).</ul>"
-		+"<ul>Added: Low-top skater shoes (unisex, foot slot).</ul>"
-		+"<ul>Added: Tie (unisex, neck slot).</ul>"
-		+"<ul>Added: Suit jacket (masculine, over-torso slot).</ul>"
-			
+		+"<li>Settings & UI:</li>"
+		+"<ul>Improved furry preferences screen and slightly altered what each of the settings mean. (Please make sure that everything is still suitable for you after starting up your game!)</ul>"
+		+"<ul>Improved the phone's stats screens UI a little.</ul>"
+		+"<ul>Added plasticity stats to the body stats screen, along with a description of how capacity, elasticity, and plasticity work.</ul>"
+		+"<ul>Improved slavery manager UI.</ul>"
+		
 		+"<li>Other:</li>"
-		+"<ul><b>Improved:</b> Gender detection and naming to take into account whether the person has breasts or not.</ul>"
-		+"<ul>Assumed gender from appearance now takes into account whether your balls are internal, whether your penis is sheathed, and whether you have a cloaca. (A bulge won't be visible for internal balls or cloacas, and will only be visible for very large sheathed penises.)</ul>"
-		+"<ul>Added 'Use all' to inventory options.</ul>"
-		+"<ul>Moved tape crosses from chest to nipple slot.</ul>"
-		+"<ul>Added more pattern availability to nail polish and lipstick.</ul>"
-		+"<ul>Improved parser capitalisation detection for body part colours.</ul>"
-		+"<ul>Inventory is now ordered by slot type.</ul>"
-		+"<ul>Nyan now stocks the cattle set's items.</ul>"
-		+"<ul>Enabled 'Take all' in inventory for taking all of an NPC's items at once.</ul>"
-		+"<ul>Changed bovine penis default modifier from flared to tapered. (Thanks Rfpnj!)</ul>"
-		+"<ul>NPCs will now only spawn with non-con, incest, or transformation fetishes if you have the associated option turned on in the content preferences.</ul>"
-		+"<ul>NPCs can now span with up to five fetishes.</ul>"
-		+"<ul>Increased chance (to 50%) for your offspring to have the incest fetish.</ul>"
-		+"<ul>NPCs that you enslave will start off loathing you and will be very disobedient.</ul>"
+		+"<ul>Added a very minor variation ('Furries?! Yes!') to the prologue, as an opposite reaction to 'Furries?! No!'.</ul>"
+		+"<ul>Added descriptions for all vagina modifiers to selfie.</ul>"
+		+"<ul>Changed Ralph to a greater horse-morph (instead of lesser), and gave him new clothes and the 'receiving oral' fetish.</ul>"
+		+"<ul>Removed most of the restrictions on choosing your name.</ul>"
+		+"<ul>You no longer start the game with any essences. (This is so that the essence discovery quest makes sense. I plan on letting you choose some starting fetishes in the character creation, which is what the 5 starting essences were intended for.)</ul>"
+		+"<ul>Added ear colour to selfie.</ul>"
+		+"<ul>Added ability to change surname at City Hall.</ul>"
+		+"<ul>Increased limit of pairs of multi-breasts from 3 to 5.</ul>"
 			
 		+"<li>Bugs:</li>"
-		+"<ul>The icon for watches now have their hands pointing to the correct in-game time again.</ul>"
-		+"<ul>Typo and formatting fixes.</ul>"
-		+"<ul>Fixed crotchless thong being called 'crotchless thongs'.</ul>"
-		+"<ul>Negative values for fertility or virility now correctly prevent pregnancy.</ul>"
-		+"<ul>Clothing unequipping in sex is now correctly blocked by other clothing. (e.g. can't unequip your partner's panties if they're wearing yoga pants.)</ul>"
-		+"<ul>Changing the capacity of an orifice (through drinking potions) now sets yours stretched capacity to the new value.</ul>"
-		+"<ul>Fixed bug where Nyan would sometimes get the clothing she sold to you back in her inventory.</ul>"
-		+"<ul>Unzipping trousers and shorts no longer grants access to vagina. (You can still pull them down to do this.)</ul>"
-		+"<ul>Scarlett should no longer regenerate her clothing after sex.</ul>"
-		+"<ul>Fixed description in combat's dual attack always saying that you hit, even if you missed.</ul>"
-		+"<ul>Fixed Pix's post-sex scene leading to the arcade's entrance dialogue, instead of the gym's exterior dialogue.</ul>"
-		+"<ul>You should no longer be assumed to be a hermaphrodite if only your penis is visible.</ul>"
-		+"<ul>Possibly fixed a cause of the Properties file being reset now and again.</ul>"
-		+"<ul>Fixed ability to see NPC's vagina and penis in the tooltip when hovering over their level when you did not know what their genitals looked like.</ul>"
-		+"<ul>Fixed tooltip for NPC's equipped clothing not displaying the correct information.</ul>"
-		+"<ul>Fixed broken description in selfie for 'almost unnoticeable' breast sizes.</ul>"
-		+"<ul>Pubic, facial, and body hair for NPCs should now be displayed if you have those options turned on.</ul>"
-		+"<ul>Fixed weapon tooltips displaying incorrect damage.</ul>"
-		+"<ul>Fixed bugs which would allow you to use dye-brushes in an incorrect manner, thereby wasting them.</ul>"
-		+"<ul>Fixed bug related to Alexa's unsold slaves not being cleared from the game's memory.</ul>"
-		+"<ul><b>Fixed:</b> You no longer lose your vagina when importing a character that's either pregnant, or has the pregnancy risk effect.</ul>"
-		+"<ul>Importing a character now correctly sets your virginity loss description.</ul>"
-		+"<ul>Equipping a slave collar on an NPC from their inventory should now correctly trigger enslavement.</ul>"
-		+ "</list>"
-		
-		+ "</br>"
-		
-		+ "<list>"
-
-		+ "<h6>Full release (v0.1.86)</h6>"
-		+"<li>Engine:</li>"
-		+"<ul>Slightly reworked the detection system for consensual sex detection, in order to better support different sex scenes. (Some actions might be available when they shouldn't; I'll get this fixed for the next version.)</ul>"
-			
-		+"<li>Gameplay:</li>"
-		+"<ul><b>Added:</b> Incest dialogue. Your offspring's reactions and dialogue will alter based on your affection with them, as well as their personality and history (at the moment, the available histories are just 'mugger' and 'prostitute').</ul>"
-		+"<ul>Finished the basics of the character creator. (There's still more to add!)</ul>"
-		+"<ul>Added a couple more room upgrades for slaves, as well as some placeholder actions for conversation with them.</ul>"
-			
-		+"<li>AI:</li>"
-		+"<ul>NPCs will now only use anal actions if they have an anal fetish, or if there is no vagina available.</ul>"
-		+"<ul>NPCs will no longer suck their own fingers.</ul>"
-			
-		+"<li>Other:</li>"
-		+"<ul><b>Reworked:</b> Condoms are now a 'clothing' item, and can be equipped into the penis slot just like any other clothing."
-		+"</br>Just as they worked before, once the wearer orgasms, a 'filled condom' item is added to their inventory. (Jinxed condoms are affected just like regular ones.)</ul>"
-		+"<ul>Unequipping all during sex will no longer remove piercings.</ul>"
-		+"<ul>Added the ability for NPCs to use the 'self-doggy' position (where they're the dom, but are the ones on all fours).</ul>"
-		+"<ul>Characters with a furry rating of 'Minor' or 'Partial' will no longer spawn with multiple nipples.</ul>"
-		+"<ul>Added 'perky' to breast shapes.</ul>"
-		+"<ul>Added a couple more options for gender encounter rate settings.</ul>"
-		+"<ul>NPCs will now spawn wearing makeup.</ul>"
-		+"<ul>Tweaked hair style spawn probabilities.</ul>"
-			
-		+"<li>Bugs:</li>"
-		+"<ul>Fixed Scarlett slave interactions sometimes being broken.</ul>"
-		+"<ul>Fixed default gender spawn preferences only being males and traps.</ul>"
-		+"<ul>Setting all gender preferences to 0 now defaults to a 50/50 male/female chance, instead of making no encounters happen.</ul>"
-		+"<ul>Fixed bug where you'd start with two demonstones.</ul>"
-		+"<ul>Fixed masculine characters being assumed to be a cuntboy instead of a male.</ul>"
-		+"<ul>Fixed bug where loading a previously saved game might sometimes cut off sections of dialogue.</ul>"
-		+"<ul>Fixed NPCs dropping items in random tiles.</ul>"
-		+"<ul>Fixed bug where Vicky's inventory (and possibly Ralph's, under certain circumstances) would sometimes break.</ul>"
-		+"<ul>'Buy (5)' and 'Buy (All)' options in inventory dialogue should now correctly be greyed-out if you can't afford the cost.</ul>"
+		+"<ul>Fixed bug where you couldn't properly remove a jinx from an NPC's clothing. (This is what led to me reworking the entire jinx removal system, as I realised just how cumbersome it was...)</ul>"
 		+"<ul>Typo fixes.</ul>"
-		+"<ul>Fixed bug where hotkey input was being registered when typing into a text field.</ul>"
-		+"<ul>Fixed exposed & exhibitionist tooltips not returning the correct descriptions for NPCs.</ul>"
-		+"<ul>Rough tail-pegging/tail fucking now have the correct related fetishes.</ul>"
-		+"<ul>Fixed combat damage calculations not taking into account damage range.</ul>"
-		+"<ul>Skin colourings for lips, anus, vagina, penis, and nipples will now be correctly updated to the skin colour of the rest of your body in the character creator.</ul>"
-		+"<ul>Random name/surname buttons in the character creator will no loner reset the other field when pressed.</ul>"
-		+"<ul>Fixed the availability of clothing's unequipping/drop actions in sex.</ul>"
-		+"<ul>Fixed cocks being described as sheathed during sex.</ul>"
-		+"<ul>Fixed NPCs not raping you if they had the non-con fetish. (Oops)</ul>"
-		+"<ul>Fixed lips always being described as full.</ul>"
-		+"<ul>Cow-morph consumables can now be used on alleyway attackers and harpies in the nests.</ul>"
-		+ "</list>"
-		
-		
-
-		+ "</br>"
-		
-		+ "<list>"
-
-		+ "<h6>Hotfix (v0.1.86.1)</h6>"
-		+"<li>Other:</li>"
-		+"<ul>Added: Ability to remove jinxes from any NPC's clothing.</ul>"
-		+"<ul>Added: Breeder collar (feminine, neck slot). Can be bought from Nyan's 'Specials' menu.</ul>"
-		+"<ul>Removing a jinx from clothing no longer removes its negative attributes.</ul>"
-		+"<ul>Enabled futanari as a minimal gender encounter by default.</ul>"
-		+"<ul>Improved the gender preferences screen to show how each gender is defined.</ul>"
+		+"<ul>Fixed bug in inventory where you'd be able to use inappropriate items on an NPC through the 'Use all' action.</ul>"
+		+"<ul>Fixed bug where condoms wouldn't be removed upon NPC's orgasm.</ul>"
+		+"<ul>Fixed UI bug where NPC's slots were shown as blocked based on your blocked slots.</ul>"
+		+"<ul>Fixed 'storm generated' NPCs not being removed from place tiles.</ul>"
+		+"<ul>Fixed body/pubic/facial hair potions not working correctly.</ul>"
+		+"<ul>Imported characters with hooves/talons can now get past the clothing selection screen (you don't need to wear shoes to pass). (I don't know how you managed to get into the clothing selection with an imported character... ^^)</ul>"
+		+"<ul>Fixed the description for Diana's perfume showing Lexi instead of Diana.</ul>"
+		+"<ul>Fixed puffy vagina description not correctly referring to labia.</ul>"
+		+"<ul>Fixed vagina modifiers not being exported/imported correctly.</ul>"
+		+"<ul>Fixed minor inconsistency in the follow up exam with Lilaya, which was referencing your clothes being destroyed.</ul>"
+		+"<ul>The 'Savage Attack' special ability for wolf-morphs now correctly requires both wolf-morph arms and face to be available.</ul>"
+		+"<ul>You can now sell weapons and clothing to NPCs (such as Vicky) even if their inventory is full.</ul>"
+		+"<ul>Fixed dirty talk sometimes incorrectly referring to fingers.</ul>"
+		+"<ul>Fixed impenetrable nipples being described as 'extremely tight'.</ul>"
+		+"<ul>Fixed reading library books showing that you'd gained intelligence twice.</ul>"
+		+"<ul>Added NPC-specific descriptions to item effects that were lacking them.</ul>"
+		+"<ul>Non-capitalised names will no longer automatically append 'the' in front of them if it's the player's name, or if the NPC's name is known.</ul>"
+		+"<ul>Clothing can now be dyed if it's on the ground/being stored in an area.</ul>"
+		+"<ul>Removing an NPC with the 'Risk of pregnancy' status effect now correctly removes the from your pregnancy stats page.</ul>"
+		+"<ul>Fixed feminine offspring always having flat chests.</ul>"
+		+"<ul>Fixed labia size always being described as 'tiny'.</ul>"
+		+"<ul>Fixed bug where you could press 'overwrite' in the main menu (before starting a game), which would then corrupt that save file. (Sorry to those affected by this...)</ul>"
 			
-		+"<li>Bugs:</li>"
-		+"<ul>Fixed the strange behaviour in sex scenes, where dom/sub would sometimes switch, as well as sex ending when either one of you came.</ul>"
-		+"<ul>Fixed game freeze/crash when trying to remove your offspring.</ul>"
-		+"<ul>Fixed character import bug (where characters from pre-0.1.86 were not being imported correctly).</ul>"
-		+"<ul>Character import now correctly loads in your surname.</ul>"
-		+"<ul>Fixed no_clothing_covering_nipples error that was appearing in some sex actions.</ul>"
-		+"<ul>Fixed nipples being described as 'dry'.</ul>"
-		+"<ul>Typo fixes.</ul>"
-		+"<ul>Changed flat-chested 'breasts' parser description to output 'pecs' instead of 'chest'. (Hopefully this hasn't broken descriptions in places. x_x)</ul>"
-		+"<ul>Condoms will no longer magically re-equip themselves after sex.</ul>"
-		+"<ul>Fixed formatting in all stats pages.</ul>"
-		+"<ul>Succubi in the Dark Alleyway tiles will no longer disappear as soon as you move away.</ul>"
-		+"<ul>Feeding your prostitute daughter a Vixen's Virility pill will now correctly override her promiscuity pill's effects.</ul>"
-		+"<ul>Fixed 'Paizuri into mouth' action being available even if your mouth was blocked.</ul>"
-		+"<ul>Fixed Nyan stocking condoms, and added them to Ralph's inventory again.</ul>"
-		+"<ul>Fixed an instance of an NPC's orgasm not describing them wearing a condom.</ul>"
-		+"<ul>Piercings should now correctly appear in the character creation.</ul>"
-		+"<ul>Fixed virginity loss description being printed twice.</ul>"
-		+"<ul>Fixed an import bug marking cum as milk.</ul>"
-		+"<ul>Fixed a couple of inconsistencies in the prologue dialogue.</ul>"
-		+"<ul>Fixed genders with breast requirements (such as busty-boys or flat-chested traps) not spawning.</ul>"
-		+"<ul>Fixed random encounters of certain genders when they were supposed to be turned off.</ul>"
-		+"<ul>Prostitute offspring will no longer rsist after you've paid to have sex with them.</ul>"
-		+"<ul>Fixed all starting characters having 5 corruption (it's going to be based on your sexual experience until I add in the final parts of the character creation process).</ul>"
-		+"<ul>Fixed slave room description not taking into account bed upgrades.</ul>"
+		+"<li>Save compatibility:</li>"
+		+"<ul>Slightly improved efficiency of XML exports.</ul>"
+		+"<ul>Added money and essence saving.</ul>"
+		+"<ul>Added equipped weapon saving.</ul>"
+		+"<ul>Added equipped clothing saving.</ul>"
+		+"<ul>Added items, clothing, and weapons in inventory saving.</ul>"
+		+"<ul>Added owned slaves to exported character. (May be a little buggy... I didn't have much time left in which to test this... ;_;)</ul>"
 		+ "</list>"
 		;
 	
@@ -289,8 +201,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		credits.add(new CreditsSlot("Anonymous", "", 0, 0, 6, 2));
-		// A. L2 | C.C. R2 | G. R2 | JD 1R | MM R1
+		credits.add(new CreditsSlot("Anonymous", "", 0, 1, 8, 2));
+		// A. L2 | C.C. E2 | G. E2 | JD E1 | MM E1 | V. R1 E2
 		
 		
 		credits.add(new CreditsSlot("A", "", 0, 0, 2, 0));
@@ -379,7 +291,6 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("triangleman", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Isidoros", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Vaelin", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("V", "", 0, 1, 2, 0));
 		credits.add(new CreditsSlot("V", "", 0, 0, 0, 2));
 		credits.add(new CreditsSlot("iloveyouMiaoNiNi", "", 0, 0, 0, 3));
 		credits.add(new CreditsSlot("William Brown", "", 0, 0, 3, 0));
@@ -389,7 +300,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("A", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("A t A", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Avery", "", 0, 1, 1, 0));
-		credits.add(new CreditsSlot("B G", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Baz Goldenclaw", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Blackcanine", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Runehood66", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Crimson", "", 0, 0, 0, 1));
@@ -767,6 +678,7 @@ public class Main extends Application {
 				Main.game.getPlayer().calculateStatusEffects(0);
 
 				Main.game.initNewGame(CharacterCreation.START_GAME_WITH_IMPORT);
+				
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}

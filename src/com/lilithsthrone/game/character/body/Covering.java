@@ -17,11 +17,11 @@ import com.lilithsthrone.utils.Util;
 public class Covering implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private BodyCoveringType type;
-	private CoveringPattern pattern;
+	protected BodyCoveringType type;
+	protected CoveringPattern pattern;
 	
-	private Colour primaryColour, secondaryColour;
-	private boolean primaryGlowing, secondaryGlowing;
+	protected Colour primaryColour, secondaryColour;
+	protected boolean primaryGlowing, secondaryGlowing;
 
 	/**
 	 * Constructor.</br>

@@ -20,12 +20,12 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 public class Face implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private FaceType type;
-	private boolean piercedNose;
-	private BodyHair facialHair;
+	protected FaceType type;
+	protected boolean piercedNose;
+	protected BodyHair facialHair;
 	
-	private Mouth mouth;
-	private Tongue tongue;
+	protected Mouth mouth;
+	protected Tongue tongue;
 
 	public Face(FaceType type, int lipSize) {
 		this.type = type;

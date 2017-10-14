@@ -11,6 +11,7 @@ import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.places.GenericPlace;
@@ -74,73 +75,117 @@ public class MiscDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(
-					"<div class='SM-container'>");
 			
-			// Append for sale first:
-			for(NPC slave : Main.game.getCharactersPresent(Main.game.getPlayerCell())) {
-				if(slave.isSlave() && !slave.getOwner().isPlayer()) {
-					AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(slave.getAffection(Main.game.getPlayer()));
-					ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(slave.getObedience());
-					float affectionChange = slave.getDailyAffectionChange();
-					float obedienceChange = slave.getDailyObedienceChange();
-					
-					UtilText.nodeContentSB.append(
-							"<div class='SM-inner-container'>"
-									+ "<div style='float:right; width:33%;'>"
-										+ "<div class='SM-button' id='"+slave.getId()+"' style='width:100%; margin:4px 0 4px 0;'>"
-											+ "Inspect"
+			
+			if(Main.game.getDialogueFlags().slaveTrader!=null) {
+				// Append for sale first:
+				UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
+						+ "<h6 style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+"; text-align:center;'>Slaves For Sale</h6>"
+						
+						+ "<div class='container-full-width' style='margin-bottom:0;'>"
+							+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
+								+ "Slave"
+							+ "</div>"
+							+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
+								+ "Location"
+							+ "</div>"
+							+ "<div style='float:left; width:20%; font-weight:bold; margin:0; padding:0;'>"
+								+ "<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>Affection:</b>"
+							+"</div>"
+							+ "<div style='float:left; width:20%; font-weight:bold; margin:0; padding:0;'>"
+								+ "<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience:</b>"
+							+"</div>"
+							+ "<div style='float:left; width:20%; font-weight:bold; margin:0; padding:0;'>"
+								+ "Actions"
+							+"</div>"
+						+ "</div>");
+				int i=0;
+				for(NPC slave : Main.game.getCharactersPresent(Main.game.getPlayerCell())) {
+					if(slave.isSlave() && !slave.getOwner().isPlayer()) {
+						AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(slave.getAffection(Main.game.getPlayer()));
+						ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(slave.getObedience());
+						float affectionChange = slave.getDailyAffectionChange();
+						float obedienceChange = slave.getDailyObedienceChange();
+						
+						UtilText.nodeContentSB.append(
+								"<div class='container-full-width inner' style='margin-bottom:0;"+(i%2==0?"background:#292929;'":"'")+"'>"
+										+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
+											+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b></br>"
+											+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span>"
+											+ "</br>"
+											+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getRace().getName())+"</span>"
 										+ "</div>"
-										+ "<div class='SM-button disabled' style='width:100%; margin:4px 0 4px 0;'>"
-											+ "Transfer Here"
-										+ "</div>");
-					
-					if(Main.game.getPlayer().getMoney()>=((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()))) {
-						UtilText.nodeContentSB.append(
-										"<div class='SM-button' id='"+slave.getId()+"_BUY' style='width:100%; margin:4px 0 4px 0;'>"
-												+ "Buy ("+UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()), "span")+")"
-										+ "</div>");
-					} else {
-						UtilText.nodeContentSB.append(
-										"<div class='SM-button disabled' style='width:100%; margin:4px 0 4px 0;'>"
-												+ "Buy ("+UtilText.formatAsMoneyUncoloured((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getBuyModifier()), "span")+")"
-										+ "</div>");
-					}
-					UtilText.nodeContentSB.append(
-								"</div>"
-								+ "<h5 class='SM-title' style='color:"+slave.getFemininity().getColour().toWebHexString()+"; margin-right:12px;'>"+slave.getName()+"</h5>"
-								+ "<h5 class='SM-title'>"
-									+ "("
-									+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span>"
-									+ " <span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getRace().getName())+"</span>"
-									+ ")"
-								+ "</h5></br>"
-								+ "<p>"
-									+"<b>Location:</b> "+slave.getWorldLocation().getName()+", "+slave.getLocationPlace().getName()+"</br>"
-									+"<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>Affection:</b> "
-										+ "<b style='color:"+affection.getColour().toWebHexString()+";'>"+slave.getAffection(Main.game.getPlayer())+ "</b> | "
-												+"<b style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")+affectionChange+"</b><b>/day</b>"
-												+ " | " + AffectionLevel.getDescription(slave, Main.game.getPlayer(), affection, true)+"</br>"
-									
-									+"<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience:</b> "
-										+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+slave.getObedience()+ "</b> | "
-												+"<b style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")+obedienceChange+"</b><b>/day</b>"
-												+ " | " + ObedienceLevel.getDescription(slave, obedience, true, false)+"</br>"
+										+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
+											+ "<b style='color:"+slave.getLocationPlace().getColour().toWebHexString()+";'>"+slave.getLocationPlace().getName()+"</b>"
+											+",</br>"
+											+ "<span style='color:"+slave.getWorldLocation().getColour().toWebHexString()+";'>"+slave.getWorldLocation().getName()+"</span>"
+										+ "</div>"
+										+ "<div style='float:left; width:20%; margin:0; padding:0;'>"
+											+ "<b style='color:"+affection.getColour().toWebHexString()+";'>"+slave.getAffection(Main.game.getPlayer())+ "</b>"
+											+ "</br><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")+affectionChange+"</span>/day"
+											+ "</br>"
+											+ "<span style='color:"+affection.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(affection.getName())+"</span>"
+										+"</div>"
+										+ "<div style='float:left; width:20%; margin:0; padding:0;'>"
+											+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+slave.getObedience()+ "</b>"
+											+ "</br><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")+obedienceChange+"</span>/day"
+											+ "</br>"
+											+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
+										+"</div>"
+										+ "<div style='float:left; width:20%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>"
+											+ "<div id='"+slave.getId()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect()+"</div></div>"
 												
-									+ UtilText.parse(slave, "[style.boldBad([npc.Name] belongs to "+slave.getOwner().getName("the")+".)]")
-								+ "</p>"
-							+ "</div>");
+											+ "<div id='"+slave.getId()+"_TRANSFER_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>");
+											
+						if(Main.game.getPlayer().getMoney() < ((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()))) {
+							UtilText.nodeContentSB.append("<div id='"+slave.getId()+"_BUY_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveBuyDisabled()+"</div></div>"
+									+"Value: "+UtilText.formatAsMoney((((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()))), "b", Colour.GENERIC_BAD)
+									+"</div>"
+								+ "</div>");
+							
+						} else {
+							UtilText.nodeContentSB.append("<div id='"+slave.getId()+"_BUY' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveBuy()+"</div></div>"
+									+"Value: "+UtilText.formatAsMoney((((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()))), "b", Colour.GENERIC_GOOD)
+									+"</div>"
+								+ "</div>");
+						}
+						i++;
+				}
 				}
 			}
+			UtilText.nodeContentSB.append("</div>");
 			
+			
+			// Your slaves:
+			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
+					+ "<h6 style='color:"+Colour.GENERIC_GOOD.toWebHexString()+"; text-align:center;'>Slaves Owned</h6>"
+					
+					+ "<div class='container-full-width' style='margin-bottom:0;'>"
+						+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
+							+ "Slave"
+						+ "</div>"
+						+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
+							+ "Location"
+						+ "</div>"
+						+ "<div style='float:left; width:20%; font-weight:bold; margin:0; padding:0;'>"
+							+ "<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>Affection:</b>"
+						+"</div>"
+						+ "<div style='float:left; width:20%; font-weight:bold; margin:0; padding:0;'>"
+							+ "<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience:</b>"
+						+"</div>"
+						+ "<div style='float:left; width:20%; font-weight:bold; margin:0; padding:0;'>"
+							+ "Actions"
+						+"</div>"
+					+ "</div>");
 			
 			if(Main.game.getPlayer().getSlavesOwned().isEmpty()) {
 				UtilText.nodeContentSB.append(
-						"<div class='SM-inner-container' style='text-align:center;'>"
+						"<div class='container-full-width' style='text-align:center;'>"
 								+"<h5 style='color:"+Colour.BASE_GREY.toWebHexString()+";'>You do not own any slaves...</h5>"
 						+ "</div>");
 				
 			} else {
+				int i = 0;
 				for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
 					AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(slave.getAffection(Main.game.getPlayer()));
 					ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(slave.getObedience());
@@ -149,54 +194,48 @@ public class MiscDialogue {
 					GenericPlace place = Main.game.getPlayerCell().getPlace();
 					
 					UtilText.nodeContentSB.append(
-							"<div class='SM-inner-container'>"
-									+ "<div style='float:right; width:33%;'>"
-										+ "<div class='SM-button' id='"+slave.getId()+"' style='width:100%; margin:4px 0 4px 0;'>"
-											+ "Detailed Management"
-										+ "</div>"
-										+ "<div class='SM-button"
-											+((place.getCapacity()<=Main.game.getCharactersPresent(Main.game.getPlayerCell()).size())
+							"<div class='container-full-width inner' style='margin-bottom:0;"+(i%2==0?"background:#292929;'":"'")+"'>"
+									+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
+										+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b></br>"
+										+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span>"
+										+ "</br>"
+										+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getRace().getName())+"</span>"
+									+ "</div>"
+									+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
+										+ "<b style='color:"+slave.getLocationPlace().getColour().toWebHexString()+";'>"+slave.getLocationPlace().getName()+"</b>"
+										+",</br>"
+										+ "<span style='color:"+slave.getWorldLocation().getColour().toWebHexString()+";'>"+slave.getWorldLocation().getName()+"</span>"
+									+ "</div>"
+									+ "<div style='float:left; width:20%; margin:0; padding:0;'>"
+										+ "<b style='color:"+affection.getColour().toWebHexString()+";'>"+slave.getAffection(Main.game.getPlayer())+ "</b>"
+										+ "</br><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")+affectionChange+"</span>/day"
+										+ "</br>"
+										+ "<span style='color:"+affection.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(affection.getName())+"</span>"
+									+"</div>"
+									+ "<div style='float:left; width:20%; margin:0; padding:0;'>"
+										+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+slave.getObedience()+ "</b>"
+										+ "</br><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")+obedienceChange+"</span>/day"
+										+ "</br>"
+										+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
+									+"</div>"
+									+ "<div style='float:left; width:20%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>"
+										+ "<div id='"+slave.getId()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect()+"</div></div>"
+											
+										+ "<div "+((place.getCapacity()<=Main.game.getCharactersPresent(Main.game.getPlayerCell()).size())
 													|| (slave.getLocation().equals(Main.game.getPlayer().getLocation()) && slave.getWorldLocation().equals(Main.game.getPlayer().getWorldLocation()))
-															?" disabled'"
-															:"' id='"+slave.getId()+"_TRANSFER'")+" style='width:100%; margin:4px 0 4px 0;'>"
-											+ "Transfer Here"
-										+ "</div>");
-					
+															?" id='"+slave.getId()+"_TRANSFER_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>"
+															:" id='"+slave.getId()+"_TRANSFER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransfer()+"</div></div>"));
+										
 					if(Main.game.getDialogueFlags().slaveTrader==null) {
-						UtilText.nodeContentSB.append("<div class='SM-button disabled' style='width:100%; margin:4px 0 4px 0;'>"
-											+ "Sell ("+UtilText.formatAsMoneyUncoloured((int) (slave.getValueAsSlave()), "span")+")"
-										+ "</div>");
+						UtilText.nodeContentSB.append("<div id='"+slave.getId()+"_SELL_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveSellDisabled()+"</div></div>");
 					} else {
-						UtilText.nodeContentSB.append("<div class='SM-button' id='"+slave.getId()+"_SELL' style='width:100%; margin:4px 0 4px 0;'>"
-											+ "Sell ("+UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getBuyModifier()), "span")+")"
-										+ "</div>");
+						UtilText.nodeContentSB.append("<div id='"+slave.getId()+"_SELL' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveSell()+"</div></div>");
 					}
-					
-					UtilText.nodeContentSB.append(
-								"</div>"
-								+"<h5 class='SM-title' style='color:"+slave.getFemininity().getColour().toWebHexString()+"; margin-right:12px;'>"+slave.getName()+"</h5>"
-								+ "<h5 class='SM-title'>"
-									+ "("
-									+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span>"
-									+ " <span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getRace().getName())+"</span>"
-									+ ")"
-								+ "</h5></br>"
-								+ "<p>"
-									+"<b>Location:</b> "+slave.getWorldLocation().getName()+", "+slave.getLocationPlace().getName()+"</br>"
-									
-									+"<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>Affection:</b> "
-										+ "<b style='color:"+affection.getColour().toWebHexString()+";'>"+slave.getAffection(Main.game.getPlayer())+ "</b> | "
-												+"<b style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")+affectionChange+"</b><b>/day</b>"
-												+ " | " + AffectionLevel.getDescription(slave, Main.game.getPlayer(), affection, true)+"</br>"
-									
-									+"<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience:</b> "
-										+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+slave.getObedience()+ "</b> | "
-												+"<b style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")+obedienceChange+"</b><b>/day</b>"
-												+ " | " + ObedienceLevel.getDescription(slave, obedience, true, false)+"</br>"
-												
-									+ UtilText.parse(slave, "[style.boldGood([npc.Name] belongs to you.)]")
-								+ "</p>"
-							+ "</div>");
+										
+					UtilText.nodeContentSB.append("Value: "+UtilText.formatAsMoney(slave.getValueAsSlave())
+									+"</div>"
+								+ "</div>");
+					i++;
 				}
 			}
 			

@@ -17,14 +17,14 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 public class OrificeNipples implements OrificeInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private int elasticity;
-	private int plasticity;
-	private float capacity;
-	private float stretchedCapacity;
-	private boolean virgin;
-	private Set<OrificeModifier> orificeModifiers;
+	protected int elasticity;
+	protected int plasticity;
+	protected float capacity;
+	protected float stretchedCapacity;
+	protected boolean virgin;
+	protected Set<OrificeModifier> orificeModifiers;
 
-	public OrificeNipples(int wetness, int capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
+	public OrificeNipples(int wetness, float capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
 		this.capacity = capacity;
 		stretchedCapacity = capacity;
 		this.elasticity = elasticity;

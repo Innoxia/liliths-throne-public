@@ -28,15 +28,15 @@ public class Vagina implements BodyPartInterface, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private VaginaType type;
-	private int labiaSize;
-	private int clitSize;
-	private boolean pierced;
+	protected VaginaType type;
+	protected int labiaSize;
+	protected int clitSize;
+	protected boolean pierced;
 	
-	private OrificeVagina orificeVagina;
-	private FluidGirlCum girlcum;
+	protected OrificeVagina orificeVagina;
+	protected FluidGirlCum girlcum;
 
-	public Vagina(VaginaType type, int labiaSize, int clitSize, int wetness, int capacity, int elasticity, int plasticity, boolean virgin) {
+	public Vagina(VaginaType type, int labiaSize, int clitSize, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.labiaSize = labiaSize;
 		this.clitSize = clitSize;
@@ -698,7 +698,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 	}
 	
 	public int getRawLabiaSizeValue() {
-		return clitSize;
+		return labiaSize;
 	}
 	
 	public String setLabiaSize(GameCharacter owner, int labiaSize) {
@@ -707,7 +707,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 		}
 		
 		int oldSize = this.labiaSize;
-		this.labiaSize = Math.max(0, Math.min(labiaSize, ClitorisSize.SEVEN_STALLION.getMaximumValue()));
+		this.labiaSize = Math.max(0, Math.min(labiaSize, LabiaSize.FOUR_MASSIVE.getValue()));
 		int sizeChange = this.labiaSize - oldSize;
 		
 		if (sizeChange == 0) {

@@ -23,6 +23,16 @@ public interface XMLSaving {
 	 * @return The base element for this object's XML export.
 	 */
 	public static <T extends Object> T loadFromXML(Element parentElement, Document doc) {
+		return loadFromXML(null, parentElement, doc);
+	}
+	
+	/**
+	 * @param log A StringBuilder to write a log to.
+	 * @param parentElement The parent element from which to load this object from.
+	 * @param doc The document to which to load this object from.
+	 * @return The base element for this object's XML export.
+	 */
+	public static <T extends Object> T loadFromXML(StringBuilder log, Element parentElement, Document doc) {
 		return null;
 	}
 }

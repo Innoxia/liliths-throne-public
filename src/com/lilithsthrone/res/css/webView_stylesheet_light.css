@@ -245,6 +245,19 @@ input:focus {
 	width:8%;
 	margin:1%;
 }
+.square-button.big {
+	width:23%;
+	margin:1% 4% 1% 4%;
+}
+.square-button.disabled {
+	background-color: #eee;
+	border-color:#ccc;
+}
+.square-button.disabled:hover {
+	cursor:default;
+	background-color: #eee;
+	border-color:#ccc;
+}
 .square-button-content {
   position: absolute;
   width: 100%;
@@ -1182,10 +1195,11 @@ position:relative;
 	background-color:#bbb;
 }
 .saveLoadButton.disabled{
+	background-color: #ddd;
 	color:#777;
 }
 .saveLoadButton.disabled:hover{
-	background-color:#ccc;
+	background-color:#ddd;
 	cursor:default;
 }
 .deleteSaveButton{

@@ -12,10 +12,10 @@ import com.lilithsthrone.utils.Colour;
 public enum AffectionLevel {
 	
 	/** -100 to -90*/
-	NEGATIVE_FIVE_LOATHE("loathe", -100, -90, Colour.AFFECTION_NEGATIVE_FIVE),
+	NEGATIVE_FIVE_LOATHE("loathing", -100, -90, Colour.AFFECTION_NEGATIVE_FIVE),
 
 	/** -90 to -70*/
-	NEGATIVE_FOUR_HATE("hate", -90, -70, Colour.AFFECTION_NEGATIVE_FOUR),
+	NEGATIVE_FOUR_HATE("hatred", -90, -70, Colour.AFFECTION_NEGATIVE_FOUR),
 
 	/** -70 to -50*/
 	NEGATIVE_THREE_STRONG_DISLIKE("strong dislike", -70, -50, Colour.AFFECTION_NEGATIVE_THREE),
@@ -33,7 +33,7 @@ public enum AffectionLevel {
 	POSITIVE_ONE_FRIENDLY("friendly", 10, 30, Colour.AFFECTION_POSITIVE_ONE),
 
 	/** 30 to 50*/
-	POSITIVE_TWO_LIKE("like", 30, 50, Colour.AFFECTION_POSITIVE_TWO),
+	POSITIVE_TWO_LIKE("likes", 30, 50, Colour.AFFECTION_POSITIVE_TWO),
 
 	/** 50 to 70*/
 	POSITIVE_THREE_CARING("caring", 50, 70, Colour.AFFECTION_POSITIVE_THREE),
@@ -42,7 +42,7 @@ public enum AffectionLevel {
 	POSITIVE_FOUR_LOVE("love", 70, 90, Colour.AFFECTION_POSITIVE_FOUR),
 
 	/** 90 to 100*/
-	POSITIVE_FIVE_WORSHIP("worship", 90, 100, Colour.AFFECTION_POSITIVE_FIVE);
+	POSITIVE_FIVE_WORSHIP("worshipping", 90, 100, Colour.AFFECTION_POSITIVE_FIVE);
 	
 	
 	private String name;

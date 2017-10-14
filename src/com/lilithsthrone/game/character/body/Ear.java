@@ -13,9 +13,9 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
  */
 public class Ear implements BodyPartInterface, Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private EarType type;
-	private boolean pierced;
+	protected static final long serialVersionUID = 1L;
+	protected EarType type;
+	protected boolean pierced;
 
 	public Ear(EarType type) {
 		this.type = type;

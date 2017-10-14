@@ -19,10 +19,10 @@ public class Mouth implements BodyPartInterface, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private MouthType type;
-	private OrificeMouth orificeMouth;
-	private int lipSize;
-	private boolean piercedLip;
+	protected MouthType type;
+	protected OrificeMouth orificeMouth;
+	protected int lipSize;
+	protected boolean piercedLip;
 
 	public Mouth(MouthType type, int lipSize, int wetness, int capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
