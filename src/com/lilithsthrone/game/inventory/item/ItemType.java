@@ -2329,11 +2329,7 @@ public class ItemType {
 			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
 		}
 		
-		@Override
-		public boolean canBeSold() {
-			return false;
-		}
-		
+				
 		@Override
 		public String getUseName() {
 			return "read";
@@ -2373,11 +2369,6 @@ public class ItemType {
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
 			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
-		public boolean canBeSold() {
-			return false;
 		}
 		
 		@Override
@@ -2422,11 +2413,6 @@ public class ItemType {
 		}
 		
 		@Override
-		public boolean canBeSold() {
-			return false;
-		}
-		
-		@Override
 		public String getUseName() {
 			return "read";
 		}
@@ -2468,11 +2454,6 @@ public class ItemType {
 		}
 		
 		@Override
-		public boolean canBeSold() {
-			return false;
-		}
-		
-		@Override
 		public String getUseName() {
 			return "read";
 		}
@@ -2511,11 +2492,6 @@ public class ItemType {
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
 			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
-		public boolean canBeSold() {
-			return false;
 		}
 		
 		@Override
@@ -2598,11 +2574,6 @@ public class ItemType {
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
 			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
-		public boolean canBeSold() {
-			return false;
 		}
 		
 		@Override
