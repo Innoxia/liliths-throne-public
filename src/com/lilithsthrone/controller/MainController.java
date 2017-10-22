@@ -2091,7 +2091,7 @@ public class MainController implements Initializable {
 					addEventListener(document, id, "mousemove", moveTooltipListener, false);
 					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 
-					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Mange Slave's Inventory",
+					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Manage Slave's Inventory",
 							UtilText.parse(slave, "Manage [npc.name]'s inventory."));
 					addEventListener(document, id, "mouseenter", el, false);
 				}
@@ -2142,7 +2142,9 @@ public class MainController implements Initializable {
 					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 
 					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Sell Slave",
-							"Sell "+slave.getName()+" for "+UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getBuyModifier()))+".");
+							UtilText.parse(slave, "[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(), "b", Colour.GENERIC_GOOD)+"</br>"
+									+ "However, "+Main.game.getDialogueFlags().slaveTrader.getName()+" will buy [npc.herHim] for "
+										+UtilText.formatAsMoney((int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getBuyModifier()), "b", Colour.GENERIC_ARCANE)+"."));
 					addEventListener(document, id, "mouseenter", el, false);
 				}
 				
@@ -2158,69 +2160,93 @@ public class MainController implements Initializable {
 			}
 			
 
-			if(Main.game.getDialogueFlags().slaveTrader!=null)
-			for(NPC slave : Main.game.getDialogueFlags().slaveTrader.getSlavesOwned()) {
-				id = slave.getId();
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementInspectSlaveDialogue(Main.game.getNPCById(slave.getId()))));
-					}, false);
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+			if(Main.game.getDialogueFlags().slaveTrader!=null) {
+				for(NPC slave : Main.game.getDialogueFlags().slaveTrader.getSlavesOwned()) {
+					id = slave.getId()+"_TRADER";
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementInspectSlaveDialogue(Main.game.getNPCById(slave.getId()))));
+						}, false);
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+	
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Inspect Slave",
+								UtilText.parse(slave, "Take a detailed look at [npc.name]."));
+						addEventListener(document, id, "mouseenter", el, false);
+					}
+					
+					id = slave.getId()+"_TRADER_JOB";
+					if (((EventTarget) document.getElementById(id)) != null) {
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+	
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Manage Slave's Job",
+								UtilText.parse(slave, "You cannot manage [npc.name]'s job, as you don't own [npc.herHim]!"));
+						addEventListener(document, id, "mouseenter", el, false);
+					}
+					
+					id = slave.getId()+"_TRADER_PERMISSIONS";
+					if (((EventTarget) document.getElementById(id)) != null) {
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 
-					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Inspect Slave",
-							UtilText.parse(slave, "Take a detailed look at [npc.name]."));
-					addEventListener(document, id, "mouseenter", el, false);
-				}
-				
-				id = slave.getId()+"_TRANSFER_DISABLED";
-				if (((EventTarget) document.getElementById(id)) != null) {
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Manage Slave's Permissions",
+								UtilText.parse(slave, "You cannot manage [npc.name]'s permissions, as you don't own [npc.herHim]!"));
+						addEventListener(document, id, "mouseenter", el, false);
+					}
+					
+					id = slave.getId()+"_TRADER_INVENTORY";
+					if (((EventTarget) document.getElementById(id)) != null) {
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 
-					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Move Slave To Here",
-							UtilText.parse(slave, "You cannot move [npc.name] to this location as you don't own [npc.herHim], as well as due to the fact that [npc.she]'s already here!"));
-					addEventListener(document, id, "mouseenter", el, false);
-				}
-				
-				id = slave.getId()+"_BUY";
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
-							@Override
-							public void effects() {
-								Main.game.getPlayer().incrementMoney(-(int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()));
-								Main.game.getPlayer().addSlave(Main.game.getNPCById(slave.getId()));
-								Main.game.getNPCById(slave.getId()).setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION, true);
-							}
-						});
-					}, false);
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-
-					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Buy Slave",
-							UtilText.parse(slave, "Buy [npc.name] for "+UtilText.formatAsMoney((int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()))+"."));
-					addEventListener(document, id, "mouseenter", el, false);
-				}
-				
-				id = slave.getId()+"_BUY_DISABLED";
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
-							@Override
-							public void effects() {
-								Main.game.getPlayer().incrementMoney(-(int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()));
-								Main.game.getPlayer().addSlave(Main.game.getNPCById(slave.getId()));
-								Main.game.getNPCById(slave.getId()).setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION, true);
-							}
-						});
-					}, false);
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-
-					TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Buy Slave",
-							UtilText.parse(slave, "You cannot buy [npc.name], as you don't have enough money!"));
-					addEventListener(document, id, "mouseenter", el, false);
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Manage Slave's Inventory",
+								UtilText.parse(slave, "You cannot manage [npc.name]'s inventory, as you don't own [npc.herHim]!"));
+						addEventListener(document, id, "mouseenter", el, false);
+					}
+					
+					
+					id = slave.getId()+"_TRADER_TRANSFER";
+					if (((EventTarget) document.getElementById(id)) != null) {
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+	
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Move Slave To Here",
+								UtilText.parse(slave, "You cannot move [npc.name] to this location, as you don't own [npc.herHim], as well as due to the fact that [npc.she]'s already here!"));
+						addEventListener(document, id, "mouseenter", el, false);
+					}
+					
+					id = slave.getId()+"_BUY";
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
+								@Override
+								public void effects() {
+									Main.game.getPlayer().incrementMoney(-(int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()));
+									Main.game.getPlayer().addSlave(Main.game.getNPCById(slave.getId()));
+									Main.game.getNPCById(slave.getId()).setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION, true);
+								}
+							});
+						}, false);
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+	
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Buy Slave",
+								UtilText.parse(slave, "[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(), "b", Colour.GENERIC_GOOD)+"</br>"
+										+ "However, "+Main.game.getDialogueFlags().slaveTrader.getName()+" will sell [npc.herHim] for "
+											+UtilText.formatAsMoney((int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()), "b", Colour.GENERIC_ARCANE)+"."));
+						addEventListener(document, id, "mouseenter", el, false);
+					}
+					
+					id = slave.getId()+"_BUY_DISABLED";
+					if (((EventTarget) document.getElementById(id)) != null) {
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+	
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Buy Slave",
+								UtilText.parse(slave, "You cannot buy [npc.name], as you don't have enough money!"));
+						addEventListener(document, id, "mouseenter", el, false);
+					}
 				}
 			}
 			
@@ -3960,8 +3986,10 @@ public class MainController implements Initializable {
 			id = invSlot.toString() + "Slot";
 			if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
+					
 					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(RenderingEngine.getNpcToRender(), invSlot);
 					addEventListener(documentRight, id, "click", el, false);
+					
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
 					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, RenderingEngine.getNpcToRender());

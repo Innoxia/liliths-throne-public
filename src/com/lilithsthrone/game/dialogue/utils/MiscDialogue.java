@@ -117,7 +117,7 @@ public class MiscDialogue {
 			return new Response("Slave List", "Enter the slave management screen.", SLAVE_MANAGEMENT) {
 				@Override
 				public DialogueNodeOld getNextDialogue() {
-					return MiscDialogue.getSlaveryManagementDialogue(Main.game.getPlayerCell().getPlace().getDialogue(false), null);
+					return MiscDialogue.getSlaveryManagementDialogue(Main.game.getPlayerCell().getPlace().getDialogue(false), Main.game.getDialogueFlags().slaveTrader);
 				}
 				@Override
 				public void effects() {
@@ -170,25 +170,36 @@ public class MiscDialogue {
 		} else if (index == 6) {
 			if(Main.game.getDialogueFlags().slaveryManagerSlaveSelected == null) {
 				return new Response("Inspect", "No slave has been selected", null);
+				
 			}
 			return new Response("Inspect", "Enter the slave management screen.", SLAVE_MANAGEMENT_INSPECT);
 			
 		} else if (index == 7) {
 			if(Main.game.getDialogueFlags().slaveryManagerSlaveSelected == null) {
-				return new Response("Job", "No slave has been selected", null);
+				return new Response("Job", "No slave has been selected.", null);
+				
+			} else if(!Main.game.getDialogueFlags().slaveryManagerSlaveSelected.getOwner().isPlayer()) {
+				return new Response("Job", "You cannot manage the job of a slave you do not own!", null);
 			}
 			return new Response("Job", "Set this slave's job and work hours.", SLAVE_MANAGEMENT_JOBS);
 			
 		} else if (index == 8) {
 			if(Main.game.getDialogueFlags().slaveryManagerSlaveSelected == null) {
 				return new Response("Permissions", "No slave has been selected", null);
+				
+			} else if(!Main.game.getDialogueFlags().slaveryManagerSlaveSelected.getOwner().isPlayer()) {
+				return new Response("Permissions", "You cannot manage the permissions of a slave you do not own!", null);
 			}
 			return new Response("Permissions", "Set this slave's permissions.", SLAVE_MANAGEMENT_PERMISSIONS);
 			
 		} else if (index == 9) {
 			if(Main.game.getDialogueFlags().slaveryManagerSlaveSelected == null) {
 				return new Response("Inventory", "No slave has been selected", null);
+				
+			} else if(!Main.game.getDialogueFlags().slaveryManagerSlaveSelected.getOwner().isPlayer()) {
+				return new Response("Job", "You cannot manage the inventory of a slave you do not own!", null);
 			}
+			
 			if(Main.game.getDialogueFlags().slaveryManagerSlaveSelected.getOwner().isPlayer()) {
 				return new ResponseEffectsOnly("Inventory", UtilText.parse(Main.game.getDialogueFlags().slaveryManagerSlaveSelected, "Manage [npc.name]'s inventory.")){
 					@Override
@@ -209,6 +220,7 @@ public class MiscDialogue {
 				@Override
 				public void effects() {
 					Main.game.getDialogueFlags().slaveryManagerSlaveSelected = null;
+					Main.game.getDialogueFlags().slaveTrader = null;
 				}
 			};
 
@@ -884,7 +896,8 @@ public class MiscDialogue {
 						
 						+ getSlaveryHeader());
 				int i=0;
-				for(NPC slave : Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell())) {
+				List<NPC> npcsPresent = new ArrayList<>(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()));
+				for(NPC slave : npcsPresent) {
 					if(slave.isSlave() && !slave.getOwner().isPlayer()) {
 						AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(slave.getAffection(Main.game.getPlayer()));
 						ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(slave.getObedienceValue());
@@ -892,7 +905,7 @@ public class MiscDialogue {
 						float obedienceChange = slave.getDailyObedienceChange();
 						GenericPlace place = Main.game.getPlayerCell().getPlace();
 
-						UtilText.nodeContentSB.append(getSlaveryEntry(true, place, slave, affection, affectionChange, obedience, obedienceChange, i%2==0));
+						UtilText.nodeContentSB.append(getSlaveryEntry(false, place, slave, affection, affectionChange, obedience, obedienceChange, i%2==0));
 						i++;
 					}
 				}
@@ -1002,36 +1015,52 @@ public class MiscDialogue {
 							+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
-							+ UtilText.formatAsMoney(slave.getValueAsSlave())+"</br>"
+							+ (Main.game.getDialogueFlags().slaveTrader!=null
+								?(slaveOwned
+										?UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getBuyModifier()), "b", Colour.GENERIC_ARCANE)
+										:UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()), "b", Colour.GENERIC_ARCANE))
+								:UtilText.formatAsMoney(slave.getValueAsSlave()))+"</br>"
 							+ "<b>"+Util.capitaliseSentence(slave.getSlaveJob().getName(slave))+"</b></br>"
 							+ UtilText.formatAsMoney(slave.getSlaveJob().getFinalDailyIncomeAfterModifiers(slave))+"/day"
-						+"</div>"
-						+ "<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>"
-							+ "<div id='"+slave.getId()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect()+"</div></div>"
-
-							+ "<div id='"+slave.getId()+"_JOB' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveJob()+"</div></div>"
-
-							+ "<div id='"+slave.getId()+"_PERMISSIONS' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlavePermissions()+"</div></div>"
-							
-							+"<div id='"+slave.getId()+"_INVENTORY' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon()+"</div></div>"
-								
-							+ "<div "+((place.getCapacity()<=Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size())
-										|| (slave.getLocation().equals(Main.game.getPlayer().getLocation()) && slave.getWorldLocation().equals(Main.game.getPlayer().getWorldLocation()))
-												?" id='"+slave.getId()+"_TRANSFER_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>"
-												:" id='"+slave.getId()+"_TRANSFER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransfer()+"</div></div>"));
+						+"</div>");
 		
 		if(slaveOwned) {
+			miscDialogueSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>"
+					+ "<div id='"+slave.getId()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect()+"</div></div>"
+
+					+ "<div id='"+slave.getId()+"_JOB' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveJob()+"</div></div>"
+
+					+ "<div id='"+slave.getId()+"_PERMISSIONS' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlavePermissions()+"</div></div>"
+					
+					+"<div id='"+slave.getId()+"_INVENTORY' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon()+"</div></div>"
+						
+					+ "<div "+((place.getCapacity()<=Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size())
+								|| (slave.getLocation().equals(Main.game.getPlayer().getLocation()) && slave.getWorldLocation().equals(Main.game.getPlayer().getWorldLocation()))
+										?" id='"+slave.getId()+"_TRANSFER_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>"
+										:" id='"+slave.getId()+"_TRANSFER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransfer()+"</div></div>"));
+			
 			if(Main.game.getDialogueFlags().slaveTrader==null) {
-				miscDialogueSB.append("<div id='"+slave.getId()+"_SELL_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveSellDisabled()+"</div></div>");
+				miscDialogueSB.append("<div id='"+slave.getId()+"_SELL_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSellDisabled()+"</div></div>");
 			} else {
-				miscDialogueSB.append("<div id='"+slave.getId()+"_SELL' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveSell()+"</div></div>");
+				miscDialogueSB.append("<div id='"+slave.getId()+"_SELL' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
 			}
-		} else {
+			
+		} else { // Slave trader's slave:
+			miscDialogueSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>"
+					+ "<div id='"+slave.getId()+"_TRADER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect()+"</div></div>"
+
+					+ "<div id='"+slave.getId()+"_TRADER_JOB' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveJobDisabled()+"</div></div>"
+
+					+ "<div id='"+slave.getId()+"_TRADER_PERMISSIONS' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlavePermissionsDisabled()+"</div></div>"
+					
+					+"<div id='"+slave.getId()+"_TRADER_INVENTORY' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getInventoryIconDisabled()+"</div></div>"
+						
+					+ "<div id='"+slave.getId()+"_TRADER_TRANSFER' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>");
+			
 			if(Main.game.getPlayer().getMoney() < ((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()))) {
-				UtilText.nodeContentSB.append("<div id='"+slave.getId()+"_BUY_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveBuyDisabled()+"</div></div>");
-				
+				miscDialogueSB.append("<div id='"+slave.getId()+"_BUY_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuyDisabled()+"</div></div>");
 			} else {
-				UtilText.nodeContentSB.append("<div id='"+slave.getId()+"_BUY' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveBuy()+"</div></div>");
+				miscDialogueSB.append("<div id='"+slave.getId()+"_BUY' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuy()+"</div></div>");
 			}
 		}
 		
@@ -1171,7 +1200,9 @@ public class MiscDialogue {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(getSlaveInformationHeader(character));
+			if(character.getOwner().isPlayer()) {
+				UtilText.nodeContentSB.append(getSlaveInformationHeader(character));
+			}
 			
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width'>"

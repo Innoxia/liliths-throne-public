@@ -633,9 +633,13 @@ public class Body implements Serializable, XMLSaving {
 
 		CharacterUtils.appendToImportLog(log, "</br>rows: "+importedArm.getArmRows());
 
-		importedArm.underarmHair = BodyHair.valueOf(arm.getAttribute("underarmHair"));
-		CharacterUtils.appendToImportLog(log, "</br>underarm hair: "+importedArm.getUnderarmHair());
-		
+		try {
+			importedArm.underarmHair = BodyHair.valueOf(arm.getAttribute("underarmHair"));
+			CharacterUtils.appendToImportLog(log, "</br>underarm hair: "+importedArm.getUnderarmHair());
+		} catch(IllegalArgumentException e) {
+			importedArm.underarmHair = BodyHair.ZERO_NONE;
+			CharacterUtils.appendToImportLog(log, "</br>underarm hair: OLD_VALUE - Set to NONE");
+		}
 		
 		// **************** Ass **************** //
 		
@@ -654,8 +658,12 @@ public class Body implements Serializable, XMLSaving {
 		
 		importedAss.anus.orificeAnus.stretchedCapacity = (Float.valueOf(anus.getAttribute("stretchedCapacity")));
 		importedAss.anus.bleached = (Boolean.valueOf(anus.getAttribute("bleached")));
-		importedAss.anus.assHair = (BodyHair.valueOf(anus.getAttribute("assHair")));
-		
+		try {
+			importedAss.anus.assHair = (BodyHair.valueOf(anus.getAttribute("assHair")));
+		} catch(IllegalArgumentException e) {
+			importedAss.anus.assHair = BodyHair.ZERO_NONE;
+			CharacterUtils.appendToImportLog(log, "</br>ass hair: OLD_VALUE - Set to NONE");
+		}
 		
 		CharacterUtils.appendToImportLog(log, "</br></br>Body: Ass:"
 				+ "</br>type: "+importedAss.getType()
@@ -816,7 +824,12 @@ public class Body implements Serializable, XMLSaving {
 		Face importedFace = new Face(FaceType.valueOf(face.getAttribute("type")), Integer.valueOf(mouth.getAttribute("lipSize")));
 		
 		importedFace.piercedNose = (Boolean.valueOf(face.getAttribute("piercedNose")));
-		importedFace.facialHair = (BodyHair.valueOf(face.getAttribute("facialHair")));
+		try {
+			importedFace.facialHair = (BodyHair.valueOf(face.getAttribute("facialHair")));
+		} catch(IllegalArgumentException e) {
+			importedFace.facialHair = BodyHair.ZERO_NONE;
+			CharacterUtils.appendToImportLog(log, "</br>facial hair: OLD_VALUE - Set to NONE");
+		}
 		
 			CharacterUtils.appendToImportLog(log, "</br></br>Body: Face: "
 					+ "</br>type: "+importedFace.getType()
@@ -1151,8 +1164,13 @@ public class Body implements Serializable, XMLSaving {
 		CharacterUtils.appendToImportLog(log, "</br>Body: Set piercedStomach: "+Boolean.valueOf(element.getAttribute("piercedStomach")));
 		
 		if(element.getAttribute("pubicHair")!=null && !element.getAttribute("pubicHair").isEmpty()) {
-			body.setPubicHair(BodyHair.valueOf(element.getAttribute("pubicHair")));
-			CharacterUtils.appendToImportLog(log, "</br>Body: Set pubicHair: "+body.getPubicHair());
+			try {
+				body.setPubicHair(BodyHair.valueOf(element.getAttribute("pubicHair")));
+				CharacterUtils.appendToImportLog(log, "</br>Body: Set pubicHair: "+body.getPubicHair());
+			} catch(IllegalArgumentException e) {
+				body.pubicHair = BodyHair.ZERO_NONE;
+				CharacterUtils.appendToImportLog(log, "</br>pubic hair: OLD_VALUE - Set to NONE");
+			}
 		}
 		
 		

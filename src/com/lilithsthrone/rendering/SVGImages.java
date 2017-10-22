@@ -22,7 +22,7 @@ public enum SVGImages {
 
 	displacedIcon, cummedInIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon,
 
-			menuIcon, inventoryIcon, inventorySwitchIcon, inventorySwitchOppositeIcon, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon,
+			menuIcon, inventoryIcon, inventoryIconDisabled, inventorySwitchIcon, inventorySwitchOppositeIcon, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon,
 
 			itemsOnFloorIcon,
 			
@@ -49,7 +49,7 @@ public enum SVGImages {
 			scaleZero, scaleOne, scaleTwo, scaleThree, scaleFour,
 			scaleZeroDisabled, scaleOneDisabled, scaleTwoDisabled, scaleThreeDisabled, scaleFourDisabled,
 
-			slaveBuy, slaveBuyDisabled, slaveSell, slaveSellDisabled, slaveInspect, slaveInspectDisabled, slaveJob, slavePermissions, slaveTransfer, slaveTransferDisabled,
+			slaveBuy, slaveBuyDisabled, slaveSell, slaveSellDisabled, slaveInspect, slaveInspectDisabled, slaveJob, slaveJobDisabled, slavePermissionsDisabled, slavePermissions, slaveTransfer, slaveTransferDisabled,
 			
 			transactionBuy, transactionBuyDisabled, transactionSell, transactionSellDisabled,
 			
@@ -89,6 +89,10 @@ public enum SVGImages {
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/inventory.svg");
 			inventoryIcon = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/inventoryDisabled.svg");
+			inventoryIconDisabled = Util.inputStreamToString(is);
+			inventoryIconDisabled = setColour(inventoryIconDisabled, Colour.BASE_GREY);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/inventorySwitch.svg");
 			inventorySwitchIcon = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/inventorySwitchOpposite.svg");
@@ -318,9 +322,17 @@ public enum SVGImages {
 			slaveJob = Util.inputStreamToString(is);
 			slaveJob = setColour(slaveJob, Colour.BASE_BROWN_DARK);
 			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveJob.svg");
+			slaveJobDisabled = Util.inputStreamToString(is);
+			slaveJobDisabled = setColour(slaveJobDisabled, Colour.BASE_GREY);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slavePermissions.svg");
 			slavePermissions = Util.inputStreamToString(is);
 			slavePermissions = setColour(slavePermissions, Colour.BASE_GREY);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slavePermissionsDisabled.svg");
+			slavePermissionsDisabled = Util.inputStreamToString(is);
+			slavePermissionsDisabled = setColour(slavePermissionsDisabled, Colour.BASE_GREY);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveTransfer.svg");
 			slaveTransfer = Util.inputStreamToString(is);
@@ -443,6 +455,10 @@ public enum SVGImages {
 
 	public String getInventoryIcon() {
 		return inventoryIcon;
+	}
+
+	public String getInventoryIconDisabled() {
+		return inventoryIconDisabled;
 	}
 
 	public String getInventorySwitchIcon() {
@@ -772,9 +788,17 @@ public enum SVGImages {
 	public String getSlaveJob() {
 		return slaveJob;
 	}
+	
+	public String getSlaveJobDisabled() {
+		return slaveJobDisabled;
+	}
 
 	public String getSlavePermissions() {
 		return slavePermissions;
+	}
+	
+	public String getSlavePermissionsDisabled() {
+		return slavePermissionsDisabled;
 	}
 
 	public String getSlaveTransfer() {

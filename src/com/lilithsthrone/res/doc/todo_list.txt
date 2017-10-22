@@ -15,13 +15,16 @@
 		Fixed imported slaves having the dog bit special attack.
 		Fixed UI bug where attribute bars would just be showing grey bars.
 		Fixed some strange behaviour with room upgrades.
+		Fixed old character import compatibility issues. (You should be able to properly import your v0.1.86 characters now.)
+		Fixed numerous issues with trading slaves through Alexa's shop.
 	
 	
 	
 	
+	I normally can't access the slave manager in Alexa's shop.
+	 The only time I've been able to open it is right after finishing the harpy quest and buying Scarlett as a slave. My guess is that there's an issue with accessing the slave manager for slaves that you don't own.
 	
-	
-	
+	no clothes and every fetish when importing a character from V1.8.6.
 	
 	
 	you should put the general overview option in the players room. while having the room and that slaves function be in their respective rooms. while also preventing you from changing a slave who is in another room.
@@ -29,7 +32,7 @@
 	
 	Apparently you don't get the encylopedia entry for equipment you started with until you see them unequipped
 	
-	
+	Oh, this isn't specific to this release, but all offspring introduction dialogue (if you're the father) assumes the child was birthed by Lilaya.
 	
 	
 	Events

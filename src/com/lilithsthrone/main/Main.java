@@ -217,6 +217,24 @@ public class Main extends Application {
 			+"<ul>Inconsistent dialogue fixes in the prologue.</ul>"
 			+"<ul>Fixed 'Spit' and 'Swallow' options always appearing after a fight (even when the NPC didn't have the 'giving TF' fetish).</ul>"
 		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+		
+			+ "<h6>v0.1.87.1 Hotfix</h6>"
+					
+			+"<li>Other:</li>"
+			+"<ul>Added the same placeholder dialogue for slaves in each of their work locations (excluding Lilaya's lab).</ul>"
+			
+			+"<li>Bugs:</ul>"
+			+"<ul>Fixed bug where you couldn't interact with slaves in their room.</ul>"
+			+"<ul>Fixed NPC icons showing up in random places on the map.</ul>"
+			+"<ul>Fixed imported slaves having the dog bit special attack.</ul>"
+			+"<ul>Fixed UI bug where attribute bars would just be showing grey bars.</ul>"
+			+"<ul>Fixed some strange behaviour with room upgrades.</ul>"
+		+ "</list>"
+		
 		;
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"

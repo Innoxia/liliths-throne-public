@@ -354,7 +354,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 		
 		
-		
 		// Inventory:
 		character.resetInventory();
 		nodes = parentElement.getElementsByTagName("characterInventory");

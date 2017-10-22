@@ -22,7 +22,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.75
- * @version 0.1.85
+ * @version 0.1.87
  * @author Innoxia
  */
 public class LilayaHomeGeneric {
