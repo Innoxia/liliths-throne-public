@@ -152,7 +152,7 @@ public enum RenderingEngine {
 				equippedPanelSB.append(
 						// If slot is sealed:
 						"<div class='inventory-item-slot piercing" + getClassRarityIdentifier(clothing.getRarity()) + "'"
-								+ (clothing.isSealed() ? "style='border-width:2px; border-color:#" + Colour.SEALED.toWebHexString() + ";border-style:solid;'" : "") + ">"
+								+ (clothing.isSealed() ? "style='border-width:2px; border-color:" + Colour.SEALED.toWebHexString() + ";border-style:solid;'" : "") + ">"
 								
 								// Picture:
 								+ "<div class='inventory-icon-content'>"+clothing.getSVGString()+"</div>"
@@ -439,8 +439,8 @@ public enum RenderingEngine {
 								+ "<div class='barBackgroundExp'>"
 								+ (Main.game.getPlayer().getLevel() != 20
 									? "<div style=' mix-blend-mode: difference; width:" + (Main.game.getPlayer().getExperience() / (Main.game.getPlayer().getLevel() * 10f)) * 90 + "vw; height:2vw; background:" + Colour.CLOTHING_BLUE_LIGHT.toWebHexString()
-											+ "; float:left; border-radius: 2;'></div>"
-									: "<div style=' mix-blend-mode: difference; width:90vw; height:2vw; background:" + Colour.GENERIC_EXCELLENT.toWebHexString() + "; float:left; border-radius: 2;'></div>")
+											+ "; float:left; border-radius: 2px;'></div>"
+									: "<div style=' mix-blend-mode: difference; width:90vw; height:2vw; background:" + Colour.GENERIC_EXCELLENT.toWebHexString() + "; float:left; border-radius: 2px;'></div>")
 								+ "</div>"
 								+ "<div class='overlay' id='PLAYER_" + Attribute.EXPERIENCE.getName() + "' style='cursor:pointer;'></div>"
 							+ "</div>"
@@ -468,7 +468,7 @@ public enum RenderingEngine {
 								+ "<div class='icon small'><div class='icon-content'>"
 									+ StrengthLevel.getStrengthLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
 								+ "<div class='barBackgroundAtt'>"
-									+ "<div style='width:" + Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH) * 0.65 + "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString() + "; float:left; border-radius: 2;'></div>"
+									+ "<div style='width:" + Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH) * 0.65 + "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 								+ "</div>"
 								+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:"+ (renderedPlayerStrengthValue < Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH)
 										? (Colour.GENERIC_GOOD.toWebHexString())
@@ -483,7 +483,7 @@ public enum RenderingEngine {
 								+ "<div class='icon small'><div class='icon-content'>"
 									+ IntelligenceLevel.getIntelligenceLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
 								+ "<div class='barBackgroundAtt'>"
-									+ "<div style='width:" + Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE) * 0.65 + "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString() + "; float:left; border-radius: 2;'></div>"
+									+ "<div style='width:" + Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE) * 0.65 + "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 								+ "</div>"
 								+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:" + (renderedPlayerIntelligenceValue < Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE)
 										? (Colour.GENERIC_GOOD.toWebHexString())
@@ -498,7 +498,7 @@ public enum RenderingEngine {
 								+ "<div class='icon small'><div class='icon-content'>"
 									+ FitnessLevel.getFitnessLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
 								+ "<div class='barBackgroundAtt'>"
-									+ "<div style='width:" + Main.game.getPlayer().getAttributeValue(Attribute.FITNESS) * 0.65 + "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString() + "; float:left; border-radius: 2;'></div>"
+									+ "<div style='width:" + Main.game.getPlayer().getAttributeValue(Attribute.FITNESS) * 0.65 + "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 								+ "</div>"
 								+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:" + (renderedPlayerFitnessValue < Main.game.getPlayer().getAttributeValue(Attribute.FITNESS)
 										? (Colour.GENERIC_GOOD.toWebHexString())
@@ -514,7 +514,7 @@ public enum RenderingEngine {
 									+ CorruptionLevel.getCorruptionLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
 								+ "<div class='barBackgroundAtt corruption'>"
 									+ "<div style='width:" + Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION) * 0.65 + "vw; height:5vw; background:"
-										+ Attribute.CORRUPTION.getColour().toWebHexString() + "; float:left; border-radius: 2;'></div>"
+										+ Attribute.CORRUPTION.getColour().toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 								+ "</div>"
 								+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:" + (renderedPlayerCorruptionValue < Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)
 										? (Colour.GENERIC_GOOD.toWebHexString())
@@ -583,7 +583,7 @@ public enum RenderingEngine {
 						+ "<div class='icon small'><div class='icon-content'>" + ArousalLevel.getArousalLevelFromValue(Main.game.getPlayer().getArousal()).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
 						+ "<div class='barBackgroundAtt'>"
 							+ "<div style='width:" + Main.game.getPlayer().getArousal() * 0.65 + "vw; height:5vw; background:"
-								+ ArousalLevel.getArousalLevelFromValue(Main.game.getPlayer().getArousal()).getColour().toWebHexString() + "; float:left; border-radius: 2;'></div>"
+								+ ArousalLevel.getArousalLevelFromValue(Main.game.getPlayer().getArousal()).getColour().toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 						+ "</div>"
 						+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:"+ (renderedPlayerArousalValue < Main.game.getPlayer().getArousal()
 								? (Colour.GENERIC_GOOD.toWebHexString())
@@ -634,7 +634,7 @@ public enum RenderingEngine {
 						+ "<div class='full-width-container' style='margin:0;padding:0;'>"
 							+ "<div class='icon small'><div class='icon-content'>" + Attribute.HEALTH_MAXIMUM.getSVGString() + "</div></div>" + "<div class='barBackgroundAtt'>" + "<div style='width:"
 							+ (Main.game.getPlayer().getHealth() / Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)) * 65 + "vw; height:5vw; background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString()
-							+ "; float:left; border-radius: 2;'></div>" + "</div>" + "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
+							+ "; float:left; border-radius: 2px;'></div>" + "</div>" + "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
 							+ (renderedPlayerHealthValue < Main.game.getPlayer().getHealth() ? Colour.GENERIC_GOOD.toWebHexString() : renderedPlayerHealthValue > Main.game.getPlayer().getHealth() ? (Colour.GENERIC_BAD.toWebHexString()) : "default") + ";'>"
 							+ (int) Math.ceil(Main.game.getPlayer().getHealth()) + "</p>" + "<div class='overlay' id='PLAYER_" + Attribute.HEALTH_MAXIMUM.getName() + "'></div>"
 						+ "</div>"
@@ -642,14 +642,14 @@ public enum RenderingEngine {
 						+ "<div class='full-width-container' style='margin:0;padding:0;'>"
 							+ "<div class='icon small'><div class='icon-content'>" + Attribute.MANA_MAXIMUM.getSVGString() + "</div></div>" + "<div class='barBackgroundAtt'>" + "<div style='width:"
 							+ (Main.game.getPlayer().getMana() / Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM)) * 65 + "vw; height:5vw; background:" + Colour.ATTRIBUTE_MANA.toWebHexString()
-							+ "; float:left; border-radius: 2;'></div>" + "</div>" + "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
+							+ "; float:left; border-radius: 2px;'></div>" + "</div>" + "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
 							+ (renderedPlayerManaValue < Main.game.getPlayer().getMana() ? (Colour.GENERIC_GOOD.toWebHexString()) : (renderedPlayerManaValue > Main.game.getPlayer().getMana() ? (Colour.GENERIC_BAD.toWebHexString()) : "default")) + ";'>"
 							+ (int) Math.ceil(Main.game.getPlayer().getMana()) + "</p>" + "<div class='overlay' id='PLAYER_" + Attribute.MANA_MAXIMUM.getName() + "'></div>"
 						+ "</div>"
 	
 						+ "<div class='full-width-container' style='margin:0;padding:0;'>"
 							+ "<div class='icon small'><div class='icon-content'>" + Attribute.STAMINA_MAXIMUM.getSVGString() + "</div></div>" + "<div class='barBackgroundAtt'>"
-							+ "<div style='width:" + (Main.game.getPlayer().getStaminaPercentage() * 65) + "vw; height:5vw; background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString() + "; float:left; border-radius: 2;'></div>" + "</div>"
+							+ "<div style='width:" + (Main.game.getPlayer().getStaminaPercentage() * 65) + "vw; height:5vw; background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString() + "; float:left; border-radius: 2px;'></div>" + "</div>"
 							+ "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
 							+ (renderedPlayerStaminaValue < Main.game.getPlayer().getStamina() ? (Colour.GENERIC_GOOD.toWebHexString()) : (renderedPlayerStaminaValue > Main.game.getPlayer().getStamina() ? (Colour.GENERIC_BAD.toWebHexString()) : "default"))
 							+ ";'>" + (int) Math.ceil(Main.game.getPlayer().getStamina()) + "</p>" + "<div class='overlay' id='PLAYER_" + Attribute.STAMINA_MAXIMUM.getName() + "'></div>"
@@ -726,7 +726,7 @@ public enum RenderingEngine {
 					uiAttributeSB.append(
 							// If slot is sealed:
 							"<div class='inventory-item-slot" + getClassRarityIdentifier(clothing.getRarity()) + "'"
-								+ (clothing.isSealed() ? "style='border-width:2px; border-color:#" + Colour.SEALED.toWebHexString() + "; border-style:solid;'" : "") + ">"
+								+ (clothing.isSealed() ? "style='border-width:2px; border-color:" + Colour.SEALED.toWebHexString() + "; border-style:solid;'" : "") + ">"
 								
 								// Picture:
 								+ "<div class='inventory-icon-content'>"+clothing.getSVGEquippedString()+"</div>"
@@ -851,8 +851,8 @@ public enum RenderingEngine {
 									+ "<div class='barBackgroundExp'>"
 									+ (npcToRender.getLevel() != 20
 										? "<div style=' mix-blend-mode: difference; width:" + (npcToRender.getExperience() / (npcToRender.getLevel() * 10f)) * 90 + "vw; height:2vw; background:" + Colour.CLOTHING_BLUE_LIGHT.toWebHexString()
-												+ "; float:left; border-radius: 2;'></div>"
-										: "<div style=' mix-blend-mode: difference; width:90vw; height:2vw; background:" + Colour.GENERIC_EXCELLENT.toWebHexString() + "; float:left; border-radius: 2;'></div>")
+												+ "; float:left; border-radius: 2px;'></div>"
+										: "<div style=' mix-blend-mode: difference; width:90vw; height:2vw; background:" + Colour.GENERIC_EXCELLENT.toWebHexString() + "; float:left; border-radius: 2px;'></div>")
 									+ "</div>"
 									+ "<div class='overlay' id='NPC_" + Attribute.EXPERIENCE.getName() + "' style='cursor:pointer;'></div>"
 								+ "</div>"
@@ -873,7 +873,7 @@ public enum RenderingEngine {
 								+ "<div class='icon small'><div class='icon-content'>"
 									+ StrengthLevel.getStrengthLevelFromValue(npcToRender.getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(npcToRender) + "</div></div>"
 								+ "<div class='barBackgroundAtt'>"
-									+ "<div style='width:" + npcToRender.getAttributeValue(Attribute.STRENGTH) * 0.65 + "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString() + "; float:left; border-radius: 2;'></div>"
+									+ "<div style='width:" + npcToRender.getAttributeValue(Attribute.STRENGTH) * 0.65 + "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 								+ "</div>"
 								+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:"+ (renderedNPCStrengthValue < npcToRender.getAttributeValue(Attribute.STRENGTH)
 										? (Colour.GENERIC_GOOD.toWebHexString())
@@ -888,7 +888,7 @@ public enum RenderingEngine {
 								+ "<div class='icon small'><div class='icon-content'>"
 									+ IntelligenceLevel.getIntelligenceLevelFromValue(npcToRender.getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(npcToRender) + "</div></div>"
 								+ "<div class='barBackgroundAtt'>"
-									+ "<div style='width:" + npcToRender.getAttributeValue(Attribute.INTELLIGENCE) * 0.65 + "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString() + "; float:left; border-radius: 2;'></div>"
+									+ "<div style='width:" + npcToRender.getAttributeValue(Attribute.INTELLIGENCE) * 0.65 + "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 								+ "</div>"
 								+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:" + (renderedNPCIntelligenceValue < npcToRender.getAttributeValue(Attribute.INTELLIGENCE)
 										? (Colour.GENERIC_GOOD.toWebHexString())
@@ -903,7 +903,7 @@ public enum RenderingEngine {
 								+ "<div class='icon small'><div class='icon-content'>"
 									+ FitnessLevel.getFitnessLevelFromValue(npcToRender.getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(npcToRender) + "</div></div>"
 								+ "<div class='barBackgroundAtt'>"
-									+ "<div style='width:" + npcToRender.getAttributeValue(Attribute.FITNESS) * 0.65 + "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString() + "; float:left; border-radius: 2;'></div>"
+									+ "<div style='width:" + npcToRender.getAttributeValue(Attribute.FITNESS) * 0.65 + "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 								+ "</div>"
 								+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:" + (renderedNPCFitnessValue < npcToRender.getAttributeValue(Attribute.FITNESS)
 										? (Colour.GENERIC_GOOD.toWebHexString())
@@ -919,7 +919,7 @@ public enum RenderingEngine {
 									+ CorruptionLevel.getCorruptionLevelFromValue(npcToRender.getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(npcToRender) + "</div></div>"
 								+ "<div class='barBackgroundAtt corruption'>"
 									+ "<div style='width:" + npcToRender.getAttributeValue(Attribute.CORRUPTION) * 0.65 + "vw; height:5vw; background:"
-										+ Attribute.CORRUPTION.getColour().toWebHexString() + "; float:left; border-radius: 2;'></div>"
+										+ Attribute.CORRUPTION.getColour().toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 								+ "</div>"
 								+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:" + (renderedNPCCorruptionValue < npcToRender.getAttributeValue(Attribute.CORRUPTION)
 										? (Colour.GENERIC_GOOD.toWebHexString())
@@ -990,7 +990,7 @@ public enum RenderingEngine {
 							+ "<div class='icon small'><div class='icon-content'>" + ArousalLevel.getArousalLevelFromValue(Sex.getPartner().getArousal()).getRelatedStatusEffect().getSVGString(Sex.getPartner()) + "</div></div>"
 							+ "<div class='barBackgroundAtt'>"
 								+ "<div style='width:" + Sex.getPartner().getArousal() * 0.65 + "vw; height:5vw; background:"
-									+ ArousalLevel.getArousalLevelFromValue(Sex.getPartner().getArousal()).getColour().toWebHexString() + "; float:left; border-radius: 2;'></div>"
+									+ ArousalLevel.getArousalLevelFromValue(Sex.getPartner().getArousal()).getColour().toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 							+ "</div>"
 							+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:"+ (renderedNPCArousalValue < Sex.getPartner().getArousal()
 									? (Colour.GENERIC_GOOD.toWebHexString())
@@ -1039,7 +1039,7 @@ public enum RenderingEngine {
 							+ "<div class='full-width-container' style='margin:0;padding:0;'>"
 								+ "<div class='icon small'><div class='icon-content'>" + Attribute.HEALTH_MAXIMUM.getSVGString() + "</div></div>" + "<div class='barBackgroundAtt'>" + "<div style='width:"
 								+ (npcToRender.getHealth() / npcToRender.getAttributeValue(Attribute.HEALTH_MAXIMUM)) * 65 + "vw; height:5vw; background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString()
-								+ "; float:left; border-radius: 2;'></div>" + "</div>" + "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
+								+ "; float:left; border-radius: 2px;'></div>" + "</div>" + "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
 								+ (renderedNPCHealthValue < npcToRender.getHealth() ? Colour.GENERIC_GOOD.toWebHexString() : renderedNPCHealthValue > npcToRender.getHealth() ? (Colour.GENERIC_BAD.toWebHexString()) : "default") + ";'>"
 								+ (int) Math.ceil(npcToRender.getHealth()) + "</p>" + "<div class='overlay' id='NPC_" + Attribute.HEALTH_MAXIMUM.getName() + "'></div>"
 							+ "</div>"
@@ -1047,14 +1047,14 @@ public enum RenderingEngine {
 							+ "<div class='full-width-container' style='margin:0;padding:0;'>"
 								+ "<div class='icon small'><div class='icon-content'>" + Attribute.MANA_MAXIMUM.getSVGString() + "</div></div>" + "<div class='barBackgroundAtt'>" + "<div style='width:"
 								+ (npcToRender.getMana() / npcToRender.getAttributeValue(Attribute.MANA_MAXIMUM)) * 65 + "vw; height:5vw; background:" + Colour.ATTRIBUTE_MANA.toWebHexString()
-								+ "; float:left; border-radius: 2;'></div>" + "</div>" + "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
+								+ "; float:left; border-radius: 2px;'></div>" + "</div>" + "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
 								+ (renderedNPCManaValue < npcToRender.getMana() ? (Colour.GENERIC_GOOD.toWebHexString()) : (renderedNPCManaValue > npcToRender.getMana() ? (Colour.GENERIC_BAD.toWebHexString()) : "default")) + ";'>"
 								+ (int) Math.ceil(npcToRender.getMana()) + "</p>" + "<div class='overlay' id='NPC_" + Attribute.MANA_MAXIMUM.getName() + "'></div>"
 							+ "</div>"
 		
 							+ "<div class='full-width-container' style='margin:0;padding:0;'>"
 								+ "<div class='icon small'><div class='icon-content'>" + Attribute.STAMINA_MAXIMUM.getSVGString() + "</div></div>" + "<div class='barBackgroundAtt'>"
-								+ "<div style='width:" + (npcToRender.getStaminaPercentage() * 65) + "vw; height:5vw; background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString() + "; float:left; border-radius: 2;'></div>" + "</div>"
+								+ "<div style='width:" + (npcToRender.getStaminaPercentage() * 65) + "vw; height:5vw; background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString() + "; float:left; border-radius: 2px;'></div>" + "</div>"
 								+ "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
 								+ (renderedNPCStaminaValue < npcToRender.getStamina() ? (Colour.GENERIC_GOOD.toWebHexString()) : (renderedNPCStaminaValue > npcToRender.getStamina() ? (Colour.GENERIC_BAD.toWebHexString()) : "default"))
 								+ ";'>" + (int) Math.ceil(npcToRender.getStamina()) + "</p>" + "<div class='overlay' id='NPC_" + Attribute.STAMINA_MAXIMUM.getName() + "'></div>"
@@ -1163,7 +1163,7 @@ public enum RenderingEngine {
 					uiAttributeSB.append(
 							// If slot is sealed:
 							"<div class='inventory-item-slot" + getClassRarityIdentifier(clothing.getRarity()) + "'"
-								+ (clothing.isSealed() ? "style='border-width:2px; border-color:#" + Colour.SEALED.toWebHexString() + "; border-style:solid;'" : "") + ">"
+								+ (clothing.isSealed() ? "style='border-width:2px; border-color:" + Colour.SEALED.toWebHexString() + "; border-style:solid;'" : "") + ">"
 								
 								// Picture:
 								+ "<div class='inventory-icon-content'>"+clothing.getSVGEquippedString()+"</div>"
@@ -1621,7 +1621,7 @@ public enum RenderingEngine {
 		}
 		
 		for(NPC gc : Main.game.getCharactersTreatingCellAsHome(Main.game.getActiveWorld().getCell(x, y))) {
-			if(!charactersPresent.contains(gc)) {
+			if(!charactersPresent.contains(gc) && gc.isSlave() && gc.getOwner().isPlayer()) {
 				mapIcons.add(gc.getHomeMapIcon());
 			}
 		}

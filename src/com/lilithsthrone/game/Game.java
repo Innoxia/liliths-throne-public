@@ -1722,6 +1722,15 @@ public class Game implements Serializable {
 	public void setCurrentEncounter(Encounter currentEncounter) {
 		this.currentEncounter = currentEncounter;
 	}
+	
+	public NPC getNPC(Class<? extends NPC> NPCclass) {
+		for(NPC npc : NPCMap.values()) {
+			if(npc.getClass().equals(NPCclass)) {
+				return npc;
+			}
+		}
+		return null;
+	}
 
 	public NPC getPrologueMale() {
 		return prologueMale;

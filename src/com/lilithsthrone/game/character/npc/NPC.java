@@ -1189,10 +1189,10 @@ public abstract class NPC extends GameCharacter {
 		if(!isAttractedTo(character)) {
 			if(Main.game.isNonConEnabled()) {
 				if(isSlave()) {
-					if(this.getObedience()>=ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMinimumValue()) {
+					if(this.getObedienceValue()>=ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMinimumValue()) {
 						return SexPace.SUB_EAGER;
 						
-					} else if(this.getObedience()>=ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMinimumValue()) {
+					} else if(this.getObedienceValue()>=ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMinimumValue()) {
 						return SexPace.SUB_NORMAL;
 					}
 				}
@@ -1350,7 +1350,7 @@ public abstract class NPC extends GameCharacter {
 							(character.isSlave()
 								?"[npc.Name] [style.boldArcane(is a slave)], owned by "+(character.getOwner().isPlayer()?"you!":character.getOwner().getName("a")+".")
 								:"[npc.Name] [style.boldGood(is not a slave)]."))
-					+ "</br>"+ObedienceLevel.getDescription(character, ObedienceLevel.getObedienceLevelFromValue(character.getObedience()), true, true)
+					+ "</br>"+ObedienceLevel.getDescription(character, ObedienceLevel.getObedienceLevelFromValue(character.getObedienceValue()), true, true)
 					+"</br></br>"
 					+ "[style.boldArcane(Slaves owned:)]");
 		

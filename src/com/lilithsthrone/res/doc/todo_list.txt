@@ -5,51 +5,30 @@
 		Create .exe version
 	
 	Patch notes:
-	
-	Slavery:
-		<b>Finished:</b> All basic slavery mechanics. I'll expand the slavery content over the course of the game's development to add in more jobs/permissions/events, but all of the core slavery mechanics that I had planned are now in the engine.
-		<b>Added:</b> Slavery event loop. The game calculates a slave's income, affection & obedience changes, location (based on job), and all other slavery-related information every in-game hour.
-		<b>Added:</b> Slavery events. The game now has a chance to generate an event for each of your slaves every hour. Events take into account what other NPCs the slave has access to, as well as what permissions & job settings are enabled.
-		<b>Added:</b> Jobs. You can assign your slaves to perform different jobs (9 at the moment), some of which have special setting that influence random events that occur while they're working.
-		<b>Added:</b> Permissions. You can now assign permissions to your slaves, which influence random events that occur while they're working/idle.
-		Improved slave management UI.
-		Removed caps for room upgrades' obedience and affection changes.
-		
-	UI:
-		Slightly improved layout at higher resolutions.
 		
 	Other:
-		Buffed rainbow gloves and stockings.
-		Added safety goggles spawning in Lilaya's lab. (These have been in the game files for some time, but I forgot to add them in...)
-		Refined some of the named NPC's body types.
-		Added option to set the amount of NPCs spawning with the 'transformer' fetish.
-		'Forced TF racial limits' in the furry setting should now be working. (I didn't have time to test, so it may be a little buggy. ;_;)
-		NPCs will now try to forcibly transform you even if they aren't already attracted to you.
-		Candi and Brandi now wear stiletto heels.
-		Lactating nipples should now start sex pre-lubricated with milk.
-	
+		Added the same placeholder dialogue for slaves in each of their work locations (excluding Lilaya's lab).
+		
 	Bugs:
-		Fixed a cause of a UI display bug in the furry preferences screen.
-		Fixed slave collar not sealing/jinxing itself onto slaves when equipped.
-		Fixed the 'Rest until Morning' action in your room sometimes causing you to sleep until the next day (for a 24 hr+ rest).
-		Fixed skewed prices of essence vials.
-		Fixed several of the racial lore books being unable to be sold.
-		Fixed imported slaves obtaining randomly assigned fetishes.
-		Imported slaves are now added to your contacts list.
-		Fixed bug where items in your wardrobe during character creation could be found on the map after game start.
-		Imported characters should no longer start with most of their combat stats drained.
-		Fixed bug where removing tongue modifiers using potions would add them instead.
-		Fixed bug where imported characters were starting with incorrect orifice modifiers.
-		Minor breast-size detection fix.
-		Lilaya's skin colour should now correctly be the same as your starting skin colour.
-		Inconsistent dialogue fixes in the prologue.
-		Fixed 'Spit' and 'Swallow' options always appearing after a fight (even when the NPC didn't have the 'giving TF' fetish).
+		Fixed bug where you couldn't interact with slaves in their room.
+		Fixed NPC icons showing up in random places on the map.
+		Fixed imported slaves having the dog bit special attack.
+		Fixed UI bug where attribute bars would just be showing grey bars.
+		Fixed some strange behaviour with room upgrades.
 	
 	
 	
-	Core mechanics done, but:
-	Some permissions not working
-	Events not finished
+	
+	
+	
+	
+	
+	
+	you should put the general overview option in the players room. while having the room and that slaves function be in their respective rooms. while also preventing you from changing a slave who is in another room.
+	: I don't know how hard it would be to do that but I feel like while I'm in a particular room I should only be able to mess with that room. but at the same time I'd like to have a central spot to control most everything from
+	
+	Apparently you don't get the encylopedia entry for equipment you started with until you see them unequipped
+	
 	
 	
 	

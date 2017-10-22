@@ -260,11 +260,11 @@ public enum SlaveJob {
 	}
 	
 	public int getFinalHourlyIncomeAfterModifiers(GameCharacter character) {
-		return Math.max(0, (int) (income + ((getAffectionIncomeModifier()*character.getAffection(Main.game.getPlayer()))) + ((getObedienceIncomeModifier()*character.getObedience()))));
+		return Math.max(0, (int) (income + ((getAffectionIncomeModifier()*character.getAffection(Main.game.getPlayer()))) + ((getObedienceIncomeModifier()*character.getObedienceValue()))));
 	}
 	
 	public int getFinalDailyIncomeAfterModifiers(GameCharacter character) {
-		return Math.max(0, (int) (income + ((getAffectionIncomeModifier()*character.getAffection(Main.game.getPlayer()))) + ((getObedienceIncomeModifier()*character.getObedience()))))*character.getTotalHoursWorked();
+		return Math.max(0, (int) (income + ((getAffectionIncomeModifier()*character.getAffection(Main.game.getPlayer()))) + ((getObedienceIncomeModifier()*character.getObedienceValue()))))*character.getTotalHoursWorked();
 	}
 
 	public float getObedienceIncomeModifier() {

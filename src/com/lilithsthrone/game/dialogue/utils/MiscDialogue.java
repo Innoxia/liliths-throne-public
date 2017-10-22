@@ -639,7 +639,7 @@ public class MiscDialogue {
 				if(upgrade.isCoreRoomUpgrade()) {
 					coreUpgrades.add(upgrade);
 				} else {
-					UtilText.nodeContentSB.append(getUpgradeEntry(place, upgrade));
+					UtilText.nodeContentSB.append(getUpgradeEntry(cellToInspect, upgrade));
 					i++;
 				}
 			}
@@ -657,13 +657,13 @@ public class MiscDialogue {
 			
 			for (PlaceUpgrade upgrade : place.getPlaceUpgrades()) {
 				if(upgrade.isCoreRoomUpgrade()) {
-					UtilText.nodeContentSB.append(getUpgradeEntry(place, upgrade));
+					UtilText.nodeContentSB.append(getUpgradeEntry(cellToInspect, upgrade));
 				}
 			}
 			
 			i = 0;
 			for (PlaceUpgrade upgrade : coreUpgrades) {
-				UtilText.nodeContentSB.append(getUpgradeEntry(place, upgrade));
+				UtilText.nodeContentSB.append(getUpgradeEntry(cellToInspect, upgrade));
 				i++;
 			}
 			if(i==0) {
@@ -714,12 +714,13 @@ public class MiscDialogue {
 				+ "</div>";
 	}
 	
-	private static String getUpgradeEntry(GenericPlace place, PlaceUpgrade upgrade) {
+	private static String getUpgradeEntry(Cell cell, PlaceUpgrade upgrade) {
 		miscDialogueSB.setLength(0);
+		GenericPlace place = cell.getPlace();
 		float affectionChange = upgrade.getAffectionGain();
 		float obedienceChange = upgrade.getObedienceGain();
 		boolean owned = place.getPlaceUpgrades().contains(upgrade);
-		boolean availableForPurchase = upgrade.isPrerequisitesMet(place) && upgrade.isAvailable(Main.game.getPlayerCell()) && (owned?Main.game.getPlayer().getMoney()>=upgrade.getRemovalCost():Main.game.getPlayer().getMoney()>=upgrade.getInstallCost());
+		boolean availableForPurchase = upgrade.isPrerequisitesMet(place) && upgrade.isAvailable(cell) && (owned?Main.game.getPlayer().getMoney()>=upgrade.getRemovalCost():Main.game.getPlayer().getMoney()>=upgrade.getInstallCost());
 		boolean canBuy = availableForPurchase;
 		
 		miscDialogueSB.append(
@@ -886,7 +887,7 @@ public class MiscDialogue {
 				for(NPC slave : Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell())) {
 					if(slave.isSlave() && !slave.getOwner().isPlayer()) {
 						AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(slave.getAffection(Main.game.getPlayer()));
-						ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(slave.getObedience());
+						ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(slave.getObedienceValue());
 						float affectionChange = slave.getDailyAffectionChange();
 						float obedienceChange = slave.getDailyObedienceChange();
 						GenericPlace place = Main.game.getPlayerCell().getPlace();
@@ -918,7 +919,7 @@ public class MiscDialogue {
 				int i = 0;
 				for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
 					AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(slave.getAffection(Main.game.getPlayer()));
-					ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(slave.getObedience());
+					ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(slave.getObedienceValue());
 					float affectionChange = slave.getDailyAffectionChange();
 					float obedienceChange = slave.getDailyObedienceChange();
 					GenericPlace place = Main.game.getPlayerCell().getPlace();
@@ -995,7 +996,7 @@ public class MiscDialogue {
 							+ "<span style='color:"+affection.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(affection.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
-							+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+slave.getObedience()+ "</b>"
+							+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+slave.getObedienceValue()+ "</b>"
 							+ "</br><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")+obedienceChange+"</span>/day"
 							+ "</br>"
 							+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
@@ -1043,7 +1044,7 @@ public class MiscDialogue {
 	private static String getSlaveInformationHeader(NPC character) {
 		headerSB.setLength(0);
 		AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(character.getAffection(Main.game.getPlayer()));
-		ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(character.getObedience());
+		ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(character.getObedienceValue());
 		float affectionChange = character.getDailyAffectionChange();
 		float obedienceChange = character.getDailyObedienceChange();
 		
@@ -1112,7 +1113,7 @@ public class MiscDialogue {
 							+ "<span style='color:"+affection.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(affection.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
-							+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+character.getObedience()+ "</b>"
+							+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+character.getObedienceValue()+ "</b>"
 							+ "</br><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")+obedienceChange+"</span>/day"
 							+ "</br>"
 							+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
@@ -1217,7 +1218,7 @@ public class MiscDialogue {
 		@Override
 		public String getContent() {
 			NPC character = Main.game.getDialogueFlags().slaveryManagerSlaveSelected;
-			ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(character.getObedience());
+			ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(character.getObedienceValue());
 			float affectionChange = character.getDailyAffectionChange();
 			float obedienceChange = character.getDailyObedienceChange();
 			
@@ -1310,7 +1311,7 @@ public class MiscDialogue {
 								+ (job.getObedienceIncomeModifier()>0
 										?"[style.colourObedience("+job.getObedienceIncomeModifier()+")]"
 										:"[style.colourDisabled("+job.getObedienceIncomeModifier()+")]")
-										+ "*<span style='color:"+obedience.getColour().toWebHexString()+";'>"+character.getObedience()+"</span>)"
+										+ "*<span style='color:"+obedience.getColour().toWebHexString()+";'>"+character.getObedienceValue()+"</span>)"
 								+ " = "+UtilText.formatAsMoney(income, "b", (income>0?Colour.TEXT:Colour.GENERIC_BAD))+"/hour"
 							+"</div>"
 							+ "<div style='float:left; width:10%; margin:0; padding:0;'>"

@@ -390,7 +390,7 @@ public class GameCharacter implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());//TODO
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "personality", this.getPersonality().toString());//TODO
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "sexualOrientation", this.getSexualOrientation().toString());//TODO
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "obedience", String.valueOf(this.getObedience()));//TODO
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "obedience", String.valueOf(this.getObedienceValue()));//TODO
 		characterCoreInfo.getParentNode().insertBefore(comment, characterCoreInfo);
 		
 		// Relationships:
@@ -1173,7 +1173,11 @@ public class GameCharacter implements Serializable, XMLSaving {
 	
 	// Obedience:
 	
-	public float getObedience() {
+	public ObedienceLevel getObedience() {
+		return ObedienceLevel.getObedienceLevelFromValue(obedience);
+	}
+	
+	public float getObedienceValue() {
 		return obedience;
 	}
 
@@ -1190,7 +1194,7 @@ public class GameCharacter implements Serializable, XMLSaving {
 	
 	public String incrementObedience(float increment) {
 		
-		setObedience(getObedience()+increment);
+		setObedience(getObedienceValue()+increment);
 		
 		return UtilText.parse(this,
 				"<p style='text-align:center'>"
@@ -1242,7 +1246,7 @@ public class GameCharacter implements Serializable, XMLSaving {
 		
 		value += (getFetishes().size()*50);
 		
-		value *= (100+(getObedience()/2))/100f;
+		value *= (100+(getObedienceValue()/2))/100f;
 		
 		return value;
 	}
@@ -1490,8 +1494,6 @@ public class GameCharacter implements Serializable, XMLSaving {
 	public boolean isSlave() {
 		return owner != null;
 	}
-	
-	
 	
 	public GameCharacter getMother() {
 		return mother;

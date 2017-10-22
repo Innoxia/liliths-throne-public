@@ -90,7 +90,10 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public String getContent() {
-			return "<p>"
+			UtilText.nodeContentSB.setLength(0);
+			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			
+			UtilText.nodeContentSB.append("<p>"
 						+ "The many corridors running through Lilaya's house are, while extremely impressive, all much of the same."
 						+ " Immaculately-clean red carpet runs down the centre of each one, while fine paintings and masterfully-carved marble busts line the walls."
 					+ "</p>"
@@ -98,12 +101,68 @@ public class LilayaHomeGeneric {
 						+ (Main.game.isDayTime()
 							?"Delicate glass windows provide a good amount of natural daylight, and Rose seems to be taking care to leave some of them open every now and again, making sure that the air in the house always feels fresh."
 							:"The curtains are currently drawn over the corridor's delicate glass windows, but during the day, they're able to provide a good amount of natural daylight.")
-					+ "</p>";
+					+ "</p>");
+			
+			if(charactersPresent.isEmpty()) {
+				UtilText.nodeContentSB.append("<p>"
+							+ "This corridor is deserted at the moment, and there doesn't really seem to be much to do here."
+						+ "</p>");
+			} else {
+				for(NPC slave : charactersPresent) {
+					switch(slave.getObedience()) {
+					case NEGATIVE_FIVE_REBELLIOUS: case NEGATIVE_FOUR_DEFIANT: case NEGATIVE_THREE_STRONG_INSUBORDINATE:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "Although <b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.name]</b> is here, [npc.she]'s not even bothering to pretend that [npc.she]'s cleaning."
+								+ "</p>"));
+						break;
+					case NEGATIVE_ONE_DISOBEDIENT:  case NEGATIVE_TWO_UNRULY:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> appears to be half-heartedly dusting some of picture frames that line the corridor."
+								+ "</p>"));
+						break;
+					case ZERO_FREE_WILLED:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is down on all fours dusting the skirting boards."
+								+ "</p>"));
+						break;
+					case POSITIVE_ONE_AGREEABLE: case POSITIVE_TWO_OBEDIENT:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is busily polishing the floorboards."
+								+ "</p>"));
+						break;
+					case POSITIVE_THREE_DISCIPLINED: case POSITIVE_FOUR_DUTIFUL: case POSITIVE_FIVE_SUBSERVIENT:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is dutifully dusting, polishing, and cleaning everything in this area."
+								+ "</p>"));
+						break;
+					}
+				}
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int index) {
-			return null;
+			if(index==0) {
+				return null;
+				
+			} else if(index-1<Main.game.getCharactersPresent().size()) {
+				return new Response(UtilText.parse(Main.game.getCharactersPresent().get(index-1), "[npc.Name]"), UtilText.parse(Main.game.getCharactersPresent().get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+					@Override
+					public void effects() {
+						Main.game.setActiveNPC(Main.game.getCharactersPresent().get(index-1));
+					}
+				};
+					
+			} else {
+				return null;
+			}
 		}
 	};
 	
@@ -145,12 +204,11 @@ public class LilayaHomeGeneric {
 				return new Response("Room List", "You'll need a slaver license before you can access this menu!",  null);
 			}
 			
-		}
-		else if(index-2<charactersPresent.size()) {
-			return new Response(UtilText.parse(charactersPresent.get(index-2), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-2), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+		} else if(index-4<charactersPresent.size()) {
+			return new Response(UtilText.parse(charactersPresent.get(index-4), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-4), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 				@Override
 				public void effects() {
-					Main.game.setActiveNPC(charactersPresent.get(index-2));
+					Main.game.setActiveNPC(charactersPresent.get(index-4));
 				}
 			};
 			
@@ -388,7 +446,10 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public String getContent() {
-			return "<p>"
+			UtilText.nodeContentSB.setLength(0);
+			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			
+			UtilText.nodeContentSB.append("<p>"
 						+ "Just like every other room in Lilaya's house, the kitchen is far larger than any you've ever set foot in before."
 						+ " A row of wooden cabinets, topped with polished granite, line the edge of the room, and a pair of long, free-standing worktops sit in the middle of the cavernous space."
 						+ " The kitchen's trio of cast iron ovens, combined with its rustic oak flooring and lack of any modern-looking appliances, give it a rather vintage look."
@@ -396,15 +457,69 @@ public class LilayaHomeGeneric {
 					+ "<p>"
 						+ "There's an open doorway set into one side of the room, and, looking through the opening, you see a series of fridges, freezers and larder units."
 						+ " Ingredients and foodstuffs of all shapes and sizes sit on open shelves, and you find yourself marvelling at the quantity and variety of supplies that are kept in stock."
-					+ "</p>"
-					+ "<p>"
-						+ "The kitchen is deserted at the moment, and there doesn't really seem to be much to do here."
-					+ "</p>";
+					+ "</p>");
+			
+			if(charactersPresent.isEmpty()) {
+				UtilText.nodeContentSB.append("<p>"
+							+ "The kitchen is deserted at the moment, and there doesn't really seem to be much to do here."
+						+ "</p>");
+			} else {
+				for(NPC slave : charactersPresent) {
+					switch(slave.getObedience()) {
+					case NEGATIVE_FIVE_REBELLIOUS: case NEGATIVE_FOUR_DEFIANT: case NEGATIVE_THREE_STRONG_INSUBORDINATE:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "Although <b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.name]</b> is here, [npc.she]'s quite clearly not doing any cooking."
+									+ " To make matters worse, [npc.she] doesn't seem to care that you're watching [npc.herHim], and turns [npc.her] back on you."
+								+ "</p>"));
+						break;
+					case NEGATIVE_ONE_DISOBEDIENT:  case NEGATIVE_TWO_UNRULY:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> appears to be half-heartedly preparing some food on the other side of the kitchen."
+								+ "</p>"));
+						break;
+					case ZERO_FREE_WILLED:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is busy cooking something in one of the kitchen's ovens."
+								+ "</p>"));
+						break;
+					case POSITIVE_ONE_AGREEABLE: case POSITIVE_TWO_OBEDIENT:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is preparing some food, and you can see that [npc.she]'s putting a lot of effort into doing a good job."
+								+ "</p>"));
+						break;
+					case POSITIVE_THREE_DISCIPLINED: case POSITIVE_FOUR_DUTIFUL: case POSITIVE_FIVE_SUBSERVIENT:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is dutifully making Lilaya a meal, and you notice that [npc.she]'s taking care to prepare it just the way your demonic aunt likes."
+								+ "</p>"));
+						break;
+					}
+				}
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int index) {
-			return null;
+			if(index==0) {
+				return null;
+				
+			} else if(index-1<Main.game.getCharactersPresent().size()) {
+				return new Response(UtilText.parse(Main.game.getCharactersPresent().get(index-1), "[npc.Name]"), UtilText.parse(Main.game.getCharactersPresent().get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+					@Override
+					public void effects() {
+						Main.game.setActiveNPC(Main.game.getCharactersPresent().get(index-1));
+					}
+				};
+					
+			} else {
+				return null;
+			}
 		}
 	};
 	

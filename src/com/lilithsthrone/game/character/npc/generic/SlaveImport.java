@@ -49,12 +49,10 @@ public class SlaveImport extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public SlaveImport(Gender gender) {
-		super(null, "", 3, gender, RacialBody.DOG_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.DOMINION, Dominion.CITY_BACK_ALLEYS, true);
+		super(null, "", 3, gender, RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(10), WorldType.DOMINION, Dominion.CITY_BACK_ALLEYS, true);
 		
 		this.setPlayerKnowsName(true);
-		setDescription(UtilText.parse(this,
-				"[npc.Name] is a slave."));
+		setDescription(UtilText.parse(this, "[npc.Name] is a slave."));
 		
 		// INVENTORY:
 		
