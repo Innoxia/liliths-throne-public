@@ -484,8 +484,9 @@ public class CharacterInventory implements Serializable {
 	}
 	
 	public void cleanAllClothing() {
-		for (AbstractClothing c : clothingInInventory)
+		for (AbstractClothing c : clothingInInventory) {
 			c.setDirty(false);
+		}
 	}
 	
 	public List<AbstractClothing> getClothingCurrentlyEquipped() {

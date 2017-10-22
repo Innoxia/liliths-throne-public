@@ -15,7 +15,7 @@ import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.generic.DominionAlleywayAttacker;
+import com.lilithsthrone.game.character.npc.generic.SlaveImport;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -417,18 +417,27 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			for(int i=0; i< slavesOwned.getElementsByTagName("character").getLength(); i++){
 				Element e = ((Element)slavesOwned.getElementsByTagName("character").item(i));
 				
-				DominionAlleywayAttacker slave = DominionAlleywayAttacker.loadFromXML(log, e, doc);
+				SlaveImport slave = SlaveImport.loadFromXML(log, e, doc);
+				
+				//TODO move into slave's import:
+				slave.setMana(slave.getAttributeValue(Attribute.MANA_MAXIMUM));
+				slave.setHealth(slave.getAttributeValue(Attribute.HEALTH_MAXIMUM));
+				slave.setStamina(slave.getAttributeValue(Attribute.STAMINA_MAXIMUM));
 				
 				try {
 					Main.game.addNPC(slave);
 					character.addSlave(slave);
-					slave.setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION);
+					slave.setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION, true);
 					
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 			}
 		}
+		
+		character.setMana(character.getAttributeValue(Attribute.MANA_MAXIMUM));
+		character.setHealth(character.getAttributeValue(Attribute.HEALTH_MAXIMUM));
+		character.setStamina(character.getAttributeValue(Attribute.STAMINA_MAXIMUM));
 		
 		character.setLocation(new Vector2i(0, 0));
 		

@@ -178,7 +178,7 @@ public class Lab {
 								public void effects() {
 									Main.game.getDialogueFlags().hadSexWithLilaya = true;
 									Main.game.getDialogueFlags().waitingOnLilayaPregnancyResults = false;
-									Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE);
+									Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE, false);
 								}
 							};
 							
@@ -201,7 +201,7 @@ public class Lab {
 								public void effects() {
 									Main.game.getDialogueFlags().hadSexWithLilaya = true;
 									Main.game.getDialogueFlags().waitingOnLilayaPregnancyResults = false;
-									Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE);
+									Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE, false);
 								}
 							};
 						}
@@ -1222,7 +1222,7 @@ public class Lab {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().hadSexWithLilaya = true;
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE, false);
 					}
 				};
 
@@ -1464,7 +1464,7 @@ public class Lab {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().hadSexWithLilaya = true;
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE, false);
 					}
 				};
 
@@ -1992,7 +1992,7 @@ public class Lab {
 						return new Response("Follow Lilaya", "Allow Lilaya to lead you up to your room.", LILAYA_ASSISTS_EGG_LAYING) {
 							@Override
 							public void effects() {
-								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_PLAYER);
+								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_PLAYER, false);
 								Main.game.setActiveWorld(
 										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
 										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
@@ -2003,7 +2003,7 @@ public class Lab {
 						return new Response("Follow Lilaya", "Allow Lilaya to lead you to the birthing room.", LILAYA_ASSISTS_BIRTHING) {
 							@Override
 							public void effects() {
-								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_BIRTHING_ROOM);
+								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_BIRTHING_ROOM, false);
 								Main.game.setActiveWorld(
 										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR),
 										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_BIRTHING_ROOM)),
@@ -2351,7 +2351,7 @@ public class Lab {
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 						Main.game.getPlayer().setStamina(Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM));
 
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
+						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
@@ -2406,7 +2406,7 @@ public class Lab {
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 						Main.game.getPlayer().setStamina(Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM));
 
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
+						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
@@ -2559,7 +2559,7 @@ public class Lab {
 				return new Response("Protect the eggs!", "Why is Lilaya sitting so close behind you?! Maybe she wants to take your eggs for herself!", LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS) {
 					@Override
 					public void effects() {
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
+						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
 					}
 				};
 

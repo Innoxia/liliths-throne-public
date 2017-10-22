@@ -345,6 +345,13 @@ h6{
 	top:2px;
 	left:2px;
 }
+.npc-home-icon{
+	position:absolute;
+	height:33%;
+	width:33%;
+	bottom:2px;
+	left:2px;
+}
 
 .item-icon{
 	position:absolute;

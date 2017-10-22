@@ -45,7 +45,7 @@ import com.lilithsthrone.main.Main;
 public class Properties implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public String lastSaveLocation = "", lastQuickSaveName = "", nameColour = "", name = "", race = "", quest = "", versionNumber="";
-	public int fontSize = 18, level = 1, money = 0, arcaneEssences = 0, humanEncountersLevel = 1, multiBreasts = 1;
+	public int fontSize = 18, level = 1, money = 0, arcaneEssences = 0, humanEncountersLevel = 1, multiBreasts = 1, forcedTFPercentage = 40;
 	public boolean lightTheme = false, overwriteWarning = true, fadeInText=true,
 			furryTailPenetrationContent = false,
 			nonConContent = false,
@@ -174,6 +174,7 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
+			createXMLElementWithValue(doc, settings, "forcedTFPercentage", String.valueOf(forcedTFPercentage));
 
 			createXMLElementWithValue(doc, settings, "newWeaponDiscovered", String.valueOf(newWeaponDiscovered));
 			createXMLElementWithValue(doc, settings, "newClothingDiscovered", String.valueOf(newClothingDiscovered));
@@ -461,6 +462,11 @@ public class Properties implements Serializable {
 				} else {
 					multiBreasts = 1;
 				}
+				
+				if(element.getElementsByTagName("forcedTFPercentage").item(0)!=null) {
+					forcedTFPercentage = Integer.valueOf(((Element)element.getElementsByTagName("forcedTFPercentage").item(0)).getAttribute("value"));
+				}
+				
 				
 				// Keys:
 				nodes = doc.getElementsByTagName("keyBinds");

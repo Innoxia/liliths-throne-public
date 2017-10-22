@@ -31,10 +31,10 @@ public enum CupSize {
 	LL("colossal", "LL", 22, 23),
 	M("colossal", "M", 23, 24),
 	MM("colossal", "MM", 24, 25),
-	N("colossal", "N", 25, 50),
-	EXTREME("extreme", "X", 50, 75),
-	MONSTROUS("monstrous", "XX", 75, 100),
-	MAXIMUM("impossibly colossal", "XXX", 100, 101);
+	N("colossal", "N", 25, 26),
+	EXTREME("extreme", "X", 26, 50),
+	MONSTROUS("monstrous", "XX", 50, 75),
+	MAXIMUM("impossibly colossal", "XXX", 75, 101);
 
 	private String descriptor, cupSizeName;
 	private int measurement, upperBound;

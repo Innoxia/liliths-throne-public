@@ -5,7 +5,9 @@ import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -80,6 +82,9 @@ public class Ralph extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BLACK), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
 		this.setHairStyle(HairStyle.LOOSE);
+
+		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
 		
 		this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 		this.addFetish(Fetish.FETISH_IMPREGNATION);
@@ -187,8 +192,9 @@ public class Ralph extends NPC {
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
 		if(item instanceof AbstractItem) {
-			if(((AbstractItem)item).getItemType().canBeSold())
+			if(((AbstractItem)item).getItemType().canBeSold()) {
 				return true;
+			}
 		}
 		if(item instanceof AbstractClothing) {
 			return ((AbstractClothing)item).getClothingType()==ClothingType.PENIS_CONDOM;

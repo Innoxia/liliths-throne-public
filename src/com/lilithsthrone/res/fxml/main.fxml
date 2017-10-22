@@ -26,13 +26,13 @@
 
 <GridPane fx:id="mainPane" minHeight="600.0" minWidth="800.0" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lilithsthrone.controller.MainController">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="4.0" minWidth="4.0" prefWidth="4.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="4.0" prefWidth="4.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" minWidth="240.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="4.0" minWidth="4.0" prefWidth="4.0" />
-    <ColumnConstraints hgrow="SOMETIMES" />
+    <ColumnConstraints hgrow="ALWAYS" maxWidth="1000.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="4.0" minWidth="4.0" prefWidth="4.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" minWidth="240.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="4.0" minWidth="4.0" prefWidth="4.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="4.0" prefWidth="4.0" />
   </columnConstraints>
   <rowConstraints>
       <RowConstraints maxHeight="4.0" minHeight="4.0" prefHeight="4.0" vgrow="SOMETIMES" />

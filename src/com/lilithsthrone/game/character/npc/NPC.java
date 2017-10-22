@@ -68,6 +68,7 @@ import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -95,17 +96,15 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceInterface;
-import com.lilithsthrone.world.places.PlaceUpgrade;
 
 import java.util.Set;
 
@@ -118,6 +117,8 @@ public abstract class NPC extends GameCharacter {
 	private static final long serialVersionUID = 1L;
 	
 	protected long lastTimeEncountered = -1;
+
+	protected long getLastTimeHadSex = -1;
 	
 	protected int romanceProgress = 0;
 	
@@ -161,8 +162,6 @@ public abstract class NPC extends GameCharacter {
 	}
 	
 	
-	
-	
 	public void resetSlaveFlags() {
 		flagSlaveBackground = false;
 		flagSlaveSmallTalk = false;
@@ -190,19 +189,6 @@ public abstract class NPC extends GameCharacter {
 	
 	public boolean isClothingStealable() {
 		return false;
-	}
-	
-	public void setLocation(WorldType worldType, Vector2i location) {
-		setWorldLocation(worldType);
-		setLocation(location);
-	}
-	
-	public void setLocation(WorldType worldType, PlaceInterface placeType) {
-		setLocation(worldType, Main.game.getWorlds().get(worldType).getPlacesOfInterest().get(new GenericPlace(placeType)));
-	}
-	
-	public void setLocation(WorldType worldType, GenericPlace place) {
-		setLocation(worldType, Main.game.getWorlds().get(worldType).getPlacesOfInterest().get(place));
 	}
 	
 	// Trader:
@@ -374,38 +360,32 @@ public abstract class NPC extends GameCharacter {
 	
 	// Relationships:
 	
-	public float getDailyAffectionChange() {
-		// Forgive me, for I am tired x_x
-		
-		float affectionTrack = getAffection(Main.game.getPlayer());
-		
-		for(PlaceUpgrade upgrade : this.getLocationPlace().getPlaceUpgrades()) {
-			if(upgrade.getAffectionCap()==null) {
-				affectionTrack += upgrade.getAffectionGain();
-				
-			} else {
-				if(upgrade.getAffectionGain()>0) {
-					if(getAffection(Main.game.getPlayer()) < upgrade.getAffectionCap().getMaximumValue()) {
-						if(getAffection(Main.game.getPlayer()) + upgrade.getAffectionGain() > upgrade.getAffectionCap().getMaximumValue()) {
-							affectionTrack = upgrade.getAffectionCap().getMaximumValue();
-						} else {
-							affectionTrack += upgrade.getAffectionGain();
-						}
-					}
-					
-				} else if(upgrade.getAffectionGain()<0) {
-					if(getAffection(Main.game.getPlayer()) > upgrade.getAffectionCap().getMinimumValue()) {
-						if(getAffection(Main.game.getPlayer()) + upgrade.getAffectionGain() < upgrade.getAffectionCap().getMinimumValue()) {
-							affectionTrack = upgrade.getAffectionCap().getMinimumValue();
-						} else {
-							affectionTrack += upgrade.getAffectionGain();
-						}
-					}
-				}
+	public float getHourlyAffectionChange(int hour) {
+		if(this.workHours[hour]) {
+			if(this.getSlaveJob()==SlaveJob.IDLE) {
+				return this.getHomeLocationPlace().getAffectionChange();
 			}
+			return this.getSlaveJob().getAffectionGain();
+		}
+
+		return this.getHomeLocationPlace().getAffectionChange();
+	}
+	
+	public float getDailyAffectionChange() {
+		float totalAffectionChange = 0;
+		
+		for (int workHour = 0; workHour < this.getTotalHoursWorked(); workHour++) {
+			if(this.getSlaveJob()==SlaveJob.IDLE) {
+				totalAffectionChange+=this.getHomeLocationPlace().getAffectionChange();
+			}
+			totalAffectionChange += this.getSlaveJob().getAffectionGain();
 		}
 		
-		return affectionTrack - getAffection(Main.game.getPlayer());
+		for (int homeHour = 0; homeHour < 24-this.getTotalHoursWorked(); homeHour++) {
+			totalAffectionChange += this.getHomeLocationPlace().getAffectionChange();
+		}
+		// To get rid of e.g. 2.3999999999999999999999:
+		return Math.round(totalAffectionChange*100)/100f;
 	}
 	
 	
@@ -435,6 +415,16 @@ public abstract class NPC extends GameCharacter {
 	public void setLastTimeEncountered(long minutesPassed) {
 		this.lastTimeEncountered = minutesPassed;
 	}
+
+	public long getGetLastTimeHadSex() {
+		return getLastTimeHadSex;
+	}
+
+
+	public void setGetLastTimeHadSex(long getLastTimeHadSex) {
+		this.getLastTimeHadSex = getLastTimeHadSex;
+	}
+
 
 	public int getRomanceProgress() {
 		return romanceProgress;
@@ -477,53 +467,79 @@ public abstract class NPC extends GameCharacter {
 		int numberOfTransformations = Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)?2 + Util.random.nextInt(7):1 + Util.random.nextInt(4);
 		List<ItemEffect> effects = new ArrayList<>();
 		
+		AbstractItemType genitalsItemType = ItemType.RACE_INGREDIENT_HUMAN;
 		AbstractItemType itemType = ItemType.RACE_INGREDIENT_HUMAN;
-		String reaction = "Time to transform you!", raceName = "human";
+		String reaction = "Time to transform you!";
+		String raceName = "human";
 		
-		if (getPreferredBody().getGender().isFeminine()) {
-			raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getRace().getSingularFemaleName();
-		} else {
-			raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getRace().getSingularMaleName();
-		}
+		if(Main.getProperties().forcedTFPreference != FurryPreference.HUMAN) {
+			if (getPreferredBody().getGender().isFeminine()) {
+				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getRace().getSingularFemaleName();
+			} else {
+				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getRace().getSingularMaleName();
+			}
 		
-		switch(getPreferredBody().getRace()) {
-			case CAT_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_CAT_MORPH;
-				reaction = "Time to turn you into a cute little "+raceName+"!";
-				break;
-			case DOG_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
-				reaction = "Time to turn you into an excitable little "+raceName+"!";
-				break;
-			case HARPY:
-				itemType = ItemType.RACE_INGREDIENT_HARPY;
-				reaction = "Time to turn you into a hot little "+raceName+"!";
-				break;
-			case HORSE_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
-				if (getPreferredBody().getGender().isFeminine()) {
-					reaction = "Time to turn you into my little mare!";
-				} else {
-					reaction = "Time to turn you into my very own stallion!";
-				}
-				break;
-			case SQUIRREL_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
-				reaction = "Time to turn you into a cute little "+raceName+"!";
-				break;
-			case WOLF_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
-				reaction = "Time to turn you into a "+raceName+"!";
-				break;
-			case COW_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_COW_MORPH;
-				break;
-			case ANGEL:
-			case DEMON:
-			case SLIME:
-			case HUMAN:
-				itemType = ItemType.RACE_INGREDIENT_HUMAN;
-				break;
+			switch(getPreferredBody().getRace()) {
+				case CAT_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_CAT_MORPH;
+					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+						genitalsItemType = ItemType.RACE_INGREDIENT_CAT_MORPH;
+					}
+					reaction = "Time to turn you into a cute little "+raceName+"!";
+					break;
+				case DOG_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
+					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+						genitalsItemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
+					}
+					reaction = "Time to turn you into an excitable little "+raceName+"!";
+					break;
+				case HARPY:
+					itemType = ItemType.RACE_INGREDIENT_HARPY;
+					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+						genitalsItemType = ItemType.RACE_INGREDIENT_HARPY;
+					}
+					reaction = "Time to turn you into a hot little "+raceName+"!";
+					break;
+				case HORSE_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
+					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+						genitalsItemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
+					}
+					if (getPreferredBody().getGender().isFeminine()) {
+						reaction = "Time to turn you into my little mare!";
+					} else {
+						reaction = "Time to turn you into my very own stallion!";
+					}
+					break;
+				case SQUIRREL_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
+					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+						genitalsItemType = ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
+					}
+					reaction = "Time to turn you into a cute little "+raceName+"!";
+					break;
+				case WOLF_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
+					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+						genitalsItemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
+					}
+					reaction = "Time to turn you into a "+raceName+"!";
+					break;
+				case COW_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_COW_MORPH;
+					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+						genitalsItemType = ItemType.RACE_INGREDIENT_COW_MORPH;
+					}
+					reaction = "Time to turn you into a "+raceName+"!";
+					break;
+				case ANGEL:
+				case DEMON:
+				case SLIME:
+				case HUMAN:
+					itemType = ItemType.RACE_INGREDIENT_HUMAN;
+					break;
+			}
 		}
 		
 		Map<ItemEffect, String> possibleEffects = new HashMap<>();
@@ -539,14 +555,14 @@ public abstract class NPC extends GameCharacter {
 			if(Main.game.getPlayer().getVaginaType() != getPreferredBody().getVagina().getType()) {
 				if(getPreferredBody().getVagina().getType() == VaginaType.NONE) {
 					if(Main.game.getPlayer().getVaginaRawCapacityValue() > 1) {
-						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_CAPACITY, TFPotency.DRAIN, 1), "Let's get to work on getting rid of that little cunt of yours!");
+						possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_CAPACITY, TFPotency.DRAIN, 1), "Let's get to work on getting rid of that little cunt of yours!");
 						removingVagina = true;
 					} else {
-						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that tight little cunt of yours!");
+						possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that tight little cunt of yours!");
 						removingVagina = true;
 					}
 				} else {
-					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
+					possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
 					addingVagina = true;
 				}
 			}
@@ -554,14 +570,14 @@ public abstract class NPC extends GameCharacter {
 		if(Main.game.getPlayer().getPenisType() != getPreferredBody().getPenis().getType()) {
 			if(getPreferredBody().getPenis().getType() == PenisType.NONE) {
 				if(Main.game.getPlayer().getPenisRawSizeValue() > 1) {
-					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1), "Let's get to work on getting rid of that cock of yours!");
+					possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1), "Let's get to work on getting rid of that cock of yours!");
 					removingPenis = true;
 				} else {
-					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that pathetic little cock of yours!");
+					possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that pathetic little cock of yours!");
 					removingPenis = true;
 				}
 			} else {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getPenis().getName(Main.game.getPlayer(), false)+"!");
+				possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getPenis().getName(Main.game.getPlayer(), false)+"!");
 				addingPenis = true;
 			}
 		}
@@ -595,51 +611,60 @@ public abstract class NPC extends GameCharacter {
 		}
 		
 		// All minor part transformations:
-		if(possibleEffects.isEmpty() || Math.random()>0.33f) {
-			if(Main.game.getPlayer().getAntennaType() != getPreferredBody().getAntenna().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ANTENNA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+		if(Main.getProperties().forcedTFPreference != FurryPreference.HUMAN) {
+			if(possibleEffects.isEmpty() || Math.random()>0.33f) {
+				if(Main.game.getPlayer().getAntennaType() != getPreferredBody().getAntenna().getType()) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ANTENNA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+				}
+				if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+					if(Main.game.getPlayer().getAssType() != getPreferredBody().getAss().getType()) {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+					}
+					if(Main.game.getPlayer().getBreastType() != getPreferredBody().getBreast().getType()) {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+					}
+				}
+				if(Main.game.getPlayer().getEarType() != getPreferredBody().getEar().getType()) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EARS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+				}
+				if(Main.game.getPlayer().getEyeType() != getPreferredBody().getEye().getType()) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EYES, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+				}
+				if(Main.game.getPlayer().getHairType() != getPreferredBody().getHair().getType()) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+				}
+				if(Main.game.getPlayer().getHornType() != getPreferredBody().getHorn().getType()) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HORNS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+				}
+				if(Main.game.getPlayer().getTailType() != getPreferredBody().getTail().getType()) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_TAIL, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+				}
+				if(Main.game.getPlayer().getWingType() != getPreferredBody().getWing().getType()) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_WINGS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+				}
 			}
-			if(Main.game.getPlayer().getAssType() != getPreferredBody().getAss().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			
+			// Leg & Arm transformations:
+			if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+				if(possibleEffects.isEmpty()) {
+					if(Main.game.getPlayer().getArmType() != getPreferredBody().getArm().getType()) {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ARMS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+					}
+					if(Main.game.getPlayer().getLegType() != getPreferredBody().getLeg().getType()) {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_LEGS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+					}
+				}
 			}
-			if(Main.game.getPlayer().getBreastType() != getPreferredBody().getBreast().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getEarType() != getPreferredBody().getEar().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EARS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getEyeType() != getPreferredBody().getEye().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EYES, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getHairType() != getPreferredBody().getHair().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getHornType() != getPreferredBody().getHorn().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HORNS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getTailType() != getPreferredBody().getTail().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_TAIL, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getWingType() != getPreferredBody().getWing().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_WINGS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-		}
-		// Leg & Arm transformations:
-		if(possibleEffects.isEmpty()) {
-			if(Main.game.getPlayer().getArmType() != getPreferredBody().getArm().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ARMS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getLegType() != getPreferredBody().getLeg().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_LEGS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-		}
-		// Face & Skin transformations:
-		if(possibleEffects.isEmpty()) {
-			if(Main.game.getPlayer().getSkinType() != getPreferredBody().getSkin().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_SKIN, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getFaceType() != getPreferredBody().getFace().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			// Face & Skin transformations:
+			if(Main.getProperties().forcedTFPreference == FurryPreference.NORMAL || Main.getProperties().forcedTFPreference == FurryPreference.MAXIMUM) {
+				if(possibleEffects.isEmpty()) {
+					if(Main.game.getPlayer().getSkinType() != getPreferredBody().getSkin().getType()) {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_SKIN, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+					}
+					if(Main.game.getPlayer().getFaceType() != getPreferredBody().getFace().getType()) {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+					}
+				}
 			}
 		}
 		
@@ -1130,27 +1155,27 @@ public abstract class NPC extends GameCharacter {
 		return sexPositionPreferences;
 	}
 	
-	public boolean isWantsToHaveSexWithPlayer() {
+	public boolean isAttractedTo(GameCharacter character) {
 		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) { // If they're vulnerable to arcane storms, they will always be eager during a storm:
 			return true;
 		}
 		
-		if(isSlave()) {
-			if(this.getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue()) {
-				return false;
-			}
-		}
+//		if(isSlave()) {
+//			if(this.getAffection(character)<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue()) {
+//				return false;
+//			}
+//		}
 		
 		if(hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
-				|| (getSexualOrientation()==SexualOrientation.ANDROPHILIC && Main.game.getPlayer().isFeminine())
-				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !Main.game.getPlayer().isFeminine())
+				|| (getSexualOrientation()==SexualOrientation.ANDROPHILIC && character.isFeminine())
+				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !character.isFeminine())
 //				|| hasFetish(Fetish.FETISH_NON_CON)
 				) {
 			return false;
 		}
 		
 		if(mother!=null && father!=null) {
-			if(mother.isPlayer() || father.isPlayer()) {
+			if(mother.getId().equals(character.getId()) || father.getId().equals(character.getId())) {
 				if (!hasFetish(Fetish.FETISH_INCEST)) {
 					return false;
 				}
@@ -1160,8 +1185,8 @@ public abstract class NPC extends GameCharacter {
 		return true;
 	}
 
-	public SexPace getSexPaceSubPreference(){
-		if(!isWantsToHaveSexWithPlayer()) {
+	public SexPace getSexPaceSubPreference(GameCharacter character){
+		if(!isAttractedTo(character)) {
 			if(Main.game.isNonConEnabled()) {
 				if(isSlave()) {
 					if(this.getObedience()>=ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMinimumValue()) {
@@ -1173,7 +1198,7 @@ public abstract class NPC extends GameCharacter {
 				}
 				
 				if(mother!=null && father!=null) {
-					if(mother.isPlayer() || father.isPlayer()) {
+					if(mother.getId().equals(character.getId()) || father.getId().equals(character.getId())) {
 						if (getHistory() == History.PROSTITUTE) {
 							if(Sex.isConsensual()) {
 								return SexPace.SUB_NORMAL;
@@ -1195,8 +1220,8 @@ public abstract class NPC extends GameCharacter {
 		}
 		
 		if (hasFetish(Fetish.FETISH_SUBMISSIVE) // Subs like being sub I guess ^^
-				|| (hasFetish(Fetish.FETISH_PREGNANCY) && Main.game.getPlayer().hasPenis() && hasVagina()) // Want to get pregnant
-				|| (hasFetish(Fetish.FETISH_IMPREGNATION) && Main.game.getPlayer().hasVagina() && hasPenis()) // Want to impregnate player
+				|| (hasFetish(Fetish.FETISH_PREGNANCY) && character.hasPenis() && hasVagina()) // Want to get pregnant
+				|| (hasFetish(Fetish.FETISH_IMPREGNATION) && character.hasVagina() && hasPenis()) // Want to impregnate player
 				) {
 			return SexPace.SUB_EAGER;
 		}
@@ -1205,7 +1230,6 @@ public abstract class NPC extends GameCharacter {
 	}
 	
 	public SexPace getSexPaceDomPreference(){
-		
 		if(hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
 				|| (hasFetish(Fetish.FETISH_SUBMISSIVE) && !hasFetish(Fetish.FETISH_DOMINANT)) // Subs like being sub I guess ^^
 				) {
@@ -1299,10 +1323,10 @@ public abstract class NPC extends GameCharacter {
 		infoScreenSB.setLength(0);
 		
 		infoScreenSB.append(
-				"<div class='inventory-container right'>"
+				"<div class='inventory-container right' style='float:right;'>"
 					+ RenderingEngine.ENGINE.getInventoryEquippedPanel(character)
 				+ "</div>"
-				+ getCharacterInfoBox(character)
+//				+ getCharacterInfoBox(character)
 				+ "<h4>Background</h4>"
 				+ "<p>"
 					+ character.getDescription()

@@ -455,7 +455,7 @@ public class PrologueDialogue {
 				return new Response("Continue", "Someone's come to save you!", INTRO_NEW_WORLD_2){
 					@Override
 					public void effects() {
-						Main.game.getLilaya().setLocation(WorldType.DOMINION, Dominion.CITY_AUNTS_HOME);
+						Main.game.getLilaya().setLocation(WorldType.DOMINION, Dominion.CITY_AUNTS_HOME, false);
 					}
 				};
 				
@@ -542,7 +542,7 @@ public class PrologueDialogue {
 				return new Response("Continue", "Someone's come to save you!", INTRO_NEW_WORLD_2){
 					@Override
 					public void effects() {
-						Main.game.getLilaya().setLocation(WorldType.DOMINION, Dominion.CITY_AUNTS_HOME);
+						Main.game.getLilaya().setLocation(WorldType.DOMINION, Dominion.CITY_AUNTS_HOME, false);
 					}
 				};
 				
@@ -610,7 +610,7 @@ public class PrologueDialogue {
 				return new Response("Continue", "Someone's come to save you!", INTRO_NEW_WORLD_2){
 					@Override
 					public void effects() {
-						Main.game.getLilaya().setLocation(WorldType.DOMINION, Dominion.CITY_AUNTS_HOME);
+						Main.game.getLilaya().setLocation(WorldType.DOMINION, Dominion.CITY_AUNTS_HOME, false);
 					}
 				};
 				
@@ -800,8 +800,8 @@ public class PrologueDialogue {
 				return new Response("Follow", "Follow Lily as she leads you back to her house.", INTRO_NEW_WORLD_3){
 					@Override
 					public void effects() {
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_ENTRANCE_HALL);
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_ENTRANCE_HALL);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_ENTRANCE_HALL, false);
+						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_ENTRANCE_HALL, false);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR),
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ENTRANCE_HALL)),
@@ -919,8 +919,8 @@ public class PrologueDialogue {
 				return new Response("To the lab", "Follow Lilaya to her lab.", INTRO_NEW_WORLD_4){
 					@Override
 					public void effects() {
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
+						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR),
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_LAB)),
@@ -1284,7 +1284,7 @@ public class PrologueDialogue {
 				return new Response("Your room", "You follow Rose as she leads you up to your new room.", INTRO_NEW_WORLD_8){
 					@Override
 					public void effects() {
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_PLAYER);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_PLAYER, false);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
@@ -1384,7 +1384,7 @@ public class PrologueDialogue {
 
 					+ "<p>"
 					+ "You walk over to the bed and fall back onto it."
-					+ " The events of the past few hours finally have a chance to catch up with you, and you lie there, wearing Lilaya's spare clothes, trying to sort out in your mind what's going on."
+					+ " The events of the past few hours finally have a chance to catch up with you, and you sink down onto the comfortable mattress, letting out a deep sigh as you try to sort out in your mind what's going on."
 					+ " Just as you feel yourself drifting off to sleep, a sudden knock at the door brings you back to your senses."
 					+ "</p>";
 		}
@@ -1395,7 +1395,7 @@ public class PrologueDialogue {
 				return new Response("Knocking", "Rose said she'd be back in about half an hour, so that must be her knocking at your door.", INTRO_NEW_WORLD_9){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setMoney(40);
+						Main.game.getPlayer().incrementMoney(40);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 					}
 				};
@@ -1457,7 +1457,7 @@ public class PrologueDialogue {
 				return new Response("Freedom!", "Decide what you want to do next.", RoomPlayer.ROOM){
 					@Override
 					public void effects() {
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
 					}
 				};
 				

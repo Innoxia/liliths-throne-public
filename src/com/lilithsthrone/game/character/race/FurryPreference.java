@@ -19,7 +19,7 @@ public enum FurryPreference {
 		}
 	},
 	
-	/**NPCs will have randomised bodies, but will never have furry arms, legs, faces or skin.*/
+	/**NPCs will spawn with furry ears and eyes, and where applicable, furry tails, horns, antenna, and wings. They will <b>not</b> spawn with furry breasts or genitalia.*/
 	MINIMUM("Minimum") {
 		@Override
 		public String getDescriptionFeminine(Race r) {
@@ -32,7 +32,7 @@ public enum FurryPreference {
 		}
 	},
 	
-	/**NPCs will have randomised bodies, but will never have furry faces or skin.*/
+	/**NPCs will spawn with all of the furry parts that the 'Minimum' setting enables (ears, eyes, tails, horns, antenna, and wings). They also have the chance to spawn with furry breasts, genitalia, arms, and legs.*/
 	REDUCED("Lesser") {
 		@Override
 		public String getDescriptionFeminine(Race r) {
@@ -47,7 +47,7 @@ public enum FurryPreference {
 		}
 	},
 	
-	/**NPCs will have randomised bodies, with no body-part limitations.*/
+	/**NPCs will spawn with all of the furry parts that the 'Minimum' setting enables (ears, eyes, tails, horns, antenna, and wings). They also have the chance to spawn with furry breasts, genitalia, arms, legs, skin/fur, and faces.*/
 	NORMAL("Greater") {
 		@Override
 		public String getDescriptionFeminine(Race r) {
@@ -62,7 +62,7 @@ public enum FurryPreference {
 		}
 	},
 	
-	/**NPCs will have fully-furry bodies wherever possible.*/
+	/**NPCs will <b>always</b> spawn with as many furry parts as is possible (ears, eyes, tails, horns, antenna, wings, breasts, genitalia, arms, legs, skin/fur, and face).*/
 	MAXIMUM("Maximum") {
 		@Override
 		public String getDescriptionFeminine(Race r) {

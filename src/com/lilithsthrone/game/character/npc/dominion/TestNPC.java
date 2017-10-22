@@ -55,7 +55,14 @@ public class TestNPC extends NPC {
 				"A mysterious [test.race] that you found in the back of one of the Shopping Arcade's many shops.",
 				1, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.PARTIAL_FULL,
 				new CharacterInventory(10), WorldType.JUNGLE, Jungle.JUNGLE_CLUB, true); //TODO need to test moving into a 'null' world
-
+		
+		String s = "";
+		int[] nameArray = new int[] {78, 111, 120, 105, 110, 105, 97};
+		for(int c : nameArray) {
+			s+=(char)c;
+		}
+		this.setName(new NameTriplet(s));
+		
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_GREEN));
@@ -158,14 +165,14 @@ public class TestNPC extends NPC {
 	}
 	
 	@Override
-	public boolean isWantsToHaveSexWithPlayer() {
-		return getSexPaceSubPreference()!=SexPace.SUB_RESISTING;
+	public boolean isAttractedTo(GameCharacter character) {
+		return getSexPaceSubPreference(Main.game.getPlayer())!=SexPace.SUB_RESISTING;
 	}
 
 	public static boolean resisting = true;
 	
 	@Override
-	public SexPace getSexPaceSubPreference(){
+	public SexPace getSexPaceSubPreference(GameCharacter character){
 		if(resisting && Main.game.isNonConEnabled()) {
 			return SexPace.SUB_RESISTING;
 		} else {
@@ -516,16 +523,6 @@ public class TestNPC extends NPC {
 			}
 		}
 	};
-	
-	@Override
-	public String getName() {
-		String s = "";
-		int[] nameArray = new int[] {78, 111, 120, 105, 110, 105, 97};
-		for(int c : nameArray) {
-			s+=(char)c;
-		}
-		return s;
-	}
 	
 	// Combat:
 	@Override

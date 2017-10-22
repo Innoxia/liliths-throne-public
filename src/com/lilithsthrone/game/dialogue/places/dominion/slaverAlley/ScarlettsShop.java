@@ -404,7 +404,12 @@ public class ScarlettsShop {
 					}
 					
 				} else {
-					return new Response("Slave Manager", "Enter the slave management screen.",  MiscDialogue.getSlaveryManagementDialogue(ALEXAS_SHOP, Main.game.getAlexa()));
+					return new Response("Slave Manager", "Enter the slave management screen.", ALEXAS_SHOP) {
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return MiscDialogue.getSlaveryManagementDialogue(ALEXAS_SHOP, Main.game.getAlexa());
+						}
+					};
 				}
 
 			} else if (index == 0 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
@@ -729,7 +734,7 @@ public class ScarlettsShop {
 			return new Response("Keep her", "You decide to keep Scarlett as your slave.", ALEXAS_SHOP_BUYING_SCARLETT_KEEP_HER) {
 				@Override
 				public void effects() {
-					Main.game.getScarlett().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION);
+					Main.game.getScarlett().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION, true);
 				}
 			};
 
@@ -744,7 +749,7 @@ public class ScarlettsShop {
 					
 					((Scarlett) Main.game.getScarlett()).getDressed();
 					
-					Main.game.getScarlett().setLocation(WorldType.HARPY_NEST, HarpyNests.ALEXAS_NEST);
+					Main.game.getScarlett().setLocation(WorldType.HARPY_NEST, HarpyNests.ALEXAS_NEST, true);
 					Main.game.getScarlett().setObedience(ObedienceLevel.ZERO_FREE_WILLED.getMedianValue());
 					Main.game.getScarlett().setAffection(Main.game.getPlayer(), AffectionLevel.ZERO_NEUTRAL.getMedianValue());
 					Main.game.getPlayer().removeSlave(Main.game.getScarlett());

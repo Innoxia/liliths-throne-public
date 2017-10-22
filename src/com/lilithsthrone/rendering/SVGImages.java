@@ -40,7 +40,7 @@ public enum SVGImages {
 			
 			protectionEnabled, protectionDisabled, tattoo,
 			
-			responseCombat, responseSex, responseLocked, responseUnlocked, responseCorruptionBypass,
+			responseCombat, responseSex, responseLocked, responseUnlocked, responseUnlockedDisabled, responseOption, responseOptionDisabled, responseCorruptionBypass,
 			responseSubResist, responseSubNormal, responseSubEager,
 			responseDomGentle, responseDomNormal, responseDomRough,
 			
@@ -49,7 +49,9 @@ public enum SVGImages {
 			scaleZero, scaleOne, scaleTwo, scaleThree, scaleFour,
 			scaleZeroDisabled, scaleOneDisabled, scaleTwoDisabled, scaleThreeDisabled, scaleFourDisabled,
 
-			slaveBuy, slaveBuyDisabled, slaveSell, slaveSellDisabled, slaveInspect, slaveTransfer, slaveTransferDisabled,
+			slaveBuy, slaveBuyDisabled, slaveSell, slaveSellDisabled, slaveInspect, slaveInspectDisabled, slaveJob, slavePermissions, slaveTransfer, slaveTransferDisabled,
+			
+			transactionBuy, transactionBuyDisabled, transactionSell, transactionSellDisabled,
 			
 			// Sex:
 			coverableAreaMouth, coverableAreaAnus, coverableAreaNipple, coverableAreaVagina,
@@ -208,9 +210,23 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseLocked.svg");
 			responseLocked = Util.inputStreamToString(is);
 			responseLocked = setColour(responseLocked, Colour.GENERIC_BAD);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseUnlocked.svg");
 			responseUnlocked = Util.inputStreamToString(is);
 			responseUnlocked = setColour(responseUnlocked, Colour.GENERIC_GOOD);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseUnlocked.svg");
+			responseUnlockedDisabled = Util.inputStreamToString(is);
+			responseUnlockedDisabled = setColour(responseUnlockedDisabled, Colour.BASE_GREY);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseOption.svg");
+			responseOption = Util.inputStreamToString(is);
+			responseOption = setColour(responseOption, Colour.GENERIC_GOOD);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseOption.svg");
+			responseOptionDisabled = Util.inputStreamToString(is);
+			responseOptionDisabled = setColour(responseOptionDisabled, Colour.BASE_GREY);
+			
+			
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseCorruptionBypass.svg");
 			responseCorruptionBypass = Util.inputStreamToString(is);
 			responseCorruptionBypass = setColour(responseCorruptionBypass, Colour.GENERIC_ARCANE);
@@ -293,7 +309,19 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveInspect.svg");
 			slaveInspect = Util.inputStreamToString(is);
-			slaveInspect = setColour(slaveInspect, Colour.BASE_PURPLE_LIGHT);
+			slaveInspect = setColour(slaveInspect, Colour.BASE_BROWN);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveInspect.svg");
+			slaveInspectDisabled = Util.inputStreamToString(is);
+			slaveInspectDisabled = setColour(slaveInspectDisabled, Colour.BASE_GREY);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveJob.svg");
+			slaveJob = Util.inputStreamToString(is);
+			slaveJob = setColour(slaveJob, Colour.BASE_BROWN_DARK);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slavePermissions.svg");
+			slavePermissions = Util.inputStreamToString(is);
+			slavePermissions = setColour(slavePermissions, Colour.BASE_GREY);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveTransfer.svg");
 			slaveTransfer = Util.inputStreamToString(is);
 			slaveTransfer = setColour(slaveTransfer, Colour.GENERIC_GOOD);
@@ -301,6 +329,22 @@ public enum SVGImages {
 			slaveTransferDisabled = Util.inputStreamToString(is);
 			slaveTransferDisabled = setColour(slaveTransferDisabled, Colour.BASE_GREY);
 			
+			
+			
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/transactionBuy.svg");
+			transactionBuy = Util.inputStreamToString(is);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/transactionBuyDisabled.svg");
+			transactionBuyDisabled = Util.inputStreamToString(is);
+			transactionBuyDisabled = setColour(transactionBuyDisabled, Colour.BASE_GREY);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/transactionSell.svg");
+			transactionSell = Util.inputStreamToString(is);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/transactionSellDisabled.svg");
+			transactionSellDisabled = Util.inputStreamToString(is);
+			transactionSellDisabled = setColour(transactionSellDisabled, Colour.BASE_GREY);
 			
 			
 			// Sex:
@@ -560,6 +604,10 @@ public enum SVGImages {
 	public String getResponseUnlocked() {
 		return responseUnlocked;
 	}
+	
+	public String getResponseUnlockedDisabled() {
+		return responseUnlockedDisabled;
+	}
 
 	public String getResponseCorruptionBypass() {
 		return responseCorruptionBypass;
@@ -716,6 +764,18 @@ public enum SVGImages {
 	public String getSlaveInspect() {
 		return slaveInspect;
 	}
+	
+	public String getSlaveInspectDisabled() {
+		return slaveInspectDisabled;
+	}
+
+	public String getSlaveJob() {
+		return slaveJob;
+	}
+
+	public String getSlavePermissions() {
+		return slavePermissions;
+	}
 
 	public String getSlaveTransfer() {
 		return slaveTransfer;
@@ -731,6 +791,30 @@ public enum SVGImages {
 
 	public String getSlaveTransferDisabled() {
 		return slaveTransferDisabled;
+	}
+
+	public String getTransactionBuy() {
+		return transactionBuy;
+	}
+
+	public String getTransactionBuyDisabled() {
+		return transactionBuyDisabled;
+	}
+
+	public String getTransactionSell() {
+		return transactionSell;
+	}
+
+	public String getTransactionSellDisabled() {
+		return transactionSellDisabled;
+	}
+
+	public String getResponseOption() {
+		return responseOption;
+	}
+
+	public String getResponseOptionDisabled() {
+		return responseOptionDisabled;
 	}
 
 }

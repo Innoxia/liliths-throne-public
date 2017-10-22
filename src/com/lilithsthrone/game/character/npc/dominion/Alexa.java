@@ -6,7 +6,9 @@ import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPreference;
@@ -59,6 +61,9 @@ public class Alexa extends NPC {
 		this.setFaceVirgin(true);
 		this.setBreastSize(CupSize.D.getMeasurement());
 		
+		this.setMuscle(Muscle.TWO_TONED.getMedianValue());
+		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
+		
 		this.addFetish(Fetish.FETISH_PURE_VIRGIN);
 		this.addFetish(Fetish.FETISH_DENIAL);
 		
@@ -98,7 +103,7 @@ public class Alexa extends NPC {
 			
 			for(int i=0; i<5; i++) {
 				NPC newSlave = new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences());
-				newSlave.setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP);
+				newSlave.setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP, true);
 				addSlave(newSlave);
 				newSlave.resetInventory();
 				newSlave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getAlexa());

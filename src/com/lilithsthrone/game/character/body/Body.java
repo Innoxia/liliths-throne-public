@@ -675,6 +675,7 @@ public class Body implements Serializable, XMLSaving {
 					+"</br>Modifiers:");
 			Element anusModifiers = (Element)anus.getElementsByTagName("anusModifiers").item(0);
 			
+			importedAss.anus.orificeAnus.orificeModifiers.clear();
 			for(OrificeModifier om : OrificeModifier.values()) {
 				if(Boolean.valueOf(anusModifiers.getAttribute(om.toString()))) {
 					importedAss.anus.orificeAnus.orificeModifiers.add(om);
@@ -730,6 +731,8 @@ public class Body implements Serializable, XMLSaving {
 				+"</br>Modifiers:");
 		
 		Element nippleModifiers = (Element)nipples.getElementsByTagName("nippleModifiers").item(0);
+		
+		importedBreast.nipples.orificeNipples.orificeModifiers.clear();
 		for(OrificeModifier om : OrificeModifier.values()) {
 			if(Boolean.valueOf(nippleModifiers.getAttribute(om.toString()))) {
 				importedBreast.nipples.orificeNipples.orificeModifiers.add(om);
@@ -840,14 +843,16 @@ public class Body implements Serializable, XMLSaving {
 					+ "</br>Modifiers: ");
 			
 		Element mouthModifiers = (Element)mouth.getElementsByTagName("mouthModifiers").item(0);
-			for(OrificeModifier om : OrificeModifier.values()) {
-				if(Boolean.valueOf(mouthModifiers.getAttribute(om.toString()))) {
-					importedFace.mouth.orificeMouth.orificeModifiers.add(om);
-					CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":true");
-				} else {
-					CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":false");
-				}
+		
+		importedFace.mouth.orificeMouth.orificeModifiers.clear();
+		for(OrificeModifier om : OrificeModifier.values()) {
+			if(Boolean.valueOf(mouthModifiers.getAttribute(om.toString()))) {
+				importedFace.mouth.orificeMouth.orificeModifiers.add(om);
+				CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":true");
+			} else {
+				CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":false");
 			}
+		}
 
 		Element tongue = (Element)parentElement.getElementsByTagName("tongue").item(0);
 			importedFace.tongue.pierced = (Boolean.valueOf(tongue.getAttribute("piercedTongue")));
@@ -860,6 +865,8 @@ public class Body implements Serializable, XMLSaving {
 					+ "</br>Modifiers: ");
 			
 			Element tongueModifiers = (Element)tongue.getElementsByTagName("tongueModifiers").item(0);
+			
+			importedFace.tongue.tongueModifiers.clear();
 			for(TongueModifier tm : TongueModifier.values()) {
 				if(Boolean.valueOf(tongueModifiers.getAttribute(tm.toString()))) {
 					importedFace.tongue.tongueModifiers.add(tm);
@@ -940,6 +947,8 @@ public class Body implements Serializable, XMLSaving {
 				+ "</br>Penis Modifiers: ");
 		
 		Element penisModifiers = (Element)penis.getElementsByTagName("penisModifiers").item(0);
+		
+		importedPenis.penisModifiers.clear();
 		for(PenisModifier pm : PenisModifier.values()) {
 			if(penisModifiers != null && Boolean.valueOf(penisModifiers.getAttribute(pm.toString()))) {
 				importedPenis.penisModifiers.add(pm);
@@ -965,6 +974,8 @@ public class Body implements Serializable, XMLSaving {
 				+ "</br>Urethra Modifiers:");
 		
 		Element urethraModifiers = (Element)penis.getElementsByTagName("urethraModifiers").item(0);
+		
+		importedPenis.orificeUrethra.orificeModifiers.clear();
 		for(OrificeModifier om : OrificeModifier.values()) {
 			if(Boolean.valueOf(urethraModifiers.getAttribute(om.toString()))) {
 				importedPenis.orificeUrethra.orificeModifiers.add(om);
@@ -1071,6 +1082,8 @@ public class Body implements Serializable, XMLSaving {
 				+ "</br>virgin: "+importedVagina.orificeVagina.isVirgin());
 		
 		Element vaginaModifiers = (Element)vagina.getElementsByTagName("vaginaModifiers").item(0);
+		
+		importedVagina.orificeVagina.orificeModifiers.clear();
 		if(vaginaModifiers!=null) {
 			for(OrificeModifier om : OrificeModifier.values()) {
 				if(Boolean.valueOf(vaginaModifiers.getAttribute(om.toString()))) {

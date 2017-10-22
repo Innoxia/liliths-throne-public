@@ -31,6 +31,7 @@ import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
@@ -40,7 +41,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.82
+ * @version 0.1.87
  * @author Innoxia
  */
 public enum StatusEffect {
@@ -1633,6 +1634,11 @@ public enum StatusEffect {
 					&& target.getRaceStage() == RaceStage.HUMAN
 					&& Main.game.isInNewWorld();
 		}
+		
+		@Override
+		protected boolean needsDesaturated() {
+			return true;
+		}
 	},
 
 	// ANGEL:
@@ -1659,6 +1665,11 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.ANGEL
 					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+		
+		@Override
+		protected boolean needsDesaturated() {
+			return true;
 		}
 	},
 
@@ -1697,6 +1708,11 @@ public enum StatusEffect {
 			return target.getRace() == Race.DEMON
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
+		
+		@Override
+		protected boolean needsDesaturated() {
+			return true;
+		}
 	},
 
 	// CANINE:
@@ -1728,7 +1744,13 @@ public enum StatusEffect {
 			return target.getRace() == Race.DOG_MORPH
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
+		
+		@Override
+		protected boolean needsDesaturated() {
+			return true;
+		}
 	},
+	
 	WOLF_MORPH(
 			90,
 			"wolf-morph",
@@ -1756,6 +1778,11 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.WOLF_MORPH
 					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+		
+		@Override
+		protected boolean needsDesaturated() {
+			return true;
 		}
 	},
 
@@ -1788,6 +1815,11 @@ public enum StatusEffect {
 			return target.getRace() == Race.CAT_MORPH
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
+		
+		@Override
+		protected boolean needsDesaturated() {
+			return true;
+		}
 	},
 
 	// RODENT:
@@ -1817,6 +1849,11 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.SQUIRREL_MORPH
 					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+		
+		@Override
+		protected boolean needsDesaturated() {
+			return true;
 		}
 	},
 
@@ -1849,6 +1886,11 @@ public enum StatusEffect {
 			return target.getRace() == Race.HORSE_MORPH
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
+		
+		@Override
+		protected boolean needsDesaturated() {
+			return true;
+		}
 	},
 
 	// BOVINE:
@@ -1879,6 +1921,11 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.COW_MORPH
 					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+		
+		@Override
+		protected boolean needsDesaturated() {
+			return true;
 		}
 	},
 
@@ -1913,6 +1960,11 @@ public enum StatusEffect {
 			return target.getRace() == Race.SLIME
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
+		
+		@Override
+		protected boolean needsDesaturated() {
+			return true;
+		}
 	},
 
 	// AVIAN:
@@ -1939,6 +1991,11 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.HARPY
 					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+		
+		@Override
+		protected boolean needsDesaturated() {
+			return true;
 		}
 	},
 	
@@ -2134,10 +2191,12 @@ public enum StatusEffect {
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
 			// NPCs randomly clean themselves:
-			if(!target.isPlayer()) {
-				if(Math.random()<minutesPassed*0.05f)
-				for (AbstractClothing c : target.getClothingCurrentlyEquipped())
-					c.setDirty(false);
+			if(!target.isPlayer() && !target.isSlave()) {
+				if(Math.random()<minutesPassed*0.05f) {
+					for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+						c.setDirty(false);
+					}
+				}
 			}
 			
 			return "";
@@ -2271,12 +2330,56 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "After having a good rest, you feel full of energy.";
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "After having a good rest, you feel full of energy.";
+				} else {
+					return UtilText.parse(target, "After having a good rest, [npc.name] feels full of energy.");
+				}
+			} else {
+				return "";
+			}
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return false;
+		}
+	},
+	
+	OVERWORKED(
+			80,
+			"overworked",
+			"overworked",
+			Colour.BASE_MAGENTA,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.FITNESS, -5f),
+					new Value<Attribute, Float>(Attribute.STAMINA_MAXIMUM, -50f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, -50f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "As a result of working over eight hours a day, you often find yourself feeling tired and lethargic.";
+				} else {
+					return UtilText.parse(target, "As a result of working over eight hours a day, [npc.Name] often finds [npc.herself] feeling tired and lethargic.");
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.isSlave() && target.getSlaveJob()!=SlaveJob.IDLE && target.getTotalHoursWorked()>8;
 		}
 	},
 
@@ -3717,7 +3820,7 @@ public enum StatusEffect {
 			"set_rainbow",
 			Colour.CLOTHING_WHITE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 5f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 10f)),
 			null) {
 
 		@Override
@@ -6166,6 +6269,7 @@ public enum StatusEffect {
 	private Map<Attribute, Float> attributeModifiers;
 
 	private String SVGString;
+	private String SVGStringDesaturated;
 
 	private List<String> extraEffects;
 
@@ -6198,6 +6302,25 @@ public enum StatusEffect {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
+			if(needsDesaturated()) {
+				try {
+					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + pathName + ".svg");
+					SVGStringDesaturated = Util.inputStreamToString(is);
+		
+					SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);
+					SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff5555", Colour.BASE_GREY.getShades()[1]);
+					SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff8080", Colour.BASE_GREY.getShades()[2]);
+					SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ffaaaa", Colour.BASE_GREY.getShades()[3]);
+					SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ffd5d5", Colour.BASE_GREY.getShades()[4]);
+		
+					is.close();
+		
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
 		} else {
 			SVGString = "";
 		}
@@ -6212,6 +6335,10 @@ public enum StatusEffect {
 		if (extraEffects != null)
 			for (String s : extraEffects)
 				modifiersList.add(s);
+	}
+	
+	protected boolean needsDesaturated() {
+		return false;
 	}
 
 	public abstract String applyEffect(GameCharacter target, int minutesPassed);
@@ -6291,6 +6418,13 @@ public enum StatusEffect {
 	}
 
 	public String getSVGString(GameCharacter owner) {
+		return SVGString;
+	}
+	
+	public String getSVGStringDesaturated(GameCharacter owner) {
+		if(needsDesaturated()) {
+			return SVGStringDesaturated;
+		}
 		return SVGString;
 	}
 }

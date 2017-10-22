@@ -183,7 +183,6 @@ public class CharacterUtils {
 		}
 	}
 	
-	// This is a complete mess...
 	public static PlayerCharacter startLoadingCharacterFromXML(){
 		PlayerCharacter importedCharacter = new PlayerCharacter(new NameTriplet("Player"), "", 1, Gender.M_P_MALE, RacialBody.HUMAN, RaceStage.HUMAN, null, WorldType.DOMINION, Dominion.CITY_AUNTS_HOME);
 		return importedCharacter;
@@ -202,7 +201,7 @@ public class CharacterUtils {
 				// Cast magic:
 				doc.getDocumentElement().normalize();
 				
-				if(doc.getElementsByTagName("playerCharacter").item(0) == null) {
+				if(doc.getElementsByTagName("playerCharacter").item(0) == null) { // Support for older versions:
 					importedCharacter = PlayerCharacter.loadFromXML(characterImportLog, ((Element) doc.getElementsByTagName("character").item(0)), doc);
 				} else {
 					importedCharacter = PlayerCharacter.loadFromXML(characterImportLog, (Element) ((Element) doc.getElementsByTagName("playerCharacter").item(0)).getElementsByTagName("character").item(0), doc);
@@ -1041,8 +1040,8 @@ public class CharacterUtils {
 				availableFetishes.remove(Fetish.FETISH_INCEST);
 				fetishesAssigned++;
 			}
-		} else { // If not offspring, give them a higher chance for TF fetish:
-			if(Math.random()>0.35f) {
+		} else { // If not offspring, give them the chance for TF fetish:
+			if(Math.random() < (Main.getProperties().forcedTFPercentage/100f)) {
 				character.addFetish(Fetish.FETISH_TRANSFORMATION_GIVING);
 				availableFetishes.remove(Fetish.FETISH_TRANSFORMATION_GIVING);
 				fetishesAssigned++;

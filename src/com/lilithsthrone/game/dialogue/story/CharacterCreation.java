@@ -138,7 +138,12 @@ public class CharacterCreation {
 				};
 				
 			} else if (index == 2) {
-				return new Response("Start (Import)", "Import a character from a previous version to use on game start.", IMPORT_CHOOSE);
+				return new Response("Start (Import)", "Import a character from a previous version to use on game start.", IMPORT_CHOOSE) {
+					@Override
+					public void effects() {
+						Main.game.getPlayerCell().resetInventory();
+					}
+				};
 				
 			} else {
 				return null;
@@ -148,6 +153,7 @@ public class CharacterCreation {
 	
 	public static void resetBodyAppearance() {
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+		Main.game.getLilaya().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_BROWN), true);
 		Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BROWN), true);
 		Main.game.getPlayer().setBreastShape(BreastShape.ROUND);
@@ -819,14 +825,13 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Check clothes", "Your clothes are a little messy after rushing here. Tidy yourself up before proceeding to the main stage.") {
+				return new Response("Check clothes", "Your clothes are a little messy after rushing here. Tidy yourself up before proceeding to the main stage.", InventoryDialogue.INVENTORY_MENU) {
 					@Override
 					public void effects() {
 						equipPiercings();
 						InventoryDialogue.setBuyback(false);
 						InventoryDialogue.setInventoryNPC(null);
 						InventoryDialogue.setNPCInventoryInteraction(InventoryInteraction.CHARACTER_CREATION);
-						Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 					}
 				};
 				
@@ -1271,16 +1276,16 @@ public class CharacterCreation {
 	
 	public static void moveNPCIntoPlayerTile() {
 		if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC || (Main.game.getPlayer().getSexualOrientation()==SexualOrientation.AMBIPHILIC && Main.game.getPlayer().hasVagina())) {
-			Main.game.getPrologueMale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation());
+			Main.game.getPrologueMale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 			
 		} else {
-			Main.game.getPrologueFemale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation());
+			Main.game.getPrologueFemale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 		}
 	}
 	
 	public static void moveNPCOutOfPlayerTile() {
-		Main.game.getPrologueMale().setLocation(WorldType.JUNGLE, Jungle.JUNGLE_CLUB);
-		Main.game.getPrologueFemale().setLocation(WorldType.JUNGLE, Jungle.JUNGLE_CLUB);
+		Main.game.getPrologueMale().setLocation(WorldType.JUNGLE, Jungle.JUNGLE_CLUB, false);
+		Main.game.getPrologueFemale().setLocation(WorldType.JUNGLE, Jungle.JUNGLE_CLUB, false);
 	}
 	
 	private static boolean femalePrologueNPC() {
@@ -1840,6 +1845,8 @@ public class CharacterCreation {
 
 	private static void applyGameStart() {
 		Main.getProperties().addRaceDiscovered(Race.HUMAN);
+		
+		Main.game.getLilaya().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 
 		Main.game.clearTextStartStringBuilder();
 		Main.game.clearTextEndStringBuilder();

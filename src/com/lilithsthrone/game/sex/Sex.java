@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
@@ -42,8 +43,6 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-
-import java.util.Set;
 
 /**
  * Singleton enforced by Enum Call initialiseCombat() before using. Then call
@@ -349,6 +348,7 @@ public enum Sex {
 			}
 		}
 		
+		partner.setGetLastTimeHadSex(Main.game.getMinutesPassed());
 		partner.endSex(true);
 	}
 
@@ -1342,6 +1342,14 @@ public enum Sex {
 		addPenetrationTypeLubrication(PenetrationType.TONGUE_PLAYER, LubricationType.PLAYER_SALIVA);
 		addOrificeLubrication(OrificeType.MOUTH_PARTNER, LubricationType.PARTNER_SALIVA);
 		addPenetrationTypeLubrication(PenetrationType.TONGUE_PARTNER, LubricationType.PARTNER_SALIVA);
+		
+		// Add milk in nipples:
+		if(Main.game.getPlayer().getBreastRawLactationValue()>0) {
+			addOrificeLubrication(OrificeType.NIPPLE_PLAYER, LubricationType.PLAYER_MILK);
+		}
+		if(partner.getBreastRawLactationValue()>0) {
+			addOrificeLubrication(OrificeType.NIPPLE_PARTNER, LubricationType.PARTNER_MILK);
+		}
 		
 		// Add player lubrication from cum:
 		if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CREAMPIE_ANUS)) {

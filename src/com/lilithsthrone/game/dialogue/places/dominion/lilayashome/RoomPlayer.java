@@ -21,16 +21,11 @@ public class RoomPlayer {
 	private static int sleepTimer = 240;
 
 	private static Response getResponseRoom(int index) {
-		sleepTimer = (Main.game.isDayTime() ? (int) ((60
-				* 21)
-				- (Main.game.getMinutesPassed()
-						% (24
-								* 60)))
-				: (int) ((60
-						* 31)
-						- (Main.game.getMinutesPassed()
-								% (24
-										* 60))));
+		int minutesPassed = (int) (Main.game.getMinutesPassed() % (24 * 60));
+		
+		sleepTimer = (Main.game.isDayTime()
+				? (int) ((60 * 21) - minutesPassed)
+				: (int) ((60 * (minutesPassed<(60*7)?7:31)) - minutesPassed));
 
 		if (index == 1) {
 			return new Response("Rest", "Rest for four hours. As well as replenishing your health, willpower and stamina, you will also get the 'Well Rested' status effect.", AUNT_HOME_PLAYERS_ROOM_SLEEP){

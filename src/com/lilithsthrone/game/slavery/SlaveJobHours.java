@@ -6,34 +6,27 @@ package com.lilithsthrone.game.slavery;
  * @author Innoxia
  */
 public enum SlaveJobHours {
-	
-	// TODO scrap this and use the new system instead
-	
-//	EVENING_SHORT("Evening shift", "", 1, 1),
-//	EVENING_NORMAL("Evening shift", "", 1, 1),
-//	EVENING_LONG("Evening shift", "", 1, 1),
-	
-	NIGHT_SHORT("Night shift (short)", "Get this slave to work a few hours during the evening.", 60*19, 60*3),
-	NIGHT_NORMAL("Night shift", "Get this slave to work eight hours over the course of the night.", 60*20, 60*8),
-	NIGHT_LONG("Night shift (long)", "Get this slave to work sixteen hours over the course of the night.", 60*16, 60*16),
-	
-//	MORNING_SHORT("Evening shift", "", 1, 1),
-//	MORNING_NORMAL("Evening shift", "", 1, 1),
-//	MORNING_LONG("Evening shift", "", 1, 1),
 
-	DAY_SHORT("Evening shift", "Get this slave to work a few hours during the morning.", 60*7, 60*3),
-	DAY_NORMAL("Evening shift", "Get this slave to work eight hours over the course of the day.", 60*9, 60*8),
-	DAY_LONG("Evening shift", "Get this slave to work sixteen hours over the course of the day.", 60*6, 60*16);
+	NONE("None", "Do not assign any hours to this slave.", 0, 0),
+	
+	DAY_NORMAL("Day shift", "Get this slave to work eight hours over the course of the day.", 9, 8),
+	DAY_LONG("Day shift +", "Get this slave to work sixteen hours over the course of the day.", 6, 16),
+	
+	NIGHT_NORMAL("Night shift", "Get this slave to work eight hours over the course of the night.", 20, 8),
+	NIGHT_LONG("Night shift +", "Get this slave to work sixteen hours over the course of the night.", 16, 16),
+
+	TWENTY_FOUR_HOURS("24 hours", "Assign every hour as a work hour.", 0, 24);
+	
 
 	private String name;
 	private String description;
-	private int startMinute;
+	private int startHour;
 	private int length;
 	
-	private SlaveJobHours(String name, String description, int startMinute, int length) {
+	private SlaveJobHours(String name, String description, int startHour, int length) {
 		this.name = name;
 		this.description = description;
-		this.startMinute = startMinute;
+		this.startHour = startHour;
 		this.length = length;
 	}
 
@@ -45,8 +38,8 @@ public enum SlaveJobHours {
 		return description;
 	}
 
-	public int getStartMinute() {
-		return startMinute;
+	public int getStartHour() {
+		return startHour;
 	}
 
 	public int getLength() {

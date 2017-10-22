@@ -29,9 +29,13 @@ public enum SlaverAlley implements PlaceInterface {
 	ALLEY("Alleyway", null, BaseColour.BLACK, SlaverAlleyDialogue.ALLEYWAY, null, true, false),
 
 	// Places:
-	MARKET_STALL("Slaver's stall", "dominion/slaverAlley/marketStall", BaseColour.BLACK, SlaverAlleyDialogue.MARKET_STALL, null, true, false),
+	MARKET_STALL("Slaver's Shop", "dominion/slaverAlley/marketStall", BaseColour.BLACK, SlaverAlleyDialogue.MARKET_STALL, null, true, false),
 	
-	AUCTIONING_BLOCK("Auctioning block", "dominion/slaverAlley/auctionBlock", BaseColour.GOLD, SlaverAlleyDialogue.AUCTION_BLOCK, null, true, false),
+	AUCTIONING_BLOCK("Auctioning Block", "dominion/slaverAlley/auctionBlock", BaseColour.GOLD, SlaverAlleyDialogue.AUCTION_BLOCK, null, true, false),
+
+	PUBLIC_STOCKS("Public Stocks", "dominion/slaverAlley/stocks", BaseColour.TAN, SlaverAlleyDialogue.PUBLIC_STOCKS, null, true, false),
+
+	BROTHEL("Brothel", "dominion/slaverAlley/brothel", BaseColour.MAGENTA, SlaverAlleyDialogue.BROTHEL, null, true, false),
 
 	SLAVERY_ADMINISTRATION("Slavery Administration", "dominion/slaverAlley/slaveryAdministration", BaseColour.PURPLE, SlaverAlleyDialogue.SLAVERY_ADMINISTRATION_EXTERIOR, null, true, false){
 		@Override
@@ -40,7 +44,7 @@ public enum SlaverAlley implements PlaceInterface {
 		}
 	},
 	
-	SCARLETTS_SHOP("Scarlett's shop", "dominion/slaverAlley/scarlettsStall", BaseColour.CRIMSON, ScarlettsShop.SCARLETTS_SHOP_EXTERIOR, null, true, false){
+	SCARLETTS_SHOP("Scarlett's Shop", "dominion/slaverAlley/scarlettsStall", BaseColour.CRIMSON, ScarlettsShop.SCARLETTS_SHOP_EXTERIOR, null, true, false){
 		@Override
 		public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
 			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) { // Scarlett owns the shop:

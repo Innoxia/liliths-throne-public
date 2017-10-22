@@ -246,7 +246,7 @@ public class HarpyNestAlexa {
 				return new Response("No punishment", "Don't take Scarlett's punishment for her.", ALEXAS_NEST_NO_PUNISHMENT) {
 					@Override
 					public void effects() {
-						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP);
+						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP, true);
 					}
 					
 					@Override
@@ -385,7 +385,7 @@ public class HarpyNestAlexa {
 				return new Response("Endure it", "Try and keep quiet and endure your punishment.", ALEXAS_NEST_TAKE_PUNISHMENT_ENDURE) {
 					@Override
 					public void effects() {
-						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP);
+						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP, true);
 					}
 					
 					@Override
@@ -398,7 +398,7 @@ public class HarpyNestAlexa {
 				return new Response("Struggle", "Start struggling and crying out in discomfort.", ALEXAS_NEST_TAKE_PUNISHMENT_STRUGGLE) {
 					@Override
 					public void effects() {
-						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP);
+						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP, true);
 					}
 					
 					@Override
@@ -416,7 +416,7 @@ public class HarpyNestAlexa {
 						null) {
 					@Override
 					public void effects() {
-						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP);
+						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP, true);
 					}
 					
 					@Override

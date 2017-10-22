@@ -6,47 +6,184 @@
 	
 	Patch notes:
 	
+	Slavery:
+		<b>Finished:</b> All basic slavery mechanics. I'll expand the slavery content over the course of the game's development to add in more jobs/permissions/events, but all of the core slavery mechanics that I had planned are now in the engine.
+		<b>Added:</b> Slavery event loop. The game calculates a slave's income, affection & obedience changes, location (based on job), and all other slavery-related information every in-game hour.
+		<b>Added:</b> Slavery events. The game now has a chance to generate an event for each of your slaves every hour. Events take into account what other NPCs the slave has access to, as well as what permissions & job settings are enabled.
+		<b>Added:</b> Jobs. You can assign your slaves to perform different jobs (9 at the moment), some of which have special setting that influence random events that occur while they're working.
+		<b>Added:</b> Permissions. You can now assign permissions to your slaves, which influence random events that occur while they're working/idle.
+		Improved slave management UI.
+		Removed caps for room upgrades' obedience and affection changes.
+		
+	UI:
+		Slightly improved layout at higher resolutions.
+		
+	Other:
+		Buffed rainbow gloves and stockings.
+		Added safety goggles spawning in Lilaya's lab. (These have been in the game files for some time, but I forgot to add them in...)
+		Refined some of the named NPC's body types.
+		Added option to set the amount of NPCs spawning with the 'transformer' fetish.
+		'Forced TF racial limits' in the furry setting should now be working. (I didn't have time to test, so it may be a little buggy. ;_;)
+		NPCs will now try to forcibly transform you even if they aren't already attracted to you.
+		Candi and Brandi now wear stiletto heels.
+		Lactating nipples should now start sex pre-lubricated with milk.
+	
 	Bugs:
 		Fixed a cause of a UI display bug in the furry preferences screen.
+		Fixed slave collar not sealing/jinxing itself onto slaves when equipped.
+		Fixed the 'Rest until Morning' action in your room sometimes causing you to sleep until the next day (for a 24 hr+ rest).
+		Fixed skewed prices of essence vials.
+		Fixed several of the racial lore books being unable to be sold.
+		Fixed imported slaves obtaining randomly assigned fetishes.
+		Imported slaves are now added to your contacts list.
+		Fixed bug where items in your wardrobe during character creation could be found on the map after game start.
+		Imported characters should no longer start with most of their combat stats drained.
+		Fixed bug where removing tongue modifiers using potions would add them instead.
+		Fixed bug where imported characters were starting with incorrect orifice modifiers.
+		Minor breast-size detection fix.
+		Lilaya's skin colour should now correctly be the same as your starting skin colour.
+		Inconsistent dialogue fixes in the prologue.
+		Fixed 'Spit' and 'Swallow' options always appearing after a fight (even when the NPC didn't have the 'giving TF' fetish).
 	
 	
 	
+	Core mechanics done, but:
+	Some permissions not working
+	Events not finished
 	
 	
-	Slavery jobs & permissions from plan
 	
-	the ability to pierce your slaves, so book Kate to visit and pierce them for you, so you can apply items to the piercings
+	Events
+	
+	BUGS
+	VERY SIMPLE "hard mode"
+	
+	Forced TF:
+		Also, will the next release include npcs forcing the player to wear jinxed clothing (please say yes).
+	
+	And the bug about the matriarchs' scenes ending after their orgasm applies to slaves now too. I think it's less the actors and more the fact that it's consensual sex that's causing the abort after orgasm
+	
+	Brax anal: he's not doing those either, regardess of what I suggest.
+	
+	--------
+	
+	Check pregnancy resolution for NPC-on-NPC (offspring might not be being cleaned up)
+	
+	Loop & basic events
+	
+	Stocks & brothel TODO text
+	
+	
+	Cosmetics in room
+		the ability to pierce your slaves, so book Kate to visit and pierce them for you, so you can apply items to the piercings
+		
+	
+	MILKING
+	
 	add milking machinery for your slaves, both in their rooms and in a dedicated milking shed
-	use stamina/job participation as a limitation as to how much you can interact with them each day
-	
-	
-	
-	
+		If you have a high enough cum production or if you're pent-up enough, you can legit BREAK the Industrial Milker if you keep going, rather than stopping
 	
 	Sort out the mess of slavery exports/imports
 		Make a new initNewGameWithImport()
 	
+	Add a couple more slave traders
 	
-	And lactating yet dry nipplecunts are still a thing.
+	--------
 	
-	BUGS
-	VERY SIMPLE "hard mode"
+	
+	
+	add special behaviour in alleyways/harpy nests for if you're wearing the enforcer's uniform
+	
+	Is there a specific reason for the pantyhose and arm-length gloves to be restricted to only black and white color variety
+	
+	So, the map usually shows additional rooms when you get next to them, expanding the map... but I've noticed in the Harpy's Nest that I can't see the next possible hallways without essentially walking off into darkness.  Is this a bug?  If feels like one.  I was lost without realizing it because I couldn't see new directions to go.
+	
+	Suggestion: Some where to remind the you that your character is max in a TF.  Max masculinity, max size of something, etc.  Or otherwise indicating you might be getting close.  You only get a 'potion does nothing' when you try to go passed it.
+	
+	Innoxia you can add enforcers as rescuers? I mean when you are raped or you rape there is chance that you be rescued (or stopped if you rape someone) by enforcers
+	
+	Suggestion: Knot Size growth/shrink rather than just yes/no.
+	
+	suggestion: strap-on for pix
+	
+	Job Suggestions: Helping out in each of the Shops... or at least the gym.
+	
+	pix's rape scene is labeled as consenual in her "characters present" page
+	
+	Got issues with the sex AI still, and now you can't keep slaves from doing their own thing during scenes, so you can get stuck having to try and stop them from fingering you or themselves 3-5 times before they actually stop.
+	
+	For some reason, after I had one of my slaves fuck my character and their impregnation attempt failed, it's like they became barren and absolutely dry. o_O
+	
+	Refine Forced TF racial limits
+	
+	: I also agree with non-combat solutions.  I think that'd be great.  I end up getting "mad" that all these NPC's attack me.  If I could open up a dialog and such, trade sex for items rather than raping/stealing... something.   Is that just me?
+	Oh, man, a Quick Defeat option would be great.  If they don't back down, you could Intimidate them.  If they've always lost to you, maybe they just Sumbit automatically... either by begging not to be hurt/raped or by saying "Oh, it's you?  Can we just get to the good part?" or somethhing.
+	
+	Suggestion: How about being able to lend your shirt or over torso wear to NPCs to raise affection?
+I just really like clothing switch tropes
+	
+	Brittany's scene seems to end after her orgasm. Not sure if intended or not.
+	
+	Not sure if intended, but I cannot get to a second page of options when having sex wit the three Harpies.  I think this has also happened with other fights, but I most noticed it here.
+		At some point after they take off their cloths—I think... can't be sure—the second page of options opens up.
+
+	How do you feel about offspring genders? There's quite an array available, but they only ever pick from two. It's a very small change to switch them to using the same system used for generic NPCs.
+	
+	Hiring a prostitute offspring also does not raise the sex counter on their encounter screen.
+	
+	I am just curious if the brax forced tf will be updated as it only affect genitals, species, and chest. The alteration doesn't alter the players body size or muscle nor does it change hip or ass size either.
+	
+	BUG -- When you pants are unzipped but you are wearing a condom, game acts like your penis is concealed. Even if its in a condom I'm pretty sure that would be hard to miss hanging out of your pants.
+	
+	I really like the sound of having a reward for talking to Nyan, so I'll probably add in some dialogue options to help get her affection up, and then when she likes you enough, she'll offer you the special clothing.
+	
+	Orgasm description: (Brax cumming inside)
+		I shouldn't be wondering if I'll get pregnant because (A) I already am pregnant and (B) Brax is wearing a condom (which, incidently, didn't fill up so I could carry it in my inventory.)
+	
+	Possible memory leak: Equipping a long sleeve dress on a trap caused a crash.
+	
+	new breast size: HYPER("universal", "XXXX", 101, 120) ;
+	
+	One more bug/limitation: cannot get shorts/pants that unzip and allow underwear to unbutton/shift, exposing only PENIS. UNZIPS + crotchless works as expected though.
+I have tried tinkering a bit in ClothingType.java but have not found a combination of BlockedParts settings for UNZIPS (pants/shorts), UNBUTTONS (boxers), and SHIFTS_ASIDE (briefs) that works to 1) require UNZIPS first, 2) allow UNBUTTONS/SHIFTS_ASIDE after UNZIPS, and 3) only expose PENIS.
+	
+	
+	: That's a very good suggestion, especially the part about the selfie descriptions being a little overwhelming to read through :thinking:
+[15:52] Innoxia: I was considering putting a summarised version at the top :BlobHyperThink:
+[15:53] Innoxia: And also, I should probably make some kind of indication for what parts are exposed in sex's status panel
+	
+	
+	NPC likes being TF'd fetish:
+		letting you use TF items on them during fights or when you're a sub partner in sex.
+	
+	add plasticity to the stats shown when looking at an NPC's orifices?
+	
+	
+	Saliva as fluid
+
+	Also, unsure if this is intentional or a bug, or even how long its been around, but it that appears NPC's also don't keep their desired 'form' for transforming you when you re-load a game. 
+	i.e. a NPC used to be trying to make the PC a cat-morph, after a reload, they try to make PC a squirrel morph.
+	
+	: - Andro/Gyne/Ambipihilic graphics do not all have the heart in the same place
+- In character creator Random and Random Surname aren't consistent, perhaps "Random Firstname" "Random Surname"
+- Check clothes should be at Ctrl-2, so you don't accidentally click it first time thinking you won't skip character creation
+- Perhaps a help option for some options, (he doesn't know what is an average breast size is)
+- After selecting clothes in the wardrobe, the original text in the wardrobe is too indented
+	
+	
+	
 	
 	SEX
 	
 	My character has recently grown a dick after losing to a dog-morph (forced tf). After blowing her wad maybe once or twice since, she has been unable to cum again
 	
-	it just seems to happen when it one of your own children you get the dad speech etc but if you fight them to them, when you try to get them to leave the game crashes/freezes on the flip side lol at least you can earn some money for selling them.
-	
 	I just pulled a bug with Lexi, sex ends after a single orgasm
 		Affects all 3 harpies
 	
-	
-	
-	What level of boosting were you using? Just the base 6 essence boost or the 7/9 (2nd/3rd) essence boost?
-	I ask because I saw the same issue with a character I made. Trying to increase their flat chest with just the minor (6 essence) boost, left them with the exact same size breasts instead of a small increment in breast size.
-		 However using 7 or 9 essences would actually increase their breast size.
-	
+	Lilaya:
+		Sneak attack hug her in the lab and she gets embarrassed and tsundere~ (or hold hands)
+		Embarrassed to orgasm inside of you
+		Sneak attack hug and whisper in her ear "I love you" and watch her die of embarassment
 	
 	
 	Test new TF scenes
@@ -56,14 +193,13 @@
 		
 	NPCs will now apply all of their genital preferences to one potion. (This doesn't work, as TFs are slow!)
 	Forced TF racial limits options not working yet!
+	
 	Not sure if this is intended, but certain races seem to be locking to certain forced TF's.
 	 For example, I seem to only have female cat morphs cause a trap harpy TF, nobody else seems to want to turn my character into a trap, but on female cat morphs, it's a regular preference and it's only harpy as well.
 	  Female cow morphs seem to consistently want to turn my character into a male cow morph despite their personal preferences being something entirely different. Even female/female prefence cow morphs want to turn my character into a male.
 	   It seems like it's locking the preference for all characters of that type based off the first encounter.
+	speeding up forced TFs received from randomly generated enemies
 	
-	
-	Forced TF:
-		Also, will the next release include npcs forcing the player to wear jinxed clothing (please say yes).
 	
 	
 	Breeder collar:
@@ -72,7 +208,6 @@
 		and of course when possible it adds the breeder fetish, and if possibly leaves their pussy permanently dripping wet~
 		
 	Additions:
-
 		Also, any follow ups on already exposed states pre combat/sex? Being an exhibitionist virtually removes all npc reactions from the game, which is wierd!
 
 		Now that I got you thinking about dialogue, it's awesome that different characters might say "breed me" or "don't cum inside me" but I wish there was more continuity after I do or don't cum inside them.
@@ -105,6 +240,10 @@
 		hotdogging & intercrural
 		urethra fucking
 		leg locking
+		better cumshot hit-detection for more messy and consequential sex
+		cum infaltion & puddles
+		I'll definitely be reworking a few of the actions in sex, and I'll most likely make masturbation an ongoing action as you suggest. ^^
+		I'll also try and do the same for nipple/breast play. :3
 		
 		
 	Sex AI:
@@ -145,9 +284,6 @@
 	
 	
 	
-	
-	
-	
 	clothing: nipple crosses on flat chests
 	
 	Pubic hair TF working?
@@ -160,12 +296,6 @@
 	
 	newly grown vaginas should appear with average stats in regards to tightness, wetness, ect. Instead of the absolute minimum values
 	
-	
-	Export editing:
-		First Anon. I figured out the problem. Some of the variables have a .0 (floats) at the end and some are integers (0,1,2,3,...).
-		 I put all of my values in as floats and I think this is what messed them up. I tried just altering the numbers without altering their type and it seemed to work fine.
-		  It was just a datatype issue. Things like capacity are floats or doubles whereas size is usually an integer.
-
 		
 	'floppy' and 'size' ear modifiers to my todo list, so that you'll be able to get long, floppy ears
 	
@@ -191,6 +321,7 @@ You lost your anal virginity to.
 The first time you performed oral was to.
 It lacks something before the period.
 	
+	Ladies dress pants
 	butt-plugs, dildos
 	strap on
 	nipple chain

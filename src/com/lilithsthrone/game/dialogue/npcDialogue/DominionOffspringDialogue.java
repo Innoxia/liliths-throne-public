@@ -591,7 +591,7 @@ public class DominionOffspringDialogue {
 						@Override
 						public void effects() {
 							if(!offspring().flagIntroduced) {
-								if(offspring().isWantsToHaveSexWithPlayer()) {
+								if(offspring().isAttractedTo(Main.game.getPlayer())) {
 									Main.game.getTextStartStringBuilder().append(
 											"<p>"
 												+ "You're the first to recover from the shock of your surprise meeting, and, with one thought in your mind, you step forwards, before wrapping your [pc.arms] around [npc.name]'s back."
@@ -654,7 +654,7 @@ public class DominionOffspringDialogue {
 								}
 								
 							} else {
-								if(offspring().isWantsToHaveSexWithPlayer()) {
+								if(offspring().isAttractedTo(Main.game.getPlayer())) {
 									Main.game.getTextStartStringBuilder().append(
 											"<p>"
 												+ "Deciding that your [npc.daughter]'s in need of some intimate parental love, you step forwards and wrap your [pc.arms] around [npc.her] back."
@@ -716,7 +716,7 @@ public class DominionOffspringDialogue {
 											+ "</p>");
 								}
 							}
-							if(offspring().isWantsToHaveSexWithPlayer()) {
+							if(offspring().isAttractedTo(Main.game.getPlayer())) {
 								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 25));
 								
 							} else if(
@@ -1200,7 +1200,7 @@ public class DominionOffspringDialogue {
 		//TODO affection
 		
 		// Attraction:
-		if(offspring().isWantsToHaveSexWithPlayer()) {
+		if(offspring().isAttractedTo(Main.game.getPlayer())) {
 			footerSB.append(
 					"<p>"
 						+ "<i>You notice [npc.name]'s gaze flick down as [npc.she] tries to take an unnoticed peek at your body."
@@ -1415,7 +1415,7 @@ public class DominionOffspringDialogue {
 							null) {
 						@Override
 						public void effects() {
-							if(offspring().isWantsToHaveSexWithPlayer()) {
+							if(offspring().isAttractedTo(Main.game.getPlayer())) {
 								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 20));
 							} else if(offspring().getHistory()!=History.PROSTITUTE){
 								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -10));
@@ -1935,7 +1935,7 @@ public class DominionOffspringDialogue {
 						+ "</p>");
 			}
 			
-			if(offspring().isWantsToHaveSexWithPlayer()) {
+			if(offspring().isAttractedTo(Main.game.getPlayer())) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "[npc.Name]'s mouth opens a little as [npc.she] lets out a desperate little whine."
@@ -1981,7 +1981,7 @@ public class DominionOffspringDialogue {
 
 		@Override
 		public Response getResponse(int index) {
-			if(offspring().isWantsToHaveSexWithPlayer()) {
+			if(offspring().isAttractedTo(Main.game.getPlayer())) {
 				if (index == 1) {
 					return new ResponseSex("Incestuous sex",
 							"It's time to show your [npc.daughter] what [npc.her] [pc.mother] can do!",
@@ -2083,7 +2083,7 @@ public class DominionOffspringDialogue {
 
 		@Override
 		public String getContent() {
-			if(offspring().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
+			if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 				return UtilText.parse(offspring(),
 						"<p>"
 							+ "[npc.Name] collapses to the floor, completely defeated."
@@ -2145,7 +2145,7 @@ public class DominionOffspringDialogue {
 				};
 				
 			} else if (index == 2) {
-				if(offspring().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
+				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							AFTER_SEX_VICTORY,
@@ -2181,7 +2181,7 @@ public class DominionOffspringDialogue {
 				}
 				
 			} else if (index == 3) {
-				if(offspring().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
+				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 							AFTER_SEX_VICTORY,
@@ -2222,7 +2222,7 @@ public class DominionOffspringDialogue {
 				}
 				
 			} else if (index == 4) {
-				if(offspring().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
+				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Rough sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 							AFTER_SEX_VICTORY,
@@ -2263,7 +2263,7 @@ public class DominionOffspringDialogue {
 				}
 				
 			} else if (index == 5) {
-				if(offspring().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
+				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Submit",
 							"You're not really sure what to do now...</br>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
@@ -2395,7 +2395,7 @@ public class DominionOffspringDialogue {
 
 		@Override
 		public String getContent() {
-			if(offspring().isWantsToHaveSexWithPlayer()) {
+			if(offspring().isAttractedTo(Main.game.getPlayer())) {
 				return UtilText.parse(offspring(),
 						"<p>"
 							+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
@@ -2444,7 +2444,7 @@ public class DominionOffspringDialogue {
 		
 		@Override
 		public Response getResponse(int index) {
-			if(offspring().isWantsToHaveSexWithPlayer()) {
+			if(offspring().isAttractedTo(Main.game.getPlayer())) {
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -2598,7 +2598,7 @@ public class DominionOffspringDialogue {
 		@Override
 		public String getContent() {
 			if(offspring().fightInApartment) {
-				if(!offspring().isWantsToHaveSexWithPlayer() && Main.game.isNonConEnabled()) {
+				if(!offspring().isAttractedTo(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
 					return UtilText.parse(offspring(),
 							"<p>"
 								+ "As you step back from [npc.name], [npc.she] grabs on to the edge of the sofa and sinks to the floor, letting out a thankful sob as [npc.she] realises that you've finished."
@@ -2638,7 +2638,7 @@ public class DominionOffspringDialogue {
 				}
 				
 			} else {
-				if(!offspring().isWantsToHaveSexWithPlayer() && Main.game.isNonConEnabled()) {
+				if(!offspring().isAttractedTo(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
 					return UtilText.parse(offspring(),
 							"<p>"
 								+ "As you step back from [npc.name], [npc.she] sinks down to floor, letting out a thankful sob as [npc.she] realises that you've finished."

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.SexualOrientation;
@@ -112,7 +113,7 @@ public class HarpyNympho extends NPC {
 	}
 	
 	@Override
-	public SexPace getSexPaceSubPreference(){
+	public SexPace getSexPaceSubPreference(GameCharacter character){
 		return SexPace.SUB_EAGER;
 	}
 

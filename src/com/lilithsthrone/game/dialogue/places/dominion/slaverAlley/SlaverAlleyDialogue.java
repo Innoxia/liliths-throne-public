@@ -215,6 +215,54 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
+	public static final DialogueNodeOld PUBLIC_STOCKS = new DialogueNodeOld("Public stocks", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "<i><b>Placeholder:</b> This should be added in for the next version!</i>"
+					+ "</p>"
+					+ "<p>"
+						+ "A set of public stocks, some of which are occupied by slaves, criminals, or people just looking for their idea of fun..."
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld BROTHEL = new DialogueNodeOld("Angel's Kiss", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "<i><b>Placeholder:</b> This should be added in for the next version!</i>"
+					+ "</p>"
+					+ "<p>"
+						+ "The brothel 'Angel's Kiss' is one of the largest establishments in Slaver Alley."
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return null;
+		}
+	};
+	
 	public static final DialogueNodeOld SLAVERY_ADMINISTRATION_EXTERIOR = new DialogueNodeOld("Slavery Administration", ".", false) {
 		private static final long serialVersionUID = 1L;
 
@@ -366,7 +414,7 @@ public class SlaverAlleyDialogue {
 					return new ResponseTrade("Trade", "Buy slavery-related items.", Main.game.getFinch());
 
 				} else if (index == 5) {
-					return new Response("Slave Manager", "Open the slave management screen.", MiscDialogue.getSlaveryManagementDialogue(SLAVERY_ADMINISTRATION, null));
+					return new Response("Slave Manager", "Open the slave management screen.", MiscDialogue.getSlaveryOverviewDialogue());
 
 				} else if (index == 0) {
 					return new Response("Leave", "Step back outside.", SLAVERY_ADMINISTRATION_EXTERIOR);

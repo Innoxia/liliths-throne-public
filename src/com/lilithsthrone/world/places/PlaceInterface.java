@@ -31,6 +31,14 @@ public interface PlaceInterface {
 
 	public String getSVGString();
 	
+	public default String getPlaceNameAppendFormat(int count) {
+		return "";
+	}
+	
+	public default boolean isAbleToBeUpgraded() {
+		return false;
+	}
+	
 	public default ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
 		return new ArrayList<>();
 	}

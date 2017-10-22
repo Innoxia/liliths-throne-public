@@ -1,7 +1,9 @@
 package com.lilithsthrone.world.places;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -17,12 +19,21 @@ public class GenericPlace implements Serializable {
 	private String name;
 	private PlaceInterface placeType;
 	private Set<PlaceUpgrade> placeUpgrades;
+	
+	public static Map<PlaceInterface, Integer> placeCountMap = new HashMap<>();
 
 	public GenericPlace(PlaceInterface placeType) {
 		this.placeType=placeType;
 		placeUpgrades = new HashSet<>();
+		
+		if(placeCountMap.containsKey(placeType)) {
+			placeCountMap.put(placeType, placeCountMap.get(placeType)+1);
+		} else {
+			placeCountMap.put(placeType, 1);
+		}
+		
 		if(placeType!=null) {
-			this.name = placeType.getName();
+			this.name = placeType.getName() + placeType.getPlaceNameAppendFormat(placeCountMap.get(placeType));
 			for(PlaceUpgrade pu : placeType.getStartingPlaceUpgrades()) {
 				placeUpgrades.add(pu);
 			}
@@ -134,6 +145,10 @@ public class GenericPlace implements Serializable {
 		}
 	}
 	
+	public boolean isAbleToBeUpgraded() {
+		return placeType.isAbleToBeUpgraded();
+	}
+	
 	public Set<PlaceUpgrade> getPlaceUpgrades() {
 		return placeUpgrades;
 	}
@@ -155,6 +170,22 @@ public class GenericPlace implements Serializable {
 			return 0;
 		}
 		return upkeep;
+	}
+	
+	public float getAffectionChange() {
+		float affectionChange = 0;
+		for(PlaceUpgrade pu : placeUpgrades) {
+			affectionChange+=pu.getAffectionGain();
+		}
+		return affectionChange;
+	}
+	
+	public float getObedienceChange() {
+		float obedienceChange = 0;
+		for(PlaceUpgrade pu : placeUpgrades) {
+			obedienceChange+=pu.getObedienceGain();
+		}
+		return obedienceChange;
 	}
 	
 

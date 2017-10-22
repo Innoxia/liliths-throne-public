@@ -15,7 +15,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.LilayasHome;
@@ -114,25 +113,44 @@ public class LilayaHomeGeneric {
 		if(index==0) {
 			return null;
 			
-		} else if (index == 1) {
+		} if (index == 1) {
 			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return new Response("Slave Manager", "Enter the slave management screen.",  MiscDialogue.getSlaveryManagementDialogue(Main.game.getPlayerCell().getPlace().getDialogue(false), null));
+				return new Response("Slavery Overview", "Open the slave management screen.",  CORRIDOR) {
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return MiscDialogue.getSlaveryOverviewDialogue();
+					}
+				};
 			} else {
-				return new Response("Slave Manager", "You'll need a slaver license before you can access this menu!",  null);
+				return new Response("Slavery Overview", "You'll need a slaver license before you can access this menu!",  null);
 			}
 			
-		} else if (index == 2) {
+		} 
+		else if (index == 2) {
 			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return new Response("Room Manager", "Enter the room upgrades options screen.", ROOM_UPGRADES);
+				return new Response("Slave List", "Enter the slave management screen.", CORRIDOR) {
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return MiscDialogue.getSlaveryManagementDialogue(Main.game.getPlayerCell().getPlace().getDialogue(false), null);
+					}
+				};
 			} else {
-				return new Response("Room Manager", "You'll need a slaver license before you can access this menu!",  null);
+				return new Response("Slave List", "You'll need a slaver license before you can access this menu!",  null);
 			}
 			
-		} else if(index-3<charactersPresent.size()) {
-			return new Response(UtilText.parse(charactersPresent.get(index-3), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-3), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+		} else if (index == 3) {
+			if(Main.game.getPlayer().isHasSlaverLicense()) {
+				return new Response("Room List", "Enter the room upgrades options screen.", MiscDialogue.ROOM_MANAGEMENT);
+			} else {
+				return new Response("Room List", "You'll need a slaver license before you can access this menu!",  null);
+			}
+			
+		}
+		else if(index-2<charactersPresent.size()) {
+			return new Response(UtilText.parse(charactersPresent.get(index-2), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-2), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 				@Override
 				public void effects() {
-					Main.game.setActiveNPC(charactersPresent.get(index-3));
+					Main.game.setActiveNPC(charactersPresent.get(index-2));
 				}
 			};
 			
@@ -140,203 +158,6 @@ public class LilayaHomeGeneric {
 			return null;
 		}
 	}
-	
-	public static final DialogueNodeOld ROOM_UPGRADES = new DialogueNodeOld("Room Management", ".", true) {
-		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayer().getLocationPlace().getName()+" Management";
-		}
-
-		@Override
-		public String getContent() {
-			
-			GenericPlace place = Main.game.getPlayer().getLocationPlace();
-			
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(
-					"<div class='SM-container'>"
-						+ "<div class='SM-title-container'>"
-							+ "<h5>General Information</h5>"
-						+ "</div>"
-						+ "<div class='SM-inner-container'>"
-							+ "<div class='SM-title-container' style='padding-bottom:0;margin-bottom:0;'>"
-								+ "<form style='float:left;'><input type='text' id='nameInput' value='"+ Main.game.getPlayerCell().getPlace().getName()+ "'></form>"
-								+ "<div class='SM-button' id='rename_room_button' style='float:left;'>"
-									+ "Rename"
-								+ "</div>"
-							+ "</div>"
-							+ "<p id='hiddenFieldName' style='display:none;'></p>"
-							+ "</br>"
-							+ "<p>"
-							+ "<b>Total capacity:</b> "+(place.getCapacity()>0
-									?"<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+place.getCapacity()+"</b></br>"
-									:"<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>0</b></br>")
-							
-							+ "<b>Total upkeep:</b> "+(place.getUpkeep()>0
-									?UtilText.formatAsMoney(place.getUpkeep(), "b", Colour.GENERIC_BAD)
-									:UtilText.formatAsMoney(place.getUpkeep(), "b", Colour.GENERIC_GOOD))+"<b>/day</b></br>");
-
-			UtilText.nodeContentSB.append("<b>Modifications:</b>");
-			if(place.getPlaceUpgrades().isEmpty()) {
-				UtilText.nodeContentSB.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>None</b>");
-				
-			} else {
-				for(PlaceUpgrade upgrade : place.getPlaceUpgrades()) {
-					UtilText.nodeContentSB.append("</br><b style='color:"+upgrade.getColour().toWebHexString()+";'>"+upgrade.getName()+"</b>"
-							+ " | <b>Affection:</b> "+(upgrade.getAffectionGain()==0
-							?"<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+upgrade.getAffectionGain()+"/day</b>"
-							:(upgrade.getAffectionGain()>0
-									?"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+"+upgrade.getAffectionGain()+"</b><b>/day "
-										+(upgrade.getAffectionCap()==null?"(No cap)":"(Capped at "+(upgrade.getAffectionCap().getMaximumValue()>0?"+":"")+upgrade.getAffectionCap().getMaximumValue()+")")+"</b>"
-									:"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+upgrade.getAffectionGain()+"</b><b>/day "
-										+(upgrade.getAffectionCap()==null?"(No cap)":"(Capped at "+(upgrade.getAffectionCap().getMinimumValue()>0?"+":"")+upgrade.getAffectionCap().getMinimumValue()+")")+"</b>"))
-					
-						+ " | <b>Obedience:</b> "+(upgrade.getObedienceGain()==0
-								?"<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+upgrade.getObedienceGain()+"/day</b>"
-								:(upgrade.getObedienceGain()>0
-										?"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+"+upgrade.getObedienceGain()+"</b><b>/day "
-											+(upgrade.getObedienceCap()==null?"(No cap)":"(Capped at "+(upgrade.getObedienceCap().getMaximumValue()>0?"+":"")+upgrade.getObedienceCap().getMaximumValue()+")")+"</b>"
-										:"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+upgrade.getObedienceGain()+"</b><b>/day "
-											+(upgrade.getObedienceCap()==null?"(No cap)":"(Capped at "+(upgrade.getObedienceCap().getMinimumValue()>0?"+":"")+upgrade.getObedienceCap().getMinimumValue()+")")+"</b>")));
-				}
-			}		
-						
-			UtilText.nodeContentSB.append(
-						"</p>"
-						+ "</div>"
-					+ "</div>"
-					+"<div class='SM-container'>"
-						+ "<div class='SM-title-container'>"
-							+ "<h5>Modifications</h5>"
-						+ "</div>");
-			
-			for(PlaceUpgrade upgrade : place.getPlaceType().getAvailablePlaceUpgrades()) {
-				UtilText.nodeContentSB.append(getRoomUpgradeDiv(place, upgrade, place.getPlaceUpgrades().contains(upgrade)));
-			}
-			
-			UtilText.nodeContentSB.append("</div>");
-			
-			return UtilText.nodeContentSB.toString();
-		}
-
-		@Override
-		public Response getResponse(int index) {
-			if (index == 0) {
-				return new Response("Back", "Exit the room upgrades screen.", ROOM_UPGRADES) {
-					@Override
-					public DialogueNodeOld getNextDialogue() {
-						return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-					}
-				};
-
-			} else {
-				return null;
-			}
-		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
-		}
-	};
-	
-	private static StringBuilder purchaseAvailability = new StringBuilder();
-	private static String getRoomUpgradeDiv(GenericPlace place, PlaceUpgrade upgrade, boolean owned) {
-		boolean availableForPurchase = upgrade.isPrerequisitesMet(place) && upgrade.isAvailable(Main.game.getPlayerCell()) && (owned?Main.game.getPlayer().getMoney()>=upgrade.getRemovalCost():Main.game.getPlayer().getMoney()>=upgrade.getInstallCost());
-		
-		purchaseAvailability.setLength(0);
-		
-		if(owned) {
-			if(Main.game.getPlayer().getMoney()<upgrade.getRemovalCost()) {
-				purchaseAvailability.append("</br><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You cannot afford to remove this modification.</span>");
-			}
-			
-		} else {
-			if(Main.game.getPlayer().getMoney()<upgrade.getInstallCost()) {
-				purchaseAvailability.append("</br><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You cannot afford this modification.</span>");
-			}
-			
-			if(!upgrade.getPrerequisites().isEmpty()) {
-				purchaseAvailability.append("</br>You need to purchase the following first:");
-				for(PlaceUpgrade prereq : upgrade.getPrerequisites()) {
-					if(place.getPlaceUpgrades().contains(prereq)) {
-						purchaseAvailability.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+prereq.getName()+"</b>");
-					} else {
-						purchaseAvailability.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+prereq.getName()+"</b>");
-					}
-				}
-			}
-		}
-		
-		String availabilityDescription = upgrade.getAvailabilityDescription(Main.game.getPlayerCell());
-		if(availabilityDescription!=null && availabilityDescription.length()>0) {
-			purchaseAvailability.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+availabilityDescription+"</b>");
-		}
-		
-		return "<div class='SM-inner-container'>"
-					+ "<div class='SM-title-container'>"
-						+ "<h5 class='SM-title' "+(upgrade.isCoreRoomUpgrade()
-															?"style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'"
-															:(owned?"style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'":""))
-													+">"+upgrade.getName()+"</h5>"
-						+ "<h5 class='SM-title' style='float:right;'>"+(upgrade.isCoreRoomUpgrade()?"[style.boldArcane(Core Modification)]":"[style.bold(Standard Modification)]")+"</h5>"
-					+"</div>"
-					+ "<p>"
-						+(owned?upgrade.getDescriptionAfterPurchase():upgrade.getDescriptionForPurchase())
-					+ "</p>"
-					+ "<p>"
-						+ (upgrade.isCoreRoomUpgrade()
-								?"This is a [style.boldArcane(core modification)], and will [style.boldBad(remove all other modifications in this room when purchased)]."
-								:"This is a [style.bold(standard modification)], and will not affect any other modifications in this room.")
-					+"</p>"
-					+ "<p>"
-						+ "<b>Room capacity:</b> "+(upgrade.getCapacity()>0
-								?"<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>+"+upgrade.getCapacity()+"</b></br>"
-								:"<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>0</b></br>")
-						
-						+ "<b>Upkeep:</b> "+(upgrade.getUpkeep()>0
-								?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>+"
-								:(upgrade.getUpkeep()==0
-										?"<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
-										:"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"))+upgrade.getUpkeep()+"</b><b>/day</b></br>"
-						
-						+ "<b>Affection modifier:</b> "+(upgrade.getAffectionGain()==0
-								?"<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+upgrade.getAffectionGain()+"/day</b></br>"
-								:(upgrade.getAffectionGain()>0
-										?"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+"+upgrade.getAffectionGain()+"</b><b>/day "
-											+(upgrade.getAffectionCap()==null?"(No cap)":"(Capped at "+(upgrade.getAffectionCap().getMaximumValue()>0?"+":"")+upgrade.getAffectionCap().getMaximumValue()+")")+"</b></br>"
-										:"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+upgrade.getAffectionGain()+"</b><b>/day "
-											+(upgrade.getAffectionCap()==null?"(No cap)":"(Capped at "+(upgrade.getAffectionCap().getMinimumValue()>0?"+":"")+upgrade.getAffectionCap().getMinimumValue()+")")+"</b></br>"))
-						
-						+ "<b>Obedience modifier:</b> "+(upgrade.getObedienceGain()==0
-								?"<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+upgrade.getObedienceGain()+"/day</b></br>"
-								:(upgrade.getObedienceGain()>0
-										?"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+"+upgrade.getObedienceGain()+"</b><b>/day "
-											+(upgrade.getObedienceCap()==null?"(No cap)":"(Capped at "+(upgrade.getObedienceCap().getMaximumValue()>0?"+":"")+upgrade.getObedienceCap().getMaximumValue()+")")+"</b>"
-										:"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+upgrade.getObedienceGain()+"</b><b>/day "
-											+(upgrade.getObedienceCap()==null?"(No cap)":"(Capped at "+(upgrade.getObedienceCap().getMinimumValue()>0?"+":"")+upgrade.getObedienceCap().getMinimumValue()+")")+"</b>"))
-						
-						+ purchaseAvailability.toString()
-						
-					+ "</p>"
-					+ "<div class='SM-button"+(availableForPurchase?"":" disabled")+"' "+(availableForPurchase?"id='"+upgrade+(owned?"_REMOVE":"_BUY")+"'":"")+" style='position:absolute; right:8px; bottom:12px;'>"
-					+ (availableForPurchase
-						?(owned
-								?"[style.colourBad(Remove)] "+UtilText.formatAsMoney(upgrade.getRemovalCost(), "span")
-								:(upgrade.isCoreRoomUpgrade()
-										?"[style.colourArcane(Buy)] "+UtilText.formatAsMoney(upgrade.getInstallCost(), "span")
-										:"[style.colourGood(Buy)] "+UtilText.formatAsMoney(upgrade.getInstallCost(), "span")))
-						:(owned
-								?"Remove "+UtilText.formatAsMoneyUncoloured(upgrade.getRemovalCost(), "span")
-								:"Buy "+UtilText.formatAsMoneyUncoloured(upgrade.getInstallCost(), "span")))
-					+ "</div>"
-				+ "</div>";
-	}
-	
-
 	
 	private static StringBuilder roomSB = new StringBuilder();
 	private static String getRoomModificationsDescription() {
@@ -394,6 +215,11 @@ public class LilayaHomeGeneric {
 		@Override
 		public int getMinutesPassed() {
 			return 1;
+		}
+		
+		@Override
+		public String getLabel() {
+			return Main.game.getPlayer().getLocationPlace().getName();
 		}
 
 		@Override
@@ -626,7 +452,7 @@ public class LilayaHomeGeneric {
 								+ "</p>";
 						
 						Main.game.getDialogueFlags().auntHomeJustEntered = false;
-						Main.game.getRose().setLocation(Main.game.getActiveWorld().getWorldType(), Main.game.getPlayer().getLocation());
+						Main.game.getRose().setLocation(Main.game.getActiveWorld().getWorldType(), Main.game.getPlayer().getLocation(), false);
 					}
 				};
 				
@@ -1112,7 +938,7 @@ public class LilayaHomeGeneric {
 					@Override
 					public void effects() {
 						askedAboutDuties = false;
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
 					}
 					
 					@Override

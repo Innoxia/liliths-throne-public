@@ -12,6 +12,7 @@ import java.util.Comparator;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.KeyboardAction;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
@@ -1199,7 +1200,7 @@ public class OptionsDialogue {
 		}
 	};
 	
-	
+	public static int[] forcedTFsettings = new int[] {0, 10, 40, 70, 100};
 	public static final DialogueNodeOld CONTENT_PREFERENCE = new DialogueNodeOld("Content Options", "", true) {
 		private static final long serialVersionUID = 1L;
 		
@@ -1207,58 +1208,102 @@ public class OptionsDialogue {
 		public String getHeaderContent(){
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append("<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>");
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"NON_CON",
-					Colour.BASE_CRIMSON,
-					"Non-consent",
-					"This enables the 'resist' pace in sex scenes, which contains some more extreme non-consensual descriptions.",
-					Main.getProperties().nonConContent));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"INCEST",
-					Colour.BASE_ROSE,
-					"Incest",
-					"This will enable sexual actions with all of your blood-relatives.",
-					Main.getProperties().incestContent));
-
-			UtilText.nodeContentSB.append("</div><div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>");
-			
-
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"HAIR_FACIAL",
-					Colour.BASE_LILAC_LIGHT,
-					"Facial hair",
-					"This enables facial hair descriptions and content.",
-					Main.getProperties().facialHairContent));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"HAIR_PUBIC",
-					Colour.BASE_LILAC,
-					"Pubic hair",
-					"This enables pubic hair descriptions and content.",
-					Main.getProperties().pubicHairContent));
-
-			UtilText.nodeContentSB.append("</div><div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>");
-			
-			
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"HAIR_BODY",
-					Colour.BASE_PURPLE,
-					"Extra body hair",
-					"This enables body hair descriptions and content for armpits and assholes.",
-					Main.getProperties().bodyHairContent));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"FURRY_TAIL_PENETRATION",
-					Colour.BASE_MAGENTA,
-					"Furry tail penetrations",
-					"This enables furry tails to engage in penetrative actions in sex.",
-					Main.getProperties().furryTailPenetrationContent));
-
-			UtilText.nodeContentSB.append("</div>");
+			UtilText.nodeContentSB.append(
+				"<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+					+getContentPreferenceDiv(
+							"NON_CON",
+							Colour.BASE_CRIMSON,
+							"Non-consent",
+							"This enables the 'resist' pace in sex scenes, which contains some more extreme non-consensual descriptions.",
+							Main.getProperties().nonConContent)
+					+getContentPreferenceDiv(
+							"INCEST",
+							Colour.BASE_ROSE,
+							"Incest",
+							"This will enable sexual actions with all of your blood-relatives.",
+							Main.getProperties().incestContent)
+				+"</div>"
+				
+				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+					+getContentPreferenceDiv(
+							"HAIR_FACIAL",
+							Colour.BASE_LILAC_LIGHT,
+							"Facial hair",
+							"This enables facial hair descriptions and content.",
+							Main.getProperties().facialHairContent)
+					+getContentPreferenceDiv(
+							"HAIR_PUBIC",
+							Colour.BASE_LILAC,
+							"Pubic hair",
+							"This enables pubic hair descriptions and content.",
+							Main.getProperties().pubicHairContent)
+				+"</div>"
+				
+				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+					+getContentPreferenceDiv(
+						"HAIR_BODY",
+						Colour.BASE_PURPLE,
+						"Extra body hair",
+						"This enables body hair descriptions and content for armpits and assholes.",
+						Main.getProperties().bodyHairContent)
+					
+					+"<div class='cosmetics-inner-container'>"
+						+ "<h5 style='text-align:center; color:"+Colour.BASE_GREEN.toWebHexString()+";'>"
+							+ "Forced TF"
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ "This sets the amount of NPCs spawning with the '"+Fetish.FETISH_TRANSFORMATION_GIVING.getName(null)+"' fetish, which causes them to try and forcibly transform you after beating you in combat."
+						+ "</p>"
+						+(Main.getProperties().forcedTFPercentage==forcedTFsettings[0]
+							?"<div class='cosmetics-button active'>"
+									+ "[style.boldGood("+forcedTFsettings[0]+"%)]"
+									+ "</div>"
+							:"<div id='FORCED_TF_"+forcedTFsettings[0]+"' class='cosmetics-button'>"
+									+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+forcedTFsettings[0]+"%</span>"
+									+ "</div>")
+						+(Main.getProperties().forcedTFPercentage==forcedTFsettings[1]
+								?"<div class='cosmetics-button active'>"
+										+ "[style.boldGood("+forcedTFsettings[1]+"%)]"
+										+ "</div>"
+								:"<div id='FORCED_TF_"+forcedTFsettings[1]+"' class='cosmetics-button'>"
+										+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+forcedTFsettings[1]+"%</span>"
+										+ "</div>")
+						+(Main.getProperties().forcedTFPercentage==forcedTFsettings[2]
+								?"<div class='cosmetics-button active'>"
+										+ "[style.boldGood("+forcedTFsettings[2]+"%)]"
+										+ "</div>"
+								:"<div id='FORCED_TF_"+forcedTFsettings[2]+"' class='cosmetics-button'>"
+										+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+forcedTFsettings[2]+"%</span>"
+										+ "</div>")
+						+(Main.getProperties().forcedTFPercentage==forcedTFsettings[3]
+								?"<div class='cosmetics-button active'>"
+										+ "[style.boldGood("+forcedTFsettings[3]+"%)]"
+										+ "</div>"
+								:"<div id='FORCED_TF_"+forcedTFsettings[3]+"' class='cosmetics-button'>"
+										+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+forcedTFsettings[3]+"%</span>"
+										+ "</div>")
+						+(Main.getProperties().forcedTFPercentage==forcedTFsettings[4]
+								?"<div class='cosmetics-button active'>"
+										+ "[style.boldGood("+forcedTFsettings[4]+"%)]"
+										+ "</div>"
+								:"<div id='FORCED_TF_"+forcedTFsettings[4]+"' class='cosmetics-button'>"
+										+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+forcedTFsettings[4]+"%</span>"
+										+ "</div>")
+					+ "</div>"
+				+"</div>"
+				
+				
+				
+				
+				
+				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+					+getContentPreferenceDiv(
+						"FURRY_TAIL_PENETRATION",
+						Colour.BASE_MAGENTA,
+						"Furry tail penetrations",
+						"This enables furry tails to engage in penetrative actions in sex.",
+						Main.getProperties().furryTailPenetrationContent)
+				+"</div>");
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1270,71 +1315,7 @@ public class OptionsDialogue {
 		
 		@Override
 		public Response getResponse(int index) {
-//			if (index == 1) {
-//				return new Response("Non-con", "Toggle non-consensual content on or off.", CONTENT_PREFERENCE) {
-//					@Override
-//					public void effects() {
-//						Main.getProperties().nonConContent = !Main.getProperties().nonConContent;
-//						Main.saveProperties();
-//					}
-//				};
-//				
-//			} else if (index == 2) {
-//				return new Response("Incest", "Toggle incest encounters on or off.", CONTENT_PREFERENCE) {
-//					@Override
-//					public void effects() {
-//						Main.getProperties().incestContent = !Main.getProperties().incestContent;
-//						Main.saveProperties();
-//					}
-//				};
-//				
-//			} else if (index == 3) {
-//				return new Response("Forced TF", "Toggle forced TF content on or off.", CONTENT_PREFERENCE) {
-//					@Override
-//					public void effects() {
-//						Main.getProperties().forcedTransformationContent = !Main.getProperties().forcedTransformationContent;
-//						Main.saveProperties();
-//					}
-//				};
-//				
-//			} else if (index == 4) {
-//				return new Response("Facial hair", "Toggle facial hair content on or off.", CONTENT_PREFERENCE) {
-//					@Override
-//					public void effects() {
-//						Main.getProperties().facialHairContent = !Main.getProperties().facialHairContent;
-//						Main.saveProperties();
-//					}
-//				};
-//				
-//			} else if (index == 5) {
-//				return new Response("Pubic hair", "Toggle pubic hair content on or off.", CONTENT_PREFERENCE) {
-//					@Override
-//					public void effects() {
-//						Main.getProperties().pubicHairContent = !Main.getProperties().pubicHairContent;
-//						Main.saveProperties();
-//					}
-//				};
-//				
-//			} else if (index == 6) {
-//				return new Response("Full body hair", "Toggle body hair content on or off.", CONTENT_PREFERENCE) {
-//					@Override
-//					public void effects() {
-//						Main.getProperties().bodyHairContent = !Main.getProperties().bodyHairContent;
-//						Main.saveProperties();
-//					}
-//				};
-//				
-//			} else if (index == 7) {
-//				return new Response("Furry tail pen.", "Toggle furry tail penetrations on or off.", CONTENT_PREFERENCE) {
-//					@Override
-//					public void effects() {
-//						Main.getProperties().furryTailPenetrationContent = !Main.getProperties().furryTailPenetrationContent;
-//						Main.saveProperties();
-//					}
-//				};
-//				
-//			} else
-				if (index == 0) {
+			if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", MENU);
 				
 			} else {

@@ -42,7 +42,7 @@ public class SlaveDialogue {
 								+ " [npc.speech(Y-You got me pregnant...)]"
 							+ "</p>"
 							+ "<p>"
-							+ (Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()
+							+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
 								?"You can tell that [npc.she]'s attracted to you..."
 								:"[npc.She] doesn't show any interest in being attracted to you.")
 							+ "</p>";
@@ -56,7 +56,7 @@ public class SlaveDialogue {
 								+ " [npc.speech(I'm looking after our children...)]"
 							+ "</p>"
 							+ "<p>"
-							+ (Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()
+							+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
 								?"You can tell that [npc.she]'s attracted to you..."
 								:"[npc.She] doesn't show any interest in being attracted to you.")
 							+ "</p>";
@@ -71,7 +71,7 @@ public class SlaveDialogue {
 							+ "[npc.Name] greets you, [npc.speech(Hello [npc.pcName]...)]"
 						+ "</p>"
 						+ "<p>"
-						+ (Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()
+						+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
 							?"You can tell that [npc.she]'s attracted to you..."
 							:"[npc.She] doesn't show any interest in being attracted to you.")
 						+ "</p>";
@@ -197,7 +197,7 @@ public class SlaveDialogue {
 				}
 				
 			} else if (index == 5) {
-				if(Main.game.isNonConEnabled() && !Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()) {
+				if(Main.game.isNonConEnabled() && !Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
 					return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
 							AFTER_SEX,
 							false, true, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
@@ -243,7 +243,7 @@ public class SlaveDialogue {
 	
 	private static String getFooterText() {
 		return "<p>"
-					+ (Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()
+					+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
 						?"[npc.She] keeps glancing at your body..."
 						:"[npc.She] doesn't show any interest in being attracted to you.")
 				+ "</p>";
@@ -473,7 +473,7 @@ public class SlaveDialogue {
 
 		@Override
 		public String getContent() {
-			if(!Main.game.getActiveNPC().isWantsToHaveSexWithPlayer() && Main.game.isNonConEnabled()) {
+			if(!Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a thankful sob as [npc.she] realises that you've finished."

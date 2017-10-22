@@ -1247,7 +1247,7 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.GENERIC_ARCANE.getName()+" glow of an arcane essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceArcane",
 			Colour.GENERIC_ARCANE,
-			50,
+			25,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ARCANE, null, null, null, 0)))) {
@@ -1292,7 +1292,7 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_CAT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a cat-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceCatMorph",
 			Colour.RACE_CAT_MORPH,
-			10,
+			50,
 			Rarity.COMMON,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_CAT_MORPH, null, null, null, 0)))) {
@@ -1338,7 +1338,7 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_COW_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a cow-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceCowMorph",
 			Colour.RACE_COW_MORPH,
-			10,
+			50,
 			Rarity.COMMON,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_COW_MORPH, null, null, null, 0)))) {
@@ -1429,7 +1429,7 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_SQUIRREL_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a squirrel-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceSquirrelMorph",
 			Colour.RACE_SQUIRREL_MORPH,
-			10,
+			50,
 			Rarity.COMMON,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SQUIRREL_MORPH, null, null, null, 0)))) {
@@ -1474,7 +1474,7 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_DOG_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a dog-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceDogMorph",
 			Colour.RACE_DOG_MORPH,
-			10,
+			50,
 			Rarity.COMMON,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DOG_MORPH, null, null, null, 0)))) {
@@ -1564,7 +1564,7 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_HORSE_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a horse-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceHorseMorph",
 			Colour.RACE_HORSE_MORPH,
-			10,
+			50,
 			Rarity.COMMON,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HORSE_MORPH, null, null, null, 0)))) {
@@ -1609,7 +1609,7 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_HUMAN.getName()+" glow of an arcane essence, imbued with the energy of a human, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceHuman",
 			Colour.RACE_HUMAN,
-			10,
+			50,
 			Rarity.COMMON,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HUMAN, null, null, null, 0)))) {
@@ -1654,7 +1654,7 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_WOLF_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a wolf-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceWolfMorph",
 			Colour.RACE_WOLF_MORPH,
-			10,
+			50,
 			Rarity.COMMON,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_WOLF_MORPH, null, null, null, 0)))) {
@@ -2199,10 +2199,7 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.MOTHERS_MILK, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -2236,10 +2233,7 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_CAT_MORPH, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2265,7 +2259,7 @@ public class ItemType {
 	};
 	
 
-		public static AbstractItemType BOOK_COW_MORPH = new AbstractItemType( //TODO
+	public static AbstractItemType BOOK_COW_MORPH = new AbstractItemType(
 			null,
 			false,
 			"Milking Cows",
@@ -2330,11 +2324,6 @@ public class ItemType {
 		}
 		
 		@Override
-		public boolean canBeSold() {
-			return false;
-		}
-		
-		@Override
 		public String getUseName() {
 			return "read";
 		}
@@ -2360,10 +2349,7 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_DOG_MORPH, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2373,11 +2359,6 @@ public class ItemType {
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
 			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
-		public boolean canBeSold() {
-			return false;
 		}
 		
 		@Override
@@ -2406,10 +2387,7 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HARPY, null, null, null, 0)))) {
 		
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2419,11 +2397,6 @@ public class ItemType {
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
 			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
-		public boolean canBeSold() {
-			return false;
 		}
 		
 		@Override
@@ -2452,10 +2425,7 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HORSE_MORPH, null, null, null, 0)))) {
 		
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2465,11 +2435,6 @@ public class ItemType {
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
 			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
-		public boolean canBeSold() {
-			return false;
 		}
 		
 		@Override
@@ -2498,10 +2463,7 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HUMAN, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2511,11 +2473,6 @@ public class ItemType {
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
 			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
-		public boolean canBeSold() {
-			return false;
 		}
 		
 		@Override
@@ -2544,10 +2501,7 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_SQUIRREL_MORPH, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2585,10 +2539,7 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_WOLF_MORPH, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2598,11 +2549,6 @@ public class ItemType {
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
 			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
-		public boolean canBeSold() {
-			return false;
 		}
 		
 		@Override

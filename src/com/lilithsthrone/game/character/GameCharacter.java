@@ -96,6 +96,7 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryAttributeChange;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
+import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -117,16 +118,19 @@ import com.lilithsthrone.game.sex.PregnancyDescriptor;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.game.slavery.SlaveJobSettings;
+import com.lilithsthrone.game.slavery.SlavePermission;
+import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.Dominion;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceInterface;
-import com.lilithsthrone.world.places.PlaceUpgrade;
+import com.lilithsthrone.world.places.SlaverAlley;
 
 /**
  * The class for all the game's characters. I think this is the biggest class in the game.
@@ -158,8 +162,10 @@ public class GameCharacter implements Serializable, XMLSaving {
 	private int experience, levelUpPoints, perkPoints;
 	
 	protected WorldType worldLocation;
+	protected WorldType homeWorldLocation;
 	protected PlaceInterface startingPlace;
 	protected Vector2i location;
+	protected Vector2i homeLocation;
 	
 	protected Body body;
 	protected CharacterInventory inventory;
@@ -180,6 +186,9 @@ public class GameCharacter implements Serializable, XMLSaving {
 	
 	protected SlaveJob slaveJob;
 	protected List<SlaveJobSettings> slaveJobSettings;
+	protected Map<SlavePermission, Set<SlavePermissionSetting>> slavePermissionSettings;
+	
+	protected boolean[] workHours;
 	
 	// Family:
 	protected GameCharacter mother, father;
@@ -248,8 +257,13 @@ public class GameCharacter implements Serializable, XMLSaving {
 		this.level = level;
 		
 		this.worldLocation = worldLocation;
+		this.homeWorldLocation = worldLocation;
 		this.startingPlace = startingPlace;
 		location = new Vector2i(0, 0);
+		
+		this.setWorldLocation(worldLocation);
+		this.setLocation(Main.game.getWorlds().get(worldLocation).getCell(startingPlace).getLocation());
+		homeLocation = location;
 		
 		history = History.UNEMPLOYED;
 		personality = startingRace.getPersionality();
@@ -265,6 +279,17 @@ public class GameCharacter implements Serializable, XMLSaving {
 		
 		slaveJob = SlaveJob.IDLE;
 		slaveJobSettings = new ArrayList<>();
+		slavePermissionSettings = new HashMap<>();
+		for(SlavePermission permission : SlavePermission.values()) {
+			slavePermissionSettings.put(permission, new HashSet<>());
+			for(SlavePermissionSetting setting : permission.getSettings()) {
+				if(setting.isDefaultValue()) {
+					slavePermissionSettings.get(permission).add(setting);
+				}
+			}
+		}
+		
+		workHours = new boolean[24];
 		
 		mother = null;
 		father = null;
@@ -926,6 +951,9 @@ public class GameCharacter implements Serializable, XMLSaving {
 	public String getMapIcon() {
 		return getRace().getStatusEffect().getSVGString(this);
 	}
+	public String getHomeMapIcon() {
+		return getRace().getStatusEffect().getSVGStringDesaturated(this);
+	}
 
 	public String speech(String text) {
 		return UtilText.parseSpeech(text, this);
@@ -1170,38 +1198,43 @@ public class GameCharacter implements Serializable, XMLSaving {
 					+ "</p>");
 	}
 	
-	public float getDailyObedienceChange() {
-		// Forgive me, for I am tired x_x
-		
-		float obedienceTrack = getObedience();
-		
-		for(PlaceUpgrade upgrade : this.getLocationPlace().getPlaceUpgrades()) {
-			if(upgrade.getObedienceCap()==null) {
-				obedienceTrack += upgrade.getObedienceGain();
-				
-			} else {
-				if(upgrade.getObedienceGain()>0) {
-					if(getObedience() < upgrade.getObedienceCap().getMaximumValue()) {
-						if(getObedience() + upgrade.getObedienceGain() > upgrade.getObedienceCap().getMaximumValue()) {
-							obedienceTrack = upgrade.getObedienceCap().getMaximumValue();
-						} else {
-							obedienceTrack += upgrade.getObedienceGain();
-						}
-					}
-					
-				} else if(upgrade.getObedienceGain()<0) {
-					if(getObedience() > upgrade.getObedienceCap().getMinimumValue()) {
-						if(getObedience() + upgrade.getObedienceGain() < upgrade.getObedienceCap().getMinimumValue()) {
-							obedienceTrack = upgrade.getObedienceCap().getMinimumValue();
-						} else {
-							obedienceTrack += upgrade.getObedienceGain();
-						}
-					}
-				}
+	public float getHourlyObedienceChange(int hour) {
+		if(this.workHours[hour]) {
+			if(this.getSlaveJob()==SlaveJob.IDLE) {
+				return this.getHomeLocationPlace().getObedienceChange();
 			}
+			return this.getSlaveJob().getObedienceGain();
+		}
+
+		return this.getHomeLocationPlace().getObedienceChange();
+	}
+	
+	public float getDailyObedienceChange() {
+		float totalObedienceChange = 0;
+		
+		for (int workHour = 0; workHour < this.getTotalHoursWorked(); workHour++) {
+			if(this.getSlaveJob()==SlaveJob.IDLE) {
+				totalObedienceChange+=this.getHomeLocationPlace().getObedienceChange();
+			}
+			totalObedienceChange+=this.getSlaveJob().getObedienceGain();
+			
 		}
 		
-		return obedienceTrack - getObedience();
+		for (int homeHour = 0; homeHour < 24-this.getTotalHoursWorked(); homeHour++) {
+			totalObedienceChange+=this.getHomeLocationPlace().getObedienceChange();
+		}
+		// To get rid of e.g. 2.3999999999999999999999:
+		return Math.round(totalObedienceChange*100)/100;
+	}
+	
+	public int getSlavesWorkingJob(SlaveJob job) {
+		int i=0;
+			for(NPC slave : this.getSlavesOwned()) {
+				if(slave.getSlaveJob()==job) {
+					i++;
+				}
+			}
+		return i;
 	}
 	
 	public int getValueAsSlave() {
@@ -1218,24 +1251,77 @@ public class GameCharacter implements Serializable, XMLSaving {
 		return slaveJob;
 	}
 
-
-
 	public void setSlaveJob(SlaveJob slaveJob) {
+		slaveJobSettings.clear();
 		this.slaveJob = slaveJob;
 	}
-
-
-
+	
+	public boolean addSlaveJobSettings(SlaveJobSettings setting) {
+		return slaveJobSettings.add(setting);
+	}
+	
+	public boolean removeSlaveJobSettings(SlaveJobSettings setting) {
+		return slaveJobSettings.remove(setting);
+	}
+	
 	public List<SlaveJobSettings> getSlaveJobSettings() {
 		return slaveJobSettings;
 	}
-
-
-
-	public void setSlaveJobSettings(List<SlaveJobSettings> slaveJobSettings) {
-		this.slaveJobSettings = slaveJobSettings;
+	
+	public boolean addSlavePermissionSetting(SlavePermission permission, SlavePermissionSetting setting) {
+		if(permission.isMutuallyExclusiveSettings()) {
+			slavePermissionSettings.get(permission).clear();
+		}
+		return slavePermissionSettings.get(permission).add(setting);
 	}
-
+	
+	public boolean removeSlavePermissionSetting(SlavePermission permission, SlavePermissionSetting setting) {
+		if(permission.isMutuallyExclusiveSettings()) {
+			System.err.println("You cannot remove a setting from a mutually exclusive settings list!");
+			return false;
+		}
+		return slavePermissionSettings.get(permission).remove(setting);
+	}
+	
+	public boolean hasSlavePermissionSetting(SlavePermissionSetting setting) {
+		for(SlavePermission permission : SlavePermission.values()) {
+			if(slavePermissionSettings.get(permission).contains(setting)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Map<SlavePermission, Set<SlavePermissionSetting>> getSlavePermissionSettings() {
+		return slavePermissionSettings;
+	}
+	
+	public void resetWorkHours() {
+		for(int i = 0 ; i<workHours.length ; i++) {
+			workHours[i] = false;
+		}
+	}
+	
+	public boolean[] getWorkHours() {
+		return workHours;
+	}
+	
+	public void setWorkHour(int i, boolean isWorking) {
+		workHours[i] = isWorking;
+	}
+	
+	public int getTotalHoursWorked() {
+		if(this.getSlaveJob()==SlaveJob.IDLE) {
+			return 24;
+		}
+		int count = 0;
+		for(int i = 0 ; i<workHours.length ; i++) {
+			if(workHours[i]) {
+				count++;
+			}
+		}
+		return count;
+	}
 
 
 	// Affection:
@@ -1328,6 +1414,42 @@ public class GameCharacter implements Serializable, XMLSaving {
 	
 	public List<NPC> getSlavesOwned() {
 		return slavesOwned;
+	}
+	
+	public int getNumberOfSlavesIdle() {
+		int i=0;
+		for(NPC slave : slavesOwned) {
+			if(slave.getSlaveJob()==SlaveJob.IDLE) {
+				i++;
+			}
+		}
+		return i;
+	}
+	
+	public int getNumberOfSlavesInAdministration() {
+		int i=0;
+		for(NPC slave : slavesOwned) {
+			if(slave.getLocationPlace().getPlaceType() == SlaverAlley.SLAVERY_ADMINISTRATION) {
+				i++;
+			}
+		}
+		return i;
+	}
+	
+	public int getSlaveryTotalDailyIncome() {
+		int i=0;
+		for(NPC slave : slavesOwned) {
+			i += slave.getSlaveJob().getFinalDailyIncomeAfterModifiers(slave);
+		}
+		return i;
+	}
+	
+	public int getSlaveryTotalDailyUpkeep() {
+		int i=0;
+		for(Cell c : MiscDialogue.importantCells) {
+			i += c.getPlace().getUpkeep();
+		}
+		return i;
 	}
 	
 	public boolean addSlave(NPC slave) {
@@ -1562,12 +1684,19 @@ public class GameCharacter implements Serializable, XMLSaving {
 		return value;
 	}
 
-
 	public String setAttribute(Attribute att, float value) {
+		return setAttribute(att, value, true);
+	}
+	
+	public String setAttribute(Attribute att, float value, boolean appendAttributeChangeText) {
 		return incrementAttribute(att, value - attributes.get(att));
 	}
 
 	public String incrementAttribute(Attribute att, float increment) {
+		return incrementAttribute(att, increment, true);
+	}
+	
+	public String incrementAttribute(Attribute att, float increment, boolean appendAttributeChangeText) {
 		float value = attributes.get(att) + increment;
 
 		// For handling health, mana and stamina changes as a result of an
@@ -1586,7 +1715,7 @@ public class GameCharacter implements Serializable, XMLSaving {
 		attributes.put(att, value);
 		
 		if(isPlayer() && att != Attribute.AROUSAL) {
-			Main.game.addEvent(new EventLogEntryAttributeChange(att, increment, true), true);
+			Main.game.addEvent(new EventLogEntryAttributeChange(att, increment, true), appendAttributeChangeText);
 		}
 
 		// Increment health, mana and stamina based on the change:
@@ -2430,11 +2559,13 @@ public class GameCharacter implements Serializable, XMLSaving {
 		if (withBirth) {
 			Litter birthedLitter = pregnantLitter;
 			
-			for(NPC npc: birthedLitter.getOffspring()) {
-				Main.game.getOffspring().add(npc);
-				birthedLitter.setDayOfBirth(Main.game.getDayNumber());
-				npc.setDayOfConception(birthedLitter.getDayOfConception());
-				npc.setDayOfBirth(Main.game.getDayNumber());
+			if(birthedLitter.getFather().isPlayer() || birthedLitter.getMother().isPlayer()) {
+				for(NPC npc: birthedLitter.getOffspring()) {
+					Main.game.getOffspring().add(npc);
+					birthedLitter.setDayOfBirth(Main.game.getDayNumber());
+					npc.setDayOfConception(birthedLitter.getDayOfConception());
+					npc.setDayOfBirth(Main.game.getDayNumber());
+				}
 			}
 			
 			littersBirthed.add(birthedLitter);
@@ -2502,7 +2633,11 @@ public class GameCharacter implements Serializable, XMLSaving {
 
 		updateLocationListeners();
 	}
-
+	
+	public Vector2i getHomeLocation() {
+		return homeLocation;
+	}
+	
 	public WorldType getWorldLocation() {
 		return worldLocation;
 	}
@@ -2511,12 +2646,46 @@ public class GameCharacter implements Serializable, XMLSaving {
 		this.worldLocation = worldLocation;
 	}
 	
+	public WorldType getHomeWorldLocation() {
+		return homeWorldLocation;
+	}
+	
 	public GenericPlace getLocationPlace() {
 		return Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getPlace();
 	}
 	
+	public GenericPlace getHomeLocationPlace() {
+		return Main.game.getWorlds().get(getHomeWorldLocation()).getCell(getHomeLocation()).getPlace();
+	}
+	
 	public PlaceInterface getStartingPlace() {
 		return startingPlace;
+	}
+	
+	public void setLocation(WorldType worldType, Vector2i location, boolean setAsHomeLocation) {
+		setWorldLocation(worldType);
+		setLocation(location);
+		if(setAsHomeLocation) {
+			setHomeLocation(worldType, location);
+		}
+	}
+	
+	public void setLocation(WorldType worldType, PlaceInterface placeType, boolean setAsHomeLocation) {
+		setLocation(worldType, Main.game.getWorlds().get(worldType).getCell(placeType).getLocation(), setAsHomeLocation);
+	}
+	
+	public void setHomeLocation(WorldType homeWorldLocation, PlaceInterface placeType) {
+		this.homeWorldLocation = homeWorldLocation;
+		this.homeLocation = Main.game.getWorlds().get(homeWorldLocation).getCell(placeType).getLocation();
+	}
+	
+	public void setHomeLocation(WorldType homeWorldLocation, Vector2i location) {
+		this.homeWorldLocation = homeWorldLocation;
+		this.homeLocation = location;
+	}
+	
+	public void returnToHome() {
+		setLocation(homeWorldLocation, homeLocation, true);
 	}
 
 	public int getLevel() {
@@ -3280,6 +3449,16 @@ public class GameCharacter implements Serializable, XMLSaving {
 	}
 
 
+	/**
+	 * <b>Warning:</b> Passing in a DisplacementType that isn't present for the passed in clothing *might* throw a null pointer exception...
+	 * 
+	 * @param clothing The clothing that is to be checked for displacement.
+	 * @param dt The type of displacement to perform upon this clothing.
+	 * @param displaceIfAble If true, the clothing will be displaced (if it's able to be displaced). If false, this method can just be used as a boolean check to see if it's able to be displaced without actually displacing it.
+	 * @param automaticClothingManagement If true, other clothing will be moved aside to get access to the clothing that needs to be displaced. If false, then if other clothing is blocking this clothing from being displaced, this method will return false.
+	 * @param characterClothingDisplacer The character who is performing the displacement action.
+	 * @return True if the clothing can be displaced, false if it can't/
+	 */
 	public boolean isAbleToBeDisplaced(AbstractClothing clothing, DisplacementType dt, boolean displaceIfAble, boolean automaticClothingManagement, GameCharacter characterClothingDisplacer) {
 		boolean wasAbleToDisplace = inventory.isAbleToBeDisplaced(clothing, dt, displaceIfAble, automaticClothingManagement, this, characterClothingDisplacer);
 
@@ -6021,7 +6200,7 @@ public class GameCharacter implements Serializable, XMLSaving {
 		return body.getFace().getTongue().addTongueModifier(this, modifier);
 	}
 	public String removeTongueModifier(TongueModifier modifier) {
-		return body.getFace().getTongue().addTongueModifier(this, modifier);
+		return body.getFace().getTongue().removeTongueModifier(this, modifier);
 	}
 	
 	

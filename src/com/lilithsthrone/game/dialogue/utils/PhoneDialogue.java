@@ -617,7 +617,7 @@ public class PhoneDialogue {
 							Colour.TEXT, String.valueOf(Main.game.getPlayer().getFemininityValue()),
 							Main.game.getPlayer().getFemininity().getColour(), Util.capitaliseSentence(Main.game.getPlayer().getFemininity().getName(false)),
 							true)
-					+ statRow(Colour.TRANSFORMATION_GENERIC, "Height (inches)",
+					+ statRow(Colour.TRANSFORMATION_GENERIC, "Height (cm)",
 							Colour.TEXT, String.valueOf(Main.game.getPlayer().getHeightValue()),
 							Main.game.getPlayer().getHeight().getColour(), Util.capitaliseSentence(Main.game.getPlayer().getHeight().getDescriptor()),
 							false)
@@ -1239,6 +1239,52 @@ public class PhoneDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("<p>You have encountered the following characters in your travels:</p>");
+			
+			for (int i = 0; i < Main.game.getPlayer().getCharactersEncountered().size(); i++) {
+				UtilText.nodeContentSB.append("<p>" + Main.game.getPlayer().getCharactersEncountered().get(i).getName() + "</p>");
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			if (index == 0) {
+				return new Response("Back", "Return to the phone's main menu.", MENU);
+			
+			} else if (index <= Main.game.getPlayer().getCharactersEncountered().size()) {
+				return new Response(Util.capitaliseSentence(Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName()),
+						"Take a detailed look at what " + Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName("the") + " looks like.",
+						CONTACTS_CHARACTER){
+					@Override
+					public void effects() {
+						CharactersPresentDialogue.characterViewed = Main.game.getPlayer().getCharactersEncountered().get(index - 1);
+						
+						title = Util.capitaliseSentence(Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName());
+						content = NPC.getCharacterInformationScreen((NPC) Main.game.getPlayer().getCharactersEncountered().get(index - 1));
+						
+					}
+				};
+			
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.PHONE;
+		}
+	};
+	
+	public static final DialogueNodeOld CONTACTS_CHARACTER = new DialogueNodeOld("Contacts", "Look at your contacts.", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
 		public String getLabel() {
 			return title;
 		}
@@ -1256,7 +1302,7 @@ public class PhoneDialogue {
 			} else if (index <= Main.game.getPlayer().getCharactersEncountered().size()) {
 				return new Response(Util.capitaliseSentence(Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName()),
 						"Take a detailed look at what " + Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName("the") + " looks like.",
-						CONTACTS){
+						CONTACTS_CHARACTER){
 					@Override
 					public void effects() {
 						CharactersPresentDialogue.characterViewed = Main.game.getPlayer().getCharactersEncountered().get(index - 1);

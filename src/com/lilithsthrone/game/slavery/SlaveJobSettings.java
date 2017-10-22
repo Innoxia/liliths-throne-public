@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.slavery;
 
+import com.lilithsthrone.utils.Colour;
+
 /**
  * @since 0.1.87
  * @version 0.1.87
@@ -7,36 +9,49 @@ package com.lilithsthrone.game.slavery;
  */
 public enum SlaveJobSettings {
 	
-	TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE("Allow Female Transformations", "Allow Lilaya to perform female-related transformations on this slave.", 100),
-	TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE("Allow Male Transformations", "Allow Lilaya to perform male-related transformations on this slave.", 100);
+	SEX_ORAL(Colour.GENERIC_SEX, "Allow Oral", "Oral", "Allow this slave to perform oral on others."),
+	SEX_VAGINAL(Colour.GENERIC_SEX, "Allow Vaginal", "Vaginal", "Allow this slave to receive vaginal sex (if they have a vagina)."),
+	SEX_ANAL(Colour.GENERIC_SEX, "Allow Anal", "Anal", "Allow this slave to receive anal sex."),
+	SEX_NIPPLES(Colour.GENERIC_SEX, "Allow Nipple Penetration", "Nipples", "Allow this slave to receive penetrative nipple sex (if they have penetrable nipples)."),
+	SEX_PROMISCUITY_PILLS(Colour.GENERIC_SEX, "Promiscuity Pills", "PP", "Keep this slave on Promiscuity Pills, ensuring that they won't get pregnant."),
+	SEX_VIXENS_VIRILITY(Colour.GENERIC_SEX, "Vixen's Virility", "VV", "Keep this slave on Vixen's Virility, greatly increasing the chances of them getting pregnant."),
 	
+	TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE(Colour.FEMININE, "Feminine Transformations", "TF (F)", "Allow Lilaya to perform feminine transformations on this slave."),
+	TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE(Colour.MASCULINE, "Masculine Transformations", "TF (M)", "Allow Lilaya to perform masculine transformations on this slave.");
+	
+	private Colour colour;
 	private String name;
+	private String tag;
 	private String description;
-	private float incomeBonus;
 	
-	private SlaveJobSettings(String name, String description, float incomeBonus) {
+	private SlaveJobSettings(Colour colour, String name, String tag, String description) {
+		this.colour = colour;
 		this.name = name;
+		this.tag = tag;
 		this.description = description;
-		this.incomeBonus = incomeBonus;
+	}
+
+	public Colour getColour() {
+		return colour;
 	}
 
 	public String getName() {
 		return name;
 	}
+	
+	public String getTag() {
+		return tag;
+	}
 
 	public String getDescription() {
 		return description;
 	}
-
-	public float getIncomeBonus() {
-		return incomeBonus;
-	}
 	
-	public String getExtraEffectsDescription() {
+	public String getDailyEffectsDescription() {
 		return null;
 	}
 	
-	public String applyExtraEffects() {
+	public String applyDailyEffects() {
 		return null;
 	}
 	

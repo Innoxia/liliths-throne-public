@@ -4,8 +4,10 @@ import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -77,6 +79,9 @@ public class Vicky extends NPC {
 		this.setVaginaVirgin(false);
 		this.setVaginaCapacity(Capacity.FIVE_ROOMY.getMedianValue());
 		this.setBreastSize(CupSize.C.getMeasurement());
+
+		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
 		
 		this.setMoney(10);
 		

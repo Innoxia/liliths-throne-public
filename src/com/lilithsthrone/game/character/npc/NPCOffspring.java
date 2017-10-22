@@ -193,7 +193,7 @@ public class NPCOffspring extends NPC {
 			return "The consequence of your refusal to pull out of [npc.name] is standing right before you."
 					+ " Visibly pregnant, your one-time sexual partner has a devious grin on [npc.her] face, and you're not quite sure if you want to know what [npc.she]'s planning for [npc.her] revenge...";
 		} else {
-			if(this.isWantsToHaveSexWithPlayer()) {
+			if(this.isAttractedTo(Main.game.getPlayer())) {
 				return UtilText.parse(this, "[npc.Name] is quite clearly turned on by your strong aura. [npc.She]'s willing to fight you in order to claim your body.");
 				
 			} else {

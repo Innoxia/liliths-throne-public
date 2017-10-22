@@ -3,8 +3,6 @@ package com.lilithsthrone.world.places;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.character.attributes.AffectionLevel;
-import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -13,7 +11,7 @@ import com.lilithsthrone.world.Cell;
 
 /**
  * @since 0.1.85
- * @version 0.1.85
+ * @version 0.1.87
  * @author Innoxia
  */
 public enum PlaceUpgrade {
@@ -28,10 +26,8 @@ public enum PlaceUpgrade {
 			0,
 			0,
 			1000,
-			-5,
-			null,
-			-5,
-			null,
+			-0.5f,
+			-0.5f,
 			null),
 	
 	LILAYA_EMPTY_ROOM(true,
@@ -45,20 +41,21 @@ public enum PlaceUpgrade {
 			0,
 			0,
 			0,
-			null,
 			0,
-			null,
 			null) {
 		@Override
 		public void applyInstallationEffects(GenericPlace place) {
-			if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_WINDOW_SLAVE) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_WINDOW);
+			if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE) {
+				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR);
 				
 			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE) {
 				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR);
 				
-			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_GARDEN_SLAVE) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_GARDEN);
+			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE) {
+				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR);
+				
+			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE) {
+				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR);
 			}
 			
 			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
@@ -70,12 +67,12 @@ public enum PlaceUpgrade {
 		
 		@Override
 		public boolean isAvailable(Cell cell) {
-			return Main.game.getCharactersPresent(cell).isEmpty();
+			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty();
 		}
 
 		@Override
 		public String getAvailabilityDescription(Cell cell) {
-			if(Main.game.getCharactersPresent(cell).isEmpty()) {
+			if(Main.game.getCharactersTreatingCellAsHome(cell).isEmpty()) {
 				return "";
 			} else {
 				return "This room needs to be unoccupied in order to purchase this modification.";
@@ -97,10 +94,8 @@ public enum PlaceUpgrade {
 			0,
 			10,
 			1,
-			0.25f,
-			AffectionLevel.ZERO_NEUTRAL,
+			0.1f,
 			0,
-			null,
 			null) {
 		
 		@Override
@@ -127,14 +122,17 @@ public enum PlaceUpgrade {
 		
 		@Override
 		public void applyInstallationEffects(GenericPlace place) {
-			if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_WINDOW) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_WINDOW_SLAVE);
+			if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
+				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE);
 				
 			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR) {
 				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE);
 				
-			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_GARDEN) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_GARDEN_SLAVE);
+			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR) {
+				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE);
+				
+			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR) {
+				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE);
 			}
 			
 			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
@@ -157,10 +155,8 @@ public enum PlaceUpgrade {
 			25,
 			-1,
 			0,
-			-1f,
-			AffectionLevel.NEGATIVE_ONE_ANNOYED,
-			0.5f,
-			ObedienceLevel.ZERO_FREE_WILLED,
+			-0.1f,
+			0.2f,
 			null) {
 		
 		@Override
@@ -189,10 +185,8 @@ public enum PlaceUpgrade {
 			50,
 			5,
 			0,
-			1f,
-			AffectionLevel.POSITIVE_ONE_FRIENDLY,
-			-0.5f,
-			ObedienceLevel.ZERO_FREE_WILLED,
+			0.2f,
+			-0.1f,
 			null) {
 		
 		@Override
@@ -225,10 +219,8 @@ public enum PlaceUpgrade {
 			500,
 			5,
 			0,
-			-4f,
-			AffectionLevel.NEGATIVE_FIVE_LOATHE,
-			8f,
-			ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT,
+			-0.2f,
+			0.4f,
 			null),
 	
 	LILAYA_SLAVE_ROOM_ROOM_SERVICE(false,
@@ -244,10 +236,8 @@ public enum PlaceUpgrade {
 			0,
 			50,
 			0,
-			8f,
-			AffectionLevel.POSITIVE_THREE_CARING,
-			-4f,
-			ObedienceLevel.NEGATIVE_FIVE_REBELLIOUS,
+			0.4f,
+			-0.2f,
 			null),
 	
 	LILAYA_SLAVE_ROOM_ARCANE_INSTRUMENTS(false,
@@ -263,10 +253,8 @@ public enum PlaceUpgrade {
 			50,
 			-5,
 			0,
-			-0.25f,
-			AffectionLevel.NEGATIVE_ONE_ANNOYED,
+			-0.1f,
 			0f,
-			null,
 			null);
 	
 	
@@ -294,14 +282,12 @@ public enum PlaceUpgrade {
 	private int installCost, removalCost, upkeep, capacity;
 	private Colour colour;
 	private float affectionGain, obedienceGain;
-	private AffectionLevel affectionCap;
-	private ObedienceLevel obedienceCap;
 	private List<PlaceUpgrade> prerequisites;
 
 	private PlaceUpgrade(boolean isCoreRoomUpgrade, Colour colour, String name, String descriptionForPurchase, String descriptionAfterPurchase, String roomDescription,
 			int installCost, int removalCost, int upkeep, int capacity,
-			float affectionGain, AffectionLevel affectionCap,
-			float obedienceGain, ObedienceLevel obedienceCap,
+			float affectionGain,
+			float obedienceGain,
 			List<PlaceUpgrade> prerequisites) {
 		
 		this.isCoreRoomUpgrade = isCoreRoomUpgrade;
@@ -317,10 +303,8 @@ public enum PlaceUpgrade {
 		this.capacity = capacity;
 		
 		this.affectionGain = affectionGain;
-		this.affectionCap = affectionCap;
 		
 		this.obedienceGain = obedienceGain;
-		this.obedienceCap = obedienceCap;
 		
 		if(prerequisites==null) {
 			this.prerequisites = new ArrayList<>();
@@ -398,13 +382,5 @@ public enum PlaceUpgrade {
 	}
 
 	public void applyRemovalEffects(GenericPlace place) {
-	}
-
-	public AffectionLevel getAffectionCap() {
-		return affectionCap;
-	}
-
-	public ObedienceLevel getObedienceCap() {
-		return obedienceCap;
 	}
 }

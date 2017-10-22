@@ -21,12 +21,15 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.combat.SpecialAttack;
+import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
+import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -45,7 +48,7 @@ import com.lilithsthrone.world.places.PlaceInterface;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.87
  * @author Innoxia
  */
 public enum RenderingEngine {
@@ -805,19 +808,25 @@ public enum RenderingEngine {
 						+ "<div class='full'>");
 			
 			npcToRender = Main.game.getActiveNPC();
+			boolean renderNPC = false;
 			
 			if(InventoryDialogue.getInventoryNPC()!=null) {
 				npcToRender = InventoryDialogue.getInventoryNPC();
 			}
 			
-			if(Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.CHARACTERS_PRESENT) {
+			if(Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
 				npcToRender = (NPC) CharactersPresentDialogue.characterViewed;
+				renderNPC = true;
+			}
+			
+			if(Main.game.getDialogueFlags().slaveryManagerSlaveSelected!=null) {
+				npcToRender = Main.game.getDialogueFlags().slaveryManagerSlaveSelected;
+				renderNPC = true;
 			}
 			
 			if(npcToRender!=null
-					&& (Main.game.isInCombat() || Main.game.isInSex() || Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.CHARACTERS_PRESENT
+					&& (Main.game.isInCombat() || Main.game.isInSex() || renderNPC
 							|| (Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.INVENTORY && InventoryDialogue.getInventoryNPC()!=null))) {
-			
 			
 				uiAttributeSB.append(
 						// Name box:
@@ -1092,6 +1101,40 @@ public enum RenderingEngine {
 											+ "<div class='overlay' id='SE_NPC_" + se + "'></div>"
 										+ "</div>"
 								+ "</div>");
+					}
+				}
+				// Fetishes:
+				for (Fetish f : npcToRender.getFetishes()) {
+					uiAttributeSB.append(
+							"<div class='icon'><div class='icon-content'>"
+									+ f.getSVGString()
+									+ "<div class='overlay' id='FETISH_NPC_" + f + "'></div>"
+							+ "</div></div>");
+				}
+				// Special attacks:
+				for (SpecialAttack sa : npcToRender.getSpecialAttacks()) {
+					uiAttributeSB.append(
+							"<div class='icon'><div class='icon-content'>"
+									+ sa.getSVGString()
+									+ "<div class='overlay' id='SA_" + sa + "'></div>"
+							+ "</div></div>");
+				}
+				if (npcToRender.getMainWeapon() != null) {
+					for (Spell s : npcToRender.getMainWeapon().getSpells()) {
+						uiAttributeSB.append(
+								"<div class='icon'><div class='icon-content'>"
+										+ s.getSVGString()
+										+ "<div class='overlay' id='SPELL_MAIN_" + s + "'></div>"
+								+ "</div></div>");
+					}
+				}
+				if (npcToRender.getOffhandWeapon() != null) {
+					for (Spell s : npcToRender.getOffhandWeapon().getSpells()) {
+						uiAttributeSB.append(
+								"<div class='icon'><div class='icon-content'>"
+										+ s.getSVGString()
+										+ "<div class='overlay' id='SPELL_OFFHAND_" + s + "'></div>"
+								+ "</div></div>");
 					}
 				}
 			}
@@ -1571,9 +1614,16 @@ public enum RenderingEngine {
 	
 	private void appendNPCIcon(int x, int y) {
 		List<String> mapIcons = new ArrayList<>();
+		List<NPC> charactersPresent = Main.game.getCharactersPresent(Main.game.getActiveWorld().getCell(x, y));
 		
-		for(GameCharacter gc : Main.game.getCharactersPresent(Main.game.getActiveWorld().getCell(x, y))) {
+		for(NPC gc : charactersPresent) {
 			mapIcons.add(gc.getMapIcon());
+		}
+		
+		for(NPC gc : Main.game.getCharactersTreatingCellAsHome(Main.game.getActiveWorld().getCell(x, y))) {
+			if(!charactersPresent.contains(gc)) {
+				mapIcons.add(gc.getHomeMapIcon());
+			}
 		}
 		
 		for(int i = mapIcons.size() ; i>0 ; i--) {
