@@ -216,17 +216,17 @@ public class OptionsDialogue {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("<p style='text-align:center;'>"
-					+ "Your java version: "+System.getProperty("java.version")
-				+" | ");
+					+ "Your java version: "+System.getProperty("java.version"));
+//				+" | ");
 		
-		String[] version = System.getProperty("java.version").split("\\.");
-		if(version[0]!=null) {
-			if(Integer.valueOf(version[0])<9) {
-				sb.append("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You have an old version of java!</span> This game needs at least 9.0.1 to work correctly!");
-			} else {
-				sb.append("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Your java is up to date!</span>");
-			}
-		}
+//		String[] version = System.getProperty("java.version").split("\\.");
+//		if(version[0]!=null) {
+//			if(Integer.valueOf(version[0])<9) {
+//				sb.append("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You have an old version of java!</span> This game needs at least 9.0.1 to work correctly!");
+//			} else {
+//				sb.append("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Your java is up to date!</span>");
+//			}
+//		}
 //		if(version.length>=2) {
 //			if(Integer.valueOf(version[1])<8) {
 //				sb.append("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You have an old version of java!</span> This game needs at least v1.8.0_131 to work correctly!");

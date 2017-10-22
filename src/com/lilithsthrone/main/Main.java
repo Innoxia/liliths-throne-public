@@ -171,9 +171,9 @@ public class Main extends Application {
 			+"<ul>Added items, clothing, and weapons in inventory saving.</ul>"
 			+"<ul>Added owned slaves to exported character. (May be a little buggy... I didn't have much time left in which to test this... ;_;)</ul>"
 		+ "</list>"
-
+			
 		+ "</br>"
-
+		
 		+ "<list>"
 		
 			+ "<h6>v0.1.87</h6>"
@@ -233,6 +233,8 @@ public class Main extends Application {
 			+"<ul>Fixed imported slaves having the dog bit special attack.</ul>"
 			+"<ul>Fixed UI bug where attribute bars would just be showing grey bars.</ul>"
 			+"<ul>Fixed some strange behaviour with room upgrades.</ul>"
+			+"<ul>Fixed old character import compatibility issues. (You should be able to properly import your v0.1.86 characters now.)</ul>"
+			+"<ul>Fixed numerous issues with trading slaves through Alexa's shop.</ul>"
 		+ "</list>"
 		
 		;

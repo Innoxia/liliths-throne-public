@@ -12,7 +12,7 @@
 	Bugs:
 		Fixed bug where you couldn't interact with slaves in their room.
 		Fixed NPC icons showing up in random places on the map.
-		Fixed imported slaves having the dog bit special attack.
+		Fixed imported slaves having the dog bite special attack.
 		Fixed UI bug where attribute bars would just be showing grey bars.
 		Fixed some strange behaviour with room upgrades.
 		Fixed old character import compatibility issues. (You should be able to properly import your v0.1.86 characters now.)
