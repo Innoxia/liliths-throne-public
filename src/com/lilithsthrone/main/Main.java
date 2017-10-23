@@ -266,8 +266,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		credits.add(new CreditsSlot("Anonymous", "", 0, 1, 8, 3));
-		// A. L3 | C.C. E2 | G. E2 | JD E1 | MM E1 | V. R1 E2
+		credits.add(new CreditsSlot("Anonymous", "", 0, 2, 9, 3));
+		// A. L3 | C.C. E2 | G. E2 | JD E1 | MM E1 | V. R1 E2 | J R1 E1
 		
 		
 		credits.add(new CreditsSlot("A", "", 0, 0, 2, 0));

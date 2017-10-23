@@ -700,8 +700,14 @@ public class Body implements Serializable, XMLSaving {
 		Element breasts = (Element)parentElement.getElementsByTagName("breasts").item(0);
 		Element nipples = (Element)parentElement.getElementsByTagName("nipples").item(0);
 		
+		BreastShape breastShape = BreastShape.ROUND;
+		try {
+			breastShape = BreastShape.valueOf(breasts.getAttribute("shape"));
+		} catch(Exception e) {
+		}
+		
 		Breast importedBreast = new Breast(BreastType.valueOf(breasts.getAttribute("type")),
-				BreastShape.valueOf(breasts.getAttribute("shape")),
+				breastShape,
 				Integer.valueOf(breasts.getAttribute("size")),
 				Integer.valueOf(breasts.getAttribute("lactation")),
 				Integer.valueOf(breasts.getAttribute("rows")),
@@ -1071,7 +1077,7 @@ public class Body implements Serializable, XMLSaving {
 		Element vagina = (Element)parentElement.getElementsByTagName("vagina").item(0);
 		
 		Vagina importedVagina = new Vagina(VaginaType.valueOf(vagina.getAttribute("type")),
-				Integer.valueOf(vagina.getAttribute("labiaSize")),
+				(vagina.getAttribute("labiaSize").isEmpty()?1:Integer.valueOf(vagina.getAttribute("labiaSize"))),
 				Integer.valueOf(vagina.getAttribute("clitSize")),
 				Integer.valueOf(vagina.getAttribute("wetness")),
 				Float.valueOf(vagina.getAttribute("capacity")),
@@ -1177,9 +1183,12 @@ public class Body implements Serializable, XMLSaving {
 		for(int i=0; i<element.getElementsByTagName("bodyCovering").getLength(); i++){
 			Element e = ((Element)element.getElementsByTagName("bodyCovering").item(i));
 			
-			body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(e.getAttribute("type")), CoveringPattern.valueOf(e.getAttribute("pattern")),
-					Colour.valueOf(e.getAttribute("colourPrimary")), Boolean.valueOf(e.getAttribute("glowPrimary")),
-					Colour.valueOf(e.getAttribute("colourSecondary")), Boolean.valueOf(e.getAttribute("glowSecondary")));
+			try {
+				body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(e.getAttribute("type")), CoveringPattern.valueOf(e.getAttribute("pattern")),
+						Colour.valueOf(e.getAttribute("colourPrimary")), Boolean.valueOf(e.getAttribute("glowPrimary")),
+						Colour.valueOf(e.getAttribute("colourSecondary")), Boolean.valueOf(e.getAttribute("glowSecondary")));
+			} catch(Exception ex) {
+			}
 			
 			if(Boolean.valueOf(e.getAttribute("discovered"))) {
 				body.getBodyCoveringTypesDiscovered().add(BodyCoveringType.valueOf(e.getAttribute("type")));
@@ -1193,10 +1202,6 @@ public class Body implements Serializable, XMLSaving {
 		
 		return body;
 	}
-	
-	
-	
-	
 	
 	
 	

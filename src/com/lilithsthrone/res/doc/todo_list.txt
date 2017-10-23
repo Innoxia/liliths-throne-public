@@ -5,24 +5,14 @@
 		Create .exe version
 	
 	Patch notes:
-		
-	Other:
-		Added the same placeholder dialogue for slaves in each of their work locations (excluding Lilaya's lab).
-		
-	Bugs:
-		Fixed bug where you couldn't interact with slaves in their room.
-		Fixed NPC icons showing up in random places on the map.
-		Fixed imported slaves having the dog bite special attack.
-		Fixed UI bug where attribute bars would just be showing grey bars.
-		Fixed some strange behaviour with room upgrades.
-		Fixed old character import compatibility issues. (You should be able to properly import your v0.1.86 characters now.)
-		Fixed numerous issues with trading slaves through Alexa's shop.
 	
 	
 	
 	
-	I normally can't access the slave manager in Alexa's shop.
-	 The only time I've been able to open it is right after finishing the harpy quest and buying Scarlett as a slave. My guess is that there's an issue with accessing the slave manager for slaves that you don't own.
+	
+	You have to give a Surname when changing your name
+	
+	The game gives you all fetishes except transformation ones at the start of the game.
 	
 	no clothes and every fetish when importing a character from V1.8.6.
 	

@@ -640,7 +640,9 @@ public class MainController implements Initializable {
 								}
 							}
 						}
-						if(Main.game.getCurrentDialogueNode() == MiscDialogue.SLAVE_MANAGEMENT_INSPECT){
+						if(Main.game.getCurrentDialogueNode() == MiscDialogue.SLAVE_MANAGEMENT_INSPECT
+								|| Main.game.getCurrentDialogueNode() == MiscDialogue.SLAVE_MANAGEMENT_JOBS
+								|| Main.game.getCurrentDialogueNode() == MiscDialogue.SLAVE_MANAGEMENT_PERMISSIONS){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
