@@ -6,6 +6,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.npc.generic.Cultist;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -307,7 +308,7 @@ public class GenericOrgasms {
 						+ " The muscles within your genderless mound start to spasm and contract, and you're soon left as a panting, moaning wreck as you come down from your surprisingly intense climax.");
 			}
 
-			return UtilText.genderParsing(Sex.getPartner(),
+			return UtilText.parse(Sex.getPartner(),
 					descriptionSB.toString());
 		}
 
@@ -629,7 +630,7 @@ public class GenericOrgasms {
 						+ " The muscles within your genderless mound start to spasm and contract, and you're soon left as a panting, moaning wreck as you come down from your surprisingly intense climax.");
 			}
 			
-			return UtilText.genderParsing(Sex.getPartner(),
+			return UtilText.parse(Sex.getPartner(),
 					descriptionSB.toString());
 		}
 
@@ -664,6 +665,10 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
+			if(Sex.getPartner() instanceof Cultist) { //TODO 
+				return true;
+			}
+			
 			return SexFlags.playerRequestedCreampie
 					|| (!SexFlags.playerRequestedPullOut && !SexFlags.playerRequestedCreampie);
 		}
@@ -921,7 +926,7 @@ public class GenericOrgasms {
 						+ " The muscles within [npc.her] genderless mound start to spasm and contract, and [npc.she]'s soon left as a panting, moaning wreck as [npc.she] comes down from [npc.her] surprisingly intense climax.");
 			}
 
-			return UtilText.genderParsing(Sex.getPartner(),
+			return UtilText.parse(Sex.getPartner(),
 					descriptionSB.toString());
 		}
 
@@ -1275,7 +1280,7 @@ public class GenericOrgasms {
 						+ " The muscles within [npc.her] genderless mound start to spasm and contract, and [npc.she]'s soon left as a panting, moaning wreck as [npc.she] comes down from [npc.her] surprisingly intense climax.");
 			}
 
-			return UtilText.genderParsing(Sex.getPartner(),
+			return UtilText.parse(Sex.getPartner(),
 					descriptionSB.toString());
 		}
 

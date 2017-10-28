@@ -273,7 +273,10 @@ public abstract class NPC extends GameCharacter {
 	public List<AbstractCoreItem> getLootItems() {
 		double rnd = Math.random();
 		
-		if(rnd <= 0.7) {
+		if(rnd<=0.05) {
+			return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FETISH_UNREFINED)));
+			
+		} else if(rnd <= 0.7) {
 			switch(getRace()) {
 				case CAT_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_FELINE_FANCY)));
@@ -302,7 +305,6 @@ public abstract class NPC extends GameCharacter {
 		} else if(rnd <= 0.8 && !Main.getProperties().isRaceDiscovered(getRace())) {
 			switch(getRace()) {
 				case CAT_MORPH:
-
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_CAT_MORPH)));
 				case COW_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_COW_MORPH)));

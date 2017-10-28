@@ -732,6 +732,108 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType FETISH_UNREFINED = new AbstractItemType("a vial of",
+			false,
+			"Mystery Kink",
+			"Mystery Kinks",
+			"A delicate glass bottle, filled with a viscous, glowing-pink liquid."
+					+ " It's quite clear just from its appearance that it carries a potent enchantment, and from the label on one side reading 'Mystery Kink', it's quite safe to assume that it somehow influences the drinker's fetishes.",
+			"fetishDrink",
+			Colour.GENERIC_SEX,
+			500,
+			Rarity.EPIC,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.MYSTERY_KINK, null, null, null, 0)))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.FETISH_ENHANCEMENT;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType() {
+			return FETISH_REFINED;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user.isPlayer()) {
+				if(target.isPlayer()) {
+					return "<p>"
+								+ "You unscrew the bottle's cap, before lifting it to your lips and gulping down the thick pink liquid that's contained within..."
+							+ "</p>";
+				} else {
+					return UtilText.parse(target,"<p>"
+							+ "You unscrew the bottle's cap, before lifting it to [npc.name]'s [npc.lips] and making [npc.herHim] drink down all of the thick pink liquid that's contained within..."
+						+ "</p>");
+				}
+			} else {
+				return UtilText.parse(user,
+						"<p>"
+								+ "[npc.Name] pulls out a bottle of 'Lilith's Gift', and, after quickly pulling out the stopper, [npc.she] promptly downs the entire bottle."
+						+ "</p>");
+			}
+		}
+	};
+	
+	public static AbstractItemType FETISH_REFINED = new AbstractItemType("a vial of",
+			false,
+			"Fetish Endowment",
+			"Fetish Endowments",
+			"A vial of bubbling pink liquid, which was refined from a bottle of 'Mystery Kink'."
+					+ " Its potent enchantment is far more refined than that of the liquid it was distilled from, and is able to add or remove specific fetishes.",
+			"fetishDrinkRefined",
+			Colour.FETISH,
+			750,
+			Rarity.LEGENDARY,
+			null,
+			null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean isTransformative() {
+			return true;
+		}
+		
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return true;
+		}
+
+		@Override
+		public boolean isAbleToBeUsedInCombat() {
+			return true;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (target == Main.game.getPlayer()) {
+				return "<p>"
+							+ "You pull out the little stopper from the top of the glass vial, and quickly gulp down the sickly sweet liquid contained within..."
+						+ "</p>";
+				
+			} else {
+				return UtilText.parse(target,
+						"<p>"
+							+ "You pull out the little stopper from the top of the glass vial, and make [npc.name] gulp down the sickly sweet liquid contained within..."
+						+ "</p>");
+			}
+		}
+	};
+	
 	// Racial ingredients:
 	
 	public static AbstractItemType RACE_INGREDIENT_DEMON = new AbstractItemType(

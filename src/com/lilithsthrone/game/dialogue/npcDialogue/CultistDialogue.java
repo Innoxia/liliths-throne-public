@@ -17,6 +17,7 @@ import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMDomSex;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMSubOral;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMSubSealed;
@@ -322,7 +323,7 @@ public class CultistDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENCOUNTER_CHAPEL_LEAVING = new DialogueNodeOld("The Witch's Chapel", "", true) {
+	public static final DialogueNodeOld ENCOUNTER_CHAPEL_LEAVING = new DialogueNodeOld("The Witch's Chapel", "", true, true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -344,6 +345,21 @@ public class CultistDialogue {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						return GenericDialogue.getDefaultDialogueNoEncounter();
+					}
+				};
+			
+			} else if(index==10) {
+				return new Response(
+						"Remove character",
+						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
+						ENCOUNTER_CHAPEL_LEAVING){
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return GenericDialogue.getDefaultDialogueNoEncounter();
+					}
+					@Override
+					public void effects() {
+						Main.game.removeNPC(Main.game.getActiveNPC());
 					}
 				};
 			
@@ -521,10 +537,16 @@ public class CultistDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "She pulls the skirt of her dress back down and pats you on the head."
+						+ "[npc.Name] steps back, grinning down at you as she sorts her clothing out,"
+						+ " [npc.speech(I hope you enjoyed your gift just as much as I did in giving it to you! Now, I have some cult business to attend to, so run along!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "You get your things in order, wipe the cum from your lips, and set off."
+						+ "You move to do as [npc.name] says, and as soon as you've finished getting your things together, she grabs you by the arm and starts marching towards the door."
+						+ " You're a little taken aback at how quickly she wants to get rid of you, but before you can object, you're being pushed out of the door,"
+						+ " [npc.speech(Come back some other time if you want another gift!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "With that, the wooden door to the chapel slams shut, leaving you to walk back out to the street with the taste of demonic cum still on your tongue..."
 					+ "</p>";
 		}
 
@@ -550,10 +572,16 @@ public class CultistDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "She pulls the skirt of her dress back down and pats you on the head."
+						+ "[npc.Name] steps back, grinning down at you as she sorts her clothing out,"
+						+ " [npc.speech(I hope you enjoyed your gift just as much as I did in giving it to you! Now, I have some cult business to attend to, so run along!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "You get your things in order, wipe the cum from your pussy, and set off."
+						+ "You move to do as [npc.name] says, and as soon as you've finished getting your things together, she grabs you by the arm and starts marching towards the door."
+						+ " You're a little taken aback at how quickly she wants to get rid of you, but before you can object, you're being pushed out of the door,"
+						+ " [npc.speech(Come back some other time if you want another gift!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "With that, the wooden door to the chapel slams shut, leaving you to walk back out to the street with the wet feeling of demonic cum still between your legs..."
 					+ "</p>";
 		}
 
@@ -579,17 +607,23 @@ public class CultistDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "She pulls the skirt of her dress back down and pats you on the head."
+						+ "[npc.Name] steps back, grinning down at you as she sorts her clothing out,"
+						+ " [npc.speech(I hope you enjoyed your gift just as much as I did in giving it to you! Now, I have some cult business to attend to, so run along!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "You get your things in order, wipe the cum from your pussy, and set off."
+						+ "You move to do as [npc.name] says, and as soon as you've finished getting your things together, she grabs you by the arm and starts marching towards the door."
+						+ " You're a little taken aback at how quickly she wants to get rid of you, but before you can object, you're being pushed out of the door,"
+						+ " [npc.speech(Come back some other time if you want another gift!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "With that, the wooden door to the chapel slams shut, leaving you to walk back out to the street with the wet feeling of demonic cum still in your ass..."
 					+ "</p>";
 		}
 
 		@Override
 		public Response getResponse(int index) {
 			if(index==1) {
-				return new Response("Leave", "Turn around and head for the door.", ENCOUNTER_CHAPEL_POST_VAGINAL_SEX){
+				return new Response("Continue", "Continue on your way.", ENCOUNTER_CHAPEL_POST_VAGINAL_SEX){
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						return GenericDialogue.getDefaultDialogueNoEncounter();
@@ -608,17 +642,37 @@ public class CultistDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "She pulls the skirt of her dress back down and pats you on the head."
+						+ "[npc.Name] steps back, grinning down at you as she sorts her clothing out,"
+						+ " [npc.speech(I hope you enjoyed your gift just as much as I did in giving it to you! Now, it may take a few more minutes for that spell to wear off. If only my assistant were here...)]"
 					+ "</p>"
 					+ "<p>"
-						+ "You get your things in order, wipe the cum from your lips, and set off."
+						+ "[femaleNPC.speech(Mistress, I'm back! Ooh! Who's this?)]"
+						+ " a strange voice calls out from the doorway."
+					+ "</p>"
+					+ "<p>"
+						+ "[npc.speech(What took you so long?! You were meant to be back here half an hour ago!)]"
+						+ " [npc.name] responds,"
+						+ " [npc.speech(Well, nevermind! Just drag this [pc.race] out to a bench somewhere, I've finished with [pc.herHim].)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[femaleNPC.speech(Yes Mistress!)]"
+						+ " the stranger calls out, and after just a few seconds, the black-furred face of a greater cat-girl hovers into view,"
+						+ " [femaleNPC.speech(Aww! I missed out on all the fun!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "After being shouted at once more by [npc.name], the cat-girl grabs you under the arms and drags you outside."
+						+ " She puffs and pants as she pulls you down the dark alleyways, but despite the sounds of exertion, it doesn't her take too long before she's brought you all the way back out to the street where you first met [npc.name]."
+						+ " Rather unceremoniously dumping you down onto an empty bench, the cat-girl takes one last look at you before rushing back off to the chapel."
+					+ "</p>"
+					+ "<p>"
+						+ "Thankfully, it only takes a couple of minutes before the spell finally wears off, and with the wet feeling of demonic cum still between your legs, you continue on your travels..."
 					+ "</p>";
 		}
 
 		@Override
 		public Response getResponse(int index) {
 			if(index==1) {
-				return new Response("Leave", "Turn around and head for the door.", ENCOUNTER_CHAPEL_POST_ORAL_SEX){
+				return new Response("Continue", "Continue on your way.", ENCOUNTER_CHAPEL_POST_ORAL_SEX){
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						return GenericDialogue.getDefaultDialogueNoEncounter();
@@ -636,12 +690,19 @@ public class CultistDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "She pulls the skirt of her dress back down and pats you on the head."
-					+ "</p>"
-					+ "<p>"
-						+ "You get your things in order, wipe the cum from your lips, and set off."
+			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+				return "<p>"
+							+ "You step back from the altar, grinning down at the witch as she lets out a deeply satisfied sigh."
+							+ " You quickly get your things in order, and before you turn to leave, the succubus calls out,"
+							+ " [npc.speech(Come visit me again! Next time, I'll be the one using you!)]"
+						+ "</p>";
+			} else {
+				return "<p>"
+						+ "You step back from the altar, grinning down at the witch as she lets out a deeply frustrated moan."
+						+ " You quickly get your things in order, and before you turn to leave, the succubus calls out,"
+						+ " [npc.speech(You didn't even let me get off! Next time, I'll be the one using you!)]"
 					+ "</p>";
+			}
 		}
 
 		@Override
@@ -669,12 +730,19 @@ public class CultistDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "She pulls the skirt of her dress back down and pats you on the head."
-					+ "</p>"
-					+ "<p>"
-						+ "You get your things in order, wipe the cum from your lips, and set off."
+			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+				return "<p>"
+							+ "You step back from the altar, grinning down at the witch as she lets out a deeply satisfied sigh."
+							+ " You quickly get your things in order, and before you turn to leave, the Witch's Seal starts to wear off, allowing [npc.name] to call out,"
+							+ " [npc.speech(Come visit me again! Next time, I'll be the one using you!)]"
+						+ "</p>";
+			} else {
+				return "<p>"
+						+ "You step back from the altar, grinning down at the witch as she lets out a deeply frustrated moan."
+						+ " You quickly get your things in order, and before you turn to leave, the Witch's Seal starts to wear off, allowing [npc.name] to call out,"
+						+ " [npc.speech(You didn't even let me get off! Next time, I'll be the one using you!)]"
 					+ "</p>";
+			}
 		}
 
 		@Override

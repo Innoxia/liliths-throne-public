@@ -304,70 +304,68 @@ public class PrologueDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ UtilText.parse(
-							"<p>"
-								+ UtilText.parsePlayerThought("Euuuugh...")
-							+ "</p>"
+						+ UtilText.parsePlayerThought("Euuuugh...")
+					+ "</p>"
+					+ "<p>"
+						+ "You groan and reach up to rub your throbbing head."
+						+ " As you do, you become aware that you're lying on something cold and hard."
+						+ " Pushing yourself up into a sitting position, you quickly scrunch your eyes shut as jolts of pain shoot through your skull."
+						+ " As you hold your head, trying to stop it from spinning, you start to hear voices speaking all around you."
+					+ "</p>"
+					+ "<p>"
+						+ UtilText.parseNPCSpeech("Oh shit, [pc.she]'s alive!", Femininity.MASCULINE_STRONG)
+						+ " someone says."
+					+ "</p>"
+					+ "<p>"
+						+ UtilText.parseNPCSpeech("You idiot, don't get that close! Didn't you see [pc.herHim] just fall out of mid-air?!"
+								+ " [pc.She]'s obviously an arcane user! We need to get out of here!", Femininity.MASCULINE)
+						+ " a rather worried-sounding man replies."
+					+ "</p>"
 
-							+ "<p>"
-								+ "You groan and reach up to rub your throbbing head."
-								+ " As you do, you become aware that you're lying on something cold and hard."
-								+ " Pushing yourself up into a sitting position, you quickly scrunch your eyes shut as jolts of pain shoot through your skull."
-								+ " As you hold your head, trying to stop it from spinning, you start to hear voices speaking all around you."
-							+ "</p>"
+					+ "<p>The harsh tone of a woman's voice cuts them off, "
+					+ UtilText.parseNPCSpeech("Shut up, both of you! Honestly, I don't know why I bring you two along... Anyway, take a look at [pc.herHim],"
+							+ " don't you see something wrong with what you just said?", Femininity.FEMININE_STRONG)
+					+ "</p>"
 
-							+ "<p>"
-								+ UtilText.parseNPCSpeech("Oh shit, [pc.she]'s alive!", Femininity.MASCULINE_STRONG)
-							+ " someone says.</p>"
+					+ "<p>"
+					+ UtilText.parseNPCSpeech("Uuuuum...", Femininity.MASCULINE_STRONG)
+					+ " the two voices say in unison.</p>"
 
-							+ "<p>"
-							+ UtilText.parseNPCSpeech("You idiot, don't get that close! Didn't you see [pc.herHim] just fall out of mid-air?!"
-									+ " [pc.She]'s obviously an arcane user! We need to get out of here!", Femininity.MASCULINE)
-							+ " a rather worried-sounding man replies.</p>"
+					+ "<p>"
+					+ UtilText.parseNPCSpeech("You two don't have a brain between you... [pc.She]'s human, get it? Since when could a human use that kind of arcane power?"
+							+ " Hell, only a Lilin could just teleport themselves out of thin air like that. This little runt obviously pissed off some demon, or messed with some artifact [pc.she] didn't understand."
+							+ " In other words, [pc.she]'s fair game, so just hold [pc.herHim] still until the storm starts.", Femininity.FEMININE_STRONG)
+					+ "</p>"
 
-							+ "<p>The harsh tone of a woman's voice cuts them off, "
-							+ UtilText.parseNPCSpeech("Shut up, both of you! Honestly, I don't know why I bring you two along... Anyway, take a look at [pc.herHim],"
-									+ " don't you see something wrong with what you just said?", Femininity.FEMININE_STRONG)
-							+ "</p>"
+					+ "<p>"
+						+ "As the people reach the end of their conversation, you're surprised to find that most of the pain in your head has already faded away."
+						+ " You open your eyes to see what's going on, but as you do, you're suddenly grabbed by two pairs of strong hands."
+					+ "</p>"
 
-							+ "<p>"
-							+ UtilText.parseNPCSpeech("Uuuuum...", Femininity.MASCULINE_STRONG)
-							+ " the two voices say in unison.</p>"
+					+ "<p>"
+						+ UtilText.parsePlayerSpeech("Hey, what the hell?! Let me g- ~mrph~!")
+						+ " you cry, but your objections are cut short as the woman presses her hand firmly down over your mouth."
+					+ "</p>"
 
-							+ "<p>"
-							+ UtilText.parseNPCSpeech("You two don't have a brain between you... [npc.She]'s human, get it? Since when could a human use that kind of arcane power?"
-									+ " Hell, only a Lilin could just teleport themselves out of thin air like that. This little runt obviously pissed off some demon, or messed with some artifact [pc.she] didn't understand."
-									+ " In other words, [pc.she]'s fair game, so just hold [pc.herHim] still until the storm starts.", Femininity.FEMININE_STRONG)
-							+ "</p>"
+					+ "<p>"
+						+ "You kick and squirm as you desperately try to wriggle out of the strange people's grasp."
+						+ " As you struggle, you catch brief glimpses of your three tormentors, and as you do, your eyes open wide in shock."
+						+ " You stop squirming and go limp, your mind completely unable to process what it's seeing."
+					+ "</p>"
 
-							+ "<p>"
-								+ "As the people reach the end of their conversation, you're surprised to find that most of the pain in your head has already faded away."
-								+ " You open your eyes to see what's going on, but as you do, you're suddenly grabbed by two pairs of strong hands."
-							+ "</p>"
+					+ "<p>"
+						+ "While the men looked to be normal people on first glance, as you take a closer look, you see that something's not quite right."
+						+ " Their arms and legs are covered in a layer of coarse hair, and instead of feet, they each have a pair of horse-like hooves."
+						+ " Their ears are also similar to that of a horse's, and sit high up on their heads, and a horse-like tail swishes behind each of them."
+					+ "</p>"
 
-							+ "<p>"
-								+ UtilText.parsePlayerSpeech("Hey, what the hell?! Let me g- ~mrph~!")
-								+ " you cry, but your objections are cut short as the woman presses her hand firmly down over your mouth."
-							+ "</p>"
-
-							+ "<p>"
-								+ "You kick and squirm as you desperately try to wriggle out of the strange people's grasp."
-								+ " As you struggle, you catch brief glimpses of your three tormentors, and as you do, your eyes open wide in shock."
-								+ " You stop squirming and go limp, your mind completely unable to process what it's seeing."
-							+ "</p>"
-
-							+ "<p>"
-								+ "While the men looked to be normal people on first glance, as you take a closer look, you see that something's not quite right."
-								+ " Their arms and legs are covered in a layer of coarse hair, and instead of feet, they each have a pair of horse-like hooves."
-								+ " Their ears are also similar to that of a horse's, and sit high up on their heads, and a horse-like tail swishes behind each of them."
-							+ "</p>"
-
-							+ "<p>"
-								+ "As alarming as the two men's appearances are, they're nothing compared to the woman in front of you."
-								+ " While the men are in possession of horse-like features, the woman could better be described as a cat possessing human-like features."
-								+ " She's completely covered in a fine layer of black fur, and every part of her body, including her face, has somehow transformed into that of an anthropomorphic cat-girl."
-								+ " Her long tail swishes excitedly behind her, and as she brushes a strand of loose fur-like hair behind her upright cat-ears, she looks down at you with an evil grin on her face."
-							+ "</p>");
+					+ "<p>"
+						+ "As alarming as the two men's appearances are, they're nothing compared to the woman in front of you."
+						+ " While the men are in possession of horse-like features, the woman could better be described as a cat possessing human-like features."
+						+ " She's completely covered in a fine layer of black fur, and every part of her body, including her face, has somehow transformed into that of an anthropomorphic cat-girl."
+						+ " Her long tail swishes excitedly behind her, and as she brushes a strand of loose fur-like hair behind her upright cat-ears, she looks down at you with an evil grin on her face."
+					+ "</p>"
+						;
 		}
 		
 		@Override

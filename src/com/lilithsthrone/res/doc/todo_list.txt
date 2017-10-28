@@ -23,6 +23,9 @@
 		<b>Added:</b> Witch's Boots (Feminine, Foot slot).
 		<b>Added:</b> Witch's Thigh-high Boots (Feminine, Foot slot).
 		
+	Items:
+		<b>Added:</b> Mystery Kink. A consumable that adds or removes a random fetish from the drinker. Can be enchanted into 'Fetish Endowment'. (Sold by Ralph, or a small chance of being dropped by random enemies.)
+		
 	Sex:
 		Added descriptions for all already-exposed orifices to the start of sex.
 		Improved consensual sex detection methods, so all NPCs should now be behaving like they were prior to 0.1.86. (I.e. not ending/taking control of sex when they're the sub.)
@@ -51,18 +54,21 @@
 	
 	
 	
+	
+	
+	Some of the content hasn't been properly edited/proofread. I'll tidy it up over the weekend.
+	
+	
 	Halloween :3
 
-	Finish Cultist dialogue
-	
 	Sort out Cultist sex actions
 		Dirty talk
 		Orgasm is them masturbating over your face/cumming inside you
+			Orgasm is not working well atm
 		Virginity loss
 	
 	
 	Do as much bug fixing as possible
-	Fetish implantation through potions (make it super expensive, like 30 essences to add/15 to remove)
 	Cosmetics for slaves
 	Events for slaves
 	
@@ -73,11 +79,8 @@
 	
 	BUGS & SEX
 	
-	slave cosmetics & fetishes are large
 	
-	
-	
-	
+	NPC Cow keeps trying to give me horns even though I already have them
 	
 	Apparently the height of male kids with both very tall parents wraps around back to midget values
 	
@@ -98,15 +101,12 @@
 	
 	Those with the Transformation Test Subject Fetish will automatically swallow transformation pills.
 	
-	I'll increase the amount of essences dropped by all enemies for the next version
-	
 	Oh yes the other thing I can not seem to feed Scarlet any potions to mod her
 	
-	sort of a bug descripting error. When you have a breeding bitch walking around and you ignore her for a few days to let one of your slave studs knock her up. She blames you for being the dad even though you and she know you didn't have sex with her. not sure how to fix it
+	sort of a bug descripting error. When you have a breeding bitch walking around and you ignore her for a few days to let one of your slave studs knock her up.
+	 She blames you for being the dad even though you and she know you didn't have sex with her. not sure how to fix it
 	
 	For me the people that I get pregnant stay pregnant. To prove if it wasn’t just my mind I rested for 32 days and I check my pregnancy stats to see that all the women I impregnated are still pregnant.
-	
-	FETISH +/-
 	
 	Found a bug: If you play as a male and have a male and a female slave and both are allowed to have sex with each other and the female gets pregnant, she says the child if from the PC but it's not listed (obviously cuz the whole thing makes no sense^^) on the fathered children stats.
 	

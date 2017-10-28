@@ -74,7 +74,7 @@ public enum Colour {
 	GENERIC_EXPERIENCE(BaseColour.BLUE_LIGHT, "light blue"),
 
 	PERK(BaseColour.AQUA, "aqua"),
-	FETISH(BaseColour.ROSE, "rose"),
+	FETISH(BaseColour.ROSE, "rose", Util.newArrayListOfValues(new ListValue<>("fetish"))),
 	STATUS_EFFECT(BaseColour.YELLOW, "yellow"),
 	SPECIAL_ATTACK(BaseColour.ORANGE, "orange"),
 	STATUS_EFFECT_TIME_OVERFLOW(BaseColour.BLUE, "aqua"),

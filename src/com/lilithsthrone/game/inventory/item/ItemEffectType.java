@@ -543,6 +543,48 @@ public enum ItemEffectType {
 		}
 	},
 	
+	MYSTERY_KINK(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldFetish(Random fetish addition or removal)]")),
+			Colour.FETISH) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			List<Fetish> fetishesToAdd = new ArrayList<>();
+			List<Fetish> fetishesToRemove = new ArrayList<>();
+			for(Fetish f : Fetish.values()) {
+				if(f.getFetishesForAutomaticUnlock().isEmpty()) {
+					if(target.hasFetish(f)) {
+						fetishesToRemove.add(f);
+						
+					} else if(f.isAvailable(target)) {
+						fetishesToAdd.add(f);
+					}
+				}
+			}
+			
+			if((Math.random()>0.33f && !fetishesToAdd.isEmpty()) || fetishesToRemove.isEmpty()) {
+				Fetish f = fetishesToAdd.get(Util.random.nextInt(fetishesToAdd.size()));
+				target.addFetish(f);
+				
+				return (target.isPlayer()
+						?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+								+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"
+						:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+								+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"));
+				
+			} else {
+				Fetish f = fetishesToRemove.get(Util.random.nextInt(fetishesToRemove.size()));
+				target.removeFetish(f);
+				
+				return (target.isPlayer()
+						?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+								+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+f.getName(target)+" fetish)]!"
+						:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+								+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldBad(lost)] [npc.her] [style.boldFetish("+f.getName(target)+" fetish)]!"));
+			}
+		}
+	},
+	
 	EGGPLANT(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(health)]"),
 			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldWillpower(willpower)]"),
@@ -1299,6 +1341,134 @@ public enum ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return genericAttributeEffect(resourceRestoration.ALL, primaryModifier, secondaryModifier, potency, limit, user, target);
+		}
+	},
+	
+	FETISH_ENHANCEMENT(null,
+			Colour.FETISH) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return Util.newArrayListOfValues(new ListValue<>(TFModifier.NONE));
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return TFModifier.getTFFetishList();
+		}
+		
+		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST), new ListValue<>(TFPotency.MINOR_DRAIN));
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			if(potency==TFPotency.MINOR_BOOST) {
+				if(secondaryModifier == TFModifier.NONE) {
+					return Util.newArrayListOfValues(new ListValue<>("[style.boldFetish(Adds a random fetish.)]"));
+				} else {
+					return Util.newArrayListOfValues(new ListValue<>("[style.boldFetish(Adds the "+secondaryModifier.getName()+" fetish.)]"));
+				}
+				
+			} else {
+				if(secondaryModifier == TFModifier.NONE) {
+					return Util.newArrayListOfValues(new ListValue<>("[style.boldFetish(Removes a random fetish.)]"));
+				} else {
+					return Util.newArrayListOfValues(new ListValue<>("[style.boldFetish(Removes the "+secondaryModifier.getName()+" fetish.)]"));
+				}
+			}
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			if(potency==TFPotency.MINOR_BOOST) {
+				if(secondaryModifier == TFModifier.NONE) {
+					List<Fetish> fetishesToAdd = new ArrayList<>();
+					for(Fetish f : Fetish.values()) {
+						if(f.getFetishesForAutomaticUnlock().isEmpty()) {
+							if(f.isAvailable(target)) {
+								fetishesToAdd.add(f);
+							}
+						}
+					}
+					
+					if(!fetishesToAdd.isEmpty()) {
+						Fetish f = fetishesToAdd.get(Util.random.nextInt(fetishesToAdd.size()));
+						target.addFetish(f);
+						
+						return (target.isPlayer()
+								?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+										+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"
+								:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+										+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"));
+						
+					} else {
+						return (target.isPlayer()
+								?"[style.colourDisabled(Nothing happens...)]"
+								:UtilText.parse(target, "[style.colourDisabled(Nothing happens...)]"));
+					}
+					
+				} else {
+					Fetish fetish = secondaryModifier.getFetish();
+					
+					if(!target.hasFetish(fetish)) {
+						target.addFetish(fetish);
+						return (target.isPlayer()
+								?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+										+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+fetish.getName(target)+" fetish)]!"
+								:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+										+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldGood(gained)] the [style.boldFetish("+fetish.getName(target)+" fetish)]!"));	
+					} else {
+						return (target.isPlayer()
+								?"[style.colourDisabled(Nothing happens, as you already have the "+fetish.getName(target)+" fetish...)]"
+								:UtilText.parse(target, "[style.colourDisabled(Nothing happens, as [npc.she] already has the "+fetish.getName(target)+" fetish...)]"));
+					}
+				}
+				
+			} else {
+				if(secondaryModifier == TFModifier.NONE) {
+					List<Fetish> fetishesToRemove = new ArrayList<>();
+					for(Fetish f : Fetish.values()) {
+						if(f.getFetishesForAutomaticUnlock().isEmpty()) {
+							if(target.hasFetish(f)) {
+								fetishesToRemove.add(f);
+							}
+						}
+					}
+					
+					if(!fetishesToRemove.isEmpty()) {
+						Fetish f = fetishesToRemove.get(Util.random.nextInt(fetishesToRemove.size()));
+						target.removeFetish(f);
+						
+						return (target.isPlayer()
+								?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+										+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+f.getName(target)+" fetish)]!"
+								:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+										+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldBad(lost)] [npc.her] [style.boldFetish("+f.getName(target)+" fetish)]!"));
+					} else {
+						return (target.isPlayer()
+								?"[style.colourDisabled(Nothing happens...)]"
+								:UtilText.parse(target, "[style.colourDisabled(Nothing happens...)]"));
+					}
+					
+				} else {
+					Fetish fetish = secondaryModifier.getFetish();
+					
+					if(target.hasFetish(fetish)) {
+						target.removeFetish(fetish);
+						return (target.isPlayer()
+								?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+										+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+fetish.getName(target)+" fetish)]!"
+								:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+										+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldBad(lost)] [npc.her] [style.boldFetish("+fetish.getName(target)+" fetish)]!"));
+					} else {
+						return (target.isPlayer()
+								?"[style.colourDisabled(Nothing happens, as you already lack the "+fetish.getName(target)+" fetish...)]"
+								:UtilText.parse(target, "[style.colourDisabled(Nothing happens, as [npc.she] already lacks the "+fetish.getName(target)+" fetish...)]"));
+					}
+				}
+			}
 		}
 	},
 	
