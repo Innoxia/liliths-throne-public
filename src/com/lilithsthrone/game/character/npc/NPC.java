@@ -862,6 +862,7 @@ public abstract class NPC extends GameCharacter {
 			List<Race> availableRaces = new ArrayList<>();
 			availableRaces.add(Race.CAT_MORPH);
 			availableRaces.add(Race.HARPY);
+			availableRaces.add(Race.COW_MORPH);
 			availableRaces.add(Race.SQUIRREL_MORPH);
 			race = availableRaces.get(Util.random.nextInt(availableRaces.size()));
 		}
@@ -875,6 +876,7 @@ public abstract class NPC extends GameCharacter {
 			availableRaces.add(Race.HORSE_MORPH);
 			availableRaces.add(Race.HUMAN);
 			availableRaces.add(Race.SQUIRREL_MORPH);
+			availableRaces.add(Race.COW_MORPH);
 			availableRaces.add(Race.WOLF_MORPH);
 			race = availableRaces.get(Util.random.nextInt(availableRaces.size()));
 		}
