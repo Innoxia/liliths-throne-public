@@ -409,7 +409,7 @@ public class Breast implements BodyPartInterface, Serializable {
 							+ "You now have [style.boldSex(" + sizeDescriptor + (getSize().getMeasurement()>CupSize.AA.getMeasurement()?", "+getSize().getCupSizeName()+"-cup":"") + " breasts)]!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] feels a tingling heat quickly spreading throughout [npc.her] torso, and [npc.she] can't help but let out [npc.a_moan+] as [npc.her] "
 							+ (hadBreasts
@@ -427,7 +427,7 @@ public class Breast implements BodyPartInterface, Serializable {
 							:"You now have [style.boldSex(" + sizeDescriptor + (getSize().getMeasurement()>CupSize.AA.getMeasurement()?", "+getSize().getCupSizeName()+"-cup":"") + " breasts)]!")
 					+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] feels a tingling heat quickly spreading throughout [npc.her] torso, and [npc.she] can't help but let out a frustrated [npc.moan] as [npc.her] [npc.breasts] shrink down and [style.boldShrink(get smaller)].</br>"
 							+ (this.size==0
@@ -473,7 +473,7 @@ public class Breast implements BodyPartInterface, Serializable {
 							+ "You are now producing [style.boldSex(" + lactationDescriptor + " [pc.milk])]!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] feels a strange bubbling and churning taking place deep within [npc.her] [npc.breasts], and [npc.a_moan+] drifts out from between [npc.her] [npc.lips] as a few drops of [npc.milk] suddenly leak"
 								+ " from [npc.her] [npc.nipples]; clear evidence that that [npc.her] [npc.milk] production has [style.boldGrow(increased)].</br>"
@@ -487,7 +487,7 @@ public class Breast implements BodyPartInterface, Serializable {
 							+ "You are now producing [style.boldSex(" + lactationDescriptor + " [pc.milk])]."
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] feels a strange sucking sensation deep within [npc.her] [npc.breasts],"
 								+ " and a frustrated sigh drifts out from between [npc.her] [npc.lips] as [npc.she] realises that [npc.she]'s feeling [npc.her] [npc.milk] production [style.boldShrink(drying up)].</br>"

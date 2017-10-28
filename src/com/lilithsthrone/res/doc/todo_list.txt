@@ -6,9 +6,160 @@
 	
 	Patch notes:
 	
+	Gameplay:
+		<b>Added:</b> Witch event. While travelling through the streets of Dominion, if the in-game month is October, then there's a small chance of a witch encounter. (Once there are 4 witches on the map, more witches will not spawn.)
+		Changed generic 'Day x' counter to an actual in-game date. I decided to change this so that I could detect and deliver special events based on month/date. (Such as the Halloween content only appearing in October.)
+		Added calendar to your room, along with some dialogue from Lilaya after you've inspected it, as well as some lore information about October.
+	
+	UI:
+		Very slightly changed the UI to fit in date & time.
+	
+	Weapons:
+		<b>Added:</b> Witch's Broom (Main slot, 2 new spells).
+	
+	Clothing:
+		<b>Added:</b> Witch's Dress (Feminine, Torso slot).
+		<b>Added:</b> Witch's Hat (Feminine, Head slot).
+		<b>Added:</b> Witch's Boots (Feminine, Foot slot).
+		<b>Added:</b> Witch's Thigh-high Boots (Feminine, Foot slot).
+		
+	Sex:
+		Added descriptions for all already-exposed orifices to the start of sex.
+		Improved consensual sex detection methods, so all NPCs should now be behaving like they were prior to 0.1.86. (I.e. not ending/taking control of sex when they're the sub.)
+		
+	Sex AI:
+		NPCs now prefer to displace clothing rather than removing it entirely.
+		Based on their fetishes, NPCs will now generate a preferred SexType and position for 'foreplay' and 'main sex' stages of sex. (Foreplay is currently defined as partner's arousal being less than 25.)
+		They will use their preferred SexType to determine clothing removal and action decision-making. (In an attempt to make sex less random.)
+		The alleyway succubus should now actually do as she says, and prioritise penetrating your vagina/ass.
+		
+	Other:
+		Added 'orange' to makeup colours.
+		Increased the amount of essences dropped after combat, and doubled the amount gained from orgasms.
+		Updated a lot of old parsing methods, which should have fixed several minor parsing errors.
+		Tweaked NPCs' race preference chances for forced TF.
+	
+	Bugs:
+		Fixed more issues with older character imports.
+		Fixed the text field for changing a slave's name in the jobs and permissions screens accepting hotkey input.
+		Fixed watch hands not rendering (again).
+		Fixed several errors in parsing an NPC's transformations.
+		Fixed crash when trying to get a succubus to equip a condom.
+		Removed duplicate corruption gain messages in sex.
+		You can no longer unequip an NPC's weapon during sex. (To fix a cause of some bugs until I can implement proper behaviour.)
 	
 	
 	
+	
+	Halloween :3
+
+	Finish Cultist dialogue
+	
+	Sort out Cultist sex actions
+		Dirty talk
+		Orgasm is them masturbating over your face/cumming inside you
+		Virginity loss
+	
+	
+	Do as much bug fixing as possible
+	Fetish implantation through potions (make it super expensive, like 30 essences to add/15 to remove)
+	Cosmetics for slaves
+	Events for slaves
+	
+	If time, anilingus
+	
+	
+	
+	
+	BUGS & SEX
+	
+	slave cosmetics & fetishes are large
+	
+	
+	
+	
+	
+	Apparently the height of male kids with both very tall parents wraps around back to midget values
+	
+	before having TF fetish cost to remove penis is 7 essence, and after it shows as 3, therefore having halved it, and then when added to the effects, it halves it again to 1
+	
+	Why does a topless exhibitionist in backless panties have more willpower damage bonus than one in crotchless panties or one just going commando? She actually has +16 total to it (+4 for breasts and +12 for general nudity), and one going commando has only the +12 bonus for full frontal nudity. The same goes for the player character as for the NPCs.
+	It's as if the topless bonus was counted twice for that particular case.
+	
+	When I import my character from last version, it gives me all fetishes except the two transformation ones.
+	
+	Hostile encounters in a non-hostile tile will cause the relevant NPC to remain in the tile indefinitely, with little if any interactions to do with them.
+	
+	"Store All" when in your room. Individually pressing buttons is a bit too much on the micromanaging side.
+	
+	The Viscous and Sticky cum modifiers should make the creampied status last for longer
+	
+	add an option to reduce the encounter of Offspring
+	
+	Those with the Transformation Test Subject Fetish will automatically swallow transformation pills.
+	
+	I'll increase the amount of essences dropped by all enemies for the next version
+	
+	Oh yes the other thing I can not seem to feed Scarlet any potions to mod her
+	
+	sort of a bug descripting error. When you have a breeding bitch walking around and you ignore her for a few days to let one of your slave studs knock her up. She blames you for being the dad even though you and she know you didn't have sex with her. not sure how to fix it
+	
+	For me the people that I get pregnant stay pregnant. To prove if it wasn’t just my mind I rested for 32 days and I check my pregnancy stats to see that all the women I impregnated are still pregnant.
+	
+	FETISH +/-
+	
+	Found a bug: If you play as a male and have a male and a female slave and both are allowed to have sex with each other and the female gets pregnant, she says the child if from the PC but it's not listed (obviously cuz the whole thing makes no sense^^) on the fathered children stats.
+	
+	I will definitely be improving the AI in sex over these next two weeks. I'll also add an event for the "Use You" permission for slaves (I didn't get time to add it in just yet).
+	
+	One thing that I'll do right away, however, is your suggestion for the orientation changes. I'll give it an associated essence cost, as well as giving ambiphilic some sort of buff.
+	
+	Vixen's Virility doesn't increase virility at all. 
+	
+	changing slaves permissions affect obedience/affection?
+	
+	I think the forced transformations are bugged, every time I get forced TFd by an NPC only one, maximum two transformations happen despite me having the subject fetish.
+	
+	Must they always patronise your size?. I went as large as the game will let me and it's still 'cute' and 'little'.
+	
+	all offspring introduction dialogue (if you're the father) assumes the child was birthed by Lilaya.
+	
+	Besides that, I have an export with a slave that had 100 for affection and obedience drop to the negatives for affection and mid 80's for obedience the moment I was able to move them to a room (after unlocking slave content since you still have to do that when importing). 
+	
+	Bug: When I imported my character, somehow all fetishes were awarded to me. This wasn't a real problem, since then resetting allowed me to take essentially whatever I wanted, but it still feels like something you'd want to fix.
+	
+	-I noticed that importing a character and skipping the intro leaves you with an empty inventory and no currency. Importing a character and doing the prologue gives a similar result except you have a burning opaque demonstone equipped and have 40 currency. A new character doesn't have these issues. 
+
+-My imported character also started with nearly all fetishes enabled except for the transformer and transformation test subject fetishes.
+
+- Minor bug this time, but it appears NPC's are once again calling large dicks small, the only time the seem to acknowledge it as 'big' is when the game is describing it as 'enormous'.
+	
+	The bug is that all androgynous characters seem to be spawning with high femininity.
+	
+	-The pronouns one requires that you save your changes, the others do not.  Often leads to forgetting to save.  (You might be able to ghost the save button on the back button to save text boxes)
+-A reset to default option would be useful on the other option settings as well, given how many options there are / will be.
+-Content options still isn't inside the options menu, for some reason.
+[19:03] DarkMaster: Shouldn't resume be greyed out if there's no save to resume?
+	
+	BUG -- Well, more of a logic error. When a NPC transforms you and gives you a dick, they still react like they didn't expect it when they remove your clothing. And its not as if they gave you a random cocktail without knowing the results, they specifically say what they are trying to turn you into.
+	
+	I haven't added a fetish that avoids vaginal penetration corruption gains... Oops... I'll get this sorted as soon as I can; thank you for bringing this to my attention
+	
+	working in a bar/brothel/milking shed, training
+	
+	adding grey fur/hair
+	
+	It seems that the stretching mechanic doesn't work right in this version, but is fine in the previous version.
+	
+	Some of the items aren't properly configured to be able to be used on NPCs during sex. I'll try and get that fixed as soon as I can!
+	
+	During character creation, every time you change gender or femininity, physical resistance goes up by 6. By spamming cycle gender you can easily get 100+ physical resistance.
+	
+	foot fetish
+	
+	Debug mode still refers to enchanting being in Lilaya's house
+	
+	add an event where a disobedient slave working as a chef cums on your food?
 	
 	You have to give a Surname when changing your name
 	
@@ -198,6 +349,7 @@ I have tried tinkering a bit in ClothingType.java but have not found a combinati
 			 And maybe some other types of rings, like a dragon ring, a Horcrux ring, the One Ring, and other cool fantasy rings.
 		
 	Sex:
+		Multiple orgasms like the sex scenes in 0.1.85!!!!!!!
 		knotting & mutual knotting
 		Pussy cock tease and spread pussy
 		anilingus
@@ -293,6 +445,7 @@ You lost your anal virginity to.
 The first time you performed oral was to.
 It lacks something before the period.
 	
+	blindfolds, chained-handcuffs, and chained-legcuffs
 	Ladies dress pants
 	butt-plugs, dildos
 	strap on

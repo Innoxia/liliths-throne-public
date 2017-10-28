@@ -47,6 +47,7 @@ public class DialogueFlags implements Serializable {
 			kateIntroduced, reactedToKatePregnancy,
 			
 			// Aunt's Home:
+			knowsDate, lilayaDateTalk,
 			auntHomeJustEntered, hadSexWithLilaya, reactedToPregnancyLilaya, waitingOnLilayaPregnancyResults,
 			essenceExtractionKnown,
 			readBook1, readBook2, readBook3,
@@ -92,6 +93,8 @@ public class DialogueFlags implements Serializable {
 		skinTypeSelected = null;
 
 		// Aunt's Home:
+		knowsDate = false;
+		lilayaDateTalk = false;
 		auntHomeJustEntered = false;
 		hadSexWithLilaya = false;
 		reactedToPregnancyLilaya = false;

@@ -1442,7 +1442,7 @@ public class PartnerTongueVagina {
 		
 		@Override
 		public String getActionTitle() {
-			return "Resist giving cunnilingus";
+			return "Resist cunnilingus";
 		}
 
 		@Override

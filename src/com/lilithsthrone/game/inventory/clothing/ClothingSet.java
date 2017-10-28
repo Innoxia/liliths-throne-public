@@ -18,6 +18,8 @@ public enum ClothingSet {
 	ENFORCER("Enforcer", StatusEffect.SET_ENFORCER, 2, null, null),
 	
 	MAID("Maid", StatusEffect.SET_MAID, 5, null, null),
+
+	WITCH("Witch", StatusEffect.SET_WITCH, 3, null, null),
 	
 	MILK_MAID("Milk Maid", StatusEffect.SET_MILK_MAID, 2, null, null),
 

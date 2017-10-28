@@ -1252,7 +1252,6 @@ public class CharacterInventory implements Serializable {
 	 * @return True if can access slot. (if byRemovingClothing is true, then it tells you if you are able to get to the slot by removing clothing, not that it is available right now).
 	 */
 	public boolean isAbleToAccessCoverableArea(CoverableArea area, boolean byRemovingClothing) {
-
 		// For every piece of equipped clothing, if it's blocking the coverable area, see if it can be displaced or removed.
 		// If it can't, continue searching to see if another displacement type has revealed that area.
 		// If it hasn't, return false.
@@ -1285,6 +1284,47 @@ public class CharacterInventory implements Serializable {
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 *  Copy of isAbleToAccessCoverableArea(), but returns the clothing responsible for the block.
+	 * @param area Area to check to see if it's blocked.
+	 * @param byRemovingClothing Allow removing of clothing in the check.
+	 * @return Clothing that's responsible for blocking the supplied area. Null if not blocked.
+	 */
+	public AbstractClothing getClothingBlockingCoverableAreaAccess(CoverableArea area, boolean byRemovingClothing) {
+		// For every piece of equipped clothing, if it's blocking the coverable area, see if it can be displaced or removed.
+		// If it can't, continue searching to see if another displacement type has revealed that area.
+		// If it hasn't, return false.
+		
+		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
+			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
+				if (bp.blockedBodyParts.contains(area)) {// If this clothing is blocking the area you are trying to access:
+					if (!clothing.getDisplacedList().contains(bp.displacementType)) { // If the clothing  hasn't been displaced:
+						if (byRemovingClothing) {
+							if (bp.displacementType == DisplacementType.REMOVE_OR_EQUIP) {
+								if (!isAbleToUnequip(clothing, false, byRemovingClothing, null, null)) {// If the clothing can't be removed from this area:
+									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
+										return clothing;
+									}
+								}
+							} else {
+								if (!isAbleToBeDisplaced(clothing, bp.displacementType, false, byRemovingClothing, null, null)) {// If the clothing can't be displaced from this area:
+									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
+										return clothing;
+									}
+								}
+							}
+						} else {
+							if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
+								return clothing;
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
 	}
 	
 	private boolean isCoverableAreaExposedFromElsewhere(AbstractClothing clothing, CoverableArea area) {

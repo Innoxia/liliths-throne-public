@@ -286,7 +286,7 @@ public class SexActionUtility {
 
 		@Override
 		public String getActionDescription() {
-			return "Force "+Sex.getPartner().getName("the")+" to stay perfectly still, holding them in position until they've lost a good portion of their arousal.";
+			return "Force [npc.name] to stay perfectly still, holding them in position until they've lost a good portion of their arousal.";
 		}
 
 		@Override
@@ -296,8 +296,8 @@ public class SexActionUtility {
 
 		@Override
 		public String getDescription() {
-			return UtilText.genderParsing(Sex.getPartner(),
-					"Taking control of the situation, you hold "+Sex.getPartner().getName("the")+" quite still, only releasing <herPro> once <she>'s lost a good portion of <her> arousal.");
+			return UtilText.parse(Sex.getPartner(),
+					"Taking control of the situation, you hold [npc.name] quite still, only releasing [npc.herHim] once [npc.she]'s lost a good portion of [npc.her] arousal.");
 		}
 
 		@Override

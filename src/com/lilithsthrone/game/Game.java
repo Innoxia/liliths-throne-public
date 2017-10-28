@@ -2,6 +2,7 @@ package com.lilithsthrone.game;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumMap;
@@ -40,6 +41,7 @@ import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.npc.dominion.Vicky;
+import com.lilithsthrone.game.character.npc.generic.Cultist;
 import com.lilithsthrone.game.character.npc.generic.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.generic.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.generic.GenericFemaleNPC;
@@ -81,7 +83,7 @@ import com.lilithsthrone.world.places.PlaceInterface;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.87
  * @author Innoxia
  */
 public class Game implements Serializable {
@@ -131,6 +133,7 @@ public class Game implements Serializable {
 	private World activeWorld;
 	private Map<WorldType, World> worlds;
 	private long minutesPassed;
+	private LocalDateTime startingDate;
 	private boolean debugMode, renderAttributesSection, renderMap, inCombat, inSex, imperialMeasurements;
 
 	private Cell currentCell;
@@ -166,7 +169,8 @@ public class Game implements Serializable {
 		worlds = new EnumMap<>(WorldType.class);
 		for (WorldType type : WorldType.values())
 			worlds.put(type, null);
-		minutesPassed = 22 * 60;
+		startingDate = LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(), 00, 00).plusYears(3);
+		minutesPassed = 20 * 60;
 		inCombat = false;
 		inSex = false;
 		renderAttributesSection = false;
@@ -1663,6 +1667,18 @@ public class Game implements Serializable {
 		return minutesPassed;
 	}
 	
+	public LocalDateTime getStartingDate() {
+		return startingDate;
+	}
+	
+	public LocalDateTime getDateNow() {
+		return getStartingDate().plusMinutes(Main.game.getMinutesPassed());
+	}
+	
+	public int getYear() {
+		return Main.game.getDateNow().getYear();
+	}
+
 	public int getHour() {
 		return (int) (Main.game.getMinutesPassed() / 60);
 	}
@@ -1889,7 +1905,17 @@ public class Game implements Serializable {
 		
 //		System.out.println("Removed: " + npc.getId());
 	}
-
+	
+	public int getNumberOfWitches() {
+		int i = 0;
+		for(NPC npc : NPCMap.values()) {
+			if(npc instanceof Cultist) {
+				i++;
+			}
+		}
+		return i;
+	}
+	
 	public NPC getActiveNPC() {
 		return activeNPC;
 	}

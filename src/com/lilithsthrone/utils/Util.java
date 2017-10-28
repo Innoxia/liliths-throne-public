@@ -140,6 +140,18 @@ public class Util {
 		return list;
 	}
 
+	public static String getDayOfMonthSuffix(int n) {
+		if (n >= 11 && n <= 13) {
+	    	return "th";
+	    }
+	    switch (n % 10) {
+	    	case 1:  return "st";
+	    	case 2:  return "nd";
+	    	case 3:  return "rd";
+	    	default: return "th";
+	    }
+	}
+	
 	// This seems stupid... ;_;
 	public static String intToString(int integer) {
 		switch (integer) {

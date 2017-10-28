@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.Quest;
@@ -164,7 +167,7 @@ public class Lab {
 									AUNT_HOME_LABORATORY_TESTING_ROMANCE,
 									Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
 									null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-									true, false, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+									true, true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
 										"<p>"
 											+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 											+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
@@ -188,7 +191,7 @@ public class Lab {
 									AUNT_HOME_LABORATORY_TESTING_ROMANCE,
 									Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
 									null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-									true, false, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+									true, true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
 										"<p>"
 											+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 											+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
@@ -213,14 +216,85 @@ public class Lab {
 									Main.game.getDialogueFlags().waitingOnLilayaPregnancyResults = false;
 								}
 							};
-	
+							
 					} else {
 						return null;
 					}
 					
 				} else {
 					
-					if (index == 1) {
+					List<Response> generatedResponses = new ArrayList<>();
+					
+					if (Main.game.getPlayer().isVisiblyPregnant()) {
+						if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+							generatedResponses.add(new Response("Pregnancy", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your pregnancy.", null));
+							
+						} else {
+							generatedResponses.add(new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY){
+								@Override
+								public QuestLine getQuestLine() {
+									if (Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+										if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_CONSULT_LILAYA) {
+											return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
+										} else {
+											return null;
+										}
+									} else {
+										return null;
+									}
+								}
+								@Override
+								public void effects() {
+									if (!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY))
+										Main.game.getPlayer().incrementQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY);
+								}
+							});
+						}
+					}
+					
+					if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+						if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+							if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+								generatedResponses.add(new Response("Essences & Jinxes", "You'll need to complete Lilaya's initial tests before you're able to ask her about that strange energy you absorbed.", null));
+								
+							} else {
+								generatedResponses.add(new Response("Essences & Jinxes", "Ask Lilaya about that strange energy you absorbed.", LILAYA_EXPLAINS_ESSENCES));
+							}
+							
+						} else {
+							if(Main.game.getDialogueFlags().essenceExtractionKnown) {
+								generatedResponses.add(new Response("Extract Essences", "Ask Lilaya if you can use her equipment to extract some essences.", ESSENCE_EXTRACTION));
+							} else {
+								generatedResponses.add(new Response("Extract Essences", "Ask Lilaya if there's any way to extract essences you've absorbed.", ESSENCE_EXTRACTION));
+							}
+						}
+					}
+					
+					if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)) {
+						if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_NEED_RECOMMENDATION) {
+							if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+								generatedResponses.add(new Response("Slaver", "You'll need to complete Lilaya's initial tests before you can ask her for a letter of recommendation.", null));
+								
+							} else {
+								generatedResponses.add(new Response("Slaver", "Ask Lilaya for a letter of recommendation in order to obtain a slaver license.", LILAYA_SLAVER_RECOMMENDATION));
+							}
+						}
+					}
+					
+					if(!Main.game.getDialogueFlags().lilayaDateTalk && Main.game.getDialogueFlags().knowsDate) {
+						generatedResponses.add(new Response("Current Date", "Ask Lilaya why the calendar in your room is three years ahead of the correct date.", LILAYA_CURRENT_DATE_TALK) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().lilayaDateTalk=true;
+							}
+						});
+					}
+					
+					// Return responses:
+					if(index==0) {
+						return null;
+						
+					} else if (index == 1) {
 						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_A_LILAYAS_TESTS) {
 							return new Response("Tests", "Let Lilaya know that you're here to let her run her tests on you.", AUNT_HOME_LABORATORY_TESTING);
 						} else {
@@ -231,69 +305,13 @@ public class Lab {
 							}
 						}
 	
-					} else if (index == 2) {
-						if (Main.game.getPlayer().isVisiblyPregnant()) {
-							if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-								return new Response("Pregnancy", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your pregnancy.", null);
-								
-							} else {
-								return new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY){
-									@Override
-									public QuestLine getQuestLine() {
-										if (Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
-											if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_CONSULT_LILAYA) {
-												return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
-											} else {
-												return null;
-											}
-										} else {
-											return null;
-										}
-									}
-									@Override
-									public void effects() {
-										if (!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY))
-											Main.game.getPlayer().incrementQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY);
-									}
-								};
-							}
+					} else if(index<6) {
+						if(index-2 < generatedResponses.size()) {
+							return generatedResponses.get(index-2);
 						} else {
 							return null;
 						}
 						
-					} else if(index == 3) {
-						if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-							if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-								if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-									return new Response("Essences & Jinxes", "You'll need to complete Lilaya's initial tests before you're able to ask her about that strange energy you absorbed.", null);
-									
-								} else {
-									return new Response("Essences & Jinxes", "Ask Lilaya about that strange energy you absorbed.", LILAYA_EXPLAINS_ESSENCES);
-								}
-								
-							} else {
-								if(Main.game.getDialogueFlags().essenceExtractionKnown) {
-									return new Response("Extract Essences", "Ask Lilaya if you can use her equipment to extract some essences.", ESSENCE_EXTRACTION);
-								} else {
-									return new Response("Extract Essences", "Ask Lilaya if there's any way to extract essences you've absorbed.", ESSENCE_EXTRACTION);
-								}
-							}
-						}
-						return null;
-	
-					} else if(index == 4) {
-						if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)) {
-							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_NEED_RECOMMENDATION) {
-								if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-									return new Response("Slaver", "You'll need to complete Lilaya's initial tests before you can ask her for a letter of recommendation.", null);
-									
-								} else {
-									return new Response("Slaver", "Ask Lilaya for a letter of recommendation in order to obtain a slaver license.", LILAYA_SLAVER_RECOMMENDATION);
-								}
-							}
-						}
-						return null;
-	
 					} else if (index == 6) {
 						return new ResponseEffectsOnly("Entrance hall", "Fast travel to the entrance hall."){
 							@Override
@@ -807,7 +825,7 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld ESSENCE_EXTRACTION = new DialogueNodeOld("Arcane Arts", "-", true, false) {
+	public static final DialogueNodeOld ESSENCE_EXTRACTION = new DialogueNodeOld("Lilaya's Lab", "-", true, false) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -1003,7 +1021,7 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld ESSENCE_EXTRACTION_BOTTLED = new DialogueNodeOld("Arcane Arts", "-", true, false) {
+	public static final DialogueNodeOld ESSENCE_EXTRACTION_BOTTLED = new DialogueNodeOld("Lilaya's Lab", "-", true, false) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -1022,7 +1040,55 @@ public class Lab {
 	};
 	
 	
-	
+	public static final DialogueNodeOld LILAYA_CURRENT_DATE_TALK = new DialogueNodeOld("Lilaya's Lab", "-", true, false) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "Curious about the date shown on the calendar in your room, you decide to ask Lilaya about it,"
+					+ " [pc.speech(Is the calendar in my room accurate? It's three years into the future from my world...)]"
+				+ "</p>"
+				+ "<p>"
+					+ "Lilaya frowns as she hears you say that, and leans back against the desk behind her,"
+					+ " [lilaya.speech(Well, I can assure you that the year is "+Main.game.getYear()+". Your world was still in "+(Main.game.getYear()-3)+", huh?)]"
+				+ "</p>"
+				+ "<p>"
+					+ "You answer in the affirmative, and Lilaya pushes her glasses up to the bridge of her nose, before crossing her arms and sighing,"
+					+ " [lilaya.speech(It shouldn't be anything to worry about."
+					+ " There must have been a chain of events in our world's past that led to the year being counted slightly differently to yours."
+					+ " Or maybe you time-travelled when you were teleported into this world!)]"
+					+ " As she starts thinking out loud, you can hear the growing excitement in her voice,"
+					+ " [lilaya.speech(In fact, it's pretty incredible that your world even uses the same calendar system as ours!"
+					+ " And, thinking about it even more, why do we even speak the same language?"
+					+ " And how come your customs, clothing, and even your appearance are similar to ours?!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "You start to chat with Lilaya about the peculiarities of these shared features between your worlds."
+					+ " The more you start to delve into it, however, the more surprised you are at the lack of historical knowledge that Lilaya has,"
+					+ " [lilaya.speech(Well, the only history that anyone really knows about is stuff concerning Lilith."
+					+ " She's been ruling this world since before any trace of civilisation even existed, so I guess all of our customs come from her direct influence."
+					+ " I don't think anybody other then Lilith herself, or her favourite Lilin, really know."
+					+ " Maybe my mother-)]"
+				+ "</p>"
+				+ "<p>"
+					+ "Lilaya's cheeks suddenly flush red, and she turns away as she brings a close to the conversation,"
+					+ " [lilaya.speech(Anyway! D-Don't worry about anything! Three years into the future is nothing! I-I'll try and investigate a little more, ok?!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "It's quite apparent that Lilaya isn't interesting in discussing the matter any more..."
+				+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			if(index==1) {
+				return new Response("Thank her", "Thank Lilaya for her information (or lack thereof), and think about asking her something else.", LAB_EXIT);
+			} else {
+				return null;
+			}
+		}
+	};
 	
 	
 	//----------------------------------
@@ -1031,7 +1097,6 @@ public class Lab {
 		/**
 		 */
 		private static final long serialVersionUID = 1L;
-
 		
 		@Override
 		public String getContent() {
@@ -1205,7 +1270,7 @@ public class Lab {
 						"Start having sex with Lilaya.", AUNT_HOME_LABORATORY_TESTING_ROMANCE,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
 						null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-						true, false, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+						true, true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
 						"<p>"
 								+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 								+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
@@ -1447,7 +1512,7 @@ public class Lab {
 				return new ResponseSex("Let it happen",
 						"You know that this can only end one way. Although Lilaya reminds you of your aunt Lily, you always did have a crush on her...", AUNT_HOME_LABORATORY_TESTING_ROMANCE,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-						true, false, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+						true, true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
 						"<p>"
 								+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 								+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."

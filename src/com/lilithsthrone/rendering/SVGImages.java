@@ -31,7 +31,7 @@ public enum SVGImages {
 			playerMapIconFeminine, playerPlaceMapIconFeminine,
 			playerMapDangerousIcon, playerPlaceMapDangerousIcon,
 
-			perkTreeArrow,
+			perkTreeArrow, spellOverlay,
 
 			weatherDayClear, weatherDayCloud, weatherDayRain, weatherDayStormIncoming, weatherDayStorm, weatherDayStormProtected,
 			weatherNightClear, weatherNightCloud, weatherNightRain, weatherNightStormIncoming, weatherNightStorm, weatherNightStormProtected,
@@ -74,11 +74,11 @@ public enum SVGImages {
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/feminineWarningIcon.svg");
 			feminineWarningIcon = Util.inputStreamToString(is);
-			feminineWarningIcon = setColour(feminineWarningIcon, Colour.FEMININE_PLUS);
+			feminineWarningIcon = setColour(feminineWarningIcon, Colour.FEMININE);
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/masculineWarningIcon.svg");
 			masculineWarningIcon = Util.inputStreamToString(is);
-			masculineWarningIcon = setColour(masculineWarningIcon, Colour.MASCULINE_PLUS);
+			masculineWarningIcon = setColour(masculineWarningIcon, Colour.BASE_BLUE_LIGHT);
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/jinxed.svg");
 			jinxedIcon = Util.inputStreamToString(is);
@@ -147,26 +147,19 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/perkTreeArrow.svg");
 			perkTreeArrow = Util.inputStreamToString(is);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/combat/spell_overlay.svg");
+			spellOverlay = Util.inputStreamToString(is);
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/wrist_womens_watch_hourhand.svg");
 			womensWatchHourHand = Util.inputStreamToString(is);
-			// womensWatchHourHand = setColour(womensWatchHourHand,
-			// Colour.ATTRIBUTE_HEALTH);
-
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/wrist_womens_watch_minutehand.svg");
 			womensWatchMinuteHand = Util.inputStreamToString(is);
-			// womensWatchMinuteHand = setColour(womensWatchMinuteHand,
-			// Colour.ATTRIBUTE_MANA);
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/wrist_mens_watch_hourhand.svg");
 			mensWatchHourHand = Util.inputStreamToString(is);
-			// mensWatchHourHand = setColour(mensWatchHourHand,
-			// Colour.ATTRIBUTE_AGILTY);
-
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/wrist_mens_watch_minutehand.svg");
 			mensWatchMinuteHand = Util.inputStreamToString(is);
-			// mensWatchMinuteHand = setColour(mensWatchMinuteHand,
-			// Colour.ATTRIBUTE_MANA);
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/weatherDayClear.svg");
 			weatherDayClear = Util.inputStreamToString(is);
@@ -527,6 +520,10 @@ public enum SVGImages {
 
 	public String getPerkTreeArrow() {
 		return perkTreeArrow;
+	}
+	
+	public String getSpellOverlay() {
+		return spellOverlay;
 	}
 
 	public String getWomensWatchHourHand() {

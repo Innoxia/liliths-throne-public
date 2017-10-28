@@ -93,7 +93,7 @@ public class Lilaya extends NPC {
 	public DialogueNodeOld getEncounterDialogue() {
 		return null;
 	}
-
+	
 	@Override
 	public void endSex(boolean applyEffects) {
 		if (applyEffects) {

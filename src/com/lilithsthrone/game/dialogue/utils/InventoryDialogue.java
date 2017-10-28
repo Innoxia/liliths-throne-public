@@ -3967,60 +3967,10 @@ public class InventoryDialogue {
 						
 					case SEX:
 						if(index == 1) {
-							return new Response("Unequip", "Unequip the " + weapon.getName() + ".", Sex.SEX_DIALOGUE){
-								@Override
-								public void effects(){
-									Sex.setUnequipClothingText("<p style='text-align:center;'>"
-											+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
-											?inventoryNPC.unequipMainWeapon(false)
-											:inventoryNPC.unequipOffhandWeapon(false))
-									+ "</p>");
-									Main.mainController.openInventory();
-									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-									Sex.setSexStarted(true);
-								}
-							};
+							return new Response("Unequip", "You can't unequip someone's weapon while having sex with them!", null);
 							
 						} else if (index == 2) {
-							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasWeapon(weapon);
-							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull) {
-									return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
-								} else {
-									return new Response("Drop", "Drop your " + weapon.getName() + ".", Sex.SEX_DIALOGUE){
-										@Override
-										public void effects(){
-											Sex.setUnequipClothingText("<p style='text-align:center;'>"
-													+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
-													?inventoryNPC.unequipMainWeapon(true)
-													:inventoryNPC.unequipOffhandWeapon(true))
-											+ "</p>");
-											Main.mainController.openInventory();
-											Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-											Sex.setSexStarted(true);
-										}
-									};
-								}
-								
-							} else {
-								if(areaFull) {
-									return new Response("Store", "This area is full, so you can't store your " + weapon.getName() + " here!", null);
-								} else {
-									return new Response("Store", "Store your " + weapon.getName() + " in this area.", Sex.SEX_DIALOGUE){
-										@Override
-										public void effects(){
-											Sex.setUnequipClothingText("<p style='text-align:center;'>"
-													+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
-													?inventoryNPC.unequipMainWeapon(true)
-													:inventoryNPC.unequipOffhandWeapon(true))
-											+ "</p>");
-											Main.mainController.openInventory();
-											Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-											Sex.setSexStarted(true);
-										}
-									};
-								}
-							}
+							return new Response("Drop", "You can't unequip someone's weapon while having sex with them!", null);
 							
 						} else if(index == 5) {
 							return new Response("Enchant", "You can't enchant equipped weapons!", null);

@@ -151,7 +151,7 @@ public interface SexActionInterface {
 			
 			// You can't resist in scenes that don't allow it or if non-con is disabled:
 			if((getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING)) {
-				if(!Sex.isCanResist() || !Main.game.isNonConEnabled()) {
+				if(Sex.isConsensual() || !Main.game.isNonConEnabled()) {
 					return null;
 				}
 			}
@@ -182,12 +182,12 @@ public interface SexActionInterface {
 				if(getAssociatedPenetrationType()!=null && getAssociatedOrificeType()!=null) {
 					if(getAssociatedPenetrationType().isPlayer() != getAssociatedOrificeType().isPlayer()) { // This is a penetrative action between both partners:
 						if(getActionType().isPlayerAction()) { // Player is performing action:
-							if((!Sex.isConsensual() || getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING) && !Sex.isPlayerDom()) {
+							if(((!Sex.isConsensual() || !Sex.isSubHasEqualControl()) || getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING) && !Sex.isPlayerDom()) {
 								return null;
 							}
 							
 						} else { // Partner is performing action:
-							if(((!Sex.isConsensual() || getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING) && Sex.isPlayerDom())) {
+							if((((!Sex.isConsensual() || !Sex.isSubHasEqualControl()) || getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING) && Sex.isPlayerDom())) {
 								return null;
 							}
 						}

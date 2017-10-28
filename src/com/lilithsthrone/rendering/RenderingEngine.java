@@ -1,5 +1,6 @@
 package com.lilithsthrone.rendering;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,8 +22,6 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.combat.SpecialAttack;
-import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
@@ -35,6 +34,7 @@ import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
@@ -444,27 +444,19 @@ public enum RenderingEngine {
 								+ "</div>"
 								+ "<div class='overlay' id='PLAYER_" + Attribute.EXPERIENCE.getName() + "' style='cursor:pointer;'></div>"
 							+ "</div>"
-							+ "<div class='full-width-container' style='padding:0 8px 0 8px'>"
-								+  "<span style='float:left;'>"
-									+ "<b>" 
-									+ (Main.game.isDayTime() ? "Day " : "Night ") + Main.game.getDayNumber() + ", " + String.format("%02d", (Main.game.getMinutesPassed() % (24 * 60)) / 60)
-									+ ":" + String.format("%02d", (Main.game.getMinutesPassed() % (24 * 60)) % 60)
-									+ "</b>"
-								+ "</span>"
-								+ "<span style='float:right;'>"
+							+ "<div class='full-width-container'>"
+								+ "<div class='half-width-container' style='text-align:center;'>"
+									+ UtilText.formatAsEssences(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE), "b", true)
+								+ "</div>"
+								+ "<div class='half-width-container' style='text-align:center;'>"
 									+ UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "b")
-									+ " "+ UtilText.formatAsEssences(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE), "b", true)
-								+ "</span>"
+								+ "</div>"
 							+ "</div>"
 						+ "</div>");
 		
 		if(Main.mainController.getWebViewAttributes().getHeight()>=750) {
-			uiAttributeSB.append(
-					"<div class='attribute-container'>"
-							+ "<p style='text-align:center;padding:0;margin:0;'><b>Attributes</b></p>"
-				
-							// Strength:
-							+ "<div class='full-width-container' style='margin:8 0 0 0; margin:0; padding:0;'>"
+			uiAttributeSB.append("<div class='attribute-container'>"
+								+ "<div class='full-width-container' style='margin:8 0 0 0; margin:0; padding:0;'>"
 								+ "<div class='icon small'><div class='icon-content'>"
 									+ StrengthLevel.getStrengthLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
 								+ "<div class='barBackgroundAtt'>"
@@ -526,9 +518,7 @@ public enum RenderingEngine {
 									
 						+ "</div>");
 		} else {
-			uiAttributeSB.append(
-					"<div class='attribute-container'>"
-					+ "<p style='text-align:center;padding:0;margin:0;'><b>Attributes</b></p>"
+			uiAttributeSB.append("<div class='attribute-container'>"
 						+ "<div class='quarter-width-container'>"
 						+ "<div class='icon' style='width:45%'><div class='icon-content'>"
 							+ StrengthLevel.getStrengthLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
@@ -623,7 +613,7 @@ public enum RenderingEngine {
 			if(!hasStatusEffects) {
 				uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;height:12vw;'><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No sex effects</b></p>");
 			}
-			uiAttributeSB.append("</div>");
+//			uiAttributeSB.append("</div>");
 						
 		} else {
 		
@@ -699,8 +689,73 @@ public enum RenderingEngine {
 							+ "</div>");
 				}
 			}
+//			// Fetishes:
+//			for (Fetish f : Main.game.getPlayer().getFetishes()) {
+//				uiAttributeSB.append(
+//						"<div class='icon'><div class='icon-content'>"
+//								+ f.getSVGString()
+//								+ "<div class='overlay' id='FETISH_PLAYER_" + f + "'></div>"
+//						+ "</div></div>");
+//			}
+//			// Special attacks:
+//			for (SpecialAttack sa : Main.game.getPlayer().getSpecialAttacks()) {
+//				uiAttributeSB.append(
+//						"<div class='icon'><div class='icon-content'>"
+//								+ sa.getSVGString()
+//								+ "<div class='overlay' id='SA_" + sa + "'></div>"
+//						+ "</div></div>");
+//			}
+//			if (Main.game.getPlayer().getMainWeapon() != null) {
+//				for (Spell s : Main.game.getPlayer().getMainWeapon().getSpells()) {
+//					uiAttributeSB.append(
+//							"<div class='icon'><div class='icon-content'>"
+//									+ s.getSVGString()
+//									+ "<div class='overlay' id='SPELL_MAIN_" + s + "'></div>"
+//							+ "</div></div>");
+//				}
+//			}
+//			if (Main.game.getPlayer().getOffhandWeapon() != null) {
+//				for (Spell s : Main.game.getPlayer().getOffhandWeapon().getSpells()) {
+//					uiAttributeSB.append(
+//							"<div class='icon'><div class='icon-content'>"
+//									+ s.getSVGString()
+//									+ "<div class='overlay' id='SPELL_OFFHAND_" + s + "'></div>"
+//							+ "</div></div>");
+//				}
+//			}
 		}
-		uiAttributeSB.append("</div></div>");
+		
+		//TODO
+		uiAttributeSB.append("</div>"
+				+ "<div class='attribute-container' style=' margin-bottom:1px;'>"
+					+ "<div class='full-width-container' style='text-align:center; margin-left:4px;'>"
+							+ "<p style='color:"+Colour.TEXT.getShades(8)[3]+"; float:left; width:60%;'>"
+								+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("d"))
+									+ Util.getDayOfMonthSuffix(Main.game.getDateNow().getDayOfMonth())
+									+ " "
+									+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("MMMM"))
+//									+ " "
+//									+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("yyyy"))
+							+ "</p>"
+							+ "<p style='float:right; margin-right:8px;'>");
+		
+		if(Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST)!=null
+				&& (Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_WOMENS_WATCH)
+						|| Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_MENS_WATCH))) {
+			uiAttributeSB.append("<div class='item-inline' style='float:left;'><div class='overlay' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"+Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getSVGEquippedString()+"</div></div>");
+			
+		} else {
+			uiAttributeSB.append("<div class='item-inline' style='float:left;'><div class='overlay' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"+SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()+"</div></div>");
+		}
+		
+		uiAttributeSB.append((Main.getProperties().twentyFourHourTime
+								?Main.game.getDateNow().format(DateTimeFormatter.ofPattern("HH:mm"))
+								:Main.game.getDateNow().format(DateTimeFormatter.ofPattern("hh:mma")))
+							+"</p>"
+					+ "</div>"
+				+ "</div>"
+				+ "</div>"
+				);
 		
 		
 		if(Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.INVENTORY || Main.game.isInCombat() || Main.game.isInSex()) {
@@ -1111,32 +1166,32 @@ public enum RenderingEngine {
 									+ "<div class='overlay' id='FETISH_NPC_" + f + "'></div>"
 							+ "</div></div>");
 				}
-				// Special attacks:
-				for (SpecialAttack sa : npcToRender.getSpecialAttacks()) {
-					uiAttributeSB.append(
-							"<div class='icon'><div class='icon-content'>"
-									+ sa.getSVGString()
-									+ "<div class='overlay' id='SA_" + sa + "'></div>"
-							+ "</div></div>");
-				}
-				if (npcToRender.getMainWeapon() != null) {
-					for (Spell s : npcToRender.getMainWeapon().getSpells()) {
-						uiAttributeSB.append(
-								"<div class='icon'><div class='icon-content'>"
-										+ s.getSVGString()
-										+ "<div class='overlay' id='SPELL_MAIN_" + s + "'></div>"
-								+ "</div></div>");
-					}
-				}
-				if (npcToRender.getOffhandWeapon() != null) {
-					for (Spell s : npcToRender.getOffhandWeapon().getSpells()) {
-						uiAttributeSB.append(
-								"<div class='icon'><div class='icon-content'>"
-										+ s.getSVGString()
-										+ "<div class='overlay' id='SPELL_OFFHAND_" + s + "'></div>"
-								+ "</div></div>");
-					}
-				}
+//				// Special attacks:
+//				for (SpecialAttack sa : npcToRender.getSpecialAttacks()) {
+//					uiAttributeSB.append(
+//							"<div class='icon'><div class='icon-content'>"
+//									+ sa.getSVGString()
+//									+ "<div class='overlay' id='SA_" + sa + "'></div>"
+//							+ "</div></div>");
+//				}
+//				if (npcToRender.getMainWeapon() != null) {
+//					for (Spell s : npcToRender.getMainWeapon().getSpells()) {
+//						uiAttributeSB.append(
+//								"<div class='icon'><div class='icon-content'>"
+//										+ s.getSVGString()
+//										+ "<div class='overlay' id='SPELL_MAIN_" + s + "'></div>"
+//								+ "</div></div>");
+//					}
+//				}
+//				if (npcToRender.getOffhandWeapon() != null) {
+//					for (Spell s : npcToRender.getOffhandWeapon().getSpells()) {
+//						uiAttributeSB.append(
+//								"<div class='icon'><div class='icon-content'>"
+//										+ s.getSVGString()
+//										+ "<div class='overlay' id='SPELL_OFFHAND_" + s + "'></div>"
+//								+ "</div></div>");
+//					}
+//				}
 			}
 			uiAttributeSB.append("</div>");
 			

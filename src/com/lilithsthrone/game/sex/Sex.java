@@ -114,7 +114,7 @@ public enum Sex {
 
 	private static boolean sexStarted = false;
 	private static boolean consensual;
-	private static boolean canResist;
+	private static boolean subHasEqualControl;
 
 	private static NPC partner;
 	private static SexManagerInterface sexManager;
@@ -152,8 +152,8 @@ public enum Sex {
 	private Sex() {
 	}
 
-	public DialogueNodeOld initialiseSex(boolean consensual, boolean canResist, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue){
-		return initialiseSex(consensual, canResist, partner, sexManager, postSexDialogue, "", null, null);
+	public DialogueNodeOld initialiseSex(boolean consensual, boolean subHasEqualControl, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue){
+		return initialiseSex(consensual, subHasEqualControl, partner, sexManager, postSexDialogue, "", null, null);
 	}
 
 	/**
@@ -164,12 +164,20 @@ public enum Sex {
 	 * @param timeTaken
 	 * @return
 	 */
-	public DialogueNodeOld initialiseSex(boolean consensual, boolean canResist, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue, String sexStartDescription, SexPace sexPacePlayer, SexPace sexPacePartner) {
+	public DialogueNodeOld initialiseSex(
+			boolean consensual,
+			boolean subHasEqualControl,
+			NPC partner,
+			SexManagerInterface sexManager,
+			DialogueNodeOld postSexDialogue,
+			String sexStartDescription,
+			SexPace sexPacePlayer,
+			SexPace sexPacePartner) {
 
 		SexFlags.reset();
 		
 		Sex.consensual = consensual;
-		Sex.canResist = canResist;
+		Sex.subHasEqualControl = subHasEqualControl;
 		
 		// Re-initialise all sex action variables:
 		sexManager.initSexActions();
@@ -177,6 +185,7 @@ public enum Sex {
 		Main.game.setActiveNPC(partner);
 		Sex.partner = partner;
 		Sex.sexManager = sexManager;
+		Sex.partner.generateSexChoices();
 		Sex.postSexDialogue = postSexDialogue;
 
 		if(sexPacePlayer == null) {
@@ -223,13 +232,12 @@ public enum Sex {
 		areasExposedPlayer = new ArrayList<>();
 		areasExposedPartner = new ArrayList<>();
 
-		for (CoverableArea area : CoverableArea.values()) {
-			if (Main.game.getPlayer().isAbleToAccessCoverableArea(area, false))
-				areasExposedPlayer.add(area);
-			if (partner.isAbleToAccessCoverableArea(area, false))
-				areasExposedPartner.add(area);
-		}
-
+//		for (CoverableArea area : CoverableArea.values()) {
+//			if (Main.game.getPlayer().isAbleToAccessCoverableArea(area, false))
+//				areasExposedPlayer.add(area);
+//			if (partner.isAbleToAccessCoverableArea(area, false))
+//				areasExposedPartner.add(area);
+//		}
 
 		penetrationRequestsPlayer = new HashSet<>();
 
@@ -245,15 +253,7 @@ public enum Sex {
 
 		Main.game.getPlayer().setArousal(0);
 		partner.setArousal(0);
-
-		// Starting text:
-		sexSB = new StringBuilder(sexStartDescription);
-
-		sexSB.append(sexManager.getStartSexDescription());
-
-		sexSB.append("<p style='text-align:center;'><b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Starting position</b></br>"
-				+"<i><b>"+sexManager.getPosition().getDescription()+"</b></i></p>");
-
+		
 		// Set starting wetness values:
 		wetPenetrationTypes = new EnumMap<>(PenetrationType.class);
 		wetOrificeTypes = new EnumMap<>(OrificeType.class);
@@ -264,10 +264,21 @@ public enum Sex {
 		for(OrificeType ot : OrificeType.values()) {
 			wetOrificeTypes.put(ot, new HashSet<>());
 		}
+		
+		// Starting text:
+		sexSB = new StringBuilder(sexStartDescription);
+
+		sexSB.append(sexManager.getStartSexDescription());
+
+		sexSB.append("<p style='text-align:center;'><b>Starting Position:</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+sexManager.getPosition().getName()+"</b></br>"
+				+"<i><b>"+sexManager.getPosition().getDescription()+"</b></i></p>");
+		
+		// Starting exposed:
+		handleExposedDescriptions(true);
+
 		// This method appends wet descriptions to the sexSB StringBuilder:
 		calculateWetAreas(true);
 
-		
 		sexDescription = sexSB.toString();
 
 		Main.game.setInSex(true);
@@ -465,16 +476,16 @@ public enum Sex {
 
 				partner.setAssStretchedCapacity(partner.getAssRawCapacityValue());
 
-				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> asshole quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
+				sexSB.append(UtilText.parse(partner,
+						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] asshole quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
 
 			} else {
 
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
 				partner.incrementAssCapacity((partner.getAssStretchedCapacity()-partner.getAssRawCapacityValue())*partner.getAssPlasticity().getCapacityIncreaseModifier());
 
-				sexSB.append(UtilText.genderParsing(partner,
-								"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> " + partner.getAssElasticity().getDescriptor() + " asshole has been stretched from its ordeal, and is currently "
+				sexSB.append(UtilText.parse(partner,
+								"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] " + partner.getAssElasticity().getDescriptor() + " asshole has been stretched from its ordeal, and is currently "
 						+ Capacity.getCapacityFromValue(partner.getAssStretchedCapacity()).getDescriptor() + "!"));
 
 				if(partner.getAssPlasticity().getCapacityIncreaseModifier()>0) {
@@ -491,16 +502,16 @@ public enum Sex {
 				partner.setVaginaStretchedCapacity(partner.getVaginaRawCapacityValue());
 
 
-				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> vagina quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
+				sexSB.append(UtilText.parse(partner,
+						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] vagina quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
 
 			} else {
 
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
 				partner.incrementVaginaCapacity((partner.getVaginaStretchedCapacity()-partner.getVaginaRawCapacityValue())*partner.getVaginaPlasticity().getCapacityIncreaseModifier());
 
-				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> " + partner.getVaginaPlasticity().getDescriptor() + " pussy has been stretched from its ordeal, and is currently "
+				sexSB.append(UtilText.parse(partner,
+						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] " + partner.getVaginaPlasticity().getDescriptor() + " pussy has been stretched from its ordeal, and is currently "
 						+ Capacity.getCapacityFromValue(partner.getVaginaStretchedCapacity()).getDescriptor() + "!"));
 
 				if(partner.getVaginaPlasticity().getCapacityIncreaseModifier()>0) {
@@ -516,16 +527,16 @@ public enum Sex {
 
 				partner.setNippleStretchedCapacity(partner.getNippleRawCapacityValue());
 
-				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> [npc.nipples+] quickly recover from their ordeal, and instantly return to their original size!</b></p>"));
+				sexSB.append(UtilText.parse(partner,
+						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] [npc.nipples+] quickly recover from their ordeal, and instantly return to their original size!</b></p>"));
 
 			} else {
 
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
 				partner.incrementNippleCapacity((partner.getNippleStretchedCapacity()-partner.getNippleRawCapacityValue())*partner.getNipplePlasticity().getCapacityIncreaseModifier());
 
-				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> " + partner.getNipplePlasticity().getDescriptor() + " nipple-cunts have been stretched from their ordeal, and are currently "
+				sexSB.append(UtilText.parse(partner,
+						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] " + partner.getNipplePlasticity().getDescriptor() + " nipple-cunts have been stretched from their ordeal, and are currently "
 						+ Capacity.getCapacityFromValue(partner.getNippleStretchedCapacity()).getDescriptor() + "!"));
 
 				if(partner.getNipplePlasticity().getCapacityIncreaseModifier()>0) {
@@ -541,16 +552,16 @@ public enum Sex {
 
 				partner.setPenisStretchedCapacity(partner.getPenisRawCapacityValue());
 
-				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
+				sexSB.append(UtilText.parse(partner,
+						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
 
 			} else {
 
 				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
 				partner.incrementPenisCapacity((partner.getPenisStretchedCapacity()-partner.getPenisRawCapacityValue())*partner.getUrethraPlasticity().getCapacityIncreaseModifier());
 
-				sexSB.append(UtilText.genderParsing(partner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'><Her> " + partner.getUrethraPlasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
+				sexSB.append(UtilText.parse(partner,
+						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] " + partner.getUrethraPlasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
 						+ Capacity.getCapacityFromValue(partner.getPenisStretchedCapacity()).getDescriptor() + "!"));
 
 				if(partner.getUrethraPlasticity().getCapacityIncreaseModifier()>0) {
@@ -654,9 +665,9 @@ public enum Sex {
 						+ "</div>");
 				
 				if(Main.game.getPlayer().hasPerk(Perk.NYMPHOMANIAC)) {
-					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 2);
+					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 4);
 				} else {
-					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 1);
+					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 2);
 				}
 			}
 			Main.game.getPlayer().addStatusEffect(StatusEffect.RECOVERING_AURA, 240);	
@@ -735,9 +746,9 @@ public enum Sex {
 						+ "</div>"
 						+ "</div>");
 				if(Main.game.getPlayer().hasPerk(Perk.NYMPHOMANIAC))
-					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 2);
+					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 4);
 				else
-					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 1);
+					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 2);
 				
 			}
 			partner.addStatusEffect(StatusEffect.RECOVERING_AURA, 240);
@@ -765,7 +776,7 @@ public enum Sex {
 	}
 	
 	private static String formatCoverableAreaGettingWet(String description) {
-		return UtilText.genderParsing(Sex.getPartner(),
+		return UtilText.parse(Sex.getPartner(),
 				"<p style='text-align:center;'><i style='color:" + BaseColour.LILAC_LIGHT.toWebHexString() + ";'>"+description+"</i></p>");
 	}
 
@@ -775,7 +786,7 @@ public enum Sex {
 
 		@Override
 		public String getLabel() {
-			return "Sex with [npc.name]";
+			return "Sex: "+getPosition().getName();
 		}
 
 		@Override
@@ -1253,71 +1264,7 @@ public enum Sex {
 
 		// Handle if parts have just become exposed:
 		if (sexAction == SexActionUtility.CLOTHING_REMOVAL) {
-			// Player:
-			if (!areasExposedPlayer.contains(CoverableArea.ANUS))
-				if (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, false)) {
-					sexSB.append(formatCoverableAreaBecomingExposed("Your [pc.asshole+] is now exposed.") + sexManager.getPlayerAssRevealReaction(isPlayerDom()));
-					areasExposedPlayer.add(CoverableArea.ANUS);
-				}
-			if (!areasExposedPlayer.contains(CoverableArea.PENIS))
-				if (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, false)) {
-					if (Main.game.getPlayer().getPenisType() != PenisType.NONE) {
-						sexSB.append(formatCoverableAreaBecomingExposed("Your [pc.cock+] is now exposed.") + sexManager.getPlayerPenisRevealReaction(isPlayerDom()));
-					}
-					areasExposedPlayer.add(CoverableArea.PENIS);
-				}
-			if (!areasExposedPlayer.contains(CoverableArea.VAGINA))
-				if (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, false)) {
-					if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
-						sexSB.append(formatCoverableAreaBecomingExposed("Your [pc.pussy+] is now exposed.") + sexManager.getPlayerVaginaRevealReaction(isPlayerDom()));
-
-					} else if (Main.game.getPlayer().getVaginaType() == VaginaType.NONE && Main.game.getPlayer().getPenisType() == PenisType.NONE) {
-						sexSB.append(formatCoverableAreaBecomingExposed("Your doll-like mound is now exposed.") + sexManager.getPlayerMoundRevealReaction(isPlayerDom()));
-					}
-					areasExposedPlayer.add(CoverableArea.VAGINA);
-				}
-			if (!areasExposedPlayer.contains(CoverableArea.NIPPLES))
-				if (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, false)) {
-					if (Main.game.getPlayer().hasBreasts()) {
-						sexSB.append(formatCoverableAreaBecomingExposed("Your [pc.breasts+] are now exposed.") + sexManager.getPlayerBreastsRevealReaction(isPlayerDom()));
-					} else {
-						sexSB.append(formatCoverableAreaBecomingExposed("Your chest is now exposed.") + sexManager.getPlayerBreastsRevealReaction(isPlayerDom()));
-					}
-					areasExposedPlayer.add(CoverableArea.NIPPLES);
-				}
-
-			// Partner:
-			if (!areasExposedPartner.contains(CoverableArea.ANUS))
-				if (partner.isAbleToAccessCoverableArea(CoverableArea.ANUS, false)) {
-					sexSB.append(formatCoverableAreaBecomingExposed("[npc.Name]'s [npc.asshole+] is now exposed.") + sexManager.getPartnerAssRevealReaction(isPlayerDom()));
-					areasExposedPartner.add(CoverableArea.ANUS);
-				}
-			if (!areasExposedPartner.contains(CoverableArea.PENIS))
-				if (partner.isAbleToAccessCoverableArea(CoverableArea.PENIS, false)) {
-					if (partner.getPenisType() != PenisType.NONE) {
-						sexSB.append(formatCoverableAreaBecomingExposed("[npc.Name]'s [npc.penis+] is now exposed.") + sexManager.getPartnerPenisRevealReaction(isPlayerDom()));
-					}
-					areasExposedPartner.add(CoverableArea.PENIS);
-				}
-			if (!areasExposedPartner.contains(CoverableArea.VAGINA))
-				if (partner.isAbleToAccessCoverableArea(CoverableArea.VAGINA, false)) {
-					if (partner.getVaginaType() != VaginaType.NONE) {
-						sexSB.append(formatCoverableAreaBecomingExposed("[npc.Name]'s [npc.pussy+] is now exposed.") + sexManager.getPartnerVaginaRevealReaction(isPlayerDom()));
-
-					} else if (partner.getVaginaType() == VaginaType.NONE && partner.getPenisType() == PenisType.NONE) {
-						sexSB.append(formatCoverableAreaBecomingExposed("[npc.Name]'s doll-like mound is now exposed.") + sexManager.getPartnerMoundRevealReaction(isPlayerDom()));
-					}
-					areasExposedPartner.add(CoverableArea.VAGINA);
-				}
-			if (!areasExposedPartner.contains(CoverableArea.NIPPLES))
-				if (partner.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, false)) {
-					if (partner.hasBreasts()) {
-						sexSB.append(formatCoverableAreaBecomingExposed("[npc.Name]'s [npc.breasts+] are now exposed.")+ sexManager.getPartnerBreastsRevealReaction(isPlayerDom()));
-					} else {
-						sexSB.append(formatCoverableAreaBecomingExposed("[npc.Name]'s chest is now exposed.")+ sexManager.getPartnerBreastsRevealReaction(isPlayerDom()));
-					}
-					areasExposedPartner.add(CoverableArea.NIPPLES);
-				}
+			handleExposedDescriptions(false);
 		}
 		
 		// Only apply penetration effects if this action isn't an orgasm, and it isn't the end of sex. (Otherwise, ongoing descriptions get appended after the main description, which usually don't make sense.)
@@ -1332,6 +1279,124 @@ public enum Sex {
 		}
 		
 		calculateWetAreas(false);
+	}
+	
+	private static void handleExposedDescriptions(boolean atStartOfSex) {
+		// Player:
+		if (!areasExposedPlayer.contains(CoverableArea.ANUS)) {
+			if (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, false)) {
+				sexSB.append(
+						formatCoverableAreaBecomingExposed(
+								(atStartOfSex
+										?"Your [pc.asshole+] was already exposed before starting sex!"
+										:"Your [pc.asshole+] is now exposed!"))
+						+ sexManager.getPlayerAssRevealReaction(isPlayerDom()));
+				areasExposedPlayer.add(CoverableArea.ANUS);
+			}
+		}
+		if (!areasExposedPlayer.contains(CoverableArea.PENIS)) {
+			if (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, false)) {
+				if (Main.game.getPlayer().getPenisType() != PenisType.NONE) {
+					sexSB.append(
+						formatCoverableAreaBecomingExposed(
+							(atStartOfSex
+									?"Your [pc.cock+] was already exposed before starting sex!"
+									:"Your [pc.cock+] is now exposed!"))
+							+ sexManager.getPlayerPenisRevealReaction(isPlayerDom()));
+				}
+				areasExposedPlayer.add(CoverableArea.PENIS);
+			}
+		}
+		if (!areasExposedPlayer.contains(CoverableArea.VAGINA)) {
+			if (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, false)) {
+				if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
+					sexSB.append(
+						formatCoverableAreaBecomingExposed(
+							(atStartOfSex
+									?"Your [pc.pussy+] was already exposed before starting sex!"
+									:"Your [pc.pussy+] is now exposed!"))
+							+ sexManager.getPlayerVaginaRevealReaction(isPlayerDom()));
+
+				} else if (Main.game.getPlayer().getVaginaType() == VaginaType.NONE && Main.game.getPlayer().getPenisType() == PenisType.NONE) {
+					sexSB.append(
+							formatCoverableAreaBecomingExposed(
+									(atStartOfSex
+											?"Your doll-like mound was already exposed before starting sex!"
+											:"Your doll-like mound is now exposed!"))
+							+ sexManager.getPlayerMoundRevealReaction(isPlayerDom()));
+				}
+				areasExposedPlayer.add(CoverableArea.VAGINA);
+			}
+		}
+		if (!areasExposedPlayer.contains(CoverableArea.NIPPLES)) {
+			if (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, false)) {
+				sexSB.append(
+						formatCoverableAreaBecomingExposed(
+								(atStartOfSex
+										?"Your [pc.nipples+] were already exposed before starting sex!"
+										:"Your [pc.nipples+] are now exposed!"))
+						+ sexManager.getPlayerBreastsRevealReaction(isPlayerDom()));
+				areasExposedPlayer.add(CoverableArea.NIPPLES);
+			}
+		}
+		
+		// Partner:
+		if (!areasExposedPartner.contains(CoverableArea.ANUS)) {
+			if (partner.isAbleToAccessCoverableArea(CoverableArea.ANUS, false)) {
+				sexSB.append(
+						formatCoverableAreaBecomingExposed(
+								(atStartOfSex
+										?"[npc.Name]'s [npc.asshole+] was already exposed before starting sex!"
+										:"[npc.Name]'s [npc.asshole+] is now exposed!"))
+						+ sexManager.getPartnerAssRevealReaction(isPlayerDom()));
+				areasExposedPartner.add(CoverableArea.ANUS);
+			}
+		}
+		if (!areasExposedPartner.contains(CoverableArea.PENIS)) {
+			if (partner.isAbleToAccessCoverableArea(CoverableArea.PENIS, false)) {
+				if (partner.getPenisType() != PenisType.NONE) {
+					sexSB.append(
+							formatCoverableAreaBecomingExposed(
+									(atStartOfSex
+											?"[npc.Name]'s [npc.cock+] was already exposed before starting sex!"
+											:"[npc.Name]'s [npc.cock+] is now exposed!"))
+							+ sexManager.getPartnerPenisRevealReaction(isPlayerDom()));
+				}
+				areasExposedPartner.add(CoverableArea.PENIS);
+			}
+		}
+		if (!areasExposedPartner.contains(CoverableArea.VAGINA)) {
+			if (partner.isAbleToAccessCoverableArea(CoverableArea.VAGINA, false)) {
+				if (partner.getVaginaType() != VaginaType.NONE) {
+					sexSB.append(
+							formatCoverableAreaBecomingExposed(
+									(atStartOfSex
+											?"[npc.Name]'s [npc.pussy+] was already exposed before starting sex!"
+											:"[npc.Name]'s [npc.pussy+] is now exposed!"))
+							+ sexManager.getPartnerVaginaRevealReaction(isPlayerDom()));
+
+				} else if (partner.getVaginaType() == VaginaType.NONE && partner.getPenisType() == PenisType.NONE) {
+					sexSB.append(
+							formatCoverableAreaBecomingExposed(
+									(atStartOfSex
+											?"[npc.Name]'s doll-like mound was already exposed before starting sex!"
+											:"[npc.Name]'s doll-like mound is now exposed!"))
+							+ sexManager.getPartnerMoundRevealReaction(isPlayerDom()));
+				}
+				areasExposedPartner.add(CoverableArea.VAGINA);
+			}
+		}
+		if (!areasExposedPartner.contains(CoverableArea.NIPPLES)) {
+			if (partner.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, false)) {
+				sexSB.append(
+						formatCoverableAreaBecomingExposed(
+								(atStartOfSex
+										?"[npc.Name]'s [npc.nipples+] were already exposed before starting sex!"
+										:"[npc.Name]'s [npc.nipples+] are now exposed!"))
+							+ sexManager.getPartnerBreastsRevealReaction(isPlayerDom()));
+				areasExposedPartner.add(CoverableArea.NIPPLES);
+			}
+		}
 	}
 
 	
@@ -2036,7 +2101,6 @@ public enum Sex {
 	 * @return SexActionUtility.CLOTHING_REMOVAL
 	 */
 	public static SexActionInterface partnerManageClothingToAccessCoverableArea(boolean playerClothing, CoverableArea coverableArea) {
-
 		if (playerClothing) {
 			SimpleEntry<AbstractClothing, DisplacementType> clothingRemoval = Main.game.getPlayer().getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
 			if (clothingRemoval.getKey() == null)
@@ -2044,7 +2108,7 @@ public enum Sex {
 
 			clothingBeingRemoved = clothingRemoval.getKey();
 
-			if (clothingRemoval.getValue() == DisplacementType.REMOVE_OR_EQUIP || player().isAbleToUnequip(clothingRemoval.getKey(), false, partner)) {
+			if (clothingRemoval.getValue() == DisplacementType.REMOVE_OR_EQUIP) {// || player().isAbleToUnequip(clothingRemoval.getKey(), false, partner)) {
 				player().unequipClothingOntoFloor(clothingBeingRemoved, false, getPartner());
 				unequipClothingText = Main.game.getPlayer().getUnequipDescription();
 
@@ -2060,7 +2124,7 @@ public enum Sex {
 
 			clothingBeingRemoved = clothingRemoval.getKey();
 
-			if (clothingRemoval.getValue() == DisplacementType.REMOVE_OR_EQUIP  || partner.isAbleToUnequip(clothingRemoval.getKey(), false, partner)) {
+			if (clothingRemoval.getValue() == DisplacementType.REMOVE_OR_EQUIP) {//  || partner.isAbleToUnequip(clothingRemoval.getKey(), false, partner)) {
 				partner.unequipClothingOntoFloor(clothingBeingRemoved, false, getPartner());
 				unequipClothingText = partner.getUnequipDescription();
 
@@ -2073,6 +2137,10 @@ public enum Sex {
 		return SexActionUtility.CLOTHING_REMOVAL;
 	}
 
+	public static boolean isInForeplay() {
+		return Sex.getPartner().getArousal()<ArousalLevel.ONE_TURNED_ON.getMaximumValue() && Sex.getNumberOfPartnerOrgasms()==0;
+	}
+	
 	// Getters & Setters:
 
 	public static boolean isConsensual() {
@@ -2083,12 +2151,12 @@ public enum Sex {
 		Sex.consensual = consensual;
 	}
 
-	public static boolean isCanResist() {
-		return canResist;
+	public static boolean isSubHasEqualControl() {
+		return subHasEqualControl;
 	}
 
-	public static void setCanResist(boolean canResist) {
-		Sex.canResist = canResist;
+	public static void setCanResist(boolean subHasEqualControl) {
+		Sex.subHasEqualControl = subHasEqualControl;
 	}
 
 	public static NPC getPartner() {

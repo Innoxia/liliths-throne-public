@@ -10,13 +10,14 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.64
+ * @version 0.1.88
  * @author Innoxia
  */
 public enum Spell {
@@ -30,13 +31,18 @@ public enum Spell {
 			float damage = calculateDamage(caster, target, spellLevel, isCritical);
 			float cost = calculateCost(caster, spellLevel);
 
-			if (caster.isPlayer())
-				descriptionSB = new StringBuilder("<p>" + "Summoning a swirling vortex of arcane energy around your " + Main.game.getPlayer().getArmNameSingular() + "," + " you focus its raw power into a wall of pure force before launching it at "
-						+ target.getName("the") + "." + "</p>");
-			else
-				descriptionSB = new StringBuilder(UtilText.genderParsing(caster,
-						"<p>" + "Summoning a swirling vortex of arcane energy around <her> " + caster.getArmNameSingular() + "," + " <she> focuses its raw power into a wall of pure force before launching it directly at you!" + "</p>"));
-
+			if (caster.isPlayer()) {
+				descriptionSB = new StringBuilder(UtilText.parse(target,
+						"<p>"
+							+ "Summoning a swirling vortex of arcane energy around your [pc.arm], you focus its raw power into a wall of pure force before launching it at [npc.name]."
+						+ "</p>"));
+			} else {
+				descriptionSB = new StringBuilder(UtilText.parse(caster,
+						"<p>"
+							+ "Summoning a swirling vortex of arcane energy around [npc.her] [npc.arm], [npc.she] focuses its raw power into a wall of pure force before launching it directly at you!"
+						+ "</p>"));
+			}
+			
 			descriptionSB.append(getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
@@ -68,13 +74,18 @@ public enum Spell {
 			float damage = calculateDamage(caster, target, spellLevel, isCritical);
 			float cost = calculateCost(caster, spellLevel);
 
-			if (caster.isPlayer())
-				descriptionSB = new StringBuilder("<p>" + "Summoning a swirling vortex of arcane fire around your " + Main.game.getPlayer().getArmNameSingular() + "," + " you focus its raw power into a ball of roiling flames before launching it at "
-						+ target.getName("the") + "." + "</p>");
-			else
-				descriptionSB = new StringBuilder(UtilText.genderParsing(caster,
-						"<p>" + "Summoning a swirling vortex of arcane fire around <her> " + caster.getArmNameSingular() + "," + " <she> focuses its raw power into a ball of roiling flames before launching it directly at you!" + "</p>"));
-
+			if (caster.isPlayer()) {
+				descriptionSB = new StringBuilder(UtilText.parse(target,
+							"<p>"
+								+ "Summoning a swirling vortex of arcane fire around your [pc.arm], you focus its raw power into a ball of roiling flames before launching it at [npc.name]."
+							+ "</p>"));
+			} else {
+				descriptionSB = new StringBuilder(UtilText.parse(caster,
+							"<p>"
+								+ "Summoning a swirling vortex of arcane fire around [npc.her] [npc.arm], [npc.she] focuses its raw power into a ball of roiling flames before launching it directly at you!"
+							+ "</p>"));
+			}
+			
 			descriptionSB.append(getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
@@ -113,12 +124,17 @@ public enum Spell {
 			float damage = calculateDamage(caster, target, spellLevel, isCritical);
 			float cost = calculateCost(caster, spellLevel);
 
-			if (caster.isPlayer())
-				descriptionSB = new StringBuilder("<p>" + "Summoning a swirling vortex of arcane fire around your " + Main.game.getPlayer().getArmNameSingular() + "," + " you focus its raw power into a ball of roiling flames before launching it at "
-						+ target.getName("the") + "." + "</p>");
-			else
-				descriptionSB = new StringBuilder(UtilText.genderParsing(caster,
-						"<p>" + "Summoning a swirling vortex of arcane fire around <her> " + caster.getArmNameSingular() + "," + " <she> focuses its raw power into a ball of roiling flames before launching it directly at you!" + "</p>"));
+			if (caster.isPlayer()) {
+				descriptionSB = new StringBuilder(UtilText.parse(target,
+							"<p>"
+								+ "Summoning a swirling vortex of arcane fire around your [pc.arm], you focus its raw power into a ball of roiling flames before launching it at [npc.name]."
+							+ "</p>"));
+			} else {
+				descriptionSB = new StringBuilder(UtilText.parse(caster,
+							"<p>"
+								+ "Summoning a swirling vortex of arcane fire around [npc.her] [npc.arm], [npc.she] focuses its raw power into a ball of roiling flames before launching it directly at you!"
+							+ "</p>"));
+			}
 
 			descriptionSB.append(getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			
@@ -152,12 +168,17 @@ public enum Spell {
 			float damage = calculateDamage(caster, target, spellLevel, isCritical);
 			float cost = calculateCost(caster, spellLevel);
 
-			if (caster.isPlayer())
-				descriptionSB = new StringBuilder("<p>" + "Summoning a swirling vortex of arcane ice around your " + Main.game.getPlayer().getArmNameSingular() + "," + " you focus its raw power into a shard of freezing ice before launching it at "
-						+ target.getName("the") + "." + "</p>");
-			else
-				descriptionSB = new StringBuilder(UtilText.genderParsing(caster,
-						"<p>" + "Summoning a swirling vortex of arcane ice around <her> " + caster.getArmNameSingular() + "," + " <she> focuses its raw power into a shard of freezing ice before launching it directly at you!" + "</p>"));
+			if (caster.isPlayer()) {
+				descriptionSB = new StringBuilder(UtilText.parse(target,
+							"<p>"
+								+ "Summoning a swirling vortex of arcane fire around your [pc.arm], you focus its raw power into a shard of freezing ice before launching it at [npc.name]."
+							+ "</p>"));
+			} else {
+				descriptionSB = new StringBuilder(UtilText.parse(caster,
+							"<p>"
+								+ "Summoning a swirling vortex of arcane fire around [npc.her] [npc.arm], [npc.she] focuses its raw power into a shard of freezing ice before launching it directly at you!"
+							+ "</p>"));
+			}
 
 			descriptionSB.append(getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			
@@ -190,12 +211,17 @@ public enum Spell {
 			float damage = calculateDamage(caster, target, spellLevel, isCritical);
 			float cost = calculateCost(caster, spellLevel);
 
-			if (caster.isPlayer())
-				descriptionSB = new StringBuilder("<p>" + "Summoning a swirling vortex of arcane poison around your " + Main.game.getPlayer().getArmNameSingular() + "," + " you focus its raw power into a cloud of toxic miasma before launching it at "
-						+ target.getName("the") + "." + "</p>");
-			else
-				descriptionSB = new StringBuilder(UtilText.genderParsing(caster,
-						"<p>" + "Summoning a swirling vortex of arcane poison around <her> " + caster.getArmNameSingular() + "," + " <she> focuses its raw power into a cloud of toxic miasma before launching it directly at you!" + "</p>"));
+			if (caster.isPlayer()) {
+				descriptionSB = new StringBuilder(UtilText.parse(target,
+							"<p>"
+								+ "Summoning a swirling vortex of arcane fire around your [pc.arm], you focus its raw power into a cloud of toxic miasma before launching it at [npc.name]."
+							+ "</p>"));
+			} else {
+				descriptionSB = new StringBuilder(UtilText.parse(caster,
+							"<p>"
+								+ "Summoning a swirling vortex of arcane fire around [npc.her] [npc.arm], [npc.she] focuses its raw power into a cloud of toxic miasma before launching it directly at you!"
+							+ "</p>"));
+			}
 
 			descriptionSB.append(getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			
@@ -234,14 +260,21 @@ public enum Spell {
 
 			caster.incrementMana(-cost);
 
-			if (caster.isPlayer())
-				descriptionSB = new StringBuilder("<p>" + "Summoning a swirling vortex of pure energy around your " + Main.game.getPlayer().getArmNameSingular() + ", you focus its raw power into an" + " <b style='color: "
-						+ Attribute.DAMAGE_PHYSICAL.getColour().toWebHexString() + ";'>" + "arcane shield</b> that quickly surrounds you, providing improved protection from physical attacks." + "</p>");
-			else
+			if (caster.isPlayer()) {
 				descriptionSB = new StringBuilder(
-						UtilText.genderParsing(caster, "<p>" + "Summoning a swirling vortex of pure energy around <her> " + caster.getArmNameSingular() + ", <she> focuses its raw power into an"
-								+ " <b style='color: " + Attribute.DAMAGE_PHYSICAL.getColour().toWebHexString() + ";'>" + "arcane shield</b> that quickly surrounds <herPro>, providing improved protection from physical attacks." + "</p>"));
-
+						"<p>"
+							+ "Summoning a swirling vortex of pure energy around your [pc.arm], you focus its raw power into an"
+							+ " <b style='color: "+ Attribute.DAMAGE_PHYSICAL.getColour().toWebHexString() + ";'>arcane shield</b> that quickly surrounds you, providing improved protection from physical attacks."
+						+ "</p>");
+			} else {
+				descriptionSB = new StringBuilder(
+						UtilText.parse(caster,
+								"<p>"
+									+ "Summoning a swirling vortex of pure energy around [npc.her] [npc.arm], [npc.she] focuses its raw power into an"
+										+ " <b style='color: " + Attribute.DAMAGE_PHYSICAL.getColour().toWebHexString() + ";'>" + "arcane shield</b> that quickly surrounds [npc.herHim], providing improved protection from physical attacks."
+								+ "</p>"));
+			}
+			
 			descriptionSB.append(getDamageAndCostDescription(caster, target, cost, -1, true, isCritical));
 			return descriptionSB.toString();
 		}
@@ -267,14 +300,21 @@ public enum Spell {
 
 			caster.incrementMana(-cost);
 
-			if (caster.isPlayer())
-				descriptionSB = new StringBuilder("<p>" + "Summoning a swirling vortex of arcane flames around your " + Main.game.getPlayer().getArmNameSingular() + ", you focus its raw power into a" + " <b style='color: "
-						+ Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + "fire shield</b> that quickly surrounds you, providing improved protection from fire attacks." + "</p>");
-			else
+			if (caster.isPlayer()) {
 				descriptionSB = new StringBuilder(
-						UtilText.genderParsing(caster, "<p>" + "Summoning a swirling vortex of arcane flames around <her> " + caster.getArmNameSingular() + ", <she> focuses its raw power into a"
-								+ " <b style='color: " + Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + "fire shield</b> that quickly surrounds <herPro>, providing improved protection from fire attacks." + "</p>"));
-
+						"<p>"
+							+ "Summoning a swirling vortex of arcane flames around your [pc.arm], you focus its raw power into a"
+								+ " <b style='color: "+ Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>fire shield</b> that quickly surrounds you, providing improved protection from fire attacks."
+						+ "</p>");
+			} else {
+				descriptionSB = new StringBuilder(
+						UtilText.parse(caster,
+								"<p>"
+									+ "Summoning a swirling vortex of arcane flames around [npc.her] [npc.arm], [npc.she] focuses its raw power into a"
+										+ " <b style='color: " + Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + "fire shield</b> that quickly surrounds [npc.herHim], providing improved protection from fire attacks."
+								+ "</p>"));
+			}
+			
 			descriptionSB.append(getDamageAndCostDescription(caster, target, cost, -1, true, isCritical));
 			return descriptionSB.toString();
 		}
@@ -300,14 +340,21 @@ public enum Spell {
 
 			caster.incrementMana(-cost);
 
-			if (caster.isPlayer())
-				descriptionSB = new StringBuilder("<p>" + "Summoning a swirling vortex of arcane ice around your " + Main.game.getPlayer().getArmNameSingular() + ", you focus its raw power into an" + " <b style='color: "
-						+ Attribute.DAMAGE_ICE.getColour().toWebHexString() + ";'>" + "ice shield</b> that quickly surrounds you, providing improved protection from cold attacks." + "</p>");
-			else
+			if (caster.isPlayer()) {
 				descriptionSB = new StringBuilder(
-						UtilText.genderParsing(caster, "<p>" + "Summoning a swirling vortex of arcane ice around <her> " + caster.getArmNameSingular() + ", <she> focuses its raw power into an" + " <b style='color: "
-								+ Attribute.DAMAGE_ICE.getColour().toWebHexString() + ";'>" + "ice shield</b> that quickly surrounds <herPro>, providing improved protection from cold attacks." + "</p>"));
-
+						"<p>"
+							+ "Summoning a swirling vortex of arcane ice around your [pc.arm], you focus its raw power into an" + " <b style='color: "
+								+ Attribute.DAMAGE_ICE.getColour().toWebHexString() + ";'>" + "ice shield</b> that quickly surrounds you, providing improved protection from cold attacks."
+						+ "</p>");
+			} else {
+				descriptionSB = new StringBuilder(
+						UtilText.parse(caster,
+								"<p>"
+									+ "Summoning a swirling vortex of arcane ice around [npc.her] [npc.arm], [npc.she] focuses its raw power into an" + " <b style='color: "
+										+ Attribute.DAMAGE_ICE.getColour().toWebHexString() + ";'>" + "ice shield</b> that quickly surrounds [npc.herHim], providing improved protection from cold attacks."
+								+ "</p>"));
+			}
+			
 			descriptionSB.append(getDamageAndCostDescription(caster, target, cost, -1, true, isCritical));
 			return descriptionSB.toString();
 		}
@@ -322,6 +369,7 @@ public enum Spell {
 			return true;
 		}
 	},
+	
 	POISON_SHIELD("poison shield", "specialAttackIcon", DamageType.POISON, DamageLevel.NONE, DamageVariance.NONE, SpecialAttackSpellCosts.LOW, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.POISON_SHIELD, 2))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
@@ -333,14 +381,21 @@ public enum Spell {
 
 			caster.incrementMana(-cost);
 
-			if (caster.isPlayer())
-				descriptionSB = new StringBuilder("<p>" + "Summoning a swirling vortex of toxic miasma around your " + Main.game.getPlayer().getArmNameSingular() + ", you focus its raw power into an" + " <b style='color: "
-						+ Attribute.DAMAGE_POISON.getColour().toWebHexString() + ";'>" + "poison shield</b> that quickly surrounds you, providing improved protection from poison attacks." + "</p>");
-			else
+			if (caster.isPlayer()) {
 				descriptionSB = new StringBuilder(
-						UtilText.genderParsing(caster, "<p>" + "Summoning a swirling vortex of toxic miasma around <her> " + caster.getArmNameSingular() + ", <she> focuses its raw power into an"
-								+ " <b style='color: " + Attribute.DAMAGE_POISON.getColour().toWebHexString() + ";'>" + "poison shield</b> that quickly surrounds <herPro>, providing improved protection from poison attacks." + "</p>"));
-
+						"<p>"
+							+ "Summoning a swirling vortex of toxic miasma around your [pc.arm], you focus its raw power into a"
+								+ " <b style='color: "+ Attribute.DAMAGE_POISON.getColour().toWebHexString() + ";'>" + "poison shield</b> that quickly surrounds you, providing improved protection from poison attacks."
+						+ "</p>");
+			} else {
+				descriptionSB = new StringBuilder(
+						UtilText.parse(caster,
+							"<p>"
+								+ "Summoning a swirling vortex of toxic miasma around [npc.her] [npc.arm], [npc.she] focuses its raw power into a"
+									+ " <b style='color: " + Attribute.DAMAGE_POISON.getColour().toWebHexString() + ";'>" + "poison shield</b> that quickly surrounds [npc.herHim], providing improved protection from poison attacks."
+							+ "</p>"));
+			}
+			
 			descriptionSB.append(getDamageAndCostDescription(caster, target, cost, -1, true, isCritical));
 			return descriptionSB.toString();
 		}
@@ -463,7 +518,93 @@ public enum Spell {
 			// TODO Auto-generated method stub
 			return null;
 		}
-	};
+	},
+	
+	WITCH_SEAL("Witch's Seal",
+			"spell_witch_seal",
+			DamageType.MISC,
+			DamageLevel.NONE,
+			DamageVariance.NONE,
+			SpecialAttackSpellCosts.EXTREME,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.WITCH_SEAL, 2))) {
+		
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
+
+			float cost = calculateCost(caster, spellLevel);
+
+			for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet()) {
+				target.addStatusEffect(se.getKey(), se.getValue());
+			}
+
+			caster.incrementMana(-cost);
+			
+			if (caster.isPlayer()) {
+				return UtilText.parse(target,
+						"<p>"
+							+ "Concentrating on the arcane power within your broomstick, you summon forth a powerful seal, which traps [npc.name] in place!"
+						+ "</p>");
+			} else {
+				return UtilText.parse(caster,
+						"<p>"
+							+ "Concentrating on the arcane power within [npc.her] broomstick, [npc.name] summons forth a powerful seal, which traps you in place!"
+						+ "</p>");
+			}
+		}
+
+		@Override
+		public String getDescription(GameCharacter caster, int level) {
+			return "Places an arcane seal upon the target, preventing them from taking any action for two turns.";
+		}
+
+		@Override
+		public boolean isSelfCastSpell() {
+			return false;
+		}
+	},
+	
+	WITCH_CHARM("Witch's Charm",
+			"spell_witch_charm",
+			DamageType.MISC,
+			DamageLevel.NONE,
+			DamageVariance.NONE,
+			SpecialAttackSpellCosts.HIGH,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.WITCH_CHARM, 5))) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
+			float cost = calculateCost(caster, spellLevel);
+
+			for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet()) {
+				caster.addStatusEffect(se.getKey(), se.getValue() * (isCritical ? 2 : 1));
+			}
+
+			caster.incrementMana(-cost);
+			
+			if (caster.isPlayer()) {
+				return UtilText.parse(target,
+						"<p>"
+							+ "Concentrating on the arcane power within your broomstick, you cast a bewitching charm upon yourself!"
+						+ "</p>");
+			} else {
+				return UtilText.parse(caster,
+						"<p>"
+							+ "Concentrating on the arcane power within [npc.her] broomstick, [npc.name] casts a bewitching charm upon [npc.herself]!"
+						+ "</p>");
+			}
+		}
+
+		@Override
+		public boolean isSelfCastSpell() {
+			return true;
+		}
+
+		@Override
+		public String getDescription(GameCharacter caster, int level) {
+			return "Places an arcane enchantment upon the target, causing them to appear irresistibly beautiful to anyone who looks upon them.";
+		}
+	},
+	
+	;
 
 	private static StringBuilder descriptionSB;
 
@@ -496,7 +637,11 @@ public enum Spell {
 			SVGString = SVGString.replaceAll("#ff8080", damage.getMultiplierAttribute().getColour().getShades()[2]);
 			SVGString = SVGString.replaceAll("#ffaaaa", damage.getMultiplierAttribute().getColour().getShades()[3]);
 			SVGString = SVGString.replaceAll("#ffd5d5", damage.getMultiplierAttribute().getColour().getShades()[4]);
-
+			
+			SVGString += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"
+							+ SVGImages.SVG_IMAGE_PROVIDER.getSpellOverlay()
+						+ "</div>";
+			
 			is.close();
 
 		} catch (IOException e) {
@@ -549,8 +694,8 @@ public enum Spell {
 
 	private float getModifiedDamage(GameCharacter caster, GameCharacter target, float attackersDamage) {
 		float damage = attackersDamage;
-		if (damage < 1)
-			damage = 1;
+		if (damage < 0)
+			damage = 0;
 
 		// Attacker modifiers:
 		// Spell modifier:
@@ -560,8 +705,8 @@ public enum Spell {
 		// Pure damage modifier:
 		damage *= ((100 + caster.getAttributeValue(Attribute.DAMAGE_PURE)) / 100f);
 
-		if (damage < 1)
-			damage = 1;
+		if (damage < 0)
+			damage = 0;
 
 		if (target != null) {
 			// Defender modifiers:
@@ -572,8 +717,8 @@ public enum Spell {
 			// Pure damage modifier:
 			damage *= ((100 - target.getAttributeValue(Attribute.RESISTANCE_PURE)) / 100f);
 
-			if (damage < 1)
-				damage = 1;
+			if (damage < 0)
+				damage = 0;
 
 			// Modifiers based on level:
 			if (target.getLevel() - caster.getLevel() >= 3) // High defender
@@ -660,7 +805,7 @@ public enum Spell {
 						: "");
 
 			if (statusEffects != null && isHit) {
-				damageCostDescriptionSB.append(UtilText.genderParsing(target, (!isSelfCastSpell() ? "<p><She> is now suffering " : "<p>You are now benefiting from ")));
+				damageCostDescriptionSB.append(UtilText.parse(target, (!isSelfCastSpell() ? "<p>[npc.She] is now suffering " : "<p>You are now benefiting from ")));
 				int i = 0;
 				for (Entry<StatusEffect, Integer> seEntry : statusEffects.entrySet()) {
 					if (i != 0) {
@@ -690,7 +835,7 @@ public enum Spell {
 								: "<b>" + caster.getName("The") + " missed!</b>") + "</p>" : "");
 
 			if (statusEffects != null && isHit) {
-				damageCostDescriptionSB.append(UtilText.genderParsing(caster, (!isSelfCastSpell() ? "<p>You are now suffering " : "<p><She> is now benefiting from ")));
+				damageCostDescriptionSB.append(UtilText.parse(caster, (!isSelfCastSpell() ? "<p>You are now suffering " : "<p>[npc.She] is now benefiting from ")));
 				int i = 0;
 				for (Entry<StatusEffect, Integer> seEntry : statusEffects.entrySet()) {
 					if (i != 0) {
@@ -704,8 +849,8 @@ public enum Spell {
 				damageCostDescriptionSB.append("!</p>");
 			}
 
-			damageCostDescriptionSB.append(UtilText.genderParsing(caster,
-					"<p>" + "Harnessing the arcane to cast spells is incredibly draining, and <she> loses <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_MANA.getColour().toWebHexString() + ";'>willpower</b>!</b>" + "</p>"));
+			damageCostDescriptionSB.append(UtilText.parse(caster,
+					"<p>" + "Harnessing the arcane to cast spells is incredibly draining, and [npc.she] loses <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_MANA.getColour().toWebHexString() + ";'>willpower</b>!</b>" + "</p>"));
 		}
 
 		return damageCostDescriptionSB.toString();
@@ -729,8 +874,8 @@ public enum Spell {
 	public float getDamage(GameCharacter caster, int level) {
 		float damage = (4 + caster.getLevel()) * damageLevel.getDamageModifier();
 
-		if (damage < 1)
-			damage = 1;
+		if (damage < 0)
+			damage = 0;
 
 		return damage;
 	}

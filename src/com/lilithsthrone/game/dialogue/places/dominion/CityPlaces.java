@@ -1,9 +1,14 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
+import java.time.Month;
+
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.generic.Cultist;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.npcDialogue.CultistDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -13,7 +18,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.88
  * @author Innoxia
  */
 public class CityPlaces {
@@ -29,55 +34,67 @@ public class CityPlaces {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
+			
 			if (Main.game.isDayTime()) { // Day time:
 				if (Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
 					UtilText.nodeContentSB.append("<p>"
 							+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a strange feel to them that hints at the other-worldly nature of this place."
 							+ " The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones.");
 
-					if (Main.game.getCurrentWeather() == Weather.CLEAR)
-						UtilText.nodeContentSB.append(" Rows of trees and marble benches line either side of the pedestrianised streets, offering shade and a place to rest from the hot summer sun."
+					if (Main.game.getCurrentWeather() == Weather.CLEAR) {
+						UtilText.nodeContentSB.append(" Rows of trees and marble benches line either side of the pedestrianised streets, offering shade and a place to rest for weary shoppers."
 								+ " On either side of you, the building's clean facades gleam in the sunshine, and high above in the sky, you see harpies flying about on business of their own."
 								+ "</p>");
 
-					else if (Main.game.getCurrentWeather() == Weather.CLOUD)
+					} else if (Main.game.getCurrentWeather() == Weather.CLOUD) {
 						UtilText.nodeContentSB.append(" Rows of trees and marble benches line either side of the pedestrianised streets, offering a place to rest."
 								+ " On either side of you, the building's clean facades gleam in the sunshine, and high above in the sky, you see harpies flying about on business of their own.</p>");
 
-					else if (Main.game.getCurrentWeather() == Weather.RAIN)
+					} else if (Main.game.getCurrentWeather() == Weather.RAIN) {
 						UtilText.nodeContentSB.append(" Rows of trees and marble benches line either side of the pedestrianised streets, offering a place to rest and cover from the rain."
 								+ " On either side of you, large canvas awnings have been extended from the buildings, shielding passersby from the sudden downpour."
 								+ "</p>");
 
-					else if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM_GATHERING)
+					} else if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM_GATHERING) {
 						UtilText.nodeContentSB.append(" Marble benches line either side of the pedestrianised streets, granted shade from the summer sun by rows of trees."
 								+ " The tree's branches sway as the wind starts to pick up, and the rustling of leaves can be head over the steady hum of the busy crowds."
 								+ " On either side of you, the glass frontages of the recently renovated buildings reflect the darkening sky."
 								+ "</p>");
-
+					}
+					
 					UtilText.nodeContentSB.append("<p>"
-							+ "The streets are very busy at this time of day, and are filled with people hurrying to and fro."
-							+ " Despite their alarming appearances, the citizens of Dominion appear to be completely normal in every other way."
-							+ " You see those people who are always in a rush to be somewhere else, the crowds of shoppers lazily ambling by, the groups of friends laughing and chatting on benches, and"
-							+ " all the other sorts that you'd find in any old city."
-							+ " As the streets are quiet at this time, you have plenty of room to weave your way through the sparse crowds."
+								+ "The streets are very busy at this time of day, and are filled with people hurrying to and fro."
+								+ " Despite their alarming appearances, the citizens of Dominion appear to be completely normal in every other way."
+								+ " You see those people who are always in a rush to be somewhere else, the crowds of shoppers lazily ambling by, the groups of friends laughing and chatting on benches, and"
+								+ " all the other sorts that you'd find in any old city."
+								+ " As the streets are quiet at this time, you have plenty of room to weave your way through the sparse crowds."
 							+ "</p>"
 							+ "<p>"
-							+ "Most of the people around you are partial or lesser morphs, although there are a quite a few greater morphs to be seen walking the streets as well."
-							+ " Dog, cat and horse-morphs are by far the most common races that you see, but it wouldn't take long to find examples of every race."
-							+ " The rarest races that you see are humans and demons."
-							+ " The latter are very easy to spot, as wherever they walk, people hurriedly move to make way."
+								+ "Most of the people around you are partial or lesser morphs, although there are a quite a few greater morphs to be seen walking the streets as well."
+								+ " Dog, cat and horse-morphs are by far the most common races that you see, but it wouldn't take long to find examples of every race."
+								+ " The rarest races that you see are humans and demons."
+								+ " The latter are very easy to spot, as wherever they walk, people hurriedly move to make way."
 							+ "</p>");
+					
+					if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
+						UtilText.nodeContentSB.append(
+							"<p>"
+//								+ "<b style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October;</b> <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month</i></br>"
+								+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
+								+ " A lot of the people that you see are dressed up in Halloween-esque costumes for the occasion,"
+									+ " and the snippets of conversation that you sometimes overhear are almost exclusively focused on praising Lilith."
+							+ "</p>");
+					}
 
 					int extraText = Util.random.nextInt(100)
 							+ 1;
 					if (extraText <= 3)
-						UtilText.nodeContentSB.append("<p><i>A particularly large and imposing demon cuts her way through the crowd, holding the leashes of three greater cat-girl slaves."
-								+ " They are completely naked, and as they pass, you can clearly see each of their cunts drooling with excitement.</i></p>");
+						UtilText.nodeContentSB.append("<p><i>A particularly large and imposing incubus cuts his way through the crowd, holding the leashes of three greater cat-girl slaves."
+								+ " Each one is completely naked, and as they pass, you can clearly see their cunts drooling with excitement.</i></p>");
 					else if (extraText <= 6)
-						UtilText.nodeContentSB.append("<p><i>To one side, you see a pair of greater dog-boy enforcers questioning a lesser cat-boy. As you pass, the cat-boy tries to"
-								+ " make a break for it, but is quickly tackled to the floor. The enforcers place a pair of restraints around his wrists before"
-								+ " dragging him down a nearby alleyway.</i></p>");
+						UtilText.nodeContentSB.append("<p><i>To one side, you see a pair of dog-boy enforcers questioning a shady-looking cat-boy."
+								+ " As you pass, the cat-boy tries to make a break for it, but is quickly tackled to the floor."
+								+ " The enforcers place a pair of restraints around his wrists before dragging him down a nearby alleyway.</i></p>");
 					else if (extraText <= 9)
 						UtilText.nodeContentSB.append("<p><i>A huge billboard covers the entire face of one of the buildings across the street."
 								+ " On it, there's an advertisement for the tournament, 'Risk it all', promising great rewards for anyone strong enough to beat the challenge."
@@ -109,24 +126,32 @@ public class CityPlaces {
 
 				} else {
 					UtilText.nodeContentSB.append("<p>"
-							+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place."
-							+ " The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
-							+ " Marble benches line either side of the pedestrianised streets, interspersed by rows of trees and arcane-powered street lamps."
-							+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
-							+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
+								+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place."
+								+ " The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
+								+ " Marble benches line either side of the pedestrianised streets, interspersed by rows of trees and arcane-powered street lamps."
+								+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
+								+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
 							+ "</p>"
 							+ " <p>"
-							+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
-							+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
-							+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street."
-							+ " They sometimes cast a curious glance your way, but most are content to simply ignore you."
+								+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
+								+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
+								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street."
+								+ " They sometimes cast a curious glance your way, but most are content to simply ignore you."
 							+ "</p>"
 							+ " <p>"
-							+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
-							+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
-							+ " If they catch you, they'll be sure to force you into a fight."
+								+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
+								+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
+								+ " If they catch you, they'll be sure to force you into a fight."
 							+ "</p>");
-					// +(Main.game.getCurrentWeather()==Weather.MAGIC_STORM?"<p>"+WorldType.getDominionStormWarning()+"</p>":""));
+					
+					if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
+						UtilText.nodeContentSB.append(
+							"<p>"
+//								+ "<b style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October;</b> <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month</i></br>"
+								+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
+								+ " The occasional demon that you see is usually dressed up in a Halloween-esque costume for the occasion, which does nothing to help alleviate the eerie atmosphere."
+							+ "</p>");
+					}
 				}
 			} else { // Night time:
 				if (Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
@@ -149,19 +174,29 @@ public class CityPlaces {
 								+ "</p>");
 
 					UtilText.nodeContentSB.append("<p>"
-							+ "Although the streets are noticeably quieter than during the day, there are still plenty of people hurrying to and fro."
-							+ " Despite their alarming appearances, the citizens of Dominion appear to be completely normal in every other way."
-							+ " You see those people who are always in a rush to be somewhere else, the crowds of shoppers lazily ambling by, the groups of friends laughing and chatting on benches, and"
-							+ " all the other sorts that you'd find in any old city."
-							+ " As the streets are quiet at this time, you have plenty of room to weave your way through the sparse crowds."
+								+ "Although the streets are noticeably quieter than during the day, there are still plenty of people hurrying to and fro."
+								+ " Despite their alarming appearances, the citizens of Dominion appear to be completely normal in every other way."
+								+ " You see those people who are always in a rush to be somewhere else, the crowds of shoppers lazily ambling by, the groups of friends laughing and chatting on benches, and"
+								+ " all the other sorts that you'd find in any old city."
+								+ " As the streets are quiet at this time, you have plenty of room to weave your way through the sparse crowds."
 							+ "</p>"
 							+ "<p>"
-							+ "Most of the people around you are partial or lesser morphs, although there are a quite a few greater morphs to be seen walking the streets as well."
-							+ " Dog, cat and horse-morphs are by far the most common races that you see, but it wouldn't take long to find examples of every race."
-							+ " The rarest races that you see are humans and demons."
-							+ " The latter are very easy to spot, as wherever they walk, people hurriedly move to make way."
+								+ "Most of the people around you are partial or lesser morphs, although there are a quite a few greater morphs to be seen walking the streets as well."
+								+ " Dog, cat and horse-morphs are by far the most common races that you see, but it wouldn't take long to find examples of every race."
+								+ " The rarest races that you see are humans and demons."
+								+ " The latter are very easy to spot, as wherever they walk, people hurriedly move to make way."
 							+ "</p>");
 
+					if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
+						UtilText.nodeContentSB.append(
+							"<p>"
+//								+ "<b style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October;</b> <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month</i></br>"
+								+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
+								+ " A lot of the people that you see are dressed up in Halloween-esque costumes for the occasion,"
+									+ " and the snippets of conversation that you sometimes overhear are almost exclusively focused on praising Lilith."
+							+ "</p>");
+					}
+					
 					int extraText = Util.random.nextInt(100)
 							+ 1;
 					if (extraText <= 3)
@@ -202,24 +237,42 @@ public class CityPlaces {
 
 				} else {
 					UtilText.nodeContentSB.append("<p>"
-							+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place."
-							+ "The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
-							+ " Marble benches line either side of the pedestrianised streets, interspersed by rows of trees, all illuminated by the soft amber glow of arcane-powered street lamps."
-							+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
-							+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
+								+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place."
+								+ "The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
+								+ " Marble benches line either side of the pedestrianised streets, interspersed by rows of trees, all illuminated by the soft amber glow of arcane-powered street lamps."
+								+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
+								+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
 							+ "</p>"
 							+ " <p>"
-							+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
-							+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
-							+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street."
-							+ " They sometimes cast a curious glance your way, but most are content to simply ignore you."
+								+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
+								+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
+								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street."
+								+ " They sometimes cast a curious glance your way, but most are content to simply ignore you."
 							+ "</p>"
 							+ " <p>"
-							+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
-							+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
-							+ " If they catch you, they'll be sure to force you into a fight."
+								+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
+								+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
+								+ " If they catch you, they'll be sure to force you into a fight."
 							+ "</p>");
-					// +(Main.game.getCurrentWeather()==Weather.MAGIC_STORM?"<p>"+WorldType.getDominionStormWarning()+"</p>":""));
+					
+					if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
+						UtilText.nodeContentSB.append(
+							"<p>"
+//								+ "<b style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October;</b> <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month</i></br>"
+								+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
+								+ " The occasional demon that you see is usually dressed up in a Halloween-esque costume for the occasion, which does nothing to help alleviate the eerie atmosphere."
+							+ "</p>");
+					}
+				}
+				
+				for(NPC npc : Main.game.getCharactersPresent()) {
+					if(npc instanceof Cultist) {
+						UtilText.nodeContentSB.append(
+								"<p>"
+									+ UtilText.parse(npc, "You remember that [npc.name]'s chapel is near here, and, if you were so inclined, you could easily find it again...")
+								+ "</p>");
+						break;
+					}
 				}
 			}
 			return UtilText.nodeContentSB.toString();
@@ -227,6 +280,19 @@ public class CityPlaces {
 
 		@Override
 		public Response getResponse(int index) {
+			for(NPC npc : Main.game.getCharactersPresent()) {
+				if(npc instanceof Cultist) {
+					if(index==1) {
+						return new Response("Chapel", UtilText.parse(npc, "Visit [npc.name]'s chapel again."), CultistDialogue.ENCOUNTER_CHAPEL_REPEAT) {
+							@Override
+							public void effects() {
+								Main.game.setActiveNPC(npc);
+							}
+						};
+					}
+					break;
+				}
+			}
 			return null;
 		}
 	};
@@ -251,7 +317,7 @@ public class CityPlaces {
 			
 			for(GameCharacter npc : Main.game.getCharactersPresent()) {
 					UtilText.nodeContentSB.append(
-							UtilText.genderParsing(npc,
+							UtilText.parse(npc,
 									"<p style='text-align:center;'>"
 									+ "<b style='color:"+Femininity.valueOf(npc.getFemininityValue()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
 									+ " <b style='color:"+npc.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
@@ -261,7 +327,7 @@ public class CityPlaces {
 							
 					// Combat:
 					UtilText.nodeContentSB.append(
-							UtilText.genderParsing(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> <herPro> <b>"));
+							UtilText.parse(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> [npc.herHim] <b>"));
 							
 							if(npc.getFoughtPlayerCount()==1) {
 								UtilText.nodeContentSB.append("once.");
@@ -271,11 +337,9 @@ public class CityPlaces {
 								UtilText.nodeContentSB.append(Util.intToString(npc.getLostCombatCount())+" times.");
 							}
 							
-					UtilText.nodeContentSB.append(
-							UtilText.genderParsing(npc,
-									"</b>"
+					UtilText.nodeContentSB.append("</b>"
 									+ "</br>"
-									+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>"));
+									+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>");
 							
 							if(npc.getLostCombatCount()==1) {
 								UtilText.nodeContentSB.append("once.");
@@ -302,8 +366,8 @@ public class CityPlaces {
 					UtilText.nodeContentSB.append("<p style='text-align:center;'>");
 							
 					UtilText.nodeContentSB.append(
-							UtilText.genderParsing(npc,
-									"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with <herPro> <b>"));
+							UtilText.parse(npc,
+									"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with [npc.herHim]<b> "));
 					
 							if(npc.getSexAsDomCount()==1) {
 								UtilText.nodeContentSB.append("once.");
@@ -314,10 +378,10 @@ public class CityPlaces {
 							}
 							
 					UtilText.nodeContentSB.append(
-							UtilText.genderParsing(npc,
+							UtilText.parse(npc,
 									"</b>"
 									+ "</br>"
-									+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with <herPro> <b>"));
+									+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with  [npc.herHim]<b> "));
 					
 							if(npc.getSexAsSubCount()==1) {
 								UtilText.nodeContentSB.append("once.");
@@ -369,7 +433,7 @@ public class CityPlaces {
 
 			for(GameCharacter npc : Main.game.getCharactersPresent()) {
 					UtilText.nodeContentSB.append(
-							UtilText.genderParsing(npc,
+							UtilText.parse(npc,
 									"<p style='text-align:center;'>"
 									+ "<b style='color:"+Femininity.valueOf(npc.getFemininityValue()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
 									+ " <b style='color:"+npc.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
@@ -379,7 +443,7 @@ public class CityPlaces {
 							
 					// Combat:
 					UtilText.nodeContentSB.append(
-							UtilText.genderParsing(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> <herPro> <b>"));
+							UtilText.parse(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> [npc.herHim] <b>"));
 							
 							if(npc.getFoughtPlayerCount()==1) {
 								UtilText.nodeContentSB.append("once.");
@@ -389,11 +453,9 @@ public class CityPlaces {
 								UtilText.nodeContentSB.append(Util.intToString(npc.getLostCombatCount())+" times.");
 							}
 							
-					UtilText.nodeContentSB.append(
-							UtilText.genderParsing(npc,
-									"</b>"
+					UtilText.nodeContentSB.append("</b>"
 									+ "</br>"
-									+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>"));
+									+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>");
 							
 							if(npc.getLostCombatCount()==1) {
 								UtilText.nodeContentSB.append("once.");
@@ -420,8 +482,8 @@ public class CityPlaces {
 					UtilText.nodeContentSB.append("<p style='text-align:center;'>");
 							
 					UtilText.nodeContentSB.append(
-							UtilText.genderParsing(npc,
-									"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with <herPro> <b>"));
+							UtilText.parse(npc,
+									"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with [npc.herHim] <b>"));
 					
 							if(npc.getSexAsDomCount()==1) {
 								UtilText.nodeContentSB.append("once.");
@@ -432,10 +494,10 @@ public class CityPlaces {
 							}
 							
 					UtilText.nodeContentSB.append(
-							UtilText.genderParsing(npc,
+							UtilText.parse(npc,
 									"</b>"
 									+ "</br>"
-									+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with <herPro> <b>"));
+									+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with [npc.herHim] <b>"));
 					
 							if(npc.getSexAsSubCount()==1) {
 								UtilText.nodeContentSB.append("once.");

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.encounters;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.generic.Cultist;
 import com.lilithsthrone.game.character.npc.generic.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.generic.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.npc.generic.HarpyNestsAttacker;
@@ -25,37 +27,52 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.world.places.Dominion;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.88
  * @author Innoxia
  */
 public enum Encounter {
 
 	DOMINION_STREET(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f))) {
-		@Override
-		public DialogueNodeOld getRandomEncounter() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return getBaseRandomEncounter();
-			else
-				return null;
-		}
-
+			new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f),
+			new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f))) {
 		@Override
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
-			
-			Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
-
-			try {
-				Main.game.addNPC(Main.game.getActiveNPC());
-			} catch (Exception e) {
-				e.printStackTrace();
+			if(node == EncounterType.DOMINION_STORM_ATTACK && Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
+				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
+	
+				try {
+					Main.game.addNPC(Main.game.getActiveNPC());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	
+				return Main.game.getActiveNPC().getEncounterDialogue();
+				
+			} else if(node == EncounterType.SPECIAL_DOMINION_CULTIST
+					&& Main.game.getCurrentWeather() != Weather.MAGIC_STORM
+					&& Main.game.getDateNow().getMonth().equals(Month.OCTOBER)
+					&& Main.game.getCharactersPresent().isEmpty()
+					&& Main.game.getNumberOfWitches()<4
+					&& Main.game.getPlayerCell().getPlace().getPlaceType() == Dominion.CITY_STREET) {
+				
+				Main.game.setActiveNPC(new Cultist());
+				
+				try {
+					Main.game.addNPC(Main.game.getActiveNPC());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	
+				return Main.game.getActiveNPC().getEncounterDialogue();
+				
+			} else {
+				return null;
 			}
-
-			return Main.game.getActiveNPC().getEncounterDialogue();
 		}
 	},
 
@@ -71,8 +88,8 @@ public enum Encounter {
 				
 				// Prioritise re-encountering the NPC on this tile:
 				for(NPC npc : Main.game.getCharactersPresent()) {
-						Main.game.setActiveNPC(npc);
-						return Main.game.getActiveNPC().getEncounterDialogue();
+					Main.game.setActiveNPC(npc);
+					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
 				if(Main.game.isIncestEnabled() && Math.random()>0.75f) { // Incest
@@ -349,8 +366,6 @@ public enum Encounter {
 	protected DialogueNodeOld getBaseRandomEncounter() {
 		float r = (float) (Math.random() * 100), total = 0;
 		
-//		System.out.println(r);
-
 		for (Entry<EncounterType, Float> e : getDialogues().entrySet()) {
 			total += e.getValue();
 			if (r <= total) {

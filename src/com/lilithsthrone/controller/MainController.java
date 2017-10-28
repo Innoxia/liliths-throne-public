@@ -424,7 +424,8 @@ public class MainController implements Initializable {
 //						 System.out.println(event.getCode());
 						 if(event.getCode()==KeyCode.END){
 							 
-
+							 System.out.println(Main.game.getNumberOfWitches());
+							 
 //							 SlaveryUtil.calculateEvent(Main.game.getMinutesPassed(), Main.game.getPlayer().getSlavesOwned().get(0));
 //							 for(String npc : Main.game.getNPCMap().keySet()) {
 //								 System.out.println(npc);
@@ -3791,6 +3792,21 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, id, "mouseenter", el2, false);
 				}
 			}
+		}
+
+		id = "TWENTY_FOUR_HOUR_TIME_TOGGLE";
+		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
+			((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
+				Main.getProperties().twentyFourHourTime = !Main.getProperties().twentyFourHourTime;
+				Main.saveProperties();
+				this.updateUI();
+			}, false);
+			
+			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
+			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
+			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Time Display",
+					"Toggle the display of time between a 24 and 12-hour clock.");
+			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		
 		if (((EventTarget) documentAttributes.getElementById("ESSENCE_" + TFEssence.ARCANE.hashCode())) != null) {

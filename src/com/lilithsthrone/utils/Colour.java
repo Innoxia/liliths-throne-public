@@ -323,6 +323,7 @@ public enum Colour {
 	COVERING_BLONDE(BaseColour.YELLOW, "blonde"),
 	COVERING_BLEACH_BLONDE(BaseColour.YELLOW_LIGHT, "bleach-blonde"),
 	COVERING_GINGER(BaseColour.GINGER, "ginger"),
+	COVERING_ORANGE(BaseColour.ORANGE, "orange"),
 	COVERING_RED(BaseColour.RED, "red"),
 	COVERING_WHITE(BaseColour.WHITE, "white"),
 	COVERING_BLUE(BaseColour.BLUE, "blue"),

@@ -44,9 +44,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		coreEnchantment = null;
 		
 		spells = new ArrayList<>();
-		if (weaponType.getSpells() != null)
+		if (weaponType.getSpells() != null) {
 			this.spells = weaponType.getSpells();
-
+		}
+		
 		// Add random spells:
 		if (weaponType.getRarity() == Rarity.RARE) {
 			if (weaponType.getSpells().isEmpty()) {
@@ -62,10 +63,12 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 			}
 
 		} else if (weaponType.getRarity() == Rarity.EPIC) {
-			Attribute rndAtt = Attribute.baseAttributesGood.get(Util.random.nextInt(Attribute.baseAttributesGood.size()));
-			attributeModifiers.put(rndAtt, Util.random.nextInt(3) + 1);
-			coreEnchantment = rndAtt;
-
+			
+			if(weaponType.getAttributeModifiers().isEmpty()) {
+				Attribute rndAtt = Attribute.baseAttributesGood.get(Util.random.nextInt(Attribute.baseAttributesGood.size()));
+				attributeModifiers.put(rndAtt, Util.random.nextInt(3) + 1);
+			}
+			
 			if (weaponType.getSpells().isEmpty()) {
 				this.spells = new ArrayList<>();
 				if (dt == DamageType.PHYSICAL) {
@@ -86,15 +89,17 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 
 				}
 			}
-		} else if (weaponType.getRarity() == Rarity.LEGENDARY) {
-			int highestEnchantment = 0;
-			for (Attribute a : weaponType.getAttributeModifiers().keySet()) {
-				if (weaponType.getAttributeModifiers().get(a) > highestEnchantment) {
-					coreEnchantment = a;
-					highestEnchantment = weaponType.getAttributeModifiers().get(a);
-				}
+			
+		}
+		
+		int highestEnchantment = 0;
+		for (Attribute a : attributeModifiers.keySet()) {
+			if (attributeModifiers.get(a) > highestEnchantment) {
+				coreEnchantment = a;
+				highestEnchantment = attributeModifiers.get(a);
 			}
 		}
+		
 	}
 	
 	@Override

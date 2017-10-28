@@ -44,9 +44,13 @@ import com.lilithsthrone.main.Main;
  */
 public class Properties implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
 	public String lastSaveLocation = "", lastQuickSaveName = "", nameColour = "", name = "", race = "", quest = "", versionNumber="";
+	
 	public int fontSize = 18, level = 1, money = 0, arcaneEssences = 0, humanEncountersLevel = 1, multiBreasts = 1, forcedTFPercentage = 40;
-	public boolean lightTheme = false, overwriteWarning = true, fadeInText=true,
+	
+	public boolean lightTheme = false, overwriteWarning = true, fadeInText=true, twentyFourHourTime = true,
+			
 			furryTailPenetrationContent = false,
 			nonConContent = false,
 			incestContent = false,
@@ -171,6 +175,7 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "bodyHairContent", String.valueOf(bodyHairContent));
 			createXMLElementWithValue(doc, settings, "overwriteWarning", String.valueOf(overwriteWarning));
 			createXMLElementWithValue(doc, settings, "fadeInText", String.valueOf(fadeInText));
+			createXMLElementWithValue(doc, settings, "twentyFourHourTime", String.valueOf(twentyFourHourTime));
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
@@ -446,6 +451,10 @@ public class Properties implements Serializable {
 				
 				overwriteWarning = Boolean.valueOf(((Element)element.getElementsByTagName("overwriteWarning").item(0)).getAttribute("value"));
 				fadeInText = Boolean.valueOf(((Element)element.getElementsByTagName("fadeInText").item(0)).getAttribute("value"));
+				
+				if(element.getElementsByTagName("twentyFourHourTime").item(0)!=null) {
+					twentyFourHourTime = Boolean.valueOf(((Element)element.getElementsByTagName("twentyFourHourTime").item(0)).getAttribute("value"));
+				}
 				
 				if(element.getElementsByTagName("androgynousIdentification").item(0)!=null) {
 					androgynousIdentification = AndrogynousIdentification.valueOf(((Element)element.getElementsByTagName("androgynousIdentification").item(0)).getAttribute("value"));

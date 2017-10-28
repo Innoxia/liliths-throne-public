@@ -112,7 +112,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 							+ "You now have [style.boldSex(" +owner.getTesticleSize().getDescriptor()+ " [pc.balls])]!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] lets out a lewd moan as [npc.she] feels [npc.her] [npc.balls] suddenly swell and [style.boldGrow(grow larger)].</br>"
 							+ "[npc.She] now has [style.boldSex(" +owner.getTesticleSize().getDescriptor()+ " [npc.balls])]!"
@@ -125,7 +125,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 							+ "You now have [style.boldSex(" +owner.getTesticleSize().getDescriptor()+ " [pc.balls])]!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] lets out a surprised gasp as [npc.she] feels [npc.her] [npc.balls] suddenly [style.boldShrink(shrink)].</br>"
 							+ "[npc.She] now has [style.boldSex(" +owner.getTesticleSize().getDescriptor()+ " [npc.balls])]!"
@@ -170,7 +170,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 							+ "You are now producing [style.boldSex(" + cumProductionDescriptor + " [pc.cum])]!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] feels [npc.her] [npc.balls] grow heavier and fill up as [npc.her] cum production [style.boldGrow(increases)].</br>"
 							+ "[npc.Name] is now producing [style.boldSex(" + cumProductionDescriptor + " [npc.cum])]!"
@@ -183,7 +183,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 							+ "You are now producing [style.boldSex(" + cumProductionDescriptor + " [pc.cum])]!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] feels [npc.her] [npc.balls] get lighter as [npc.her] cum production [style.boldShrink(decreases)].</br>"
 							+ "[npc.Name] is now producing [style.boldSex(" + cumProductionDescriptor + " [npc.cum])]!"

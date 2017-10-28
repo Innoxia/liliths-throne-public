@@ -14,6 +14,9 @@ public enum SexPosition {
 	PIX_SHOWER_RAPE("Face-to-wall (Pix behind)", "You're standing with your face pressed up against one wall of the shower, and behind you, Pix is growling hungrily into your ear."),
 
 	RALPH_UNDER_DESK("Kneeling under counter", "You're kneeling under Ralph's desk, with your face just inches away from his crotch."),
+
+	CULTIST_ALTAR_MISSIONARY("Missionary on Altar", "You're lying back on top of the chapel's altar, and [npc.name]'s standing between your [pc.legs], ready to have some fun with you in the missionary position.."),
+	CULTIST_ALTAR_MISSIONARY_DOM("Missionary on Altar", "[npc.Name] is lying back on top of the chapel's altar, and you're standing between [npc.her] [npc.legs], ready to have some fun in the missionary position."),
 	
 	// Consensual:
 	

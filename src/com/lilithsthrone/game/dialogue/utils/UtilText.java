@@ -63,28 +63,9 @@ public class UtilText {
 			Pattern.compile("<She>") };
 
 	/**
-	 * Use one of these tags enclosed by less than and greater than signs. Case
-	 * is retained ("She" will map to "He", and "she" will map to "he").
-	 * <p>
-	 * girl (young noun)
-	 * <p>
-	 * woman (noun)
-	 * <p>
-	 * female (name)
-	 * <p>
-	 * her (possessive)
-	 * <p>
-	 * hers (possessive)
-	 * <p>
-	 * herPro (Pronoun)
-	 * <p>
-	 * she (second person)
-	 * 
-	 * @param character
-	 *            to change tags to.
-	 * @param text
-	 *            to parse
+	 * <b>USE .parse() INSTEAD!</b> This method is deprecated, and will be deleted in a future update!
 	 */
+	@Deprecated
 	public static String genderParsing(GameCharacter character, String text) {
 		modifiedSentence = text;
 		
@@ -874,6 +855,24 @@ public class UtilText {
 					return "mom";
 				} else {
 					return "dad";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("mistress"),
+						new ListValue<>("master")),
+				true,
+				true,
+				"",//TODO
+				"Description of method"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
+					return "mistress";
+				} else {
+					return "master";
 				}
 			}
 		});

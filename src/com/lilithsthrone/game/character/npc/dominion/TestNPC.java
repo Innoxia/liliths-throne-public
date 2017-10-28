@@ -258,11 +258,10 @@ public class TestNPC extends NPC {
 					};
 				
 			} else if (index == 2 && Main.game.isNonConEnabled()) {
-				return new ResponseSex(
-						"Rape [test.herHim]", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room...", TEST_DIALOGUE_AFTER_RAPE,
+				return new ResponseSex("Rape [test.herHim]", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room...", TEST_DIALOGUE_AFTER_RAPE,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
 						null, null, null,
-						false, true, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
+						false, false, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
 						"<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
 							+ " Stealthily moving forwards, you approach the oblivious [test.race], smiling to yourself as you hear [test.her] grumbling and mumbling to [test.herself]."
@@ -282,7 +281,7 @@ public class TestNPC extends NPC {
 				return new ResponseSex("Rape [test.herHim] (gentle)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'gentle' pace.)", TEST_DIALOGUE_AFTER_RAPE,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
 						null, null, null,
-						false, true, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
+						false, false, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
 						"<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
 							+ " Stealthily moving forwards, you approach the oblivious [test.race], smiling to yourself as you hear [test.her] grumbling and mumbling to [test.herself]."
@@ -307,7 +306,7 @@ public class TestNPC extends NPC {
 				return new ResponseSex("Rape [test.herHim] (rough)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'rough' pace.)", TEST_DIALOGUE_AFTER_RAPE,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
 						null, null, null,
-						false, true, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
+						false, false, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
 						"<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
 							+ " Stealthily moving forwards, you approach the oblivious [test.race], smiling to yourself as you hear [test.her] grumbling and mumbling to [test.herself]."
@@ -378,7 +377,7 @@ public class TestNPC extends NPC {
 				return new ResponseSex("Sex",
 						"Well, [test.she] <i>is</i> asking for it!",
 						TEST_DIALOGUE_AFTER_SEX,
-						true, false, Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX,
+						true, true, Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX,
 						"<p>"
 							+ "You step forwards, wrapping your [pc.arms] around the [test.race] and pulling [test.herHim] into you."
 						+ "</p>"
@@ -391,7 +390,7 @@ public class TestNPC extends NPC {
 				return new ResponseSex("Sex (gentle)",
 						"Well, [test.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 						TEST_DIALOGUE_AFTER_SEX,
-						true, false, Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX,
+						true, true, Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX,
 						"<p>"
 							+ "You step forwards, gently wrapping your [pc.arms] around the [test.race] and lovingly pulling [test.herHim] into you."
 						+ "</p>"
@@ -409,7 +408,7 @@ public class TestNPC extends NPC {
 				return new ResponseSex("Sex (rough)",
 						"Well, [test.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 						TEST_DIALOGUE_AFTER_SEX,
-						true, false, Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX,
+						true, true, Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX,
 						"<p>"
 								+ "You step forwards, wrapping your [pc.arms] around the [test.race] and roughly pulling [test.herHim] into you."
 							+ "</p>"

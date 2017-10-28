@@ -1717,7 +1717,7 @@ public class GameCharacter implements Serializable, XMLSaving {
 		attributes.put(att, value);
 		
 		if(isPlayer() && att != Attribute.AROUSAL) {
-			Main.game.addEvent(new EventLogEntryAttributeChange(att, increment, true), appendAttributeChangeText);
+			Main.game.addEvent(new EventLogEntryAttributeChange(att, increment, true), !Main.game.isInSex());
 		}
 
 		// Increment health, mana and stamina based on the change:
@@ -3504,12 +3504,14 @@ public class GameCharacter implements Serializable, XMLSaving {
 		return inventory.getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
 	}
 
-
 	public boolean isAbleToAccessCoverableArea(CoverableArea area, boolean byRemovingClothing) {
 		return inventory.isAbleToAccessCoverableArea(area, byRemovingClothing);
 	}
-
-
+	
+	public AbstractClothing getClothingBlockingCoverableAreaAccess(CoverableArea area, boolean byRemovingClothing) {
+		return inventory.getClothingBlockingCoverableAreaAccess(area, byRemovingClothing);
+	}
+	
 	public boolean isCoverableAreaExposed(CoverableArea area) {
 		return inventory.isCoverableAreaExposed(area);
 	}
@@ -4814,16 +4816,27 @@ public class GameCharacter implements Serializable, XMLSaving {
 		if (body.getHeightValue() < height) {
 			if (body.setHeight(height))
 				return isPlayer()
-						? "<p>" + "The world around you seems slightly further away than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>."
-								+ "</br>" + "You are now <b>" + getHeightValue() + "cm</b> tall." + "</p>"
-						: UtilText.genderParsing(this,
-								"<p>" + "<She> sways from side to side a little, <her> balance suddenly thrown off by the fact that she's just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>." + "</p>");
+						? "<p>"
+							+ "The world around you seems slightly further away than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>."
+							+ "</br>"
+							+ "You are now <b>" + getHeightValue() + "cm</b> tall."
+						+ "</p>"
+						: UtilText.parse(this,
+							"<p>"
+								+ "[npc.She] sways from side to side a little, [npc.her] balance suddenly thrown off by the fact that [npc.she]'s just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>."
+							+ "</p>");
 		} else {
 			if (body.setHeight(height))
 				return isPlayer()
-						? "<p>" + "The world around you suddenly seems slightly closer than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>become shorter</b>."
-								+ "</br>" + "You are now <b>" + getHeightValue() + "cm</b> tall." + "</p>"
-						: UtilText.genderParsing(this, "<p>" + "<She> shrinks down, <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>becoming noticeably shorter</b>." + "</p>");
+						? "<p>"
+							+ "The world around you suddenly seems slightly closer than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>become shorter</b>."
+							+ "</br>"
+							+ "You are now <b>" + getHeightValue() + "cm</b> tall."
+						+ "</p>"
+						: UtilText.parse(this,
+							"<p>"
+								+ "[npc.She] shrinks down, <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>becoming noticeably shorter</b>."
+							+ "</p>");
 		}
 		
 		if(isPlayer()) {
@@ -4966,9 +4979,9 @@ public class GameCharacter implements Serializable, XMLSaving {
 							+ "Your navel is now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>";
 			}else {
-				return UtilText.genderParsing(this,
+				return UtilText.parse(this,
 						"<p>"
-							+ "<Her> navel is now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
+							+ "[npc.Her] navel is now <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>pierced</b>."
 						+ "</p>");
 			}
 			
@@ -4979,9 +4992,9 @@ public class GameCharacter implements Serializable, XMLSaving {
 							+ "Your navel is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>";
 			}else {
-				return UtilText.genderParsing(this,
+				return UtilText.parse(this,
 						"<p>"
-							+ "<Her> navel is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
+							+ "[npc.Her] navel is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
 						+ "</p>");
 			}
 		} else {

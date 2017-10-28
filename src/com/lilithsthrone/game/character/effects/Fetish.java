@@ -268,8 +268,7 @@ public enum Fetish {
 				else
 					return "Although you currently don't have a vagina, you know that if you were ever to have one, you'd prize its virginity above everything else in the world. If you were ever to lose it, you don't know how you'd cope...";
 			} else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " prizes her virginity above all else.");
+				return UtilText.parse(owner, "[npc.Name] prizes [npc.her] virginity above all else.");
 		}
 		
 		@Override
@@ -501,8 +500,7 @@ public enum Fetish {
 			if (owner.isPlayer())
 				return "You're obsessed with the idea of acting like a complete bimbo. It's gotten to the point where no matter how intelligent you might actually be, you can't imagine yourself as anything other than a braindead slut.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " loves acting like a complete bimbo.");
+				return UtilText.parse(owner, "[npc.Name] loves acting like a complete bimbo.");
 		}
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
@@ -546,8 +544,7 @@ public enum Fetish {
 			if (owner.isPlayer())
 				return "Either by teasing them with your body, or preventing them from orgasming, you love denying your partners during sex.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " has a fetish for orgasm denial.");
+				return UtilText.parse(owner, "[npc.Name] has a fetish for orgasm denial.");
 		}
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
@@ -568,8 +565,7 @@ public enum Fetish {
 			if (owner.isPlayer())
 				return "You love being the dominant partner during sex, and you know just how to show your partners who's in charge.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " has a fetish for being the dominant partner in sex.");
+				return UtilText.parse(owner, "[npc.Name] has a fetish for being the dominant partner in sex.");
 		}
 		
 		@Override
@@ -592,8 +588,7 @@ public enum Fetish {
 			if (owner.isPlayer())
 				return "You love being the submissive partner during sex. You'll do anything to show your submission, and will happily let your partner do whatever they want with you.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " has a fetish for being the submissive partner in sex.");
+				return UtilText.parse(owner, "[npc.Name] has a fetish for being the submissive partner in sex.");
 		}
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
@@ -614,8 +609,7 @@ public enum Fetish {
 			if (owner.isPlayer())
 				return "You always did have the hots for your aunt Lily...";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " has a fetish for incestuous sex.");
+				return UtilText.parse(owner, "[npc.Name] has a fetish for incestuous sex.");
 		}
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
@@ -637,8 +631,7 @@ public enum Fetish {
 			if (owner.isPlayer())
 				return "You love showing off your body, and the act of parading your naked form in public places turns you on like nothing else.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " has a fetish for exhibiting <her> body.");
+				return UtilText.parse(owner, "[npc.Name] has a fetish for exhibiting [npc.her] body.");
 		}
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
@@ -659,8 +652,7 @@ public enum Fetish {
 			if (owner.isPlayer())
 				return "You love pain, and being treated like dirt sends you absolutely wild with lust.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " has a fetish for being treated like a worthless slut.");
+				return UtilText.parse(owner, "[npc.Name] has a fetish for being treated like a worthless slut.");
 		}
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
@@ -682,8 +674,7 @@ public enum Fetish {
 			if (owner.isPlayer())
 				return "You love dishing out pain and humiliation, and causing others to suffer sends you absolutely wild with lust.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " has a fetish for dealing out pain and humiliation.");
+				return UtilText.parse(owner, "[npc.Name] has a fetish for dealing out pain and humiliation.");
 		}
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {

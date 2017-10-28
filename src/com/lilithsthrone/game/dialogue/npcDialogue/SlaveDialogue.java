@@ -200,7 +200,7 @@ public class SlaveDialogue {
 				if(Main.game.isNonConEnabled() && !Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
 					return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
 							AFTER_SEX,
-							false, true, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
+							false, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
 							"<p>"
 								+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
 								+ " [npc.She] desperately tries to push you away, [npc.moaning]"

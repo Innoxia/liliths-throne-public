@@ -127,6 +127,15 @@ h6{
 	-webkit-user-select: none;
 	box-sizing: border-box;
 }
+.half-width-container{
+	position:relative;
+	float:left;
+	width:50%;
+	padding:0;
+	margin:0;
+	-webkit-user-select: none;
+	box-sizing: border-box;
+}
 .quarter-width-container{
 	position:relative;
 	float:left;

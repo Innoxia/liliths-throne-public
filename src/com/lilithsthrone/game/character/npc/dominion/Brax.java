@@ -483,7 +483,7 @@ public class Brax extends NPC {
 		public Response getResponse(int index) {
 			if (index == 1) {
 				return new ResponseSex("Get started", "Start dominating your new bitch.", EnforcerHQDialogue.EXTERIOR,
-						false, true, Main.game.getBrax(), new SMBraxSubStart(), AFTER_DOMINANT_SEX,
+						false, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_DOMINANT_SEX,
 						"<p>"
 							+ "With a forceful push, you shove Brax down onto his knees before you."
 							+ " His meek, submissive look couldn't be further from the aggressive snarl that he greeted you with when you entered his office, and you grin down at him as you prepare to make him your bitch."
@@ -535,7 +535,7 @@ public class Brax extends NPC {
 		public Response getResponse(int index) {
 			if (index == 1) {
 				return new ResponseSex("Obey", "Do as Brax says and present yourself for him.", EnforcerHQDialogue.EXTERIOR,
-						false, true, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
+						false, false, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
 						"<p>"
 							+ "You obediently do as Brax commands and drop down on all fours right there in the middle of his office."
 							+ (Main.game.getPlayer().getTailType() == TailType.LYCAN
@@ -772,7 +772,7 @@ public class Brax extends NPC {
 		public Response getResponse(int index) {
 			if (index == 1) {
 				return new ResponseSex("Dominated", "Brax is far too strong for you to resist...", EnforcerHQDialogue.EXTERIOR,
-						false, true, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
+						false, false, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
 						"<p>"
 							+ "Brax spins you around, and with a forceful shove, pushes you down to the ground."
 							+ " You land on all-fours, with your ass raised up towards the dominant wolf-boy."
@@ -881,7 +881,7 @@ public class Brax extends NPC {
 		public Response getResponse(int index) {
 			if (index == 1) {
 				return new ResponseSex("Obey", "The arousing liquid you've just been forced to drink is forcing you to obey, and you eagerly fall down on all fours so that Brax can fuck you, doggy-style.", EnforcerHQDialogue.EXTERIOR,
-						false, true, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
+						false, false, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
 						"<p>"
 							+ "You obediently do as Brax commands and drop down on all fours right there in the middle of his office."
 							+ (Main.game.getPlayer().getTailType() == TailType.LYCAN
@@ -1031,7 +1031,7 @@ public class Brax extends NPC {
 	
 	@Override
 	public Map<TFEssence, Integer> getLootEssenceDrops() {
-		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, 5));
+		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, 8));
 	}
 	
 	@Override

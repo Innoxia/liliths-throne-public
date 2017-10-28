@@ -2,7 +2,6 @@ package com.lilithsthrone.game.character.npc.generic;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -25,23 +24,23 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.Dominion;
 
 /**
  * @since 0.1.69
- * @version 0.1.82
+ * @version 0.1.88
  * @author Innoxia
  */
 public class DominionSuccubusAttacker extends NPC {
@@ -163,11 +162,6 @@ public class DominionSuccubusAttacker extends NPC {
 	}
 	
 	@Override
-	public Map<TFEssence, Integer> getLootEssenceDrops() {
-		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, Util.random.nextInt(5)+2));
-	}
-	
-	@Override
 	public String getLostVirginityDescriptor() {
 		return "in the streets of Dominion";
 	}
@@ -275,36 +269,37 @@ public class DominionSuccubusAttacker extends NPC {
 		if (attackType == Attack.MAIN) {
 			switch (Util.random.nextInt(3)) {
 				case 0:
-					return UtilText.genderParsing(this,
+					return UtilText.parse(this,
 							"<p>"
-									+ getName("The")+ " looks annoyed that you're trying to put up a fight, and leaps forwards to deliver a stinging slap across your face."
+								+ "[npc.Name] looks annoyed that you're trying to put up a fight, and leaps forwards to deliver a stinging slap across your face."
 							+ "</p>");
 				case 1:
-					return UtilText.genderParsing(this,
+					return UtilText.parse(this,
 							"<p>"
-									+ "With an angry little click of her tongue, "+ getName("the")+ " slaps you across the face."
+								+ "With an angry little click of her tongue, [npc.Name] slaps you across the face."
 							+ "</p>");
 				default:
-					return UtilText.genderParsing(this,
+					return UtilText.parse(this,
 							"<p>"
-									+ "With a frustrated whine, "+ getName("the")+ " kicks out at your shins."
+								+ "With a frustrated whine, [npc.Name] kicks out at your shins."
 							+ "</p>");
 			}
 		} else {
 			switch (Util.random.nextInt(3)) {
 				case 0:
 					return "<p>"
-								+ UtilText.genderParsing(this, getName("The") + " puts on a smouldering look, and as her eyes meet yours, you hear an extremely lewd moan echoing around in your head, ")
+								+ UtilText.parse(this,
+										"[npc.Name] puts on a smouldering look, and as her eyes meet yours, you hear an extremely lewd moan echoing around in your head, ")
 								+ UtilText.parseThought("~Aaah!~ You're making me so wet!", this)
 							+ "</p>";
 				case 1:
 					return "<p>"
-								+ UtilText.genderParsing(this, getName("The") + " locks her big, innocent-looking eyes with yours, and as she pouts, you hear an echoing moan deep within your mind, ")
+								+ UtilText.parse(this, "[npc.Name] locks her big, innocent-looking eyes with yours, and as she pouts, you hear an echoing moan deep within your mind, ")
 								+ UtilText.parseThought("~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!", this)
 							+ "</p>";
 				default:
 					return "<p>"
-								+ UtilText.genderParsing(this, getName("The") + " pouts innocently at you, before blowing you a wet kiss."
+								+ UtilText.parse(this, "[npc.Name] pouts innocently at you, before blowing you a wet kiss."
 										+ " As she straightens back up, you feel a ghostly pair of wet lips press against your cheek.")
 							+ "</p>";
 			}
@@ -323,6 +318,16 @@ public class DominionSuccubusAttacker extends NPC {
 	
 	// ****************** Sex & Dirty talk: ***************************
 	
+	public SexType getMainSexPreference() {
+		if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER);
+		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER);
+		}
+		
+		return foreplayPreference;
+	}
+	
 	@Override
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
@@ -333,7 +338,7 @@ public class DominionSuccubusAttacker extends NPC {
 							+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
 						+ "</p>";
 			} else if (!target.isPlayer()){
-				Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, equipper);
+				target.unequipClothingIntoVoid(target.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, equipper);
 				return "<p>"
 							+ "You pull out a condom and try to give it to the horny succubus, but she simply laughs in your face before grabbing the little foil packet and tearing it in two."
 							+ " Letting out a little laugh, she mocks your attempt at trying to get her to wear a rubber, "
@@ -475,7 +480,7 @@ public class DominionSuccubusAttacker extends NPC {
 				+ "</p>"
 				+ "<p>"
 					+ "You don't know what's worse, losing the virginity that you prized so highly, or the fact that you're actually enjoying it."
-					+ " As your labia spread lewdly around the thick, ribbed demon-dick, you find yourself starting to agree with what the succubus is telling you."
+					+ " As your labia spread lewdly around the hot, thick demon-dick, you find yourself starting to agree with what the succubus is telling you."
 				+ "</p>"
 				+ "<p style='text-align:center;'>"
 				+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...</br>"
@@ -488,7 +493,7 @@ public class DominionSuccubusAttacker extends NPC {
 				+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
 				+ "</p>");
 		
-		return UtilText.genderParsing(Sex.getPartner(),
+		return UtilText.parse(Sex.getPartner(),
 				StringBuilderSB.toString());
 	}
 	
@@ -499,12 +504,12 @@ public class DominionSuccubusAttacker extends NPC {
 		List<String> speech = new ArrayList<>();
 		
 		if(isPlayerDom){
-			speech.add(UtilText.genderParsing(Sex.getPartner(),"Come on, fuck me already!"));
+			speech.add("Come on, fuck me already!");
 			speech.add("Come on! What's taking so long?!");
 			speech.add("Fuck me already!");
 			speech.add("Let's get started! Come on!");
 		} else {
-			speech.add(UtilText.genderParsing(Main.game.getPlayer(),"I'm gonna turn you into a slut for demon cock!"));
+			speech.add("I'm gonna turn you into a slut for demon cock!");
 			speech.add("You ever been fucked by a demon?");
 			speech.add("You're going to be begging for my cum before the end!");
 			speech.add("You're going to be a good little bitch!");
