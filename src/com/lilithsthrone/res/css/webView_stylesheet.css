@@ -1593,8 +1593,11 @@ position:relative;
 
 .special-text{
 	font-weight:normal;
-    color: #F5A8FF;
-    text-shadow: 2px 2px 5px #8d3193;
+	color: #FF9970;
+    text-shadow: 2px 2px 5px #CC3A00;
+	
+    /*color: #F5A8FF;
+    text-shadow: 2px 2px 5px #8d3193;*/
 }
 
 .option-disabled{

@@ -2181,7 +2181,9 @@ public class Lab {
 						Main.game.getPlayer().setStamina(0);
 
 						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity((Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier());
+						Main.game.getPlayer().incrementVaginaCapacity(
+								(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+								false);
 					}
 				};
 
@@ -2195,7 +2197,9 @@ public class Lab {
 						Main.game.getPlayer().setStamina(0);
 
 						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity((Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier());
+						Main.game.getPlayer().incrementVaginaCapacity(
+								(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+								false);
 					}
 				};
 
@@ -2558,7 +2562,9 @@ public class Lab {
 						Main.game.getPlayer().setStamina(0);
 
 						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity((Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier());
+						Main.game.getPlayer().incrementVaginaCapacity(
+								(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+								false);
 					}
 				};
 

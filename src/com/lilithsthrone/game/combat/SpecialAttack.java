@@ -1064,7 +1064,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			return owner.getHornType() == HornType.BOVINE_MALE || owner.getHornType() == HornType.BOVINE_FEMALE;
+			return owner.getHornType() == HornType.BOVINE;
 		}
 	},
 

@@ -833,7 +833,7 @@ public class ConChairTop {
 		public String getDescription() {
 			return "Lifting one of your [pc.legs] up and placing it down to one side of [npc.name], you lean forwards, bringing your [pc.cock] up to [npc.her] [npc.breasts+]."
 					+ " As you line the [pc.cockHead+] of your [pc.cock+] up to one of [npc.her] [npc.nipples+], [npc.name] looks up at you and bites [npc.her] [npc.lip]."
-					+ " Finally getting into a comfortable position, you thrust your [pc.hips] forwards, penetrating [npc.her] [npc.nipple+] and causing [npc.her] to let out [npc.a_moan+] as you start fucking [npc.her] [npc.breast].";
+					+ " Finally getting into a comfortable position, you thrust your [pc.hips] forwards, penetrating [npc.her] [npc.nipple+] and causing [npc.herHim] to let out [npc.a_moan+] as you start fucking [npc.her] [npc.breast].";
 		}
 		
 		@Override

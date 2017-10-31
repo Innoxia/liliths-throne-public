@@ -10,7 +10,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerNipple;
@@ -20,9 +19,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
@@ -83,8 +80,6 @@ public class SMDomSex extends SexManagerDefault {
 				// Scene-specific:
 
 				PlayerTongueMouth.class,
-				PlayerTongueVagina.class,
-				PlayerTongueAnus.class,
 				PlayerFingerNipple.class,
 				PlayerFingerUrethra.class,
 				PlayerFingerVagina.class,
@@ -93,9 +88,10 @@ public class SMDomSex extends SexManagerDefault {
 				PlayerTailVagina.class,
 				PlayerTailAnus.class,
 
-				PartnerPenisMouth.class,
 				PartnerTailVagina.class,
 				PartnerTailAnus.class,
+				
+				SASpecialCultist.class,
 				
 				// Universal:
 				

@@ -16,7 +16,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.game.slavery.SlaveJobHours;
-import com.lilithsthrone.game.slavery.SlaveJobSettings;
+import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.game.slavery.SlavePermission;
 import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
@@ -1150,7 +1150,7 @@ public class MiscDialogue {
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ Util.capitaliseSentence(character.getSlaveJob().getName(character)));
 						
-		for(SlaveJobSettings setting : character.getSlaveJobSettings()) {
+		for(SlaveJobSetting setting : character.getSlaveJobSettings()) {
 			headerSB.append("</br><span style='color:"+setting.getColour().toWebHexString()+";'>"+setting.getTag()+"</span>");
 		}
 		
@@ -1360,7 +1360,7 @@ public class MiscDialogue {
 							+ "</div>");
 				
 				// Job Settings:
-				for(SlaveJobSettings setting : job.getMutualSettings()) {
+				for(SlaveJobSetting setting : job.getMutualSettings()) {
 					boolean settingActive = character.getSlaveJobSettings().contains(setting);
 					
 					UtilText.nodeContentSB.append("<div class='container-full-width inner' style='"+(!isCurrentJob?"background:#1B1B1B;":"")+"'>"

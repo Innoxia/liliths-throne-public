@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.npc.generic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -30,6 +31,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -218,7 +220,7 @@ public class DominionSuccubusAttacker extends NPC {
 										+ " Seeing what you're offering [npc.herHim], [npc.she] lets out a little laugh, "
 										+ " [npc.speech(Hah! Don't you know demons can't be transfo~Mrph!~)]"
 									+ "</p>"
-										+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and, rather unceremoniously, shove the neck down [npc.her] throat."
+										+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and rather unceremoniously shove the neck down [npc.her] throat."
 										+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.her] go."
 										+ " [npc.She] coughs and splutters for a moment, before letting out an annoyed cry as [npc.she] wipes the liquid from [npc.her] mouth,"
 										+ " [npc.speech(W-what did I just say? Demons can't be transformed like that! But the taste is kinda nice I suppose...)]"
@@ -231,6 +233,29 @@ public class DominionSuccubusAttacker extends NPC {
 									+ "</p>";
 						}
 						
+				} else if(item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED)) {
+					
+					if(Sex.isPlayerDom()) {
+						Main.game.getPlayer().removeItem(item);
+						return "<p>"
+									+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
+									+ " Seeing what you're offering [npc.herHim], [npc.she] lets out a little laugh, "
+									+ " [npc.speech(Hah! Don't you know demons can't be transfo~Mrph!~)]"
+								+ "</p>"
+									+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and rather unceremoniously shove the neck down [npc.her] throat."
+									+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.her] go."
+									+ " [npc.She] coughs and splutters for a moment, before letting out a lewd little cry as [npc.she] wipes the liquid from [npc.her] mouth,"
+									+ " [npc.speech(W-Wait! That was a fetish transformative?! I feel... hot...)]"
+								+ "</p>"
+								+ Main.game.getPlayer().useItem(item, target, false);
+					} else {
+						return "<p>"
+									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
+									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+								+ "</p>";
+					}
+					
 				} else if(item.getItemType().equals(ItemType.EGGPLANT)) {
 						if(Sex.isPlayerDom()) {
 							return "<p>"
@@ -318,6 +343,16 @@ public class DominionSuccubusAttacker extends NPC {
 	
 	// ****************** Sex & Dirty talk: ***************************
 	
+	@Override
+	public Set<SexPosition> getSexPositionPreferences() {
+		sexPositionPreferences.clear();
+		
+		sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
+		
+		return sexPositionPreferences;
+	}
+
+	@Override
 	public SexType getMainSexPreference() {
 		if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER);

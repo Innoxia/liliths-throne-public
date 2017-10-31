@@ -927,13 +927,30 @@ public class Body implements Serializable, XMLSaving {
 		// **************** Horn **************** //
 		Element horn = (Element)parentElement.getElementsByTagName("horn").item(0);
 		
-		Horn importedHorn = new Horn(HornType.valueOf(horn.getAttribute("type")));
-		
+		Horn importedHorn = new Horn(HornType.NONE);
 		importedHorn.rows = (Integer.valueOf(horn.getAttribute("rows")));
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Body: Horn: "
-				+ "</br>type: "+importedHorn.getType()
-				+ "</br>rows: "+importedHorn.getHornRows());
+		try {
+			importedHorn = new Horn(HornType.valueOf(horn.getAttribute("type")));
+			CharacterUtils.appendToImportLog(log, "</br></br>Body: Horn: "
+					+ "</br>type: "+importedHorn.getType()
+					+ "</br>rows: "+importedHorn.getHornRows());
+			
+		} catch(IllegalArgumentException e) {
+			if(horn.getAttribute("type").startsWith("DEMON")) {
+				importedHorn = new Horn(HornType.DEMON);
+				
+			} else if(horn.getAttribute("type").startsWith("BOVINE")) {
+				importedHorn = new Horn(HornType.BOVINE);
+			}
+			
+			CharacterUtils.appendToImportLog(log, "</br></br>Body: Horn: "
+					+ "</br>type NOT FOUND, defaulted to: "+importedHorn.getType()
+					+ "</br>rows: "+importedHorn.getHornRows());
+		}
+		
+		
+		
 			
 			
 		// **************** Leg **************** //
@@ -1430,29 +1447,31 @@ public class Body implements Serializable, XMLSaving {
 			case NONE:
 				sb.append("");
 				break;
-			case DEMON_COMMON_MALE:
-				if (owner.isPlayer())
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from your upper forehead.");
-				else
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from [npc.her] upper forehead.");
+			case DEMON:
+				if(owner.isFeminine()) {
+					if (owner.isPlayer())
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from your upper forehead.");
+					else
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from [npc.her] upper forehead.");
+				} else {
+					if (owner.isPlayer())
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from your upper forehead.");
+					else
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from [npc.her] upper forehead.");
+				}
 				break;
-			case DEMON_COMMON_FEMALE:
-				if (owner.isPlayer())
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from your upper forehead.");
-				else
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from [npc.her] upper forehead.");
-				break;
-			case BOVINE_MALE:
-				if (owner.isPlayer())
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, curved horns, looking much like ones that you'd see on a bull, protrude from the sides of your head.");
-				else
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, curved horns, looking much like ones that you'd see on a bull, protrude from the sides of [npc.her] head.");
-				break;
-			case BOVINE_FEMALE:
-				if (owner.isPlayer())
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, slightly-curved horns, looking much like ones that you'd see on a cow, protrude from the sides of your head.");
-				else
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, slightly-curved horns, looking much like ones that you'd see on a cow, protrude from the sides of [npc.her] head.");
+			case BOVINE:
+				if(owner.isFeminine()) {
+					if (owner.isPlayer())
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, slightly-curved horns, looking much like ones that you'd see on a cow, protrude from the sides of your head.");
+					else
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, slightly-curved horns, looking much like ones that you'd see on a cow, protrude from the sides of [npc.her] head.");
+				} else {
+					if (owner.isPlayer())
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, curved horns, looking much like ones that you'd see on a bull, protrude from the sides of your head.");
+					else
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, curved horns, looking much like ones that you'd see on a bull, protrude from the sides of [npc.her] head.");
+				}
 				break;
 			default:
 				if (owner.isPlayer())
@@ -2668,9 +2687,9 @@ public class Body implements Serializable, XMLSaving {
 						nonHumanParts++;
 				}
 
-				if (horn.getType() == RacialBody.valueOfRace(r).getHornTypeFemale() || horn.getType() == RacialBody.valueOfRace(r).getHornTypeMale()) {
+				if (horn.getType() == RacialBody.valueOfRace(r).getHornType()) {
 					currentParts++;
-					if (horn.getType() != RacialBody.valueOfRace(Race.HUMAN).getHornTypeMale())
+					if (horn.getType() != RacialBody.valueOfRace(Race.HUMAN).getHornType())
 						nonHumanParts++;
 				}
 
@@ -4669,8 +4688,7 @@ public class Body implements Serializable, XMLSaving {
 	/**
 	 * Sets height attribute. Bound between 122 (4 feet) and 365 (12 feet).
 	 * 
-	 * @param height
-	 *            Value to set height to.
+	 * @param height Value to set height to.
 	 * @return True if height was changed.
 	 */
 	public boolean setHeight(int height) {

@@ -14,11 +14,8 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisAnus
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerNipple;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
@@ -39,6 +36,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTai
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailVagina;
+import com.lilithsthrone.game.sex.sexActions.dominion.cultist.SASpecialCultist;
 import com.lilithsthrone.game.sex.sexActions.universal.GenericOrgasms;
 
 /**
@@ -78,14 +76,11 @@ public class SMSubMissionary extends SexManagerDefault {
 				
 				// Scene-specific:
 
-				PlayerPenisMouth.class,
 				PlayerFingerNipple.class,
 				PlayerTailVagina.class,
 				PlayerTailAnus.class,
 				
 				PartnerTongueMouth.class,
-				PartnerTongueVagina.class,
-				PartnerTongueAnus.class,
 				PartnerFingerNipple.class,
 				PartnerFingerUrethra.class,
 				PartnerFingerVagina.class,
@@ -93,6 +88,8 @@ public class SMSubMissionary extends SexManagerDefault {
 				PartnerPenisAnus.class,
 				PartnerTailVagina.class,
 				PartnerTailAnus.class,
+
+				SASpecialCultist.class,
 				
 				// Universal:
 

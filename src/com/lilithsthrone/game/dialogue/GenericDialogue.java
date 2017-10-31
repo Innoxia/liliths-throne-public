@@ -85,7 +85,7 @@ public class GenericDialogue {
 				return new Response("Back", "", DEBUG_MENU){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return getDefaultDialogue();
+						return getDefaultDialogueNoEncounter();
 					}
 				};
 				

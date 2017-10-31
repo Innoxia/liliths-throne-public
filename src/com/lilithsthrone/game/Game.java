@@ -169,7 +169,7 @@ public class Game implements Serializable {
 		worlds = new EnumMap<>(WorldType.class);
 		for (WorldType type : WorldType.values())
 			worlds.put(type, null);
-		startingDate = LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(), 00, 00).plusYears(3);
+		startingDate = LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(), 00, 00).plusYears(3).minusWeeks(1);
 		minutesPassed = 20 * 60;
 		inCombat = false;
 		inSex = false;

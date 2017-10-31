@@ -168,6 +168,29 @@ public interface SexActionInterface {
 					return convertToResponse();
 				}
 			
+			// If this is a 'stop penetration' action, check to see if all the requirements are met:
+			} else if(getActionType()==SexActionType.PLAYER_STOP_PENETRATION || getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
+				// The sub stopping penetration actions (not including self-penetration actions) is only available if the sub has equal control:
+				if(getAssociatedPenetrationType()!=null && getAssociatedOrificeType()!=null) {
+					if(getAssociatedPenetrationType().isPlayer() != getAssociatedOrificeType().isPlayer()) { // This is a penetrative action between both partners:
+						if(getActionType().isPlayerAction()) { // Player is performing action:
+							if(!Sex.isSubHasEqualControl() && !Sex.isPlayerDom()) {
+								return null;
+							}
+							
+						} else { // Partner is performing action:
+							if((!Sex.isSubHasEqualControl() && Sex.isPlayerDom())) {
+								return null;
+							}
+						}
+					}
+				}
+				if(getAssociatedPenetrationType()!=null && getAssociatedOrificeType()!=null) {
+					if(Sex.getPenetrationTypeInOrifice(getAssociatedOrificeType()) != getAssociatedPenetrationType()) {
+						return null;
+					}
+				}
+				return convertToResponse();
 				
 			// If this is a 'start penetration' action, check to see if all the requirements are met:
 			} else if(getActionType()==SexActionType.PLAYER_PENETRATION || getActionType() == SexActionType.PARTNER_PENETRATION) {
@@ -182,12 +205,12 @@ public interface SexActionInterface {
 				if(getAssociatedPenetrationType()!=null && getAssociatedOrificeType()!=null) {
 					if(getAssociatedPenetrationType().isPlayer() != getAssociatedOrificeType().isPlayer()) { // This is a penetrative action between both partners:
 						if(getActionType().isPlayerAction()) { // Player is performing action:
-							if(((!Sex.isConsensual() || !Sex.isSubHasEqualControl()) || getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING) && !Sex.isPlayerDom()) {
+							if((!Sex.isSubHasEqualControl() || getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING) && !Sex.isPlayerDom()) {
 								return null;
 							}
 							
 						} else { // Partner is performing action:
-							if((((!Sex.isConsensual() || !Sex.isSubHasEqualControl()) || getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING) && Sex.isPlayerDom())) {
+							if(((!Sex.isSubHasEqualControl() || getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING) && Sex.isPlayerDom())) {
 								return null;
 							}
 						}

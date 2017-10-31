@@ -402,10 +402,15 @@ public class CultistDialogue {
 				return new Response("Leave", "Turn around and head for the door.", ENCOUNTER_CHAPEL_LEAVING){
 					@Override
 					public void effects(){
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, Colour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, Colour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, Colour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, Colour.CLOTHING_BLACK, false));
+						Colour colour = Colour.CLOTHING_BLACK;
+						if(Main.game.getActiveNPC().getClothingInSlot(InventorySlot.TORSO_UNDER) != null && Main.game.getActiveNPC().getClothingInSlot(InventorySlot.TORSO_UNDER).getColour() == Colour.CLOTHING_WHITE) {
+							 colour = Colour.CLOTHING_WHITE;
+						}
+						
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, colour, false));
+						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, colour, false));
 						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
 					}
 				};
@@ -491,7 +496,7 @@ public class CultistDialogue {
 		public Response getResponse(int index) {
 			if(index == 1) {
 				return new ResponseSex("Witch's Toy", "You're completely immobilised, and can do nothing as the witch prepares to use you as her toy.", EnforcerHQDialogue.EXTERIOR,
-						false, true, Main.game.getActiveNPC(), new SMSubSealed(), ENCOUNTER_CHAPEL_POST_ORAL_SEX,
+						false, false, Main.game.getActiveNPC(), new SMSubSealed(), ENCOUNTER_CHAPEL_POST_ORAL_SEX,
 						(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 								?"<p>"
 									+ "You look up to see [npc.name]'s grin turn into a puzzled frown as she realises that she's not able to get access to your groin."

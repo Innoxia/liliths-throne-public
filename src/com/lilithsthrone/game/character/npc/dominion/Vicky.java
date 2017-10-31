@@ -77,7 +77,7 @@ public class Vicky extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_BLACK), true);
 
 		this.setVaginaVirgin(false);
-		this.setVaginaCapacity(Capacity.FIVE_ROOMY.getMedianValue());
+		this.setVaginaCapacity(Capacity.FIVE_ROOMY.getMedianValue(), true);
 		this.setBreastSize(CupSize.C.getMeasurement());
 
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());

@@ -26,7 +26,7 @@ public enum LilayasHome implements PlaceInterface {
 	
 	// Ground floor:
 	
-	LILAYA_HOME_CORRIDOR("Corridor", null, BaseColour.GREY, LilayaHomeGeneric.CORRIDOR, null, true, false),
+	LILAYA_HOME_CORRIDOR("Corridor", null, BaseColour.GREY, LilayaHomeGeneric.CORRIDOR, Encounter.LILAYAS_HOME_CORRIDOR, true, false),
 	
 	LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR("Room", "dominion/lilayasHome/room", BaseColour.GREY, LilayaHomeGeneric.ROOM_WINDOW, null, true, false) {
 		@Override

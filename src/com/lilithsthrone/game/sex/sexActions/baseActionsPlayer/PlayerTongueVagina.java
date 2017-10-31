@@ -23,20 +23,6 @@ import com.lilithsthrone.utils.Util.ListValue;
  * @author Innoxia
  */
 public class PlayerTongueVagina {
-	/*
-	 * Suck clit
-	 * Herm fun
-	 * 
-	 * Player start/stop
-	 * Eating out:
-	 * 		Dom gentle, normal, rough
-	 * 		Sub normal, eager, resist
-	 * 
-	 * Partner start/stop
-	 * Partner react:
-	 * 		Dom gentle, normal, rough
-	 * 		Sub normal, eager, resist
-	 */
 	
 	public static final SexAction PARTNER_FORCE_CLIT = new SexAction(
 			SexActionType.PARTNER,
@@ -525,7 +511,7 @@ public class PlayerTongueVagina {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Sliding your [pc.tongue+] out from [npc.name]'s [npc.pussy+], you plant a series of delicate kisses on [npc.her] soft outer folds,"
-									+ " causing [npc.her] to let out [npc.a_moan+] as [npc.she] eagerly bucks [npc.her] [npc.hips] against your [pc.face].",
+									+ " causing [npc.herHim] to let out [npc.a_moan+] as [npc.she] eagerly bucks [npc.her] [npc.hips] against your [pc.face].",
 							"Sliding your [pc.tongue+] out from [npc.name]'s [npc.pussy+], you start to gently kiss and lick [npc.her] soft labia, drawing out [npc.a_moan+] from between [npc.her] [npc.lips+].",
 							"Pressing your [pc.lips+] against [npc.name]'s [npc.pussy+], you start gently kissing and nuzzling against [npc.her] outer folds,"
 									+ " breathing in [npc.her] [npc.scent] as [npc.she] [npc.moansVerb+] and bucks [npc.her] [npc.hips] into your [pc.face]."));
@@ -533,7 +519,7 @@ public class PlayerTongueVagina {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Sliding your [pc.tongue+] out from [npc.name]'s [npc.pussy+], you plant a series of delicate kisses on [npc.her] soft outer folds,"
-									+ " causing [npc.her] to let out [npc.a_sob+] as [npc.she] tries to pull [npc.her] [npc.hips] away from your [pc.face].",
+									+ " causing [npc.herHim] to let out [npc.a_sob+] as [npc.she] tries to pull [npc.her] [npc.hips] away from your [pc.face].",
 							"Sliding your [pc.tongue+] out from [npc.name]'s [npc.pussy+], you start to gently kiss and lick [npc.her] soft labia, drawing out [npc.a_sob+] as [npc.she] tries to pull away from your unwanted oral attention.",
 							"Pressing your [pc.lips+] against [npc.name]'s [npc.pussy+], you start gently kissing and nuzzling against [npc.her] outer folds,"
 									+ " breathing in [npc.her] [npc.scent] as [npc.she] [npc.sobsVerb+] and tries to pull [npc.her] [npc.hips] away from your [pc.face]."));
@@ -541,7 +527,7 @@ public class PlayerTongueVagina {
 				default: // SUB_NORMAL and in case anything goes wrong:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Sliding your [pc.tongue+] out from [npc.name]'s [npc.pussy+], you plant a series of delicate kisses on [npc.her] soft outer folds,"
-									+ " causing [npc.her] to let out [npc.a_moan+] as [npc.she] bucks [npc.her] [npc.hips] against your [pc.face].",
+									+ " causing [npc.herHim] to let out [npc.a_moan+] as [npc.she] bucks [npc.her] [npc.hips] against your [pc.face].",
 							"Drawing your [pc.tongue+] out from [npc.name]'s [npc.pussy+], you start to gently kiss and lick [npc.her] soft labia, drawing out [npc.a_moan+] from between [npc.her] [npc.lips+].",
 							"Pressing your [pc.lips+] against [npc.name]'s [npc.pussy+], you start gently kissing and nuzzling against [npc.her] outer folds,"
 									+ " breathing in [npc.her] [npc.scent] as [npc.she] [npc.moansVerb] and bucks [npc.her] [npc.hips] into your [pc.face]."));
@@ -708,7 +694,7 @@ public class PlayerTongueVagina {
 			SexActionType.PLAYER,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
-			CorruptionLevel.ONE_VANILLA,
+			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TONGUE_PLAYER,
 			OrificeType.VAGINA_PARTNER,
 			SexPace.SUB_RESISTING,

@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.body.types.MouthType;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.83
@@ -82,7 +83,9 @@ public class Mouth implements BodyPartInterface, Serializable {
 	public String getLipsDescriptor(GameCharacter gc) {
 		List<String> descriptorList = new ArrayList<>();
 		
-		descriptorList.add(getLipSize().getName());
+		if(!Main.game.isInSex() || getLipSize()!=LipSize.ONE_AVERAGE) {
+			descriptorList.add(getLipSize().getName());
+		}
 		
 		if (gc.isFeminine()) {
 			descriptorList.add("soft");

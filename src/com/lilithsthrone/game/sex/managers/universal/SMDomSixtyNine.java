@@ -14,6 +14,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerVag
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
@@ -46,7 +47,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.69
- * @version 0.1.79
+ * @version 0.1.88
  * @author Innoxia
  */
 public class SMDomSixtyNine extends SexManagerDefault {
@@ -86,6 +87,7 @@ public class SMDomSixtyNine extends SexManagerDefault {
 				PartnerFingerVagina.class,
 				PartnerFingerAnus.class,
 				PartnerTongueVagina.class,
+				PartnerTongueAnus.class,
 				PartnerPenisNipple.class,
 				PartnerPenisBreasts.class,
 

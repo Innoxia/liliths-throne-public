@@ -38,7 +38,7 @@ public class GenericActions {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isPlayerDom() && !Sex.isConsensual();
 		}
 		
 		@Override
@@ -50,7 +50,7 @@ public class GenericActions {
 		public String getActionDescription() {
 			return "Resist having sex with [npc.name].";
 		}
-
+		
 		@Override
 		public String getDescription() {
 			
@@ -112,7 +112,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() && !Sex.isConsensual())
+			return (Sex.isPlayerDom() && !Sex.isSubHasEqualControl())
 					&& Sex.isPartnerAllowedToUseSelfActions();
 		}
 
@@ -172,22 +172,6 @@ public class GenericActions {
 				}
 			}
 			
-//			if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)!=null)
-//				if(!Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER).isPlayer())
-//					Sex.removePenetration(OrificeType.VAGINA_PARTNER);
-//
-//			if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER)!=null)
-//				if(!Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER).isPlayer())
-//					Sex.removePenetration(OrificeType.ANUS_PARTNER);
-//			
-//			if (Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER)!=null)
-//				if(!Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER).isPlayer())
-//					Sex.removePenetration(OrificeType.NIPPLE_PARTNER);
-//			
-//			if (Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER)!=null)
-//				if(!Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER).isPlayer())
-//					Sex.removePenetration(OrificeType.MOUTH_PARTNER);
-			
 			Sex.setPartnerAllowedToUseSelfActions(false);
 		}
 	};
@@ -211,7 +195,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() && !Sex.isConsensual())
+			return (Sex.isPlayerDom() && !Sex.isSubHasEqualControl())
 					&& !Sex.isPartnerAllowedToUseSelfActions();
 		}
 
@@ -281,7 +265,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() && !Sex.isConsensual())
+			return (Sex.isPlayerDom() && !Sex.isSubHasEqualControl())
 					&& (!Sex.isPartnerCanRemovePlayersClothes());
 		}
 
@@ -316,7 +300,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() && !Sex.isConsensual())
+			return (Sex.isPlayerDom() && !Sex.isSubHasEqualControl())
 					&& (Sex.isPartnerCanRemoveOwnClothes());
 		}
 
@@ -351,7 +335,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() && !Sex.isConsensual())
+			return (Sex.isPlayerDom() && !Sex.isSubHasEqualControl())
 					&& (!Sex.isPartnerCanRemoveOwnClothes());
 		}
 
@@ -388,7 +372,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPartnerSelfPenetrationHappening()
-					&& (Sex.isPlayerDom() ||Sex.isConsensual());
+					&& (Sex.isPlayerDom()?true:Sex.isSubHasEqualControl());
 		}
 
 		@Override
@@ -441,22 +425,6 @@ public class GenericActions {
 					}
 				}
 			}
-			
-//			if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)!=null)
-//				if(!Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER).isPlayer())
-//					Sex.removePenetration(OrificeType.VAGINA_PARTNER);
-//
-//			if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER)!=null)
-//				if(!Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER).isPlayer())
-//					Sex.removePenetration(OrificeType.ANUS_PARTNER);
-//			
-//			if (Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER)!=null)
-//				if(!Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER).isPlayer())
-//					Sex.removePenetration(OrificeType.NIPPLE_PARTNER);
-//			
-//			if (Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER)!=null)
-//				if(!Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER).isPlayer())
-//					Sex.removePenetration(OrificeType.MOUTH_PARTNER);
 		}
 	};
 	
@@ -552,7 +520,7 @@ public class GenericActions {
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPlayerSelfPenetrationHappening()
 					&& !Sex.isAnyNonSelfPenetrationHappening()
-					&& (!Sex.isPlayerDom() ||Sex.isConsensual());
+					&& (Sex.isPlayerDom()?Sex.isSubHasEqualControl():true);
 		}
 
 		@Override
@@ -628,8 +596,8 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.getPlayerPenetrationRequests().isEmpty()
-					&& Sex.getPartner().hasFetish(Fetish.FETISH_DOMINANT)
-					&& !Sex.isPlayerDom();
+					&& Sex.getPartner().getSexBehaviourDeniesRequests()
+					&& (!Sex.isPlayerDom() && !Sex.isSubHasEqualControl());
 		}
 		
 		@Override
@@ -681,23 +649,27 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			if(!Sex.isConsensual()) {
-				return !Sex.isPlayerDom() && Sex.getNumberOfPartnerOrgasms()>=1;
-			} else {
+			if(!Sex.isPlayerDom()) {
+				return Sex.getNumberOfPartnerOrgasms()>=1;
+				
+			} else if(Sex.isSubHasEqualControl()) {
 				return Sex.getNumberOfPartnerOrgasms()>=1 && Sex.getNumberOfPlayerOrgasms()>=1;
+				
+			} else {
+				return false;
 			}
 		}
-
+		
 		@Override
 		public SexActionPriority getPriority() {
 			return SexActionPriority.HIGH;
 		}
-
+		
 		@Override
 		public String getDescription() {
 			return "With a satisfied sigh, [npc.name] disentangles [npc.herself] from your clutches, before stating that [npc.she]'s had enough for now.";
 		}
-
+		
 		@Override
 		public boolean endsSex() {
 			return true;

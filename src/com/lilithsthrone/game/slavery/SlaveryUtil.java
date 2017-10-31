@@ -7,8 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -82,14 +86,25 @@ public class SlaveryUtil implements Serializable {
 		
 		// Now can apply changes and generate events based on who else is present in the job:
 		for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
+			
 			slave.incrementAffection(slave.getOwner(), slave.getHourlyAffectionChange(hour));
 			slave.incrementObedience(slave.getHourlyObedienceChange(hour));
 			
+			// If at work:
 			if(slave.getWorkHours()[hour]) {
 				// Get paid for hour's work:
 				int income = slave.getSlaveJob().getFinalHourlyIncomeAfterModifiers(slave);
 				generatedIncome += income;
 				incrementSlaveDailyIncome(slave, income);
+				// Overworked effect:
+				if(slave.hasStatusEffect(StatusEffect.OVERWORKED)) {
+					slave.incrementAffection(slave.getOwner(), -0.1f);
+				}
+				
+			} else {
+				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_MASTURBATE)) {
+					slave.setGetLastTimeHadSex((day*24*60l) + hour*60l);
+				}
 			}
 			
 			// ***** EVENTS: ***** //
@@ -256,7 +271,45 @@ public class SlaveryUtil implements Serializable {
 				case LIBRARY:
 					return new SlaveryEventLogEntry(hour, slave, "Book fun", "", Util.newArrayListOfValues(new ListValue<>("")));
 				case TEST_SUBJECT:
-					return new SlaveryEventLogEntry(hour, slave, "Testing", "", Util.newArrayListOfValues(new ListValue<>("")));
+					if(slave.getSlaveJobSettings().isEmpty()) {
+						slave.incrementAffection(Main.game.getPlayer(), -1);
+						slave.incrementAffection(Main.game.getLilaya(), -5);
+						return new SlaveryEventLogEntry(hour, slave, "Testing", "Lilaya ran some rather intrusive tests on [npc.name].",
+								Util.newArrayListOfValues(
+										new ListValue<>("[style.boldBad(-1)] [style.boldAffection(Affection)]"),
+										new ListValue<>("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]")));
+						
+					} else {
+						switch(slave.getSlaveJobSettings().get(Util.random.nextInt(slave.getSlaveJobSettings().size()))) {
+							case TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE:
+								slave.incrementAffection(Main.game.getPlayer(), -1);
+								slave.incrementAffection(Main.game.getLilaya(), -5);
+								String tf = getTestSubjectFeminineTransformation(slave);
+								List<String> list = Util.newArrayListOfValues(
+										new ListValue<>("[style.boldBad(-1)] [style.boldAffection(Affection)]"),
+										new ListValue<>("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]"));
+								if(!tf.isEmpty()) {
+									list.add(tf);
+								}
+								return new SlaveryEventLogEntry(hour, slave, "Feminine Testing", "Lilaya tested some very intrusive feminine transformations on [npc.name].",list);
+								
+							case TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE:
+								slave.incrementAffection(Main.game.getPlayer(), -1);
+								slave.incrementAffection(Main.game.getLilaya(), -5);
+								String tf2 = getTestSubjectMasculineTransformation(slave);
+								List<String> list2 = Util.newArrayListOfValues(
+										new ListValue<>("[style.boldBad(-1)] [style.boldAffection(Affection)]"),
+										new ListValue<>("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]"));
+								if(!tf2.isEmpty()) {
+									list2.add(tf2);
+								}
+								return new SlaveryEventLogEntry(hour, slave, "Masculine Testing", "Lilaya tested some very intrusive masculine transformations on [npc.name].",list2);
+								
+							default:
+								break;
+						}
+					}
+					break;
 				case IDLE:
 					// Can not reach :3
 					break;
@@ -267,6 +320,68 @@ public class SlaveryUtil implements Serializable {
 		}
 		
 		return null;
+	}
+	
+	private String getTestSubjectFeminineTransformation(NPC slave) {
+		if(slave.hasPenis()) {
+			slave.setPenisType(PenisType.NONE);
+			if(!slave.hasVagina()) {
+				slave.setVaginaType(RacialBody.valueOfRace(slave.getRace()).getVaginaType());
+			}
+			return "[style.boldShrink(Lost penis)], [style.boldGrow(gained vagina)]";
+		}
+		
+		if(!slave.hasVagina()) {
+			slave.setVaginaType(RacialBody.valueOfRace(slave.getRace()).getVaginaType());
+			return "[style.boldGrow(Gained vagina)]";
+		}
+		
+		if(Math.random()>0.5f) {
+			if(slave.getFemininityValue()<100) {
+				int increment = Util.random.nextInt(5)+1;
+				slave.incrementFemininity(increment);
+				return "[style.boldGrow(+"+increment+")] [style.boldFeminine(Femininity)]";
+			}
+		}
+		
+		if(slave.getBreastSize().getMeasurement() < CupSize.GG.getMeasurement()) {
+			int increment = Util.random.nextInt(1)+1;
+			slave.incrementBreastSize(increment);
+			return "[style.boldGrow(Gained "+Util.capitaliseSentence(slave.getBreastSize().getCupSizeName())+"-cup breasts)]";
+		}
+		
+		return "";
+	}
+	
+	private String getTestSubjectMasculineTransformation(NPC slave) {
+		if(slave.hasVagina()) {
+			slave.setVaginaType(VaginaType.NONE);
+			if(!slave.hasPenis()) {
+				slave.setPenisType(RacialBody.valueOfRace(slave.getRace()).getPenisType());
+			}
+			return "[style.boldShrink(Lost vagina)], [style.boldGrow(gained penis)]";
+		}
+		
+		if(!slave.hasPenis()) {
+			slave.setPenisType(RacialBody.valueOfRace(slave.getRace()).getPenisType());
+			return "[style.boldGrow(Gained penis)]";
+		}
+		
+		if(Math.random()>0.5f) {
+			if(slave.getFemininityValue()>0) {
+				int increment = Util.random.nextInt(5)+1;
+				slave.incrementFemininity(-increment);
+				return "[style.boldShrink(-"+increment+")] [style.boldFeminine(Femininity)]";
+			}
+		}
+		
+		if(slave.getBreastSize().getMeasurement() > 0) {
+			int increment = Util.random.nextInt(1)+1;
+			slave.incrementBreastSize(increment);
+			return "[style.boldShrink(Gained "+Util.capitaliseSentence(slave.getBreastSize().getCupSizeName())+"-cup breasts)]";
+		}
+		
+		return "";
 	}
 	
 	/**

@@ -71,6 +71,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -220,6 +221,7 @@ public class CharacterUtils {
 		RacialBody startingBodyType = RacialBody.HUMAN;
 		RacialBody motherBody = RacialBody.valueOfRace(mother.getRace());
 		RacialBody fatherBody = RacialBody.valueOfRace(father.getRace());
+		Race raceTakesAfter = mother.getRace();
 		RaceStage stage = RaceStage.HUMAN;
 		boolean takesAfterMother = true;
 		boolean raceFromMother = true;
@@ -234,9 +236,33 @@ public class CharacterUtils {
 		} else {
 			startingBodyType = fatherBody;
 			stage = father.getRaceStage();
+			raceTakesAfter = father.getRace();
 			raceFromMother = false;
 		}
 		
+		switch(startingGender.isFeminine()?Main.getProperties().raceFemininePreferencesMap.get(raceTakesAfter):Main.getProperties().raceMasculinePreferencesMap.get(raceTakesAfter)) {
+			case HUMAN:
+				stage = RaceStage.HUMAN;
+				break;
+			case MINIMUM:
+				if(stage!=RaceStage.HUMAN
+				|| stage!=RaceStage.PARTIAL) {
+					stage = RaceStage.PARTIAL;
+				}
+				break;
+			case REDUCED:
+				if(stage!=RaceStage.HUMAN
+					|| stage!=RaceStage.PARTIAL
+					|| stage!=RaceStage.LESSER) {
+					stage = RaceStage.LESSER;
+				}
+				break;
+			case NORMAL:
+				break;
+			case MAXIMUM:
+				stage = RaceStage.GREATER;
+				break;
+		}
 		
 		Body body = generateBody(startingGender, startingBodyType, stage);
 		
@@ -307,7 +333,7 @@ public class CharacterUtils {
 		
 		// Body core:
 		// Height:
-		body.setHeight(getSizeFromGenetics(
+		body.setHeight(getSizeFromGenetics( //TODO
 				body.getHeightValue(),
 				(body.isFeminine()?mother.isFeminine():!mother.isFeminine()), mother.getHeightValue(),
 				(body.isFeminine()?father.isFeminine():!father.isFeminine()), father.getHeightValue()));
@@ -781,9 +807,12 @@ public class CharacterUtils {
 			variation = fatherSize;
 		}
 		
-		int difference = variation - baseSize;
-
-		return (int) (baseSize + difference*Math.random());
+		if(variation != 0) {
+			int difference = variation - baseSize;
+			return (int) (baseSize + difference*Math.random());
+		} else {
+			return baseSize;
+		}
 		
 //		return (int) ((baseSize + (Math.signum(difference)*Util.random.nextInt(Math.abs(difference) +1)))*(0.9f+(Math.random()*0.2f)));
 	}
@@ -851,9 +880,7 @@ public class CharacterUtils {
 									startingBodyType.getCumProduction(),
 									startingBodyType.getTesticleQuantity())
 								: new Penis(PenisType.NONE, 0, 0, 0, 2))
-						.horn(startingBodyType.getHornTypeFemale() == HornType.NONE ? new Horn(HornType.NONE) : new Horn(!startingGender.isFeminine()
-								? (stage.isHornFurry()?startingBodyType.getHornTypeMale():HornType.NONE)
-								: (stage.isHornFurry()?startingBodyType.getHornTypeFemale():HornType.NONE)))
+						.horn(new Horn(stage.isHornFurry()?startingBodyType.getHornType():HornType.NONE))
 						.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE))
 						.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
 						.wing(new Wing(stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE))
@@ -902,7 +929,7 @@ public class CharacterUtils {
 		//Ass:
 		if(character.hasFetish(Fetish.FETISH_ANAL_RECEIVING)) {
 			character.setAssVirgin(false);
-			character.setAssCapacity(character.getAssRawCapacityValue()*1.2f);
+			character.setAssCapacity(character.getAssRawCapacityValue()*1.2f, true);
 			character.setAssStretchedCapacity(character.getAssRawCapacityValue());
 		} else {
 			character.setAssVirgin(true);
@@ -927,7 +954,7 @@ public class CharacterUtils {
 		
 		// Face:
 		if(character.hasFetish(Fetish.FETISH_ORAL_GIVING)) {
-			character.setFaceCapacity(Capacity.FIVE_ROOMY.getMedianValue());
+			character.setFaceCapacity(Capacity.FIVE_ROOMY.getMedianValue(), true);
 			character.setFaceStretchedCapacity(character.getFaceRawCapacityValue());
 			character.setFaceVirgin(false);
 			
@@ -958,12 +985,12 @@ public class CharacterUtils {
 			if(character.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
 				character.setVaginaVirgin(true);
 				int capacity = Capacity.ZERO_IMPENETRABLE.getMinimumValue() + Util.random.nextInt(Capacity.TWO_TIGHT.getMaximumValue()-Capacity.ZERO_IMPENETRABLE.getMinimumValue());
-				character.setVaginaCapacity(capacity);
+				character.setVaginaCapacity(capacity, true);
 				
 			} else {
 				if(Math.random()>0.25f || character.getHistory()==History.PROSTITUTE) {
 					character.setVaginaVirgin(false);
-					character.setVaginaCapacity(character.getVaginaRawCapacityValue()*1.2f);
+					character.setVaginaCapacity(character.getVaginaRawCapacityValue()*1.2f, true);
 					character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
 				} else {
 					character.setVaginaVirgin(true);

@@ -7,80 +7,162 @@
 	Patch notes:
 	
 	Gameplay:
-		<b>Added:</b> Witch event. While travelling through the streets of Dominion, if the in-game month is October, then there's a small chance of a witch encounter. (Once there are 4 witches on the map, more witches will not spawn.)
-		Changed generic 'Day x' counter to an actual in-game date. I decided to change this so that I could detect and deliver special events based on month/date. (Such as the Halloween content only appearing in October.)
-		Added calendar to your room, along with some dialogue from Lilaya after you've inspected it, as well as some lore information about October.
+		<b>Temporarily</b> made new games start 1 week earlier than your system's calendar date, so that there's a week in-game in which to discover witches. I'll add in a starting date selection option as soon as I can.
+		Added basic transformative effects to events for slaves with feminine and masculine testing permissions enabled while working as a test subject. (Will be improved upon for Friday.)
+		Added in 'slave uses you' random encounter while walking the corridors of Lilaya's house. If a slave is allowed to walk around Lilaya's house, has the 'Use you' permission enabled, is attracted to you, and is not at work, there's a chance they will ambush you and have sex with you.
+		Slaves who are not allowed to masturbate or have sex will get 'pent-up' after 24-hours, and will be far more likely to use you if they have that permission enabled.
 	
-	UI:
-		Very slightly changed the UI to fit in date & time.
-	
-	Weapons:
-		<b>Added:</b> Witch's Broom (Main slot, 2 new spells).
-	
-	Clothing:
-		<b>Added:</b> Witch's Dress (Feminine, Torso slot).
-		<b>Added:</b> Witch's Hat (Feminine, Head slot).
-		<b>Added:</b> Witch's Boots (Feminine, Foot slot).
-		<b>Added:</b> Witch's Thigh-high Boots (Feminine, Foot slot).
-		
-	Items:
-		<b>Added:</b> Mystery Kink. A consumable that adds or removes a random fetish from the drinker. Can be enchanted into 'Fetish Endowment'. (Sold by Ralph, or a small chance of being dropped by random enemies.)
-		
 	Sex:
-		Added descriptions for all already-exposed orifices to the start of sex.
-		Improved consensual sex detection methods, so all NPCs should now be behaving like they were prior to 0.1.86. (I.e. not ending/taking control of sex when they're the sub.)
-		
-	Sex AI:
-		NPCs now prefer to displace clothing rather than removing it entirely.
-		Based on their fetishes, NPCs will now generate a preferred SexType and position for 'foreplay' and 'main sex' stages of sex. (Foreplay is currently defined as partner's arousal being less than 25.)
-		They will use their preferred SexType to determine clothing removal and action decision-making. (In an attempt to make sex less random.)
-		The alleyway succubus should now actually do as she says, and prioritise penetrating your vagina/ass.
-		
+		<b>Added:</b> Anilingus actions. They're only available in the 69 and witch's oral positions for now, but I'll add more as soon as I can! :3
+		Split the witch's sex position up into an oral and sex version. (To avoid those crazy oral+sex combinations.)
+		Added arousal increases for the penetrating partner as well as the penetrated partner for all sex status effects.
+		Added status effect during sex for breasts.
+	
 	Other:
-		Added 'orange' to makeup colours.
-		Increased the amount of essences dropped after combat, and doubled the amount gained from orgasms.
-		Updated a lot of old parsing methods, which should have fixed several minor parsing errors.
-		Tweaked NPCs' race preference chances for forced TF.
+		Added a calendar toggle button next to the date, which allows you to switch the display between the in-game calendar's date and the number of in-game days that you've played.
+		Offspring gender and furryness now take into account your preferences.
+		Witches now deny your requests when they're the one in charge.
+		The 'Overworked' status effect for slaves now reduces affection towards you by 0.1 for each hour that they're at work.
+		Changed witches from having random fetishes to having ones suitable for their actions.
+		Witch's costume gained after beating a witch should now be the same colour as her costume.
 	
 	Bugs:
-		Fixed more issues with older character imports.
-		Fixed the text field for changing a slave's name in the jobs and permissions screens accepting hotkey input.
-		Fixed watch hands not rendering (again).
-		Fixed several errors in parsing an NPC's transformations.
-		Fixed crash when trying to get a succubus to equip a condom.
-		Removed duplicate corruption gain messages in sex.
-		You can no longer unequip an NPC's weapon during sex. (To fix a cause of some bugs until I can implement proper behaviour.)
+		Fixed bug related to HP/WP/SP values gained from background selection not being calculated correctly. (The stats are now being added to bonus stats, until I do the planned improvements to the combat & stats system.)
+		Fixed witch's penis disappearing after the first time you had sex with her.
+		Added 'Seeder' to the list of available fetishes for enchanting onto the Fetish Endowment Potion.
+		Fixed Ralph's 'Big discount' action sometimes bugging out and causing him to do nothing if his arousal wasn't high enough.
+		Fixed bug where orifices wouldn't be stretched after sex.
+		Alleyway succubus should now really be fixed! (They were still pushing you into unwanted positions...)
+		Removing one of the prerequisites for a derived fetish (e.g. virgin fetish for lusty maiden) will now correctly remove the derived fetish.
+		Fixed strange formatting when drinking a 'Fetish Enhancement' potion that contains multiple effects.
+		Dominant partners should now attempt to gain access to both their and the player's genitals during sex. If, however, they have a certain preference (such as receiving oral), they will only get access to the parts they need (such as the player's mouth and their own groin).
+		Changed femininity-based horn types to a femininity detection system, which should have fixed several issues with forced horn TFs, as well as making horn TF potions simpler.
+		Fixed sex bug where some NPCs would incorrectly be able to end sex early (such as slaves).
+		Fixed several other actions not showing up in sex scenes where they should have been.
+		Fixed bug where submissive NPCs in certain sex scenes would be able to stop penetrative actions.
+		Added fetish potions to the items usable on generic NPCs during sex.
+		Fixed possible cause of the bug that was setting offspring's height to the minimum value.
+		Month names *should* now be displaying in English rather than using your system's locale.
+		Removed 'normal-sized' from lip descriptors during sex.
+		Minor typo fixes.
+		Fixed bug where witches change into random clothing if you unequipped their clothes.
+		Fixed bug where NPCs would sometimes get stuck on not being able to remove your clothing properly.
+		Forced transformations should no longer change your penis/vagina type if you have the preference set to 'Human only' or 'Minimum furry'. (They will still make you grow new genitalia if they desire them, but will not change the types of any pre-existing genitalia.)
 	
 	
 	
 	
 	
 	
-	Some of the content hasn't been properly edited/proofread. I'll tidy it up over the weekend.
+	Events for slaves
+	
+	Use you
+	House freedom
 	
 	
-	Halloween :3
-
+	
+	
+	
+	
+	Added basic transformative effects to events for slaves with feminine and masculine testing permissions enabled while working as a test subject. (Will be improved upon for Friday.)
+	
+	thigh sex
+	
+	Cosmetics for slaves
+	
+	
+	Kind of a late bug report for 1.87, but I noticed that anal virginity might not be properly retained for slaves on character export.
+	 I had a slave who I could have sworn still had her anal virginity, yet after exporting the character file (both created and exported in 1.87.1), her appearance screen no longer states the "She has retained her anal virginity" line.
+	   It might be one of those odd bugs where the game shows different information irrespective of the export's information since the file still has a virgin="true" flag for anus.
+	
+	Bug (Hotfix version): Slave Scarlett isn't attracted to me, so the slave interaction is "rape" not "sex" - however, when choosing it, Scarlett engages in consensual sex with all of what that means:
+	 no resisting, unlimited orgasms, etc.
+	
+	
+	
+	
+	During exhibitionism: while travelling in open map, a rare chance of a passer-by groping the NPC's exposed parts
+	
 	Sort out Cultist sex actions
 		Dirty talk
 		Orgasm is them masturbating over your face/cumming inside you
 			Orgasm is not working well atm
 		Virginity loss
-	
-	
-	Do as much bug fixing as possible
-	Cosmetics for slaves
-	Events for slaves
-	
-	anilingus
+	Some of the content hasn't been properly edited/proofread.
 	
 	
 	
+	split up the second set of parsing options into player and npc variants
+	
+	Also it seems like there's a pretty huge penalty to affection and obedience when you slap a collar on someone.
+	 Which... makes sense. But it seems like that penalty should vary depending on fetishes. Submissive people take a much smaller penalty.
+	  Dominant people take a much larger one. Maybe a special 'pet' fetish where someone fantasizes about being property to the point they get a bonus when enslaved.
+	
+	A (hopefully) small thing that would to me make far more sense when dealing with slaves would be to have an inventory option when interacting with slaves directly (clicking on their name when in their room) would be very useful. I always default to clicking on my slaves' names when I want to give them something.
+	
+	 i dont think it been mentioned yet in the past but i encountered a bug where getting knocked up by ralph led me to giving birth to a pair of squirrel children when im pure human and hes a pony hehe
+
+	Make way to change date in new game & in buggy menu
+	
+	-"Global Resist" bonuses from equipment do not actually seem to do anything at all. It certainly doesn't actually show up anywhere in my stats, including when I hover over my name. "Global" DMG/Resist from fetishes or other sources may or may not do anything, I really can't tell.
+
+	-Sometimes quick-loading can eventually cause the game to become somewhat unresponsive. Tooltips still pop up, and buttons still change when you hover over them, but nothing reacts when clicked, nor when the appropriate key is pressed. Loading is similarly blocked. The only fix I've found is to close the game and go back. Fortunately does not seem to occur when resuming the game after re-opening, so you don't lose much progress. It seems to mostly occur when loading the game while in a conversation(in a store, in/just before a fight/etc), but occasionally at other points.(And I do mean loading, I did save in a safe place.) Also, usually it lets you do some things after loading before it kaputs, so it's unpredictably annoying.
+	
+	-Hovering over the partner's arousal bar in sex makes it flicker wildly, and does not show a pop-up.
+	
+	-The event log is one behind what actually happened. I.E. I level up and raise all my stats by 1, it shows strength and intelligence but not fitness, if I then go in and raise strength by 1 more, fitness going up now shows but the second strength raise doesn't.
+	
+	-After a fight, my current flames seems to go up more than it says it should, for no apparent reason. I.E. start with 14, win a fight, it says I gain 46 and should be 60, I actually have 94.
+	
+	-The "Observant" perk's "Gender Detection" function doesn't seem to actually do anything, but this might just be me missing some fine detail. Where exactly is this supposed to show up?
+	
+	I may have forgotten others, but I've also got a few comments/questions:
+	-Where are the race lore books? The only one I've found is the harpy one that you are given in harpy nests.
+	-Encyclopedia does not show stats for clothing, only colors.
+	-Is there a reason the city map is randomized with each new game?
+	-Can we please get a "Drop All" button in main inventory in our room? So we can store all the items in our inventory, rather than just 1 type of item at a time.
+	--Similarly, a "Sell All" in stores to sell everything that store will buy.
+	---To note, for these I mean in the same screen as the "Take All", "Displace All", "Replace All", etc.
+	
+	And, of course, I think of something else right after I post that.
+	-Can we get a change of priority for the "Effects" icons, particularly in sex? If you get too many fetishes, the icons for those push the icons for ass/mouth/boobs/pussy status down to where you have to scroll to see them.
+	And as soon as you do any actions, it scrolls back up to the top of the effects.
+	
+	
+	And another one about sex
+	-Whether you and your partner come together can effect which orgasm scenes you are able to see. I've mainly noticed it when getting a blowjob while dominant, coming together prevents the choices for deepthroat and facial from showing up. May be others, but I either haven't seen them or narrowed them down yet.
+	
+	Found another one I had not seen previously.
+	-I ran into a succubus daughter named Shawna, and after having sex with her nipples it says "Shawna's Nipple Virginity was taken by Shawna", pretty much every time she reveals them.
+	 Considering my name is not Shawna, this is both inaccurate and annoying to have it show up every single time she takes off her bra.
+	
+	
+	it's a little odd to see text about what someone's semen is like before they've had an orgasm
+	
+	
+	EDIT 2: So, I did some experimenting with the enchantments, and I think there's a bug with how the transformer fetish works. Normally, it should halve the cost (from 6 to 3, for example).
+	 Well, it displays that halved number, but then it halves it again. So, if something costs 3 essences, it'll only count 1 when you add the effect.
+So basically, the transformer fetish actually reduces the cost of enchantments by 75% instead of 50%. Although I'm glad that the grinding is even more reduced, I assume that this is unintended behavior, so I'll count it as a "good" bug.
+	
+	when im receiving doggystyle, id like the option of a back Arch
+	
+	 I can't actually forbid my slave to undress during sex. Or forbid self-penetrative acts, for that matter.
+	
+	: I had a bug where some of my fetish teases like the cum stud tease weren't available on an imported character that had the fetish. But resetting my fetishes and buying them back fixed the issue. I'm assuming there was an update to some of the tease mechanics?
 	
 	BUGS & SEX
 	
+	You are unable to go more then one round during sex anymore with anybody who wants it, once both are done so is the encounter. The location screen is not updating with number of times you have had sex either
 	
-	NPC Cow keeps trying to give me horns even though I already have them
+	change offspring to imps for the next update
+	
+	Two quick notes, for you next release. One adjust the text for post sex to reflect the new levels for essences. The second is a bit harder, make it so the first time you read the race books in a game you get the Int bonus, that way you can get it every game and not just the first game you read the book.
+	
+	Can the succubi still grow a cock once enslaved
+	
+	character creation virginity tooltips all say anal virginity kept
+	
+	importing makes my character have every single fetish
 	
 	Apparently the height of male kids with both very tall parents wraps around back to midget values
 	
@@ -125,8 +207,6 @@
 	all offspring introduction dialogue (if you're the father) assumes the child was birthed by Lilaya.
 	
 	Besides that, I have an export with a slave that had 100 for affection and obedience drop to the negatives for affection and mid 80's for obedience the moment I was able to move them to a room (after unlocking slave content since you still have to do that when importing). 
-	
-	Bug: When I imported my character, somehow all fetishes were awarded to me. This wasn't a real problem, since then resetting allowed me to take essentially whatever I wanted, but it still feels like something you'd want to fix.
 	
 	-I noticed that importing a character and skipping the intro leaves you with an empty inventory and no currency. Importing a character and doing the prologue gives a similar result except you have a burning opaque demonstone equipped and have 40 currency. A new character doesn't have these issues. 
 

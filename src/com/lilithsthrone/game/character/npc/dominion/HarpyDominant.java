@@ -66,7 +66,7 @@ public class HarpyDominant extends NPC {
 		
 		this.setVaginaVirgin(false);
 		this.setVaginaWetness(Wetness.THREE_WET.getValue());
-		this.setVaginaCapacity(Capacity.TWO_TIGHT.getMedianValue());
+		this.setVaginaCapacity(Capacity.TWO_TIGHT.getMedianValue(), true);
 		
 		this.setAssVirgin(true);
 		this.setFaceVirgin(false);

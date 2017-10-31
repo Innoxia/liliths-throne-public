@@ -101,7 +101,7 @@ public class OrificeUrethra implements OrificeInterface, Serializable {
 	}
 
 	@Override
-	public String setCapacity(GameCharacter owner, float capacity) {
+	public String setCapacity(GameCharacter owner, float capacity, boolean setStretchedValueToNewValue) {
 		if (!owner.hasPenis()) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You lack a penis, so nothing happens...)]</p>";
@@ -113,7 +113,9 @@ public class OrificeUrethra implements OrificeInterface, Serializable {
 		
 		float oldCapacity = this.capacity;
 		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue()));
-		this.stretchedCapacity = this.capacity;
+		if(setStretchedValueToNewValue) {
+			this.stretchedCapacity = this.capacity;
+		}
 		float capacityChange = this.capacity - oldCapacity;
 		
 		if (capacityChange == 0) {

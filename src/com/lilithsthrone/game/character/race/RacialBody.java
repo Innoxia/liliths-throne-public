@@ -73,7 +73,7 @@ public enum RacialBody {
 			HairType.HUMAN, HairLength.TWO_SHORT, HairLength.FOUR_MID_BACK,
 			LegType.HUMAN,
 			SkinType.HUMAN, BodyMaterial.FLESH,
-			HornType.NONE, HornType.NONE,
+			HornType.NONE,
 			PenisType.HUMAN, PenisSize.TWO_AVERAGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE,
 			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
@@ -102,7 +102,7 @@ public enum RacialBody {
 			HairType.ANGEL, HairLength.FOUR_MID_BACK, HairLength.FOUR_MID_BACK,
 			LegType.ANGEL,
 			SkinType.ANGEL, BodyMaterial.FLESH,
-			HornType.NONE, HornType.NONE,
+			HornType.NONE,
 			PenisType.ANGEL, PenisSize.FIVE_ENORMOUS,
 			PenisType.NONE, PenisSize.TWO_AVERAGE,
 			TesticleSize.FOUR_HUGE, 2, CumProduction.SEVEN_MONSTROUS,
@@ -142,7 +142,7 @@ public enum RacialBody {
 			HairType.DEMON_COMMON, HairLength.FOUR_MID_BACK, HairLength.FIVE_ABOVE_ASS,
 			LegType.DEMON_COMMON,
 			SkinType.DEMON_COMMON, BodyMaterial.FLESH,
-			HornType.DEMON_COMMON_FEMALE, HornType.DEMON_COMMON_MALE,
+			HornType.DEMON,
 			PenisType.DEMON_COMMON, PenisSize.FIVE_ENORMOUS,
 			PenisType.NONE, PenisSize.TWO_AVERAGE,
 			TesticleSize.FOUR_HUGE, 4, CumProduction.SEVEN_MONSTROUS,
@@ -183,7 +183,7 @@ public enum RacialBody {
 			HairType.COW_MORPH, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
 			LegType.COW_MORPH,
 			SkinType.COW_MORPH, BodyMaterial.FLESH,
-			HornType.BOVINE_FEMALE, HornType.BOVINE_MALE,
+			HornType.BOVINE,
 			PenisType.BOVINE, PenisSize.THREE_LARGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE,
 			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
@@ -219,7 +219,7 @@ public enum RacialBody {
 			HairType.DOG_MORPH, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
 			LegType.DOG_MORPH,
 			SkinType.DOG_MORPH, BodyMaterial.FLESH,
-			HornType.NONE, HornType.NONE,
+			HornType.NONE,
 			PenisType.CANINE, PenisSize.THREE_LARGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE,
 			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
@@ -254,7 +254,7 @@ public enum RacialBody {
 			HairType.LYCAN, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
 			LegType.LYCAN,
 			SkinType.LYCAN, BodyMaterial.FLESH,
-			HornType.NONE, HornType.NONE,
+			HornType.NONE,
 			PenisType.LUPINE, PenisSize.THREE_LARGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE,
 			TesticleSize.THREE_LARGE, 2, CumProduction.FIVE_HUGE,
@@ -290,7 +290,7 @@ public enum RacialBody {
 			HairType.CAT_MORPH, HairLength.THREE_SHOULDER_LENGTH, HairLength.FOUR_MID_BACK,
 			LegType.CAT_MORPH,
 			SkinType.CAT_MORPH, BodyMaterial.FLESH,
-			HornType.NONE, HornType.NONE,
+			HornType.NONE,
 			PenisType.FELINE, PenisSize.TWO_AVERAGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE,
 			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
@@ -326,7 +326,7 @@ public enum RacialBody {
 			HairType.HORSE_MORPH, HairLength.TWO_SHORT, HairLength.FOUR_MID_BACK,
 			LegType.HORSE_MORPH,
 			SkinType.HORSE_MORPH, BodyMaterial.FLESH,
-			HornType.NONE, HornType.NONE,
+			HornType.NONE,
 			PenisType.EQUINE, PenisSize.FOUR_HUGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE,
 			TesticleSize.FOUR_HUGE, 2, CumProduction.FIVE_HUGE,
@@ -361,7 +361,7 @@ public enum RacialBody {
 			HairType.SLIME, HairLength.SEVEN_TO_FLOOR, HairLength.SEVEN_TO_FLOOR,
 			LegType.SLIME,
 			SkinType.SLIME, BodyMaterial.SLIME,
-			HornType.NONE, HornType.NONE,
+			HornType.NONE,
 			PenisType.SLIME, PenisSize.SEVEN_STALLION,
 			PenisType.NONE, PenisSize.TWO_AVERAGE,
 			TesticleSize.ZERO_VESTIGIAL, 2, CumProduction.SEVEN_MONSTROUS,
@@ -390,7 +390,7 @@ public enum RacialBody {
 			HairType.SQUIRREL_MORPH, HairLength.ONE_VERY_SHORT, HairLength.TWO_SHORT,
 			LegType.SQUIRREL_MORPH,
 			SkinType.SQUIRREL_MORPH, BodyMaterial.FLESH,
-			HornType.NONE, HornType.NONE,
+			HornType.NONE,
 			PenisType.SQUIRREL, PenisSize.THREE_LARGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE,
 			TesticleSize.THREE_LARGE, 2, CumProduction.THREE_AVERAGE,
@@ -425,7 +425,7 @@ public enum RacialBody {
 			HairType.HARPY, HairLength.THREE_SHOULDER_LENGTH, HairLength.FIVE_ABOVE_ASS,
 			LegType.HARPY,
 			SkinType.HARPY, BodyMaterial.FLESH,
-			HornType.NONE, HornType.NONE,
+			HornType.NONE,
 			PenisType.AVIAN, PenisSize.ONE_TINY,
 			PenisType.NONE, PenisSize.ONE_TINY,
 			TesticleSize.ZERO_VESTIGIAL, 2, CumProduction.ONE_TRICKLE,
@@ -464,8 +464,7 @@ public enum RacialBody {
 	private HairType hairType;
 	private LegType legType;
 	private SkinType skinType;
-	private HornType hornTypeFemale;
-	private HornType hornTypeMale;
+	private HornType hornType;
 	private PenisType penisType;
 	private PenisType penisSecondType;
 	private TailType tailType;
@@ -506,7 +505,7 @@ public enum RacialBody {
 			HairType hairType, HairLength maleHairLength, HairLength femaleHairLength,
 			LegType legType,
 			SkinType skinType, BodyMaterial bodyMaterial,
-			HornType hornTypeFemale, HornType hornTypeMale,
+			HornType hornType,
 			PenisType penisType, PenisSize penisSize,
 			PenisType penisSecondType, PenisSize penisSecondSize,
 			TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction,
@@ -530,8 +529,7 @@ public enum RacialBody {
 		this.legType = legType;
 		this.skinType = skinType;
 		this.bodyMaterial = bodyMaterial;
-		this.hornTypeFemale = hornTypeFemale;
-		this.hornTypeMale = hornTypeMale;
+		this.hornType = hornType;
 		this.penisType = penisType;
 		this.penisSecondType = penisSecondType;
 		this.tailType = tailType;
@@ -733,12 +731,8 @@ public enum RacialBody {
 		return bodyMaterial;
 	}
 
-	public HornType getHornTypeFemale() {
-		return hornTypeFemale;
-	}
-
-	public HornType getHornTypeMale() {
-		return hornTypeMale;
+	public HornType getHornType() {
+		return hornType;
 	}
 
 	public PenisType getPenisType() {

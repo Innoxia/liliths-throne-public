@@ -233,8 +233,8 @@ public class SubSixtyNine {
 			return UtilText.returnStringAtRandom(
 						"You plant a series of delicate kisses on [npc.name]'s doll-like mound, causing [npc.herHim] to let out [npc.a_moan+] and push [npc.her] [npc.hips] down against your [pc.face+].",
 						"[npc.Name] lets out [npc.a_moan+] as you gently kiss and lick [npc.her] doll-like crotch.",
-						"With delicate care, you plant a series of gentle kisses on [npc.name]'s genderless mound, causing [npc.her] to let out [npc.a_moan+].",
-						"You gently kiss and lick at [npc.name]'s genderless crotch, causing [npc.her] to let out [npc.a_moan+].");
+						"With delicate care, you plant a series of gentle kisses on [npc.name]'s genderless mound, causing [npc.herHim] to let out [npc.a_moan+].",
+						"You gently kiss and lick at [npc.name]'s genderless crotch, causing [npc.herHim] to let out [npc.a_moan+].");
 		}
 		
 		@Override

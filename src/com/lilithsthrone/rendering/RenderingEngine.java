@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -591,14 +592,6 @@ public enum RenderingEngine {
 			uiAttributeSB.append("<div class='attribute-container effects'>"
 									+ "<p style='text-align:center;padding:0;margin:0;'><b>Effects</b></p>");
 			boolean hasStatusEffects = false;
-			for (Fetish f : Main.game.getPlayer().getFetishes()) {
-				uiAttributeSB.append(
-						"<div class='icon'><div class='icon-content'>"
-								+ f.getSVGString()
-								+ "<div class='overlay' id='FETISH_PLAYER_" + f + "'></div>"
-						+ "</div></div>");
-				hasStatusEffects = true;
-			}
 			
 			for (StatusEffect se : Main.game.getPlayer().getStatusEffects()) {
 				if (se.isSexEffect()) {
@@ -610,6 +603,17 @@ public enum RenderingEngine {
 					hasStatusEffects = true;
 				}
 			}
+			
+			for (Fetish f : Main.game.getPlayer().getFetishes()) {
+				uiAttributeSB.append(
+						"<div class='icon'><div class='icon-content'>"
+								+ f.getSVGString()
+								+ "<div class='overlay' id='FETISH_PLAYER_" + f + "'></div>"
+						+ "</div></div>");
+				hasStatusEffects = true;
+			}
+			
+			
 			if(!hasStatusEffects) {
 				uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;height:12vw;'><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No sex effects</b></p>");
 			}
@@ -729,13 +733,14 @@ public enum RenderingEngine {
 		uiAttributeSB.append("</div>"
 				+ "<div class='attribute-container' style=' margin-bottom:1px;'>"
 					+ "<div class='full-width-container' style='text-align:center; margin-left:4px;'>"
-							+ "<p style='color:"+Colour.TEXT.getShades(8)[3]+"; float:left; width:60%;'>"
-								+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("d"))
-									+ Util.getDayOfMonthSuffix(Main.game.getDateNow().getDayOfMonth())
-									+ " "
-									+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("MMMM"))
-//									+ " "
-//									+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("yyyy"))
+					+"<div class='item-inline' style='float:left;'><div class='overlay' id='DATE_DISPLAY_TOGGLE'>"+SVGImages.SVG_IMAGE_PROVIDER.getCalendarIcon()+"</div></div>"
+							+ "<p style='color:"+Colour.TEXT.getShades(8)[3]+"; float:left; width:50%;'>"
+								+ (Main.getProperties().calendarDisplay
+									? Main.game.getDateNow().format(DateTimeFormatter.ofPattern("d", Locale.ENGLISH))
+										+ Util.getDayOfMonthSuffix(Main.game.getDateNow().getDayOfMonth())
+										+ " "
+										+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH))
+									:"Day "+Main.game.getDayNumber())
 							+ "</p>"
 							+ "<p style='float:right; margin-right:8px;'>");
 		
@@ -749,8 +754,8 @@ public enum RenderingEngine {
 		}
 		
 		uiAttributeSB.append((Main.getProperties().twentyFourHourTime
-								?Main.game.getDateNow().format(DateTimeFormatter.ofPattern("HH:mm"))
-								:Main.game.getDateNow().format(DateTimeFormatter.ofPattern("hh:mma")))
+								?Main.game.getDateNow().format(DateTimeFormatter.ofPattern("HH:mm", Locale.ENGLISH))
+								:Main.game.getDateNow().format(DateTimeFormatter.ofPattern("hh:mma", Locale.ENGLISH)))
 							+"</p>"
 					+ "</div>"
 				+ "</div>"
@@ -1061,15 +1066,7 @@ public enum RenderingEngine {
 					+"<div class='attribute-container effects'>"
 					+ "<p style='text-align:center;padding:0;margin:0;'><b>Effects</b></p>");
 					boolean hasStatusEffects = false;
-					for (Fetish f : Sex.getPartner().getFetishes()) {
-						uiAttributeSB.append(
-								"<div class='icon'><div class='icon-content'>"
-										+ f.getSVGString()
-										+ "<div class='overlay' id='FETISH_NPC_" + f + "'></div>"
-								+ "</div></div>");
-						hasStatusEffects = true;
-					}
-					
+
 					for (StatusEffect se : Sex.getPartner().getStatusEffects()) {
 						if (se.isSexEffect()) {
 							uiAttributeSB.append(
@@ -1080,6 +1077,16 @@ public enum RenderingEngine {
 							hasStatusEffects = true;
 						}
 					}
+					
+					for (Fetish f : Sex.getPartner().getFetishes()) {
+						uiAttributeSB.append(
+								"<div class='icon'><div class='icon-content'>"
+										+ f.getSVGString()
+										+ "<div class='overlay' id='FETISH_NPC_" + f + "'></div>"
+								+ "</div></div>");
+						hasStatusEffects = true;
+					}
+					
 					if(!hasStatusEffects) {
 						uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;height:12vw;'><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No sex effects</b></p>");
 					}

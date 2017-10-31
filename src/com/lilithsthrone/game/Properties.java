@@ -49,7 +49,7 @@ public class Properties implements Serializable {
 	
 	public int fontSize = 18, level = 1, money = 0, arcaneEssences = 0, humanEncountersLevel = 1, multiBreasts = 1, forcedTFPercentage = 40;
 	
-	public boolean lightTheme = false, overwriteWarning = true, fadeInText=true, twentyFourHourTime = true,
+	public boolean lightTheme = false, overwriteWarning = true, fadeInText=true, calendarDisplay = true, twentyFourHourTime = true,
 			
 			furryTailPenetrationContent = false,
 			nonConContent = false,
@@ -169,12 +169,12 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "furryTailPenetrationContent", String.valueOf(furryTailPenetrationContent));
 			createXMLElementWithValue(doc, settings, "nonConContent", String.valueOf(nonConContent));
 			createXMLElementWithValue(doc, settings, "incestContent", String.valueOf(incestContent));
-//			createXMLElementWithValue(doc, settings, "forcedTransformationContent", String.valueOf(forcedTransformationContent));
 			createXMLElementWithValue(doc, settings, "facialHairContent", String.valueOf(facialHairContent));
 			createXMLElementWithValue(doc, settings, "pubicHairContent", String.valueOf(pubicHairContent));
 			createXMLElementWithValue(doc, settings, "bodyHairContent", String.valueOf(bodyHairContent));
 			createXMLElementWithValue(doc, settings, "overwriteWarning", String.valueOf(overwriteWarning));
 			createXMLElementWithValue(doc, settings, "fadeInText", String.valueOf(fadeInText));
+			createXMLElementWithValue(doc, settings, "calendarDisplay", String.valueOf(calendarDisplay));
 			createXMLElementWithValue(doc, settings, "twentyFourHourTime", String.valueOf(twentyFourHourTime));
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
@@ -451,6 +451,10 @@ public class Properties implements Serializable {
 				
 				overwriteWarning = Boolean.valueOf(((Element)element.getElementsByTagName("overwriteWarning").item(0)).getAttribute("value"));
 				fadeInText = Boolean.valueOf(((Element)element.getElementsByTagName("fadeInText").item(0)).getAttribute("value"));
+				
+				if(element.getElementsByTagName("calendarDisplay").item(0)!=null) {
+					calendarDisplay = Boolean.valueOf(((Element)element.getElementsByTagName("calendarDisplay").item(0)).getAttribute("value"));
+				}
 				
 				if(element.getElementsByTagName("twentyFourHourTime").item(0)!=null) {
 					twentyFourHourTime = Boolean.valueOf(((Element)element.getElementsByTagName("twentyFourHourTime").item(0)).getAttribute("value"));

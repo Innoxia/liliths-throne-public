@@ -1608,8 +1608,11 @@ position:relative;
 
 .special-text{
 	font-weight:normal;
-    color: #F5A8FF;
-    text-shadow: 2px 2px 5px #8d3193;
+	color: #FA4700;
+    text-shadow: 2px 2px 5px #FFAB8A;
+	
+    /*color: #F5A8FF;
+    text-shadow: 2px 2px 5px #8d3193;*/
 }
 
 .option-disabled{

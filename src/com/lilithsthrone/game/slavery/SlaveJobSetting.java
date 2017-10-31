@@ -7,7 +7,7 @@ import com.lilithsthrone.utils.Colour;
  * @version 0.1.87
  * @author Innoxia
  */
-public enum SlaveJobSettings {
+public enum SlaveJobSetting {
 	
 	SEX_ORAL(Colour.GENERIC_SEX, "Allow Oral", "Oral", "Allow this slave to perform oral on others."),
 	SEX_VAGINAL(Colour.GENERIC_SEX, "Allow Vaginal", "Vaginal", "Allow this slave to receive vaginal sex (if they have a vagina)."),
@@ -24,7 +24,7 @@ public enum SlaveJobSettings {
 	private String tag;
 	private String description;
 	
-	private SlaveJobSettings(Colour colour, String name, String tag, String description) {
+	private SlaveJobSetting(Colour colour, String name, String tag, String description) {
 		this.colour = colour;
 		this.name = name;
 		this.tag = tag;

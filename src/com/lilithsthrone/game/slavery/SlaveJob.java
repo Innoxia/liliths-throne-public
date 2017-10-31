@@ -125,8 +125,8 @@ public enum SlaveJob {
 			-0.5f, 0.5f,
 			10, 0, 0,
 			Util.newArrayListOfValues(
-					new ListValue<>(SlaveJobSettings.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE),
-					new ListValue<>(SlaveJobSettings.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE)),
+					new ListValue<>(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE),
+					new ListValue<>(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE)),
 			null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			LilayasHome.LILAYA_HOME_LAB),
@@ -185,8 +185,8 @@ public enum SlaveJob {
 	private int income;
 	private float obedienceIncomeModifier;
 	private float affectionIncomeModifier;
-	private List<SlaveJobSettings> mutualSettings;
-	private Map<String, List<SlaveJobSettings>> mutuallyExclusiveSettings;
+	private List<SlaveJobSetting> mutualSettings;
+	private Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings;
 	private WorldType worldLocation;
 	private PlaceInterface placeLocation;
 	
@@ -194,7 +194,7 @@ public enum SlaveJob {
 			String nameFeminine, String nameMasculine, String description,
 			float affectionGain, float obedienceGain,
 			int income, float affectionIncomeModifier, float obedienceIncomeModifier,
-			List<SlaveJobSettings> mutualSettings, Map<String, List<SlaveJobSettings>> mutuallyExclusiveSettings,
+			List<SlaveJobSetting> mutualSettings, Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings,
 			WorldType worldLocation, PlaceInterface placeLocation) {
 		
 		this.slaveLimit = slaveLimit;
@@ -275,11 +275,11 @@ public enum SlaveJob {
 		return affectionIncomeModifier;
 	}
 
-	public List<SlaveJobSettings> getMutualSettings() {
+	public List<SlaveJobSetting> getMutualSettings() {
 		return mutualSettings;
 	}
 
-	public Map<String, List<SlaveJobSettings>> getMutuallyExclusiveSettings() {
+	public Map<String, List<SlaveJobSetting>> getMutuallyExclusiveSettings() {
 		return mutuallyExclusiveSettings;
 	}
 

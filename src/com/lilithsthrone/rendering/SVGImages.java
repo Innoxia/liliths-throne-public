@@ -22,7 +22,7 @@ public enum SVGImages {
 
 	displacedIcon, cummedInIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon,
 
-			menuIcon, inventoryIcon, inventoryIconDisabled, inventorySwitchIcon, inventorySwitchOppositeIcon, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon,
+			menuIcon, inventoryIcon, inventoryIconDisabled, inventorySwitchIcon, inventorySwitchOppositeIcon, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, calendarIcon,
 
 			itemsOnFloorIcon,
 			
@@ -54,7 +54,7 @@ public enum SVGImages {
 			transactionBuy, transactionBuyDisabled, transactionSell, transactionSellDisabled,
 			
 			// Sex:
-			coverableAreaMouth, coverableAreaAnus, coverableAreaNipple, coverableAreaVagina,
+			coverableAreaMouth, coverableAreaAnus, coverableAreaBreasts, coverableAreaNipple, coverableAreaVagina,
 			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue,
 			combinationStretching, combinationTooLoose, combinationWet, combinationDry,
 			stretching, holeTooBig;
@@ -108,6 +108,11 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/copy.svg");
 			copyIcon = Util.inputStreamToString(is);
 
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/calendar.svg");
+			calendarIcon = Util.inputStreamToString(is);
+			calendarIcon = setColour(calendarIcon, Colour.BASE_CRIMSON);
+			
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/itemsOnFloor.svg");
 			itemsOnFloorIcon = Util.inputStreamToString(is);
 			itemsOnFloorIcon = setColour(itemsOnFloorIcon, Colour.GENERIC_EXCELLENT);
@@ -358,6 +363,8 @@ public enum SVGImages {
 			coverableAreaAnus = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaMouth.svg");
 			coverableAreaMouth = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaBreasts.svg");
+			coverableAreaBreasts = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaNipple.svg");
 			coverableAreaNipple = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaVagina.svg");
@@ -480,6 +487,10 @@ public enum SVGImages {
 
 	public String getCopyIcon() {
 		return copyIcon;
+	}
+
+	public String getCalendarIcon() {
+		return calendarIcon;
 	}
 
 	public String getItemsOnFloorIcon() {
@@ -672,6 +683,10 @@ public enum SVGImages {
 
 	public String getCoverableAreaNipple() {
 		return coverableAreaNipple;
+	}
+	
+	public String getCoverableAreaBreasts() {
+		return coverableAreaBreasts;
 	}
 
 	public String getCoverableAreaVagina() {

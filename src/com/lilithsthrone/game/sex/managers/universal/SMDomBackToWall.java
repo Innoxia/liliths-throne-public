@@ -80,7 +80,7 @@ public class SMDomBackToWall extends SexManagerDefault {
 				PartnerSelfNoPen.class,
 				
 				// Scene-specific:
-
+				
 				PlayerTongueMouth.class,
 				PlayerFingerNipple.class,
 				PlayerFingerUrethra.class,

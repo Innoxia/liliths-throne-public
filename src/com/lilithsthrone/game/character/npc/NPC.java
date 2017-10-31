@@ -558,7 +558,8 @@ public abstract class NPC extends GameCharacter {
 		Map<ItemEffect, String> possibleEffects = new HashMap<>();
 		
 		// Order of transformation preferences are: Sexual organs -> minor parts -> Legs & arms -> Face & skin 
-
+		
+		
 		// Sexual transformations:
 		boolean removingVagina = false;
 		boolean addingVagina = false;
@@ -574,8 +575,9 @@ public abstract class NPC extends GameCharacter {
 						possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that tight little cunt of yours!");
 						removingVagina = true;
 					}
-				} else {
-					possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
+				} else if(Main.getProperties().forcedTFPreference != FurryPreference.HUMAN && Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+					possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+							"Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
 					addingVagina = true;
 				}
 			}
@@ -589,7 +591,7 @@ public abstract class NPC extends GameCharacter {
 					possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that pathetic little cock of yours!");
 					removingPenis = true;
 				}
-			} else {
+			} else if(Main.getProperties().forcedTFPreference != FurryPreference.HUMAN && Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
 				possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getPenis().getName(Main.game.getPlayer(), false)+"!");
 				addingPenis = true;
 			}
@@ -985,9 +987,7 @@ public abstract class NPC extends GameCharacter {
 									startingBodyType.getCumProduction(),
 									startingBodyType.getTesticleQuantity())
 								: new Penis(PenisType.NONE, 0, 0, 0, 2))
-						.horn(startingBodyType.getHornTypeFemale() == HornType.NONE ? new Horn(HornType.NONE) : new Horn(!preferredGender.isFeminine()
-								? (stage.isHornFurry()?startingBodyType.getHornTypeMale():HornType.NONE)
-								: (stage.isHornFurry()?startingBodyType.getHornTypeFemale():HornType.NONE)))
+						.horn(new Horn(stage.isHornFurry()?startingBodyType.getHornType():HornType.NONE))
 						.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE))
 						.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
 						.wing(new Wing(stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE))
@@ -1092,6 +1092,10 @@ public abstract class NPC extends GameCharacter {
 	}
 	
 	public void endSex(boolean applyEffects) {
+	}
+	
+	public boolean getSexBehaviourDeniesRequests() {
+		return hasFetish(Fetish.FETISH_DOMINANT);
 	}
 	
 	protected SexType foreplayPreference;
@@ -1435,10 +1439,8 @@ public abstract class NPC extends GameCharacter {
 //			}
 //		}
 		
-		if(hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
-				|| (getSexualOrientation()==SexualOrientation.ANDROPHILIC && character.isFeminine())
+		if((getSexualOrientation()==SexualOrientation.ANDROPHILIC && character.isFeminine())
 				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !character.isFeminine())
-//				|| hasFetish(Fetish.FETISH_NON_CON)
 				) {
 			return false;
 		}

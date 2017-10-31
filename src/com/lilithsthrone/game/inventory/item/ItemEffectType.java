@@ -1397,16 +1397,20 @@ public enum ItemEffectType {
 						Fetish f = fetishesToAdd.get(Util.random.nextInt(fetishesToAdd.size()));
 						target.addFetish(f);
 						
-						return (target.isPlayer()
-								?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
-										+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"
-								:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-										+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"));
+						return "<p>"
+									+(target.isPlayer()
+										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"
+										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"))
+								+"</p>";
 						
 					} else {
-						return (target.isPlayer()
-								?"[style.colourDisabled(Nothing happens...)]"
-								:UtilText.parse(target, "[style.colourDisabled(Nothing happens...)]"));
+						return "<p>"
+									+(target.isPlayer()
+										?"[style.colourDisabled(Nothing happens...)]"
+										:UtilText.parse(target, "[style.colourDisabled(Nothing happens...)]"))
+								+"</p>";
 					}
 					
 				} else {
@@ -1414,15 +1418,19 @@ public enum ItemEffectType {
 					
 					if(!target.hasFetish(fetish)) {
 						target.addFetish(fetish);
-						return (target.isPlayer()
-								?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
-										+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+fetish.getName(target)+" fetish)]!"
-								:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-										+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldGood(gained)] the [style.boldFetish("+fetish.getName(target)+" fetish)]!"));	
+						return "<p>"
+									+(target.isPlayer()
+										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+fetish.getName(target)+" fetish)]!"
+										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldGood(gained)] the [style.boldFetish("+fetish.getName(target)+" fetish)]!"))
+								+"</p>";	
 					} else {
-						return (target.isPlayer()
-								?"[style.colourDisabled(Nothing happens, as you already have the "+fetish.getName(target)+" fetish...)]"
-								:UtilText.parse(target, "[style.colourDisabled(Nothing happens, as [npc.she] already has the "+fetish.getName(target)+" fetish...)]"));
+						return "<p>"
+									+(target.isPlayer()
+										?"[style.colourDisabled(Nothing happens, as you already have the "+fetish.getName(target)+" fetish...)]"
+										:UtilText.parse(target, "[style.colourDisabled(Nothing happens, as [npc.she] already has the "+fetish.getName(target)+" fetish...)]"))
+								+"</p>";
 					}
 				}
 				
@@ -1441,15 +1449,19 @@ public enum ItemEffectType {
 						Fetish f = fetishesToRemove.get(Util.random.nextInt(fetishesToRemove.size()));
 						target.removeFetish(f);
 						
-						return (target.isPlayer()
-								?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
-										+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+f.getName(target)+" fetish)]!"
-								:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-										+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldBad(lost)] [npc.her] [style.boldFetish("+f.getName(target)+" fetish)]!"));
+						return "<p>"
+									+(target.isPlayer()
+										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+f.getName(target)+" fetish)]!"
+										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldBad(lost)] [npc.her] [style.boldFetish("+f.getName(target)+" fetish)]!"))
+								+"</p>";
 					} else {
-						return (target.isPlayer()
-								?"[style.colourDisabled(Nothing happens...)]"
-								:UtilText.parse(target, "[style.colourDisabled(Nothing happens...)]"));
+						return "<p>"
+									+(target.isPlayer()
+										?"[style.colourDisabled(Nothing happens...)]"
+										:UtilText.parse(target, "[style.colourDisabled(Nothing happens...)]"))
+								+"</p>";
 					}
 					
 				} else {
@@ -1457,15 +1469,19 @@ public enum ItemEffectType {
 					
 					if(target.hasFetish(fetish)) {
 						target.removeFetish(fetish);
-						return (target.isPlayer()
-								?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
-										+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+fetish.getName(target)+" fetish)]!"
-								:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-										+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldBad(lost)] [npc.her] [style.boldFetish("+fetish.getName(target)+" fetish)]!"));
+						return "<p>"
+									+(target.isPlayer()
+										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+fetish.getName(target)+" fetish)]!"
+										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldBad(lost)] [npc.her] [style.boldFetish("+fetish.getName(target)+" fetish)]!"))
+								+"</p>";
 					} else {
-						return (target.isPlayer()
-								?"[style.colourDisabled(Nothing happens, as you already lack the "+fetish.getName(target)+" fetish...)]"
-								:UtilText.parse(target, "[style.colourDisabled(Nothing happens, as [npc.she] already lacks the "+fetish.getName(target)+" fetish...)]"));
+						return "<p>"
+									+(target.isPlayer()
+										?"[style.colourDisabled(Nothing happens, as you already lack the "+fetish.getName(target)+" fetish...)]"
+										:UtilText.parse(target, "[style.colourDisabled(Nothing happens, as [npc.she] already lacks the "+fetish.getName(target)+" fetish...)]"))
+								+"</p>";
 					}
 				}
 			}
@@ -2355,17 +2371,17 @@ public enum ItemEffectType {
 					case TF_MOD_CAPACITY:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(-15); } };
+								return new RacialEffectUtil("Huge decrease in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(-15, true); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(-5); } };
+								return new RacialEffectUtil("Decrease in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(-5, true); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(-1); } };
+								return new RacialEffectUtil("Small decrease in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(-1, true); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(1); } };
+								return new RacialEffectUtil("Small increase in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(1, true); } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(5); } };
+								return new RacialEffectUtil("Increase in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(5, true); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(15); } };
+								return new RacialEffectUtil("Huge increase in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(15, true); } };
 						}
 					case TF_MOD_ELASTICITY:
 						switch(potency) {
@@ -2540,17 +2556,17 @@ public enum ItemEffectType {
 					case TF_MOD_CAPACITY:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(-15); } };
+								return new RacialEffectUtil("Huge decrease in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(-15, true); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(-5); } };
+								return new RacialEffectUtil("Decrease in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(-5, true); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(-1); } };
+								return new RacialEffectUtil("Small decrease in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(-1, true); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(1); } };
+								return new RacialEffectUtil("Small increase in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(1, true); } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(5); } };
+								return new RacialEffectUtil("Increase in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(5, true); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(15); } };
+								return new RacialEffectUtil("Huge increase in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(15, true); } };
 						}
 					case TF_MOD_ELASTICITY:
 						switch(potency) {
@@ -2895,26 +2911,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Adds an extra pair of horns.") { @Override public String applyEffect() { return target.incrementHornRows(1); } };
 						}
 					default:
-						if(RacialBody.valueOfRace(race).getHornTypeMale() == HornType.NONE && RacialBody.valueOfRace(race).getHornTypeFemale() == HornType.NONE) {
-							return new RacialEffectUtil("Removes horns.") { @Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornTypeMale()); } };
-							
-						} else if(RacialBody.valueOfRace(race).getHornTypeFemale() == HornType.NONE) {
-							return new RacialEffectUtil("Removes horns from feminine targets, "+Util.capitaliseSentence(race.getName())+" horns transformation if masculine.") {
-								@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornTypeMale()); } };
-							
-						} else if(RacialBody.valueOfRace(race).getHornTypeMale() == HornType.NONE) {
-							return new RacialEffectUtil("Removes horns from masculine targets, "+Util.capitaliseSentence(race.getName())+" horns transformation if feminine.") {
-								@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornTypeFemale()); } };
-							
-						} else {
-							return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" horns transformation.") { @Override public String applyEffect() {
-									if(target.isFeminine()) {
-										return target.setHornType(RacialBody.valueOfRace(race).getHornTypeFemale());
-									} else {
-										return target.setHornType(RacialBody.valueOfRace(race).getHornTypeMale());
-									}
-								} };
-						}
+						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" horns transformation.") { @Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornType()); } };
 				}
 				
 			case TF_LEGS:
@@ -3052,17 +3049,17 @@ public enum ItemEffectType {
 					case TF_MOD_CAPACITY:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(-15); } };
+								return new RacialEffectUtil("Huge decrease in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(-15, true); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(-5); } };
+								return new RacialEffectUtil("Decrease in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(-5, true); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(-1); } };
+								return new RacialEffectUtil("Small decrease in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(-1, true); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(1); } };
+								return new RacialEffectUtil("Small increase in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(1, true); } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(5); } };
+								return new RacialEffectUtil("Increase in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(5, true); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(15); } };
+								return new RacialEffectUtil("Huge increase in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(15, true); } };
 						}
 					case TF_MOD_ELASTICITY:
 						switch(potency) {
@@ -3186,17 +3183,17 @@ public enum ItemEffectType {
 					case TF_MOD_CAPACITY:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(-15); } };
+								return new RacialEffectUtil("Huge decrease in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(-15, true); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(-5); } };
+								return new RacialEffectUtil("Decrease in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(-5, true); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(-1); } };
+								return new RacialEffectUtil("Small decrease in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(-1, true); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(1); } };
+								return new RacialEffectUtil("Small increase in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(1, true); } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(5); } };
+								return new RacialEffectUtil("Increase in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(5, true); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(15); } };
+								return new RacialEffectUtil("Huge increase in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(15, true); } };
 						}
 					case TF_MOD_ELASTICITY:
 						switch(potency) {

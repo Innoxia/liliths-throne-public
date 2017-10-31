@@ -65,7 +65,7 @@ public class UtilText {
 	/**
 	 * <b>USE .parse() INSTEAD!</b> This method is deprecated, and will be deleted in a future update!
 	 */
-	@Deprecated
+//	@Deprecated
 	public static String genderParsing(GameCharacter character, String text) {
 		modifiedSentence = text;
 		

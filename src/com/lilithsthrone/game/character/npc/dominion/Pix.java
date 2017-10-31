@@ -53,7 +53,7 @@ public class Pix extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
 
 		this.setVaginaVirgin(false);
-		this.setVaginaCapacity(Capacity.FOUR_LOOSE.getMedianValue());
+		this.setVaginaCapacity(Capacity.FOUR_LOOSE.getMedianValue(), true);
 		this.setBreastSize(CupSize.B.getMeasurement());
 		this.setBreastRows(3);
 

@@ -887,7 +887,7 @@ public class GenericOrgasms {
 							break;
 						case PENIS_PLAYER:
 							descriptionSB.append(" You carry on fucking [npc.her] [npc.pussy+]"
-									+" through [npc.her] orgasm, causing [npc.her] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around your [pc.cock+].");
+									+" through [npc.her] orgasm, causing [npc.herHim] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around your [pc.cock+].");
 							break;
 						case TAIL_PARTNER:
 							descriptionSB.append(" [npc.She] carries on using [npc.her] tail to fuck [npc.herHim]self through [npc.her] orgasm,"
@@ -895,11 +895,11 @@ public class GenericOrgasms {
 							break;
 						case TAIL_PLAYER:
 							descriptionSB.append(" You carry on using your tail to fuck [npc.her] [npc.pussy+]"
-									+" through [npc.her] orgasm, causing [npc.her] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding object.");
+									+" through [npc.her] orgasm, causing [npc.herHim] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding object.");
 							break;
 						case TONGUE_PARTNER:
 							descriptionSB.append(" [npc.She] carries on thrusting [npc.her] tongue deep into [npc.her] [npc.pussy+]"
-									+" while [npc.she] orgasms, causing [npc.her] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding muscle.");
+									+" while [npc.she] orgasms, causing [npc.herHim] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding muscle.");
 							break;
 						case TONGUE_PLAYER:
 							descriptionSB.append(" You carry on eating [npc.herHim] out, licking and kissing at [npc.her] [npc.pussy+]"

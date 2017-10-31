@@ -117,7 +117,7 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.PregnancyDescriptor;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.slavery.SlaveJob;
-import com.lilithsthrone.game.slavery.SlaveJobSettings;
+import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.game.slavery.SlavePermission;
 import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
@@ -185,7 +185,7 @@ public class GameCharacter implements Serializable, XMLSaving {
 	protected DialogueNodeOld enslavementDialogue;
 	
 	protected SlaveJob slaveJob;
-	protected List<SlaveJobSettings> slaveJobSettings;
+	protected List<SlaveJobSetting> slaveJobSettings;
 	protected Map<SlavePermission, Set<SlavePermissionSetting>> slavePermissionSettings;
 	
 	protected boolean[] workHours;
@@ -1141,12 +1141,12 @@ public class GameCharacter implements Serializable, XMLSaving {
 	public void setHistory(History history) {
 		// Revert attributes from old History:
 		for (Attribute att : this.history.getAttributeModifiers().keySet())
-			incrementAttribute(att, -this.history.getAttributeModifiers().get(att));
+			incrementBonusAttribute(att, -this.history.getAttributeModifiers().get(att));
 		this.history.revertExtraEffects(this);
 
 		// Implement attributes from new History:
 		for (Attribute att : history.getAttributeModifiers().keySet())
-			incrementAttribute(att, history.getAttributeModifiers().get(att));
+			incrementBonusAttribute(att, history.getAttributeModifiers().get(att));
 		history.applyExtraEffects(this);
 
 		this.history = history;
@@ -1260,15 +1260,15 @@ public class GameCharacter implements Serializable, XMLSaving {
 		this.slaveJob = slaveJob;
 	}
 	
-	public boolean addSlaveJobSettings(SlaveJobSettings setting) {
+	public boolean addSlaveJobSettings(SlaveJobSetting setting) {
 		return slaveJobSettings.add(setting);
 	}
 	
-	public boolean removeSlaveJobSettings(SlaveJobSettings setting) {
+	public boolean removeSlaveJobSettings(SlaveJobSetting setting) {
 		return slaveJobSettings.remove(setting);
 	}
 	
-	public List<SlaveJobSettings> getSlaveJobSettings() {
+	public List<SlaveJobSetting> getSlaveJobSettings() {
 		return slaveJobSettings;
 	}
 	
@@ -1615,27 +1615,25 @@ public class GameCharacter implements Serializable, XMLSaving {
 	public CorruptionLevel getCorruptionLevel(){
 		return CorruptionLevel.getCorruptionLevelFromValue(getAttributeValue(Attribute.CORRUPTION));
 	}
-	
 
 	public float getBaseAttributeValue(Attribute attribute) {
 		// Special case for health:
 		if (attribute == Attribute.HEALTH_MAXIMUM) {
-			return (level * 5) + getAttributeValue(Attribute.STRENGTH);
+			return (level * 10) + getAttributeValue(Attribute.STRENGTH);
 		}
 
 		// Special case for mana:
 		if (attribute == Attribute.MANA_MAXIMUM) {
-			return (level * 5) + getAttributeValue(Attribute.INTELLIGENCE);
+			return (level * 10) + getAttributeValue(Attribute.INTELLIGENCE);
 		}
 
 		// Special case for stamina:
 		if (attribute == Attribute.STAMINA_MAXIMUM) {
-			return (level * 5) + getAttributeValue(Attribute.FITNESS);
+			return (level * 10) + getAttributeValue(Attribute.FITNESS);
 		}
 		
 		return attributes.get(attribute);
 	}
-
 
 	public float getBonusAttributeValue(Attribute att) {
 		float value = bonusAttributes.get(att);
@@ -1650,7 +1648,6 @@ public class GameCharacter implements Serializable, XMLSaving {
 		
 		return value;
 	}
-
 
 	public float getAttributeValue(Attribute att) {
 		// Special case for health:
@@ -1889,7 +1886,7 @@ public class GameCharacter implements Serializable, XMLSaving {
 	
 	private void calculateSpecialFetishes() {
 		for(Fetish f : Fetish.values()) {
-			if(!f.getFetishesForAutomaticUnlock().isEmpty() && !hasFetish(f)) {
+			if(!f.getFetishesForAutomaticUnlock().isEmpty()) {
 				boolean conditionsMet = true;
 				for(Fetish fetishNeeded : f.getFetishesForAutomaticUnlock()) {
 					if(!hasFetish(fetishNeeded)) {
@@ -1899,6 +1896,8 @@ public class GameCharacter implements Serializable, XMLSaving {
 				}
 				if(conditionsMet) {
 					addFetish(f);
+				} else {
+					removeFetish(f);
 				}
 			}
 		}
@@ -5264,11 +5263,11 @@ public class GameCharacter implements Serializable, XMLSaving {
 	public void incrementAssStretchedCapacity(float increment){
 		body.getAss().getAnus().getOrificeAnus().setStretchedCapacity(getAssStretchedCapacity() + increment);
 	}
-	public String setAssCapacity(float capacity) {
-		return body.getAss().getAnus().getOrificeAnus().setCapacity(this, capacity);
+	public String setAssCapacity(float capacity, boolean setStretchedValueToNewValue) {
+		return body.getAss().getAnus().getOrificeAnus().setCapacity(this, capacity, setStretchedValueToNewValue);
 	}
-	public String incrementAssCapacity(float increment) {
-		return setAssCapacity(getAssRawCapacityValue() + increment);
+	public String incrementAssCapacity(float increment, boolean setStretchedValueToNewValue) {
+		return setAssCapacity(getAssRawCapacityValue() + increment, setStretchedValueToNewValue);
 	}
 	// Elasticity:
 	public OrificeElasticity getAssElasticity() {
@@ -5505,11 +5504,11 @@ public class GameCharacter implements Serializable, XMLSaving {
 	public void incrementNippleStretchedCapacity(float increment){
 		body.getBreast().getNipples().getOrificeNipples().setStretchedCapacity(getNippleStretchedCapacity() + increment);
 	}
-	public String setNippleCapacity(float capacity) {
-		return body.getBreast().getNipples().getOrificeNipples().setCapacity(this, capacity);
+	public String setNippleCapacity(float capacity, boolean setStretchedValueToNewValue) {
+		return body.getBreast().getNipples().getOrificeNipples().setCapacity(this, capacity, setStretchedValueToNewValue);
 	}
-	public String incrementNippleCapacity(float increment) {
-		return setNippleCapacity(getNippleRawCapacityValue() + increment);
+	public String incrementNippleCapacity(float increment, boolean setStretchedValueToNewValue) {
+		return setNippleCapacity(getNippleRawCapacityValue() + increment, setStretchedValueToNewValue);
 	}
 	// Elasticity:
 	public OrificeElasticity getNippleElasticity() {
@@ -5921,11 +5920,11 @@ public class GameCharacter implements Serializable, XMLSaving {
 	public void incrementFaceStretchedCapacity(float increment){
 		body.getFace().getMouth().getOrificeMouth().setStretchedCapacity(getFaceStretchedCapacity() + increment);
 	}
-	public String setFaceCapacity(float capacity) {
-		return body.getFace().getMouth().getOrificeMouth().setCapacity(this, capacity);
+	public String setFaceCapacity(float capacity, boolean setStretchedValueToNewValue) {
+		return body.getFace().getMouth().getOrificeMouth().setCapacity(this, capacity, setStretchedValueToNewValue);
 	}
-	public String incrementFaceCapacity(float increment) {
-		return setFaceCapacity(getFaceRawCapacityValue() + increment);
+	public String incrementFaceCapacity(float increment, boolean setStretchedValueToNewValue) {
+		return setFaceCapacity(getFaceRawCapacityValue() + increment, setStretchedValueToNewValue);
 	}
 	// Elasticity:
 	public OrificeElasticity getFaceElasticity() {
@@ -6289,11 +6288,11 @@ public class GameCharacter implements Serializable, XMLSaving {
 	public Capacity getPenisCapacity() {
 		return body.getPenis().getOrificeUrethra().getCapacity();
 	}
-	public String setPenisCapacity(float capacity) {
-		return body.getPenis().getOrificeUrethra().setCapacity(this, capacity);
+	public String setPenisCapacity(float capacity, boolean setStretchedValueToNewValue) {
+		return body.getPenis().getOrificeUrethra().setCapacity(this, capacity, setStretchedValueToNewValue);
 	}
-	public String incrementPenisCapacity(float increment) {
-		return setPenisCapacity(getPenisRawCapacityValue() + increment);
+	public String incrementPenisCapacity(float increment, boolean setStretchedValueToNewValue) {
+		return setPenisCapacity(getPenisRawCapacityValue() + increment, setStretchedValueToNewValue);
 	}
 	public float getPenisRawCapacityValue() {
 		return body.getPenis().getOrificeUrethra().getRawCapacityValue();
@@ -6409,11 +6408,11 @@ public class GameCharacter implements Serializable, XMLSaving {
 	public Capacity getSecondPenisCapacity() {
 		return body.getSecondPenis().getOrificeUrethra().getCapacity();
 	}
-	public String setSecondPenisCapacity(float capacity) {
-		return body.getSecondPenis().getOrificeUrethra().setCapacity(this, capacity);
+	public String setSecondPenisCapacity(float capacity, boolean setStretchedValueToNewValue) {
+		return body.getSecondPenis().getOrificeUrethra().setCapacity(this, capacity, setStretchedValueToNewValue);
 	}
-	public String incrementSecondPenisCapacity(float increment) {
-		return setSecondPenisCapacity(getSecondPenisRawCapacityValue() + increment);
+	public String incrementSecondPenisCapacity(float increment, boolean setStretchedValueToNewValue) {
+		return setSecondPenisCapacity(getSecondPenisRawCapacityValue() + increment, setStretchedValueToNewValue);
 	}
 	public float getSecondPenisRawCapacityValue() {
 		return body.getSecondPenis().getOrificeUrethra().getRawCapacityValue();
@@ -6749,11 +6748,11 @@ public class GameCharacter implements Serializable, XMLSaving {
 	public void incrementVaginaStretchedCapacity(float increment){
 		body.getVagina().getOrificeVagina().setStretchedCapacity(getVaginaStretchedCapacity() + increment);
 	}
-	public String setVaginaCapacity(float capacity) {
-		return body.getVagina().getOrificeVagina().setCapacity(this, capacity);
+	public String setVaginaCapacity(float capacity, boolean setStretchedValueToNewValue) {
+		return body.getVagina().getOrificeVagina().setCapacity(this, capacity, setStretchedValueToNewValue);
 	}
-	public String incrementVaginaCapacity(float increment) {
-		return setVaginaCapacity(getVaginaRawCapacityValue() + increment);
+	public String incrementVaginaCapacity(float increment, boolean setStretchedValueToNewValue) {
+		return setVaginaCapacity(getVaginaRawCapacityValue() + increment, setStretchedValueToNewValue);
 	}
 	// Elasticity:
 	public OrificeElasticity getVaginaElasticity() {

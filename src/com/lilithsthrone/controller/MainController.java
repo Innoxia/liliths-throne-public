@@ -115,7 +115,7 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.game.slavery.SlaveJobHours;
-import com.lilithsthrone.game.slavery.SlaveJobSettings;
+import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.game.slavery.SlavePermission;
 import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
@@ -424,7 +424,10 @@ public class MainController implements Initializable {
 //						 System.out.println(event.getCode());
 						 if(event.getCode()==KeyCode.END){
 							 
-							 System.out.println(Main.game.getNumberOfWitches());
+
+							 System.out.println(Main.game.getPlayer().getBaseAttributeValue(Attribute.HEALTH_MAXIMUM));
+							 
+//							 System.out.println(Main.game.getNumberOfWitches());
 							 
 //							 SlaveryUtil.calculateEvent(Main.game.getMinutesPassed(), Main.game.getPlayer().getSlavesOwned().get(0));
 //							 for(String npc : Main.game.getNPCMap().keySet()) {
@@ -1967,7 +1970,7 @@ public class MainController implements Initializable {
 						addEventListener(document, id, "mouseenter", el, false);
 					}
 					
-					for(SlaveJobSettings setting : job.getMutualSettings()) {
+					for(SlaveJobSetting setting : job.getMutualSettings()) {
 						id = setting+"_ADD";
 						if (((EventTarget) document.getElementById(id)) != null) {
 							((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
@@ -2584,7 +2587,7 @@ public class MainController implements Initializable {
 					id = "VAGINA_CAPACITY_"+capacity;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setVaginaCapacity(capacity.getMedianValue());
+							Main.game.getPlayer().setVaginaCapacity(capacity.getMedianValue(), true);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -3794,6 +3797,21 @@ public class MainController implements Initializable {
 			}
 		}
 
+		id = "DATE_DISPLAY_TOGGLE";
+		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
+			((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
+				Main.getProperties().calendarDisplay = !Main.getProperties().calendarDisplay;
+				Main.saveProperties();
+				this.updateUI();
+			}, false);
+			
+			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
+			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
+			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Calendar Display",
+					"Toggle the date's display between a calendar and day count.");
+			addEventListener(documentAttributes, id, "mouseenter", el2, false);
+		}
+		
 		id = "TWENTY_FOUR_HOUR_TIME_TOGGLE";
 		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 			((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {

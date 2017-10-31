@@ -72,13 +72,13 @@ public class CandiReceptionist extends NPC {
 		this.setAssVirgin(false);
 		this.setAssSize(AssSize.FIVE_HUGE.getValue());
 		this.setHipSize(HipSize.SIX_EXTREMELY_WIDE.getValue());
-		this.setAssCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue());
+		this.setAssCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue(), true);
 		
 		this.setFaceVirgin(false);
-		this.setFaceCapacity(Capacity.SEVEN_GAPING.getMedianValue());
+		this.setFaceCapacity(Capacity.SEVEN_GAPING.getMedianValue(), true);
 		
 		this.setVaginaVirgin(false);
-		this.setVaginaCapacity(Capacity.SIX_STRETCHED_OPEN.getMedianValue());
+		this.setVaginaCapacity(Capacity.SIX_STRETCHED_OPEN.getMedianValue(), true);
 		this.setVaginaWetness(Wetness.FOUR_SLIMY.getValue());
 		
 		this.setBreastSize(CupSize.G.getMeasurement());

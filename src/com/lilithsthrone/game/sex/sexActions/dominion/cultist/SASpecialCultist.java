@@ -5,6 +5,14 @@ import com.lilithsthrone.game.character.npc.generic.Cultist;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexFlags;
+import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.managers.dominion.cultist.SMDomSex;
+import com.lilithsthrone.game.sex.managers.dominion.cultist.SMDomSexOral;
+import com.lilithsthrone.game.sex.managers.dominion.cultist.SMSubMissionary;
+import com.lilithsthrone.game.sex.managers.dominion.cultist.SMSubMissionaryOral;
+import com.lilithsthrone.game.sex.managers.dominion.cultist.SMSubSealed;
+import com.lilithsthrone.game.sex.managers.dominion.cultist.SMSubSealedOral;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 
@@ -80,6 +88,177 @@ public class SASpecialCultist {
 					"The soft purple glow of the Witch's Seal can be seen all around your body as you struggle to make a move.",
 					"[pc.speech(~Mmm!~)] you [pc.moan], struggling in vain against the Witch's Seal.",
 					"[pc.speech(~Aah!~)] you whimper, squirming about on the altar as the With's Seal keeps you locked in place.");
+		}
+	};
+	
+	public static final SexAction PLAYER_FORCE_POSITION_MISSIONARY = new SexAction(
+			SexActionType.PLAYER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& Sex.getPosition() != SexPosition.CULTIST_ALTAR_MISSIONARY_DOM
+					&& Sex.isPlayerDom();
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Missionary";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Stand up so that you're positioned between [npc.name]'s [npc.legs].";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Having had enough of pleasuring [npc.name] with your mouth, you stand up and step forwards, bringing your groin up against [npc.hers]."
+					+ " Grabbing hold of [npc.her] [npc.legs+], you push them apart a little more and [pc.moan], "
+					+ "[pc.speech(Time to have some real fun!)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setSexManager(new SMDomSex());
+			
+			SexFlags.positioningBlockedPartner = true;
+			SexFlags.resetRequests();
+		}
+	};
+	
+	public static final SexAction PLAYER_FORCE_POSITION_MISSIONARY_ORAL = new SexAction(
+			SexActionType.PLAYER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& Sex.getPosition() != SexPosition.CULTIST_ALTAR_MISSIONARY_ORAL_DOM
+					&& Sex.isPlayerDom();
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Missionary Oral";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Drop down onto your knees and position your face between [npc.name]'s legs.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Dropping down to your knees, you position your head between [npc.name]'s [npc.legs], ready to pleasure [npc.herHim] with your mouth,"
+					+ " [pc.speech(Ready for some fun?)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setSexManager(new SMDomSexOral());
+			
+			SexFlags.positioningBlockedPartner = true;
+			SexFlags.resetRequests();
+		}
+	};
+	
+	public static final SexAction PARTNER_POSITION_MISSIONARY_ORAL = new SexAction(
+			SexActionType.PARTNER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPartner
+					&& Sex.getPosition() != SexPosition.CULTIST_ALTAR_MISSIONARY_ORAL
+					&& Sex.getPartner().getSexPositionPreferences().contains(SexPosition.CULTIST_ALTAR_MISSIONARY_ORAL)
+					&& !Sex.isPlayerDom();
+		}
+
+		@Override
+		public String getActionTitle() {
+			return "Missionary Oral";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Drop down onto your knees and position your face between [pc.name]'s legs.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Running [npc.her] [npc.hands] down your body, [npc.name] drops down onto [npc.her] knees, positioning [npc.her] head between your [pc.legs] and [npc.moaning],"
+					+ " [npc.speech(Stay still and enjoy this!)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			if(((Cultist)Sex.getPartner()).isSealedSex()) {
+				Sex.setSexManager(new SMSubSealedOral());
+			} else {
+				Sex.setSexManager(new SMSubMissionaryOral());
+			}
+			
+			SexFlags.positioningBlockedPlayer = true;
+			SexFlags.resetRequests();
+		}
+	};
+	
+	public static final SexAction PARTNER_POSITION_MISSIONARY = new SexAction(
+			SexActionType.PARTNER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPartner
+					&& Sex.getPosition() != SexPosition.CULTIST_ALTAR_MISSIONARY
+					&& Sex.getPartner().getSexPositionPreferences().contains(SexPosition.CULTIST_ALTAR_MISSIONARY)
+					&& !Sex.isPlayerDom();
+		}
+
+		@Override
+		public String getActionTitle() {
+			return "Missionary";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Stand up so that you're positioned between [pc.name]'s [pc.legs].";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Gripping your thighs with [npc.her] [npc.hands+], [npc.name] stands up and steps forward, pushing your [pc.legs] apart slightly as [npc.she] brings [npc.her] groin up against yours,"
+					+ " [npc.speech(This is going to be <i>so</i> much fun!)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			if(((Cultist)Sex.getPartner()).isSealedSex()) {
+				Sex.setSexManager(new SMSubSealed());
+			} else {
+				Sex.setSexManager(new SMSubMissionary());
+			}
+			
+			SexFlags.positioningBlockedPlayer = true;
+			SexFlags.resetRequests();
 		}
 	};
 }

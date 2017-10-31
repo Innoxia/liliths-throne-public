@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -273,19 +274,19 @@ public class RoomPlayer {
 			}
 			
 			UtilText.nodeContentSB.append(" and see that it's the <b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>"
-						+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("d"))
+						+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("d", Locale.ENGLISH))
 						+ Util.getDayOfMonthSuffix(Main.game.getDateNow().getDayOfMonth())
 						+ " "
-						+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("MMMM"))
+						+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH))
 						+ ", "
-						+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("yyyy"))
+						+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH))
 					+"</b>. From a quick calculation "+(Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE)<IntelligenceLevel.ONE_AVERAGE.getMaximumValue()?"(with some help from your phone's calculator)":"")
 					+ ", you figure out that it's been <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+"</b> since you appeared in this world."
 					+ "</p>");
 			
 			if(!Main.game.getDialogueFlags().knowsDate) {
 				UtilText.nodeContentSB.append("<p>"
-						+ "[pc.thought(Wait... "+Main.game.getDateNow().format(DateTimeFormatter.ofPattern("yyyy"))+"?! I need to check in with Lilaya about that...)]"
+						+ "[pc.thought(Wait... "+Main.game.getDateNow().format(DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH))+"?! I need to check in with Lilaya about that...)]"
 						+ "</p>");
 			}
 			

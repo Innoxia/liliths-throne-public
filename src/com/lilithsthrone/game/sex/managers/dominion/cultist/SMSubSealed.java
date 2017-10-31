@@ -13,10 +13,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisAnus
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
@@ -54,10 +51,7 @@ public class SMSubSealed extends SexManagerDefault {
 				
 				// Scene-specific:
 
-				PlayerPenisMouth.class,
 				PartnerTongueMouth.class,
-				PartnerTongueVagina.class,
-				PartnerTongueAnus.class,
 				PartnerFingerNipple.class,
 				PartnerFingerUrethra.class,
 				PartnerFingerVagina.class,
@@ -92,12 +86,12 @@ public class SMSubSealed extends SexManagerDefault {
 	
 	@Override
 	public boolean isPlayerCanRemoveOwnClothes(){
-		return true;
+		return false;
 	}
 	
 	@Override
 	public boolean isPlayerCanRemovePartnersClothes(){
-		return true;
+		return false;
 	}
 	
 	@Override

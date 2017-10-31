@@ -52,9 +52,8 @@ public class OptionsDialogue {
 		@Override
 		public String getContent(){
 			return "<h1 class='special-text' style='font-size:48px; line-height:52px; text-align:center;'>Lilith's Throne</h1>"
-					+ "<h5 class='special-text' style='text-align:center;'>"
-						+ "Created by Innoxia"
-					+ "</h5>"
+					+ "<h4 class='special-text' style='text-align:center;'>Spooky Witches Edition</h4>"
+					+ "<h5 class='special-text' style='text-align:center;'>Created by Innoxia</h5>"
 					+ "</br>"
 					+ "<p>"
 						+ "This game is a text-based erotic RPG, and contains a lot of graphic sexual content. You must agree to the game's disclaimer before playing this game!"

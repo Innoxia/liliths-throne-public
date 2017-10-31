@@ -268,7 +268,7 @@ public class HarpyNestsAttacker extends NPC {
 									+ "</p>";
 						}
 						
-				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR)) {
+				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR) || item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED)) {
 					
 						if(Sex.isPlayerDom()) {
 							return "<p>"

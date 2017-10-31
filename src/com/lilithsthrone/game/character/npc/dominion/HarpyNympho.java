@@ -65,7 +65,7 @@ public class HarpyNympho extends NPC {
 		
 		this.setVaginaVirgin(false);
 		this.setVaginaWetness(Wetness.FOUR_SLIMY.getValue());
-		this.setVaginaCapacity(Capacity.FOUR_LOOSE.getMedianValue());
+		this.setVaginaCapacity(Capacity.FOUR_LOOSE.getMedianValue(), true);
 		
 		this.setAssVirgin(false);
 		this.setFaceVirgin(false);

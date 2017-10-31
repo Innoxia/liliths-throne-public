@@ -1343,47 +1343,52 @@ public class CharacterInventory implements Serializable {
 
 		AbstractClothing clothingToRemove = null;
 		DisplacementType displacement = null;
+		List<AbstractClothing> zLayerSortedList = new ArrayList<>(clothingCurrentlyEquipped);
+		zLayerSortedList.sort(new ClothingZLayerComparator().reversed());
 
-		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
+		outerloop: for (AbstractClothing clothing : zLayerSortedList) {
 			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList())
 				if (bp.blockedBodyParts.contains(coverableArea) && !clothing.getDisplacedList().contains(bp.displacementType)) {
 					if(!isCoverableAreaExposedFromElsewhere(clothing, coverableArea)) {
 						// this clothing is blocking the part we want access to, so make that our starting point:
 						clothingToRemove = clothing;
 						displacement = bp.displacementType;
-						break;
+						break outerloop;
 					}
 				}
 		}
 
-		if (clothingToRemove == null)
+		if (clothingToRemove == null) {
 			throw new IllegalArgumentException("There is no clothing covering this part!");
-
+		}
+		
 		boolean finished = false;
-
+		
 		while (!finished) {
 			finished = true;
-			outerloop: for (BlockedParts bp : clothingToRemove.getClothingType().getBlockedPartsList())
+			outerloop2: for (BlockedParts bp : clothingToRemove.getClothingType().getBlockedPartsList()) {
 				if (bp.displacementType == displacement) {
-					for (ClothingAccess ca : bp.clothingAccessRequired)
-						for (AbstractClothing clothing : clothingCurrentlyEquipped) {
+					for (ClothingAccess ca : bp.clothingAccessRequired) {
+						for (AbstractClothing clothing : zLayerSortedList) {
 							if (clothing != clothingToRemove) {
 								for (BlockedParts bpIterated : clothing.getClothingType().getBlockedPartsList()) {
 									if (bpIterated.clothingAccessBlocked.contains(ca) && !clothing.getDisplacedList().contains(bpIterated.displacementType)) {
 										if(!isCoverableAreaExposedFromElsewhere(clothing, coverableArea)) {
-											// this clothing is blocking the clothing we wanted to displace, so now we re-start by wanting to  displace this new clothing:
+											// this clothing is blocking the clothing we wanted to displace, so now we re-start by wanting to displace this new clothing:
 											clothingToRemove = clothing;
 											displacement = bpIterated.displacementType;
 											finished = false;
-											break outerloop;
+											break outerloop2;
 										}
 									}
 								}
 							}
 						}
+					}
 				}
+			}
 		}
-
+		
 		return new SimpleEntry<AbstractClothing, DisplacementType>(clothingToRemove, displacement);
 	}
 

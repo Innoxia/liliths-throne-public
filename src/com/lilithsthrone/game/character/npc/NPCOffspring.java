@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
@@ -59,10 +60,7 @@ public class NPCOffspring extends NPC {
 		
 		// BODY GENERATION:
 		
-		Gender gender = Gender.F_V_B_FEMALE;
-		if(Math.random()<0.5) {
-			gender = Gender.M_P_MALE;
-		}
+		Gender gender = GenderPreference.getGenderFromUserPreferences();
 		
 		setBody(gender, mother, father);
 		
@@ -332,7 +330,7 @@ public class NPCOffspring extends NPC {
 									+ "</p>";
 						}
 						
-				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR)) {
+				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR) || item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED)) {
 					
 						if(Sex.isPlayerDom()) {
 							return "<p>"
