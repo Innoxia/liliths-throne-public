@@ -670,7 +670,7 @@ public enum Sex {
 							+ TFEssence.ARCANE.getSVGString()
 						+ "</div>"
 						+ " <div style='display:inline-block; height:20px; vertical-align: middle;'>"
-							+ "<b>[style.boldArcane(You have earned "+(Main.game.getPlayer().hasPerk(Perk.NYMPHOMANIAC)?"two arcane essences":"one arcane essence")+"!)]</b>"
+							+ "<b>[style.boldArcane(You have earned "+(Main.game.getPlayer().hasPerk(Perk.NYMPHOMANIAC)?"four arcane essences":"two arcane essence")+"!)]</b>"
 						+ "</div> "
 						+ "<div class='item-inline"
 							+ (TFEssence.ARCANE.getRarity() == Rarity.COMMON ? " common" : "")
@@ -752,7 +752,7 @@ public enum Sex {
 							+ TFEssence.ARCANE.getSVGString()
 						+ "</div>"
 						+ " <div style='display:inline-block; height:20px; vertical-align: middle;'>"
-						+ "<b>[style.boldArcane(You have earned "+(Main.game.getPlayer().hasPerk(Perk.NYMPHOMANIAC)?"two arcane essences":"one arcane essence")+"!)]</b>"
+						+ "<b>[style.boldArcane(You have earned "+(Main.game.getPlayer().hasPerk(Perk.NYMPHOMANIAC)?"four arcane essences":"two arcane essence")+"!)]</b>"
 						+ "</div> "
 						+ "<div class='item-inline"
 							+ (TFEssence.ARCANE.getRarity() == Rarity.COMMON ? " common" : "")
