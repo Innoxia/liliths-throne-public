@@ -205,7 +205,7 @@ public enum Sex {
 
 		if(isConsensual()) {
 			partner.setSexConsensualCount(partner.getSexConsensualCount()+1);
-
+			partner.setSexAsSubCount(partner.getSexAsSubCount()+1);
 		} else if(isPlayerDom()) {
 			partner.setSexAsSubCount(partner.getSexAsSubCount()+1);
 
