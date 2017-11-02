@@ -4,34 +4,50 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
+import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.BreastType;
+import com.lilithsthrone.game.character.body.types.EarType;
+import com.lilithsthrone.game.character.body.types.EyeType;
+import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
+import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.StartingSkinTone;
@@ -52,13 +68,14 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Builder;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.1.86
+ * @version 0.1.87
  * @author Innoxia
  */
-public class Body implements Serializable {
+public class Body implements Serializable, XMLSaving {
 
 	private static final long serialVersionUID = 1L;
 
@@ -301,6 +318,910 @@ public class Body implements Serializable {
 	}
 	
 	
+	
+	
+	@Override
+	public Element saveAsXML(Element parentElement, Document doc) {
+		// Core:
+		Element bodyCore = doc.createElement("bodyCore");
+		parentElement.appendChild(bodyCore);
+		CharacterUtils.addAttribute(doc, bodyCore, "piercedStomach", String.valueOf(this.isPiercedStomach()));
+		CharacterUtils.addAttribute(doc, bodyCore, "height", String.valueOf(this.getHeightValue()));
+		CharacterUtils.addAttribute(doc, bodyCore, "femininity", String.valueOf(this.getFemininity()));
+		CharacterUtils.addAttribute(doc, bodyCore, "bodySize", String.valueOf(this.getBodySize()));
+		CharacterUtils.addAttribute(doc, bodyCore, "muscle", String.valueOf(this.getMuscle()));
+		CharacterUtils.addAttribute(doc, bodyCore, "pubicHair", String.valueOf(this.getPubicHair()));
+		
+		for(BodyCoveringType bct : BodyCoveringType.values()) {
+			Element element = doc.createElement("bodyCovering");
+			bodyCore.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "type", bct.toString());
+			CharacterUtils.addAttribute(doc, element, "pattern", this.coverings.get(bct).getPattern().toString());
+			CharacterUtils.addAttribute(doc, element, "colourPrimary", this.coverings.get(bct).getPrimaryColour().toString());
+			CharacterUtils.addAttribute(doc, element, "glowPrimary", String.valueOf(this.coverings.get(bct).isPrimaryGlowing()));
+			CharacterUtils.addAttribute(doc, element, "colourSecondary", this.coverings.get(bct).getSecondaryColour().toString());
+			CharacterUtils.addAttribute(doc, element, "glowSecondary", String.valueOf(this.coverings.get(bct).isSecondaryGlowing()));
+			CharacterUtils.addAttribute(doc, element, "discovered", String.valueOf(this.getBodyCoveringTypesDiscovered().contains(bct)));
+		}
+		
+
+		// Antennae:
+		Element bodyAntennae = doc.createElement("antennae");
+		parentElement.appendChild(bodyAntennae);
+			CharacterUtils.addAttribute(doc, bodyAntennae, "type", this.antenna.getType().toString());
+			CharacterUtils.addAttribute(doc, bodyAntennae, "rows", String.valueOf(this.antenna.getAntennaRows()));
+		
+		// Arm:
+		Element bodyArm = doc.createElement("arm");
+		parentElement.appendChild(bodyArm);
+			CharacterUtils.addAttribute(doc, bodyArm, "type", this.arm.getType().toString());
+			CharacterUtils.addAttribute(doc, bodyArm, "rows", String.valueOf(this.arm.getArmRows()));
+			CharacterUtils.addAttribute(doc, bodyArm, "underarmHair", this.arm.getUnderarmHair().toString());
+		
+		// Ass:
+		Element bodyAss = doc.createElement("ass");
+		parentElement.appendChild(bodyAss);
+			CharacterUtils.addAttribute(doc, bodyAss, "type", this.ass.getType().toString());
+			CharacterUtils.addAttribute(doc, bodyAss, "assSize", String.valueOf(this.ass.getAssSize().getValue()));
+			CharacterUtils.addAttribute(doc, bodyAss, "hipSize", String.valueOf(this.ass.getHipSize().getValue()));
+
+		Element bodyAnus = doc.createElement("anus");
+		parentElement.appendChild(bodyAnus);
+			CharacterUtils.addAttribute(doc, bodyAnus, "wetness", String.valueOf(this.ass.anus.orificeAnus.wetness));
+			CharacterUtils.addAttribute(doc, bodyAnus, "elasticity", String.valueOf(this.ass.anus.orificeAnus.elasticity));
+			CharacterUtils.addAttribute(doc, bodyAnus, "plasticity", String.valueOf(this.ass.anus.orificeAnus.plasticity));
+			CharacterUtils.addAttribute(doc, bodyAnus, "capacity", String.valueOf(this.ass.anus.orificeAnus.capacity));
+			CharacterUtils.addAttribute(doc, bodyAnus, "stretchedCapacity", String.valueOf(this.ass.anus.orificeAnus.stretchedCapacity));
+			CharacterUtils.addAttribute(doc, bodyAnus, "virgin", String.valueOf(this.ass.anus.orificeAnus.virgin));
+			CharacterUtils.addAttribute(doc, bodyAnus, "bleached", String.valueOf(this.ass.anus.bleached));
+			CharacterUtils.addAttribute(doc, bodyAnus, "assHair", this.ass.anus.assHair.toString());
+			Element anusModifiers = doc.createElement("anusModifiers");
+			bodyAnus.appendChild(anusModifiers);
+			for(OrificeModifier om : OrificeModifier.values()) {
+				CharacterUtils.addAttribute(doc, anusModifiers, om.toString(), String.valueOf(this.ass.anus.orificeAnus.hasOrificeModifier(om)));
+			}
+		
+		// Breasts:
+		Element bodyBreast = doc.createElement("breasts");
+		parentElement.appendChild(bodyBreast);
+			CharacterUtils.addAttribute(doc, bodyBreast, "type", this.breast.type.toString());
+			CharacterUtils.addAttribute(doc, bodyBreast, "shape", this.breast.shape.toString());
+			CharacterUtils.addAttribute(doc, bodyBreast, "size", String.valueOf(this.breast.size));
+			CharacterUtils.addAttribute(doc, bodyBreast, "rows", String.valueOf(this.breast.rows));
+			CharacterUtils.addAttribute(doc, bodyBreast, "lactation", String.valueOf(this.breast.lactation));
+			CharacterUtils.addAttribute(doc, bodyBreast, "nippleCountPerBreast", String.valueOf(this.breast.nippleCountPerBreast));
+
+		Element bodyNipple = doc.createElement("nipples");
+		parentElement.appendChild(bodyNipple);
+			CharacterUtils.addAttribute(doc, bodyNipple, "elasticity", String.valueOf(this.breast.nipples.orificeNipples.elasticity));
+			CharacterUtils.addAttribute(doc, bodyNipple, "plasticity", String.valueOf(this.breast.nipples.orificeNipples.plasticity));
+			CharacterUtils.addAttribute(doc, bodyNipple, "capacity", String.valueOf(this.breast.nipples.orificeNipples.capacity));
+			CharacterUtils.addAttribute(doc, bodyNipple, "stretchedCapacity", String.valueOf(this.breast.nipples.orificeNipples.stretchedCapacity));
+			CharacterUtils.addAttribute(doc, bodyNipple, "virgin", String.valueOf(this.breast.nipples.orificeNipples.virgin));
+			CharacterUtils.addAttribute(doc, bodyNipple, "pierced", String.valueOf(this.breast.nipples.pierced));
+			CharacterUtils.addAttribute(doc, bodyNipple, "nippleSize", String.valueOf(this.breast.nipples.nippleSize));
+			CharacterUtils.addAttribute(doc, bodyNipple, "nippleShape", this.breast.nipples.nippleShape.toString());
+			CharacterUtils.addAttribute(doc, bodyNipple, "areolaeSize", String.valueOf(this.breast.nipples.areolaeSize));
+			CharacterUtils.addAttribute(doc, bodyNipple, "areolaeShape", this.breast.nipples.areolaeShape.toString());
+			Element nippleModifiers = doc.createElement("nippleModifiers");
+			bodyNipple.appendChild(nippleModifiers);
+			for(OrificeModifier om : OrificeModifier.values()) {
+				CharacterUtils.addAttribute(doc, nippleModifiers, om.toString(), String.valueOf(this.breast.nipples.orificeNipples.hasOrificeModifier(om)));
+			}
+			
+		Element bodyMilk = doc.createElement("milk");
+		parentElement.appendChild(bodyMilk);
+			CharacterUtils.addAttribute(doc, bodyMilk, "flavour", this.breast.milk.getFlavour().toString());
+			Element milkModifiers = doc.createElement("milkModifiers");
+			bodyMilk.appendChild(milkModifiers);
+			for(FluidModifier fm : FluidModifier.values()) {
+				CharacterUtils.addAttribute(doc, milkModifiers, fm.toString(), String.valueOf(this.breast.milk.hasFluidModifier(fm)));
+			}
+			//TODO transformativeEffects;
+			
+			
+		// Ear:
+		Element bodyEar = doc.createElement("ear");
+		parentElement.appendChild(bodyEar);
+			CharacterUtils.addAttribute(doc, bodyEar, "type", this.ear.type.toString());
+			CharacterUtils.addAttribute(doc, bodyEar, "pierced", String.valueOf(this.ear.pierced));
+
+		// Eye:
+		Element bodyEye = doc.createElement("eye");
+		parentElement.appendChild(bodyEye);
+			CharacterUtils.addAttribute(doc, bodyEye, "type", this.eye.type.toString());
+			CharacterUtils.addAttribute(doc, bodyEye, "eyePairs", String.valueOf(this.eye.eyePairs));
+			CharacterUtils.addAttribute(doc, bodyEye, "irisShape", this.eye.irisShape.toString());
+			CharacterUtils.addAttribute(doc, bodyEye, "pupilShape", this.eye.pupilShape.toString());
+		
+		// Face:
+		Element bodyFace = doc.createElement("face");
+		parentElement.appendChild(bodyFace);
+			CharacterUtils.addAttribute(doc, bodyFace, "type", this.face.type.toString());
+			CharacterUtils.addAttribute(doc, bodyFace, "piercedNose", String.valueOf(this.face.piercedNose));
+			CharacterUtils.addAttribute(doc, bodyFace, "facialHair", this.face.facialHair.toString());
+
+		Element bodyMouth = doc.createElement("mouth");
+		parentElement.appendChild(bodyMouth);
+			CharacterUtils.addAttribute(doc, bodyMouth, "elasticity", String.valueOf(this.face.mouth.orificeMouth.elasticity));
+			CharacterUtils.addAttribute(doc, bodyMouth, "plasticity", String.valueOf(this.face.mouth.orificeMouth.plasticity));
+			CharacterUtils.addAttribute(doc, bodyMouth, "capacity", String.valueOf(this.face.mouth.orificeMouth.capacity));
+			CharacterUtils.addAttribute(doc, bodyMouth, "stretchedCapacity", String.valueOf(this.face.mouth.orificeMouth.stretchedCapacity));
+			CharacterUtils.addAttribute(doc, bodyMouth, "virgin", String.valueOf(this.face.mouth.orificeMouth.virgin));
+			CharacterUtils.addAttribute(doc, bodyMouth, "piercedLip", String.valueOf(this.face.mouth.piercedLip));
+			CharacterUtils.addAttribute(doc, bodyMouth, "lipSize", String.valueOf(this.face.mouth.lipSize));
+			Element mouthModifiers = doc.createElement("mouthModifiers");
+			bodyMouth.appendChild(mouthModifiers);
+			for(OrificeModifier om : OrificeModifier.values()) {
+				CharacterUtils.addAttribute(doc, mouthModifiers, om.toString(), String.valueOf(this.face.mouth.orificeMouth.hasOrificeModifier(om)));
+			}
+			
+		Element bodyTongue = doc.createElement("tongue");
+		parentElement.appendChild(bodyTongue);
+			CharacterUtils.addAttribute(doc, bodyTongue, "piercedTongue", String.valueOf(this.face.tongue.pierced));
+			CharacterUtils.addAttribute(doc, bodyTongue, "tongueLength", String.valueOf(this.face.tongue.tongueLength));
+			Element tongueModifiers = doc.createElement("tongueModifiers");
+			bodyTongue.appendChild(tongueModifiers);
+			for(TongueModifier tm : TongueModifier.values()) {
+				CharacterUtils.addAttribute(doc, tongueModifiers, tm.toString(), String.valueOf(this.face.tongue.hasTongueModifier(tm)));
+			}
+			
+		
+		// Hair:
+		Element bodyHair = doc.createElement("hair");
+		parentElement.appendChild(bodyHair);
+			CharacterUtils.addAttribute(doc, bodyHair, "type", this.hair.type.toString());
+			CharacterUtils.addAttribute(doc, bodyHair, "length", String.valueOf(this.hair.length));
+			CharacterUtils.addAttribute(doc, bodyHair, "hairStyle", this.hair.style.toString());
+		
+		// Horn:
+		Element bodyHorn = doc.createElement("horn");
+		parentElement.appendChild(bodyHorn);
+			CharacterUtils.addAttribute(doc, bodyHorn, "type", this.horn.type.toString());
+			CharacterUtils.addAttribute(doc, bodyHorn, "rows", String.valueOf(this.horn.rows));
+		
+		// Leg:
+		Element bodyLeg = doc.createElement("leg");
+		parentElement.appendChild(bodyLeg);
+			CharacterUtils.addAttribute(doc, bodyLeg, "type", this.leg.type.toString());
+		
+		// Penis:
+		Element bodyPenis = doc.createElement("penis");
+		parentElement.appendChild(bodyPenis);
+			CharacterUtils.addAttribute(doc, bodyPenis, "type", this.penis.type.toString());
+			CharacterUtils.addAttribute(doc, bodyPenis, "size", String.valueOf(this.penis.size));
+			CharacterUtils.addAttribute(doc, bodyPenis, "pierced", String.valueOf(this.penis.pierced));
+			Element penisModifiers = doc.createElement("penisModifiers");
+			bodyPenis.appendChild(penisModifiers);
+			for(PenisModifier pm : PenisModifier.values()) {
+				CharacterUtils.addAttribute(doc, penisModifiers, pm.toString(), String.valueOf(this.penis.hasPenisModifier(pm)));
+			}
+			CharacterUtils.addAttribute(doc, bodyPenis, "elasticity", String.valueOf(this.penis.orificeUrethra.elasticity));
+			CharacterUtils.addAttribute(doc, bodyPenis, "plasticity", String.valueOf(this.penis.orificeUrethra.plasticity));
+			CharacterUtils.addAttribute(doc, bodyPenis, "capacity", String.valueOf(this.penis.orificeUrethra.capacity));
+			CharacterUtils.addAttribute(doc, bodyPenis, "stretchedCapacity", String.valueOf(this.penis.orificeUrethra.stretchedCapacity));
+			CharacterUtils.addAttribute(doc, bodyPenis, "virgin", String.valueOf(this.penis.orificeUrethra.virgin));
+			Element urethraModifiers = doc.createElement("urethraModifiers");
+			bodyPenis.appendChild(urethraModifiers);
+			for(OrificeModifier om : OrificeModifier.values()) {
+				CharacterUtils.addAttribute(doc, urethraModifiers, om.toString(), String.valueOf(this.penis.orificeUrethra.hasOrificeModifier(om)));
+			}
+			
+		Element bodyTesticle = doc.createElement("testicles");
+		parentElement.appendChild(bodyTesticle);
+			CharacterUtils.addAttribute(doc, bodyTesticle, "testicleSize", String.valueOf(this.penis.testicle.testicleSize));
+			CharacterUtils.addAttribute(doc, bodyTesticle, "cumProduction", String.valueOf(this.penis.testicle.cumProduction));
+			CharacterUtils.addAttribute(doc, bodyTesticle, "numberOfTesticles", String.valueOf(this.penis.testicle.testicleCount));
+			CharacterUtils.addAttribute(doc, bodyTesticle, "internal", String.valueOf(this.penis.testicle.internal));
+		
+		Element bodyCum = doc.createElement("cum");
+		parentElement.appendChild(bodyCum);
+			CharacterUtils.addAttribute(doc, bodyCum, "flavour", this.penis.testicle.cum.flavour.toString());
+			Element cumModifiers = doc.createElement("cumModifiers");
+			bodyCum.appendChild(cumModifiers);
+			for(FluidModifier fm : FluidModifier.values()) {
+				CharacterUtils.addAttribute(doc, cumModifiers, fm.toString(), String.valueOf(this.penis.testicle.cum.hasFluidModifier(fm)));
+			}
+			//TODO transformativeEffects;
+		
+		
+		// Skin:
+		Element bodySkin = doc.createElement("skin");
+		parentElement.appendChild(bodySkin);
+			CharacterUtils.addAttribute(doc, bodySkin, "type", this.skin.type.toString());
+		
+		// Tail:
+		Element bodyTail = doc.createElement("tail");
+		parentElement.appendChild(bodyTail);
+			CharacterUtils.addAttribute(doc, bodyTail, "type", this.tail.type.toString());
+			CharacterUtils.addAttribute(doc, bodyTail, "count", String.valueOf(this.tail.tailCount));
+		
+		// Vagina
+		Element bodyVagina = doc.createElement("vagina");
+		parentElement.appendChild(bodyVagina);
+			CharacterUtils.addAttribute(doc, bodyVagina, "type", this.vagina.type.toString());
+			CharacterUtils.addAttribute(doc, bodyVagina, "labiaSize", String.valueOf(this.vagina.labiaSize));
+			CharacterUtils.addAttribute(doc, bodyVagina, "clitSize", String.valueOf(this.vagina.clitSize));
+			CharacterUtils.addAttribute(doc, bodyVagina, "pierced", String.valueOf(this.vagina.pierced));
+			
+			CharacterUtils.addAttribute(doc, bodyVagina, "wetness", String.valueOf(this.vagina.orificeVagina.wetness));
+			CharacterUtils.addAttribute(doc, bodyVagina, "elasticity", String.valueOf(this.vagina.orificeVagina.elasticity));
+			CharacterUtils.addAttribute(doc, bodyVagina, "plasticity", String.valueOf(this.vagina.orificeVagina.plasticity));
+			CharacterUtils.addAttribute(doc, bodyVagina, "capacity", String.valueOf(this.vagina.orificeVagina.capacity));
+			CharacterUtils.addAttribute(doc, bodyVagina, "stretchedCapacity", String.valueOf(this.vagina.orificeVagina.stretchedCapacity));
+			CharacterUtils.addAttribute(doc, bodyVagina, "virgin", String.valueOf(this.vagina.orificeVagina.virgin));
+			Element vaginaModifiers = doc.createElement("vaginaModifiers");
+			bodyVagina.appendChild(vaginaModifiers);
+			for(OrificeModifier om : OrificeModifier.values()) {
+				CharacterUtils.addAttribute(doc, vaginaModifiers, om.toString(), String.valueOf(this.vagina.orificeVagina.hasOrificeModifier(om)));
+			}
+			
+		Element bodyGirlcum = doc.createElement("girlcum");
+		parentElement.appendChild(bodyGirlcum);
+			CharacterUtils.addAttribute(doc, bodyGirlcum, "flavour", this.vagina.girlcum.flavour.toString());
+			Element girlcumModifiers = doc.createElement("girlcumModifiers");
+			bodyGirlcum.appendChild(girlcumModifiers);
+			for(FluidModifier fm : FluidModifier.values()) {
+				CharacterUtils.addAttribute(doc, girlcumModifiers, fm.toString(), String.valueOf(this.vagina.girlcum.hasFluidModifier(fm)));
+			}
+			//TODO transformativeEffects;
+			
+		
+		// Wing:
+		Element bodyWing = doc.createElement("wing");
+		parentElement.appendChild(bodyWing);
+		CharacterUtils.addAttribute(doc, bodyWing, "type", this.wing.type.toString());
+
+//		System.out.println("Difference1: "+(System.nanoTime()-timeStart)/1000000000f);
+		
+		return parentElement;
+	}
+
+	
+	private void setBodyCoveringForXMLImport(BodyCoveringType bct, CoveringPattern pattern, Colour primary, boolean primaryGlow, Colour secondary, boolean secondaryGlow) {
+		this.getCoverings().put(bct, new Covering(bct, pattern, primary, primaryGlow, secondary, secondaryGlow));
+	}
+	
+	public static Body loadFromXML(StringBuilder log, Element parentElement, Document doc) {
+
+		
+		// **************** Core **************** //
+		
+		Element element = (Element) parentElement.getElementsByTagName("bodyCore").item(0);
+		int importedFemininity = (Integer.valueOf(element.getAttribute("femininity")));
+		CharacterUtils.appendToImportLog(log, "</br>Body: Set femininity: "+Integer.valueOf(element.getAttribute("femininity")));
+		
+		int importedHeight =(Integer.valueOf(element.getAttribute("height")));
+		CharacterUtils.appendToImportLog(log, "</br>Body: Set height: "+Integer.valueOf(element.getAttribute("height")));
+		
+		int importedBodySize = (Integer.valueOf(element.getAttribute("bodySize")));
+		CharacterUtils.appendToImportLog(log, "</br>Body: Set body size: "+Integer.valueOf(element.getAttribute("bodySize")));
+	
+		int importedMuscle = (Integer.valueOf(element.getAttribute("muscle")));
+		CharacterUtils.appendToImportLog(log, "</br>Body: Set muscle: "+Integer.valueOf(element.getAttribute("muscle")));
+		
+		GenitalArrangement importedGenitalArrangement = GenitalArrangement.NORMAL; //TODO export
+		if(element.getAttribute("genitalArrangement") != null && !element.getAttribute("genitalArrangement").isEmpty()) {
+			importedGenitalArrangement = GenitalArrangement.valueOf(element.getAttribute("genitalArrangement"));
+		}
+		
+		BodyMaterial importedBodyMaterial = BodyMaterial.FLESH; //TODO export
+		if(element.getAttribute("bodyMaterial") != null && !element.getAttribute("bodyMaterial").isEmpty()) {
+			importedBodyMaterial = BodyMaterial.valueOf(element.getAttribute("bodyMaterial"));
+		}
+		
+		
+		// **************** Antenna **************** //
+		
+		Element antennae = (Element)parentElement.getElementsByTagName("antennae").item(0);
+		
+		Antenna importedAntenna = new Antenna(AntennaType.valueOf(antennae.getAttribute("type")));
+		CharacterUtils.appendToImportLog(log, "</br></br>Body: Antennae:"+ "</br>type: "+importedAntenna.getType());
+
+		importedAntenna.rows = Integer.valueOf(antennae.getAttribute("rows"));
+		CharacterUtils.appendToImportLog(log, "</br>rows: "+importedAntenna.getAntennaRows());
+		
+		
+		// **************** Arm **************** //
+		
+		Element arm = (Element)parentElement.getElementsByTagName("arm").item(0);
+		
+		Arm importedArm = new Arm(ArmType.valueOf(arm.getAttribute("type")), Integer.valueOf(arm.getAttribute("rows")));
+		
+		CharacterUtils.appendToImportLog(log, "</br></br>Body: Arm:"+ "</br>type: "+importedArm.getType());
+
+		CharacterUtils.appendToImportLog(log, "</br>rows: "+importedArm.getArmRows());
+
+		try {
+			importedArm.underarmHair = BodyHair.valueOf(arm.getAttribute("underarmHair"));
+			CharacterUtils.appendToImportLog(log, "</br>underarm hair: "+importedArm.getUnderarmHair());
+		} catch(IllegalArgumentException e) {
+			importedArm.underarmHair = BodyHair.ZERO_NONE;
+			CharacterUtils.appendToImportLog(log, "</br>underarm hair: OLD_VALUE - Set to NONE");
+		}
+		
+		// **************** Ass **************** //
+		
+		Element ass = (Element)parentElement.getElementsByTagName("ass").item(0);
+		Element anus = (Element)parentElement.getElementsByTagName("anus").item(0);
+		
+		Ass importedAss = new Ass(AssType.valueOf(ass.getAttribute("type")),
+				Integer.valueOf(ass.getAttribute("assSize")),
+				Integer.valueOf(anus.getAttribute("wetness")),
+				Float.valueOf(anus.getAttribute("capacity")),
+				Integer.valueOf(anus.getAttribute("elasticity")),
+				Integer.valueOf(anus.getAttribute("plasticity")),
+				Boolean.valueOf(anus.getAttribute("virgin")));
+		
+		importedAss.hipSize = Integer.valueOf(ass.getAttribute("hipSize"));
+		
+		importedAss.anus.orificeAnus.stretchedCapacity = (Float.valueOf(anus.getAttribute("stretchedCapacity")));
+		importedAss.anus.bleached = (Boolean.valueOf(anus.getAttribute("bleached")));
+		try {
+			importedAss.anus.assHair = (BodyHair.valueOf(anus.getAttribute("assHair")));
+		} catch(IllegalArgumentException e) {
+			importedAss.anus.assHair = BodyHair.ZERO_NONE;
+			CharacterUtils.appendToImportLog(log, "</br>ass hair: OLD_VALUE - Set to NONE");
+		}
+		
+		CharacterUtils.appendToImportLog(log, "</br></br>Body: Ass:"
+				+ "</br>type: "+importedAss.getType()
+				+ "</br>assSize: "+importedAss.getAssSize()
+				+ "</br>hipSize: "+importedAss.getHipSize());
+		
+		if (anus != null) {
+			CharacterUtils.appendToImportLog(log, "</br></br>Anus:"
+					+ "</br>wetness: "+importedAss.anus.orificeAnus.wetness
+					+ "</br>elasticity: "+importedAss.anus.orificeAnus.elasticity
+					+ "</br>elasticity: "+importedAss.anus.orificeAnus.plasticity
+					+ "</br>capacity: "+importedAss.anus.orificeAnus.capacity
+					+ "</br>stretchedCapacity: "+importedAss.anus.orificeAnus.stretchedCapacity
+					+ "</br>virgin: "+importedAss.anus.orificeAnus.virgin
+					+ "</br>bleached: "+importedAss.anus.bleached
+					+ "</br>assHair: "+importedAss.anus.assHair
+					+"</br>Modifiers:");
+			Element anusModifiers = (Element)anus.getElementsByTagName("anusModifiers").item(0);
+			
+			importedAss.anus.orificeAnus.orificeModifiers.clear();
+			for(OrificeModifier om : OrificeModifier.values()) {
+				if(Boolean.valueOf(anusModifiers.getAttribute(om.toString()))) {
+					importedAss.anus.orificeAnus.orificeModifiers.add(om);
+					CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":true");
+				} else {
+					CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":false");
+				}
+			}
+		}
+		
+
+		// **************** Breasts **************** //
+		
+		Element breasts = (Element)parentElement.getElementsByTagName("breasts").item(0);
+		Element nipples = (Element)parentElement.getElementsByTagName("nipples").item(0);
+		
+		BreastShape breastShape = BreastShape.ROUND;
+		try {
+			breastShape = BreastShape.valueOf(breasts.getAttribute("shape"));
+		} catch(Exception e) {
+		}
+		
+		Breast importedBreast = new Breast(BreastType.valueOf(breasts.getAttribute("type")),
+				breastShape,
+				Integer.valueOf(breasts.getAttribute("size")),
+				Integer.valueOf(breasts.getAttribute("lactation")),
+				Integer.valueOf(breasts.getAttribute("rows")),
+				Integer.valueOf(nipples.getAttribute("nippleSize")),
+				NippleShape.valueOf(nipples.getAttribute("nippleShape")),
+				Integer.valueOf(nipples.getAttribute("areolaeSize")),
+				Integer.valueOf(breasts.getAttribute("nippleCountPerBreast")),
+				Float.valueOf(nipples.getAttribute("capacity")),
+				Integer.valueOf(nipples.getAttribute("elasticity")),
+				Integer.valueOf(nipples.getAttribute("plasticity")),
+				Boolean.valueOf(nipples.getAttribute("virgin")));
+		
+		importedBreast.nipples.orificeNipples.stretchedCapacity = (Float.valueOf(nipples.getAttribute("stretchedCapacity")));
+		importedBreast.nipples.pierced = (Boolean.valueOf(nipples.getAttribute("pierced")));
+		importedBreast.nipples.areolaeShape = (AreolaeShape.valueOf(nipples.getAttribute("areolaeShape")));
+		
+		CharacterUtils.appendToImportLog(log, "</br></br>Body: Breasts:"
+				+ "</br>type: "+importedBreast.getType()
+				+ "</br>size: "+importedBreast.getSize()
+				+ "</br>rows: "+importedBreast.getRows()
+				+ "</br>lactation: "+importedBreast.getRawLactationValue()
+				+ "</br>nippleCountPer: "+importedBreast.getNippleCountPerBreast()
+				
+				+ "</br></br>Nipples:"
+				+ "</br>elasticity: "+importedBreast.nipples.orificeNipples.getElasticity()
+				+ "</br>plasticity: "+importedBreast.nipples.orificeNipples.getPlasticity()
+				+ "</br>capacity: "+importedBreast.nipples.orificeNipples.getRawCapacityValue()
+				+ "</br>stretchedCapacity: "+importedBreast.nipples.orificeNipples.getStretchedCapacity()
+				+ "</br>virgin: "+importedBreast.nipples.orificeNipples.isVirgin()
+				+ "</br>pierced: "+importedBreast.nipples.isPierced()
+				+ "</br>nippleSize: "+importedBreast.nipples.getNippleSize()
+				+ "</br>nippleShape: "+importedBreast.nipples.getNippleShape()
+				+ "</br>areolaeSize: "+importedBreast.nipples.getAreolaeSize()
+				+ "</br>areolaeShape: "+importedBreast.nipples.getAreolaeShape()
+				+"</br>Modifiers:");
+		
+		Element nippleModifiers = (Element)nipples.getElementsByTagName("nippleModifiers").item(0);
+		
+		importedBreast.nipples.orificeNipples.orificeModifiers.clear();
+		for(OrificeModifier om : OrificeModifier.values()) {
+			if(Boolean.valueOf(nippleModifiers.getAttribute(om.toString()))) {
+				importedBreast.nipples.orificeNipples.orificeModifiers.add(om);
+				CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":true");
+			} else {
+				CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":false");
+			}
+		}
+		
+		CharacterUtils.appendToImportLog(log, "</br></br>Milk:");
+		
+		Element milk = (Element)parentElement.getElementsByTagName("milk").item(0);
+		importedBreast.milk.flavour = (FluidFlavour.valueOf(milk.getAttribute("flavour")));
+		
+		CharacterUtils.appendToImportLog(log, 
+				" flavour: "+importedBreast.milk.getFlavour()
+				+ "</br>Modifiers:");
+		
+		Element milkModifiers = (Element)milk.getElementsByTagName("milkModifiers").item(0);
+		for(FluidModifier fm : FluidModifier.values()) {
+			if(Boolean.valueOf(milkModifiers.getAttribute(fm.toString()))) {
+				importedBreast.milk.fluidModifiers.add(fm);
+				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":true");
+			} else {
+				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":false");
+			}
+		}
+
+		
+		// **************** Ear **************** //
+		
+		Element ear = (Element)parentElement.getElementsByTagName("ear").item(0);
+		
+		Ear importedEar = new Ear(EarType.valueOf(ear.getAttribute("type")));
+		
+		importedEar.pierced = (Boolean.valueOf(ear.getAttribute("pierced")));
+		CharacterUtils.appendToImportLog(log, "</br></br>Body: Ear:"
+				+ "</br>type: "+importedEar.getType()
+				+ "</br>pierced: "+importedEar.isPierced());
+		
+		
+		// **************** Eye **************** //
+		
+		Element eye = (Element)parentElement.getElementsByTagName("eye").item(0);
+		
+		String eyeTypeFromSave = eye.getAttribute("type");
+		
+		Map<String, String> eyeTypeConverterMap = new HashMap<>();
+		eyeTypeConverterMap.put("EYE_HUMAN", "HUMAN");
+		eyeTypeConverterMap.put("EYE_ANGEL", "ANGEL");
+		eyeTypeConverterMap.put("EYE_DEMON_COMMON", "DEMON_COMMON");
+		eyeTypeConverterMap.put("EYE_DOG_MORPH", "DOG_MORPH");
+		eyeTypeConverterMap.put("EYE_LYCAN", "LYCAN");
+		eyeTypeConverterMap.put("EYE_FELINE", "CAT_MORPH");
+		eyeTypeConverterMap.put("EYE_SQUIRREL", "SQUIRREL_MORPH");
+		eyeTypeConverterMap.put("EYE_HORSE_MORPH", "HORSE_MORPH");
+		eyeTypeConverterMap.put("EYE_HARPY", "HARPY");
+		eyeTypeConverterMap.put("EYE_SLIME", "SLIME");
+		if(eyeTypeConverterMap.containsKey(eyeTypeFromSave)) {
+			eyeTypeFromSave = eyeTypeConverterMap.get(eyeTypeFromSave);
+		}
+
+		Eye importedEye = new Eye(EyeType.valueOf(eyeTypeFromSave));
+		
+		importedEye.eyePairs = (Integer.valueOf(eye.getAttribute("eyePairs")));
+		importedEye.irisShape = (EyeShape.valueOf(eye.getAttribute("irisShape")));
+		importedEye.pupilShape = (EyeShape.valueOf(eye.getAttribute("pupilShape")));
+		
+		CharacterUtils.appendToImportLog(log, "</br></br>Body: Eye:"
+				+ "</br>type: "+importedEye.getType()
+				+ "</br>pairs: "+importedEye.getEyePairs()
+				+ "</br>iris shape: "+importedEye.getIrisShape()
+				+ "</br>pupil shape: "+importedEye.getPupilShape());
+		
+		
+		// **************** Face **************** //
+	
+		Element face = (Element)parentElement.getElementsByTagName("face").item(0);
+		Element mouth = (Element)parentElement.getElementsByTagName("mouth").item(0);
+		
+		Face importedFace = new Face(FaceType.valueOf(face.getAttribute("type")), Integer.valueOf(mouth.getAttribute("lipSize")));
+		
+		importedFace.piercedNose = (Boolean.valueOf(face.getAttribute("piercedNose")));
+		try {
+			importedFace.facialHair = (BodyHair.valueOf(face.getAttribute("facialHair")));
+		} catch(IllegalArgumentException e) {
+			importedFace.facialHair = BodyHair.ZERO_NONE;
+			CharacterUtils.appendToImportLog(log, "</br>facial hair: OLD_VALUE - Set to NONE");
+		}
+		
+			CharacterUtils.appendToImportLog(log, "</br></br>Body: Face: "
+					+ "</br>type: "+importedFace.getType()
+					+ "</br>piercedNose: "+importedFace.isPiercedNose()
+					+ "</br>facial hair: "+importedFace.getFacialHair()
+					
+					+ "</br></br>Mouth: ");
+			
+			importedFace.mouth.orificeMouth.elasticity = (Integer.valueOf(mouth.getAttribute("elasticity")));
+			importedFace.mouth.orificeMouth.plasticity = (Integer.valueOf(mouth.getAttribute("plasticity")));
+			importedFace.mouth.orificeMouth.capacity = (Float.valueOf(mouth.getAttribute("capacity")));
+			importedFace.mouth.orificeMouth.stretchedCapacity = (Float.valueOf(mouth.getAttribute("stretchedCapacity")));
+			importedFace.mouth.orificeMouth.virgin = (Boolean.valueOf(mouth.getAttribute("virgin")));
+			importedFace.mouth.piercedLip = (Boolean.valueOf(mouth.getAttribute("piercedLip")));
+			
+			CharacterUtils.appendToImportLog(log, 
+					"</br>elasticity: "+importedFace.mouth.orificeMouth.getElasticity()
+					+ "</br>plasticity: "+importedFace.mouth.orificeMouth.getPlasticity()
+					+ "</br>capacity: "+importedFace.mouth.orificeMouth.getCapacity()
+					+ "</br>stretchedCapacity: "+importedFace.mouth.orificeMouth.getStretchedCapacity()
+					+ "</br>virgin: "+importedFace.mouth.orificeMouth.isVirgin()
+					+ "</br>piercedLip: "+importedFace.mouth.isPiercedLip()
+					+ "</br>lipSize: "+importedFace.mouth.getLipSize()
+					+ "</br>Modifiers: ");
+			
+		Element mouthModifiers = (Element)mouth.getElementsByTagName("mouthModifiers").item(0);
+		
+		importedFace.mouth.orificeMouth.orificeModifiers.clear();
+		for(OrificeModifier om : OrificeModifier.values()) {
+			if(Boolean.valueOf(mouthModifiers.getAttribute(om.toString()))) {
+				importedFace.mouth.orificeMouth.orificeModifiers.add(om);
+				CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":true");
+			} else {
+				CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":false");
+			}
+		}
+
+		Element tongue = (Element)parentElement.getElementsByTagName("tongue").item(0);
+			importedFace.tongue.pierced = (Boolean.valueOf(tongue.getAttribute("piercedTongue")));
+			importedFace.tongue.tongueLength = (Integer.valueOf(tongue.getAttribute("tongueLength")));
+			
+			CharacterUtils.appendToImportLog(log, 
+					"</br></br>Tongue: "
+					+ "</br>piercedTongue: "+importedFace.tongue.isPierced()
+					+ "</br>tongueLength: "+importedFace.tongue.getTongueLength()
+					+ "</br>Modifiers: ");
+			
+			Element tongueModifiers = (Element)tongue.getElementsByTagName("tongueModifiers").item(0);
+			
+			importedFace.tongue.tongueModifiers.clear();
+			for(TongueModifier tm : TongueModifier.values()) {
+				if(Boolean.valueOf(tongueModifiers.getAttribute(tm.toString()))) {
+					importedFace.tongue.tongueModifiers.add(tm);
+					CharacterUtils.appendToImportLog(log, "</br>"+tm.toString()+":true");
+				} else {
+					CharacterUtils.appendToImportLog(log, "</br>"+tm.toString()+":false");
+				}
+			}
+			
+			
+		// **************** Hair **************** //
+		
+		Element hair = (Element)parentElement.getElementsByTagName("hair").item(0);
+		String hairTypeFromSave = hair.getAttribute("type");
+		
+		Map<String, String> hairTypeConverterMap = new HashMap<>();
+		hairTypeConverterMap.put("HAIR_HUMAN", "HUMAN");
+		hairTypeConverterMap.put("HAIR_ANGEL", "ANGEL");
+		hairTypeConverterMap.put("HAIR_DEMON", "DEMON_COMMON");
+		hairTypeConverterMap.put("HAIR_CANINE_FUR", "DOG_MORPH");
+		hairTypeConverterMap.put("HAIR_LYCAN_FUR", "LYCAN");
+		hairTypeConverterMap.put("HAIR_FELINE_FUR", "CAT_MORPH");
+		hairTypeConverterMap.put("HAIR_HORSE_HAIR", "HORSE_MORPH");
+		hairTypeConverterMap.put("HAIR_SQUIRREL_FUR", "SQUIRREL_MORPH");
+		hairTypeConverterMap.put("HAIR_SLIME", "SLIME");
+		hairTypeConverterMap.put("HAIR_HARPY", "HARPY");
+		if(hairTypeConverterMap.containsKey(hairTypeFromSave)) {
+			hairTypeFromSave = hairTypeConverterMap.get(hairTypeFromSave);
+		}
+		
+		Hair importedHair = new Hair(HairType.valueOf(hairTypeFromSave), Integer.valueOf(hair.getAttribute("length")), HairStyle.valueOf(hair.getAttribute("hairStyle")));
+		
+		CharacterUtils.appendToImportLog(log, "</br></br>Body: Hair: "
+				+ "</br>type: "+importedHair.getType()
+				+ "</br>length: "+importedHair.getLength()
+				+ "</br>hairStyle: "+importedHair.getStyle());
+
+		
+		// **************** Horn **************** //
+		Element horn = (Element)parentElement.getElementsByTagName("horn").item(0);
+		
+		Horn importedHorn = new Horn(HornType.NONE);
+		importedHorn.rows = (Integer.valueOf(horn.getAttribute("rows")));
+		
+		try {
+			importedHorn = new Horn(HornType.valueOf(horn.getAttribute("type")));
+			CharacterUtils.appendToImportLog(log, "</br></br>Body: Horn: "
+					+ "</br>type: "+importedHorn.getType()
+					+ "</br>rows: "+importedHorn.getHornRows());
+			
+		} catch(IllegalArgumentException e) {
+			if(horn.getAttribute("type").startsWith("DEMON")) {
+				importedHorn = new Horn(HornType.DEMON);
+				
+			} else if(horn.getAttribute("type").startsWith("BOVINE")) {
+				importedHorn = new Horn(HornType.BOVINE);
+			}
+			
+			CharacterUtils.appendToImportLog(log, "</br></br>Body: Horn: "
+					+ "</br>type NOT FOUND, defaulted to: "+importedHorn.getType()
+					+ "</br>rows: "+importedHorn.getHornRows());
+		}
+		
+		
+		
+			
+			
+		// **************** Leg **************** //
+		
+		Element leg = (Element)parentElement.getElementsByTagName("leg").item(0);
+		
+		Leg importedLeg = new Leg(LegType.valueOf(leg.getAttribute("type")));
+		
+		CharacterUtils.appendToImportLog(log, "</br></br>Body: Leg: "
+				+ "</br>type: "+importedLeg.getType());
+		
+		
+		// **************** Penis **************** //
+		
+		Element penis = (Element)parentElement.getElementsByTagName("penis").item(0);
+		Element testicles = (Element)parentElement.getElementsByTagName("testicles").item(0);
+		
+		Penis importedPenis = new Penis(PenisType.valueOf(penis.getAttribute("type")),
+				Integer.valueOf(penis.getAttribute("size")),
+				Integer.valueOf(testicles.getAttribute("testicleSize")),
+				Integer.valueOf(testicles.getAttribute("cumProduction")),
+				Integer.valueOf(testicles.getAttribute("numberOfTesticles")));
+		
+		importedPenis.pierced = (Boolean.valueOf(penis.getAttribute("pierced")));
+		
+		CharacterUtils.appendToImportLog(log, "</br></br>Body: Penis: "
+				+ "</br>type: "+importedPenis.getType()
+				+ "</br>size: "+importedPenis.getRawSizeValue()
+				+ "</br>pierced: "+importedPenis.isPierced()
+				+ "</br>Penis Modifiers: ");
+		
+		Element penisModifiers = (Element)penis.getElementsByTagName("penisModifiers").item(0);
+		
+		importedPenis.penisModifiers.clear();
+		for(PenisModifier pm : PenisModifier.values()) {
+			if(penisModifiers != null && Boolean.valueOf(penisModifiers.getAttribute(pm.toString()))) {
+				importedPenis.penisModifiers.add(pm);
+				CharacterUtils.appendToImportLog(log, "</br>"+pm.toString()+":true");
+			} else {
+				CharacterUtils.appendToImportLog(log, "</br>"+pm.toString()+":false");
+			}
+		}
+		
+		
+		importedPenis.orificeUrethra.elasticity = (Integer.valueOf(penis.getAttribute("elasticity")));
+		importedPenis.orificeUrethra.plasticity = (Integer.valueOf(penis.getAttribute("plasticity")));
+		importedPenis.orificeUrethra.capacity = (Float.valueOf(penis.getAttribute("capacity")));
+		importedPenis.orificeUrethra.stretchedCapacity = (Float.valueOf(penis.getAttribute("stretchedCapacity")));
+		importedPenis.orificeUrethra.virgin = (Boolean.valueOf(penis.getAttribute("virgin")));
+
+		CharacterUtils.appendToImportLog(log, 
+				"</br>elasticity: "+importedPenis.orificeUrethra.getElasticity()
+				+ "</br>plasticity: "+importedPenis.orificeUrethra.getPlasticity()
+				+ "</br>capacity: "+importedPenis.orificeUrethra.getCapacity()
+				+ "</br>stretchedCapacity: "+importedPenis.orificeUrethra.getStretchedCapacity()
+				+ "</br>virgin: "+importedPenis.orificeUrethra.isVirgin()
+				+ "</br>Urethra Modifiers:");
+		
+		Element urethraModifiers = (Element)penis.getElementsByTagName("urethraModifiers").item(0);
+		
+		importedPenis.orificeUrethra.orificeModifiers.clear();
+		for(OrificeModifier om : OrificeModifier.values()) {
+			if(Boolean.valueOf(urethraModifiers.getAttribute(om.toString()))) {
+				importedPenis.orificeUrethra.orificeModifiers.add(om);
+				CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":true");
+			} else {
+				CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":false");
+			}
+		}
+		
+		importedPenis.testicle.internal = (Boolean.valueOf(testicles.getAttribute("internal")));
+		
+		CharacterUtils.appendToImportLog(log, "</br></br>Testicles: "
+				+ "</br>cumProduction: "+importedPenis.testicle.getRawCumProductionValue()
+				+ "</br>numberOfTesticles: "+importedPenis.testicle.getTesticleCount()
+				+ "</br>testicleSize: "+importedPenis.testicle.getTesticleSize()
+				+ "</br>internal: "+importedPenis.testicle.isInternal());
+		
+		
+		CharacterUtils.appendToImportLog(log, "</br></br>Cum:");
+		
+		Element cum = (Element)parentElement.getElementsByTagName("cum").item(0);
+		importedPenis.testicle.cum.flavour = (FluidFlavour.valueOf(cum.getAttribute("flavour")));
+		
+		CharacterUtils.appendToImportLog(log, 
+				" flavour: "+importedPenis.testicle.cum.getFlavour()
+				+ "</br>Modifiers:");
+		
+		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
+		for(FluidModifier fm : FluidModifier.values()) {
+			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
+				importedPenis.testicle.cum.fluidModifiers.add(fm);
+				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":true");
+			} else {
+				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":false");
+			}
+		}
+
+		
+		// **************** Skin **************** //
+		
+		Element skin = (Element)parentElement.getElementsByTagName("skin").item(0);
+		String skinTypeFromSave = skin.getAttribute("type");
+		
+		Map<String, String> skinTypeConverterMap = new HashMap<>();
+		skinTypeConverterMap.put("HUMAN", "HUMAN");
+		skinTypeConverterMap.put("ANGEL", "ANGEL");
+		skinTypeConverterMap.put("DEMON_COMMON", "DEMON_COMMON");
+		skinTypeConverterMap.put("CANINE_FUR", "DOG_MORPH");
+		skinTypeConverterMap.put("LYCAN_FUR", "LYCAN");
+		skinTypeConverterMap.put("FELINE_FUR", "CAT_MORPH");
+		skinTypeConverterMap.put("SQUIRREL_FUR", "SQUIRREL_MORPH");
+		skinTypeConverterMap.put("HORSE_HAIR", "HORSE_MORPH");
+		skinTypeConverterMap.put("SLIME", "SLIME");
+		skinTypeConverterMap.put("FEATHERS", "HARPY");
+		if(skinTypeConverterMap.containsKey(skinTypeFromSave)) {
+			skinTypeFromSave = skinTypeConverterMap.get(skinTypeFromSave);
+		}
+		
+		Skin importedSkin = new Skin(SkinType.valueOf(skinTypeFromSave));
+		
+		CharacterUtils.appendToImportLog(log, "</br></br>Body: Skin: "
+				+ "</br>type: "+importedSkin.getType());
+
+		
+		// **************** Tail **************** //
+		
+		Element tail = (Element)parentElement.getElementsByTagName("tail").item(0);
+		
+		Tail importedTail = new Tail(TailType.valueOf(tail.getAttribute("type")));
+		
+		importedTail.tailCount = (Integer.valueOf(tail.getAttribute("count")));
+		
+		CharacterUtils.appendToImportLog(log, "</br></br>Body: Tail: "
+				+ "</br>type: "+importedTail.getType()
+				+ "</br>count: "+importedTail.getTailCount());
+		
+		
+		// **************** Vagina **************** //
+		
+		Element vagina = (Element)parentElement.getElementsByTagName("vagina").item(0);
+		
+		Vagina importedVagina = new Vagina(VaginaType.valueOf(vagina.getAttribute("type")),
+				(vagina.getAttribute("labiaSize").isEmpty()?1:Integer.valueOf(vagina.getAttribute("labiaSize"))),
+				Integer.valueOf(vagina.getAttribute("clitSize")),
+				Integer.valueOf(vagina.getAttribute("wetness")),
+				Float.valueOf(vagina.getAttribute("capacity")),
+				Integer.valueOf(vagina.getAttribute("elasticity")),
+				Integer.valueOf(vagina.getAttribute("plasticity")),
+				Boolean.valueOf(vagina.getAttribute("virgin")));
+		
+		importedVagina.pierced = (Boolean.valueOf(vagina.getAttribute("pierced")));
+		importedVagina.orificeVagina.stretchedCapacity = (Float.valueOf(vagina.getAttribute("stretchedCapacity")));
+		
+		CharacterUtils.appendToImportLog(log, "</br></br>Body: Vagina: "
+				+ "</br>type: "+importedVagina.getType()
+				+ "</br>clitSize: "+importedVagina.getClitorisSize()
+				+ "</br>pierced: "+importedVagina.isPierced()
+
+				+ "</br>wetness: "+importedVagina.orificeVagina.wetness
+				+ "</br>elasticity: "+importedVagina.orificeVagina.getElasticity()
+				+ "</br>plasticity: "+importedVagina.orificeVagina.getPlasticity()
+				+ "</br>capacity: "+importedVagina.orificeVagina.getCapacity()
+				+ "</br>stretchedCapacity: "+importedVagina.orificeVagina.getStretchedCapacity()
+				+ "</br>virgin: "+importedVagina.orificeVagina.isVirgin());
+		
+		Element vaginaModifiers = (Element)vagina.getElementsByTagName("vaginaModifiers").item(0);
+		
+		importedVagina.orificeVagina.orificeModifiers.clear();
+		if(vaginaModifiers!=null) {
+			for(OrificeModifier om : OrificeModifier.values()) {
+				if(Boolean.valueOf(vaginaModifiers.getAttribute(om.toString()))) {
+					importedVagina.orificeVagina.orificeModifiers.add(om);
+					CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":true");
+				} else {
+					CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":false");
+				}
+			}
+		}
+		
+		CharacterUtils.appendToImportLog(log, "</br></br>Girlcum:");
+		
+		Element girlcum = (Element)parentElement.getElementsByTagName("girlcum").item(0);
+		importedVagina.girlcum.flavour = (FluidFlavour.valueOf(girlcum.getAttribute("flavour")));
+		
+		CharacterUtils.appendToImportLog(log, 
+				" flavour: "+importedVagina.girlcum.getFlavour()
+				+ "</br>Modifiers:");
+		
+		Element girlcumModifiers = (Element)girlcum.getElementsByTagName("girlcumModifiers").item(0);
+		for(FluidModifier fm : FluidModifier.values()) {
+			if(Boolean.valueOf(girlcumModifiers.getAttribute(fm.toString()))) {
+				importedVagina.girlcum.fluidModifiers.add(fm);
+				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":true");
+			} else {
+				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":false");
+			}
+		}
+
+		
+		// **************** Wing **************** //
+		
+		Element wing = (Element)parentElement.getElementsByTagName("wing").item(0);
+		Wing importedWing = new Wing(WingType.valueOf(wing.getAttribute("type")));
+		CharacterUtils.appendToImportLog(log, "</br></br>Body: Wing: "
+				+ "</br>type: "+importedWing.getType()+"</br>");
+		
+		
+		Body body = new Body.BodyBuilder(
+				importedArm,
+				importedAss,
+				importedBreast,
+				importedFace,
+				importedEye,
+				importedEar,
+				importedHair,
+				importedLeg,
+				importedSkin,
+				importedBodyMaterial,
+				importedGenitalArrangement,
+				importedHeight,
+				importedFemininity,
+				importedBodySize,
+				importedMuscle)
+						.vagina(importedVagina)
+						.penis(importedPenis)
+						.horn(importedHorn)
+						.antenna(importedAntenna)
+						.tail(importedTail)
+						.wing(importedWing)
+						.build();
+		
+		body.setPiercedStomach(Boolean.valueOf(element.getAttribute("piercedStomach")));
+		CharacterUtils.appendToImportLog(log, "</br>Body: Set piercedStomach: "+Boolean.valueOf(element.getAttribute("piercedStomach")));
+		
+		if(element.getAttribute("pubicHair")!=null && !element.getAttribute("pubicHair").isEmpty()) {
+			try {
+				body.setPubicHair(BodyHair.valueOf(element.getAttribute("pubicHair")));
+				CharacterUtils.appendToImportLog(log, "</br>Body: Set pubicHair: "+body.getPubicHair());
+			} catch(IllegalArgumentException e) {
+				body.pubicHair = BodyHair.ZERO_NONE;
+				CharacterUtils.appendToImportLog(log, "</br>pubic hair: OLD_VALUE - Set to NONE");
+			}
+		}
+		
+		
+		for(int i=0; i<element.getElementsByTagName("bodyCovering").getLength(); i++){
+			Element e = ((Element)element.getElementsByTagName("bodyCovering").item(i));
+			
+			try {
+				body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(e.getAttribute("type")), CoveringPattern.valueOf(e.getAttribute("pattern")),
+						Colour.valueOf(e.getAttribute("colourPrimary")), Boolean.valueOf(e.getAttribute("glowPrimary")),
+						Colour.valueOf(e.getAttribute("colourSecondary")), Boolean.valueOf(e.getAttribute("glowSecondary")));
+			} catch(Exception ex) {
+			}
+			
+			if(Boolean.valueOf(e.getAttribute("discovered"))) {
+				body.getBodyCoveringTypesDiscovered().add(BodyCoveringType.valueOf(e.getAttribute("type")));
+			}
+			
+			CharacterUtils.appendToImportLog(log, "</br>Body: Set bodyCovering: "+e.getAttribute("type") +" pattern:"+CoveringPattern.valueOf(e.getAttribute("pattern"))
+				+" "+Colour.valueOf(e.getAttribute("colourPrimary")) +" glow:"+Boolean.valueOf(e.getAttribute("glowPrimary"))
+				+" | "+Colour.valueOf(e.getAttribute("colourSecondary")) +" glow:"+Boolean.valueOf(e.getAttribute("glowSecondary"))
+				+" (discovered: "+e.getAttribute("discovered")+")");
+		}
+		
+		return body;
+	}
+	
+	
+	
 	public List<BodyPartInterface> getAllBodyParts() {
 		return allBodyParts;
 	}
@@ -532,29 +1453,31 @@ public class Body implements Serializable {
 			case NONE:
 				sb.append("");
 				break;
-			case DEMON_COMMON_MALE:
-				if (owner.isPlayer())
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from your upper forehead.");
-				else
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from [npc.her] upper forehead.");
+			case DEMON:
+				if(owner.isFeminine()) {
+					if (owner.isPlayer())
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from your upper forehead.");
+					else
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from [npc.her] upper forehead.");
+				} else {
+					if (owner.isPlayer())
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from your upper forehead.");
+					else
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from [npc.her] upper forehead.");
+				}
 				break;
-			case DEMON_COMMON_FEMALE:
-				if (owner.isPlayer())
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from your upper forehead.");
-				else
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from [npc.her] upper forehead.");
-				break;
-			case BOVINE_MALE:
-				if (owner.isPlayer())
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, curved horns, looking much like ones that you'd see on a bull, protrude from the sides of your head.");
-				else
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, curved horns, looking much like ones that you'd see on a bull, protrude from the sides of [npc.her] head.");
-				break;
-			case BOVINE_FEMALE:
-				if (owner.isPlayer())
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, slightly-curved horns, looking much like ones that you'd see on a cow, protrude from the sides of your head.");
-				else
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, slightly-curved horns, looking much like ones that you'd see on a cow, protrude from the sides of [npc.her] head.");
+			case BOVINE:
+				if(owner.isFeminine()) {
+					if (owner.isPlayer())
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, slightly-curved horns, looking much like ones that you'd see on a cow, protrude from the sides of your head.");
+					else
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, slightly-curved horns, looking much like ones that you'd see on a cow, protrude from the sides of [npc.her] head.");
+				} else {
+					if (owner.isPlayer())
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, curved horns, looking much like ones that you'd see on a bull, protrude from the sides of your head.");
+					else
+						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, curved horns, looking much like ones that you'd see on a bull, protrude from the sides of [npc.her] head.");
+				}
 				break;
 			default:
 				if (owner.isPlayer())
@@ -679,39 +1602,39 @@ public class Body implements Serializable {
 		switch (ear.getType()) {
 			case HUMAN:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of normal, human ears" + (ear.isPierced() ? ", which have been pierced" : "") + ".");
+					sb.append(" You have a pair of normal, human ears, which are covered in [pc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				else
-					sb.append(" [npc.She] has a pair of normal, human ears" + (ear.isPierced() ? ", which have been pierced" : "") + ".");
+					sb.append(" [npc.She] has a pair of normal, human ears, which are covered in [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				break;
 			case DEMON_COMMON:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of pointed, demonic ears" + (ear.isPierced() ? ", which have been pierced" : "") + ".");
+					sb.append(" You have a pair of pointed, demonic ears, which are covered in [pc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				else
-					sb.append(" [npc.She] has a pair of pointed, demonic ears" + (ear.isPierced() ? ", which have been pierced" : "") + ".");
+					sb.append(" [npc.She] has a pair of pointed, demonic ears, which are covered in [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				break;
 			case DOG_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on your head.");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on your head and are are covered in [pc.earFullDescription(true)].");
 				else
-					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on [npc.her] head.");
+					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on [npc.her] head and are covered in [npc.earFullDescription(true)].");
 				break;
 			case LYCAN:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, wolf-like ears, which are positioned high up on your head.");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, wolf-like ears, which are positioned high up on your head and are are covered in [pc.earFullDescription(true)].");
 				else
-					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, wolf-like ears, which are positioned high up on [npc.her] head.");
+					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, wolf-like ears, which are positioned high up on [npc.her] head and are covered in [npc.earFullDescription(true)].");
 				break;
 			case CAT_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on your head.");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on your head and are are covered in [pc.earFullDescription(true)].");
 				else
-					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on [npc.her] head.");
+					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on [npc.her] head and are covered in [npc.earFullDescription(true)].");
 				break;
 			case COW_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of oval-shaped, cow-like ears" + (ear.isPierced() ? ", which have been pierced" : "") + ".");
+					sb.append(" You have a pair of oval-shaped, cow-like ears, which are covered in [pc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				else
-					sb.append(" [npc.She] has a pair of oval-shaped, cow-like ears" + (ear.isPierced() ? ", which have been pierced" : "") + ".");
+					sb.append(" [npc.She] has a pair of oval-shaped, cow-like ears, which are covered in [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				break;
 			case GATOR_MORPH:
 				if (owner.isPlayer())
@@ -723,15 +1646,15 @@ public class Body implements Serializable {
 				break;
 			case SQUIRREL_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, squirrel-like ears, which are positioned high up on your head.");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, squirrel-like ears, which are positioned high up on your head and are are covered in [pc.earFullDescription(true)].");
 				else
-					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, squirrel-like ears, which are positioned high up on [npc.her] head.");
+					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"rounded, squirrel-like ears, which are positioned high up on [npc.her] head and are covered in [npc.earFullDescription(true)].");
 				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, horse-like ears, which are positioned high up on your head.");
+					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, horse-like ears, which are positioned high up on your head and are are covered in [pc.earFullDescription(true)].");
 				else
-					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, horse-like ears, which are positioned high up on [npc.her] head.");
+					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, horse-like ears, which are positioned high up on [npc.her] head and are covered in [npc.earFullDescription(true)].");
 				break;
 			case SLIME:
 				if (owner.isPlayer())
@@ -1098,170 +2021,70 @@ public class Body implements Serializable {
 		if(owner.isPlayer()){
 			if(breast.getRawSizeValue()>0){
 				sb.append(" You have " + Util.intToString(breast.getRows()) + " pair" + (breast.getRows() == 1 ? "" : "s") + " of [pc.breastSize] [pc.breasts]");
-				switch(breast.getRows()){
-					case 1:
-						sb.append(", which fit comfortably into ");
-						if (breast.getSize() == CupSize.TRAINING) {
-							sb.append("a training bra.");
-						} else {
-							sb.append("[pc.a_cupSize]-cup bra.");
-						}
-						break;
-						
-					case 2:
-						sb.append(". Your top pair of breasts fit comfortably into ");
-						if (breast.getSize() == CupSize.TRAINING) {
-							sb.append("a training bra,");
-						} else {
-							sb.append("[pc.a_cupSize]-cup bra,");
-						}
-						if (breast.getSize().getMeasurement()-1 == 0) {
-							sb.append(" and the pair below them are completely flat.");
-							
-						} else {
-							sb.append(" and the pair below them fit into ");
-							if (CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-1) == CupSize.TRAINING) {
-								sb.append("a training bra.");
-							} else {
-								String cupSize = CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-1).getCupSizeName();
-								sb.append(UtilText.generateSingularDeterminer(cupSize)+" "+cupSize+"-cup bra.");
-							}
-						}
-						break;
-						
-					case 3:
-						sb.append(". Your top pair of breasts fit comfortably into ");
-						if (breast.getSize() == CupSize.TRAINING) {
-							sb.append("a training bra,");
-						} else {
-							sb.append("[pc.a_cupSize]-cup bra,");
-						}
-						if (breast.getSize().getMeasurement()-1 == 0) {
-							sb.append(" while your second and third pairs are completely flat.");
-						} else {
-							sb.append(" your second pair into ");
-							if (CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-1) == CupSize.TRAINING) {
-								sb.append("a training bra,");
-							} else {
-								String cupSize = CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-1).getCupSizeName();
-								sb.append(UtilText.generateSingularDeterminer(cupSize)+" "+cupSize+"-cup bra,");
-							}
-							if (breast.getSize().getMeasurement()-2 == 0) {
-								sb.append(" and your third, lowest pair are completely flat.");
-							} else {
-								sb.append(" and your third, lowest pair fit into ");
-								if (CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-2) == CupSize.TRAINING) {
-									sb.append("a training bra.");
-								} else {
-									String cupSize = CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-2).getCupSizeName();
-									sb.append(UtilText.generateSingularDeterminer(cupSize)+" "+cupSize+"-cup bra.");
-								}
-							}
-						}
-						break;
-						
-					default:break;
+				
+				if(breast.getRows()==1) {
+					if (breast.getSize() == CupSize.TRAINING) {
+						sb.append(", which fit comfortably into a training bra.");
+					} else {
+						sb.append(", which fit comfortably into [pc.a_cupSize]-cup bra.");
+					}
+					
+				} else if(breast.getRows()==2) {
+					if (breast.getSize() == CupSize.TRAINING) {
+						sb.append(", with your top pair fitting comfortably into a training bra, and the pair below being slightly smaller.");
+					} else {
+						sb.append(", with your top pair fitting comfortably into [pc.a_cupSize]-cup bra, and the pair below being slightly smaller.");
+					}
+					
+				} else if(breast.getRows()>2) {
+					if (breast.getSize() == CupSize.TRAINING) {
+						sb.append(", with your top pair fitting comfortably into a training bra, and the pairs below each being slightly smaller than the ones above.");
+					} else {
+						sb.append(", with your top pair fitting comfortably into [pc.a_cupSize]-cup bra, and the pairs below each being slightly smaller than the ones above.");
+					}
 				}
 				
 			} else {
 				sb.append(" You have a completely flat chest");
-				switch(breast.getRows()){
-					case 1:
-						sb.append(", with a single pair of pecs.");
-						break;
-					case 2:
-						sb.append(", with two pairs of pecs.");
-						break;
-					case 3:
-						sb.append(", with three pairs of pecs.");
-						break;
-					default:
-						break;
+				if(breast.getRows()==1) {
+					sb.append(", with a single pair of pecs.");
+				} else {
+					sb.append(", with "+Util.intToString(breast.getRows())+" pairs of pecs.");
 				}
 			}
 			
 		}else{
 			if(breast.getRawSizeValue()>0){
 				sb.append(" [npc.She] has " + Util.intToString(breast.getRows()) + " pair" + (breast.getRows() == 1 ? "" : "s") + " of [npc.breastSize] [npc.breasts]");
-				switch(breast.getRows()){
-					case 1:
-						sb.append(", which fit comfortably into ");
-						if (breast.getSize() == CupSize.TRAINING) {
-							sb.append("a training bra.");
-						} else {
-							sb.append("[npc.a_cupSize]-cup bra.");
-						}
-						break;
-						
-					case 2:
-						sb.append(". [npc.Her] top pair of breasts fit comfortably into ");
-						if (breast.getSize() == CupSize.TRAINING) {
-							sb.append("a training bra,");
-						} else {
-							sb.append("[npc.a_cupSize]-cup bra,");
-						}
-						if (breast.getSize().getMeasurement()-1 == 0) {
-							sb.append(" and the pair below them are completely flat.");
-							
-						} else {
-							sb.append(" and the pair below them fit into ");
-							if (CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-1) == CupSize.TRAINING) {
-								sb.append("a training bra.");
-							} else {
-								String cupSize = CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-1).getCupSizeName();
-								sb.append(UtilText.generateSingularDeterminer(cupSize)+" "+cupSize+"-cup bra.");
-							}
-						}
-						break;
-						
-					case 3:
-						sb.append(". [npc.Her] top pair of breasts fit comfortably into ");
-						if (breast.getSize() == CupSize.TRAINING) {
-							sb.append("a training bra,");
-						} else {
-							sb.append("[npc.a_cupSize]-cup bra,");
-						}
-						if (breast.getSize().getMeasurement()-1 == 0) {
-							sb.append(" while [npc.her] second and third pairs are completely flat.");
-						} else {
-							sb.append(" [npc.her] second pair into ");
-							if (CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-1) == CupSize.TRAINING) {
-								sb.append("a training bra,");
-							} else {
-								String cupSize = CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-1).getCupSizeName();
-								sb.append(UtilText.generateSingularDeterminer(cupSize)+" "+cupSize+"-cup bra,");
-							}
-							if (breast.getSize().getMeasurement()-2 == 0) {
-								sb.append(" and [npc.her] third, lowest pair are completely flat.");
-							} else {
-								sb.append(" and [npc.her] third, lowest pair fit into ");
-								if (CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-2) == CupSize.TRAINING) {
-									sb.append("a training bra.");
-								} else {
-									String cupSize = CupSize.getCupSizeFromInt(breast.getSize().getMeasurement()-2).getCupSizeName();
-									sb.append(UtilText.generateSingularDeterminer(cupSize)+" "+cupSize+"-cup bra.");
-								}
-							}
-						}
-						break;
-						
-					default:break;
+				
+				if(breast.getRows()==1) {
+					if (breast.getSize() == CupSize.TRAINING) {
+						sb.append(", which fit comfortably into a training bra.");
+					} else {
+						sb.append(", which fit comfortably into [npc.a_cupSize]-cup bra.");
+					}
+					
+				} else if(breast.getRows()==2) {
+					if (breast.getSize() == CupSize.TRAINING) {
+						sb.append(", with [npc.her] top pair fitting comfortably into a training bra, and the pair below being slightly smaller.");
+					} else {
+						sb.append(", with [npc.her] top pair fitting comfortably into [npc.a_cupSize]-cup bra, and the pair below being slightly smaller.");
+					}
+					
+				} else if(breast.getRows()>2) {
+					if (breast.getSize() == CupSize.TRAINING) {
+						sb.append(", with [npc.her] top pair fitting comfortably into a training bra, and the pairs below each being slightly smaller than the ones above.");
+					} else {
+						sb.append(", with [npc.her] top pair fitting comfortably into [npc.a_cupSize]-cup bra, and the pairs below each being slightly smaller than the ones above.");
+					}
 				}
 				
 			} else {
 				sb.append(" [npc.She] has a completely flat chest");
-				switch(breast.getRows()){
-					case 1:
-						sb.append(", with a single pair of pecs.");
-						break;
-					case 2:
-						sb.append(", with two pairs of pecs.");
-						break;
-					case 3:
-						sb.append(", with three pairs of pecs.");
-						break;
-					default:
-						break;
+				if(breast.getRows()==1) {
+					sb.append(", with a single pair of pecs.");
+				} else {
+					sb.append(", with "+Util.intToString(breast.getRows())+" pairs of pecs.");
 				}
 			}
 		}
@@ -1874,7 +2697,13 @@ public class Body implements Serializable {
 				}
 				int currentParts = 0;
 				int nonHumanParts = 0;
-
+				
+				if (antenna.getType() == RacialBody.valueOfRace(r).getAntennaType()) {
+					currentParts++;
+					if (antenna.getType() != RacialBody.valueOfRace(Race.HUMAN).getAntennaType())
+						nonHumanParts++;
+				}
+				
 				if (ass.getType() == RacialBody.valueOfRace(r).getAssType()) {
 					currentParts++;
 					if (ass.getType() != RacialBody.valueOfRace(Race.HUMAN).getAssType())
@@ -1905,9 +2734,9 @@ public class Body implements Serializable {
 						nonHumanParts++;
 				}
 
-				if (horn.getType() == RacialBody.valueOfRace(r).getHornTypeFemale() || horn.getType() == RacialBody.valueOfRace(r).getHornTypeMale()) {
+				if (horn.getType() == RacialBody.valueOfRace(r).getHornType()) {
 					currentParts++;
-					if (horn.getType() != RacialBody.valueOfRace(Race.HUMAN).getHornTypeMale())
+					if (horn.getType() != RacialBody.valueOfRace(Race.HUMAN).getHornType())
 						nonHumanParts++;
 				}
 
@@ -1935,7 +2764,7 @@ public class Body implements Serializable {
 
 				if (nonHumanParts > leaderNonHumanParts) {
 					this.race = r;
-					if (currentParts == 8) {
+					if (currentParts == 9) {
 						raceStage = RaceStage.PARTIAL_FULL;
 					} else {
 						raceStage = RaceStage.PARTIAL;
@@ -3571,7 +4400,43 @@ public class Body implements Serializable {
 			default:
 				break;
 		}
-
+		
+		for(OrificeModifier om : OrificeModifier.values()) {
+			if(owner.hasVaginaOrificeModifier(om)) {
+				if(owner.isPlayer()) {
+					switch(om) {
+						case MUSCLE_CONTROL:
+							descriptionSB.append(" You have a series of internal muscles lining the inside of your [pc.vagina], allowing you to expertly squeeze and grip down on any intruding object.");
+							break;
+						case PUFFY:
+							descriptionSB.append(" Your labia have swollen up into big, extra-puffy pussy lips.");
+							break;
+						case RIBBED:
+							descriptionSB.append(" The inside of your [pc.vagina] is lined with sensitive, fleshy ribs, which grant you extra pleasure when stimulated.");
+							break;
+						case TENTACLED:
+							descriptionSB.append(" Your [pc.vagina] is filled with tiny little tentacles, which wriggle and squirm with a mind of their own.");
+							break;
+					}
+				} else {
+					switch(om) {
+						case MUSCLE_CONTROL:
+							descriptionSB.append(" [npc.She] has a series of internal muscles lining the inside of [npc.her] [npc.vagina], allowing [npc.herHim] to expertly squeeze and grip down on any intruding object.");
+							break;
+						case PUFFY:
+							descriptionSB.append(" [npc.Her] labia have swollen up into big, extra-puffy pussy lips.");
+							break;
+						case RIBBED:
+							descriptionSB.append(" The inside of [npc.her] [npc.vagina] is lined with sensitive, fleshy ribs, which grant [npc.herHim] extra pleasure when stimulated.");
+							break;
+						case TENTACLED:
+							descriptionSB.append(" [npc.Her] [npc.vagina] is filled with tiny little tentacles, which wriggle and squirm with a mind of their own.");
+							break;
+					}
+				}
+			}
+		}
+		
 		return UtilText.parse(owner, descriptionSB.toString());
 	}
 
@@ -3891,8 +4756,7 @@ public class Body implements Serializable {
 	/**
 	 * Sets height attribute. Bound between 122 (4 feet) and 365 (12 feet).
 	 * 
-	 * @param height
-	 *            Value to set height to.
+	 * @param height Value to set height to.
 	 * @return True if height was changed.
 	 */
 	public boolean setHeight(int height) {

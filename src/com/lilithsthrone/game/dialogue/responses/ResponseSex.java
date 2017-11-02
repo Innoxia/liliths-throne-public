@@ -15,13 +15,13 @@ import com.lilithsthrone.game.sex.managers.SexManagerInterface;
 
 /**
  * @since 0.1.69
- * @version 0.1.86
+ * @version 0.1.88
  * @author Innoxia
  */
 public class ResponseSex extends Response {
 	
 	private boolean consensual;
-	private boolean canResist;
+	private boolean subHasEqualControl;
 	private NPC partner;
 	private SexManagerInterface sexManager;
 	private DialogueNodeOld postSexDialogue;
@@ -35,24 +35,24 @@ public class ResponseSex extends Response {
 	}
 	
 	public ResponseSex(String title, String tooltipText, DialogueNodeOld nextDialogue,
-			boolean consensual, boolean canResist, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue, String sexStartDescription) {
+			boolean consensual, boolean subHasEqualControl, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue, String sexStartDescription) {
 		this(title, tooltipText, nextDialogue,
 				null, null, null,
 				null, null, null,
-				consensual, canResist, partner, sexManager, postSexDialogue, sexStartDescription);
+				consensual, subHasEqualControl, partner, sexManager, postSexDialogue, sexStartDescription);
 	}
 	
 	public ResponseSex(String title, String tooltipText, DialogueNodeOld nextDialogue,
 			List<Fetish> fetishesForUnlock, List<Fetish> fetishesBlocking, CorruptionLevel corruptionBypass,
 			List<Perk> perksRequired, Femininity femininityRequired, Race raceRequired,
-			boolean consensual, boolean canResist, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue, String sexStartDescription
+			boolean consensual, boolean subHasEqualControl, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue, String sexStartDescription
 			) {
 		super(title, tooltipText, nextDialogue,
 				fetishesForUnlock, corruptionBypass,
 				perksRequired, femininityRequired, raceRequired);
 		
 		this.consensual = consensual;
-		this.canResist = canResist;
+		this.subHasEqualControl = subHasEqualControl;
 		this.partner = partner;
 		this.sexManager = sexManager;
 		this.postSexDialogue = postSexDialogue;
@@ -65,7 +65,7 @@ public class ResponseSex extends Response {
 	}
 	
 	public DialogueNodeOld initSex() {
-		return Sex.SEX.initialiseSex(consensual, canResist, partner, sexManager, postSexDialogue, sexStartDescription, sexPacePlayer, sexPacePartner);
+		return Sex.SEX.initialiseSex(consensual, subHasEqualControl, partner, sexManager, postSexDialogue, sexStartDescription, sexPacePlayer, sexPacePartner);
 	}
 	
 

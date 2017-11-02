@@ -2,22 +2,22 @@ package com.lilithsthrone.game.character.race;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.0
- * @version 0.1.79
+ * @version 0.1.87
  * @author Innoxia
  */
 public enum Race {
 
 	// HUMAN:
-	HUMAN("human",
+	HUMAN("human", "humans",
 			
 			"man",
 			"woman",
@@ -54,16 +54,13 @@ public enum Race {
 			0.5f,
 			1,
 			1,
-			
-			TFEssence.HUMAN){
-		@Override
-		public boolean isAffectedByFurryPreference() {
-			return false;
-		}
-	},
+			Attribute.DAMAGE_HUMAN,
+			Attribute.RESISTANCE_HUMAN,
+			null,
+			null),
 
 	// ANGEL:
-	ANGEL("angel",
+	ANGEL("angel", "angels",
 			"angel",
 			"angel",
 			"angel",
@@ -96,17 +93,13 @@ public enum Race {
 			0.25f,
 			1,
 			1,
-			
-			TFEssence.HUMAN // ANGEL
-			){
-		@Override
-		public boolean isAffectedByFurryPreference() {
-			return false;
-		}
-	},
+			Attribute.DAMAGE_ANGEL,
+			Attribute.RESISTANCE_ANGEL,
+			null,
+			null),
 
 	// DEMON:
-	DEMON("demon",
+	DEMON("demon", "demons",
 			"incubus",
 			"succubus",
 			"incubi",
@@ -142,8 +135,10 @@ public enum Race {
 			0f,
 			4,
 			8,
-			
-			TFEssence.DEMON){
+			Attribute.DAMAGE_DEMON,
+			Attribute.RESISTANCE_DEMON,
+			null,
+			null){
 		
 		@Override
 		public String getOffspringMaleName() {
@@ -162,15 +157,10 @@ public enum Race {
 		public String getOffspringFemaleNameSingular() {
 			return "imp";
 		}
-		
-		@Override
-		public boolean isAffectedByFurryPreference() {
-			return false;
-		}
 	},
 
 	// BOVINES:
-	COW_MORPH("cow-morph",
+	COW_MORPH("cow-morph", "cow-morphs",
 			"cow-boy",
 			"cow-girl",
 			"cow-boys",
@@ -203,11 +193,13 @@ public enum Race {
 			0.5f,
 			1,
 			2,
-			
-			TFEssence.COW_MORPH),
+			Attribute.DAMAGE_COW_MORPH,
+			Attribute.RESISTANCE_COW_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	// CANINES:
-	DOG_MORPH("dog-morph",
+	DOG_MORPH("dog-morph", "dog-morphs",
 			"dog-boy",
 			"dog-girl",
 			"dog-boys",
@@ -239,11 +231,13 @@ public enum Race {
 			0.5f,
 			2,
 			6,
-			
-			TFEssence.DOG_MORPH),
+			Attribute.DAMAGE_DOG_MORPH,
+			Attribute.RESISTANCE_DOG_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	WOLF_MORPH(
-			"wolf-morph",
+			"wolf-morph", "wolf-morphs",
 			
 			"wolf-boy",
 			"wolf-girl",
@@ -278,11 +272,13 @@ public enum Race {
 			0.5f,
 			2,
 			6,
-			
-			TFEssence.WOLF_MORPH),
+			Attribute.DAMAGE_WOLF_MORPH,
+			Attribute.RESISTANCE_WOLF_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	// FELINES:
-	CAT_MORPH("cat-morph",
+	CAT_MORPH("cat-morph", "cat-morphs",
 			
 			"cat-boy",
 			"cat-girl",
@@ -319,12 +315,14 @@ public enum Race {
 			0.5f,
 			2,
 			6,
-			
-			TFEssence.CAT_MORPH),
+			Attribute.DAMAGE_CAT_MORPH,
+			Attribute.RESISTANCE_CAT_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	// EQUINE:
 	HORSE_MORPH(
-			"horse-morph",
+			"horse-morph", "horse-morphs",
 			
 			"horse-boy",
 			"horse-girl",
@@ -360,12 +358,14 @@ public enum Race {
 			0.5f,
 			1,
 			2,
-			
-			TFEssence.HORSE_MORPH),
+			Attribute.DAMAGE_HORSE_MORPH,
+			Attribute.RESISTANCE_HORSE_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	
 	SQUIRREL_MORPH(
-			"squirrel-morph",
+			"squirrel-morph", "squirrel-morphs",
 			
 			"squirrel-boy",
 			"squirrel-girl",
@@ -402,8 +402,10 @@ public enum Race {
 			0.25f,
 			1,
 			1,
-			
-			TFEssence.SQUIRREL_MORPH),
+			Attribute.DAMAGE_SQUIRREL_MORPH,
+			Attribute.RESISTANCE_SQUIRREL_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 	
 	GATOR_MORPH(
 			"gator-morph",
@@ -447,7 +449,7 @@ public enum Race {
 			TFEssence.GATOR_MORPH),
 
 	// SLIME:
-	SLIME("slime",
+	SLIME("slime", "slimes",
 			
 			"slime",
 			"slime",
@@ -487,17 +489,13 @@ public enum Race {
 			0.5f,
 			2,
 			6,
-			
-			TFEssence.HUMAN //SLIME
-			){
-		@Override
-		public boolean isAffectedByFurryPreference() {
-			return false;
-		}
-	},
+			Attribute.DAMAGE_HUMAN,
+			Attribute.RESISTANCE_HUMAN,
+			null,
+			null),
 
 	// AVIAN:
-	HARPY("harpy",
+	HARPY("harpy", "harpies",
 			
 			"harpy",
 			"harpy",
@@ -555,13 +553,10 @@ public enum Race {
 			0.5f,
 			4,
 			8,
-			
-			TFEssence.HARPY){
-		@Override
-		public boolean isAffectedByFurryPreference() {
-			return false;
-		}
-	};
+			Attribute.DAMAGE_HARPY,
+			Attribute.RESISTANCE_HARPY,
+			null,
+			null);
 
 	/*
 	 * // INSECTS: BEE_MORPH("bee-morph",
@@ -1518,7 +1513,7 @@ public enum Race {
 	 * StatusEffect.LILIN);
 	 */
 
-	private String name, singularMaleName, singularFemaleName, pluralMaleName, pluralFemaleName, basicDescription, advancedDescription;
+	private String name, namePlural, singularMaleName, singularFemaleName, pluralMaleName, pluralFemaleName, basicDescription, advancedDescription;
 	private Colour colour;
 	private Genus genus;
 	private Disposition disposition;
@@ -1527,10 +1522,12 @@ public enum Race {
 	private boolean vulnerableToLilithsLustStorm;
 	private int numberOfOffspringLow, numberOfOffspringHigh;
 	private float chanceForMaleOffspring;
-	private TFEssence relatedEssence;
-
+	private Attribute damageMultiplier, resistanceMultiplier;
+	private FurryPreference defaultFemininePreference, defaultMasculinePreference;
+	
 	private Race(
 			String name,
+			String namePlural,
 			String singularMaleName,
 			String singularFemaleName,
 			String pluralMaleName,
@@ -1549,8 +1546,13 @@ public enum Race {
 			float chanceForMaleOffspring,
 			int numberOfOffspringLow, int numberOfOffspringHigh,
 			
-			TFEssence relatedEssence) {
+			Attribute damageMultiplier,
+			Attribute resistanceMultiplier,
+			
+			FurryPreference defaultFemininePreference,
+			FurryPreference defaultMasculinePreference) {
 		this.name = name;
+		this.namePlural = namePlural;
 
 		this.singularMaleName = singularMaleName;
 		this.singularFemaleName = singularFemaleName;
@@ -1574,13 +1576,20 @@ public enum Race {
 		
 		this.numberOfOffspringLow = numberOfOffspringLow;
 		this.numberOfOffspringHigh = numberOfOffspringHigh;
-
 		
-		this.relatedEssence = relatedEssence;
+		this.damageMultiplier = damageMultiplier;
+		this.resistanceMultiplier = resistanceMultiplier;
+		
+		this.defaultFemininePreference = defaultFemininePreference;
+		this.defaultMasculinePreference = defaultMasculinePreference;
 	}
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getNamePlural() {
+		return namePlural;
 	}
 
 	public String getBasicDescription() {
@@ -1640,7 +1649,7 @@ public enum Race {
 	}
 	
 	public boolean isAffectedByFurryPreference() {
-		return true;
+		return defaultFemininePreference != null && defaultMasculinePreference!=null;
 	}
 	
 	// Offspring names:
@@ -1663,8 +1672,20 @@ public enum Race {
 		return singularFemaleName;
 	}
 
-	public TFEssence getRelatedEssence() {
-		return relatedEssence;
+	public Attribute getDamageMultiplier() {
+		return damageMultiplier;
+	}
+
+	public Attribute getResistanceMultiplier() {
+		return resistanceMultiplier;
+	}
+
+	public FurryPreference getDefaultFemininePreference() {
+		return defaultFemininePreference;
+	}
+
+	public FurryPreference getDefaultMasculinePreference() {
+		return defaultMasculinePreference;
 	}
 
 }

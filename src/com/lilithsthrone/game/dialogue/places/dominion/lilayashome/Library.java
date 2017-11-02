@@ -1,16 +1,21 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
+import java.util.List;
+
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.78
- * @version 0.1.84
+ * @version 0.1.87
  * @author Innoxia, Rfpnj
  */
 public class Library {
@@ -25,23 +30,75 @@ public class Library {
 
 		@Override
 		public String getContent() {
-			return "<p>"
+			UtilText.nodeContentSB.setLength(0);
+			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			
+			UtilText.nodeContentSB.append("<p>"
 					+ "Pushing open the heavy wooden door, you find yourself walking into Lilaya's library."
 					+ " Much like her lab, all four walls are covered in shelving; stacked full of what must be thousands of books of all shapes and sizes."
 					+ " Much of the room is taken up by free-standing book cases, although there's a little space on one side of the room, where a couple of comfortable leather-bound chairs flank an ornate fireplace."
-				+ "</p>";
+				+ "</p>");
+			
+			if(charactersPresent.isEmpty()) {
+				UtilText.nodeContentSB.append("<p>"
+							+ "The library is deserted at the moment..."
+						+ "</p>");
+			} else {
+				for(NPC slave : charactersPresent) {
+					switch(slave.getObedience()) {
+					case NEGATIVE_FIVE_REBELLIOUS: case NEGATIVE_FOUR_DEFIANT: case NEGATIVE_THREE_STRONG_INSUBORDINATE:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "Although <b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.name]</b> is here, [npc.she]'s not even bothering to pretend that [npc.she]'s working."
+								+ "</p>"));
+						break;
+					case NEGATIVE_ONE_DISOBEDIENT:  case NEGATIVE_TWO_UNRULY:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> appears to be half-heartedly ordering some books."
+								+ "</p>"));
+						break;
+					case ZERO_FREE_WILLED:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is dusting the shelves and making sure that everything is in order."
+								+ "</p>"));
+						break;
+					case POSITIVE_ONE_AGREEABLE: case POSITIVE_TWO_OBEDIENT:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is reorganising one of the shelves."
+								+ "</p>"));
+						break;
+					case POSITIVE_THREE_DISCIPLINED: case POSITIVE_FOUR_DUTIFUL: case POSITIVE_FIVE_SUBSERVIENT:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is dutifully making a catalogue of all the books available in the library."
+								+ "</p>"));
+						break;
+					}
+				}
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
-		public Response getResponse(int main) {
-			if (main == 1) {
-				return new Response("Browse the Shelves", "Read one of the many books available in the library.", BROWSE_BOOKS) {
-				};
+		public Response getResponse(int index) {
+			if (index==0) {
+				return null;
+			 
+			} else if (index == 1) {
+				return new Response("Browse the Shelves", "Read one of the many books available in the library.", BROWSE_BOOKS);
 
-			} else if (main == 2) {
-				return new Response("Interact with Slaves", "Not yet implemented", null) {
+			} else if(index-2<Main.game.getCharactersPresent().size()) {
+				return new Response(UtilText.parse(Main.game.getCharactersPresent().get(index-2), "[npc.Name]"), UtilText.parse(Main.game.getCharactersPresent().get(index-2), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+					@Override
+					public void effects() {
+						Main.game.setActiveNPC(Main.game.getCharactersPresent().get(index-2));
+					}
 				};
-
+					
 			} else {
 				return null;
 			}
@@ -95,6 +152,9 @@ public class Library {
 //				return new Response("The Desert", "A section of the library dedicated to books on the area known as the Desert.", DESERT_BOOKS) {
 //				};
 
+			} else if (books == 0) {
+				return new Response("Back", "Return to the main library menu.", LIBRARY);
+
 			} else {
 				return null;
 			}
@@ -133,7 +193,7 @@ public class Library {
 					@Override
 					public void effects() {
 						if(!Main.game.getDialogueFlags().readBook1) {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f));
+							Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f);
 							Main.game.getDialogueFlags().readBook1 = true;
 						}
 					}
@@ -144,7 +204,7 @@ public class Library {
 					@Override
 					public void effects() {
 						if(!Main.game.getDialogueFlags().readBook2) {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f));
+							Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f);
 							Main.game.getDialogueFlags().readBook2 = true;
 						}
 					}

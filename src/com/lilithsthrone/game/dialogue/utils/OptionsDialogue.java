@@ -12,6 +12,7 @@ import java.util.Comparator;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.KeyboardAction;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
@@ -20,20 +21,20 @@ import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.86
+ * @version 0.1.87
  * @author Innoxia
  */
 public class OptionsDialogue {
@@ -51,9 +52,8 @@ public class OptionsDialogue {
 		@Override
 		public String getContent(){
 			return "<h1 class='special-text' style='font-size:48px; line-height:52px; text-align:center;'>Lilith's Throne</h1>"
-					+ "<h5 class='special-text' style='text-align:center;'>"
-						+ "Created by Innoxia"
-					+ "</h5>"
+					+ "<h4 class='special-text' style='text-align:center;'>Spooky Witches Edition</h4>"
+					+ "<h5 class='special-text' style='text-align:center;'>Created by Innoxia</h5>"
 					+ "</br>"
 					+ "<p>"
 						+ "This game is a text-based erotic RPG, and contains a lot of graphic sexual content. You must agree to the game's disclaimer before playing this game!"
@@ -68,7 +68,8 @@ public class OptionsDialogue {
 							:"<h4 style='text-align:center;'>Last save:</h4>"
 								+ "<h5 style='color:" + Main.getProperties().nameColour + ";text-align:center;'>" + Main.getProperties().name + "</h5>"
 								+ "<p style='text-align:center;'><b>Level " + Main.getProperties().level + " " + Util.capitaliseSentence(Main.getProperties().race) + "</b></p>"
-								+ "<p style='text-align:center;'>" + UtilText.formatAsMoney(Main.getProperties().money, "span") + "</p>"
+								+ "<p style='text-align:center;'>" + UtilText.formatAsMoney(Main.getProperties().money, "b") + "</p>"
+								+ "<div style='text-align:center; display:block; margin:auto;'>" + UtilText.formatAsEssences(Main.getProperties().arcaneEssences, "b", false) + "</div>"
 								+ "<p style='text-align:center;'>Quest: " + Util.capitaliseSentence(Main.getProperties().quest) + "</p>");
 		}
 		
@@ -214,29 +215,37 @@ public class OptionsDialogue {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("<p style='text-align:center;'>"
-					+ "Your java version: "+System.getProperty("java.version")
-				+" | ");
+					+ "Your java version: "+System.getProperty("java.version"));
+//				+" | ");
 		
-		String[] version = System.getProperty("java.version").split("\\.");
-		if(version.length>=2) {
-			if(Integer.valueOf(version[1])<8) {
-				sb.append("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You have an old version of java!</span> This game needs at least v1.8.0_131 to work correctly!");
-				
-			} else {
-				if(version.length==3){
-					String[] versionMinor = version[2].split("_");
-					if(versionMinor.length>=2)
-						if(Integer.valueOf(versionMinor[1])<131) {
-							sb.append("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You have an old version of java!</span> This game needs at least v1.8.0_131 to work correctly!");
-							
-						} else {
-							sb.append("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Your java is up to date!</span>");
-						}
-				} else {
-					sb.append("This game needs at least v1.8.0_131 to work correctly!");
-				}
-			}
-		}
+//		String[] version = System.getProperty("java.version").split("\\.");
+//		if(version[0]!=null) {
+//			if(Integer.valueOf(version[0])<9) {
+//				sb.append("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You have an old version of java!</span> This game needs at least 9.0.1 to work correctly!");
+//			} else {
+//				sb.append("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Your java is up to date!</span>");
+//			}
+//		}
+//		if(version.length>=2) {
+//			if(Integer.valueOf(version[1])<8) {
+//				sb.append("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You have an old version of java!</span> This game needs at least v1.8.0_131 to work correctly!");
+//				
+//			} else {
+//				if(version.length==3){
+//					String[] versionMinor = version[2].split("_");
+//					if(versionMinor.length>=2)
+//						if(Integer.valueOf(versionMinor[1])<131) {
+//							sb.append("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You have an old version of java!</span> This game needs at least v1.8.0_131 to work correctly!");
+//							
+//						} else {
+//							sb.append("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Your java is up to date!</span>");
+//						}
+//				} else {
+//					sb.append("This game needs at least v1.8.0_131 to work correctly!");
+//				}
+//			}
+//		}
+		
 		sb.append("</p>");
 		
 		return sb.toString();
@@ -282,9 +291,10 @@ public class OptionsDialogue {
 				}
 			}
 
-			if(Main.game.isStarted())
+			if(Main.game.isStarted()) {
 				saveLoadSB.append(getSaveLoadRow(null, null));
-
+			}
+			
 			saveLoadSB.append("</table>"
 					+ "</p>"
 					+ "<p id='hiddenPField' style='display:none;'></p>");
@@ -352,9 +362,11 @@ public class OptionsDialogue {
 								:"<div class='saveLoadButton' id='load_saved_" + baseName + "' style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Load</div>")
 					+ "</td>"
 					+ "<td>"
-						+ (name.equals(overwriteConfirmationName)
-							?"<div class='saveLoadButton' id='overwrite_saved_" + baseName + "' style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Confirm</div>"
-							:"<div class='saveLoadButton' id='overwrite_saved_" + baseName + "' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Overwrite</div>")
+						+ (Main.game.isStarted()
+								?(name.equals(overwriteConfirmationName)
+									?"<div class='saveLoadButton' id='overwrite_saved_" + baseName + "' style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Confirm</div>"
+									:"<div class='saveLoadButton' id='overwrite_saved_" + baseName + "' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Overwrite</div>")
+										:"<div class='saveLoadButton disabled' style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Overwrite</div>")
 					+ "</td>"
 					+ "<td>"
 						+ (name.equals(deleteConfirmationName)
@@ -656,8 +668,9 @@ public class OptionsDialogue {
 						+ "<h5 style='text-align:center;'>Player-specific pronouns:</h5>"
 						+ "<table align='center'>"
 							+ "<tr>"
+								+ "<th>Pronoun</th>"
 								+ "<th style='color:"+Colour.MASCULINE.toWebHexString()+";'>Masculine</th>"
-								+ "<th>Pronoun</th><th style='color:"+Colour.FEMININE.toWebHexString()+";'>Feminine</th>"
+								+ "<th style='color:"+Colour.FEMININE.toWebHexString()+";'>Feminine</th>"
 							+ "</tr>"
 							+ getPronounTableRow(GenderPronoun.NOUN)
 							+ getPronounTableRow(GenderPronoun.YOUNG_NOUN)
@@ -1013,11 +1026,7 @@ public class OptionsDialogue {
 						+ " The 'Human encounters' option determines what the chance is for random NPCs to be fully human."
 						+ " <b>These options only affect random NPCs at the moment, but I'll do my best to add reduced-furry versions of each major NPC as well!</b>"
 						
-						+ "</br><b style='color:"+RaceStage.HUMAN.getColour().toWebHexString()+";'>Human:</b> "+FurryPreference.HUMAN.getDescription()
-						+ "</br><b style='color:"+RaceStage.PARTIAL_FULL.getColour().toWebHexString()+";'>Minimum:</b> "+FurryPreference.MINIMUM.getDescription()
-						+ "</br><b style='color:"+RaceStage.PARTIAL_FULL.getColour().toWebHexString()+";'>Reduced:</b> "+FurryPreference.REDUCED.getDescription()
-						+ "</br><b style='color:"+RaceStage.LESSER.getColour().toWebHexString()+";'>Normal:</b> "+FurryPreference.NORMAL.getDescription()
-						+ "</br><b style='color:"+RaceStage.GREATER.getColour().toWebHexString()+";'>Maximum:</b> "+FurryPreference.MAXIMUM.getDescription()
+						+ "</br></br>[style.boldGood(Hover over the buttons to see what each option means!)]"
 						
 						+ "</br></br>Please note that mythological and demonic races, such as harpies and demons, are not affected by furry preferences."
 					+ "</div>"
@@ -1028,59 +1037,151 @@ public class OptionsDialogue {
 					+ "<div style='display:inline-block; margin:0 auto;'>");
 			
 			UtilText.nodeContentSB.append(
-					"<div style='width:160px; float:left;'>"
-						+ "<b>Human encounters:</b> "
-					+ "</div>"
-						+ "<div id='furry_preference_human_encounter_zero' class='preference-button"+(Main.getProperties().humanEncountersLevel==0?" selected":"")+"'>Off</div>"
-						+ "<div id='furry_preference_human_encounter_one' class='preference-button"+(Main.getProperties().humanEncountersLevel==1?" selected":"")+"'>5%</div>"
-						+ "<div id='furry_preference_human_encounter_two' class='preference-button"+(Main.getProperties().humanEncountersLevel==2?" selected":"")+"'>10%</div>"
-						+ "<div id='furry_preference_human_encounter_three' class='preference-button"+(Main.getProperties().humanEncountersLevel==3?" selected":"")+"'>20%</div>"
-						+ "<div id='furry_preference_human_encounter_four' class='preference-button"+(Main.getProperties().humanEncountersLevel==4?" selected":"")+"'>50%</div>"
-					+ "</br></br>"
+//					"<div style='width:160px; float:left;'>"
+//						+ "<b>Human encounters:</b> "
+//					+ "</div>"
+//					+ "<div id='furry_preference_human_encounter_zero' class='preference-button"+(Main.getProperties().humanEncountersLevel==0?" selected":"")+"'>Off</div>"
+//					+ "<div id='furry_preference_human_encounter_one' class='preference-button"+(Main.getProperties().humanEncountersLevel==1?" selected":"")+"'>5%</div>"
+//					+ "<div id='furry_preference_human_encounter_two' class='preference-button"+(Main.getProperties().humanEncountersLevel==2?" selected":"")+"'>10%</div>"
+//					+ "<div id='furry_preference_human_encounter_three' class='preference-button"+(Main.getProperties().humanEncountersLevel==3?" selected":"")+"'>20%</div>"
+//					+ "<div id='furry_preference_human_encounter_four' class='preference-button"+(Main.getProperties().humanEncountersLevel==4?" selected":"")+"'>50%</div>"
+//					+ "</br></br>"
 						
-					+"<div style='width:160px; float:left;'>"
+					"<div style='width:160px; float:left;'>"
 						+ "<b>Multi-breasts:</b> "
 					+ "</div>"
-						+ "<div id='furry_preference_multi_breast_zero' class='preference-button"+(Main.getProperties().multiBreasts==0?" selected":"")+"'>Off</div>"
-						+ "<div id='furry_preference_multi_breast_one' class='preference-button"+(Main.getProperties().multiBreasts==1?" selected":"")+"'>Furry-only</div>"
-						+ "<div id='furry_preference_multi_breast_two' class='preference-button"+(Main.getProperties().multiBreasts==2?" selected":"")+"'>On</div>"
-					+ "</br></br>"
-					
-					+"<div style='width:160px; float:left;'>"
-						+ "<b>Set all:</b> "
+					+ "<div id='furry_preference_multi_breast_zero' class='preference-button"+(Main.getProperties().multiBreasts==0?" selected":"")+"'>Off</div>"
+					+ "<div id='furry_preference_multi_breast_one' class='preference-button"+(Main.getProperties().multiBreasts==1?" selected":"")+"'>Furry-only</div>"
+					+ "<div id='furry_preference_multi_breast_two' class='preference-button"+(Main.getProperties().multiBreasts==2?" selected":"")+"'>On</div>"
+						
 					+ "</div>"
-					+ "<div id='furry_preference_female_human_all' class='preference-button'>Human</div>"
-					+ "<div id='furry_preference_female_minimum_all' class='preference-button'>Minimum</div>"
-					+ "<div id='furry_preference_female_reduced_all' class='preference-button'>Reduced</div>"
-					+ "<div id='furry_preference_female_normal_all' class='preference-button'>Normal</div>"
-					+ "<div id='furry_preference_female_maximum_all' class='preference-button'>Maximum</div>");
+					+ "</div>");
+
 			
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width'>"
+						+"<div class='container-half-width inner'>"
+							+ "<b style='color:"+Colour.RACE_HUMAN.toWebHexString()+"; float:left; width:100%; text-align:center;'>Human encounters</b>"
+							+ "<div style='display:inline-block; padding-left:25%; width:100%;'>"
+								+ "<div id='furry_preference_human_encounter_zero' class='square-button small"+(Main.getProperties().humanEncountersLevel==0
+									?" selected' style='border-color:"+Colour.RACE_HUMAN.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZero()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZeroDisabled()+"</div></div>")
+							
+								+ "<div id='furry_preference_human_encounter_one' class='square-button small"+(Main.getProperties().humanEncountersLevel==1
+									?" selected' style='border-color:"+Colour.RACE_HUMAN.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOne()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOneDisabled()+"</div></div>")
+								
+								+ "<div id='furry_preference_human_encounter_two' class='square-button small"+(Main.getProperties().humanEncountersLevel==2
+									?" selected' style='border-color:"+Colour.RACE_HUMAN.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwo()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwoDisabled()+"</div></div>")
+								
+								+ "<div id='furry_preference_human_encounter_three' class='square-button small"+(Main.getProperties().humanEncountersLevel==3
+									?" selected' style='border-color:"+Colour.RACE_HUMAN.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThree()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThreeDisabled()+"</div></div>")
+								
+								+ "<div id='furry_preference_human_encounter_four' class='square-button small"+(Main.getProperties().humanEncountersLevel==4
+									?" selected' style='border-color:"+Colour.RACE_HUMAN.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFour()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFourDisabled()+"</div></div>")
+							+"</div>"
+						+ "</div>"
+						
+						+"<div class='container-half-width inner'>"
+							+ "<b style='color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+"; float:left; width:100%; text-align:center;'>Forced TF Racial Limits</b>"
+							+ "<div style='display:inline-block; padding-left:25%; width:100%;'>"
+								+ "<div id='forced_tf_limit_human' class='square-button small"+(Main.getProperties().forcedTFPreference==FurryPreference.HUMAN
+									?" selected' style='border-color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZero()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZeroDisabled()+"</div></div>")
+							
+								+ "<div id='forced_tf_limit_minimum' class='square-button small"+(Main.getProperties().forcedTFPreference==FurryPreference.MINIMUM
+									?" selected' style='border-color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOne()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOneDisabled()+"</div></div>")
+								
+								+ "<div id='forced_tf_limit_reduced' class='square-button small"+(Main.getProperties().forcedTFPreference==FurryPreference.REDUCED
+									?" selected' style='border-color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwo()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwoDisabled()+"</div></div>")
+								
+								+ "<div id='forced_tf_limit_normal' class='square-button small"+(Main.getProperties().forcedTFPreference==FurryPreference.NORMAL
+									?" selected' style='border-color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThree()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThreeDisabled()+"</div></div>")
+								
+								+ "<div id='forced_tf_limit_maximum' class='square-button small"+(Main.getProperties().forcedTFPreference==FurryPreference.MAXIMUM
+									?" selected' style='border-color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFour()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFourDisabled()+"</div></div>")
+							+"</div>"
+						+ "</div>"
+					+ "</div>");
+			
+			
+			UtilText.nodeContentSB.append("<div class='container-full-width'>");
 			for(Race r : Race.values()) {
 				if(r.isAffectedByFurryPreference()) {
 					UtilText.nodeContentSB.append(
-							"</br></br><div style='width:100%; text-align:center;'>"
-								+ "<b style='color:"+r.getColour().toWebHexString()+";'>" +Util.capitaliseSentence(r.getName())+"</b>"
-							+ "</div></br>"
-							+ "<div style='width:160px; float:left;'>"
-								+ "<b style='color:"+Colour.FEMININE.toWebHexString()+";'>Feminine:</b> "
-							+ "</div>"
-							+ "<div id='furry_preference_female_human_"+r+"' class='preference-button"+(Main.getProperties().raceFemininePreferencesMap.get(r)==FurryPreference.HUMAN?" selected":"")+"'>Human</div>"
-							+ "<div id='furry_preference_female_minimum_"+r+"' class='preference-button"+(Main.getProperties().raceFemininePreferencesMap.get(r)==FurryPreference.MINIMUM?" selected":"")+"'>Minimum</div>"
-							+ "<div id='furry_preference_female_reduced_"+r+"' class='preference-button"+(Main.getProperties().raceFemininePreferencesMap.get(r)==FurryPreference.REDUCED?" selected":"")+"'>Reduced</div>"
-							+ "<div id='furry_preference_female_normal_"+r+"' class='preference-button"+(Main.getProperties().raceFemininePreferencesMap.get(r)==FurryPreference.NORMAL?" selected":"")+"'>Normal</div>"
-							+ "<div id='furry_preference_female_maximum_"+r+"' class='preference-button"+(Main.getProperties().raceFemininePreferencesMap.get(r)==FurryPreference.MAXIMUM?" selected":"")+"'>Maximum</div>"
-							+ "</br></br>"
-							+ "<div style='width:160px; float:left;'>"
-								+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Masculine:</b> "
-							+ "</div>"
-							+ "<div id='furry_preference_male_human_"+r+"' class='preference-button"+(Main.getProperties().raceMasculinePreferencesMap.get(r)==FurryPreference.HUMAN?" selected":"")+"'>Human</div>"
-							+ "<div id='furry_preference_male_minimum_"+r+"' class='preference-button"+(Main.getProperties().raceMasculinePreferencesMap.get(r)==FurryPreference.MINIMUM?" selected":"")+"'>Minimum</div>"
-							+ "<div id='furry_preference_male_reduced_"+r+"' class='preference-button"+(Main.getProperties().raceMasculinePreferencesMap.get(r)==FurryPreference.REDUCED?" selected":"")+"'>Reduced</div>"
-							+ "<div id='furry_preference_male_normal_"+r+"' class='preference-button"+(Main.getProperties().raceMasculinePreferencesMap.get(r)==FurryPreference.NORMAL?" selected":"")+"'>Normal</div>"
-							+ "<div id='furry_preference_male_maximum_"+r+"' class='preference-button"+(Main.getProperties().raceMasculinePreferencesMap.get(r)==FurryPreference.MAXIMUM?" selected":"")+"'>Maximum</div>");
+							"<div class='container-half-width inner'>"
+								+ "<b style='color:"+r.getColour().toWebHexString()+"; float:left; width:100%; text-align:center;'>" +Util.capitaliseSentence(r.getName())+"</b>"
+								+ "<b style='color:"+Colour.FEMININE.toWebHexString()+"; float:left; width:50%; text-align:center;'>Feminine:</b>"
+								+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+"; float:left; width:50%; text-align:center;'>Masculine:</b>"
+								
+								// Feminine:
+								
+								+ "<div id='furry_preference_female_human_"+r+"' class='square-button small"+(Main.getProperties().raceFemininePreferencesMap.get(r)==FurryPreference.HUMAN
+									?" selected' style='border-color:"+Colour.FEMININE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZero()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZeroDisabled()+"</div></div>")
+								
+								+ "<div id='furry_preference_female_minimum_"+r+"' class='square-button small"+(Main.getProperties().raceFemininePreferencesMap.get(r)==FurryPreference.MINIMUM
+									?" selected' style='border-color:"+Colour.FEMININE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOne()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOneDisabled()+"</div></div>")
+								
+								+ "<div id='furry_preference_female_reduced_"+r+"' class='square-button small"+(Main.getProperties().raceFemininePreferencesMap.get(r)==FurryPreference.REDUCED
+									?" selected' style='border-color:"+Colour.FEMININE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwo()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwoDisabled()+"</div></div>")
+								
+								+ "<div id='furry_preference_female_normal_"+r+"' class='square-button small"+(Main.getProperties().raceFemininePreferencesMap.get(r)==FurryPreference.NORMAL
+									?" selected' style='border-color:"+Colour.FEMININE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThree()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThreeDisabled()+"</div></div>")
+								
+								+ "<div id='furry_preference_female_maximum_"+r+"' class='square-button small"+(Main.getProperties().raceFemininePreferencesMap.get(r)==FurryPreference.MAXIMUM
+									?" selected' style='border-color:"+Colour.FEMININE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFour()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFourDisabled()+"</div></div>")
+								
+								// Masculine:
+								
+								+ "<div id='furry_preference_male_human_"+r+"' class='square-button small"+(Main.getProperties().raceMasculinePreferencesMap.get(r)==FurryPreference.HUMAN
+									?" selected' style='border-color:"+Colour.MASCULINE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZero()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZeroDisabled()+"</div></div>")
+								
+								+ "<div id='furry_preference_male_minimum_"+r+"' class='square-button small"+(Main.getProperties().raceMasculinePreferencesMap.get(r)==FurryPreference.MINIMUM
+									?" selected' style='border-color:"+Colour.MASCULINE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOne()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOneDisabled()+"</div></div>")
+								
+								+ "<div id='furry_preference_male_reduced_"+r+"' class='square-button small"+(Main.getProperties().raceMasculinePreferencesMap.get(r)==FurryPreference.REDUCED
+									?" selected' style='border-color:"+Colour.MASCULINE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwo()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwoDisabled()+"</div></div>")
+								
+								+ "<div id='furry_preference_male_normal_"+r+"' class='square-button small"+(Main.getProperties().raceMasculinePreferencesMap.get(r)==FurryPreference.NORMAL
+									?" selected' style='border-color:"+Colour.MASCULINE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThree()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThreeDisabled()+"</div></div>")
+								
+								+ "<div id='furry_preference_male_maximum_"+r+"' class='square-button small"+(Main.getProperties().raceMasculinePreferencesMap.get(r)==FurryPreference.MAXIMUM
+									?" selected' style='border-color:"+Colour.MASCULINE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFour()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFourDisabled()+"</div></div>")
+							+ "</div>");
 				}
 			}
-			UtilText.nodeContentSB.append("</div></div>");
+			
+			UtilText.nodeContentSB.append(
+						"<div class='container-full-width' style='text-align: center;'>"
+							+ "<div style='display:inline-block; margin:0 auto;'>"
+								+"<div style='float:left; text-align:right;'>"
+									+ "<b>Set all:</b>&nbsp;"
+								+ "</div>"
+								+ "<div id='furry_preference_female_human_all' class='preference-button'>"+FurryPreference.HUMAN.getName()+"</div>"
+								+ "<div id='furry_preference_female_minimum_all' class='preference-button'>"+FurryPreference.MINIMUM.getName()+"</div>"
+								+ "<div id='furry_preference_female_reduced_all' class='preference-button'>"+FurryPreference.REDUCED.getName()+"</div>"
+								+ "<div id='furry_preference_female_normal_all' class='preference-button'>"+FurryPreference.NORMAL.getName()+"</div>"
+								+ "<div id='furry_preference_female_maximum_all' class='preference-button'>"+FurryPreference.MAXIMUM.getName()+"</div>"
+							+"</div>"
+						+"</div>"
+					+ "</div>");
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1106,7 +1207,7 @@ public class OptionsDialogue {
 		}
 	};
 	
-	
+	public static int[] forcedTFsettings = new int[] {0, 10, 40, 70, 100};
 	public static final DialogueNodeOld CONTENT_PREFERENCE = new DialogueNodeOld("Content Options", "", true) {
 		private static final long serialVersionUID = 1L;
 		
@@ -1114,65 +1215,102 @@ public class OptionsDialogue {
 		public String getHeaderContent(){
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append("<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>");
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"NON_CON",
-					Colour.BASE_CRIMSON,
-					"Non-consent",
-					"This enables the 'resist' pace in sex scenes, which contains some more extreme non-consensual descriptions.",
-					Main.getProperties().nonConContent));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"INCEST",
-					Colour.BASE_ROSE,
-					"Incest",
-					"This will enable sexual actions with all of your blood-relatives.",
-					Main.getProperties().incestContent));
-
-			UtilText.nodeContentSB.append("</div><div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>");
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"FORCED_TF",
-					Colour.BASE_GREEN_LIGHT,
-					"Forced Transformations",
-					"With this turned on, random NPCs will forcibly transform you if you lose combat against them.",
-					Main.getProperties().forcedTransformationContent));
-
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"HAIR_FACIAL",
-					Colour.BASE_LILAC_LIGHT,
-					"Facial hair",
-					"This enables facial hair descriptions and content.",
-					Main.getProperties().facialHairContent));
-
-			UtilText.nodeContentSB.append("</div><div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>");
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"HAIR_PUBIC",
-					Colour.BASE_LILAC,
-					"Pubic hair",
-					"This enables pubic hair descriptions and content.",
-					Main.getProperties().pubicHairContent));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"HAIR_BODY",
-					Colour.BASE_PURPLE,
-					"Extra body hair",
-					"This enables body hair descriptions and content for armpits and assholes.",
-					Main.getProperties().bodyHairContent));
-
-			UtilText.nodeContentSB.append("</div><div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>");
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"FURRY_TAIL_PENETRATION",
-					Colour.BASE_MAGENTA,
-					"Furry tail penetrations",
-					"This enables furry tails to engage in penetrative actions in sex.",
-					Main.getProperties().furryTailPenetrationContent));
-			
-
-			UtilText.nodeContentSB.append("</div>");
+			UtilText.nodeContentSB.append(
+				"<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+					+getContentPreferenceDiv(
+							"NON_CON",
+							Colour.BASE_CRIMSON,
+							"Non-consent",
+							"This enables the 'resist' pace in sex scenes, which contains some more extreme non-consensual descriptions.",
+							Main.getProperties().nonConContent)
+					+getContentPreferenceDiv(
+							"INCEST",
+							Colour.BASE_ROSE,
+							"Incest",
+							"This will enable sexual actions with all of your blood-relatives.",
+							Main.getProperties().incestContent)
+				+"</div>"
+				
+				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+					+getContentPreferenceDiv(
+							"HAIR_FACIAL",
+							Colour.BASE_LILAC_LIGHT,
+							"Facial hair",
+							"This enables facial hair descriptions and content.",
+							Main.getProperties().facialHairContent)
+					+getContentPreferenceDiv(
+							"HAIR_PUBIC",
+							Colour.BASE_LILAC,
+							"Pubic hair",
+							"This enables pubic hair descriptions and content.",
+							Main.getProperties().pubicHairContent)
+				+"</div>"
+				
+				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+					+getContentPreferenceDiv(
+						"HAIR_BODY",
+						Colour.BASE_PURPLE,
+						"Extra body hair",
+						"This enables body hair descriptions and content for armpits and assholes.",
+						Main.getProperties().bodyHairContent)
+					
+					+"<div class='cosmetics-inner-container'>"
+						+ "<h5 style='text-align:center; color:"+Colour.BASE_GREEN.toWebHexString()+";'>"
+							+ "Forced TF"
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ "This sets the amount of NPCs spawning with the '"+Fetish.FETISH_TRANSFORMATION_GIVING.getName(null)+"' fetish, which causes them to try and forcibly transform you after beating you in combat."
+						+ "</p>"
+						+(Main.getProperties().forcedTFPercentage==forcedTFsettings[0]
+							?"<div class='cosmetics-button active'>"
+									+ "[style.boldGood("+forcedTFsettings[0]+"%)]"
+									+ "</div>"
+							:"<div id='FORCED_TF_"+forcedTFsettings[0]+"' class='cosmetics-button'>"
+									+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+forcedTFsettings[0]+"%</span>"
+									+ "</div>")
+						+(Main.getProperties().forcedTFPercentage==forcedTFsettings[1]
+								?"<div class='cosmetics-button active'>"
+										+ "[style.boldGood("+forcedTFsettings[1]+"%)]"
+										+ "</div>"
+								:"<div id='FORCED_TF_"+forcedTFsettings[1]+"' class='cosmetics-button'>"
+										+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+forcedTFsettings[1]+"%</span>"
+										+ "</div>")
+						+(Main.getProperties().forcedTFPercentage==forcedTFsettings[2]
+								?"<div class='cosmetics-button active'>"
+										+ "[style.boldGood("+forcedTFsettings[2]+"%)]"
+										+ "</div>"
+								:"<div id='FORCED_TF_"+forcedTFsettings[2]+"' class='cosmetics-button'>"
+										+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+forcedTFsettings[2]+"%</span>"
+										+ "</div>")
+						+(Main.getProperties().forcedTFPercentage==forcedTFsettings[3]
+								?"<div class='cosmetics-button active'>"
+										+ "[style.boldGood("+forcedTFsettings[3]+"%)]"
+										+ "</div>"
+								:"<div id='FORCED_TF_"+forcedTFsettings[3]+"' class='cosmetics-button'>"
+										+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+forcedTFsettings[3]+"%</span>"
+										+ "</div>")
+						+(Main.getProperties().forcedTFPercentage==forcedTFsettings[4]
+								?"<div class='cosmetics-button active'>"
+										+ "[style.boldGood("+forcedTFsettings[4]+"%)]"
+										+ "</div>"
+								:"<div id='FORCED_TF_"+forcedTFsettings[4]+"' class='cosmetics-button'>"
+										+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+forcedTFsettings[4]+"%</span>"
+										+ "</div>")
+					+ "</div>"
+				+"</div>"
+				
+				
+				
+				
+				
+				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+					+getContentPreferenceDiv(
+						"FURRY_TAIL_PENETRATION",
+						Colour.BASE_MAGENTA,
+						"Furry tail penetrations",
+						"This enables furry tails to engage in penetrative actions in sex.",
+						Main.getProperties().furryTailPenetrationContent)
+				+"</div>");
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1184,70 +1322,7 @@ public class OptionsDialogue {
 		
 		@Override
 		public Response getResponse(int index) {
-			if (index == 1) {
-				return new Response("Non-con", "Toggle non-consensual content on or off.", CONTENT_PREFERENCE) {
-					@Override
-					public void effects() {
-						Main.getProperties().nonConContent = !Main.getProperties().nonConContent;
-						Main.saveProperties();
-					}
-				};
-				
-			} else if (index == 2) {
-				return new Response("Incest", "Toggle incest encounters on or off.", CONTENT_PREFERENCE) {
-					@Override
-					public void effects() {
-						Main.getProperties().incestContent = !Main.getProperties().incestContent;
-						Main.saveProperties();
-					}
-				};
-				
-			} else if (index == 3) {
-				return new Response("Forced TF", "Toggle forced TF content on or off.", CONTENT_PREFERENCE) {
-					@Override
-					public void effects() {
-						Main.getProperties().forcedTransformationContent = !Main.getProperties().forcedTransformationContent;
-						Main.saveProperties();
-					}
-				};
-				
-			} else if (index == 4) {
-				return new Response("Facial hair", "Toggle facial hair content on or off.", CONTENT_PREFERENCE) {
-					@Override
-					public void effects() {
-						Main.getProperties().facialHairContent = !Main.getProperties().facialHairContent;
-						Main.saveProperties();
-					}
-				};
-				
-			} else if (index == 5) {
-				return new Response("Pubic hair", "Toggle pubic hair content on or off.", CONTENT_PREFERENCE) {
-					@Override
-					public void effects() {
-						Main.getProperties().pubicHairContent = !Main.getProperties().pubicHairContent;
-						Main.saveProperties();
-					}
-				};
-				
-			} else if (index == 6) {
-				return new Response("Full body hair", "Toggle body hair content on or off.", CONTENT_PREFERENCE) {
-					@Override
-					public void effects() {
-						Main.getProperties().bodyHairContent = !Main.getProperties().bodyHairContent;
-						Main.saveProperties();
-					}
-				};
-				
-			} else if (index == 7) {
-				return new Response("Furry tail pen.", "Toggle furry tail penetrations on or off.", CONTENT_PREFERENCE) {
-					@Override
-					public void effects() {
-						Main.getProperties().furryTailPenetrationContent = !Main.getProperties().furryTailPenetrationContent;
-						Main.saveProperties();
-					}
-				};
-				
-			} else if (index == 0) {
+			if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", MENU);
 				
 			} else {
@@ -1331,19 +1406,23 @@ public class OptionsDialogue {
 			for(CreditsSlot cs : Main.credits) {
 				if(cs.getLegendaryCount()>0) {
 					UtilText.nodeContentSB.append("</br>");
-					for(int i=0; i<cs.getLegendaryCount(); i++) {
-						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_LEGENDARY.toWebHexString()+";'>&#9679</b> ");
-					}
-					for(int i=0; i<cs.getEpicCount(); i++) {
-						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>&#9679</b> ");
+					UtilText.nodeContentSB.append("<div style='width:50%; display:inline-block; text-align:right;'>");
+					for(int i=0; i<cs.getUncommonCount(); i++) {
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_UNCOMMON.toWebHexString()+";'>&#9679</b> ");
 					}
 					for(int i=0; i<cs.getRareCount(); i++) {
 						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_RARE.toWebHexString()+";'>&#9679</b> ");
 					}
-					for(int i=0; i<cs.getUncommonCount(); i++) {
-						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_UNCOMMON.toWebHexString()+";'>&#9679</b> ");
+					for(int i=0; i<cs.getEpicCount(); i++) {
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>&#9679</b> ");
 					}
-					UtilText.nodeContentSB.append(cs.getName());
+					for(int i=0; i<cs.getLegendaryCount(); i++) {
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_LEGENDARY.toWebHexString()+";'>&#9679</b> ");
+					}
+					UtilText.nodeContentSB.append("</div>");
+					UtilText.nodeContentSB.append("<div style='width:50%; display:inline-block; text-align:left;'>");
+					UtilText.nodeContentSB.append("&nbsp;"+cs.getName());
+					UtilText.nodeContentSB.append("</div>");
 				}
 			}
 			
@@ -1356,16 +1435,20 @@ public class OptionsDialogue {
 			for(CreditsSlot cs : Main.credits) {
 				if(cs.getLegendaryCount()==0 && cs.getEpicCount()>0) {
 					UtilText.nodeContentSB.append("</br>");
-					for(int i=0; i<cs.getEpicCount(); i++) {
-						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>&#9679</b> ");
+					UtilText.nodeContentSB.append("<div style='width:50%; display:inline-block; text-align:right;'>");
+					for(int i=0; i<cs.getUncommonCount(); i++) {
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_UNCOMMON.toWebHexString()+";'>&#9679</b> ");
 					}
 					for(int i=0; i<cs.getRareCount(); i++) {
 						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_RARE.toWebHexString()+";'>&#9679</b> ");
 					}
-					for(int i=0; i<cs.getUncommonCount(); i++) {
-						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_UNCOMMON.toWebHexString()+";'>&#9679</b> ");
+					for(int i=0; i<cs.getEpicCount(); i++) {
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>&#9679</b> ");
 					}
-					UtilText.nodeContentSB.append(cs.getName());
+					UtilText.nodeContentSB.append("</div>");
+					UtilText.nodeContentSB.append("<div style='width:50%; display:inline-block; text-align:left;'>");
+					UtilText.nodeContentSB.append("&nbsp;"+cs.getName());
+					UtilText.nodeContentSB.append("</div>");
 				}
 			}
 			

@@ -85,7 +85,7 @@ public class GenericDialogue {
 				return new Response("Back", "", DEBUG_MENU){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return getDefaultDialogue();
+						return getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -131,7 +131,7 @@ public class GenericDialogue {
 				};
 				
 			} else if (index == 5) {
-				return new Response("+1000 " + Main.game.getCurrencySymbol(), "Add 1000 flames.", DEBUG_MENU){
+				return new Response("+1000 " + UtilText.getCurrencySymbol(), "Add 1000 flames.", DEBUG_MENU){
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(1000);
@@ -392,7 +392,10 @@ public class GenericDialogue {
 		
 		@Override
 		public Response getResponse(int index) {
-			if (index != 0 && index < weaponsTotal.size()) {
+			 if (index == 0) {
+					return new Response("Back", "", DEBUG_MENU);
+					
+			} else if (index-1 < weaponsTotal.size()) {
 				return new Response(weaponsTotal.get(index - 1).getName(), "", SPAWN_WEAPON_MENU){
 					@Override
 					public void effects() {
@@ -401,9 +404,6 @@ public class GenericDialogue {
 						
 					}
 				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", DEBUG_MENU);
 				
 			} else {
 				return null;

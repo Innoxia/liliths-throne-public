@@ -16,7 +16,6 @@ import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
@@ -279,8 +278,6 @@ public class PrologueDialogue {
 				return new Response("Wake up", "You slowly start to regain consciousness.", INTRO_NEW_WORLD_1){
 					@Override
 					public void effects() {
-
-						Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 5);
 						
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
 
@@ -307,58 +304,68 @@ public class PrologueDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ UtilText.genderParsing(Main.game.getPlayer(), "<p>"
-							+ UtilText.parsePlayerThought("Euuuugh...")
-							+ "</p>"
+						+ UtilText.parsePlayerThought("Euuuugh...")
+					+ "</p>"
+					+ "<p>"
+						+ "You groan and reach up to rub your throbbing head."
+						+ " As you do, you become aware that you're lying on something cold and hard."
+						+ " Pushing yourself up into a sitting position, you quickly scrunch your eyes shut as jolts of pain shoot through your skull."
+						+ " As you hold your head, trying to stop it from spinning, you start to hear voices speaking all around you."
+					+ "</p>"
+					+ "<p>"
+						+ UtilText.parseNPCSpeech("Oh shit, [pc.she]'s alive!", Femininity.MASCULINE_STRONG)
+						+ " someone says."
+					+ "</p>"
+					+ "<p>"
+						+ UtilText.parseNPCSpeech("You idiot, don't get that close! Didn't you see [pc.herHim] just fall out of mid-air?!"
+								+ " [pc.She]'s obviously an arcane user! We need to get out of here!", Femininity.MASCULINE)
+						+ " a rather worried-sounding man replies."
+					+ "</p>"
 
-							+ "<p>"
-							+ "You groan and reach up to rub your throbbing head."
-							+ " As you do, you become aware that you're lying on something cold and hard."
-							+ " Pushing yourself up into a sitting position, you quickly scrunch your eyes shut as jolts of pain shoot through your skull."
-							+ " As you hold your head, trying to stop it from spinning, you start to hear voices speaking all around you.</p>"
+					+ "<p>The harsh tone of a woman's voice cuts them off, "
+					+ UtilText.parseNPCSpeech("Shut up, both of you! Honestly, I don't know why I bring you two along... Anyway, take a look at [pc.herHim],"
+							+ " don't you see something wrong with what you just said?", Femininity.FEMININE_STRONG)
+					+ "</p>"
 
-							+ "<p>"
-							+ UtilText.parseNPCSpeech("Oh shit, <she>'s alive!", Femininity.MASCULINE_STRONG)
-							+ " someone says.</p>"
+					+ "<p>"
+					+ UtilText.parseNPCSpeech("Uuuuum...", Femininity.MASCULINE_STRONG)
+					+ " the two voices say in unison.</p>"
 
-							+ "<p>"
-							+ UtilText.parseNPCSpeech("You idiot, don't get that close! Didn't you see <herPro> just fall out of mid-air?!"
-									+ " <She>'s obviously an arcane user! We need to get out of here!", Femininity.MASCULINE)
-							+ " a rather worried-sounding man replies.</p>"
+					+ "<p>"
+					+ UtilText.parseNPCSpeech("You two don't have a brain between you... [pc.She]'s human, get it? Since when could a human use that kind of arcane power?"
+							+ " Hell, only a Lilin could just teleport themselves out of thin air like that. This little runt obviously pissed off some demon, or messed with some artifact [pc.she] didn't understand."
+							+ " In other words, [pc.she]'s fair game, so just hold [pc.herHim] still until the storm starts.", Femininity.FEMININE_STRONG)
+					+ "</p>"
 
-							+ "<p>The harsh tone of a woman's voice cuts them off, "
-							+ UtilText.parseNPCSpeech("Shut up, both of you! Honestly, I don't know why I bring you two along... Anyway, take a look at <herPro>,"
-									+ " don't you see something wrong with what you just said?", Femininity.FEMININE_STRONG)
-							+ "</p>"
+					+ "<p>"
+						+ "As the people reach the end of their conversation, you're surprised to find that most of the pain in your head has already faded away."
+						+ " You open your eyes to see what's going on, but as you do, you're suddenly grabbed by two pairs of strong hands."
+					+ "</p>"
 
-							+ "<p>"
-							+ UtilText.parseNPCSpeech("Uuuuum...", Femininity.MASCULINE)
-							+ " "
-							+ UtilText.parseNPCSpeech("Uuuuum...", Femininity.MASCULINE_STRONG)
-							+ " The two voices say in unison.</p>"
+					+ "<p>"
+						+ UtilText.parsePlayerSpeech("Hey, what the hell?! Let me g- ~mrph~!")
+						+ " you cry, but your objections are cut short as the woman presses her hand firmly down over your mouth."
+					+ "</p>"
 
-							+ "<p>"
-							+ UtilText.parseNPCSpeech("You two don't have a brain between you... <She>'s human, get it? Since when could humans use the arcane?"
-									+ " And hell, only a demon could just magic themselves out of thin air like that. This little runt obviously pissed off some demon, or messed with some artifact <she> didn't understand."
-									+ " In other words, <she>'s fair game, so just hold <herPro> still until the storm starts.", Femininity.FEMININE_STRONG)
-							+ "</p>"
+					+ "<p>"
+						+ "You kick and squirm as you desperately try to wriggle out of the strange people's grasp."
+						+ " As you struggle, you catch brief glimpses of your three tormentors, and as you do, your eyes open wide in shock."
+						+ " You stop squirming and go limp, your mind completely unable to process what it's seeing."
+					+ "</p>"
 
-							+ "<p>As the people reach the end of their conversation, you're surprised to find that most of the pain in your head has already faded away."
-							+ " You open your eyes to see what's going on, but as you do, you're suddenly grabbed by two pairs of strong hands.</p>"
+					+ "<p>"
+						+ "While the men looked to be normal people on first glance, as you take a closer look, you see that something's not quite right."
+						+ " Their arms and legs are covered in a layer of coarse hair, and instead of feet, they each have a pair of horse-like hooves."
+						+ " Their ears are also similar to that of a horse's, and sit high up on their heads, and a horse-like tail swishes behind each of them."
+					+ "</p>"
 
-							+ "<p>"
-							+ UtilText.parsePlayerSpeech("Hey, what the hell?! Let me g- ~mrph~!")
-							+ " you cry, but your objections are cut short as the woman presses her hand firmly down over your mouth.</p>"
-
-							+ "<p>You kick and squirm as you desperately try to wriggle out of the strange people's grasp. As you struggle, you catch brief glimpses of your three tormentors, and as you do, your eyes open wide in shock."
-							+ " You stop squirming and go limp, your mind completely unable to process what it's seeing.</p>"
-
-							+ "<p>While the men looked to be normal people on first glance, as you take a closer look, you see that something's not quite right. Their arms and legs are covered in a layer of coarse hair, and instead of feet, they"
-							+ " each have a pair of horse-like hooves. Their ears are also similar to that of a horse's, and sit high up on their heads, and a horse-like tail swishes behind each of them.</p>"
-
-							+ "<p>As alarming as the two men's appearances are, they're nothing compared to the woman in front of you. While the men are in possession of horse-like features, the woman could better be described as a cat"
-							+ " possessing human-like features. She's completely covered in a fine layer of black fur, and every part of her body, including her face, has somehow transformed into that of an anthropomorphic cat-girl. Her long"
-							+ " tail swishes excitedly behind her, and as she brushes a strand of loose fur-like hair behind her upright cat-ears, she looks down at you with an evil grin on her face.</p>");
+					+ "<p>"
+						+ "As alarming as the two men's appearances are, they're nothing compared to the woman in front of you."
+						+ " While the men are in possession of horse-like features, the woman could better be described as a cat possessing human-like features."
+						+ " She's completely covered in a fine layer of black fur, and every part of her body, including her face, has somehow transformed into that of an anthropomorphic cat-girl."
+						+ " Her long tail swishes excitedly behind her, and as she brushes a strand of loose fur-like hair behind her upright cat-ears, she looks down at you with an evil grin on her face."
+					+ "</p>"
+						;
 		}
 		
 		@Override
@@ -367,19 +374,35 @@ public class PrologueDialogue {
 				return new Response("Struggle", "Try to struggle out of their grip.", INTRO_NEW_WORLD_1_STRUGGLE);
 				
 			} else if (index == 2) {
-				return new Response("Furries?!",
+				return new Response("Furries?! Yes!",
+						"Furries are real?! You <b>love</b> furries!</br>"
+						+ "<b>This will set all of your starting furry preferences to </b><b style='color:"+ RaceStage.GREATER.getColour().toWebHexString()+ ";'>"+FurryPreference.MAXIMUM.getName()+"</b><b>."
+						+ " This can be changed at any time from the options menu.</b>", 
+						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES){
+					@Override
+					public void effects(){
+						for(Race r : Race.values()) {
+							if(r.isAffectedByFurryPreference()) {
+								Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.MAXIMUM);
+								Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.MAXIMUM);
+							}
+						}
+						Main.saveProperties();
+					}
+				};
+				
+			} else if (index == 3) {
+				return new Response("Furries?! No!",
 						"Why are furries real?! You <b>hate</b> furries! Channel your rage and try to break free.</br>"
-						+ "<b>This will set your starting furry preference to </b><b style='color:"
-						+ RaceStage.PARTIAL.getColour().toWebHexString()
-						+ ";'>Minimum</b><b>."
+						+ "<b>This will set all of your starting furry preferences to </b><b style='color:"+ RaceStage.HUMAN.getColour().toWebHexString()+ ";'>"+FurryPreference.HUMAN.getName()+"</b><b>."
 						+ " This can be changed at any time from the options menu.</b>", 
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES){
 					@Override
 					public void effects(){
 						for(Race r : Race.values()) {
 							if(r.isAffectedByFurryPreference()) {
-								Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.MINIMUM);
-								Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.MINIMUM);
+								Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.HUMAN);
+								Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.HUMAN);
 							}
 						}
 						Main.saveProperties();
@@ -442,7 +465,7 @@ public class PrologueDialogue {
 				return new Response("Continue", "Someone's come to save you!", INTRO_NEW_WORLD_2){
 					@Override
 					public void effects() {
-						Main.game.getLilaya().setLocation(WorldType.DOMINION, Dominion.CITY_AUNTS_HOME);
+						Main.game.getLilaya().setLocation(WorldType.DOMINION, Dominion.CITY_AUNTS_HOME, false);
 					}
 				};
 				
@@ -451,6 +474,7 @@ public class PrologueDialogue {
 			}
 		}
 	};
+	
 	public static final DialogueNodeOld INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES = new DialogueNodeOld("", "", true, true) {
 		private static final long serialVersionUID = 1L;
 
@@ -528,7 +552,7 @@ public class PrologueDialogue {
 				return new Response("Continue", "Someone's come to save you!", INTRO_NEW_WORLD_2){
 					@Override
 					public void effects() {
-						Main.game.getLilaya().setLocation(WorldType.DOMINION, Dominion.CITY_AUNTS_HOME);
+						Main.game.getLilaya().setLocation(WorldType.DOMINION, Dominion.CITY_AUNTS_HOME, false);
 					}
 				};
 				
@@ -537,7 +561,75 @@ public class PrologueDialogue {
 			}
 		}
 	};
+	
+	public static final DialogueNodeOld INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES = new DialogueNodeOld("", "", true, true) {
+		private static final long serialVersionUID = 1L;
 
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ UtilText.parsePlayerThought("Furries are real?! This is amazing!")
+					+ "</p>"
+
+					+ "<p>"
+						+ "Despite your excitement upon discovering that furries are no longer simply a fantasy, you're still not entirely comfortable with what's going on."
+						+ " As you come to your senses, you start to struggle again, kicking and thrashing wildly as you try to free yourself."
+						+ " The cat-girl simply laughs, and in one swift movement she pounces forwards, slamming you to the floor as she straddles your chest."
+					+ "</p>"
+
+					+ "<p>She leans down, her cat-like pupils dilating as she pushes your head to the ground and delivers a long, slow lick up your cheek, "
+					+ (Main.game.getPlayer().getVaginaType() != VaginaType.NONE
+							? UtilText.parseNPCSpeech("Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little pussy.", Femininity.FEMININE_STRONG)
+							: UtilText.parseNPCSpeech("Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little ass.", Femininity.FEMININE_STRONG))
+					+ "</p>"
+
+					+ "<p>"
+					+ "The cat-girl sits back up, still holding her paw-like hands over your mouth, and points up to the sky."
+					+ " The two horse-boys have completely immobilised you, and being unable to do anything about your current situation, you look up to see what the cat-girl is pointing at."
+					+ "</p>"
+
+					+ "<p>"
+					+ "High above you, a roiling mass of dark black storm clouds are blotting out the evening sky."
+					+ " There's a strange pink tint around the edge of each one, and as the cat-girl stares down at you, you see a flash of the same pink tint glowing deep within her cat-like pupils."
+					+ " She seems content to simply hold you still, waiting for the storm to break, and seeing no way to gain your freedom, you take a moment to glance around and take in your surroundings.</p>"
+
+					+ "<p>"
+					+ "You're lying in the middle of a deserted street, and a series of old-fashioned street lamps are illuminating the area around you in a soft amber glow."
+					+ " You notice that the entire road is paved with clean, whitish-blue paving stones, and with the numerous wooden benches and small, leafy trees that are dotted about the place, you realise that this street is entirely pedestrianised."
+					+ " There's no sign of any cars or passersby that could come to your aid, and the imposing, neo-classical frontages of the surrounding buildings offer no hope of any help, as all their windows and curtains are tightly shut."
+					+ "</p>"
+
+					+ "<p>"
+					+ UtilText.parsePlayerThought("How am I going to get out of this...")
+					+ "</p>"
+
+					+ "<p>"
+					+ "Just as you're on the edge of losing all hope, an oddly-familiar voice suddenly rings out from somewhere behind you."
+					+ "</p>"
+
+					+ "<p>"
+					+ UtilText.parseSpeech("Do you <i>really</i> have to play your silly little games right here in the middle of the street?"
+							+ " You know, some people don't really care for that sort of thing, and by the looks of it, your little friend under there may just be one of them.", Main.game.getLilaya())
+					+ "</p>";
+		}
+
+
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Continue", "Someone's come to save you!", INTRO_NEW_WORLD_2){
+					@Override
+					public void effects() {
+						Main.game.getLilaya().setLocation(WorldType.DOMINION, Dominion.CITY_AUNTS_HOME, false);
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
 	public static final DialogueNodeOld INTRO_NEW_WORLD_2 = new DialogueNodeOld("", "", true, true) {
 		private static final long serialVersionUID = 1L;
 
@@ -560,13 +652,11 @@ public class PrologueDialogue {
 
 					+ "<p>"
 					+ "The cat-girl quickly starts stuttering out excuses as you hear the mysterious woman walking closer, "
-					+ UtilText.genderParsing(Main.game.getPlayer(),
-							UtilText.parseNPCSpeech("L-look, w-we were only playing! Anyway, if <she> didn't want to have some fun, why is <she> outside just before a storm's about to break?!", Femininity.FEMININE_STRONG)
+					+ UtilText.parseNPCSpeech("L-look, w-we were only playing! Anyway, if [pc.she] didn't want to have some fun, why's [pc.she] outside just before a storm's about to break?!", Femininity.FEMININE_STRONG)
+					+ "</p>"
 
-									+ "</p>"
-
-									+ "<p>"
-									+ UtilText.parseSpeech("Well, it's really none of my business, but now that your little friends have run off, what's to stop <i><herPro></i> from having a little fun with <i>you</i>?", Main.game.getLilaya()))
+					+ "<p>"
+					+ UtilText.parseSpeech("Well, it's really none of my business, but now that your little friends have run off, what's to stop <i>[pc.herHim]</i> from having a little fun with <i>you</i>?", Main.game.getLilaya())
 					+ " the woman replies, and this time, you're certain that you recognise her voice."
 					+ "</p>"
 
@@ -718,8 +808,8 @@ public class PrologueDialogue {
 				return new Response("Follow", "Follow Lily as she leads you back to her house.", INTRO_NEW_WORLD_3){
 					@Override
 					public void effects() {
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_ENTRANCE_HALL);
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_ENTRANCE_HALL);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_ENTRANCE_HALL, false);
+						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_ENTRANCE_HALL, false);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR),
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ENTRANCE_HALL)),
@@ -806,10 +896,10 @@ public class PrologueDialogue {
 					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.genderParsing(Main.game.getPlayer(), "Lilaya makes a soothing hushing sound before patting her on the head, "
-							+ UtilText.parseSpeech("Shh, it's alright Rose, <she>'s a guest of mine, you can calm down,", Main.game.getLilaya())
-							+ " she says, before pulling Rose into a surprisingly intimate hug, "
-							+ UtilText.parseSpeech("Why don't you go make us some tea, you can bring it down to us in the lab.", Main.game.getLilaya()))
+						+ "Lilaya makes a soothing hushing sound before patting her on the head, "
+						+ UtilText.parseSpeech("Shh, it's alright Rose, [pc.she]'s a guest of mine, you can calm down,", Main.game.getLilaya())
+						+ " she says, before pulling Rose into a surprisingly intimate hug, "
+						+ UtilText.parseSpeech("Why don't you go make us some tea, you can bring it down to us in the lab.", Main.game.getLilaya())
 					+ "</p>"
 
 					+ "<p>"
@@ -837,8 +927,8 @@ public class PrologueDialogue {
 				return new Response("To the lab", "Follow Lilaya to her lab.", INTRO_NEW_WORLD_4){
 					@Override
 					public void effects() {
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
+						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR),
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_LAB)),
@@ -1202,7 +1292,7 @@ public class PrologueDialogue {
 				return new Response("Your room", "You follow Rose as she leads you up to your new room.", INTRO_NEW_WORLD_8){
 					@Override
 					public void effects() {
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_PLAYER);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_PLAYER, false);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
@@ -1302,7 +1392,7 @@ public class PrologueDialogue {
 
 					+ "<p>"
 					+ "You walk over to the bed and fall back onto it."
-					+ " The events of the past few hours finally have a chance to catch up with you, and you lie there, wearing Lilaya's spare clothes, trying to sort out in your mind what's going on."
+					+ " The events of the past few hours finally have a chance to catch up with you, and you sink down onto the comfortable mattress, letting out a deep sigh as you try to sort out in your mind what's going on."
 					+ " Just as you feel yourself drifting off to sleep, a sudden knock at the door brings you back to your senses."
 					+ "</p>";
 		}
@@ -1313,7 +1403,7 @@ public class PrologueDialogue {
 				return new Response("Knocking", "Rose said she'd be back in about half an hour, so that must be her knocking at your door.", INTRO_NEW_WORLD_9){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setMoney(40);
+						Main.game.getPlayer().incrementMoney(40);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 					}
 				};
@@ -1375,7 +1465,7 @@ public class PrologueDialogue {
 				return new Response("Freedom!", "Decide what you want to do next.", RoomPlayer.ROOM){
 					@Override
 					public void effects() {
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
 					}
 				};
 				

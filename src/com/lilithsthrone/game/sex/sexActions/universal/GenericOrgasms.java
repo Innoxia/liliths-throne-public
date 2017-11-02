@@ -6,6 +6,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.npc.generic.Cultist;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -307,7 +308,7 @@ public class GenericOrgasms {
 						+ " The muscles within your genderless mound start to spasm and contract, and you're soon left as a panting, moaning wreck as you come down from your surprisingly intense climax.");
 			}
 
-			return UtilText.genderParsing(Sex.getPartner(),
+			return UtilText.parse(Sex.getPartner(),
 					descriptionSB.toString());
 		}
 
@@ -629,7 +630,7 @@ public class GenericOrgasms {
 						+ " The muscles within your genderless mound start to spasm and contract, and you're soon left as a panting, moaning wreck as you come down from your surprisingly intense climax.");
 			}
 			
-			return UtilText.genderParsing(Sex.getPartner(),
+			return UtilText.parse(Sex.getPartner(),
 					descriptionSB.toString());
 		}
 
@@ -664,6 +665,10 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
+			if(Sex.getPartner() instanceof Cultist) { //TODO 
+				return true;
+			}
+			
 			return SexFlags.playerRequestedCreampie
 					|| (!SexFlags.playerRequestedPullOut && !SexFlags.playerRequestedCreampie);
 		}
@@ -882,7 +887,7 @@ public class GenericOrgasms {
 							break;
 						case PENIS_PLAYER:
 							descriptionSB.append(" You carry on fucking [npc.her] [npc.pussy+]"
-									+" through [npc.her] orgasm, causing [npc.her] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around your [pc.cock+].");
+									+" through [npc.her] orgasm, causing [npc.herHim] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around your [pc.cock+].");
 							break;
 						case TAIL_PARTNER:
 							descriptionSB.append(" [npc.She] carries on using [npc.her] tail to fuck [npc.herHim]self through [npc.her] orgasm,"
@@ -890,11 +895,11 @@ public class GenericOrgasms {
 							break;
 						case TAIL_PLAYER:
 							descriptionSB.append(" You carry on using your tail to fuck [npc.her] [npc.pussy+]"
-									+" through [npc.her] orgasm, causing [npc.her] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding object.");
+									+" through [npc.her] orgasm, causing [npc.herHim] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding object.");
 							break;
 						case TONGUE_PARTNER:
 							descriptionSB.append(" [npc.She] carries on thrusting [npc.her] tongue deep into [npc.her] [npc.pussy+]"
-									+" while [npc.she] orgasms, causing [npc.her] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding muscle.");
+									+" while [npc.she] orgasms, causing [npc.herHim] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding muscle.");
 							break;
 						case TONGUE_PLAYER:
 							descriptionSB.append(" You carry on eating [npc.herHim] out, licking and kissing at [npc.her] [npc.pussy+]"
@@ -921,7 +926,7 @@ public class GenericOrgasms {
 						+ " The muscles within [npc.her] genderless mound start to spasm and contract, and [npc.she]'s soon left as a panting, moaning wreck as [npc.she] comes down from [npc.her] surprisingly intense climax.");
 			}
 
-			return UtilText.genderParsing(Sex.getPartner(),
+			return UtilText.parse(Sex.getPartner(),
 					descriptionSB.toString());
 		}
 
@@ -1275,7 +1280,7 @@ public class GenericOrgasms {
 						+ " The muscles within [npc.her] genderless mound start to spasm and contract, and [npc.she]'s soon left as a panting, moaning wreck as [npc.she] comes down from [npc.her] surprisingly intense climax.");
 			}
 
-			return UtilText.genderParsing(Sex.getPartner(),
+			return UtilText.parse(Sex.getPartner(),
 					descriptionSB.toString());
 		}
 

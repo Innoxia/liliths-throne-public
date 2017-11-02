@@ -12,7 +12,6 @@ import com.lilithsthrone.game.character.attributes.FitnessLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.StrengthLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -39,7 +38,7 @@ import com.lilithsthrone.utils.Util;
  * Call initialiseCombat() before using.
  *
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.87
  * @author Innoxia
  */
 public enum Combat {
@@ -77,7 +76,13 @@ public enum Combat {
 	 * @param escapeChance
 	 *            Chance of an escape succeeding (out of 100)
 	 */
-	public void initialiseCombat(NPC npc, int escapePercentage) {
+	public void initialiseCombat(NPC npc,
+			int escapePercentage,
+			String playerStartingTitle,
+			String playerStartingDescription,
+			String opponentStartingTitle,
+			String opponentStartingDescription) {
+		
 		escaped = false;
 		opponent = npc;
 		critical = false;
@@ -95,10 +100,12 @@ public enum Combat {
 		turn = 0;
 		
 		combatText = "";
-		playerActionText = "Your action";
-		opponentActionText = opponent.getName("The")+"'s action";
-		playerTurnText = "You prepare to make a move.";
-		opponentTurnText = opponent.getName("The")+" prepares to make a move.";
+		
+		playerActionText = playerStartingTitle;
+		playerTurnText = playerStartingDescription;
+		
+		opponentActionText = opponentStartingTitle;
+		opponentTurnText = opponentStartingDescription;
 
 		renderedOpponentHealthValue = npc.getHealth();
 		renderedOpponentManaValue = npc.getMana();
@@ -155,28 +162,56 @@ public enum Combat {
 			}
 			if(opponent.getLootEssenceDrops()!=null) {
 				
-				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-					postCombatStringBuilder.append(
-							UtilText.parse(opponent,
-							"<p>"
-								+ "[npc.Name] staggers back, defeated, but before you have a chance to react to your victory, the world around you seems to somehow shift out of focus."
-								+ " The pants and gasps coming from [npc.her] mouth start to sound muffled and faint; as though you're listening to [npc.her] while submerged under water."
-								+ " After fruitlessly trying to shake your head clear, you look down at [npc.name] to see if [npc.she]'s being affected by this peculiar phenomenon as well, but as you do, you feel your eyes going wide in shock."
-							+ "</p>"
-							+ "<p>"
-								+ "A shimmering pink glow has materialised around [npc.her] body, just like the one you saw in Lilaya's lab when she ran her tests on you."
-								+ " Quickly realising that you're somehow able to see [npc.name]'s arcane aura, you watch, fascinated, as you see a sizable shard slowly start to break away from [npc.herHim]."
-								+ " The moment it finally splits from the rest of [npc.her] aura, the shard of energy suddenly launches itself directly at you."
-							+ "</p>"
-							+ "<p>"
-								+ "Slowed down and slightly dazed by the strange state you find yourself in, you have no chance to dodge, and as the shard makes contact with your chest, it pierces straight into your body."
-								+ " The world around you instantly snaps back into focus as it enters your body, and you find yourself sharply inhaling as you feel the energy merging with your own arcane aura."
-							+ "</p>"
-							+ "<p>"
-								+ "Looking back down at [npc.name], you see no sign of the shimmering pink field that was surrounding [npc.herHim] a moment ago, and, what's more, [npc.she] seems completely oblivious to what you've just witnessed."
-								+ " You think that it would probably be best to go and ask Lilaya about what just happened, but first you'd better deal with this troublesome [npc.race]..."
-							+ "</p>"
-							+ Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)));
+				if(!Main.game.getDialogueFlags().essencePostCombatDiscovered) {
+					Main.game.getDialogueFlags().essencePostCombatDiscovered = true;
+					
+					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+						postCombatStringBuilder.append(
+								UtilText.parse(opponent,
+								"<p>"
+									+ "[npc.Name] staggers back, defeated, but before you have a chance to react to your victory, the world around you seems to somehow shift out of focus."
+									+ " The pants and gasps coming from [npc.her] mouth start to sound muffled and faint; as though you're listening to [npc.her] while submerged under water."
+									+ " After fruitlessly trying to shake your head clear, you look down at [npc.name] to see if [npc.she]'s being affected by this peculiar phenomenon as well, but as you do, you feel your eyes going wide in shock."
+								+ "</p>"
+								+ "<p>"
+									+ "A shimmering pink glow has materialised around [npc.her] body, just like the one you saw in Lilaya's lab when she ran her tests on you."
+									+ " Quickly realising that you're somehow able to see [npc.name]'s arcane aura, you watch, fascinated, as you see a sizable shard slowly start to break away from [npc.herHim]."
+									+ " The moment it finally splits from the rest of [npc.her] aura, the shard of energy suddenly launches itself directly at you."
+								+ "</p>"
+								+ "<p>"
+									+ "Slowed down and slightly dazed by the strange state you find yourself in, you have no chance to dodge, and as the shard makes contact with your chest, it pierces straight into your body."
+									+ " The world around you instantly snaps back into focus as it enters your body, and you find yourself sharply inhaling as you feel the energy merging with your own arcane aura."
+								+ "</p>"
+								+ "<p>"
+									+ "Looking back down at [npc.name], you see no sign of the shimmering pink field that was surrounding [npc.herHim] a moment ago, and, what's more, [npc.she] seems completely oblivious to what you've just witnessed."
+									+ " You think that it would probably be best to go and ask Lilaya about what just happened, but first you'd better deal with this troublesome [npc.race]..."
+								+ "</p>"
+								+(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)?Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY):"")));
+						
+					} else {
+						postCombatStringBuilder.append(
+								UtilText.parse(opponent,
+								"<p>"
+									+ "[npc.Name] staggers back, defeated, but before you have a chance to react to your victory, the world around you seems to somehow shift out of focus."
+									+ " The pants and gasps coming from [npc.her] mouth start to sound muffled and faint; as though you're listening to [npc.her] while submerged under water."
+									+ " After fruitlessly trying to shake your head clear, you look down at [npc.name] to see if [npc.she]'s being affected by this peculiar phenomenon as well, but as you do, you feel your eyes going wide in shock."
+								+ "</p>"
+								+ "<p>"
+									+ "A shimmering pink glow has materialised around [npc.her] body, just like the one you saw in Lilaya's lab when she ran her tests on you."
+									+ " Quickly realising that you're somehow able to see [npc.name]'s arcane aura, you watch, fascinated, as you see a sizable shard slowly start to break away from [npc.herHim]."
+									+ " The moment it finally splits from the rest of [npc.her] aura, the shard of energy suddenly launches itself directly at you."
+								+ "</p>"
+								+ "<p>"
+									+ "Slowed down and slightly dazed by the strange state you find yourself in, you have no chance to dodge, and as the shard makes contact with your chest, it pierces straight into your body."
+									+ " The world around you instantly snaps back into focus as it enters your body, and you find yourself sharply inhaling as you feel the energy merging with your own arcane aura."
+								+ "</p>"
+								+ "<p>"
+									+ "Looking back down at [npc.name], you see no sign of the shimmering pink field that was surrounding [npc.herHim] a moment ago, and, what's more, [npc.she] seems completely oblivious to what you've just witnessed."
+									+ " You suddenly remember what Lilaya told you about absorbing essences, and how it's absolutely harmless for both parties involved."
+									+ " Breathing a sigh of relief, you turn your attention back to this troublesome [npc.race]..."
+								+ "</p>"));
+					}
+					
 				}
 				
 				for(Entry<TFEssence, Integer> entry : opponent.getLootEssenceDrops().entrySet()) {
@@ -470,21 +505,22 @@ public enum Combat {
 		// Display status effects:
 		descriptionStringBuilder.append("<div class='combat-inner-container status-effects'>");
 //		if (Main.game.getPlayer().hasPerk(Perk.OBSERVANT)) {
-			for (Perk p : opponent.getPerks()) {
-				descriptionStringBuilder.append("<div class='combat-status-effect'>" + p.getSVGString() + "<div class='overlay no-pointer' id='PERK_COMBAT_" + p + "'></div>" + "</div>");
-			}
-			for (Fetish f : opponent.getFetishes()) {
-				descriptionStringBuilder.append("<div class='combat-status-effect'>" + f.getSVGString() + "<div class='overlay no-pointer' id='FETISH_COMBAT_" + f + "'></div>" + "</div>");
-			}
+//			for (Perk p : opponent.getPerks()) {
+//				descriptionStringBuilder.append("<div class='combat-status-effect'>" + p.getSVGString() + "<div class='overlay no-pointer' id='PERK_COMBAT_" + p + "'></div>" + "</div>");
+//			}
+//			for (Fetish f : opponent.getFetishes()) {
+//				descriptionStringBuilder.append("<div class='combat-status-effect'>" + f.getSVGString() + "<div class='overlay no-pointer' id='FETISH_COMBAT_" + f + "'></div>" + "</div>");
+//			}
 			for (StatusEffect se : opponent.getStatusEffects()) {
 				if (se.renderInEffectsPanel()) {
 					if (se.isCombatEffect()) {
 						descriptionStringBuilder.append("<div class='combat-status-effect" + (!se.isBeneficial() ? " negativeCombat" : " positiveCombat") + "'>"
 									+ se.getSVGString(opponent) + "<div class='overlay no-pointer' id='SE_COMBAT_" + se + "'></div>" + "</div>");
-					} else {
-						descriptionStringBuilder.append(
-								"<div class='combat-status-effect'>" + se.getSVGString(opponent) + "<div class='overlay no-pointer' id='SE_COMBAT_" + se + "'></div>" + "</div>");
 					}
+//					else {
+//						descriptionStringBuilder.append(
+//								"<div class='combat-status-effect'>" + se.getSVGString(opponent) + "<div class='overlay no-pointer' id='SE_COMBAT_" + se + "'></div>" + "</div>");
+//					}
 				}
 			}
 			for (SpecialAttack sa : opponent.getSpecialAttacks()) {
@@ -732,8 +768,9 @@ public enum Combat {
 
 		@Override
 		public String getContent() {
-			return UtilText.genderParsing(opponent, "<p>" + "Are you certain you want to <b>submit</b> to " + opponent.getName("the") + "?" + "</p>" + "<p>"
-							+ "<b>This will cause you to lose the fight, allowing <herPro> to do anything <she> wants with you!</b>"
+			return UtilText.parse(opponent,
+							"<p>"
+									+ "Are you certain you want to <b>submit</b> to [npc.name]? <b>This will cause you to lose the fight, allowing [npc.herHim] to do anything [npc.she] wants with you!</b>"
 							+ "</p>");
 		}
 		
@@ -864,20 +901,35 @@ public enum Combat {
 
 		@Override
 		public String getContent() {
-			return "<div style='width:50%; padding:4%; float:left; text-align:center; box-sizing: border-box;'>"
-						+ "<h6 style='width:100%;margin:0 0 8px 0;'>"+playerActionText+"</h6>"
+			return "<div style='width:49%; padding:0 4% 4% 4%; margin:2% 1% 0 0; float:left; text-align:center; box-sizing: border-box; border:6px solid #333; border-radius:5px;'>"
+						+ "<h6 style='width:100%; margin:0 0 8px 0;'><span style='color:"+Main.game.getPlayer().getFemininity().getColour().toWebHexString()+";'>Your Turn:</br></span>"+playerActionText+"</h6>"
 						+ playerTurnText
 					+ "</div>"
 					
-					+"<div style='width:50%; padding:4%; float:left; text-align:center; box-sizing: border-box;'>"
-						+ "<h6 style='width:100%;margin:0 0 8px 0;'>"+opponentActionText+"</h6>"
+					+"<div style='width:49%; padding:0 4% 4% 4%; margin:2% 0 0 1%; float:left; text-align:center; box-sizing: border-box; border:6px solid #333; border-radius:5px;'>"
+						+ "<h6 style='width:100%;margin:0 0 8px 0;'><span style='color:"+opponent.getFemininity().getColour().toWebHexString()+";'>[npc.Name]'s Turn:</br></span>"+opponentActionText+"</h6>"
 						+ opponentTurnText 
 					+ "</div>";
 		}
 		
 		@Override
 		public Response getResponse(int index) {
-			if (escaped) {
+			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.WITCH_SEAL)) { //TODO replace with generic isStunned() method
+				if (index == 1) {
+					return new Response("Stunned!", "You are unable to make an action this turn!", ENEMY_ATTACK){
+						@Override
+						public void effects() {
+							sunnedTurn();
+							attackEnemy();
+							previousAction = Attack.MAIN;
+						}
+					};
+					
+				} else {
+					return null;
+				}
+				
+			} else if (escaped) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Escaped!", "You got away!"){
 						@Override
@@ -886,8 +938,9 @@ public enum Combat {
 							Main.game.setContent(new Response("", "", GenericDialogue.getDefaultDialogueNoEncounter()));
 						}
 					};
-				} else
+				} else {
 					return null;
+				}
 				
 			} else if (opponent.getHealth() <= 0
 					|| (opponent.getMana() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))
@@ -1108,6 +1161,11 @@ public enum Combat {
 		return Util.random.nextInt(100) + 1 <= attacker.getAttributeValue(Attribute.CRITICAL_CHANCE);
 	}
 
+	private static void sunnedTurn() {
+		playerActionText = "Stunned";
+		playerTurnText = "You are unable to make a move!"+endCombatTurn(true);
+	}
+	
 	// Calculations for melee attack:
 	private static void attackMelee() {
 		float damage = 0;
@@ -1146,9 +1204,9 @@ public enum Combat {
 		}
 
 		return (opponent.isVisiblyPregnant()
-					?UtilText.genderParsing(opponent,
+					?UtilText.parse(opponent,
 					"<p>"
-						+ "A powerful field of arcane energy is protecting "+opponent.getName("the")+"'s pregnant belly, which doesn't even come into play, as you're very careful not to hit anywhere near <her> stomach."
+						+ "A powerful field of arcane energy is protecting [npc.name]'s pregnant belly, which doesn't even come into play, as you're very careful not to hit anywhere near [npc.her] stomach."
 					+ "</p>")
 					:"")
 				+"<p>"
@@ -1191,9 +1249,9 @@ public enum Combat {
 		}
 
 		return (opponent.isVisiblyPregnant()
-					?UtilText.genderParsing(opponent,
+					?UtilText.parse(opponent,
 					"<p>"
-						+ "A powerful field of arcane energy is protecting "+opponent.getName("the")+"'s pregnant belly, which doesn't even come into play, as you're very careful not to hit anywhere near <her> stomach."
+						+ "A powerful field of arcane energy is protecting [npc.name]'s pregnant belly, which doesn't even come into play, as you're very careful not to hit anywhere near [npc.her] stomach."
 					+ "</p>")
 					:"")
 				+"<p>"
@@ -1247,9 +1305,9 @@ public enum Combat {
 		}
 
 		return (opponent.isVisiblyPregnant()
-					?UtilText.genderParsing(opponent,
+					?UtilText.parse(opponent,
 					"<p>"
-						+ "A powerful field of arcane energy is protecting "+opponent.getName("the")+"'s pregnant belly, which doesn't even come into play, as you're very careful not to hit anywhere near <her> stomach."
+						+ "A powerful field of arcane energy is protecting [npc.name]'s pregnant belly, which doesn't even come into play, as you're very careful not to hit anywhere near [npc.her] stomach."
 					+ "</p>")
 					:"")
 				+"<p>"
@@ -1270,8 +1328,11 @@ public enum Combat {
 	
 		damage = Attack.calculateDamage(Main.game.getPlayer(), opponent, Attack.SEDUCTION, critical);
 	
-		combatStringBuilder.append(UtilText.genderParsing(opponent, "<p>" + (critical ? "Your seductive display was <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>extremely effective</b>!</br>" : "")
-				+ "<b><She> loses " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b> as <she> tries to resist your seductive display!</b>" + "</p>"));
+		combatStringBuilder.append(UtilText.parse(opponent,
+				"<p>"
+					+ (critical ? "Your seductive display was <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>extremely effective</b>!</br>" : "")
+					+ "<b>[npc.Name] loses " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b> as [npc.she] tries to resist your seductive display!</b>"
+				+ "</p>"));
 
 
 		opponent.incrementMana(-damage);
@@ -1284,29 +1345,22 @@ public enum Combat {
 
 	private static String getSeductionAttackDescription() {
 		if(Main.game.getPlayer().isFeminine()) {
-			return UtilText.genderParsing(opponent,
+			return UtilText.parse(opponent,
 					UtilText.returnStringAtRandom(
-					"You blow a kiss at "+opponent.getName("the")+" and wink suggestively at <herPro>.",
-					
+					"You blow a kiss at [npc.name] and wink suggestively at [npc.herHim].",
 					"Biting your lip and putting on your most smouldering look, you run your hands slowly up your inner thighs.",
-					
-					"As you give "+opponent.getName("the")+" your most innocent look, you blow <herPro> a little kiss.",
-					
-					"Turning around, you let out a playful giggle as you give your "+Main.game.getPlayer().getAssName(true)+" a slap.",
-					
-					"You slowly run your hands up the length of your body, before pouting at "+opponent.getName("the")+"."));
+					"As you give [npc.name] your most innocent look, you blow [npc.herHim] a little kiss.",
+					"Turning around, you let out a playful giggle as you give your [pc.ass+] a slap.",
+					"You slowly run your hands up the length of your body, before pouting at [npc.name]."));
+			
 		} else {
-			return UtilText.genderParsing(opponent,
+			return UtilText.parse(opponent,
 					UtilText.returnStringAtRandom(
-					"You blow a kiss at "+opponent.getName("the")+" and wink suggestively at <herPro>.",
-					
-					"Smiling confidently at "+opponent.getName("the")+", you slowly run your hands up your inner thighs.",
-					
-					"As you give "+opponent.getName("the")+" your most seductive look, you blow <herPro> a little kiss.",
-					
-					"Turning around, you let out a playful laugh as you give your "+Main.game.getPlayer().getAssName(true)+" a slap.",
-					
-					"You try to look as commanding as possible as you smirk playfully at "+opponent.getName("the")+"."));
+					"You blow a kiss at [npc.name] and wink suggestively at [npc.herHim].",
+					"Smiling confidently at [npc.name], you slowly run your hands up your inner thighs.",
+					"As you give [npc.name] your most seductive look, you blow [npc.herHim] a little kiss.",
+					"Turning around, you let out a playful laugh as you give your [pc.ass+] a slap.",
+					"You try to look as commanding as possible as you smirk playfully at [npc.name]."));
 		}
 	}
 
@@ -1316,10 +1370,12 @@ public enum Combat {
 
 		combatStringBuilder = new StringBuilder();
 
-		combatStringBuilder.append(opponent.isVisiblyPregnant()?UtilText.genderParsing(opponent,
-				"<p>"
-				+ "A powerful field of arcane energy is protecting "+opponent.getName("the")+"'s pregnant belly, which doesn't even come into play, as you're very careful not to hit anywhere near <her> stomach."
-				+ "</p>"):"");
+		combatStringBuilder.append(opponent.isVisiblyPregnant()
+				?UtilText.parse(opponent,
+					"<p>"
+						+ "A powerful field of arcane energy is protecting [npc.name]'s pregnant belly, which doesn't even come into play, as you're very careful not to hit anywhere near [npc.her] stomach."
+					+ "</p>")
+				:"");
 		
 		combatStringBuilder.append(spell.applyEffect(Main.game.getPlayer(), opponent, level, true, critical));
 		
@@ -1335,9 +1391,9 @@ public enum Combat {
 
 		combatStringBuilder = new StringBuilder();
 		
-		combatStringBuilder.append(opponent.isVisiblyPregnant()?UtilText.genderParsing(opponent,
+		combatStringBuilder.append(opponent.isVisiblyPregnant()?UtilText.parse(opponent,
 				"<p>"
-				+ "A powerful field of arcane energy is protecting "+opponent.getName("the")+"'s pregnant belly, which doesn't even come into play, as you're very careful not to hit anywhere near <her> stomach."
+				+ "A powerful field of arcane energy is protecting [npc.name]'s pregnant belly, which doesn't even come into play, as you're very careful not to hit anywhere near [npc.her] stomach."
 				+ "</p>"):"");
 
 		combatStringBuilder.append(specialAttack.applyEffect(Main.game.getPlayer(), opponent, true, critical));
@@ -1388,11 +1444,9 @@ public enum Combat {
 
 	// Calculations for enemy attack:
 	public static void attackEnemy() {
-
 		if(opponent.getHealth() <= 0
 				|| (opponent.getMana() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))
 				|| (opponent.getStamina() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))) {
-
 			opponentActionText = "<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Defeated!</span>";
 			opponentTurnText = "<p>"
 								+opponent.getName("The")+" doesn't have the strength to continue fighting...</br>"
@@ -1410,12 +1464,14 @@ public enum Combat {
 								+ "</p>";
 			
 		} else if(escaped) {
-			
 			opponentActionText = "Fails to catch you";
 			opponentTurnText = opponent.getName("The")+" tries to block your escape, but fails...";
 			
+		} else if(opponent.hasStatusEffect(StatusEffect.WITCH_SEAL)) { //TODO replace with generic isStunned() method
+			opponentActionText = "Stunned";
+			opponentTurnText = UtilText.parse(opponent, "[npc.Name] is unable to make a move!")+endCombatTurn(false);
+			
 		} else {
-		
 			// Calculate what attack to use based on NPC preference:
 			Attack opponentAttack;
 			critical = isCriticalHit(opponent);
@@ -1472,9 +1528,9 @@ public enum Combat {
 					damage = 0;
 					combatStringBuilder = new StringBuilder(opponent.getAttackDescription(opponentAttack, true));
 					damage = Attack.calculateDamage(opponent, Main.game.getPlayer(), opponentAttack, critical);
-					combatStringBuilder.append(UtilText.genderParsing(opponent,
+					combatStringBuilder.append(UtilText.parse(opponent,
 							"<p>"
-							+ (critical ? "<Her> seductive display was <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>extremely effective</b>!</br>" : "")
+							+ (critical ? "[npc.Her] seductive display was <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>extremely effective</b>!</br>" : "")
 							+ "<b>You lose " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b> as you try to resist the seductive display!</b>"
 							+ "</p>"));
 					Main.game.getPlayer().incrementMana(-damage);

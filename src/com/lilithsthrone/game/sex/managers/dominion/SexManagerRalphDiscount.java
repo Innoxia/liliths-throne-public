@@ -1,9 +1,11 @@
 package com.lilithsthrone.game.sex.managers.dominion;
 
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.dominion.ralph.SARalphOrgasms;
 import com.lilithsthrone.game.sex.sexActions.dominion.ralph.SexActionRalphDiscount;
 import com.lilithsthrone.main.Main;
@@ -61,6 +63,18 @@ public class SexManagerRalphDiscount extends SexManagerDefault {
 					+ "<b>There are</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>no customers</b> <b>near the counter.</b>"
 					+ " <b>You will earn a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>25%</b> <b>discount.</b>"
 				+ "</p>";
+	}
+	
+
+	@Override
+	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer) {
+		if(Sex.getAvailableSexActionsPartner().contains(SexActionRalphDiscount.PARTNER_PENETRATES)) {
+			return SexActionRalphDiscount.PARTNER_PENETRATES;
+		} else if(Sex.getAvailableSexActionsPartner().contains(SexActionRalphDiscount.PARTNER_PENETRATES_ANUS)) {
+			return SexActionRalphDiscount.PARTNER_PENETRATES_ANUS;
+		}
+		
+		return super.getPartnerSexAction(sexActionPlayer);
 	}
 	
 	@Override

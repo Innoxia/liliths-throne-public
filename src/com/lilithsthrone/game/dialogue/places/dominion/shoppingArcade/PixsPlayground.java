@@ -260,10 +260,10 @@ public class PixsPlayground {
 		public Response getResponse(int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getMoney() < 10)
-					return new Response("Single (" + Main.game.getCurrencySymbol() + " 10)", "You don't have enough money!", null);
+					return new Response("Single (" + UtilText.getCurrencySymbol() + " 10)", "You don't have enough money!", null);
 				else
-					return new Response("Single Payment (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 10)",
-							"Tell Pix that you'd like to pay for a single entry to the gym. <b>This will cost </b><b style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>10</b>", GYM_SINGLE_PAYMENT){
+					return new Response("Single Payment (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</span> 10)",
+							"Tell Pix that you'd like to pay for a single entry to the gym. <b>This will cost </b><b style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</b> <b>10</b>", GYM_SINGLE_PAYMENT){
 					@Override
 					public void effects(){
 						Main.game.getPlayer().incrementMoney(-10);
@@ -272,10 +272,10 @@ public class PixsPlayground {
 				
 			} else if (index == 2) {
 				if (Main.game.getPlayer().getMoney() < 800)
-					return new Response("Membership (" + Main.game.getCurrencySymbol() + " 800)", "You don't have enough money!", null);
+					return new Response("Membership (" + UtilText.getCurrencySymbol() + " 800)", "You don't have enough money!", null);
 				else
-					return new Response("Membership (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 800)",
-							"Tell Pix that you'd like to sign up for the lifetime membership option. <b>This will cost </b><b style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>800</b>",
+					return new Response("Membership (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</span> 800)",
+							"Tell Pix that you'd like to sign up for the lifetime membership option. <b>This will cost </b><b style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</b> <b>800</b>",
 							GYM_LIFETIME_PAYMENT){
 					@Override
 					public void effects(){
@@ -326,10 +326,10 @@ public class PixsPlayground {
 			if (!Main.game.getDialogueFlags().gymIsMember) {
 				if (index == 1) {
 					if (Main.game.getPlayer().getMoney() < 10)
-						return new Response("Single Payment (" + Main.game.getCurrencySymbol() + " 10)", "You don't have enough money!", null);
+						return new Response("Single Payment (" + UtilText.getCurrencySymbol() + " 10)", "You don't have enough money!", null);
 					else
-						return new Response("Single Payment (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 10)",
-								"Tell Pix that you'd like to pay for a single entry to the gym. <b>This will cost </b><b style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>10</b>", GYM_SINGLE_PAYMENT){
+						return new Response("Single Payment (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</span> 10)",
+								"Tell Pix that you'd like to pay for a single entry to the gym. <b>This will cost </b><b style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</b> <b>10</b>", GYM_SINGLE_PAYMENT){
 						@Override
 						public void effects(){
 							Main.game.getPlayer().incrementMoney(-10);
@@ -338,10 +338,10 @@ public class PixsPlayground {
 					
 				} else if (index == 2) {
 					if (Main.game.getPlayer().getMoney() < 800)
-						return new Response("Membership (" + Main.game.getCurrencySymbol() + " 800)", "You don't have enough money!", null);
+						return new Response("Membership (" + UtilText.getCurrencySymbol() + " 800)", "You don't have enough money!", null);
 					else
-						return new Response("Membership (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> 800)",
-								"Tell Pix that you'd like to sign up for the lifetime membership option. <b>This will cost </b><b style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>800</b>",
+						return new Response("Membership (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</span> 800)",
+								"Tell Pix that you'd like to sign up for the lifetime membership option. <b>This will cost </b><b style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</b> <b>800</b>",
 								GYM_LIFETIME_PAYMENT){
 						@Override
 						public void effects(){
@@ -623,7 +623,7 @@ public class PixsPlayground {
 				return new ResponseSex("Too tired",
 						"Tell Pix that you're far too tired to do any more physical exercise right now.",
 						GYM,
-						true, true, Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX,
+						false, false, Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX,
 						"<p>"
 							+ "You're far too tired to do any more physical exercise right now, and tell Pix as such, "
 							+UtilText.parsePlayerSpeech("I wasn't avoiding you, I'm just too tired for this right now. Maybe we can carry on in about half an hour or something?")
@@ -649,7 +649,7 @@ public class PixsPlayground {
 				return new ResponseSex("Make it up to her",
 						"Tell Pix that you can make it up to her right now.",
 						GYM,
-						true, true, Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX,
+						false, false, Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX,
 						"<p>"
 							+ "As tired as you are, Pix turns you on far too much to refuse her advances, and you turn your head to one side as you eagerly respond, "
 							+UtilText.parsePlayerSpeech("Perhaps you'll let me make it up to you?")
@@ -675,7 +675,7 @@ public class PixsPlayground {
 				return new ResponseSex("Apologise",
 						"Apologise to Pix and accept her punishment.",
 						GYM,
-						true, true, Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX,
+						false, false, Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX,
 						"<p>"
 							+ "You don't want Pix to think that you've been avoiding her, and you turn your head to one side as you apologise, "
 							+UtilText.parsePlayerSpeech("Sorry Pix, I wasn't trying to avoid you, I just didn't see you anywhere nearby!")

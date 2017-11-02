@@ -1256,6 +1256,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.COVERING_WHITE),
 					new ListValue<Colour>(Colour.COVERING_GREEN),
 					new ListValue<Colour>(Colour.COVERING_BROWN),
+					new ListValue<Colour>(Colour.COVERING_ORANGE),
 					new ListValue<Colour>(Colour.COVERING_BLACK)),
 			null,
 			null),
@@ -1279,6 +1280,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.COVERING_WHITE),
 					new ListValue<Colour>(Colour.COVERING_GREEN),
 					new ListValue<Colour>(Colour.COVERING_BROWN),
+					new ListValue<Colour>(Colour.COVERING_ORANGE),
 					new ListValue<Colour>(Colour.COVERING_BLACK)),
 			null,
 			null),
@@ -1302,6 +1304,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.COVERING_WHITE),
 					new ListValue<Colour>(Colour.COVERING_GREEN),
 					new ListValue<Colour>(Colour.COVERING_BROWN),
+					new ListValue<Colour>(Colour.COVERING_ORANGE),
 					new ListValue<Colour>(Colour.COVERING_BLACK)),
 			null,
 			null),
@@ -1328,6 +1331,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.COVERING_WHITE),
 					new ListValue<Colour>(Colour.COVERING_GREEN),
 					new ListValue<Colour>(Colour.COVERING_BROWN),
+					new ListValue<Colour>(Colour.COVERING_ORANGE),
 					new ListValue<Colour>(Colour.COVERING_BLACK)),
 			null,
 			Util.newArrayListOfValues(
@@ -1339,6 +1343,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.COVERING_WHITE),
 					new ListValue<Colour>(Colour.COVERING_GREEN),
 					new ListValue<Colour>(Colour.COVERING_BROWN),
+					new ListValue<Colour>(Colour.COVERING_ORANGE),
 					new ListValue<Colour>(Colour.COVERING_BLACK))),
 	
 	MAKEUP_NAIL_POLISH_HANDS(Race.HUMAN,
@@ -1363,6 +1368,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.COVERING_WHITE),
 					new ListValue<Colour>(Colour.COVERING_GREEN),
 					new ListValue<Colour>(Colour.COVERING_BROWN),
+					new ListValue<Colour>(Colour.COVERING_ORANGE),
 					new ListValue<Colour>(Colour.COVERING_BLACK)),
 			null,
 			Util.newArrayListOfValues(
@@ -1374,6 +1380,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.COVERING_WHITE),
 					new ListValue<Colour>(Colour.COVERING_GREEN),
 					new ListValue<Colour>(Colour.COVERING_BROWN),
+					new ListValue<Colour>(Colour.COVERING_ORANGE),
 					new ListValue<Colour>(Colour.COVERING_BLACK))),
 	
 	MAKEUP_NAIL_POLISH_FEET(Race.HUMAN,
@@ -1398,6 +1405,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.COVERING_WHITE),
 					new ListValue<Colour>(Colour.COVERING_GREEN),
 					new ListValue<Colour>(Colour.COVERING_BROWN),
+					new ListValue<Colour>(Colour.COVERING_ORANGE),
 					new ListValue<Colour>(Colour.COVERING_BLACK)),
 			null,
 			Util.newArrayListOfValues(
@@ -1409,6 +1417,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.COVERING_WHITE),
 					new ListValue<Colour>(Colour.COVERING_GREEN),
 					new ListValue<Colour>(Colour.COVERING_BROWN),
+					new ListValue<Colour>(Colour.COVERING_ORANGE),
 					new ListValue<Colour>(Colour.COVERING_BLACK)));
 	
 	private String determiner, namePlural, nameSingular, descriptor;

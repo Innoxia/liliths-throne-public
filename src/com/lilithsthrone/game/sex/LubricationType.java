@@ -4,7 +4,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.6?
- * @version 0.1.83
+ * @version 0.1.87
  * @author Innoxia
  */
 public enum LubricationType {
@@ -22,6 +22,23 @@ public enum LubricationType {
 				return Sex.getPartner().getName("the")+"'s saliva";
 			} else {
 				return "saliva";
+			}
+		}
+	},
+	
+	PLAYER_MILK(false) {
+		@Override
+		public String getName() {
+			return "your milk";
+		}
+	},
+	PARTNER_MILK(false) {
+		@Override
+		public String getName() {
+			if(Sex.getPartner()!=null) {
+				return Sex.getPartner().getName("the")+"'s milk";
+			} else {
+				return "milk";
 			}
 		}
 	},

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.prologue;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
@@ -103,7 +104,7 @@ public class PrologueFemale extends NPC {
 	}
 	
 	@Override
-	public SexPace getSexPaceSubPreference(){
+	public SexPace getSexPaceSubPreference(GameCharacter character){
 		return SexPace.SUB_EAGER;
 	}
 

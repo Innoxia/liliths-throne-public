@@ -24,20 +24,6 @@ import com.lilithsthrone.utils.Util.ListValue;
  * @author Innoxia
  */
 public class PartnerTongueVagina {
-	/*
-	 * Suck clit
-	 * Herm fun
-	 * 
-	 * Player start/stop
-	 * Eating out:
-	 * 		Dom gentle, normal, rough
-	 * 		Sub normal, eager, resist
-	 * 
-	 * Partner start/stop
-	 * Partner react:
-	 * 		Dom gentle, normal, rough
-	 * 		Sub normal, eager, resist
-	 */
 	
 	public static final SexAction PLAYER_FORCE_CLIT = new SexAction(
 			SexActionType.PLAYER,
@@ -371,6 +357,7 @@ public class PartnerTongueVagina {
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.TONGUE_PARTNER,
 			OrificeType.VAGINA_PLAYER) {
+		
 		@Override
 		public String getActionTitle() {
 			return "Eat [pc.herHim] out";
@@ -473,7 +460,7 @@ public class PartnerTongueVagina {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You frantically try to wriggle away from [npc.her] unwanted oral attention, [pc.sobbing] and squirming as you beg for [npc.herHim] to leave your pussy alone.",
-							" [pc.A_sob+] bursts out from your] mouth, and, struggling against [npc.herHim], you beg for [npc.herHim] to take [npc.her] [npc.tongue] away from your pussy."));
+							" [pc.A_sob+] bursts out from your mouth, and, struggling against [npc.herHim], you beg for [npc.herHim] to take [npc.her] [npc.tongue] away from your pussy."));
 					break;
 				default:
 					break;
@@ -940,7 +927,7 @@ public class PartnerTongueVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() ||Sex.isConsensual(); // Partner can only stop if they're in charge.
+			return !Sex.isPlayerDom() || Sex.isSubHasEqualControl(); // Partner can only stop if they're in charge.
 		}
 		
 		@Override
@@ -1101,7 +1088,7 @@ public class PartnerTongueVagina {
 						break;
 					case SUB_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"EPressing your crotch down against [npc.name]'s [npc.face], you let out [pc.a_moan+] as you start grinding your [pc.pussy+] down on [npc.her] [npc.lips+].",
+								"Pressing your crotch down against [npc.name]'s [npc.face], you let out [pc.a_moan+] as you start grinding your [pc.pussy+] down on [npc.her] [npc.lips+].",
 								"Repositioning your groin so that [npc.name]'s [npc.face] is forced between your [pc.legs],"
 										+ " you let out [pc.a_moan+] as you start pressing your [pc.pussy+] down against [npc.her] [npc.lips+]."));
 						break;
@@ -1442,7 +1429,7 @@ public class PartnerTongueVagina {
 		
 		@Override
 		public String getActionTitle() {
-			return "Resist giving cunnilingus";
+			return "Resist cunnilingus";
 		}
 
 		@Override

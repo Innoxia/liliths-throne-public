@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.Quest;
@@ -15,13 +18,10 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.managers.dominion.lilaya.SMChairBottomLilaya;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -33,7 +33,7 @@ import com.lilithsthrone.world.places.LilayasHome;
 
 /**
  * @since 0.1.75
- * @version 0.1.75
+ * @version 0.1.87
  * @author Innoxia
  */
 public class Lab {
@@ -167,7 +167,7 @@ public class Lab {
 									AUNT_HOME_LABORATORY_TESTING_ROMANCE,
 									Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
 									null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-									true, false, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+									true, true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
 										"<p>"
 											+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 											+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
@@ -181,7 +181,7 @@ public class Lab {
 								public void effects() {
 									Main.game.getDialogueFlags().hadSexWithLilaya = true;
 									Main.game.getDialogueFlags().waitingOnLilayaPregnancyResults = false;
-									Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE);
+									Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE, false);
 								}
 							};
 							
@@ -191,7 +191,7 @@ public class Lab {
 									AUNT_HOME_LABORATORY_TESTING_ROMANCE,
 									Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
 									null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-									true, false, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+									true, true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
 										"<p>"
 											+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 											+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
@@ -204,7 +204,7 @@ public class Lab {
 								public void effects() {
 									Main.game.getDialogueFlags().hadSexWithLilaya = true;
 									Main.game.getDialogueFlags().waitingOnLilayaPregnancyResults = false;
-									Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE);
+									Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE, false);
 								}
 							};
 						}
@@ -216,14 +216,85 @@ public class Lab {
 									Main.game.getDialogueFlags().waitingOnLilayaPregnancyResults = false;
 								}
 							};
-	
+							
 					} else {
 						return null;
 					}
 					
 				} else {
 					
-					if (index == 1) {
+					List<Response> generatedResponses = new ArrayList<>();
+					
+					if (Main.game.getPlayer().isVisiblyPregnant()) {
+						if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+							generatedResponses.add(new Response("Pregnancy", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your pregnancy.", null));
+							
+						} else {
+							generatedResponses.add(new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY){
+								@Override
+								public QuestLine getQuestLine() {
+									if (Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+										if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_CONSULT_LILAYA) {
+											return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
+										} else {
+											return null;
+										}
+									} else {
+										return null;
+									}
+								}
+								@Override
+								public void effects() {
+									if (!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY))
+										Main.game.getPlayer().incrementQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY);
+								}
+							});
+						}
+					}
+					
+					if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+						if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+							if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+								generatedResponses.add(new Response("Essences & Jinxes", "You'll need to complete Lilaya's initial tests before you're able to ask her about that strange energy you absorbed.", null));
+								
+							} else {
+								generatedResponses.add(new Response("Essences & Jinxes", "Ask Lilaya about that strange energy you absorbed.", LILAYA_EXPLAINS_ESSENCES));
+							}
+							
+						} else {
+							if(Main.game.getDialogueFlags().essenceExtractionKnown) {
+								generatedResponses.add(new Response("Extract Essences", "Ask Lilaya if you can use her equipment to extract some essences.", ESSENCE_EXTRACTION));
+							} else {
+								generatedResponses.add(new Response("Extract Essences", "Ask Lilaya if there's any way to extract essences you've absorbed.", ESSENCE_EXTRACTION));
+							}
+						}
+					}
+					
+					if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)) {
+						if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_NEED_RECOMMENDATION) {
+							if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+								generatedResponses.add(new Response("Slaver", "You'll need to complete Lilaya's initial tests before you can ask her for a letter of recommendation.", null));
+								
+							} else {
+								generatedResponses.add(new Response("Slaver", "Ask Lilaya for a letter of recommendation in order to obtain a slaver license.", LILAYA_SLAVER_RECOMMENDATION));
+							}
+						}
+					}
+					
+					if(!Main.game.getDialogueFlags().lilayaDateTalk && Main.game.getDialogueFlags().knowsDate) {
+						generatedResponses.add(new Response("Current Date", "Ask Lilaya why the calendar in your room is three years ahead of the correct date.", LILAYA_CURRENT_DATE_TALK) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().lilayaDateTalk=true;
+							}
+						});
+					}
+					
+					// Return responses:
+					if(index==0) {
+						return null;
+						
+					} else if (index == 1) {
 						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_A_LILAYAS_TESTS) {
 							return new Response("Tests", "Let Lilaya know that you're here to let her run her tests on you.", AUNT_HOME_LABORATORY_TESTING);
 						} else {
@@ -234,87 +305,13 @@ public class Lab {
 							}
 						}
 	
-					} else if(index == 2) {
-						if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) == Quest.SIDE_ENCHANTMENTS_LILAYA_HELP) {
-								if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-									return new Response("Essences", "You'll need to complete Lilaya's initial tests before you're able to ask her about that strange energy you absorbed.", null);
-									
-								} else {
-									return new Response("Essences", "Ask Lilaya about that strange energy you absorbed.", LILAYA_EXPLAINS_ESSENCES);
-								}
-								
-							} else {
-								if(Main.game.getDialogueFlags().essenceExtractionKnown) {
-									return new Response("Extract Essences", "Ask Lilaya if you can use her equipment to extract some essences.", ESSENCE_EXTRACTION);
-								} else {
-									return new Response("Extract Essences", "Ask Lilaya if there's any way to extract essences you've absorbed.", ESSENCE_EXTRACTION);
-								}
-							}
-						}
-						return null;
-	
-					} else if (index == 3) {
-						if (Main.game.getPlayer().isVisiblyPregnant()) {
-							if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-								return new Response("Pregnancy", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your pregnancy.", null);
-								
-							} else {
-								return new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY){
-									@Override
-									public QuestLine getQuestLine() {
-										if (Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
-											if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_CONSULT_LILAYA) {
-												return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
-											} else {
-												return null;
-											}
-										} else {
-											return null;
-										}
-									}
-									@Override
-									public void effects() {
-										if (!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY))
-											Main.game.getPlayer().incrementQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY);
-									}
-								};
-							}
+					} else if(index<6) {
+						if(index-2 < generatedResponses.size()) {
+							return generatedResponses.get(index-2);
 						} else {
 							return null;
 						}
 						
-					} else if(index == 4) {
-						if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING)) {
-							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_JINXED_CLOTHING) == Quest.SIDE_JINXED_LILAYA_HELP) {
-								if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-									return new Response("Jinxed help", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your jinxed clothing.", null);
-									
-								} else {
-									return new Response("Jinxed help", "Ask Lilaya for help with removing your jinxed clothing.", LILAYA_ASSISTS_JINXED){
-										@Override
-										public QuestLine getQuestLine() {
-											return QuestLine.SIDE_JINXED_CLOTHING;
-										}
-									};
-								}
-							}
-						}
-						return null;
-	
-					} else if(index == 5) {
-						if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)) {
-							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_NEED_RECOMMENDATION) {
-								if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-									return new Response("Slaver", "You'll need to complete Lilaya's initial tests before you can ask her for a letter of recommendation.", null);
-									
-								} else {
-									return new Response("Slaver", "Ask Lilaya for a letter of recommendation in order to obtain a slaver license.", LILAYA_SLAVER_RECOMMENDATION);
-								}
-							}
-						}
-						return null;
-	
 					} else if (index == 6) {
 						return new ResponseEffectsOnly("Entrance hall", "Fast travel to the entrance hall."){
 							@Override
@@ -370,46 +367,215 @@ public class Lab {
 	};
 	
 	public static final DialogueNodeOld LILAYA_EXPLAINS_ESSENCES = new DialogueNodeOld("", "", true, true) {
-		/**
-		 */
+		
 		private static final long serialVersionUID = 1L;
-
 		
 		@Override
 		public String getContent() {
-
 //			return UtilText.parse("/res/txt/dialogue/places/dominion/aunts_home/explaining_essences.txt", AuntsHome.getContext());
 			
-			return "<p>"
-						+ "[pc.speech(Well, I was wondering if you could help me out. You see, I recently had this weird experience, where I saw someone's arcane aura."
-						+ " A piece of it broke off and shot <i>into</i> me, and I'm not sure if it needs to be removed or anything...)] your voice trails off as you see an extremely concerned look flash across Lilaya's face."
+			UtilText.nodeContentSB.setLength(0);
+			
+			if(Main.game.getDialogueFlags().jinxedClothingDiscovered) {
+				
+				if(getJinxedClothingExample() == null) { // If the PC has somehow removed the clothing already (jinxed condom):
+					UtilText.nodeContentSB.append("<p>"
+							+ "[pc.speech(I managed to take it off already, but some clothing that I put on a little while ago sort of stuck onto me,)]"
+							+ " you explain, "
+							+ "[pc.speech(Every time I tried to take it off, some kind of weird enchantment stopped me. I was wondering if you knew what was causing that?)]"
+						+ "</p>");
+				} else {
+					UtilText.nodeContentSB.append("<p>"
+							+ "[pc.speech(There seems to be something wrong with "+(getJinxedClothingExample().getClothingType().isPlural()?"these":"this")+" "+getJinxedClothingExample().getName()+" I'm wearing,)]"
+							+ " you explain, "
+							+ "[pc.speech(Every time I try to take "+(getJinxedClothingExample().getClothingType().isPlural()?"them":"it")+" off, some kind of weird enchantment stops me. Can you help?)]"
+						+ "</p>");
+				}
+				
+				UtilText.nodeContentSB.append(
+					"<p>"
+						+ "Lilaya frowns at you for a moment, then, much to your surprise, she starts scolding you, "
+						+ "[lilaya.speech(Well, what did you expect to happen if you're going to start trying on random pieces of clothing like that?!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[lilaya.speech(Are you sure?! You absorbed someone's essence?!)] Lilaya asks, failing to conceal the worried tone in her voice."
+						+ "[pc.speech(Well, it's not really my fau-)] you start, but Lilaya quickly interrupts you."
 					+ "</p>"
 					+ "<p>"
-						+ "Rose quickly moves off to a corner of the room as Lilaya approaches you. Grabbing you by the [pc.arm], she quickly pulls you over to the same place where she ran her first test on you."
-						+ " Instructing you to sit on the chair in the middle of the chalk square, she once more adjusts the floodlight-like pieces of arcane equipment at each corner."
+						+ "[lilaya.speech(Well then, whose fault is it? Hmm? I can't be running around saving you every time you get in trouble, understood?!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[pc.speech(Wait, I'm not going to lose my clothes or anything again, am I?)] you ask."
+						+ "If it were anyone else, you might have argued back, but Lilaya's stern words sound exactly like the sort of lecture you used to receive from your aunt Lily."
+						+ " That, combined with the fact that this is a rare display of frustration from Lilaya, leaves you muttering out an apology in the hope that you can calm her down."
+						+ " Thankfully, she lets out one last exasperated sigh before taking in a deep breath and speaking in her normal tone."
 					+ "</p>"
 					+ "<p>"
-						+ "[lilaya.speech(No, don't worry, I fixed that little problem!)] Lilaya responds, and before you get the chance to say anything else, arcane energy suddenly crackles into life around her arm,"
-						+ " before shooting out into each of the curious instruments."
-						+ " A familiar bright pink flash illuminates the room, but this time, thankfully, your clothes and sight are unaffected."
-					+ "</p>"
-					+ "<p>"
-						+ "Once again, you find yourself surrounded by the shimmering pink outline of your arcane aura."
-						+ " This time, however, you see a strange ball of energy orbiting your body, which looks to be the same sort of size as the shard of energy that you remember shooting into you."
-						+ " Looking up at Lilaya, you see that her face has completely drained of colour, and she's displaying an extremely worried expression."
-					+ "</p>";
+						+ "[lilaya.speech(Sorry, I didn't mean to be so stern, it's just that I don't want you to get hurt out there..."
+								+ " Anyway, if that's all it is, the solution to your little clothing problem is actually quite simple!)]"
+					+ "</p>");
+				
+				if(Main.game.getDialogueFlags().essenceOrgasmDiscovered || Main.game.getDialogueFlags().essencePostCombatDiscovered) {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "[pc.speech(Actually, there <i>is</i> something else as well. I recently had this weird experience, where I saw someone's arcane aura."
+									+ " A piece of it broke off and shot <i>into</i> me, and I'm not sure if it needs to be removed or anything...)]"
+								+ " your voice trails off as you see an extremely concerned look flash across Lilaya's face."
+							+ "</p>"
+							+ "<p>"
+								+ "[lilaya.speech(Are you sure?! You absorbed someone's essence directly from them?!)] Lilaya asks, failing to conceal the worried tone in her voice."
+							+ "</p>"
+							+ "<p>"
+								+ "Before you can respond, Lilaya grabs your [pc.arm] and starts pulling you over to the same place where she ran her first test on you."
+								+ " Instructing you to sit on the chair in the middle of the chalk square, she once more starts adjusting the floodlight-like pieces of arcane equipment at each corner."
+							+ "</p>"
+							+ "<p>"
+								+ "[pc.speech(Wait, my clothes aren't going to be teleported all over the room or anything again, are they?)] you ask."
+							+ "</p>"
+							+ "<p>"
+								+ "[lilaya.speech(No, don't worry, I fixed that little problem!)] Lilaya responds, and before you get the chance to say anything else, arcane energy suddenly crackles into life around her arm,"
+								+ " before shooting out into each of the curious instruments."
+								+ " A familiar bright pink flash illuminates the room, but this time, thankfully, your clothes and sight are unaffected."
+							+ "</p>"
+							+ "<p>"
+								+ "Once again, you find yourself surrounded by the shimmering pink outline of your arcane aura."
+								+ " This time, however, you see a strange ball of energy orbiting your body, which looks to be the same sort of size as the shard of energy that you remember shooting into you."
+								+ " Looking up at Lilaya, you see that her cheeks have completely drained of colour, and she's looking down at you with an extremely worried expression on her face."
+							+ "</p>");
+					
+				} else if(Main.game.getDialogueFlags().essenceBottledDiscovered) {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "[pc.speech(Actually, there <i>is</i> something else as well. I had this little bottle with a swirling light in it, and when I took out the stopper, the light sort of shot <i>into</i> me...)]"
+								+ " you explain, hoping that Lilaya can tell you what that was all about as well."
+							+ "</p>"
+							+ "<p>"
+								+ "[lilaya.speech(Oh! Of course! I should have mentioned that,)]"
+								+ " Lilaya responds,"
+								+ " [lilaya.speech(As you've got a demon-strength aura, it's only natural that you'd be able to absorb arcane essences! I really should have tested you for that as well... But we can just do it now!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "Before you can respond, Lilaya grabs your [pc.arm] and starts pulling you over to the same place where she ran her first test on you."
+								+ " Instructing you to sit on the chair in the middle of the chalk square, she once more starts adjusting the floodlight-like pieces of arcane equipment at each corner."
+							+ "</p>"
+							+ "<p>"
+								+ "[pc.speech(Wait, my clothes aren't going to be teleported all over the room or anything again, are they?)] you ask."
+							+ "</p>"
+							+ "<p>"
+								+ "[lilaya.speech(No, don't worry, I fixed that little problem!)]"
+								+ " Lilaya responds, and before you get the chance to say anything else, arcane energy suddenly crackles into life around her arm, before shooting out into each of the curious instruments."
+								+ " A familiar bright pink flash illuminates the room, but this time, thankfully, your clothes and sight are unaffected."
+							+ "</p>"
+							+ "<p>"
+								+ "Once again, you find yourself surrounded by the shimmering pink outline of your arcane aura."
+								+ " This time, however, you see a strange ball of energy orbiting your body, which looks to be the same sort of size as the shard of energy that you remember shooting into you."
+								+ " Looking up at Lilaya, you see that her cheeks have completely drained of colour, and she's looking down at you with an extremely worried expression on her face."
+							+ "</p>");
+					
+				} else {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "[pc.speech(That's good to hear, so what do I need to do?)]"
+									+ " you ask."
+							+ "</p>"
+							+ "<p>"
+								+ "[lilaya.speech(Well, I could just channel some of my absorbed essences into "+(getJinxedClothingExample().getClothingType().isPlural()?"them":"it")+" to remove it, but...)]"
+								+ " Lilaya responds, her sentence trailing off a little as she suddenly thinks of something,"
+								+ " [lilaya.speech(As you've got a demon-strength aura, it's only natural that you'd be able to absorb arcane essences too,"
+														+ " and then you could remove "+(getJinxedClothingExample().getClothingType().isPlural()?"them":"it")+" yourself!"
+													+ " I really should have tested you for that as well... But we can just do it now!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "Before you can respond, Lilaya grabs your [pc.arm] and starts pulling you over to the same place where she ran her first test on you."
+								+ " Instructing you to sit on the chair in the middle of the chalk square, she once more starts adjusting the floodlight-like pieces of arcane equipment at each corner."
+							+ "</p>"
+							+ "<p>"
+								+ "[pc.speech(Wait, my clothes aren't going to be teleported all over the room or anything again, are they?)] you ask."
+							+ "</p>"
+							+ "<p>"
+								+ "[lilaya.speech(No, don't worry, I fixed that little problem!)]"
+								+ " Lilaya responds, and before you get the chance to say anything else, arcane energy suddenly crackles into life around her arm, before shooting out into each of the curious instruments."
+								+ " A familiar bright pink flash illuminates the room, but this time, thankfully, your clothes and sight are unaffected."
+							+ "</p>"
+							+ "<p>"
+								+ "Once again, you find yourself surrounded by the shimmering pink outline of your arcane aura."
+								+ " This time, however, you see a strange ball of energy orbiting your body, which looks to be the same sort of size as the shard of energy that you remember shooting into you."
+								+ " Looking up at Lilaya, you see that her cheeks have completely drained of colour, and she's looking down at you with an extremely worried expression on her face."
+							+ "</p>");
+				}
+				
+			} else {
+				if(Main.game.getDialogueFlags().essenceOrgasmDiscovered || Main.game.getDialogueFlags().essencePostCombatDiscovered) {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "[pc.speech(Well, you see, I recently had this weird experience, where I saw someone's arcane aura."
+									+ " A piece of it broke off and shot <i>into</i> me, and I'm not sure if it needs to be removed or anything...)]"
+								+ " your voice trails off as you see an extremely concerned look flash across Lilaya's face."
+							+ "</p>"
+							+ "<p>"
+								+ "[lilaya.speech(Are you sure?! You absorbed someone's essence directly from them?!)] Lilaya asks, failing to conceal the worried tone in her voice."
+							+ "</p>"
+							+ "<p>"
+								+ "Before you can respond, Lilaya grabs your [pc.arm] and starts pulling you over to the same place where she ran her first test on you."
+								+ " Instructing you to sit on the chair in the middle of the chalk square, she once more starts adjusting the floodlight-like pieces of arcane equipment at each corner."
+							+ "</p>"
+							+ "<p>"
+								+ "[pc.speech(Wait, my clothes aren't going to be teleported all over the room or anything again, are they?)] you ask."
+							+ "</p>"
+							+ "<p>"
+								+ "[lilaya.speech(No, don't worry, I fixed that little problem!)] Lilaya responds, and before you get the chance to say anything else, arcane energy suddenly crackles into life around her arm,"
+								+ " before shooting out into each of the curious instruments."
+								+ " A familiar bright pink flash illuminates the room, but this time, thankfully, your clothes and sight are unaffected."
+							+ "</p>"
+							+ "<p>"
+								+ "Once again, you find yourself surrounded by the shimmering pink outline of your arcane aura."
+								+ " This time, however, you see a strange ball of energy orbiting your body, which looks to be the same sort of size as the shard of energy that you remember shooting into you."
+								+ " Looking up at Lilaya, you see that her cheeks have completely drained of colour, and she's looking down at you with an extremely worried expression on her face."
+							+ "</p>");
+					
+				} else if(Main.game.getDialogueFlags().essenceBottledDiscovered) {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "[pc.speech(Well, you see, I had this little bottle with a swirling light in it, and when I took out the stopper, the light sort of shot <i>into</i> me...)]"
+								+ " you explain, hoping that Lilaya can tell you what that was all about as well."
+							+ "</p>"
+							+ "<p>"
+								+ "[lilaya.speech(Oh! Of course! I should have mentioned that,)]"
+								+ " Lilaya responds,"
+								+ " [lilaya.speech(As you've got a demon-strength aura, it's only natural that you'd be able to absorb arcane essences! I really should have tested you for that as well... But we can just do it now!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "Before you can respond, Lilaya grabs your [pc.arm] and starts pulling you over to the same place where she ran her first test on you."
+								+ " Instructing you to sit on the chair in the middle of the chalk square, she once more starts adjusting the floodlight-like pieces of arcane equipment at each corner."
+							+ "</p>"
+							+ "<p>"
+								+ "[pc.speech(Wait, my clothes aren't going to be teleported all over the room or anything again, are they?)] you ask."
+							+ "</p>"
+							+ "<p>"
+								+ "[lilaya.speech(No, don't worry, I fixed that little problem!)]"
+								+ " Lilaya responds, and before you get the chance to say anything else, arcane energy suddenly crackles into life around her arm, before shooting out into each of the curious instruments."
+								+ " A familiar bright pink flash illuminates the room, but this time, thankfully, your clothes and sight are unaffected."
+							+ "</p>"
+							+ "<p>"
+								+ "Once again, you find yourself surrounded by the shimmering pink outline of your arcane aura."
+								+ " This time, however, you see a strange ball of energy orbiting your body, which looks to be the same sort of size as the shard of energy that you remember shooting into you."
+								+ " Looking up at Lilaya, you see that her cheeks have completely drained of colour, and she's looking down at you with an extremely worried expression on her face."
+							+ "</p>");
+				}
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("What's wrong?", "Ask Lilaya what's wrong.", LILAYA_EXPLAINS_ESSENCES_2);
+				return new Response("What's wrong?", "Ask Lilaya what's wrong.", LILAYA_EXPLAINS_ESSENCES_2) {
+					@Override
+					public void effects() {
+						if(!Main.game.getDialogueFlags().essenceBottledDiscovered && !Main.game.getDialogueFlags().essenceOrgasmDiscovered && !Main.game.getDialogueFlags().essencePostCombatDiscovered) {
+							Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 1);
+						}
+					}
+				};
 
 			} else {
 				return null;
@@ -425,41 +591,127 @@ public class Lab {
 		
 		@Override
 		public String getContent() {
-
 //			return UtilText.parse("/res/txt/dialogue/places/dominion/aunts_home/explaining_essences_2.txt", AuntsHome.getContext());
 			
-			return "<p>"
-						+"[pc.speech(You look like you've seen a ghost, what's wrong?)] you ask."
-					+ "</p>"
-					+ "<p>"
-						+ "[lilaya.speech(Ah, well, it's just...)] Lilaya stumbles over her words a little as she responds, [lilaya.speech(you really, <i>really</i> shouldn't be able to do that!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Pointing at the ball of energy that's orbiting your aura, she continues,"
-						+ " [lilaya.speech(You see that? You've absorbed a piece of someone's essence! There's something seriously wrong with your aura..."
-						+ " Normally only Lilin are able to do that, hell, even demons can't absorb essences directly from people!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.speech(Wait, I absorbed their <i>essence</i>? What does that mean?)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[lilaya.speech(Well, basically, you absorbed a fragment of someone's aura. It's not harmful to either you or them, so don't worry about that, their aura will replenish itself over time."
-						+ " You see, using essences, like the one you've absorbed, is the way enchantments are infused into objects."
-						+ " Normally, demons have to buy already-extracted essences in order to absorb them into their aura, but you can <i>somehow</i> absorb them directly from a person, just like a Lilin can!"
-						+ " Now that you've absorbed someone's essence, you can focus its energy into enchanting things... Look, it's better if I show you...)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight."
-						+ " Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus."
-						+ " Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface."
-						+ " Coming to a halt in front of the workspace, Lilaya turns to face you, [lilaya.speech(Right, I can explain as we go...)]"
-					+ "</p>";
+			UtilText.nodeContentSB.setLength(0);
+			
+			if(Main.game.getDialogueFlags().essenceOrgasmDiscovered || Main.game.getDialogueFlags().essencePostCombatDiscovered) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+"[pc.speech(You look like you've seen a ghost, what's wrong?)] you ask, concerned by Lilaya's reaction."
+						+ "</p>"
+						+ "<p>"
+							+ "[lilaya.speech(Ah, well, it's just...)] Lilaya stumbles over her words a little as she responds,"
+							+ " [lilaya.speech(you really, <i>really</i> shouldn't be able to do that!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Pointing at the ball of energy that's orbiting your aura, she continues,"
+							+ " [lilaya.speech(You see that? You've absorbed a piece of someone's essence! There's something seriously wrong with your aura..."
+							+ " Normally only Lilin are able to do that, hell, even demons can't absorb essences directly from people!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "[pc.speech(Wait, I absorbed their <i>essence</i>? What does that mean?)]"
+						+ "</p>"
+						+ "<p>"
+							+ "[lilaya.speech(Well, basically, you absorbed a fragment of someone's aura."
+								+ " Extracting essences isn't harmful to either you or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)]"
+								+ " Lilaya explains, pacing back and forth,"
+								+ " [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects."
+								+ " Normally, demons have to buy bottled essences in order to absorb them into their aura, but you can <i>somehow</i> absorb them directly from a person, just like a Lilin can!"
+								+ " After absorbing an essence, you'll be able to use it to enchant items or remove jinxes... Look, it's better if I show you...)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight."
+							+ " Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus."
+							+ " Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface."
+							+ " Coming to a halt in front of the workspace, Lilaya turns to face you, [lilaya.speech(Right, I can explain as we go...)]"
+						+ "</p>");
+			
+			} else if(Main.game.getDialogueFlags().essenceBottledDiscovered) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+								+"[pc.speech(You look like you've seen a ghost, what's wrong?)] you ask, concerned by Lilaya's reaction."
+						+ "</p>"
+						+ "<p>"
+							+ "[lilaya.speech(Ah, well, it's just...)] Lilaya stumbles over her words a little as she responds,"
+							+ " [lilaya.speech(your aura really, <i>really</i> shouldn't look like that!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Lilaya points up above your head, and you look up to see that there's a ball of energy orbiting your aura,"
+							+ "[lilaya.speech(You see that? You've absorbed an essence! I mean, all demonic-strength auras can do that, but there's something seriously wrong with yours..."
+							+ " I-It has the exact same characteristics as a Lilin's! With your aura, you'd even be able to absorb essences directly from people! Hell, even demons can't do that!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "[pc.speech(Wait, what does all of this mean?)]"
+							+ " you ask."
+						+ "</p>"
+						+ "<p>"
+							+ "[lilaya.speech(Well, basically, you've absorbed an essence, which had been collected directly from someone's aura by a Lilin, and then bottled."
+								+ " Extracting essences isn't harmful to either the Lilin or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)]"
+								+ " Lilaya explains, pacing back and forth,"
+								+ " [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects."
+								+ " Normally, demons have to buy bottled essences in order to absorb them into their aura, but <i>somehow</i> you'll be able to absorb them directly from a person, just like a Lilin can!"
+								+ " After absorbing an essence, you'll be able to use it to enchant items or remove jinxes... Look, it's better if I show you...)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight."
+							+ " Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus."
+							+ " Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface."
+							+ " Coming to a halt in front of the workspace, Lilaya turns to face you, [lilaya.speech(Right, I can explain as we go...)]"
+						+ "</p>");
+				
+			} else {
+				UtilText.nodeContentSB.append(
+						"<p>"
+								+"[pc.speech(You look like you've seen a ghost, what's wrong?)] you ask, concerned by Lilaya's reaction."
+						+ "</p>"
+						+ "<p>"
+							+ "[lilaya.speech(Ah, well, it's just...)] Lilaya stumbles over her words a little as she responds,"
+							+ " [lilaya.speech(your aura really, <i>really</i> shouldn't look like that! I-I need to try something, hold still!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Doing as Lilaya asks, you sit still as she turns around and runs over to a nearby desk."
+							+ " As she pulls open the top drawer, you hear the distinctive clink of multiple glass bottles bumping against each other."
+							+ " Lilaya reaches in and grabs something out of the drawer, before running back over to you and holding up what she just retrieved."
+						+ "</p>"
+						+ "<p>"
+							+ "In her hand, you see a tiny glass bottle, with a flickering purple light swirling around inside of it."
+							+ " Before you can ask what it is you're looking at, Lilaya pulls out the little cork stopper and holds the bottle out towards you."
+							+ " Almost instantly, the light darts out of its glass prison, and you let out a gasp as the curious little wisp shoots straight into your chest."
+							+ " Looking up at Lilaya in alarm, you see her pointing up above your head, and you look up to see that there's now a ball of energy orbiting your aura."
+						+ "</p>"
+						+ "<p>"
+							+ "[lilaya.speech(You see that? You've absorbed an essence! I mean, all demonic-strength auras can do that, but there's something seriously wrong with yours...)]"
+							+ " Lilaya says, shaking her head in disbelief,"
+							+ " [lilaya.speech(Your aura has the exact same characteristics as a Lilin's! With your aura, you'd even be able to absorb essences directly from people! Hell, even demons can't do that!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "[pc.speech(Wait, what does all of this mean?)]"
+							+ " you ask."
+						+ "</p>"
+						+ "<p>"
+							+ "[lilaya.speech(Well, basically, you just absorbed an essence, which had been collected directly from someone's aura by a Lilin, and then bottled."
+								+ " Extracting essences isn't harmful to either the Lilin or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)]"
+								+ " Lilaya explains, pacing back and forth,"
+								+ " [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects."
+								+ " Normally, demons have to buy bottled essences in order to absorb them into their aura, but <i>somehow</i> you'll be able to absorb them directly from a person, just like a Lilin can!"
+								+ " After absorbing an essence, you'll be able to use it to enchant items or remove jinxes... Look, it's better if I show you...)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight."
+							+ " Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus."
+							+ " Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface."
+							+ " Coming to a halt in front of the workspace, Lilaya turns to face you, [lilaya.speech(Right, I can explain as we go...)]"
+						+ "</p>");
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Enchanting", "Let Lilaya show you how to use your stored essences in order to enchant items.", LILAYA_EXPLAINS_ESSENCES_3);
+				return new Response("Enchantments & Jinxes", "Let Lilaya show you how to use your stored essences in order to enchant items or remove jinxes.", LILAYA_EXPLAINS_ESSENCES_3);
 
 			} else {
 				return null;
@@ -468,46 +720,69 @@ public class Lab {
 	};
 	
 	public static final DialogueNodeOld LILAYA_EXPLAINS_ESSENCES_3 = new DialogueNodeOld("", "", true, true) {
-		/**
-		 */
+		
 		private static final long serialVersionUID = 1L;
 
 		
 		@Override
 		public String getContent() {
-			
 //			return UtilText.parse("/res/txt/dialogue/places/dominion/aunts_home/explaining_essences_3.txt", AuntsHome.getContext());
 			
-			return "<p>"
-				+ "[lilaya.speech(Ok, so, first thing to know is that these essences are no longer part of the person you took them from."
-				+ " It's not as though you're trapping a part of their soul into enchanted items or anything like that!)] Lilaya starts explaining,"
-				+ " [lilaya.speech(So don't have any qualms about using these essences to enchant whatever you want!)]"
-			+ "</p>"
-			+ "<p>"
-				+ "As she speaks, Lilaya reaches down under the table and produces a bottle of Feline's Fancy, putting it down on the desk before turning back towards you."
-			+ "</p>"
-			+ "<p>"
-				+ "[lilaya.speech(Right, well I should probably demonstrate! I still have a couple of cat-morph essences absorbed from some work I was doing earlier, so I might as well use them on this!)]"
-				+ " she says, and you notice that her earlier look of worry has been replaced with that of excitement,"
-				+ " [lilaya.speech(So, you'll need a particular type of essence to enchant different objects. Seeing as this is a drink for cat-morphs, it reacts only to cat-morph essences.)]"
-			+ "</p>"
-			+ "<p>"
-				+ "[lilaya.speech(So, you don't need any special equipment for this, all you need is an item to enchant, and the concentration to draw the essence out from your aura,)]"
-				+ " Lilaya continues to explain as she picks up the bottle of Feline's Fancy, before placing a curious little green gem down next to it,"
-				+ " [lilaya.speech(So, you have your base ingredient, and that's all well and good, but you can also add a couple of elements."
-				+ " Depending on what elements you choose to add, the resulting enchanted item will have different effects."
-				+ " So, once you've decided on what ingredient and elements you're going to use, you just need to focus on combining them...)]"
-			+ "</p>"
-			+ "<p>"
-				+ "Lilaya closes her eyes and lets out a deep breath, and you gasp as you suddenly see four little balls of pink energy orbiting her body."
-				+ " As you watch, two of the orbs suddenly shoot down into bottle of Feline's Fancy, and with a bright pink flash and a wisp of odourless smoke, both the bottle and the little green gem disappear."
-				+ " In its place, a curious little bottle of red liquid has materialised out of thin-air."
-			+ "</p>"
-			+ "<p>"
-				+ "[lilaya.speech(So, you have to sort of feel how much essence you want to pour into the enchantment. The more you put in, the better the resulting item!)]"
-				+ " Lilaya picks up the little potion and places it off to one side, [lilaya.speech(And that's all there is to it!)]"
-			+ "</p>";
+			UtilText.nodeContentSB.setLength(0);
 			
+			UtilText.nodeContentSB.append("<p>"
+					+ "[lilaya.speech(Ok, so, first thing to know is that these essences are no longer part of the person that they originally came from."
+							+ " It's not as though you're trapping a part of their soul into enchanted items or anything like that!)]"
+					+ " Lilaya starts explaining,"
+					+ " [lilaya.speech(So don't have any qualms about using these essences to enchant or unjinx anything!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "As she speaks, Lilaya reaches down under the table and produces a bottle of Feline's Fancy, putting it down on the desk before turning back towards you."
+				+ "</p>"
+				+ "<p>"
+					+ "[lilaya.speech(Right, well I should probably demonstrate enchanting first! I still have a few essences absorbed from some work I was doing earlier, so I might as well use them on this!)]"
+					+ " she says, and you notice that her earlier look of worry has been replaced with one of excitement,"
+					+ "[lilaya.speech(So, you don't need any special equipment for this, all you need is an item to enchant, and the concentration to draw the essence out from your aura.)]"
+				+ "</p>"
+				+ "<p>"
+					+ "Lilaya picks up the bottle of Feline's Fancy, before placing a curious little green gem down next to it,"
+					+ " [lilaya.speech(So, you have your base ingredient, and that's all well and good, but you can also add elements to an enchantment."
+					+ " Depending on what elements you choose to add, the resulting enchanted item will have different effects."
+					+ " Once you've decided on what ingredient and which elements you're going to use, you just need to focus on combining them...)]"
+				+ "</p>"
+				+ "<p>"
+					+ "Lilaya closes her eyes and lets out a deep breath, and you gasp as you suddenly see four little balls of purple energy orbiting her body."
+					+ " As you watch, two of the orbs suddenly shoot down into bottle of Feline's Fancy, and with a bright pink flash and a wisp of odourless smoke, both the bottle and the little green gem disappear."
+					+ " In its place, a curious little bottle of red liquid has materialised out of thin-air."
+				+ "</p>"
+				+ "<p>"
+					+ "[lilaya.speech(You have to sort of feel how much essence you want to pour into the enchantment. The more you put in, the better the resulting item!)]"
+					+ " Lilaya picks up the little potion and places it off to one side,"
+					+ " [lilaya.speech(And that's all there is to it!)]"
+				+ "</p>");
+			
+
+			if(Main.game.getDialogueFlags().jinxedClothingDiscovered && getJinxedClothingExample() != null) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "Just as your about to thank her for explaining about essences, Lilaya suddenly exclaims,"
+							+ " [lilaya.speech(Oh! And this is also how that jinxed clothing of yours needs to be removed!"
+								+ " All you need to do is channel some of your absorbed essences into it, and it should come off."
+								+ " Jinxed clothing is a major problem for people without demonic-strength auras, as they need to pay demons to remove the jinx for them, but for you and I, jinxes are no more than a minor inconvenience.)]"
+						+ "</p>");
+				
+			} else {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "Just as your about to thank her for explaining about essences, Lilaya suddenly exclaims,"
+							+ " [lilaya.speech(Oh! And this is also how jinxed clothing is removed!"
+								+ " If you ever find yourself putting on some clothing, and then it just won't come off, all you need to do is channel some of your absorbed essences into it."
+								+ " Jinxed clothing is a major problem for people without demonic-strength auras, as they need to pay demons to remove the jinx for them, but for you and I, jinxes are no more than a minor inconvenience.)]"
+						+ "</p>");
+			}
+			
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -535,6 +810,10 @@ public class Lab {
 									+ "<i>Innoxia's note: The enchanting mechanics are still a work in progress."
 									+ " I plan on making the elements collectible items, as well as providing the functionality to enchant clothing!</i>" //TODO
 								+ "</p>"
+								+ "<div class='container-full-width' style='text-align:center;'>"
+									+ "<i>You can now enchant items by selecting them in your inventory, and then pressing the 'Enchant' button.</i></br></br>"
+									+ "<i>In the same way, you're now able to remove jinxes from clothing. Simply select the clothing in your inventory, then press the 'Remove jinx' button.</i>"
+								+ "</div>"
 								+ Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
 						
 					}
@@ -546,41 +825,8 @@ public class Lab {
 		}
 	};
 	
-	public static final DialogueNodeOld ESSENCE_EXTRACTION = new DialogueNodeOld("Arcane Arts", "-", true, false) {
+	public static final DialogueNodeOld ESSENCE_EXTRACTION = new DialogueNodeOld("Lilaya's Lab", "-", true, false) {
 		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getHeaderContent() {
-			StringBuilder headerSB = new StringBuilder();
-			
-			headerSB.append(
-					"<p style='text-align:center;'>"
-						+ "<b>Your essences:</b>"
-					+ "</p>"
-					+"<div style='text-align: center; display:block; margin:0 auto; height:48px; padding:8px 0 8px 0;'>");
-			for(TFEssence essence : TFEssence.values()) {
-				headerSB.append(
-						"<div style='width:28px; display:inline-block; margin:0 4px 0 4px;'>"
-							+ "<div class='item-inline"
-										+ (essence.getRarity() == Rarity.COMMON ? " common" : "")
-										+ (essence.getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-										+ (essence.getRarity() == Rarity.RARE ? " rare" : "")
-										+ (essence.getRarity() == Rarity.EPIC ? " epic" : "")
-										+ (essence.getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-										+ (essence.getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>"
-								+ essence.getSVGString()
-								+ "<div class='overlay no-pointer' id='ESSENCE_"+essence.hashCode()+"'></div>"
-							+ "</div>"
-							+ " <div style='display:inline-block; height:20px; vertical-align: middle;'>"
-								+ "<b>"+Main.game.getPlayer().getEssenceCount(essence)+"</b>"
-							+ "</div>"
-						+ "</div>"
-						);
-			}
-			headerSB.append("</div>");
-			
-			return headerSB.toString();
-		}
 		
 		@Override
 		public String getContent() {
@@ -601,123 +847,34 @@ public class Lab {
 			} else {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "[pc.speech(You mentioned that demons can't absorb essences directly from people, so how do they do it?)]"
-							+ " you ask,"
-							+ " [pc.speech(Is there some way to extract the essences I've absorbed?)]"
+							+ "[pc.speech(You mentioned that demons absorb essences from bottled sources, so I was wondering if it would be possible to make some of those myself?)]"
+							+ " you ask."
 						+ "</p>"
 						+ "<p>"
-							+ "[lilaya.speech(Yes, actually, there is!)] Lilaya replies, beckoning you over to one of the many tables in her lab,"
-							+ " [lilaya.speech(It's actually one of the easiest things about essence manipulation!)]"
+							+ "[lilaya.speech(Oh, of course that's possible,)] Lilaya happily replies, beckoning you over to one of the many tables in her lab,"
+							+ " [lilaya.speech(it's actually one of the easiest things about essence manipulation!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Bending down, Lilaya pulls out a heavy cardboard box, and you hear the high-pitched tinkling sound of countless little glass vials as they knock against each other."
-							+ " Picking one out of the box, Lilaya stands back up and holds it out towards you."
-							+ " It's no larger than one of your fingers, and as you take it from Lilaya's outstretched hand, you see that there's a little cork stopper wedged into the top."
+							+ " Taking one of the empty vessels from out of the box, Lilaya stands up and holds it out towards you."
+							+ " You see that it's no larger than one of her slender fingers, and as you take it from Lilaya's outstretched hand, you see that there's a little cork stopper wedged into the top."
 						+ "</p>"
 						+ "<p>"
 							+ "[lilaya.speech(These are how ordinary arcane users, like me, absorb essences."
-								+ " This one's empty at the moment, so if you take the cork out and concentrate on the sort of essence you want to extract from your aura, its enchantment will do the rest!"
-								+ " One of your essences will be extracted into this vial, which then allows other people to uncork it and absorb that essence!)]"
+								+ " This one's empty at the moment, so if you take the cork out and concentrate on drawing an essence out from your aura, the vial's special enchantment will do the rest!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Turning the little glass container over in your [pc.hands], you look up at Lilaya,"
-							+ " [pc.speech(So all essences that 'ordinary' arcane users have absorbed come from little vials like this?)]"
+							+ " [pc.speech(So <i>all</i> essences that 'ordinary' arcane users have absorbed come from little vials like this?)]"
 						+ "</p>"
 						+ "<p>"
 							+ "[lilaya.speech(That's right,)] Lilaya responds, [lilaya.speech(well, they come from a Lilin originally, then are extracted into these vials and sold on!"
-								+ " The empty containers are next to worthless, so if you wanted to extract some essences, please feel free to use as many as you'd like!)]"
+								+ " Thanks to this unique ability of theirs, and I guess also being given anything they want from Lilith herself, all Lilin are extremely wealthy."
+								+ " I mean, essences are always in high demand, so all a Lilin has to do to earn money is extract some essences and sell them."
+								+ " These empty containers are next to worthless, so if you wanted to extract some essences, please feel free to use as many as you'd like!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "You thank Lilaya, and after she moves away to give you a little space, you start to wonder which, and how many, of your essences to extract..."
-						+ "</p>");
-			}
-			
-			return UtilText.nodeContentSB.toString();
-		}
-
-		@Override
-		public Response getResponse(int index) {
-			
-			if (index == 0) {
-				return new Response("Back", "Stop extracting essences.", LAB_EXIT) {
-					@Override
-					public void effects() {
-						Main.game.getDialogueFlags().essenceExtractionKnown = true;
-					}
-				};
-
-			} else if(index<=TFEssence.values().length) {
-				if(Main.game.getPlayer().getEssenceCount(TFEssence.values()[index-1]) > 0) {
-					return new Response(TFEssence.values()[index-1].getName(), "Decide to extract some of your "+TFEssence.values()[index-1].getName()+" essences.", ESSENCE_EXTRACTION_BOTTLING) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().focusedEssence = TFEssence.values()[index-1];
-							Main.game.getDialogueFlags().essenceExtractionKnown = true;
-						}
-					};
-				} else {
-					return new Response(TFEssence.values()[index-1].getName(), "You don't have any of these essences to extract!", null);
-				}
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld ESSENCE_EXTRACTION_BOTTLING = new DialogueNodeOld("Arcane Arts", "-", true, false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getHeaderContent() {
-			StringBuilder headerSB = new StringBuilder();
-			
-			headerSB.append(
-					"<p style='text-align:center;'>"
-						+ "<b>Your essences:</b>"
-					+ "</p>"
-					+"<div style='text-align: center; display:block; margin:0 auto; height:48px; padding:8px 0 8px 0;'>");
-			for(TFEssence essence : TFEssence.values()) {
-				headerSB.append(
-						"<div style='width:28px; display:inline-block; margin:0 4px 0 4px;'>"
-							+ "<div class='item-inline"
-										+ (essence.getRarity() == Rarity.COMMON ? " common" : "")
-										+ (essence.getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-										+ (essence.getRarity() == Rarity.RARE ? " rare" : "")
-										+ (essence.getRarity() == Rarity.EPIC ? " epic" : "")
-										+ (essence.getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-										+ (essence.getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>"
-								+ essence.getSVGString()
-								+ "<div class='overlay no-pointer' id='ESSENCE_"+essence.hashCode()+"'></div>"
-							+ "</div>"
-							+ " <div style='display:inline-block; height:20px; vertical-align: middle;'>"
-								+ "<b>"+Main.game.getPlayer().getEssenceCount(essence)+"</b>"
-							+ "</div>"
-						+ "</div>"
-						);
-			}
-			headerSB.append("</div>");
-			
-			return headerSB.toString();
-		}
-		
-		@Override
-		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(
-					"<p>"
-						+ "Holding one of the little glass vials in your [pc.hand], you try to concentrate on the "+Main.game.getDialogueFlags().focusedEssence.getName()+" essences that are absorbed into your arcane aura..."
-					+ "</p>"
-					+ "<p style='text-align:center;'>"
-						+ "You currently have <b>"+Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence)
-							+"</b> <b style='color:"+Main.game.getDialogueFlags().focusedEssence.getColour().toWebHexString()+";'>"+Main.game.getDialogueFlags().focusedEssence.getName()+"</b> essences."
-					+ "</p>");
-			
-			if(Main.game.getPlayer().isInventoryFull() && !Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)))) {
-				UtilText.nodeContentSB.append(
-						"<p style='text-align:center;'>"
-							+ "<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You don't have any space left in your inventory, so you can't extract essences right now!</b>"
+							+ "You thank Lilaya, and after she moves away to give you a little space, you start to wonder how many of your essences to extract..."
 						+ "</p>");
 			}
 			
@@ -728,28 +885,27 @@ public class Lab {
 		public Response getResponse(int index) {
 			
 			if(index == 1) {
-				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence))))) {
-					if(Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence)>=1) {
-						return new Response("Extract (1)", "Extract one of your "+Main.game.getDialogueFlags().focusedEssence.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLING) {
+				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE))))) {
+					if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=1) {
+						return new Response("Extract (1)", "Extract one of your "+TFEssence.ARCANE.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLED) {
 							@Override
 							public void effects() {
-								Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)), false);
+								Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false);
+								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
 								
 								Main.game.getTextEndStringBuilder().append(
-										"<p>"
-											+ "You pull out the little cork from the top of one of the glass vials, and, closing your [pc.eyes], you concentrate on extracting the "+Main.game.getDialogueFlags().focusedEssence.getName()+" essence."
-											+ " Suddenly, you feel a strange little tugging sensation, and, opening your [pc.eyes], you see a "+Main.game.getDialogueFlags().focusedEssence.getColour().getName()+", swirling glow within the vial in your [pc.hand]."
-											+ " Pushing the cork stopper back in the top, you smile as you realise that you've successfully extracted an essence; something that only a Lilin should be able to do!"
+										"<p style='text-align:center;'>"
+											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to inventory:</b> <b>" + (TFEssence.essenceToItem(TFEssence.ARCANE)).getDisplayName(true) + "</b>"
 										+ "</p>"
-										+ "<p style='text-align:center;'>"
-											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to inventory:</b> <b>" + (TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)).getDisplayName(true) + "</b>"
+										+ "<p>"
+											+ "You now have <b>"+count+" "+(count>1?TFEssence.essenceToItem(TFEssence.ARCANE).getNamePlural(true):TFEssence.essenceToItem(TFEssence.ARCANE).getName(true))+"</b> in your inventory."
 										+ "</p>");
-								Main.game.getPlayer().incrementEssenceCount(Main.game.getDialogueFlags().focusedEssence, -1);
+								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -1);
 							}
 						};
 						
 					} else {
-						return new Response("Extract (1)", "You don't have any "+Main.game.getDialogueFlags().focusedEssence.getName()+" essences!", null);
+						return new Response("Extract (1)", "You don't have any "+TFEssence.ARCANE.getName()+" essences!", null);
 					}
 				} else {
 					return new Response("Extract (1)", "You don't have any free space in your inventory!", null);
@@ -757,105 +913,107 @@ public class Lab {
 				
 				
 			} else if(index == 2) {
-				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence))))) {
-					if(Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence)>=5) {
-						return new Response("Extract (5)", "Extract five of your "+Main.game.getDialogueFlags().focusedEssence.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLING) {
+				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE))))) {
+					if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=5) {
+						return new Response("Extract (5)", "Extract five of your "+TFEssence.ARCANE.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLED) {
 							@Override
 							public void effects() {
 								for(int i =0; i<5; i++) {
-									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)), false);
+									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false);
 								}
+								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
 								Main.game.getTextEndStringBuilder().append(
 										"<p>"
-											+ "You pull out the little cork from the top of one of the glass vials, and, closing your [pc.eyes], you concentrate on extracting the "+Main.game.getDialogueFlags().focusedEssence.getName()+" essence."
-											+ " Suddenly, you feel a strange little tugging sensation, and, opening your [pc.eyes], you see a "+Main.game.getDialogueFlags().focusedEssence.getColour().getName()+", swirling glow within the vial in your [pc.hand]."
-											+ " Pushing the cork stopper back in the top, you smile as you realise that you've successfully extracted an essence; something that only a Lilin should be able to do!"
-										+ "</p>"
-										+ "<p>"
 											+ "Grabbing another vial, you set about repeating the process several times..."
 										+ "</p>"
 										+ "<p style='text-align:center;'>"
-											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>5x</b> <b>" + TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence).getDisplayName(true) + "</b>"
+											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>5x</b> <b>" + TFEssence.essenceToItem(TFEssence.ARCANE).getDisplayName(true) + "</b>"
+										+ "</p>"
+										+ "<p>"
+											+ "You now have <b>"+count+" "+(count>1?TFEssence.essenceToItem(TFEssence.ARCANE).getNamePlural(true):TFEssence.essenceToItem(TFEssence.ARCANE).getName(true))+"</b> in your inventory."
 										+ "</p>");
-								Main.game.getPlayer().incrementEssenceCount(Main.game.getDialogueFlags().focusedEssence, -5);
+								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5);
 							}
 						};
 						
 					} else {
-						return new Response("Extract (5)", "You don't have enough "+Main.game.getDialogueFlags().focusedEssence.getName()+" essences!", null);
+						return new Response("Extract (5)", "You don't have enough "+TFEssence.ARCANE.getName()+" essences!", null);
 					}
 				} else {
 					return new Response("Extract (5)", "You don't have any free space in your inventory!", null);
 				}
 				
 			} else if(index == 3) {
-				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence))))) {
-					if(Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence)>=25) {
-						return new Response("Extract (25)", "Extract twenty-five of your "+Main.game.getDialogueFlags().focusedEssence.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLING) {
+				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE))))) {
+					if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=25) {
+						return new Response("Extract (25)", "Extract twenty-five of your "+TFEssence.ARCANE.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLED) {
 							@Override
 							public void effects() {
 								for(int i =0; i<25; i++) {
-									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)), false);
+									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false);
 								}
+								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
 								Main.game.getTextEndStringBuilder().append(
 										"<p>"
-											+ "You pull out the little cork from the top of one of the glass vials, and, closing your [pc.eyes], you concentrate on extracting the "+Main.game.getDialogueFlags().focusedEssence.getName()+" essence."
-											+ " Suddenly, you feel a strange little tugging sensation, and, opening your [pc.eyes], you see a "+Main.game.getDialogueFlags().focusedEssence.getColour().getName()+", swirling glow within the vial in your [pc.hand]."
-											+ " Pushing the cork stopper back in the top, you smile as you realise that you've successfully extracted an essence; something that only a Lilin should be able to do!"
-										+ "</p>"
-										+ "<p>"
 											+ "Grabbing another vial, you set about repeating the process several times..."
 										+ "</p>"
 										+ "<p style='text-align:center;'>"
-											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>25x</b> <b>" + TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence).getDisplayName(true) + "</b>"
+											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>25x</b> <b>" + TFEssence.essenceToItem(TFEssence.ARCANE).getDisplayName(true) + "</b>"
+										+ "</p>"
+										+ "<p>"
+											+ "You now have <b>"+count+" "+(count>1?TFEssence.essenceToItem(TFEssence.ARCANE).getNamePlural(true):TFEssence.essenceToItem(TFEssence.ARCANE).getName(true))+"</b> in your inventory."
 										+ "</p>");
-								Main.game.getPlayer().incrementEssenceCount(Main.game.getDialogueFlags().focusedEssence, -25);
+								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -25);
 							}
 						};
 						
 					} else {
-						return new Response("Extract (25)", "You don't have enough "+Main.game.getDialogueFlags().focusedEssence.getName()+" essences!", null);
+						return new Response("Extract (25)", "You don't have enough "+TFEssence.ARCANE.getName()+" essences!", null);
 					}
 				} else {
 					return new Response("Extract (25)", "You don't have any free space in your inventory!", null);
 				}
 				
 			} else if(index == 4) {
-				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence))))) {
-					if(Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence)>=1) {
-						return new Response("Extract (all)", "Extract all of your "+Main.game.getDialogueFlags().focusedEssence.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLING) {
+				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE))))) {
+					if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=1) {
+						return new Response("Extract (all)", "Extract all of your "+TFEssence.ARCANE.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLED) {
 							@Override
 							public void effects() {
-								for(int i =0; i<Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence); i++) {
-									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence)), false);
+								for(int i =0; i<Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE); i++) {
+									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false);
 								}
+								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
 								Main.game.getTextEndStringBuilder().append(
 										"<p>"
-											+ "You pull out the little cork from the top of one of the glass vials, and, closing your [pc.eyes], you concentrate on extracting the "+Main.game.getDialogueFlags().focusedEssence.getName()+" essence."
-											+ " Suddenly, you feel a strange little tugging sensation, and, opening your [pc.eyes], you see a "+Main.game.getDialogueFlags().focusedEssence.getColour().getName()+", swirling glow within the vial in your [pc.hand]."
-											+ " Pushing the cork stopper back in the top, you smile as you realise that you've successfully extracted an essence; something that only a Lilin should be able to do!"
-										+ "</p>"
-										+ "<p>"
 											+ "Grabbing another vial, you set about repeating the process several times..."
 										+ "</p>"
 										+ "<p style='text-align:center;'>"
-											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>"+Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence)+"x</b> <b>"
-												+ TFEssence.essenceToItem(Main.game.getDialogueFlags().focusedEssence).getDisplayName(true) + "</b>"
+											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>"+Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)+"x</b> <b>"
+												+ TFEssence.essenceToItem(TFEssence.ARCANE).getDisplayName(true) + "</b>"
+										+ "</p>"
+										+ "<p>"
+											+ "You now have <b>"+count+" "+(count>1?TFEssence.essenceToItem(TFEssence.ARCANE).getNamePlural(true):TFEssence.essenceToItem(TFEssence.ARCANE).getName(true))+"</b> in your inventory."
 										+ "</p>");
-								Main.game.getPlayer().incrementEssenceCount(Main.game.getDialogueFlags().focusedEssence, -Main.game.getPlayer().getEssenceCount(Main.game.getDialogueFlags().focusedEssence));
+								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE));
 								
 							}
 						};
 						
 					} else {
-						return new Response("Extract (all)", "You don't have any "+Main.game.getDialogueFlags().focusedEssence.getName()+" essences!", null);
+						return new Response("Extract (all)", "You don't have any essences!", null);
 					}
 				} else {
 					return new Response("Extract (all)", "You don't have any free space in your inventory!", null);
 				}
 				
 			} else if (index == 0) {
-				return new Response("Back", "Return to the essence choice menu.", ESSENCE_EXTRACTION);
+				return new Response("Back", "Stop extracting essences.", LAB_EXIT) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().essenceExtractionKnown = true;
+					}
+				};
 
 			} else {
 				return null;
@@ -863,9 +1021,74 @@ public class Lab {
 		}
 	};
 	
+	public static final DialogueNodeOld ESSENCE_EXTRACTION_BOTTLED = new DialogueNodeOld("Lilaya's Lab", "-", true, false) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "You pull out the little cork from the top of one of the glass vials, and, closing your [pc.eyes], you concentrate on extracting the "+TFEssence.ARCANE.getName()+" essence."
+					+ " Suddenly, you feel a strange little tugging sensation, and, opening your [pc.eyes], you see a "+TFEssence.ARCANE.getColour().getName()+", swirling glow within the vial in your [pc.hand]."
+					+ " Pushing the cork stopper back in the top, you smile as you realise that you've successfully extracted an essence; something that only a Lilin should be able to do!"
+				+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return ESSENCE_EXTRACTION.getResponse(index);
+		}
+	};
 	
 	
-	
+	public static final DialogueNodeOld LILAYA_CURRENT_DATE_TALK = new DialogueNodeOld("Lilaya's Lab", "-", true, false) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "Curious about the date shown on the calendar in your room, you decide to ask Lilaya about it,"
+					+ " [pc.speech(Is the calendar in my room accurate? It's three years into the future from my world...)]"
+				+ "</p>"
+				+ "<p>"
+					+ "Lilaya frowns as she hears you say that, and leans back against the desk behind her,"
+					+ " [lilaya.speech(Well, I can assure you that the year is "+Main.game.getYear()+". Your world was still in "+(Main.game.getYear()-3)+", huh?)]"
+				+ "</p>"
+				+ "<p>"
+					+ "You answer in the affirmative, and Lilaya pushes her glasses up to the bridge of her nose, before crossing her arms and sighing,"
+					+ " [lilaya.speech(It shouldn't be anything to worry about."
+					+ " There must have been a chain of events in our world's past that led to the year being counted slightly differently to yours."
+					+ " Or maybe you time-travelled when you were teleported into this world!)]"
+					+ " As she starts thinking out loud, you can hear the growing excitement in her voice,"
+					+ " [lilaya.speech(In fact, it's pretty incredible that your world even uses the same calendar system as ours!"
+					+ " And, thinking about it even more, why do we even speak the same language?"
+					+ " And how come your customs, clothing, and even your appearance are similar to ours?!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "You start to chat with Lilaya about the peculiarities of these shared features between your worlds."
+					+ " The more you start to delve into it, however, the more surprised you are at the lack of historical knowledge that Lilaya has,"
+					+ " [lilaya.speech(Well, the only history that anyone really knows about is stuff concerning Lilith."
+					+ " She's been ruling this world since before any trace of civilisation even existed, so I guess all of our customs come from her direct influence."
+					+ " I don't think anybody other then Lilith herself, or her favourite Lilin, really know."
+					+ " Maybe my mother-)]"
+				+ "</p>"
+				+ "<p>"
+					+ "Lilaya's cheeks suddenly flush red, and she turns away as she brings a close to the conversation,"
+					+ " [lilaya.speech(Anyway! D-Don't worry about anything! Three years into the future is nothing! I-I'll try and investigate a little more, ok?!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "It's quite apparent that Lilaya isn't interesting in discussing the matter any more..."
+				+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			if(index==1) {
+				return new Response("Thank her", "Thank Lilaya for her information (or lack thereof), and think about asking her something else.", LAB_EXIT);
+			} else {
+				return null;
+			}
+		}
+	};
 	
 	
 	//----------------------------------
@@ -874,7 +1097,6 @@ public class Lab {
 		/**
 		 */
 		private static final long serialVersionUID = 1L;
-
 		
 		@Override
 		public String getContent() {
@@ -1048,7 +1270,7 @@ public class Lab {
 						"Start having sex with Lilaya.", AUNT_HOME_LABORATORY_TESTING_ROMANCE,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
 						null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-						true, false, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+						true, true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
 						"<p>"
 								+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 								+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
@@ -1065,7 +1287,7 @@ public class Lab {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().hadSexWithLilaya = true;
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE, false);
 					}
 				};
 
@@ -1290,7 +1512,7 @@ public class Lab {
 				return new ResponseSex("Let it happen",
 						"You know that this can only end one way. Although Lilaya reminds you of your aunt Lily, you always did have a crush on her...", AUNT_HOME_LABORATORY_TESTING_ROMANCE,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-						true, false, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+						true, true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
 						"<p>"
 								+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 								+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
@@ -1307,7 +1529,7 @@ public class Lab {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().hadSexWithLilaya = true;
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_ROSE, false);
 					}
 				};
 
@@ -1332,85 +1554,79 @@ public class Lab {
 		}
 	};
 
-	private static AbstractClothing jinxedClothing = null;
 	private static AbstractClothing getJinxedClothingExample() {
-		if(jinxedClothing==null) {
-			for (AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-				if(c.isSealed()) {
-					jinxedClothing = c;
-					return c;
-				}
+		for (AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
+			if(c.isSealed()) {
+				return c;
 			}
-		} else {
-			return jinxedClothing;
 		}
 		return null;
 	}
 
-	public static final DialogueNodeOld LILAYA_ASSISTS_JINXED = new DialogueNodeOld("", "", true, true) {
-		/**
-		 */
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-				return "<p>"
-							+ "[pc.speech(There seems to be something wrong with "+(getJinxedClothingExample().getClothingType().isPlural()?"these":"this")+" "+getJinxedClothingExample().getName()+" I'm wearing,)]"
-							+ " you explain, "
-							+ "[pc.speech(Every time I try to take "+(getJinxedClothingExample().getClothingType().isPlural()?"them":"it")+" off, some kind of weird enchantment stops me. Can you help?)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Lilaya frowns at you for a moment, then, much to your surprise, she starts scolding you, "
-							+ "[lilaya.speech(Well, what did you expect to happen if you're going to start trying on random pieces of clothing like that?!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[pc.speech(Well, it's not really my fau-)] you start, but Lilaya quickly interrupts you."
-						+ "</p>"
-						+ "<p>"
-							+ "[lilaya.speech(Well then, whose fault is it? Hmm? I can't be running around saving you every time you get in trouble, understood?!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "If it were anyone else, you might have argued back, but Lilaya's stern words sound exactly like the sort of lecture you used to receive from your aunt Lily."
-							+ " That, combined with the fact that this is a rare display of frustration from Lilaya, leaves you muttering out an apology in the hope that you can calm her down."
-							+ " Thankfully, she lets out one last exasperated sigh before taking in a deep breath and speaking in her normal tone."
-						+ "</p>"
-						+ "<p>"
-							+ "[lilaya.speech(Sorry, I didn't mean to be so stern, it's just that I don't want you to get hurt out there..."
-									+ " Anyway, the solution to your little clothing problem is actually quite simple."
-									+ " First, you'll need some sort of enchanted weapon. Here, I've got another demonstone lying around, you can take this one,)]"
-							+ " Lilaya steps over to one of the several cluttered tables in the lab, quickly retrieving a demonstone and thrusting it into your hands before continuing,"
-							+ " [lilaya.speech(Now, much like absorbing it into your body, you'll need to concentrate on letting its energy flow into the jinxed clothing."
-									+ " The stored energy in an enchanted weapon will remove the jinx, however, the weapon will be destroyed in the process!"
-									+ " Feel free to destroy that demonstone I gave you, it's just a common variety anyway.)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[pc.speech(Thanks Lilaya, I really appreciate the help!)] you say, smiling at her."
-						+ "</p>"
-						+ "<p>"
-							+ "[lilaya.speech(You're welcome! And please, do try to be careful out there!)] Lilaya responds, before moving off a little to give you a chance to remove your jinxed clothing."
-						+ "</p>"
-						+ "<p>"
-							+ "<i>You can now remove jinxes from clothing!"
-							+ " To do so, open your inventory, click on a non-equipped weapon, and choose the 'Remove jinx' option."
-							+ " <b>Remember</b>, removing a jinx will destroy the weapon used!</i>"
-						+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int index) {
-			if (index == 1) {
-				return new Response("Continue", "Now to see about removing this jinxed clothing...", LAB_EXIT){
-					@Override
-					public void effects() {
-						Main.game.getPlayer().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE), false);
-					}
-				};
-
-			} else {
-				return null;
-			}
-		}
-	};
+//	public static final DialogueNodeOld LILAYA_ASSISTS_JINXED = new DialogueNodeOld("", "", true, true) {
+//		/**
+//		 */
+//		private static final long serialVersionUID = 1L;
+//
+//		@Override
+//		public String getContent() {
+//				return "<p>"
+//							+ "[pc.speech(There seems to be something wrong with "+(getJinxedClothingExample().getClothingType().isPlural()?"these":"this")+" "+getJinxedClothingExample().getName()+" I'm wearing,)]"
+//							+ " you explain, "
+//							+ "[pc.speech(Every time I try to take "+(getJinxedClothingExample().getClothingType().isPlural()?"them":"it")+" off, some kind of weird enchantment stops me. Can you help?)]"
+//						+ "</p>"
+//						+ "<p>"
+//							+ "Lilaya frowns at you for a moment, then, much to your surprise, she starts scolding you, "
+//							+ "[lilaya.speech(Well, what did you expect to happen if you're going to start trying on random pieces of clothing like that?!)]"
+//						+ "</p>"
+//						+ "<p>"
+//							+ "[pc.speech(Well, it's not really my fau-)] you start, but Lilaya quickly interrupts you."
+//						+ "</p>"
+//						+ "<p>"
+//							+ "[lilaya.speech(Well then, whose fault is it? Hmm? I can't be running around saving you every time you get in trouble, understood?!)]"
+//						+ "</p>"
+//						+ "<p>"
+//							+ "If it were anyone else, you might have argued back, but Lilaya's stern words sound exactly like the sort of lecture you used to receive from your aunt Lily."
+//							+ " That, combined with the fact that this is a rare display of frustration from Lilaya, leaves you muttering out an apology in the hope that you can calm her down."
+//							+ " Thankfully, she lets out one last exasperated sigh before taking in a deep breath and speaking in her normal tone."
+//						+ "</p>"
+//						+ "<p>"
+//							+ "[lilaya.speech(Sorry, I didn't mean to be so stern, it's just that I don't want you to get hurt out there..."
+//									+ " Anyway, the solution to your little clothing problem is actually quite simple."
+//									+ " First, you'll need some sort of enchanted weapon. Here, I've got another demonstone lying around, you can take this one,)]"
+//							+ " Lilaya steps over to one of the several cluttered tables in the lab, quickly retrieving a demonstone and thrusting it into your hands before continuing,"
+//							+ " [lilaya.speech(Now, much like absorbing it into your body, you'll need to concentrate on letting its energy flow into the jinxed clothing."
+//									+ " The stored energy in an enchanted weapon will remove the jinx, however, the weapon will be destroyed in the process!"
+//									+ " Feel free to destroy that demonstone I gave you, it's just a common variety anyway.)]"
+//						+ "</p>"
+//						+ "<p>"
+//							+ "[pc.speech(Thanks Lilaya, I really appreciate the help!)] you say, smiling at her."
+//						+ "</p>"
+//						+ "<p>"
+//							+ "[lilaya.speech(You're welcome! And please, do try to be careful out there!)] Lilaya responds, before moving off a little to give you a chance to remove your jinxed clothing."
+//						+ "</p>"
+//						+ "<p>"
+//							+ "<i>You can now remove jinxes from clothing!"
+//							+ " To do so, open your inventory, click on a non-equipped weapon, and choose the 'Remove jinx' option."
+//							+ " <b>Remember</b>, removing a jinx will destroy the weapon used!</i>"
+//						+ "</p>";
+//		}
+//
+//		@Override
+//		public Response getResponse(int index) {
+//			if (index == 1) {
+//				return new Response("Continue", "Now to see about removing this jinxed clothing...", LAB_EXIT){
+//					@Override
+//					public void effects() {
+//						Main.game.getPlayer().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE), false);
+//					}
+//				};
+//
+//			} else {
+//				return null;
+//			}
+//		}
+//	};
 	
 	public static final DialogueNodeOld LILAYA_SLAVER_RECOMMENDATION = new DialogueNodeOld("", "", true, true) {
 
@@ -1841,7 +2057,7 @@ public class Lab {
 						return new Response("Follow Lilaya", "Allow Lilaya to lead you up to your room.", LILAYA_ASSISTS_EGG_LAYING) {
 							@Override
 							public void effects() {
-								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_PLAYER);
+								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_PLAYER, false);
 								Main.game.setActiveWorld(
 										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
 										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
@@ -1852,7 +2068,7 @@ public class Lab {
 						return new Response("Follow Lilaya", "Allow Lilaya to lead you to the birthing room.", LILAYA_ASSISTS_BIRTHING) {
 							@Override
 							public void effects() {
-								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_BIRTHING_ROOM);
+								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_BIRTHING_ROOM, false);
 								Main.game.setActiveWorld(
 										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR),
 										Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_BIRTHING_ROOM)),
@@ -1965,7 +2181,9 @@ public class Lab {
 						Main.game.getPlayer().setStamina(0);
 
 						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity((Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier());
+						Main.game.getPlayer().incrementVaginaCapacity(
+								(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+								false);
 					}
 				};
 
@@ -1979,7 +2197,9 @@ public class Lab {
 						Main.game.getPlayer().setStamina(0);
 
 						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity((Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier());
+						Main.game.getPlayer().incrementVaginaCapacity(
+								(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+								false);
 					}
 				};
 
@@ -2200,7 +2420,7 @@ public class Lab {
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 						Main.game.getPlayer().setStamina(Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM));
 
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
+						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
@@ -2255,7 +2475,7 @@ public class Lab {
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 						Main.game.getPlayer().setStamina(Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM));
 
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
+						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
@@ -2342,7 +2562,9 @@ public class Lab {
 						Main.game.getPlayer().setStamina(0);
 
 						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity((Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier());
+						Main.game.getPlayer().incrementVaginaCapacity(
+								(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+								false);
 					}
 				};
 
@@ -2408,7 +2630,7 @@ public class Lab {
 				return new Response("Protect the eggs!", "Why is Lilaya sitting so close behind you?! Maybe she wants to take your eggs for herself!", LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS) {
 					@Override
 					public void effects() {
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
+						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
 					}
 				};
 

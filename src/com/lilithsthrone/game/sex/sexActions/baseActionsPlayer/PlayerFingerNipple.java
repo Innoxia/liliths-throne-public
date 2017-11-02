@@ -1266,7 +1266,7 @@ public class PlayerFingerNipple {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You let out a soothing [pc.moan], ignoring [npc.her] weak protests as you continue gently sliding your [pc.fingers+] in and out of [npc.her] [npc.nipple+].",
 							" With a soft [pc.moan], you gently slide your [pc.fingers+] even deeper into [npc.her] [npc.nipple+], drawing yet another [npc.sob] from between [npc.her] [npc.lips] as you ignore [npc.her] protestations.",
-							" Pressing yourself against [npc.herHim], and totally ignoring [npc.her] weak protests, you gently slide your [pc.fingers+] deep into [npc.her] [npc.nipple], causing [npc.her] to let out yet another [npc.sob+]."));
+							" Pressing yourself against [npc.herHim], and totally ignoring [npc.her] weak protests, you gently slide your [pc.fingers+] deep into [npc.her] [npc.nipple], causing [npc.herHim] to let out yet another [npc.sob+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1280,7 +1280,7 @@ public class PlayerFingerNipple {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You let out [pc.a_moan], ignoring [npc.her] weak protests as you continue sliding your [pc.fingers+] in and out of [npc.her] [npc.nipple+].",
 							" With [pc.a_moan], you slide your [pc.fingers+] even deeper into [npc.her] [npc.nipple+], drawing yet another [npc.sob] from between [npc.her] [npc.lips] as you ignore [npc.her] protestations.",
-							" Pressing yourself against [npc.herHim], and totally ignoring [npc.her] weak protests, you slide your [pc.fingers+] deep into [npc.her] [npc.nipple], causing [npc.her] to let out yet another [npc.sob+]."));
+							" Pressing yourself against [npc.herHim], and totally ignoring [npc.her] weak protests, you slide your [pc.fingers+] deep into [npc.her] [npc.nipple], causing [npc.herHim] to let out yet another [npc.sob+]."));
 					break;
 			}
 			

@@ -4,8 +4,10 @@ import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -51,9 +53,12 @@ public class Pix extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
 
 		this.setVaginaVirgin(false);
-		this.setVaginaCapacity(Capacity.FOUR_LOOSE.getMedianValue());
+		this.setVaginaCapacity(Capacity.FOUR_LOOSE.getMedianValue(), true);
 		this.setBreastSize(CupSize.B.getMeasurement());
 		this.setBreastRows(3);
+
+		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 
 		this.equipClothingFromNowhere(groin, true, this);
 		this.equipClothingFromNowhere(chest, true, this);

@@ -287,16 +287,22 @@ public enum Attack {
 		}
 
 		if (defender != null) {
+			// Modifiers based on race resistance:
+			damage *= ((100 - defender.getAttributeValue(attacker.getRace().getResistanceMultiplier())) / 100f);
+			// Modifiers based on race damage:
+			damage *= ((100 + attacker.getAttributeValue(defender.getRace().getDamageMultiplier())) / 100f);
+			
 			// Modifiers based on level:
-			if (defender.getLevel() - attacker.getLevel() >= 3)
-				return damage * 0.75f;
-			else if (defender.getLevel() - attacker.getLevel() <= -3)
-				return damage * 1.25f;
-			else
-				return damage;
-
-		} else
-			return damage;
+			if (defender.getLevel() - attacker.getLevel() >= 3) {
+				damage = damage * 0.75f;
+			} else if (defender.getLevel() - attacker.getLevel() <= -3) {
+				damage = damage * 1.25f;
+			}
+			
+			
+		}
+		
+		return damage;
 	}
 
 }

@@ -26,9 +26,9 @@ public enum LilayasHome implements PlaceInterface {
 	
 	// Ground floor:
 	
-	LILAYA_HOME_CORRIDOR("Corridor", null, null, LilayaHomeGeneric.CORRIDOR, null, true, false),
+	LILAYA_HOME_CORRIDOR("Corridor", null, BaseColour.GREY, LilayaHomeGeneric.CORRIDOR, Encounter.LILAYAS_HOME_CORRIDOR, true, false),
 	
-	LILAYA_HOME_ROOM_WINDOW("Room", "dominion/lilayasHome/room", BaseColour.GREY, LilayaHomeGeneric.ROOM_WINDOW, null, true, false) {
+	LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR("Room", "dominion/lilayasHome/room", BaseColour.GREY, LilayaHomeGeneric.ROOM_WINDOW, null, true, false) {
 		@Override
 		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
 			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
@@ -37,44 +37,114 @@ public enum LilayasHome implements PlaceInterface {
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
 			return PlaceUpgrade.coreRoomUpgrades;
 		}
-	},
-	LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR("Garden-Access Room", "dominion/lilayasHome/room", BaseColour.GREY, LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR, null, true, false) {
 		@Override
-		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
-			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+		public boolean isAbleToBeUpgraded() {
+			return true;
 		}
 		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.coreRoomUpgrades;
-		}
-	},
-	LILAYA_HOME_ROOM_GARDEN("Garden-View Room", "dominion/lilayasHome/room", BaseColour.GREY, LilayaHomeGeneric.ROOM_GARDEN, null, true, false) {
-		@Override
-		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
-			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
-		}
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.coreRoomUpgrades;
+		public String getPlaceNameAppendFormat(int count) {
+			return " G-"+String.format("%02d", count);
 		}
 	},
 	
-	LILAYA_HOME_ROOM_WINDOW_SLAVE("Slave's Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, LilayaHomeGeneric.ROOM_WINDOW_SLAVE, null, true, false) {
+	LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR("Garden Room", "dominion/lilayasHome/room", BaseColour.GREY, LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR, null, true, false) {
+		@Override
+		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
+			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+		}
+		@Override
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+			return PlaceUpgrade.coreRoomUpgrades;
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+		@Override
+		public String getPlaceNameAppendFormat(int count) {
+			return " GG-"+String.format("%02d", count);
+		}
+	},
+	
+	LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR("Room", "dominion/lilayasHome/room", BaseColour.GREY, LilayaHomeGeneric.ROOM_WINDOW, null, true, false) {
+		@Override
+		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
+			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+		}
+		@Override
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+			return PlaceUpgrade.coreRoomUpgrades;
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+		@Override
+		public String getPlaceNameAppendFormat(int count) {
+			return " F-"+String.format("%02d", count);
+		}
+	},
+	
+	LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR("Garden Room", "dominion/lilayasHome/room", BaseColour.GREY, LilayaHomeGeneric.ROOM_GARDEN, null, true, false) {
+		@Override
+		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
+			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+		}
+		@Override
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+			return PlaceUpgrade.coreRoomUpgrades;
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+		@Override
+		public String getPlaceNameAppendFormat(int count) {
+			return " FG-"+String.format("%02d", count);
+		}
+	},
+	
+	LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE("Slave's Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, LilayaHomeGeneric.ROOM_WINDOW_SLAVE, null, true, false) {
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
 			return PlaceUpgrade.slaveQuartersUpgrades;
 		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
 	},
-	LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE("Slave's Garden-Access Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR_SLAVE, null, true, false) {
+	
+	LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE("Slave's Garden Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR_SLAVE, null, true, false) {
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
 			return PlaceUpgrade.slaveQuartersUpgrades;
 		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
 	},
-	LILAYA_HOME_ROOM_GARDEN_SLAVE("Slave's Garden-View Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, LilayaHomeGeneric.ROOM_GARDEN_SLAVE, null, true, false) {
+	
+	LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE("Slave's Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, LilayaHomeGeneric.ROOM_WINDOW_SLAVE, null, true, false) {
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
 			return PlaceUpgrade.slaveQuartersUpgrades;
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+	},
+	
+	LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE("Slave's Garden Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, LilayaHomeGeneric.ROOM_GARDEN_SLAVE, null, true, false) {
+		@Override
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+			return PlaceUpgrade.slaveQuartersUpgrades;
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
 		}
 	},
 	

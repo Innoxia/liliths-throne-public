@@ -14,7 +14,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 public class Skin implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private SkinType type;
+	protected SkinType type;
 
 	public Skin(SkinType type) {
 		this.type = type;

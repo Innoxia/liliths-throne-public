@@ -960,19 +960,19 @@ public enum SpecialAttack {
 			descriptionSB = new StringBuilder();
 			
 			if (caster == Main.game.getPlayer()) {
-				descriptionSB.append(UtilText.genderParsing(target,
+				descriptionSB.append(UtilText.parse(target,
 						"<p>" + "With a burst of energy, you leap forwards, trying to bite at " + target.getName("the") + "."
 								+ (isHit ? " Your dog-like muzzle clamps down on " + target.getName("the") + "'s " + target.getArmNameSingular() + ","
-										+ " and you manage to cause some serious damage with your sharp canines before <she> manages to throw you off of <herPro>."
+										+ " and you manage to cause some serious damage with your sharp canines before [npc.she] manages to throw you off of [npc.herHim]."
 										: target.getName("The") + " manages to jump to one side, and there's an audible snap as your teeth clamp down on thin air.")
 								+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			} else {
-				descriptionSB.append(UtilText.genderParsing(caster,
-						"<p>" + "With a sudden burst of energy, " + caster.getName("the") + " leaps forwards as <she> tries to bite you."
-								+ (isHit ? " <Her> dog-like muzzle clamps down on your " + target.getArmNameSingular() + ","
-										+ " and <she> shakes <her> head from side-to-side, managing to cause some serious damage with <her> sharp canines before you manage to throw <herPro> off of you."
-										: "You jump to one side as you see the attack coming, and there's an audible snap as <her> teeth thankfully clamp down on nothing but thin air.")
+				descriptionSB.append(UtilText.parse(caster,
+						"<p>" + "With a sudden burst of energy, " + caster.getName("the") + " leaps forwards as [npc.she] tries to bite you."
+								+ (isHit ? " [npc.Her] dog-like muzzle clamps down on your " + target.getArmNameSingular() + ","
+										+ " and [npc.she] shakes [npc.her] head from side-to-side, managing to cause some serious damage with [npc.her] sharp canines before you manage to throw [npc.herHim] off of you."
+										: "You jump to one side as you see the attack coming, and there's an audible snap as [npc.her] teeth thankfully clamp down on nothing but thin air.")
 								+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			}
@@ -994,7 +994,7 @@ public enum SpecialAttack {
 			if (owner.isPlayer())
 				return "Your anthropomorphic dog-like muzzle can be used to deliver a powerful bite.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The") + "'s anthropomorphic dog-like muzzle can be used to deliver a powerful bite.");
+				return UtilText.parse(owner, owner.getName("The") + "'s anthropomorphic dog-like muzzle can be used to deliver a powerful bite.");
 		}
 
 		@Override
@@ -1030,7 +1030,7 @@ public enum SpecialAttack {
 						+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			} else {
-				descriptionSB.append(UtilText.genderParsing(caster,
+				descriptionSB.append(UtilText.parse(caster,
 						"<p>"
 							+ "With a burst of energy, [npc.name] leaps forwards, trying to butt [npc.her] head into you."
 							+ (isHit
@@ -1064,7 +1064,7 @@ public enum SpecialAttack {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			return owner.getHornType() == HornType.BOVINE_MALE || owner.getHornType() == HornType.BOVINE_FEMALE;
+			return owner.getHornType() == HornType.BOVINE;
 		}
 	},
 
@@ -1078,19 +1078,22 @@ public enum SpecialAttack {
 			descriptionSB = new StringBuilder();
 			
 			if (caster == Main.game.getPlayer()) {
-				descriptionSB.append(UtilText.genderParsing(target,
-						"<p>" + "With a savage howl, you launch yourself at " + target.getName("the") + "."
-								+ (isHit ? " Your wolf-like muzzle clamps down on one of " + target.getName("the") + "'s " + target.getArmNameSingular() + ","
-										+ " and you rake at <her> body with your sharp claws, doing a considerable amount of damage before <she> manages to kick you off of <herPro>."
-										: target.getName("The") + " manages to jump out of the way, and you end up tumbling to the ground as you're caught off-guard by your target's sudden evasive move.")
-								+ "</p>")
+				descriptionSB.append(UtilText.parse(target,
+						"<p>"
+							+ "With a savage howl, you launch yourself at [npc.name]."
+								+ (isHit
+										? " Your wolf-like muzzle clamps down on one of [npc.her] [npc.arms], and you rake at [npc.her] body with your sharp claws,"
+												+ " doing a considerable amount of damage before [npc.she] manages to kick you off of [npc.herHim]."
+										: " [npc.She] manages to jump out of the way, and you end up tumbling to the ground as you're caught off-guard by your target's sudden evasive move.")
+							+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			} else {
-				descriptionSB.append(UtilText.genderParsing(caster,
-						"<p>" + "With a savage howl, " + caster.getName("the") + " launches <her>self at you."
-								+ (isHit ? " <Her> wolf-like muzzle clamps down on one of your " + target.getArmNameSingular() + ","
-										+ " and <she> rakes at your body with <her> sharp claws, doing a considerable amount of damage before you manage to kick <herPro> off of you."
-										: "You manage to jump out of the way, and <she> ends up tumbling to the ground as <she>'s caught off-guard by your sudden evasive move.")
+				descriptionSB.append(UtilText.parse(caster,
+						"<p>" + "With a savage howl, [npc.name] launches [npc.herself] at you."
+								+ (isHit
+										? " [npc.Her] wolf-like muzzle clamps down on one of your [pc.arms], and [npc.she] rakes at your body with [npc.her] sharp claws,"
+												+ " doing a considerable amount of damage before you manage to kick [npc.herHim] off of you."
+										: "You manage to jump out of the way, and [npc.she] ends up tumbling to the ground as [npc.she]'s caught off-guard by your sudden evasive move.")
 								+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			}
@@ -1113,13 +1116,13 @@ public enum SpecialAttack {
 			if (owner.isPlayer())
 				return "A powerful, primal energy bubbles just beneath the surface of your wolf-like body, and although you're able to keep it under control, you could always tap into it to deliver a savage attack.";
 			else
-				return UtilText.genderParsing(owner,
-						"A powerful, primal energy bubbles just beneath the surface of " + owner.getName("the") + "'s wolf-like body, and <she>'s able to use it to deliver a savage attack.");
+				return UtilText.parse(owner,
+						"A powerful, primal energy bubbles just beneath the surface of [npc.name]'s wolf-like body, and [npc.she]'s able to use it to deliver a savage attack.");
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			return owner.getArmType() == ArmType.LYCAN;
+			return owner.getArmType() == ArmType.LYCAN && owner.getFaceType() == FaceType.LYCAN;
 		}
 	},
 
@@ -1133,17 +1136,17 @@ public enum SpecialAttack {
 			descriptionSB = new StringBuilder();
 			
 			if (caster == Main.game.getPlayer()) {
-				descriptionSB.append(UtilText.genderParsing(target,
+				descriptionSB.append(UtilText.parse(target,
 						"<p>" + "You flex the claws on your anthropomorphic squirrel-like hands, and with a quick dash forwards, you attempt to strike at " + target.getName("the") + "."
-								+ (isHit ? " Your sharp claws rake over " + target.getName("the") + "'s body, and <she> lets out a surprised cry as you jump back."
+								+ (isHit ? " Your sharp claws rake over " + target.getName("the") + "'s body, and [npc.she] lets out a surprised cry as you jump back."
 										: target.getName("The") + " manages to dodge your attack, and you end up swiping at nothing more than thin air.")
 								+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			} else {
-				descriptionSB.append(UtilText.genderParsing(caster,
-						"<p>" + caster.getName("The") + " flexes the claws on <her> anthropomorphic squirrel-like hands, and with a quick dash forwards, attempts to strike at you."
-								+ (isHit ? " <Her> sharp claws rake over your body, and you let out a surprised cry as <she> quickly jumps back, and smirking at you."
-										: " You see <her> attack coming, and you jump out of the way just in time, leaving <herPro> to swipe at nothing more than thin air.")
+				descriptionSB.append(UtilText.parse(caster,
+						"<p>" + caster.getName("The") + " flexes the claws on [npc.her] anthropomorphic squirrel-like hands, and with a quick dash forwards, attempts to strike at you."
+								+ (isHit ? " [npc.Her] sharp claws rake over your body, and you let out a surprised cry as [npc.she] quickly jumps back, and smirking at you."
+										: " You see [npc.her] attack coming, and you jump out of the way just in time, leaving [npc.herHim] to swipe at nothing more than thin air.")
 								+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			}
@@ -1166,8 +1169,8 @@ public enum SpecialAttack {
 			if (owner.isPlayer())
 				return "Your anthropomorphic squirrel-like hands have a series of sharp claws. You can use these claws to deliver a scratching attack.";
 			else
-				return UtilText.genderParsing(owner,
-						owner.getName("The") + "'s anthropomorphic squirrel-like hands have a series of sharp claws. <She> can use these claws to deliver a scratching attack.");
+				return UtilText.parse(owner,
+						owner.getName("The") + "'s anthropomorphic squirrel-like hands have a series of sharp claws. [npc.She] can use these claws to deliver a scratching attack.");
 		}
 
 		@Override
@@ -1186,17 +1189,17 @@ public enum SpecialAttack {
 			descriptionSB = new StringBuilder();
 			
 			if (caster == Main.game.getPlayer()) {
-				descriptionSB.append(UtilText.genderParsing(target,
+				descriptionSB.append(UtilText.parse(target,
 						"<p>" + "You extend the claws on your anthropomorphic cat-like hands, and with a quick dash forwards, you attempt to strike at " + target.getName("the") + "."
-								+ (isHit ? " Your sharp claws rake over " + target.getName("the") + "'s body, and <she> lets out a surprised cry as you jump back, retracting your claws."
+								+ (isHit ? " Your sharp claws rake over " + target.getName("the") + "'s body, and [npc.she] lets out a surprised cry as you jump back, retracting your claws."
 										: target.getName("The") + " manages to dodge your attack, and you end up swiping at nothing more than thin air.")
 								+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			} else {
-				descriptionSB.append(UtilText.genderParsing(caster,
-						"<p>" + caster.getName("The") + " extends the claws on <her> anthropomorphic cat-like hands, and with a quick dash forwards, attempts to strike at you."
-								+ (isHit ? " <Her> sharp claws rake over your body, and you let out a surprised cry as <she> quickly jumps back, retracting <her> claws and smirking at you."
-										: " You see <her> attack coming, and you jump out of the way just in time, leaving <herPro> to swipe at nothing more than thin air.")
+				descriptionSB.append(UtilText.parse(caster,
+						"<p>" + caster.getName("The") + " extends the claws on [npc.her] anthropomorphic cat-like hands, and with a quick dash forwards, attempts to strike at you."
+								+ (isHit ? " [npc.Her] sharp claws rake over your body, and you let out a surprised cry as [npc.she] quickly jumps back, retracting [npc.her] claws and smirking at you."
+										: " You see [npc.her] attack coming, and you jump out of the way just in time, leaving [npc.herHim] to swipe at nothing more than thin air.")
 								+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			}
@@ -1219,8 +1222,8 @@ public enum SpecialAttack {
 			if (owner.isPlayer())
 				return "Your anthropomorphic cat-like hands have a series of sharp claws that can be retracted and extended at will. You can use these claws to deliver a scratching attack.";
 			else
-				return UtilText.genderParsing(owner,
-						owner.getName("The") + "'s anthropomorphic cat-like hands have a series of sharp claws that can be retracted and extended at will. <She> can use these claws to deliver a scratching attack.");
+				return UtilText.parse(owner,
+						owner.getName("The") + "'s anthropomorphic cat-like hands have a series of sharp claws that can be retracted and extended at will. [npc.She] can use these claws to deliver a scratching attack.");
 		}
 
 		@Override
@@ -1238,16 +1241,16 @@ public enum SpecialAttack {
 			descriptionSB = new StringBuilder();
 			
 			if (caster == Main.game.getPlayer()) {
-				descriptionSB.append(UtilText.genderParsing(target,
+				descriptionSB.append(UtilText.parse(target,
 						"<p>" + "You turn to one side and kick out with one of your powerful horse-like legs."
-								+ (isHit ? " Your hooved foot slams into " + target.getName("the") + ", and <she> staggers back in a daze."
-										: target.getName("The") + " sees your attack coming, and <she> manages to dodge to one side at the last second.")
+								+ (isHit ? " Your hooved foot slams into " + target.getName("the") + ", and [npc.she] staggers back in a daze."
+										: target.getName("The") + " sees your attack coming, and [npc.she] manages to dodge to one side at the last second.")
 								+ "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			} else {
-				descriptionSB.append(UtilText.genderParsing(caster,
-						"<p>" + caster.getName("The") + " turns to one side and kicks out with one of <her> powerful horse-like legs."
-								+ (isHit ? " <Her> hooved foot slams into you, causing you to stagger back in a daze." : " You see <her> attack coming, and manage to dodge to one side at the last second.") + "</p>")
+				descriptionSB.append(UtilText.parse(caster,
+						"<p>" + caster.getName("The") + " turns to one side and kicks out with one of [npc.her] powerful horse-like legs."
+								+ (isHit ? " [npc.Her] hooved foot slams into you, causing you to stagger back in a daze." : " You see [npc.her] attack coming, and manage to dodge to one side at the last second.") + "</p>")
 						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
 			}
 			
@@ -1269,7 +1272,7 @@ public enum SpecialAttack {
 			if (owner.isPlayer())
 				return "Your anthropomorphic horse-like legs are very strong, and you're able to use them to deliver a powerful kick.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The") + "'s anthropomorphic horse-like legs are very strong, and <she>'s able to use them to deliver a powerful kick.");
+				return UtilText.parse(owner, owner.getName("The") + "'s anthropomorphic horse-like legs are very strong, and [npc.she]'s able to use them to deliver a powerful kick.");
 		}
 
 		@Override
@@ -1459,7 +1462,7 @@ public enum SpecialAttack {
 						"<p>" + (isHit ? "<b>You did " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + " damage!</b>" : "<b>You missed!</b>") + "</p>");
 
 			if (statusEffects != null && isHit) {
-				descriptionSB.append(UtilText.genderParsing(target, "<p><She> is now suffering "));
+				descriptionSB.append(UtilText.parse(target, "<p>[npc.She] is now suffering "));
 				int i = 0;
 				for (Entry<StatusEffect, Integer> seEntry : statusEffects.entrySet()) {
 					if (i != 0) {
@@ -1498,8 +1501,8 @@ public enum SpecialAttack {
 				descriptionSB.append("!</p>");
 			}
 
-			descriptionSB.append(UtilText.genderParsing(caster,
-					"<p>" + "Using <her> non-human body parts in such a manner is quite tiring, and <she> loses <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_STAMINA.getColour().toWebHexString() + ";'>stamina</b>!</b>" + "</p>"));
+			descriptionSB.append(UtilText.parse(caster,
+					"<p>" + "Using [npc.her] non-human body parts in such a manner is quite tiring, and [npc.she] loses <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_STAMINA.getColour().toWebHexString() + ";'>stamina</b>!</b>" + "</p>"));
 		}
 
 		return descriptionSB.toString();

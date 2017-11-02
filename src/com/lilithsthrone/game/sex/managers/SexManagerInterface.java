@@ -88,7 +88,7 @@ public interface SexManagerInterface {
 		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.ANUS, true);
 		
 		String s = "<p>"
-				+ UtilText.genderParsing(Sex.getPartner(), Sex.getPartner().getAssDescription())
+				+ UtilText.parse(Sex.getPartner(), Sex.getPartner().getAssDescription())
 				+ "</p>"
 				+ Sex.getPartner().getPartnerAssRevealReaction(isSub);
 		
@@ -99,7 +99,7 @@ public interface SexManagerInterface {
 		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.NIPPLES, true);
 		
 		String s = "<p>"
-				+ UtilText.genderParsing(Sex.getPartner(), Sex.getPartner().getBreastDescription())
+				+ UtilText.parse(Sex.getPartner(), Sex.getPartner().getBreastDescription())
 				+ "</p>"
 				+ Sex.getPartner().getPartnerBreastsRevealReaction(isSub);
 		
@@ -110,7 +110,7 @@ public interface SexManagerInterface {
 		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
 		
 		String s = "<p>"
-				+ UtilText.genderParsing(Sex.getPartner(), Sex.getPartner().getPenisDescription())
+				+ UtilText.parse(Sex.getPartner(), Sex.getPartner().getPenisDescription())
 				+ "</p>"
 				+ Sex.getPartner().getPartnerPenisRevealReaction(isSub);
 		
@@ -121,7 +121,7 @@ public interface SexManagerInterface {
 		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
 		
 		String s = "<p>"
-				+ UtilText.genderParsing(Sex.getPartner(), Sex.getPartner().getVaginaDescription())
+				+ UtilText.parse(Sex.getPartner(), Sex.getPartner().getVaginaDescription())
 				+ "</p>"
 				+ Sex.getPartner().getPartnerVaginaRevealReaction(isSub);
 		
@@ -133,7 +133,7 @@ public interface SexManagerInterface {
 		Sex.getPartner().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
 		
 		String s = "<p>"
-				+ UtilText.genderParsing(Sex.getPartner(), Sex.getPartner().getMoundDescription())
+				+ UtilText.parse(Sex.getPartner(), Sex.getPartner().getMoundDescription())
 				+ "</p>"
 				+ Sex.getPartner().getPartnerMoundRevealReaction(isSub);
 		

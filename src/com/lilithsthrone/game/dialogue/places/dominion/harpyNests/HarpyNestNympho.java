@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -20,7 +21,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.8
- * @version 0.1.8
+ * @version 0.1.87
  * @author Innoxia
  */
 public class HarpyNestNympho {
@@ -621,20 +622,54 @@ public class HarpyNestNympho {
 					+ " Rushing to obey their matriarch, several harpies dash forwards and pin your [pc.arms] and [pc.legs] to the floor."
 				+ "</p>"
 				+ "<p>"
-					+ "[harpyNympho.speech(Keep on holding [pc.herHim] still!)] [harpyNympho.name] calls out, pulling [harpyNymphoCompanion.name] off of you,"
+					+ "[harpyNympho.speech(Keep on holding [pc.herHim] still everyone!)] [harpyNympho.name] calls out, pulling [harpyNymphoCompanion.name] off of you,"
 					+ " [harpyNympho.speech(I've got a fun little punishment planned!)]"
+				+ "</p>"
+				+"<p>"
+					+ "[harpyNympho.speech([harpyNymphoCompanion.name], fetch me one of my lollipops!)]"
+					+ " [harpyNympho.name] laughs, stepping forwards to tower over you,"
+					+ " [harpyNympho.speech(I know what your problem is; you just wish you were me! Well, my special little lollipops can help with that!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "[pc.speechNoEffects(Let me go!)] you shout, struggling against the harpies holding you down."
+					+ " You're too weak to shake them off, however, and they easily continue to pin you to the floor, holding you quite still as [harpyNympho.name] stoops down next to your face."
+				+ "</p>"
+				+ "<p>"
+					+ "[harpyNympho.speech(Shh! Don't struggle so much,)]"
+					+ " she moans,"
+					+ " [harpyNympho.speech(this will all be over soon!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "[harpyNymphoCompanion.name] comes running over, and you see her hand over a pink, cock-shaped lollipop to [harpyNympho.name]."
+					+ " With a mischievous grin on her face, the pink-feathered matriarch orders her boy-toy to hold your mouth open, and, leaning in, [harpyNympho.name] forcefully tries to shove the lollipop into your mouth."
+				+ "</p>"
+				+ "<p>"
+					+ "[harpyNympho.speech(Be a good [pc.girl]! You'll like it, I promise!)]"
 				+ "</p>";
 		}
 
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Punished", "[harpyNympho.Name] proceeds with her punishment...", HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT){
+				return new Response("Lips sealed", "Don't let [harpyNympho.Name] get that strange lollipop into your mouth...", HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT_NO_TF);
+					
+			} else if (index == 2) {
+				return new Response("Open wide",
+						"Allow [harpyNympho.Name] to push the lollipop into your mouth... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
+						HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null){
 					@Override
 					public void effects() {
-						if(Main.game.isForcedTFEnabled()) {
-							Main.game.getTextEndStringBuilder().append(ItemEffectType.NYMPHO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyNympho(), Main.game.getPlayer()));
-						}
+						Main.game.getTextStartStringBuilder().append("<p>"
+								+ "Obediently doing as you're told, you open your mouth and let the lollipop slide past your [pc.lips+]."
+								+ " An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before."
+								+ " Before you know what you're doing, you're eagerly sucking and licking on the delicious candy, letting out little whining noises as you find yourself unable to stop..."
+							+ "</p>"
+							+ItemEffectType.NYMPHO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyNympho(), Main.game.getPlayer()));
 					}
 				};
 					
@@ -701,18 +736,52 @@ public class HarpyNestNympho {
 				+ "<p>"
 					+ "[harpyNympho.speech(Keep on holding [pc.herHim] still!)] [harpyNympho.name] calls out,"
 					+ " [harpyNympho.speech(I've got a fun little punishment planned!)]"
+				+ "</p>"
+				+"<p>"
+					+ "[harpyNympho.speech([harpyNymphoCompanion.name], fetch me one of my lollipops!)]"
+					+ " [harpyNympho.name] laughs, stepping forwards to tower over you,"
+					+ " [harpyNympho.speech(I know what your problem is; you just wish you were me! Well, my special little lollipops can help with that!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "[pc.speechNoEffects(Let me go!)] you shout, struggling against the harpies holding you down."
+					+ " You're too weak to shake them off, however, and they easily continue to pin you to the floor, holding you quite still as [harpyNympho.name] stoops down next to your face."
+				+ "</p>"
+				+ "<p>"
+					+ "[harpyNympho.speech(Shh! Don't struggle so much,)]"
+					+ " she moans,"
+					+ " [harpyNympho.speech(this will all be over soon!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "[harpyNymphoCompanion.name] comes running over, and you see her hand over a pink, cock-shaped lollipop to [harpyNympho.name]."
+					+ " With a mischievous grin on her face, the pink-feathered matriarch orders her boy-toy to hold your mouth open, and, leaning in, [harpyNympho.name] forcefully tries to shove the lollipop into your mouth."
+				+ "</p>"
+				+ "<p>"
+					+ "[harpyNympho.speech(Be a good [pc.girl]! You'll like it, I promise!)]"
 				+ "</p>";
 		}
 
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Punished", "[harpyNympho.Name] proceeds with her punishment...", HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT){
+				return new Response("Lips sealed", "Don't let [harpyNympho.Name] get that strange lollipop into your mouth...", HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT_NO_TF);
+					
+			} else if (index == 2) {
+				return new Response("Open wide",
+						"Allow [harpyNympho.Name] to push the lollipop into your mouth... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
+						HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null){
 					@Override
 					public void effects() {
-						if(Main.game.isForcedTFEnabled()) {
-							Main.game.getTextEndStringBuilder().append(ItemEffectType.NYMPHO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyNympho(), Main.game.getPlayer()));
-						}
+						Main.game.getTextStartStringBuilder().append("<p>"
+								+ "Obediently doing as you're told, you open your mouth and let the lollipop slide past your [pc.lips+]."
+								+ " An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before."
+								+ " Before you know what you're doing, you're eagerly sucking and licking on the delicious candy, letting out little whining noises as you find yourself unable to stop..."
+							+ "</p>"
+							+ItemEffectType.NYMPHO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyNympho(), Main.game.getPlayer()));
 					}
 				};
 					
@@ -802,6 +871,66 @@ public class HarpyNestNympho {
 		}
 	};
 	
+	public static final DialogueNodeOld HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT_NO_TF = new DialogueNodeOld("Harpy nest", ".", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "[harpyNympho.Name]'s nest";
+		}
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "With a determined yank, you finally manage to pull one of your [pc.arms] free from the harpy's clutches."
+					+ " Before they're able to restrain you again, you grab the lollipop out of [harpyNympho.name]'s feathered hand, before smashing it on the floor beneath you."
+				+ "</p>"
+				+"<p>"
+					+ "[harpyNympho.speech(Silly [pc.girl]! That's not going to make this any easier for you!)]"
+					+ " [harpyNympho.name] laughs, dropping down onto all fours directly over your face,"
+					+ " [harpyNympho.speech(Come on [harpyNymphoCompanion.name]! Let's carry on from where we left off! This naughty [pc.girl] can be on cleanup duty!)]"
+				+ "</p>"
+				+"<p>"
+					+ "[harpyNymphoCompanion.name] lets out a little laugh,"
+					+ " [harpyNymphoCompanion.speech(That sounds fun!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "With [harpyNympho.name]'s pussy hovering above your face, you're held in position and forced to watch as [harpyNymphoCompanion.name] lifts up her skirt and pulls down her underwear."
+					+ " Stepping forwards, you see her tiny little avian cock standing to attention, and with a thrust of her hips, she slides into [harpyNympho.name]'s wet cunt."
+					+ " Some of the cum from [harpyNympho.name]'s previous creampie oozes out around [harpyNymphoCompanion.name]'s little cock, and you flinch as the salty jizz drips down onto your face."
+				+ "</p>"
+				+ "<p>"
+					+ "For the next few hours, you're forced to act as [harpyNympho.name]'s personal pussy-cleaner."
+					+ " One after another, the harpies of [harpyNympho.name]'s flock take turns fucking their sex-crazed matriarch."
+					+ " She insists that each one finish inside of her, and after receiving each creampie, she lowers herself down onto your face, forcing you to lick her clean before the next excited harpy's turn."
+				+ "</p>"
+				+ "<p>"
+					+ "You eventually lose count of how many times you're forced to endure this humiliation, but, after what seems like an eternity, [harpyNympho.name] declares that she needs a break."
+					+ " Standing up, she orders her harpies to release you, before grinning down at your cum-coated face,"
+					+ " [harpyNympho.speech(I think you've learnt your lesson, haven't you?! Now, get out my sight!)]"
+				+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_NYMPHO) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(
+								"<p>"
+									+ "Finally given an opportunity to escape, you do as [harpyNympho.name] commands."
+									+ " Jumping to your feet, you run away across the platform, leaving the harpies' mocking laughter behind as you quickly find yourself on the outskirts of the nest once again..."
+								+ "</p>");
+					}
+				};
+					
+			} else {
+				return null;
+			}
+		}
+	};
+	
 	public static final DialogueNodeOld HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT = new DialogueNodeOld("Harpy nest", ".", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -812,110 +941,54 @@ public class HarpyNestNympho {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.isForcedTFEnabled()) {
-				return "<p>"
-						+ "[harpyNympho.speech([harpyNymphoCompanion.name], fetch me one of my lollipops!)]"
-						+ " [harpyNympho.name] laughs, stepping forwards to tower over you,"
-						+ " [harpyNympho.speech(I know what your problem is; you just wish you were me! Well, my special little lollipops can help with that!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.speechNoEffects(Let me go!)] you shout, struggling against the harpies holding you down."
-						+ " You're too weak to shake them off, however, and they easily continue to pin you to the floor, holding you quite still as [harpyNympho.name] stoops down next to your face."
-					+ "</p>"
-					+ "<p>"
-						+ "[harpyNympho.speech(Shhh! Don't struggle so much,)]"
-						+ " she moans,"
-						+ " [harpyNympho.speech(this will all be over soon!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[harpyNymphoCompanion.name] comes running over, and you see her hand a pink, cock-shaped lollipop to [harpyNympho.name]."
-						+ " With a mischievous grin on her face, the pink-feathered matriarch orders her boy-toy to hold your mouth open."
-						+ " Not being able to break free, you're left powerless as [harpyNymphoCompanion.name] forces you to open your mouth, and [harpyNympho.name] instantly shoves the lollipop past your lips."
-					+ "</p>"
-					+ "<p>"
-						+ "[harpyNympho.speech(Good [pc.girl]! You like it?!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "You want to make a response, but the intense, sweet flavour of the lollipop is all you can focus on."
-						+ " Before you know what you're doing, you're eagerly sucking and licking on the delicious candy, letting out little whining noises as you find yourself unable to stop..."
-					+ "</p>";
-				
-			} else {
-				return "<p>"
-						+ "[harpyNympho.speech(Come on [harpyNymphoCompanion.name]! Let's carry on from where we left off!)]"
-						+ " [harpyNympho.name] laughs, dropping down onto all fours directly over your face,"
-						+ " [harpyNympho.speech(This naughty [pc.girl] can be on cleanup duty!)]"
-					+ "</p>"
-					+"<p>"
-						+ "[harpyNymphoCompanion.name] lets out a little laugh,"
-						+ " [harpyNymphoCompanion.speech(That sounds fun!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "With [harpyNympho.name]'s pussy hovering above your face, you're held in position and forced to watch as [harpyNymphoCompanion.name] lifts up her skirt and pulls down her underwear."
-						+ " Stepping forwards, you see her tiny little avian cock standing to attention, and with a thrust of her hips, she slides into [harpyNympho.name]'s wet cunt."
-						+ " Some of the cum from [harpyNympho.name]'s previous creampie oozes out around [harpyNymphoCompanion.name]'s little cock, and you flinch as the salty jizz drips down onto your face."
-					+ "</p>"
-					+ "<p>"
-						+ "For the next few hours, you're forced to act as [harpyNympho.name]'s personal pussy-cleaner."
-						+ " One after another, the harpies of [harpyNympho.name]'s flock take turns fucking their sex-crazed matriarch."
-						+ " She insists that each one finish inside of her, and, after receiving each creampie, she lowers herself down onto your face, forcing you to lick her clean before the next excited harpy's turn."
-					+ "</p>"
-					+ "<p>"
-						+ "You eventually lose count of how many times you're forced to endure this humiliation, but, after what seems like an eternity, [harpyNympho.name] declares that she needs a break."
-						+ " Standing up, she orders her harpies to release you, before grinning down at your cum-coated face,"
-						+ " [harpyNympho.speech(I think you've learnt your lesson, haven't you?! Now, get out my sight!)]"
-					+ "</p>";
-			}
+			return "<p>"
+					+ "As the lollipop's transformative effects come to an end, the harpies' grip on your [pc.arms] and [pc.legs] loosens."
+					+ " Blinking slowly a few times, you let out a lewd moan,"
+					+ " [pc.speech(Oh, fuck! I need to fuck something, right now!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "The flock of harpies bursts out into laughter, and the ones who were holding you down finally release you before backing off."
+					+ " Scrambling to your knees, you find yourself looking up at [harpyNympho.Name] as she continues towering over you."
+				+ "</p>"
+				+ "<p>"
+					+ "[harpyNympho.speech(Well, you're not taking any of <i>my</i> playthings! And anyway, before you run off and get fucked like a horny slut, I've still got some plans for you!)]"
+					+ " [harpyNympho.name] laughs, dropping down onto all fours directly over your face and forcing you down onto your back once more,"
+					+ " [harpyNympho.speech(Come on [harpyNymphoCompanion.name]! Let's carry on from where we left off! This naughty [pc.girl] can be on cleanup duty!)]"
+				+ "</p>"
+				+"<p>"
+					+ "[harpyNymphoCompanion.name] lets out a little laugh,"
+					+ " [harpyNymphoCompanion.speech(That sounds fun!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "With [harpyNympho.name]'s pussy hovering above your face, you're held in position and forced to watch as [harpyNymphoCompanion.name] lifts up her skirt and pulls down her underwear."
+					+ " Stepping forwards, you see her tiny little avian cock standing to attention, and with a thrust of her hips, she slides into [harpyNympho.name]'s wet cunt."
+					+ " Some of the cum from [harpyNympho.name]'s previous creampie oozes out around [harpyNymphoCompanion.name]'s little cock, and you flinch as the salty jizz drips down onto your face."
+				+ "</p>"
+				+ "<p>"
+					+ "For the next few hours, you're forced to act as [harpyNympho.name]'s personal pussy-cleaner."
+					+ " One after another, the harpies of [harpyNympho.name]'s flock take turns fucking their sex-crazed matriarch."
+					+ " She insists that each one finish inside of her, and, after receiving each creampie, she lowers herself down onto your face, forcing you to lick her clean before the next excited harpy's turn."
+				+ "</p>"
+				+ "<p>"
+					+ "You eventually lose count of how many times you're forced to endure this humiliation, but, after what seems like an eternity, [harpyNympho.name] declares that she needs a break."
+					+ " Standing up, she orders her harpies to release you, before grinning down at your cum-coated face,"
+					+ " [harpyNympho.speech(I think you've learnt your lesson, haven't you?! Now, get out my sight!)]"
+				+ "</p>";
 		}
 
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if(Main.game.isForcedTFEnabled()) {
-					return new Response("Transformed...", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_NYMPHO) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "As the lollipop's transformative effects come to an end, the harpies' grip on your [pc.arms] and [pc.legs] loosens."
-										+ " Blinking slowly a few times, you let out a lewd moan,"
-										+ " [pc.speech(Oh, fuck! I need to fuck something, right now!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "The flock of harpies bursts out into laughter, and the ones who were holding you down finally release you before backing off."
-										+ " Scrambling to your knees, you find yourself looking up at [harpyNympho.Name] as she continues towering over you."
-									+ "</p>"
-									+ "<p>"
-										+ "[harpyNympho.speech(Well, you're not taking any of <i>my</i> playthings! Now, once you apologise, you can run off and get fucked in some other place!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "With the effects of the lollipop still lingering in your mind, you find yourself blurting out,"
-										+ " [pc.speech(I'm sorry! Please, I need to go!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "[harpyNympho.Name] grins down at you, and, to the background noise of dozens of harpies laughing at you, she shouts,"
-										+ " [harpyNympho.speech(Good girl! Now go enjoy your new body!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Scrambling to your feet, you do as [harpyNympho.name] commands."
-										+ " You run away across the platform, leaving the harpies' mocking laughter behind as you quickly find yourself on the outskirts of the nest once again..."
-									+ "</p>"
-									+ "</br>");
-						}
-					};
-					
-				} else {
-					return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_NYMPHO) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "Finally given an opportunity to escape, you do as [harpyNympho.name] commands."
-										+ " Jumping to your feet, you run away across the platform, leaving the harpies' mocking laughter behind as you quickly find yourself on the outskirts of the nest once again..."
-									+ "</p>");
-						}
-					};
-				}
+				return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_NYMPHO) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(
+								"<p>"
+									+ "Finally given an opportunity to escape, you do as [harpyNympho.name] commands."
+									+ " Jumping to your feet, you run away across the platform, leaving the harpies' mocking laughter behind as you quickly find yourself on the outskirts of the nest once again..."
+								+ "</p>");
+					}
+				};
 					
 			} else {
 				return null;

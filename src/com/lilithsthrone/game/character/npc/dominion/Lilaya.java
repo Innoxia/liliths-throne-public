@@ -8,7 +8,9 @@ import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -61,6 +63,9 @@ public class Lilaya extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_RED), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 
+		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+		
 		this.setVaginaVirgin(false);
 		this.setAssVirgin(false);
 		this.setFaceVirgin(false);
@@ -88,7 +93,7 @@ public class Lilaya extends NPC {
 	public DialogueNodeOld getEncounterDialogue() {
 		return null;
 	}
-
+	
 	@Override
 	public void endSex(boolean applyEffects) {
 		if (applyEffects) {
@@ -176,7 +181,7 @@ public class Lilaya extends NPC {
 							if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
 								Main.game.getDialogueFlags().waitingOnLilayaPregnancyResults = true;
 							}
-							Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
+							Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
 						}
 					};
 					
@@ -187,7 +192,7 @@ public class Lilaya extends NPC {
 							if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
 								Main.game.getDialogueFlags().waitingOnLilayaPregnancyResults = true;
 							}
-							Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
+							Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
 						}
 					};
 				}
@@ -254,39 +259,5 @@ public class Lilaya extends NPC {
 		
 		return speech.get(Util.random.nextInt(speech.size()));
 	}
-	
-
-	
-//	@Override
-//	public String getPartnerVaginaPenetrationDescription(boolean initialPenetration, PenetrationType penetrationType) {
-//		if(initialPenetration){
-//			return "";
-//		}else{
-//			if(Math.random()<0.3)
-//				return super.getPartnerVaginaPenetrationDescription(initialPenetration, penetrationType);
-//			else
-//				return formatPenetration(UtilText.returnStringAtRandom(
-//						"Lilaya squeals in delight as she bounces up and down on your "+Main.game.getPlayer().getPenisName(true)+".",
-//						"You carry on slamming your "+Main.game.getPlayer().getPenisName(true)+" in and out of Lilaya's "+Sex.getPartner().getVaginaName(true)+".",
-//						"Lilaya's demonic "+Sex.getPartner().getVaginaName(false)+" carries on milking your "+Main.game.getPlayer().getPenisName(true)+" with its tentacles.",
-//						"You let out a series of lewd groans and moans as your demonic aunt's tentacle-lined "+Sex.getPartner().getVaginaName(false)+" expertly massages your "+Main.game.getPlayer().getPenisName(true)+"."));
-//		}
-//	}
-//
-//	@Override
-//	public String getPartnerAnalPenetrationDescription(boolean initialPenetration, PenetrationType penetrationType) {
-//		if(initialPenetration){
-//			return "";
-//		}else{
-//			if(Math.random()<0.3)
-//				return super.getPartnerAnalPenetrationDescription(initialPenetration, penetrationType);
-//			else
-//				return formatPenetration(UtilText.returnStringAtRandom(
-//						"Lilaya squeals in delight as she bounces up and down on your "+Main.game.getPlayer().getPenisName(true)+".",
-//						"You carry on slamming your "+Main.game.getPlayer().getPenisName(true)+" in and out of Lilaya's "+Sex.getPartner().getAssholeName(true)+".",
-//						"Lilaya's pussy-like "+Sex.getPartner().getAssholeName(false)+" carries on squeezing down around your "+Main.game.getPlayer().getPenisName(true)+".",
-//						"You let out a series of lewd groans and moans as your demonic aunt's "+Sex.getPartner().getAssholeName(false)+" expertly milks your "+Main.game.getPlayer().getPenisName(true)+"."));
-//		}
-//	}
 
 }

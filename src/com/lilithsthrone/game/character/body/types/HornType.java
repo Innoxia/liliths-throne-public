@@ -12,13 +12,9 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 public enum HornType implements BodyPartTypeInterface {
 	NONE("", null, null),
 
-	DEMON_COMMON_FEMALE("long, swept-back", BodyCoveringType.HORN_DEMON, Race.DEMON),
+	DEMON("short, curved", BodyCoveringType.HORN_DEMON, Race.DEMON),
 
-	DEMON_COMMON_MALE("short, curved", BodyCoveringType.HORN_DEMON, Race.DEMON),
-
-	BOVINE_FEMALE("short, curved", BodyCoveringType.HORN_COW, Race.COW_MORPH),
-
-	BOVINE_MALE("long, curved", BodyCoveringType.HORN_COW, Race.COW_MORPH);
+	BOVINE("long, curved", BodyCoveringType.HORN_COW, Race.COW_MORPH);
 
 	private BodyCoveringType skinType;
 	private Race race;
@@ -56,20 +52,27 @@ public enum HornType implements BodyPartTypeInterface {
 
 	@Override
 	public String getDescriptor(GameCharacter gc) {
-		switch(this){
-			case DEMON_COMMON_FEMALE:
-				return UtilText.returnStringAtRandom("long", "swept-back", "sleek");
-			case DEMON_COMMON_MALE:
-				return UtilText.returnStringAtRandom("short", "swept-back");
-			case BOVINE_FEMALE:
-				return UtilText.returnStringAtRandom("short", "sleek");
-			case BOVINE_MALE:
-				return UtilText.returnStringAtRandom("long");
-			case NONE:
-				return UtilText.returnStringAtRandom("");
-			default:
-				return UtilText.returnStringAtRandom("");
+		if(gc.isFeminine()) {
+			switch(this){
+				case DEMON:
+					return UtilText.returnStringAtRandom("long", "swept-back", "sleek");
+				case BOVINE:
+					return UtilText.returnStringAtRandom("short", "sleek");
+				default:
+					return UtilText.returnStringAtRandom("");
+			}
+		} else {
+			switch(this){
+				case DEMON:
+					return UtilText.returnStringAtRandom("short", "swept-back");
+				case BOVINE:
+					return UtilText.returnStringAtRandom("long");
+				default:
+					return UtilText.returnStringAtRandom("");
+			}
 		}
+		
+		
 	}
 
 	@Override

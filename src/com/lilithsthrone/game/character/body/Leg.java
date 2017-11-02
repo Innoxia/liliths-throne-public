@@ -14,7 +14,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 public class Leg implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private LegType type;
+	protected LegType type;
 
 	public Leg(LegType type) {
 		this.type = type;

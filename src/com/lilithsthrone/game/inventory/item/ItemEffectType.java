@@ -390,7 +390,9 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
-			return "A powerful wave of arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A powerful wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 1);
 		}
@@ -415,7 +417,9 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
-			return "A powerful wave of arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A powerful wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 1);
 		}
@@ -430,7 +434,9 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
-			return "A powerful wave of arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A powerful wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 1);
 		}
@@ -462,7 +468,9 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
 			
-			return "A cool wave of arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A cool wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A cool wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.INTELLIGENCE, 1);
 		}
@@ -477,7 +485,9 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
 			
-			return "A cool wave of arcane energy washes over you..."
+			return (target.isPlayer()
+							?"A cool wave of arcane energy washes over you......"
+							:UtilText.parse(target, "A cool wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.INTELLIGENCE, 1);
 		}
@@ -494,7 +504,9 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)/20);
 
-			return "A soothing wave of arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A soothing wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.FITNESS, 1);
 		}
@@ -509,7 +521,9 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)/20);
 
-			return "A soothing wave of arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A soothing wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.FITNESS, 1);
 		}
@@ -522,7 +536,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "A soothing wave of arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A soothing wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.incrementFemininity(1)
 					+ "</br>"
@@ -545,9 +561,53 @@ public enum ItemEffectType {
 			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
 			target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)/20);
 
-			return "A sickly wave of corruptive arcane energy washes over you..."
+			return (target.isPlayer()
+						?"A sickly wave of corruptive arcane energy washes over you......"
+						:UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.CORRUPTION, 1);
+		}
+	},
+	
+	MYSTERY_KINK(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldFetish(Random fetish addition or removal)]")),
+			Colour.FETISH) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			List<Fetish> fetishesToAdd = new ArrayList<>();
+			List<Fetish> fetishesToRemove = new ArrayList<>();
+			for(Fetish f : Fetish.values()) {
+				if(f.getFetishesForAutomaticUnlock().isEmpty()) {
+					if(target.hasFetish(f)) {
+						fetishesToRemove.add(f);
+						
+					} else if(f.isAvailable(target)) {
+						fetishesToAdd.add(f);
+					}
+				}
+			}
+			
+			if((Math.random()>0.33f && !fetishesToAdd.isEmpty()) || fetishesToRemove.isEmpty()) {
+				Fetish f = fetishesToAdd.get(Util.random.nextInt(fetishesToAdd.size()));
+				target.addFetish(f);
+				
+				return (target.isPlayer()
+						?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+								+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"
+						:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+								+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"));
+				
+			} else {
+				Fetish f = fetishesToRemove.get(Util.random.nextInt(fetishesToRemove.size()));
+				target.removeFetish(f);
+				
+				return (target.isPlayer()
+						?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+								+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+f.getName(target)+" fetish)]!"
+						:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+								+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldBad(lost)] [npc.her] [style.boldFetish("+f.getName(target)+" fetish)]!"));
+			}
 		}
 	},
 	
@@ -602,7 +662,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot healthier..."
+			return (target.isPlayer()
+						?"You start to feel a lot healthier..."
+						:UtilText.parse(target, "[npc.Name] starts to feel a lot healthier..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 1)
 					+ "</br>"
@@ -619,7 +681,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot more energetic..."
+			return (target.isPlayer()
+						?"You start to feel a lot more energetic..."
+						:UtilText.parse(target, "[npc.Name] starts to feel a lot more energetic..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.FITNESS, 3)
 					+ "</br>"
@@ -634,7 +698,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot more intelligent..."
+			return (target.isPlayer()
+							?"You start to feel a lot more intelligent..."
+							:UtilText.parse(target, "[npc.Name] starts to feel a lot more intelligent..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.INTELLIGENCE, 3)
 					+ "</br>"
@@ -649,7 +715,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot fitter..."
+			return (target.isPlayer()
+							?"You start to feel a lot fitter..."
+							:UtilText.parse(target, "[npc.Name] starts to feel a lot fitter..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.FITNESS, 3)
 					+ "</br>"
@@ -664,7 +732,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot stronger..."
+			return (target.isPlayer()
+						?"You start to feel a lot stronger..."
+						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 3)
 					+ "</br>"
@@ -694,7 +764,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot stronger..."
+			return (target.isPlayer()
+						?"You start to feel a lot stronger..."
+						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 3)
 					+ "</br>"
@@ -709,7 +781,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot stronger..."
+			return (target.isPlayer()
+						?"You start to feel a lot stronger..."
+						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 5)
 					+ "</br>"
@@ -724,7 +798,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot more feminine..."
+			return (target.isPlayer()
+						?"You start to feel more feminine..."
+						:UtilText.parse(target, "[npc.Name] starts to feel mroe feminine..."))
 					+ "</br>"
 					+ target.incrementFemininity(3)
 					+ "</br>"
@@ -767,45 +843,44 @@ public enum ItemEffectType {
 	},
 	
 	BOTTLED_ESSENCE_CAT_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldCat(Cat-morph)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldCat(cat-morphs)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldCat(cat-morphs)]")),
 			Colour.RACE_CAT_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.CAT_MORPH, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldCat(Cat-morph)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_CAT_MORPH, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldCat(cat-morphs)]!";
 		}
 	},
 	
 	BOTTLED_ESSENCE_COW_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldCat(Cow-morph)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldCow(cow-morphs)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldCow(cow-morphs)]")),
 			Colour.RACE_COW_MORPH) {
 		
 		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return null;
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return null;
-		}
-		
-		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.COW_MORPH, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldCat(Cow-morph)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_COW_MORPH, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldCow(cow-morphs)]!";
 		}
 	},
 
  	BOTTLED_ESSENCE_SQUIRREL_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldSquirrel(Squirrel-morph)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldSquirrel(squirrel-morphs)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldSquirrel(squirrel-morphs)]")),
 			Colour.RACE_SQUIRREL_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.SQUIRREL_MORPH, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldSquirrel(Squirrel-morph)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_SQUIRREL_MORPH, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldSquirrel(squirrel-morphs)]!";
 		}
 	},
 	
@@ -821,68 +896,86 @@ public enum ItemEffectType {
 	},
 	
 	BOTTLED_ESSENCE_DEMON(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldDemon(Demon)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldDemon(demons)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldDemon(demons)]")),
 			Colour.RACE_DEMON) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.DEMON, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldDemon(Demon)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_DEMON, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldDemon(demons)]!";
 		}
 	},
 	
 	BOTTLED_ESSENCE_DOG_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldDog(Dog-morph)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldDog(dog-morphs)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldDog(dog-morphs)]")),
 			Colour.RACE_DOG_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.DOG_MORPH, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldDog(Dog-morph)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_DOG_MORPH, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldDog(dog-morphs)]!";
 		}
 	},
 	
 	BOTTLED_ESSENCE_HARPY(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldHarpy(Harpy)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldHarpy(harpies)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldHarpy(harpies)]")),
 			Colour.RACE_HARPY) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.HARPY, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldHarpy(Harpy)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_HARPY, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldHarpy(harpies)]!";
 		}
 	},
 	
 	BOTTLED_ESSENCE_HORSE_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldHorse(Horse-morph)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldHorse(horse-morphs)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldHorse(horse-morphs)]")),
 			Colour.RACE_HORSE_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.HORSE_MORPH, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldHorse(Horse-morph)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_HORSE_MORPH, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldHorse(horse-morphs)]!";
 		}
 	},
 	
 	BOTTLED_ESSENCE_HUMAN(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldHuman(Human)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldHuman(humans)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldHuman(humans)]")),
 			Colour.RACE_HUMAN) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.HUMAN, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldHuman(Human)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_HUMAN, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldHuman(humans)]!";
 		}
 	},
 	
 	BOTTLED_ESSENCE_WOLF_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldWolf(Wolf-morph)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldWolf(wolf-morphs)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldWolf(wolf-morphs)]")),
 			Colour.RACE_WOLF_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.WOLF_MORPH, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldWolf(Wolf-morph)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_WOLF_MORPH, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldWolf(wolf-morphs)]!";
 		}
 	},
 	
@@ -1300,6 +1393,150 @@ public enum ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return genericAttributeEffect(resourceRestoration.ALL, primaryModifier, secondaryModifier, potency, limit, user, target);
+		}
+	},
+	
+	FETISH_ENHANCEMENT(null,
+			Colour.FETISH) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return Util.newArrayListOfValues(new ListValue<>(TFModifier.NONE));
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return TFModifier.getTFFetishList();
+		}
+		
+		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST), new ListValue<>(TFPotency.MINOR_DRAIN));
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			if(potency==TFPotency.MINOR_BOOST) {
+				if(secondaryModifier == TFModifier.NONE) {
+					return Util.newArrayListOfValues(new ListValue<>("[style.boldFetish(Adds a random fetish.)]"));
+				} else {
+					return Util.newArrayListOfValues(new ListValue<>("[style.boldFetish(Adds the "+secondaryModifier.getName()+" fetish.)]"));
+				}
+				
+			} else {
+				if(secondaryModifier == TFModifier.NONE) {
+					return Util.newArrayListOfValues(new ListValue<>("[style.boldFetish(Removes a random fetish.)]"));
+				} else {
+					return Util.newArrayListOfValues(new ListValue<>("[style.boldFetish(Removes the "+secondaryModifier.getName()+" fetish.)]"));
+				}
+			}
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			if(potency==TFPotency.MINOR_BOOST) {
+				if(secondaryModifier == TFModifier.NONE) {
+					List<Fetish> fetishesToAdd = new ArrayList<>();
+					for(Fetish f : Fetish.values()) {
+						if(f.getFetishesForAutomaticUnlock().isEmpty()) {
+							if(f.isAvailable(target)) {
+								fetishesToAdd.add(f);
+							}
+						}
+					}
+					
+					if(!fetishesToAdd.isEmpty()) {
+						Fetish f = fetishesToAdd.get(Util.random.nextInt(fetishesToAdd.size()));
+						target.addFetish(f);
+						
+						return "<p>"
+									+(target.isPlayer()
+										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"
+										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"))
+								+"</p>";
+						
+					} else {
+						return "<p>"
+									+(target.isPlayer()
+										?"[style.colourDisabled(Nothing happens...)]"
+										:UtilText.parse(target, "[style.colourDisabled(Nothing happens...)]"))
+								+"</p>";
+					}
+					
+				} else {
+					Fetish fetish = secondaryModifier.getFetish();
+					
+					if(!target.hasFetish(fetish)) {
+						target.addFetish(fetish);
+						return "<p>"
+									+(target.isPlayer()
+										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+fetish.getName(target)+" fetish)]!"
+										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldGood(gained)] the [style.boldFetish("+fetish.getName(target)+" fetish)]!"))
+								+"</p>";	
+					} else {
+						return "<p>"
+									+(target.isPlayer()
+										?"[style.colourDisabled(Nothing happens, as you already have the "+fetish.getName(target)+" fetish...)]"
+										:UtilText.parse(target, "[style.colourDisabled(Nothing happens, as [npc.she] already has the "+fetish.getName(target)+" fetish...)]"))
+								+"</p>";
+					}
+				}
+				
+			} else {
+				if(secondaryModifier == TFModifier.NONE) {
+					List<Fetish> fetishesToRemove = new ArrayList<>();
+					for(Fetish f : Fetish.values()) {
+						if(f.getFetishesForAutomaticUnlock().isEmpty()) {
+							if(target.hasFetish(f)) {
+								fetishesToRemove.add(f);
+							}
+						}
+					}
+					
+					if(!fetishesToRemove.isEmpty()) {
+						Fetish f = fetishesToRemove.get(Util.random.nextInt(fetishesToRemove.size()));
+						target.removeFetish(f);
+						
+						return "<p>"
+									+(target.isPlayer()
+										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+f.getName(target)+" fetish)]!"
+										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldBad(lost)] [npc.her] [style.boldFetish("+f.getName(target)+" fetish)]!"))
+								+"</p>";
+					} else {
+						return "<p>"
+									+(target.isPlayer()
+										?"[style.colourDisabled(Nothing happens...)]"
+										:UtilText.parse(target, "[style.colourDisabled(Nothing happens...)]"))
+								+"</p>";
+					}
+					
+				} else {
+					Fetish fetish = secondaryModifier.getFetish();
+					
+					if(target.hasFetish(fetish)) {
+						target.removeFetish(fetish);
+						return "<p>"
+									+(target.isPlayer()
+										?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
+											+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+fetish.getName(target)+" fetish)]!"
+										:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
+											+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldBad(lost)] [npc.her] [style.boldFetish("+fetish.getName(target)+" fetish)]!"))
+								+"</p>";
+					} else {
+						return "<p>"
+									+(target.isPlayer()
+										?"[style.colourDisabled(Nothing happens, as you already lack the "+fetish.getName(target)+" fetish...)]"
+										:UtilText.parse(target, "[style.colourDisabled(Nothing happens, as [npc.she] already lacks the "+fetish.getName(target)+" fetish...)]"))
+								+"</p>";
+					}
+				}
+			}
 		}
 	},
 	
@@ -2215,17 +2452,17 @@ public enum ItemEffectType {
 					case TF_MOD_CAPACITY:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(-15); } };
+								return new RacialEffectUtil("Huge decrease in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(-15, true); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(-5); } };
+								return new RacialEffectUtil("Decrease in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(-5, true); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(-1); } };
+								return new RacialEffectUtil("Small decrease in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(-1, true); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(1); } };
+								return new RacialEffectUtil("Small increase in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(1, true); } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(5); } };
+								return new RacialEffectUtil("Increase in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(5, true); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(15); } };
+								return new RacialEffectUtil("Huge increase in anal capacity.") { @Override public String applyEffect() { return target.incrementAssCapacity(15, true); } };
 						}
 					case TF_MOD_ELASTICITY:
 						switch(potency) {
@@ -2400,17 +2637,17 @@ public enum ItemEffectType {
 					case TF_MOD_CAPACITY:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(-15); } };
+								return new RacialEffectUtil("Huge decrease in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(-15, true); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(-5); } };
+								return new RacialEffectUtil("Decrease in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(-5, true); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(-1); } };
+								return new RacialEffectUtil("Small decrease in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(-1, true); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(1); } };
+								return new RacialEffectUtil("Small increase in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(1, true); } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(5); } };
+								return new RacialEffectUtil("Increase in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(5, true); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(15); } };
+								return new RacialEffectUtil("Huge increase in nipple capacity.") { @Override public String applyEffect() { return target.incrementNippleCapacity(15, true); } };
 						}
 					case TF_MOD_ELASTICITY:
 						switch(potency) {
@@ -2755,26 +2992,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Adds an extra pair of horns.") { @Override public String applyEffect() { return target.incrementHornRows(1); } };
 						}
 					default:
-						if(RacialBody.valueOfRace(race).getHornTypeMale() == HornType.NONE && RacialBody.valueOfRace(race).getHornTypeFemale() == HornType.NONE) {
-							return new RacialEffectUtil("Removes horns.") { @Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornTypeMale()); } };
-							
-						} else if(RacialBody.valueOfRace(race).getHornTypeFemale() == HornType.NONE) {
-							return new RacialEffectUtil("Removes horns from feminine targets, "+Util.capitaliseSentence(race.getName())+" horns transformation if masculine.") {
-								@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornTypeMale()); } };
-							
-						} else if(RacialBody.valueOfRace(race).getHornTypeMale() == HornType.NONE) {
-							return new RacialEffectUtil("Removes horns from masculine targets, "+Util.capitaliseSentence(race.getName())+" horns transformation if feminine.") {
-								@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornTypeFemale()); } };
-							
-						} else {
-							return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" horns transformation.") { @Override public String applyEffect() {
-									if(target.isFeminine()) {
-										return target.setHornType(RacialBody.valueOfRace(race).getHornTypeFemale());
-									} else {
-										return target.setHornType(RacialBody.valueOfRace(race).getHornTypeMale());
-									}
-								} };
-						}
+						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" horns transformation.") { @Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornType()); } };
 				}
 				
 			case TF_LEGS:
@@ -2912,17 +3130,17 @@ public enum ItemEffectType {
 					case TF_MOD_CAPACITY:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(-15); } };
+								return new RacialEffectUtil("Huge decrease in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(-15, true); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(-5); } };
+								return new RacialEffectUtil("Decrease in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(-5, true); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(-1); } };
+								return new RacialEffectUtil("Small decrease in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(-1, true); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(1); } };
+								return new RacialEffectUtil("Small increase in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(1, true); } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(5); } };
+								return new RacialEffectUtil("Increase in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(5, true); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(15); } };
+								return new RacialEffectUtil("Huge increase in urethra capacity.") { @Override public String applyEffect() { return target.incrementPenisCapacity(15, true); } };
 						}
 					case TF_MOD_ELASTICITY:
 						switch(potency) {
@@ -3046,17 +3264,17 @@ public enum ItemEffectType {
 					case TF_MOD_CAPACITY:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(-15); } };
+								return new RacialEffectUtil("Huge decrease in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(-15, true); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(-5); } };
+								return new RacialEffectUtil("Decrease in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(-5, true); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(-1); } };
+								return new RacialEffectUtil("Small decrease in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(-1, true); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(1); } };
+								return new RacialEffectUtil("Small increase in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(1, true); } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(5); } };
+								return new RacialEffectUtil("Increase in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(5, true); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(15); } };
+								return new RacialEffectUtil("Huge increase in vagina capacity.") { @Override public String applyEffect() { return target.incrementVaginaCapacity(15, true); } };
 						}
 					case TF_MOD_ELASTICITY:
 						switch(potency) {

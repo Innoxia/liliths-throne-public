@@ -2,6 +2,7 @@ package com.lilithsthrone.game;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumMap;
@@ -40,6 +41,8 @@ import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.npc.dominion.Vicky;
+import com.lilithsthrone.game.character.npc.generic.Cultist;
+import com.lilithsthrone.game.character.npc.generic.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.generic.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.generic.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.generic.GenericMaleNPC;
@@ -57,9 +60,13 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.slavery.SlaveryUtil;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
@@ -71,11 +78,12 @@ import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.Dominion;
 import com.lilithsthrone.world.places.GenericPlace;
+import com.lilithsthrone.world.places.LilayasHome;
 import com.lilithsthrone.world.places.PlaceInterface;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.87
  * @author Innoxia
  */
 public class Game implements Serializable {
@@ -125,6 +133,7 @@ public class Game implements Serializable {
 	private World activeWorld;
 	private Map<WorldType, World> worlds;
 	private long minutesPassed;
+	private LocalDateTime startingDate;
 	private boolean debugMode, renderAttributesSection, renderMap, inCombat, inSex, imperialMeasurements;
 
 	private Cell currentCell;
@@ -151,13 +160,17 @@ public class Game implements Serializable {
 	
 	// Log:
 	private List<EventLogEntry> eventLog = new ArrayList<>();
+	
+	// Slavery:
+	private SlaveryUtil slaveryUtil = new SlaveryUtil();
 
 	public Game() throws ClassNotFoundException, IOException {
 		activeWorld = null;
 		worlds = new EnumMap<>(WorldType.class);
 		for (WorldType type : WorldType.values())
 			worlds.put(type, null);
-		minutesPassed = 22 * 60;
+		startingDate = LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(), 00, 00).plusYears(3).minusWeeks(1);
+		minutesPassed = 20 * 60;
 		inCombat = false;
 		inSex = false;
 		renderAttributesSection = false;
@@ -277,6 +290,11 @@ public class Game implements Serializable {
 			
 			finch = new Finch();
 			addNPC(finch);
+			
+			for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
+				addNPC(slave);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -293,10 +311,6 @@ public class Game implements Serializable {
 		// Set starting locations:
 		player.setLocation(worlds.get(player.getWorldLocation()).getPlacesOfInterest().get(new GenericPlace(player.getStartingPlace())));
 		
-		for(NPC npc : NPCMap.values()) {
-			npc.setLocation(worlds.get(npc.getWorldLocation()).getPlacesOfInterest().get(new GenericPlace(npc.getStartingPlace())));
-		}
-		
 		started = true;
 
 		setContent(new Response(startingDialogueNode.getLabel(), startingDialogueNode.getDescription(), startingDialogueNode));
@@ -312,18 +326,40 @@ public class Game implements Serializable {
 	private List<NPC> npcsToAdd = new ArrayList<>();
 	public void endTurn(int turnTime, boolean advanceTime) {
 		
+		int startHour = getHour();
+		
 		if(advanceTime) {
 			minutesPassed += turnTime;
 			setResponses(currentDialogueNode, false);
 		}
 		
+		// Slavery: TODO
+		int hoursPassed = getHour() - startHour;
+		
+		int hourStartTo24 = startHour%24;
+		
+		for(int i=0; i < hoursPassed; i++) {
+			slaveryUtil.performHourlyUpdate(this.getDayNumber(startHour*60 + i*60), (hourStartTo24+i)%24);
+		}
+		
 		// If the time has passed midnight on this turn:
 		boolean newDay = ((int) (minutesPassed / (60 * 24)) != (int) (((minutesPassed - turnTime) / (60 * 24))));
+		
+		if(newDay) { //TODO replace with methods in each GenericPlace:
+			AbstractClothing goggles = AbstractClothingType.generateClothing(ClothingType.EYES_SAFETY_GOGGLES, Colour.CLOTHING_BLACK, false);
+			if(!Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(LilayasHome.LILAYA_HOME_LAB).getInventory().hasClothing(goggles)) {
+				Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(LilayasHome.LILAYA_HOME_LAB).getInventory().addClothing(goggles);
+			}
+		}
 		
 		handleAtmosphericConditions(turnTime);
 
 		// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
-		NPCMap.entrySet().removeIf(e -> (e.getValue().getLocationPlace().getPlaceType() == Dominion.CITY_STREET && !Main.game.getPlayer().getLocation().equals(e.getValue().getLocation())));
+		NPCMap.entrySet().removeIf(e -> (
+				e.getValue().getLocationPlace().getPlaceType() != Dominion.CITY_BACK_ALLEYS
+				&& e.getValue().getWorldLocation() == WorldType.DOMINION
+				&& e.getValue() instanceof DominionAlleywayAttacker
+				&& !Main.game.getPlayer().getLocation().equals(e.getValue().getLocation())));
 		
 		// Apply status effects for all NPCs:
 		isInNPCUpdateLoop = true;
@@ -364,11 +400,6 @@ public class Game implements Serializable {
 			
 			if(newDay) {
 				npc.dailyReset();
-				if(npc.isSlave()) {
-					npc.incrementAffection(npc.getOwner(), npc.getDailyAffectionChange());
-					npc.incrementObedience(npc.getDailyObedienceChange());
-					npc.resetSlaveFlags();
-				}
 			}
 		}
 		isInNPCUpdateLoop = false;
@@ -415,10 +446,6 @@ public class Game implements Serializable {
 				public void effects() {
 					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().hasNonArcaneEssences()) {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
-					}
-					
-					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_JINXED_CLOTHING) && Main.game.getPlayer().hasStatusEffect(StatusEffect.CLOTHING_JINXED)) {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_JINXED_CLOTHING));
 					}
 					
 					if (!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) && Main.game.getPlayer().isVisiblyPregnant()) {
@@ -881,7 +908,7 @@ public class Game implements Serializable {
 					+ title
 					+ "</p>"
 					+ "<p style='float:left;width:20vw;text-align:center;margin-top:8px;padding:0;'>"
-						+ "<b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + Main.game.getPlayer().getMoney() + "</b>"
+						+ "<b style='color: " + com.base.utils.Colour.CURRENCY.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</b> <b>" + Main.game.getPlayer().getMoney() + "</b>"
 					+ "</p>"
 	 * 
 	 */
@@ -1505,6 +1532,7 @@ public class Game implements Serializable {
 	}
 	
 	private List<NPC> charactersPresent = new ArrayList<>();
+	private List<NPC> charactersHome = new ArrayList<>();
 	public List<NPC> getCharactersPresent() {
 		if(player==null) {
 			charactersPresent.clear();
@@ -1512,6 +1540,20 @@ public class Game implements Serializable {
 		} else {
 			return getCharactersPresent(player.getWorldLocation(), player.getLocation());
 		}
+	}
+	
+	public List<NPC> getCharactersTreatingCellAsHome(Cell cell) {
+		charactersHome.clear();
+		
+		for(NPC npc : NPCMap.values()) {
+			if(npc.getHomeWorldLocation()==cell.getType() && npc.getHomeLocation().equals(cell.getLocation())) {
+				charactersHome.add(npc);
+			}
+		}
+		
+		charactersHome.sort(Comparator.comparing(GameCharacter::getName));
+		
+		return charactersHome;
 	}
 	
 	public List<NPC> getCharactersPresent(Cell cell) {
@@ -1624,7 +1666,23 @@ public class Game implements Serializable {
 	public long getMinutesPassed() {
 		return minutesPassed;
 	}
+	
+	public LocalDateTime getStartingDate() {
+		return startingDate;
+	}
+	
+	public LocalDateTime getDateNow() {
+		return getStartingDate().plusMinutes(Main.game.getMinutesPassed());
+	}
+	
+	public int getYear() {
+		return Main.game.getDateNow().getYear();
+	}
 
+	public int getHour() {
+		return (int) (Main.game.getMinutesPassed() / 60);
+	}
+	
 	public boolean isDayTime() {
 		return minutesPassed % (24 * 60) >= (60 * 7) && minutesPassed % (24 * 60) < (60 * 21);
 	}
@@ -1635,6 +1693,10 @@ public class Game implements Serializable {
 
 	public int getDayNumber() {
 		return (int) (1 + (getMinutesPassed() / (24 * 60)));
+	}
+	
+	public int getDayNumber(long minutes) {
+		return (int) (1 + (minutes / (24 * 60)));
 	}
 
 	public boolean isInCombat() {
@@ -1675,6 +1737,15 @@ public class Game implements Serializable {
 
 	public void setCurrentEncounter(Encounter currentEncounter) {
 		this.currentEncounter = currentEncounter;
+	}
+	
+	public NPC getNPC(Class<? extends NPC> NPCclass) {
+		for(NPC npc : NPCMap.values()) {
+			if(npc.getClass().equals(NPCclass)) {
+				return npc;
+			}
+		}
+		return null;
 	}
 
 	public NPC getPrologueMale() {
@@ -1797,6 +1868,10 @@ public class Game implements Serializable {
 		return NPCMap.get(id);
 	}
 	
+	public Map<String, NPC> getNPCMap() {
+		return NPCMap;
+	}
+
 	public String addNPC(NPC npc) throws Exception {
 		npcTally++;
 		npc.setId(npc.getNameTriplet().toString()+"-"+npcTally);
@@ -1818,6 +1893,8 @@ public class Game implements Serializable {
 	public void removeNPC(NPC npc) {
 		if(npc.isPregnant()) {
 			npc.endPregnancy(false);
+		} else if(npc.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+			npc.removeStatusEffect(StatusEffect.PREGNANT_0);
 		}
 		
 		if(isInNPCUpdateLoop) {
@@ -1828,7 +1905,17 @@ public class Game implements Serializable {
 		
 //		System.out.println("Removed: " + npc.getId());
 	}
-
+	
+	public int getNumberOfWitches() {
+		int i = 0;
+		for(NPC npc : NPCMap.values()) {
+			if(npc instanceof Cultist) {
+				i++;
+			}
+		}
+		return i;
+	}
+	
 	public NPC getActiveNPC() {
 		return activeNPC;
 	}
@@ -1910,10 +1997,6 @@ public class Game implements Serializable {
 		return savedDialogueNode;
 	}
 
-	public String getCurrencySymbol() {
-		return "&#164";
-	}
-
 	public Cell getPlayerCell() {
 		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation());
 	}
@@ -1946,9 +2029,9 @@ public class Game implements Serializable {
 		return Main.getProperties().incestContent;
 	}
 	
-	public boolean isForcedTFEnabled() {
-		return Main.getProperties().forcedTransformationContent;
-	}
+//	public boolean isForcedTFEnabled() {
+//		return Main.getProperties().forcedTransformationContent;
+//	}
 	
 	public boolean isFacialHairEnabled() {
 		return Main.getProperties().facialHairContent;
@@ -1984,8 +2067,13 @@ public class Game implements Serializable {
 	public void setEventLog(List<EventLogEntry> eventLog) {
 		this.eventLog = eventLog;
 	}
+	
 
 	public int getNpcTally() {
 		return npcTally;
+	}
+
+	public SlaveryUtil getSlaveryUtil() {
+		return slaveryUtil;
 	}
 }

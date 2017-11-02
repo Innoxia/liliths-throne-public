@@ -1,12 +1,15 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -56,11 +59,14 @@ public class HarpyDominant extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_RED), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
 		
+		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+		this.setBodySize(BodySize.ZERO_SKINNY.getMedianValue());
+		
 		this.setFemininity(95);
 		
 		this.setVaginaVirgin(false);
 		this.setVaginaWetness(Wetness.THREE_WET.getValue());
-		this.setVaginaCapacity(Capacity.TWO_TIGHT.getMedianValue());
+		this.setVaginaCapacity(Capacity.TWO_TIGHT.getMedianValue(), true);
 		
 		this.setAssVirgin(true);
 		this.setFaceVirgin(false);
@@ -108,7 +114,7 @@ public class HarpyDominant extends NPC {
 	}
 	
 	@Override
-	public SexPace getSexPaceSubPreference(){
+	public SexPace getSexPaceSubPreference(GameCharacter character){
 		return SexPace.SUB_EAGER;
 	}
 

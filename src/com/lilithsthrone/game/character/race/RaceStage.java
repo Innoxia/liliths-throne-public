@@ -12,6 +12,10 @@ public enum RaceStage {
 	 * <i>"Not furry"</i> by any standard.*/
 	HUMAN("", Colour.TRANSFORMATION_HUMAN) {
 		@Override
+		public boolean isAntennaFurry() {
+			return false;
+		}
+		@Override
 		public boolean isArmFurry() {
 			return false;
 		}
@@ -70,9 +74,13 @@ public enum RaceStage {
 	},
 	
 	/**Some minor animal-morph parts.</br>
-	 * When used in GameCharacter's setBody() method, will grant <b>only</b> ears and tail (no genitalia).</br>
+	 * When used in GameCharacter's setBody() method, will grant <b>only</b> ears, eyes, tail, horns, antenna, and wings (no genitalia).</br>
 	 * <i>"Not furry"</i> by most standards.*/
 	PARTIAL("partial", Colour.TRANSFORMATION_PARTIAL) {
+		@Override
+		public boolean isAntennaFurry() {
+			return true;
+		}
 		@Override
 		public boolean isArmFurry() {
 			return false;
@@ -91,7 +99,7 @@ public enum RaceStage {
 		}
 		@Override
 		public boolean isEyeFurry() {
-			return false;
+			return true;
 		}
 		@Override
 		public boolean isFaceFurry() {
@@ -103,7 +111,7 @@ public enum RaceStage {
 		}
 		@Override
 		public boolean isHornFurry() {
-			return false;
+			return true;
 		}
 		@Override
 		public boolean isLegFurry() {
@@ -127,13 +135,17 @@ public enum RaceStage {
 		}
 		@Override
 		public boolean isWingFurry() {
-			return false;
+			return true;
 		}
 	},
 
 	/**All minor animal-morph parts (including genitalia).</br>
 	 * <i>"Borderline furry"</i> by most standards.*/
 	PARTIAL_FULL("minor", Colour.TRANSFORMATION_PARTIAL_FULL) {
+		@Override
+		public boolean isAntennaFurry() {
+			return true;
+		}
 		@Override
 		public boolean isArmFurry() {
 			return false;
@@ -196,6 +208,10 @@ public enum RaceStage {
 	 * <i>"Low-level furry"</i> by most standards.*/
 	LESSER("lesser", Colour.TRANSFORMATION_LESSER) {
 		@Override
+		public boolean isAntennaFurry() {
+			return true;
+		}
+		@Override
 		public boolean isArmFurry() {
 			return true;
 		}
@@ -256,6 +272,10 @@ public enum RaceStage {
 	/**All minor animal-morph parts, animal-morph arms and legs, and animal-morph skin and face.</br>
 	 * <i>"Furry"</i> by all standards.*/
 	GREATER("greater", Colour.TRANSFORMATION_GREATER) {
+		@Override
+		public boolean isAntennaFurry() {
+			return true;
+		}
 		@Override
 		public boolean isArmFurry() {
 			return true;
@@ -329,7 +349,8 @@ public enum RaceStage {
 	public Colour getColour() {
 		return colour;
 	}
-	
+
+	public abstract boolean isAntennaFurry();
 	public abstract boolean isArmFurry();
 	public abstract boolean isAssFurry();
 	public abstract boolean isBreastFurry();

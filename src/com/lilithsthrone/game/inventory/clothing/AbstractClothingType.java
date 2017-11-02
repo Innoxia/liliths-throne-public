@@ -543,10 +543,10 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		}
 		
 		if(equippedVariant && pathNameEquipped!=null) {
-			if (SVGStringEquippedMap.containsKey(colour) && this != ClothingType.WRIST_WOMENS_WATCH && this != ClothingType.WRIST_MENS_WATCH) {
+			if (SVGStringEquippedMap.containsKey(colour) && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
 				return SVGStringEquippedMap.get(colour);
 				
-			}else {
+			} else {
 				if (availableColours.contains(colour)) {
 					try {
 						InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathNameEquipped + ".svg");
@@ -561,13 +561,13 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 						s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
 						
 						// Add minute and hour hands to women's and men's watches:
-						s += (this == ClothingType.WRIST_WOMENS_WATCH
+						s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
 								? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
 									+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>"
 									+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
 									+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>"
 								: "")
-								+ (this == ClothingType.WRIST_MENS_WATCH
+								+ (this.equals(ClothingType.WRIST_MENS_WATCH)
 									? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
 										+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>"
 										+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
@@ -586,10 +586,10 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 			}
 			
 		} else {
-			if (SVGStringMap.containsKey(colour) && this != ClothingType.WRIST_WOMENS_WATCH && this != ClothingType.WRIST_MENS_WATCH) {
+			if (SVGStringMap.containsKey(colour) && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
 				return SVGStringMap.get(colour);
 				
-			}else {
+			} else {
 				if (availableColours.contains(colour)) {
 					try {
 						InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathName + ".svg");
@@ -604,13 +604,13 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 						s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
 						
 						// Add minute and hour hands to women's and men's watches:
-						s += (this == ClothingType.WRIST_WOMENS_WATCH
+						s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
 								? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
 									+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>"
 									+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
 									+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>"
 								: "")
-								+ (this == ClothingType.WRIST_MENS_WATCH
+								+ (this.equals(ClothingType.WRIST_MENS_WATCH)
 									? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
 										+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>"
 										+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6

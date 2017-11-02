@@ -49,26 +49,6 @@ public class EnchantmentDialogue {
 	private static String inventoryView() {
 		inventorySB.setLength(0);
 		
-		// Display essences at top of page:
-		inventorySB.append("<div class='enchanting-essence-title'>"
-				+ "<div class='enchanting-text'>"
-//				+ "Owned essences: "
-				);
-		for(TFEssence essence : TFEssence.values()) {
-			inventorySB.append(
-					"<div style='width:28px; display:inline-block; margin:0 4px 0 4px;'>"
-						+ "<div class='essence-inline" + getRarityIdentifier(essence.getRarity()) + "'>"
-							+ essence.getSVGString()
-							+ "<div class='overlay no-pointer' id='ESSENCE_"+essence.hashCode()+"'></div>"
-						+ "</div>"
-						+ " <div style='display:inline-block; height:16px; vertical-align: middle;'>"
-							+ "<b style='color:"+essence.getColour().toWebHexString()+";'>"+Main.game.getPlayer().getEssenceCount(essence)+"</b>"
-						+ "</div>"
-					+ "</div>"
-					);
-		}
-		inventorySB.append("</div></div>");
-		
 		
 		// Create main enchanting block:
 		
@@ -113,22 +93,21 @@ public class EnchantmentDialogue {
 						"<div class='enchanting-text' style='text-align: center; display:block; margin:0 auto; padding:8px 0 8px 0;'>"
 							+ "<b style='color:"+potency.getColour().toWebHexString()+";'>"+potency.getName()+"</b>"
 							+ "</br></br>"
-//							+ "<b>Limit:</b> " + limit
-//							+ "</br></br>"
-							+ "<b>Cost:</b>"
-							+ " <div class='essence-inline" + getRarityIdentifier(ingredient.getRelatedEssence().getRarity()) + "'>"
-								+ ingredient.getRelatedEssence().getSVGString()
-								+ "<div class='overlay no-pointer' id='ESSENCE_COST_"+ingredient.getRelatedEssence().hashCode()+"'></div>"
-							+ "</div>"
-							+ " <div style='display:inline-block; vertical-align: middle;'>"
-								+ "<b style='color:"+ingredient.getRelatedEssence().getColour().toWebHexString()+";'>"+effect.getCost()+"</b>"
-							+ "</div>"
+							+ "<b>Cost:</b> "
+							+ UtilText.formatAsEssences(effect.getCost(), "b", false)
 						+ "</div>");
 
 				inventorySB.append(
 						"<div class='enchant-button-add' id='ENCHANT_ADD_BUTTON'>"
 						+ "Add"
 						+ "</div>");
+				
+				inventorySB.append(
+						"<div class='enchanting-text' style='text-align: center; display:block; margin:0 auto; padding:8px 0 8px 0;'>"
+								+ "</br>"
+								+ "<b>You have:</b> "
+								+ UtilText.formatAsEssences(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE), "b", false)
+							+ "</div>");
 				
 			inventorySB.append("</div>");
 			
@@ -195,13 +174,9 @@ public class EnchantmentDialogue {
 			inventorySB.append(
 						"<div class='enchanting-essence-inner-right'>"
 							+ "<div class='enchanting-text' style='text-align:center;'>"
-								+ "<b>"+Util.capitaliseSentence(EnchantingUtils.getPotionName(ingredient, effects))+"</b> | Cost to craft: ");
-			inventorySB.append("<div class='essence-inline" + getRarityIdentifier(ingredient.getRelatedEssence().getRarity()) + "'>"
-						+ ingredient.getRelatedEssence().getSVGString()
-						+ "<div class='overlay no-pointer' id='ESSENCE_COST_"+ingredient.getRelatedEssence().hashCode()+"'></div>"
-					+ "</div>"
-					+ " <span style='color:"+ingredient.getRelatedEssence().getColour().toWebHexString()+";'>"+EnchantingUtils.getCost(ingredient, effects)+"</span>");
-			inventorySB.append("</div>");
+								+ "<b>"+Util.capitaliseSentence(EnchantingUtils.getPotionName(ingredient, effects))+"</b> | Cost to craft: "
+								+ UtilText.formatAsEssences(EnchantingUtils.getCost(ingredient, effects), "b", false)
+							+"</div>");
 			
 			// Effects:
 			inventorySB.append("<div class='enchanting-text' style='text-align:center;padding-top:4px;'>");

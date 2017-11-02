@@ -3,10 +3,12 @@ package com.lilithsthrone.game.inventory.enchanting;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -125,6 +127,10 @@ public class EnchantingUtils {
 		
 		for(ItemEffect ie : effects) {
 			cost+=ie.getCost();
+		}
+		
+		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
+			cost/=2;
 		}
 		
 		return cost;

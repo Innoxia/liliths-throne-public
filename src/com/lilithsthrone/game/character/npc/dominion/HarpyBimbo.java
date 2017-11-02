@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.SexualOrientation;
@@ -62,7 +63,7 @@ public class HarpyBimbo extends NPC {
 		
 		this.setVaginaVirgin(false);
 		this.setVaginaWetness(Wetness.THREE_WET.getValue());
-		this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue());
+		this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue(), true);
 		
 		this.setAssVirgin(false);
 		this.setFaceVirgin(false);
@@ -114,7 +115,7 @@ public class HarpyBimbo extends NPC {
 	}
 	
 	@Override
-	public SexPace getSexPaceSubPreference(){
+	public SexPace getSexPaceSubPreference(GameCharacter character){
 		return SexPace.SUB_EAGER;
 	}
 

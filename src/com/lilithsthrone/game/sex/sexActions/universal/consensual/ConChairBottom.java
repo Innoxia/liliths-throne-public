@@ -1200,7 +1200,7 @@ public class ConChairBottom {
 		public String getDescription() {
 			return "Reaching down, [npc.name] suddenly grabs your [pc.tail+]."
 					+ " Guiding it around between [npc.her] [npc.legs], [npc.she] presses the tip up against [npc.her] exposed [npc.asshole], and you let out a happy cry as you realise what [npc.she] wants."
-					+ " With a determined, forceful thrust, you eagerly spear your [pc.tail] deep into [npc.her] [npc.ass], causing [npc.her] to let out [npc.a_moan+]."
+					+ " With a determined, forceful thrust, you eagerly spear your [pc.tail] deep into [npc.her] [npc.ass], causing [npc.herHim] to let out [npc.a_moan+]."
 					+ (Sex.getPartner().hasPenis()
 						?" [npc.Her] [npc.moans] soon turn into a desperate gasp as you purposefully press your [pc.tail] up and start to massage and stroke [npc.her] prostate."
 						:"");
@@ -1238,7 +1238,7 @@ public class ConChairBottom {
 		public String getDescription() {
 			return "Reaching down, [npc.name] suddenly grabs your [pc.tail+]."
 					+ " Guiding it up between [npc.her] [npc.legs], [npc.she] presses the tip up against [npc.her] exposed [npc.pussy], and you let out a happy cry as you realise what [npc.she] wants."
-					+ " With a determined, forceful thrust, you eagerly spear your [pc.tail] deep into [npc.her] [npc.pussy+], causing [npc.her] to let out [npc.a_moan+]."
+					+ " With a determined, forceful thrust, you eagerly spear your [pc.tail] deep into [npc.her] [npc.pussy+], causing [npc.herHim] to let out [npc.a_moan+]."
 					+ " [npc.Her] [npc.legs] shudder, and [npc.she] grips down tightly on your [pc.tail] for a moment, [npc.moaning] in pleasure as you start thrusting it in and out of [npc.her] [npc.pussy+].";
 		}
 	};
@@ -1639,7 +1639,7 @@ public class ConChairBottom {
 					"Winking at [npc.name], you thrust your [pc.tail+] up hard into [npc.her] [npc.asshole+], causing [npc.herHim] to let out [npc.a_moan+].",
 					
 					"Letting out [pc.a_moan+], you start thrusting your [pc.tail] in and out of [npc.name]'s [npc.ass],"
-							+ " quickly causing [npc.her] to join [npc.her] [npc.moans] with yours as you carry on using your [pc.tail] to fuck [npc.her] [npc.asshole].",
+							+ " quickly causing [npc.herHim] to join [npc.her] [npc.moans] with yours as you carry on using your [pc.tail] to fuck [npc.her] [npc.asshole].",
 					
 					"Smiling up at [npc.name], you force your [pc.tail+] up deep into [npc.her] [npc.ass], causing [npc.herHim] to let out [npc.a_moan+].");
 		}
@@ -1680,7 +1680,7 @@ public class ConChairBottom {
 					"Winking at [npc.name], you thrust your [pc.tail+] up hard into [npc.her] [npc.pussy+], causing [npc.herHim] to let out [npc.a_moan+].",
 					
 					"Letting out [pc.a_moan+], you start thrusting your [pc.tail] in and out of [npc.name]'s [npc.pussy],"
-							+ " quickly causing [npc.her] to join [npc.her] [npc.moans] with yours as you carry on using your [pc.tail] to fuck [npc.her] [npc.pussy+].",
+							+ " quickly causing [npc.herHim] to join [npc.her] [npc.moans] with yours as you carry on using your [pc.tail] to fuck [npc.her] [npc.pussy+].",
 					
 					"Smiling up at [npc.name], you force your [pc.tail+] up deep into [npc.her] [npc.pussy+], causing [npc.herHim] to let out [npc.a_moan+].");
 		}

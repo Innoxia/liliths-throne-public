@@ -26,13 +26,13 @@ public class Penis implements BodyPartInterface, Serializable {
 
 	public static final float TWO_PENIS_SIZE_MULTIPLIER = 1.6f;
 
-	private PenisType type;
-	private int size;
-	private boolean pierced;
-	private Set<PenisModifier> penisModifiers;
+	protected PenisType type;
+	protected int size;
+	protected boolean pierced;
+	protected Set<PenisModifier> penisModifiers;
 	
-	private Testicle testicle;
-	private OrificeUrethra orificeUrethra;
+	protected Testicle testicle;
+	protected OrificeUrethra orificeUrethra;
 
 	public Penis(PenisType type, int size, int testicleSize, int cumProduction, int testicleCount) {
 		this.type = type;
@@ -485,7 +485,7 @@ public class Penis implements BodyPartInterface, Serializable {
 							+ "You now have [style.boldSex([pc.a_penisSize] [pc.cock])]!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
 							+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] shaft, and as a trickle of pre-cum leaks out from the head of [npc.her] now-hard member,"
@@ -501,7 +501,7 @@ public class Penis implements BodyPartInterface, Serializable {
 							+ "You now have [style.boldSex([pc.a_penisSize] [pc.cock])]!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 								+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
 								+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] shaft, and as a trickle of pre-cum leaks out from the head of [npc.her] now-hard member,"

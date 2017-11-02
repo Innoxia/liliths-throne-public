@@ -28,15 +28,15 @@ public class Vagina implements BodyPartInterface, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private VaginaType type;
-	private int labiaSize;
-	private int clitSize;
-	private boolean pierced;
+	protected VaginaType type;
+	protected int labiaSize;
+	protected int clitSize;
+	protected boolean pierced;
 	
-	private OrificeVagina orificeVagina;
-	private FluidGirlCum girlcum;
+	protected OrificeVagina orificeVagina;
+	protected FluidGirlCum girlcum;
 
-	public Vagina(VaginaType type, int labiaSize, int clitSize, int wetness, int capacity, int elasticity, int plasticity, boolean virgin) {
+	public Vagina(VaginaType type, int labiaSize, int clitSize, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.labiaSize = labiaSize;
 		this.clitSize = clitSize;
@@ -734,7 +734,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 	}
 	
 	public int getRawLabiaSizeValue() {
-		return clitSize;
+		return labiaSize;
 	}
 	
 	public String setLabiaSize(GameCharacter owner, int labiaSize) {
@@ -743,7 +743,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 		}
 		
 		int oldSize = this.labiaSize;
-		this.labiaSize = Math.max(0, Math.min(labiaSize, ClitorisSize.SEVEN_STALLION.getMaximumValue()));
+		this.labiaSize = Math.max(0, Math.min(labiaSize, LabiaSize.FOUR_MASSIVE.getValue()));
 		int sizeChange = this.labiaSize - oldSize;
 		
 		if (sizeChange == 0) {
@@ -760,7 +760,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 							+ "You now have [style.boldSex([pc.labiaSize] labia)]!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.A_moan+] bursts out from between [npc.name] [pc.lips+] as [npc.she] feels a warm tingling sensation run up into [npc.her] [npc.pussy]."
 							+ " Squirming about on the spot, [npc.her] exclamation turns into a surprised gasp as [npc.she] feels [npc.her] labia swell up and [style.boldGrow(grow larger)].</br>"
@@ -775,7 +775,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 						+ "You now have [style.boldSex([pc.labiaSize] labia)]!"
 					+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.A_moan+] bursts out from between [npc.name] [pc.lips+] as [npc.she] feels a cool tingling sensation spread up into [npc.her] [npc.pussy]."
 							+ " Squirming about on the spot, [npc.her] exclamation turns into a surprised gasp as [npc.she] feels [npc.her] labia shrink down and [style.boldShrink(get smaller)].</br>"
@@ -816,7 +816,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 							+ "You now have [style.boldSex([pc.a_clitSize] [pc.clit])]!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up within [npc.her] [npc.pussy]."
 							+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] clit, and with a little gasp, [npc.she] feels it [style.boldGrow(grow larger)].</br>"
@@ -831,7 +831,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 							+ "You now have [style.boldSex([pc.a_clitSize] [pc.clit])]!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 								+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
 								+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] clit, and with a little gasp, [npc.she] feels it [style.boldShrink(shrink)].</br>"

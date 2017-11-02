@@ -17,13 +17,13 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 public class OrificeMouth implements OrificeInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private int wetness;
-	private int elasticity;
-	private int plasticity;
-	private float capacity;
-	private float stretchedCapacity;
-	private boolean virgin;
-	private Set<OrificeModifier> orificeModifiers;
+	protected int wetness;
+	protected int elasticity;
+	protected int plasticity;
+	protected float capacity;
+	protected float stretchedCapacity;
+	protected boolean virgin;
+	protected Set<OrificeModifier> orificeModifiers;
 
 	public OrificeMouth(int wetness, int capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
 		this.wetness = wetness;
@@ -97,10 +97,12 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 	}
 
 	@Override
-	public String setCapacity(GameCharacter owner, float capacity) {
+	public String setCapacity(GameCharacter owner, float capacity, boolean setStretchedValueToNewValue) {
 		float oldCapacity = this.capacity;
 		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue()));
-		this.stretchedCapacity = this.capacity;
+		if(setStretchedValueToNewValue) {
+			this.stretchedCapacity = this.capacity;
+		}
 		float capacityChange = this.capacity - oldCapacity;
 		
 		if (capacityChange == 0) {

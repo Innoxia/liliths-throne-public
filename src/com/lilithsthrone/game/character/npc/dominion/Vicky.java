@@ -1,12 +1,13 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -39,7 +40,7 @@ import com.lilithsthrone.world.places.ShoppingArcade;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.87
  * @author Innoxia
  */
 public class Vicky extends NPC {
@@ -77,8 +78,11 @@ public class Vicky extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_BLACK), true);
 
 		this.setVaginaVirgin(false);
-		this.setVaginaCapacity(Capacity.FIVE_ROOMY.getMedianValue());
+		this.setVaginaCapacity(Capacity.FIVE_ROOMY.getMedianValue(), true);
 		this.setBreastSize(CupSize.C.getMeasurement());
+
+		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
 		
 		this.setMoney(10);
 		

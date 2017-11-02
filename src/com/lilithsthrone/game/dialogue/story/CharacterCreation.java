@@ -34,7 +34,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -50,7 +49,7 @@ import com.lilithsthrone.world.places.LilayasHome;
 
 /**
  * @since 0.1.0
- * @version 0.1.86
+ * @version 0.1.87
  * @author Innoxia
  */
 public class CharacterCreation {
@@ -139,7 +138,12 @@ public class CharacterCreation {
 				};
 				
 			} else if (index == 2) {
-				return new Response("Start (Import)", "Import a character from a previous version to use on game start.", IMPORT_CHOOSE);
+				return new Response("Start (Import)", "Import a character from a previous version to use on game start.", IMPORT_CHOOSE) {
+					@Override
+					public void effects() {
+						Main.game.getPlayerCell().resetInventory();
+					}
+				};
 				
 			} else {
 				return null;
@@ -149,6 +153,7 @@ public class CharacterCreation {
 	
 	public static void resetBodyAppearance() {
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+		Main.game.getLilaya().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_BROWN), true);
 		Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BROWN), true);
 		Main.game.getPlayer().setBreastShape(BreastShape.ROUND);
@@ -670,7 +675,7 @@ public class CharacterCreation {
 							+ "<form style='display:inline-block; padding:0; margin:0; text-align:center;'><input type='text' id='surnameInput' value='"+ Main.game.getPlayer().getSurname()+ "'></form>"
 						+ "</div>"
 						+ "</br>"
-						+ "<i>Your name must be between 2 and 16 characters long. They can only include the standard letters a-z and their respective capitals. (Surname may be left blank.)</i>"
+						+ "<i>Your name must be between 2 and 16 characters long. You cannot use the square bracket characters or full stops. (Surname may be left blank.)</i>"
 						+ (unsuitableName ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid name.</b></p>" : "")
 						+ (unsuitableSurname ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid Surname.</b></p>" : "")
 					+ "</div>"
@@ -692,7 +697,7 @@ public class CharacterCreation {
 				if(Main.mainController.getWebEngine().getDocument()!=null) {
 					if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
 							|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 16
-							|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[a-zA-Z]+"))
+							|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[^\\[\\]\\.]+"))
 						unsuitableName = true;
 					else {
 						unsuitableName = false;
@@ -703,7 +708,7 @@ public class CharacterCreation {
 				if(Main.mainController.getWebEngine().getDocument()!=null) {
 					if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
 							&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 16
-									|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[a-zA-Z]+")))
+									|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
 						unsuitableSurname = true;
 					else {
 						unsuitableSurname = false;
@@ -733,7 +738,7 @@ public class CharacterCreation {
 						if(Main.mainController.getWebEngine().getDocument()!=null) {
 							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
 									&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 16
-											|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[a-zA-Z]+")))
+											|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
 								unsuitableSurname = true;
 							else {
 								unsuitableSurname = false;
@@ -755,7 +760,7 @@ public class CharacterCreation {
 						if(Main.mainController.getWebEngine().getDocument()!=null) {
 							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
 									|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 16
-									|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[a-zA-Z]+"))
+									|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[^\\[\\]\\.]+"))
 								unsuitableName = true;
 							else {
 								unsuitableName = false;
@@ -820,14 +825,13 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Check clothes", "Your clothes are a little messy after rushing here. Tidy yourself up before proceeding to the main stage.") {
+				return new Response("Check clothes", "Your clothes are a little messy after rushing here. Tidy yourself up before proceeding to the main stage.", InventoryDialogue.INVENTORY_MENU) {
 					@Override
 					public void effects() {
 						equipPiercings();
 						InventoryDialogue.setBuyback(false);
 						InventoryDialogue.setInventoryNPC(null);
 						InventoryDialogue.setNPCInventoryInteraction(InventoryInteraction.CHARACTER_CREATION);
-						Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 					}
 				};
 				
@@ -1272,16 +1276,16 @@ public class CharacterCreation {
 	
 	public static void moveNPCIntoPlayerTile() {
 		if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC || (Main.game.getPlayer().getSexualOrientation()==SexualOrientation.AMBIPHILIC && Main.game.getPlayer().hasVagina())) {
-			Main.game.getPrologueMale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation());
+			Main.game.getPrologueMale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 			
 		} else {
-			Main.game.getPrologueFemale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation());
+			Main.game.getPrologueFemale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 		}
 	}
 	
 	public static void moveNPCOutOfPlayerTile() {
-		Main.game.getPrologueMale().setLocation(WorldType.JUNGLE, Jungle.JUNGLE_CLUB);
-		Main.game.getPrologueFemale().setLocation(WorldType.JUNGLE, Jungle.JUNGLE_CLUB);
+		Main.game.getPrologueMale().setLocation(WorldType.JUNGLE, Jungle.JUNGLE_CLUB, false);
+		Main.game.getPrologueFemale().setLocation(WorldType.JUNGLE, Jungle.JUNGLE_CLUB, false);
 	}
 	
 	private static boolean femalePrologueNPC() {
@@ -1842,7 +1846,7 @@ public class CharacterCreation {
 	private static void applyGameStart() {
 		Main.getProperties().addRaceDiscovered(Race.HUMAN);
 		
-		Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 5);
+		Main.game.getLilaya().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 
 		Main.game.clearTextStartStringBuilder();
 		Main.game.clearTextEndStringBuilder();
@@ -1982,16 +1986,11 @@ public class CharacterCreation {
 				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.</br></br><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
 					@Override
 					public void effects() {
-						getDressed();
-						
 						Main.game.setRenderMap(true);
 						Main.game.setInNewWorld(true);
 						
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
-						
-						Main.game.getPlayer().setMoney(40);
-						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
 						
 						applyGameStart();
 					}

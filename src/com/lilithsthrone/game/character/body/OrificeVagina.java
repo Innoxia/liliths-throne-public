@@ -17,15 +17,15 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 public class OrificeVagina implements OrificeInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private int wetness;
-	private int elasticity;
-	private int plasticity;
-	private float capacity;
-	private float stretchedCapacity;
-	private boolean virgin;
-	private Set<OrificeModifier> orificeModifiers;
+	protected int wetness;
+	protected int elasticity;
+	protected int plasticity;
+	protected float capacity;
+	protected float stretchedCapacity;
+	protected boolean virgin;
+	protected Set<OrificeModifier> orificeModifiers;
 
-	public OrificeVagina(int wetness, int capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
+	public OrificeVagina(int wetness, float capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
 		this.wetness = wetness;
 		this.capacity = capacity;
 		stretchedCapacity = capacity;
@@ -97,7 +97,7 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 	}
 
 	@Override
-	public String setCapacity(GameCharacter owner, float capacity) {
+	public String setCapacity(GameCharacter owner, float capacity, boolean setStretchedValueToNewValue) {
 		if (!owner.hasVagina()) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You lack a vagina, so nothing happens...)]</p>";
@@ -109,7 +109,9 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		
 		float oldCapacity = this.capacity;
 		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue()));
-		this.stretchedCapacity = this.capacity;
+		if(setStretchedValueToNewValue) {
+			this.stretchedCapacity = this.capacity;
+		}
 		float capacityChange = this.capacity - oldCapacity;
 		
 		if (capacityChange == 0) {
@@ -334,13 +336,13 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 			case PUFFY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a tingling sensation running over your [pc.pussy], and you let out a little cry as you feel the rim of your [pc.pussy] [style.boldGrow(puff up)] into a doughnut-like ring.</br>"
-								+ "[style.boldSex(The rim of your pussy is now swollen and puffy!)]"
+								+ "You feel a tingling sensation running over your [pc.pussy], and you let out a little cry as you feel your labia [style.boldGrow(puff up)] into big, swollen pussy lips.</br>"
+								+ "[style.boldSex(Your labia are now extremely swollen and puffy!)]"
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy], before the rim of [npc.her] [npc.pussy] [style.boldGrow(puffs up)] into a doughnut-like ring.</br>"
-								+ "[style.boldSex(The rim of [npc.name]'s pussy is now swollen and puffy!)]"
+								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy], before [npc.her] labia [style.boldGrow(puffs up)] into big, swollen pussy lips.</br>"
+								+ "[style.boldSex([npc.Name]'s labia are now extremely swollen and puffy!)]"
 							+ "</p>";
 				}
 		}

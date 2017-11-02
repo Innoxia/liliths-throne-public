@@ -196,7 +196,126 @@ input:focus {
 	-webkit-user-select: none;
 	box-sizing: border-box;
 }
+.container-full-width.inner {
+	background:#DDD;
+}
+.container-half-width{
+	float:left;
+	background:#fcfcfc;
+	border-radius:5px;
+	
+	padding:4px;
+	margin:8px;
+	
+	width: calc(50% - 16px);
+	-webkit-user-select: none;
+	box-sizing: border-box;
+}
+.container-half-width.inner {
+	background:#DDD;
+}
 
+.square-button {
+	background-color: #CCC;
+	position:relative;
+	float:left;
+	border-radius: 5px;
+	width:18%;
+	margin:1%;
+	border:solid 2px #BBB;
+	width: calc(18% - 4px);
+	-webkit-box-sizing: border-box;
+	cursor:pointer;
+}
+.square-button:hover{
+	background-color: #BBB;
+	border-color:#DDD;
+}
+.square-button:after {
+	content: "";
+	display: block;
+	padding-bottom: 100%;
+}
+.square-button.selected {
+	background-color: #BBB;
+	border:solid 2px #BD0061;
+	cursor:default;
+}
+.square-button.small {
+	width:8%;
+	margin:1%;
+}
+.square-button.big {
+	width:25%;
+	margin:1% 4% 1% 4%;
+}
+.square-button.huge {
+	width:32%;
+	margin:2% 8% 2% 8%;
+}
+.square-button.solo {
+	width:40%;
+	margin:2% 30% 2% 30%;
+}
+.square-button.disabled {
+	background-color: #eee;
+	border-color:#ccc;
+}
+.square-button.disabled:hover {
+	cursor:default;
+	background-color: #eee;
+	border-color:#ccc;
+}
+.square-button-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.normal-button{
+	display:inline-block;
+	background-color: #ccc;
+	position:relative;
+	float:left;
+	border-radius: 5px;
+	width:8.33%;
+	border:solid 1px #bbb;
+	margin: 2px 0 0 0;
+	-webkit-box-sizing: border-box;
+	cursor:pointer;
+}
+.normal-button.hour{
+	background-color: #ddd;
+}
+.normal-button:hover{
+	background-color: #bbb;
+}
+.normal-button.selected{
+	background-color: #bbb;
+	border:solid 1px #aaa;
+}
+.normal-button.hour.selected{
+	background-color: #186737;
+}
+.normal-button.selected:hover{
+	background-color: #777;
+}
+.normal-button.hour.selected:hover{
+	background-color: #239550;
+}
+.normal-button.disabled{
+	color: #bbb;
+	cursor:default;
+}
+.normal-button.disabled:hover{
+	background-color: #ccc;
+}
+.normal-button.hour.disabled{
+	background-color: #ddd;
+}
+.normal-button.hour.disabled.selected{
+	background-color: #ddd;
+}
 
 /***********************************************************/
 /*PHONE*/
@@ -828,14 +947,14 @@ position:relative;
 }
 
 .item-inline{
-	background-color: #cccccc;
+	background-color: transparent;
 	position:relative;
 	display:inline-block;
 	border-radius: 5px;
-	width:24px;
-	height:24px;
+	width:20px;
+	height:20px;
 	padding:0;
-	margin:0;
+	margin:0 0 2px 0;
 	vertical-align: middle;
 }
 .item-count{
@@ -1129,10 +1248,11 @@ position:relative;
 	background-color:#bbb;
 }
 .saveLoadButton.disabled{
+	background-color: #ddd;
 	color:#777;
 }
 .saveLoadButton.disabled:hover{
-	background-color:#ccc;
+	background-color:#ddd;
 	cursor:default;
 }
 .deleteSaveButton{
@@ -1488,8 +1608,11 @@ position:relative;
 
 .special-text{
 	font-weight:normal;
-    color: #F5A8FF;
-    text-shadow: 2px 2px 5px #8d3193;
+	color: #FA4700;
+    text-shadow: 2px 2px 5px #FFAB8A;
+	
+    /*color: #F5A8FF;
+    text-shadow: 2px 2px 5px #8d3193;*/
 }
 
 .option-disabled{

@@ -58,7 +58,7 @@ public class HarpyBimboCompanion extends NPC {
 		
 		this.setVaginaVirgin(false);
 		this.setVaginaWetness(Wetness.THREE_WET.getValue());
-		this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue());
+		this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue(), true);
 		
 		this.setAssVirgin(false);
 		this.setFaceVirgin(false);

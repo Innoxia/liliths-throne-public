@@ -15,8 +15,8 @@ import com.lilithsthrone.utils.Util;
 public class Horn implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private HornType type;
-	private int rows;
+	protected HornType type;
+	protected int rows;
 	
 	public Horn(HornType type) {
 		this.type = type;
@@ -100,64 +100,66 @@ public class Horn implements BodyPartInterface, Serializable {
 		}
 		
 		switch (type) {
-			case DEMON_COMMON_FEMALE:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Hard nubs push out from your upper forehead, and you gasp as you feel "+getDeterminer(owner)+" long, sleek horns pushing out to sweep back across the sides of your head."
-							+ "</br>"
-							+ "You now have "+getDeterminer(owner)+" [style.boldDemon(feminine-looking demonic horns)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" Hard nubs push out from [npc.her] upper forehead, and [npc.she] gasps as [npc.she] feels "+getDeterminer(owner)+" long, sleek horns pushing out to sweep back across the sides of [npc.her] head."
+			case DEMON:
+				if(owner.isFeminine()) {
+					if (owner.isPlayer()) {
+						UtilText.transformationContentSB.append(
+								" Hard nubs push out from your upper forehead, and you gasp as you feel "+getDeterminer(owner)+" long, sleek horns pushing out to sweep back across the sides of your head."
 								+ "</br>"
-								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldDemon(feminine-looking demonic horns)]."
+								+ "You now have "+getDeterminer(owner)+" [style.boldDemon(feminine-looking demonic horns)]."
 								+ "</p>");
+					} else {
+						UtilText.transformationContentSB.append(
+									" Hard nubs push out from [npc.her] upper forehead, and [npc.she] gasps as [npc.she] feels "+getDeterminer(owner)+" long, sleek horns pushing out to sweep back across the sides of [npc.her] head."
+									+ "</br>"
+									+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldDemon(feminine-looking demonic horns)]."
+									+ "</p>");
+					}
+				} else {
+					if (owner.isPlayer()) {
+						UtilText.transformationContentSB.append(
+								" Hard nubs push out from your upper forehead, and you gasp as you feel "+getDeterminer(owner)+" short, ridged horns push out and slightly bend back over your head."
+								+ "</br>"
+								+ "You now have "+getDeterminer(owner)+" [style.boldDemon(masculine-looking demonic horns)]."
+								+ "</p>");
+					} else {
+						UtilText.transformationContentSB.append(
+									" Hard nubs push out from [npc.her] upper forehead, and [npc.she] gasps as [npc.she] feels "+getDeterminer(owner)+" short, ridged horns push out and slightly bend back over [npc.her] head."
+									+ "</br>"
+									+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldDemon(masculine-looking demonic horns)]."
+									+ "</p>");
+					}
 				}
 				break;
-			case DEMON_COMMON_MALE:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Hard nubs push out from your upper forehead, and you gasp as you feel "+getDeterminer(owner)+" short, ridged horns push out and slightly bend back over your head."
-							+ "</br>"
-							+ "You now have "+getDeterminer(owner)+" [style.boldDemon(masculine-looking demonic horns)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" Hard nubs push out from [npc.her] upper forehead, and [npc.she] gasps as [npc.she] feels "+getDeterminer(owner)+" short, ridged horns push out and slightly bend back over [npc.her] head."
+			case BOVINE:
+				if(owner.isFeminine()) {
+					if (owner.isPlayer()) {
+						UtilText.transformationContentSB.append(
+								" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" short, sleek horns, much like a cow's."
 								+ "</br>"
-								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldDemon(masculine-looking demonic horns)]."
+								+ "You now have "+getDeterminer(owner)+" [style.boldCowMorph(feminine-looking bovine horns)]."
 								+ "</p>");
-				}
-				break;
-			case BOVINE_FEMALE:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" short, sleek horns, much like a cow's."
-							+ "</br>"
-							+ "You now have "+getDeterminer(owner)+" [style.boldCowMorph(feminine-looking bovine horns)]."
-							+ "</p>");
+					} else {
+						UtilText.transformationContentSB.append(
+									" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" short, sleek horns, much like a cow's."
+									+ "</br>"
+									+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldCowMorph(feminine-looking bovine horns)]."
+									+ "</p>");
+					}
 				} else {
-					UtilText.transformationContentSB.append(
-								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" short, sleek horns, much like a cow's."
+					if (owner.isPlayer()) {
+						UtilText.transformationContentSB.append(
+								" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" long, curved horns, much like a bull's."
 								+ "</br>"
-								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldCowMorph(feminine-looking bovine horns)]."
+								+ "You now have "+getDeterminer(owner)+" [style.boldCowMorph(masculine-looking bovine horns)]."
 								+ "</p>");
-				}
-				break;
-			case BOVINE_MALE:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" long, curved horns, much like a bull's."
-							+ "</br>"
-							+ "You now have "+getDeterminer(owner)+" [style.boldCowMorph(masculine-looking bovine horns)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" long, curved horns, much like a bull's."
-								+ "</br>"
-								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldCowMorph(masculine-looking bovine horns)]."
-								+ "</p>");
+					} else {
+						UtilText.transformationContentSB.append(
+									" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" long, curved horns, much like a bull's."
+									+ "</br>"
+									+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldCowMorph(masculine-looking bovine horns)]."
+									+ "</p>");
+					}
 				}
 				break;
 			case NONE:

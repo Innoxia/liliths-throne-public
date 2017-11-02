@@ -422,7 +422,7 @@ public class EnforcerHQDialogue {
 				if (index == 1) {
 					if(!Main.game.getDialogueFlags().feminisedBrax) {
 						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].", RECEPTION_DESK,
-								false, true, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
+								false, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
 								"<p>"
 									+ "[pc.speech(Sure thing Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
 								+ "</p>"
@@ -453,7 +453,7 @@ public class EnforcerHQDialogue {
 						
 					} else if(!Main.game.getDialogueFlags().bimbofiedBrax) {
 						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].", RECEPTION_DESK,
-								false, true, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
+								false, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
 								"<p>"
 									+ "[pc.speech(Sure thing Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
 								+ "</p>"
@@ -484,7 +484,7 @@ public class EnforcerHQDialogue {
 						
 					} else {
 						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].", RECEPTION_DESK,
-								false, true, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
+								false, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
 								"<p>"
 									+ "[pc.speech(Sure thing Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
 								+ "</p>"
@@ -514,7 +514,7 @@ public class EnforcerHQDialogue {
 				} else if (index == 2) {
 					if(!Main.game.getDialogueFlags().feminisedBrax) {
 						return new ResponseSex("Get punished by [brax.name]", "Get [brax.name] to take out [brax.his] frustration on you.", RECEPTION_DESK,
-								false, true, Main.game.getBrax(), new SMBraxDom(), AFTER_SEX,
+								true, false, Main.game.getBrax(), new SMBraxDom(), AFTER_SEX,
 									"<p>"
 										+ "[pc.speech(Sure thing Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
 									+ "</p>"
@@ -867,7 +867,12 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Turn Brax into Bree", "You and Candi force-feed [brax.name] his own potion.", INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED) {
+				return new Response("Turn Brax into Bree", "You and Candi force-feed [brax.name] his own potion.", INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+						Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().feminisedBrax = true;
@@ -965,7 +970,7 @@ public class EnforcerHQDialogue {
 		public Response getResponse(int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex with [brax.name]", "Have sex with [brax.name].", INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED,
-						false, true, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
+						false, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
 						"<p>"
 							+ "[pc.speech(Good idea Candi, I can show Bree her true place!)] you say, grinning down at Bree's meek form."
 						+ "</p>"
@@ -1051,7 +1056,12 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Turn Bree into Brandi", "Transform Bree into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED) {
+				return new Response("Turn Bree into Brandi", "Transform Bree into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+						Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().bimbofiedBrax = true;
@@ -1146,7 +1156,7 @@ public class EnforcerHQDialogue {
 		public Response getResponse(int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex with Brandi", "Have sex with Brandi.", INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED,
-						false, true, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
+						true, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
 						"<p>"
 							+ "After waiting for five minutes, you follow Candi into her office."
 							+ " There, waiting for you, is the one-time 'Chief of Dominion Operations'."
@@ -1692,7 +1702,7 @@ public class EnforcerHQDialogue {
 					
 			} else if (index == 2) {
 				return new ResponseSex("Get fucked", "Let [brax.name] take control and fuck you.", INTERIOR_BRAX_GETTING_TEASED_UH_OH,
-						false, true, Main.game.getBrax(), new SMBraxDom(), Brax.AFTER_SUBMISSIVE_SEX,
+						true, false, Main.game.getBrax(), new SMBraxDom(), Brax.AFTER_SUBMISSIVE_SEX,
 							"<p>"
 							+ "[brax.name]'s strong, confident grip on your hips quickly moves down and around to your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass,"
 							+ " and as he gives it a forceful squeeze, you suddenly realise that you've ended up leaning into his masculine chest."
@@ -1711,7 +1721,7 @@ public class EnforcerHQDialogue {
 			} else if (index == 3) {
 				return new ResponseSex("Take control", "Take control of the situation and turn [brax.name] into your little bitch.", INTERIOR_BRAX_GETTING_TEASED_UH_OH,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT)), null, null, null, null, null,
-						false, true, Main.game.getBrax(), new SMBraxSubStart(), Brax.AFTER_DOMINANT_SEX,
+						true, false, Main.game.getBrax(), new SMBraxSubStart(), Brax.AFTER_DOMINANT_SEX,
 								"<p>"
 								+ "You feel a devious smile spread across your face as [brax.name] mentions it might get rough, and, leaning into him, you growl up into his ear, "
 								+ UtilText.parsePlayerSpeech("Mmm, yes [brax.name]. I <i>do</i> like it rough!")

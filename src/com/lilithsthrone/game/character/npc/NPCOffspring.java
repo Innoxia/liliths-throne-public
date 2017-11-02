@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
@@ -59,10 +60,7 @@ public class NPCOffspring extends NPC {
 		
 		// BODY GENERATION:
 		
-		Gender gender = Gender.F_V_FEMALE;
-		if(Math.random()<0.5) {
-			gender = Gender.M_P_MALE;
-		}
+		Gender gender = GenderPreference.getGenderFromUserPreferences();
 		
 		setBody(gender, mother, father);
 		
@@ -193,7 +191,7 @@ public class NPCOffspring extends NPC {
 			return "The consequence of your refusal to pull out of [npc.name] is standing right before you."
 					+ " Visibly pregnant, your one-time sexual partner has a devious grin on [npc.her] face, and you're not quite sure if you want to know what [npc.she]'s planning for [npc.her] revenge...";
 		} else {
-			if(this.isWantsToHaveSexWithPlayer()) {
+			if(this.isAttractedTo(Main.game.getPlayer())) {
 				return UtilText.parse(this, "[npc.Name] is quite clearly turned on by your strong aura. [npc.She]'s willing to fight you in order to claim your body.");
 				
 			} else {
@@ -332,7 +330,7 @@ public class NPCOffspring extends NPC {
 									+ "</p>";
 						}
 						
-				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR)) {
+				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR) || item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED)) {
 					
 						if(Sex.isPlayerDom()) {
 							return "<p>"

@@ -19,7 +19,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.8
- * @version 0.1.8
+ * @version 0.1.87
  * @author Innoxia
  */
 public class HarpyNestBimbo {
@@ -578,20 +578,51 @@ public class HarpyNestBimbo {
 						+ "As [bimboHarpyCompanion.name] continues holding you down, the rest of [bimboHarpy.Name]'s inner-circle moves in."
 						+ " Several of them help to pin your [pc.arms] and [pc.legs] to the floor, giggling all the while."
 					+ "</p>"
+					+"<p>"
+						+ "[bimboHarpy.speechNoEffects(Y'know, I think I understand why, like, you're so angry and rude and stuff!)]"
+						+ " [bimboHarpy.name] giggles, stepping forwards to tower over you,"
+						+ " [bimboHarpy.speechNoEffects(You're just, like, frustrated and jealous of how super hot all my girls are!)]"
+					+ "</p>"
 					+ "<p>"
-						+ "[bimboHarpy.speechNoEffects(That's right, hold [pc.herHim] still! We're gonna, like, have to punish this one!)]"
+						+ "[pc.speechNoEffects(Let me go!)] you shout, struggling against the bimbo harpies."
+						+ " You're too weak to shake them off, however, and they easily continue to pin you to the floor, holding you quite still as [bimboHarpy.name] stoops down next to your face."
+					+ "</p>"
+					+ "<p>"
+						+ "[bimboHarpy.speechNoEffects(Like, <i>you're</i> the one who needs to calm down now!)]"
+						+ " she laughs,"
+						+ " [bimboHarpy.speechNoEffects(Hold [pc.her] mouth open [bimboHarpyCompanion.name]! I think this little troublemaker needs one of our special lollipops!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Quickly grabbing your [pc.face+], [bimboHarpyCompanion.name] tries to pull your mouth open, laughing at your fruitless attempt to shake your head free."
+						+ " Out of the corner of your eye, you see [bimboHarpy.name] pull out a pink-and-white swirly lollipop, and, leaning in, she forcefully tries to shove it into your mouth."
+					+ "</p>"
+					+ "<p>"
+						+ "[bimboHarpy.speechNoEffects(This is gonna, like, totally chill you out!)]"
 					+ "</p>";
 		}
 
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Punished", "[bimboHarpy.Name] proceeds with her punishment...", HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT){
+				return new Response("Lips sealed", "Don't let [bimboHarpy.Name] get that strange lollipop into your mouth...", HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT_NO_TF);
+					
+			} else if (index == 2) {
+				return new Response("Open wide",
+						"Allow [bimboHarpy.Name] to push the lollipop into your mouth... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
+						HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null){
 					@Override
 					public void effects() {
-						if(Main.game.isForcedTFEnabled()) {
-							Main.game.getTextEndStringBuilder().append(ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer()));
-						}
+						Main.game.getTextStartStringBuilder().append( "<p>"
+								+ "Obediently doing as you're told, you open your mouth and let the lollipop slide past your [pc.lips+]."
+								+ " An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before."
+								+ " Before you know what you're doing, you're wrapping your [pc.lips] around the delicious candy, letting out little whining noises as you find yourself unable to stop sucking and licking it..."
+							+ "</p>"
+							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer()));
 					}
 				};
 					
@@ -659,18 +690,52 @@ public class HarpyNestBimbo {
 					+ "[bimboHarpy.speechNoEffects(Time for some revenge [bimboHarpyCompanion.name]! We're gonna, like, have to punish this one!)]"
 					+ " [bimboHarpy.name] shouts out, and, as her companion moves to help the other bimbos hold you down, she laughs,"
 					+ " [bimboHarpy.speechNoEffects(Time for some fun!)]"
+				+ "</p>"
+				+"<p>"
+					+ "[bimboHarpy.speechNoEffects(Y'know, I think I understand why, like, you're so angry and rude and stuff!)]"
+					+ " [bimboHarpy.name] giggles, stepping forwards to tower over you,"
+					+ " [bimboHarpy.speechNoEffects(You're just, like, frustrated and jealous of how super hot all my girls are!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "[pc.speechNoEffects(Let me go!)] you shout, struggling against the bimbo harpies."
+					+ " You're too weak to shake them off, however, and they easily continue to pin you to the floor, holding you quite still as [bimboHarpy.name] stoops down next to your face."
+				+ "</p>"
+				+ "<p>"
+					+ "[bimboHarpy.speechNoEffects(Like, <i>you're</i> the one who needs to calm down now!)]"
+					+ " she laughs,"
+					+ " [bimboHarpy.speechNoEffects(Hold [pc.her] mouth open [bimboHarpyCompanion.name]! I think this little troublemaker needs one of our special lollipops!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "Quickly grabbing your [pc.face+], [bimboHarpyCompanion.name] tries to pull your mouth open, laughing at your fruitless attempt to shake your head free."
+					+ " Out of the corner of your eye, you see [bimboHarpy.name] pull out a pink-and-white swirly lollipop, and, leaning in, she forcefully tries to shove it into your mouth."
+				+ "</p>"
+				+ "<p>"
+					+ "[bimboHarpy.speechNoEffects(This is gonna, like, totally chill you out!)]"
 				+ "</p>";
 		}
 
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				return new Response("Punished", "[bimboHarpy.Name] proceeds with her punishment...", HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT){
+				return new Response("Lips sealed", "Don't let [bimboHarpy.Name] get that strange lollipop into your mouth...", HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT_NO_TF);
+					
+			} else if (index == 2) {
+				return new Response("Open wide",
+						"Allow [bimboHarpy.Name] to push the lollipop into your mouth... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
+						HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null){
 					@Override
 					public void effects() {
-						if(Main.game.isForcedTFEnabled()) {
-							Main.game.getTextEndStringBuilder().append(ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer()));
-						}
+						Main.game.getTextStartStringBuilder().append( "<p>"
+								+ "Obediently doing as you're told, you open your mouth and let the lollipop slide past your [pc.lips+]."
+								+ " An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before."
+								+ " Before you know what you're doing, you're wrapping your [pc.lips] around the delicious candy, letting out little whining noises as you find yourself unable to stop sucking and licking it..."
+							+ "</p>"
+							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer()));
 					}
 				};
 					
@@ -693,7 +758,7 @@ public class HarpyNestBimbo {
 			return "<p>"
 						+ "[bimboHarpy.Name]'s inner-circle of bimbo harpies, cheering and shouting just moments ago, falls completely silent as they see their matriarch slump to the floor."
 						+ " Walking forwards, you look down on her pitiful form, and you hear the bimbo let out an erotic moan as she pushes herself up onto her knees,"
-						+ " [bimboHarpy.speechNoEffects(Aaah! Like, you're so powerful and stuff! W-Who are you?!)]"
+						+ " [bimboHarpy.speechNoEffects(Aah! Like, you're so powerful and stuff! W-Who are you?!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.speech(Your new leader,)] you respond,"
@@ -757,6 +822,64 @@ public class HarpyNestBimbo {
 		}
 	};
 	
+	public static final DialogueNodeOld HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT_NO_TF = new DialogueNodeOld("Harpy nest", ".", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "[harpyBimbo.Name]'s nest";
+		}
+		
+		@Override
+		public String getContent() {
+				return "<p>"
+							+ "With a determined yank, you finally manage to pull one of your [pc.arms] free from the harpy's clutches."
+							+ " Before they're able to restrain you again, you grab the lollipop out of [bimboHarpy.name]'s feathered hand, before smashing it on the floor beneath you."
+						+ "</p>"
+						+ "<p>"
+							+ "[bimboHarpy.speechNoEffects(Aaah! You stupid whore!)]"
+							+ " [bimboHarpy.name] screams, jumping to her feet and towering over you,"
+							+ " [bimboHarpy.speechNoEffects(You're gonna, like, pay for wasting that! You're gonna, like, do <i>exactly</i> what we say, or else you're gonna be our little pet forever!)]"
+						+ "</p>"
+						+"<p>"
+							+ "After flapping her wings and jumping around in anger for a little while, [bimboHarpy.name] storms off to elsewhere in the nest."
+							+ " Only a few moments later, she returns and kneels down beside you, setting a makeup bag down next to your face before letting out a giggle,"
+							+ " [bimboHarpy.speechNoEffects(So, like, first, how about us girls give you a makeover?!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Any protests or objections that leave your mouth are drowned out by a chorus of laughter, and as one, the group of bimbo harpies descend upon you..."
+						+ "</p>"
+						+ "<p>"
+							+ "For the next few hours, you're the centre of the harpies' attention."
+							+ " Applying heavy layers of makeup, dressing you up in frilly clothes, and parading you around in front of one another are amongst the least humiliating things you suffer."
+							+ " Eventually, however, [bimboHarpy.name] loses interest, and one-by-one, the rest of the harpies move onto other things."
+						+ "</p>"
+						+ "<p>"
+							+ "As the last bimbo declares that she's bored of playing with you, the matriarch walks over to you,"
+							+ " [bimboHarpy.speechNoEffects(I hope you, like, learned your lesson! Now get out of my nest!)]"
+						+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			if (index == 1) {
+				return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_BIMBO) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(
+								"<p>"
+									+ "Finally given an opportunity to escape, you do as [bimboHarpy.name] commands."
+									+ " Running down the staircase, you leave the harpies' mocking laughter behind, and, dashing across the lower platform, you quickly find yourself back on the outskirts of [bimboHarpy.name]'s nest..."
+								+ "</p>");
+					}
+				};
+					
+			} else {
+				return null;
+			}
+		}
+	};
+	
 	public static final DialogueNodeOld HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT = new DialogueNodeOld("Harpy nest", ".", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -767,107 +890,51 @@ public class HarpyNestBimbo {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.isForcedTFEnabled()) {
-				return "<p>"
-						+ "[bimboHarpy.speechNoEffects(Y'know, I think I understand why, like, you're so angry and rude and stuff!)]"
-						+ " [bimboHarpy.name] giggles, stepping forwards to tower over you,"
-						+ " [bimboHarpy.speechNoEffects(You're just, like, frustrated and jealous of how super hot all my girls are!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.speechNoEffects(Let me go!)] you shout, struggling against the bimbo harpies."
-						+ " You're too weak to shake them off, however, and they easily continue to pin you to the floor, holding you quite still as [bimboHarpy.name] stoops down next to your face."
-					+ "</p>"
-					+ "<p>"
-						+ "[bimboHarpy.speechNoEffects(Like, <i>you're</i> the one who needs to calm down now!)]"
-						+ " she laughs,"
-						+ " [bimboHarpy.speechNoEffects(Hold [pc.her] mouth open [bimboHarpyCompanion.name]! I think this little troublemaker needs one of our special lollipops!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Quickly grabbing your [pc.face+], [bimboHarpyCompanion.name] pulls your mouth open, laughing at your fruitless attempt to shake your head free."
-						+ " Out of the corner of your eye, you see [bimboHarpy.name] pull out a pink-and-white swirly lollipop, and, leaning in, she forcefully shoves it into your mouth."
-					+ "</p>"
-					+ "<p>"
-						+ "[bimboHarpy.speechNoEffects(This is gonna, like, totally chill you out!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "An intense, sweet flavour fills your mouth, quite unlike anything you've ever tasted before."
-						+ " Before you know what you're doing, you're pressing your [pc.lips] up against the delicious candy, letting out little whining noises as you find yourself unable to stop sucking and licking it..."
-					+ "</p>";
-				
-			} else {
-				return "<p>"
-						+ "[bimboHarpy.speechNoEffects(Y'know, I think you need to learn your place!)]"
-						+ " [bimboHarpy.name] giggles, stepping forwards to tower over you,"
-						+ " [bimboHarpy.speechNoEffects(You're gonna, like, do <i>exactly</i> what we say, or else you're gonna be our little pet forever!)]"
-					+ "</p>"
-					+"<p>"
-						+ "With that, [bimboHarpy.name] kneels down beside you, setting a makeup bag down next to your face before letting out another giggle,"
-						+ " [bimboHarpy.speechNoEffects(So, like, first, how about us girls give you a makeover!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Any protests or objections that leave your mouth are drowned out by a chorus of laughter, and as one, the group of bimbo harpies descend upon you..."
-					+ "</p>"
-					+ "<p>"
-						+ "For the next few hours, you're the centre of the harpies' attention."
-						+ " Applying heavy layers of makeup, dressing you up in frilly clothes, and parading you around in front of one another are amongst the least humiliating things you suffer."
-						+ " Eventually, however, [bimboHarpy.name] loses interest, and one-by-one, the rest of the harpies move onto other things."
-					+ "</p>"
-					+ "<p>"
-						+ "As the last bimbo declares that she's bored of playing with you, the matriarch walks over to you,"
-						+ " [bimboHarpy.speechNoEffects(I hope you, like, learned your lesson! Now get out of my nest!)]"
-					+ "</p>";
-			}
-			
+			return
+				"<p>"
+					+ "As the lollipop's transformative effects come to an end, the harpies' grip on your [pc.arms] and [pc.legs] loosens."
+					+ " Blinking slowly a few times, you let out an exhausted little moan,"
+					+ " [pc.speechNoEffects(Like, I feel all bubbly inside! That was, like, super intense!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "The flock of bimbo harpies bursts out into laughter, and the ones who were holding you down finally release you before backing off."
+					+ " Scrambling to your knees, you find yourself looking up at [bimboHarpy.Name] as she continues towering over you."
+				+ "</p>"
+				+ "<p>"
+					+ "[harpyBimbo.speechNoEffects(Lookin' good! Now, before you get out of my nest, you're gonna tell me how sorry you are!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "With the effects of the lollipop still lingering in your mind, you find yourself blurting out,"
+					+ " [pc.speechNoEffects(Like, I'm so super sorry for causing you so much trouble and stuff! Please, [harpyBimbo.name], forgive me!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "[harpyBimbo.Name] grins down at you, and, to the background noise of dozens of bimbo harpies laughing at you, she shouts,"
+					+ " [harpyBimbo.speechNoEffects(That's better! Now, like, I can't have you leaving lookin' so, like, plain! Us girls need to give you a makeover!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "For the next few hours, you're the centre of the harpies' attention."
+					+ " Applying heavy layers of makeup, dressing you up in frilly clothes, and parading you around in front of one another are amongst the least humiliating things you suffer."
+					+ " Eventually, however, [bimboHarpy.name] loses interest, and one-by-one, the rest of the harpies move onto other things."
+				+ "</p>"
+				+ "<p>"
+					+ "As the last bimbo declares that she's bored of playing with you, the matriarch walks over to you,"
+					+ " [bimboHarpy.speechNoEffects(I hope you, like, learned your lesson! Now get out of my nest!)]"
+				+ "</p>";
 		}
 
 		@Override
 		public Response getResponse(int index) {
 			if (index == 1) {
-				if(Main.game.isForcedTFEnabled()) {
-					return new Response("Transformed...", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_BIMBO) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "As the lollipop's transformative effects come to an end, the harpies' grip on your [pc.arms] and [pc.legs] loosens."
-										+ " Blinking slowly a few times, you let out an exhausted little moan,"
-										+ " [pc.speechNoEffects(Like, I feel all bubbly inside! That was, like, super intense!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "The flock of bimbo harpies bursts out into laughter, and the ones who were holding you down finally release you before backing off."
-										+ " Scrambling to your knees, you find yourself looking up at [bimboHarpy.Name] as she continues towering over you."
-									+ "</p>"
-									+ "<p>"
-										+ "[harpyBimbo.speechNoEffects(Lookin' good! Now, before you get out of my nest, you're gonna tell me how sorry you are!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "With the effects of the lollipop still lingering in your mind, you find yourself blurting out,"
-										+ " [pc.speechNoEffects(Like, I'm so super sorry for causing you so much trouble and stuff! Please, [harpyBimbo.name], forgive me!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "[harpyBimbo.Name] grins down at you, and, to the background noise of dozens of bimbo harpies laughing at you, she shouts,"
-										+ " [harpyBimbo.speechNoEffects(That's better! Now, like, get the hell out of my nest!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Scrambling to your feet, you do as [bimboHarpy.name] commands."
-										+ " Running down the staircase, you leave the harpies' mocking laughter behind, and, dashing across the lower platform, you quickly find yourself back on the outskirts of [bimboHarpy.name]'s nest..."
-									+ "</p>"
-									+ "</br>");
-						}
-					};
-					
-				} else {
-					return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_BIMBO) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "Finally given an opportunity to escape, you do as [bimboHarpy.name] commands."
-										+ " Running down the staircase, you leave the harpies' mocking laughter behind, and, dashing across the lower platform, you quickly find yourself back on the outskirts of [bimboHarpy.name]'s nest..."
-									+ "</p>");
-						}
-					};
-				}
+				return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_BIMBO) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(
+								"<p>"
+									+ "Finally given an opportunity to escape, you do as [bimboHarpy.name] commands."
+									+ " Running down the staircase, you leave the harpies' mocking laughter behind, and, dashing across the lower platform, you quickly find yourself back on the outskirts of [bimboHarpy.name]'s nest..."
+								+ "</p>");
+					}
+				};
 					
 			} else {
 				return null;

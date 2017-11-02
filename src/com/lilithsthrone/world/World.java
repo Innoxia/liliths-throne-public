@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.places.GenericPlace;
+import com.lilithsthrone.world.places.PlaceInterface;
 
 /**
  * @since 0.1.0
@@ -38,6 +39,17 @@ public class World implements Serializable {
 
 	public Cell getCell(Vector2i vec) {
 		return grid[vec.getX()][vec.getY()];
+	}
+	
+	public Cell getCell(PlaceInterface place) {
+		for(int i=0; i<grid.length; i++) {
+			for(int j=0; j<grid[0].length; j++) {
+				if(grid[i][j].getPlace().getPlaceType().equals(place)) {
+					return grid[i][j];
+				}
+			}
+		}
+		return null;
 	}
 
 	public Cell[][] getCellGrid() {

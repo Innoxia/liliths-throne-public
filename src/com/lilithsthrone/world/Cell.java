@@ -44,6 +44,10 @@ public class Cell implements Serializable {
 	public String toString() {
 		return "Name: " + name;
 	}
+	
+	public String getId() {
+		return type.toString()+"-X:"+location.getX()+"-Y:"+location.getY();
+	}
 
 	public WorldType getType() {
 		return type;
@@ -59,6 +63,10 @@ public class Cell implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getPlaceName() {
+		return place.getName();
 	}
 
 	public boolean isDiscovered() {

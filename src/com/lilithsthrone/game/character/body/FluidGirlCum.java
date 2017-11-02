@@ -21,10 +21,10 @@ import com.lilithsthrone.utils.Util;
 public class FluidGirlCum implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private FluidType type;
-	private FluidFlavour flavour;
-	private List<FluidModifier> fluidModifiers;
-	private List<ItemEffect> transformativeEffects;
+	protected FluidType type;
+	protected FluidFlavour flavour;
+	protected List<FluidModifier> fluidModifiers;
+	protected List<ItemEffect> transformativeEffects;
 
 	public FluidGirlCum(FluidType type) {
 		this.type = type;

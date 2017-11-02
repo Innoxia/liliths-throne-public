@@ -215,6 +215,54 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
+	public static final DialogueNodeOld PUBLIC_STOCKS = new DialogueNodeOld("Public stocks", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "<i><b>Placeholder:</b> This should be added in for the next version!</i>"
+					+ "</p>"
+					+ "<p>"
+						+ "A set of public stocks, some of which are occupied by slaves, criminals, or people just looking for their idea of fun..."
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld BROTHEL = new DialogueNodeOld("Angel's Kiss", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "<i><b>Placeholder:</b> This should be added in for the next version!</i>"
+					+ "</p>"
+					+ "<p>"
+						+ "The brothel 'Angel's Kiss' is one of the largest establishments in Slaver Alley."
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int index) {
+			return null;
+		}
+	};
+	
 	public static final DialogueNodeOld SLAVERY_ADMINISTRATION_EXTERIOR = new DialogueNodeOld("Slavery Administration", ".", false) {
 		private static final long serialVersionUID = 1L;
 
@@ -366,7 +414,7 @@ public class SlaverAlleyDialogue {
 					return new ResponseTrade("Trade", "Buy slavery-related items.", Main.game.getFinch());
 
 				} else if (index == 5) {
-					return new Response("Slave Manager", "Open the slave management screen.", MiscDialogue.getSlaveryManagementDialogue(SLAVERY_ADMINISTRATION, null));
+					return new Response("Slave Manager", "Open the slave management screen.", MiscDialogue.getSlaveryOverviewDialogue());
 
 				} else if (index == 0) {
 					return new Response("Leave", "Step back outside.", SLAVERY_ADMINISTRATION_EXTERIOR);
@@ -390,7 +438,7 @@ public class SlaverAlleyDialogue {
 						
 					} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_RECOMMENDATION_OBTAINED) {
 						if(Main.game.getPlayer().getMoney() >= slaverLicenseCost) {
-							return new Response("Present letter (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+slaverLicenseCost+")",
+							return new Response("Present letter (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</span> "+slaverLicenseCost+")",
 									"Show Finch the letter of recommendation you obtained from Lilaya, and then pay "+slaverLicenseCost+" flames to obtain a slaver license.", SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED) {
 								@Override
 								public void effects() {
@@ -398,11 +446,11 @@ public class SlaverAlleyDialogue {
 								}
 							};
 						} else {
-							return new Response("Present letter (" + Main.game.getCurrencySymbol() + " "+slaverLicenseCost+")", "You don't have enough money to buy a slaver license! You need at least "+slaverLicenseCost+" flames.", null);
+							return new Response("Present letter (" + UtilText.getCurrencySymbol() + " "+slaverLicenseCost+")", "You don't have enough money to buy a slaver license! You need at least "+slaverLicenseCost+" flames.", null);
 						}
 						
 					} else {
-						return new Response("Present letter (" + Main.game.getCurrencySymbol() + " "+slaverLicenseCost+")", "You need to obtain a letter of recommendation from Lilaya first!", null);
+						return new Response("Present letter (" + UtilText.getCurrencySymbol() + " "+slaverLicenseCost+")", "You need to obtain a letter of recommendation from Lilaya first!", null);
 						
 					}
 					
@@ -447,7 +495,7 @@ public class SlaverAlleyDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "[finch.Name] grins up at you, and you can't help but notice the slightly threatening look in his [finch.eyeColour] cat-like eyes."
-						+ " You thank him for the information and step away from the desk, determined to go and ask for a letter of recommendation from the one person you know can help you out; Lilaya."
+						+ " You thank him for the information and step away from the desk, determined to go and ask for a letter of recommendation from Lilaya, the one person you know that can help you out."
 					+ "</p>";
 		}
 
@@ -536,7 +584,7 @@ public class SlaverAlleyDialogue {
 						+ "[pc.speech(Alright,)] you reply, nodding for Finch to continue."
 					+ "</p>"
 					+ "<p>"
-						+ "[finch.speech(Now, you won't need to worry about this if you're only planning on buys and selling slaves, but if you're hoping to enslave people, then there are some *strict* limitations."
+						+ "[finch.speech(Now, you won't need to worry about this if you're only planning on buying and selling slaves, but if you're hoping to enslave people, then there are some *strict* limitations."
 							+ " You can only enslave two sorts of people; those that are willing, and those that have broken the law."
 							+ " Slave collars have a special enchantment in them that detects if the wearer falls into either one of those categories, so don't try and run around making just anyone into your slave!)]" 
 					+ "</p>"

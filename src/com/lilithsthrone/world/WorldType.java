@@ -83,7 +83,7 @@ public enum WorldType {
 //					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_ROOM),
 					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_FOUNTAIN),
 					new Value<>(new Color(0xff0080), LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR),
-					new Value<>(new Color(0xff00ff), LilayasHome.LILAYA_HOME_ROOM_WINDOW),
+					new Value<>(new Color(0xff00ff), LilayasHome.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR),
 					new Value<>(new Color(0x00ff00), LilayasHome.LILAYA_HOME_STAIR_UP)),
 			
 			Dominion.CITY_AUNTS_HOME,
@@ -101,8 +101,8 @@ public enum WorldType {
 			Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
 					new Value<>(new Color(0x808080), LilayasHome.LILAYA_HOME_CORRIDOR),
-					new Value<>(new Color(0xff00ff), LilayasHome.LILAYA_HOME_ROOM_WINDOW),
-					new Value<>(new Color(0xff0080), LilayasHome.LILAYA_HOME_ROOM_GARDEN),
+					new Value<>(new Color(0xff00ff), LilayasHome.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR),
+					new Value<>(new Color(0xff0080), LilayasHome.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR),
 //					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_ROOM),
 					new Value<>(new Color(0xff80ff), LilayasHome.LILAYA_HOME_ROOM_LILAYA),
 					new Value<>(new Color(0x0080ff), LilayasHome.LILAYA_HOME_ROOM_ROSE),
@@ -143,7 +143,10 @@ public enum WorldType {
 					new Value<>(new Color(0xff00ff), SlaverAlley.MARKET_STALL),
 					new Value<>(new Color(0x0000ff), SlaverAlley.SLAVERY_ADMINISTRATION),
 					new Value<>(new Color(0xff0080), SlaverAlley.SCARLETTS_SHOP),
-					new Value<>(new Color(0xffff00), SlaverAlley.AUCTIONING_BLOCK)),
+					new Value<>(new Color(0xffff00), SlaverAlley.AUCTIONING_BLOCK),
+					new Value<>(new Color(0x00ff00), SlaverAlley.PUBLIC_STOCKS),
+					new Value<>(new Color(0x0080ff), SlaverAlley.BROTHEL)
+					),
 			
 			Dominion.CITY_SLAVER_ALLEY,
 			WorldType.DOMINION),

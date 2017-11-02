@@ -39,6 +39,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTai
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailVagina;
 import com.lilithsthrone.game.sex.sexActions.universal.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.universal.dom.DomFaceToWall;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.69
@@ -146,7 +147,7 @@ public class SMDomFaceToWall extends SexManagerDefault {
 
 	@Override
 	public SexPace getStartingSexPacePartner() {
-		return Sex.getPartner().getSexPaceSubPreference();
+		return Sex.getPartner().getSexPaceSubPreference(Main.game.getPlayer());
 	}
 
 }

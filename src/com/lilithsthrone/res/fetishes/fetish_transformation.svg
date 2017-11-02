@@ -19,6 +19,19 @@
    sodipodi:docname="fetish_transformation.svg">
   <defs
      id="defs4313">
+    <inkscape:path-effect
+       effect="powerstroke"
+       id="path-effect4237"
+       is_visible="true"
+       offset_points="0.73259822,0.46035925"
+       sort_points="true"
+       interpolator_type="Linear"
+       interpolator_beta="0.2"
+       start_linecap_type="zerowidth"
+       linejoin_type="round"
+       miter_limit="4"
+       end_linecap_type="zerowidth"
+       cusp_linecap_type="round" />
     <linearGradient
        inkscape:collect="always"
        id="linearGradient4194">
@@ -522,6 +535,19 @@
        y2="1031.8252"
        gradientUnits="userSpaceOnUse"
        gradientTransform="translate(-1.7500001,2.7500001)" />
+    <inkscape:path-effect
+       effect="powerstroke"
+       id="path-effect4237-7"
+       is_visible="true"
+       offset_points="0.73259822,0.46035925"
+       sort_points="true"
+       interpolator_type="Linear"
+       interpolator_beta="0.2"
+       start_linecap_type="zerowidth"
+       linejoin_type="round"
+       miter_limit="4"
+       end_linecap_type="zerowidth"
+       cusp_linecap_type="round" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -530,9 +556,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.9999998"
-     inkscape:cx="18.93299"
-     inkscape:cy="68.111641"
+     inkscape:zoom="7.9999996"
+     inkscape:cx="17.003673"
+     inkscape:cy="23.561274"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -923,5 +949,21 @@
        id="path4208"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="csccsc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 40.74703,1009.6706 c 0.187199,-0.8946 0.468094,-2.2269 0.733966,-3.3262 -0.110149,-0.4279 -0.220677,-0.8315 -0.336218,-1.1816 -0.189482,0.316 -0.384203,0.688 -0.579653,1.0869 0.03516,1.1487 0.0659,2.4991 0.181905,3.4209 z"
+       id="path4235"
+       inkscape:path-effect="#path-effect4237"
+       inkscape:original-d="m 40.74703,1009.6706 c 0.05076,-1.2512 0.259357,-3.2623 0.397748,-4.5078"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="display:inline;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 42.133959,1010.1147 c 0.52133,-0.7506 1.299726,-1.8679 1.973387,-2.7764 0.0655,-0.437 0.121164,-0.8517 0.15135,-1.2191 -0.297756,0.2171 -0.622142,0.4836 -0.957714,0.7746 -0.415744,1.0715 -0.914258,2.327 -1.167023,3.2209 z"
+       id="path4235-5"
+       inkscape:path-effect="#path-effect4237-7"
+       inkscape:original-d="m 42.133959,1010.1147 c 0.53483,-1.1322 1.511439,-2.9027 2.124737,-3.9955"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
   </g>
 </svg>

@@ -1,18 +1,23 @@
 package com.lilithsthrone.game.dialogue.encounters;
 
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.QuestLine;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.generic.Cultist;
 import com.lilithsthrone.game.character.npc.generic.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.generic.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.npc.generic.HarpyNestsAttacker;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -22,40 +27,102 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.world.places.Dominion;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.88
  * @author Innoxia
  */
 public enum Encounter {
 
-	DOMINION_STREET(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f))) {
-		@Override
-		public DialogueNodeOld getRandomEncounter() {
-			if (Main.game.getCurrentWeather() == Weather.MAGIC_STORM)
-				return getBaseRandomEncounter();
-			else
-				return null;
-		}
-
+	
+	LILAYAS_HOME_CORRIDOR(Util.newHashMapOfValues(
+			new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f))) {
 		@Override
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
-			
-			Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
-
-			try {
-				Main.game.addNPC(Main.game.getActiveNPC());
-			} catch (Exception e) {
-				e.printStackTrace();
+			if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty()) {
+				
+				List<NPC> slaves = new ArrayList<>();
+				List<NPC> hornySlaves = new ArrayList<>();
+				
+				for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
+					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
+							&& !slave.getWorkHours()[Main.game.getHour()%24]
+							&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)
+							&& slave.isAttractedTo(Main.game.getPlayer())) {
+						if(slave.getGetLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
+							slaves.add(slave);
+						}
+						if(slave.hasStatusEffect(StatusEffect.PENT_UP_SLAVE)) {
+							hornySlaves.add(slave);
+						}
+					}
+				}
+				
+				if(!hornySlaves.isEmpty()) {
+					Collections.shuffle(hornySlaves);
+					Main.game.setActiveNPC(hornySlaves.get(0));
+					Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+					return SlaveDialogue.SLAVE_USES_YOU;
+					
+				} else if(!slaves.isEmpty()) {
+					Collections.shuffle(slaves);
+					Main.game.setActiveNPC(slaves.get(0));
+					Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+					return SlaveDialogue.SLAVE_USES_YOU;
+				}
+				
+				return null;
+				
+			} else {
+				return null;
 			}
-
-			return Main.game.getActiveNPC().getEncounterDialogue();
+		}
+	},
+	
+	
+	DOMINION_STREET(Util.newHashMapOfValues(
+			new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f),
+			new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f))) {
+		@Override
+		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+			if(node == EncounterType.DOMINION_STORM_ATTACK && Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
+				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
+	
+				try {
+					Main.game.addNPC(Main.game.getActiveNPC());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	
+				return Main.game.getActiveNPC().getEncounterDialogue();
+				
+			} else if(node == EncounterType.SPECIAL_DOMINION_CULTIST
+					&& Main.game.getCurrentWeather() != Weather.MAGIC_STORM
+					&& Main.game.getDateNow().getMonth().equals(Month.OCTOBER)
+					&& Main.game.getCharactersPresent().isEmpty()
+					&& Main.game.getNumberOfWitches()<4
+					&& Main.game.getPlayerCell().getPlace().getPlaceType() == Dominion.CITY_STREET) {
+				
+				Main.game.setActiveNPC(new Cultist());
+				
+				try {
+					Main.game.addNPC(Main.game.getActiveNPC());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	
+				return Main.game.getActiveNPC().getEncounterDialogue();
+				
+			} else {
+				return null;
+			}
 		}
 	},
 
@@ -71,8 +138,8 @@ public enum Encounter {
 				
 				// Prioritise re-encountering the NPC on this tile:
 				for(NPC npc : Main.game.getCharactersPresent()) {
-						Main.game.setActiveNPC(npc);
-						return Main.game.getActiveNPC().getEncounterDialogue();
+					Main.game.setActiveNPC(npc);
+					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
 				if(Main.game.isIncestEnabled() && Math.random()>0.75f) { // Incest
@@ -349,8 +416,6 @@ public enum Encounter {
 	protected DialogueNodeOld getBaseRandomEncounter() {
 		float r = (float) (Math.random() * 100), total = 0;
 		
-//		System.out.println(r);
-
 		for (Entry<EncounterType, Float> e : getDialogues().entrySet()) {
 			total += e.getValue();
 			if (r <= total) {

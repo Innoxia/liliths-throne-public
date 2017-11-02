@@ -127,6 +127,15 @@ h6{
 	-webkit-user-select: none;
 	box-sizing: border-box;
 }
+.half-width-container{
+	position:relative;
+	float:left;
+	width:50%;
+	padding:0;
+	margin:0;
+	-webkit-user-select: none;
+	box-sizing: border-box;
+}
 .quarter-width-container{
 	position:relative;
 	float:left;
@@ -186,7 +195,7 @@ h6{
 	background:#222222;
 	float:left;
 	margin:0 2vw 2vw 2vw;
-	border-radius: 2;
+	border-radius: 2px;
 }
 .barBackgroundAtt{
 	width:65vw;
@@ -343,6 +352,13 @@ h6{
 	height:33%;
 	width:33%;
 	top:2px;
+	left:2px;
+}
+.npc-home-icon{
+	position:absolute;
+	height:33%;
+	width:33%;
+	bottom:2px;
 	left:2px;
 }
 
@@ -549,4 +565,16 @@ h6{
 }
 .jinxed:hover{
 	background-color:#865f63;
+}
+
+.item-inline{
+	background-color: transparent;
+	position:relative;
+	display:inline-block;
+	border-radius: 5px;
+	width:20px;
+	height:20px;
+	padding:0;
+	margin:0 0 2px 0;
+	vertical-align: middle;
 }

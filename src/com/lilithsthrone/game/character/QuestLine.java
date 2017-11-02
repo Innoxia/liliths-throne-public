@@ -28,13 +28,10 @@ public enum QuestLine {
 	SIDE_RACE_DISCOVERY("Race Discovery", "You have found all the different races that are in this version!", QuestType.SIDE,
 			Quest.SIDE_DISCOVER_ALL_RACES),
 
-	SIDE_JINXED_CLOTHING("Getting jinxed", "Lilaya told you how to use demonstones to remove jinxed clothing.", QuestType.SIDE,
-			Quest.SIDE_JINXED_LILAYA_HELP,
-			Quest.SIDE_JINX_REMOVE_JINX),
-
-	SIDE_ENCHANTMENT_DISCOVERY("Enchantments & Essences", "You now know how to create enchanted items!", QuestType.SIDE,
-			Quest.SIDE_ENCHANTMENTS_LILAYA_HELP,
-			Quest.SIDE_ENCHANTMENTS_ENCHANT_SOMETHING),
+	SIDE_ENCHANTMENT_DISCOVERY("Enchantments, Essences, and Jinxes", "You now know how to create enchanted items and remove jinxes!", QuestType.SIDE,
+			Quest.SIDE_ENCHANTMENTS_LILAYA_HELP
+//			, Quest.SIDE_ENCHANTMENTS_ENCHANT_SOMETHING
+			),
 
 	SIDE_FIRST_TIME_PREGNANCY("Knocked up", "With Lilaya's help, you managed to complete your first pregnancy. Perhaps the first of many...", QuestType.SIDE,
 			Quest.SIDE_PREGNANCY_CONSULT_LILAYA,

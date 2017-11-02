@@ -74,7 +74,7 @@ public enum Colour {
 	GENERIC_EXPERIENCE(BaseColour.BLUE_LIGHT, "light blue"),
 
 	PERK(BaseColour.AQUA, "aqua"),
-	FETISH(BaseColour.ROSE, "rose"),
+	FETISH(BaseColour.ROSE, "rose", Util.newArrayListOfValues(new ListValue<>("fetish"))),
 	STATUS_EFFECT(BaseColour.YELLOW, "yellow"),
 	SPECIAL_ATTACK(BaseColour.ORANGE, "orange"),
 	STATUS_EFFECT_TIME_OVERFLOW(BaseColour.BLUE, "aqua"),
@@ -324,6 +324,7 @@ public enum Colour {
 	COVERING_BLONDE(BaseColour.YELLOW, "blonde"),
 	COVERING_BLEACH_BLONDE(BaseColour.YELLOW_LIGHT, "bleach-blonde"),
 	COVERING_GINGER(BaseColour.GINGER, "ginger"),
+	COVERING_ORANGE(BaseColour.ORANGE, "orange"),
 	COVERING_RED(BaseColour.RED, "red"),
 	COVERING_WHITE(BaseColour.WHITE, "white"),
 	COVERING_BLUE(BaseColour.BLUE, "blue"),
@@ -598,7 +599,7 @@ public enum Colour {
 	 * @return
 	 */
 	public String toWebHexString() {
-		return getColor().toString().substring(2, 8);
+		return "#"+getColor().toString().substring(2, 8);
 	}
 
 	public Color getColor() {

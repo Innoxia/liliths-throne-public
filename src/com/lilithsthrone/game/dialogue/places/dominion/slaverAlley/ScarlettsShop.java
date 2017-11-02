@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -375,13 +376,13 @@ public class ScarlettsShop {
 					
 				} else if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_G_SLAVERY) {
 					if(!Main.game.getPlayer().isHasSlaverLicense()) {
-						return new Response("Buy Scarlett (" + Main.game.getCurrencySymbol() + " "+Main.game.getDialogueFlags().scarlettPrice+")", "You need to obtain a slaver license from the Slavery Administration before you can buy Scarlett!", null);
+						return new Response("Buy Scarlett (" + UtilText.getCurrencySymbol() + " "+Main.game.getDialogueFlags().scarlettPrice+")", "You need to obtain a slaver license from the Slavery Administration before you can buy Scarlett!", null);
 						
 					} else if(Main.game.getPlayer().getMoney() < Main.game.getDialogueFlags().scarlettPrice) {
-						return new Response("Buy Scarlett (" + Main.game.getCurrencySymbol() + " "+Main.game.getDialogueFlags().scarlettPrice+")", "You don't have enough money to buy Scarlett.", null);
+						return new Response("Buy Scarlett (" + UtilText.getCurrencySymbol() + " "+Main.game.getDialogueFlags().scarlettPrice+")", "You don't have enough money to buy Scarlett.", null);
 						
 					} else {
-						return new Response("Buy Scarlett (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</span> "+Main.game.getDialogueFlags().scarlettPrice+")"
+						return new Response("Buy Scarlett (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</span> "+Main.game.getDialogueFlags().scarlettPrice+")"
 								, "Buy Scarlett for "+Main.game.getDialogueFlags().scarlettPrice+" flames.", ALEXAS_SHOP_BUYING_SCARLETT) {
 							@Override
 							public void effects() {
@@ -403,7 +404,12 @@ public class ScarlettsShop {
 					}
 					
 				} else {
-					return new Response("Slave Manager", "Enter the slave management screen.",  MiscDialogue.getSlaveryManagementDialogue(ALEXAS_SHOP, Main.game.getAlexa()));
+					return new Response("Slave Manager", "Enter the slave management screen.", ALEXAS_SHOP) {
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return MiscDialogue.getSlaveryManagementDialogue(ALEXAS_SHOP, Main.game.getAlexa());
+						}
+					};
 				}
 
 			} else if (index == 0 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
@@ -728,7 +734,7 @@ public class ScarlettsShop {
 			return new Response("Keep her", "You decide to keep Scarlett as your slave.", ALEXAS_SHOP_BUYING_SCARLETT_KEEP_HER) {
 				@Override
 				public void effects() {
-					Main.game.getScarlett().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION);
+					Main.game.getScarlett().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION, true);
 				}
 			};
 
@@ -743,7 +749,7 @@ public class ScarlettsShop {
 					
 					((Scarlett) Main.game.getScarlett()).getDressed();
 					
-					Main.game.getScarlett().setLocation(WorldType.HARPY_NEST, HarpyNests.ALEXAS_NEST);
+					Main.game.getScarlett().setLocation(WorldType.HARPY_NEST, HarpyNests.ALEXAS_NEST, true);
 					Main.game.getScarlett().setObedience(ObedienceLevel.ZERO_FREE_WILLED.getMedianValue());
 					Main.game.getScarlett().setAffection(Main.game.getPlayer(), AffectionLevel.ZERO_NEUTRAL.getMedianValue());
 					Main.game.getPlayer().removeSlave(Main.game.getScarlett());
