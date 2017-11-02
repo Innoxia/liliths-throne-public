@@ -1922,7 +1922,39 @@ public enum StatusEffect {
 		}
 	},
 
-	// SLIME:
+	// REPTILE:
+		GATOR_MORPH(
+				90,
+				"Gator-morph",
+				"raceGatorMorph",
+				Colour.RACE_GATOR_MORPH,
+				true,
+				Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f),
+				new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -10f),
+				new Value<Attribute, Float>(Attribute.FITNESS, 15f)),
+				null) {
+
+			@Override
+			public String applyEffect(GameCharacter target, int minutesPassed) {
+				return "";
+			}
+
+			@Override
+			public String getDescription(GameCharacter target) {
+				if (target.isPlayer())
+					return "Your body is incredibly tough, and you possess lightning reflexes.";
+				else
+					return UtilText.parse(target, "[npc.Name]'s body is incredibly tough, and [npc.she] possesses lightning reflexes.");
+			}
+
+			@Override
+			public boolean isConditionsMet(GameCharacter target) {
+				return target.getRace() == Race.GATOR_MORPH
+						&& target.getRaceStage() == RaceStage.GREATER;
+			}
+		},
+
+		// SLIME:
 	SLIME(
 			90,
 			"slime",

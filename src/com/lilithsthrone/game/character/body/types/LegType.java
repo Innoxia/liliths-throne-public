@@ -27,6 +27,8 @@ public enum LegType implements BodyPartTypeInterface {
 	
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 
+	GATOR_MORPH(BodyCoveringType.SCALES_GATOR, Race.GATOR_MORPH),
+	
 	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, Race.HORSE_MORPH),
 
 	SLIME(BodyCoveringType.SLIME, Race.SLIME),
@@ -74,6 +76,8 @@ public enum LegType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("slender", "flawless");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic dog-like");
+			case GATOR_MORPH:
+				return UtilText.returnStringAtRandom("scaly", "reptile-like");
 			case HARPY:
 				return UtilText.returnStringAtRandom("scaly", "bird-like");
 			case HORSE_MORPH:
@@ -132,6 +136,8 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("slender", "delicate", "soft", "feminine");
 				case DOG_MORPH:
 					return UtilText.returnStringAtRandom("soft", "feminine", "dog-like", "paw-like", "furry", "canine");
+				case GATOR_MORPH:
+					return UtilText.returnStringAtRandom("scaly", "reptile-like");
 				case HARPY:
 					return UtilText.returnStringAtRandom("clawed", "bird-like");
 				case HORSE_MORPH:
@@ -159,6 +165,8 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("slender");
 				case DOG_MORPH:
 					return UtilText.returnStringAtRandom("dog-like", "paw-like", "furry", "canine");
+				case GATOR_MORPH:
+					return UtilText.returnStringAtRandom("scaly", "reptile-like");
 				case HARPY:
 					return UtilText.returnStringAtRandom("clawed", "bird-like");
 				case HORSE_MORPH:

@@ -398,6 +398,23 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.FEATHERS_BLACK)),
 			null),
 
+	SCALES_GATOR(Race.GATOR_MORPH,
+			"a layer of",
+			true,
+			"scales",
+			"scale",
+			"",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE),
+					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
+					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
+					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
+			null,
+			Colour.naturalScaleColours,
+			Colour.dyeScaleColours,
+			Colour.naturalScaleColours,
+			Colour.dyeScaleColours),
+
 	// MISC:
 	
 	HORN_DEMON(Race.DEMON,
@@ -873,6 +890,25 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.FEATHERS_BLACK)),
 			null),
 
+	BODY_HAIR_SCALES_GATOR(Race.GATOR_MORPH,
+			"a plume of",
+			false,
+			"scales",
+			"scale",
+			"",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE),
+					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
+					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
+					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
+			null,
+			Colour.naturalScaleColours,
+			Colour.dyeScaleColours,
+			Colour.naturalScaleColours,
+			Colour.dyeScaleColours),
+
+
+	
 	// EYES:
 
 	EYE_HUMAN(Race.HUMAN,
@@ -1019,6 +1055,21 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"eyes",
 			"eye",
 			"squirrel-like",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES)),
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC)),
+			Colour.naturalIrisColours,
+			Colour.dyeIrisColours,
+			Colour.naturalIrisColours,
+			Colour.dyeIrisColours),
+
+	EYE_GATOR_MORPH(Race.GATOR_MORPH,
+			"a pair of",
+			true,
+			"eyes",
+			"eye",
+			"reptile-like",
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES)),
 			Util.newArrayListOfValues(

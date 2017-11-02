@@ -399,6 +399,9 @@ public class Library {
 			} else if (city == 7) {
 				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
 
+			} else if (city == 8) {
+				return bookResponse(ItemType.BOOK_GATOR_MORPH, Race.GATOR_MORPH);
+
 			} else if (city == 0) {
 				return new Response("Back", "Return to browsing the shelves.", BROWSE_BOOKS);
 			} else {

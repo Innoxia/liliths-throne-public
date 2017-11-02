@@ -351,6 +351,19 @@ public class Penis implements BodyPartInterface, Serializable {
 							+ "[npc.She] has [style.boldWolfMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" lupine balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldWolfMorph(lupine cum)].");
 				}
 				break;
+			case REPTILE:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							"Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as your shaft grows erect and the head smooths over.</br>"
+							+ "You now have a [style.boldGatorMorph(reptile penis)], covered in [pc.penisFullDescription].</br>"
+							+ "You have [style.boldGatorMorph([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" reptile balls)], covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldGatorMorph(reptile cum)].");
+				} else {
+					UtilText.transformationContentSB.append(
+							"Letting out an involuntary moan, [npc.name] feels [npc.her] penis shifting into a new form, and [npc.she]'s hit by a wave of overwhelming arousal as [npc.her] shaft grows erect and the head smoothes.</br>"
+							+ "[npc.She] now has a [style.boldGatorMorph(reptile penis)], covered in [npc.penisFullDescription].</br>"
+							+ "[npc.She] has [style.boldGatorMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" reptile balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldGatorMorph(reptile cum)].");
+				}
+				break;
 			case SLIME:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -595,6 +608,18 @@ public class Penis implements BodyPartInterface, Serializable {
 								+ "[style.boldSex([npc.Name]'s [npc.penis] now has a wide, flared head!)]"
 							+ "</p>";
 				}
+			case BLUNT:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel an intense warmth building up in the tip of your [pc.penis], and before you have a chance to react, the [style.boldGrow(head smoothes over)], much like that of a reptile's.</br>"
+								+ "[style.boldSex(Your [pc.penis] now has a smooth, blunt head!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "An intense warmth builds up in the tip of [npc.name]'s [npc.penis], and before [npc.she] has a chance to react, the [style.boldGrow(head smoothes over)], much like that of a reptile's.</br>"
+								+ "[style.boldSex([npc.Name]'s [npc.penis] now has a smooth, blunt head!)]"
+							+ "</p>";
+				}
 			case KNOTTED:
 				if(owner.isPlayer()) {
 					return "<p>"
@@ -717,6 +742,18 @@ public class Penis implements BodyPartInterface, Serializable {
 					return "<p>"
 								+ "A soothing coolness builds up in the tip of [npc.name]'s [npc.penis], and before [npc.she] has a chance to react, [npc.her] flared head [style.boldShrink(shrinks)] down into a regular, human-like one.</br>"
 								+ "[style.boldSex([npc.Name]'s [npc.penis] no longer has a flared head!)]"
+							+ "</p>";
+				}
+			case BLUNT:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a soothing coolness building up in the tip of your [pc.penis], and before you have a chance to react, your blunt head [style.boldShrink(shrinks)] down into a regular, human-like one.</br>"
+								+ "[style.boldSex(Your [pc.penis] no longer has a blunt head!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "A soothing coolness builds up in the tip of [npc.name]'s [npc.penis], and before [npc.she] has a chance to react, [npc.her] blunt head [style.boldShrink(shrinks)] down into a regular, human-like one.</br>"
+								+ "[style.boldSex([npc.Name]'s [npc.penis] no longer has a blunt head!)]"
 							+ "</p>";
 				}
 			case KNOTTED:

@@ -438,6 +438,58 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType STR_INGREDIENT_SWAMP_WATER = new AbstractItemType(
+			"a bottle of",
+			false,
+			"Swamp water",
+			"Swamp Waters",
+			"A glass bottle of what looks to be some kind of moonshine."
+				+ " A label on the front shows a gator-boy biting the top off a bottle just like this one;",
+			"attributeGatorMorphDrink",
+			Colour.ATTRIBUTE_STRENGTH,
+			25,
+			Rarity.UNCOMMON,
+			TFEssence.GATOR_MORPH,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_SWAMP_WATER, null, null, null, 0)))) {
+
+		/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.ATTRIBUTE_STRENGTH;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType() {
+			return POTION;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+				return "<p>"
+							+ "You unscrew the cap and start drinking the bottle of 'Swamp Water'."
+							+ " Its taste is quite unlike that of any other liquor you've ever drunk, and it burns slighty going down."
+							+ " As the last few drops slide down your throat, a strange, tangy aftertaste lingers on your tongue."
+						+ "</p>";
+				
+			} else {
+				return UtilText.parse(target,
+						"<p>"
+							+ "[npc.Name] pulls out a bottle of 'Swamp water', and, after quickly popping off the cap, [npc.she] promptly downs the entire bottle."
+						+ "</p>");
+			}
+		}
+	};
+	
 	// Intelligence ingredients are cold non-alcoholic drinks:
 	
 	public static AbstractItemType INT_INGREDIENT_FELINE_FANCY = new AbstractItemType(
@@ -1174,6 +1226,56 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType RACE_INGREDIENT_GATOR_MORPH = new AbstractItemType(
+			"a",
+			false,
+			"Gator's Gumbo",
+			"Gator's Gumbo",
+			"An individually-wrapped bowl of gumbo, contains meat, okra, and other veggies.",
+			"raceGatorMorphGatorsGumbo",
+			Colour.RACE_GATOR_MORPH,
+			40,
+			Rarity.RARE,
+			TFEssence.GATOR_MORPH,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_GATORS_GUMBO, null, null, null, 0)))) {
+
+		/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.RACE_GATOR_MORPH;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType() {
+			return ELIXIR;
+		}
+
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+				return "<p>"
+							+ "You peel off the paper top and spoon the Gumbo into your mouth."
+							+ " The strong taste of okra instantly fills your mouth, but before you have any time to relish the flavour, you find that it's flowed down your gullet and you have gulped down the tangy mess."
+						+ "</p>";
+				
+			} else {
+				return UtilText.parse(target,
+						"<p>"
+						+ "[npc.Name] pulls out Gator's Gumbo, and, quickly peeling off the paper top, spoons it into [npc.her] mouth and swallows it down."
+						+ "</p>");
+			}
+		}
+	};
+	
 	public static AbstractItemType RACE_INGREDIENT_WOLF_MORPH = new AbstractItemType(
 			"a package of",
 			false,
@@ -1522,6 +1624,48 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType BOTTLED_ESSENCE_GATOR_MORPH = new AbstractItemType(
+			null,
+			false,
+			"Bottled Gator-morph Essence",
+			"Bottled Gator-morph Essences",
+			"A small glass bottle, with a little cork stopper wedged firmly in the top."
+					+ " Inside, the swirling "+Colour.RACE_GATOR_MORPH.getName()+" glow of a gator-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
+			"bottledEssenceGatorMorph",
+			Colour.RACE_GATOR_MORPH,
+			10,
+			Rarity.COMMON,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_GATOR_MORPH, null, null, null, 0)))) {
+
+		/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "absorb";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user.isPlayer() && target.isPlayer()) {
+				return "<p>"
+							+ "Pulling the cork stopper out from the top of the little bottle, you release the gator-morph essence from its glass prison."
+							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_GATOR_MORPH.getName()+" flash, it disappears from sight."
+							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
+						+ "</p>";
+				
+			} else {
+				return "<p>"
+						+ "(You shouldn't be seeing this. x_x)"//TODO
+					+ "</p>";
+			}
+		}
+	};
+	
+
 	public static AbstractItemType BOTTLED_ESSENCE_SQUIRREL_MORPH = new AbstractItemType(
 			null,
 			false,
@@ -2461,6 +2605,52 @@ public class ItemType {
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
 			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "<p>"
+						+ "Opening the book, you read its contents..."
+					+ "</p>";
+		}
+	};
+	
+	public static AbstractItemType BOOK_GATOR_MORPH = new AbstractItemType(
+			null,
+			false,
+			"Rasselin' Gators",
+			"Rasselin' Gators",
+			"A book all about gator-morphs, detailing their society and place within Dominion.",
+			"book_race_gator_morph",
+			Colour.RACE_GATOR_MORPH,
+			10,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_GATOR_MORPH, null, null, null, 0)))) {
+		
+		/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.GATOR_MORPH);
+		}
+
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
+		@Override
+		public boolean canBeSold() {
+			return false;
 		}
 		
 		@Override
