@@ -45,6 +45,7 @@ import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -108,6 +109,7 @@ import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
@@ -146,7 +148,7 @@ import javafx.scene.web.WebView;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.1.88
  * @author Innoxia
  */
 public class MainController implements Initializable {
@@ -233,22 +235,26 @@ public class MainController implements Initializable {
 
 	// All setup methods:
 	public void openOptions() {
-		if(!Main.game.isStarted())
+		if(!Main.game.isStarted()) {
 			return;
+		}
 		
-		if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.OPTIONS)
+		if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.OPTIONS) {
 			Main.game.restoreSavedContent();
-		else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
-			if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL)
+			
+		} else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
+			if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL || !Main.game.isInNewWorld()) {
 				Main.game.saveDialogueNode();
-
+			}
+			
 			Main.game.setContent(new Response("", "", OptionsDialogue.MENU));
 		}
 	}
 
 	public void openPhone() {
-		if(!Main.game.isStarted())
+		if(!Main.game.isStarted() || !Main.game.isInNewWorld()) {
 			return;
+		}
 		
 		if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.PHONE)
 			Main.game.restoreSavedContent();
@@ -266,7 +272,7 @@ public class MainController implements Initializable {
 			
 		} else if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.OPTIONS || Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.PHONE) {
 			return Main.game.getSavedDialogueNode().isInventoryDisabled();
-		
+			
 		} else {
 			return Main.game.getCurrentDialogueNode().isInventoryDisabled();
 		}
@@ -425,7 +431,11 @@ public class MainController implements Initializable {
 						 if(event.getCode()==KeyCode.END){
 							 
 
-							 System.out.println(Main.game.getPlayer().getBaseAttributeValue(Attribute.HEALTH_MAXIMUM));
+							 Main.game.getPlayer().incrementAddiction(FluidType.CUM_DOG_MORPH, 10, true);
+							 Main.game.getPlayer().incrementAddiction(FluidType.GIRL_CUM_HARPY, 50, true);
+							 Main.game.getPlayer().incrementAddiction(FluidType.MILK_COW_MORPH, 90, true);
+							 
+//							 System.out.println(Main.game.getPlayer().getBaseAttributeValue(Attribute.HEALTH_MAXIMUM));
 							 
 //							 System.out.println(Main.game.getNumberOfWitches());
 							 
@@ -1243,6 +1253,82 @@ public class MainController implements Initializable {
 			}
 
 		}
+		
+
+		
+		// -------------------- Debug menu -------------------- //
+		
+		if(Main.game.getCurrentDialogueNode().equals(GenericDialogue.SPAWN_MENU)) {
+			id = "";
+			
+			for(AbstractClothingType clothingType : GenericDialogue.clothingTotal) {
+				id = clothingType.getId() + "_SPAWN";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(AbstractClothingType.generateClothing(clothingType));
+						this.updateUIRightPanel();
+					}, false);
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					
+					InventoryTooltipEventListener el = new InventoryTooltipEventListener().setGenericClothing(clothingType, clothingType.getAvailableColours().get(0));
+					addEventListener(document, id, "mouseenter", el, false);
+				}
+			}
+			
+			for(AbstractWeaponType weaponType : GenericDialogue.weaponsTotal) {
+				id = weaponType.getId() + "_SPAWN";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(AbstractWeaponType.generateWeapon(weaponType));
+						this.updateUIRightPanel();
+					}, false);
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					
+					InventoryTooltipEventListener el = new InventoryTooltipEventListener().setGenericWeapon(weaponType, weaponType.getAvailableDamageTypes().get(0));
+					addEventListener(document, id, "mouseenter", el, false);
+				}
+			}
+			
+			for(AbstractItemType itemType : GenericDialogue.itemsTotal) {
+				id = itemType.getId() + "_SPAWN";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(AbstractItemType.generateItem(itemType));
+						this.updateUIRightPanel();
+					}, false);
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					
+					InventoryTooltipEventListener el = new InventoryTooltipEventListener().setGenericItem(itemType);
+					addEventListener(document, id, "mouseenter", el, false);
+				}
+			}
+			
+			for(InventorySlot slot : InventorySlot.values()) {
+				id = slot + "_SPAWN_SELECT";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						GenericDialogue.activeSlot = slot;
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+					
+				}
+			}
+			id = "ITEM_SPAWN_SELECT";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					GenericDialogue.activeSlot = null;
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+				
+			}
+		}
+		
 		
 		
 		// -------------------- Inventory listeners -------------------- //
@@ -4288,6 +4374,14 @@ public class MainController implements Initializable {
 			RenderingEngine.ENGINE.renderAttributesPanelRight();
 		}
 		RenderingEngine.ENGINE.renderButtons();
+	}
+	
+	public void updateUILeftPanel() {
+		RenderingEngine.ENGINE.renderAttributesPanel();
+	}
+	
+	public void updateUIRightPanel() {
+		RenderingEngine.ENGINE.renderAttributesPanelRight();
 	}
 
 	public void zoomMap() {

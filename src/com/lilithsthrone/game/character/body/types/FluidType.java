@@ -203,7 +203,7 @@ public enum FluidType implements BodyPartTypeInterface {
 
 	MILK_COW_MORPH(BodyCoveringType.MILK,
 			FluidFlavour.MILK,
-			Util.newArrayListOfValues(new ListValue<>("Bovine")),
+			Util.newArrayListOfValues(new ListValue<>("bovine")),
 			Util.newArrayListOfValues(),
 			Race.COW_MORPH),
 	

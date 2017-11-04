@@ -556,7 +556,7 @@ public enum RenderingEngine {
 						
 		if(Main.game.isInSex()) {
 			Colour playerOrgasmColour = Colour.GENERIC_ARCANE;
-			if(Sex.getNumberOfPlayerOrgasms()<=orgasmColours.length) {
+			if(Sex.getNumberOfPlayerOrgasms()<orgasmColours.length) {
 				playerOrgasmColour = orgasmColours[Sex.getNumberOfPlayerOrgasms()];
 			}
 			
@@ -1032,7 +1032,7 @@ public enum RenderingEngine {
 				
 			if(Main.game.isInSex()) {
 				Colour NPCOrgasmColour = Colour.GENERIC_ARCANE;
-				if(Sex.getNumberOfPartnerOrgasms()<=orgasmColours.length) {
+				if(Sex.getNumberOfPartnerOrgasms()<orgasmColours.length) {
 					NPCOrgasmColour = orgasmColours[Sex.getNumberOfPartnerOrgasms()];
 				}
 				
@@ -1675,6 +1675,7 @@ public enum RenderingEngine {
 	}
 	
 	private void appendNPCIcon(int x, int y) {
+		
 		List<String> mapIcons = new ArrayList<>();
 		List<NPC> charactersPresent = Main.game.getCharactersPresent(Main.game.getActiveWorld().getCell(x, y));
 		
@@ -1721,8 +1722,8 @@ public enum RenderingEngine {
 									&& (Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH) + Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE) + Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS))<300)
 								?" highlight"
 								:"")
-						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() ? "" : " disabled") + "' id='journal'>" + SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
-						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() ? "" : "<div class='disabledLayer'></div>")
+						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() && Main.game.isInNewWorld() ? "" : " disabled") + "' id='journal'>" + SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
+						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() && Main.game.isInNewWorld() ? "" : "<div class='disabledLayer'></div>")
 					+ "</div>"
 				+ "</div>"
 

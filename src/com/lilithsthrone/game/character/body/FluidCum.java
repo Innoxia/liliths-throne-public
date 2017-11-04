@@ -393,4 +393,11 @@ public class FluidCum implements BodyPartInterface, Serializable {
 	public List<ItemEffect> getTransformativeEffects() {
 		return transformativeEffects;
 	}
+
+	/**
+	 * DO NOT MODIFY!
+	 */
+	public List<FluidModifier> getFluidModifiers() {
+		return fluidModifiers;
+	}
 }

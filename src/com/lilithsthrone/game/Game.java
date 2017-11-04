@@ -597,10 +597,18 @@ public class Game implements Serializable {
 				if (currentDialogueNode != null) {
 					if (node.isContinuesDialogue()) {
 						if (!node.isNoTextForContinuesDialogue()) {
-							if (currentDialogueNode.getMapDisplay() == MapDisplay.NORMAL)
-								positionAnchor++;
-							pastDialogueSB.append("<hr id='position" + positionAnchor + "'><p class='option-disabled'>&gt " + chosenResponse + "</p>");
+							if(Main.game.isInSex()) {
+								dialogueTitle = UtilText.parse(node.getLabel());
+							}
 
+							if(node.isDispalysActionTitleOnContinuesDialogue()) {
+								if (currentDialogueNode.getMapDisplay() == MapDisplay.NORMAL) {
+									positionAnchor++;
+								}
+							
+								pastDialogueSB.append("<hr id='position" + positionAnchor + "'><p class='option-disabled'>&gt " + chosenResponse + "</p>");
+							}
+							
 							if (getMapDisplay() == MapDisplay.NORMAL)
 								initialPositionAnchor = positionAnchor;
 
@@ -768,13 +776,21 @@ public class Game implements Serializable {
 		if (currentDialogueNode != null) {
 			if (node.isContinuesDialogue()) {
 				if (!node.isNoTextForContinuesDialogue()) {
-					if (currentDialogueNode.getMapDisplay() == MapDisplay.NORMAL) {
-						positionAnchor++;
+					if(Main.game.isInSex()) {
+						dialogueTitle = UtilText.parse(node.getLabel());
 					}
 					
-					pastDialogueSB.append(UtilText.parse(
-							"<hr id='position" + positionAnchor + "'><p class='option-disabled'>&gt " + currentDialogueNode.getLabel() + "</p>" + content
-							+ (response.getQuestLine() != null ? Main.game.getPlayer().incrementQuest(response.getQuestLine()) : "")));
+
+					if(node.isDispalysActionTitleOnContinuesDialogue()) {
+						if (currentDialogueNode.getMapDisplay() == MapDisplay.NORMAL) {
+							positionAnchor++;
+						}
+						
+						pastDialogueSB.append(UtilText.parse("<hr id='position" + positionAnchor + "'><p class='option-disabled'>&gt " + currentDialogueNode.getLabel() + "</p>"));
+					}
+					
+					pastDialogueSB.append(content
+							+ (response.getQuestLine() != null ? Main.game.getPlayer().incrementQuest(response.getQuestLine()) : ""));
 				}
 			} else {
 				dialogueTitle = UtilText.parse(node.getLabel());

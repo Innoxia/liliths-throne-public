@@ -130,11 +130,6 @@ public enum Dominion implements PlaceInterface {
 		}
 
 		@Override
-		public boolean isItemsDisappear() {
-			return false;
-		}
-
-		@Override
 		public WorldType getLinkedWorldType() {
 			return WorldType.LILAYAS_HOUSE_GROUND_FLOOR;
 		}

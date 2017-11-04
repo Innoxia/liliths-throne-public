@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.dialogue.utils;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -38,6 +40,10 @@ public class MiscDialogue {
 	private static StringBuilder descriptionSB = new StringBuilder();
 	private static StringBuilder miscDialogueSB = new StringBuilder();
 	private static int dayNumber = 1;
+	private static DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+	static {
+		decimalFormat.setRoundingMode(RoundingMode.HALF_EVEN);
+	}
 	
 	public static DialogueNodeOld getSlaveryOverviewDialogue() {
 		dayNumber = Main.game.getDayNumber();
@@ -490,10 +496,12 @@ public class MiscDialogue {
 							+ i+"/"+place.getCapacity()
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
-							+ "<span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")+affectionChange+"</span>/hour"
+							+ "<span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
+								+decimalFormat.format(affectionChange)+"</span>/hour"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
-							+ "<span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")+obedienceChange+"</span>/hour"
+							+ "<span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
+								+decimalFormat.format(obedienceChange)+"</span>/hour"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ (disabled
@@ -627,10 +635,12 @@ public class MiscDialogue {
 								+ i+"/"+place.getCapacity()
 							+"</div>"
 							+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
-								+ "<span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")+affectionChange+"</span>/day"
+								+ "<span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
+									+decimalFormat.format(affectionChange)+"</span>/day"
 							+"</div>"
 							+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
-								+ "<span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")+obedienceChange+"</span>/day"
+								+ "<span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
+									+decimalFormat.format(obedienceChange)+"</span>/day"
 							+"</div>"
 							+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 								+ (place.getUpkeep()>0
@@ -753,16 +763,16 @@ public class MiscDialogue {
 						+ "</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ (affectionChange>0
-									?"<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>+"+affectionChange+ "</b>/day"
+									?"<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>+"+decimalFormat.format(affectionChange)+ "</b>/day"
 									:(affectionChange<0
-											?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+affectionChange+ "</b>/day"
+											?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+decimalFormat.format(affectionChange)+ "</b>/day"
 											:"[style.colourDisabled(0)]/day"))
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ (obedienceChange>0
-									?"<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>+"+obedienceChange+ "</b>/day"
+									?"<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>+"+decimalFormat.format(obedienceChange)+ "</b>/day"
 									:(obedienceChange<0
-											?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+obedienceChange+ "</b>/day"
+											?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+decimalFormat.format(obedienceChange)+ "</b>/day"
 											:"[style.colourDisabled(0)]/day"))
 						+"</div>"
 						+ "<div style='float:left; width:10%; margin:0; padding:0;'>"
@@ -1004,13 +1014,15 @@ public class MiscDialogue {
 						+ "</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ "<b style='color:"+affection.getColour().toWebHexString()+";'>"+slave.getAffection(Main.game.getPlayer())+ "</b>"
-							+ "</br><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")+affectionChange+"</span>/day"
+							+ "</br><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
+								+decimalFormat.format(affectionChange)+"</span>/day"
 							+ "</br>"
 							+ "<span style='color:"+affection.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(affection.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+slave.getObedienceValue()+ "</b>"
-							+ "</br><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")+obedienceChange+"</span>/day"
+							+ "</br><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
+								+decimalFormat.format(obedienceChange)+"</span>/day"
 							+ "</br>"
 							+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
 						+"</div>"
@@ -1137,13 +1149,15 @@ public class MiscDialogue {
 						+ "</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ "<b style='color:"+affection.getColour().toWebHexString()+";'>"+character.getAffection(Main.game.getPlayer())+ "</b>"
-							+ "</br><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")+affectionChange+"</span>/day"
+							+ "</br><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
+								+decimalFormat.format(affectionChange)+"</span>/day"
 							+ "</br>"
 							+ "<span style='color:"+affection.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(affection.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+character.getObedienceValue()+ "</b>"
-							+ "</br><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")+obedienceChange+"</span>/day"
+							+ "</br><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
+								+decimalFormat.format(obedienceChange)+"</span>/day"
 							+ "</br>"
 							+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
 						+"</div>"
@@ -1324,16 +1338,16 @@ public class MiscDialogue {
 							+"</div>"
 							+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 								+ (affectionChange>0
-										?"<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>+"+affectionChange+ "</b>"
+										?"<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>+"+decimalFormat.format(affectionChange)+ "</b>"
 										:(affectionChange<0
-												?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+affectionChange+ "</b>"
+												?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+decimalFormat.format(affectionChange)+ "</b>"
 												:"[style.colourDisabled(0)]"))+"/hour"
 							+"</div>"
 							+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 								+ (obedienceChange>0
-										?"<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>+"+obedienceChange+ "</b>"
+										?"<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>+"+decimalFormat.format(obedienceChange)+ "</b>"
 										:(obedienceChange<0
-												?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+obedienceChange+ "</b>"
+												?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+decimalFormat.format(obedienceChange)+ "</b>"
 												:"[style.colourDisabled(0)]"))+"/hour"
 							+"</div>"
 							+ "<div style='float:left; width:35%; margin:0; padding:0;'>"

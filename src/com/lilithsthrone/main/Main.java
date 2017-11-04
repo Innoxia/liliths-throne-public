@@ -46,7 +46,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.1.87.7
+ * @version 0.1.88
  * @author Innoxia
  */
 public class Main extends Application {
@@ -60,7 +60,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.87.7",
+	public static final String VERSION_NUMBER = "0.1.88",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -76,16 +76,18 @@ public class Main extends Application {
 		+"<p><b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Important information:</b> <i>If you don't see a mini-map in the bottom-left corner of the screen after starting the game, please update your java!</i></p>"
 		
 		+ "<p>"
-			+ "Happy Halloween! :3"
+			+ "Hello once again everyone! :3"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I wanted everyone to see the witches in time for Halloween, so I decided to make this mini-release a few days before the main release of 0.1.88 on Friday. :3"
+			+ "I've been silly once again... I gave myself less goals for this version, so I thought 'I'll add in Halloween content as I have so much extra time!'."
+			+ " The Halloween content then took up most of the time I had over these last two weeks, leaving me with 3 days to get v0.1.88's goals done..."
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I still have three full days in which to work on the full release, so I'm still very confident that I'll be able to add in all of the content needed to reach my goals from my blog/patreon post last Monday."
-			+ " I'll definitely be able to get it all done in time! :3"
+			+ "I've done as much as I could, but I didn't manage to get a lot of things I'd planned finished."
+			+ " I've learned from my mistake, and I promise that I'm not going to give myself any 'extra hidden goals' next week."
+			+ " I'll therefore be able to get everything from 0.1.88 finished off, as well as getting progress done on 0.1.89 done for the next public release. ;_;"
 		+ "</p>"
 		
 		+ "<p>"
@@ -100,103 +102,55 @@ public class Main extends Application {
 
 		+ "<list>"
 		
-			+ "<h6>Preview (v0.1.87.5)</h6>"
+			+ "<h6>v0.1.88</h6>"
 			
 			+"<li>Gameplay:</li>"
-			+"<ul><b>Added:</b> Witch event. While travelling through the streets of Dominion, if the in-game month is October, then there's a small chance of a witch encounter. (Once there are 4 witches on the map, more witches will not spawn.)</ul>"
-			+"<ul>Changed generic 'Day x' counter to an actual in-game date. I decided to change this so that I could detect and deliver special events based on month/date. (Such as the Halloween content only appearing in October.)</ul>"
-			+"<ul>Added calendar to your room, along with some dialogue from Lilaya after you've inspected it, as well as some lore information about October.</ul>"
-			
-			+"<li>UI:</li>"
-			+"<ul>Very slightly changed the UI to fit in date & time.</ul>"
-			
-			+"<li>Weapons:</li>"
-			+"<ul><b>Added:</b> Witch's Broom (Main slot, 2 new spells).</ul>"
-			
-			+"<li>Clothing:</li>"
-			+"<ul><b>Added:</b> Witch's Dress (Feminine, Torso slot).</ul>"
-			+"<ul><b>Added:</b> Witch's Hat (Feminine, Head slot).</ul>"
-			+"<ul><b>Added:</b> Witch's Boots (Feminine, Foot slot).</ul>"
-			+"<ul><b>Added:</b> Witch's Thigh-high Boots (Feminine, Foot slot).</ul>"
-			
-			+"<li>Items:</li>"
-			+"<ul><b>Added:</b> Mystery Kink. A consumable that adds or removes a random fetish from the drinker. Can be enchanted into 'Fetish Endowment'. (Sold by Ralph, or a small chance of being dropped by random enemies.)</ul>"
-			
+			+"<ul><b>Added:</b> Fluid addiction mechanics. Ingesting addictive fluid will increase your 'addiction level'; no negative effects are incurred if you keep satisfying your addiction, but if you go more than 24 hours without a 'fix', you'll start experiencing withdrawal symptoms.</ul>"
+			+"<ul>Addictive fluids only work for cum at the moment, and don't have many unique lines of dialogue, but I'll add in addictive milk & girlcum, as well as dialogue, for the next release!</ul>"
+			+"<ul>Increased inventory capacity from 24 to 32. (The inventory screen might get a little laggy when full, but I have a fix planned for this, which I'll try and implement for the next version.)</ul>"
+				
 			+"<li>Sex:</li>"
-			+"<ul>Added descriptions for all already-exposed orifices to the start of sex.</ul>"
-			+"<ul>Improved consensual sex detection methods, so all NPCs should now be behaving like they were prior to 0.1.86. (I.e. not ending/taking control of sex when they're the sub.)</ul>"
-			
-			+"<li>Sex AI:</li>"
-			+"<ul>NPCs now prefer to displace clothing rather than removing it entirely.</ul>"
-			+"<ul>Based on their fetishes, NPCs will now generate a preferred SexType and position for 'foreplay' and 'main sex' stages of sex. (Foreplay is currently defined as partner's arousal being less than 25.)</ul>"
-			+"<ul>They will use their preferred SexType to determine clothing removal and action decision-making. (In an attempt to make sex less random.)</ul>"
-			+"<ul>The alleyway succubus should now actually do as she says, and prioritise penetrating your vagina/ass.</ul>"
-			
+			+"<ul><b>Restructured:</b> Action menu during sex. Actions are now assigned to one of four sub-menus, in an attempt to tidy up the unwieldy mess of actions.</ul>"
+			+"<ul>Created a new category of sex actions for your response to incoming partner orgasms. Moved 'Ask for creampie' and 'Ask for pullout' to this new category.</ul>"
+			+"<ul>Removed the 'Use item' action, as for the last several versions you've been able to just open your inventory in sex instead.</ul>"
+			+"<ul>Added 'Repeat action' where 'Use item' used to be.</ul>"
+			+"<ul>Very slightly reduced the base arousal increase values per turn, to compensate for the arousal gains caused by fixing ongoing-actions applying arousal increases to both partners.</ul>"
+			+"<ul>Added: Spread pussy action for both player & partner.</ul>"
+			+"<ul>Added an action for NPCs to lubricate their fingers with saliva. (This won't result in the old bug of partners continuously self-sucking their fingers; they will only use this action to lubricate their fingers if they intend on fingering you.)</ul>"
+			+"<ul>Added: Breast kissing action for both player & partner. (Nipple sucking to come soon.)</ul>"
+			+"<ul>Having a request for a different position in sex no longer blocks you from requesting positions again.</ul>"
+			+"<ul>Improved the AI's decision making and reaction to requests. They *should* now perform penetrative actions they otherwise wouldn't have if you've requested them to use a certain orifice.</ul>"
+				
+			+"<li>Clothing & Items:</li>"
+			+"<ul>Added: Condom belt. (No femininity requirements, hip slot.) I'll add functionality to increase inventory capacity while wearing this in the future; I ran out of time to implement it for this version.</ul>"
+			+"<ul>Improved 'Used condom' item to keep track of colour, cum, and cum's owner.</ul>"
+			+"<ul>Added: Angel's Nectar (an addiction-curing potion).</ul>"
+				
 			+"<li>Other:</li>"
-			+"<ul>Added 'orange' to makeup colours.</ul>"
-			+"<ul>Increased the amount of essences dropped after combat, and doubled the amount gained from orgasms.</ul>"
-			+"<ul>Updated a lot of old parsing methods, which should have fixed several minor parsing errors.</ul>"
-			+"<ul>Tweaked NPCs' race preference chances for forced TF.</ul>"
-			
+			+"<ul>Improved debug menu's clothing/weapons/items spawn system.</ul>"
+			+"<ul>Adjusted all bottled essence rarities.</ul>"
+			+"<ul>Improved clothing displacement detection, which, for example, should now allow you to shift aside your underwear after unzipping your trousers.</ul>"
+			+"<ul>Brax's forced TF now affects your body size, muscle, hip size, and ass size.</ul>"
+			+"<ul>Changed small-size penis descriptors from 'microscopic'->'tiny'->'average' to 'tiny'->'small'->'average'.</ul>"
+			+"<ul>Pantyhose and arm-length gloves are no longer restricted to only black and white color variety.</ul>"
+			+"<ul>Added grey colour to hair and fur.</ul>"
+			+"<ul>Changed harpy hand descriptions from being a single opposable thumb to having two forefingers as well.</ul>"
+			+"<ul>Phone menu is now disabled in character creation menus.</ul>"
+			+"<ul>Slightly improved condom-drinking descriptions.</ul>"
+				
 			+"<li>Bugs:</li>"
-			+"<ul>Fixed more issues with older character imports.</ul>"
-			+"<ul>Fixed the text field for changing a slave's name in the jobs and permissions screens accepting hotkey input.</ul>"
-			+"<ul>Fixed watch hands not rendering (again).</ul>"
-			+"<ul>Fixed several errors in parsing an NPC's transformations.</ul>"
-			+"<ul>Fixed crash when trying to get a succubus to equip a condom.</ul>"
-			+"<ul>Removed duplicate corruption gain messages in sex.</ul>"
-			+"<ul>You can no longer unequip an NPC's weapon during sex. (To fix a cause of some bugs until I can implement proper behaviour.)</ul>"
-		+ "</list>"
-		
-	+ "</br>"
-
-	+ "<list>"
-	
-		+ "<h6>Halloween Early Release (v0.1.87.7)</h6>"
-		
+			+"<ul>Fixed incorrect sex count stat iteration and post-orgasm arcane essence gain text (contributed by Rfpnj).</ul>"
+			+"<ul>Minor typo fixes.</ul>"
+			+"<ul>You no longer have to provide a surname when changing your name at City Hall.</ul>"
+			+"<ul>Characters imported from versions prior to 0.1.86.5 should now no longer start with every fetish, and will spawn with basic clothing.</ul>"
+			+"<ul>Fixed offspring introduction dialogue assuming that you were the mother, even if you were the father.</ul>"
+			+"<ul>Dialogue title now correctly updates during sex to show you what position you're currently in.</ul>"
+			+"<ul>Fixed strange floating point number rounding in slave management windows.</ul>"
+			+"<ul>Fixed incorrect descriptions of clothing replacement.</ul>"
+			+"<ul>Fixed bug where clothing coupldn't be equipped/removed even if access was available.</ul>"
+			+"<ul>Fixed game freeze upon reaching 7 orgasms in sex.</ul>"
+			+"<ul>NPCs should now be able to spawn in with androgynous bodies.</ul>"
 			
-		+"<li>Gameplay:</li>"
-		+"<ul><b>Temporarily</b> made new games start 1 week earlier than your system's calendar date, so that there's a week in-game in which to discover witches. I'll add in a starting date selection option as soon as I can.</ul>"
-		+"<ul>Added basic transformative effects to events for slaves with feminine and masculine testing permissions enabled while working as a test subject. (Will be improved upon for Friday.)</ul>"
-		+"<ul>Added in 'slave uses you' random encounter while walking the corridors of Lilaya's house. If a slave is allowed to walk around Lilaya's house, has the 'Use you' permission enabled, is attracted to you, and is not at work, there's a chance they will ambush you and have sex with you.</ul>"
-		+"<ul>Slaves who are not allowed to masturbate or have sex will get 'pent-up' after 24-hours, and will be far more likely to use you if they have that permission enabled.</ul>"
-			
-		+"<li>Sex:</li>"
-		+"<ul><b>Added:</b> Anilingus actions. They're only available in the 69 and witch's oral positions for now, but I'll add more as soon as I can! :3</ul>"
-		+"<ul>Split the witch's sex position up into an oral and sex version. (To avoid those crazy oral+sex combinations.)</ul>"
-		+"<ul>Added arousal increases for the penetrating partner as well as the penetrated partner for all sex status effects.</ul>"
-		+"<ul>Added status effect during sex for breasts.</ul>"
-			
-		+"<li>Other:</li>"
-		+"<ul>Added a calendar toggle button next to the date, which allows you to switch the display between the in-game calendar's date and the number of in-game days that you've played.</ul>"
-		+"<ul>Offspring gender and furryness now take into account your preferences.</ul>"
-		+"<ul>Witches now deny your requests when they're the one in charge.</ul>"
-		+"<ul>The 'Overworked' status effect for slaves now reduces affection towards you by 0.1 for each hour that they're at work.</ul>"
-		+"<ul>Changed witches from having random fetishes to having ones suitable for their actions.</ul>"
-		+"<ul>Witch's costume gained after beating a witch should now be the same colour as her costume.</ul>"
-			
-		+"<li>Bugs:</li>"
-		+"<ul>Fixed bug related to HP/WP/SP values gained from background selection not being calculated correctly. (The stats are now being added to bonus stats, until I do the planned improvements to the combat & stats system.)</ul>"
-		+"<ul>Fixed witch's penis disappearing after the first time you had sex with her.</ul>"
-		+"<ul>Added 'Seeder' to the list of available fetishes for enchanting onto the Fetish Endowment Potion.</ul>"
-		+"<ul>Fixed Ralph's 'Big discount' action sometimes bugging out and causing him to do nothing if his arousal wasn't high enough.</ul>"
-		+"<ul>Fixed bug where orifices wouldn't be stretched after sex.</ul>"
-		+"<ul>Alleyway succubus should now really be fixed! (They were still pushing you into unwanted positions...)</ul>"
-		+"<ul>Removing one of the prerequisites for a derived fetish (e.g. virgin fetish for lusty maiden) will now correctly remove the derived fetish.</ul>"
-		+"<ul>Fixed strange formatting when drinking a 'Fetish Enhancement' potion that contains multiple effects.</ul>"
-		+"<ul>Dominant partners should now attempt to gain access to both their and the player's genitals during sex. If, however, they have a certain preference (such as receiving oral), they will only get access to the parts they need (such as the player's mouth and their own groin).</ul>"
-		+"<ul>Changed femininity-based horn types to a femininity detection system, which should have fixed several issues with forced horn TFs, as well as making horn TF potions simpler.</ul>"
-		+"<ul>Fixed sex bug where some NPCs would incorrectly be able to end sex early (such as slaves).</ul>"
-		+"<ul>Fixed several other actions not showing up in sex scenes where they should have been.</ul>"
-		+"<ul>Fixed bug where submissive NPCs in certain sex scenes would be able to stop penetrative actions.</ul>"
-		+"<ul>Added fetish potions to the items usable on generic NPCs during sex.</ul>"
-		+"<ul>Fixed possible cause of the bug that was setting offspring's height to the minimum value.</ul>"
-		+"<ul>Month names *should* now be displaying in English rather than using your system's locale.</ul>"
-		+"<ul>Removed 'normal-sized' from lip descriptors during sex.</ul>"
-		+"<ul>Minor typo fixes.</ul>"
-		+"<ul>Fixed bug where witches change into random clothing if you unequipped their clothes.</ul>"
-		+"<ul>Fixed bug where NPCs would sometimes get stuck on not being able to remove your clothing properly.</ul>"
-		+"<ul>Forced transformations should no longer change your penis/vagina type if you have the preference set to 'Human only' or 'Minimum furry'. (They will still make you grow new genitalia if they desire them, but will not change the types of any pre-existing genitalia.)</ul>"
 		+"</list>"
 		;
 	

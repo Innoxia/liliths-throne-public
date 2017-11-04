@@ -10,6 +10,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.utils.Util;
@@ -17,10 +18,58 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
- * @version 0.1.79
+ * @version 0.1.88
  * @author Innoxia
  */
 public class PartnerSelfFingerVagina {
+	
+	public static final SexAction PARTNER_SELF_FINGER_VAGINA_SPREAD_PUSSY = new SexAction(
+			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ONE_VANILLA,
+			PenetrationType.FINGER_PARTNER,
+			OrificeType.VAGINA_PARTNER) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexPacePartner()!=SexPace.SUB_RESISTING;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Spread pussy";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Use your [npc.fingers] to spread your pussy.";
+		}
+
+		@Override
+		public String getDescription() {
+			if(Sex.getPosition() == SexPosition.DOGGY_PLAYER_ON_ALL_FOURS || Sex.getPosition() == SexPosition.DOGGY_PLAYER_ON_ALL_FOURS) {
+				return (UtilText.returnStringAtRandom(
+						"Reaching back between [npc.her] [npc.legs], [npc.name] teases [npc.her] [npc.fingers] over the entrance to [npc.her] [npc.pussy+],"
+								+ " before letting out [npc.a_moan+] as [npc.she] uses [npc.her] digits to spread out [npc.her] labia for you.",
+						"[npc.Name] probes [npc.her] [npc.fingers] back between [npc.her] [npc.legs], moaning softly as [npc.she] uses two of [npc.her] digits to invitingly spread out [npc.her] [npc.pussy+] and present [npc.herself] to you.",
+						"Sliding [npc.her] fingertips over [npc.her] [npc.pussy+], [npc.name] lets out [npc.a_moan+] as [npc.she] shakes [npc.her] ass a little, before using [npc.her] digits to spread out [npc.her] pussy lips.",
+						"[npc.Name] eagerly slides [npc.her] [npc.fingers] over [npc.her] needy [npc.pussy], [npc.moaning+] as [npc.she] uses [npc.her] digits to part [npc.her] soft folds and present [npc.herself] for penetration."));
+			} else {
+				return (UtilText.returnStringAtRandom(
+						"Reaching down between [npc.her] [npc.legs], [npc.name] teases [npc.her] [npc.fingers] over the entrance to [npc.her] [npc.pussy+],"
+								+ " before letting out [npc.a_moan+] as [npc.she] uses [npc.her] digits to spread out [npc.her] labia.",
+						"[npc.Name] probes [npc.her] [npc.fingers] down between [npc.her] [npc.legs], moaning softly as [npc.she] uses two of [npc.her] digits to invitingly spread out [npc.her] [npc.pussy+].",
+						"Sliding [npc.her] fingertips over [npc.her] [npc.pussy+], [npc.name] lets out [npc.a_moan+] as [npc.she] uses [npc.her] digits to spread out [npc.her] pussy lips.",
+						"[npc.Name] eagerly slides [npc.her] [npc.fingers] over [npc.her] needy [npc.pussy], [npc.moaning+] as [npc.she] uses [npc.her] digits to part [npc.her] soft folds and present [npc.herself] for penetration."));
+			}
+		}
+		
+		@Override
+		public List<Fetish> getFetishesPartner() {
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
+		}
+	};
 	
 	public static final SexAction PARTNER_SELF_FINGER_VAGINA_PENETRATION = new SexAction(
 			SexActionType.PARTNER_PENETRATION,

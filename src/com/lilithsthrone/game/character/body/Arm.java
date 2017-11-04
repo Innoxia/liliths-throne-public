@@ -226,9 +226,8 @@ public class Arm implements BodyPartInterface, Serializable {
 								" Within a matter of moments, a layer of [pc.armFullDescription] quickly sprout out all over them, and, looking down, you see your feathers growing over the backs of your hands as well."
 								+ " Just as you think that the transformation has finished, you cry out in shock as you feel your bones growing and snapping into a new form."
 								+ " Thankfully, the transformation is quickly over, leaving you with a pair of huge, feathered wings in place of arms."
-								+ " Where your hands once were, your fingers have shrunk down into the middle-joint of your new appendages."
-								+ " All that's left is a feathered opposable thumb, which ends in a blunt claw."
-								+ " By folding your wings back onto themselves, you can thankfully still use your thumb to grasp and manipulate objects."
+								+ " Where your hands once were, your outer two fingers have shrunk down into the middle-joint of your new appendages, leaving you with two feathered forefingers and an opposable thumb,"
+									+ " each of which ends in a blunt claw."
 								+ " Where your new wings meet your body at the shoulder, your feathers smoothly cover the transition into the [pc.skin] that's covering the rest of your torso.</br>"
 								+ "You now have huge [style.boldHarpy(harpy wings)] in place of arms, which are covered in [pc.armFullDescription]."
 							+ "</p>");
@@ -237,9 +236,8 @@ public class Arm implements BodyPartInterface, Serializable {
 								" Within a matter of moments, a layer of [npc.armFullDescription] quickly sprout out all over them, and, looking down, [npc.she] sees [npc.her] feathers growing over the backs of [npc.her] hands as well."
 								+ " Just as [npc.she] thinks that the transformation has finished, [npc.she] cries out in shock as [npc.her] bones grow and snap into a new form."
 								+ " Thankfully for [npc.herHim], the transformation is quickly over, leaving [npc.herHim] with a pair of huge, feathered wings in place of arms."
-								+ " Where [npc.her] hands once were, [npc.her] fingers have shrunk down into the middle-joint of [npc.her] appendages."
-								+ " All that's left is a feathered opposable thumb, which ends in a blunt claw."
-								+ " By folding [npc.her] wings back onto themselves, [npc.she] can thankfully still use [npc.her] thumb to grasp and manipulate objects."
+								+ " Where [npc.her] hands once were, [npc.her] outer two fingers have shrunk down into the middle-joint of [npc.her] appendages, leaving [npc.herHim] with two feathered forefingers and an opposable thumb,"
+									+ " each of which ends in a blunt claw."
 								+ " Where [npc.her] new wings meet [npc.her] body at the shoulder, [npc.her] feathers smoothly cover the transition into the [npc.skin] that's covering the rest of [npc.her] torso.</br>"
 								+ "[npc.Name] now has huge [style.boldHarpy(harpy wings)] in place of arms, which are covered in [npc.armFullDescription]."
 							+ "</p>");

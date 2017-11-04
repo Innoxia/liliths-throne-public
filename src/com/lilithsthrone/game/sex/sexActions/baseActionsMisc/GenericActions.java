@@ -102,7 +102,7 @@ public class GenericActions {
 			null) {
 		@Override
 		public String getActionTitle() {
-			return "Forbid partner self actions";
+			return "Forbid self actions";
 		}
 
 		@Override
@@ -185,7 +185,7 @@ public class GenericActions {
 			null) {
 		@Override
 		public String getActionTitle() {
-			return "Permit partner self actions";
+			return "Permit self actions";
 		}
 
 		@Override

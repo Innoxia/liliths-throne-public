@@ -886,7 +886,7 @@ public class GenericPositioning {
 				
 			}
 			
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -933,7 +933,7 @@ public class GenericPositioning {
 			Sex.setSexManager(new SMSubFaceToWall());
 			
 			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -976,7 +976,7 @@ public class GenericPositioning {
 			Sex.setSexManager(new SMSubBackToWall());
 
 			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1021,7 +1021,7 @@ public class GenericPositioning {
 			Sex.setSexManager(new SMSubDoggy());
 			
 			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1065,7 +1065,7 @@ public class GenericPositioning {
 			Sex.setSexManager(new SMSubSelfDoggy());
 			
 			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1108,7 +1108,7 @@ public class GenericPositioning {
 			Sex.setSexManager(new SMSubKneeling());
 			
 			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1151,7 +1151,7 @@ public class GenericPositioning {
 			Sex.setSexManager(new SMSubSelfKneeling());
 			
 			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1196,7 +1196,7 @@ public class GenericPositioning {
 			Sex.setSexManager(new SMSubSixtyNine());
 
 			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1240,7 +1240,7 @@ public class GenericPositioning {
 			Sex.setSexManager(new SMSubCowgirl());
 
 			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};

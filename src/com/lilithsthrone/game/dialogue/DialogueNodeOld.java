@@ -67,6 +67,10 @@ public abstract class DialogueNodeOld implements Serializable {
 	public boolean isContinuesDialogue() {
 		return continuesDialogue;
 	}
+	
+	public boolean isDispalysActionTitleOnContinuesDialogue() {
+		return true;
+	}
 
 	public boolean isNoTextForContinuesDialogue() {
 		return false;

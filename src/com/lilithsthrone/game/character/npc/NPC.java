@@ -1130,6 +1130,7 @@ public abstract class NPC extends GameCharacter {
 			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.BREAST_PLAYER));
 			foreplaySexTypes.add(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.NIPPLE_PLAYER));
 			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.NIPPLE_PLAYER));
+			foreplaySexTypes.add(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.BREAST_PLAYER));
 			
 			mainSexTypes.add(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.BREAST_PLAYER));
 			mainSexTypes.add(new SexType(PenetrationType.TAIL_PARTNER, OrificeType.BREAST_PLAYER));
@@ -1141,6 +1142,7 @@ public abstract class NPC extends GameCharacter {
 			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.BREAST_PARTNER));
 			foreplaySexTypes.add(new SexType(PenetrationType.FINGER_PLAYER, OrificeType.NIPPLE_PARTNER));
 			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.NIPPLE_PARTNER));
+			foreplaySexTypes.add(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.BREAST_PARTNER));
 
 			mainSexTypes.add(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.BREAST_PARTNER));
 			mainSexTypes.add(new SexType(PenetrationType.TAIL_PLAYER, OrificeType.BREAST_PARTNER));
@@ -1361,11 +1363,14 @@ public abstract class NPC extends GameCharacter {
 				} else if(foreplayPreference.getOrificeType()==OrificeType.ANUS_PLAYER){
 					sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
 					
-				} else {
-					sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
+				} else if(foreplayPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.BREAST_PARTNER))
+						|| foreplayPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.NIPPLE_PARTNER))) {
+					sexPositionPreferences.add(SexPosition.KNEELING_PARTNER_PERFORMING_ORAL);
+					
 				}
 				
-			} else { // If no preferences found, add 'standard' positions:
+			} 
+			if(sexPositionPreferences.isEmpty()){ // If no preferences found, add 'standard' positions:
 				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
 				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
 				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
@@ -1396,10 +1401,12 @@ public abstract class NPC extends GameCharacter {
 					
 				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER))) {
 					sexPositionPreferences.add(SexPosition.COWGIRL_PARTNER_TOP);
+					sexPositionPreferences.add(SexPosition.DOGGY_PARTNER_AS_DOM_ON_ALL_FOURS);
 					
 				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER))) {
 					sexPositionPreferences.add(SexPosition.COWGIRL_PARTNER_TOP);
 					sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
+					sexPositionPreferences.add(SexPosition.DOGGY_PARTNER_AS_DOM_ON_ALL_FOURS);
 					
 				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.BREAST_PARTNER))
 						|| mainSexPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.NIPPLE_PARTNER))) {
@@ -1410,7 +1417,8 @@ public abstract class NPC extends GameCharacter {
 					sexPositionPreferences.add(SexPosition.KNEELING_PLAYER_PERFORMING_ORAL);
 				}
 				
-			} else { // If no preferences found, add 'standard' positions:
+			}
+			if(sexPositionPreferences.isEmpty()){ // If no preferences found, add 'standard' positions:
 				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
 				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
 				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
@@ -1420,10 +1428,6 @@ public abstract class NPC extends GameCharacter {
 			}
 		}
 		
-//		System.out.println("Positions: ");
-//		for(SexPosition position : sexPositionPreferences) {
-//			System.out.println(position.toString()+" ");
-//		}
 		return sexPositionPreferences;
 	}
 	

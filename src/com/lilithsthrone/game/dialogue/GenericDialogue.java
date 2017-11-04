@@ -2,7 +2,6 @@ package com.lilithsthrone.game.dialogue;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -24,6 +23,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.ParserCommand;
 import com.lilithsthrone.game.dialogue.utils.ParserTarget;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -40,7 +40,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.69.9
+ * @version 0.1.88
  * @author Innoxia
  */
 public class GenericDialogue {
@@ -149,13 +149,7 @@ public class GenericDialogue {
 				};
 				
 			} else if (index == 7) {
-				return new Response("Clothing", "View the clothing spawn menu.", SPAWN_CLOTHING_MENU);
-				
-			} else if (index == 8) {
-				return new Response("Items", "View the item spawn menu.", SPAWN_ITEM_MENU);
-				
-			} else if (index == 9) {
-				return new Response("Weapons", "View the weapon spawn menu.", SPAWN_WEAPON_MENU);
+				return new Response("Spawn Menu", "View the clothing, weapon, and item spawn menu.", SPAWN_MENU);
 				
 			} else if (index == 10) {
 				return new Response("Brax's revenge", "Brax gets you pregnant! (If you have 0 fertility, this will probably crash the game!)", DEBUG_MENU){
@@ -315,7 +309,9 @@ public class GenericDialogue {
 				for(Fetish f : activeOffspring.getFetishes()) {
 					UtilText.nodeContentSB.append("</br>[style.boldSex(Fetish:)] "+f.getName(activeOffspring));
 				}
-				UtilText.nodeContentSB.append("</br>" + activeOffspring.getBodyDescription());
+				UtilText.nodeContentSB.append(
+						"</br>" + activeOffspring.getDescription()
+						+"</br>" + activeOffspring.getBodyDescription());
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -342,101 +338,103 @@ public class GenericDialogue {
 		}
 	};
 	
-	private static List<AbstractClothingType> clothingTotal = new ArrayList<>();
+	public static List<AbstractClothingType> clothingTotal = new ArrayList<>();
+	public static InventorySlot activeSlot = null;
+	public static int spawnCount = 1;
 	static {
 		for (AbstractClothingType c : ClothingType.getAllClothing())
 			clothingTotal.add(c);
 	}
-	public static final DialogueNodeOld SPAWN_CLOTHING_MENU = new DialogueNodeOld("Spawn clothing on the floor", "Spawn clothing on the floor.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Spawn clothing.";
-		}
-		
-		@Override
-		public Response getResponse(int index) {
-			if (index != 0 && index <= clothingTotal.size()) {
-				return new Response(clothingTotal.get(index - 1).getName(), "", SPAWN_CLOTHING_MENU){
-					@Override
-					public void effects() {
-						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(AbstractClothingType.generateClothing(clothingTotal.get(index - 1)));
-						Main.game.getTextEndStringBuilder().append("<b>Spawned " + clothingTotal.get(index - 1).getName() + "!</b>");
-						
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Back", "", DEBUG_MENU);
-				
-			} else {
-				return null;
-			}
-		}
-	};
-
-	private static List<AbstractWeaponType> weaponsTotal = new ArrayList<>();
+	public static List<AbstractWeaponType> weaponsTotal = new ArrayList<>();
 	static {
 		for (AbstractWeaponType c : WeaponType.allweapons) {
 			weaponsTotal.add(c);
 		}
 	}
-	public static final DialogueNodeOld SPAWN_WEAPON_MENU = new DialogueNodeOld("Spawn weapons on the floor", "Spawn weapons on the floor.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "Spawn weapon.";
-		}
-		
-		@Override
-		public Response getResponse(int index) {
-			 if (index == 0) {
-					return new Response("Back", "", DEBUG_MENU);
-					
-			} else if (index-1 < weaponsTotal.size()) {
-				return new Response(weaponsTotal.get(index - 1).getName(), "", SPAWN_WEAPON_MENU){
-					@Override
-					public void effects() {
-						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(AbstractWeaponType.generateWeapon(weaponsTotal.get(index - 1)));
-						Main.game.getTextEndStringBuilder().append("<b>Spawned " + weaponsTotal.get(index - 1).getName() + "!</b>");
-						
-					}
-				};
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	private static List<AbstractItemType> itemsTotal = new ArrayList<>();
+	public static List<AbstractItemType> itemsTotal = new ArrayList<>();
 	static {
 		for (AbstractItemType c : ItemType.allItems)
 			itemsTotal.add(c);
 	}
-	public static final DialogueNodeOld SPAWN_ITEM_MENU = new DialogueNodeOld("Spawn items on the floor", "Spawn items on the floor.", false) {
+	private static StringBuilder inventorySB = new StringBuilder();
+	public static final DialogueNodeOld SPAWN_MENU = new DialogueNodeOld("Spawn Menu", "Access the spawn menu.", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public String getHeaderContent() {
+			inventorySB.setLength(0);
+			
+			inventorySB.append("<div class='container-half-width'>");
+
+			inventorySB.append(
+					"<p style='width:100%; text-align:center; padding:0 margin:0;'>"
+						+ (activeSlot==null ?
+								"<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Spawn Item</b>"
+								:(activeSlot == InventorySlot.WEAPON_MAIN || activeSlot == InventorySlot.WEAPON_OFFHAND
+									? "<b style='color:"+Colour.BASE_RED_LIGHT.toWebHexString()+";'>Spawn Weapon</b> ("+Util.capitaliseSentence(activeSlot.getName())+")"
+									: "<b style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>Spawn Clothing</b> ("+Util.capitaliseSentence(activeSlot.getName())+")"))
+					+"</p>");
+			
+			int count=0;
+			inventorySB.append("<div class='inventory-not-equipped'>");
+			if(activeSlot == null) {
+				for(AbstractItemType itemType : itemsTotal) {
+					inventorySB.append("<div class='inventory-item-slot unequipped "+ itemType.getRarity().getName() + "'>"
+											+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
+											+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
+										+ "</div>");
+					count++;
+				}
+				
+			} else if(activeSlot == InventorySlot.WEAPON_MAIN || activeSlot == InventorySlot.WEAPON_OFFHAND) {
+				for(AbstractWeaponType weaponType : weaponsTotal) {
+					if(weaponType.getSlot()==activeSlot) {
+						inventorySB.append("<div class='inventory-item-slot unequipped "+ weaponType.getRarity().getName() + "'>"
+												+ "<div class='inventory-icon-content'>"+weaponType.getSVGStringMap().get(weaponType.getAvailableDamageTypes().get(0))+"</div>"
+												+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
+											+ "</div>");
+						count++;
+					}
+				}
+				
+			} else {
+				for(AbstractClothingType clothingType : clothingTotal) {
+					if(clothingType.getSlot()==activeSlot) {
+						inventorySB.append("<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "'>"
+												+ "<div class='inventory-icon-content'>"+clothingType.getSVGImage(clothingType.getAvailableColours().get(0))+"</div>"
+												+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
+											+ "</div>");
+						count++;
+					}
+				}
+			}
+			
+			// Fill space:
+			for (int i = count; i <48; i++) {
+				inventorySB.append("<div class='inventory-item-slot unequipped'></div>");
+			}
+			inventorySB.append("</div>"
+					+ "</div>");
+			
+			inventorySB.append("<div class='container-half-width'>");
+			for(InventorySlot slot : InventorySlot.values()) {
+				inventorySB.append("<div class='normal-button' id='"+slot+"_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"
+						+ (slot == InventorySlot.WEAPON_MAIN || slot == InventorySlot.WEAPON_OFFHAND ? Colour.BASE_RED_LIGHT.toWebHexString() : Colour.BASE_YELLOW_LIGHT.toWebHexString())+";'>"+Util.capitaliseSentence(slot.getName())+"</div>");
+			}
+			inventorySB.append("<div class='normal-button' id='ITEM_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Items</div>");
+			inventorySB.append("</div>");
+			
+			return inventorySB.toString();
+		}
+		
+		@Override
 		public String getContent() {
-			return "Spawn item.";
+			return "";
 		}
 		
 		@Override
 		public Response getResponse(int index) {
-			if (index != 0 && index < itemsTotal.size()+1) {
-				return new Response(itemsTotal.get(index - 1).getName(false), "", SPAWN_ITEM_MENU){
-					@Override
-					public void effects() {
-						Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(AbstractItemType.generateItem(itemsTotal.get(index - 1)));
-						Main.game.getTextEndStringBuilder().append("<b>Spawned " + itemsTotal.get(index - 1).getName(false) + "!</b>");
-						
-					}
-				};
-				
-			} else if (index == 0) {
+			if (index == 0) {
 				return new Response("Back", "", DEBUG_MENU);
 				
 			} else {

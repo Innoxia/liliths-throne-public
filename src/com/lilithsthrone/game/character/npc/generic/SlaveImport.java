@@ -154,15 +154,32 @@ public class SlaveImport extends NPC {
 		nodes = parentElement.getElementsByTagName("fetishes");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
-			for(int i=0; i<element.getElementsByTagName("fetish").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("fetish").item(i));
-				
-				try {
-					if(Fetish.valueOf(e.getAttribute("type")) != null) {
-						character.addFetish(Fetish.valueOf(e.getAttribute("type")));
-						CharacterUtils.appendToImportLog(log, "</br>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
+			if(element.getElementsByTagName("fetish").item(0)!=null && !((Element)element.getElementsByTagName("fetish").item(0)).getAttribute("value").isEmpty()) {
+				for(int i=0; i<element.getElementsByTagName("fetish").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("fetish").item(i));
+					
+					try {
+						if(Fetish.valueOf(e.getAttribute("type")) != null) {
+							if(Boolean.valueOf(((Element)element.getElementsByTagName("fetish").item(0)).getAttribute("value"))) {
+								character.addFetish(Fetish.valueOf(e.getAttribute("type")));
+								CharacterUtils.appendToImportLog(log, "</br>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
+							}
+						}
+					}catch(IllegalArgumentException ex){
 					}
-				}catch(IllegalArgumentException ex){
+				}
+				
+			} else {
+				for(int i=0; i<element.getElementsByTagName("fetish").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("fetish").item(i));
+					
+					try {
+						if(Fetish.valueOf(e.getAttribute("type")) != null) {
+							character.addFetish(Fetish.valueOf(e.getAttribute("type")));
+							CharacterUtils.appendToImportLog(log, "</br>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
+						}
+					}catch(IllegalArgumentException ex){
+					}
 				}
 			}
 		}

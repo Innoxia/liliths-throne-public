@@ -74,7 +74,7 @@ div {
 
 p{
 	margin:0;
-	padding:8px 0 8px 0;
+	padding:8px;
 }
 
 hr{
@@ -1593,11 +1593,12 @@ position:relative;
 
 .special-text{
 	font-weight:normal;
-	color: #FF9970;
-    text-shadow: 2px 2px 5px #CC3A00;
+    color: #F5A8FF;
+    text-shadow: 2px 2px 5px #8d3193;
 	
-    /*color: #F5A8FF;
-    text-shadow: 2px 2px 5px #8d3193;*/
+	/*HALLOWEEN
+	color: #FF9970;
+    text-shadow: 2px 2px 5px #CC3A00;*/
 }
 
 .option-disabled{

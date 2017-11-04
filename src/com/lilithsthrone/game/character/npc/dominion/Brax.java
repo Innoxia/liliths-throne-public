@@ -27,10 +27,12 @@ import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
+import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
@@ -734,7 +736,18 @@ public class Brax extends NPC {
 						Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK), true);
 						Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE), true);
 						
-						Main.game.getPlayer().setBreastSize(CupSize.E.getMeasurement());
+						if(Main.game.getPlayer().getBreastRawSizeValue()<CupSize.E.getMeasurement()) {
+							Main.game.getPlayer().setBreastSize(CupSize.E.getMeasurement());
+						}
+						if(Main.game.getPlayer().getHipSize().getValue()<HipSize.FOUR_WOMANLY.getValue()) {
+							Main.game.getPlayer().setHipSize(HipSize.FOUR_WOMANLY.getValue());
+						}
+						if(Main.game.getPlayer().getAssSize().getValue()<AssSize.FOUR_LARGE.getValue()) {
+							Main.game.getPlayer().setAssSize(AssSize.FOUR_LARGE.getValue());
+						}
+						Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+						Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+						
 						
 						if(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)<CorruptionLevel.TWO_HORNY.getMinimumValue()) {
 							Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, CorruptionLevel.TWO_HORNY.getMinimumValue());

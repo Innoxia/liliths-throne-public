@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.generic.SlaveImport;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ShopTransaction;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -195,15 +196,32 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		nodes = parentElement.getElementsByTagName("fetishes");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
-			for(int i=0; i<element.getElementsByTagName("fetish").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("fetish").item(i));
-				
-				try {
-					if(Fetish.valueOf(e.getAttribute("type")) != null) {
-						character.addFetish(Fetish.valueOf(e.getAttribute("type")));
-						CharacterUtils.appendToImportLog(log, "</br>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
+			if(element.getElementsByTagName("fetish").item(0)!=null && !((Element)element.getElementsByTagName("fetish").item(0)).getAttribute("value").isEmpty()) {
+				for(int i=0; i<element.getElementsByTagName("fetish").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("fetish").item(i));
+					
+					try {
+						if(Fetish.valueOf(e.getAttribute("type")) != null) {
+							if(Boolean.valueOf(((Element)element.getElementsByTagName("fetish").item(0)).getAttribute("value"))) {
+								character.addFetish(Fetish.valueOf(e.getAttribute("type")));
+								CharacterUtils.appendToImportLog(log, "</br>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
+							}
+						}
+					}catch(IllegalArgumentException ex){
 					}
-				}catch(IllegalArgumentException ex){
+				}
+				
+			} else {
+				for(int i=0; i<element.getElementsByTagName("fetish").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("fetish").item(i));
+					
+					try {
+						if(Fetish.valueOf(e.getAttribute("type")) != null) {
+							character.addFetish(Fetish.valueOf(e.getAttribute("type")));
+							CharacterUtils.appendToImportLog(log, "</br>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
+						}
+					}catch(IllegalArgumentException ex){
+					}
 				}
 			}
 		}
@@ -407,6 +425,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					character.addWeapon(AbstractWeapon.loadFromXML(e, doc), false);
 				}
 			}
+		} else {
+			CharacterCreation.getDressed(character, false);
 		}
 		
 		// Slaves:

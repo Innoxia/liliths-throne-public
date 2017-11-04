@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -75,6 +76,8 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + pathName + ".svg");
 			String s = Util.inputStreamToString(is);
 
+			for (int i = 0; i <= 14; i++)
+				s = s.replaceAll("linearGradient" + i, this.hashCode() + this.colourShade.toString() + "linearGradient" + i);
 			s = s.replaceAll("#ff2a2a", this.colourShade.getShades()[0]);
 			s = s.replaceAll("#ff5555", this.colourShade.getShades()[1]);
 			s = s.replaceAll("#ff8080", this.colourShade.getShades()[2]);
@@ -124,8 +127,8 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		};
 	}
 	
-	public static AbstractItem generateFilledCondom(AbstractItemType itemType) {
-		return new AbstractItem(itemType) {
+	public static AbstractItem generateFilledCondom(Colour colour, GameCharacter character, FluidCum cum) {
+		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum) {
 			private static final long serialVersionUID = 1L;
 		};
 	}

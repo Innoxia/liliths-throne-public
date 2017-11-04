@@ -1356,7 +1356,7 @@ public class InventoryDialogue {
 								if(Main.game.getPlayer().getItemCount(item) >= 5) {
 									if (inventoryNPC.willBuy(item)) {
 										int sellPrice = item.getPrice(inventoryNPC.getBuyModifier());
-										return new Response("Sell (1) (" + UtilText.formatAsMoney(sellPrice*5, "span") + ")", "Sell five of your " + item.getNamePlural() + " for " + UtilText.formatAsMoney(sellPrice*5) + ".", INVENTORY_MENU){
+										return new Response("Sell (5) (" + UtilText.formatAsMoney(sellPrice*5, "span") + ")", "Sell five of your " + item.getNamePlural() + " for " + UtilText.formatAsMoney(sellPrice*5) + ".", INVENTORY_MENU){
 											@Override
 											public void effects(){
 												sellItems(Main.game.getPlayer(), inventoryNPC, item, 5, sellPrice);
@@ -2311,7 +2311,7 @@ public class InventoryDialogue {
 								if(Main.game.getPlayer().getWeaponCount(weapon) >= 5) {
 									if (inventoryNPC.willBuy(weapon)) {
 										int sellPrice = weapon.getPrice(inventoryNPC.getBuyModifier());
-										return new Response("Sell (1) (" + UtilText.formatAsMoney(sellPrice*5, "span") + ")", "Sell five of your " + weapon.getNamePlural() + " for " + UtilText.formatAsMoney(sellPrice*5) + ".", INVENTORY_MENU){
+										return new Response("Sell (5) (" + UtilText.formatAsMoney(sellPrice*5, "span") + ")", "Sell five of your " + weapon.getNamePlural() + " for " + UtilText.formatAsMoney(sellPrice*5) + ".", INVENTORY_MENU){
 											@Override
 											public void effects(){
 												sellWeapons(Main.game.getPlayer(), inventoryNPC, weapon, 5, sellPrice);
@@ -3131,7 +3131,7 @@ public class InventoryDialogue {
 								if(Main.game.getPlayer().getClothingCount(clothing) >= 5) {
 									if (inventoryNPC.willBuy(clothing)) {
 										int sellPrice = clothing.getPrice(inventoryNPC.getBuyModifier());
-										return new Response("Sell (1) (" + UtilText.formatAsMoney(sellPrice*5, "span") + ")", "Sell five of your " + clothing.getNamePlural() + " for " + UtilText.formatAsMoney(sellPrice*5) + ".", INVENTORY_MENU){
+										return new Response("Sell (5) (" + UtilText.formatAsMoney(sellPrice*5, "span") + ")", "Sell five of your " + clothing.getNamePlural() + " for " + UtilText.formatAsMoney(sellPrice*5) + ".", INVENTORY_MENU){
 											@Override
 											public void effects(){
 												sellClothing(Main.game.getPlayer(), inventoryNPC, clothing, 5, sellPrice);

@@ -54,7 +54,7 @@ import com.lilithsthrone.utils.WeaponRarityComparator;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.88
  * @author Innoxia
  */
 public class PhoneDialogue {
@@ -66,10 +66,13 @@ public class PhoneDialogue {
 		@Override
 		public String getContent() {
 			return "<p>You pull out your phone and tap in the unlock code.</p>"
-					+ "<p>"
-					+ "Using your powerful aura, you've managed to figure out a way to channel the arcane into charging the battery of your phone, although considering that it's the only one in this world, it's not much use for calling anyone."
-					+ " Instead, you're using it as a way to store information about things you've discovered in this strange new world."
-					+ "</p>";
+					+ (Main.game.isInNewWorld()
+							?"<p>"
+								+"Using your powerful aura, you've managed to figure out a way to channel the arcane into charging the battery of your phone, although considering that it's the only one in this world,"
+									+ " it's not much use for calling anyone."
+								+ " Instead, you're using it as a way to store information about things you've discovered in this strange new world."
+							+ "</p>"
+							:"");
 		}
 
 		@Override

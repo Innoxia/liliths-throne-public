@@ -17,8 +17,10 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.FitnessLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.StrengthLevel;
+import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.AddictionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
@@ -2345,7 +2347,7 @@ public enum StatusEffect {
 			"overworked",
 			"overworked",
 			Colour.BASE_MAGENTA,
-			true,
+			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.FITNESS, -5f),
 					new Value<Attribute, Float>(Attribute.STAMINA_MAXIMUM, -50f),
@@ -2373,6 +2375,350 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.isSlave() && target.getSlaveJob()!=SlaveJob.IDLE && target.getTotalHoursWorked()>8;
+		}
+	},
+	
+	ADDICTIONS(
+			80,
+			"addictions",
+			"addictions",
+			Colour.BASE_CRIMSON,
+			false,
+			null,
+			Util.newArrayListOfValues(new ListValue<String>("[style.boldBad(Suffer withdrawal effects)]"))) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			target.recalculateFluidAddictions();
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				StringBuilder sb = new StringBuilder();
+				
+				if(target.isPlayer()) {
+					sb.append("You have the following addictions:");
+				} else {
+					sb.append(UtilText.parse(target, "[npc.Name] has the following addictions:"));
+				}
+				
+				for(Entry<FluidType, Integer> entry : target.getAddictionsMap().entrySet()) {
+					if(entry.getValue()>0) {
+						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
+								+entry.getValue()+" (<span style='color:"+AddictionLevel.valueOf(entry.getValue()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(AddictionLevel.valueOf(entry.getValue()).getName(false))+"</span>)"
+								+ (Main.game.getMinutesPassed()-target.getLastTimeSatisfiedAddictionMap().get(entry.getKey())<24*60
+										?" [style.colourGood(Satisfied)]: "+(23-(Main.game.getMinutesPassed()-target.getLastTimeSatisfiedAddictionMap().get(entry.getKey()))/60)
+												+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-target.getLastTimeSatisfiedAddictionMap().get(entry.getKey()))%60))
+										:" [style.boldArcane(Withdrawal!)]"));
+					}
+				}
+				
+				return sb.toString();
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return !target.getAddictionsMap().isEmpty();
+		}
+	},
+	
+	WITHDRAWAL_1(
+			80,
+			"Mild Withdrawal",
+			"withdrawal1",
+			Colour.CORRUPTION_STAGE_ONE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -2f),
+					new Value<Attribute, Float>(Attribute.STRENGTH, -2f),
+					new Value<Attribute, Float>(Attribute.FITNESS, -2f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -2f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				StringBuilder sb = new StringBuilder();
+				
+				if(target.isPlayer()) {
+					sb.append("You are suffering withdrawal from:");
+				} else {
+					sb.append(UtilText.parse(target, "[npc.Name] is suffering withdrawal from:"));
+				}
+				
+				for(Entry<FluidType, Long> entry : target.getLastTimeSatisfiedAddictionMap().entrySet()) {
+					int minutesPassed = (int) (Main.game.getMinutesPassed()-entry.getValue());
+					if(minutesPassed>(AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()-1)*24*60 && minutesPassed<AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()*24*60) {
+						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
+								+(AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()*24*60-minutesPassed)/60+":"+String.format("%02d", (AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()*24*60-minutesPassed)%60)
+								+" ("+(AddictionLevel.valueOf(target.getAddiction(entry.getKey()))==AddictionLevel.ONE_MILD
+									?"[style.colourGood(Until addiction removed)]"
+									:"[style.colourArcane(Until next withdrawal stage)]")+")");
+					}
+				}
+				
+				return sb.toString();
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			// Time without getting fluid:
+			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
+				if(Main.game.getMinutesPassed()-value>=(AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()-1)*24*60
+						&& Main.game.getMinutesPassed()-value<AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()*24*60) {
+					return true;
+				}
+			}
+			return false;
+		}
+	},
+	
+	WITHDRAWAL_2(
+			80,
+			"Noticeable Withdrawal",
+			"withdrawal2",
+			Colour.CORRUPTION_STAGE_TWO,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -5f),
+					new Value<Attribute, Float>(Attribute.STRENGTH, -5f),
+					new Value<Attribute, Float>(Attribute.FITNESS, -5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -5f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				StringBuilder sb = new StringBuilder();
+				
+				if(target.isPlayer()) {
+					sb.append("You are suffering withdrawal from:");
+				} else {
+					sb.append(UtilText.parse(target, "[npc.Name] is suffering withdrawal from:"));
+				}
+				
+				for(Entry<FluidType, Long> entry : target.getLastTimeSatisfiedAddictionMap().entrySet()) {
+					int minutesPassed = (int) (Main.game.getMinutesPassed()-entry.getValue());
+					if(minutesPassed>(AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()-1)*24*60 && minutesPassed<AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()*24*60) {
+						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
+								+(AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()*24*60-minutesPassed)/60+":"+String.format("%02d", (AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()*24*60-minutesPassed)%60)
+								+" ("+(AddictionLevel.valueOf(target.getAddiction(entry.getKey()))==AddictionLevel.TWO_NOTICEABLE
+									?"[style.colourGood(Until addiction removed)]"
+									:"[style.colourArcane(Until next withdrawal stage)]")+")");
+					}
+				}
+				
+				return sb.toString();
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			// Time without getting fluid:
+			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
+				if(Main.game.getMinutesPassed()-value>=(AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()-1)*24*60
+						&& Main.game.getMinutesPassed()-value<AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()*24*60) {
+					return true;
+				}
+			}
+			return false;
+		}
+	},
+	
+	WITHDRAWAL_3(
+			80,
+			"Strong Withdrawal",
+			"withdrawal3",
+			Colour.CORRUPTION_STAGE_THREE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -10f),
+					new Value<Attribute, Float>(Attribute.STRENGTH, -10f),
+					new Value<Attribute, Float>(Attribute.FITNESS, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -10f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				StringBuilder sb = new StringBuilder();
+				
+				if(target.isPlayer()) {
+					sb.append("You are suffering withdrawal from:");
+				} else {
+					sb.append(UtilText.parse(target, "[npc.Name] is suffering withdrawal from:"));
+				}
+				
+				for(Entry<FluidType, Long> entry : target.getLastTimeSatisfiedAddictionMap().entrySet()) {
+					int minutesPassed = (int) (Main.game.getMinutesPassed()-entry.getValue());
+					if(minutesPassed>(AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()-1)*24*60 && minutesPassed<AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()*24*60) {
+						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
+								+(AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()*24*60-minutesPassed)/60+":"+String.format("%02d", (AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()*24*60-minutesPassed)%60)
+								+" ("+(AddictionLevel.valueOf(target.getAddiction(entry.getKey()))==AddictionLevel.THREE_STRONG
+									?"[style.colourGood(Until addiction removed)]"
+									:"[style.colourArcane(Until next withdrawal stage)]")+")");
+					}
+				}
+				
+				return sb.toString();
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			// Time without getting fluid:
+			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
+				if(Main.game.getMinutesPassed()-value>=(AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()-1)*24*60
+						&& Main.game.getMinutesPassed()-value<AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()*24*60) {
+					return true;
+				}
+			}
+			return false;
+		}
+	},
+	
+	WITHDRAWAL_4(
+			80,
+			"Severe Withdrawal",
+			"withdrawal4",
+			Colour.CORRUPTION_STAGE_FOUR,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -25f),
+					new Value<Attribute, Float>(Attribute.STRENGTH, -25f),
+					new Value<Attribute, Float>(Attribute.FITNESS, -25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -25f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				StringBuilder sb = new StringBuilder();
+				
+				if(target.isPlayer()) {
+					sb.append("You are suffering withdrawal from:");
+				} else {
+					sb.append(UtilText.parse(target, "[npc.Name] is suffering withdrawal from:"));
+				}
+				
+				for(Entry<FluidType, Long> entry : target.getLastTimeSatisfiedAddictionMap().entrySet()) {
+					int minutesPassed = (int) (Main.game.getMinutesPassed()-entry.getValue());
+					if(minutesPassed>(AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()-1)*24*60 && minutesPassed<AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()*24*60) {
+						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
+								+(AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()*24*60-minutesPassed)/60+":"+String.format("%02d", (AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()*24*60-minutesPassed)%60)
+								+" ("+(AddictionLevel.valueOf(target.getAddiction(entry.getKey()))==AddictionLevel.FOUR_SEVERE
+									?"[style.colourGood(Until addiction removed)]"
+									:"[style.colourArcane(Until next withdrawal stage)]")+")");
+					}
+				}
+				
+				return sb.toString();
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			// Time without getting fluid:
+			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
+				if(Main.game.getMinutesPassed()-value>=(AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()-1)*24*60
+						&& Main.game.getMinutesPassed()-value<AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()*24*60) {
+					return true;
+				}
+			}
+			return false;
+		}
+	},
+	
+	WITHDRAWAL_5(
+			80,
+			"Dependence Withdrawal",
+			"withdrawal5",
+			Colour.CORRUPTION_STAGE_FIVE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -50f),
+					new Value<Attribute, Float>(Attribute.STRENGTH, -50f),
+					new Value<Attribute, Float>(Attribute.FITNESS, -50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -50f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				StringBuilder sb = new StringBuilder();
+				
+				if(target.isPlayer()) {
+					sb.append("You are suffering withdrawal from:");
+				} else {
+					sb.append(UtilText.parse(target, "[npc.Name] is suffering withdrawal from:"));
+				}
+				
+				for(Entry<FluidType, Long> entry : target.getLastTimeSatisfiedAddictionMap().entrySet()) {
+					int minutesPassed = (int) (Main.game.getMinutesPassed()-entry.getValue());
+					if(minutesPassed>(AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()-1)*24*60 && minutesPassed<AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()*24*60) {
+						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
+								+(AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()*24*60-minutesPassed)/60+":"+String.format("%02d", (AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()*24*60-minutesPassed)%60)
+								+" ("+(AddictionLevel.valueOf(target.getAddiction(entry.getKey()))==AddictionLevel.FIVE_DEPENDENCE
+									?"[style.colourGood(Until addiction removed)]"
+									:"[style.colourArcane(Until next withdrawal stage)]")+")");
+					}
+				}
+				
+				return sb.toString();
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			// Time without getting fluid:
+			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
+				if(Main.game.getMinutesPassed()-value>=(AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()-1)*24*60
+						&& Main.game.getMinutesPassed()-value<AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()*24*60) {
+					return true;
+				}
+			}
+			return false;
 		}
 	},
 

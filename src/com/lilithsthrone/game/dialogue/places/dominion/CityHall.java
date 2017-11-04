@@ -136,7 +136,7 @@ public class CityHall {
 		public Response getResponse(int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getMoney() < 100) {
-					return new Response("Confirm", "Change name for 100 flames. (You can't afford this!)", null);
+					return new Response("Confirm ("+UtilText.formatAsMoneyUncoloured(100, "span")+")", "Change name for 100 flames. (You can't afford this!)", null);
 				} else {
 					
 					Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
@@ -152,7 +152,7 @@ public class CityHall {
 					
 					Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldSurname').innerHTML=document.getElementById('surnameInput').value;");
 					if(Main.mainController.getWebEngine().getDocument()!=null) {
-						if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
+						if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() >= 1
 								&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 16
 										|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
 							unsuitableSurname = true;
@@ -163,10 +163,10 @@ public class CityHall {
 					
 					
 					if (unsuitableName || unsuitableSurname) {
-						return new Response("Continue", "Use this name and continue to the final character creation screen.", CITY_HALL_NAME_CHANGE_FORM);
+						return new Response("Confirm ("+UtilText.formatAsMoney(100, "span")+")", "Change name for 100 flames.", CITY_HALL_NAME_CHANGE_FORM);
 						
 					} else {
-						return new Response("Continue", "Use this name and continue to the final character creation screen.", CITY_HALL_NAME_CHANGE_FORM){
+						return new Response("Confirm ("+UtilText.formatAsMoney(100, "span")+")", "Change name for 100 flames.", CITY_HALL_NAME_CHANGE_FORM){
 							@Override
 							public void effects() {
 								Main.game.getPlayer().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
@@ -175,7 +175,7 @@ public class CityHall {
 								Main.game.getTextEndStringBuilder().append(
 										"<p style='text-align:center;'>"
 											+ "You fill out the forms and pay the [style.boldBad(100 flame fee)], officially changing your name to:</br>"
-											+ "<b>[pc.Name] [pc.Surname]</b>"
+											+ "<b>[pc.Name]"+(!Main.game.getPlayer().getSurname().isEmpty()?" [pc.Surname]":"")+"</b>"
 										+ "</p>");
 							}
 						};

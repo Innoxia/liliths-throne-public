@@ -10,6 +10,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.utils.Util;
@@ -17,10 +18,56 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
- * @version 0.1.79
+ * @version 0.1.88
  * @author Innoxia
  */
 public class PlayerSelfFingerVagina {
+	
+	public static final SexAction PLAYER_SELF_FINGER_VAGINA_SPREAD_PUSSY = new SexAction(
+			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ONE_VANILLA,
+			PenetrationType.FINGER_PLAYER,
+			OrificeType.VAGINA_PLAYER) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Spread pussy";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Use your [pc.fingers] to spread your pussy.";
+		}
+
+		@Override
+		public String getDescription() {
+			if(Sex.getPosition() == SexPosition.DOGGY_PLAYER_ON_ALL_FOURS || Sex.getPosition() == SexPosition.DOGGY_PLAYER_ON_ALL_FOURS) {
+				return (UtilText.returnStringAtRandom(
+						"Reaching back between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your labia for [npc.name].",
+						"You probe your fingers back between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+] and present yourself to [npc.name].",
+						"Sliding your fingertips over your [pc.pussy+], you let out [pc.a_moan+] as you shake your ass a little, before using your digits to spread out your pussy lips.",
+						"You eagerly slide your fingers over your needy [pc.pussy], [pc.moaning+] as you use your digits to part your soft folds and present yourself for penetration."));
+			} else {
+				return (UtilText.returnStringAtRandom(
+						"Reaching down between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your labia.",
+						"You probe your fingers down between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+].",
+						"Sliding your fingertips over your [pc.pussy+], you let out [pc.a_moan+] as you use your digits to spread out your pussy lips.",
+						"You eagerly slide your fingers over your needy [pc.pussy], [pc.moaning+] as you use your digits to part your soft folds and present yourself for penetration."));
+			}
+		}
+		
+		@Override
+		public List<Fetish> getFetishesPlayer() {
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
+		}
+	};
 	
 	public static final SexAction PLAYER_SELF_FINGER_VAGINA_PENETRATION = new SexAction(
 			SexActionType.PLAYER_PENETRATION,

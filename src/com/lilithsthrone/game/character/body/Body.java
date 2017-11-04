@@ -2163,10 +2163,12 @@ public class Body implements Serializable, XMLSaving {
 			case HARPY:
 				if (owner.isPlayer())
 					sb.append("Your arms have transformed into "+armDeterminer+" huge wings, and are covered in beautiful [pc.armFullDescription(true)]."
-							+ " Where your hands should be, you have a single clawed thumb. Thankfully, you are still able to wrap your wings around objects to form a hand-like grip.");
+							+ " Where your hands should be, you have two feathered forefingers and a thumb, each of which ends in a little blunt claw."
+							+ " Although slightly less dexterous than a human hand, you're still able to use your remaining digits to form a hand-like grip.");
 				else
 					sb.append("In place of arms and hands, [npc.she] has "+armDeterminer+" huge wings, which are covered in beautiful [npc.armFullDescription(true)]."
-							+ " Where [npc.her] hands should be, [npc.she] has a single clawed thumb, which, when [npc.she] wraps [npc.her] wings around, can grasp objects in a hand-like grip.");
+							+ " Where [npc.her] hands should be, [npc.she] has two feathered forefingers and a thumb, each of which ends in a little blunt claw."
+							+ " Although slightly less dexterous than a human hand, [npc.she]'s still able to use [npc.her] digits to form a hand-like grip.");
 				break;
 			default:
 				break;
@@ -3123,14 +3125,19 @@ public class Body implements Serializable, XMLSaving {
 			
 			switch(owner.getNippleShape()) {
 				case NORMAL:
-					descriptionSB.append(" [pc.nipplePrimaryColour(true)] [pc.nipple],");
+					descriptionSB.append(" [pc.nipplePrimaryColour(true)]");
 					break;
 				case LIPS:
-					descriptionSB.append(" [pc.nipplePrimaryColour(true)]-lipped [pc.nipple],");
+					descriptionSB.append(" [pc.nipplePrimaryColour(true)]-lipped");
 					break;
 				case VAGINA:
-					descriptionSB.append(" [pc.nipplePrimaryColour(true)]-lipped [pc.nipple],");
+					descriptionSB.append(" [pc.nipplePrimaryColour(true)]-lipped");
 					break;
+			}
+			if(owner.getNippleCountPerBreast()>1) {
+				descriptionSB.append(" [pc.nipples],");
+			} else {
+				descriptionSB.append(" [pc.nipple],");
 			}
 			
 			switch(owner.getAreolaeShape()) {
@@ -3330,14 +3337,19 @@ public class Body implements Serializable, XMLSaving {
 			
 			switch(owner.getNippleShape()) {
 				case NORMAL:
-					descriptionSB.append(" [npc.nipplePrimaryColour(true)] [npc.nipple],");
+					descriptionSB.append(" [npc.nipplePrimaryColour(true)]");
 					break;
 				case LIPS:
-					descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped [npc.nipple],");
+					descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped");
 					break;
 				case VAGINA:
-					descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped [npc.nipple],");
+					descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped");
 					break;
+			}
+			if(owner.getNippleCountPerBreast()>1) {
+				descriptionSB.append(" [npc.nipples],");
+			} else {
+				descriptionSB.append(" [npc.nipple],");
 			}
 			
 			switch(owner.getAreolaeShape()) {

@@ -66,6 +66,7 @@ public class Ralph extends NPC {
 			ItemType.COR_INGREDIENT_LILITHS_GIFT,
 			ItemType.FIT_INGREDIENT_SQUIRREL_JAVA,
 			ItemType.FETISH_UNREFINED,
+			ItemType.ADDICTION_REMOVAL,
 
 			ItemType.VIXENS_VIRILITY,
 			ItemType.PROMISCUITY_PILL,

@@ -52,7 +52,6 @@ public class OptionsDialogue {
 		@Override
 		public String getContent(){
 			return "<h1 class='special-text' style='font-size:48px; line-height:52px; text-align:center;'>Lilith's Throne</h1>"
-					+ "<h4 class='special-text' style='text-align:center;'>Spooky Witches Edition</h4>"
 					+ "<h5 class='special-text' style='text-align:center;'>Created by Innoxia</h5>"
 					+ "</br>"
 					+ "<p>"

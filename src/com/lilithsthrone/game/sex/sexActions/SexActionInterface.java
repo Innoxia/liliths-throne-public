@@ -149,6 +149,23 @@ public interface SexActionInterface {
 				return null;
 			}
 			
+			// You can't prepare for orgasms if your partner won't orgasm on the next turn:
+			if(getActionType() == SexActionType.PLAYER_PREPARE_PARTNER_ORGASM) {
+				if(!Sex.isPartnerReadyToOrgasm()) {
+					return null;
+				} else {
+					return convertToResponse();
+				}
+			}
+			// Your partner can't prepare for orgasms if you won't orgasm on the next turn:
+			if(getActionType() == SexActionType.PARTNER_PREPARE_PLAYER_ORGASM) {
+				if(!Sex.isPlayerReadyToOrgasm()) {
+					return null;
+				} else {
+					return convertToResponse();
+				}
+			}
+
 			// You can't resist in scenes that don't allow it or if non-con is disabled:
 			if((getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING)) {
 				if(Sex.isConsensual() || !Main.game.isNonConEnabled()) {

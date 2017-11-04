@@ -25,6 +25,7 @@ import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -33,6 +34,7 @@ import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
 import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -43,6 +45,7 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.TongueType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AddictionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
@@ -235,6 +238,9 @@ public class GameCharacter implements Serializable, XMLSaving {
 	private Map<SexType, String> virginityLossMap;
 	private Map<GameCharacter, Map<SexType, Integer>> sexPartnerMap;
 
+	// Addictions:
+	private Map<FluidType, Integer> addictionsMap;
+	private Map<FluidType, Long> addictionsSatisfiedMap;
 	
 	// Misc.:
 	protected static List<CharacterChangeEventListener> playerAttributeChangeEventListeners = new ArrayList<>();
@@ -339,7 +345,23 @@ public class GameCharacter implements Serializable, XMLSaving {
 		potentialPartnersAsFather = new ArrayList<>();
 		
 		// Stats:
-		initStats();
+		foughtPlayerCount=0;
+		lostCombatCount=0;
+		wonCombatCount=0;
+		
+		// Sex Stats:
+		sexConsensualCount=0;
+		sexAsSubCount=0;
+		sexAsDomCount=0;
+		
+		sexPartnerMap = new HashMap<>();
+		
+		sexCountMap = new HashMap<>();
+		cumCountMap = new HashMap<>();
+		virginityLossMap = new HashMap<>();
+		
+		addictionsMap = new HashMap<>();
+		addictionsSatisfiedMap = new HashMap<>();
 		
 		// Start all attributes and bonus attributes at 0:
 		for (Attribute a : Attribute.values()) {
@@ -631,6 +653,10 @@ public class GameCharacter implements Serializable, XMLSaving {
 		// Core info:
 		NodeList nodes = parentElement.getElementsByTagName("core");
 		Element element = (Element) nodes.item(0);
+		
+		String version = ((Element)element.getElementsByTagName("version").item(0)).getAttribute("value");
+		boolean pre085 = Integer.valueOf(version.split("\\.")[1]) == 1 && Integer.valueOf(version.split("\\.")[2]) <= 85;
+		System.out.println(pre085);
 
 		// Name:
 		character.setName(new NameTriplet(((Element)element.getElementsByTagName("name").item(0)).getAttribute("value")));
@@ -718,15 +744,32 @@ public class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("fetishes");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
-			for(int i=0; i<element.getElementsByTagName("fetish").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("fetish").item(i));
-				
-				try {
-					if(Fetish.valueOf(e.getAttribute("type")) != null) {
-						character.addFetish(Fetish.valueOf(e.getAttribute("type")));
-						CharacterUtils.appendToImportLog(log, "</br>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
+			if(element.getElementsByTagName("fetish").item(0)!=null && !((Element)element.getElementsByTagName("fetish").item(0)).getAttribute("value").isEmpty()) {
+				for(int i=0; i<element.getElementsByTagName("fetish").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("fetish").item(i));
+					
+					try {
+						if(Fetish.valueOf(e.getAttribute("type")) != null) {
+							if(Boolean.valueOf(((Element)element.getElementsByTagName("fetish").item(0)).getAttribute("value"))) {
+								character.addFetish(Fetish.valueOf(e.getAttribute("type")));
+								CharacterUtils.appendToImportLog(log, "</br>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
+							}
+						}
+					}catch(IllegalArgumentException ex){
 					}
-				}catch(IllegalArgumentException ex){
+				}
+				
+			} else {
+				for(int i=0; i<element.getElementsByTagName("fetish").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("fetish").item(i));
+					
+					try {
+						if(Fetish.valueOf(e.getAttribute("type")) != null) {
+							character.addFetish(Fetish.valueOf(e.getAttribute("type")));
+							CharacterUtils.appendToImportLog(log, "</br>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
+						}
+					}catch(IllegalArgumentException ex){
+					}
 				}
 			}
 		}
@@ -2087,24 +2130,6 @@ public class GameCharacter implements Serializable, XMLSaving {
 
 	
 	// Stats:
-	
-	private void initStats() {
-		foughtPlayerCount=0;
-		lostCombatCount=0;
-		wonCombatCount=0;
-		
-		// Sex Stats:
-		sexConsensualCount=0;
-		sexAsSubCount=0;
-		sexAsDomCount=0;
-		
-		sexPartnerMap = new HashMap<>();
-		
-		sexCountMap = new HashMap<>();
-		cumCountMap = new HashMap<>();
-		virginityLossMap = new HashMap<>();
-		
-	}
 
 	public Map<SexType, Integer> getSexPartnerStats(GameCharacter c) {
 		return sexPartnerMap.get(c);
@@ -2211,8 +2236,120 @@ public class GameCharacter implements Serializable, XMLSaving {
 		return virginityLossMap.get(sexType);
 	}
 	
+	/**
+	 * @param fluid The FluidType to be ingested.
+	 * @param orificeIngestedThrough Orifice through which the fluid is being ingested.
+	 * @param addictive Is this fluid addictive or not.
+	 * @return A <b>formatted paragraph</b> description of addiction increasing/satsfied, or an empty String if no addictive effects occurr.
+	 */
+	public String ingestFluid(GameCharacter charactersFluid, FluidType fluid, OrificeType orificeIngestedThrough, boolean addictive) {
+		if(addictive) {
+			int increment = 5;
+			switch(orificeIngestedThrough) {
+				case ANUS_PARTNER: case ANUS_PLAYER:
+					increment = 15;
+					break;
+				case MOUTH_PARTNER: case MOUTH_PLAYER:
+					increment = 15;
+					break;
+				case NIPPLE_PARTNER: case NIPPLE_PLAYER:
+					increment = 5;
+					break;
+				case URETHRA_PARTNER: case URETHRA_PLAYER:
+					increment = 5;
+					break;
+				case VAGINA_PARTNER: case VAGINA_PLAYER:
+					increment = 10;
+					break;
+				case BREAST_PARTNER: case BREAST_PLAYER:
+					break;
+			}
+			incrementAddiction(fluid, increment, true);
+			if(isPlayer()) {
+				return "<p>"
+							+ "Due to the addictive properties of "+(charactersFluid==this?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+								+", you find yourself [style.colourArcane(craving)] <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+"!"
+						+ "</p>";
+			} else {
+				return UtilText.parse(this,
+						"<p>"
+							+ "Due to the addictive properties of "+(charactersFluid==this?"[npc.her]":(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s"))+" "+fluid.getName(charactersFluid)
+								+", [npc.name] finds [npc.herself] [style.colourArcane(craving)] <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+"!"
+						+ "</p>");
+			}
+			
+		} else if(addictionsMap.containsKey(fluid)) {
+			setLastTimeSatisfiedAddiction(fluid, Main.game.getMinutesPassed());
+			if(isPlayer()) {
+				return "<p>"
+							+ "Your [style.colourArcane(craving)] for <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"
+								+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+" has been satisfied. For now..."
+						+ "</p>";
+			} else {
+				return UtilText.parse(this,
+						"<p>"
+							+ "[npc.Name]'s [style.colourArcane(craving)] for <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"
+								+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+" has been satisfied. For now..."
+						+ "</p>");
+			}
+		}
+		return "";
+	}
 	
+	public void clearAllAddictions() {
+		addictionsMap.clear();
+		addictionsSatisfiedMap.clear();
+	}
 	
+	public Map<FluidType, Integer> getAddictionsMap() {
+		return addictionsMap;
+	}
+	
+	public void recalculateFluidAddictions() {
+		List<FluidType> fluids = new ArrayList<>();
+		for(FluidType fluid : addictionsMap.keySet()) {
+			fluids.add(fluid);
+		}
+		for(FluidType fluid : fluids) {
+			calculateIfAddictionCured(fluid);
+		}
+	}
+	
+	private void calculateIfAddictionCured(FluidType fluid) {
+		if(Main.game.getMinutesPassed()-getLastTimeSatisfiedAddiction(fluid) > AddictionLevel.valueOf(addictionsMap.get(fluid)).getDaysUntilAddictionCured()*24*60) {
+			addictionsMap.remove(fluid);
+			addictionsSatisfiedMap.remove(fluid);
+		}
+	}
+	
+	public void incrementAddiction(FluidType fluid, int increment, boolean setLastTimeSatisfiedToCurrentTime) {
+		addictionsMap.putIfAbsent(fluid, 0);
+		
+		addictionsMap.put(fluid, Math.max(0, Math.min(100, addictionsMap.get(fluid) + increment)));
+		
+		if(setLastTimeSatisfiedToCurrentTime) {
+			setLastTimeSatisfiedAddiction(fluid, Main.game.getMinutesPassed());
+		}
+	}
+	
+	public int getAddiction(FluidType fluid) {
+		addictionsMap.putIfAbsent(fluid, 0);
+		return addictionsMap.get(fluid);
+	}
+	
+	public Map<FluidType, Long> getLastTimeSatisfiedAddictionMap() {
+		return addictionsSatisfiedMap;
+	}
+	
+	public void setLastTimeSatisfiedAddiction(FluidType fluid, long minutes) {
+		addictionsSatisfiedMap.putIfAbsent(fluid, 0l);
+		addictionsSatisfiedMap.put(fluid, minutes);
+	}
+	
+	public long getLastTimeSatisfiedAddiction(FluidType fluid) {
+		addictionsSatisfiedMap.putIfAbsent(fluid, 0l);
+		return addictionsSatisfiedMap.get(fluid);
+	}
 	
 	
 	// Combat:
@@ -6515,7 +6652,9 @@ public class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	// Cum:
-	
+	public FluidCum getCum() {
+		return body.getPenis().getTesticle().getCum();
+	}
 	public String getCumName() {
 		return body.getPenis().getTesticle().getCum().getName(this);
 	}

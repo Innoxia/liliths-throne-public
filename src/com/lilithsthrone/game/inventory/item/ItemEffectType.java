@@ -93,9 +93,7 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "<p>"
-					+ "It tastes salty..." //TODO
-					+ "</p>";
+			return ""; // THIS EFFECT IS NOT USED, AS AbstractFilledCondom OVERRIDES THE USUAL AbstractItem's applyEffects() METHOD!!!
 		}
 	},
 	
@@ -581,6 +579,32 @@ public enum ItemEffectType {
 								+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+f.getName(target)+" fetish)]!"
 						:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
 								+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.she]'s [style.boldBad(lost)] [npc.her] [style.boldFetish("+f.getName(target)+" fetish)]!"));
+			}
+		}
+	},
+	
+	ADDICTION_REMOVAL(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldExcellent(Removes all addictions)]")),
+			Colour.BASE_GOLD) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			boolean hadAddictions = !target.getAddictionsMap().isEmpty();
+			target.clearAllAddictions();
+			
+			if(target.isPlayer()) {
+				if(hadAddictions) {
+					return "You feel a deep sense of calm wash over you, and, letting out a deep sigh, you find that you no longer have any addictions!";
+				} else {
+					return "You feel a deep sense of calm wash over you, but other than causing you to let out a deep sigh, you find that the potion doesn't do anything...";
+				}
+				
+			} else {
+				if(hadAddictions) {
+					return UtilText.parse(target, "[npc.Name] feels a deep sense of calm wash over [npc.herHim], and, letting out a deep sigh, [npc.she] finds that [npc.she] no longer has any addictions!");
+				} else {
+					return UtilText.parse(target, "[npc.Name] feels a deep sense of calm wash over [npc.herHim], but other than causing [npc.herHim] to let out a deep sigh, [npc.she] finds that the potion doesn't do anything...");
+				}
 			}
 		}
 	},

@@ -86,7 +86,7 @@ public class DominionAlleywayAttackerDialogue {
 								+ " [npc.She]'s still sporting a round belly, and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] reacts to your sudden appearance in [npc.her] alleyway."
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.speech(<i>You again?!</i>)] [npc.she] shouts, [npc.speech(This'll be a lot easier if you give up right now!)]" 
+								+ "[npc.speech(You again?!)] [npc.she] shouts, [npc.speech(This'll be a lot easier if you give up right now!)]" 
 							+ "</p>"
 							+ "<p>"
 								+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
@@ -112,7 +112,7 @@ public class DominionAlleywayAttackerDialogue {
 								+ ", and you jump back into a fighting stance as you expect this encounter to be much the same as the last one."
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.speech(<i>You again?!</i>)] [npc.she] shouts, [npc.speech(This'll be a lot easier if you give up right now!)]" 
+								+ "[npc.speech(You again?!)] [npc.she] shouts, [npc.speech(This'll be a lot easier if you give up right now!)]" 
 							+ "</p>"
 							+ "<p>"
 								+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())

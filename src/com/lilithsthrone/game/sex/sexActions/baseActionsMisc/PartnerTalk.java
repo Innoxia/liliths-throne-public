@@ -1,28 +1,17 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 
-import java.util.List;
-
-import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
-import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
- * @version 0.1.79
+ * @version 0.1.88
  * @author Innoxia
  */
 public class PartnerTalk {
@@ -185,177 +174,4 @@ public class PartnerTalk {
 		}
 	};
 	
-	public static final SexAction PARTNER_ASK_FOR_CREAMPIE = new SexAction(
-			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
-			ArousalIncrease.TWO_LOW,
-			CorruptionLevel.ONE_VANILLA,
-			null,
-			null) {
-		@Override
-		public String getActionTitle() {
-			return "";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "";
-		}
-		
-		@Override
-		public boolean isBaseRequirementsMet() {
-			boolean takingCock = false;
-			
-			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER) != null) {
-				for(OrificeType ot : Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER)) {
-					if(!ot.isPlayer())
-						takingCock=true;
-				}
-			}
-			
-			return Main.game.getPlayer().getArousal() >= ArousalLevel.FOUR_PASSIONATE.getMinimumValue()
-					&& takingCock
-					&& !SexFlags.partnerRequestedCreampie
-					&& !SexFlags.partnerRequestedPullOut
-					&& Sex.getSexPacePartner()!=SexPace.SUB_RESISTING;
-		}
-
-		@Override
-		public SexActionPriority getPriority() {
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)==PenetrationType.PENIS_PARTNER && Sex.getPartner().hasFetish(Fetish.FETISH_PREGNANCY))
-				return SexActionPriority.HIGH;
-			else
-				return SexActionPriority.NORMAL;
-		}
-
-		@Override
-		public String getDescription() {
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out for your cum, "
-						+(Sex.getPartner().isVisiblyPregnant()
-								?"[npc.speech(Fuck! Cum in me! I need your cum!)]"
-								:"[npc.speech(Breed me! Cum in me! I need your cum!)]");
-				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out for your cum,"
-						+ " [npc.speech(Fuck! Cum in me! I need your cum!)]";
-				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out for your cum, "
-						+ " [npc.speech(Fuck! Cum in me! I need your cum!)]";
-				
-			} else {
-				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out for your cum, "
-						+ " [npc.speech(Cum for me! I want to taste your cum!)]";
-			}
-		}
-
-		@Override
-		public void applyEffects() {
-			SexFlags.partnerRequestedCreampie = true;
-			SexFlags.partnerRequestedPullOut = false;
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_IMPREGNATION));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_ANAL_GIVING));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
-				
-			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD));
-			}
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_PREGNANCY));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_BREASTS_SELF));
-				
-			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT));
-			}
-		}
-	};
-	
-	public static final SexAction PARTNER_ASK_FOR_PULL_OUT = new SexAction(
-			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
-			ArousalIncrease.TWO_LOW,
-			CorruptionLevel.ZERO_PURE,
-			null,
-			null) {
-		@Override
-		public String getActionTitle() {
-			return "";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			boolean takingCock = false;
-			
-			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER) != null) {
-				for(OrificeType ot : Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER)) {
-					if(!ot.isPlayer())
-						takingCock=true;
-				}
-			}
-			
-			return Main.game.getPlayer().getArousal() >= ArousalLevel.FOUR_PASSIONATE.getMinimumValue()
-					&& takingCock
-					&& !SexFlags.partnerRequestedCreampie
-					&& !SexFlags.partnerRequestedPullOut
-					&& (Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER)==PenetrationType.PENIS_PLAYER
-						?!Sex.getPartner().hasFetish(Fetish.FETISH_CUM_ADDICT)
-						:true)
-					&& (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)==PenetrationType.PENIS_PLAYER
-						?(!Sex.getPartner().hasFetish(Fetish.FETISH_PREGNANCY) && !Sex.getPartner().hasFetish(Fetish.FETISH_BROODMOTHER))
-						:true)
-					&& Sex.getSexPacePartner()!=SexPace.SUB_RESISTING;
-		}
-
-		@Override
-		public String getDescription() {
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to you, "
-						+(Sex.getPartner().isVisiblyPregnant()
-								?"[npc.speech(Pull out! I don't want you to cum in me!)]"
-								:"[npc.speech(Pull out! I don't want to get pregnant!)]");
-				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to you, "
-						+ "[npc.speech(Pull out! I don't want you to cum in me!)]";
-				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to you, "
-						+ "[npc.speech(Pull out! I don't want you to cum in me!)]";
-				
-			} else {
-				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to you, "
-						+ "[npc.speech(Pull out! I don't want to taste your cum!)]";
-			}
-		}
-
-		@Override
-		public void applyEffects() {
-			SexFlags.partnerRequestedCreampie = false;
-			SexFlags.partnerRequestedPullOut = true;
-		}
-	};
 }
