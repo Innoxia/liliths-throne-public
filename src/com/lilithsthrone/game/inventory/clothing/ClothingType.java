@@ -4875,7 +4875,7 @@ public class ClothingType {
 			false,
 			"condom belt",
 			"condom belts",
-			"A strip of fabric that sits around the wearer's hips. You could use it to tie used condoms to...",
+			"A strip of strong elastic fabric that hugs the wearer's hips. You could use it to tie used condoms to...",
 			0,
 			null,
 			InventorySlot.HIPS,
@@ -4892,25 +4892,25 @@ public class ClothingType {
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You step into the microskirt before pulling it up to your waist.";
+				return "You step into the belt before pulling it up to your waist.";
 			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] steps into the microskirt before pulling it up to [npc.her] waist.");
+				return UtilText.parse(clothingOwner, "[npc.Name] steps into the belt before pulling it up to [npc.her] waist.");
 			}
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You pull down your microskirt and kick it off your [pc.feet].";
+				return "You pull down your belt and kick it off your [pc.feet].";
 				
 			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls down [npc.her] microskirt before kicking it off [npc.her] [npc.feet].");
+				return UtilText.parse(clothingOwner, "[npc.Name] pulls down [npc.her] belt before kicking it off [npc.her] [npc.feet].");
 				
 			} else {
 				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingRemover, "[npc.Name] pulls your microskirt down and slides it off your [pc.feet].");
+					return UtilText.parse(clothingRemover, "[npc.Name] pulls your belt down and slides it off your [pc.feet].");
 				} else {
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s microskirt down and slide it off [npc.her] [npc.feet].");
+					return UtilText.parse(clothingOwner, "You pull [npc.name]'s belt down and slide it off [npc.her] [npc.feet].");
 				}
 			}
 		}
