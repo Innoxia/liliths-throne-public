@@ -54,31 +54,31 @@ public class PartnerTongueBreasts {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] slowly leans in to your chest, pressing [npc.her] [npc.lips+] against your [pc.breastSkin+] before starting to plant a series of gentle kisses on your [pc.breasts+].",
 							"Gently pressing [npc.her] [npc.lips+] against your [pc.breastSkin], [npc.name] starts delivering a series of loving kisses to your exposed [pc.breasts+].",
-							"[npc.Name] starts gently kissing your exposed [pc.breasts], breathing in your [pc.scent+] as [npc.she] presses [npc.her] [npc.lips+] against your [pc.skin+]."));
+							"[npc.Name] starts gently kissing your exposed [pc.breasts], breathing in your [pc.scent] as [npc.she] presses [npc.her] [npc.lips+] against your [pc.skin+]."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] eagerly leans in to your chest, greedily pressing [npc.her] [npc.lips+] against your [pc.breastSkin+] before starting to plant a series of passionate kisses on your [pc.breasts+].",
 							"Greedily pressing [npc.her] [npc.lips+] against your [pc.breastSkin], [npc.name] starts delivering a series of enthusiastic kisses to your exposed [pc.breasts+].",
-							"[npc.Name] starts passionately kissing your exposed [pc.breasts], breathing in your [pc.scent+] as [npc.she] desperately presses [npc.her] [npc.lips+] against your [pc.skin+]."));
+							"[npc.Name] starts passionately kissing your exposed [pc.breasts], breathing in your [pc.scent] as [npc.she] desperately presses [npc.her] [npc.lips+] against your [pc.skin+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] greedily leans in to your chest, roughly pressing [npc.her] [npc.lips+] against your [pc.breastSkin+] before starting to plant a series of forceful kisses on your [pc.breasts+].",
 							"Greedily pressing [npc.her] [npc.lips+] against your [pc.breastSkin], [npc.name] starts delivering a series of rough kisses to your exposed [pc.breasts+].",
-							"[npc.Name] starts roughly kissing your exposed [pc.breasts], breathing in your [pc.scent+] as [npc.she] forcefully presses [npc.her] [npc.lips+] against your [pc.skin+]."));
+							"[npc.Name] starts roughly kissing your exposed [pc.breasts], breathing in your [pc.scent] as [npc.she] forcefully presses [npc.her] [npc.lips+] against your [pc.skin+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] eagerly leans in to your chest, greedily pressing [npc.her] [npc.lips+] against your [pc.breastSkin+] before starting to plant a series of passionate kisses on your [pc.breasts+].",
 							"Greedily pressing [npc.her] [npc.lips+] against your [pc.breastSkin], [npc.name] starts delivering a series of enthusiastic kisses to your exposed [pc.breasts+].",
-							"[npc.Name] starts passionately kissing your exposed [pc.breasts], breathing in your [pc.scent+] as [npc.she] desperately presses [npc.her] [npc.lips+] against your [pc.skin+]."));
+							"[npc.Name] starts passionately kissing your exposed [pc.breasts], breathing in your [pc.scent] as [npc.she] desperately presses [npc.her] [npc.lips+] against your [pc.skin+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] leans in to your chest, pressing [npc.her] [npc.lips+] against your [pc.breastSkin+] before starting to plant a series of kisses on your [pc.breasts+].",
 							"Pressing [npc.her] [npc.lips+] against your [pc.breastSkin], [npc.name] starts delivering a series of kisses to your exposed [pc.breasts+].",
-							"[npc.Name] starts kissing your exposed [pc.breasts], breathing in your [pc.scent+] as [npc.she] presses [npc.her] [npc.lips+] against your [pc.skin+]."));
+							"[npc.Name] starts kissing your exposed [pc.breasts], breathing in your [pc.scent] as [npc.she] presses [npc.her] [npc.lips+] against your [pc.skin+]."));
 					break;
 				default:
 					break;

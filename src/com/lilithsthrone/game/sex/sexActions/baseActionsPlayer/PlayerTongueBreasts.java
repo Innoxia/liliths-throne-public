@@ -54,31 +54,31 @@ public class PlayerTongueBreasts {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"You slowly lean in to [npc.name]'s chest, pressing your [pc.lips+] against [npc.her] [npc.breastSkin+] before starting to plant a series of gentle kisses on [npc.her] [npc.breasts+].",
 							"Gently pressing your [pc.lips+] against [npc.name]'s [npc.breastSkin], you start delivering a series of loving kisses to [npc.her] exposed [npc.breasts+].",
-							"You start gently kissing [npc.name]'s exposed [npc.breasts], breathing in [npc.her] [npc.scent+] as you press your [pc.lips+] against [npc.her] [npc.skin+]."));
+							"You start gently kissing [npc.name]'s exposed [npc.breasts], breathing in [npc.her] [npc.scent] as you press your [pc.lips+] against [npc.her] [npc.skin+]."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"You eagerly lean in to [npc.name]'s chest, greedily pressing your [pc.lips+] against [npc.her] [npc.breastSkin+] before starting to plant a series of passionate kisses on [npc.her] [npc.breasts+].",
 							"Greedily pressing your [pc.lips+] against [npc.name]'s [npc.breastSkin], you start delivering a series of enthusiastic kisses to [npc.her] exposed [npc.breasts+].",
-							"You start passionately kissing [npc.name]'s exposed [npc.breasts], breathing in [npc.her] [npc.scent+] as you desperately press your [pc.lips+] against [npc.her] [npc.skin+]."));
+							"You start passionately kissing [npc.name]'s exposed [npc.breasts], breathing in [npc.her] [npc.scent] as you desperately press your [pc.lips+] against [npc.her] [npc.skin+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"You greedily lean in to [npc.name]'s chest, roughly pressing your [pc.lips+] against [npc.her] [npc.breastSkin+] before starting to plant a series of forceful kisses on [npc.her] [npc.breasts+].",
 							"Greedily pressing your [pc.lips+] against [npc.name]'s [npc.breastSkin], you start delivering a series of rough kisses to [npc.her] exposed [npc.breasts+].",
-							"You start roughly kissing [npc.name]'s exposed [npc.breasts], breathing in [npc.her] [npc.scent+] as you forcefully press your [pc.lips+] against [npc.her] [npc.skin+]."));
+							"You start roughly kissing [npc.name]'s exposed [npc.breasts], breathing in [npc.her] [npc.scent] as you forcefully press your [pc.lips+] against [npc.her] [npc.skin+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"You eagerly lean in to [npc.name]'s chest, greedily pressing your [pc.lips+] against [npc.her] [npc.breastSkin+] before starting to plant a series of passionate kisses on [npc.her] [npc.breasts+].",
 							"Greedily pressing your [pc.lips+] against [npc.name]'s [npc.breastSkin], you start delivering a series of enthusiastic kisses to [npc.her] exposed [npc.breasts+].",
-							"You start passionately kissing [npc.name]'s exposed [npc.breasts], breathing in [npc.her] [npc.scent+] as you desperately press your [pc.lips+] against [npc.her] [npc.skin+]."));
+							"You start passionately kissing [npc.name]'s exposed [npc.breasts], breathing in [npc.her] [npc.scent] as you desperately press your [pc.lips+] against [npc.her] [npc.skin+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"You lean in to [npc.name]'s chest, pressing your [pc.lips+] against [npc.her] [npc.breastSkin+] before starting to plant a series of kisses on [npc.her] [npc.breasts+].",
 							"Pressing your [pc.lips+] against [npc.name]'s [npc.breastSkin], you start delivering a series of kisses to [npc.her] exposed [npc.breasts+].",
-							"You start kissing [npc.name]'s exposed [npc.breasts], breathing in [npc.her] [npc.scent+] as you press your [pc.lips+] against [npc.her] [npc.skin+]."));
+							"You start kissing [npc.name]'s exposed [npc.breasts], breathing in [npc.her] [npc.scent] as you press your [pc.lips+] against [npc.her] [npc.skin+]."));
 					break;
 				default:
 					break;

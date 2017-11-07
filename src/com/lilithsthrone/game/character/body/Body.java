@@ -4498,11 +4498,11 @@ public class Body implements Serializable, XMLSaving {
 	public String getPregnancyDetails(GameCharacter owner) {
 		descriptionSB = new StringBuilder();
 		
-		GameCharacter father = owner.getPregnantLitter().getFather();
 		
 		// NPC is mother:
 		
 		if(owner.isVisiblyPregnant()) {
+			GameCharacter father = owner.getPregnantLitter().getFather();
 			if(father.isPlayer()) {
 				descriptionSB.append("<p><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of your sexual encounters, you've ended up impregnating [npc.name].</span>");
 			} else {
