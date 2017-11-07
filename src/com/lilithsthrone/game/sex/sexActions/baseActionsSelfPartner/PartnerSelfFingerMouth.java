@@ -7,7 +7,6 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.79
@@ -49,7 +48,7 @@ public class PartnerSelfFingerMouth {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getPartner(), PenetrationType.FINGER_PARTNER, OrificeType.MOUTH_PARTNER);
+			Sex.transferLubrication(Sex.getPartner(), Sex.getPartner(), PenetrationType.FINGER_PARTNER, OrificeType.MOUTH_PARTNER);
 		}
 	};
 	

@@ -127,6 +127,7 @@ import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlaces;
+import com.lilithsthrone.world.places.PlaceInterface;
 import com.lilithsthrone.world.places.PlaceUpgrade;
 import com.lilithsthrone.world.places.ShoppingArcade;
 import com.lilithsthrone.world.places.SlaverAlley;
@@ -4400,10 +4401,10 @@ public class MainController implements Initializable {
 	 * @param forward
 	 *            true if move to next world, false if move to previous world
 	 */
-	public void moveGameWorld(boolean setDefaultDialogue) {
+	public void moveGameWorld(WorldType worldType, PlaceInterface placeType, boolean setDefaultDialogue) {
 		int timeToTranstition = Main.game.getActiveWorld().getWorldType().getTimeToTransition();
-		
-		Main.game.setActiveWorld(setDefaultDialogue);
+
+		Main.game.setActiveWorld(Main.game.getWorlds().get(worldType), placeType, true);
 		
 		Main.game.endTurn(timeToTranstition + Main.game.getActiveWorld().getWorldType().getTimeToTransition());
 	}

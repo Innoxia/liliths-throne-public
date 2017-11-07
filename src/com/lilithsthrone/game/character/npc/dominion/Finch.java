@@ -26,7 +26,7 @@ import com.lilithsthrone.world.places.SlaverAlley;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.1.89
  * @author Innoxia
  */
 public class Finch extends NPC {
@@ -59,6 +59,7 @@ public class Finch extends NPC {
 		this.setPenisSize(PenisSize.ONE_TINY.getMedianValue());
 		this.setTesticleSize(TesticleSize.ONE_TINY.getValue());
 		this.setFemininity(25);
+		this.setPenisVirgin(false);
 		
 		this.addFetish(Fetish.FETISH_EXHIBITIONIST);
 		this.addFetish(Fetish.FETISH_SADIST);

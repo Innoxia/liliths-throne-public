@@ -20,7 +20,9 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
@@ -79,6 +81,8 @@ public class SMDomSex extends SexManagerDefault {
 				
 				// Scene-specific:
 
+				PlayerTongueBreasts.class,
+				PlayerTongueNipple.class,
 				PlayerTongueMouth.class,
 				PlayerFingerNipple.class,
 				PlayerFingerUrethra.class,

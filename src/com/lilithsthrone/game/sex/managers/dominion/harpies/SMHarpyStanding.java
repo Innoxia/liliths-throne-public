@@ -10,10 +10,14 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerUrethra;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
@@ -72,6 +76,12 @@ public class SMHarpyStanding extends SexManagerDefault {
 				PartnerSelfNoPen.class,
 				
 				// Scene-specific:
+				
+
+				PlayerTongueBreasts.class,
+				PlayerTongueNipple.class,
+				PartnerTongueBreasts.class,
+				PartnerTongueNipple.class,
 				
 				PlayerTongueMouth.class,
 				PlayerFingerNipple.class,

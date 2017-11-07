@@ -85,6 +85,8 @@ public class Ralph extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
 		this.setHairStyle(HairStyle.LOOSE);
 
+		this.setPenisVirgin(false);
+		
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
 		

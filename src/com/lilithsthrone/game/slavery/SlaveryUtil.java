@@ -414,6 +414,7 @@ public class SlaveryUtil implements Serializable {
 							if(slave.getPenisRawCumProductionValue()>0) {
 								npc.addStatusEffect(StatusEffect.CREAMPIE_VAGINA, 240);
 							}
+							npc.setVaginaVirgin(false);
 							impregnationAttempt = true;
 						}
 						if(canBeImpregnated) {
@@ -421,6 +422,7 @@ public class SlaveryUtil implements Serializable {
 							if(npc.getPenisRawCumProductionValue()>0) {
 								slave.addStatusEffect(StatusEffect.CREAMPIE_VAGINA, 240);
 							}
+							slave.setVaginaVirgin(false);
 							gettingPregnantAttempt = true;
 						}
 						slave.setGetLastTimeHadSex((day*24*60l) + hour*60l);

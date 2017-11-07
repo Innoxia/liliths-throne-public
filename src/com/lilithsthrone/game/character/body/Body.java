@@ -492,6 +492,7 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyPenis, "type", this.penis.type.toString());
 			CharacterUtils.addAttribute(doc, bodyPenis, "size", String.valueOf(this.penis.size));
 			CharacterUtils.addAttribute(doc, bodyPenis, "pierced", String.valueOf(this.penis.pierced));
+			CharacterUtils.addAttribute(doc, bodyPenis, "virgin", String.valueOf(this.penis.virgin));
 			Element penisModifiers = doc.createElement("penisModifiers");
 			bodyPenis.appendChild(penisModifiers);
 			for(PenisModifier pm : PenisModifier.values()) {
@@ -975,6 +976,10 @@ public class Body implements Serializable, XMLSaving {
 				Integer.valueOf(testicles.getAttribute("numberOfTesticles")));
 		
 		importedPenis.pierced = (Boolean.valueOf(penis.getAttribute("pierced")));
+		
+		if(!penis.getAttribute("virgin").isEmpty()) {
+			importedPenis.virgin = (Boolean.valueOf(penis.getAttribute("virgin")));
+		}
 		
 		CharacterUtils.appendToImportLog(log, "</br></br>Body: Penis: "
 				+ "</br>type: "+importedPenis.getType()
@@ -3307,7 +3312,7 @@ public class Body implements Serializable, XMLSaving {
 								descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
 								break;
 							case HALLUCINOGENIC:
-								descriptionSB.append(" Anyone who ingests it suffers hallucinations, often related to lactation and breast-feeding.");
+								descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
 								break;
 							case MUSKY:
 								descriptionSB.append(" It has a strong, musky smell.");
@@ -3513,7 +3518,7 @@ public class Body implements Serializable, XMLSaving {
 									descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
 									break;
 								case HALLUCINOGENIC:
-									descriptionSB.append(" Anyone who ingests it suffers hallucinations, often related to lactation and breast-feeding.");
+									descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
 									break;
 								case MUSKY:
 									descriptionSB.append(" It has a strong, musky smell.");
@@ -3633,6 +3638,29 @@ public class Body implements Serializable, XMLSaving {
 						descriptionSB.append(" Large veins press out from its surface.");
 						break;
 				}
+			}
+		}
+
+		if(owner.isPlayer()) {
+			if (!penis.isVirgin()) {
+					for(OrificeType ot : OrificeType.values()) {
+						if(owner.getVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, ot))!=null) {
+							descriptionSB.append(" [style.colourArcane(You lost your penile virginity to "+ owner.getVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, ot)) + ".)]");
+						}
+					}
+			} else {
+				descriptionSB.append(" [style.colourGood(You have retained your penile virginity.)]");
+			}
+			
+		} else {
+			if (!penis.isVirgin()) {
+				for(OrificeType ot : OrificeType.values()) {
+					if(owner.getVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, ot))!=null) {
+						descriptionSB.append(" [style.colourArcane([npc.Name] has lost [npc.her] penile virginity.)]");
+					}
+				}
+			} else {
+				descriptionSB.append(" [style.colourGood([npc.Name] has retained [npc.her] penile virginity.)]");
 			}
 		}
 		
@@ -4000,7 +4028,7 @@ public class Body implements Serializable, XMLSaving {
 						descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
 						break;
 					case HALLUCINOGENIC:
-						descriptionSB.append(" Anyone who ingests it suffers hallucinations, often related to obediently sucking cocks.");
+						descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in cum-related hallucinations or sensitivity to hypnotic suggestion.");
 						break;
 					case MUSKY:
 						descriptionSB.append(" It has a strong, musky smell.");
@@ -4429,32 +4457,32 @@ public class Body implements Serializable, XMLSaving {
 			if(owner.getSexAsSubCount()>=1) {
 				if(owner.getSexAsSubCount() == owner.getTotalTimesHadSex()) {
 					if(owner.getTotalTimesHadSex()==1) {
-						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was non-consensual, with you as the dominant partner."));
+						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], you were the dominant partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex())+" times were non-consensual, with you as the dominant partner."));
+						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex())+" times you were the dominant partner."));
 					}
 					
 				} else {
 					if(owner.getTotalTimesHadSex()==1) {
-						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was non-consensual, with you as the dominant partner."));
+						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], you were the dominant partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexAsSubCount()))+" of these times were non-consensual, with you as the dominant partner."));
+						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexAsSubCount()))+" of these times you were the dominant partner."));
 					}
 				}
 			}
 			if(owner.getSexAsDomCount()>=1) {
 				if(owner.getSexAsDomCount() == owner.getTotalTimesHadSex()) {
 					if(owner.getTotalTimesHadSex()==1) {
-						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was non-consensual, with you as the submissive partner."));
+						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], you were the submissive partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex())+" times were non-consensual, with you as the submissive partner."));
+						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex())+" times you were the submissive partner."));
 					}
 					
 				} else {
 					if(owner.getTotalTimesHadSex()==1) {
-						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was non-consensual, with you as the submissive partner."));
+						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], you were the submissive partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexAsDomCount()))+" of these times were non-consensual, with you as the submissive partner."));
+						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexAsDomCount()))+" of these times you were the submissive partner."));
 					}
 				}
 			}
@@ -4470,38 +4498,39 @@ public class Body implements Serializable, XMLSaving {
 	public String getPregnancyDetails(GameCharacter owner) {
 		descriptionSB = new StringBuilder();
 		
+		GameCharacter father = owner.getPregnantLitter().getFather();
+		
 		// NPC is mother:
 		
 		if(owner.isVisiblyPregnant()) {
-			descriptionSB.append(UtilText.parse(owner,
-				"<p>"
-				+ "<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of your sexual encounters, you've ended up impregnating [npc.name].</span>"));
-			
-			if(owner.hasStatusEffect(StatusEffect.PREGNANT_1)) {
-				descriptionSB.append(UtilText.parse(owner,
-						" [npc.Her] belly is only a little swollen, as [npc.she]'s only in the first stage of pregnancy."));
-			} else if(owner.hasStatusEffect(StatusEffect.PREGNANT_2)) {
-				descriptionSB.append(UtilText.parse(owner,
-						" [npc.Her] belly is noticeably swollen, as [npc.she]'s well into [npc.her] pregnancy."));
+			if(father.isPlayer()) {
+				descriptionSB.append("<p><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of your sexual encounters, you've ended up impregnating [npc.name].</span>");
 			} else {
-				descriptionSB.append(UtilText.parse(owner,
-						" [npc.Her] belly is massively swollen, and although [npc.she]'s clearly ready for it, [npc.she] hasn't decided to give birth to your children just yet."));
+				descriptionSB.append("<p><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of [npc.her] sexual encounters, [npc.name] has ended up getting impregnated by "+father.getName()+".</span>");
+			}
+			if(owner.hasStatusEffect(StatusEffect.PREGNANT_1)) {
+				descriptionSB.append(" [npc.Her] belly is only a little swollen, as [npc.she]'s only in the first stage of pregnancy.");
+			} else if(owner.hasStatusEffect(StatusEffect.PREGNANT_2)) {
+				descriptionSB.append(" [npc.Her] belly is noticeably swollen, as [npc.she]'s well into [npc.her] pregnancy.");
+			} else {
+				descriptionSB.append(" [npc.Her] belly is massively swollen, and although [npc.she]'s clearly ready for it, [npc.she] hasn't decided to give birth just yet.");
 			}
 			descriptionSB.append("</p>");
 		}
 		
 		if(!owner.getLittersBirthed().isEmpty()) {
-			
-			descriptionSB.append(UtilText.parse(owner,
-				"<p>"
+			descriptionSB.append("<p>"
 				+ "<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"
-						+ "[npc.Name] is the mother of some of your children, and in total, has given birth "+Util.intToString(owner.getLittersBirthed().size())+" "+(owner.getLittersBirthed().size()==1?"time":"times")+".</span>"));
+						+ "[npc.Name] has given birth "+Util.intToString(owner.getLittersBirthed().size())+" "+(owner.getLittersBirthed().size()==1?"time":"times")+".</span>");
 			
 			for(Litter litter : owner.getLittersBirthed()) {
-				descriptionSB.append(UtilText.parse(owner,
-						"</br>On day "+litter.getDayOfConception()+", you impregnated [npc.her], and "+Util.intToString(litter.getDayOfBirth()-litter.getDayOfConception())+" days later, [npc.she] gave birth to "));
+				if(litter.getFather().isPlayer()) {
+					descriptionSB.append("</br>On day "+litter.getDayOfConception()+", you impregnated [npc.her], and "+Util.intToString(litter.getDayOfBirth()-litter.getDayOfConception())+" days later, [npc.she] gave birth to ");
+				} else {
+					descriptionSB.append("</br>On day "+litter.getDayOfConception()
+						+", "+litter.getFather().getName()+" impregnated [npc.her], and "+Util.intToString(litter.getDayOfBirth()-litter.getDayOfConception())+" days later, [npc.she] gave birth to ");
+				}
 				
-
 				descriptionSB.append(litter.getBirthedDescriptionList());
 				
 				descriptionSB.append(".");
@@ -4515,10 +4544,9 @@ public class Body implements Serializable, XMLSaving {
 		if(Main.game.getPlayer().isVisiblyPregnant()){
 			for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsMother()) {
 				if(pp.getFather()==owner) {
-					descriptionSB.append(UtilText.parse(owner,
-							"<p>"
+					descriptionSB.append("<p>"
 								+ "<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of your sexual encounters, you've been impregnated, and it's possible that [npc.name] is the father.</span>"
-							+ "</p>"));
+							+ "</p>");
 					break;
 				}
 			}
@@ -4534,15 +4562,13 @@ public class Body implements Serializable, XMLSaving {
 			}
 			
 			if(fatheredLitters!=0) {
-				descriptionSB.append(UtilText.parse(owner,
-					"<p>"
+				descriptionSB.append("<p>"
 					+ "<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"
-							+ "[npc.Name] is the father of some of your children, and has, in total, impregnated you "+Util.intToString(fatheredLitters)+" "+(fatheredLitters==1?"time":"times")+".</span>"));
+							+ "[npc.Name] is the father of some of your children, and has, in total, impregnated you "+Util.intToString(fatheredLitters)+" "+(fatheredLitters==1?"time":"times")+".</span>");
 				
 				for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
 					if(litter.getFather()==owner){
-						descriptionSB.append(UtilText.parse(owner,
-								"</br>On day "+litter.getDayOfConception()+", [npc.she] impregnated you, and "+Util.intToString(litter.getDayOfBirth()-litter.getDayOfConception())+" days later, you gave birth to "));
+						descriptionSB.append("</br>On day "+litter.getDayOfConception()+", [npc.she] impregnated you, and "+Util.intToString(litter.getDayOfBirth()-litter.getDayOfConception())+" days later, you gave birth to ");
 						
 						descriptionSB.append(litter.getBirthedDescriptionList());
 						

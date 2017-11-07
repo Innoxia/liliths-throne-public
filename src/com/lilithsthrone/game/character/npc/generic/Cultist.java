@@ -89,6 +89,7 @@ public class Cultist extends NPC {
 		this.setFaceVirgin(false);
 		this.setNippleVirgin(false);
 		this.setInternalTesticles(true);
+		this.setPenisVirgin(false);
 		
 		setLevel(this.getLevel() - 3 + Util.random.nextInt(7));
 		

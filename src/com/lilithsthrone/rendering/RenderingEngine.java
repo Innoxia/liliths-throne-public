@@ -747,7 +747,8 @@ public enum RenderingEngine {
 		if(Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST)!=null
 				&& (Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_WOMENS_WATCH)
 						|| Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_MENS_WATCH))) {
-			uiAttributeSB.append("<div class='item-inline' style='float:left;'><div class='overlay' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"+Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getSVGEquippedString()+"</div></div>");
+			uiAttributeSB.append("<div class='item-inline' style='float:left;'><div class='overlay' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"
+						+Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getSVGEquippedString(Main.game.getPlayer())+"</div></div>");
 			
 		} else {
 			uiAttributeSB.append("<div class='item-inline' style='float:left;'><div class='overlay' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"+SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()+"</div></div>");
@@ -789,7 +790,7 @@ public enum RenderingEngine {
 								+ (clothing.isSealed() ? "style='border-width:2px; border-color:" + Colour.SEALED.toWebHexString() + "; border-style:solid;'" : "") + ">"
 								
 								// Picture:
-								+ "<div class='inventory-icon-content'>"+clothing.getSVGEquippedString()+"</div>"
+								+ "<div class='inventory-icon-content'>"+clothing.getSVGEquippedString(Main.game.getPlayer())+"</div>"
 								
 								// If clothing is displaced:
 								+ (!clothing.getDisplacedList().isEmpty() ? "<div class='displacedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDisplacedIcon() + "</div>" : "")
@@ -1228,7 +1229,7 @@ public enum RenderingEngine {
 								+ (clothing.isSealed() ? "style='border-width:2px; border-color:" + Colour.SEALED.toWebHexString() + "; border-style:solid;'" : "") + ">"
 								
 								// Picture:
-								+ "<div class='inventory-icon-content'>"+clothing.getSVGEquippedString()+"</div>"
+								+ "<div class='inventory-icon-content'>"+clothing.getSVGEquippedString(npcToRender)+"</div>"
 								
 								// If clothing is displaced:
 								+ (!clothing.getDisplacedList().isEmpty() ? "<div class='displacedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDisplacedIcon() + "</div>" : "")

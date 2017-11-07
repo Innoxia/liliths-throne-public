@@ -72,6 +72,7 @@ public class Kate extends NPC {
 		this.setNippleVirgin(false);
 		this.setVaginaVirgin(false);
 		this.setFaceVirgin(false);
+		this.setPenisVirgin(false);
 		
 		this.addFetish(Fetish.FETISH_SUBMISSIVE);
 		this.addFetish(Fetish.FETISH_PREGNANCY);

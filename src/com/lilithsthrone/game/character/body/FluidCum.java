@@ -176,13 +176,13 @@ public class FluidCum implements BodyPartInterface, Serializable {
 				if(owner.isPlayer()) {
 					return "<p>"
 								+ "You feel a series of strange pulses shoot up into your [pc.balls], causing you to let out [pc.a_moan+].</br>"
-								+ "Your [pc.cum] is now [style.boldGrow(hallucinogenic)]!"
+								+ "Your [pc.cum] is now [style.boldGrow(psychoactive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
 								+ "A series of strange pulses shoot up into [npc.name]'s [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.cum] is now [style.boldGrow(hallucinogenic)]!"
+								+ "[npc.Name]'s [npc.cum] is now [style.boldGrow(psychoactive)]!"
 							+ "</p>");
 				}
 			case MUSKY:
@@ -293,13 +293,13 @@ public class FluidCum implements BodyPartInterface, Serializable {
 				if(owner.isPlayer()) {
 					return "<p>"
 								+ "You feel a series of soothing waves wash up into your [pc.balls], causing you to let out a gentle sigh.</br>"
-								+ "Your [pc.cum] is [style.boldShrink(no longer hallucinogenic)]!"
+								+ "Your [pc.cum] is [style.boldShrink(no longer psychoactive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
 								+ "A series of soothing waves wash up into [npc.name]'s [npc.balls], causing [npc.herHim] to let out a gentle sigh.</br>"
-								+ "[npc.Name]'s [npc.cum] is [style.boldShrink(no longer hallucinogenic)]!"
+								+ "[npc.Name]'s [npc.cum] is [style.boldShrink(no longer psychoactive)]!"
 							+ "</p>");
 				}
 			case MUSKY:

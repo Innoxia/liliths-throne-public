@@ -765,9 +765,9 @@ public enum TFModifier {
 			Colour.BASE_PINK_DEEP,
 			Rarity.COMMON),
 	
-	TF_MOD_FLUID_HALLUCINOGENIC("hallucinogenic",
+	TF_MOD_FLUID_HALLUCINOGENIC("psychoactive",
 			"Applies an effect related to changing a fluid.",
-			"hallucinogenic",
+			"psychoactive",
 			"modifier_circle_wetness",
 			Colour.BASE_MAGENTA,
 			Rarity.COMMON),

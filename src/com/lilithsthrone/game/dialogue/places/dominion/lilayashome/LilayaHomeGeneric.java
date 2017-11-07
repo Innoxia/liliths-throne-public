@@ -16,6 +16,7 @@ import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.Dominion;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.LilayasHome;
 import com.lilithsthrone.world.places.PlaceUpgrade;
@@ -70,7 +71,7 @@ public class LilayaHomeGeneric {
 									+ "You greet Rose as she closes the door behind you, and, excusing herself, she quickly hurries off to another part of the house, leaving you standing in the entrance hall."
 								+ "</p>");
 						
-						Main.mainController.moveGameWorld(true);
+						Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_ENTRANCE_HALL, true);
 					}
 				};
 
@@ -797,7 +798,7 @@ public class LilayaHomeGeneric {
 				return new ResponseEffectsOnly("Exit", "Leave Lilaya's house."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_AUNTS_HOME, true);
 					}
 				};
 
@@ -845,7 +846,7 @@ public class LilayaHomeGeneric {
 				return new ResponseEffectsOnly("Upstairs", "Go upstairs to the first floor."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), LilayasHome.LILAYA_HOME_STAIR_DOWN, true);
 					}
 				};
 
@@ -877,7 +878,7 @@ public class LilayaHomeGeneric {
 				return new ResponseEffectsOnly("Downstairs", "Go back downstairs to the ground floor."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), LilayasHome.LILAYA_HOME_STAIR_UP, true);
 					}
 				};
 

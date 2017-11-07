@@ -15,14 +15,18 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerVag
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
@@ -82,6 +86,8 @@ public class SMDomBackToWall extends SexManagerDefault {
 				// Scene-specific:
 				
 				PlayerTongueMouth.class,
+				PlayerTongueBreasts.class,
+				PlayerTongueNipple.class,
 				PlayerFingerNipple.class,
 				PlayerFingerUrethra.class,
 				PlayerFingerVagina.class,
@@ -90,6 +96,8 @@ public class SMDomBackToWall extends SexManagerDefault {
 				PlayerTailAnus.class,
 				
 				PartnerTongueMouth.class,
+				PartnerTongueBreasts.class,
+				PartnerTongueNipple.class,
 				PartnerFingerNipple.class,
 				PartnerFingerUrethra.class,
 				PartnerFingerVagina.class,

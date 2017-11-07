@@ -1283,6 +1283,7 @@ public class InventoryDialogue {
 											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, Main.game.getPlayer(), Main.game.getPlayer()));
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+											Sex.setSexStarted(true);
 										}
 									};
 								}
@@ -1316,6 +1317,7 @@ public class InventoryDialogue {
 											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+											Sex.setSexStarted(true);
 										}
 									};
 									
@@ -1327,6 +1329,7 @@ public class InventoryDialogue {
 											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+											Sex.setSexStarted(true);
 										}
 									};
 								}
@@ -1790,6 +1793,7 @@ public class InventoryDialogue {
 											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, inventoryNPC, Main.game.getPlayer()));
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+											Sex.setSexStarted(true);
 										}
 									};
 								}
@@ -1824,6 +1828,7 @@ public class InventoryDialogue {
 											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, inventoryNPC, inventoryNPC));
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+											Sex.setSexStarted(true);
 										}
 									};
 									
@@ -1835,6 +1840,7 @@ public class InventoryDialogue {
 											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, inventoryNPC, inventoryNPC));
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+											Sex.setSexStarted(true);
 										}
 									};
 								}
@@ -4032,7 +4038,7 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
-			return getItemDisplayPanel(clothing.getSVGEquippedString(),
+			return getItemDisplayPanel(clothing.getSVGEquippedString(owner),
 					clothing.getDisplayName(true),
 					clothing.getDescription()
 					+ clothing.clothingExtraInformation((Main.game.isInSex()?owner:Main.game.getPlayer()))

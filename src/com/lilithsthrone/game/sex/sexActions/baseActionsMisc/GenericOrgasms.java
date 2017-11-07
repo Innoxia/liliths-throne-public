@@ -878,10 +878,12 @@ public class GenericOrgasms {
 			
 			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER) != null) {
 				for(OrificeType ot : Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER)) {
-					if(!ot.isPlayer())
+					if(!ot.isPlayer()) {
 						takingCock=true;
+					}
 				}
 			}
+			
 			return !takingCock;
 		}
 		
@@ -939,8 +941,9 @@ public class GenericOrgasms {
 			
 			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER) != null) {
 				for(OrificeType ot : Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER)) {
-					if(!ot.isPlayer())
+					if(!ot.isPlayer()) {
 						takingCock=true;
+					}
 				}
 			}
 			
@@ -1039,8 +1042,9 @@ public class GenericOrgasms {
 			
 			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER) != null) {
 				for(OrificeType ot : Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER)) {
-					if(!ot.isPlayer())
+					if(!ot.isPlayer()) {
 						takingCock=true;
+					}
 				}
 			}
 			

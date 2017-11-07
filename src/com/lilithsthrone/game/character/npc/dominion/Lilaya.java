@@ -70,6 +70,7 @@ public class Lilaya extends NPC {
 		this.setAssVirgin(false);
 		this.setFaceVirgin(false);
 		this.setNippleVirgin(false);
+		this.setPenisVirgin(false);
 		this.setBreastSize(CupSize.E.getMeasurement());
 
 		this.equipClothingFromNowhere(panties, true, this);

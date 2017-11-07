@@ -228,12 +228,18 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			}
 			// Choose a random position:
 			if (!possibleActions.isEmpty()) {
-				for(SexActionInterface action : availableActions) {
-					if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
-						return (SexAction) action;
-					}
-				}
+//				for(SexActionInterface action : availableActions) {
+//					if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
+//						return (SexAction) action;
+//					}
+//				}
 				return possibleActions.get(Util.random.nextInt(possibleActions.size()));
+			}
+		} else {
+			for(SexActionInterface action : availableActions) {
+				if(action.getActionType()==SexActionType.PARTNER_POSITIONING) {
+					bannedActions.add(action);
+				}
 			}
 		}
 		
@@ -497,6 +503,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	 */
 	private SexAction performForeplayAction() {
 		List<SexActionInterface> availableActions = Sex.getAvailableSexActionsPartner();
+		availableActions.removeAll(bannedActions);
 
 		// If the NPC has a preference, they are more likely to choose actions related to that:
 		if(Sex.getPartner().getForeplayPreference()!=null) {
@@ -563,12 +570,11 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	
 	private SexAction performSexAction() {
 		List<SexActionInterface> availableActions = Sex.getAvailableSexActionsPartner();
+		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
+		availableActions.removeAll(bannedActions);
 		List<SexActionInterface> returnableActions = new ArrayList<>();
 		
 		boolean isSexPenetration = false;
-		
-		// Ban this sick filth!
-		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
 		
 		// Is any sexual penetration happening:
 		for(Entry<PenetrationType, Set<OrificeType>> e : Sex.getOngoingPenetrationMap().entrySet()) {

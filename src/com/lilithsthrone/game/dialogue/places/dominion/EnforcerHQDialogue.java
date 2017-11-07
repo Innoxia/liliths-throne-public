@@ -73,7 +73,7 @@ public class EnforcerHQDialogue {
 				return new ResponseEffectsOnly("Enter", "Cross the grounds and enter the Enforcer HQ."){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(true);
+						Main.mainController.moveGameWorld(WorldType.ENFORCER_HQ, EnforcerHQ.ENTRANCE, true);
 					}
 				};
 
@@ -118,7 +118,7 @@ public class EnforcerHQDialogue {
 				return new ResponseEffectsOnly("Exit", "Leave the Enforcer HQ."){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(true);
+						Main.mainController.moveGameWorld(WorldType.DOMINION, Dominion.CITY_ENFORCER_HQ, true);
 					}
 				};
 

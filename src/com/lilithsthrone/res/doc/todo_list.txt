@@ -23,54 +23,123 @@
 	Patch notes:
 	
 	Gameplay:
-		<b>Added:</b> Fluid addiction mechanics. Ingesting addictive fluid will increase your 'addiction level'; no negative effects are incurred if you keep satisfying your addiction, but if you go more than 24 hours without a 'fix', you'll start experiencing withdrawal symptoms.
-		Addictive fluids only work for cum at the moment, and don't have many unique lines of dialogue, but I'll add in addictive milk & girlcum, as well as dialogue, for the next release!
-		Increased inventory capacity from 24 to 32. (The inventory screen might get a little laggy when full, but I have a fix planned for this, which I'll try and implement for the next version.)
+		Added chance for Angel's Nectar to drop from defeated enemies.
 	
 	Sex:
-		<b>Restructured:</b> Action menu during sex. Actions are now assigned to one of four sub-menus, in an attempt to tidy up the unwieldy mess of actions.
-		Created a new category of sex actions for your response to incoming partner orgasms. Moved 'Ask for creampie' and 'Ask for pullout' to this new category.
-		Removed the 'Use item' action, as for the last several versions you've been able to just open your inventory in sex instead.
-		Added 'Repeat action' where 'Use item' used to be.
-		Very slightly reduced the base arousal increase values per turn, to compensate for the arousal gains caused by fixing ongoing-actions applying arousal increases to both partners.
-		Added: Spread pussy action for both player & partner.
-		Added an action for NPCs to lubricate their fingers with saliva. (This won't result in the old bug of partners continuously self-sucking their fingers; they will only use this action to lubricate their fingers if they intend on fingering you.)
-		Added: Breast kissing action for both player & partner. (Nipple sucking to come soon.)
-		Having a request for a different position in sex no longer blocks you from requesting positions again.
-		Improved the AI's decision making and reaction to requests. They *should* now perform penetrative actions they otherwise wouldn't have if you've requested them to use a certain orifice.
+		Added finger lubrication action for player (lick fingers to get them lubed without continuing to suck on them).
+		Added a 'flat chest' version of the status effect 'Breast status' during sex.
+		Added breast kissing actions to 'Standing', 'Back-to-wall', 'Cowgirl', 'Chair sex', and 'Missionary' positions.
 	
-	Clothing & Items:
-		Added: Condom belt. (No femininity requirements, hip slot.) I'll add functionality to increase inventory capacity while wearing this in the future; I ran out of time to implement it for this version.
-		Improved 'Used condom' item to keep track of colour, cum, and cum's owner.
-		Added: Angel's Nectar (an addiction-curing potion).
+	UI:
+		Made the sex action selection menus remain on the same page after choosing a non-positioning action.
 	
 	Other:
-		Improved debug menu's clothing/weapons/items spawn system.
-		Adjusted all bottled essence rarities.
-		Improved clothing displacement detection, which, for example, should now allow you to shift aside your underwear after unzipping your trousers.
-		Brax's forced TF now affects your body size, muscle, hip size, and ass size.
-		Changed small-size penis descriptors from 'microscopic'->'tiny'->'average' to 'tiny'->'small'->'average'.
-		Pantyhose and arm-length gloves are no longer restricted to only black and white color variety.
-		Added grey colour to hair and fur.
-		Changed harpy hand descriptions from being a single opposable thumb to having two forefingers as well.
-		Phone menu is now disabled in character creation menus.
-		Slightly improved condom-drinking descriptions.
+		Changed 'hallucinogenic' fluid modifier to 'psychoactive' modifier, which will allow for both hallucinogenic and hypnotic content in the future.
+		Updated credits page. (If you've pledged 'Epic' or 'Legendary' on Patreon, and don't see your name in the credits, it's because I haven't received a display name from you, so I've added you to the 'Anonymous' count. Please send me a message on Patreon if you're an Epic or Legendary patron without a name in the credits!)
+		Added virginity tracking for penises. (Lost upon any penetration.)
 	
 	Bugs:
-		Fixed incorrect sex count stat iteration and post-orgasm arcane essence gain text (contributed by Rfpnj).
-		Minor typo fixes.
-		You no longer have to provide a surname when changing your name at City Hall.
-		Characters imported from versions prior to 0.1.86.5 should now no longer start with every fetish, and will spawn with basic clothing.
-		Fixed offspring introduction dialogue assuming that you were the mother, even if you were the father.
-		Dialogue title now correctly updates during sex to show you what position you're currently in.
-		Fixed strange floating point number rounding in slave management windows.
-		Fixed incorrect descriptions of clothing replacement.
-		Fixed bug where clothing coupldn't be equipped/removed even if access was available.
-		Fixed game freeze upon reaching 7 orgasms in sex.
-		NPCs should now be able to spawn in with androgynous bodies.
+		Fixed incorrect dom/sub sex totals in NPC's character view screen.
+		Fix issue where using an item on your first turn of sex would not display dialogue correctly.
+		NPCs should now stop all ongoing penetrations when switching position.
+		Fixed game-breaking freeze during Ralph's and Pix's sex scenes.
+		Changed method to move between game worlds in an attempt to fix a major crash when using the 'Downstairs' action in Lilaya's Home.
+		Books in Lilaya's library now correctly give intelligence boosts for new characters.
+		Condom belt icon will now correctly render the condoms that are in the wearer's inventory.
+		Fixed extremely odd arousal gains (such as NPCs gaining huge amounts of arousal from tail-fucking you, while giving them a blowjob would give them almost no arousal gains).
+		Fixed chemise being able to be displaced through other clothing, such as slip dresses.
+		Lubrication descriptions for your partner's penis/vagina/anus/nipples will no longer display if they aren't visible. (Lubrication information will display upon revealing those parts.)
+		NPCs who are virgins will no longer beg to be fucked.
+		Fixed bug that could cause NPCs to use inappropriate actions during sex, such as swapping positions multiple times.
+		Fixed text always describing you as the father to an NPC's children. (Occurred when one of your slaves impregnated another slave.)
+		Anal creampie no longer describes you as having a knot/ribbed cock when you didn't have one.
+		Forced TF racial limits no longer reset to greater morph on each game start-up.
+		Slaves will now correctly lose their vaginal virginity if they're allowed to have sex with one another.
 	
 	
 	
+	
+	
+	
+	It seems that your partner will always cry out for your cum even though your character doesn't have a penis.
+	
+	Addiction will disappear if you wait beyond lvl 5 addiction withdrawal, removing both the withdrawal and addiction.
+	
+	When are freckles/beauty marks/skin blemishes going to be added?
+	
+	I feel like Horse Pussy should be innately muscled
+	
+	Requests not working?
+	
+	one or two more buttons on the sex UI over menu to cover the last 2-3 unique options taken
+	I think having it record three of your past actions would be great, five would be ideal. If not that's fine, was just wondering if it could make it easier to access my favorite actions.
+	5 [5] repeats
+	10
+	
+	if you're doing that, might i suggest a fetish for talking? dirty/rough talking is another sex action that doesn't have a fetish to prevent corruption gain.
+	
+	First make a person addicted to the fluid in general.
+	Then the specifics become more important to them. The taste, the flavor.
+	Then the very cells inside the fluid, the DNA of the giver, becomes the addicting fluid
+	the addiction was to guzzling it having it shot in your ass or getting creampied and impreged
+	
+	No options sometimes
+	
+	Have an interesting bug where all of my equipped items have disappeared. One moment they were there, now every slot is empty except for my on hand off hand weapons. Was using the condom belt and have 9 in inventory so far, but no item overflow occured.  
+I am pretty sure i didn't hit unequip all and then walk away from it, because there are none of my old items in my basic inventory.  
+Okay, just purchased and equipped a new condom belt, it vaporizes into the aether.  Drinking a condom made just the belt reappear, but adding a new condom this time caused the entire inventory (clothing equipped) to not show when i press the inventory button.
+	
+	need to get individual hand lubrications sorted
+	
+	I'll look into adding multiple types of horns for each race
+	
+	I will add a way to take charge in the "slave initiates sex" scenes ^^
+	
+	add a related fetish to allow for corruption-free vaginal sex
+	
+	when you have sex and orgasm, you get almost 4 hours of the "strengthened aura" effect, which prevents you from gaining essence from your orgasms until it fades. is it intended that orgasming while you have that effect resets it's timer, without giving essence? because it is quite annoying to have 5 minutes left of it, have sex with someone, and suddenly be back to 4 hours until i can gain more essence that way.
+	
+	-exe version seems to require a 64-bit environment, which is troublesome for those of us with 32-bit. this was tru in the previous public version too.
+
+	-special teases seem to mis-judge how much damage they'll do. i.e. before using them they say ~20-25 damage, but using one, on someone with the appropriate opposite fetish(sub tease on dom, etc), does ~13 WP damage. and the opponent has -50% WP resistance, is bisexual, and does not have any effects or anything i can see that would reduce WP damage.
+	-similarly, there are other tooltips that display the wrong value. enchanting price, for instance, seems to mostly be wrong whether you have the transformer perk or not.
+	
+	-i am somewhat annoyed by how lilaya keeps pulling my pants down and my underwear aside, despite my underwear being crotchless, my pants unzipped, and my dick already in her.
+	 maybe have it check if clothes even need to be displaced before it tries to?
+	
+	-event log is still running behind the times, though it only seems to happen once there are a lot of events listed. not that that takes long as nothing seems to remove events from the log, and loading a save makes the event log show all the events it did when the save was made.
+	
+	-i have had several defeated sex partners that after a bit, have stopped doing anything. that is, a standard sex turn has text of you doing something, ongoing effects, them doing something, ongoing effects.
+	 for some reason, the them doing something area winds up being blank.
+	
+	-quickloading is somewhat better now, but now the minimap sometimes stops updating when quickloading.
+	
+	as far as other non-bug ideas:
+	-one small idea i had was to have one store, maybe near the entrance, that will buy anything at all you have to sell, rather than having different stores buy different things.
+	-also, maybe having buttons when you're standing outside of the stores that let you jump directly to other stores, rather than going back to the entrance, then to the store?
+	
+	also, the unresponsive partners thing seems to mainly happen to me with defeated randoms when neither of us is doing anything ongoing(partner is forbidden self actions) and i'm mainly hitting "calm down" over and over, since i don't want to cum due to the strengthened aura bug mentioned below.
+	
+	-global resist seems to do nothing from any source, while global damage seems to increase both "Pure" damage and resist, at lease according to the pop-up that shows when hovering over my name.
+	
+	Comments:
+	-in enchanted potions, would it be possible to combine similar effects, so that rather than having a potion that says "+1 fitness" a dozen or so times over and over, just says "+12 fitness" or whatever the full value is?
+	
+	-in combat, maybe have the tease/spell icons under the HP/WP/SP bars in the middle of the screen be clickable to use that tease/spell?
+	
+	I might change that soon so that they spawn, but without any lewd options if you have incest turned off
+	
+	The subject for Lilaya's testing seems to be the last character you talked to rather than the slave the slavery overview says it's being done to.
+	
+	So the girls I meet have "one pair of average-sized tits" even with multi-breasts on, and maximum furry preferences 
+	
+	There is a bug where trying to get the discount at Ralph's Snacks freezes the game
+	
+	Got a bug, when i was sucking a witches cock she said "Put out i don't want to taste your cum "
+	
+	So, while riding my son's cock, kissing him and fingering my own ass, he tells me to pull out because he doesnt want to taste my cum :stuck_out_tongue:
+	Also, condom belts when removed during sex are called microskirts
+	it was fixed by removing an item of clothing
 	
 	Addictive fluids
 	
@@ -105,6 +174,7 @@
 		urethra fucking
 		better cumshot hit-detection for more messy and consequential sex
 		cum infaltion & puddles
+		Add more reveal reactions & tidy them up
 		
 	Sex AI:
 		Brax anal: he's not doing those either, regardess of what I suggest.
@@ -121,12 +191,10 @@
 		Brittany's other sex positions don't show until selecting doggy style, which for me was the only initial sex position
 		When you are the submissive partner during sex, you are still given the option to pull out when you orgasm even when there's nothing to pull out from.
 		NPCs seem to almost exclusively prioritize playing with their breasts
+		Do deflowering fetish AIs prioritize removing virginity?  If yes, are they coded to do so for penile virginity if they have a vagina?
 	
 	
 	
-	
-	
-	When are freckles/beauty marks/skin blemishes going to be added?
 	
 	
 	if a demon has the tf fetish they dont tf you when you lose.

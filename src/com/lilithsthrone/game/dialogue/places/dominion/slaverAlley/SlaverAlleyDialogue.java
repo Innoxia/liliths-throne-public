@@ -10,6 +10,9 @@ import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.Dominion;
+import com.lilithsthrone.world.places.SlaverAlley;
 
 /**
  * @since 0.1.0
@@ -53,7 +56,7 @@ public class SlaverAlleyDialogue {
 				return new ResponseEffectsOnly("Slaver Alley", "Step through the gate and enter Slaver Alley."){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(true);
+						Main.mainController.moveGameWorld(WorldType.SLAVER_ALLEY, SlaverAlley.ALLEY_ENTRANCE, true);
 					}
 				};
 
@@ -91,7 +94,7 @@ public class SlaverAlleyDialogue {
 				return new ResponseEffectsOnly("Leave", "Step back out into Dominion's alleyways."){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(true);
+						Main.mainController.moveGameWorld(WorldType.DOMINION, Dominion.CITY_SLAVER_ALLEY, true);
 					}
 				};
 

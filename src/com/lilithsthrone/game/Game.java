@@ -1664,12 +1664,12 @@ public class Game implements Serializable {
 				setDefaultDialogue);
 	}
 	
-	public void setActiveWorld(boolean setDefaultDialogue) {
-		setActiveWorld(
-				getWorlds().get(getPlayerCell().getPlace().getLinkedWorldType()),
-				getWorlds().get(getPlayerCell().getPlace().getLinkedWorldType()).getPlacesOfInterest().get(new GenericPlace(getPlayerCell().getPlace().getLinkedPlaceInterface())),
-				setDefaultDialogue);
-	}
+//	public void setActiveWorld(boolean setDefaultDialogue) {
+//		setActiveWorld(
+//				getWorlds().get(getPlayerCell().getPlace().getLinkedWorldType()),
+//				getWorlds().get(getPlayerCell().getPlace().getLinkedWorldType()).getPlacesOfInterest().get(new GenericPlace(getPlayerCell().getPlace().getLinkedPlaceInterface())),
+//				setDefaultDialogue);
+//	}
 
 	public void setPlayer(PlayerCharacter player) {
 		this.player = player;

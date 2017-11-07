@@ -3,6 +3,8 @@ package com.lilithsthrone.game.dialogue.places;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.Dominion;
 
 /**
  * @since 0.1.0
@@ -114,7 +116,7 @@ public class JunglePlaces {
 				return new Response("Dominion", "Travel to Dominion. (This will be added later!)", null){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(true);
+						Main.mainController.moveGameWorld(WorldType.DOMINION, Dominion.CITY_EXIT_TO_JUNGLE, true);
 					}
 				};
 

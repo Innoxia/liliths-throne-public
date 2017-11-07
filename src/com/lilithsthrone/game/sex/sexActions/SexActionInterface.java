@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.8
+ * @version 0.1.89
  * @author Innoxia
  */
 public interface SexActionInterface {
@@ -85,8 +85,13 @@ public interface SexActionInterface {
 	public default void baseEffects() {
 		
 		if(getActionType()==SexActionType.PLAYER_PENETRATION || getActionType() == SexActionType.PARTNER_PENETRATION) {
-			if(getAssociatedPenetrationType()!=null && getAssociatedOrificeType()!=null)
+			if(getAssociatedPenetrationType()!=null && getAssociatedOrificeType()!=null) {
 				Sex.applyPenetration(getAssociatedPenetrationType(), getAssociatedOrificeType());
+			}
+		}
+		
+		if(getActionType()==SexActionType.PLAYER_POSITIONING || getActionType() == SexActionType.PARTNER_POSITIONING) { //TODO
+			
 		}
 		
 		if(getActionType()==SexActionType.PLAYER_STOP_PENETRATION || getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
@@ -176,14 +181,14 @@ public interface SexActionInterface {
 			// If this is a positioning action, only allow it if there is no penetration occurring:
 			if(getActionType()==SexActionType.PLAYER_POSITIONING || getActionType() == SexActionType.PARTNER_POSITIONING) {
 				
-				if(Sex.isAnyNonSelfPenetrationHappening()
-						&& (!Sex.isConsensual() || getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING)
-						&& ((getActionType().isPlayerAction() && !Sex.isPlayerDom()) || (!getActionType().isPlayerAction() && Sex.isPlayerDom()))) {
-					return convertToNullResponse();
-					
-				} else {
+//				if(Sex.isAnyNonSelfPenetrationHappening()
+//						&& (!Sex.isConsensual() || getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING)
+//						&& ((getActionType().isPlayerAction() && !Sex.isPlayerDom()) || (!getActionType().isPlayerAction() && Sex.isPlayerDom()))) {
+//					return convertToNullResponse();
+//					
+//				} else {
 					return convertToResponse();
-				}
+//				}
 			
 			// If this is a 'stop penetration' action, check to see if all the requirements are met:
 			} else if(getActionType()==SexActionType.PLAYER_STOP_PENETRATION || getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
@@ -358,20 +363,54 @@ public interface SexActionInterface {
 		}
 	}
 	
+	public default SexActionCategory getCategory() {
+		if(getAssociatedPenetrationType()==null && getAssociatedOrificeType()==null) {
+			if(getActionType() == SexActionType.PLAYER_POSITIONING || getActionType() == SexActionType.PARTNER_POSITIONING) {
+				return SexActionCategory.POSITIONING;
+			} else {
+				return SexActionCategory.MISCELLANEOUS;
+			}
+			
+		} else {
+			if (getAssociatedPenetrationType()!=null) {
+				if(getAssociatedOrificeType()!=null) {
+					if(getAssociatedPenetrationType().isPlayer() == getAssociatedOrificeType().isPlayer()) {
+						return SexActionCategory.SELF;
+					} else {
+						return SexActionCategory.SEX;
+					}
+				} else {
+					if((getAssociatedPenetrationType().isPlayer() && getActionType().isPlayerAction())
+							|| (!getAssociatedPenetrationType().isPlayer() && !getActionType().isPlayerAction())) {
+						return SexActionCategory.SELF;
+					} else {
+						return SexActionCategory.SEX;
+					}
+				}
+			} else {
+				if((getAssociatedOrificeType().isPlayer() && getActionType().isPlayerAction())
+						|| (!getAssociatedOrificeType().isPlayer() && !getActionType().isPlayerAction())) {
+					return SexActionCategory.SELF;
+				} else {
+					return SexActionCategory.SEX;
+				}
+			}
+			
+		}
+	}
+	
 	public default Response convertToResponse() {
 		return new Response(getActionTitle(), getActionDescription(), Sex.SEX_DIALOGUE,
 				getFetishesPlayer(),
 				getCorruptionNeeded(),
 				null, null, null,
 				getAssociatedPenetrationType(), getAssociatedOrificeType(), Sex.getPartner()){
+			
 			@Override
 			public void effects() {
-				if(getActionType()==SexActionType.PLAYER_POSITIONING || getActionType()==SexActionType.PARTNER_POSITIONING) {
-					for(PenetrationType pt : PenetrationType.values()) {
-						Sex.getOngoingPenetrationMap().remove(pt);
-					}
+				if(getCategory() == SexActionCategory.POSITIONING) {
+					Sex.responseCategory = null;
 				}
-				
 				Sex.setSexStarted(true);
 				Sex.endSexTurn(SexActionInterface.this);
 			}

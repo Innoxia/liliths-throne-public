@@ -24,11 +24,50 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.64
- * @version 0.1.78
+ * @version 0.1.89
  * @author Innoxia
  */
 public class SARalphOrgasms {
 
+	public static final SexAction PLAYER_PREPARE = new SexAction(
+			SexActionType.PLAYER_PREPARE_PARTNER_ORGASM,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Prepare";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You can feel that [npc.name] is fast approaching [npc.her] orgasm. Prepare yourself for it.";
+		}
+		
+		@Override
+		public String getDescription() {
+			switch(Sex.getSexPacePlayer()) {
+				case DOM_GENTLE:
+					return "You let out a soft [pc.moan] of encouragement as you prepare for [npc.name] to reach [npc.her] orgasm.";
+				case DOM_NORMAL:
+					return "You let out [pc.a_moan+] of encouragement as you prepare for [npc.name] to reach [npc.her] orgasm.";
+				case DOM_ROUGH:
+					return "You let out [pc.a_moan+] of encouragement as you prepare for [npc.name] to reach [npc.her] orgasm.";
+				case SUB_EAGER:
+					return "You let out [pc.a_moan+] of encouragement as you prepare for [npc.name] to reach [npc.her] orgasm.";
+				case SUB_NORMAL:
+					return "You let out [pc.a_moan] of encouragement as you prepare for [npc.name] to reach [npc.her] orgasm.";
+				case SUB_RESISTING:
+					return "You let out [pc.a_moan+] as you desperately try to pull away from [npc.name] before [npc.she] orgasms.";
+			}
+			
+			return "";
+		}
+	};
+	
 	public static final SexAction PLAYER_ORGASM = new SexAction(
 			SexActionType.PLAYER_ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
@@ -215,6 +254,45 @@ public class SARalphOrgasms {
 			}
 			
 			SexFlags.customerAtCounter=false;
+		}
+	};
+	
+	public static final SexAction PARTNER_PREPARE = new SexAction(
+			SexActionType.PARTNER_PREPARE_PLAYER_ORGASM,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Prepare";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You can feel that [pc.name] is fast approaching [pc.her] orgasm. Prepare yourself for it.";
+		}
+		
+		@Override
+		public String getDescription() {
+			switch(Sex.getSexPacePlayer()) {
+				case DOM_GENTLE:
+					return "[npc.Name] lets out a soft [npc.moan] of encouragement as [npc.she] prepares for you to reach your orgasm.";
+				case DOM_NORMAL:
+					return "[npc.Name] lets out [npc.a_moan+] of encouragement as [npc.she] prepares for you to reach your orgasm.";
+				case DOM_ROUGH:
+					return "[npc.Name] lets out [npc.a_moan+] of encouragement as [npc.she] prepares for you to reach your orgasm.";
+				case SUB_EAGER:
+					return "[npc.Name] lets out [npc.a_moan+] of encouragement as [npc.she] prepares for you to reach your orgasm.";
+				case SUB_NORMAL:
+					return "[npc.Name] lets out [npc.a_moan+] of encouragement as [npc.she] prepares for you to reach your orgasm.";
+				case SUB_RESISTING:
+					return "[npc.Name] lets out [npc.a_moan+] as [npc.she] desperately tries to pull away from you before you orgasm.";
+			}
+			
+			return "";
 		}
 	};
 	

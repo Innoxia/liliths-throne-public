@@ -11,6 +11,9 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.Dominion;
+import com.lilithsthrone.world.places.HarpyNests;
 
 /**
  * @since 0.1.0
@@ -84,7 +87,7 @@ public class HarpyNestsDialogue {
 									+ "</p>");
 						}
 						
-						Main.mainController.moveGameWorld(true);
+						Main.mainController.moveGameWorld(WorldType.HARPY_NEST, HarpyNests.ENTRANCE_ENFORCER_POST, true);
 					}
 				};
 
@@ -157,7 +160,7 @@ public class HarpyNestsDialogue {
 									+ "</p>");
 						}
 						
-						Main.mainController.moveGameWorld(true);
+						Main.mainController.moveGameWorld(WorldType.DOMINION, Dominion.CITY_HARPY_NESTS, true);
 					}
 				};
 

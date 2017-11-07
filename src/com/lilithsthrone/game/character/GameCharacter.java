@@ -2194,7 +2194,7 @@ public class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public int getTotalTimesHadSex() {
-		return getSexAsDomCount() + getSexAsSubCount() + getSexConsensualCount();
+		return getSexAsDomCount() + getSexAsSubCount();
 	}
 	
 	// Sex:
@@ -2205,11 +2205,8 @@ public class GameCharacter implements Serializable, XMLSaving {
 		sexCountMap.put(sexType, integer);
 	}
 	public int getSexCount(SexType sexType) {
-		if(sexCountMap.get(sexType)==null) {
-			return 0;
-		} else {
-			return sexCountMap.get(sexType);
-		}
+		sexCountMap.putIfAbsent(sexType, 0);
+		return sexCountMap.get(sexType);
 	}
 
 	// Cum:
@@ -2220,11 +2217,8 @@ public class GameCharacter implements Serializable, XMLSaving {
 		cumCountMap.put(sexType, integer);
 	}
 	public int getCumCount(SexType sexType) {
-		if(cumCountMap.get(sexType)==null) {
-			return 0;
-		} else {
-			return cumCountMap.get(sexType);
-		}
+		cumCountMap.putIfAbsent(sexType, 0);
+		return cumCountMap.get(sexType);
 	}
 
 	// Virginity:
@@ -6368,6 +6362,12 @@ public class GameCharacter implements Serializable, XMLSaving {
 	// Misc.:
 	public boolean hasPenis() {
 		return body.getPenis().getType() != PenisType.NONE;
+	}
+	public boolean isPenisVirgin() {
+		return body.getPenis().isVirgin();
+	}
+	public void setPenisVirgin(boolean virgin) {
+		body.getPenis().setVirgin(virgin);
 	}
 	// Names:
 	public String getPenisName() {

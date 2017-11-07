@@ -3238,7 +3238,7 @@ public class ClothingType {
 									null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_UP,
-									null,
+									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.ANUS),
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
@@ -6530,8 +6530,15 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 							null, null)),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.SHIFTS_ASIDE, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)), null))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(DisplacementType.SHIFTS_ASIDE,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.ANUS),
+									new ListValue<CoverableArea>(CoverableArea.PENIS),
+									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+							null))),
 
 			null,
 
@@ -8398,10 +8405,11 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
 			null,
+//			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.CHEST)),
 			Colour.allClothingColours) {
 		
 		

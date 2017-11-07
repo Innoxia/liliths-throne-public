@@ -532,11 +532,11 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	}
 
 	public String getSVGImage(Colour colour) {
-		return getSVGImage(colour, false);
+		return getSVGImage(null, colour, false);
 	}
 	
-	public String getSVGEquippedImage(Colour colour) {
-		return getSVGImage(colour, true);
+	public String getSVGEquippedImage(GameCharacter character, Colour colour) {
+		return getSVGImage(character, colour, true);
 	}
 	
 	private String colourReplacement(Colour colour, String inputString) {
@@ -551,7 +551,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		return s;
 	}
 	
-	private String getSVGImage(Colour colour, boolean equippedVariant) {
+	private String getSVGImage(GameCharacter character, Colour colour, boolean equippedVariant) {
 		if (!availableColours.contains(colour)) {
 			return "";
 		}
@@ -577,7 +577,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 					} else {
 						List<Colour> condomColours = new ArrayList<>();
 						// Draw all backs:
-						for(AbstractItem item : Main.game.getPlayer().getAllItemsInInventory()) {
+						for(AbstractItem item : character.getAllItemsInInventory()) {
 							if(item.getItemType().equals(ItemType.CONDOM_USED)) {
 								condomColours.add(item.getColour());
 								

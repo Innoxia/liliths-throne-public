@@ -2,8 +2,10 @@ package com.lilithsthrone.game.character;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -25,6 +27,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
@@ -41,7 +44,7 @@ import com.lilithsthrone.world.places.SlaverAlley;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.1.89
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter implements XMLSaving {
@@ -54,6 +57,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	private boolean mainQuestUpdated, sideQuestUpdated, romanceQuestUpdated;
 
+	private Set<AbstractItemType> booksRead;
+	
 	// Trader buy-back:
 	private SizedStack<ShopTransaction> buybackStack;
 
@@ -75,6 +80,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		mainQuestUpdated = false;
 		sideQuestUpdated = false;
 		romanceQuestUpdated = false;
+		
+		booksRead = new HashSet<>();
 
 		buybackStack = new SizedStack<>(24);
 
@@ -667,6 +674,14 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	public SizedStack<ShopTransaction> getBuybackStack() {
 		return buybackStack;
+	}
+
+	public boolean addBooksRead(AbstractItemType book) {
+		return booksRead.add(book);
+	}
+	
+	public Set<AbstractItemType> getBooksRead() {
+		return booksRead;
 	}
 
 }

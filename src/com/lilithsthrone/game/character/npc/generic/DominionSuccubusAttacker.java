@@ -70,6 +70,7 @@ public class DominionSuccubusAttacker extends NPC {
 		this.setAssVirgin(false);
 		this.setFaceVirgin(false);
 		this.setNippleVirgin(false);
+		this.setPenisVirgin(false);
 		
 		setLevel(Util.random.nextInt(3) + 4);
 		

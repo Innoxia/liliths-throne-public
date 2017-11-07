@@ -5397,8 +5397,8 @@ public enum StatusEffect {
 			float arousal = 0;
 			
 			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) != null) {
-					arousal+=4;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) != null && Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.ANUS_PARTNER)) {
 						arousal+=0.5;
@@ -5411,8 +5411,8 @@ public enum StatusEffect {
 					}
 				}
 			} else {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) != null) {
-					arousal+=4;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.ANUS_PLAYER)) {
 						arousal+=0.5;
@@ -5787,8 +5787,8 @@ public enum StatusEffect {
 			float arousal = 0;
 			
 			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER) != null) {
-					arousal+=1;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER) != null && Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.MOUTH_PARTNER)) {
 						arousal+=0.5;
@@ -5798,8 +5798,8 @@ public enum StatusEffect {
 					}
 				}
 			} else {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) != null) {
-					arousal+=1;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.MOUTH_PLAYER)) {
 						arousal+=0.5;
@@ -6132,6 +6132,15 @@ public enum StatusEffect {
 			null) {
 
 		@Override
+		public String getName(GameCharacter owner) {
+			if(owner.hasBreasts()) {
+				return "Breast status";
+			} else {
+				return "Chest status";
+			}
+		}
+		
+		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
 			float arousal = 0;
 			
@@ -6173,8 +6182,8 @@ public enum StatusEffect {
 			float arousal = 0;
 			
 			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER) != null) {
-					arousal+=2;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER) != null && Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.BREAST_PARTNER)) {
 						arousal+=0.5;
@@ -6187,8 +6196,8 @@ public enum StatusEffect {
 					} 
 				}
 			} else {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER) != null) {
-					arousal+=2;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.BREAST_PLAYER)) {
 						arousal+=0.5;
@@ -6435,7 +6444,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex() && target.hasBreasts();
+			return Main.game.isInSex();
 		}
 		
 		@Override
@@ -6446,8 +6455,11 @@ public enum StatusEffect {
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			SVGImageSB = new StringBuilder();
-			
-			SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts());
+			if(owner.hasBreasts()) {
+				SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts());
+			} else {
+				SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreastsFlat());
+			}
 			
 			if(owner.isPlayer()) {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER) != null) {
@@ -6573,8 +6585,8 @@ public enum StatusEffect {
 			float arousal = 0;
 			
 			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) != null) {
-					arousal+=2;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) != null && Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.NIPPLE_PARTNER)) {
 						arousal+=0.5;
@@ -6587,8 +6599,8 @@ public enum StatusEffect {
 					} 
 				}
 			} else {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) != null) {
-					arousal+=2;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.NIPPLE_PLAYER)) {
 						arousal+=0.5;
@@ -6974,8 +6986,8 @@ public enum StatusEffect {
 			float arousal = 0;
 			
 			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) != null) {
-					arousal+=4;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) != null && Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.VAGINA_PARTNER)) {
 						arousal+=0.5;
@@ -6988,8 +7000,8 @@ public enum StatusEffect {
 					} 
 				}
 			} else {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) != null) {
-					arousal+=4;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.VAGINA_PLAYER)) {
 						arousal+=0.5;

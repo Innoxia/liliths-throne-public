@@ -7,6 +7,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.Dominion;
 import com.lilithsthrone.world.places.ShoppingArcade;
 
 /**
@@ -60,7 +61,7 @@ public class ShoppingArcadeDialogue {
 				return new ResponseEffectsOnly("Enter", "Step through the entrance and enter the shopping arcade."){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(true);
+						Main.mainController.moveGameWorld(WorldType.SHOPPING_ARCADE, ShoppingArcade.ARCADE_ENTRANCE, true);
 					}
 				};
 
@@ -102,7 +103,7 @@ public class ShoppingArcadeDialogue {
 				return new ResponseEffectsOnly("Exit", "Leave the Shopping Arcade."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_SHOPPING_ARCADE, true);
 					}
 				};
 

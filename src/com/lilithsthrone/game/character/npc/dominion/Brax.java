@@ -77,7 +77,7 @@ import com.lilithsthrone.world.places.EnforcerHQ;
 
 /**
  * @since 0.1.5
- * @version 0.1.8
+ * @version 0.1.89
  * @author Innoxia
  */
 public class Brax extends NPC {
@@ -99,6 +99,7 @@ public class Brax extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
 
 		this.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
+		this.setPenisVirgin(false);
 
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());

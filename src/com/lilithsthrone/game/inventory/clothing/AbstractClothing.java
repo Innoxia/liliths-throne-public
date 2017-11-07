@@ -388,8 +388,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		return getClothingType().getSVGImage(colourShade);
 	}
 	
-	public String getSVGEquippedString() {
-		return getClothingType().getSVGEquippedImage(colourShade);
+	public String getSVGEquippedString(GameCharacter character) {
+		return getClothingType().getSVGEquippedImage(character, colourShade);
 	}
 
 	/**

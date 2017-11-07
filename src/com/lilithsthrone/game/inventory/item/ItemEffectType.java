@@ -1821,6 +1821,8 @@ public enum ItemEffectType {
 		Main.getProperties().addRaceDiscovered(race);
 		if(Main.getProperties().addAdvancedRaceKnowledge(race)) {
 			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(book), true);
+		}
+		if(Main.game.getPlayer().addBooksRead(book)) {
 			Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f);
 		}
 		
@@ -3350,9 +3352,9 @@ public enum ItemEffectType {
 						}
 					case TF_MOD_FLUID_HALLUCINOGENIC:
 						if(potency == TFPotency.MINOR_DRAIN) {
-							return new RacialEffectUtil("Removes hallucinogenic effect from cum.") { @Override public String applyEffect() { return target.removeCumModifier(FluidModifier.HALLUCINOGENIC); } };
+							return new RacialEffectUtil("Removes psychoactive effect from cum.") { @Override public String applyEffect() { return target.removeCumModifier(FluidModifier.HALLUCINOGENIC); } };
 						} else {
-							return new RacialEffectUtil("Adds a hallucinogenic effect to cum.") { @Override public String applyEffect() { return target.addCumModifier(FluidModifier.HALLUCINOGENIC); } };
+							return new RacialEffectUtil("Adds a psychoactive effect to cum.") { @Override public String applyEffect() { return target.addCumModifier(FluidModifier.HALLUCINOGENIC); } };
 						}
 					case TF_MOD_FLUID_MUSKY:
 						if(potency == TFPotency.MINOR_DRAIN) {
@@ -3442,9 +3444,9 @@ public enum ItemEffectType {
 						}
 					case TF_MOD_FLUID_HALLUCINOGENIC:
 						if(potency == TFPotency.MINOR_DRAIN) {
-							return new RacialEffectUtil("Removes hallucinogenic effect from milk.") { @Override public String applyEffect() { return target.removeMilkModifier(FluidModifier.HALLUCINOGENIC); } };
+							return new RacialEffectUtil("Removes psychoactive effect from milk.") { @Override public String applyEffect() { return target.removeMilkModifier(FluidModifier.HALLUCINOGENIC); } };
 						} else {
-							return new RacialEffectUtil("Adds a hallucinogenic effect to milk.") { @Override public String applyEffect() { return target.addMilkModifier(FluidModifier.HALLUCINOGENIC); } };
+							return new RacialEffectUtil("Adds a psychoactive effect to milk.") { @Override public String applyEffect() { return target.addMilkModifier(FluidModifier.HALLUCINOGENIC); } };
 						}
 					case TF_MOD_FLUID_MUSKY:
 						if(potency == TFPotency.MINOR_DRAIN) {
@@ -3534,9 +3536,9 @@ public enum ItemEffectType {
 						}
 					case TF_MOD_FLUID_HALLUCINOGENIC:
 						if(potency == TFPotency.MINOR_DRAIN) {
-							return new RacialEffectUtil("Removes hallucinogenic effect from girlcum.") { @Override public String applyEffect() { return target.removeGirlcumModifier(FluidModifier.HALLUCINOGENIC); } };
+							return new RacialEffectUtil("Removes psychoactive effect from girlcum.") { @Override public String applyEffect() { return target.removeGirlcumModifier(FluidModifier.HALLUCINOGENIC); } };
 						} else {
-							return new RacialEffectUtil("Adds a hallucinogenic effect to girlcum.") { @Override public String applyEffect() { return target.addGirlcumModifier(FluidModifier.HALLUCINOGENIC); } };
+							return new RacialEffectUtil("Adds a psychoactive effect to girlcum.") { @Override public String applyEffect() { return target.addGirlcumModifier(FluidModifier.HALLUCINOGENIC); } };
 						}
 					case TF_MOD_FLUID_MUSKY:
 						if(potency == TFPotency.MINOR_DRAIN) {

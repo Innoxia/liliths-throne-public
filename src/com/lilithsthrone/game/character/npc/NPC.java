@@ -276,6 +276,9 @@ public abstract class NPC extends GameCharacter {
 		if(rnd<=0.05) {
 			return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FETISH_UNREFINED)));
 			
+		} else if(rnd<=0.1) {
+			return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.ADDICTION_REMOVAL)));
+			
 		} else if(rnd <= 0.7) {
 			switch(getRace()) {
 				case CAT_MORPH:
@@ -1985,17 +1988,33 @@ public abstract class NPC extends GameCharacter {
 						"You're my bitch now, understand?!",
 						"I'm going to use you however I want, you fucking slut!");
 			case SUB_EAGER:
-				return UtilText.returnStringAtRandom(
-						"Come on, fuck me already! Please!",
-						"Fuck me! Please!",
-						"What are you waiting for?! Come on, fuck me!",
-						"I'm so horny! Please, fuck me!");
+				if(Sex.getPartner().isVaginaVirgin() && Sex.getPartner().hasVagina()) {
+					return UtilText.returnStringAtRandom(
+							"Come on, fuck me already! Just... Not in my pussy! I'm still a virgin!",
+							"I'm still a virgin! Just don't use my pussy, ok?!",
+							"What are you waiting for?! Just... Don't use my pussy! I'm still a virgin!",
+							"I'm so horny! Please, fuck me! But... Not in my pussy... I'm still a virgin...");
+				} else {
+					return UtilText.returnStringAtRandom(
+							"Come on, fuck me already! Please!",
+							"Fuck me! Please!",
+							"What are you waiting for?! Come on, fuck me!",
+							"I'm so horny! Please, fuck me!");
+				}
 			case SUB_NORMAL:
-				return UtilText.returnStringAtRandom(
-						"I'll be a good [npc.girl]!",
-						"I'll do whatever you want!",
-						"Let's get started!",
-						"Let's have some fun!");
+				if(Sex.getPartner().isVaginaVirgin() && Sex.getPartner().hasVagina()) {
+					return UtilText.returnStringAtRandom(
+							"I'll be a good [npc.girl]! Just... Don't use my pussy! I'm still a virgin!",
+							"I'll do whatever you want! Just don't use my pussy, ok?! I'm still a virgin...",
+							"Let's get started! Just... Don't use my pussy! I'm still a virgin!",
+							"Let's have some fun! But... Don't use my pussy... I'm still a virgin...");
+				} else {
+					return UtilText.returnStringAtRandom(
+							"I'll be a good [npc.girl]!",
+							"I'll do whatever you want!",
+							"Let's get started!",
+							"Let's have some fun!");
+				}
 			case SUB_RESISTING:
 				return UtilText.returnStringAtRandom(
 						"Go away! Leave me alone!",
@@ -2136,7 +2155,7 @@ public abstract class NPC extends GameCharacter {
 						switch(Sex.getSexPacePartner()) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
-										"That's right, keep eating me out like a good [pc.girl]!",
+										"That's right, keep eating me out!",
 										"Good [pc.girl]! Keep that [pc.tongue] of yours busy!",
 										"What a good [pc.girl]! You love the taste of my pussy, don't you?!");
 							case DOM_NORMAL:

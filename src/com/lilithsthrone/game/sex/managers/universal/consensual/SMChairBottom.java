@@ -5,6 +5,10 @@ import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueBreasts;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueBreasts;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
@@ -60,6 +64,12 @@ public class SMChairBottom extends SexManagerDefault {
 				PartnerSelfTailVagina.class,
 				
 				PartnerSelfNoPen.class,
+				
+
+				PlayerTongueBreasts.class,
+				PlayerTongueNipple.class,
+				PartnerTongueBreasts.class,
+				PartnerTongueNipple.class,
 				
 				// Scene-specific:
 				
