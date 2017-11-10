@@ -38,7 +38,7 @@ import com.lilithsthrone.world.places.Jungle;
 
 /**
  * @since 0.1.86
- * @version 0.1.86
+ * @version 0.1.89
  * @author Innoxia
  */
 public class PrologueFemale extends NPC {
@@ -95,6 +95,11 @@ public class PrologueFemale extends NPC {
 	}
 	
 	@Override
+	public boolean isUnique() {
+		return true;
+	}
+	
+	@Override
 	public void endSex(boolean applyEffects) {
 	}
 
@@ -143,7 +148,7 @@ public class PrologueFemale extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Carry on", "Get up and carry on your way.") {
 					@Override

@@ -42,6 +42,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SizedStack;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -121,6 +122,7 @@ public enum Sex {
 	private static AbstractClothing clothingBeingRemoved;
 	private static StringBuilder sexSB = new StringBuilder();
 	private static List<SexActionInterface> availableSexActionsPlayer, miscActionsPlayer, selfActionsPlayer, sexActionsPlayer, positionActionsPlayer;
+	private static SizedStack<SexActionInterface> repeatActionsPlayer;
 	private static List<SexActionInterface> availableSexActionsPartner;
 
 	private static DialogueNodeOld postSexDialogue;
@@ -230,6 +232,7 @@ public enum Sex {
 		selfActionsPlayer = new ArrayList<>();
 		sexActionsPlayer = new ArrayList<>();
 		positionActionsPlayer = new ArrayList<>();
+		repeatActionsPlayer = new SizedStack<>(15);
 		availableSexActionsPartner = new ArrayList<>();
 
 		// Populate exposed areas:
@@ -820,7 +823,36 @@ public enum Sex {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public String getResponseTabTitle(int index) {
+
+			if (sexFinished
+					|| lastUsedPartnerAction == SexActionUtility.PARTNER_ORGASM_MUTUAL_WAIT
+					|| Main.game.getPlayer().getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()
+					|| partner.getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) {
+				return null;
+			}
+			if(index==0) {
+				return "Misc. Actions";
+				
+			} else if(index==1) {
+				return "Self Actions";
+				
+			} else if(index==2) {
+				return "Sex Actions";
+				
+			} else if(index==3) {
+				return "Positioning";
+				
+			} else if(index==4) {
+				return "Repeat Actions";
+				
+			} else {
+				return null;
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
 			// Finished sex:
 			if (sexFinished) {
 				if (index == 1) {
@@ -852,132 +884,73 @@ public enum Sex {
 			// Normal sex actions:
 			} else {
 				
-				
-				if(responseCategory==null) {
-					if(index == 0){
-						if(Sex.availableSexActionsPlayer.contains(Sex.getLastUsedPlayerAction()) && Sex.isSexStarted()) {
-							return Sex.getLastUsedPlayerAction().toResponse();
-							
+				if(responseTab==0) {
+					if(index <= miscActionsPlayer.size()) {
+						if(index==0) {
+							if(miscActionsPlayer.size()>=15) {
+								return miscActionsPlayer.get(14).toResponse();
+							} else {
+								return null;
+							}
 						} else {
-							return new Response("Repeat action", "You can't repeat the last action you used!", null);
+							return miscActionsPlayer.get(index-1).toResponse();
 						}
-
-					} else if (index==1){
-						if(miscActionsPlayer.isEmpty()) {
-							return new Response("Misc. Actions", "There are no miscellaneous actions available!", null);
-						} else {
-							return new Response("Misc. Actions", "View all available miscellaneous actions.", SEX_DIALOGUE_RETURN) {
-								@Override
-								public void effects() {
-									responseCategory = SexActionCategory.MISCELLANEOUS;
-								}
-							};
-						}
-						
-					} else if (index==2){
-						if(selfActionsPlayer.isEmpty()) {
-							return new Response("Self Actions", "There are no self actions available!", null);
-						} else {
-							return new Response("Self Actions", "View all available options that are related to performing actions upon yourself.", SEX_DIALOGUE_RETURN) {
-								@Override
-								public void effects() {
-									responseCategory = SexActionCategory.SELF;
-								}
-							};
-						}
-						
-					} else if (index==3){
-						if(sexActionsPlayer.isEmpty()) {
-							return new Response("Sex Actions", "There are no sex actions available!", null);
-						} else {
-							return new Response("Sex Actions", "View all available options that are related to performing actions upon your partner.", SEX_DIALOGUE_RETURN) {
-								@Override
-								public void effects() {
-									responseCategory = SexActionCategory.SEX;
-								}
-							};
-						}
-						
-					} else if (index==4){
-						if(sexActionsPlayer.isEmpty()) {
-							return new Response("Positioning", "There are no positioning actions available!", null);
-						} else {
-							return new Response("Positioning", "View all available options that are related to changing your position.", SEX_DIALOGUE_RETURN) {
-								@Override
-								public void effects() {
-									responseCategory = SexActionCategory.POSITIONING;
-								}
-							};
-						}
-						
-					} else {
-						return null;
 					}
 					
-				} else {
-					switch(responseCategory) {
-						case MISCELLANEOUS:
-							if(index == 0){
-								return new Response("Back", "", SEX_DIALOGUE_RETURN) {
-									@Override
-									public void effects() {
-										responseCategory = null;
-									}
-								};
-
-							} else if (index-1 < miscActionsPlayer.size() && miscActionsPlayer.get(index-1) != null){
-								return miscActionsPlayer.get(index-1).toResponse();
-								
+				} else if(responseTab==1) {
+					if(index <= selfActionsPlayer.size()) {
+						if(index==0) {
+							if(selfActionsPlayer.size()>=15) {
+								return selfActionsPlayer.get(14).toResponse();
 							} else {
 								return null;
 							}
-						case POSITIONING:
-							if(index == 0){
-								return new Response("Back", "", SEX_DIALOGUE_RETURN) {
-									@Override
-									public void effects() {
-										responseCategory = null;
-									}
-								};
-
-							} else if (index-1 < positionActionsPlayer.size() && positionActionsPlayer.get(index-1) != null){
-								return positionActionsPlayer.get(index-1).toResponse();
-								
-							} else {
-								return null;
-							}
-						case SELF:
-							if(index == 0){
-								return new Response("Back", "", SEX_DIALOGUE_RETURN) {
-									@Override
-									public void effects() {
-										responseCategory = null;
-									}
-								};
-
-							} else if (index-1 < selfActionsPlayer.size() && selfActionsPlayer.get(index-1) != null){
-								return selfActionsPlayer.get(index-1).toResponse();
-								
-							} else {
-								return null;
-							}
-						case SEX:
-							if(index == 0){
-								return new Response("Back", "", SEX_DIALOGUE_RETURN) {
-									@Override
-									public void effects() {
-										responseCategory = null;
-									}
-								};
-
-							} else if (index-1 < sexActionsPlayer.size() && sexActionsPlayer.get(index-1) != null){
-								return sexActionsPlayer.get(index-1).toResponse();
-								
-							} else {
-								return null;
-							}
+						} else {
+							return selfActionsPlayer.get(index-1).toResponse();
+						}
 					}
+					
+				} else if(responseTab==2) {
+					if(index <= sexActionsPlayer.size()) {
+						if(index==0) {
+							if(sexActionsPlayer.size()>=15) {
+								return sexActionsPlayer.get(14).toResponse();
+							} else {
+								return null;
+							}
+						} else {
+							return sexActionsPlayer.get(index-1).toResponse();
+						}
+					}
+					
+				} else if(responseTab==3) {
+					if(index <= positionActionsPlayer.size()) {
+						if(index==0) {
+							if(positionActionsPlayer.size()>=15) {
+								return positionActionsPlayer.get(14).toResponse();
+							} else {
+								return null;
+							}
+						} else {
+							return positionActionsPlayer.get(index-1).toResponse();
+						}
+					}
+					
+				} else if(responseTab==4) {
+					if(index <= repeatActionsPlayer.size()) {
+						if(index==0) {
+							if(repeatActionsPlayer.size()>=15) {
+								return repeatActionsPlayer.get(14).toResponse();
+							} else {
+								return null;
+							}
+						} else {
+							return repeatActionsPlayer.get(index-1).toResponse();
+						}
+					}
+					
 				}
+				
 				return null;
 			}
 		}
@@ -998,39 +971,39 @@ public enum Sex {
 		}
 	};
 	
-	public static final DialogueNodeOld SEX_DIALOGUE_RETURN = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getLabel() {
-			return "Sex: "+getPosition().getName();
-		}
-
-		@Override
-		public String getContent() {
-			return (!sexStarted?SEX_DIALOGUE.getContent():"");
-		}
-
-		@Override
-		public Response getResponse(int index) {
-			return SEX_DIALOGUE.getResponse(index);
-		}
-
-		@Override
-		public boolean isContinuesDialogue(){
-			return SEX_DIALOGUE.isContinuesDialogue();
-		}
-
-		@Override
-		public boolean isDispalysActionTitleOnContinuesDialogue() {
-			return false;
-		}
-
-		@Override
-		public boolean isInventoryDisabled() {
-			return SEX_DIALOGUE.isInventoryDisabled();
-		}
-	};
+//	public static final DialogueNodeOld SEX_DIALOGUE_RETURN = new DialogueNodeOld("", "", true) {
+//		private static final long serialVersionUID = 1L;
+//
+//		@Override
+//		public String getLabel() {
+//			return "Sex: "+getPosition().getName();
+//		}
+//
+//		@Override
+//		public String getContent() {
+//			return (!sexStarted?SEX_DIALOGUE.getContent():"");
+//		}
+//
+//		@Override
+//		public Response getResponse(int responseTab, int index) {
+//			return SEX_DIALOGUE.getResponse(0, index);
+//		}
+//
+//		@Override
+//		public boolean isContinuesDialogue(){
+//			return SEX_DIALOGUE.isContinuesDialogue();
+//		}
+//
+//		@Override
+//		public boolean isDispalysActionTitleOnContinuesDialogue() {
+//			return false;
+//		}
+//
+//		@Override
+//		public boolean isInventoryDisabled() {
+//			return SEX_DIALOGUE.isInventoryDisabled();
+//		}
+//	};
 	
 	/**
 	 * If you call this while not in sex, you're going to seriously f*** things up.
@@ -1044,7 +1017,10 @@ public enum Sex {
 
 		sexActionPlayer.baseEffects();
 		lastUsedPlayerAction = sexActionPlayer;
-
+		if(!repeatActionsPlayer.contains(sexActionPlayer)) {
+			repeatActionsPlayer.add(sexActionPlayer);
+		}
+		
 		applyGenericDescriptionsAndEffects(sexActionPlayer);
 		
 		String s = UtilText.parse(sexSB.toString());
@@ -1774,7 +1750,7 @@ public enum Sex {
 			return "";
 		}
 		StringBuilder description = new StringBuilder(
-				orifice.isPlayer()?"Your "+orifice.getName():"[npc.Name]'s "+orifice.getName() +" "+(orifice.isPlural()?"are":"is")+" lubricated with ");
+				(orifice.isPlayer()?"Your "+orifice.getName():"[npc.Name]'s "+orifice.getName()) +" "+(orifice.isPlural()?"are":"is")+" lubricated with ");
 		List<String> lubes = new ArrayList<>();
 		for(LubricationType lube : wetOrificeTypes.get(orifice)) {
 			lubes.add(lube.getName());
@@ -1782,12 +1758,13 @@ public enum Sex {
 		description.append(Util.stringsToStringList(lubes, false)+".");
 		return description.toString();
 	}
+	
 	private static String getLubricationDescription(PenetrationType penetration) {
 		if(wetPenetrationTypes.get(penetration).isEmpty()) {
 			return "";
 		}
 		StringBuilder description = new StringBuilder(
-				penetration.isPlayer()?"Your "+penetration.getName():"[npc.Name]'s "+penetration.getName() +" "+(penetration.isPlural()?"are":"is")+" lubricated with ");
+				(penetration.isPlayer()?"Your "+penetration.getName():"[npc.Name]'s "+penetration.getName()) +" "+(penetration.isPlural()?"are":"is")+" lubricated with ");
 		List<String> lubes = new ArrayList<>();
 		for(LubricationType lube : wetPenetrationTypes.get(penetration)) {
 			lubes.add(lube.getName());
@@ -1868,33 +1845,6 @@ public enum Sex {
 			ongoingPenetrationMap.get(penetration).add(orifice);
 		}
 		
-		//TODO add virginity loss descriptions for partner
-		if (penetration.isPenis()) {
-			if(characterPenetrating.isPenisVirgin()) {
-				characterPenetrating.setVirginityLoss(relatedSexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
-			}
-		}
-		if (orifice.isAnus()) {
-			if(characterPenetrated.isAssVirgin() && penetration.isTakesVirginity()) {
-				characterPenetrated.setVirginityLoss(relatedSexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
-			}
-		} else if (orifice.isVagina()) {
-			if(characterPenetrated.isVaginaVirgin() && penetration.isTakesVirginity()) {
-				characterPenetrated.setVirginityLoss(relatedSexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
-			}
-		} else if (orifice.isNipple()) {
-			if(characterPenetrated.isNippleVirgin() && penetration.isTakesVirginity()) {
-				characterPenetrated.setVirginityLoss(relatedSexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
-			}
-		} else if (orifice.isUrethra()) {
-			if(characterPenetrated.isUrethraVirgin() && penetration.isTakesVirginity()) {
-				characterPenetrated.setVirginityLoss(relatedSexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
-			}
-		} else if (orifice.isMouth()) {
-			if(characterPenetrated.isFaceVirgin() && penetration.isTakesVirginity()) {
-				characterPenetrated.setVirginityLoss(relatedSexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
-			}
-		}
 		initialPenetrations.add(orifice);
 		
 		if(characterPenetrated != null && characterPenetrating != null) {
@@ -1905,8 +1855,7 @@ public enum Sex {
 			characterPenetrated.addSexPartner(characterPenetrating, relatedSexType);
 			
 		} else {
-			//This is an error. I have no idea how you're handling this sort of thing.
-			// >I'm not, haha!
+			System.err.println("Warning! Sex.applyPenetration() is finding 'characterPenetrated' or 'characterPenetrating' to be null!!!");
 		}
 	}
 
@@ -1931,6 +1880,20 @@ public enum Sex {
 
 	private static void applyPenetrationEffects(PenetrationType penetrationType, OrificeType orifice) { //TODO formatting
 
+		SexType relatedSexType = new SexType(penetrationType, orifice);
+		
+		if (penetrationType == PenetrationType.PENIS_PLAYER) {
+			if(Main.game.getPlayer().isPenisVirgin()) {
+				Main.game.getPlayer().setVirginityLoss(relatedSexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
+				Main.game.getPlayer().setPenisVirgin(false);
+			}
+			
+		} else if (penetrationType == PenetrationType.PENIS_PARTNER) {
+			if(partner.isPenisVirgin()) {
+				partner.setPenisVirgin(false);
+			}
+		}
+		
 		// Append description based on what orifice is being penetrated and by whom:
 		
 		if (orifice == OrificeType.ANUS_PLAYER) {
@@ -1943,6 +1906,7 @@ public enum Sex {
 						if(partner.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 							partner.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(partner));
 						}
+						Main.game.getPlayer().setVirginityLoss(relatedSexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
 						Main.game.getPlayer().setAssVirgin(false);
 					}
 				}
@@ -1979,6 +1943,7 @@ public enum Sex {
 							if(partner.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								partner.incrementExperience(Fetish.getExperienceGainFromTakingVaginalVirginity(partner));
 							}
+							Main.game.getPlayer().setVirginityLoss(relatedSexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
 							Main.game.getPlayer().setVaginaVirgin(false);
 						}
 				}
@@ -2016,6 +1981,7 @@ public enum Sex {
 							if(partner.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								partner.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(partner));
 							}
+							Main.game.getPlayer().setVirginityLoss(relatedSexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
 							Main.game.getPlayer().setNippleVirgin(false);
 						}
 					}
@@ -2053,6 +2019,7 @@ public enum Sex {
 							if(partner.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								partner.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(partner));
 							}
+							Main.game.getPlayer().setVirginityLoss(relatedSexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
 							Main.game.getPlayer().setUrethraVirgin(false);
 						}
 					}
@@ -2090,6 +2057,7 @@ public enum Sex {
 							if(partner.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								partner.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(partner));
 							}
+							Main.game.getPlayer().setVirginityLoss(relatedSexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
 							Main.game.getPlayer().setFaceVirgin(false);
 						}
 					}

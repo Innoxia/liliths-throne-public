@@ -70,6 +70,11 @@ public class Rose extends NPC {
 		this.equipClothingFromNowhere(stockings, true, this);
 		this.equipClothingFromNowhere(heels, true, this);
 	}
+
+	@Override
+	public boolean isUnique() {
+		return true;
+	}
 	
 	@Override
 	public void changeFurryLevel(){
@@ -125,7 +130,7 @@ public class Rose extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "You've finally recovered from your intense hand-holding session with Rose.", RoomPlayer.ROOM){
 					@Override

@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.History;
@@ -106,7 +109,6 @@ import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceInterface;
-
 import java.util.Set;
 
 /**
@@ -164,6 +166,18 @@ public abstract class NPC extends GameCharacter {
 		}
 	}
 	
+	@Override
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element properties = super.saveAsXML(parentElement, doc);
+		
+		return properties;
+	}
+	
+	public static void loadNPCVariablesFromXML(NPC npc, StringBuilder log, Element parentElement, Document doc) {
+		
+		GameCharacter.loadGameCharacterVariablesFromXML(npc, log, parentElement, doc);
+		
+	}
 	
 	public void resetSlaveFlags() {
 		flagSlaveBackground = false;
@@ -1452,11 +1466,9 @@ public abstract class NPC extends GameCharacter {
 			return false;
 		}
 		
-		if(mother!=null && father!=null) {
-			if(mother.getId().equals(character.getId()) || father.getId().equals(character.getId())) {
-				if (!hasFetish(Fetish.FETISH_INCEST)) {
-					return false;
-				}
+		if(motherId.equals(character.getId()) || fatherId.equals(character.getId())) {
+			if (!hasFetish(Fetish.FETISH_INCEST)) {
+				return false;
 			}
 		}
 		
@@ -1475,12 +1487,10 @@ public abstract class NPC extends GameCharacter {
 					}
 				}
 				
-				if(mother!=null && father!=null) {
-					if(mother.getId().equals(character.getId()) || father.getId().equals(character.getId())) {
-						if (getHistory() == History.PROSTITUTE) {
-							if(Sex.isConsensual()) {
-								return SexPace.SUB_NORMAL;
-							}
+				if(motherId.equals(character.getId()) || fatherId.equals(character.getId())) {
+					if (getHistory() == History.PROSTITUTE) {
+						if(Sex.isConsensual()) {
+							return SexPace.SUB_NORMAL;
 						}
 					}
 				}
@@ -1591,9 +1601,10 @@ public abstract class NPC extends GameCharacter {
 					+ AffectionLevel.getDescription(character, Main.game.getPlayer(),
 							AffectionLevel.getAffectionLevelFromValue(character.getAffection(Main.game.getPlayer())), true));
 		
-		for(Entry<GameCharacter, Float> entry : character.getAffectionMap().entrySet()) {
-			if(!entry.getKey().isPlayer()) {
-				infoScreenSB.append("</br>" + AffectionLevel.getDescription(character, entry.getKey(), AffectionLevel.getAffectionLevelFromValue(character.getAffection(entry.getKey())), true));
+		for(Entry<String, Float> entry : character.getAffectionMap().entrySet()) {
+			GameCharacter target = Main.game.getNPCById(entry.getKey());
+			if(!target.isPlayer()) {
+				infoScreenSB.append("</br>" + AffectionLevel.getDescription(character, target, AffectionLevel.getAffectionLevelFromValue(character.getAffection(target)), true));
 			}
 		}
 		
@@ -1610,8 +1621,8 @@ public abstract class NPC extends GameCharacter {
 		if(character.getSlavesOwned().isEmpty()) {
 			infoScreenSB.append("</br>[style.colourDisabled(None)]");
 		} else {
-			for(GameCharacter slave : character.getSlavesOwned()) {
-				infoScreenSB.append(UtilText.parse(slave, "</br>[npc.Name]"));
+			for(String id : character.getSlavesOwned()) {
+				infoScreenSB.append(UtilText.parse(Main.game.getNPCById(id), "</br>[npc.Name]"));
 			}
 		}
 		

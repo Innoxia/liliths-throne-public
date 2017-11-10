@@ -39,7 +39,7 @@ public class RalphsSnacks {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Enter", "Step inside Ralph's Snacks.", INTERIOR){
 					@Override
@@ -116,7 +116,7 @@ public class RalphsSnacks {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseTrade("Trade with Ralph", "Go and ask Ralph about the special consumables on display.", Main.game.getRalph()){
 					@Override
@@ -223,7 +223,7 @@ public class RalphsSnacks {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Agree", "Agree to do as Ralph says and suck his cock.", INTERIOR_ASK_FOR_DISCOUNT,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING)), null, CorruptionLevel.TWO_HORNY,
@@ -279,7 +279,7 @@ public class RalphsSnacks {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseTrade("Trade with Ralph", "Go and ask Ralph about the special transformative consumables on display.", Main.game.getRalph()){
 					@Override

@@ -85,6 +85,11 @@ public class Alexa extends NPC {
 	}
 	
 	@Override
+	public boolean isUnique() {
+		return true;
+	}
+	
+	@Override
 	public String getSpeechColour() {
 		if(Main.getProperties().lightTheme) {
 			return "#59005C";
@@ -96,8 +101,8 @@ public class Alexa extends NPC {
 	@Override
 	public void dailyReset() {
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
-			for(NPC slave : slavesOwned) {
-				Main.game.removeNPC(slave);
+			for(String id : slavesOwned) {
+				Main.game.removeNPC(id);
 			}
 			this.slavesOwned.clear();
 			
@@ -109,7 +114,7 @@ public class Alexa extends NPC {
 				newSlave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getAlexa());
 				newSlave.setPlayerKnowsName(true);
 				try {
-					Main.game.addNPC(newSlave);
+					Main.game.addNPC(newSlave, false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

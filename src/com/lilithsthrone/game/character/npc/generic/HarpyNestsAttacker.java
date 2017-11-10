@@ -27,7 +27,7 @@ import com.lilithsthrone.world.places.HarpyNests;
 
 /**
  * @since 0.1.75
- * @version 0.1.82
+ * @version 0.1.89
  * @author Innoxia
  */
 public class HarpyNestsAttacker extends NPC {
@@ -80,6 +80,11 @@ public class HarpyNestsAttacker extends NPC {
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
+	}
+	
+	@Override
+	public boolean isUnique() {
+		return false;
 	}
 
 	@Override

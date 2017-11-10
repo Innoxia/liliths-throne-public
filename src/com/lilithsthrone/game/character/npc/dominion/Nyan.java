@@ -92,6 +92,11 @@ public class Nyan extends NPC {
 	}
 
 	@Override
+	public boolean isUnique() {
+		return true;
+	}
+
+	@Override
 	public void dailyReset() {
 		clearNonEquippedInventory();
 		

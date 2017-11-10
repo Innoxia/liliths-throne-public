@@ -96,6 +96,11 @@ public class Vicky extends NPC {
 	}
 
 	@Override
+	public boolean isUnique() {
+		return true;
+	}
+
+	@Override
 	public void dailyReset() {
 		clearNonEquippedInventory();
 

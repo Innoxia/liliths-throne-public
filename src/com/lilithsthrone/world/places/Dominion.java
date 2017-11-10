@@ -25,7 +25,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.75
- * @version 0.1.75
+ * @version 0.1.89
  * @author Innoxia
  */
 public enum Dominion implements PlaceInterface {
@@ -53,15 +53,6 @@ public enum Dominion implements PlaceInterface {
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.ENFORCER_HQ;
-		}
-
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return EnforcerHQ.ENTRANCE;
-		}
 	},
 	
 	CITY_DEMON_HOME("Demon Home", "demonHomeIcon", BaseColour.PINK, DemonHome.DEMON_HOME_STREET, Encounter.DOMINION_STREET, true, false) {
@@ -78,15 +69,6 @@ public enum Dominion implements PlaceInterface {
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.SHOPPING_ARCADE;
-		}
-
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return ShoppingArcade.ARCADE_ENTRANCE;
-		}
 	},
 	
 	CITY_HARPY_NESTS("Harpy Nests", "harpyNestIcon", BaseColour.MAGENTA, HarpyNestsDialogue.OUTSIDE, Encounter.DOMINION_STREET, true, false) {
@@ -94,15 +76,6 @@ public enum Dominion implements PlaceInterface {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
-		}
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.HARPY_NEST;
-		}
-
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return HarpyNests.ENTRANCE_ENFORCER_POST;
 		}
 	},
 	
@@ -128,16 +101,6 @@ public enum Dominion implements PlaceInterface {
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
-
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.LILAYAS_HOUSE_GROUND_FLOOR;
-		}
-
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return LilayasHome.LILAYA_HOME_ENTRANCE_HALL;
-		}
 	},
 	
 	CITY_SLAVER_ALLEY("Slaver Alley", "slaverAlleyIcon",  BaseColour.CRIMSON, SlaverAlleyDialogue.OUTSIDE, null, true, false) {
@@ -145,16 +108,6 @@ public enum Dominion implements PlaceInterface {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
-		}
-		
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.SLAVER_ALLEY;
-		}
-
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return SlaverAlley.ALLEY_ENTRANCE;
 		}
 	},
 
@@ -171,15 +124,6 @@ public enum Dominion implements PlaceInterface {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
-		}
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.SEWERS;
-		}
-
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return Submission.SEWER_ENTRANCE;
 		}
 		
 		@Override
@@ -198,15 +142,6 @@ public enum Dominion implements PlaceInterface {
 		@Override
 		public Bearing getBearing() {
 			return Bearing.NORTH;
-		}
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.JUNGLE;
-		}
-
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return Jungle.JUNGLE_ENTRANCE;
 		}
 	},
 	
@@ -352,17 +287,6 @@ public enum Dominion implements PlaceInterface {
 		return null;
 	}
 	
-	
-	// For porting to another world:
-	
-	public WorldType getLinkedWorldType() {
-		return null;
-	}
-	
-	public PlaceInterface getLinkedPlaceInterface() {
-		return null;
-	}
-
 	public DialogueNodeOld getDialogue() {
 		return dialogue;
 	}

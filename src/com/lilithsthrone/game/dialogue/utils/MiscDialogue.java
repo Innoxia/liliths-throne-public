@@ -90,7 +90,7 @@ public class MiscDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Continue", "Carry on with whatever you were doing."){
 					@Override
@@ -380,7 +380,7 @@ public class MiscDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Slavery Overview", "You are already viewing the slavery overview screen.",  null);
 			}
@@ -427,7 +427,7 @@ public class MiscDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 3) {
 				return new Response("Room List", "You are already viewing the room management screen.", null);
 				
@@ -699,7 +699,7 @@ public class MiscDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getSlaveryResponse(index);
 		}
 		
@@ -922,8 +922,8 @@ public class MiscDialogue {
 				if(i==0) {
 					UtilText.nodeContentSB.append("<div class='container-full-width inner'><h4 style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No slaves for sale!</h4></div>");
 				}
+				UtilText.nodeContentSB.append("</div>");
 			}
-			UtilText.nodeContentSB.append("</div>");
 			
 			
 			// Your slaves:
@@ -940,7 +940,8 @@ public class MiscDialogue {
 				
 			} else {
 				int i = 0;
-				for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
+				for(String id : Main.game.getPlayer().getSlavesOwned()) {
+					NPC slave = (NPC) Main.game.getNPCById(id);
 					AffectionLevel affection = AffectionLevel.getAffectionLevelFromValue(slave.getAffection(Main.game.getPlayer()));
 					ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(slave.getObedienceValue());
 					float affectionChange = slave.getDailyAffectionChange();
@@ -959,7 +960,7 @@ public class MiscDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 2) {
 				return new Response("Slave List", "You are already viewing the slave management screen.", null);
 				
@@ -1232,7 +1233,7 @@ public class MiscDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 6) {
 				return new Response("Inspect", "You are already inspecting this slave.", null);
 				
@@ -1405,7 +1406,7 @@ public class MiscDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 7) {
 				return new Response("Jobs", "You are already viewing the jobs screen.", null);
 				
@@ -1482,7 +1483,7 @@ public class MiscDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 8) {
 				return new Response("Permissions", "You are already viewing the permissions screen.", null);
 				

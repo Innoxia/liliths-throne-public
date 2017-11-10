@@ -41,17 +41,7 @@ public enum ShoppingArcade implements PlaceInterface {
 	PIXS_GYM("City Gym", "dominion/shoppingArcade/gym", BaseColour.GOLD, PixsPlayground.GYM_EXTERIOR, null, true, false),
 
 	// Exits & entrances:
-	ARCADE_ENTRANCE("Exit", "dominion/shoppingArcade/exit", BaseColour.RED, ShoppingArcadeDialogue.ENTRY, null, true, false){
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.DOMINION;
-		}
-
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return Dominion.CITY_SHOPPING_ARCADE;
-		}	
-	};
+	ARCADE_ENTRANCE("Exit", "dominion/shoppingArcade/exit", BaseColour.RED, ShoppingArcadeDialogue.ENTRY, null, true, false);
 
 	
 	private String name, SVGString;
@@ -152,17 +142,6 @@ public enum ShoppingArcade implements PlaceInterface {
 	}
 	
 	public EntranceType getParentAlignment() {
-		return null;
-	}
-	
-	
-	// For porting to another world:
-	
-	public WorldType getLinkedWorldType() {
-		return null;
-	}
-	
-	public PlaceInterface getLinkedPlaceInterface() {
 		return null;
 	}
 }

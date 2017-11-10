@@ -153,7 +153,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getLilaya().hasStatusEffect(StatusEffect.PREGNANT_0)) {
 				return null;
 				
@@ -361,8 +361,8 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return LAB.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return LAB.getResponse(0, index);
 		}
 	};
 	
@@ -566,7 +566,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("What's wrong?", "Ask Lilaya what's wrong.", LILAYA_EXPLAINS_ESSENCES_2) {
 					@Override
@@ -709,7 +709,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Enchantments & Jinxes", "Let Lilaya show you how to use your stored essences in order to enchant items or remove jinxes.", LILAYA_EXPLAINS_ESSENCES_3);
 
@@ -786,7 +786,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Thank her", "Thank Lilaya for showing you how to enchant items.", LAB_EXIT){
 					@Override
@@ -882,7 +882,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			
 			if(index == 1) {
 				if((!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE))))) {
@@ -1034,8 +1034,8 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return ESSENCE_EXTRACTION.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return ESSENCE_EXTRACTION.getResponse(0, index);
 		}
 	};
 	
@@ -1081,7 +1081,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Thank her", "Thank Lilaya for her information (or lack thereof), and think about asking her something else.", LAB_EXIT);
 			} else {
@@ -1154,7 +1154,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Returning home", "Ask Lilaya if she's found a way to send you back home.", AUNT_HOME_LABORATORY_TESTING_ARTHUR){
 					@Override
@@ -1207,7 +1207,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Sit down", "You know exactly why Lilaya seems embarrassed about these 'tests'...", AUNT_HOME_LABORATORY_TESTING_ROMANCE){
 					@Override
@@ -1264,7 +1264,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex",
 						"Start having sex with Lilaya.", AUNT_HOME_LABORATORY_TESTING_ROMANCE,
@@ -1378,7 +1378,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("\"Tests\"",
 						"Accept Lilaya's offer of more 'tests'. You're not sure what her intentions really are, but you're confident that you'll be able to stop her if she tries any funny business.", AUNT_HOME_LABORATORY_TESTING_ROMANCE);
@@ -1443,7 +1443,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Open your mouth",
 						"Let Lilaya push her finger into your mouth. After all, maybe this is just part of the test?", AUNT_HOME_LABORATORY_TESTING_ROMANCE_NEXT_STEP);
@@ -1507,7 +1507,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Let it happen",
 						"You know that this can only end one way. Although Lilaya reminds you of your aunt Lily, you always did have a crush on her...", AUNT_HOME_LABORATORY_TESTING_ROMANCE,
@@ -1660,7 +1660,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Accommodation", "Agree with Lilaya's observation that you'll need somewhere to keep your slaves.", LILAYA_SLAVER_RECOMMENDATION_SLAVE_ACCOMMODATION) {
 					@Override
@@ -1726,7 +1726,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Now that you've got Lilaya's letter of recommendation, you should head back to Slaver Alley and talk to [finch.name].", LAB_EXIT);
 
@@ -1942,7 +1942,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_3)) {
 					return new Response("Give birth", "Tell Lilaya that you're ready to give birth", LILAYA_DETECTS_BIRTHING_TYPE){
@@ -2050,7 +2050,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				switch(Main.game.getPlayer().getVaginaType()) {
 					case HARPY:
@@ -2170,7 +2170,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Start", "Tell Lilaya that you're ready to give birth now.", LILAYA_ASSISTS_BIRTHING_DELIVERS){
 					@Override
@@ -2404,7 +2404,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Pass out", "You have no energy left, and can't stay conscious any longer...", LILAYA_ASSISTS_BIRTHING_FINISHED){
 					@Override
@@ -2459,7 +2459,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Pass out", "The drink Lilaya gave you goes straight to your head, and you collapse back onto the bed as you lose consciousness.", LILAYA_ASSISTS_BIRTHING_FINISHED){
 					@Override
@@ -2551,7 +2551,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Lay eggs", "Tell Lilaya that you're ready to lay your eggs now.", LILAYA_ASSISTS_EGG_LAYING_DELIVERS){
 					@Override
@@ -2625,7 +2625,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Protect the eggs!", "Why is Lilaya sitting so close behind you?! Maybe she wants to take your eggs for herself!", LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS) {
 					@Override
@@ -2721,7 +2721,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Some time later", "You eventually wake up from your exhausted slumber...", LILAYA_ASSISTS_BIRTHING_FINISHED){
 					@Override
@@ -2983,7 +2983,7 @@ public class Lab {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Get up", "Get out of bed, ready for a new day.", RoomPlayer.ROOM);
 

@@ -84,7 +84,7 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index==0) {
 				return null;
 			 
@@ -128,7 +128,7 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int books) {
+		public Response getResponse(int responseTab, int books) {
 			if (books == 1) {
 				return new Response("General Knowledge", "A section of the library dedicated to books on common subjects.", LORE_BOOKS);
 
@@ -187,7 +187,7 @@ public class Library {
 
 		@Override
 
-		public Response getResponse(int lore) {
+		public Response getResponse(int responseTab, int lore) {
 			if (lore == 1) {
 				return new Response("Arcane Arousal", "A leather-bound tome that seems to offer an insight into how the arcane works.", ARCANE_AROUSAL) {
 					@Override
@@ -266,8 +266,8 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int lore) {
-			return LIBRARY.getResponse(lore);
+		public Response getResponse(int responseTab, int lore) {
+			return LIBRARY.getResponse(0, lore);
 		}
 		
 	};
@@ -311,8 +311,8 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int lore) {
-			return LIBRARY.getResponse(lore);
+		public Response getResponse(int responseTab, int lore) {
+			return LIBRARY.getResponse(0, lore);
 		}
 	};
 	
@@ -351,8 +351,8 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int lore) {
-			return LIBRARY.getResponse(lore);
+		public Response getResponse(int responseTab, int lore) {
+			return LIBRARY.getResponse(0, lore);
 		}
 	};
 	public static final DialogueNodeOld DOMINION_RACES = new DialogueNodeOld("", "", false) {
@@ -377,7 +377,7 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int city) {
+		public Response getResponse(int responseTab, int city) {
 			if (city == 1) {
 				return bookResponse(ItemType.BOOK_CAT_MORPH, Race.CAT_MORPH);
 
@@ -432,7 +432,7 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int field) {
+		public Response getResponse(int responseTab, int field) {
 			if (field == 1) {
 				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
 

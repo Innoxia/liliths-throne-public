@@ -3,11 +3,11 @@ package com.lilithsthrone.game.dialogue.story;
 import java.io.File;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.Personality;
-import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.QuestType;
 import com.lilithsthrone.game.character.SexualOrientation;
@@ -64,7 +64,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Agree", "You agree that you are the legal age to view pornographic material, and consent to being exposed to graphic content.", ALPHA_MESSAGE);
 			} else {
@@ -88,7 +88,7 @@ public class CharacterCreation {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Continue to the next screen.", CONTENT_PREFERENCES);
 				
@@ -118,7 +118,7 @@ public class CharacterCreation {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Start", "Proceed to character creation.", CHOOSE_APPEARANCE){
 					@Override
@@ -310,22 +310,22 @@ public class CharacterCreation {
 		getDressed(Main.game.getPlayer(), true);
 	}
 	
-	public static void getDressed(PlayerCharacter player, boolean spawnClothingOnFloor) {
-		player.resetInventory();
+	public static void getDressed(GameCharacter character, boolean spawnClothingOnFloor) {
+		character.resetInventory();
 		Main.game.getPlayerCell().resetInventory();
 		
 		equipPiercings();
 		
-		switch(player.getFemininity()) {
+		switch(character.getFemininity()) {
 			case MASCULINE_STRONG:
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_WHITE, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_WHITE, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_TIE, Colour.CLOTHING_RED, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_SUIT_JACKET, Colour.CLOTHING_BLACK, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_GOLD, false), true, player);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_TIE, Colour.CLOTHING_RED, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_SUIT_JACKET, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_GOLD, false), true, character);
 				
 				if(spawnClothingOnFloor) {
 					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_BLUE, false));
@@ -348,12 +348,12 @@ public class CharacterCreation {
 				break;
 				
 			case MASCULINE:
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_SILVER, false), true, player);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_SILVER, false), true, character);
 
 				if(spawnClothingOnFloor) {
 					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_WHITE, false));
@@ -378,16 +378,16 @@ public class CharacterCreation {
 				break;
 				
 			case ANDROGYNOUS:
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, player);
-				if(player.getBreastRawSizeValue()!=0) {
-					player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_CROPTOP_BRA, Colour.CLOTHING_WHITE, false), true, player);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, character);
+				if(character.getBreastRawSizeValue()!=0) {
+					character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_CROPTOP_BRA, Colour.CLOTHING_WHITE, false), true, character);
 				} else {
 					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.CHEST_CROPTOP_BRA, Colour.CLOTHING_WHITE, false));
 				}
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLUE, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_LOW_TOP_SKATER_SHOES, Colour.CLOTHING_RED, false), true, player);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLUE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_LOW_TOP_SKATER_SHOES, Colour.CLOTHING_RED, false), true, character);
 				
 				if(spawnClothingOnFloor) {
 					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_PURPLE, false));
@@ -427,14 +427,14 @@ public class CharacterCreation {
 				break;
 				
 			case FEMININE:
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_WHITE, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SKATER_DRESS, Colour.CLOTHING_BLACK, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TRAINER_SOCKS, Colour.CLOTHING_WHITE, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.BASE_PINK_LIGHT, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_SILVER, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_SILVER, false), true, player);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SKATER_DRESS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TRAINER_SOCKS, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.BASE_PINK_LIGHT, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_SILVER, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_SILVER, false), true, character);
 
 				if(spawnClothingOnFloor) {
 					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false));
@@ -484,14 +484,14 @@ public class CharacterCreation {
 				break;
 				
 			case FEMININE_STRONG:
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_BLACK, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SLIP_DRESS, Colour.CLOTHING_RED, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TIGHTS, Colour.CLOTHING_BLACK, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_STILETTO_HEELS, Colour.CLOTHING_RED, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.BASE_BLACK, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, player);
-				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_GOLD, false), true, player);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SLIP_DRESS, Colour.CLOTHING_RED, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TIGHTS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_STILETTO_HEELS, Colour.CLOTHING_RED, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.BASE_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_GOLD, false), true, character);
 
 				if(spawnClothingOnFloor) {
 					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false));
@@ -544,8 +544,8 @@ public class CharacterCreation {
 				break;
 		}
 		
-		if(player.getName().equals("James") && player.getSurname().equals("Bond")) {
-			player.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WESTERN_KKP));
+		if(character.isPlayer() && character.getName().equals("James") && character.getSurname().equals("Bond")) {
+			character.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WESTERN_KKP));
 		}
 	}
 	
@@ -586,7 +586,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Wait your turn, and hope that the event hasn't started yet.", CHOOSE_NAME);
 				
@@ -703,45 +703,45 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				
-				Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
-				if(Main.mainController.getWebEngine().getDocument()!=null) {
-					if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
-							|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 16
-							|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[^\\[\\]\\.]+"))
-						unsuitableName = true;
-					else {
-						unsuitableName = false;
-					}
-				}
-				
-				Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldSurname').innerHTML=document.getElementById('surnameInput').value;");
-				if(Main.mainController.getWebEngine().getDocument()!=null) {
-					if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
-							&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 16
-									|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
-						unsuitableSurname = true;
-					else {
-						unsuitableSurname = false;
-					}
-				}
-				
-				
-				if (unsuitableName || unsuitableSurname) {
-					return new Response("Continue", "Use this name and continue to the final character creation screen.", CHOOSE_NAME);
-					
-				} else {
-					return new Response("Continue", "Use this name and continue to the final character creation screen.", CHOOSE_ADVANCED_APPEARANCE){
-						@Override
-						public void effects() {
+				return new ResponseEffectsOnly("Continue", "Use this name and continue to the final character creation screen."){
+					@Override
+					public void effects() {
+						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
+						if(Main.mainController.getWebEngine().getDocument()!=null) {
+							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
+									|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 16
+									|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[^\\[\\]\\.]+"))
+								unsuitableName = true;
+							else {
+								unsuitableName = false;
+							}
+						}
+						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldSurname').innerHTML=document.getElementById('surnameInput').value;");
+						if(Main.mainController.getWebEngine().getDocument()!=null) {
+							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
+									&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 16
+											|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
+								unsuitableSurname = true;
+							else {
+								unsuitableSurname = false;
+							}
+						}
+						
+						if (unsuitableName || unsuitableSurname)  {
+							Main.game.setContent(new Response("" ,"", CHOOSE_NAME));
+							
+						} else {
+						
 							Main.game.getPlayer().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
 							Main.game.getPlayer().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent());
 							getDressed();
+							Main.game.setContent(new Response("" ,"", CHOOSE_ADVANCED_APPEARANCE));
 						}
-					};
-				}
+					}
+				};
 				
 			} else if (index == 2) {
 				return new Response("Random", "Generate a random name based on your gender.", CHOOSE_NAME){
@@ -836,7 +836,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Check clothes", "Your clothes are a little messy after rushing here. Tidy yourself up before proceeding to the main stage.", InventoryDialogue.INVENTORY_MENU) {
 					@Override
@@ -917,7 +917,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -949,7 +949,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -981,7 +981,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -1019,7 +1019,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -1051,7 +1051,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -1106,7 +1106,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -1148,7 +1148,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -1192,7 +1192,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -1258,7 +1258,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -1406,7 +1406,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new ResponseEffectsOnly("Back", "Return to clothing selection.") {
 					@Override
@@ -1516,7 +1516,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Virgin", "You still have your virginity.", START_GAME){
 					@Override
@@ -1809,7 +1809,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Start", "Use this character and start the game at the very beginning, with trying to find Arthur in the museum.", PrologueDialogue.INTRO_2){
 					@Override
@@ -1835,6 +1835,10 @@ public class CharacterCreation {
 						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
 						
 						applyGameStart();
+						Main.game.setActiveWorld(
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
+								true);
 
 					}
 				};
@@ -1874,11 +1878,6 @@ public class CharacterCreation {
 		
 		Main.game.getPlayerCell().resetInventory();
 		moveNPCOutOfPlayerTile();
-		
-		Main.game.setActiveWorld(
-				Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-				Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
-				true);
 	}
 	
 	private static StringBuilder importSB;
@@ -1920,7 +1919,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Refresh", "Refresh this page.", IMPORT_CHOOSE);
 				
@@ -1984,7 +1983,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Start", "Use this character and start the game at the very beginning.", PrologueDialogue.INTRO_2){
 					@Override
@@ -2006,6 +2005,10 @@ public class CharacterCreation {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						
 						applyGameStart();
+						Main.game.setActiveWorld(
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
+								true);
 					}
 				};
 				

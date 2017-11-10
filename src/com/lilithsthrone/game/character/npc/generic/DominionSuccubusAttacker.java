@@ -42,7 +42,7 @@ import com.lilithsthrone.world.places.Dominion;
 
 /**
  * @since 0.1.69
- * @version 0.1.88
+ * @version 0.1.89
  * @author Innoxia
  */
 public class DominionSuccubusAttacker extends NPC {
@@ -117,6 +117,11 @@ public class DominionSuccubusAttacker extends NPC {
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
 		
+	}
+	
+	@Override
+	public boolean isUnique() {
+		return false;
 	}
 
 	@Override

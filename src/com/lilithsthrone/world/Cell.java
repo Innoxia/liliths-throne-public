@@ -2,16 +2,20 @@ package com.lilithsthrone.world;
 
 import java.io.Serializable;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.places.GenericPlace;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.89
  * @author Innoxia
  */
-public class Cell implements Serializable {
+public class Cell implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 
 	private WorldType type;
@@ -40,6 +44,15 @@ public class Cell implements Serializable {
 		blocked = false;
 	}
 
+	@Override
+	public Element saveAsXML(Element parentElement, Document doc) {
+		return null;
+	}
+	
+	public static Cell loadFromXML(Element parentElement, Document doc) {
+		return null;
+	}
+	
 	@Override
 	public String toString() {
 		return "Name: " + name;

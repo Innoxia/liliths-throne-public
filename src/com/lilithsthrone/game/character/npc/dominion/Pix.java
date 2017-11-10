@@ -69,6 +69,11 @@ public class Pix extends NPC {
 		this.addFetish(Fetish.FETISH_DENIAL);
 		this.addFetish(Fetish.FETISH_DOMINANT);
 	}
+
+	@Override
+	public boolean isUnique() {
+		return true;
+	}
 	
 	@Override
 	public void changeFurryLevel(){

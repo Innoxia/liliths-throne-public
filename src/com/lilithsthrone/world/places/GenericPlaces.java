@@ -13,16 +13,16 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.75
- * @version 0.1.86
+ * @version 0.1.89
  * @author Innoxia
  */
 public enum GenericPlaces implements PlaceInterface {
 	
-	IMPASSABLE(null, null, null, null, null, false, false);
+	IMPASSABLE(null, null, null, null, null, false, false),
 	
-//	EMPTY_TILE("Empty", "slaverAlleyIcon",  BaseColour.CRIMSON, SlaverAlleyDialogue.OUTSIDE, null, true, false),
-//	
-//	MUSEUM("Museum", "slaverAlleyIcon",  BaseColour.CRIMSON, SlaverAlleyDialogue.OUTSIDE, null, true, false);
+	EMPTY_TILE("Empty", "slaverAlleyIcon",  BaseColour.CRIMSON, null, null, true, false),
+	
+	MUSEUM("Museum", "slaverAlleyIcon",  BaseColour.TAN, null, null, true, false);
 	
 	private String name, SVGString;
 	private BaseColour colour;
@@ -123,17 +123,6 @@ public enum GenericPlaces implements PlaceInterface {
 	}
 	
 	public EntranceType getParentAlignment() {
-		return null;
-	}
-	
-	
-	// For porting to another world:
-	
-	public WorldType getLinkedWorldType() {
-		return null;
-	}
-	
-	public PlaceInterface getLinkedPlaceInterface() {
 		return null;
 	}
 }

@@ -94,7 +94,7 @@ public class HarpyNestBimbo {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new Response("Approach [bimboHarpy.name]", "You have no need to talk to the matriarch of this nest.", null);
@@ -226,7 +226,7 @@ public class HarpyNestBimbo {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getDialogueFlags().bimboPacified) {
 				if (index == 1) {
 					return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name].", HARPY_NEST_BIMBO_APPROACH,
@@ -345,7 +345,7 @@ public class HarpyNestBimbo {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Bimbo queen", "Well, you, like, tried to talk and stuff, but this bitch isn't listening! You should totally convince the nest that you should be their queen!", HARPY_NEST_BIMBO_QUEEN,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BIMBO)), null, null, Femininity.FEMININE_STRONG, null) {
@@ -414,7 +414,7 @@ public class HarpyNestBimbo {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[bimboHarpyCompanion.Name] rushes to do her matriarch's bidding!", HARPY_NEST_BIMBO_UGLY, Main.game.getHarpyBimboCompanion());
 					
@@ -487,7 +487,7 @@ public class HarpyNestBimbo {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name] in front of her flock.", HARPY_NEST_BIMBO_QUEEN,
 						true, false, Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX,
@@ -545,7 +545,7 @@ public class HarpyNestBimbo {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[bimboHarpyCompanion.Name] rushes to do her matriarch's bidding!", HARPY_NEST_BIMBO_FIGHT, Main.game.getHarpyBimboCompanion());
 					
@@ -602,7 +602,7 @@ public class HarpyNestBimbo {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Lips sealed", "Don't let [bimboHarpy.Name] get that strange lollipop into your mouth...", HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT_NO_TF);
 					
@@ -654,7 +654,7 @@ public class HarpyNestBimbo {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[bimboHarpy.Name] looks furious as she launches her attack on you!", HARPY_NEST_BIMBO_FIGHT_BEAT_GF, Main.game.getHarpyBimbo());
 					
@@ -715,7 +715,7 @@ public class HarpyNestBimbo {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Lips sealed", "Don't let [bimboHarpy.Name] get that strange lollipop into your mouth...", HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT_NO_TF);
 					
@@ -788,7 +788,7 @@ public class HarpyNestBimbo {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name].", HARPY_NEST_BIMBO_FIGHT_BEAT_BIMBO,
 						true, false, Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX,
@@ -861,7 +861,7 @@ public class HarpyNestBimbo {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_BIMBO) {
 					@Override
@@ -923,7 +923,7 @@ public class HarpyNestBimbo {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_BIMBO) {
 					@Override
@@ -967,7 +967,7 @@ public class HarpyNestBimbo {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Leave", "Having had your fun, you decide to leave.", HARPY_NEST_BIMBO) {
 					@Override

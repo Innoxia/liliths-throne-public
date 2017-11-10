@@ -210,7 +210,7 @@ public class DominionSuccubusDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "This demon doesn't look so tough! You're pretty sure you can beat her.", ALLEY_DEMON_ATTACK, Main.game.getActiveNPC()){
 					@Override
@@ -261,7 +261,7 @@ public class DominionSuccubusDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Leave her", "You don't really want to get involved with someone like this. Turn around and carry on your way.", null){
 					@Override
@@ -381,7 +381,7 @@ public class DominionSuccubusDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("No cock",
 						"Tell the succubus that you don't want her to grow a cock.",
@@ -545,7 +545,7 @@ public class DominionSuccubusDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Keep vagina",
 						"Tell the succubus that you want her to keep her pussy.",
@@ -622,7 +622,7 @@ public class DominionSuccubusDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("AA-cup",
 						"Tell the succubus to make her breasts tiny little AA-cups.",
@@ -779,7 +779,7 @@ public class DominionSuccubusDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Succubus's toy",
 						"The succubus is ready to use you as her little fuck-toy...",
@@ -839,7 +839,7 @@ public class DominionSuccubusDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Succubus's toy",
 						"The succubus is ready to use you as her little fuck-toy...",
@@ -902,7 +902,7 @@ public class DominionSuccubusDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
@@ -961,7 +961,7 @@ public class DominionSuccubusDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
@@ -999,7 +999,7 @@ public class DominionSuccubusDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
 					@Override

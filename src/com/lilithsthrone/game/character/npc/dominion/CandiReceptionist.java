@@ -101,6 +101,11 @@ public class CandiReceptionist extends NPC {
 		this.equipClothingFromNowhere(navel, true, this);
 		this.equipClothingFromNowhere(vagina, true, this);
 	}
+
+	@Override
+	public boolean isUnique() {
+		return true;
+	}
 	
 	@Override
 	public void changeFurryLevel(){

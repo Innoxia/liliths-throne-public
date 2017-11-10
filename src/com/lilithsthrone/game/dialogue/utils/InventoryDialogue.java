@@ -114,7 +114,7 @@ public class InventoryDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) { //TODO sex end
+		public Response getResponse(int responseTab, int index) { //TODO sex end
 			if (index == 0) {
 				return getCloseInventoryResponse();
 			}
@@ -805,7 +805,7 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return getReturnToInventoryMenuResponse();
 			}
@@ -1985,7 +1985,7 @@ public class InventoryDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return getReturnToInventoryMenuResponse();
 			}
@@ -2732,7 +2732,7 @@ public class InventoryDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			
 			if (index == 0) {
 				return getReturnToInventoryMenuResponse();
@@ -3681,7 +3681,7 @@ public class InventoryDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			
 			if (index == 0) {
 				return getReturnToInventoryMenuResponse();
@@ -4047,7 +4047,7 @@ public class InventoryDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return getReturnToInventoryMenuResponse();
 			}
@@ -4892,7 +4892,7 @@ public class InventoryDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the previous menu.", INVENTORY_MENU);
 
@@ -4965,7 +4965,7 @@ public class InventoryDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the previous menu.", INVENTORY_MENU);
 
@@ -5031,7 +5031,7 @@ public class InventoryDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the previous menu.", CLOTHING_INVENTORY);
 
@@ -5082,7 +5082,7 @@ public class InventoryDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the previous menu.", CLOTHING_EQUIPPED);
 

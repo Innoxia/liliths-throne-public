@@ -24,7 +24,8 @@ public class DialogueFlags implements Serializable {
 	public BodyCoveringType skinTypeSelected;
 	
 	public DialogueNodeOld slaveryManagerRootDialogue;
-	public NPC slaveTrader, slaveryManagerSlaveSelected;
+	public NPC slaveTrader;
+	public NPC slaveryManagerSlaveSelected;
 	
 	public boolean
 			// Misc:

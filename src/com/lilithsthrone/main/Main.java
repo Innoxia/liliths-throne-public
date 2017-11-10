@@ -33,7 +33,7 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.LilayasHome;
+import com.lilithsthrone.world.places.GenericPlaces;
 
 import javafx.application.Application;
 import javafx.concurrent.WorkerStateEvent;
@@ -166,10 +166,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		credits.add(new CreditsSlot("Anonymous", "", 0, 2, 9, 3));
-		// A. L3 | C.C. E2 | G. E2 | JD E1 | MM E1 | V. R1 E2 | J R1 E1
-
-		credits.add(new CreditsSlot("Anonymous", "", 0, 3, 72, 25));
+		credits.add(new CreditsSlot("Anonymous", "", 0, 3, 71, 25));
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Lexi <3", "", 0, 0, 0, 1));
@@ -254,7 +251,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Spookermen", "", 0, 0, 0, 4));
 		credits.add(new CreditsSlot("Swift Shot", "", 0, 0, 4, 0));
 		credits.add(new CreditsSlot("TalonMort", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("Tanner Daves", "", 0, 0, 0, 3));
+		credits.add(new CreditsSlot("Tanner D.", "", 0, 0, 0, 3));
 		credits.add(new CreditsSlot("Terrance", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Jordan Aitken", "", 0, 0, 4, 0));
 		credits.add(new CreditsSlot("T. Garou", "", 0, 0, 0, 2));
@@ -279,6 +276,8 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Kelly999", "", 0, 1, 1, 0));
 		credits.add(new CreditsSlot("Silentark", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Antriad", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("DeadMasterZero", "", 0, 0, 1, 0));
+		
 		
 		
 		credits.sort(Comparator.comparing((CreditsSlot a) -> a.getName().toLowerCase()));
@@ -303,17 +302,10 @@ public class Main extends Application {
 		}
 
 		mainController = loader.getController();
-
 		Main.primaryStage.setScene(mainScene);
-		
 		Main.primaryStage.show();
+		Main.game = new Game();
 		
-		try {
-			Main.game = new Game();
-		} catch (ClassNotFoundException | IOException e1) {
-			e1.printStackTrace();
-		}
-
 		loader = new FXMLLoader(getClass().getResource("/com/lilithsthrone/res/fxml/main.fxml"));
 		try {
 			if (Main.mainScene == null) {
@@ -367,20 +359,16 @@ public class Main extends Application {
 	 * Starts a completely new game. Runs a new World Generation.
 	 */
 	public static void startNewGame(DialogueNodeOld startingDialogueNode) {
-		try {
-			Main.game = new Game();
-		} catch (ClassNotFoundException | IOException e1) {
-			e1.printStackTrace();
-		}
-//		Main.game.setPlayer(new PlayerCharacter("Player", "", 1, Gender.MALE, RacialBody.HUMAN, RaceStage.HUMAN, null, WorldType.CITY, Dominion.CITY_AUNTS_HOME));
-
+		
+		Main.game = new Game();
+		
 		// Generate world:
 		if (!(gen == null))
 			if (gen.isRunning()) {
 				gen.cancel();
 			}
 
-		gen = new Generation(WorldType.DOMINION);
+		gen = new Generation();
 
 		gen.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 			@Override
@@ -405,9 +393,8 @@ public class Main extends Application {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				Main.game.setPlayer(new PlayerCharacter(new NameTriplet("Player"), "", 1, Gender.M_P_MALE, RacialBody.HUMAN, RaceStage.HUMAN, null, WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_ENTRANCE_HALL));
+				Main.game.setPlayer(new PlayerCharacter(new NameTriplet("Player"), "", 1, Gender.M_P_MALE, RacialBody.HUMAN, RaceStage.HUMAN, null, WorldType.EMPTY, GenericPlaces.MUSEUM));
 
-				Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), LilayasHome.LILAYA_HOME_ENTRANCE_HALL, false);
 				Main.game.initNewGame(startingDialogueNode);
 				
 				Main.game.endTurn(0);
@@ -425,7 +412,8 @@ public class Main extends Application {
 		properties.fontSize = size;
 		properties.savePropertiesAsXML();
 	}
-
+	
+	
 	public static void quickSaveGame() {
 		if (Main.game.isInCombat()) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot quicksave while in combat!");

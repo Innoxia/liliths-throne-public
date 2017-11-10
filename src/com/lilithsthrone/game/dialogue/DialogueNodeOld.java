@@ -75,9 +75,13 @@ public abstract class DialogueNodeOld implements Serializable {
 	public boolean isNoTextForContinuesDialogue() {
 		return false;
 	}
-
-	public abstract Response getResponse(int index);
-
+	
+	public String getResponseTabTitle(int index) {
+		return null;
+	}
+	
+	public abstract Response getResponse(int responseTab, int index);
+	
 	public boolean isMapDisabled() {
 		return false;
 	}

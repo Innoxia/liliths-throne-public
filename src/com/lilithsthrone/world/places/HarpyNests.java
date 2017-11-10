@@ -35,17 +35,7 @@ public enum HarpyNests implements PlaceInterface {
 	},
 
 	// Places:
-	ENTRANCE_ENFORCER_POST("Enforcer post", "dominion/harpyNests/exit", BaseColour.RED, HarpyNestsDialogue.ENTRANCE_ENFORCER_POST, null, true, false){
-
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.DOMINION;
-		}
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return Dominion.CITY_HARPY_NESTS;
-		}
-	},
+	ENTRANCE_ENFORCER_POST("Enforcer post", "dominion/harpyNests/exit", BaseColour.RED, HarpyNestsDialogue.ENTRANCE_ENFORCER_POST, null, true, false),
 	
 	ALEXAS_NEST("Alexa's nest", "dominion/harpyNests/nestAlexa", BaseColour.GOLD, HarpyNestAlexa.ALEXAS_NEST_EXTERIOR, null, true, false),
 	
@@ -155,17 +145,6 @@ public enum HarpyNests implements PlaceInterface {
 	}
 	
 	public EntranceType getParentAlignment() {
-		return null;
-	}
-	
-	
-	// For porting to another world:
-	
-	public WorldType getLinkedWorldType() {
-		return null;
-	}
-	
-	public PlaceInterface getLinkedPlaceInterface() {
 		return null;
 	}
 }

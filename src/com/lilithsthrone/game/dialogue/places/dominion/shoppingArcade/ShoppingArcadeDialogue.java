@@ -56,7 +56,7 @@ public class ShoppingArcadeDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Enter", "Step through the entrance and enter the shopping arcade."){
 					@Override
@@ -98,7 +98,7 @@ public class ShoppingArcadeDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Exit", "Leave the Shopping Arcade."){
 					@Override
@@ -178,7 +178,7 @@ public class ShoppingArcadeDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 		
@@ -213,7 +213,7 @@ public class ShoppingArcadeDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 		

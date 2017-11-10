@@ -238,6 +238,7 @@ public enum Colour {
 
 	// Text colours:
 	TEXT(Util.newColour(0xDDDDDD), Util.newColour(0x262626), "grey",  Util.newArrayListOfValues(new ListValue<>("text"))),
+	TEXT_HALF_GREY(Util.newColour(0xBBBBBB), Util.newColour(0x444444), "grey",  Util.newArrayListOfValues(new ListValue<>("disabled"))),
 	TEXT_GREY(Util.newColour(0x777777), Util.newColour(0x777777), "grey",  Util.newArrayListOfValues(new ListValue<>("disabled"))),
 
 	// Standard colours used for clothing:

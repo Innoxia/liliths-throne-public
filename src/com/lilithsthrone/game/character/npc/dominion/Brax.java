@@ -114,6 +114,11 @@ public class Brax extends NPC {
 		
 		this.addFetish(Fetish.FETISH_DOMINANT);
 	}
+
+	@Override
+	public boolean isUnique() {
+		return true;
+	}
 	
 	public void setBraxsPostQuestStatus() {
 		Main.game.getBrax().setLocation(WorldType.ENFORCER_HQ, EnforcerHQ.RECEPTION_DESK, true);
@@ -363,7 +368,7 @@ public class Brax extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Resist", "As tempting as it is, you don't really want to have sex with Brax...", AFTER_COMBAT_VICTORY_NO_SEX){
 					@Override
@@ -426,7 +431,7 @@ public class Brax extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Outside", "You find yourself back outside once more, but this time, with new knowledge of Arthur's location.") {
 					@Override
@@ -483,7 +488,7 @@ public class Brax extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Get started", "Start dominating your new bitch.", EnforcerHQDialogue.EXTERIOR,
 						false, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_DOMINANT_SEX,
@@ -535,7 +540,7 @@ public class Brax extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Obey", "Do as Brax says and present yourself for him.", EnforcerHQDialogue.EXTERIOR,
 						false, false, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
@@ -642,7 +647,7 @@ public class Brax extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Spit", "Spit out the transformative liquid.", AFTER_DEFEAT_TRANSFORMATION_REFUSED);
 				
@@ -783,7 +788,7 @@ public class Brax extends NPC {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Dominated", "Brax is far too strong for you to resist...", EnforcerHQDialogue.EXTERIOR,
 						false, false, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
@@ -892,7 +897,7 @@ public class Brax extends NPC {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Obey", "The arousing liquid you've just been forced to drink is forcing you to obey, and you eagerly fall down on all fours so that Brax can fuck you, doggy-style.", EnforcerHQDialogue.EXTERIOR,
 						false, false, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
@@ -954,7 +959,7 @@ public class Brax extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Carry on", "Get up and carry on your way.") {
 					@Override
@@ -990,7 +995,7 @@ public class Brax extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Outside", "You find yourself back outside once more, but this time, with new knowledge of Arthur's location.") {
 					@Override

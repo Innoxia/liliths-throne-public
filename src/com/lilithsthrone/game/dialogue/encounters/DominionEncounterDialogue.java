@@ -30,7 +30,7 @@ public class DominionEncounterDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Take", "Add the " + Encounter.getRandomItem().getName() + " to your inventory.", GenericDialogue.getDefaultDialogueNoEncounter()){
 					@Override
@@ -65,7 +65,7 @@ public class DominionEncounterDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Take", "Add the " + Encounter.getRandomClothing().getName() + " to your inventory.", GenericDialogue.getDefaultDialogueNoEncounter()){
 					@Override
@@ -100,7 +100,7 @@ public class DominionEncounterDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Take", "Add the " + Encounter.getRandomWeapon().getName() + " to your inventory.", GenericDialogue.getDefaultDialogueNoEncounter()){
 					@Override
@@ -139,7 +139,7 @@ public class DominionEncounterDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Take", "Add the " + Encounter.getRandomItem().getName() + " to your inventory.", GenericDialogue.getDefaultDialogueNoEncounter()){
 					@Override

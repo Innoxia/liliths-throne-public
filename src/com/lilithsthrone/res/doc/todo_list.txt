@@ -22,48 +22,105 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Added chance for Angel's Nectar to drop from defeated enemies.
-	
-	Sex:
-		Added finger lubrication action for player (lick fingers to get them lubed without continuing to suck on them).
-		Added a 'flat chest' version of the status effect 'Breast status' during sex.
-		Added breast kissing actions to 'Standing', 'Back-to-wall', 'Cowgirl', 'Chair sex', and 'Missionary' positions.
+	Engine:
+		Did some general back-end fixes in numerous parts of the code.
+		Added support for multiple pages of responses (for use in the new Sex UI).
+		Added save support for: NPC names, location, perk points, perks, relationships, pregnancies, addictions, sex stats.
 	
 	UI:
-		Made the sex action selection menus remain on the same page after choosing a non-positioning action.
-	
-	Other:
-		Changed 'hallucinogenic' fluid modifier to 'psychoactive' modifier, which will allow for both hallucinogenic and hypnotic content in the future.
-		Updated credits page. (If you've pledged 'Epic' or 'Legendary' on Patreon, and don't see your name in the credits, it's because I haven't received a display name from you, so I've added you to the 'Anonymous' count. Please send me a message on Patreon if you're an Epic or Legendary patron without a name in the credits!)
-		Added virginity tracking for penises. (Lost upon any penetration.)
+		Further improved the Sex UI. Thank you for all of your feedback regarding this; I'll try to improve it further!
 	
 	Bugs:
-		Fixed incorrect dom/sub sex totals in NPC's character view screen.
-		Fix issue where using an item on your first turn of sex would not display dialogue correctly.
-		NPCs should now stop all ongoing penetrations when switching position.
-		Fixed game-breaking freeze during Ralph's and Pix's sex scenes.
-		Changed method to move between game worlds in an attempt to fix a major crash when using the 'Downstairs' action in Lilaya's Home.
-		Books in Lilaya's library now correctly give intelligence boosts for new characters.
-		Condom belt icon will now correctly render the condoms that are in the wearer's inventory.
-		Fixed extremely odd arousal gains (such as NPCs gaining huge amounts of arousal from tail-fucking you, while giving them a blowjob would give them almost no arousal gains).
-		Fixed chemise being able to be displaced through other clothing, such as slip dresses.
-		Lubrication descriptions for your partner's penis/vagina/anus/nipples will no longer display if they aren't visible. (Lubrication information will display upon revealing those parts.)
-		NPCs who are virgins will no longer beg to be fucked.
-		Fixed bug that could cause NPCs to use inappropriate actions during sex, such as swapping positions multiple times.
-		Fixed text always describing you as the father to an NPC's children. (Occurred when one of your slaves impregnated another slave.)
-		Anal creampie no longer describes you as having a knot/ribbed cock when you didn't have one.
-		Forced TF racial limits no longer reset to greater morph on each game start-up.
-		Slaves will now correctly lose their vaginal virginity if they're allowed to have sex with one another.
+		Filled condoms should now correct import with all cum properties intact.
+		Penile virginity is now correctly lost upon performing a penetrative sex action.
+		Fixed broken lubrication messages during sex.
 	
 	
 	
 	
+	
+	
+	
+	ALL NAME FIELDS ARE BROKEN
+	
+	Save compatibility
+	
+	Task completed pushes responses to floor
+	
+	Use tabs for slavery & inventory
+	
+	slave obedience stuck at 99.600006
+	
+	why can you only change those when you have a penis, it's not like women and don't have an urethra
+	
+	Change position should not disply pen effects
+	
+	3x You lost your penile virginity to .
+	
+	the arcane price on potion enchantment doesn't match the real price. The cost for changing the shape of my pupils are stated to be one arcane, but it cost me six arcane instead.
+	
+	Non con might get split into giving and recieving variants
+	
+	Update Lilaya scene
+	
+	Your shaft is concealed, so, due to your masculine appearance, everyone assumes that you're a male on first glance. for maleherms, this should probably be something like "since your vag is concealed, everyone assumes you're male"
+	
+	No penetration:
+		Through his desperate moans and lewd cries, the dog-boy somehow manages to formulate a sentence as he cries out to you, Pull out! I don't want to taste your cum!
+		Through his desperate moans and lewd cries, the squirrel-boy somehow manages to formulate a sentence as he cries out for your cum, Cum for me! I want to taste your cum!
+		
+	Even Lilaya is asking for cum
+		
+	Moving into position causes NPC to do nothing
+	using each positioning action then disappears from menu
+	
+	
+	ornaments or clothing for racially blocked slots, horseshoes, wraps, bangles, plumage ornamentation.
+	
+	 Just want to let you know that the condom belt bug still exists in 1.88.1 Once the player acquires more than 8 used condoms, the player's clothing inventory screen stops displaying. Consuming one to bring the number to 8 or lower allows the worn items to be seen again. This is not the worn inventory showing all blank boxes, but rather the worn not showing at all, and just showing like the default map.
+	
+	In the newest version, requesting a position your partner doesn't want usually causes them to break and do nothing for a while.
+	
+	in the latest version after clicking resume it resets all "my" fetishes
+	
+	I'll add "butch" to the list of possibilities for NPCs to transform you into
+	
+	I don't know if anyone else mentioned this, but when I try to take off any witches clothing my character was wearing while importing nothing happens. Then when I take off a non witch clothing, the witch clothing that I tried to unequip disappears and doesn't show up in my inventory.
+	
+	inverted nipples
+	
+	-having sex with a pregnant slave from an imported save isn't fully detected - if you cum inside them the game says they have a chance of becoming pregnant, even though they already are. This is from a 187.7 export.
+
+-Having a slave drink a tf potion when in a different slaves room has some of the descriptor text go to the incorrect slave. The TFs still go to the correct slave, it's just weird reading how one slave is transforming and then a different slave starts transforming. This applies only to some feature TFs, not all of them. Example A-Player is in Slave X's room. Slave Y drinks potion that adds extra breasts, lipples, and internal muscles to nipples. Description text will say that Slave Y got extra breasts and lipples, but slave X gets internal nip muscles. 
+
+The buggy TF description modifiers (not sure if there's more I missed)
+-Tongue bifurcation
+-puffy
+-Internal ribbing
+-internal muscle
+-Internal tentacles
+-Barbed Dick
+-Flared Penis head
+-knotted dick
+-prehensile dick
+-external ribbing
+-external tentacles
+-dick sheath
+-dick tapering
+	
+	
+	slave dialogue
+	
+	Doggy-style (oral)
+	Anilingus should be available in face-to-wall too
 	
 	I can't seem to access the character details page at all for Lilaya or Rose
 	
 	Lilaya starts passionately kissing your exposed breasts, breathing in your command_unknown as she desperately presses her delicate lips against your skin. Pushing your chest out into her face, you let out a desperate squeal as you plead for her to continue.
 	
+	I will definitely add more functionality to the slave UI (such as being able to order them by name/stats). :3
+
+I'll add descriptions for tasting the lubrication types on your fingers; great idea
 	
 	It seems that your partner will always cry out for your cum even though your character doesn't have a penis.
 	

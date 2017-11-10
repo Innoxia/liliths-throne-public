@@ -79,6 +79,11 @@ public class Pazu extends NPC {
 
 		this.equipClothingFromNowhere(shorts, true, this);
 	}
+
+	@Override
+	public boolean isUnique() {
+		return true;
+	}
 	
 	@Override
 	public String getSpeechColour() {

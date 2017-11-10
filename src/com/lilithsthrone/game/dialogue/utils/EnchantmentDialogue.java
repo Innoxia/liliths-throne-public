@@ -195,6 +195,7 @@ public class EnchantmentDialogue {
 			inventorySB.append("</div>");
 		
 		inventorySB.append("</div>");
+		inventorySB.append("</div>");
 		
 
 		return inventorySB.toString();
@@ -220,7 +221,7 @@ public class EnchantmentDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
 					@Override

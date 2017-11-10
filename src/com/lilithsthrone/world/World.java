@@ -4,16 +4,20 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceInterface;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.89
  * @author Innoxia
  */
-public class World implements Serializable {
+public class World implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 
 	public final int WORLD_WIDTH, WORLD_HEIGHT;
@@ -31,6 +35,15 @@ public class World implements Serializable {
 		this.WorldType = WorldType;
 		
 		placesOfInterest = new HashMap<>();
+	}
+	
+	@Override
+	public Element saveAsXML(Element parentElement, Document doc) {
+		return null;
+	}
+	
+	public static World loadFromXML(Element parentElement, Document doc) {
+		return null;
 	}
 
 	public Cell getCell(int i, int j) {

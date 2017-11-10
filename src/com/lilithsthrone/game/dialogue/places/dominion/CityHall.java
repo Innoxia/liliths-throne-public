@@ -32,7 +32,7 @@ public class CityHall {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Enter", "The doors are wide open, inviting you to step inside Dominion's City Hall.", CITY_HALL_ENTER);
 
@@ -54,7 +54,7 @@ public class CityHall {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Demographics", "Follow the map's directions to the 'Bureau of Demographics' office.", CITY_HALL_PUBLIC_ENQUIRIES);
 
@@ -81,7 +81,7 @@ public class CityHall {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Name change", "Ask the cat-girl about changing your name.", CITY_HALL_NAME_CHANGE_FORM);
 				
@@ -133,7 +133,7 @@ public class CityHall {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getMoney() < 100) {
 					return new Response("Confirm ("+UtilText.formatAsMoneyUncoloured(100, "span")+")", "Change name for 100 flames. (You can't afford this!)", null);

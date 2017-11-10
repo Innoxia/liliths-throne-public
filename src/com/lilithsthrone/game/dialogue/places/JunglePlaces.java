@@ -25,7 +25,7 @@ public class JunglePlaces {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -42,7 +42,7 @@ public class JunglePlaces {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -59,7 +59,7 @@ public class JunglePlaces {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -76,7 +76,7 @@ public class JunglePlaces {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -93,7 +93,7 @@ public class JunglePlaces {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -111,7 +111,7 @@ public class JunglePlaces {
 			return "A half-overgrown sign near the road tells you that this path leads back to Dominion.";
 		}
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Dominion", "Travel to Dominion. (This will be added later!)", null){
 					@Override

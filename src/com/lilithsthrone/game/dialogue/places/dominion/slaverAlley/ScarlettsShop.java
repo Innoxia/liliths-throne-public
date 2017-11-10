@@ -50,7 +50,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_E_REPORT_TO_ALEXA) {
 					return new Response("Enter", "You should go and find Alexa before entering Scarlett's Shop again.", null);
@@ -99,7 +99,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_D_SLAVERY) {
 					return new Response("Ask for Arthur", "Ask Scarlett if she's got a slave named Arthur for sale.", SCARLETT_IS_A_BITCH);
@@ -173,7 +173,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Agree", "Agree to help Scarlett.", SCARLETT_IS_A_SUPER_BITCH) {
 					@Override
@@ -212,7 +212,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Leave", "Exit the shop.", SCARLETTS_SHOP_EXTERIOR);
 				
@@ -265,7 +265,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
 					return new Response("Enter", "Enter the shop.", ALEXAS_SHOP) {
@@ -358,7 +358,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
 					return new Response("Offer to buy", "Offer to buy Scarlett from Alexa.", ALEXAS_SHOP_SCARLETT_FOR_SALE) { 
@@ -464,8 +464,8 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return ALEXAS_SHOP.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return ALEXAS_SHOP.getResponse(0, index);
 		}
 	};
 	
@@ -499,7 +499,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Calm her down", "Gently reassure Scarlett to get her to calm down.", ALEXAS_SHOP_GENTLE) {
 					@Override
@@ -607,7 +607,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getSlaveryChoiceResponse(index);
 		}
 	};
@@ -665,7 +665,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getSlaveryChoiceResponse(index);
 		}
 	};
@@ -724,7 +724,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getSlaveryChoiceResponse(index);
 		}
 	};
@@ -794,8 +794,8 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return ALEXAS_SHOP.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return ALEXAS_SHOP.getResponse(0, index);
 		}
 	};
 	
@@ -847,8 +847,8 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return ALEXAS_SHOP.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return ALEXAS_SHOP.getResponse(0, index);
 		}
 	};
 	

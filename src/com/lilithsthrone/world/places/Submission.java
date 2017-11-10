@@ -43,15 +43,6 @@ public enum Submission implements PlaceInterface {
 		public EntranceType getParentAlignment() {
 			return EntranceType.ALIGNED;
 		}
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.DOMINION;
-		}
-
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return Dominion.CITY_EXIT_TO_SEWERS;
-		}
 	};
 
 	
@@ -154,17 +145,6 @@ public enum Submission implements PlaceInterface {
 	}
 	
 	public EntranceType getParentAlignment() {
-		return null;
-	}
-	
-	
-	// For porting to another world:
-	
-	public WorldType getLinkedWorldType() {
-		return null;
-	}
-	
-	public PlaceInterface getLinkedPlaceInterface() {
 		return null;
 	}
 }

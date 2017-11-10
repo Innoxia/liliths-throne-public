@@ -107,6 +107,11 @@ public class NPCOffspring extends NPC {
 	}
 	
 	@Override
+	public boolean isUnique() {
+		return false;
+	}
+	
+	@Override
 	public String getPlayerPetName() {
 		if(playerPetName.length()==0 || playerPetName.equalsIgnoreCase("Mom") || playerPetName.equalsIgnoreCase("Dad")) {
 			if(Main.game.getPlayer().isFeminine()) {

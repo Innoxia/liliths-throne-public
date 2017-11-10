@@ -67,6 +67,11 @@ public class Scarlett extends NPC {
 		
 		getDressed();
 	}
+
+	@Override
+	public boolean isUnique() {
+		return true;
+	}
 	
 	public void getDressed() {
 		this.equipClothingFromNowhere(underwear, true, this);

@@ -81,7 +81,7 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			/*
 			 * flagSlaveBackground, flagSlaveSmallTalk,
 						flagSlaveEncourage, flagSlaveHug, flagSlavePettings,
@@ -272,8 +272,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -298,8 +298,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -324,8 +324,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -350,8 +350,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -376,8 +376,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -402,8 +402,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -429,8 +429,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -455,8 +455,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -502,7 +502,7 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Decide what to do next.", SLAVE_START);
 				
@@ -544,7 +544,7 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex",
 						"[npc.Name] forces [npc.herself] on you...",
@@ -615,7 +615,7 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Continue on your way.", SLAVE_USES_YOU_POST_SEX) {
 					@Override

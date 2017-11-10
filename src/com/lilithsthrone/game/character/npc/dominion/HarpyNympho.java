@@ -83,6 +83,11 @@ public class HarpyNympho extends NPC {
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
 	}
+
+	@Override
+	public boolean isUnique() {
+		return true;
+	}
 	
 	@Override
 	public String getSpeechColour() {

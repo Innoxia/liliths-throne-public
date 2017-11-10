@@ -14,7 +14,7 @@ import com.lilithsthrone.world.places.Jungle;
 
 /**
  * @since 0.1.79
- * @version 0.1.79
+ * @version 0.1.89
  * @author Innoxia
  */
 public class GenericMaleNPC extends NPC {
@@ -25,6 +25,11 @@ public class GenericMaleNPC extends NPC {
 		super(new NameTriplet("Male"), "Generic male.",
 				1, Gender.M_P_MALE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.JUNGLE, Jungle.JUNGLE_CLUB, true); //TODO move to null tile
+	}
+	
+	@Override
+	public boolean isUnique() {
+		return true;
 	}
 	
 	@Override

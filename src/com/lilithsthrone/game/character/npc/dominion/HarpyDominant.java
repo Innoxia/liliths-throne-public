@@ -86,6 +86,11 @@ public class HarpyDominant extends NPC {
 	}
 
 	@Override
+	public boolean isUnique() {
+		return true;
+	}
+
+	@Override
 	public String getSpeechColour() {
 		if(Main.getProperties().lightTheme) {
 			return "#C13350";

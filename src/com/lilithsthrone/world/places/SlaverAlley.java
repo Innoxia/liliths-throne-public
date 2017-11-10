@@ -57,17 +57,7 @@ public enum SlaverAlley implements PlaceInterface {
 	},
 
 	// Exits & entrances:
-	ALLEY_ENTRANCE("Gateway", "dominion/slaverAlley/exit", BaseColour.RED, SlaverAlleyDialogue.GATEWAY, null, true, false){
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.DOMINION;
-		}
-
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return Dominion.CITY_SLAVER_ALLEY;
-		}	
-	};
+	ALLEY_ENTRANCE("Gateway", "dominion/slaverAlley/exit", BaseColour.RED, SlaverAlleyDialogue.GATEWAY, null, true, false);
 
 	
 	private String name, SVGString;
@@ -169,17 +159,6 @@ public enum SlaverAlley implements PlaceInterface {
 	}
 	
 	public EntranceType getParentAlignment() {
-		return null;
-	}
-	
-	
-	// For porting to another world:
-	
-	public WorldType getLinkedWorldType() {
-		return null;
-	}
-	
-	public PlaceInterface getLinkedPlaceInterface() {
 		return null;
 	}
 }

@@ -154,29 +154,9 @@ public enum LilayasHome implements PlaceInterface {
 	
 	LILAYA_HOME_LIBRARY("Library", "dominion/lilayasHome/library", BaseColour.TEAL, Library.LIBRARY, null, true, false),
 	
-	LILAYA_HOME_STAIR_UP("Staircase", "dominion/lilayasHome/stairsUp", BaseColour.GREEN_LIGHT, LilayaHomeGeneric.STAIRCASE_UP, null, true, false){
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.LILAYAS_HOUSE_FIRST_FLOOR;
-		}
-
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return LILAYA_HOME_STAIR_DOWN;
-		}	
-	},
+	LILAYA_HOME_STAIR_UP("Staircase", "dominion/lilayasHome/stairsUp", BaseColour.GREEN_LIGHT, LilayaHomeGeneric.STAIRCASE_UP, null, true, false),
 	
-	LILAYA_HOME_ENTRANCE_HALL("Entrance Hall", "dominion/lilayasHome/entranceHall", BaseColour.RED, LilayaHomeGeneric.ENTRANCE_HALL, null, true, false){
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.DOMINION;
-		}
-
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return Dominion.CITY_AUNTS_HOME;
-		}	
-	},
+	LILAYA_HOME_ENTRANCE_HALL("Entrance Hall", "dominion/lilayasHome/entranceHall", BaseColour.RED, LilayaHomeGeneric.ENTRANCE_HALL, null, true, false),
 	
 	LILAYA_HOME_LAB("Lilaya's Lab", "dominion/lilayasHome/lab", BaseColour.ORANGE, Lab.LAB, null, true, false),
 	
@@ -203,17 +183,7 @@ public enum LilayasHome implements PlaceInterface {
 	
 	LILAYA_HOME_ROOM_PLAYER("Your Room", "dominion/lilayasHome/roomPlayer", BaseColour.AQUA, RoomPlayer.ROOM, null, true, false),
 	
-	LILAYA_HOME_STAIR_DOWN("Staircase", "dominion/lilayasHome/stairsDown", BaseColour.RED, LilayaHomeGeneric.STAIRCASE_DOWN, null, true, false){
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.LILAYAS_HOUSE_GROUND_FLOOR;
-		}
-
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return LILAYA_HOME_STAIR_UP;
-		}	
-	};
+	LILAYA_HOME_STAIR_DOWN("Staircase", "dominion/lilayasHome/stairsDown", BaseColour.RED, LilayaHomeGeneric.STAIRCASE_DOWN, null, true, false);
 
 	
 	private String name, SVGString;
@@ -315,17 +285,6 @@ public enum LilayasHome implements PlaceInterface {
 	}
 	
 	public EntranceType getParentAlignment() {
-		return null;
-	}
-	
-	
-	// For porting to another world:
-	
-	public WorldType getLinkedWorldType() {
-		return null;
-	}
-	
-	public PlaceInterface getLinkedPlaceInterface() {
 		return null;
 	}
 }

@@ -51,7 +51,8 @@ public enum Encounter {
 				List<NPC> slaves = new ArrayList<>();
 				List<NPC> hornySlaves = new ArrayList<>();
 				
-				for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
+				for(String id : Main.game.getPlayer().getSlavesOwned()) {
+					NPC slave = (NPC) Main.game.getNPCById(id);
 					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
 							&& !slave.getWorkHours()[Main.game.getHour()%24]
 							&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)
@@ -96,7 +97,7 @@ public enum Encounter {
 				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
 	
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC());
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -113,7 +114,7 @@ public enum Encounter {
 				Main.game.setActiveNPC(new Cultist());
 				
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC());
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -160,7 +161,7 @@ public enum Encounter {
 						
 						Main.game.setActiveNPC(offspring);
 						try {
-							Main.game.addNPC(offspring);
+							Main.game.addNPC(offspring, false);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -171,7 +172,7 @@ public enum Encounter {
 				
 				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC());
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -226,7 +227,7 @@ public enum Encounter {
 			Main.game.setActiveNPC(new DominionSuccubusAttacker());
 
 			try {
-				Main.game.addNPC(Main.game.getActiveNPC());
+				Main.game.addNPC(Main.game.getActiveNPC(), false);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -264,7 +265,7 @@ public enum Encounter {
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC());
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -284,7 +285,7 @@ public enum Encounter {
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC());
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -340,7 +341,7 @@ public enum Encounter {
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC());
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -360,7 +361,7 @@ public enum Encounter {
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC());
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -212,7 +212,7 @@ public class HarpyNestsAttackerDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "You find yourself fighting " + Main.game.getActiveNPC().getName("the") + "!", HARPY_ATTACKS, Main.game.getActiveNPC()){
 					@Override
@@ -275,7 +275,7 @@ public class HarpyNestsAttackerDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way...", null){
@@ -551,7 +551,7 @@ public class HarpyNestsAttackerDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && potion != null) {
 				if (index == 1) {
 					return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
@@ -690,7 +690,7 @@ public class HarpyNestsAttackerDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
 				if (index == 1) {
 					return new ResponseSex("Sex",
@@ -788,7 +788,7 @@ public class HarpyNestsAttackerDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
 				if (index == 1) {
 					return new ResponseSex("Sex",
@@ -888,7 +888,7 @@ public class HarpyNestsAttackerDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
@@ -948,7 +948,7 @@ public class HarpyNestsAttackerDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
@@ -986,7 +986,7 @@ public class HarpyNestsAttackerDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
 					@Override

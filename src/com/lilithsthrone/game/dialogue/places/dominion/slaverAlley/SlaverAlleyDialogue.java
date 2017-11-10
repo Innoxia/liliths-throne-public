@@ -51,7 +51,7 @@ public class SlaverAlleyDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Slaver Alley", "Step through the gate and enter Slaver Alley."){
 					@Override
@@ -89,7 +89,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Leave", "Step back out into Dominion's alleyways."){
 					@Override
@@ -153,7 +153,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -184,7 +184,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -213,7 +213,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -237,7 +237,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -261,7 +261,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -295,7 +295,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Enter", "Step inside the 'Slavery Administration' building.", SLAVERY_ADMINISTRATION);
 
@@ -411,7 +411,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getPlayer().isHasSlaverLicense()) {
 				if (index == 1) {
 					return new ResponseTrade("Trade", "Buy slavery-related items.", Main.game.getFinch());
@@ -503,8 +503,8 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVERY_ADMINISTRATION.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVERY_ADMINISTRATION.getResponse(0, index);
 		}
 	};
 	
@@ -556,7 +556,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Rules", "Allow [finch.name] to explain the rules to you.", SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED_RULES) {
 					@Override
@@ -620,8 +620,8 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVERY_ADMINISTRATION.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVERY_ADMINISTRATION.getResponse(0, index);
 		}
 	};
 	

@@ -14,7 +14,7 @@ import com.lilithsthrone.world.places.Jungle;
 
 /**
  * @since 0.1.79
- * @version 0.1.79
+ * @version 0.1.89
  * @author Innoxia
  */
 public class GenericAndrogynousNPC extends NPC {
@@ -27,6 +27,11 @@ public class GenericAndrogynousNPC extends NPC {
 				new CharacterInventory(0), WorldType.JUNGLE, Jungle.JUNGLE_CLUB, true); //TODO move to null tile
 		
 		this.setFemininity(50);
+	}
+	
+	@Override
+	public boolean isUnique() {
+		return true;
 	}
 	
 	@Override

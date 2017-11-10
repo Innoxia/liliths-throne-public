@@ -48,7 +48,7 @@ import com.lilithsthrone.world.places.Dominion;
 
 /**
  * @since 0.1.66
- * @version 0.1.83
+ * @version 0.1.89
  * @author Innoxia
  */
 public class DominionAlleywayAttacker extends NPC {
@@ -198,6 +198,11 @@ public class DominionAlleywayAttacker extends NPC {
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
+	}
+	
+	@Override
+	public boolean isUnique() {
+		return false;
 	}
 	
 	public static DominionAlleywayAttacker loadFromXML(StringBuilder log, Element parentElement, Document doc) {

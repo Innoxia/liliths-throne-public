@@ -82,6 +82,13 @@ public class Lilaya extends NPC {
 	}
 
 	@Override
+	public boolean isUnique() {
+		return true;
+	}
+	
+	
+	
+	@Override
 	public String getSpeechColour() {
 		return "#ff66a3";
 	}
@@ -173,7 +180,7 @@ public class Lilaya extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
 					return new Response("Thrown out", "Maybe it's best to leave Lilaya to cool down for a while.", Lab.LAB_EXIT){

@@ -105,7 +105,7 @@ public class SuccubisSecrets {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getDialogueFlags().kateIntroduced) {
 					return new Response("Enter", "Step inside Succubi's Secrets.", SHOP_BEAUTY_SALON_ENTER);
@@ -157,7 +157,7 @@ public class SuccubisSecrets {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Wake her", "Wake the sleeping demon.", SHOP_BEAUTY_SALON_WAKE);
 				
@@ -191,7 +191,7 @@ public class SuccubisSecrets {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex", "You can't resist the horny succubus's request...", null,
 						true, true, Main.game.getKate(), new SMChairTop(), Kate.AFTER_SEX,
@@ -261,7 +261,7 @@ public class SuccubisSecrets {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Fuck her", "Do as she says and start having sex with her.", null,
 						true, true, Main.game.getKate(), new SMChairTop(), Kate.AFTER_SEX,
@@ -367,7 +367,7 @@ public class SuccubisSecrets {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Services", "Read the brochure that Kate just handed to you.", SHOP_BEAUTY_SALON_MAIN){
 					@Override
@@ -455,7 +455,7 @@ public class SuccubisSecrets {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getMainResponse(index);
 		}
 	};
@@ -483,7 +483,7 @@ public class SuccubisSecrets {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getMainResponse(index);
 		}
 	};
@@ -675,7 +675,7 @@ public class SuccubisSecrets {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getMainResponse(index);
 		}
 		
@@ -752,7 +752,7 @@ public class SuccubisSecrets {
 		
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getMainResponse(index);
 		}
 		
@@ -789,7 +789,7 @@ public class SuccubisSecrets {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getMainResponse(index);
 		}
 		
@@ -835,7 +835,7 @@ public class SuccubisSecrets {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getMainResponse(index);
 		}
 
@@ -894,7 +894,7 @@ public class SuccubisSecrets {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getMainResponse(index);
 		}
 
@@ -948,7 +948,7 @@ public class SuccubisSecrets {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getMainResponse(index);
 		}
 
@@ -974,7 +974,7 @@ public class SuccubisSecrets {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getMainResponse(index);
 		}
 

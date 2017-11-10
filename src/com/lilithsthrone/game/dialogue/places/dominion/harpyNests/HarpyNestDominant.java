@@ -97,7 +97,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new Response("Approach [harpyDominant.name]", "You have no need to talk to the matriarch of this nest.", null);
@@ -270,7 +270,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getDialogueFlags().dominantPacified) {
 				if (index == 1) {
 					return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", HARPY_NEST_DOMINANT_APPROACH,
@@ -389,7 +389,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Usurp throne", "Your patience has run out. It's time to show this bitch who's really in control here!", HARPY_NEST_DOMINANT_QUEEN,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT)), null, null, Femininity.FEMININE_STRONG, null) {
@@ -458,7 +458,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[harpyDominantCompanion.Name] rushes to do her matriarch's bidding!", HARPY_NEST_DOMINANT_UGLY, Main.game.getHarpyDominantCompanion());
 					
@@ -536,7 +536,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", HARPY_NEST_DOMINANT_QUEEN,
 						true, false, Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX,
@@ -594,7 +594,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[harpyDominantCompanion.Name] rushes to do her matriarch's bidding!", HARPY_NEST_DOMINANT_UGLY, Main.game.getHarpyDominantCompanion());
 					
@@ -647,7 +647,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Smash bottle", "Don't let [harpyDominant.Name] spray you with that strange perfume...", HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT_NO_TF);
 					
@@ -702,7 +702,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[harpyDominant.Name] looks furious as she launches her attack on you!", HARPY_NEST_DOMINANT_FIGHT_BEAT_PET, Main.game.getHarpyDominant());
 					
@@ -755,7 +755,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Smash bottle", "Don't let [harpyDominant.Name] spray you with that strange perfume...", HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT_NO_TF);
 					
@@ -839,7 +839,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", HARPY_NEST_DOMINANT_FIGHT_BEAT_DOMINANT,
 						true, false, Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX,
@@ -910,7 +910,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 					return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_DOMINANT) {
 						@Override
@@ -975,7 +975,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 					return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_DOMINANT) {
 						@Override
@@ -1019,7 +1019,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Leave", "Having had your fun, you decide to leave.", HARPY_NEST_DOMINANT) {
 					@Override

@@ -69,16 +69,4 @@ public interface PlaceInterface {
 	 */
 	public EntranceType getParentAlignment();
 	
-	
-	// For porting to another world:
-	
-	/**
-	 * The world type that this place links to.
-	 */
-	public WorldType getLinkedWorldType();
-	
-	/**
-	 * The place type that this place links to.
-	 */
-	public PlaceInterface getLinkedPlaceInterface();
 }

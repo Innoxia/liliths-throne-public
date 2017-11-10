@@ -76,7 +76,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response(
 						(Main.game.getPlayer().isMainQuestUpdated() || Main.game.getPlayer().isSideQuestUpdated() || Main.game.getPlayer().isRomanceQuestUpdated())
@@ -218,7 +218,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Main quests", "View your progress on the main quest.", null);
 				
@@ -339,7 +339,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Main quests", "View your progress on the main quest.", PLANNER_MAIN);
 			} else if (index == 2) {
@@ -435,7 +435,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Main quests", "View your progress on the main quest.", PLANNER_MAIN);
 			} else if (index == 2) {
@@ -478,7 +478,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the phone's main menu.", MENU);
 			} else {
@@ -557,7 +557,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Core Stats", "Have a detailed look at your core stats.", null);
 			
@@ -727,7 +727,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Core Stats", "Have a detailed look at your core stats.", CHARACTER_STATS);
 			
@@ -819,7 +819,7 @@ public class PhoneDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Core Stats", "Have a detailed look at your core stats.", CHARACTER_STATS);
 			
@@ -907,7 +907,7 @@ public class PhoneDialogue {
 					UtilText.nodeContentSB.append(
 							"<tr>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+Colour.FEMININE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc)?npc.getName():"Unknown")+"</b>"
+									+ "<b style='color:"+Colour.FEMININE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc.getId())?npc.getName():"Unknown")+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
 									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getRace().getOffspringFemaleNameSingular()+"</b>"
@@ -923,7 +923,7 @@ public class PhoneDialogue {
 					UtilText.nodeContentSB.append(
 							"<tr>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc)?npc.getName():"Unknown")+"</b>"
+									+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc.getId())?npc.getName():"Unknown")+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
 									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getRace().getOffspringMaleNameSingular()+"</b>"
@@ -944,7 +944,7 @@ public class PhoneDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Core Stats", "Have a detailed look at your core stats.", CHARACTER_STATS);
 			
@@ -1230,11 +1230,12 @@ public class PhoneDialogue {
 	private static String content, title;
 
 	public static void resetContentForContacts() {
-		CharactersPresentDialogue.characterViewed = Main.game.getPlayer().getCharactersEncountered().get(0);
+		CharactersPresentDialogue.characterViewed = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(0));
 		title = "Contacts";
 		StringBuilder contentSB = new StringBuilder("<p>You have encountered the following characters in your travels:</p>");
-		for (int i = 0; i < Main.game.getPlayer().getCharactersEncountered().size(); i++)
-			contentSB.append("<p>" + Main.game.getPlayer().getCharactersEncountered().get(i).getName() + "</p>");
+		for (int i = 0; i < Main.game.getPlayer().getCharactersEncountered().size(); i++) {
+			contentSB.append("<p>" + Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(i)).getName() + "</p>");
+		}
 		content = contentSB.toString();
 	}
 
@@ -1248,27 +1249,29 @@ public class PhoneDialogue {
 			UtilText.nodeContentSB.append("<p>You have encountered the following characters in your travels:</p>");
 			
 			for (int i = 0; i < Main.game.getPlayer().getCharactersEncountered().size(); i++) {
-				UtilText.nodeContentSB.append("<p>" + Main.game.getPlayer().getCharactersEncountered().get(i).getName() + "</p>");
+				UtilText.nodeContentSB.append("<p>" + Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(i)).getName() + "</p>");
 			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the phone's main menu.", MENU);
 			
 			} else if (index <= Main.game.getPlayer().getCharactersEncountered().size()) {
-				return new Response(Util.capitaliseSentence(Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName()),
-						"Take a detailed look at what " + Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName("the") + " looks like.",
+				GameCharacter npc = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(index - 1));
+				
+				return new Response(Util.capitaliseSentence(npc.getName()),
+						"Take a detailed look at what " + npc.getName("the") + " looks like.",
 						CONTACTS_CHARACTER){
 					@Override
 					public void effects() {
-						CharactersPresentDialogue.characterViewed = Main.game.getPlayer().getCharactersEncountered().get(index - 1);
+						CharactersPresentDialogue.characterViewed = npc;
 						
-						title = Util.capitaliseSentence(Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName());
-						content = NPC.getCharacterInformationScreen((NPC) Main.game.getPlayer().getCharactersEncountered().get(index - 1));
+						title = Util.capitaliseSentence(npc.getName());
+						content = NPC.getCharacterInformationScreen((NPC) npc);
 						
 					}
 				};
@@ -1298,20 +1301,22 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the phone's main menu.", MENU);
 			
 			} else if (index <= Main.game.getPlayer().getCharactersEncountered().size()) {
-				return new Response(Util.capitaliseSentence(Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName()),
-						"Take a detailed look at what " + Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName("the") + " looks like.",
+				GameCharacter npc = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(index - 1));
+				
+				return new Response(Util.capitaliseSentence(npc.getName()),
+						"Take a detailed look at what " + npc.getName("the") + " looks like.",
 						CONTACTS_CHARACTER){
 					@Override
 					public void effects() {
-						CharactersPresentDialogue.characterViewed = Main.game.getPlayer().getCharactersEncountered().get(index - 1);
+						CharactersPresentDialogue.characterViewed = npc;
 						
-						title = Util.capitaliseSentence(Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName());
-						content = NPC.getCharacterInformationScreen((NPC) Main.game.getPlayer().getCharactersEncountered().get(index - 1));
+						title = Util.capitaliseSentence(npc.getName());
+						content = NPC.getCharacterInformationScreen((NPC) npc);
 						
 					}
 				};
@@ -1339,7 +1344,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response((Main.getProperties().isNewRaceDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Races</span>":"Races",
 						"Have a look at all the different races that you've encountered in your travels.", RACES){
@@ -1441,7 +1446,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the encyclopedia.", ENCYCLOPEDIA);
 			
@@ -1495,7 +1500,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the encyclopedia.", ENCYCLOPEDIA);
 			
@@ -1551,7 +1556,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the encyclopedia.", ENCYCLOPEDIA);
 			
@@ -1600,7 +1605,7 @@ public class PhoneDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the encyclopedia.", ENCYCLOPEDIA);
 			
@@ -1848,7 +1853,7 @@ public class PhoneDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to your phone's main menu.", MENU);
 			
@@ -2034,7 +2039,7 @@ public class PhoneDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to your phone's main menu.", MENU) {
 					@Override

@@ -100,6 +100,11 @@ public class Ralph extends NPC {
 		
 		dailyReset();
 	}
+
+	@Override
+	public boolean isUnique() {
+		return true;
+	}
 	
 	/**
 	 * Discount is active for three days after earning it.
@@ -228,7 +233,7 @@ public class Ralph extends NPC {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on browsing the wares in Ralph's shop.", RalphsSnacks.INTERIOR);
 			} else {

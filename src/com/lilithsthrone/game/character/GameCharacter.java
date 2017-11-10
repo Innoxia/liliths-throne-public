@@ -99,6 +99,7 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryAttributeChange;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
+import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -110,6 +111,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.item.AbstractFilledCondom;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
@@ -130,7 +132,6 @@ import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Dominion;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceInterface;
 import com.lilithsthrone.world.places.SlaverAlley;
@@ -139,10 +140,10 @@ import com.lilithsthrone.world.places.SlaverAlley;
  * The class for all the game's characters. I think this is the biggest class in the game.
  * 
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.1.89
  * @author Innoxia
  */
-public class GameCharacter implements Serializable, XMLSaving {
+public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -153,6 +154,7 @@ public class GameCharacter implements Serializable, XMLSaving {
 	/** Calculation description as used in getAttributeValue() */
 	public static final String STAMINA_CALCULATION = "Level*10 + FIT + Bonus ST";
 
+	
 	// Core variables:
 	protected String id;
 	protected NameTriplet nameTriplet;
@@ -161,30 +163,60 @@ public class GameCharacter implements Serializable, XMLSaving {
 	protected String playerPetName = "";
 	protected String description;
 	protected int level;
-
-	private int experience, levelUpPoints, perkPoints;
 	
-	protected WorldType worldLocation;
-	protected WorldType homeWorldLocation;
-	protected PlaceInterface startingPlace;
-	protected Vector2i location;
-	protected Vector2i homeLocation;
-	
-	protected Body body;
-	protected CharacterInventory inventory;
-
 	protected History history;
 	protected Personality personality;
 	protected SexualOrientation sexualOrientation;
+	private float obedience;
+
+	private int experience, levelUpPoints, perkPoints;
+	
+	
+	// Location:
+	protected WorldType worldLocation;
+	protected WorldType homeWorldLocation;
+	protected Vector2i location;
+	protected Vector2i homeLocation;
+	
+	
+	// Body:
+	protected Body body;
+	
+	
+	// Inventory:
+	protected CharacterInventory inventory;
+
+	
+	// Attributes, perks & status effects:
+	protected Map<Attribute, Float> attributes;
+	protected Map<Attribute, Float> bonusAttributes;
+	protected Map<Attribute, Float> potionAttributes;
+	protected Set<Perk> perks;
+	protected Set<Fetish> fetishes;
+	protected Map<StatusEffect, Integer> statusEffects;
+	protected Map<StatusEffect, String> statusEffectDescriptions;
+	
 
 	// Relationship stats:
-	private Map<GameCharacter, Float> affectionMap;
+	/** String is character ID*/
+	private Map<String, Float> affectionMap;
+	
+
+	// Pregnancy:
+	protected long timeProgressedToFinalPregnancyStage;
+	protected List<PregnancyPossibility> potentialPartnersAsMother, potentialPartnersAsFather;
+	protected Litter pregnantLitter;
+	protected List<Litter> littersBirthed, littersFathered;
+	
+	
+	// Family:
+	protected String motherId, fatherId;
+	protected int dayOfConception, dayOfBirth;
+
 	
 	// Slavery:
-	private float obedience;
-	
-	protected List<NPC> slavesOwned;
-	protected GameCharacter owner;
+	protected List<String> slavesOwned;
+	protected String owner;
 	protected DialogueNodeOld enslavementDialogue;
 	
 	protected SlaveJob slaveJob;
@@ -193,38 +225,17 @@ public class GameCharacter implements Serializable, XMLSaving {
 	
 	protected boolean[] workHours;
 	
-	// Family:
-	protected GameCharacter mother, father;
-	protected int dayOfConception, dayOfBirth;
-
-	// Attributes, perks & status effects:
-	protected Map<Attribute, Float> attributes;
-	protected Map<Attribute, Float> bonusAttributes;
-	protected Set<Perk> perks;
-	protected Set<Fetish> fetishes;
-	protected Map<StatusEffect, Integer> statusEffects;
-	protected Map<StatusEffect, String> statusEffectDescriptions;
 	
-	// Keep a track of what potion effects this character is experiencing:
-	protected Map<Attribute, Float> potionAttributes;
-
 	// Combat:
 	protected Set<Spell> spells;
 	protected Set<SpecialAttack> specialAttacks;
 	protected float health, mana, stamina;
 
+	
 	// Sex:
 	protected Map<CoverableArea, Boolean> playerKnowsAreasMap;
 	protected Map<OrificeType, Set<GameCharacter>> cummedInAreaMap;
 	
-	// Pregnancy:
-	protected long timeProgressedToFinalPregnancyStage;
-	protected List<PregnancyPossibility> potentialPartnersAsMother, potentialPartnersAsFather;
-	protected Litter pregnantLitter;
-	protected List<Litter> littersBirthed, littersFathered;
-
-	// Clothes:
-	protected int nakedSlots;
 	
 	// Stats:
 	// Combat stats:
@@ -236,11 +247,14 @@ public class GameCharacter implements Serializable, XMLSaving {
 	private Map<SexType, Integer> sexCountMap;
 	private Map<SexType, Integer> cumCountMap;
 	private Map<SexType, String> virginityLossMap;
-	private Map<GameCharacter, Map<SexType, Integer>> sexPartnerMap;
+	/** String is partner ID*/
+	private Map<String, Map<SexType, Integer>> sexPartnerMap;
 
+	
 	// Addictions:
 	private Map<FluidType, Integer> addictionsMap;
 	private Map<FluidType, Long> addictionsSatisfiedMap;
+	
 	
 	// Misc.:
 	protected static List<CharacterChangeEventListener> playerAttributeChangeEventListeners = new ArrayList<>();
@@ -254,7 +268,7 @@ public class GameCharacter implements Serializable, XMLSaving {
 
 	protected GameCharacter(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace, RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceInterface startingPlace) {
 		
-		id = "NPC-"+(Main.game.getNpcTally()+1); // id gets set in Game's addNPC method, so it doesn't matter if this is unique or not... Right?
+		id = "n/a"; // id gets set in Game's addNPC method, so it doesn't matter if this is unique or not... Right?
 		
 		this.nameTriplet = nameTriplet;
 		surname = "";
@@ -264,7 +278,6 @@ public class GameCharacter implements Serializable, XMLSaving {
 		
 		this.worldLocation = worldLocation;
 		this.homeWorldLocation = worldLocation;
-		this.startingPlace = startingPlace;
 		location = new Vector2i(0, 0);
 		
 		this.setWorldLocation(worldLocation);
@@ -275,12 +288,12 @@ public class GameCharacter implements Serializable, XMLSaving {
 		personality = startingRace.getPersionality();
 		sexualOrientation = startingRace.getSexualOrientation(startingGender);
 
-		affectionMap = new HashMap<GameCharacter,Float>();
+		affectionMap = new HashMap<>();
 		
 		obedience = 0;
 		
 		slavesOwned = new ArrayList<>();
-		owner = null;
+		owner = "";
 		enslavementDialogue = null;
 		
 		slaveJob = SlaveJob.IDLE;
@@ -297,16 +310,14 @@ public class GameCharacter implements Serializable, XMLSaving {
 		
 		workHours = new boolean[24];
 		
-		mother = null;
-		father = null;
+		motherId = "";
+		fatherId = "";
 		dayOfConception = 0;
 		dayOfBirth = 0;
 		
 		levelUpPoints = 0;
 		perkPoints = 0;
 		experience = 0;
-
-		nakedSlots = 0;
 
 		if (inventory == null) {
 			this.inventory = new CharacterInventory(0);
@@ -389,6 +400,32 @@ public class GameCharacter implements Serializable, XMLSaving {
 		parentElement.appendChild(properties);
 		
 		/*TODO
+			
+			
+			// Sex:
+			protected Map<CoverableArea, Boolean> playerKnowsAreasMap;
+			protected Map<OrificeType, Set<GameCharacter>> cummedInAreaMap;
+			
+		
+			// Clothes:
+			protected int nakedSlots;
+			
+			// Stats:
+			// Combat stats:
+			private int foughtPlayerCount, lostCombatCount, wonCombatCount;
+			
+			
+			// Sex stats:
+			private int sexConsensualCount, sexAsSubCount, sexAsDomCount;
+			private Map<SexType, Integer> sexCountMap;
+			private Map<SexType, Integer> cumCountMap;
+			private Map<SexType, String> virginityLossMap;
+			private Map<String, Map<SexType, Integer>> sexPartnerMap;
+		
+			// Addictions:
+			private Map<FluidType, Integer> addictionsMap;
+			private Map<FluidType, Long> addictionsSatisfiedMap;
+	
 			// Family:
 			protected GameCharacter mother, father;
 			protected int dayOfConception, dayOfBirth;
@@ -397,34 +434,114 @@ public class GameCharacter implements Serializable, XMLSaving {
 			protected Map<Attribute, Float> potionAttributes;
 		 */
 		
-		// Core information:
+		// ************** Core information **************//
+		
 		Element characterCoreInfo = doc.createElement("core");
 		Comment comment = doc.createComment("If you want to edit any of these values, just be warned that it might break the game...");
 		properties.appendChild(characterCoreInfo);
+		
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "id", this.getId());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "name", this.getName());
+		
+		Element name = doc.createElement("name");
+		characterCoreInfo.appendChild(name);
+		CharacterUtils.addAttribute(doc, name, "nameFeminine", this.getNameTriplet().getFeminine());
+		CharacterUtils.addAttribute(doc, name, "nameAndrogynous", this.getNameTriplet().getAndrogynous());
+		CharacterUtils.addAttribute(doc, name, "nameMasculine", this.getNameTriplet().getMasculine());
+		
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "surname", this.getSurname());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "description", this.getDescription());//TODO
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerPetName", this.getPlayerPetName());//TODO
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerKnowsName", String.valueOf(this.isPlayerKnowsName()));//TODO
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "description", this.getDescription());
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerPetName", this.getPlayerPetName());
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerKnowsName", String.valueOf(this.isPlayerKnowsName()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "level", String.valueOf(this.getLevel()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());//TODO
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "personality", this.getPersonality().toString());//TODO
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "sexualOrientation", this.getSexualOrientation().toString());//TODO
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "obedience", String.valueOf(this.getObedienceValue()));//TODO
+
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "experience", String.valueOf(this.getExperience()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "levelUpPoints", String.valueOf(this.getLevelUpPoints()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "perkPoints", String.valueOf(this.getPerkPoints()));
+		
 		characterCoreInfo.getParentNode().insertBefore(comment, characterCoreInfo);
 		
-		// Relationships:
-		Element characterRelationships = doc.createElement("characterRelationships");//TODO
-		properties.appendChild(characterRelationships);
-		for(Entry<GameCharacter, Float> entry : this.getAffectionMap().entrySet()){
-			Element relationship = doc.createElement("relationship");
-			characterRelationships.appendChild(relationship);
-			
-			CharacterUtils.addAttribute(doc, relationship, "character", entry.getKey().getId());
-			CharacterUtils.addAttribute(doc, relationship, "value", String.valueOf(entry.getValue()));
+		
+
+		// ************** Location Information **************//
+		
+		Element locationInformation = doc.createElement("locationInformation");
+		properties.appendChild(locationInformation);
+		CharacterUtils.createXMLElementWithValue(doc, locationInformation, "worldLocation", this.getWorldLocation().toString());
+		CharacterUtils.createXMLElementWithValue(doc, locationInformation, "homeWorldLocation", this.getHomeWorldLocation().toString());
+		Element location = doc.createElement("location");
+		locationInformation.appendChild(location);
+		CharacterUtils.addAttribute(doc, location, "x", String.valueOf(this.getLocation().getX()));
+		CharacterUtils.addAttribute(doc, location, "y", String.valueOf(this.getLocation().getY()));
+		location = doc.createElement("homeLocation");
+		locationInformation.appendChild(location);
+		CharacterUtils.addAttribute(doc, location, "x", String.valueOf(this.getHomeLocation().getX()));
+		CharacterUtils.addAttribute(doc, location, "y", String.valueOf(this.getHomeLocation().getY()));
+		
+		
+
+		// ************** Body **************//
+		
+		Element characterBody = doc.createElement("body");
+		properties.appendChild(characterBody);
+		
+		this.body.saveAsXML(characterBody, doc);
+		
+		
+		
+		// ************** Inventory **************//
+		
+		Element characterInventory = doc.createElement("characterInventory");
+		properties.appendChild(characterInventory);
+		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "money", String.valueOf(this.getMoney()));
+		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "essences", String.valueOf(this.getEssenceCount(TFEssence.ARCANE)));
+		
+		if(this.getMainWeapon() != null) {
+			Element mainWeapon = doc.createElement("mainWeapon");
+			characterInventory.appendChild(mainWeapon);
+			this.getMainWeapon().saveAsXML(mainWeapon, doc);
 		}
+		
+		if(this.getOffhandWeapon() != null) {
+			Element offhandWeapon = doc.createElement("offhandWeapon");
+			characterInventory.appendChild(offhandWeapon);
+			this.getOffhandWeapon().saveAsXML(offhandWeapon, doc);
+		}
+		
+		Element clothingEquipped = doc.createElement("clothingEquipped");
+		characterInventory.appendChild(clothingEquipped);
+		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
+			clothing.saveAsXML(clothingEquipped, doc);
+		}
+		
+		Element itemsInInventory = doc.createElement("itemsInInventory");
+		characterInventory.appendChild(itemsInInventory);
+		for(Entry<AbstractItem, Integer> item : this.getMapOfDuplicateItems().entrySet()) {
+			Element e = item.getKey().saveAsXML(itemsInInventory, doc);
+			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(item.getValue()));
+		}
+		
+		Element clothingInInventory = doc.createElement("clothingInInventory");
+		characterInventory.appendChild(clothingInInventory);
+		for(Entry<AbstractClothing, Integer> clothing : this.getMapOfDuplicateClothing().entrySet()) {
+			Element e = clothing.getKey().saveAsXML(clothingInInventory, doc);
+			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(clothing.getValue()));
+		}
+		
+		Element weaponsInInventory = doc.createElement("weaponsInInventory");
+		characterInventory.appendChild(weaponsInInventory);
+		for(Entry<AbstractWeapon, Integer> weapon : this.getMapOfDuplicateWeapons().entrySet()) {
+			Element e = weapon.getKey().saveAsXML(weaponsInInventory, doc);
+			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(weapon.getValue()));
+		}
+		
+		
+		
+		// ************** Attributes **************//
 		
 		// Attributes:
 		Element characterCoreAttributes = doc.createElement("attributes");
@@ -435,6 +552,16 @@ public class GameCharacter implements Serializable, XMLSaving {
 			
 			CharacterUtils.addAttribute(doc, element, "type", att.toString());
 			CharacterUtils.addAttribute(doc, element, "value", String.valueOf(this.getBaseAttributeValue(att)));
+		}
+		
+		Element characterPotionAttributes = doc.createElement("potionAttributes");
+		properties.appendChild(characterPotionAttributes);
+		for(Entry<Attribute, Float> entry : getPotionAttributes().entrySet()){
+			Element element = doc.createElement("attribute");
+			characterPotionAttributes.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "type", entry.getKey().toString());
+			CharacterUtils.addAttribute(doc, element, "value", String.valueOf(entry.getValue()));
 		}
 		
 		// Perks:
@@ -468,90 +595,130 @@ public class GameCharacter implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, element, "value", String.valueOf(this.getStatusEffectDuration(se)));
 		}
 		
-		// Combat (spells and special attacks): TODO
-//		Element characterCombat = doc.createElement("combat");
-//		properties.appendChild(characterCombat);
-//		for(Spell s : Spell.values()){
-//			Element element = doc.createElement("spell");
-//			characterCombat.appendChild(element);
-//			
-//			CharacterUtils.addAttribute(doc, element, "type", s.toString());
-//			CharacterUtils.addAttribute(doc, element, "value", String.valueOf(this.getSpells().contains(s)));
-//		}
-//		for(SpecialAttack sa : SpecialAttack.values()){
-//			Element element = doc.createElement("specialAttack");
-//			characterCombat.appendChild(element);
-//			
-//			CharacterUtils.addAttribute(doc, element, "type", sa.toString());
-//			CharacterUtils.addAttribute(doc, element, "value", String.valueOf(this.getSpecialAttacks().contains(sa)));
-//		}
 		
-		// Pregnancy: TODO
-//		Element characterPregnancy = doc.createElement("pregnancy");
-//		properties.appendChild(characterPregnancy);
-//		
-//		Element characterPregnancyPossibility = doc.createElement("pregnancyPossibilities");
-//		characterPregnancy.appendChild(characterPregnancyPossibility);
-//		for(PregnancyPossibility pregPoss : this.getPotentialPartnersAsMother()) {
-//			Element element = doc.createElement("possibility");
-//			characterPregnancyPossibility.appendChild(element);
-//			
-////			CharacterUtils.addAttribute(doc, element, "fatherName", pregPoss.getFatherName());
-////			CharacterUtils.addAttribute(doc, element, "gender", pregPoss.getGender().toString());
-////			CharacterUtils.addAttribute(doc, element, "race", pregPoss.getRace().toString());
-////			CharacterUtils.addAttribute(doc, element, "raceStage", pregPoss.getRaceStage().toString());
-//			CharacterUtils.addAttribute(doc, element, "probability", String.valueOf(pregPoss.getProbability()));
-//		}
-//		
-//		Element characterPregnancyCurrentLitter = doc.createElement("pregnantLitter");
-//		characterPregnancy.appendChild(characterPregnancyCurrentLitter);
-//		if (this.getPregnantLitter() != null) {
-//			Element element = doc.createElement("litter");
-//			characterPregnancyCurrentLitter.appendChild(element);
-//
-//			CharacterUtils.addAttribute(doc, element, "dayOfConception", String.valueOf(this.getPregnantLitter().getDayOfBirth()));
-//			CharacterUtils.addAttribute(doc, element, "dayOfBirth", String.valueOf(this.getPregnantLitter().getDayOfBirth()));
-////			CharacterUtils.addAttribute(doc, element, "fatherName", this.getPregnantLitter().getPartner().getName("a"));
-////			CharacterUtils.addAttribute(doc, element, "race", this.getPregnantLitter().getRace().toString());
-//			CharacterUtils.addAttribute(doc, element, "sons", String.valueOf(this.getPregnantLitter().getSons()));
-//			CharacterUtils.addAttribute(doc, element, "daughters", String.valueOf(this.getPregnantLitter().getDaughters()));
-//		}
-//		
-//		Element characterPregnancyBirthedLitters = doc.createElement("birthedLitters");
-//		characterPregnancy.appendChild(characterPregnancyBirthedLitters);
-//		for(Litter litter : this.getLittersBirthed()) {
-//			Element element = doc.createElement("birthedLitter");
-//			characterPregnancyBirthedLitters.appendChild(element);
-//
-//			CharacterUtils.addAttribute(doc, element, "dayOfConception", String.valueOf(litter.getDayOfBirth()));
-//			CharacterUtils.addAttribute(doc, element, "dayOfBirth", String.valueOf(litter.getDayOfBirth()));
-////			CharacterUtils.addAttribute(doc, element, "fatherName", litter.getPartner().getName("a"));
-////			CharacterUtils.addAttribute(doc, element, "race", litter.getRace().toString());
-//			CharacterUtils.addAttribute(doc, element, "sons", String.valueOf(litter.getSons()));
-//			CharacterUtils.addAttribute(doc, element, "daughters", String.valueOf(litter.getDaughters()));
-//		}
 		
-		// Body:
-		Element characterBody = doc.createElement("body");
-		properties.appendChild(characterBody);
+		// ************** Relationships **************//
 		
-		this.body.saveAsXML(characterBody, doc);
+		Element characterRelationships = doc.createElement("characterRelationships");
+		properties.appendChild(characterRelationships);
+		for(Entry<String, Float> entry : this.getAffectionMap().entrySet()){
+			Element relationship = doc.createElement("relationship");
+			characterRelationships.appendChild(relationship);
+			
+			CharacterUtils.addAttribute(doc, relationship, "character", entry.getKey());
+			CharacterUtils.addAttribute(doc, relationship, "value", String.valueOf(entry.getValue()));
+		}
+		
+		
+		
+		// ************** Pregnancy **************//
+		
+		// Pregnancy:
+		Element characterPregnancy = doc.createElement("pregnancy");
+		properties.appendChild(characterPregnancy);
+		CharacterUtils.addAttribute(doc, characterPregnancy, "timeProgressedToFinalPregnancyStage", String.valueOf(this.getTimeProgressedToFinalPregnancyStage()));
+		
+		Element characterPotentialPartnersAsMother = doc.createElement("potentialPartnersAsMother");
+		characterPregnancy.appendChild(characterPotentialPartnersAsMother);
+		for(PregnancyPossibility pregPoss : this.getPotentialPartnersAsMother()) {
+			pregPoss.saveAsXML(characterPotentialPartnersAsMother, doc);
+		}
+		
+		Element characterPotentialPartnersAsFather = doc.createElement("potentialPartnersAsFather");
+		characterPregnancy.appendChild(characterPotentialPartnersAsFather);
+		for(PregnancyPossibility pregPoss : this.getPotentialPartnersAsFather()) {
+			pregPoss.saveAsXML(characterPotentialPartnersAsFather, doc);
+		}
+		
+		Element characterPregnancyCurrentLitter = doc.createElement("pregnantLitter");
+		characterPregnancy.appendChild(characterPregnancyCurrentLitter);
+		if (this.getPregnantLitter() != null) {
+			this.getPregnantLitter().saveAsXML(characterPregnancyCurrentLitter, doc);
+		}
+		
+		Element characterPregnancyBirthedLitters = doc.createElement("birthedLitters");
+		characterPregnancy.appendChild(characterPregnancyBirthedLitters);
+		for(Litter litter : this.getLittersBirthed()) {
+			litter.saveAsXML(characterPregnancyBirthedLitters, doc);
+		}
+		
+		Element characterPregnancyLittersFathered = doc.createElement("littersFathered");
+		characterPregnancy.appendChild(characterPregnancyLittersFathered);
+		for(Litter litter : this.getLittersFathered()) {
+			litter.saveAsXML(characterPregnancyLittersFathered, doc);
+		}
+		
+		
+		
+		// ************** Family **************//
+
+		Element characterFamily = doc.createElement("family");
+		properties.appendChild(characterFamily);
+		
+		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "motherId", this.getMotherId());
+		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "fatherId", this.getFatherId());
+		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "dayOfConception", String.valueOf(this.getDayOfConception()));
+		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "dayOfBirth", String.valueOf(this.getDayOfBirth()));
+		
+		
+		
+		// ************** Slavery **************//
+
+		Element slaveryElement = doc.createElement("slavery");
+		properties.appendChild(slaveryElement);
+		
+		Element slavesOwned = doc.createElement("slavesOwned");
+		slaveryElement.appendChild(slavesOwned);
+		for(String slave : this.getSlavesOwned()) {
+			Element element = doc.createElement("slave");
+			slavesOwned.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "id", slave);
+		}
+		
+		CharacterUtils.createXMLElementWithValue(doc, slaveryElement, "owner", this.getOwner()==null?"":this.getOwner().getId());
+		CharacterUtils.createXMLElementWithValue(doc, slaveryElement, "slaveJob", this.getSlaveJob().toString());
+		
+		Element slaveJobSettings = doc.createElement("slaveJobSettings");
+		slaveryElement.appendChild(slaveJobSettings);
+		for(SlaveJobSetting setting : this.getSlaveJobSettings()) {
+			Element element = doc.createElement("setting");
+			slaveJobSettings.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "value", setting.toString());
+		}
+		
+		Element slavePermissionSettings = doc.createElement("slavePermissionSettings");
+		slaveryElement.appendChild(slavePermissionSettings);
+		for(Entry<SlavePermission, Set<SlavePermissionSetting>> entry : this.getSlavePermissionSettings().entrySet()) {
+			Element element = doc.createElement("permission");
+			slavePermissionSettings.appendChild(element);
+
+			CharacterUtils.addAttribute(doc, element, "type", entry.getKey().toString());
+			for(SlavePermissionSetting setting : entry.getValue()) {
+				Element settingElement = doc.createElement("setting");
+				element.appendChild(settingElement);
+				CharacterUtils.addAttribute(doc, settingElement, "value", setting.toString());
+			}
+		}
 		
 
-//		System.out.println("Difference1: "+(System.nanoTime()-timeStart)/1000000000f);
+		Element slaveWorkHours = doc.createElement("slaveWorkHours");
+		slaveryElement.appendChild(slaveWorkHours);
+		for(int i=0; i<workHours.length; i++) {
+			CharacterUtils.addAttribute(doc, slaveWorkHours, "hour"+String.valueOf(i), String.valueOf(workHours[i]));
+		}
 		
-		// PlayerCharacter specific:
 		
-		// Core:
-		Element characterPlayerCoreInfo = doc.createElement("playerCore");
-		properties.appendChild(characterPlayerCoreInfo);
-		CharacterUtils.createXMLElementWithValue(doc, characterPlayerCoreInfo, "experience", String.valueOf(this.getExperience()));
-		CharacterUtils.createXMLElementWithValue(doc, characterPlayerCoreInfo, "levelUpPoints", String.valueOf(this.getLevelUpPoints()));
-		CharacterUtils.createXMLElementWithValue(doc, characterPlayerCoreInfo, "perkPoints", String.valueOf(this.getPerkPoints()));
 		
-		// Sex stats:
+		// ************** Sex Stats **************//
+		
 		Element characterSexStats = doc.createElement("sexStats");
 		properties.appendChild(characterSexStats);
+		
+		CharacterUtils.createXMLElementWithValue(doc, characterSexStats, "sexConsensualCount", String.valueOf(this.getSexConsensualCount()));
+		CharacterUtils.createXMLElementWithValue(doc, characterSexStats, "sexAsSubCount", String.valueOf(this.getSexAsSubCount()));
+		CharacterUtils.createXMLElementWithValue(doc, characterSexStats, "sexAsDomCount", String.valueOf(this.getSexAsDomCount()));
 		
 		Element characterCumCount = doc.createElement("cumCounts");
 		characterSexStats.appendChild(characterCumCount);
@@ -598,69 +765,77 @@ public class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 		
-		
-		// Inventory:
-		Element characterInventory = doc.createElement("characterInventory");
-		properties.appendChild(characterInventory);
-		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "money", String.valueOf(this.getMoney()));
-		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "essences", String.valueOf(this.getEssenceCount(TFEssence.ARCANE)));
-		
-		if(this.getMainWeapon() != null) {
-			Element mainWeapon = doc.createElement("mainWeapon");
-			characterInventory.appendChild(mainWeapon);
-			this.getMainWeapon().saveAsXML(mainWeapon, doc);
+		Element sexPartnerMapElement = doc.createElement("sexPartnerMap");
+		characterSexStats.appendChild(sexPartnerMapElement);
+		for(String s : sexPartnerMap.keySet()) {
+			Element element = doc.createElement("id");
+			sexPartnerMapElement.appendChild(element);
+			CharacterUtils.addAttribute(doc, element, "value", s);
+			
+			for(Entry<SexType, Integer> entry : sexPartnerMap.get(s).entrySet()) {
+				Element entryElement = doc.createElement("entry");
+				element.appendChild(entryElement);
+
+				CharacterUtils.addAttribute(doc, entryElement, "penetrationType", entry.getKey().getPenetrationType().toString());
+				CharacterUtils.addAttribute(doc, entryElement, "orificeType", entry.getKey().getOrificeType().toString());
+				CharacterUtils.addAttribute(doc, entryElement, "count", String.valueOf(entry.getValue()));
+			}
 		}
 		
-		if(this.getOffhandWeapon() != null) {
-			Element offhandWeapon = doc.createElement("offhandWeapon");
-			characterInventory.appendChild(offhandWeapon);
-			this.getOffhandWeapon().saveAsXML(offhandWeapon, doc);
+		
+		
+		// ************** Addictions **************//
+		
+		Element characterAddictions = doc.createElement("addictions");
+		properties.appendChild(characterAddictions);
+		
+		Element addictionMap = doc.createElement("addictionMap");
+		characterAddictions.appendChild(addictionMap);
+		for(FluidType ft : addictionsMap.keySet()){
+			Element element = doc.createElement("addiction");
+			addictionMap.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "type", ft.toString());
+			CharacterUtils.addAttribute(doc, element, "value", String.valueOf(addictionsMap.get(ft)));
 		}
 		
-		Element clothingEquipped = doc.createElement("clothingEquipped");
-		characterInventory.appendChild(clothingEquipped);
-		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
-			clothing.saveAsXML(clothingEquipped, doc);
+		Element addictionSatisfiedMap = doc.createElement("addictionSatisfiedMap");
+		characterAddictions.appendChild(addictionSatisfiedMap);
+		for(FluidType ft : addictionsSatisfiedMap.keySet()){
+			Element element = doc.createElement("addiction");
+			addictionSatisfiedMap.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "type", ft.toString());
+			CharacterUtils.addAttribute(doc, element, "value", String.valueOf(addictionsSatisfiedMap.get(ft)));
 		}
 		
-		Element itemsInInventory = doc.createElement("itemsInInventory");
-		characterInventory.appendChild(itemsInInventory);
-		for(Entry<AbstractItem, Integer> item : this.getMapOfDuplicateItems().entrySet()) {
-			Element e = item.getKey().saveAsXML(itemsInInventory, doc);
-			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(item.getValue()));
-		}
 		
-		Element clothingInInventory = doc.createElement("clothingInInventory");
-		characterInventory.appendChild(clothingInInventory);
-		for(Entry<AbstractClothing, Integer> clothing : this.getMapOfDuplicateClothing().entrySet()) {
-			Element e = clothing.getKey().saveAsXML(clothingInInventory, doc);
-			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(clothing.getValue()));
-		}
-		
-		Element weaponsInInventory = doc.createElement("weaponsInInventory");
-		characterInventory.appendChild(weaponsInInventory);
-		for(Entry<AbstractWeapon, Integer> weapon : this.getMapOfDuplicateWeapons().entrySet()) {
-			Element e = weapon.getKey().saveAsXML(weaponsInInventory, doc);
-			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(weapon.getValue()));
-		}
 		
 		return properties;
 	}
 	
-	public static GameCharacter loadFromXML(StringBuilder log, Element parentElement, Document doc) {
-		GameCharacter character = new GameCharacter(new NameTriplet(""), "", 0, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(0), WorldType.DOMINION, Dominion.CITY_AUNTS_HOME);
+	public static void loadGameCharacterVariablesFromXML(GameCharacter character, StringBuilder log, Element parentElement, Document doc) {
+
 		
-		// Core info:
+		// ************** Core information **************//
+		
 		NodeList nodes = parentElement.getElementsByTagName("core");
 		Element element = (Element) nodes.item(0);
-		
-		String version = ((Element)element.getElementsByTagName("version").item(0)).getAttribute("value");
-		boolean pre085 = Integer.valueOf(version.split("\\.")[1]) == 1 && Integer.valueOf(version.split("\\.")[2]) <= 85;
-		System.out.println(pre085);
 
+		character.setId(((Element)element.getElementsByTagName("id").item(0)).getAttribute("value"));
+		CharacterUtils.appendToImportLog(log, "</br>Set id: " + character.getId());
+		
 		// Name:
-		character.setName(new NameTriplet(((Element)element.getElementsByTagName("name").item(0)).getAttribute("value")));
-		CharacterUtils.appendToImportLog(log, "</br>Set name: " + ((Element)element.getElementsByTagName("name").item(0)).getAttribute("value"));
+		if(!((Element)element.getElementsByTagName("name").item(0)).getAttribute("value").isEmpty()) {
+			character.setName(new NameTriplet(((Element)element.getElementsByTagName("name").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set name: " + ((Element)element.getElementsByTagName("name").item(0)).getAttribute("value"));
+		} else {
+			Element nameElement = ((Element)element.getElementsByTagName("name").item(0));
+			character.setName(new NameTriplet(
+					nameElement.getAttribute("nameMasculine"),
+					nameElement.getAttribute("nameAndrogynous"),
+					nameElement.getAttribute("nameFeminine")));
+		}
 		
 		// Surname:
 		if(element.getElementsByTagName("surname")!=null && element.getElementsByTagName("surname").getLength()>0) {
@@ -685,36 +860,37 @@ public class GameCharacter implements Serializable, XMLSaving {
 
 		if(element.getElementsByTagName("description").getLength()!=0) {
 			character.setDescription(((Element)element.getElementsByTagName("description").item(0)).getAttribute("value"));
+			CharacterUtils.appendToImportLog(log, "</br>Set description: "+character.getDescription());
 		}
 		if(element.getElementsByTagName("playerPetName").getLength()!=0) {
 			character.setPlayerPetName(((Element)element.getElementsByTagName("playerPetName").item(0)).getAttribute("value"));
+			CharacterUtils.appendToImportLog(log, "</br>Set playerPetName: "+character.getPlayerPetName());
 		}
 		if(element.getElementsByTagName("playerKnowsName").getLength()!=0) {
 			character.setPlayerKnowsName(Boolean.valueOf(((Element)element.getElementsByTagName("playerKnowsName").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set playerKnowsName: "+character.isPlayerKnowsName());
 		}
 		if(element.getElementsByTagName("history").getLength()!=0) {
 			character.setHistory(History.valueOf(((Element)element.getElementsByTagName("history").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set history: "+character.getHistory());
 		}
 		if(element.getElementsByTagName("personality").getLength()!=0) {
 			character.setPersonality(Personality.valueOf(((Element)element.getElementsByTagName("personality").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set personality: "+character.getPersonality());
 		}
 		if(element.getElementsByTagName("obedience").getLength()!=0) {
 			character.setObedience(Float.valueOf(((Element)element.getElementsByTagName("obedience").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set obedience: "+character.getObedience());
 		}
 		
-		
-		
-		// Temp fix for perk points:
-		character.setPerkPoints((Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")))-1);
-		CharacterUtils.appendToImportLog(log, "</br>Set perkPoints: (TEMP FIX) " + (Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value"))-1));
 		
 		int extraLevelUpPoints=0;
 		// If there is a version number, attributes should be working correctly:
 		if(element.getElementsByTagName("version").item(0)!=null) {
 			nodes = parentElement.getElementsByTagName("attributes");
-			element = (Element) nodes.item(0);
-			for(int i=0; i<element.getElementsByTagName("attribute").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("attribute").item(i));
+			Element attElement = (Element) nodes.item(0);
+			for(int i=0; i<attElement.getElementsByTagName("attribute").getLength(); i++){
+				Element e = ((Element)attElement.getElementsByTagName("attribute").item(i));
 				
 				try {
 					character.setAttribute(Attribute.valueOf(e.getAttribute("type")), Float.valueOf(e.getAttribute("value")));
@@ -728,15 +904,159 @@ public class GameCharacter implements Serializable, XMLSaving {
 			CharacterUtils.appendToImportLog(log, "</br>Old character version. Extra LevelUpPoints set to: "+(Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")) * 5));
 		}
 		
-		
-		nodes = parentElement.getElementsByTagName("characterRelationships");
-		element = (Element) nodes.item(0);
-		for(int i=0; i<element.getElementsByTagName("characterRelationships").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("relationship").item(i));
+		nodes = parentElement.getElementsByTagName("playerCore");
+		if(nodes.getLength()>0) { // Old version support:
 			
-			if(e.getAttribute("character").equals("PlayerCharacter") && !character.isPlayer()) {
-				character.setAffection(Main.game.getPlayer(), Float.valueOf(e.getAttribute("value")));
-				CharacterUtils.appendToImportLog(log, "</br>Set Relationship: "+e.getAttribute("character") +" , "+ Float.valueOf(e.getAttribute("value")));
+			character.setPerkPoints((Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")))-1);
+			CharacterUtils.appendToImportLog(log, "</br>Set perkPoints: (TEMP FIX) " + (Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value"))-1));
+			
+			element = (Element) nodes.item(0);
+	
+			character.incrementExperience(Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
+			
+			character.setLevelUpPoints(Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints);
+			CharacterUtils.appendToImportLog(log, "</br>Set levelUpPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
+			
+			
+		} else {
+			character.incrementExperience(Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
+			
+			character.setLevelUpPoints(Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints);
+			CharacterUtils.appendToImportLog(log, "</br>Set levelUpPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
+			
+			character.setPerkPoints(Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set levelUpPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
+		}
+		
+		
+		
+		// ************** Location Information **************//
+		
+		nodes = parentElement.getElementsByTagName("locationInformation");
+		element = (Element) nodes.item(0);
+		if(element!=null) {
+			character.setLocation(
+					WorldType.valueOf(((Element)element.getElementsByTagName("worldLocation").item(0)).getAttribute("value")),
+					new Vector2i(
+							Integer.valueOf(((Element)element.getElementsByTagName("location").item(0)).getAttribute("x")),
+							Integer.valueOf(((Element)element.getElementsByTagName("location").item(0)).getAttribute("y"))),
+					false);
+
+			character.setHomeLocation(
+					WorldType.valueOf(((Element)element.getElementsByTagName("homeWorldLocation").item(0)).getAttribute("value")),
+					new Vector2i(
+							Integer.valueOf(((Element)element.getElementsByTagName("homeLocation").item(0)).getAttribute("x")),
+							Integer.valueOf(((Element)element.getElementsByTagName("homeLocation").item(0)).getAttribute("y"))));
+			
+		} else {
+			character.setLocation(new Vector2i(0, 0));
+		}
+		
+		
+
+		// ************** Body **************//
+		
+		character.body = Body.loadFromXML(log, (Element) parentElement.getElementsByTagName("body").item(0), doc);
+		
+		
+		
+		// ************** Inventory **************//
+		
+		character.resetInventory();
+		nodes = parentElement.getElementsByTagName("characterInventory");
+		element = (Element) nodes.item(0);
+		if(element!=null) {
+			character.setMoney(Integer.valueOf(((Element)element.getElementsByTagName("money").item(0)).getAttribute("value")));
+			character.setEssenceCount(TFEssence.ARCANE, Integer.valueOf(((Element)element.getElementsByTagName("essences").item(0)).getAttribute("value")));
+			
+			if(element.getElementsByTagName("mainWeapon").item(0)!=null) {
+				character.equipMainWeaponFromNowhere(AbstractWeapon.loadFromXML(
+						(Element) ((Element)element.getElementsByTagName("mainWeapon").item(0)).getElementsByTagName("weapon").item(0),
+						doc));
+			}
+	
+			if(element.getElementsByTagName("offhandWeapon").item(0)!=null) {
+				character.equipOffhandWeaponFromNowhere(AbstractWeapon.loadFromXML(
+						(Element) ((Element)element.getElementsByTagName("offhandWeapon").item(0)).getElementsByTagName("weapon").item(0),
+						doc));
+			}
+			
+			Element clothingEquipped = (Element) element.getElementsByTagName("clothingEquipped").item(0);
+			for(int i=0; i<clothingEquipped.getElementsByTagName("clothing").getLength(); i++){
+				Element e = ((Element)clothingEquipped.getElementsByTagName("clothing").item(i));
+				
+				character.equipClothingOverride(AbstractClothing.loadFromXML(e, doc));
+			}
+			
+			Element itemsInInventory = (Element) element.getElementsByTagName("itemsInInventory").item(0);
+			for(int i=0; i<itemsInInventory.getElementsByTagName("item").getLength(); i++){
+				Element e = ((Element)itemsInInventory.getElementsByTagName("item").item(i));
+				
+				for(int itemCount = 0 ; itemCount < Integer.valueOf(e.getAttribute("count")); itemCount++) {
+					if(e.getAttribute("id").equals(ItemType.itemToIdMap.get(ItemType.CONDOM_USED))) {
+						character.addItem(AbstractFilledCondom.loadFromXML(e, doc), false);
+					} else {
+						character.addItem(AbstractItem.loadFromXML(e, doc), false);
+					}
+				}
+			}
+			
+			Element clothingInInventory = (Element) element.getElementsByTagName("clothingInInventory").item(0);
+			for(int i=0; i<clothingInInventory.getElementsByTagName("clothing").getLength(); i++){
+				Element e = ((Element)clothingInInventory.getElementsByTagName("clothing").item(i));
+	
+				for(int clothingCount = 0 ; clothingCount < Integer.valueOf(e.getAttribute("count")); clothingCount++) {
+					character.addClothing(AbstractClothing.loadFromXML(e, doc), false);
+				}
+			}
+			
+			Element weaponsInInventory = (Element) element.getElementsByTagName("weaponsInInventory").item(0);
+			for(int i=0; i<weaponsInInventory.getElementsByTagName("weapon").getLength(); i++){
+				Element e = ((Element)weaponsInInventory.getElementsByTagName("weapon").item(i));
+	
+				for(int weaponCount = 0 ; weaponCount < Integer.valueOf(e.getAttribute("count")); weaponCount++) {
+					character.addWeapon(AbstractWeapon.loadFromXML(e, doc), false);
+				}
+			}
+		} else {
+			CharacterCreation.getDressed(character, false);
+		}
+		
+		
+		
+		// ************** Attributes **************//
+		
+		// Core attributes are set in the first section.
+		
+		// Potion attributes:
+		nodes = parentElement.getElementsByTagName("potionAttributes");
+		Element attElement = (Element) nodes.item(0);
+		if(attElement!=null) {
+			for(int i=0; i<attElement.getElementsByTagName("attribute").getLength(); i++){
+				Element e = ((Element)attElement.getElementsByTagName("attribute").item(i));
+
+				try {
+					character.addPotionEffect(Attribute.valueOf(e.getAttribute("type")), Float.valueOf(e.getAttribute("value")));
+					CharacterUtils.appendToImportLog(log, "</br>Set Potion Attribute: "+Attribute.valueOf(e.getAttribute("type")).getName() +" to "+ Float.valueOf(e.getAttribute("value")));
+				}catch(IllegalArgumentException ex){
+				}
+			}
+		}
+		
+		// Perks:
+		nodes = parentElement.getElementsByTagName("perks");
+		element = (Element) nodes.item(0);
+		for(int i=0; i<element.getElementsByTagName("perk").getLength(); i++){
+			Element e = ((Element)element.getElementsByTagName("perk").item(i));
+			
+			try {
+				if(Perk.valueOf(e.getAttribute("type")) != null) {
+					character.addPerk(Perk.valueOf(e.getAttribute("type")));
+					CharacterUtils.appendToImportLog(log, "</br>Added Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
+				}
+			}catch(IllegalArgumentException ex){
 			}
 		}
 		
@@ -774,21 +1094,6 @@ public class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 		
-		// Perks:
-//		nodes = parentElement.getElementsByTagName("perks");
-//		element = (Element) nodes.item(0);
-//		for(int i=0; i<element.getElementsByTagName("perk").getLength(); i++){
-//			Element e = ((Element)element.getElementsByTagName("perk").item(i));
-//			
-//			try {
-//				if(Boolean.valueOf(e.getAttribute("value"))) {
-//					character.addPerk(Perk.valueOf(e.getAttribute("type")));
-//					CharacterUtils.appendToImportLog(log, "</br>Added Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
-//				}
-//			}catch(IllegalArgumentException ex){
-//			}
-//		}
-		
 		// Status Effects:
 		nodes = parentElement.getElementsByTagName("statusEffects");
 		element = (Element) nodes.item(0);
@@ -804,85 +1109,168 @@ public class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 		
-		// Combat:
-		// TODO Combat is all derived from weapons/perks/body parts, so there's no reason for this to even be here...
 		
-		// Pregnancy: TODO
-//		nodes = parentElement.getElementsByTagName("pregnancy");
-//		// Possibilities:
-//		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("pregnancyPossibilities").item(0);
-//		for(int i=0; i<element.getElementsByTagName("possibility").getLength(); i++){
-//			Element e = ((Element)element.getElementsByTagName("possibility").item(i));
-//			
-//			try {
-//				character.getPotentialPartnersAsMother().add(new PregnancyPossibility(
-//						null,
-//						null,
-//						Float.valueOf(e.getAttribute("probability"))));
-//				CharacterUtils.appendToImportLog(log, "</br>Added Pregnancy Possibility: Father:"+e.getAttribute("fatherName"));
-//			}catch(IllegalArgumentException ex){
-//			}
-//		}
-//		// Litter:
-//		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("pregnantLitter").item(0);
-//		for(int i=0; i<element.getElementsByTagName("litter").getLength(); i++){
-//			Element e = ((Element)element.getElementsByTagName("litter").item(i));
-//			
-//			try {
-//				character.setPregnantLitter(new Litter(
-//						Integer.valueOf(e.getAttribute("dayOfConception")),
-//						Integer.valueOf(e.getAttribute("dayOfBirth")),
-//						null,
-//						null,
-//						Race.valueOf(e.getAttribute("race")),
-//						Integer.valueOf(e.getAttribute("sons")),
-//						Integer.valueOf(e.getAttribute("daughters"))));
-//				CharacterUtils.appendToImportLog(log, "</br>Added Litter: Father:"+e.getAttribute("fatherName"));
-//			}catch(IllegalArgumentException ex){
-//			}
-//		}
-//		// Birthed Litters:
-//		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("birthedLitters").item(0);
-//		for(int i=0; i<element.getElementsByTagName("birthedLitter").getLength(); i++){
-//			Element e = ((Element)element.getElementsByTagName("birthedLitter").item(i));
-//			
-//			try {
-//				character.getLittersBirthed().add(new Litter(
-//						Integer.valueOf(e.getAttribute("dayOfConception")),
-//						Integer.valueOf(e.getAttribute("dayOfBirth")),
-//						null,
-//						null,
-//						Race.valueOf(e.getAttribute("race")),
-//						Integer.valueOf(e.getAttribute("sons")),
-//						Integer.valueOf(e.getAttribute("daughters"))));
-//				CharacterUtils.appendToImportLog(log, "</br>Added Birthed Litter: Father:"+e.getAttribute("fatherName"));
-//			}catch(IllegalArgumentException ex){
-//			}
-//		}
 		
-		// Body:
-		character.body = Body.loadFromXML(log, (Element) parentElement.getElementsByTagName("body").item(0), doc);
+		// ************** Relationships **************//
 		
-		// Player Core info:
-		nodes = parentElement.getElementsByTagName("playerCore");
+		nodes = parentElement.getElementsByTagName("characterRelationships");
 		element = (Element) nodes.item(0);
-
-		// Experience:
-		character.incrementExperience(Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
-		CharacterUtils.appendToImportLog(log, "</br>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
+		if(element!=null) {
+			for(int i=0; i<element.getElementsByTagName("relationship").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("relationship").item(i));
+				
+				character.setAffection(e.getAttribute("character"), Float.valueOf(e.getAttribute("value")));
+				CharacterUtils.appendToImportLog(log, "</br>Set Relationship: "+e.getAttribute("character") +" , "+ Float.valueOf(e.getAttribute("value")));
+			}
+		}
 		
-		// Level up points:
-		character.setLevelUpPoints(Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints);
-		CharacterUtils.appendToImportLog(log, "</br>Set levelUpPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
-
-		// Perk points:
-		//character.setPerkPoints(Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")));
-//		character.setPerkPoints((Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value"))));
-//		
-//		CharacterUtils.appendToImportLog(log, "</br>Set perkPoints: (TEMP FIX) " + (Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value"))));
 		
-		// Sex stats:
+		
+		// ************** Pregnancy **************//
+		
+		nodes = parentElement.getElementsByTagName("pregnancy");
+		Element pregnancyElement = (Element) nodes.item(0);
+		if(pregnancyElement!=null) {
+			CharacterUtils.appendToImportLog(log, "</br></br>Pregnancies:");
+			
+			character.setTimeProgressedToFinalPregnancyStage(Integer.valueOf(pregnancyElement.getAttribute("timeProgressedToFinalPregnancyStage")));
+			
+			nodes = pregnancyElement.getElementsByTagName("potentialPartnersAsMother");
+			element = (Element) nodes.item(0);
+			if(element!=null) {
+				for(int i=0; i<element.getElementsByTagName("pregnancyPossibility").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("pregnancyPossibility").item(i));
+					
+					character.getPotentialPartnersAsMother().add(PregnancyPossibility.loadFromXML(e, doc));
+					CharacterUtils.appendToImportLog(log, "</br>Added Pregnancy Possibility as mother.");
+				}
+			}
+			
+			nodes = pregnancyElement.getElementsByTagName("characterPotentialPartnersAsFather");
+			element = (Element) nodes.item(0);
+			if(element!=null) {
+				for(int i=0; i<element.getElementsByTagName("pregnancyPossibility").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("pregnancyPossibility").item(i));
+					
+					character.getPotentialPartnersAsFather().add(PregnancyPossibility.loadFromXML(e, doc));
+					CharacterUtils.appendToImportLog(log, "</br>Added Pregnancy Possibility as father.");
+				}
+			}
+			
+			nodes = pregnancyElement.getElementsByTagName("pregnantLitter");
+			element = (Element) ((Element) nodes.item(0)).getElementsByTagName("litter").item(0);
+			if(element!=null) {
+				character.setPregnantLitter(Litter.loadFromXML(element, doc));
+				CharacterUtils.appendToImportLog(log, "</br>Added Pregnant litter.");
+			}
+			
+			nodes = pregnancyElement.getElementsByTagName("birthedLitters");
+			element = (Element) nodes.item(0);
+			if(element!=null) {
+				for(int i=0; i<element.getElementsByTagName("litter").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("litter").item(i));
+					
+					character.getLittersBirthed().add(Litter.loadFromXML(e, doc));
+					CharacterUtils.appendToImportLog(log, "</br>Added litter birthed.");
+				}
+			}
+			
+			nodes = pregnancyElement.getElementsByTagName("littersFathered");
+			element = (Element) nodes.item(0);
+			if(element!=null) {
+				for(int i=0; i<element.getElementsByTagName("litter").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("litter").item(i));
+					
+					character.getLittersFathered().add(Litter.loadFromXML(e, doc));
+					CharacterUtils.appendToImportLog(log, "</br>Added litter fathered.");
+				}
+			}
+		}
+		
+		
+		
+		// ************** Family **************//
+		
+		nodes = parentElement.getElementsByTagName("family");
+		Element familyElement = (Element) nodes.item(0);
+		if(familyElement!=null) {
+			character.setMother(((Element)familyElement.getElementsByTagName("motherId").item(0)).getAttribute("value"));
+			character.setFather(((Element)familyElement.getElementsByTagName("fatherId").item(0)).getAttribute("value"));
+			character.setDayOfConception(Integer.valueOf(((Element)familyElement.getElementsByTagName("dayOfConception").item(0)).getAttribute("value")));
+			character.setDayOfBirth(Integer.valueOf(((Element)familyElement.getElementsByTagName("dayOfBirth").item(0)).getAttribute("value")));
+		}
+		
+		
+		
+		// ************** Slavery **************//
+		
+		nodes = parentElement.getElementsByTagName("slavery");
+		Element slaveryElement = (Element) nodes.item(0);
+		if(slaveryElement!=null) {
+			
+			for(int i=0; i<((Element) slaveryElement.getElementsByTagName("slavesOwned").item(0)).getElementsByTagName("slave").getLength(); i++){
+				Element e = ((Element)slaveryElement.getElementsByTagName("slave").item(i));
+				
+				character.getSlavesOwned().add(e.getAttribute("id"));
+				CharacterUtils.appendToImportLog(log, "</br>Added owned slave: "+e.getAttribute("id"));
+			}
+			
+
+			character.setOwner(((Element)slaveryElement.getElementsByTagName("owner").item(0)).getAttribute("value"));
+			CharacterUtils.appendToImportLog(log, "</br>Set owner: "+character.getOwnerId());
+			
+			character.setSlaveJob(SlaveJob.valueOf(((Element)slaveryElement.getElementsByTagName("slaveJob").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set slave job: "+character.getSlaveJob());
+			
+			for(int i=0; i<((Element) slaveryElement.getElementsByTagName("slaveJobSettings").item(0)).getElementsByTagName("setting").getLength(); i++){
+				Element e = ((Element)slaveryElement.getElementsByTagName("setting").item(i));
+				
+				SlaveJobSetting setting = SlaveJobSetting.valueOf(e.getAttribute("value"));
+				character.addSlaveJobSettings(setting);
+				CharacterUtils.appendToImportLog(log, "</br>Added slave job setting: "+setting);
+			}
+			
+			for(int i=0; i<((Element) slaveryElement.getElementsByTagName("slavePermissionSettings").item(0)).getElementsByTagName("permission").getLength(); i++){
+				Element e = ((Element)slaveryElement.getElementsByTagName("permission").item(i));
+				SlavePermission slavePermission =  SlavePermission.valueOf(e.getAttribute("type"));
+				
+				for(int j=0; j<e.getElementsByTagName("setting").getLength(); j++){
+					Element e2 = ((Element)e.getElementsByTagName("setting").item(j));
+					
+					SlavePermissionSetting setting = SlavePermissionSetting.valueOf(e2.getAttribute("value"));
+					character.addSlavePermissionSetting(slavePermission, setting);
+					CharacterUtils.appendToImportLog(log, "</br>Added slave permission setting: "+slavePermission+", "+setting);
+				}
+			}
+
+			Element workHourElement = ((Element)slaveryElement.getElementsByTagName("slaveWorkHours").item(0));
+			for(int i=0; i<character.workHours.length; i++) {
+				character.workHours[i] = Boolean.valueOf(workHourElement.getAttribute("hour"+String.valueOf(i)));
+				CharacterUtils.appendToImportLog(log, "</br>Set work hour: "+i+", "+character.workHours[i]);
+			}
+		}
+		
+		
+		
+		// ************** Sex Stats **************//
+		
 		nodes = parentElement.getElementsByTagName("sexStats");
+		Element sexStatsElement = (Element) nodes.item(0);
+
+		if(sexStatsElement.getElementsByTagName("sexConsensualCount").getLength()!=0) {
+			character.setSexConsensualCount(Integer.valueOf(((Element)sexStatsElement.getElementsByTagName("sexConsensualCount").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set consensual sex count: "+character.getSexConsensualCount());
+		}
+
+		if(sexStatsElement.getElementsByTagName("sexAsSubCount").getLength()!=0) {
+			character.setSexAsSubCount(Integer.valueOf(((Element)sexStatsElement.getElementsByTagName("sexAsSubCount").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set sub sex count: "+character.getSexAsSubCount());
+		}
+
+		if(sexStatsElement.getElementsByTagName("sexAsDomCount").getLength()!=0) {
+			character.setSexAsDomCount(Integer.valueOf(((Element)sexStatsElement.getElementsByTagName("sexAsDomCount").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set dom sex count: "+character.getSexAsDomCount());
+		}
 		
 		// Cum counts:
 		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("cumCounts").item(0);
@@ -920,68 +1308,49 @@ public class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		
-		
-		// Inventory:
-		character.resetInventory();
-		nodes = parentElement.getElementsByTagName("characterInventory");
-		element = (Element) nodes.item(0);
-
-		character.setMoney(Integer.valueOf(((Element)element.getElementsByTagName("money").item(0)).getAttribute("value")));
-		character.setEssenceCount(TFEssence.ARCANE, Integer.valueOf(((Element)element.getElementsByTagName("essences").item(0)).getAttribute("value")));
-		
-		if(element.getElementsByTagName("mainWeapon").item(0)!=null) {
-			character.equipMainWeaponFromNowhere(AbstractWeapon.loadFromXML(
-					(Element) ((Element)element.getElementsByTagName("mainWeapon").item(0)).getElementsByTagName("weapon").item(0),
-					doc));
-		}
-
-		if(element.getElementsByTagName("offhandWeapon").item(0)!=null) {
-			character.equipOffhandWeaponFromNowhere(AbstractWeapon.loadFromXML(
-					(Element) ((Element)element.getElementsByTagName("offhandWeapon").item(0)).getElementsByTagName("weapon").item(0),
-					doc));
-		}
-		
-		Element clothingEquipped = (Element) element.getElementsByTagName("clothingEquipped").item(0);
-		for(int i=0; i<clothingEquipped.getElementsByTagName("clothing").getLength(); i++){
-			Element e = ((Element)clothingEquipped.getElementsByTagName("clothing").item(i));
+		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("sexPartnerMap").item(0);
+		for(int i=0; i<element.getElementsByTagName("id").getLength(); i++){
+			Element e = ((Element)element.getElementsByTagName("id").item(i));
+			character.sexPartnerMap.put(e.getAttribute("value"), new HashMap<>());
 			
-			character.equipClothingOverride(AbstractClothing.loadFromXML(e, doc));
+			for(int j=0; j<element.getElementsByTagName("entry").getLength(); j++){
+				Element e2 = ((Element)element.getElementsByTagName("entry").item(j));
+				
+				character.sexPartnerMap.get(e.getAttribute("value")).put(
+						new SexType(
+								PenetrationType.valueOf(e2.getAttribute("penetrationType")),
+								OrificeType.valueOf(e2.getAttribute("orificeType"))),
+								Integer.valueOf(e2.getAttribute("count")));
+				
+				CharacterUtils.appendToImportLog(log, "</br>Added sex tracking: "+e.getAttribute("value")+" "+e2.getAttribute("penetrationType")+"/"+e2.getAttribute("orificeType")+" "+Integer.valueOf(e2.getAttribute("count")));
+			}
 		}
-		//TODO count
-		Element itemsInInventory = (Element) element.getElementsByTagName("itemsInInventory").item(0);
-		for(int i=0; i<itemsInInventory.getElementsByTagName("item").getLength(); i++){
-			Element e = ((Element)itemsInInventory.getElementsByTagName("item").item(i));
+		
+		
+		
+		// ************** Addictions **************//
+
+		nodes = parentElement.getElementsByTagName("addictions");
+		Element addictionsElement = (Element) nodes.item(0);
+		
+		element = (Element) addictionsElement.getElementsByTagName("addictionMap").item(0);
+		for(int i=0; i<element.getElementsByTagName("addiction").getLength(); i++){
+			Element e = ((Element)element.getElementsByTagName("addiction").item(i));
 			
-			for(int itemCount = 0 ; itemCount < Integer.valueOf(e.getAttribute("count")); itemCount++) {
-				character.addItem(AbstractItem.loadFromXML(e, doc), false);
-			}
+			character.setAddiction(FluidType.valueOf(e.getAttribute("type")), Integer.valueOf(e.getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Added addiction:"+e.getAttribute("type")+" "+e.getAttribute("value"));
 		}
 		
-		Element clothingInInventory = (Element) element.getElementsByTagName("clothingInInventory").item(0);
-		for(int i=0; i<clothingInInventory.getElementsByTagName("clothing").getLength(); i++){
-			Element e = ((Element)clothingInInventory.getElementsByTagName("clothing").item(i));
-
-			for(int clothingCount = 0 ; clothingCount < Integer.valueOf(e.getAttribute("count")); clothingCount++) {
-				character.addClothing(AbstractClothing.loadFromXML(e, doc), false);
-			}
+		element = (Element) addictionsElement.getElementsByTagName("addictionSatisfiedMap").item(0);
+		for(int i=0; i<element.getElementsByTagName("addiction").getLength(); i++){
+			Element e = ((Element)element.getElementsByTagName("addiction").item(i));
+			
+			character.setLastTimeSatisfiedAddiction(FluidType.valueOf(e.getAttribute("type")), Long.valueOf(e.getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set satisfied time:"+e.getAttribute("type")+" "+e.getAttribute("value"));
 		}
-		
-		Element weaponsInInventory = (Element) element.getElementsByTagName("weaponsInInventory").item(0);
-		for(int i=0; i<weaponsInInventory.getElementsByTagName("weapon").getLength(); i++){
-			Element e = ((Element)weaponsInInventory.getElementsByTagName("weapon").item(i));
-
-			for(int weaponCount = 0 ; weaponCount < Integer.valueOf(e.getAttribute("count")); weaponCount++) {
-				character.addWeapon(AbstractWeapon.loadFromXML(e, doc), false);
-			}
-		}
-		
-		
-		character.setLocation(new Vector2i(0, 0));
-		
-		return character;
 	}
 	
-	
+	public abstract boolean isUnique();
 	
 	public String getId() {
 		return id;
@@ -1276,8 +1645,8 @@ public class GameCharacter implements Serializable, XMLSaving {
 	
 	public int getSlavesWorkingJob(SlaveJob job) {
 		int i=0;
-			for(NPC slave : this.getSlavesOwned()) {
-				if(slave.getSlaveJob()==job) {
+			for(String id : this.getSlavesOwned()) {
+				if(Main.game.getNPCById(id).getSlaveJob()==job) {
 					i++;
 				}
 			}
@@ -1375,25 +1744,18 @@ public class GameCharacter implements Serializable, XMLSaving {
 	/**
 	 * Do not use this method to alter the map!
 	 */
-	public Map<GameCharacter, Float> getAffectionMap() {
+	public Map<String, Float> getAffectionMap() {
 		return affectionMap;
 	}
 	
 	public float getAffection(GameCharacter character) {
-		if(affectionMap.containsKey(character)) {
-			return affectionMap.get(character);
-		} else {
-			affectionMap.put(character, 0f);
-			return 0;
-		}
+		affectionMap.putIfAbsent(character.getId(), 0f);
+		
+		return affectionMap.get(character.getId());
 	}
 	
 	public AffectionLevel getAffectionLevel(GameCharacter character) {
-		if(affectionMap.containsKey(character)) {
-			return AffectionLevel.getAffectionLevelFromValue(affectionMap.get(character));
-		} else {
-			return AffectionLevel.getAffectionLevelFromValue(0);
-		}
+		return AffectionLevel.getAffectionLevelFromValue(getAffection(character));
 	}
 	
 	/**
@@ -1404,8 +1766,7 @@ public class GameCharacter implements Serializable, XMLSaving {
 	 * @return
 	 */
 	public String setAffection(GameCharacter character, float affection) {
-		
-		affectionMap.put(character, Math.max(-100, Math.min(100, affection)));
+		affectionMap.put(character.getId(), Math.max(-100, Math.min(100, affection)));
 		
 		if(character.isPlayer()) {
 			return UtilText.parse(this,
@@ -1421,6 +1782,10 @@ public class GameCharacter implements Serializable, XMLSaving {
 						+ AffectionLevel.getDescription(this, character, AffectionLevel.getAffectionLevelFromValue(affection), true)
 					+ "</p>");
 		}
+	}
+	
+	public void setAffection(String id, float affection) {
+		affectionMap.put(id, Math.max(-100, Math.min(100, affection)));
 	}
 	
 	/**
@@ -1459,14 +1824,14 @@ public class GameCharacter implements Serializable, XMLSaving {
 		return getEnslavementDialogue()!=null;
 	}
 	
-	public List<NPC> getSlavesOwned() {
+	public List<String> getSlavesOwned() {
 		return slavesOwned;
 	}
 	
 	public int getNumberOfSlavesIdle() {
 		int i=0;
-		for(NPC slave : slavesOwned) {
-			if(slave.getSlaveJob()==SlaveJob.IDLE) {
+		for(String id : slavesOwned) {
+			if(Main.game.getNPCById(id).getSlaveJob()==SlaveJob.IDLE) {
 				i++;
 			}
 		}
@@ -1475,8 +1840,8 @@ public class GameCharacter implements Serializable, XMLSaving {
 	
 	public int getNumberOfSlavesInAdministration() {
 		int i=0;
-		for(NPC slave : slavesOwned) {
-			if(slave.getLocationPlace().getPlaceType() == SlaverAlley.SLAVERY_ADMINISTRATION) {
+		for(String id : slavesOwned) {
+			if(Main.game.getNPCById(id).getLocationPlace().getPlaceType() == SlaverAlley.SLAVERY_ADMINISTRATION) {
 				i++;
 			}
 		}
@@ -1485,8 +1850,8 @@ public class GameCharacter implements Serializable, XMLSaving {
 	
 	public int getSlaveryTotalDailyIncome() {
 		int i=0;
-		for(NPC slave : slavesOwned) {
-			i += slave.getSlaveJob().getFinalDailyIncomeAfterModifiers(slave);
+		for(String id : slavesOwned) {
+			i += Main.game.getNPCById(id).getSlaveJob().getFinalDailyIncomeAfterModifiers(Main.game.getNPCById(id));
 		}
 		return i;
 	}
@@ -1500,7 +1865,7 @@ public class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public boolean addSlave(NPC slave) {
-		boolean added = slavesOwned.add(slave);
+		boolean added = slavesOwned.add(slave.getId());
 		
 		if(added) {
 			if(slave.isSlave()) {
@@ -1513,45 +1878,70 @@ public class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public boolean removeSlave(GameCharacter slave) {
-		boolean removed = slavesOwned.remove(slave);
+		boolean removed = slavesOwned.remove(slave.getId());
 		
 		if(removed) {
-			slave.setOwner(null);
+			slave.setOwner("");
 		}
 		
 		return removed;
 	}
 	
-	public GameCharacter getOwner() {
+	public String getOwnerId() {
 		return owner;
 	}
+	
+	public GameCharacter getOwner() {
+		if(owner==null || owner.isEmpty()) {
+			return null;
+		}
+		return Main.game.getNPCById(owner);
+	}
 
-	/**
-	 * Do not call this method directly! Use the owner's addSlave() and removeSlave() methods!
-	 * @param owner
-	 */
+	/**<b>Do not call this method directly! Use the owner's addSlave() and removeSlave() methods!</b>*/
 	protected void setOwner(GameCharacter owner) {
+		this.owner = owner.getId();
+	}
+
+	/**<b>Do not call this method directly! Use the owner's addSlave() and removeSlave() methods!</b>*/
+	protected void setOwner(String owner) {
 		this.owner = owner;
 	}
 	
 	public boolean isSlave() {
-		return owner != null;
+		return getOwner() != null;
 	}
 	
 	public GameCharacter getMother() {
-		return mother;
+		return Main.game.getNPCById(motherId);
+	}
+	
+	public String getMotherId() {
+		return motherId;
+	}
+	
+	public void setMother(String motherId) {
+		this.motherId = motherId;
 	}
 
 	public void setMother(GameCharacter mother) {
-		this.mother = mother;
+		motherId = mother.getId();
 	}
 
 	public GameCharacter getFather() {
-		return father;
+		return Main.game.getNPCById(fatherId);
 	}
 
+	public String getFatherId() {
+		return fatherId;
+	}
+	
+	public void setFather(String fatherId) {
+		this.fatherId = fatherId;
+	}
+	
 	public void setFather(GameCharacter father) {
-		this.father = father;
+		fatherId = father.getId();
 	}
 
 	public int getDayOfConception() {
@@ -1951,9 +2341,10 @@ public class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public boolean addPerk(Perk perk) {
-		if (perks.contains(perk))
+		if (perks.contains(perk)) {
 			return false;
-
+		}
+		
 		perks.add(perk);
 
 		// Increment bonus attributes from this perk:
@@ -2132,17 +2523,17 @@ public class GameCharacter implements Serializable, XMLSaving {
 	// Stats:
 
 	public Map<SexType, Integer> getSexPartnerStats(GameCharacter c) {
-		return sexPartnerMap.get(c);
+		return sexPartnerMap.get(c.getId());
 	}
 	
-	public Map<GameCharacter, Map<SexType, Integer>> getSexPartners() {
+	public Map<String, Map<SexType, Integer>> getSexPartners() {
 		return sexPartnerMap;
 	}
 	
 	public void addSexPartner(GameCharacter partner, SexType sexType) {
-		this.sexPartnerMap.computeIfAbsent(partner, k -> new HashMap<>());
+		this.sexPartnerMap.computeIfAbsent(partner.getId(), k -> new HashMap<>());
 		
-		Map <SexType, Integer> sp = this.sexPartnerMap.get(partner);
+		Map <SexType, Integer> sp = this.sexPartnerMap.get(partner.getId());
 		sp.putIfAbsent(sexType, 0);
 		
 		sp.put(sexType, sp.get(sexType) + 1);
@@ -2314,6 +2705,10 @@ public class GameCharacter implements Serializable, XMLSaving {
 			addictionsMap.remove(fluid);
 			addictionsSatisfiedMap.remove(fluid);
 		}
+	}
+	
+	public void setAddiction(FluidType fluid, int value) {
+		addictionsMap.put(fluid, Math.max(0, Math.min(100, value)));
 	}
 	
 	public void incrementAddiction(FluidType fluid, int increment, boolean setLastTimeSatisfiedToCurrentTime) {
@@ -2598,7 +2993,7 @@ public class GameCharacter implements Serializable, XMLSaving {
 			s = PregnancyDescriptor.ALREADY_PREGNANT.getDescriptor(this, partner);
 			
 		} else {
-			PregnancyPossibility pregPoss = new PregnancyPossibility(this, partner, pregnancyChance);
+			PregnancyPossibility pregPoss = new PregnancyPossibility(this.getId(), partner.getId(), pregnancyChance);
 			
 			potentialPartnersAsMother.add(pregPoss);
 			partner.getPotentialPartnersAsFather().add(pregPoss);
@@ -2643,7 +3038,13 @@ public class GameCharacter implements Serializable, XMLSaving {
 				
 				List<NPC> offspring = new ArrayList<>();
 				for (int i = 0; i < numberOfChildren; i++) { // Add children here:
-					offspring.add(new NPCOffspring(this, partner));
+					NPC npc = new NPCOffspring(this, partner);
+					offspring.add(npc);
+					try {
+						Main.game.addNPC(npc, false);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 				
 				pregnantLitter = new Litter(Main.game.getDayNumber(), Main.game.getDayNumber(), this, partner, offspring);
@@ -2692,7 +3093,8 @@ public class GameCharacter implements Serializable, XMLSaving {
 			Litter birthedLitter = pregnantLitter;
 			
 			if(birthedLitter.getFather().isPlayer() || birthedLitter.getMother().isPlayer()) {
-				for(NPC npc: birthedLitter.getOffspring()) {
+				for(String id: birthedLitter.getOffspring()) {
+					NPC npc = (NPC) Main.game.getNPCById(id);
 					Main.game.getOffspring().add(npc);
 					birthedLitter.setDayOfBirth(Main.game.getDayNumber());
 					npc.setDayOfConception(birthedLitter.getDayOfConception());
@@ -2788,10 +3190,6 @@ public class GameCharacter implements Serializable, XMLSaving {
 	
 	public GenericPlace getHomeLocationPlace() {
 		return Main.game.getWorlds().get(getHomeWorldLocation()).getCell(getHomeLocation()).getPlace();
-	}
-	
-	public PlaceInterface getStartingPlace() {
-		return startingPlace;
 	}
 	
 	public void setLocation(WorldType worldType, Vector2i location, boolean setAsHomeLocation) {

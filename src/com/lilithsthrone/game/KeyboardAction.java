@@ -15,6 +15,11 @@ public enum KeyboardAction {
 	MOVE_EAST("Move East", new KeyCodeWithModifiers(KeyCode.D), new KeyCodeWithModifiers(KeyCode.RIGHT)),
 	MOVE_SOUTH("Move South", new KeyCodeWithModifiers(KeyCode.S), new KeyCodeWithModifiers(KeyCode.DOWN)),
 	MOVE_WEST("Move West", new KeyCodeWithModifiers(KeyCode.A), new KeyCodeWithModifiers(KeyCode.LEFT)),
+	
+	MOVE_RESPONSE_CURSOR_NORTH("Response Cursor Up", new KeyCodeWithModifiers(KeyCode.W, true, false), new KeyCodeWithModifiers(KeyCode.UP, true, false)),
+	MOVE_RESPONSE_CURSOR_EAST("Response Cursor Right", new KeyCodeWithModifiers(KeyCode.D, true, false), new KeyCodeWithModifiers(KeyCode.RIGHT, true, false)),
+	MOVE_RESPONSE_CURSOR_SOUTH("Response Cursor Down", new KeyCodeWithModifiers(KeyCode.S, true, false), new KeyCodeWithModifiers(KeyCode.DOWN, true, false)),
+	MOVE_RESPONSE_CURSOR_WEST("Response Cursor Left", new KeyCodeWithModifiers(KeyCode.A, true, false), new KeyCodeWithModifiers(KeyCode.LEFT, true, false)),
 
 	QUICKSAVE("Quicksave", new KeyCodeWithModifiers(KeyCode.F5), null),
 	QUICKLOAD("Quickload", new KeyCodeWithModifiers(KeyCode.F9), null),

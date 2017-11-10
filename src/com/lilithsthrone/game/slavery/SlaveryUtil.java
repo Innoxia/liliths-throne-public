@@ -26,7 +26,7 @@ import com.lilithsthrone.world.Cell;
 
 /**
  * @since 0.1.87
- * @version 0.1.87
+ * @version 0.1.89
  * @author Innoxia
  */
 public class SlaveryUtil implements Serializable {
@@ -74,7 +74,8 @@ public class SlaveryUtil implements Serializable {
 		clearSlavesJobTracking();
 		
 		// First need to set correct jobs:
-		for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
+		for(String id : Main.game.getPlayer().getSlavesOwned()) {
+			NPC slave = (NPC) Main.game.getNPCById(id);
 			if(slave.getWorkHours()[hour]) {
 				slave.getSlaveJob().sendToWorkLocation(slave);
 				slavesAtJob.get(slave.getSlaveJob()).add(slave);
@@ -85,7 +86,8 @@ public class SlaveryUtil implements Serializable {
 		}
 		
 		// Now can apply changes and generate events based on who else is present in the job:
-		for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
+		for(String id : Main.game.getPlayer().getSlavesOwned()) {
+			NPC slave = (NPC) Main.game.getNPCById(id);
 			
 			slave.incrementAffection(slave.getOwner(), slave.getHourlyAffectionChange(hour));
 			slave.incrementObedience(slave.getHourlyObedienceChange(hour));

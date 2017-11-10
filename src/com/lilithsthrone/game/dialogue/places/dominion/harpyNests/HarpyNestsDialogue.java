@@ -53,7 +53,7 @@ public class HarpyNestsDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Harpy Nests", "Travel up to the Harpy Nests."){
 					@Override
@@ -142,7 +142,7 @@ public class HarpyNestsDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("To street level", "Travel back down to Dominion's streets."){
 					@Override
@@ -327,8 +327,8 @@ public class HarpyNestsDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return ENTRANCE_ENFORCER_POST.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return ENTRANCE_ENFORCER_POST.getResponse(0, index);
 		}
 	};
 	
@@ -414,8 +414,8 @@ public class HarpyNestsDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return ENTRANCE_ENFORCER_POST.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return ENTRANCE_ENFORCER_POST.getResponse(0, index);
 		}
 	};
 	
@@ -473,8 +473,8 @@ public class HarpyNestsDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return ENTRANCE_ENFORCER_POST.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return ENTRANCE_ENFORCER_POST.getResponse(0, index);
 		}
 	};
 	
@@ -575,7 +575,7 @@ public class HarpyNestsDialogue {
 
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index == 6) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new ResponseEffectsOnly(

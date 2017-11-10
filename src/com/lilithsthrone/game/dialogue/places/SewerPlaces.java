@@ -26,7 +26,7 @@ public class SewerPlaces {
 
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -44,7 +44,7 @@ public class SewerPlaces {
 
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -62,7 +62,7 @@ public class SewerPlaces {
 
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -80,7 +80,7 @@ public class SewerPlaces {
 
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -99,7 +99,7 @@ public class SewerPlaces {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Dominion", "Head back up to Dominion. (This will be added after the first chapter of the story is complete!)", null){
 					@Override

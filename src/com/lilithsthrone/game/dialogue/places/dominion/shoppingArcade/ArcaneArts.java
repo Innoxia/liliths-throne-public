@@ -28,7 +28,7 @@ public class ArcaneArts {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Enter", "Step inside Arcane Arts.", SHOP_WEAPONS);
 				
@@ -71,7 +71,7 @@ public class ArcaneArts {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseTrade("Trade with Vicky", "Walk over to the counter and see what crystals and feathers Vicky has in stock.", Main.game.getVicky());
 				

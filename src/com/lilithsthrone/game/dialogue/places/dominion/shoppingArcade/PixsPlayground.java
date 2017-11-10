@@ -104,7 +104,7 @@ public class PixsPlayground {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getDialogueFlags().gymHadTour) {
 					return new Response("Enter", "Step inside the gym.", GYM_RETURNING);
@@ -181,7 +181,7 @@ public class PixsPlayground {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Follow", "Follow Pix and let her give you a tour of the gym.", GYM_FOLLOW){
 					@Override
@@ -257,7 +257,7 @@ public class PixsPlayground {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getMoney() < 10)
 					return new Response("Single (" + UtilText.getCurrencySymbol() + " 10)", "You don't have enough money!", null);
@@ -322,7 +322,7 @@ public class PixsPlayground {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (!Main.game.getDialogueFlags().gymIsMember) {
 				if (index == 1) {
 					if (Main.game.getPlayer().getMoney() < 10)
@@ -386,7 +386,7 @@ public class PixsPlayground {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getResponseGym(index);
 		}
 
@@ -413,7 +413,7 @@ public class PixsPlayground {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getResponseGym(index);
 		}
 
@@ -435,7 +435,7 @@ public class PixsPlayground {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getResponseGym(index);
 		}
 
@@ -463,7 +463,7 @@ public class PixsPlayground {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getResponseGym(index);
 		}
 
@@ -491,7 +491,7 @@ public class PixsPlayground {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getResponseGym(index);
 		}
 
@@ -564,7 +564,7 @@ public class PixsPlayground {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Pix's reward",
 						"You have a good idea of what Pix means when she says she wants to give you a 'one-to-one cooldown exercise'...", // OR DO YOU?! :D
@@ -618,7 +618,7 @@ public class PixsPlayground {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseSex("Too tired",
 						"Tell Pix that you're far too tired to do any more physical exercise right now.",
@@ -733,7 +733,7 @@ public class PixsPlayground {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Exit gym", "Leave the gym and carry on your way.", GYM_EXTERIOR);
 			} else {

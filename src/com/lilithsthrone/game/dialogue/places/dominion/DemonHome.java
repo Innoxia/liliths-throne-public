@@ -32,7 +32,7 @@ public class DemonHome {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
 					return null;
@@ -83,7 +83,7 @@ public class DemonHome {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME) {
 					return new Response("Arthur's Room", "Head up to Arthur's room.", DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM){
@@ -188,7 +188,7 @@ public class DemonHome {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.", DEMON_HOME_STREET);
 				
@@ -215,7 +215,7 @@ public class DemonHome {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.</br>" + "<b>There is no further content for Felicity in this version.</b>", DEMON_HOME_STREET);
 				

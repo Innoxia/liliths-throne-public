@@ -121,6 +121,11 @@ public class TestNPC extends NPC {
 		
 		this.setEnslavementDialogue(DominionAlleywayAttackerDialogue.ENSLAVEMENT_DIALOGUE);
 	}
+
+	@Override
+	public boolean isUnique() {
+		return true;
+	}
 	
 	@Override
 	public void changeFurryLevel(){
@@ -201,7 +206,7 @@ public class TestNPC extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Step inside", "Slip through the open door, careful not to alert the occupant of your presence.", TEST_DIALOGUE_ENTER) {
 					@Override
@@ -248,7 +253,7 @@ public class TestNPC extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Say hello", "Say hello and ask [test.herHim] what [test.she]'s doing.", TEST_DIALOGUE_GREET) {
 						@Override
@@ -372,7 +377,7 @@ public class TestNPC extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex",
 						"Well, [test.she] <i>is</i> asking for it!",
@@ -470,7 +475,7 @@ public class TestNPC extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==0) {
 				return new Response("Leave", "Exit the room.", TEST_DIALOGUE) {
 					@Override
@@ -508,7 +513,7 @@ public class TestNPC extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==0) {
 				return new Response("Leave", "Exit the room.", TEST_DIALOGUE) {
 					@Override

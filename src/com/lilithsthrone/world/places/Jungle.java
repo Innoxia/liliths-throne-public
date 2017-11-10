@@ -46,15 +46,6 @@ public enum Jungle implements PlaceInterface {
 		public EntranceType getParentAlignment() {
 			return EntranceType.ALIGNED_FLIP_VERTICAL;
 		}
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.DOMINION;
-		}
-
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return Dominion.CITY_EXIT_TO_JUNGLE;
-		}
 	};
 
 	
@@ -157,17 +148,6 @@ public enum Jungle implements PlaceInterface {
 	}
 	
 	public EntranceType getParentAlignment() {
-		return null;
-	}
-	
-	
-	// For porting to another world:
-	
-	public WorldType getLinkedWorldType() {
-		return null;
-	}
-	
-	public PlaceInterface getLinkedPlaceInterface() {
 		return null;
 	}
 }

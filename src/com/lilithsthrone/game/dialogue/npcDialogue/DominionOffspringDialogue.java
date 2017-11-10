@@ -417,7 +417,7 @@ public class DominionOffspringDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			
 			if(offspring().getAffection(Main.game.getPlayer()) < AffectionLevel.NEGATIVE_TWO_DISLIKE.getMaximumValue()) {
 				if (index == 1) {
@@ -1126,7 +1126,7 @@ public class DominionOffspringDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Give [npc.name] some time to think, and continue on your way.", OFFSPRING_ENCOUNTER_APOLOGY) {
 					@Override
@@ -1180,7 +1180,7 @@ public class DominionOffspringDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "You find yourself fighting your [npc.daughter]!", OFFSPRING_ENCOUNTER, offspring()) {
 						@Override
@@ -1303,7 +1303,7 @@ public class DominionOffspringDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getDialogueFlags().offspringDialogueTokens<=0) {
 				if (index == 1) {
 					return new Response("Time to go", "[npc.Name] has started glancing at the clock on the wall, giving you a clear indication that it's time to make your exit.", OFFSPRING_ENCOUNTER) {
@@ -1611,12 +1611,12 @@ public class DominionOffspringDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1 && Main.game.getDialogueFlags().offspringDialogueTokens>0) {
 				return new Response("Background", "You've just talked about [npc.name]'s background.", null);
 				
 			} else {
-				return OFFSPRING_ENCOUNTER_TALKING.getResponse(index);
+				return OFFSPRING_ENCOUNTER_TALKING.getResponse(0, index);
 			}
 		}
 	};
@@ -1711,12 +1711,12 @@ public class DominionOffspringDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 2 && Main.game.getDialogueFlags().offspringDialogueTokens>0) {
 				return new Response("Small talk", "You've just had some small talk with [npc.name].", null);
 				
 			} else {
-				return OFFSPRING_ENCOUNTER_TALKING.getResponse(index);
+				return OFFSPRING_ENCOUNTER_TALKING.getResponse(0, index);
 			}
 		}
 	};
@@ -1777,12 +1777,12 @@ public class DominionOffspringDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 3 && Main.game.getDialogueFlags().offspringDialogueTokens>0) {
 				return new Response("Encourage", "You've just encouraged [npc.name].", null);
 				
 			} else {
-				return OFFSPRING_ENCOUNTER_TALKING.getResponse(index);
+				return OFFSPRING_ENCOUNTER_TALKING.getResponse(0, index);
 			}
 		}
 	};
@@ -1845,12 +1845,12 @@ public class DominionOffspringDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 4 && Main.game.getDialogueFlags().offspringDialogueTokens>0) {
 				return new Response("Scold", "You've just scolded [npc.name].", null);
 				
 			} else {
-				return OFFSPRING_ENCOUNTER_TALKING.getResponse(index);
+				return OFFSPRING_ENCOUNTER_TALKING.getResponse(0, index);
 			}
 		}
 	};
@@ -1896,12 +1896,12 @@ public class DominionOffspringDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 5 && Main.game.getDialogueFlags().offspringDialogueTokens>0) {
 				return new Response("Pet name", "You're already asking [npc.name] to call you by a different name.", null);
 				
 			} else {
-				return OFFSPRING_ENCOUNTER_TALKING.getResponse(index);
+				return OFFSPRING_ENCOUNTER_TALKING.getResponse(0, index);
 			}
 		}
 	};
@@ -1983,7 +1983,7 @@ public class DominionOffspringDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(offspring().isAttractedTo(Main.game.getPlayer())) {
 				if (index == 1) {
 					return new ResponseSex("Incestuous sex",
@@ -2006,7 +2006,7 @@ public class DominionOffspringDialogue {
 						return new Response("Pay "+UtilText.formatAsMoneyUncoloured(100, "span"), "You don't have enough money...", null);
 					}
 				} else {
-					return OFFSPRING_ENCOUNTER_TALKING.getResponse(index);
+					return OFFSPRING_ENCOUNTER_TALKING.getResponse(0, index);
 				}
 				
 				
@@ -2015,7 +2015,7 @@ public class DominionOffspringDialogue {
 					return new Response("Sex", "You've just asked [npc.name] to have sex with you...", null);
 					
 				} else {
-					return OFFSPRING_ENCOUNTER_TALKING.getResponse(index);
+					return OFFSPRING_ENCOUNTER_TALKING.getResponse(0, index);
 				}
 			}
 			
@@ -2060,7 +2060,7 @@ public class DominionOffspringDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "You find yourself fighting your [npc.daughter]!", OFFSPRING_ENCOUNTER, offspring()) {
 					@Override
@@ -2113,7 +2113,7 @@ public class DominionOffspringDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			
 			if (index == 1) {
 				return new Response("Apologise", "Maybe you went too far... Perhaps you should apologise?", null){
@@ -2446,7 +2446,7 @@ public class DominionOffspringDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(offspring().isAttractedTo(Main.game.getPlayer())) {
 				if (index == 1) {
 					return new ResponseSex("Sex",
@@ -2570,7 +2570,7 @@ public class DominionOffspringDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_CONSENSUAL){
 					@Override
@@ -2682,7 +2682,7 @@ public class DominionOffspringDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
@@ -2799,7 +2799,7 @@ public class DominionOffspringDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
@@ -2845,7 +2845,7 @@ public class DominionOffspringDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
 					@Override

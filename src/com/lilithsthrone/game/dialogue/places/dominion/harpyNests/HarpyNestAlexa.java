@@ -94,7 +94,7 @@ public class HarpyNestAlexa {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				if(Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
 					return new Response("Meet with Alexa", "Alexa's flock is taking shelter in the buildings below her nest. You'll have to come back after the arcane storm has passed.", null);
@@ -196,7 +196,7 @@ public class HarpyNestAlexa {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Scarlett's woe", "Tell Alexa about Scarlett's failure to run her slavery business.", ALEXAS_NEST_SCARLETT);
 				
@@ -241,7 +241,7 @@ public class HarpyNestAlexa {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("No punishment", "Don't take Scarlett's punishment for her.", ALEXAS_NEST_NO_PUNISHMENT) {
 					@Override
@@ -295,7 +295,7 @@ public class HarpyNestAlexa {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Leave", "Leave Alexa's nest.", ALEXAS_NEST_EXTERIOR) {
 					@Override
@@ -380,7 +380,7 @@ public class HarpyNestAlexa {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Endure it", "Try and keep quiet and endure your punishment.", ALEXAS_NEST_TAKE_PUNISHMENT_ENDURE) {
 					@Override
@@ -467,7 +467,7 @@ public class HarpyNestAlexa {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Leave", "Leave Alexa's nest.", ALEXAS_NEST_EXTERIOR) {
 					@Override
@@ -531,7 +531,7 @@ public class HarpyNestAlexa {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Leave", "Leave Alexa's nest.", ALEXAS_NEST_EXTERIOR) {
 					@Override
@@ -604,7 +604,7 @@ public class HarpyNestAlexa {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Leave", "Leave Alexa's nest.", ALEXAS_NEST_EXTERIOR) {
 					@Override
@@ -648,7 +648,7 @@ public class HarpyNestAlexa {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseEffectsOnly("Scarlett's Shop", "You arrive at Scarlett's Shop.") {
 					@Override

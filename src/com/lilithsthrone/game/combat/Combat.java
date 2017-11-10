@@ -610,7 +610,7 @@ public enum Combat {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Do something else.", ENEMY_ATTACK);
 				
@@ -676,7 +676,7 @@ public enum Combat {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Do something else.", ENEMY_ATTACK);
 				
@@ -723,7 +723,7 @@ public enum Combat {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (opponent.getHealth() <= 0 || (opponent.getMana() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE)) || (opponent.getStamina() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))) {
 					return new ResponseEffectsOnly("Victory", "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have defeated " + opponent.getName("the") + "!</span>"){
@@ -775,7 +775,7 @@ public enum Combat {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Submit", "Submit to " + opponent.getName("the") + ". <span style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>This will cause you to lose the current combat!</span>", SUBMIT_CONFIRM){
 					@Override
@@ -821,7 +821,7 @@ public enum Combat {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Continue", "You wait for " + opponent.getName("the") + " to make a move."){
 					@Override
@@ -861,7 +861,7 @@ public enum Combat {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (escaped) {
 					return new ResponseEffectsOnly("Escaped!", "You got away!"){
@@ -913,7 +913,7 @@ public enum Combat {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.WITCH_SEAL)) { //TODO replace with generic isStunned() method
 				if (index == 1) {
 					return new Response("Stunned!", "You are unable to make an action this turn!", ENEMY_ATTACK){

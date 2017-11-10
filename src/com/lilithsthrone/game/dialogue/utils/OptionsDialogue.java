@@ -73,7 +73,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			
 			 if (index == 1) {
 				 if(confirmNewGame || !Main.game.isStarted()) {
@@ -302,7 +302,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Confirmations: ",
 						"Toggle confirmations being shown when you click to load, overwrite, or delete a saved game."
@@ -423,7 +423,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Keybinds", "Open the keybinds page, where you can customise all the game's key bindings.", KEYBINDS);
 				
@@ -573,7 +573,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Default keys", "Resets all keybinds to their default values.", KEYBINDS){
 					@Override
@@ -698,7 +698,7 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Save", "Save all the pronouns that are currently displayed."){
 					@Override
@@ -833,7 +833,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", OPTIONS);
 				
@@ -857,7 +857,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", MENU);
 				
@@ -946,7 +946,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			 if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", OPTIONS);
 				
@@ -1191,7 +1191,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			 if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", OPTIONS);
 				
@@ -1320,7 +1320,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", MENU);
 				
@@ -1457,7 +1457,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", MENU);
 				

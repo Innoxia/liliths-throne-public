@@ -22,7 +22,7 @@ import javafx.concurrent.Task;
 
 /**
  * @since 0.1.0
- * @version 0.1.75
+ * @version 0.1.89
  * @author Innoxia
  */
 public class Generation extends Task<Boolean> {
@@ -31,38 +31,24 @@ public class Generation extends Task<Boolean> {
 	 * Only supports an even number for world sizes.
 	 */
 
-	private WorldType startingWorldType;
-	private int width, height;
 	private Random rnd;
 	private boolean debug = false;
 
-	public Generation(WorldType startingWorldType) {
-		this.startingWorldType = startingWorldType;
-
+	public Generation() {
 		rnd = new Random();
 	}
 
 	@Override
 	public Boolean call() {
-		int maxSize = WorldType.values().length, count=0;
-		
-		updateProgress(count, maxSize);
-		
-		worldGeneration(startingWorldType);
-		count++;
-		
-		updateProgress(count, maxSize);
+		int maxSize = WorldType.values().length;
+		int count = 0;
 		
 		for(WorldType wt : WorldType.values()) {
-			if(wt!=startingWorldType) {
-				worldGeneration(wt);
-				count++;
-				updateProgress(count, maxSize);
-			}
+			worldGeneration(wt);
+			count++;
+			updateProgress(count, maxSize);
 		}
 		
-		// printMaze(grid);
-
 		return true;
 	}
 
@@ -104,8 +90,8 @@ public class Generation extends Task<Boolean> {
 			if(debug)
 				System.out.println(worldType.getName()+" Start 1");
 			
-			this.width = worldType.getWorldSize();
-			this.height = worldType.getWorldSize();
+			int width = worldType.getWorldSize();
+			int height = worldType.getWorldSize();
 
 			if(debug)
 				System.out.println(worldType.getName()+" Start 2  [width:"+width+"] [height:"+height+"]");
@@ -455,9 +441,13 @@ public class Generation extends Task<Boolean> {
 	public Cell[][] generateMap(int x, int y, Cell[][] grid, boolean[][] visited) {
 		Random rnd = new Random();
 
-		if (Math.random() >= 0.5)
+		if (Math.random() >= 0.5) {
 			visited[x][y] = true;
-
+		}
+		
+		int width = grid.length;
+		int height = grid[0].length;
+		
 		// Check each surrounding cell to see if it's been visited. If it has,
 		// skip over it. If it hasn't, break the wall to it:
 		// y+2

@@ -34,7 +34,7 @@ public enum EnforcerHQ implements PlaceInterface {
 	BRAXS_OFFICE("Brax's Office", "dominion/enforcerHQ/braxsOffice", BaseColour.BLUE_STEEL, EnforcerHQDialogue.INTERIOR_BRAX, null, true, false) {
 		@Override
 		public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
-			if(Main.game.getPlayer().getCharactersEncountered().contains(Main.game.getBrax())) {
+			if(Main.game.getPlayer().getCharactersEncountered().contains(Main.game.getBrax().getId())) {
 				return EnforcerHQDialogue.INTERIOR_BRAX_REPEAT;
 				
 			} else {
@@ -44,17 +44,7 @@ public enum EnforcerHQ implements PlaceInterface {
 	},
 
 	// Exits & entrances:
-	ENTRANCE("Entranceway", "dominion/enforcerHQ/exit", BaseColour.RED, EnforcerHQDialogue.ENTRANCE, null, true, false){
-		@Override
-		public WorldType getLinkedWorldType() {
-			return WorldType.DOMINION;
-		}
-
-		@Override
-		public PlaceInterface getLinkedPlaceInterface() {
-			return Dominion.CITY_ENFORCER_HQ;
-		}	
-	};
+	ENTRANCE("Entranceway", "dominion/enforcerHQ/exit", BaseColour.RED, EnforcerHQDialogue.ENTRANCE, null, true, false);
 
 	
 	private String name, SVGString;
@@ -156,17 +146,6 @@ public enum EnforcerHQ implements PlaceInterface {
 	}
 	
 	public EntranceType getParentAlignment() {
-		return null;
-	}
-	
-	
-	// For porting to another world:
-	
-	public WorldType getLinkedWorldType() {
-		return null;
-	}
-	
-	public PlaceInterface getLinkedPlaceInterface() {
 		return null;
 	}
 }

@@ -6,13 +6,17 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Bearing;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.EntranceType;
 import com.lilithsthrone.world.WorldType;
 
-public class GenericPlace implements Serializable {
+public class GenericPlace implements Serializable, XMLSaving {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -40,6 +44,15 @@ public class GenericPlace implements Serializable {
 		} else {
 			this.name = "-";
 		}
+	}
+	
+	@Override
+	public Element saveAsXML(Element parentElement, Document doc) {
+		return null;
+	}
+	
+	public static GenericPlace loadFromXML(Element parentElement, Document doc) {
+		return null;
 	}
 	
 	@Override
@@ -116,16 +129,6 @@ public class GenericPlace implements Serializable {
 		return placeType.getParentAlignment();
 	}
 	
-	
-	// For porting to another world:
-	
-	public WorldType getLinkedWorldType() {
-		return placeType.getLinkedWorldType();
-	}
-	
-	public PlaceInterface getLinkedPlaceInterface() {
-		return placeType.getLinkedPlaceInterface();
-	}
 	
 	public boolean addPlaceUpgrade(PlaceUpgrade upgrade) {
 		if(placeUpgrades.add(upgrade)) {

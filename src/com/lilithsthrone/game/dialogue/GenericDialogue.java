@@ -80,7 +80,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index == 0) {
 				return new Response("Back", "", DEBUG_MENU){
 					@Override
@@ -279,7 +279,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "", DEBUG_MENU);
 				
@@ -318,7 +318,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "", DEBUG_MENU);
 				
@@ -433,7 +433,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "", DEBUG_MENU);
 				
@@ -452,7 +452,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Face choices", "", BODY_PART_FACE);
 				
@@ -513,7 +513,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < FaceType.values().length+1) {
 				return new Response(FaceType.values()[index - 1].getRace().getName(), "", BODY_PART_FACE){
 					@Override
@@ -540,7 +540,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < Race.values().length+1) {
 				return new Response(Race.values()[index - 1].getName()+" - "+RacialBody.valueOfRace(Race.values()[index - 1]).getSkinType().getName(Main.game.getPlayer()), "", BODY_PART_SKIN){
 					@Override
@@ -567,7 +567,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < ArmType.values().length+1) {
 				return new Response(ArmType.values()[index - 1].getRace().getName(), "", BODY_PART_ARM){
 					@Override
@@ -594,7 +594,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < LegType.values().length+1) {
 				return new Response(LegType.values()[index - 1].getRace().getName(), "", BODY_PART_LEG){
 					@Override
@@ -621,7 +621,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < Race.values().length+1) {
 				return new Response(Race.values()[index - 1].getName()+" - "+RacialBody.valueOfRace(Race.values()[index - 1]).getHairType().getName(Main.game.getPlayer()), "", BODY_PART_HAIR){
 					@Override
@@ -648,7 +648,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < Race.values().length+1) {
 				return new Response(Race.values()[index - 1].getName()+" - "+RacialBody.valueOfRace(Race.values()[index - 1]).getEyeType().getName(Main.game.getPlayer()), "", BODY_PART_EYE){
 					@Override
@@ -675,7 +675,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < EarType.values().length+1) {
 				return new Response(EarType.values()[index - 1].getRace().getName(), "", BODY_PART_EAR){
 					@Override
@@ -702,7 +702,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < HornType.values().length+1) {
 				return new Response(HornType.values()[index - 1].getRace()!=null?HornType.values()[index - 1].getRace().getName():"None", "", BODY_PART_HORN){
 					@Override
@@ -729,7 +729,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < TailType.values().length+1) {
 				return new Response(TailType.values()[index - 1].getRace()!=null?TailType.values()[index - 1].getRace().getName():"None", "", BODY_PART_TAIL){
 					@Override
@@ -756,7 +756,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < WingType.values().length+1) {
 				return new Response(WingType.values()[index - 1].getRace()!=null?WingType.values()[index - 1].getRace().getName():"None", "", BODY_PART_WING){
 					@Override
@@ -783,7 +783,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < PenisType.values().length+1) {
 				return new Response(PenisType.values()[index - 1].getRace()!=null?PenisType.values()[index - 1].getRace().getName():"None", "", BODY_PART_PENIS){
 					@Override
@@ -810,7 +810,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < VaginaType.values().length+1) {
 				return new Response(VaginaType.values()[index - 1].getRace()!=null?VaginaType.values()[index - 1].getRace().getName():"None", "", BODY_PART_VAGINA){
 					@Override
@@ -837,7 +837,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < BreastType.values().length+1) {
 				return new Response(BreastType.values()[index - 1].getRace().getName(), "", BODY_PART_BREAST){
 					@Override
@@ -864,7 +864,7 @@ public class GenericDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < AssType.values().length+1) {
 				return new Response(AssType.values()[index - 1].getRace().getName(), "", BODY_PART_ASS){
 					@Override
@@ -894,7 +894,7 @@ public class GenericDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "", DEBUG_MENU);
 				
@@ -947,7 +947,7 @@ public class GenericDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Parse!", "Parse the text you've entered.", PARSER){
 					@Override
@@ -1162,7 +1162,7 @@ public class GenericDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Parser", "", PARSER);
 					
@@ -1226,7 +1226,7 @@ public class GenericDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Parser", "", PARSER);
 				
@@ -1295,7 +1295,7 @@ public class GenericDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Parser", "", PARSER);
 				
@@ -1387,7 +1387,7 @@ public class GenericDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Parser", "", PARSER);
 				

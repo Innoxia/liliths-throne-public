@@ -128,7 +128,7 @@ public class RoomPlayer {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getResponseRoom(index);
 		}
 	};
@@ -162,7 +162,7 @@ public class RoomPlayer {
 
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getResponseRoom(index);
 		}
 
@@ -200,7 +200,7 @@ public class RoomPlayer {
 
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getResponseRoom(index);
 		}
 
@@ -230,7 +230,7 @@ public class RoomPlayer {
 
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getResponseRoom(index);
 		}
 
@@ -303,7 +303,7 @@ public class RoomPlayer {
 
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Step away from the calendar.", ROOM);
 				
@@ -360,7 +360,7 @@ public class RoomPlayer {
 
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Stop reading about October.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
 				

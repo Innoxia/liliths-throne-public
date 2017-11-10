@@ -29,7 +29,7 @@ public class ClothingEmporium {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getDialogueFlags().nyanIntroduced) {
 					return new Response("Enter", "Step inside Nyan's Clothing Emporium.", SHOP_CLOTHING_REPEAT);
@@ -87,7 +87,7 @@ public class ClothingEmporium {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Stockroom", "Nyan has shown you into the stockroom.", SHOP_CLOTHING_STOCK_ROOM) {
 					@Override
@@ -124,8 +124,8 @@ public class ClothingEmporium {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SHOP_CLOTHING_REPEAT.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SHOP_CLOTHING_REPEAT.getResponse(0, index);
 		}
 	};
 	
@@ -156,7 +156,7 @@ public class ClothingEmporium {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseTrade("Female Clothing", "Ask her what female clothing is available.", Main.game.getNyan()){
 					@Override

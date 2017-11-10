@@ -78,6 +78,11 @@ public class PrologueMale extends NPC {
 	}
 	
 	@Override
+	public boolean isUnique() {
+		return true;
+	}
+	
+	@Override
 	public void endSex(boolean applyEffects) {
 	}
 
@@ -126,7 +131,7 @@ public class PrologueMale extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Carry on", "Get up and carry on your way.") {
 					@Override

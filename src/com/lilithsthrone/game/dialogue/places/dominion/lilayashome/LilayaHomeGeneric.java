@@ -53,7 +53,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Enter", "Knock on the door and wait for Rose to let you in."){
 					@Override
@@ -149,7 +149,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==0) {
 				return null;
 				
@@ -263,7 +263,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getRoomResponse(index);
 		}
 	};
@@ -290,7 +290,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getRoomResponse(index);
 		}
 	};
@@ -318,7 +318,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getRoomResponse(index);
 		}
 	};
@@ -346,7 +346,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getRoomResponse(index);
 		}
 	};
@@ -373,7 +373,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getRoomResponse(index);
 		}
 	};
@@ -401,7 +401,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getRoomResponse(index);
 		}
 	};
@@ -432,7 +432,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -506,7 +506,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==0) {
 				return null;
 				
@@ -548,7 +548,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Call for Rose", "Lilaya's slave, Rose, is always close at hand. If you were to ring the little bell beside her bedroom's door, she'd be sure to come running.", AUNT_HOME_ROSE){
 					@Override
@@ -598,7 +598,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Lilaya's room", "Have a look around Lilaya's room.", ROOM_LILAYA_INSIDE);
 
@@ -649,7 +649,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 //			if (index == 1) {
 //				return new Response("Search drawers", "Look through Lilaya's drawers for anything interesting.", null,
 //						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, AttributeLevelCorruption.TWO_HORNY,
@@ -683,7 +683,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Panty masturbation", "Upon finding Lilaya's panties, you find yourself thinking some dirty thoughts...", CLEAN_PANTIES);
 
@@ -712,7 +712,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Panty masturbation", "Upon finding Lilaya's dirty panties, you find yourself thinking some dirty thoughts...", DIRTY_PANTIES);
 
@@ -742,7 +742,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -764,7 +764,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -793,7 +793,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Exit", "Leave Lilaya's house."){
 					@Override
@@ -841,7 +841,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Upstairs", "Go upstairs to the first floor."){
 					@Override
@@ -873,7 +873,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Downstairs", "Go back downstairs to the ground floor."){
 					@Override
@@ -907,7 +907,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Lilaya", "Ask Rose about her owner, Lilaya.", AUNT_HOME_ROSE){
 					@Override
@@ -1095,7 +1095,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Hand-holding", "Warning: This content contains extreme descriptions of hand-holding, finger sucking, and even palm-licking."
 						+ " <b>Please remember that you need to have read the disclaimer before playing this game!</b> <b style='color:"+BaseColour.CRIMSON.toWebHexString()+";'>18+ only!</b>",

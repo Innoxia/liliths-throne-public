@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
@@ -14,13 +18,14 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.1.89
  * @author Innoxia
  */
-public class FluidCum implements BodyPartInterface, Serializable {
+public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
 	protected FluidType type;
@@ -39,6 +44,39 @@ public class FluidCum implements BodyPartInterface, Serializable {
 		}
 	}
 
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element element = doc.createElement("cum");
+		parentElement.appendChild(element);
+
+		CharacterUtils.addAttribute(doc, element, "type", this.type.toString());
+		CharacterUtils.addAttribute(doc, element, "flavour", this.flavour.toString());
+		Element cumModifiers = doc.createElement("cumModifiers");
+		element.appendChild(cumModifiers);
+		for(FluidModifier fm : FluidModifier.values()) {
+			CharacterUtils.addAttribute(doc, cumModifiers, fm.toString(), String.valueOf(this.hasFluidModifier(fm)));
+		}
+		
+		return element;
+	}
+	
+	public static FluidCum loadFromXML(Element parentElement, Document doc) {
+		
+		Element cum = (Element)parentElement.getElementsByTagName("cum").item(0);
+
+		FluidCum fluidCum = new FluidCum(FluidType.valueOf(cum.getAttribute("type")));
+		
+		fluidCum.flavour = (FluidFlavour.valueOf(cum.getAttribute("flavour")));
+		
+		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
+		for(FluidModifier fm : FluidModifier.values()) {
+			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
+				fluidCum.fluidModifiers.add(fm);
+			}
+		}
+		
+		return fluidCum;
+	}
+	
 	@Override
 	public String getDeterminer(GameCharacter gc) {
 		return type.getDeterminer(gc);

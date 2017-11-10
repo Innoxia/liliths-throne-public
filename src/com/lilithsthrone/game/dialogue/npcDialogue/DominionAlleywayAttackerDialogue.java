@@ -151,7 +151,7 @@ public class DominionAlleywayAttackerDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "You find yourself fighting [npc.name]!", ALLEY_ATTACK, Main.game.getActiveNPC());
 				
@@ -199,7 +199,7 @@ public class DominionAlleywayAttackerDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "You find yourself fighting [npc.name]!", STORM_ATTACK, Main.game.getActiveNPC());
 				
@@ -253,7 +253,7 @@ public class DominionAlleywayAttackerDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way...", null){
@@ -527,7 +527,7 @@ public class DominionAlleywayAttackerDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && potion != null) {
 				if (index == 1) {
 					return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
@@ -665,7 +665,7 @@ public class DominionAlleywayAttackerDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
 				if (index == 1) {
 					return new ResponseSex("Sex",
@@ -763,7 +763,7 @@ public class DominionAlleywayAttackerDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
 				if (index == 1) {
 					return new ResponseSex("Sex",
@@ -875,7 +875,7 @@ public class DominionAlleywayAttackerDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
@@ -934,7 +934,7 @@ public class DominionAlleywayAttackerDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
@@ -972,7 +972,7 @@ public class DominionAlleywayAttackerDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
 					@Override

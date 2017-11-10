@@ -68,7 +68,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Enter", "Cross the grounds and enter the Enforcer HQ."){
 					@Override
@@ -95,7 +95,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -113,7 +113,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Exit", "Leave the Enforcer HQ."){
 					@Override
@@ -133,7 +133,7 @@ public class EnforcerHQDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().getCharactersEncountered().contains(Main.game.getCandi())) {
+			if(Main.game.getPlayer().getCharactersEncountered().contains(Main.game.getCandi().getId())) {
 				return "<p>"
 						+ "A couple of rough-looking dog-boys are lounging about on one of the many low sofas littered around this waiting area."
 						+ " A reception desk sits off to one side of the room, and you see Candi, the lesser cat-girl bimbo, sitting behind it."
@@ -166,7 +166,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -210,7 +210,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1 && (!Main.game.getDialogueFlags().accessToEnforcerHQ || isBraxMainQuestComplete())) {
 				return new ResponseEffectsOnly("Step back", "You don't really see much option other than to do as the enforcer says.") {
 					@Override
@@ -417,7 +417,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(isBraxMainQuestComplete()) {
 				if (index == 1) {
 					if(!Main.game.getDialogueFlags().feminisedBrax) {
@@ -619,7 +619,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("[brax.name]", "Tell her that you're here to see [brax.name].", INTERIOR_SECRETARY_BRAX){
 					@Override
@@ -690,7 +690,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -718,7 +718,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Like, [brax.name] and stuff", "Tell her that you're here to see [brax.name].", INTERIOR_SECRETARY_BRAX_BIMBO){
 					@Override
@@ -793,7 +793,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -865,7 +865,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Turn Brax into Bree", "You and Candi force-feed [brax.name] his own potion.", INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
@@ -967,7 +967,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex with [brax.name]", "Have sex with [brax.name].", INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED,
 						false, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
@@ -1022,7 +1022,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -1054,7 +1054,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Turn Bree into Brandi", "Transform Bree into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
@@ -1153,7 +1153,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex with Brandi", "Have sex with Brandi.", INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED,
 						true, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
@@ -1216,7 +1216,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -1233,7 +1233,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -1280,7 +1280,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Truth", "Tell [brax.name] who you are, and that you're here to find out what happened to Arthur.", INTERIOR_BRAX_TRUTH);
 					
@@ -1323,7 +1323,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[brax.name] looks like he's ready to give you another beating!", INTERIOR_BRAX_TRUTH, Main.game.getBrax());
 					
@@ -1354,7 +1354,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "If you want to find out what happened to Arthur, you're going to have to fight [brax.name]!", INTERIOR_BRAX_TRUTH, Main.game.getBrax());
 					
@@ -1385,7 +1385,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Keep on bluffing", "Imply that 'The She-wolf's Den' is a brothel you own. If he'll give you information about Arthur, you'll give him VIP status.", INTERIOR_BRAX_LIE_BLUFFING);
 					
@@ -1428,7 +1428,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself at least a small advantage by tricking him like this!", INTERIOR_BRAX_LIE_IDIOT_BRAX, Main.game.getBrax()){
 					@Override
@@ -1489,7 +1489,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Let him go", "Tell [brax.name] to have fun. From your directions, it'll take at least a couple of hours before he figures out he's been fooled.", INTERIOR_BRAX_LIE_BLUFFING_SUCCESS){
 					@Override
@@ -1548,7 +1548,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Exit", "Leave the Enforcer HQ.") {
 					@Override
@@ -1595,7 +1595,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself a big advantage by tricking him like this!", INTERIOR_BRAX_LIE_IDIOT_BRAX, Main.game.getBrax()){
 					@Override
@@ -1639,7 +1639,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Read", "Read the piece of paper [brax.name] just handed to you.", INTERIOR_BRAX_GETTING_TEASED_UH_OH){
 					@Override
@@ -1696,7 +1696,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Escape", "Push [brax.name] off of you and make a quick excuse before running away.", INTERIOR_BRAX_GETTING_TEASED_ESCAPE);
 					
@@ -1788,7 +1788,7 @@ public class EnforcerHQDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Exit", "Leave the Enforcer HQ.") {
 					@Override

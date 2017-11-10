@@ -55,16 +55,14 @@ public enum WorldType {
 					new ListValue<PlaceInterface>(Dominion.CITY_DARK_ALLEYS))),
 
 	// Empty:
-//	EMPTY("Empty",
-//			Colour.BASE_YELLOW,
-//			1,
-//			"/com/lilithsthrone/res/map/empty.png",
-//			Util.newHashMapOfValues(
-//					new Value<>(new Color(0xff0000), GenericPlaces.EMPTY_TILE),
-//					new Value<>(new Color(0x0080ff), GenericPlaces.MUSEUM)),
-//			
-//			Dominion.CITY_EXIT_TO_SEA,
-//			WorldType.DOMINION),
+	EMPTY("City",
+			Colour.BASE_BROWN,
+			1,
+			"/com/lilithsthrone/res/map/empty.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
+					new Value<>(new Color(0xff0000), GenericPlaces.EMPTY_TILE),
+					new Value<>(new Color(0x0080ff), GenericPlaces.MUSEUM))),
 	
 	LILAYAS_HOUSE_GROUND_FLOOR("Lilaya's Home",
 			Colour.BASE_BLUE_LIGHT,
@@ -84,10 +82,7 @@ public enum WorldType {
 					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_FOUNTAIN),
 					new Value<>(new Color(0xff0080), LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR),
 					new Value<>(new Color(0xff00ff), LilayasHome.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR),
-					new Value<>(new Color(0x00ff00), LilayasHome.LILAYA_HOME_STAIR_UP)),
-			
-			Dominion.CITY_AUNTS_HOME,
-			WorldType.DOMINION){
+					new Value<>(new Color(0x00ff00), LilayasHome.LILAYA_HOME_STAIR_UP))){
 		@Override
 		public boolean isRevealedOnStart() {
 			return true;
@@ -107,10 +102,7 @@ public enum WorldType {
 					new Value<>(new Color(0xff80ff), LilayasHome.LILAYA_HOME_ROOM_LILAYA),
 					new Value<>(new Color(0x0080ff), LilayasHome.LILAYA_HOME_ROOM_ROSE),
 					new Value<>(new Color(0x00ffff), LilayasHome.LILAYA_HOME_ROOM_PLAYER),
-					new Value<>(new Color(0xff0000), LilayasHome.LILAYA_HOME_STAIR_DOWN)),
-			
-			LilayasHome.LILAYA_HOME_STAIR_UP,
-			WorldType.LILAYAS_HOUSE_GROUND_FLOOR){
+					new Value<>(new Color(0xff0000), LilayasHome.LILAYA_HOME_STAIR_DOWN))){
 		@Override
 		public boolean isRevealedOnStart() {
 			return true;
@@ -145,11 +137,7 @@ public enum WorldType {
 					new Value<>(new Color(0xff0080), SlaverAlley.SCARLETTS_SHOP),
 					new Value<>(new Color(0xffff00), SlaverAlley.AUCTIONING_BLOCK),
 					new Value<>(new Color(0x00ff00), SlaverAlley.PUBLIC_STOCKS),
-					new Value<>(new Color(0x0080ff), SlaverAlley.BROTHEL)
-					),
-			
-			Dominion.CITY_SLAVER_ALLEY,
-			WorldType.DOMINION),
+					new Value<>(new Color(0x0080ff), SlaverAlley.BROTHEL))),
 	
 	SHOPPING_ARCADE("Shopping Arcade",
 			Colour.BASE_YELLOW,
@@ -165,10 +153,7 @@ public enum WorldType {
 					new Value<>(new Color(0x0080ff), ShoppingArcade.VICKYS_SHOP_WEAPONS),
 					new Value<>(new Color(0x8000ff), ShoppingArcade.PIXS_GYM),
 					new Value<>(new Color(0xff8000), ShoppingArcade.KATES_SHOP_BEAUTY),
-					new Value<>(new Color(0xff00ff), ShoppingArcade.GENERIC_SHOP)),
-			
-			Dominion.CITY_SHOPPING_ARCADE,
-			WorldType.DOMINION){
+					new Value<>(new Color(0xff00ff), ShoppingArcade.GENERIC_SHOP))){
 		@Override
 		public boolean isRevealedOnStart() {
 			return true;
@@ -187,10 +172,7 @@ public enum WorldType {
 					new Value<>(new Color(0xffff00), EnforcerHQ.GUARDED_DOOR),
 					new Value<>(new Color(0x8000ff), EnforcerHQ.WAITING_AREA),
 					new Value<>(new Color(0x0080ff), EnforcerHQ.RECEPTION_DESK),
-					new Value<>(new Color(0xff8000), EnforcerHQ.BRAXS_OFFICE)),
-			
-			Dominion.CITY_ENFORCER_HQ,
-			WorldType.DOMINION),
+					new Value<>(new Color(0xff8000), EnforcerHQ.BRAXS_OFFICE))),
 	
 	// Other:
 	
@@ -231,12 +213,9 @@ public enum WorldType {
 	
 	private boolean usesFile;
 	private Map<Color, PlaceInterface> placesMap;
-	private PlaceInterface previousWorldExitType;
-	private WorldType previousWorldType;
 	
 
 	WorldType(int worldSize, String name, Colour colour, int timeToTransition, PlaceInterface standardPlace, PlaceInterface cutOffZone, List<PlaceInterface> places, List<PlaceInterface> dangerousPlaces) {
-		
 		this.worldSize=worldSize;
 		
 		this.name = name;
@@ -252,13 +231,10 @@ public enum WorldType {
 		
 		fileLocation = null;
 		usesFile = false;
-		previousWorldExitType = null;
-		previousWorldType = null;
 		
 	}
 	
-	WorldType(String name, Colour colour, int timeToTransition, String fileLocation, Map<Color, PlaceInterface> placesMap, PlaceInterface previousWorldExitType, WorldType previousWorldType) {
-
+	WorldType(String name, Colour colour, int timeToTransition, String fileLocation, Map<Color, PlaceInterface> placesMap) {
 		this.name = name;
 		this.colour = colour;
 		this.timeToTransition=timeToTransition;
@@ -273,9 +249,6 @@ public enum WorldType {
 		this.fileLocation = fileLocation;
 		usesFile = true;
 		this.placesMap=placesMap;
-		
-		this.previousWorldExitType=previousWorldExitType;
-		this.previousWorldType=previousWorldType;
 	}
 	
 	public int getTileSetRowNumber() {
@@ -328,14 +301,6 @@ public enum WorldType {
 
 	public Map<Color, PlaceInterface> getPlacesMap() {
 		return placesMap;
-	}
-
-	public PlaceInterface getPreviousWorldExitType() {
-		return previousWorldExitType;
-	}
-
-	public WorldType getPreviousWorldType() {
-		return previousWorldType;
 	}
 
 	public int getWorldSize() {

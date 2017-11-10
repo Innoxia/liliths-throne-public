@@ -88,6 +88,11 @@ public class Kate extends NPC {
 	}
 
 	@Override
+	public boolean isUnique() {
+		return true;
+	}
+
+	@Override
 	public void dailyReset() {
 		clearNonEquippedInventory();
 		
@@ -193,7 +198,7 @@ public class Kate extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Services", "Read the brochure that Kate just handed to you.", SuccubisSecrets.SHOP_BEAUTY_SALON_MAIN){
 					@Override
@@ -232,7 +237,7 @@ public class Kate extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Services", "Read the brochure that Kate just handed to you.", SuccubisSecrets.SHOP_BEAUTY_SALON_MAIN);
 			} else {

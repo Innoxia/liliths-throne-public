@@ -56,7 +56,7 @@ public enum SlaveJob {
 		}
 		
 		@Override
-		public void sendToWorkLocation(NPC slave) {
+		public void sendToWorkLocation(GameCharacter slave) {
 			if(slave.getLocationPlace().getPlaceType() == LilayasHome.LILAYA_HOME_CORRIDOR) {
 				World world = Main.game.getWorlds().get(slave.getWorldLocation());
 				List<Vector2i> availableLocations = new ArrayList<>();
@@ -291,7 +291,7 @@ public enum SlaveJob {
 		return placeLocation;
 	}
 	
-	public void sendToWorkLocation(NPC slave) {
+	public void sendToWorkLocation(GameCharacter slave) {
 		slave.setLocation(slave.getSlaveJob().getWorldLocation(), slave.getSlaveJob().getPlaceLocation(), false);
 	}
 	
