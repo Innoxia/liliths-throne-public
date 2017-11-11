@@ -60,7 +60,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.88.1",
+	public static final String VERSION_NUMBER = "0.1.88.5",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -80,12 +80,13 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "This is just a little hotfix for version 0.1.88, which I needed to make as Pix's and Ralph's sex scenes were causing a game-breaking freeze... Oops..."
+			+ "I've been working super hard this week to <b>finally</b> get save game compatibility working. It took a lot of work to get it into a working format, so that's why the patch notes are a little scarce..."
+			+ " I'm going to get some bug fixes and content done over Sunday/Monday, so I might push out another update early next week (I really do feel super guily about the lack of patch notes)."
 		+ "</p>"
-			
+		
 		+ "<p>"
-			+ "The next public release will be on November 17th, with a progress/Patreon update being released this Friday (November 10th)."
-			+ " I'll be focusing on main story & sex content, as well as fixing a lot of bugs and adding in some other things that I didn't get finished for 0.1.88. :3"
+			+ "I am sorry if this update is a little underwhelming for some of you, but this was one of the last three major engine tasks I had left to do."
+			+ " Now that it's out of the way (pending some minor finishing touches), I'm free to move on to the planned content for 0.1.89! :3"
 		+ "</p>"
 		
 		+ "<p>"
@@ -100,41 +101,22 @@ public class Main extends Application {
 
 		+ "<list>"
 		
-			+ "<h6>v0.1.88.1</h6>"
+			+ "<h6>v0.1.88.5</h6>"
 			
-			+"<li>Gameplay:</li>"
-			+"<ul>Added chance for Angel's Nectar to drop from defeated enemies.</ul>"
-				
-			+"<li>Sex:</li>"
-			+"<ul>Added finger lubrication action for player (lick fingers to get them lubed without continuing to suck on them).</ul>"
-			+"<ul>Added a 'flat chest' version of the status effect 'Breast status' during sex.</ul>"
-			+"<ul>Added breast kissing actions to 'Standing', 'Back-to-wall', 'Cowgirl', 'Chair sex', and 'Missionary' positions.</ul>"
+			+"<li>Engine:</li>"
+			+"<ul><b>Added:</b> First iteration of save compatibility (some minor things aren't working yet, but I'll finish it off over the weekend). This took a loooong time to implement... Sorry that there isn't much else here... ;_;</ul>"
+			+"<ul><b>Changed:</b> Importing your character no longer carries over your slaves (and doesn't carry over pregnancies either). This is due to inter-NPC relationships getting quite complicated, so, for example, there would be several serious issues with importing an enslaved Scarlett into a new game, and then meeting the new game's version of Scarlett.</ul>"
+			+"<ul>Did a lot of general back-end fixes in numerous parts of the code.</ul>"
+			+"<ul>Added support for multiple pages of responses (for use in the new Sex UI).</ul>"
 				
 			+"<li>UI:</li>"
-			+"<ul>Made the sex action selection menus remain on the same page after choosing a non-positioning action.</ul>"
-				
-			+"<li>Other:</li>"
-			+"<ul>Changed 'hallucinogenic' fluid modifier to 'psychoactive' modifier, which will allow for both hallucinogenic and hypnotic content in the future.</ul>"
-			+"<ul>Updated credits page. (If you've pledged 'Epic' or 'Legendary' on Patreon, and don't see your name in the credits, it's because I haven't received a display name from you, so I've added you to the 'Anonymous' count. Please send me a message on Patreon if you're an Epic or Legendary patron without a name in the credits!)</ul>"
-			+"<ul>Added virginity tracking for penises. (Lost upon any penetration.)</ul>"
+			+"<ul>Further improved the Sex UI. Thank you for all of your feedback regarding this!</ul>"
+			+"<ul>Added an 'Export/Import' tab in the main menu, through which you can use the new Game Export. ^^</ul>"
 				
 			+"<li>Bugs:</li>"
-			+"<ul>Fixed incorrect dom/sub sex totals in NPC's character view screen.</ul>"
-			+"<ul>Fix issue where using an item on your first turn of sex would not display dialogue correctly.</ul>"
-			+"<ul>NPCs should now stop all ongoing penetrations when switching position.</ul>"
-			+"<ul>Fixed game-breaking freeze during Ralph's and Pix's sex scenes.</ul>"
-			+"<ul>Changed method to move between game worlds in an attempt to fix a major crash when using the 'Downstairs' action in Lilaya's Home.</ul>"
-			+"<ul>Books in Lilaya's library now correctly give intelligence boosts for new characters.</ul>"
-			+"<ul>Condom belt icon will now correctly render the condoms that are in the wearer's inventory.</ul>"
-			+"<ul>Fixed extremely odd arousal gains (such as NPCs gaining huge amounts of arousal from tail-fucking you, while giving them a blowjob would give them almost no arousal gains).</ul>"
-			+"<ul>Fixed chemise being able to be displaced through other clothing, such as slip dresses.</ul>"
-			+"<ul>Lubrication descriptions for your partner's penis/vagina/anus/nipples will no longer display if they aren't visible. (Lubrication information will display upon revealing those parts.)</ul>"
-			+"<ul>NPCs who are virgins will no longer beg to be fucked.</ul>"
-			+"<ul>Fixed bug that could cause NPCs to use inappropriate actions during sex, such as swapping positions multiple times.</ul>"
-			+"<ul>Fixed text always describing you as the father to an NPC's children. (Occurred when one of your slaves impregnated another slave.)</ul>"
-			+"<ul>Anal creampie no longer describes you as having a knot/ribbed cock when you didn't have one.</ul>"
-			+"<ul>Forced TF racial limits no longer reset to greater morph on each game start-up.</ul>"
-			+"<ul>Slaves will now correctly lose their vaginal virginity if they're allowed to have sex with one another.</ul>"
+			+"<ul>Filled condoms should now correct import with all cum properties intact.</ul>"
+			+"<ul>Penile virginity is now correctly lost upon performing a penetrative sex action.</ul>"
+			+"<ul>Fixed broken lubrication messages during sex.</ul>"
 			
 		+"</list>"
 		;

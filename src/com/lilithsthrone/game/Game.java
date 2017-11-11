@@ -135,9 +135,6 @@ public class Game implements Serializable, XMLSaving {
 		candiReceptionist,		// Receptionist at the Enforcer HQ.	 
 		finch;					// Manager of Slaver Alley's 'Slave Administration'
 	
-	// Generic NPCs:
-	private NPC genericMaleNPC, genericFemaleNPC, genericAndrogynousNPC;
-	
 	// NPCs:
 	private NPC activeNPC;
 	private int npcTally = 0;
@@ -433,9 +430,6 @@ public class Game implements Serializable, XMLSaving {
 	
 	public void initNewGame(DialogueNodeOld startingDialogueNode) {
 		// Set up NPCs:
-//		genericMaleNPC = new GenericMaleNPC();
-//		genericFemaleNPC = new GenericFemaleNPC();
-//		genericAndrogynousNPC = new GenericAndrogynousNPC();
 		try {
 			NPCMap.clear();
 			addNPC(new GenericMaleNPC(), false);
