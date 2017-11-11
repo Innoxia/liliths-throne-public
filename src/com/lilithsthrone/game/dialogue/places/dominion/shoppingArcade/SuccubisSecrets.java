@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -28,7 +29,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.ShoppingArcade;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
@@ -88,7 +89,7 @@ public class SuccubisSecrets {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getDialogueFlags().kateIntroduced) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.kateIntroduced)) {
 				return "<p>"
 							+ "You find yourself standing, once again, in the quiet corner of the Shopping Arcade, where the dark, shut-up beauty salon 'Succubi's Secrets' is located."
 							+ " You notice that everyone around you is completely ignoring the uninviting facade, and you smile to yourself as you realise that's exactly what its lazy owner wants."
@@ -107,7 +108,7 @@ public class SuccubisSecrets {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(Main.game.getDialogueFlags().kateIntroduced) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.kateIntroduced)) {
 					return new Response("Enter", "Step inside Succubi's Secrets.", SHOP_BEAUTY_SALON_ENTER);
 					
 				} else {
@@ -118,7 +119,7 @@ public class SuccubisSecrets {
 				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), ShoppingArcade.ARCADE_ENTRANCE, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_ENTRANCE, true);
 					}
 				};
 
@@ -372,7 +373,7 @@ public class SuccubisSecrets {
 				return new Response("Services", "Read the brochure that Kate just handed to you.", SHOP_BEAUTY_SALON_MAIN){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().kateIntroduced = true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.kateIntroduced);
 					}
 				};
 				
@@ -387,7 +388,7 @@ public class SuccubisSecrets {
 		@Override
 		public String getContent() {
 			
-			if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy) {
+			if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
 				return "<p>"
 						+ "With the knowledge that appearances can be deceiving, you stride over to the door and push it open."
 						+ " As a big flake of peeling paint breaks off and falls to the floor, you step inside, marvelling once again at how radically different the interior is."
@@ -493,8 +494,8 @@ public class SuccubisSecrets {
 			return new ResponseTrade("Trade with Kate", "There's a separate leaflet tucked into the back of the brochure. It informs you that Kate is a registered distributor for a large jewellery firm.", Main.game.getKate()){
 				@Override
 				public void effects() {
-					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy)
-						Main.game.getDialogueFlags().reactedToKatePregnancy = true;
+					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy))
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 				}
 			};
 			
@@ -504,8 +505,8 @@ public class SuccubisSecrets {
 					SHOP_BEAUTY_SALON_COSMETICS){
 				@Override
 				public void effects() {
-					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy) {
-						Main.game.getDialogueFlags().reactedToKatePregnancy = true;
+					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 					}
 				}
 			};
@@ -516,8 +517,8 @@ public class SuccubisSecrets {
 					SHOP_BEAUTY_SALON_HAIR){
 				@Override
 				public void effects() {
-					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy) {
-						Main.game.getDialogueFlags().reactedToKatePregnancy = true;
+					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 					}
 				}
 			};
@@ -528,8 +529,8 @@ public class SuccubisSecrets {
 						SHOP_BEAUTY_SALON_PIERCINGS){
 					@Override
 					public void effects() {
-						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy) {
-							Main.game.getDialogueFlags().reactedToKatePregnancy = true;
+						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 						}
 					}
 				};
@@ -540,8 +541,8 @@ public class SuccubisSecrets {
 						+ " Just like skin recolourings, this is quite demanding on her aura, and is therefore very expensive.", SHOP_BEAUTY_SALON_EYES){
 					@Override
 					public void effects() {
-						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy) {
-							Main.game.getDialogueFlags().reactedToKatePregnancy = true;
+						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 						}
 					}
 				};
@@ -581,8 +582,8 @@ public class SuccubisSecrets {
 					CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues(new ListValue<>("nipples")));
 					CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues(new ListValue<>("tongue")));
 
-					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy) {
-						Main.game.getDialogueFlags().reactedToKatePregnancy = true;
+					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 					}
 				}
 			};
@@ -622,8 +623,9 @@ public class SuccubisSecrets {
 							+ "</p>"){
 				@Override
 				public void effects() {
-					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy)
-						Main.game.getDialogueFlags().reactedToKatePregnancy = true;
+					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
+					}
 				}
 			};
 			
@@ -631,8 +633,9 @@ public class SuccubisSecrets {
 			return new Response("Leave", "Leave Kate's shop, heading back out into the shopping promenade.", EXTERIOR){
 				@Override
 				public void effects() {
-					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().reactedToKatePregnancy)
-						Main.game.getDialogueFlags().reactedToKatePregnancy = true;
+					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
+					}
 				}
 			};
 			

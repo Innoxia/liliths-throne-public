@@ -26,6 +26,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingSet;
@@ -1432,8 +1433,8 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			if(target.isPlayer() && Main.game.getDialogueFlags().stormTextUpdateRequired) {
-				Main.game.getDialogueFlags().stormTextUpdateRequired = false;
+			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
+				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
 				return "<p>"
 						+ "A bright-pink flash suddenly illuminates the entire city of Dominion, causing those few residents still prowling the streets to look skywards."
 						+ " High up above them, the threatening storm clouds have finally broken, and a roiling mass of arcane energy finally crackles into life."
@@ -1530,8 +1531,8 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			if(target.isPlayer() && Main.game.getDialogueFlags().stormTextUpdateRequired) {
-				Main.game.getDialogueFlags().stormTextUpdateRequired = false;
+			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
+				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
 				return "<p>"
 						+ "A bright-pink flash suddenly illuminates the entire city of Dominion, causing those few residents still prowling the streets to look skywards."
 						+ " High up above them, the threatening storm clouds have finally broken, and a roiling mass of arcane energy finally crackles into life."
@@ -2230,8 +2231,8 @@ public enum StatusEffect {
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
 			if(target.isPlayer()) {
-				if(!Main.game.getDialogueFlags().jinxedClothingDiscovered) {
-					Main.game.getDialogueFlags().jinxedClothingDiscovered = true;
+				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.jinxedClothingDiscovered)) {
+					Main.game.getDialogueFlags().values.add(DialogueFlagValue.jinxedClothingDiscovered);
 					AbstractClothing clothing = null;
 					for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
 						if(c.isSealed()) {
@@ -3683,7 +3684,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return !target.isPlayer() && target.isSlave() && target.getOwner().isPlayer() && ((NPC)target).getGetLastTimeHadSex()+60*24<Main.game.getMinutesPassed();
+			return !target.isPlayer() && target.isSlave() && target.getOwner().isPlayer() && ((NPC)target).getLastTimeHadSex()+60*24<Main.game.getMinutesPassed();
 		}
 	},
 	

@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.sex.managers.dominion.cultist;
 
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
-import com.lilithsthrone.game.character.npc.generic.Cultist;
+import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPosition;

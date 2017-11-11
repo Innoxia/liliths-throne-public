@@ -33,7 +33,7 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.GenericPlaces;
+import com.lilithsthrone.world.places.PlaceType;
 
 import javafx.application.Application;
 import javafx.concurrent.WorkerStateEvent;
@@ -166,7 +166,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		credits.add(new CreditsSlot("Anonymous", "", 0, 3, 71, 25));
+		credits.add(new CreditsSlot("Anonymous", "", 0, 3, 68, 25));
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Lexi <3", "", 0, 0, 0, 1));
@@ -277,7 +277,11 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Silentark", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Antriad", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("DeadMasterZero", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("HerrKommissar11", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("RogueRandom", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("RyubosJ", "", 0, 0, 1, 0));
 		
+		 
 		
 		
 		credits.sort(Comparator.comparing((CreditsSlot a) -> a.getName().toLowerCase()));
@@ -393,7 +397,7 @@ public class Main extends Application {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				Main.game.setPlayer(new PlayerCharacter(new NameTriplet("Player"), "", 1, Gender.M_P_MALE, RacialBody.HUMAN, RaceStage.HUMAN, null, WorldType.EMPTY, GenericPlaces.MUSEUM));
+				Main.game.setPlayer(new PlayerCharacter(new NameTriplet("Player"), "", 1, Gender.M_P_MALE, RacialBody.HUMAN, RaceStage.HUMAN, null, WorldType.EMPTY, PlaceType.GENERIC_MUSEUM));
 
 				Main.game.initNewGame(startingDialogueNode);
 				
@@ -565,6 +569,22 @@ public class Main extends Application {
 		}
 	}
 	
+	public static void deleteExportedGame(String name) {
+		File file = new File("data/saves/"+name+".xml");
+
+		if (file.exists()) {
+			try {
+				file.delete();
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			
+		} else {
+			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
+		}
+	}
+	
 	public static List<File> getSavedGames() {
 		List<File> filesList = new ArrayList<>();
 		
@@ -597,11 +617,30 @@ public class Main extends Application {
 		return filesList;
 	}
 	
+	public static List<File> getGamesForImport() {
+		List<File> filesList = new ArrayList<>();
+		
+		File dir = new File("data/saves");
+		if (dir.isDirectory()) {
+			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
+			if (directoryListing != null) {
+				filesList.addAll(Arrays.asList(directoryListing));
+			}
+		}
+
+		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
+		
+		return filesList;
+	}
+	
 	public static void importCharacter(File file) {
 		if (file != null) {
 			try {
 				Main.game.setPlayer(CharacterUtils.startLoadingCharacterFromXML());
 				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file, Main.game.getPlayer()));
+				
+				Main.game.getPlayer().getSlavesOwned().clear();
+				Main.game.getPlayer().endPregnancy(false);
 				
 				Main.game.setRenderAttributesSection(true);
 				Main.game.clearTextStartStringBuilder();

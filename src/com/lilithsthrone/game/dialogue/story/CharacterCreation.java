@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.story;
 
 import java.io.File;
+
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -45,8 +46,7 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
-import com.lilithsthrone.world.places.Jungle;
-import com.lilithsthrone.world.places.LilayasHome;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -1297,8 +1297,8 @@ public class CharacterCreation {
 	}
 	
 	public static void moveNPCOutOfPlayerTile() {
-		Main.game.getPrologueMale().setLocation(WorldType.JUNGLE, Jungle.JUNGLE_CLUB, false);
-		Main.game.getPrologueFemale().setLocation(WorldType.JUNGLE, Jungle.JUNGLE_CLUB, false);
+		Main.game.getPrologueMale().setLocation(WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, false);
+		Main.game.getPrologueFemale().setLocation(WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, false);
 	}
 	
 	private static boolean femalePrologueNPC() {
@@ -1837,7 +1837,7 @@ public class CharacterCreation {
 						applyGameStart();
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_ROOM_PLAYER)),
 								true);
 
 					}
@@ -2007,7 +2007,7 @@ public class CharacterCreation {
 						applyGameStart();
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_ROOM_PLAYER)),
 								true);
 					}
 				};

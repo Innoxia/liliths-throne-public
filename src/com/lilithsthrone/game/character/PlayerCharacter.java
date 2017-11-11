@@ -5,28 +5,27 @@ import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.npc.generic.SlaveImport;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ShopTransaction;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SizedStack;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Dominion;
-import com.lilithsthrone.world.places.PlaceInterface;
-import com.lilithsthrone.world.places.SlaverAlley;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -50,7 +49,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	private List<String> charactersEncountered;
 	
-	public PlayerCharacter(NameTriplet nameTriplet, String description, int level, Gender gender, RacialBody startingRace, RaceStage stage, CharacterInventory inventory, WorldType startingWorld, PlaceInterface startingPlace) {
+	public PlayerCharacter(NameTriplet nameTriplet, String description, int level, Gender gender, RacialBody startingRace, RaceStage stage, CharacterInventory inventory, WorldType startingWorld, PlaceType startingPlace) {
 		super(nameTriplet, description, level, gender, startingRace, stage, new CharacterInventory(0), startingWorld, startingPlace);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -87,65 +86,118 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		Element playerSpecific = doc.createElement("playerSpecific");
 		properties.appendChild(playerSpecific);
+		
 		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "title", this.getTitle());
 		
+		Element questUpdatesElement = doc.createElement("questUpdates");
+		playerSpecific.appendChild(questUpdatesElement);
+		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "mainQuestUpdated", String.valueOf(this.mainQuestUpdated));
+		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "sideQuestUpdated", String.valueOf(this.sideQuestUpdated));
+		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "romanceQuestUpdated", String.valueOf(this.romanceQuestUpdated));
 		
-		
-//		private Map<QuestLine, Integer> quests;
-//
-//		private boolean mainQuestUpdated, sideQuestUpdated, romanceQuestUpdated;
-//
-//		private Set<AbstractItemType> booksRead;
-//		
-//		private SizedStack<ShopTransaction> buybackStack;
-//		private List<String> charactersEncountered;
-		
-		
-		Element slavesOwned = doc.createElement("slavesExported");
-		properties.appendChild(slavesOwned);
-		for(String id : this.getSlavesOwned()) {
-			Main.game.getNPCById(id).saveAsXML(slavesOwned, doc);
+		Element innerElement = doc.createElement("booksRead");
+		playerSpecific.appendChild(innerElement);
+		for(AbstractItemType book : booksRead) {
+			CharacterUtils.createXMLElementWithValue(doc, innerElement, "book", book.getId());
 		}
+		
+		Element charactersEncounteredElement = doc.createElement("charactersEncountered");
+		playerSpecific.appendChild(charactersEncounteredElement);
+		for(String id : charactersEncountered) {
+			CharacterUtils.createXMLElementWithValue(doc, charactersEncounteredElement, "id", id);
+		}
+		
+		innerElement = doc.createElement("questMap");
+		playerSpecific.appendChild(innerElement);
+		for(Entry<QuestLine, Integer> entry : quests.entrySet()) {
+			Element e = doc.createElement("entry");
+			innerElement.appendChild(e);
+			CharacterUtils.addAttribute(doc, e, "questLine", entry.getKey().toString());
+			CharacterUtils.addAttribute(doc, e, "progress", String.valueOf(entry.getValue()));
+		}
+		
+//		private SizedStack<ShopTransaction> buybackStack; TODO
+		
+//		Element slavesOwned = doc.createElement("slavesExported");
+//		properties.appendChild(slavesOwned);
+//		for(String id : this.getSlavesOwned()) {
+//			Main.game.getNPCById(id).saveAsXML(slavesOwned, doc);
+//		}
 		
 		return properties;
 	}
 	
 	public static PlayerCharacter loadFromXML(StringBuilder log, Element parentElement, Document doc) {
-		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), "", 0, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(0), WorldType.DOMINION, Dominion.CITY_AUNTS_HOME);
+		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), "", 0, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(0), WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 		
 		GameCharacter.loadGameCharacterVariablesFromXML(character, log, parentElement, doc);
 		
+		Element playerSpecificElement = (Element) parentElement.getElementsByTagName("playerSpecific").item(0);
 		
-		// Slaves:
+		if(playerSpecificElement.getElementsByTagName("title").getLength()!=0) {
+			character.setTitle(((Element)playerSpecificElement.getElementsByTagName("title").item(0)).getAttribute("value"));
+		}
 		
-		Element slavesOwned = (Element) parentElement.getElementsByTagName("slavesExported").item(0);
-		if(slavesOwned!=null) {
-			for(int i=0; i< slavesOwned.getElementsByTagName("character").getLength(); i++){
-				Element e = ((Element)slavesOwned.getElementsByTagName("character").item(i));
-				
-				SlaveImport slave = SlaveImport.loadFromXML(log, e, doc);
-				
-				//TODO move into slave's import:
-				slave.setMana(slave.getAttributeValue(Attribute.MANA_MAXIMUM));
-				slave.setHealth(slave.getAttributeValue(Attribute.HEALTH_MAXIMUM));
-				slave.setStamina(slave.getAttributeValue(Attribute.STAMINA_MAXIMUM));
-				
-				try {
-					Main.game.getSlaveImports().add(slave);
-//					character.addSlave(slave);
-					slave.setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION, true);
-					
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+		if(playerSpecificElement.getElementsByTagName("mainQuestUpdated").getLength()!=0) {
+			character.setMainQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("mainQuestUpdated").item(0)).getAttribute("value")));
+		}
+		if(playerSpecificElement.getElementsByTagName("sideQuestUpdated").getLength()!=0) {
+			character.setSideQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("sideQuestUpdated").item(0)).getAttribute("value")));
+		}
+		if(playerSpecificElement.getElementsByTagName("romanceQuestUpdated").getLength()!=0) {
+			character.setRomanceQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("romanceQuestUpdated").item(0)).getAttribute("value")));
+		}
+
+		if(playerSpecificElement.getElementsByTagName("booksRead").item(0)!=null) {
+			for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("booksRead").item(0)).getElementsByTagName("book").getLength(); i++){
+				Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("booksRead").item(0)).getElementsByTagName("book").item(i);
+				character.addBooksRead(ItemType.idToItemMap.get(e.getAttribute("value")));
+			}
+		}
+
+		if(playerSpecificElement.getElementsByTagName("charactersEncountered").item(0)!=null) {
+			for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("charactersEncountered").item(0)).getElementsByTagName("id").getLength(); i++){
+				Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("charactersEncountered").item(0)).getElementsByTagName("id").item(i);
+				character.addCharacterEncountered(e.getAttribute("value"));
+			}
+		}
+
+		if(playerSpecificElement.getElementsByTagName("questMap").item(0)!=null) {
+			for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("questMap").item(0)).getElementsByTagName("entry").getLength(); i++){
+				Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("questMap").item(0)).getElementsByTagName("entry").item(i);
+				character.quests.put(
+						QuestLine.valueOf(e.getAttribute("questLine")),
+						Integer.valueOf(e.getAttribute("progress")));
 			}
 		}
 		
-		character.setMana(character.getAttributeValue(Attribute.MANA_MAXIMUM));
-		character.setHealth(character.getAttributeValue(Attribute.HEALTH_MAXIMUM));
-		character.setStamina(character.getAttributeValue(Attribute.STAMINA_MAXIMUM));
 		
-		character.setLocation(new Vector2i(0, 0));
+		
+//		// Slaves:
+//		
+//		Element slavesOwned = (Element) parentElement.getElementsByTagName("slavesExported").item(0);
+//		if(slavesOwned!=null) {
+//			for(int i=0; i< slavesOwned.getElementsByTagName("character").getLength(); i++){
+//				Element e = ((Element)slavesOwned.getElementsByTagName("character").item(i));
+//				
+//				SlaveImport slave = SlaveImport.loadFromXML2(log, e, doc);
+//				
+//				//TODO move into slave's import:
+//				slave.setMana(slave.getAttributeValue(Attribute.MANA_MAXIMUM));
+//				slave.setHealth(slave.getAttributeValue(Attribute.HEALTH_MAXIMUM));
+//				slave.setStamina(slave.getAttributeValue(Attribute.STAMINA_MAXIMUM));
+//				
+//				try {
+//					Main.game.getSlaveImports().add(slave);
+////					character.addSlave(slave);
+//					slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
+//					
+//				} catch (Exception e1) {
+//					e1.printStackTrace();
+//				}
+//			}
+//		}
+		
 		
 		return character;
 	}
@@ -346,6 +398,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return charactersEncountered;
 	}
 
+	public void addCharacterEncountered(String character) {
+		if (!charactersEncountered.contains(character)) {
+			charactersEncountered.add(character);
+		}
+	}
+	
 	public void addCharacterEncountered(GameCharacter character) {
 		if (!charactersEncountered.contains(character.getId())) {
 			charactersEncountered.add(character.getId());

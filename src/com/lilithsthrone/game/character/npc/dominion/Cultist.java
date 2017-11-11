@@ -1,8 +1,11 @@
-package com.lilithsthrone.game.character.npc.generic;
+package com.lilithsthrone.game.character.npc.dominion;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -38,10 +41,10 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Dominion;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.88
@@ -54,8 +57,12 @@ public class Cultist extends NPC {
 
 	private boolean requestedAnal = false;
 	private boolean sealedSex = false;
-	
+
 	public Cultist() {
+		this(false);
+	}
+	
+	private Cultist(boolean isImported) {
 		super(null,
 				"",
 				15,
@@ -64,107 +71,117 @@ public class Cultist extends NPC {
 				RaceStage.GREATER,
 				new CharacterInventory(10),
 				WorldType.DOMINION,
-				Dominion.CITY_BACK_ALLEYS,
+				PlaceType.DOMINION_BACK_ALLEYS,
 				false);
 		
-		
-		setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.75f + (Math.random()/2))));
-		setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.75f + (Math.random()/2))));
-		setAttribute(Attribute.FITNESS, (int)(this.getAttributeValue(Attribute.FITNESS) * (0.75f + (Math.random()/2))));
-		setAttribute(Attribute.CORRUPTION, 100);
-
-		this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-		this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-		
-		// BODY RANDOMISATION:
-		this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-		this.addFetish(Fetish.FETISH_ORAL_GIVING);
-		this.addFetish(Fetish.FETISH_ANAL_GIVING);
-		this.addFetish(Fetish.FETISH_IMPREGNATION);
-		
-		CharacterUtils.randomiseBody(this);
-		
-		this.setVaginaVirgin(false);
-		this.setAssVirgin(false);
-		this.setFaceVirgin(false);
-		this.setNippleVirgin(false);
-		this.setInternalTesticles(true);
-		this.setPenisVirgin(false);
-		
-		setLevel(this.getLevel() - 3 + Util.random.nextInt(7));
-		
-		setName(Name.getRandomTriplet(Race.DEMON));
-		this.setPlayerKnowsName(true);
-		setDescription("As a high-ranking member of the 'Cult of Lilith', it's obvious to anyone that this demon is extremely powerful."
-				+ " You aren't exactly 'anyone', however, and as you get close to her, you can almost physically feel the power of her arcane aura as it comes into contact with yours...");
-		
-		// Set random inventory & weapons:
-		resetInventory();
-		inventory.setMoney(100);
-		
-		// CLOTHING:
-		
-		List<Colour> colours = new ArrayList<>();
-		colours.add(Colour.CLOTHING_ORANGE);
-		colours.add(Colour.CLOTHING_BLACK);
-		colours.add(Colour.CLOTHING_PURPLE);
-		colours.add(Colour.CLOTHING_PURPLE_LIGHT);
-		Colour underwearColour = colours.get(Util.random.nextInt(colours.size()));
-
-		colours.clear();
-		colours.add(Colour.CLOTHING_WHITE);
-		colours.add(Colour.CLOTHING_BLACK);
-		Colour witchColour = colours.get(Util.random.nextInt(colours.size()));
-		
-		
-		List<AbstractClothingType> clothingChoices = new ArrayList<>();
-		
-		clothingChoices.add(ClothingType.GROIN_CROTCHLESS_PANTIES);
-		clothingChoices.add(ClothingType.GROIN_CROTCHLESS_THONG);
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
-		
-		clothingChoices.clear();
-		clothingChoices.add(ClothingType.CHEST_LACY_PLUNGE_BRA);
-		clothingChoices.add(ClothingType.CHEST_PLUNGE_BRA);
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
-		
-		clothingChoices.clear();
-		clothingChoices.add(ClothingType.SOCK_THIGHHIGH_SOCKS);
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), witchColour, false), true, this);
-
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, witchColour, false), true, this);
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, witchColour, false), true, this);
-		
-		if(Math.random()>0.5f) {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, witchColour, false), true, this);
-		} else {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, witchColour, false), true, this);
+		if(!isImported) {
+			setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.75f + (Math.random()/2))));
+			setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.75f + (Math.random()/2))));
+			setAttribute(Attribute.FITNESS, (int)(this.getAttributeValue(Attribute.FITNESS) * (0.75f + (Math.random()/2))));
+			setAttribute(Attribute.CORRUPTION, 100);
+	
+			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
+			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+			
+			// BODY RANDOMISATION:
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_ORAL_GIVING);
+			this.addFetish(Fetish.FETISH_ANAL_GIVING);
+			this.addFetish(Fetish.FETISH_IMPREGNATION);
+			
+			CharacterUtils.randomiseBody(this);
+			
+			this.setVaginaVirgin(false);
+			this.setAssVirgin(false);
+			this.setFaceVirgin(false);
+			this.setNippleVirgin(false);
+			this.setInternalTesticles(true);
+			this.setPenisVirgin(false);
+			
+			setLevel(this.getLevel() - 3 + Util.random.nextInt(7));
+			
+			setName(Name.getRandomTriplet(Race.DEMON));
+			this.setPlayerKnowsName(true);
+			setDescription("As a high-ranking member of the 'Cult of Lilith', it's obvious to anyone that this demon is extremely powerful."
+					+ " You aren't exactly 'anyone', however, and as you get close to her, you can almost physically feel the power of her arcane aura as it comes into contact with yours...");
+			
+			// Set random inventory & weapons:
+			resetInventory();
+			inventory.setMoney(100);
+			
+			// CLOTHING:
+			
+			List<Colour> colours = new ArrayList<>();
+			colours.add(Colour.CLOTHING_ORANGE);
+			colours.add(Colour.CLOTHING_BLACK);
+			colours.add(Colour.CLOTHING_PURPLE);
+			colours.add(Colour.CLOTHING_PURPLE_LIGHT);
+			Colour underwearColour = colours.get(Util.random.nextInt(colours.size()));
+	
+			colours.clear();
+			colours.add(Colour.CLOTHING_WHITE);
+			colours.add(Colour.CLOTHING_BLACK);
+			Colour witchColour = colours.get(Util.random.nextInt(colours.size()));
+			
+			
+			List<AbstractClothingType> clothingChoices = new ArrayList<>();
+			
+			clothingChoices.add(ClothingType.GROIN_CROTCHLESS_PANTIES);
+			clothingChoices.add(ClothingType.GROIN_CROTCHLESS_THONG);
+			equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
+			
+			clothingChoices.clear();
+			clothingChoices.add(ClothingType.CHEST_LACY_PLUNGE_BRA);
+			clothingChoices.add(ClothingType.CHEST_PLUNGE_BRA);
+			equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
+			
+			clothingChoices.clear();
+			clothingChoices.add(ClothingType.SOCK_THIGHHIGH_SOCKS);
+			equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), witchColour, false), true, this);
+	
+			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, witchColour, false), true, this);
+			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, witchColour, false), true, this);
+			
+			if(Math.random()>0.5f) {
+				equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, witchColour, false), true, this);
+			} else {
+				equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, witchColour, false), true, this);
+			}
+			
+			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
+			
+			// Makeup:
+			colours = Util.newArrayListOfValues(
+					new ListValue<>(Colour.COVERING_NONE),
+					new ListValue<>(Colour.COVERING_ORANGE),
+					new ListValue<>(Colour.COVERING_PURPLE),
+					new ListValue<>(Colour.COVERING_BLACK));
+			
+			Colour colourForCoordination = colours.get(Util.random.nextInt(colours.size()));
+			Colour colourForNails = colours.get(Util.random.nextInt(colours.size()));
+			
+			setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, colourForCoordination));
+			setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+			setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, colourForCoordination));
+			setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, colourForCoordination));
+			
+			setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, colourForNails));
+			setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, colourForNails));
+			
+			
+			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
+			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+			setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
 		}
+	}
+	
+	@Override
+	public Cultist loadFromXML(Element parentElement, Document doc) {
+		Cultist npc = new Cultist(true);
+
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
-		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
-		
-		// Makeup:
-		colours = Util.newArrayListOfValues(
-				new ListValue<>(Colour.COVERING_NONE),
-				new ListValue<>(Colour.COVERING_ORANGE),
-				new ListValue<>(Colour.COVERING_PURPLE),
-				new ListValue<>(Colour.COVERING_BLACK));
-		
-		Colour colourForCoordination = colours.get(Util.random.nextInt(colours.size()));
-		Colour colourForNails = colours.get(Util.random.nextInt(colours.size()));
-		
-		setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, colourForCoordination));
-		setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
-		setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, colourForCoordination));
-		setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, colourForCoordination));
-		
-		setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, colourForNails));
-		setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, colourForNails));
-		
-		
-		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
-		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
+		return npc;
 	}
 	
 	@Override

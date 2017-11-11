@@ -15,8 +15,7 @@ import com.lilithsthrone.utils.Bearing;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.places.GenericPlace;
-import com.lilithsthrone.world.places.GenericPlaces;
-import com.lilithsthrone.world.places.PlaceInterface;
+import com.lilithsthrone.world.places.PlaceType;
 
 import javafx.concurrent.Task;
 
@@ -173,7 +172,7 @@ public class Generation extends Task<Boolean> {
 			
 			int coreX = 0, coreY = 0;
 			// Set aligned entrances:
-			for(PlaceInterface pt : worldType.getPlaces()) {
+			for(PlaceType pt : worldType.getPlaces()) {
 				if(pt.getParentWorldType()!=null) {
 					if(pt.getParentAlignment()!=null) {
 						if(debug)
@@ -181,7 +180,7 @@ public class Generation extends Task<Boolean> {
 						Vector2i location = null;
 						switch(pt.getParentAlignment()) {
 							case ALIGNED:
-								location = Main.game.getWorlds().get(pt.getParentWorldType()).getPlacesOfInterest().get(new GenericPlace(pt.getParentPlaceInterface()));
+								location = Main.game.getWorlds().get(pt.getParentWorldType()).getPlacesOfInterest().get(new GenericPlace(pt.getParentPlaceType()));
 								if(debug)
 									System.out.println(location);
 								grid[location.getX()/2][location.getY()/2].setPlace(new GenericPlace(pt));
@@ -191,7 +190,7 @@ public class Generation extends Task<Boolean> {
 									System.out.println(location);
 								break;
 							case ALIGNED_FLIP_HORIZONTAL:
-								location = Main.game.getWorlds().get(pt.getParentWorldType()).getPlacesOfInterest().get(new GenericPlace(pt.getParentPlaceInterface()));
+								location = Main.game.getWorlds().get(pt.getParentWorldType()).getPlacesOfInterest().get(new GenericPlace(pt.getParentPlaceType()));
 								grid[width - 1 - (location.getX())/2][location.getY()/2].setPlace(new GenericPlace(pt));
 								grid[width - 1 - (location.getX())/2][location.getY()/2].setBlocked(false);
 								visited[width - 1 - (location.getX())/2][location.getY()/2] = false;
@@ -199,7 +198,7 @@ public class Generation extends Task<Boolean> {
 									System.out.println(location);
 								break;
 							case ALIGNED_FLIP_VERTICAL:
-								location = Main.game.getWorlds().get(pt.getParentWorldType()).getPlacesOfInterest().get(new GenericPlace(pt.getParentPlaceInterface()));
+								location = Main.game.getWorlds().get(pt.getParentWorldType()).getPlacesOfInterest().get(new GenericPlace(pt.getParentPlaceType()));
 								grid[location.getX()/2][height - 1 - (location.getY())/2].setPlace(new GenericPlace(pt));
 								grid[location.getX()/2][height - 1 - (location.getY())/2].setBlocked(false);
 								visited[location.getX()/2][height - 1 - (location.getY())/2] = false;
@@ -221,7 +220,7 @@ public class Generation extends Task<Boolean> {
 				System.out.println(worldType.getName()+" Break 2");
 			
 			// Set exits:
-			for(PlaceInterface pt : worldType.getPlaces()){
+			for(PlaceType pt : worldType.getPlaces()){
 				if(pt.getBearing()!=null){
 					// To get a little bit of spread, use quadrants of map to place exits.
 					int quadrant = 1;
@@ -339,14 +338,14 @@ public class Generation extends Task<Boolean> {
 			
 			// Add places:
 			int quadrant = 1;
-			List<PlaceInterface> places = new ArrayList<>();
-			for (PlaceInterface p : worldType.getPlaces()) {
+			List<PlaceType> places = new ArrayList<>();
+			for (PlaceType p : worldType.getPlaces()) {
 				if(p.getBearing()==null && p.getParentAlignment()==null)
 					places.add(p);
 			}
 			Collections.shuffle(places);
 	
-			for (PlaceInterface p : places) {
+			for (PlaceType p : places) {
 				do {
 					coreX = rnd.nextInt(width);
 					coreY = rnd.nextInt(height);
@@ -375,7 +374,7 @@ public class Generation extends Task<Boolean> {
 	
 			// Add cuttOffZone places:
 			if (worldType.getDangerousPlaces() != null)
-				for (PlaceInterface p : worldType.getDangerousPlaces()) {
+				for (PlaceType p : worldType.getDangerousPlaces()) {
 					Vector2i vTemp = dangerousPlaces.get(Util.random.nextInt(dangerousPlaces.size()));
 	
 					grid[vTemp.getX()][vTemp.getY()].setPlace(new GenericPlace(p));
@@ -399,7 +398,7 @@ public class Generation extends Task<Boolean> {
 			for (int i = 0; i < width * 2 - 1; i++)
 				for (int j = 0; j < height * 2 - 1; j++) {
 					if (i % 2 == 0 && j % 2 == 0) {
-						if (finalGrid[i / 2][j / 2].getPlace() != worldType.getStandardPlace()) {
+						if (finalGrid[i / 2][j / 2].getPlace().getPlaceType() != worldType.getStandardPlace()) {
 							expandedGrid[i][j].setPlace(finalGrid[i / 2][j / 2].getPlace());
 							w.addPlaceOfInterest(finalGrid[i / 2][j / 2].getPlace(), new Vector2i(i, j));
 						}
@@ -425,7 +424,7 @@ public class Generation extends Task<Boolean> {
 						if (Math.random() > 0.8) {
 							expandedGrid[i][j].setPlace(new GenericPlace(worldType.getCutOffZone()));
 						} else {
-							expandedGrid[i][j].setPlace(new GenericPlace(GenericPlaces.IMPASSABLE));
+							expandedGrid[i][j].setPlace(new GenericPlace(PlaceType.GENERIC_IMPASSABLE));
 						}
 					}
 	

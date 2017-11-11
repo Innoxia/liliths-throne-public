@@ -5,6 +5,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -16,9 +17,8 @@ import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Dominion;
 import com.lilithsthrone.world.places.GenericPlace;
-import com.lilithsthrone.world.places.LilayasHome;
+import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
@@ -71,7 +71,7 @@ public class LilayaHomeGeneric {
 									+ "You greet Rose as she closes the door behind you, and, excusing herself, she quickly hurries off to another part of the house, leaving you standing in the entrance hall."
 								+ "</p>");
 						
-						Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_ENTRANCE_HALL, true);
+						Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
 					}
 				};
 
@@ -191,7 +191,7 @@ public class LilayaHomeGeneric {
 				return new Response("Slave List", "Enter the slave management screen.", CORRIDOR) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return MiscDialogue.getSlaveryManagementDialogue(Main.game.getPlayerCell().getPlace().getDialogue(false), null);
+						return MiscDialogue.getSlaveryManagementDialogue(null);
 					}
 				};
 			} else {
@@ -567,7 +567,7 @@ public class LilayaHomeGeneric {
 									+ " [rose.speech(How may I help you?)]"
 								+ "</p>";
 						
-						Main.game.getDialogueFlags().auntHomeJustEntered = false;
+						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.auntHomeJustEntered);
 						Main.game.getRose().setLocation(Main.game.getActiveWorld().getWorldType(), Main.game.getPlayer().getLocation(), false);
 					}
 				};
@@ -798,7 +798,7 @@ public class LilayaHomeGeneric {
 				return new ResponseEffectsOnly("Exit", "Leave Lilaya's house."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_AUNTS_HOME, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_AUNTS_HOME, true);
 					}
 				};
 
@@ -806,7 +806,7 @@ public class LilayaHomeGeneric {
 				return new ResponseEffectsOnly("Your room", "Fast travel up to your room."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), LilayasHome.LILAYA_HOME_ROOM_PLAYER, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
 					}
 				};
 
@@ -814,7 +814,7 @@ public class LilayaHomeGeneric {
 				return new ResponseEffectsOnly("Lilaya's Lab", "Fast travel to Lilaya's Lab."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), LilayasHome.LILAYA_HOME_LAB, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_LAB, true);
 					}
 				};
 
@@ -846,7 +846,7 @@ public class LilayaHomeGeneric {
 				return new ResponseEffectsOnly("Upstairs", "Go upstairs to the first floor."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), LilayasHome.LILAYA_HOME_STAIR_DOWN, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_STAIR_DOWN, true);
 					}
 				};
 
@@ -878,7 +878,7 @@ public class LilayaHomeGeneric {
 				return new ResponseEffectsOnly("Downstairs", "Go back downstairs to the ground floor."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), LilayasHome.LILAYA_HOME_STAIR_UP, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_STAIR_UP, true);
 					}
 				};
 
@@ -1054,7 +1054,7 @@ public class LilayaHomeGeneric {
 					@Override
 					public void effects() {
 						askedAboutDuties = false;
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 					}
 					
 					@Override

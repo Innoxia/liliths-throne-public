@@ -133,8 +133,7 @@ import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
-import com.lilithsthrone.world.places.PlaceInterface;
-import com.lilithsthrone.world.places.SlaverAlley;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * The class for all the game's characters. I think this is the biggest class in the game.
@@ -266,7 +265,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	protected static List<CharacterChangeEventListener> NPCInventoryChangeEventListeners = new ArrayList<>();
 	protected static List<CharacterChangeEventListener> playerInventoryChangeEventListeners = new ArrayList<>();
 
-	protected GameCharacter(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace, RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceInterface startingPlace) {
+	protected GameCharacter(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace, RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceType startingPlace) {
 		
 		id = "n/a"; // id gets set in Game's addNPC method, so it doesn't matter if this is unique or not... Right?
 		
@@ -399,41 +398,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		Element properties = doc.createElement("character");
 		parentElement.appendChild(properties);
 		
-		/*TODO
-			
-			
-			// Sex:
-			protected Map<CoverableArea, Boolean> playerKnowsAreasMap;
-			protected Map<OrificeType, Set<GameCharacter>> cummedInAreaMap;
-			
-		
-			// Clothes:
-			protected int nakedSlots;
-			
-			// Stats:
-			// Combat stats:
-			private int foughtPlayerCount, lostCombatCount, wonCombatCount;
-			
-			
-			// Sex stats:
-			private int sexConsensualCount, sexAsSubCount, sexAsDomCount;
-			private Map<SexType, Integer> sexCountMap;
-			private Map<SexType, Integer> cumCountMap;
-			private Map<SexType, String> virginityLossMap;
-			private Map<String, Map<SexType, Integer>> sexPartnerMap;
-		
-			// Addictions:
-			private Map<FluidType, Integer> addictionsMap;
-			private Map<FluidType, Long> addictionsSatisfiedMap;
-	
-			// Family:
-			protected GameCharacter mother, father;
-			protected int dayOfConception, dayOfBirth;
-		
-			// Keep a track of what potion effects this character is experiencing:
-			protected Map<Attribute, Float> potionAttributes;
-		 */
-		
 		// ************** Core information **************//
 		
 		Element characterCoreInfo = doc.createElement("core");
@@ -441,6 +405,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		properties.appendChild(characterCoreInfo);
 		
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "id", this.getId());
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "pathName", this.getClass().getCanonicalName());
 		
 		Element name = doc.createElement("name");
 		characterCoreInfo.appendChild(name);
@@ -462,9 +427,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "experience", String.valueOf(this.getExperience()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "levelUpPoints", String.valueOf(this.getLevelUpPoints()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "perkPoints", String.valueOf(this.getPerkPoints()));
+
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "health", String.valueOf(this.getHealth()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "mana", String.valueOf(this.getMana()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "stamina", String.valueOf(this.getStamina()));
 		
 		characterCoreInfo.getParentNode().insertBefore(comment, characterCoreInfo);
-		
 		
 
 		// ************** Location Information **************//
@@ -495,49 +463,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		// ************** Inventory **************//
 		
-		Element characterInventory = doc.createElement("characterInventory");
-		properties.appendChild(characterInventory);
-		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "money", String.valueOf(this.getMoney()));
-		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "essences", String.valueOf(this.getEssenceCount(TFEssence.ARCANE)));
-		
-		if(this.getMainWeapon() != null) {
-			Element mainWeapon = doc.createElement("mainWeapon");
-			characterInventory.appendChild(mainWeapon);
-			this.getMainWeapon().saveAsXML(mainWeapon, doc);
-		}
-		
-		if(this.getOffhandWeapon() != null) {
-			Element offhandWeapon = doc.createElement("offhandWeapon");
-			characterInventory.appendChild(offhandWeapon);
-			this.getOffhandWeapon().saveAsXML(offhandWeapon, doc);
-		}
-		
-		Element clothingEquipped = doc.createElement("clothingEquipped");
-		characterInventory.appendChild(clothingEquipped);
-		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
-			clothing.saveAsXML(clothingEquipped, doc);
-		}
-		
-		Element itemsInInventory = doc.createElement("itemsInInventory");
-		characterInventory.appendChild(itemsInInventory);
-		for(Entry<AbstractItem, Integer> item : this.getMapOfDuplicateItems().entrySet()) {
-			Element e = item.getKey().saveAsXML(itemsInInventory, doc);
-			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(item.getValue()));
-		}
-		
-		Element clothingInInventory = doc.createElement("clothingInInventory");
-		characterInventory.appendChild(clothingInInventory);
-		for(Entry<AbstractClothing, Integer> clothing : this.getMapOfDuplicateClothing().entrySet()) {
-			Element e = clothing.getKey().saveAsXML(clothingInInventory, doc);
-			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(clothing.getValue()));
-		}
-		
-		Element weaponsInInventory = doc.createElement("weaponsInInventory");
-		characterInventory.appendChild(weaponsInInventory);
-		for(Entry<AbstractWeapon, Integer> weapon : this.getMapOfDuplicateWeapons().entrySet()) {
-			Element e = weapon.getKey().saveAsXML(weaponsInInventory, doc);
-			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(weapon.getValue()));
-		}
+		this.inventory.saveAsXML(properties, doc);
 		
 		
 		
@@ -904,6 +830,19 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			CharacterUtils.appendToImportLog(log, "</br>Old character version. Extra LevelUpPoints set to: "+(Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")) * 5));
 		}
 		
+		if(element.getElementsByTagName("health").getLength()!=0) {
+			character.setHealth(Float.valueOf(((Element)element.getElementsByTagName("health").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set health: "+character.getHealth());
+		}
+		if(element.getElementsByTagName("mana").getLength()!=0) {
+			character.setMana(Float.valueOf(((Element)element.getElementsByTagName("mana").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set mana: "+character.getMana());
+		}
+		if(element.getElementsByTagName("stamina").getLength()!=0) {
+			character.setStamina(Float.valueOf(((Element)element.getElementsByTagName("stamina").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set stamina: "+character.getStamina());
+		}
+		
 		nodes = parentElement.getElementsByTagName("playerCore");
 		if(nodes.getLength()>0) { // Old version support:
 			
@@ -965,9 +904,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// ************** Inventory **************//
 		
 		character.resetInventory();
+		
+		
 		nodes = parentElement.getElementsByTagName("characterInventory");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
+			
+//			character.inventory = CharacterInventory.loadFromXML(element, doc);
+			
 			character.setMoney(Integer.valueOf(((Element)element.getElementsByTagName("money").item(0)).getAttribute("value")));
 			character.setEssenceCount(TFEssence.ARCANE, Integer.valueOf(((Element)element.getElementsByTagName("essences").item(0)).getAttribute("value")));
 			
@@ -1841,7 +1785,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public int getNumberOfSlavesInAdministration() {
 		int i=0;
 		for(String id : slavesOwned) {
-			if(Main.game.getNPCById(id).getLocationPlace().getPlaceType() == SlaverAlley.SLAVERY_ADMINISTRATION) {
+			if(Main.game.getNPCById(id).getLocationPlace().getPlaceType() == PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
 				i++;
 			}
 		}
@@ -3200,11 +3144,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 	}
 	
-	public void setLocation(WorldType worldType, PlaceInterface placeType, boolean setAsHomeLocation) {
+	public void setLocation(WorldType worldType, PlaceType placeType, boolean setAsHomeLocation) {
 		setLocation(worldType, Main.game.getWorlds().get(worldType).getCell(placeType).getLocation(), setAsHomeLocation);
 	}
 	
-	public void setHomeLocation(WorldType homeWorldLocation, PlaceInterface placeType) {
+	public void setHomeLocation(WorldType homeWorldLocation, PlaceType placeType) {
 		this.homeWorldLocation = homeWorldLocation;
 		this.homeLocation = Main.game.getWorlds().get(homeWorldLocation).getCell(placeType).getLocation();
 	}

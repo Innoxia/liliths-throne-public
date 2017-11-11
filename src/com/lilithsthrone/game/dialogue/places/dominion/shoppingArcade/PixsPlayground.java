@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -10,7 +11,7 @@ import com.lilithsthrone.game.sex.managers.dominion.SMPixShowerTime;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.ShoppingArcade;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
@@ -49,7 +50,7 @@ public class PixsPlayground {
 			}
 
 		} else if (index == 3) {
-				if(!Main.game.getDialogueFlags().gymIsMember) {
+				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)) {
 					return new Response("Pix", "Only lifetime members can get personal training from Pix.", null);
 					
 				} else if (Main.game.getPlayer().getStaminaPercentage() < 0.8f) {
@@ -80,7 +81,7 @@ public class PixsPlayground {
 
 		@Override
 		public String getContent() {
-			if (!Main.game.getDialogueFlags().gymIntroduced) {
+			if (!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIntroduced)) {
 				return "<p>"
 							+ "You find yourself standing before one of the largest frontages in the Shopping Arcade."
 							+ " The words 'Pix's Playground' are emblazoned in bright red lettering above the entrance, and beneath, you read the words 'Dominions #1 Gym!'."
@@ -106,7 +107,7 @@ public class PixsPlayground {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(Main.game.getDialogueFlags().gymHadTour) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymHadTour)) {
 					return new Response("Enter", "Step inside the gym.", GYM_RETURNING);
 				} else {
 					return new Response("Enter", "Step inside the gym.", GYM);
@@ -117,7 +118,7 @@ public class PixsPlayground {
 				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), ShoppingArcade.ARCADE_ENTRANCE, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_ENTRANCE, true);
 					}
 				};
 
@@ -137,7 +138,7 @@ public class PixsPlayground {
 
 		@Override
 		public String getContent() {
-			if (!Main.game.getDialogueFlags().gymIntroduced)
+			if (!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIntroduced))
 				return "<p>"
 						+ " Pushing open the door, you step into the gym's lobby, where you're immediately greeted by an extremely energetic greater dog-girl."
 						+ "</p>"
@@ -186,8 +187,8 @@ public class PixsPlayground {
 				return new Response("Follow", "Follow Pix and let her give you a tour of the gym.", GYM_FOLLOW){
 					@Override
 					public void effects(){
-						Main.game.getDialogueFlags().gymIntroduced=true;
-						Main.game.getDialogueFlags().gymHadTour=true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.gymIntroduced);
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.gymHadTour);
 					}
 				};
 				
@@ -195,7 +196,7 @@ public class PixsPlayground {
 				return new Response("Leave", "Tell Pix that you don't have time right now, but you might be back later.", GYM_EXTERIOR){
 					@Override
 					public void effects(){
-						Main.game.getDialogueFlags().gymIntroduced=true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.gymIntroduced);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 									+ "You quickly shout to Pix that you don't have time for her tour right now, but you might come back later."
@@ -280,7 +281,7 @@ public class PixsPlayground {
 					@Override
 					public void effects(){
 						Main.game.getPlayer().incrementMoney(-800);
-						Main.game.getDialogueFlags().gymIsMember=true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.gymIsMember);
 					}
 				};
 				
@@ -314,7 +315,7 @@ public class PixsPlayground {
 					+ "</p>"
 					+ "<p>"
 					+ "You start to greet the energetic dog-girl, but, once again, she immediately cuts you off, "
-					+ (Main.game.getDialogueFlags().gymIsMember
+					+ (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)
 							? UtilText.parseSpeech("You gonna want some personal training today?! I'm ready for it whenever you are! You go ahead and get changed, I'll see you in there!", Main.game.getPix())
 							: UtilText.parseSpeech("The eight hundred flames deal is still on y'know! Only for you!"
 									+ " So, you ready to sign up?!", Main.game.getPix()))
@@ -323,7 +324,7 @@ public class PixsPlayground {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (!Main.game.getDialogueFlags().gymIsMember) {
+			if (!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)) {
 				if (index == 1) {
 					if (Main.game.getPlayer().getMoney() < 10)
 						return new Response("Single Payment (" + UtilText.getCurrencySymbol() + " 10)", "You don't have enough money!", null);
@@ -346,7 +347,7 @@ public class PixsPlayground {
 						@Override
 						public void effects(){
 							Main.game.getPlayer().incrementMoney(-800);
-							Main.game.getDialogueFlags().gymIsMember=true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.gymIsMember);
 						}
 					};
 					
@@ -457,7 +458,8 @@ public class PixsPlayground {
 			return "<p>" + "You head over to the cardio section of the gym and spend some time warming up before using the running and cycling machines." + " After an hour of intense workout, you're left panting and covered in sweat."
 					+ " You feel like you've definitely improved your level of fitness, even if only by a tiny amount." + "</p>" + "<p>"
 					+ (Main.game.getPlayer().getStaminaPercentage() < 0.4f ? "You feel completely exhausted, and are far too tired to do any more exercise."
-							: (Main.game.getDialogueFlags().gymIsMember ? "You feel as though you have enough energy left to do another workout if you wanted to, but you're too tired to do Pix's intense routine."
+							: (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)
+									? "You feel as though you have enough energy left to do another workout if you wanted to, but you're too tired to do Pix's intense routine."
 									: "You feel as though you have enough energy left to do another workout if you wanted to."))
 					+ "</p>";
 		}
@@ -485,7 +487,8 @@ public class PixsPlayground {
 			return "<p>" + "You head over to the free weights section of the gym and spend some time warming up before using the equipment." + " After an hour of intense workout, you're left feeling very pleased with yourself."
 					+ " You feel like you've definitely improved your strength, even if only by a tiny amount." + "</p>" + "<p>"
 					+ (Main.game.getPlayer().getStaminaPercentage() < 0.4f ? "You feel completely exhausted, and are far too tired to do any more exercise."
-							: (Main.game.getDialogueFlags().gymIsMember ? "You feel as though you have enough energy left to do another workout if you wanted to, but you're too tired to do Pix's intense workout routine."
+							: (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)
+									? "You feel as though you have enough energy left to do another workout if you wanted to, but you're too tired to do Pix's intense workout routine."
 									: "You feel as though you have enough energy left to do another workout if you wanted to."))
 					+ "</p>";
 		}
@@ -546,7 +549,7 @@ public class PixsPlayground {
 					+ " Pix moves round behind you as you run, and you can almost feel her lustful gaze resting on your ass."
 					+ "</p>"
 					+ "<p>"
-					+ UtilText.parseSpeech("Mmmm! Y'know, you've got one hot ass!", Main.game.getPix())
+					+ UtilText.parseSpeech("Mmm! Y'know, you've got one hot ass!", Main.game.getPix())
 					+ " she giggles."
 					+ "</p>"
 					+ "<p>"

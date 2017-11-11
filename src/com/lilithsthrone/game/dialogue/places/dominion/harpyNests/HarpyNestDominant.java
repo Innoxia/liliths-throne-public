@@ -4,6 +4,7 @@ import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -40,7 +41,7 @@ public class HarpyNestDominant {
 		@Override
 		public String getContent() {
 			if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				if(Main.game.getDialogueFlags().dominantEncountered) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantEncountered)) {
 					return "<p>"
 								+ "Due to the ongoing arcane storm, [harpyDominant.name]'s nest is completely deserted."
 								+ " Her entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to her."
@@ -53,7 +54,7 @@ public class HarpyNestDominant {
 				}
 				
 			} else {
-				if(Main.game.getDialogueFlags().dominantEncountered) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantEncountered)) {
 					return "<p>"
 								+ "You find yourself standing on the outskirts of [harpyDominant.name]'s nest; one of the largest and most populous of all the nests in Dominion."
 								+ " A single, gigantic platform spans the roof-tops of several buildings, with little raised podiums scattered about its surface."
@@ -103,14 +104,14 @@ public class HarpyNestDominant {
 					return new Response("Approach [harpyDominant.name]", "You have no need to talk to the matriarch of this nest.", null);
 					
 				} else if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-					if(Main.game.getDialogueFlags().dominantEncountered) {
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantEncountered)) {
 						return new Response("Approach [harpyDominant.name]", "If you want to talk to [harpyDominant.name], you'll have to come back after the arcane storm has passed.", null);
 					} else {
 						return new Response("Approach matriarch", "If you want to talk to the matriarch, you'll have to come back after the arcane storm has passed.", null);
 					}
 					
 				} else {
-					if(Main.game.getDialogueFlags().dominantEncountered) {
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantEncountered)) {
 						return new Response("Approach [harpyDominant.name]", "Walk to the centre of the nest and talk to [harpyDominant.name].", HARPY_NEST_DOMINANT_APPROACH);
 					} else {
 						return new Response("Approach matriarch", "Walk to the centre of the nest and talk to the matriarch.", HARPY_NEST_DOMINANT_APPROACH);
@@ -133,8 +134,9 @@ public class HarpyNestDominant {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getDialogueFlags().dominantEncountered) {
-				if(Main.game.getDialogueFlags().dominantPacified) { //TODO ordered to stop abuse
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantEncountered)) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantPacified)) {
+					//TODO ordered to stop abuse
 					return "<p>"
 							+ "Deciding to pay [harpyDominant.Name] another visit, you set off towards the centre podium."
 							+ " As you make your way towards the dominant matriarch, you get a good look at the harpies that make up her flock."
@@ -271,7 +273,7 @@ public class HarpyNestDominant {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getDialogueFlags().dominantPacified) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantPacified)) {
 				if (index == 1) {
 					return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", HARPY_NEST_DOMINANT_APPROACH,
 							true, false, Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX,
@@ -308,7 +310,7 @@ public class HarpyNestDominant {
 					return new Response("Talk", "Try to convince [harpyDominant.name] to calm down.", HARPY_NEST_DOMINANT_TALK) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().dominantEncountered = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantEncountered);
 						}
 					};
 						
@@ -317,8 +319,8 @@ public class HarpyNestDominant {
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT)), null, null, Femininity.FEMININE_STRONG, null) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().dominantEncountered = true;
-							Main.game.getDialogueFlags().dominantPacified = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantEncountered);
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantPacified);
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME), false));
 						}
 						@Override
@@ -331,7 +333,7 @@ public class HarpyNestDominant {
 					return new Response("Call her ugly", "You know that this would be a terrible idea...", HARPY_NEST_DOMINANT_UGLY) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().dominantEncountered = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantEncountered);
 						}
 						@Override
 						public boolean isCombatHighlight() {
@@ -343,7 +345,7 @@ public class HarpyNestDominant {
 					return new Response("Leave", "Decide to leave [harpyDominant.name]'s nest.", HARPY_NEST_DOMINANT) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().dominantEncountered = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantEncountered);
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
 										+ "Deciding that now isn't the best time to be confronting [harpyDominant.name], you turn around and hurry away from the podium."
@@ -395,7 +397,7 @@ public class HarpyNestDominant {
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT)), null, null, Femininity.FEMININE_STRONG, null) {
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().dominantPacified = true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantPacified);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME), false));
 					}
 					@Override

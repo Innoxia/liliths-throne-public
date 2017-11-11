@@ -5,6 +5,7 @@ import com.lilithsthrone.game.character.Quest;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -12,7 +13,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.SlaverAlley;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.83
@@ -246,7 +247,7 @@ public class HarpyNestAlexa {
 				return new Response("No punishment", "Don't take Scarlett's punishment for her.", ALEXAS_NEST_NO_PUNISHMENT) {
 					@Override
 					public void effects() {
-						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP, true);
+						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
 					}
 					
 					@Override
@@ -259,7 +260,7 @@ public class HarpyNestAlexa {
 				return new Response("Take punishment", "Offer to take Scarlett's punishment for her.", ALEXAS_NEST_TAKE_PUNISHMENT) {
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().punishedByAlexa = true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.punishedByAlexa);
 					}
 				};
 				
@@ -385,7 +386,7 @@ public class HarpyNestAlexa {
 				return new Response("Endure it", "Try and keep quiet and endure your punishment.", ALEXAS_NEST_TAKE_PUNISHMENT_ENDURE) {
 					@Override
 					public void effects() {
-						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP, true);
+						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
 					}
 					
 					@Override
@@ -398,7 +399,7 @@ public class HarpyNestAlexa {
 				return new Response("Struggle", "Start struggling and crying out in discomfort.", ALEXAS_NEST_TAKE_PUNISHMENT_STRUGGLE) {
 					@Override
 					public void effects() {
-						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP, true);
+						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
 					}
 					
 					@Override
@@ -416,7 +417,7 @@ public class HarpyNestAlexa {
 						null) {
 					@Override
 					public void effects() {
-						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP, true);
+						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
 					}
 					
 					@Override
@@ -653,7 +654,7 @@ public class HarpyNestAlexa {
 				return new ResponseEffectsOnly("Scarlett's Shop", "You arrive at Scarlett's Shop.") {
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SLAVER_ALLEY), SlaverAlley.SCARLETTS_SHOP, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SLAVER_ALLEY), PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
 					}
 				};
 				

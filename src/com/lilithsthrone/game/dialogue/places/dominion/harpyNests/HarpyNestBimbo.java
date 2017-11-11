@@ -4,6 +4,7 @@ import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -40,7 +41,7 @@ public class HarpyNestBimbo {
 		@Override
 		public String getContent() {
 			if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				if(Main.game.getDialogueFlags().bimboEncountered) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
 					return "<p>"
 								+ "Due to the ongoing arcane storm, [bimboHarpy.name]'s nest is completely deserted."
 								+ " Her entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to her."
@@ -53,7 +54,7 @@ public class HarpyNestBimbo {
 				}
 				
 			} else {
-				if(Main.game.getDialogueFlags().bimboEncountered) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
 					return "<p>"
 							+ "You find yourself standing on the outskirts of [bimboHarpy.name]'s nest; one of the largest and most populous of all the nests in Dominion."
 							+ " Huge, multi-level platforms extend across the rooves of several buildings, with colourful canvas awnings erected to shield the flock from the elements."
@@ -100,14 +101,14 @@ public class HarpyNestBimbo {
 					return new Response("Approach [bimboHarpy.name]", "You have no need to talk to the matriarch of this nest.", null);
 					
 				} else if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-					if(Main.game.getDialogueFlags().bimboEncountered) {
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
 						return new Response("Approach [bimboHarpy.name]", "If you want to talk to [bimboHarpy.name], you'll have to come back after the arcane storm has passed.", null);
 					} else {
 						return new Response("Approach matriarch", "If you want to talk to the matriarch, you'll have to come back after the arcane storm has passed.", null);
 					}
 					
 				} else {
-					if(Main.game.getDialogueFlags().bimboEncountered) {
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
 						return new Response("Approach [bimboHarpy.name]", "Walk to the centre of the nest and talk to [bimboHarpy.name].", HARPY_NEST_BIMBO_APPROACH);
 					} else {
 						return new Response("Approach matriarch", "Walk to the centre of the nest and talk to the matriarch.", HARPY_NEST_BIMBO_APPROACH);
@@ -130,8 +131,8 @@ public class HarpyNestBimbo {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getDialogueFlags().bimboEncountered) {
-				if(Main.game.getDialogueFlags().bimboPacified) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboPacified)) {
 					return "<p>"
 								+ "Deciding that you should go and pay [bimboHarpy.name] another visit, you set off across the nest."
 								+ " Most of the bimbo harpies recognise you as [bimboHarpy.name]'s "+(Main.game.getPlayer().isFeminine()?"mistress":"master")+", and submissively bow their heads or drop to their knees as you pass."
@@ -227,7 +228,7 @@ public class HarpyNestBimbo {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getDialogueFlags().bimboPacified) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboPacified)) {
 				if (index == 1) {
 					return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name].", HARPY_NEST_BIMBO_APPROACH,
 							true, false, Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX,
@@ -264,7 +265,7 @@ public class HarpyNestBimbo {
 					return new Response("Talk", "Try to convince [bimboHarpy.name] to calm down.", HARPY_NEST_BIMBO_TALK) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().bimboEncountered = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboEncountered);
 						}
 					};
 						
@@ -273,8 +274,8 @@ public class HarpyNestBimbo {
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BIMBO)), null, null, Femininity.FEMININE_STRONG, null) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().bimboEncountered = true;
-							Main.game.getDialogueFlags().bimboPacified = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboEncountered);
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboPacified);
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP), false));
 						}
 						@Override
@@ -287,7 +288,7 @@ public class HarpyNestBimbo {
 					return new Response("Call her ugly", "You know that this would be a terrible idea...", HARPY_NEST_BIMBO_UGLY) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().bimboEncountered = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboEncountered);
 						}
 						@Override
 						public boolean isCombatHighlight() {
@@ -299,7 +300,7 @@ public class HarpyNestBimbo {
 					return new Response("Leave", "Tell [bimboHarpy.name] that you'll be back later.", HARPY_NEST_BIMBO) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().bimboEncountered = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboEncountered);
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
 										+ "Deciding that now isn't the best time to be doing this, you turn around and head back down the stairs."
@@ -351,7 +352,7 @@ public class HarpyNestBimbo {
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BIMBO)), null, null, Femininity.FEMININE_STRONG, null) {
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().bimboPacified = true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboPacified);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP), false));
 					}
 					@Override

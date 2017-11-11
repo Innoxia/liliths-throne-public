@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.slaverAlley;
 
 import com.lilithsthrone.game.character.Quest;
 import com.lilithsthrone.game.character.QuestLine;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -11,8 +12,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Dominion;
-import com.lilithsthrone.world.places.SlaverAlley;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -56,7 +56,7 @@ public class SlaverAlleyDialogue {
 				return new ResponseEffectsOnly("Slaver Alley", "Step through the gate and enter Slaver Alley."){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.SLAVER_ALLEY, SlaverAlley.ALLEY_ENTRANCE, true);
+						Main.mainController.moveGameWorld(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_ENTRANCE, true);
 					}
 				};
 
@@ -94,7 +94,7 @@ public class SlaverAlleyDialogue {
 				return new ResponseEffectsOnly("Leave", "Step back out into Dominion's alleyways."){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.DOMINION, Dominion.CITY_SLAVER_ALLEY, true);
+						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_SLAVER_ALLEY, true);
 					}
 				};
 
@@ -344,7 +344,7 @@ public class SlaverAlleyDialogue {
 					+ "</p>";
 				
 			} else {
-				if(!Main.game.getDialogueFlags().finchIntroduced) {
+				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.finchIntroduced)) {
 					return "<p>"
 								+ "The heavy oak doors of the 'Slavery Administration' building are wide open, and, stepping through the inviting entranceway, you find yourself standing in a large, cavernous entrance hall."
 								+ " Rows of marble pillars line the edges of the room, with little wooden benches interspersed between them."
@@ -435,7 +435,7 @@ public class SlaverAlleyDialogue {
 							}
 							@Override
 							public void effects() {
-								Main.game.getDialogueFlags().finchIntroduced = true;
+								Main.game.getDialogueFlags().values.add(DialogueFlagValue.finchIntroduced);
 							}
 						};
 						
@@ -461,7 +461,7 @@ public class SlaverAlleyDialogue {
 					return new Response("Leave", "Step back outside.", SLAVERY_ADMINISTRATION_EXTERIOR) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().finchIntroduced = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.finchIntroduced);
 						}
 					};
 

@@ -24,6 +24,7 @@ import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -366,7 +367,7 @@ public enum Sex {
 			}
 		}
 		
-		partner.setGetLastTimeHadSex(Main.game.getMinutesPassed());
+		partner.setLastTimeHadSex(Main.game.getMinutesPassed());
 		partner.endSex(true);
 	}
 
@@ -632,8 +633,8 @@ public enum Sex {
 				sexSB.append("<p style='text-align:center'><b>Your arcane aura is still strengthened from a previous sexual encounter, so</b> [style.boldArcane(you don't receive any arcane essences!)]</p>");
 				
 			} else {
-				if(!Main.game.getDialogueFlags().essenceOrgasmDiscovered) {
-					Main.game.getDialogueFlags().essenceOrgasmDiscovered = true;
+				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceOrgasmDiscovered)) {
+					Main.game.getDialogueFlags().values.add(DialogueFlagValue.essenceOrgasmDiscovered);
 					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 						sexSB.append(
 								UtilText.parse(partner,
@@ -712,8 +713,8 @@ public enum Sex {
 				
 			} else {
 				
-				if(!Main.game.getDialogueFlags().essenceOrgasmDiscovered) {
-					Main.game.getDialogueFlags().essenceOrgasmDiscovered = true;
+				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceOrgasmDiscovered)) {
+					Main.game.getDialogueFlags().values.add(DialogueFlagValue.essenceOrgasmDiscovered);
 					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 						sexSB.append(
 								UtilText.parse(partner,

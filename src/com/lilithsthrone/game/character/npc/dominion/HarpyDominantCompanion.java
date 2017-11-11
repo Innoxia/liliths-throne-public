@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
@@ -22,7 +25,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.HarpyNests;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.8
@@ -34,43 +37,58 @@ public class HarpyDominantCompanion extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public HarpyDominantCompanion() {
+		this(false);
+	}
+	
+	private HarpyDominantCompanion(boolean isImported) {
 		super(new NameTriplet("Harley"),
 				"Diana's favourite pet, Harley, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in her mistress's nest, she does absolutely anything Diana orders her to do, which often involves administering humiliating punishments...",
 				5, Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.HARPY_NEST, HarpyNests.HARPY_NEST_RED, true);
+				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_RED, true);
 
-		this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
-		
-		this.addFetish(Fetish.FETISH_SUBMISSIVE);
-		this.addFetish(Fetish.FETISH_MASOCHIST);
-		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BROWN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_GINGER), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_GINGER), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
-		
-		this.setFemininity(90);
-		
-		this.setAssVirgin(true);
-		this.setFaceVirgin(false);
-		this.setBreastSize(CupSize.AA.getMeasurement());
-		
-		this.setHeight(165);
-		
-		this.setPiercedEar(true);
-		this.setPiercedLip(true);
-		this.setPiercedNavel(true);
-		this.setPiercedNose(true);
+		if(!isImported) {
+			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+			
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_MASOCHIST);
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BROWN));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_GINGER), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_GINGER), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
+			
+			this.setFemininity(90);
+			
+			this.setAssVirgin(true);
+			this.setFaceVirgin(false);
+			this.setBreastSize(CupSize.AA.getMeasurement());
+			
+			this.setHeight(165);
+			
+			this.setPiercedEar(true);
+			this.setPiercedLip(true);
+			this.setPiercedNavel(true);
+			this.setPiercedNose(true);
+	
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_RED, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_RED, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SKATER_DRESS, Colour.CLOTHING_WHITE, false), true, this);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_LIP_RINGS, Colour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, Colour.CLOTHING_SILVER, false), true, this);
+		}
+	}
+	
+	@Override
+	public HarpyDominantCompanion loadFromXML(Element parentElement, Document doc) {
+		HarpyDominantCompanion npc = new HarpyDominantCompanion(true);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_RED, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_RED, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SKATER_DRESS, Colour.CLOTHING_WHITE, false), true, this);
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_LIP_RINGS, Colour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, Colour.CLOTHING_SILVER, false), true, this);
+		return npc;
 	}
 
 	@Override

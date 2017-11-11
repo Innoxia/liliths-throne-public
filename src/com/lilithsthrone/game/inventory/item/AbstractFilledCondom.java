@@ -43,6 +43,19 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 		SVGString = getSVGString(itemType.getPathName(), colour);
 	}
 	
+	public AbstractFilledCondom(AbstractItemType itemType, Colour colour, String cumProvidorId, FluidCum cum) {
+		super(itemType);
+		
+		this.cumProvidor = cumProvidorId;
+		this.cum = new FluidCum(cum.getType());
+		this.cum.setFlavour(Main.game.getGenericAndrogynousNPC(), cum.getFlavour());
+		for(FluidModifier fm : cum.getFluidModifiers()) {
+			this.cum.addFluidModifier(Main.game.getGenericAndrogynousNPC(), fm);
+		}
+		this.colourShade = colour;
+		SVGString = getSVGString(itemType.getPathName(), colour);
+	}
+	
 	@Override
 	public boolean equals (Object o) {
 		if(super.equals(o)) {
@@ -88,7 +101,7 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 		return new AbstractFilledCondom(
 				ItemType.idToItemMap.get(parentElement.getAttribute("id")),
 				Colour.valueOf(parentElement.getAttribute("colour")),
-				Main.game.getNPCById(parentElement.getAttribute("cumProvidor")),
+				parentElement.getAttribute("cumProvidor"),
 				FluidCum.loadFromXML((Element) parentElement.getElementsByTagName("cum").item(0), doc));
 	}
 	

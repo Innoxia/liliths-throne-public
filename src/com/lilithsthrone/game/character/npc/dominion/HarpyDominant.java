@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.QuestLine;
@@ -17,6 +20,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -31,11 +35,11 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.HarpyNests;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.8
- * @version 0.1.8
+ * @version 0.1.89
  * @author Innoxia
  */
 public class HarpyDominant extends NPC {
@@ -43,46 +47,61 @@ public class HarpyDominant extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public HarpyDominant() {
+		this(false);
+	}
+	
+	private HarpyDominant(boolean isImported) {
 		super(new NameTriplet("Diana"),
 				"One of the more notable harpy matriarchs, Diana is the leader of a flock of harpies."
 						+ " As cruel as harpies come, Diana rules her flock with an iron fist, harshly punishing any harpies that try to challenge her dominance.",
 				7, Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.HARPY_NEST, HarpyNests.HARPY_NEST_RED, true);
+				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_RED, true);
 
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		
-		this.addFetish(Fetish.FETISH_DOMINANT);
-		this.addFetish(Fetish.FETISH_SADIST);
-		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BROWN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLACK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_RED), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
-		
-		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-		this.setBodySize(BodySize.ZERO_SKINNY.getMedianValue());
-		
-		this.setFemininity(95);
-		
-		this.setVaginaVirgin(false);
-		this.setVaginaWetness(Wetness.THREE_WET.getValue());
-		this.setVaginaCapacity(Capacity.TWO_TIGHT.getMedianValue(), true);
-		
-		this.setAssVirgin(true);
-		this.setFaceVirgin(false);
-		this.setBreastSize(CupSize.B.getMeasurement());
-		
-		this.setHeight(170);
-		
-		this.setPiercedEar(true);
-		this.setPiercedLip(true);
+		if(!isImported) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_SADIST);
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BROWN));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLACK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_RED), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
+			
+			this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+			this.setBodySize(BodySize.ZERO_SKINNY.getMedianValue());
+			
+			this.setFemininity(95);
+			
+			this.setVaginaVirgin(false);
+			this.setVaginaWetness(Wetness.THREE_WET.getValue());
+			this.setVaginaCapacity(Capacity.TWO_TIGHT.getMedianValue(), true);
+			
+			this.setAssVirgin(true);
+			this.setFaceVirgin(false);
+			this.setBreastSize(CupSize.B.getMeasurement());
+			
+			this.setHeight(170);
+			
+			this.setPiercedEar(true);
+			this.setPiercedLip(true);
+	
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_PLUNGE_DRESS, Colour.CLOTHING_BLACK, false), true, this);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_LIP_RINGS, Colour.CLOTHING_SILVER, false), true, this);
+		}
+	}
+	
+	@Override
+	public HarpyDominant loadFromXML(Element parentElement, Document doc) {
+		HarpyDominant npc = new HarpyDominant(true);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_PLUNGE_DRESS, Colour.CLOTHING_BLACK, false), true, this);
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_LIP_RINGS, Colour.CLOTHING_SILVER, false), true, this);
+		return npc;
 	}
 
 	@Override
@@ -233,7 +252,7 @@ public class HarpyDominant extends NPC {
 			return new Response("", "", HarpyNestDominant.HARPY_NEST_DOMINANT_FIGHT_BEAT_DOMINANT) {
 				@Override
 				public void effects() {
-					Main.game.getDialogueFlags().dominantPacified = true;
+					Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantPacified);
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME), false));
 				}
 				@Override

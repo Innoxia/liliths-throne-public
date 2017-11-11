@@ -1,16 +1,21 @@
-package com.lilithsthrone.game.character.npc.generic;
+package com.lilithsthrone.game.character.npc.dominion;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.npcDialogue.DominionAlleywayAttackerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.HarpyNestsAttackerDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -19,52 +24,92 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Dominion;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
- * @since 0.1.87
+ * @since 0.1.75
  * @version 0.1.89
  * @author Innoxia
  */
-public class SlaveImport extends NPC {
+public class HarpyNestsAttacker extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	public SlaveImport(Gender gender) {
-		super(null, "", 3, gender, RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(10), WorldType.DOMINION, Dominion.CITY_BACK_ALLEYS, true);
+	public HarpyNestsAttacker() {
+		this(Gender.F_V_B_FEMALE, false);
+	}
+	
+	public HarpyNestsAttacker(Gender gender) {
+		this(gender, false);
+	}
+	
+	private HarpyNestsAttacker(Gender gender, boolean isImported) {
+		super(null, "", 4, gender, RacialBody.HARPY, RaceStage.LESSER,
+				new CharacterInventory(10), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false);
+
+		if(!isImported) {
+			setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.5f+Math.random())));
+			setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.5f+Math.random())));
+			setAttribute(Attribute.FITNESS, (int)(this.getAttributeValue(Attribute.FITNESS) * (0.5f+Math.random())));
+			setAttribute(Attribute.CORRUPTION, (int)(20 * (0.5f+Math.random())));
+	
+			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
+			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+			
+			// Set random level from 2 to 5:
+			setLevel(Util.random.nextInt(4) + 2);
+			
+			
+			// RACE & NAME:
+			if(gender.isFeminine()) {
+				setBody(Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER);
+			} else {
+				setBody(Gender.F_P_TRAP, RacialBody.HARPY, RaceStage.LESSER);
+			}
+	
+			setName(Name.getRandomTriplet(Race.HARPY));
+			this.setPlayerKnowsName(false);
+			setDescription(UtilText.parse(this,
+					"[npc.Name] is angry with the fact that you've walked into what [npc.she] considers to be '[npc.her]' territory. It seems as though [npc.she]'s prepared to fight you in order to teach you a lesson..."));
+	
+			// Add fetishes:
+			CharacterUtils.addFetishes(this);
+			
+			// BODY RANDOMISATION:
+			CharacterUtils.randomiseBody(this);
+			
+			// INVENTORY:
+			resetInventory();
+			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
+			
+			CharacterUtils.equipClothing(this, true, false);
+			CharacterUtils.applyMakeup(this, true);
+	
+			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
+			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+			setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
+		}
+
+		this.setEnslavementDialogue(HarpyNestsAttackerDialogue.ENSLAVEMENT_DIALOGUE);
 		
-		this.setPlayerKnowsName(true);
-		setDescription(UtilText.parse(this, "[npc.Name] is a slave."));
+	}
+	
+	@Override
+	public HarpyNestsAttacker loadFromXML(Element parentElement, Document doc) {
+		HarpyNestsAttacker npc = new  HarpyNestsAttacker(Gender.F_V_B_FEMALE, true);
+
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
-		// INVENTORY:
-		
-		this.setEnslavementDialogue(DominionAlleywayAttackerDialogue.ENSLAVEMENT_DIALOGUE);
-		
-		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
-		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
+		return npc;
 	}
 	
 	@Override
 	public boolean isUnique() {
 		return false;
 	}
-	
-	public static SlaveImport loadFromXML(StringBuilder log, Element parentElement, Document doc) {
-		SlaveImport character = new SlaveImport(Gender.F_V_B_FEMALE);
 
-		GameCharacter.loadGameCharacterVariablesFromXML(character, log, parentElement, doc);
-		
-		return character;
-	}
-	
-	@Override
-	public String getDescription() {
-		return (UtilText.parse(this,
-				"[npc.Name] is a resident of Dominion, who, for reasons of [npc.her] own, prowls the back alleys in search of victims to prey upon."));
-	}
-	
 	@Override
 	public void endSex(boolean applyEffects) {
 		if(applyEffects) {
@@ -90,48 +135,24 @@ public class SlaveImport extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-		if(Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType()==Dominion.CITY_BACK_ALLEYS) {
-			return DominionAlleywayAttackerDialogue.ALLEY_ATTACK;
-		} else {
-			return DominionAlleywayAttackerDialogue.STORM_ATTACK;
-		}
+		return HarpyNestsAttackerDialogue.HARPY_ATTACKS;
 	}
 
 	// Combat:
 
 	@Override
-	public Attack attackType() {
-		if(!getSpecialAttacks().isEmpty()) {
-			if (Math.random() < 0.6) {
-				return Attack.MAIN;
-			} else if (Math.random() < 0.8) {
-				return Attack.SEDUCTION;
-			} else {
-				return Attack.SPECIAL_ATTACK;
-			}
-			
-		} else {
-			if (Math.random() < 0.7) {
-				return Attack.MAIN;
-			} else {
-				return Attack.SEDUCTION;
-			}
-		}
-	}
-
-	@Override
 	public String getCombatDescription() {
 		if(this.isPregnant()) {
-			return "The consequence of your refusal to pull out of [npc.name] is standing right before you."
-					+ " Visibly pregnant, your one-time sexual partner has a devious grin on [npc.her] face, and you're not quite sure if you want to know what [npc.she]'s planning for [npc.her] revenge...";
-		} else {
-			if(this.isAttractedTo(Main.game.getPlayer())) {
-				return UtilText.parse(this, "[npc.Name] is quite clearly turned on by your strong aura. [npc.She]'s willing to fight you in order to claim your body.");
+			if(hasFetish(Fetish.FETISH_PREGNANCY)) {
+				return "Visibly pregnant, [npc.name] has an elated grin on [npc.her] face, but although [npc.she] seems happy about being knocked up, [npc.she]'s still intent on 'teaching you a lesson'...";
 				
 			} else {
-				return UtilText.parse(this, "Although your strong aura is having an effect on [npc.name], [npc.she]'s only really interested in robbing you of your possessions.");
-				
+				return "The consequence of finishing inside [npc.name] is standing right before you."
+						+ " Visibly pregnant, [npc.she] has a devious grin on [npc.her] face, and it's quite clear that [npc.she] wants to get some revenge...";
 			}
+		} else {
+			return UtilText.parse(this,
+					"[npc.Name] is angry that you've strayed too close to [npc.her] nest, and seems more than willing to fight you in order to teach you a lesson.");
 		}
 	}
 
@@ -210,12 +231,23 @@ public class SlaveImport extends NPC {
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
-			return new Response("", "", DominionAlleywayAttackerDialogue.AFTER_COMBAT_VICTORY);
+			return new Response("", "", HarpyNestsAttackerDialogue.AFTER_COMBAT_VICTORY);
 		} else {
-			return new Response ("", "", DominionAlleywayAttackerDialogue.AFTER_COMBAT_DEFEAT);
+			return new Response ("", "", HarpyNestsAttackerDialogue.AFTER_COMBAT_DEFEAT);
 		}
 	}
 
+	
+
+	@Override
+	public Attack attackType() {
+		if (Math.random() < 0.7) {
+			return Attack.SEDUCTION;
+		} else {
+			return Attack.MAIN;
+		}
+	}
+	
 	@Override
 	public String getLostVirginityDescriptor() {
 		return "in the streets of Dominion";
@@ -419,5 +451,4 @@ public class SlaveImport extends NPC {
 			return Sex.getPartner().useItem(item, target, false);
 		}
 	}
-	
 }

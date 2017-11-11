@@ -21,6 +21,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -36,8 +37,7 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Dominion;
-import com.lilithsthrone.world.places.EnforcerHQ;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -73,7 +73,7 @@ public class EnforcerHQDialogue {
 				return new ResponseEffectsOnly("Enter", "Cross the grounds and enter the Enforcer HQ."){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.ENFORCER_HQ, EnforcerHQ.ENTRANCE, true);
+						Main.mainController.moveGameWorld(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_ENTRANCE, true);
 					}
 				};
 
@@ -118,7 +118,7 @@ public class EnforcerHQDialogue {
 				return new ResponseEffectsOnly("Exit", "Leave the Enforcer HQ."){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.DOMINION, Dominion.CITY_ENFORCER_HQ, true);
+						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_ENFORCER_HQ, true);
 					}
 				};
 
@@ -142,7 +142,7 @@ public class EnforcerHQDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "The only other person you can see takes the form of a greater horse-boy, who's standing guard beside the door to the rest of the building's interior."
-						+(Main.game.getDialogueFlags().accessToEnforcerHQ
+						+(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ)
 								?" His watchful gaze sweeps the room, making sure that nobody is able to sneak past him."
 								:" From the moment you entered the waiting area, he hasn't taken his eyes off of you, and you realise that there's absolutely no possibility of being able to sneak through the door he's guarding."
 									+ " If you wanted to get access to the HQ's interior, you'll have to negotiate with the bimbo cat-girl receptionist.")
@@ -157,7 +157,7 @@ public class EnforcerHQDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "The only other person you can see takes the form of a greater horse-boy, who's standing guard beside the door to the rest of the building's interior."
-						+(Main.game.getDialogueFlags().accessToEnforcerHQ
+						+(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ)
 								?" His watchful gaze sweeps the room, making sure that nobody is able to sneak past him."
 								:" From the moment you entered the waiting area, he hasn't taken his eyes off of you, and you realise that there's absolutely no possibility of being able to sneak through the door he's guarding."
 									+ " If you wanted to get access to the HQ's interior, you'll have to negotiate with the bimbo cat-girl receptionist.")
@@ -185,7 +185,7 @@ public class EnforcerHQDialogue {
 						+ "It looks like he's not going to let you pass, and you don't really have any business back there anyway..."
 					+ "</p>";
 				
-			} else if(Main.game.getDialogueFlags().accessToEnforcerHQ) {
+			} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ)) {
 				return "<p>"
 							+ "You flash the pass that Candi gave to you at the horse-boy guard, and, with a grunt, he steps aside to let you pass."
 						+ "</p>"
@@ -211,7 +211,7 @@ public class EnforcerHQDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1 && (!Main.game.getDialogueFlags().accessToEnforcerHQ || isBraxMainQuestComplete())) {
+			if (index == 1 && (!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ) || isBraxMainQuestComplete())) {
 				return new ResponseEffectsOnly("Step back", "You don't really see much option other than to do as the enforcer says.") {
 					@Override
 					public void effects() {
@@ -221,7 +221,7 @@ public class EnforcerHQDialogue {
 									+ " Agreeing to do as the horse-boy says, you step back into the waiting room..."
 								+ "</p>");
 						
-						Main.game.setActiveWorld(Main.game.getActiveWorld(), EnforcerHQ.WAITING_AREA, true);
+						Main.game.setActiveWorld(Main.game.getActiveWorld(), PlaceType.ENFORCER_HQ_WAITING_AREA, true);
 					}
 				};
 				
@@ -232,7 +232,7 @@ public class EnforcerHQDialogue {
 		
 		@Override
 		public boolean isTravelDisabled() {
-			return !Main.game.getDialogueFlags().accessToEnforcerHQ || isBraxMainQuestComplete();
+			return !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ) || isBraxMainQuestComplete();
 		}
 	};
 
@@ -242,7 +242,7 @@ public class EnforcerHQDialogue {
 		@Override
 		public String getContent() {
 			if(isBraxMainQuestComplete()) {
-				if(!Main.game.getDialogueFlags().seenBraxAfterQuest) {
+				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.seenBraxAfterQuest)) {
 					return "<p>"
 								+ "You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk."
 								+ " Curiously, there's another placard next to hers, and as you come to a halt in front of Candi, your eyes go wide as you read the words '[brax.name], Candi's assistant'."
@@ -284,13 +284,13 @@ public class EnforcerHQDialogue {
 							+ "<p>"
 								+ "You could take up Candi's offer and have some fun with [brax.name] in her office."
 								+ " As you're deciding what to do, you notice a little cardboard box, marked '[brax.name]'s junk', sitting on a shelf behind Candi's desk."
-								+ (Main.game.getDialogueFlags().braxTransformedPlayer
+								+ (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxTransformedPlayer)
 										?" The neck of a very familiar-looking bottle is poking out of the top, and an interesting idea runs through your head..."
 										:" The neck of a delicate-looking bottle is poking out of the top, and, remembering Candi's warning about [brax.name] having a wolf-girl transformation potion, an interesting idea runs through your head...")
 							+ "</p>";
 					
 				} else {
-					if(Main.game.getDialogueFlags().bimbofiedBrax) {
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
 						return "<p>"
 								+ "You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk."
 								+ " As you come to a halt in front of her, you look down over the top of the desk to see [brax.name] furiously masturbating on the floor."
@@ -325,7 +325,7 @@ public class EnforcerHQDialogue {
 								+ "You could take up Candi's offer and have some fun with [brax.name] in her office, or walk away and leave [brax.name] alone..."
 							+ "</p>";
 						
-					} else if(Main.game.getDialogueFlags().feminisedBrax) {
+					} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
 						return "<p>"
 								+ "You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk."
 								+ " As you come to a halt in front of her, you read the words on the placard next to hers; '[brax.name], Candi's assistant'."
@@ -388,7 +388,7 @@ public class EnforcerHQDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "You could take up Candi's offer and have some fun with [brax.name] in her office, or walk away and leave [brax.name] alone."
-								+(Main.game.getDialogueFlags().braxTransformedPlayer
+								+(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxTransformedPlayer)
 									?" As you're deciding what to do, you notice a little cardboard box, marked '[brax.name]'s junk', sitting on a shelf behind Candi's desk."
 										+" The neck of a very familiar-looking bottle is poking out of the top, and an interesting idea runs through your head..."
 									:" As you're deciding what to do, you notice a little cardboard box, marked '[brax.name]'s junk', sitting on a shelf behind Candi's desk."
@@ -408,7 +408,7 @@ public class EnforcerHQDialogue {
 							+ "In amongst her messy collection of beauty products scattered all over the desk, you see a little placard with the name 'Candi' on it."
 							+ " It seems as though Candi is completely oblivious to the world outside of her mirror, so you'll need to raise your voice in order to get her attention if you wanted to ask anything of her."
 						+ "</p>"
-						+(Main.game.getDialogueFlags().accessToEnforcerHQ
+						+(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ)
 							?"<p>"
 								+ "<i>You've already got a pass from Candi, so there's no point interrupting her again...</i>"
 							+ "</p>"
@@ -420,7 +420,7 @@ public class EnforcerHQDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(isBraxMainQuestComplete()) {
 				if (index == 1) {
-					if(!Main.game.getDialogueFlags().feminisedBrax) {
+					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
 						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].", RECEPTION_DESK,
 								false, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
 								"<p>"
@@ -447,11 +447,11 @@ public class EnforcerHQDialogue {
 								+ "</p>"){
 							@Override
 							public void effects() {
-								Main.game.getDialogueFlags().seenBraxAfterQuest = true;
+								Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
 							}
 						};
 						
-					} else if(!Main.game.getDialogueFlags().bimbofiedBrax) {
+					} else if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
 						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].", RECEPTION_DESK,
 								false, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
 								"<p>"
@@ -478,7 +478,7 @@ public class EnforcerHQDialogue {
 								+ "</p>"){
 							@Override
 							public void effects() {
-								Main.game.getDialogueFlags().seenBraxAfterQuest = true;
+								Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
 							}
 						};
 						
@@ -506,13 +506,13 @@ public class EnforcerHQDialogue {
 								+ "</p>"){
 							@Override
 							public void effects() {
-								Main.game.getDialogueFlags().seenBraxAfterQuest = true;
+								Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
 							}
 						};
 					}
 					
 				} else if (index == 2) {
-					if(!Main.game.getDialogueFlags().feminisedBrax) {
+					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
 						return new ResponseSex("Get punished by [brax.name]", "Get [brax.name] to take out [brax.his] frustration on you.", RECEPTION_DESK,
 								true, false, Main.game.getBrax(), new SMBraxDom(), AFTER_SEX,
 									"<p>"
@@ -544,7 +544,7 @@ public class EnforcerHQDialogue {
 									+ "</p>"){
 							@Override
 							public void effects() {
-								Main.game.getDialogueFlags().seenBraxAfterQuest = true;
+								Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
 							}
 						};
 						
@@ -553,19 +553,19 @@ public class EnforcerHQDialogue {
 					}
 					
 				} else if (index == 3) {
-					if(!Main.game.getDialogueFlags().feminisedBrax) {
+					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
 						return new Response("Feminise [brax.name]", "Transform [brax.name] into a wolf-girl.", INTERIOR_SECRETARY_BRAX_FEMINISE){
 							@Override
 							public void effects() {
-								Main.game.getDialogueFlags().seenBraxAfterQuest = true;
+								Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
 							}
 						};
 						
-					} else if(!Main.game.getDialogueFlags().bimbofiedBrax) {
+					} else if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
 						return new Response("Bimbofy [brax.name]", "Transform [brax.name] into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOFY){
 							@Override
 							public void effects() {
-								Main.game.getDialogueFlags().seenBraxAfterQuest = true;
+								Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
 							}
 						};
 						
@@ -577,7 +577,7 @@ public class EnforcerHQDialogue {
 					return null;
 				}
 				
-			} else if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_C_WOLFS_DEN && !Main.game.getDialogueFlags().accessToEnforcerHQ) {
+			} else if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_C_WOLFS_DEN && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ)) {
 				if (index == 1) {
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_BIMBO)) {
 						return new Response("Greet Candi", "Like, ohmygosh, she's so pretty and stuff!", INTERIOR_SECRETARY_BIMBO);
@@ -624,7 +624,7 @@ public class EnforcerHQDialogue {
 				return new Response("[brax.name]", "Tell her that you're here to see [brax.name].", INTERIOR_SECRETARY_BRAX){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().accessToEnforcerHQ = true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.accessToEnforcerHQ);
 					}
 				};
 
@@ -638,7 +638,7 @@ public class EnforcerHQDialogue {
 										+ " you say, stepping back into the waiting area and allowing Candi to continue applying her makeup."
 									+ "</p>");
 
-							Main.game.setActiveWorld(Main.game.getActiveWorld(), EnforcerHQ.WAITING_AREA, true);
+							Main.game.setActiveWorld(Main.game.getActiveWorld(), PlaceType.ENFORCER_HQ_WAITING_AREA, true);
 						}
 					};
 
@@ -723,7 +723,7 @@ public class EnforcerHQDialogue {
 				return new Response("Like, [brax.name] and stuff", "Tell her that you're here to see [brax.name].", INTERIOR_SECRETARY_BRAX_BIMBO){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().accessToEnforcerHQ = true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.accessToEnforcerHQ);
 					}
 				};
 
@@ -737,7 +737,7 @@ public class EnforcerHQDialogue {
 										+ " you say, stepping back into the waiting area and allowing Candi to continue applying her makeup."
 									+ "</p>");
 
-							Main.game.setActiveWorld(Main.game.getActiveWorld(), EnforcerHQ.WAITING_AREA, true);
+							Main.game.setActiveWorld(Main.game.getActiveWorld(), PlaceType.ENFORCER_HQ_WAITING_AREA, true);
 						}
 					};
 
@@ -803,7 +803,7 @@ public class EnforcerHQDialogue {
 
 		@Override
 		public String getContent() {
-			return (Main.game.getDialogueFlags().braxTransformedPlayer
+			return (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxTransformedPlayer)
 								?"<p>"
 									+ "[pc.speech(Hey Candi, I've actually got something to tell you about Brax,)] you say, grinning at Brax as you reveal what he did to you,"
 									+ " [pc.speech(He forced me to drink a potion that turned me into a wolf-girl!)]"
@@ -875,7 +875,7 @@ public class EnforcerHQDialogue {
 						null) {
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().feminisedBrax = true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.feminisedBrax);
 						Main.game.getBrax().setName(new NameTriplet("Bree", "Bree", "Bree"));
 						
 						Main.game.getBrax().removeFetish(Fetish.FETISH_DOMINANT);
@@ -1064,7 +1064,7 @@ public class EnforcerHQDialogue {
 						null) {
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().bimbofiedBrax = true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimbofiedBrax);
 						Main.game.getBrax().setName(new NameTriplet("Brandi", "Brandi", "Brandi"));
 						
 						Main.game.getBrax().addFetish(Fetish.FETISH_BIMBO);
@@ -1294,7 +1294,7 @@ public class EnforcerHQDialogue {
 						null, null, null, Femininity.FEMININE, Race.WOLF_MORPH){
 					@Override
 					public void effects(){
-						Main.game.getDialogueFlags().braxBeaten = true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxBeaten);
 					}
 				};
 					
@@ -1553,7 +1553,7 @@ public class EnforcerHQDialogue {
 				return new ResponseEffectsOnly("Exit", "Leave the Enforcer HQ.") {
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_ENFORCER_HQ, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
 						((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
 					}
 				};
@@ -1793,7 +1793,7 @@ public class EnforcerHQDialogue {
 				return new ResponseEffectsOnly("Exit", "Leave the Enforcer HQ.") {
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_ENFORCER_HQ, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
 						((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
 					}
 				};

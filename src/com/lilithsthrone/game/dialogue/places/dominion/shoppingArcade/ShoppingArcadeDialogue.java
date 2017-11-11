@@ -7,8 +7,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Dominion;
-import com.lilithsthrone.world.places.ShoppingArcade;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -61,7 +60,7 @@ public class ShoppingArcadeDialogue {
 				return new ResponseEffectsOnly("Enter", "Step through the entrance and enter the shopping arcade."){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.SHOPPING_ARCADE, ShoppingArcade.ARCADE_ENTRANCE, true);
+						Main.mainController.moveGameWorld(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_ENTRANCE, true);
 					}
 				};
 
@@ -103,7 +102,7 @@ public class ShoppingArcadeDialogue {
 				return new ResponseEffectsOnly("Exit", "Leave the Shopping Arcade."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_SHOPPING_ARCADE, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_SHOPPING_ARCADE, true);
 					}
 				};
 
@@ -111,7 +110,7 @@ public class ShoppingArcadeDialogue {
 				return new ResponseEffectsOnly("Ralph's Snacks", "Fast travel to Ralph's Snacks."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), ShoppingArcade.RALPHS_SHOP_ITEMS, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_RALPHS_SHOP, true);
 					}
 				};
 
@@ -119,7 +118,7 @@ public class ShoppingArcadeDialogue {
 				return new ResponseEffectsOnly("Nyan's Clothing Emporium", "Fast travel to Nyan's Clothing Emporium."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), ShoppingArcade.NYANS_SHOP_CLOTHING, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_NYANS_SHOP, true);
 					}
 				};
 
@@ -127,7 +126,7 @@ public class ShoppingArcadeDialogue {
 				return new ResponseEffectsOnly("Arcane Arts", "Fast travel to Arcane Arts."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), ShoppingArcade.VICKYS_SHOP_WEAPONS, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_VICKYS_SHOP, true);
 					}
 				};
 
@@ -135,7 +134,7 @@ public class ShoppingArcadeDialogue {
 				return new ResponseEffectsOnly("Succubi's Secrets", "Fast travel to Succubi's Secrets."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), ShoppingArcade.KATES_SHOP_BEAUTY, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_KATES_SHOP, true);
 					}
 				};
 
@@ -143,7 +142,7 @@ public class ShoppingArcadeDialogue {
 				return new ResponseEffectsOnly("City Gym", "Fast travel to the City Gym."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), ShoppingArcade.PIXS_GYM, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_PIXS_GYM, true);
 					}
 				};
 

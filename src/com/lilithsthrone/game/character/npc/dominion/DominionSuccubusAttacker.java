@@ -1,8 +1,11 @@
-package com.lilithsthrone.game.character.npc.generic;
+package com.lilithsthrone.game.character.npc.dominion;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -38,7 +41,7 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Dominion;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.69
@@ -50,73 +53,88 @@ public class DominionSuccubusAttacker extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public DominionSuccubusAttacker() {
+		this(false);
+	}
+	
+	private DominionSuccubusAttacker(boolean isImported) {
 		super(null, "", 5, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.DOMINION, Dominion.CITY_BACK_ALLEYS, false);
+				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
-		setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.75f + (Math.random()/2))));
-		setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.75f + (Math.random()/2))));
-		setAttribute(Attribute.FITNESS, (int)(this.getAttributeValue(Attribute.FITNESS) * (0.75f + (Math.random()/2))));
-		setAttribute(Attribute.CORRUPTION, 100);
-
-		this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-		this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-		
-		// BODY RANDOMISATION:
-		addFetish(Fetish.FETISH_DEFLOWERING);
-		addFetish(Fetish.FETISH_DOMINANT);
-		CharacterUtils.randomiseBody(this);
-		
-		this.setVaginaVirgin(false);
-		this.setAssVirgin(false);
-		this.setFaceVirgin(false);
-		this.setNippleVirgin(false);
-		this.setPenisVirgin(false);
-		
-		setLevel(Util.random.nextInt(3) + 4);
-		
-		setName(Name.getRandomTriplet(Race.DEMON));
-		this.setPlayerKnowsName(false);
-		setDescription("Although all demons have an extremely powerful libido, some suffer from it far more than others."
-				+ " While most are able to control their sexual desires, others, such as this succubus, struggle to think of anything but how to secure their next sexual conquest.");
-		
-		// Set random inventory & weapons:
-		resetInventory();
-		inventory.setMoney(50);
-		
-		// CLOTHING:
-		
-		List<AbstractClothingType> clothingChoices = new ArrayList<>();
-		
-		clothingChoices.add(ClothingType.GROIN_THONG);
-		clothingChoices.add(ClothingType.GROIN_VSTRING);
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
-		
-		clothingChoices.clear();
-		clothingChoices.add(ClothingType.CHEST_PLUNGE_BRA);
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
-		
-		clothingChoices.clear();
-		clothingChoices.add(ClothingType.TORSO_BODYCONZIP_DRESS);
-		clothingChoices.add(ClothingType.TORSO_SKATER_DRESS);
-		clothingChoices.add(ClothingType.TORSO_PLUNGE_DRESS);
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
-		
-		clothingChoices.clear();
-		clothingChoices.add(ClothingType.SOCK_TIGHTS);
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
-		
-		clothingChoices.clear();
-		clothingChoices.add(ClothingType.FOOT_HEELS);
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
-		
-		CharacterUtils.applyMakeup(this, true);
+		if(!isImported) {
+			setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.75f + (Math.random()/2))));
+			setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.75f + (Math.random()/2))));
+			setAttribute(Attribute.FITNESS, (int)(this.getAttributeValue(Attribute.FITNESS) * (0.75f + (Math.random()/2))));
+			setAttribute(Attribute.CORRUPTION, 100);
+	
+			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
+			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+			
+			// BODY RANDOMISATION:
+			addFetish(Fetish.FETISH_DEFLOWERING);
+			addFetish(Fetish.FETISH_DOMINANT);
+			CharacterUtils.randomiseBody(this);
+			
+			this.setVaginaVirgin(false);
+			this.setAssVirgin(false);
+			this.setFaceVirgin(false);
+			this.setNippleVirgin(false);
+			this.setPenisVirgin(false);
+			
+			setLevel(Util.random.nextInt(3) + 4);
+			
+			setName(Name.getRandomTriplet(Race.DEMON));
+			this.setPlayerKnowsName(false);
+			setDescription("Although all demons have an extremely powerful libido, some suffer from it far more than others."
+					+ " While most are able to control their sexual desires, others, such as this succubus, struggle to think of anything but how to secure their next sexual conquest.");
+			
+			// Set random inventory & weapons:
+			resetInventory();
+			inventory.setMoney(50);
+			
+			// CLOTHING:
+			
+			List<AbstractClothingType> clothingChoices = new ArrayList<>();
+			
+			clothingChoices.add(ClothingType.GROIN_THONG);
+			clothingChoices.add(ClothingType.GROIN_VSTRING);
+			equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
+			
+			clothingChoices.clear();
+			clothingChoices.add(ClothingType.CHEST_PLUNGE_BRA);
+			equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
+			
+			clothingChoices.clear();
+			clothingChoices.add(ClothingType.TORSO_BODYCONZIP_DRESS);
+			clothingChoices.add(ClothingType.TORSO_SKATER_DRESS);
+			clothingChoices.add(ClothingType.TORSO_PLUNGE_DRESS);
+			equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
+			
+			clothingChoices.clear();
+			clothingChoices.add(ClothingType.SOCK_TIGHTS);
+			equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
+			
+			clothingChoices.clear();
+			clothingChoices.add(ClothingType.FOOT_HEELS);
+			equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), false), true, this);
+			
+			CharacterUtils.applyMakeup(this, true);
+			
+			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
+			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+			setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
+		}
 
 		this.setEnslavementDialogue(DominionSuccubusDialogue.ENSLAVEMENT_DIALOGUE);
 		
-		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
-		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
+	}
+	
+	@Override
+	public DominionSuccubusAttacker loadFromXML(Element parentElement, Document doc) {
+		DominionSuccubusAttacker npc = new  DominionSuccubusAttacker(true);
+
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
+		return npc;
 	}
 	
 	@Override

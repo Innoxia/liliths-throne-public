@@ -139,10 +139,15 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 	}
 
 	public String setFlavour(GameCharacter owner, FluidFlavour flavour) {
+		if(owner==null) {
+			this.flavour = flavour;
+			return "";
+		}
+		
 		if(this.flavour == flavour || !owner.hasPenis()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
-
+		
 		this.flavour = flavour;
 		
 		if(owner.isPlayer()) {
@@ -164,6 +169,11 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 	}
 	
 	public String addFluidModifier(GameCharacter owner, FluidModifier fluidModifier) {
+		if(owner==null) {
+			fluidModifiers.add(fluidModifier);
+			return "";
+		}
+		
 		if(fluidModifiers.contains(fluidModifier) || !owner.hasPenis()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}

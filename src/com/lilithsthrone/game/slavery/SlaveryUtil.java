@@ -105,7 +105,7 @@ public class SlaveryUtil implements Serializable {
 				
 			} else {
 				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_MASTURBATE)) {
-					slave.setGetLastTimeHadSex((day*24*60l) + hour*60l);
+					slave.setLastTimeHadSex((day*24*60l) + hour*60l);
 				}
 			}
 			
@@ -398,7 +398,7 @@ public class SlaveryUtil implements Serializable {
 		Collections.shuffle(otherSlavesPresent);
 		for(NPC npc : otherSlavesPresent) {
 			if(!npc.equals(slave)) {
-				if(slave.getGetLastTimeHadSex()+24*60<Main.game.getMinutesPassed()) { // They only want sex once a day, to stop the logs from being flooded
+				if(slave.getLastTimeHadSex()+24*60<Main.game.getMinutesPassed()) { // They only want sex once a day, to stop the logs from being flooded
 					if(slave.isAttractedTo(npc) && npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RECEIVE_SLAVES) && slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_SLAVES)) {
 						System.out.println("x");
 						boolean canImpregnate = slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATE) && npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATED)
@@ -427,7 +427,7 @@ public class SlaveryUtil implements Serializable {
 							slave.setVaginaVirgin(false);
 							gettingPregnantAttempt = true;
 						}
-						slave.setGetLastTimeHadSex((day*24*60l) + hour*60l);
+						slave.setLastTimeHadSex((day*24*60l) + hour*60l);
 						
 						
 						switch(slave.getSlaveJob()) {

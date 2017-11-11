@@ -3,6 +3,9 @@ package com.lilithsthrone.game.character.npc.dominion;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
@@ -18,6 +21,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -34,57 +38,66 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.ShoppingArcade;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.1.78
+ * @version 0.1.89
  * @author Innoxia
  */
 public class Kate extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	private AbstractClothing
-			skirt = AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_PINK, false),
-			torso = AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_PINK, false),
-			socks = AbstractClothingType.generateClothing(ClothingType.SOCK_KNEEHIGH_SOCKS, Colour.CLOTHING_WHITE, false),
-			shoes = AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_PINK, false);
-
 	public Kate() {
+		this(false);
+	}
+	
+	private Kate(boolean isImported) {
 		super(new NameTriplet("Kate"), "Kate is a demon who owns the beauty salon 'Succubi's Secrets'."
 				+ " Despite being incredibly good at what she does, she's exceedingly lazy, and prefers to keep the exterior of her shop looking run-down so as to scare off potential customers.",
 				10, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, ShoppingArcade.KATES_SHOP_BEAUTY, true);
+				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_KATES_SHOP, true);
 
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		if(!isImported) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+	
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_GREEN));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PINK), true);
+	
+			this.setBreastSize(CupSize.F.getMeasurement());
+			
+			this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+			
+			this.setAssVirgin(false);
+			this.setNippleVirgin(false);
+			this.setVaginaVirgin(false);
+			this.setFaceVirgin(false);
+			this.setPenisVirgin(false);
+			
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_PREGNANCY);
+	
+			this.setMoney(10);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_PINK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_PINK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_KNEEHIGH_SOCKS, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_PINK, false), true, this);
+			
+			dailyReset();
+		}
+	}
+	
+	@Override
+	public Kate loadFromXML(Element parentElement, Document doc) {
+		Kate npc = new Kate(true);
 
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_GREEN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PINK), true);
-
-		this.setBreastSize(CupSize.F.getMeasurement());
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
-		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
-		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-		
-		this.setAssVirgin(false);
-		this.setNippleVirgin(false);
-		this.setVaginaVirgin(false);
-		this.setFaceVirgin(false);
-		this.setPenisVirgin(false);
-		
-		this.addFetish(Fetish.FETISH_SUBMISSIVE);
-		this.addFetish(Fetish.FETISH_PREGNANCY);
-
-		this.setMoney(10);
-		
-		this.equipClothingFromNowhere(skirt, true, this);
-		this.equipClothingFromNowhere(torso, true, this);
-		this.equipClothingFromNowhere(socks, true, this);
-		this.equipClothingFromNowhere(shoes, true, this);
-		
-		dailyReset();
+		return npc;
 	}
 
 	@Override
@@ -203,7 +216,7 @@ public class Kate extends NPC {
 				return new Response("Services", "Read the brochure that Kate just handed to you.", SuccubisSecrets.SHOP_BEAUTY_SALON_MAIN){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().kateIntroduced = true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.kateIntroduced);
 					}
 				};
 			} else {

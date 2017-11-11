@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.GenericDialogue;
 import com.lilithsthrone.game.dialogue.MapDisplay;
@@ -162,8 +163,8 @@ public enum Combat {
 			}
 			if(opponent.getLootEssenceDrops()!=null) {
 				
-				if(!Main.game.getDialogueFlags().essencePostCombatDiscovered) {
-					Main.game.getDialogueFlags().essencePostCombatDiscovered = true;
+				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essencePostCombatDiscovered)) {
+					Main.game.getDialogueFlags().values.add(DialogueFlagValue.essencePostCombatDiscovered);
 					
 					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 						postCombatStringBuilder.append(

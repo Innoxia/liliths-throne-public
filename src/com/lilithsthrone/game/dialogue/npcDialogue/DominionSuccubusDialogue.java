@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.GenericDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -179,7 +180,7 @@ public class DominionSuccubusDialogue {
 								+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), true)+"</b>"
 								+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
 								+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
-								+ ". Unlike Lilaya"+(Main.game.getDialogueFlags().kateIntroduced?" or Kate":"")+", this demon has a hungry, primal look in her eyes, and as she moves closer, she starts to talk."
+								+ ". Unlike Lilaya"+(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.kateIntroduced)?" or Kate":"")+", this demon has a hungry, primal look in her eyes, and as she moves closer, she starts to talk."
 							+ "</p>"
 							+ "<p>"
 								+ UtilText.parse(Main.game.getActiveNPC(),

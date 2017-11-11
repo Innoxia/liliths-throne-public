@@ -20,9 +20,8 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Dominion;
 import com.lilithsthrone.world.places.GenericPlace;
-import com.lilithsthrone.world.places.LilayasHome;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -288,7 +287,7 @@ public class PrologueDialogue {
 						
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.DOMINION),
-								Dominion.CITY_AUNTS_HOME,
+								PlaceType.DOMINION_AUNTS_HOME,
 								false);
 					}
 				};
@@ -465,7 +464,7 @@ public class PrologueDialogue {
 				return new Response("Continue", "Someone's come to save you!", INTRO_NEW_WORLD_2){
 					@Override
 					public void effects() {
-						Main.game.getLilaya().setLocation(WorldType.DOMINION, Dominion.CITY_AUNTS_HOME, false);
+						Main.game.getLilaya().setLocation(WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME, false);
 					}
 				};
 				
@@ -552,7 +551,7 @@ public class PrologueDialogue {
 				return new Response("Continue", "Someone's come to save you!", INTRO_NEW_WORLD_2){
 					@Override
 					public void effects() {
-						Main.game.getLilaya().setLocation(WorldType.DOMINION, Dominion.CITY_AUNTS_HOME, false);
+						Main.game.getLilaya().setLocation(WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME, false);
 					}
 				};
 				
@@ -620,7 +619,7 @@ public class PrologueDialogue {
 				return new Response("Continue", "Someone's come to save you!", INTRO_NEW_WORLD_2){
 					@Override
 					public void effects() {
-						Main.game.getLilaya().setLocation(WorldType.DOMINION, Dominion.CITY_AUNTS_HOME, false);
+						Main.game.getLilaya().setLocation(WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME, false);
 					}
 				};
 				
@@ -808,11 +807,11 @@ public class PrologueDialogue {
 				return new Response("Follow", "Follow Lily as she leads you back to her house.", INTRO_NEW_WORLD_3){
 					@Override
 					public void effects() {
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_ENTRANCE_HALL, false);
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_ENTRANCE_HALL, false);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
+						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ENTRANCE_HALL)),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_ENTRANCE_HALL)),
 								false);
 					}
 				};
@@ -927,11 +926,11 @@ public class PrologueDialogue {
 				return new Response("To the lab", "Follow Lilaya to her lab.", INTRO_NEW_WORLD_4){
 					@Override
 					public void effects() {
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
-						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_LAB)),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_LAB)),
 								false);
 					}
 				};
@@ -1292,10 +1291,10 @@ public class PrologueDialogue {
 				return new Response("Your room", "You follow Rose as she leads you up to your new room.", INTRO_NEW_WORLD_8){
 					@Override
 					public void effects() {
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, LilayasHome.LILAYA_HOME_ROOM_PLAYER, false);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_ROOM_PLAYER)),
 								false);
 					}
 				};
@@ -1465,7 +1464,7 @@ public class PrologueDialogue {
 				return new Response("Freedom!", "Decide what you want to do next.", RoomPlayer.ROOM){
 					@Override
 					public void effects() {
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 					}
 				};
 				

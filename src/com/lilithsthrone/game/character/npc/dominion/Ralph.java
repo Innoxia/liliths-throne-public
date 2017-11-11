@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
@@ -33,7 +36,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.ShoppingArcade;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -43,8 +46,6 @@ import com.lilithsthrone.world.places.ShoppingArcade;
 public class Ralph extends NPC {
 
 	private static final long serialVersionUID = 1L;
-
-	private static StringBuilder descriptionSB = new StringBuilder();
 
 	private AbstractItemType[] itemsForSale = new AbstractItemType[] {
 			ItemType.RACE_INGREDIENT_CAT_MORPH,
@@ -73,32 +74,49 @@ public class Ralph extends NPC {
 			ItemType.MOTHERS_MILK };
 
 	public Ralph() {
+		this(false);
+	}
+	
+	private Ralph(boolean isImported) {
 		super(new NameTriplet("Ralph"), "Ralph is the owner of the shop 'Ralph's Snacks'. There's an air of confidence in the way he holds himself, and he behaves in a professional manner at all times.",
 				10, Gender.M_P_MALE, RacialBody.HORSE_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, ShoppingArcade.RALPHS_SHOP_ITEMS, true);
+				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_RALPHS_SHOP, true);
 
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, Colour.EYE_BROWN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BLACK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BLACK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
-		this.setHairStyle(HairStyle.LOOSE);
-
-		this.setPenisVirgin(false);
-		
-		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
-		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
-		
-		this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-		this.addFetish(Fetish.FETISH_IMPREGNATION);
-
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_GOLD, false), true, this);
-		
+		if(!isImported) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, Colour.EYE_BROWN));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BLACK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BLACK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
+			this.setHairStyle(HairStyle.LOOSE);
+	
+			this.setPenisVirgin(false);
+			
+			this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+			this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+			
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_IMPREGNATION);
+	
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_GOLD, false), true, this);
+			
+		}
+		//TODO import this:
 		dailyReset();
+		
+	}
+	
+	@Override
+	public Ralph loadFromXML(Element parentElement, Document doc) {
+		Ralph npc = new Ralph(true);
+
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
+		
+		return npc;
 	}
 
 	@Override
@@ -156,7 +174,7 @@ public class Ralph extends NPC {
 		
 		if(Main.game.getDialogueFlags().ralphDiscountStartTime>0){
 			
-			descriptionSB = new StringBuilder();
+			StringBuilder descriptionSB = new StringBuilder();
 			
 			descriptionSB.append("<p>"
 						+ "You look over at the counter to see Ralph smiling back at you. Sensing that you might need some assistance, he briskly walks over to where you're standing."

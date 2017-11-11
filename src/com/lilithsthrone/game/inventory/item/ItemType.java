@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
@@ -1352,8 +1353,8 @@ public class ItemType {
 //	};
 	
 	private static String getEssenceAbsorbtionText(Colour essenceColour) {
-		if(!Main.game.getDialogueFlags().essenceBottledDiscovered) {
-			Main.game.getDialogueFlags().essenceBottledDiscovered = true;
+		if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceBottledDiscovered)) {
+			Main.game.getDialogueFlags().values.add(DialogueFlagValue.essenceBottledDiscovered);
 
 			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 				return "<p>"

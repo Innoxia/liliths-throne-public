@@ -23,7 +23,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
-import com.lilithsthrone.world.places.Dominion;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.8?
@@ -2691,7 +2691,7 @@ public class DominionOffspringDialogue {
 					}
 				};
 				
-			} else if (index == 10 && Main.game.getPlayer().getLocationPlace().getPlaceType() == Dominion.CITY_BACK_ALLEYS) {
+			} else if (index == 10 && Main.game.getPlayer().getLocationPlace().getPlaceType() == PlaceType.DOMINION_BACK_ALLEYS) {
 				return new Response(
 						"Remove character",
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",

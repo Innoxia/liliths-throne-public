@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.Quest;
 import com.lilithsthrone.game.character.QuestLine;
@@ -16,56 +19,60 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.SlaverAlley;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.1.84
+ * @version 0.1.89
  * @author Innoxia
  */
 public class Scarlett extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	private AbstractClothing
-			underwear = AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_RED, false),
-			bra = AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_RED, false),
-			
-			torso = AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_WHITE, false),
-			skirt = AbstractClothingType.generateClothing(ClothingType.LEG_SKIRT, Colour.CLOTHING_WHITE, false),
-			
-			neck = AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_SILVER, false),
-			ear = AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false);
-
 	public Scarlett() {
+		this(false);
+	}
+	
+	private Scarlett(boolean isImported) {
 		super(new NameTriplet("Scarlett"),
 				"Scarlett is the owner of the rather unoriginally named establishment 'Scarlett's shop'."
 						+ " Rude, loud, and quick to anger, Scarlett isn't a very pleasant person to have to deal with.",
 				5, Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.SLAVER_ALLEY, SlaverAlley.SCARLETTS_SHOP, true);
+				new CharacterInventory(30), WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
 
-		this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
-		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BROWN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_RED), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_PINK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+		if(!isImported) {
+			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BROWN));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_RED), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_PINK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+	
+			this.setAssVirgin(true);
+			this.setFaceVirgin(true);
+			this.setBreastSize(CupSize.AA.getMeasurement());
+			
+			this.setHeight(155);
+			
+			this.setPiercedEar(true);
+			
+			getDressed();
+		}
+	}
+	
+	@Override
+	public Scarlett loadFromXML(Element parentElement, Document doc) {
+		Scarlett npc = new Scarlett(true);
 
-		this.setAssVirgin(true);
-		this.setFaceVirgin(true);
-		this.setBreastSize(CupSize.AA.getMeasurement());
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
-		this.setHeight(155);
-		
-		this.setPiercedEar(true);
-		
-		getDressed();
+		return npc;
 	}
 
 	@Override
@@ -74,12 +81,12 @@ public class Scarlett extends NPC {
 	}
 	
 	public void getDressed() {
-		this.equipClothingFromNowhere(underwear, true, this);
-		this.equipClothingFromNowhere(bra, true, this);
-		this.equipClothingFromNowhere(torso, true, this);
-		this.equipClothingFromNowhere(skirt, true, this);
-		this.equipClothingFromNowhere(neck, true, this);
-		this.equipClothingFromNowhere(ear, true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_RED, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_RED, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_SKIRT, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
 	}
 	
 	@Override

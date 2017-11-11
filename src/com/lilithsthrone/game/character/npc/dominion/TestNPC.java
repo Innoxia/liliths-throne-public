@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
@@ -37,13 +40,13 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Jungle;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * Test class that I'm using to try out some methods and stuff. It might end up as a bit of a mess, but don't remove it.
  * 
  * @since 0.1.83
- * @version 0.1.84
+ * @version 0.1.89
  * @author Innoxia
  */
 public class TestNPC extends NPC {
@@ -51,75 +54,89 @@ public class TestNPC extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public TestNPC() {
+		this(false);
+	}
+	
+	private TestNPC(boolean isImported) {
 		super(new NameTriplet("TestNPC"),
 				"A mysterious [test.race] that you found in the back of one of the Shopping Arcade's many shops.",
 				1, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.PARTIAL_FULL,
-				new CharacterInventory(10), WorldType.JUNGLE, Jungle.JUNGLE_CLUB, true); //TODO need to test moving into a 'null' world
+				new CharacterInventory(10), WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, true); //TODO need to test moving into a 'null' world
 		
-		String s = "";
-		int[] nameArray = new int[] {78, 111, 120, 105, 110, 105, 97};
-		for(int c : nameArray) {
-			s+=(char)c;
+		if(!isImported) {
+			String s = "";
+			int[] nameArray = new int[] {78, 111, 120, 105, 110, 105, 97};
+			for(int c : nameArray) {
+				s+=(char)c;
+			}
+			this.setName(new NameTriplet(s));
+			
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_GREEN));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BROWN), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BROWN), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+	
+			this.setAttribute(Attribute.STRENGTH, 5);
+			this.setAttribute(Attribute.INTELLIGENCE, 25);
+			this.setAttribute(Attribute.FITNESS, 20);
+			this.setAttribute(Attribute.CORRUPTION, 0);
+			
+			this.setFemininity(75);
+			
+			this.setHeight(170);
+			
+			this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+			
+			this.setAssSize(AssSize.THREE_NORMAL.getValue());
+			
+			this.setBreastSize(CupSize.B.getMeasurement());
+			
+			this.setHipSize(HipSize.FOUR_WOMANLY.getValue());
+			
+			this.setPiercedEar(true);
+			
+			this.setAssVirgin(true);
+			this.setNippleVirgin(true);
+			this.setVaginaVirgin(true);
+			this.setFaceVirgin(true);
+			
+			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_BREASTS_SELF);
+			this.addFetish(Fetish.FETISH_BROODMOTHER);
+			this.addFetish(Fetish.FETISH_CUM_ADDICT);
+			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_INCEST);
+			this.addFetish(Fetish.FETISH_MASOCHIST);
+			this.addFetish(Fetish.FETISH_MASTURBATION);
+			this.addFetish(Fetish.FETISH_NON_CON);
+			this.addFetish(Fetish.FETISH_ORAL_GIVING);
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_PREGNANCY);
+			this.addFetish(Fetish.FETISH_PURE_VIRGIN);
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
 		}
-		this.setName(new NameTriplet(s));
-		
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_GREEN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BROWN), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BROWN), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
-
-		this.setAttribute(Attribute.STRENGTH, 5);
-		this.setAttribute(Attribute.INTELLIGENCE, 25);
-		this.setAttribute(Attribute.FITNESS, 20);
-		this.setAttribute(Attribute.CORRUPTION, 0);
-		
-		this.setFemininity(75);
-		
-		this.setHeight(170);
-		
-		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
-		
-		this.setAssSize(AssSize.THREE_NORMAL.getValue());
-		
-		this.setBreastSize(CupSize.B.getMeasurement());
-		
-		this.setHipSize(HipSize.FOUR_WOMANLY.getValue());
-		
-		this.setPiercedEar(true);
-		
-		this.setAssVirgin(true);
-		this.setNippleVirgin(true);
-		this.setVaginaVirgin(true);
-		this.setFaceVirgin(true);
-		
-		this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
-		this.addFetish(Fetish.FETISH_BREASTS_SELF);
-		this.addFetish(Fetish.FETISH_BROODMOTHER);
-		this.addFetish(Fetish.FETISH_CUM_ADDICT);
-		this.addFetish(Fetish.FETISH_DOMINANT);
-		this.addFetish(Fetish.FETISH_INCEST);
-		this.addFetish(Fetish.FETISH_MASOCHIST);
-		this.addFetish(Fetish.FETISH_MASTURBATION);
-		this.addFetish(Fetish.FETISH_NON_CON);
-		this.addFetish(Fetish.FETISH_ORAL_GIVING);
-		this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-		this.addFetish(Fetish.FETISH_PREGNANCY);
-		this.addFetish(Fetish.FETISH_PURE_VIRGIN);
-		this.addFetish(Fetish.FETISH_SUBMISSIVE);
-		this.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING);
-		
-
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
 		
 		this.setEnslavementDialogue(DominionAlleywayAttackerDialogue.ENSLAVEMENT_DIALOGUE);
+	}
+	
+	@Override
+	public TestNPC loadFromXML(Element parentElement, Document doc) {
+		TestNPC npc = new  TestNPC(true);
+
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
+		
+		return npc;
 	}
 
 	@Override

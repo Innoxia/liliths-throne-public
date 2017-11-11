@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
 
 import com.lilithsthrone.game.character.Quest;
 import com.lilithsthrone.game.character.QuestLine;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -12,8 +13,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Dominion;
-import com.lilithsthrone.world.places.HarpyNests;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -87,7 +87,7 @@ public class HarpyNestsDialogue {
 									+ "</p>");
 						}
 						
-						Main.mainController.moveGameWorld(WorldType.HARPY_NEST, HarpyNests.ENTRANCE_ENFORCER_POST, true);
+						Main.mainController.moveGameWorld(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST, true);
 					}
 				};
 
@@ -116,7 +116,7 @@ public class HarpyNestsDialogue {
 						+ " A large desk, manned by yet more enforcers, sits between you and the door marked <i>'Harpy Nests Entrance'</i>."
 					+ "</p>");
 			
-			if(!Main.game.getDialogueFlags().hasHarpyNestAccess) {
+			if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasHarpyNestAccess)) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Although none of them are really paying you any attention at the moment, it looks like you're going to have to talk to one of these enforcers if you want to get past that desk and out into the Harpy Nests."
@@ -138,7 +138,7 @@ public class HarpyNestsDialogue {
 		
 		@Override
 		public boolean isTravelDisabled() {
-			return !Main.game.getDialogueFlags().hasHarpyNestAccess;
+			return !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasHarpyNestAccess);
 		}
 
 		@Override
@@ -160,16 +160,16 @@ public class HarpyNestsDialogue {
 									+ "</p>");
 						}
 						
-						Main.mainController.moveGameWorld(WorldType.DOMINION, Dominion.CITY_HARPY_NESTS, true);
+						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_HARPY_NESTS, true);
 					}
 				};
 
 			} else if (index == 2) {
-				if(!Main.game.getDialogueFlags().hasHarpyNestAccess) {
+				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasHarpyNestAccess)) {
 					return new Response("Request access", "Walk up to the desk and ask if you can visit the Harpy Nests.", ENTRANCE_ENFORCER_POST_ASK_FOR_ACCESS) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().hasHarpyNestAccess = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.hasHarpyNestAccess);
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.BOOK_HARPY), false));
 						}
 					};
@@ -178,7 +178,7 @@ public class HarpyNestsDialogue {
 					return new Response("Request access", "You already have access to the Harpy Nests!", null);
 				}
 
-			} else if (index == 3 && Main.game.getDialogueFlags().hasHarpyNestAccess) {
+			} else if (index == 3 && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasHarpyNestAccess)) {
 				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new Response("Angry Harpies", "Ask one of the Enforcers about the recent troubles in the Harpy Nests.", ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS) {
 						@Override
@@ -323,7 +323,7 @@ public class HarpyNestsDialogue {
 		
 		@Override
 		public boolean isTravelDisabled() {
-			return !Main.game.getDialogueFlags().hasHarpyNestAccess;
+			return !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasHarpyNestAccess);
 		}
 
 		@Override
@@ -410,7 +410,7 @@ public class HarpyNestsDialogue {
 		
 		@Override
 		public boolean isTravelDisabled() {
-			return !Main.game.getDialogueFlags().hasHarpyNestAccess;
+			return !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasHarpyNestAccess);
 		}
 
 		@Override
@@ -469,7 +469,7 @@ public class HarpyNestsDialogue {
 		
 		@Override
 		public boolean isTravelDisabled() {
-			return !Main.game.getDialogueFlags().hasHarpyNestAccess;
+			return !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasHarpyNestAccess);
 		}
 
 		@Override

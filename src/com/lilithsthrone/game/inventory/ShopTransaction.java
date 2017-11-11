@@ -5,10 +5,6 @@ import java.io.Serializable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.character.CharacterUtils;
-import com.lilithsthrone.game.inventory.item.AbstractItem;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
@@ -33,19 +29,19 @@ public class ShopTransaction implements Serializable, XMLSaving {
 		Element element = doc.createElement("shopTransaction");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "price", String.valueOf(this.getPrice()));
-		
-		Element innerElement = doc.createElement("item");
-		element.appendChild(innerElement);
-		
-		this.getAbstractItemSold().saveAsXML(innerElement, doc);
+//		CharacterUtils.addAttribute(doc, element, "price", String.valueOf(this.getPrice()));
+//		
+//		Element innerElement = doc.createElement("item");
+//		element.appendChild(innerElement);
+//		
+//		this.getAbstractItemSold().saveAsXML(innerElement, doc);
 		
 		return element;
 	}
 	
-	public static AbstractItem loadFromXML(Element parentElement, Document doc) {
-		return AbstractItemType.generateItem(ItemType.idToItemMap.get(parentElement.getAttribute("id")));
-	}
+//	public static AbstractItem loadFromXML(Element parentElement, Document doc) {
+//		return AbstractItemType.generateItem(ItemType.idToItemMap.get(parentElement.getAttribute("id")));
+//	}
 
 	public AbstractCoreItem getAbstractItemSold() {
 		return abstractItemSold;

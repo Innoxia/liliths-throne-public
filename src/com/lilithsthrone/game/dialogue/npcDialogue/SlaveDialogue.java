@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.npcDialogue;
 
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.GenericDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -89,11 +90,11 @@ public class SlaveDialogue {
 			 */
 			
 			if (index == 1) {
-				if(!slave().flagSlaveBackground) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveBackground)) {
 					return new Response("Background", "Ask [npc.name] about [npc.her] past life.", SLAVE_PROGRESSION) {
 						@Override
 						public void effects() {
-							slave().flagSlaveBackground = true;
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlaveBackground);
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 3));
 						}
 					};
@@ -102,11 +103,11 @@ public class SlaveDialogue {
 				}
 				
 			} else if (index == 2) {
-				if(!slave().flagSlaveSmallTalk) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveSmallTalk)) {
 					return new Response("Small talk", "Chat about this and that with [npc.name].", SLAVE_MINOR) {
 						@Override
 						public void effects() {
-							slave().flagSlaveSmallTalk = true;
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlaveSmallTalk);
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 2));
 						}
 					};
@@ -115,11 +116,11 @@ public class SlaveDialogue {
 				}
 				
 			} else if (index == 6) {
-				if(!slave().flagSlaveEncourage) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveEncourage)) {
 					return new Response("Encourage", "Encourage [npc.name] by telling [npc.her] how good [npc.she] is.", SLAVE_ENCOURAGE) {
 						@Override
 						public void effects() {
-							slave().flagSlaveEncourage = true;
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlaveEncourage);
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(-2));
 						}
@@ -129,11 +130,11 @@ public class SlaveDialogue {
 				}
 				
 			} else if (index == 7) {
-				if(!slave().flagSlaveHug) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveHug)) {
 					return new Response("Hug", "Hug [npc.name].", SLAVE_HUG) {
 						@Override
 						public void effects() {
-							slave().flagSlaveHug = true;
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlaveHug);
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(-2));
 						}
@@ -143,11 +144,11 @@ public class SlaveDialogue {
 				}
 				
 			} else if (index == 8) {
-				if(!slave().flagSlavePettings) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlavePettings)) {
 					return new Response("Pettings", "Give [npc.name] some loving pettings.", SLAVE_PETTINGS) {
 						@Override
 						public void effects() {
-							slave().flagSlavePettings = true;
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlavePettings);
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(-2));
 						}
@@ -157,11 +158,11 @@ public class SlaveDialogue {
 				}
 				
 			} else if (index == 11) {
-				if(!slave().flagSlaveInspect) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveInspect)) {
 					return new Response("Inspect", "Make [npc.name] strip and parade around [npc.her] room for your inspection.", SLAVE_INSPECT) {
 						@Override
 						public void effects() {
-							slave().flagSlaveInspect = true;
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlaveInspect);
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -5));
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(5));
 						}
@@ -171,11 +172,11 @@ public class SlaveDialogue {
 				}
 				
 			} else if (index == 12) {
-				if(!slave().flagSlaveSpanking) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveSpanking)) {
 					return new Response("Spanking", "Bend [npc.name] over your knee and give [npc.herHim] a rough spanking.", SLAVE_SPANKING) {
 						@Override
 						public void effects() {
-							slave().flagSlaveSpanking = true;
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlaveSpanking);
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -5));
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(10));
 						}
@@ -185,11 +186,11 @@ public class SlaveDialogue {
 				}
 				
 			} else if (index == 13) {
-				if(!slave().flagSlaveMolest) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveMolest)) {
 					return new Response("Molest", "Make [npc.name] sit still as you grope and molest [npc.her] body.", SLAVE_MOLEST) {
 						@Override
 						public void effects() {
-							slave().flagSlaveMolest = true;
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlaveMolest);
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -10));
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(5));
 						}

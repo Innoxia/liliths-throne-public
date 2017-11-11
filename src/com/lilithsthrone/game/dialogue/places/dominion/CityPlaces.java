@@ -6,7 +6,7 @@ import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.generic.Cultist;
+import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.CultistDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;

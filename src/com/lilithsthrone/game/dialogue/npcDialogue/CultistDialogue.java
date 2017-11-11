@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.dialogue.npcDialogue;
 
 import com.lilithsthrone.game.character.effects.Fetish;
-import com.lilithsthrone.game.character.npc.generic.Cultist;
+import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.GenericDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerHQDialogue;

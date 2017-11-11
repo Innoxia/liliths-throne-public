@@ -17,18 +17,20 @@
 	Adding content
 	- Add in missing content related to the new transformations. Addictive fluids, part modifiers referenced during sex, etc.
 	- Add in main story content.
-		
-		
+	
+	
 	
 	Patch notes:
 	
 	Engine:
-		Did some general back-end fixes in numerous parts of the code.
+		<b>Added:</b> First iteration of save compatibility (some minor things aren't working yet, but I'll finish it off over the weekend). This took a loooong time to implement... Sorry that there isn't much else here... ;_;
+		<b>Changed:</b> Importing your character no longer carries over your slaves (and doesn't carry over pregnancies either). This is due to inter-NPC relationships getting quite complicated, so, for example, there would be several serious issues with importing an enslaved Scarlett into a new game, and then meeting the new game's version of Scarlett.
+		Did a lot of general back-end fixes in numerous parts of the code.
 		Added support for multiple pages of responses (for use in the new Sex UI).
-		Added save support for: NPC names, location, perk points, perks, relationships, pregnancies, addictions, sex stats.
 	
 	UI:
-		Further improved the Sex UI. Thank you for all of your feedback regarding this; I'll try to improve it further!
+		Further improved the Sex UI. Thank you for all of your feedback regarding this!
+		Added an 'Export/Import' tab in the main menu, through which you can use the new Game Export. ^^
 	
 	Bugs:
 		Filled condoms should now correct import with all cum properties intact.
@@ -40,12 +42,9 @@
 	
 	
 	
+	Pressing enter while in a gender pronoun field takes you to a blank page
 	
-	ALL NAME FIELDS ARE BROKEN
-	
-	Save compatibility
-	
-	Task completed pushes responses to floor
+	kiss breasts through clothing
 	
 	Use tabs for slavery & inventory
 	
@@ -57,11 +56,15 @@
 	
 	3x You lost your penile virginity to .
 	
+	Whenever I use rest/rest to evening/morning, the time change doesn't register until I leave the room. Also, the change in calender is purely superficial. I've fast-forwarded 15 days an arcane storm is still going.
+	
 	the arcane price on potion enchantment doesn't match the real price. The cost for changing the shape of my pupils are stated to be one arcane, but it cost me six arcane instead.
 	
 	Non con might get split into giving and recieving variants
 	
 	Update Lilaya scene
+	
+	succubi don't seem to use specific fetish seductions, they just use general "im so wet" seductions
 	
 	Your shaft is concealed, so, due to your masculine appearance, everyone assumes that you're a male on first glance. for maleherms, this should probably be something like "since your vag is concealed, everyone assumes you're male"
 	
@@ -89,6 +92,8 @@
 	
 	inverted nipples
 	
+	When I attempted to open the fetishes page, the game crashed.
+	
 	-having sex with a pregnant slave from an imported save isn't fully detected - if you cum inside them the game says they have a chance of becoming pregnant, even though they already are. This is from a 187.7 export.
 
 -Having a slave drink a tf potion when in a different slaves room has some of the descriptor text go to the incorrect slave. The TFs still go to the correct slave, it's just weird reading how one slave is transforming and then a different slave starts transforming. This applies only to some feature TFs, not all of them. Example A-Player is in Slave X's room. Slave Y drinks potion that adds extra breasts, lipples, and internal muscles to nipples. Description text will say that Slave Y got extra breasts and lipples, but slave X gets internal nip muscles. 
@@ -108,6 +113,7 @@ The buggy TF description modifiers (not sure if there's more I missed)
 -dick sheath
 -dick tapering
 	
+	Suggestion: if it's not in, NPC giving multibreast TF.  If it is in, double-checking it's numbers.  I can't say in hours of playing the game that I've ever seen it happen if it's in.
 	
 	slave dialogue
 	

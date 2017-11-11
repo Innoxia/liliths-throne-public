@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
 import com.lilithsthrone.game.character.npc.dominion.Nyan;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -8,7 +9,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.ShoppingArcade;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
@@ -31,7 +32,7 @@ public class ClothingEmporium {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(Main.game.getDialogueFlags().nyanIntroduced) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.nyanIntroduced)) {
 					return new Response("Enter", "Step inside Nyan's Clothing Emporium.", SHOP_CLOTHING_REPEAT);
 					
 				} else {
@@ -42,7 +43,7 @@ public class ClothingEmporium {
 				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), ShoppingArcade.ARCADE_ENTRANCE, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_ENTRANCE, true);
 					}
 				};
 
@@ -92,7 +93,7 @@ public class ClothingEmporium {
 				return new Response("Stockroom", "Nyan has shown you into the stockroom.", SHOP_CLOTHING_STOCK_ROOM) {
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().nyanIntroduced=true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.nyanIntroduced);
 					}
 				};
 				

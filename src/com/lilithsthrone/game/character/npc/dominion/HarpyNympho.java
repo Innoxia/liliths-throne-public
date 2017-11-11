@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.QuestLine;
@@ -15,6 +18,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -29,11 +33,11 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.HarpyNests;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.8
- * @version 0.1.8
+ * @version 0.1.89
  * @author Innoxia
  */
 public class HarpyNympho extends NPC {
@@ -41,47 +45,62 @@ public class HarpyNympho extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public HarpyNympho() {
+		this(false);
+	}
+	
+	private HarpyNympho(boolean isImported) {
 		super(new NameTriplet("Lexi"),
 				"One of the more notable harpy matriarchs, Lexi is the leader of a flock of harpies."
 						+ " Either due to her obsession with sex, or perhaps because she's not as cruel as a typical harpy, Lexi is far more accepting of males than a typical matriarch."
 						+ " As a result, her flock serves as her personal harem; it's members constantly trying to sate their matriarch's never-ending lust.",
 				7, Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.HARPY_NEST, HarpyNests.HARPY_NEST_PINK, true);
+				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_PINK, true);
 
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		if(!isImported) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+	
+			this.addFetish(Fetish.FETISH_CUM_ADDICT);
+			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_ORAL_GIVING);
+			this.addFetish(Fetish.FETISH_BREASTS_SELF);
+			this.addFetish(Fetish.FETISH_EXHIBITIONIST);
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_GREEN));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_PINK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_WHITE), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
+			
+			this.setFemininity(95);
+			
+			this.setVaginaVirgin(false);
+			this.setVaginaWetness(Wetness.FOUR_SLIMY.getValue());
+			this.setVaginaCapacity(Capacity.FOUR_LOOSE.getMedianValue(), true);
+			
+			this.setAssVirgin(false);
+			this.setFaceVirgin(false);
+			this.setBreastSize(CupSize.C.getMeasurement());
+			
+			this.setHeight(164);
+			
+			this.setPiercedEar(true);
+	
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_PANTIES, Colour.CLOTHING_PINK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, Colour.CLOTHING_PINK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ANKLE_BRACELET, Colour.CLOTHING_GOLD, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, this);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
+		}
+	}
+	
+	@Override
+	public HarpyNympho loadFromXML(Element parentElement, Document doc) {
+		HarpyNympho npc = new HarpyNympho(true);
 
-		this.addFetish(Fetish.FETISH_CUM_ADDICT);
-		this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
-		this.addFetish(Fetish.FETISH_ORAL_GIVING);
-		this.addFetish(Fetish.FETISH_BREASTS_SELF);
-		this.addFetish(Fetish.FETISH_EXHIBITIONIST);
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_GREEN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_PINK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_WHITE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
-		
-		this.setFemininity(95);
-		
-		this.setVaginaVirgin(false);
-		this.setVaginaWetness(Wetness.FOUR_SLIMY.getValue());
-		this.setVaginaCapacity(Capacity.FOUR_LOOSE.getMedianValue(), true);
-		
-		this.setAssVirgin(false);
-		this.setFaceVirgin(false);
-		this.setBreastSize(CupSize.C.getMeasurement());
-		
-		this.setHeight(164);
-		
-		this.setPiercedEar(true);
-
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_PANTIES, Colour.CLOTHING_PINK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, Colour.CLOTHING_PINK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ANKLE_BRACELET, Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, this);
-		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
+		return npc;
 	}
 
 	@Override
@@ -232,7 +251,7 @@ public class HarpyNympho extends NPC {
 			return new Response("", "", HarpyNestNympho.HARPY_NEST_NYMPHO_FIGHT_BEAT_NYMPHO) {
 				@Override
 				public void effects() {
-					Main.game.getDialogueFlags().nymphoPacified = true;
+					Main.game.getDialogueFlags().values.add(DialogueFlagValue.nymphoPacified);
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_NYMPHO_LOLLIPOP), false));
 				}
 				@Override

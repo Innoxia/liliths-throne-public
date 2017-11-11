@@ -1,4 +1,7 @@
-package com.lilithsthrone.game.character.npc.prologue;
+package com.lilithsthrone.game.character.npc;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
@@ -12,7 +15,6 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
@@ -28,8 +30,7 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Dominion;
-import com.lilithsthrone.world.places.Jungle;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.86
@@ -48,8 +49,8 @@ public class PrologueMale extends NPC {
 				RacialBody.HUMAN,
 				RaceStage.HUMAN,
 				new CharacterInventory(10),
-				WorldType.JUNGLE,
-				Jungle.JUNGLE_CLUB,
+				WorldType.EMPTY,
+				PlaceType.GENERIC_EMPTY_TILE,
 				false);
 		
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -75,6 +76,15 @@ public class PrologueMale extends NPC {
 		
 		this.addFetish(Fetish.FETISH_CUM_STUD);
 		this.addFetish(Fetish.FETISH_BREASTS_OTHERS);
+	}
+	
+	@Override
+	public PrologueMale loadFromXML(Element parentElement, Document doc) {
+		PrologueMale npc = new  PrologueMale();
+
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
+		
+		return npc;
 	}
 	
 	@Override
@@ -136,7 +146,7 @@ public class PrologueMale extends NPC {
 				return new ResponseEffectsOnly("Carry on", "Get up and carry on your way.") {
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_ENFORCER_HQ, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
 					}
 				};
 				

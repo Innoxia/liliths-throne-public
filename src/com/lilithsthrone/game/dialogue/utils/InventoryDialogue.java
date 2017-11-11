@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -39,7 +40,7 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.SlaverAlley;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -92,7 +93,7 @@ public class InventoryDialogue {
 				return "Evening's Attire";
 			}
 			
-			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
 				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
 			} else {
 				return "Inventory";
@@ -771,7 +772,7 @@ public class InventoryDialogue {
 
 		@Override
 		public String getLabel() {
-			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
 				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
 			} else {
 				return "Inventory";
@@ -814,7 +815,7 @@ public class InventoryDialogue {
 				
 				// ****************************** Interacting with the ground ******************************
 				if(inventoryNPC == null) {
-					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasItem(item);
+					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasItem(item);
 					
 					if(index == 1) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
@@ -1493,7 +1494,7 @@ public class InventoryDialogue {
 						if(inventoryFull) {
 							return new Response("Take (5)", "Your inventory is already full!", null);
 						}
-						if(Main.game.getCurrentCell().getInventory().getItemCount(item) >= 5) {
+						if(Main.game.getPlayerCell().getInventory().getItemCount(item) >= 5) {
 							return new Response("Take (5)", "Take five of the " + item.getNamePlural() + " from the ground.", INVENTORY_MENU){
 								@Override
 								public void effects(){
@@ -1511,7 +1512,7 @@ public class InventoryDialogue {
 						return new Response("Take (All)", "Take all of the " + item.getNamePlural() + " from the ground.", INVENTORY_MENU){
 							@Override
 							public void effects(){
-								pickUpItems(Main.game.getPlayer(), item, Main.game.getCurrentCell().getInventory().getItemCount(item));
+								pickUpItems(Main.game.getPlayer(), item, Main.game.getPlayerCell().getInventory().getItemCount(item));
 							}
 						};
 						
@@ -1952,7 +1953,7 @@ public class InventoryDialogue {
 
 		@Override
 		public String getLabel() {
-			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
 				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
 			} else {
 				return "Inventory";
@@ -1995,7 +1996,7 @@ public class InventoryDialogue {
 				
 				// ****************************** Interacting with the ground ******************************
 				if(inventoryNPC == null) {
-					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasWeapon(weapon);
+					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasWeapon(weapon);
 					
 					if(index == 1) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
@@ -2423,7 +2424,7 @@ public class InventoryDialogue {
 						if(inventoryFull) {
 							return new Response("Take (5)", "Your inventory is already full!", null);
 						}
-						if(Main.game.getCurrentCell().getInventory().getWeaponCount(weapon) >= 5) {
+						if(Main.game.getPlayerCell().getInventory().getWeaponCount(weapon) >= 5) {
 							return new Response("Take (5)", "Take five of the " + weapon.getNamePlural() + " from the ground.", INVENTORY_MENU){
 								@Override
 								public void effects(){
@@ -2441,7 +2442,7 @@ public class InventoryDialogue {
 						return new Response("Take (All)", "Take all of the " + weapon.getNamePlural() + " from the ground.", INVENTORY_MENU){
 							@Override
 							public void effects(){
-								pickUpWeapons(Main.game.getPlayer(), weapon, Main.game.getCurrentCell().getInventory().getWeaponCount(weapon));
+								pickUpWeapons(Main.game.getPlayer(), weapon, Main.game.getPlayerCell().getInventory().getWeaponCount(weapon));
 							}
 						};
 						
@@ -2697,7 +2698,7 @@ public class InventoryDialogue {
 				return "Evening's Attire";
 			}
 			
-			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
 				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
 			} else {
 				return "Inventory";
@@ -2743,7 +2744,7 @@ public class InventoryDialogue {
 				
 				// ****************************** Interacting with the ground ******************************
 				if(inventoryNPC == null) {
-					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasClothing(clothing);
+					boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 					
 					if(index == 1) {
 						if(owner.getLocationPlace().isItemsDisappear()) {
@@ -3037,7 +3038,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Main.game.getPlayer().addSlave(inventoryNPC);
-											inventoryNPC.setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION, true);
+											inventoryNPC.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.equipClothingFromInventory(clothing, true, Main.game.getPlayer(), Main.game.getPlayer()) + "</p>");
 										}
 									};
@@ -3312,7 +3313,7 @@ public class InventoryDialogue {
 						if(inventoryFull) {
 							return new Response("Take (5)", "Your inventory is already full!", null);
 						}
-						if(Main.game.getCurrentCell().getInventory().getClothingCount(clothing) >= 5) {
+						if(Main.game.getPlayerCell().getInventory().getClothingCount(clothing) >= 5) {
 							return new Response("Take (5)", "Take five of the " + clothing.getNamePlural() + " from the ground.", INVENTORY_MENU){
 								@Override
 								public void effects(){
@@ -3330,14 +3331,14 @@ public class InventoryDialogue {
 						return new Response("Take (All)", "Take all of the " + clothing.getNamePlural() + " from the ground.", INVENTORY_MENU){
 							@Override
 							public void effects(){
-								pickUpClothing(Main.game.getPlayer(), clothing, Main.game.getCurrentCell().getInventory().getClothingCount(clothing));
+								pickUpClothing(Main.game.getPlayer(), clothing, Main.game.getPlayerCell().getInventory().getClothingCount(clothing));
 							}
 						};
 						
 					} else if (index==4) {
 						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)) {
-							boolean hasFullInventory = Main.game.getCurrentCell().getInventory().isInventoryFull();
-							boolean isDyeingStackItem = Main.game.getCurrentCell().getInventory().getMapOfDuplicateClothing().get(clothing) > 1;
+							boolean hasFullInventory = Main.game.getPlayerCell().getInventory().isInventoryFull();
+							boolean isDyeingStackItem = Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().get(clothing) > 1;
 							boolean canDye = !(isDyeingStackItem && hasFullInventory);
 							if (canDye) {
 								return new Response("Dye", "Use a dye-brush to dye this item of clothing.", DYE_CLOTHING);
@@ -3481,7 +3482,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Main.game.getPlayer().addSlave(inventoryNPC);
-											inventoryNPC.setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION, true);
+											inventoryNPC.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.equipClothingFromInventory(clothing, true, Main.game.getPlayer(), inventoryNPC) + "</p>");
 										}
 									};
@@ -3661,7 +3662,7 @@ public class InventoryDialogue {
 
 		@Override
 		public String getLabel() {
-			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
 				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
 			} else {
 				return "Inventory";
@@ -3708,7 +3709,7 @@ public class InventoryDialogue {
 							};
 							
 						} else if (index == 2) {
-							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasWeapon(weapon);
+							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasWeapon(weapon);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
 								if(areaFull) {
 									return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
@@ -3775,7 +3776,7 @@ public class InventoryDialogue {
 							};
 							
 						} else if (index == 2) {
-							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasWeapon(weapon);
+							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasWeapon(weapon);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
 								if(areaFull) {
 									return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
@@ -3838,7 +3839,7 @@ public class InventoryDialogue {
 							};
 							
 						} else if (index == 2) {
-							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasWeapon(weapon);
+							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasWeapon(weapon);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
 								if(areaFull) {
 									return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
@@ -3925,7 +3926,7 @@ public class InventoryDialogue {
 							};
 							
 						} else if (index == 2) {
-							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasWeapon(weapon);
+							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasWeapon(weapon);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
 								if(areaFull) {
 									return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
@@ -4024,7 +4025,7 @@ public class InventoryDialogue {
 				return "Evening's Attire";
 			}
 			
-			if (Main.game.getDialogueFlags().quickTrade && !Main.game.isInSex() && !Main.game.isInCombat()) {
+			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
 				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
 			} else {
 				return "Inventory";
@@ -4057,7 +4058,7 @@ public class InventoryDialogue {
 				switch(interactionType) {
 					case COMBAT:
 						if (index == 1) {
-							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasClothing(clothing);
+							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
 								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Drop", "This area is full, so you can't drop your " + clothing.getName() + " here!", null);
@@ -4198,7 +4199,7 @@ public class InventoryDialogue {
 						
 					case FULL_MANAGEMENT: case TRADING:
 						if (index == 1) {
-							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasClothing(clothing);
+							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
 								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Drop", "This area is full, so you can't drop your " + clothing.getName() + " here!", null);
@@ -4346,7 +4347,7 @@ public class InventoryDialogue {
 						
 					case SEX:
 						if (index == 1) {
-							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasClothing(clothing);
+							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
 								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Drop", "This area is full, so you can't drop your " + clothing.getName() + " here!", null);
@@ -4545,7 +4546,7 @@ public class InventoryDialogue {
 						
 					case FULL_MANAGEMENT: case CHARACTER_CREATION:
 						if (index == 1) {
-							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasClothing(clothing);
+							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
 								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Drop", UtilText.parse(inventoryNPC, "This area is full, so you can't drop [npc.name]'s " + clothing.getName() + " here!"), null);
@@ -4666,7 +4667,7 @@ public class InventoryDialogue {
 						
 					case SEX:
 						if (index == 1) {
-							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getCurrentCell().getInventory().hasClothing(clothing);
+							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
 								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Drop", UtilText.parse(inventoryNPC, "This area is full, so you can't drop [npc.name]'s " + clothing.getName() + " here!"), null);
@@ -5213,23 +5214,23 @@ public class InventoryDialogue {
 	}
 	
 	private static void dropItems(GameCharacter from, AbstractItem item, int count) {
-		if (!Main.game.getCurrentCell().getInventory().isInventoryFull() || Main.game.getCurrentCell().getInventory().hasItem(item)) {
+		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasItem(item)) {
 			
 			List<AbstractItem> items = from.getAllItemsInInventory().stream()
 				.filter(item::equals)
 				.collect(Collectors.toList());
 			
 			for(int i = 0 ; i<count; i++) {
-				Main.game.getCurrentCell().getInventory().addItem(items.get(i));
+				Main.game.getPlayerCell().getInventory().addItem(items.get(i));
 				from.removeItem(items.get(i));
 			}
 		}
 	}
 	
 	private static void pickUpItems(GameCharacter to, AbstractItem item, int count) {
-		if (!Main.game.getCurrentCell().getInventory().isInventoryFull() || Main.game.getCurrentCell().getInventory().hasItem(item)) {
+		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasItem(item)) {
 			
-			List<AbstractItem> items = Main.game.getCurrentCell().getInventory().getAllItemsInInventory().stream()
+			List<AbstractItem> items = Main.game.getPlayerCell().getInventory().getAllItemsInInventory().stream()
 				.filter(item::equals)
 				.collect(Collectors.toList());
 			
@@ -5290,23 +5291,23 @@ public class InventoryDialogue {
 	}
 	
 	private static void dropWeapons(GameCharacter from, AbstractWeapon weapon, int count) {
-		if (!Main.game.getCurrentCell().getInventory().isInventoryFull() || Main.game.getCurrentCell().getInventory().hasWeapon(weapon)) {
+		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasWeapon(weapon)) {
 			
 			List<AbstractWeapon> weapons = from.getAllWeaponsInInventory().stream()
 				.filter(weapon::equals)
 				.collect(Collectors.toList());
 			
 			for(int i = 0 ; i<count; i++) {
-				Main.game.getCurrentCell().getInventory().addWeapon(weapons.get(i));
+				Main.game.getPlayerCell().getInventory().addWeapon(weapons.get(i));
 				from.removeWeapon(weapons.get(i));
 			}
 		}
 	}
 	
 	private static void pickUpWeapons(GameCharacter to, AbstractWeapon weapon, int count) {
-		if (!Main.game.getCurrentCell().getInventory().isInventoryFull() || Main.game.getCurrentCell().getInventory().hasWeapon(weapon)) {
+		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasWeapon(weapon)) {
 			
-			List<AbstractWeapon> weapons = Main.game.getCurrentCell().getInventory().getAllWeaponsInInventory().stream()
+			List<AbstractWeapon> weapons = Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().stream()
 				.filter(weapon::equals)
 				.collect(Collectors.toList());
 			
@@ -5366,23 +5367,23 @@ public class InventoryDialogue {
 	}
 	
 	private static void dropClothing(GameCharacter from, AbstractClothing clothing, int count) {
-		if (!Main.game.getCurrentCell().getInventory().isInventoryFull() || Main.game.getCurrentCell().getInventory().hasClothing(clothing)) {
+		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasClothing(clothing)) {
 			
 			List<AbstractClothing> clothings = from.getAllClothingInInventory().stream()
 				.filter(clothing::equals)
 				.collect(Collectors.toList());
 			
 			for(int i = 0 ; i<count; i++) {
-				Main.game.getCurrentCell().getInventory().addClothing(clothings.get(i));
+				Main.game.getPlayerCell().getInventory().addClothing(clothings.get(i));
 				from.removeClothing(clothings.get(i));
 			}
 		}
 	}
 	
 	private static void pickUpClothing(GameCharacter to, AbstractClothing clothing, int count) {
-		if (!Main.game.getCurrentCell().getInventory().isInventoryFull() || Main.game.getCurrentCell().getInventory().hasClothing(clothing)) {
+		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasClothing(clothing)) {
 			
-			List<AbstractClothing> clothings = Main.game.getCurrentCell().getInventory().getAllClothingInInventory().stream()
+			List<AbstractClothing> clothings = Main.game.getPlayerCell().getInventory().getAllClothingInInventory().stream()
 				.filter(clothing::equals)
 				.collect(Collectors.toList());
 			

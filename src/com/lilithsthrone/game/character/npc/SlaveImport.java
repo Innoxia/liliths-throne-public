@@ -3,19 +3,14 @@ package com.lilithsthrone.game.character.npc;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.History;
-import com.lilithsthrone.game.character.Name;
-import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.npcDialogue.DominionOffspringDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.DominionAlleywayAttackerDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -28,100 +23,41 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
- * @since 0.1.82
- * @version 0.1.86
+ * @since 0.1.87
+ * @version 0.1.89
  * @author Innoxia
  */
-public class NPCOffspring extends NPC {
+public class SlaveImport extends NPC {
 
 	private static final long serialVersionUID = 1L;
-	
-	public boolean flagIntroduced = false;
-	public boolean flagApartmentIntroduced = false;
-	public boolean flagFightApologyNeeded = false;
-	public boolean flagRapeApologyNeeded = false;
-	public boolean fightInApartment = false;
-	public int flagBackgroundProgress = 0;
 
-	public NPCOffspring(GameCharacter mother, GameCharacter father) {
-		super(null, "", 3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
-
-		setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.5f+Math.random())));
-		setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.5f+Math.random())));
-		setAttribute(Attribute.FITNESS, (int)(this.getAttributeValue(Attribute.FITNESS) * (0.5f+Math.random())));
-		setAttribute(Attribute.CORRUPTION, (int)(20 * (0.5f+Math.random())));
+	public SlaveImport(Gender gender) {
+		super(null, "", 3, gender, RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, true);
 		
-		this.setMother(mother);
-		this.setFather(father);
-		
-		this.setAffection(mother, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
-		this.setAffection(father, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
-		
-		// Set random level from 1 to 3:
-		setLevel(Util.random.nextInt(3) + 1);
-		
-		// BODY GENERATION:
-		
-		Gender gender = GenderPreference.getGenderFromUserPreferences();
-		
-		setBody(gender, mother, father);
-		
-		setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(getGender()));
-
-		setName(Name.getRandomTriplet(getRace()));
-
-		// PERSONALITY & BACKGROUND:
-		
-		if(this.isFeminine()) {
-			if(Math.random()>0.2f) {
-				this.setHistory(History.PROSTITUTE);
-				setName(Name.getRandomProstituteTriplet());
-			} else {
-				this.setHistory(History.MUGGER);
-			}
-			
-		} else {
-			this.setHistory(History.MUGGER);
-		}
-		
-		// ADDING FETISHES:
-		
-		CharacterUtils.addFetishes(this);
-		
-		// BODY RANDOMISATION:
-		
-		CharacterUtils.randomiseBody(this);
+		this.setPlayerKnowsName(true);
+		setDescription(UtilText.parse(this, "[npc.Name] is a slave."));
 		
 		// INVENTORY:
 		
-		resetInventory();
-		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-		
-		CharacterUtils.equipClothing(this, true, false);
-		
-		CharacterUtils.applyMakeup(this, true);
-
-		this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
+		this.setEnslavementDialogue(DominionAlleywayAttackerDialogue.ENSLAVEMENT_DIALOGUE);
 		
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
 	}
 	
-	public NPCOffspring() {
-		super(null, "", 3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
-		
-		this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
+	public SlaveImport() {
+		super(null, "", 3, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, true);
+		this.setEnslavementDialogue(DominionAlleywayAttackerDialogue.ENSLAVEMENT_DIALOGUE);
 	}
-
+	
 	@Override
-	public NPCOffspring loadFromXML(Element parentElement, Document doc) {
-		NPCOffspring offspring = new  NPCOffspring();
+	public SlaveImport loadFromXML(Element parentElement, Document doc) {
+		SlaveImport npc = new SlaveImport();
 
-		loadNPCVariablesFromXML(offspring, null, parentElement, doc);
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
-		return offspring;
+		return npc;
 	}
 	
 	@Override
@@ -129,38 +65,18 @@ public class NPCOffspring extends NPC {
 		return false;
 	}
 	
-	@Override
-	public String getPlayerPetName() {
-		if(playerPetName.length()==0 || playerPetName.equalsIgnoreCase("Mom") || playerPetName.equalsIgnoreCase("Dad")) {
-			if(Main.game.getPlayer().isFeminine()) {
-				return "Mom";
-			} else {
-				return "Dad";
-			}
-		} else if (playerPetName.equalsIgnoreCase("Mommy") || playerPetName.equalsIgnoreCase("Daddy")) {
-			if(Main.game.getPlayer().isFeminine()) {
-				return "Mommy";
-			} else {
-				return "Daddy";
-			}
-		} else {
-			return playerPetName;
-		}
+	public static SlaveImport loadFromXML2(StringBuilder log, Element parentElement, Document doc) {
+		SlaveImport character = new SlaveImport(Gender.F_V_B_FEMALE);
+
+		loadNPCVariablesFromXML(character, log, parentElement, doc);
+		
+		return character;
 	}
 	
 	@Override
 	public String getDescription() {
-		int timeToBirth = this.getDayOfBirth()-this.getDayOfConception();
 		return (UtilText.parse(this,
-				"[npc.Name] is your [npc.daughter], who you "+(this.getMother().isPlayer()?"mothered with "+(this.getFather().getName("a")):"fathered with "+(this.getMother().getName("a")))+"."
-						+ " [npc.She] was conceived on day "+this.getDayOfConception()+", and "
-						+(timeToBirth==0
-							?"later that same day"
-							:timeToBirth>1?Util.intToString(timeToBirth)+" days later":Util.intToString(timeToBirth)+" day later")
-						+(this.getMother().isPlayer()
-							?" you gave birth to [npc.herHim]."
-							:" [npc.she] was born.")
-						+ " You first encountered [npc.herHim] prowling the alleyways of Dominion, and, through some arcane-influenced instinct, you both recognised your relationship at first sight."));
+				"[npc.Name] is a resident of Dominion, who, for reasons of [npc.her] own, prowls the back alleys in search of victims to prey upon."));
 	}
 	
 	@Override
@@ -170,6 +86,11 @@ public class NPCOffspring extends NPC {
 				setPendingClothingDressing(true);
 			}
 		}
+	}
+
+	@Override
+	public boolean isClothingStealable() {
+		return true;
 	}
 	
 	@Override
@@ -183,7 +104,11 @@ public class NPCOffspring extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-		return DominionOffspringDialogue.OFFSPRING_ENCOUNTER;
+		if(Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType()==PlaceType.DOMINION_BACK_ALLEYS) {
+			return DominionAlleywayAttackerDialogue.ALLEY_ATTACK;
+		} else {
+			return DominionAlleywayAttackerDialogue.STORM_ATTACK;
+		}
 	}
 
 	// Combat:
@@ -299,12 +224,12 @@ public class NPCOffspring extends NPC {
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
-			return new Response("", "", DominionOffspringDialogue.AFTER_COMBAT_VICTORY);
+			return new Response("", "", DominionAlleywayAttackerDialogue.AFTER_COMBAT_VICTORY);
 		} else {
-			return new Response ("", "", DominionOffspringDialogue.AFTER_COMBAT_DEFEAT);
+			return new Response ("", "", DominionAlleywayAttackerDialogue.AFTER_COMBAT_DEFEAT);
 		}
 	}
-	
+
 	@Override
 	public String getLostVirginityDescriptor() {
 		return "in the streets of Dominion";
@@ -335,7 +260,7 @@ public class NPCOffspring extends NPC {
 									+ " [npc.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
 									+ "</p>";
 						}
-
+	
 				} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
 					
 						Main.game.getPlayer().useItem(item, target, false);
@@ -367,15 +292,6 @@ public class NPCOffspring extends NPC {
 										+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the liquid's effects taking root deep in [npc.her] body..."
 									+ "</p>"
 									+Main.game.getPlayer().useItem(item, target, false, true);
-							
-						} else if(Sex.isConsensual()) {
-							return "<p>"
-									+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
-									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, before agreeing to take the bottle, "
-									+ " [npc.speech(Ok... I'll drink it...)]"
-								+ "</p>"
-								+Main.game.getPlayer().useItem(item, target, false, true);
-							
 						} else {
 							return "<p>"
 										+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
@@ -411,7 +327,8 @@ public class NPCOffspring extends NPC {
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HARPY)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HORSE_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)
-						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_WOLF_MORPH)) {
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_WOLF_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_COW_MORPH)) {
 					
 						if(Sex.isPlayerDom()) {
 							return "<p>"
@@ -461,7 +378,8 @@ public class NPCOffspring extends NPC {
 						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)
 						|| item.getItemType().equals(ItemType.INT_INGREDIENT_FELINE_FANCY)
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_EQUINE_CIDER)
-						|| item.getItemType().equals(ItemType.STR_INGREDIENT_WOLF_WHISKEY)) {
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_WOLF_WHISKEY)
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_BUBBLE_MILK)) {
 					
 						if(Sex.isPlayerDom()) {
 							return "<p>"
@@ -482,7 +400,7 @@ public class NPCOffspring extends NPC {
 										+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 									+ "</p>";
 						}
-
+	
 				} else if(item.getItemType().equals(ItemType.EGGPLANT)) {
 					
 					if(Sex.isPlayerDom()) {
@@ -515,6 +433,5 @@ public class NPCOffspring extends NPC {
 			return Sex.getPartner().useItem(item, target, false);
 		}
 	}
-	
 	
 }

@@ -5,6 +5,7 @@ import org.w3c.dom.events.EventListener;
 
 import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
@@ -38,7 +39,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			if(Main.game.getCurrentDialogueNode().getMapDisplay()!=MapDisplay.INVENTORY) {
 				Main.mainController.openInventory();
 			}
-			if(Main.game.getDialogueFlags().quickTrade) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade)) {
 				switch(InventoryDialogue.getNPCInventoryInteraction()) { //TODO
 					case COMBAT:
 						break;

@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -17,7 +18,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.LilayasHome;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
@@ -82,7 +83,7 @@ public class RoomPlayer {
 			};
 
 		} else if (index == 4) {
-			if(Main.game.getDialogueFlags().knowsDate) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
 				return new Response("Calendar", "Take another look at the enchanted calendar that's pinned up on one wall.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
 			} else {
 				return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Calendar</span>", "There's a calendar pinned up on one wall. Take a closer look at it.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
@@ -92,7 +93,7 @@ public class RoomPlayer {
 			return new ResponseEffectsOnly("Entrance hall", "Fast travel down to the entrance hall."){
 				@Override
 				public void effects() {
-					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), LilayasHome.LILAYA_HOME_ENTRANCE_HALL, true);
+					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
 				}
 			};
 
@@ -100,7 +101,7 @@ public class RoomPlayer {
 			return new ResponseEffectsOnly("Lilaya's Lab", "Fast travel down to Lilaya's laboratory."){
 				@Override
 				public void effects() {
-					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), LilayasHome.LILAYA_HOME_LAB, true);
+					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_LAB, true);
 				}
 			};
 
@@ -264,7 +265,7 @@ public class RoomPlayer {
 			}
 			UtilText.nodeContentSB.append("</p>");
 			
-			if(Main.game.getDialogueFlags().knowsDate) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
 				UtilText.nodeContentSB.append("<p>"
 						+ "Suddenly remembering what it was that you wanted to look at, you scan through the calendar to find the current date,");
 			} else {
@@ -284,7 +285,7 @@ public class RoomPlayer {
 					+ ", you figure out that it's been <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+"</b> since you appeared in this world."
 					+ "</p>");
 			
-			if(!Main.game.getDialogueFlags().knowsDate) {
+			if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
 				UtilText.nodeContentSB.append("<p>"
 						+ "[pc.thought(Wait... "+Main.game.getDateNow().format(DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH))+"?! I need to check in with Lilaya about that...)]"
 						+ "</p>");
@@ -296,7 +297,7 @@ public class RoomPlayer {
 					+ "</p>");
 			
 			// TODO probably not the best place to put it?
-			Main.game.getDialogueFlags().knowsDate = true;
+			Main.game.getDialogueFlags().values.add(DialogueFlagValue.knowsDate);
 			
 			return UtilText.nodeContentSB.toString();
 		}

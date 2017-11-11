@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -107,55 +108,46 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceInterface;
-import java.util.Set;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.1.89
  * @author Innoxia
  */
-public abstract class NPC extends GameCharacter {
+public abstract class NPC extends GameCharacter implements XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
 	protected long lastTimeEncountered = -1;
 
-	protected long getLastTimeHadSex = -1;
+	protected long lastTimeHadSex = -1;
 	
 	protected int romanceProgress = 0;
 	
 	protected float buyModifier, sellModifier;
 
-	protected boolean knowsPlayerGender = false;
-	protected boolean introducedToPlayer = false;
 	protected boolean addedToContacts;
-	protected boolean pendingClothingDressing = false;
-	
-	protected boolean reactedToPregnancy, reactedToPlayerPregnancy;
+
+	public Set<NPCFlagValue> NPCFlagValues;
 	
 	protected Set<SexPosition> sexPositionPreferences;
 	
 	protected Body bodyPreference = null;
 	
-	public boolean flagSlaveBackground = false, flagSlaveSmallTalk = false,
-						flagSlaveEncourage = false, flagSlaveHug = false, flagSlavePettings = false,
-						flagSlaveInspect = false, flagSlaveSpanking = false, flagSlaveMolest = false;
-	
-	
 	protected NPC(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace,
-			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceInterface startingPlace, boolean addedToContacts) {
+			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceType startingPlace, boolean addedToContacts) {
 		super(nameTriplet, description, level, startingGender, startingRace, stage, inventory, worldLocation, startingPlace);
 
 		this.addedToContacts = addedToContacts;
-		
-		reactedToPregnancy = false;
-		reactedToPlayerPregnancy = false;
 		
 		sexPositionPreferences = new HashSet<>();
 		
 		buyModifier=0.75f;
 		sellModifier=1.5f;
+		
+		NPCFlagValues = new HashSet<>();
 		
 		if(getLocation().equals(Main.game.getPlayer().getLocation()) && getWorldLocation()==Main.game.getPlayer().getWorldLocation()) {
 			for(CoverableArea ca : CoverableArea.values()) {
@@ -170,24 +162,75 @@ public abstract class NPC extends GameCharacter {
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element properties = super.saveAsXML(parentElement, doc);
 		
+		Element npcSpecific = doc.createElement("npcSpecific");
+		properties.appendChild(npcSpecific);
+
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "lastTimeEncountered", String.valueOf(lastTimeEncountered));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "lastTimeHadSex", String.valueOf(lastTimeHadSex));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "romanceProgress", String.valueOf(romanceProgress));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "buyModifier", String.valueOf(buyModifier));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "sellModifier", String.valueOf(sellModifier));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "addedToContacts", String.valueOf(addedToContacts));
+
+		Element valuesElement = doc.createElement("NPCValues");
+		npcSpecific.appendChild(valuesElement);
+		for(NPCFlagValue value : NPCFlagValues) {
+			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "NPCValue", value.toString());
+		}
+		
+		Element positionsElement = doc.createElement("sexPositionPreferences");
+		npcSpecific.appendChild(positionsElement);
+		for(SexPosition position : sexPositionPreferences) {
+			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "position", position.toString());
+		}
+		
+		Element preferredBody = doc.createElement("preferredBody");
+		npcSpecific.appendChild(preferredBody);
+		getPreferredBody().saveAsXML(preferredBody, doc);
+		
 		return properties;
 	}
+	
+	public abstract NPC loadFromXML(Element parentElement, Document doc);
 	
 	public static void loadNPCVariablesFromXML(NPC npc, StringBuilder log, Element parentElement, Document doc) {
 		
 		GameCharacter.loadGameCharacterVariablesFromXML(npc, log, parentElement, doc);
 		
+		Element npcSpecificElement = (Element) parentElement.getElementsByTagName("npcSpecific").item(0);
+		
+		if(npcSpecificElement!=null) {
+			npc.setLastTimeEncountered(Long.valueOf(((Element)npcSpecificElement.getElementsByTagName("lastTimeEncountered").item(0)).getAttribute("value")));
+			npc.setLastTimeHadSex(Long.valueOf(((Element)npcSpecificElement.getElementsByTagName("lastTimeHadSex").item(0)).getAttribute("value")));
+			npc.setRomanceProgress(Integer.valueOf(((Element)npcSpecificElement.getElementsByTagName("romanceProgress").item(0)).getAttribute("value")));
+			npc.setBuyModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("buyModifier").item(0)).getAttribute("value")));
+			npc.setSellModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("sellModifier").item(0)).getAttribute("value")));
+			npc.addedToContacts = (Boolean.valueOf(((Element)npcSpecificElement.getElementsByTagName("addedToContacts").item(0)).getAttribute("value")));
+		
+	
+			for(int i=0; i<((Element) npcSpecificElement.getElementsByTagName("NPCValues").item(0)).getElementsByTagName("NPCValue").getLength(); i++){
+				Element e = (Element) ((Element) npcSpecificElement.getElementsByTagName("NPCValues").item(0)).getElementsByTagName("NPCValue").item(i);
+				npc.NPCFlagValues.add(NPCFlagValue.valueOf(e.getAttribute("value")));
+			}
+			
+			for(int i=0; i<((Element) npcSpecificElement.getElementsByTagName("sexPositionPreferences").item(0)).getElementsByTagName("position").getLength(); i++){
+				Element e = (Element) ((Element) npcSpecificElement.getElementsByTagName("sexPositionPreferences").item(0)).getElementsByTagName("position").item(i);
+				npc.sexPositionPreferences.add(SexPosition.valueOf(e.getAttribute("value")));
+			}
+			
+			npc.bodyPreference = Body.loadFromXML(log, (Element) parentElement.getElementsByTagName("body").item(0), doc);
+		}
 	}
 	
 	public void resetSlaveFlags() {
-		flagSlaveBackground = false;
-		flagSlaveSmallTalk = false;
-		flagSlaveEncourage = false;
-		flagSlaveHug = false;
-		flagSlavePettings = false;
-		flagSlaveInspect = false;
-		flagSlaveSpanking = false;
-		flagSlaveMolest = false;
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveBackground);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveSmallTalk);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveEncourage);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveHug);
+		NPCFlagValues.remove(NPCFlagValue.flagSlavePettings);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveInspect);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveSpanking);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveMolest);
 	}
 	
 	/**
@@ -423,19 +466,60 @@ public abstract class NPC extends GameCharacter {
 	}
 
 	public boolean isKnowsPlayerGender() {
-		return knowsPlayerGender;
+		return NPCFlagValues.contains(NPCFlagValue.knowsPlayerGender);
 	}
 
 	public void setKnowsPlayerGender(boolean knowsPlayerGender) {
-		this.knowsPlayerGender = knowsPlayerGender;
+		if(knowsPlayerGender) {
+			NPCFlagValues.add(NPCFlagValue.knowsPlayerGender);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.knowsPlayerGender);
+		}
 	}
 	
 	public boolean isIntroducedToPlayer() {
-		return introducedToPlayer;
+		return NPCFlagValues.contains(NPCFlagValue.introducedToPlayer);
 	}
 
 	public void setIntroducedToPlayer(boolean introducedToPlayer) {
-		this.introducedToPlayer = introducedToPlayer;
+		if(introducedToPlayer) {
+			NPCFlagValues.add(NPCFlagValue.introducedToPlayer);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.introducedToPlayer);
+		}
+	}
+	
+	public boolean isReactedToPregnancy() {
+		return NPCFlagValues.contains(NPCFlagValue.reactedToPregnancy);
+	}
+	public void setReactedToPregnancy(boolean reactedToPregnancy) {
+		if(reactedToPregnancy) {
+			NPCFlagValues.add(NPCFlagValue.reactedToPregnancy);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.reactedToPregnancy);
+		}
+	}
+	
+	public boolean isReactedToPlayerPregnancy() {
+		return NPCFlagValues.contains(NPCFlagValue.reactedToPlayerPregnancy);
+	}
+	public void setReactedToPlayerPregnancy(boolean reactedToPlayerPregnancy) {
+		if(reactedToPlayerPregnancy) {
+			NPCFlagValues.add(NPCFlagValue.reactedToPlayerPregnancy);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.reactedToPlayerPregnancy);
+		}
+	}
+	
+	public boolean isPendingClothingDressing() {
+		return NPCFlagValues.contains(NPCFlagValue.pendingClothingDressing);
+	}
+	public void setPendingClothingDressing(boolean pendingClothingDressing) {
+		if(pendingClothingDressing) {
+			NPCFlagValues.add(NPCFlagValue.pendingClothingDressing);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.pendingClothingDressing);
+		}
 	}
 	
 	public long getLastTimeEncountered() {
@@ -446,13 +530,13 @@ public abstract class NPC extends GameCharacter {
 		this.lastTimeEncountered = minutesPassed;
 	}
 
-	public long getGetLastTimeHadSex() {
-		return getLastTimeHadSex;
+	public long getLastTimeHadSex() {
+		return lastTimeHadSex;
 	}
 
 
-	public void setGetLastTimeHadSex(long getLastTimeHadSex) {
-		this.getLastTimeHadSex = getLastTimeHadSex;
+	public void setLastTimeHadSex(long lastTimeHadSex) {
+		this.lastTimeHadSex = lastTimeHadSex;
 	}
 
 
@@ -1533,27 +1617,7 @@ public abstract class NPC extends GameCharacter {
 		return SexPace.DOM_NORMAL;
 	}
 	
-	public boolean isReactedToPregnancy() {
-		return reactedToPregnancy;
-	}
-	public void setReactedToPregnancy(boolean reactedToPregnancy) {
-		this.reactedToPregnancy = reactedToPregnancy;
-	}
 	
-	public boolean isReactedToPlayerPregnancy() {
-		return reactedToPlayerPregnancy;
-	}
-	public void setReactedToPlayerPregnancy(boolean reactedToPlayerPregnancy) {
-		this.reactedToPlayerPregnancy = reactedToPlayerPregnancy;
-	}
-	
-	public boolean isPendingClothingDressing() {
-		return pendingClothingDressing;
-	}
-	public void setPendingClothingDressing(boolean pendingClothingDressing) {
-		this.pendingClothingDressing = pendingClothingDressing;
-	}
-
 
 	/**
 	 * Returns a description of how this npc reacts to item usage.

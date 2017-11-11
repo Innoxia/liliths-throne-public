@@ -51,24 +51,22 @@ public class MiscDialogue {
 	}
 	
 	public static DialogueNodeOld getSlaveryManagementInspectSlaveDialogue(NPC slave) {
-		Main.game.getDialogueFlags().slaveryManagerSlaveSelected = slave;
+		Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave);
 		return SLAVE_MANAGEMENT_INSPECT;
 	}
 	
 	public static DialogueNodeOld getSlaveryManagementSlaveJobsDialogue(NPC slave) {
-		Main.game.getDialogueFlags().slaveryManagerSlaveSelected = slave;
+		Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave);
 		return SLAVE_MANAGEMENT_JOBS;
 	}
 	
 	public static DialogueNodeOld getSlaveryManagementSlavePermissionsDialogue(NPC slave) {
-		Main.game.getDialogueFlags().slaveryManagerSlaveSelected = slave;
+		Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave);
 		return SLAVE_MANAGEMENT_PERMISSIONS;
 	}
 	
-	public static DialogueNodeOld getSlaveryManagementDialogue(DialogueNodeOld rootDialogue, NPC slaveTrader) {
-//		dayNumber = Main.game.getDayNumber();
-		Main.game.getDialogueFlags().slaveryManagerRootDialogue = rootDialogue;
-		Main.game.getDialogueFlags().slaveTrader = slaveTrader;
+	public static DialogueNodeOld getSlaveryManagementDialogue(NPC slaveTrader) {
+		Main.game.getDialogueFlags().setSlaveTrader(slaveTrader);
 		return SLAVE_MANAGEMENT;
 	}
 	
@@ -115,7 +113,7 @@ public class MiscDialogue {
 			return new Response("Slavery Overview", "View the slavery overview screen.",  SLAVERY_OVERVIEW) {
 				@Override
 				public void effects() {
-					Main.game.getDialogueFlags().slaveryManagerSlaveSelected = null;
+					Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
 				}
 			};
 			
@@ -123,11 +121,11 @@ public class MiscDialogue {
 			return new Response("Slave List", "Enter the slave management screen.", SLAVE_MANAGEMENT) {
 				@Override
 				public DialogueNodeOld getNextDialogue() {
-					return MiscDialogue.getSlaveryManagementDialogue(Main.game.getPlayerCell().getPlace().getDialogue(false), Main.game.getDialogueFlags().slaveTrader);
+					return MiscDialogue.getSlaveryManagementDialogue(Main.game.getDialogueFlags().getSlaveTrader());
 				}
 				@Override
 				public void effects() {
-					Main.game.getDialogueFlags().slaveryManagerSlaveSelected = null;
+					Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
 				}
 			};
 			
@@ -135,7 +133,7 @@ public class MiscDialogue {
 			return new Response("Room List", "View the room management screen.", ROOM_MANAGEMENT) {
 				@Override
 				public void effects() {
-					Main.game.getDialogueFlags().slaveryManagerSlaveSelected = null;
+					Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
 				}
 			};
 			
@@ -174,47 +172,47 @@ public class MiscDialogue {
 			}
 			
 		} else if (index == 6) {
-			if(Main.game.getDialogueFlags().slaveryManagerSlaveSelected == null) {
+			if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() == null) {
 				return new Response("Inspect", "No slave has been selected", null);
 				
 			}
 			return new Response("Inspect", "Enter the slave management screen.", SLAVE_MANAGEMENT_INSPECT);
 			
 		} else if (index == 7) {
-			if(Main.game.getDialogueFlags().slaveryManagerSlaveSelected == null) {
+			if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() == null) {
 				return new Response("Job", "No slave has been selected.", null);
 				
-			} else if(!Main.game.getDialogueFlags().slaveryManagerSlaveSelected.getOwner().isPlayer()) {
+			} else if(!Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getOwner().isPlayer()) {
 				return new Response("Job", "You cannot manage the job of a slave you do not own!", null);
 			}
 			return new Response("Job", "Set this slave's job and work hours.", SLAVE_MANAGEMENT_JOBS);
 			
 		} else if (index == 8) {
-			if(Main.game.getDialogueFlags().slaveryManagerSlaveSelected == null) {
+			if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() == null) {
 				return new Response("Permissions", "No slave has been selected", null);
 				
-			} else if(!Main.game.getDialogueFlags().slaveryManagerSlaveSelected.getOwner().isPlayer()) {
+			} else if(!Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getOwner().isPlayer()) {
 				return new Response("Permissions", "You cannot manage the permissions of a slave you do not own!", null);
 			}
 			return new Response("Permissions", "Set this slave's permissions.", SLAVE_MANAGEMENT_PERMISSIONS);
 			
 		} else if (index == 9) {
-			if(Main.game.getDialogueFlags().slaveryManagerSlaveSelected == null) {
+			if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() == null) {
 				return new Response("Inventory", "No slave has been selected", null);
 				
-			} else if(!Main.game.getDialogueFlags().slaveryManagerSlaveSelected.getOwner().isPlayer()) {
+			} else if(!Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getOwner().isPlayer()) {
 				return new Response("Job", "You cannot manage the inventory of a slave you do not own!", null);
 			}
 			
-			if(Main.game.getDialogueFlags().slaveryManagerSlaveSelected.getOwner().isPlayer()) {
-				return new ResponseEffectsOnly("Inventory", UtilText.parse(Main.game.getDialogueFlags().slaveryManagerSlaveSelected, "Manage [npc.name]'s inventory.")){
+			if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getOwner().isPlayer()) {
+				return new ResponseEffectsOnly("Inventory", UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "Manage [npc.name]'s inventory.")){
 					@Override
 					public void effects() {
-						Main.mainController.openInventory(Main.game.getDialogueFlags().slaveryManagerSlaveSelected, InventoryInteraction.FULL_MANAGEMENT);
+						Main.mainController.openInventory(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), InventoryInteraction.FULL_MANAGEMENT);
 					}
 				};
 			} else {
-				return new Response("Inventory", UtilText.parse(Main.game.getDialogueFlags().slaveryManagerSlaveSelected, "You can't manage [npc.name]'s inventory, as you don't own [npc.herHim]!"), null);
+				return new Response("Inventory", UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "You can't manage [npc.name]'s inventory, as you don't own [npc.herHim]!"), null);
 			}
 			
 		}else if (index == 0) {
@@ -225,8 +223,8 @@ public class MiscDialogue {
 				}
 				@Override
 				public void effects() {
-					Main.game.getDialogueFlags().slaveryManagerSlaveSelected = null;
-					Main.game.getDialogueFlags().slaveTrader = null;
+					Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+					Main.game.getDialogueFlags().setSlaveTrader(null);
 				}
 			};
 
@@ -899,7 +897,7 @@ public class MiscDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Main.game.getDialogueFlags().slaveTrader!=null) {
+			if(Main.game.getDialogueFlags().getSlaveTrader()!=null) {
 				// Append for sale first:
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
 						+ "<h6 style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+"; text-align:center;'>Slaves For Sale</h6>"
@@ -1028,10 +1026,10 @@ public class MiscDialogue {
 							+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
-							+ (Main.game.getDialogueFlags().slaveTrader!=null
+							+ (Main.game.getDialogueFlags().getSlaveTrader()!=null
 								?(slaveOwned
-										?UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getBuyModifier()), "b", Colour.GENERIC_ARCANE)
-										:UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()), "b", Colour.GENERIC_ARCANE))
+										?UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)
+										:UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()), "b", Colour.GENERIC_ARCANE))
 								:UtilText.formatAsMoney(slave.getValueAsSlave()))+"</br>"
 							+ "<b>"+Util.capitaliseSentence(slave.getSlaveJob().getName(slave))+"</b></br>"
 							+ UtilText.formatAsMoney(slave.getSlaveJob().getFinalDailyIncomeAfterModifiers(slave))+"/day"
@@ -1052,7 +1050,7 @@ public class MiscDialogue {
 										?" id='"+slave.getId()+"_TRANSFER_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>"
 										:" id='"+slave.getId()+"_TRANSFER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransfer()+"</div></div>"));
 			
-			if(Main.game.getDialogueFlags().slaveTrader==null) {
+			if(Main.game.getDialogueFlags().getSlaveTrader()==null) {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_SELL_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSellDisabled()+"</div></div>");
 			} else {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_SELL' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
@@ -1070,7 +1068,7 @@ public class MiscDialogue {
 						
 					+ "<div id='"+slave.getId()+"_TRADER_TRANSFER' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>");
 			
-			if(Main.game.getPlayer().getMoney() < ((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().slaveTrader.getSellModifier()))) {
+			if(Main.game.getPlayer().getMoney() < ((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()))) {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_BUY_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuyDisabled()+"</div></div>");
 			} else {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_BUY' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuy()+"</div></div>");
@@ -1206,12 +1204,12 @@ public class MiscDialogue {
 		
 		@Override
 		public String getLabel() {
-			return UtilText.parse(Main.game.getDialogueFlags().slaveryManagerSlaveSelected, "[npc.Name] - Slave Management");
+			return UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "[npc.Name] - Slave Management");
 		}
 		
 		@Override
 		public String getContent() {
-			NPC character = Main.game.getDialogueFlags().slaveryManagerSlaveSelected;
+			NPC character = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected();
 			
 			UtilText.nodeContentSB.setLength(0);
 			
@@ -1258,12 +1256,12 @@ public class MiscDialogue {
 		
 		@Override
 		public String getLabel() {
-			return UtilText.parse(Main.game.getDialogueFlags().slaveryManagerSlaveSelected, "[npc.Name] - Jobs");
+			return UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "[npc.Name] - Jobs");
 		}
 		
 		@Override
 		public String getContent() {
-			NPC character = Main.game.getDialogueFlags().slaveryManagerSlaveSelected;
+			NPC character = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected();
 			ObedienceLevel obedience = ObedienceLevel.getObedienceLevelFromValue(character.getObedienceValue());
 			float affectionChange = character.getDailyAffectionChange();
 			float obedienceChange = character.getDailyObedienceChange();
@@ -1431,12 +1429,12 @@ public class MiscDialogue {
 		
 		@Override
 		public String getLabel() {
-			return UtilText.parse(Main.game.getDialogueFlags().slaveryManagerSlaveSelected, "[npc.Name] - Permissions");
+			return UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "[npc.Name] - Permissions");
 		}
 		
 		@Override
 		public String getContent() {
-			NPC character = Main.game.getDialogueFlags().slaveryManagerSlaveSelected;
+			NPC character = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected();
 			
 			UtilText.nodeContentSB.setLength(0);
 			

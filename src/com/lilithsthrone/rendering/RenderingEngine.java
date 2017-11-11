@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.lilithsthrone.game.KeyboardAction;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -44,8 +44,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.world.places.GenericPlaces;
-import com.lilithsthrone.world.places.PlaceInterface;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -880,8 +879,8 @@ public enum RenderingEngine {
 				renderNPC = true;
 			}
 			
-			if(Main.game.getDialogueFlags().slaveryManagerSlaveSelected!=null) {
-				npcToRender = Main.game.getDialogueFlags().slaveryManagerSlaveSelected;
+			if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected()!=null) {
+				npcToRender = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected();
 				renderNPC = true;
 			}
 			
@@ -1262,7 +1261,7 @@ public enum RenderingEngine {
 			uiAttributeSB.append("</div>");
 				
 		} else {
-			PlaceInterface place = Main.game.getPlayer().getWorldLocation().getStandardPlace();
+			PlaceType place = Main.game.getPlayer().getWorldLocation().getStandardPlace();
 			if(Main.game.getPlayer().getLocationPlace()!=null) {
 				place = Main.game.getPlayer().getLocationPlace().getPlaceType();
 			}
@@ -1462,12 +1461,12 @@ public enum RenderingEngine {
 
 					if (Main.game.getActiveWorld().getCell(x, y).isDiscovered() || Main.game.isDebugMode()) { // If the tile is discovered:
 
-						if (Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() == GenericPlaces.IMPASSABLE) {
+						if (Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() == PlaceType.GENERIC_IMPASSABLE) {
 							mapSB.append("<div class='map-tile blank' style='width:" + (4 * unit) + "%;'></div>");
 						} else {
 
 							// This is the "move North" tile:
-							if (y == playerPosition.getY() + 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
+							if (y == playerPosition.getY() + 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='upButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
@@ -1495,7 +1494,7 @@ public enum RenderingEngine {
 								mapSB.append("</div>");
 
 								// This is the "move South" tile:
-							} else if (y == playerPosition.getY() - 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
+							} else if (y == playerPosition.getY() - 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='downButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
@@ -1523,7 +1522,7 @@ public enum RenderingEngine {
 								mapSB.append("</div>");
 
 								// This is the "move West" tile:
-							} else if (y == playerPosition.getY() && x == playerPosition.getX() - 1 && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
+							} else if (y == playerPosition.getY() && x == playerPosition.getX() - 1 && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='leftButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
@@ -1551,7 +1550,7 @@ public enum RenderingEngine {
 								mapSB.append("</div>");
 
 								// This is the "move East" tile:
-							} else if (y == playerPosition.getY() && x == playerPosition.getX() + 1 && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
+							} else if (y == playerPosition.getY() && x == playerPosition.getX() + 1 && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='rightButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									

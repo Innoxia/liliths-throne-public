@@ -1,79 +1,46 @@
 package com.lilithsthrone.game.dialogue;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.1.89
  * @author Innoxia
  */
-public class DialogueFlags implements Serializable {
+public class DialogueFlags implements Serializable, XMLSaving {
 
 	private static final long serialVersionUID = 1L;
 
+	public Set<DialogueFlagValue> values;
+	
 	// Discounts:
 	public long ralphDiscountStartTime;
-	public int ralphDiscount, scarlettPrice;
+	public int ralphDiscount;
+	public int scarlettPrice;
 	
 	// Amount of dialogue choices you can make before offspring interaction ends:
 	public int offspringDialogueTokens = 2;
 	
 	public BodyCoveringType skinTypeSelected;
 	
-	public DialogueNodeOld slaveryManagerRootDialogue;
-	public NPC slaveTrader;
-	public NPC slaveryManagerSlaveSelected;
+	private String slaveTrader;
+	private String slaveryManagerSlaveSelected;
 	
-	public boolean
-			// Misc:
-			
-			quickTrade,
-			stormTextUpdateRequired,
-			
-			// Essence reactions:
-			jinxedClothingDiscovered,
-			essencePostCombatDiscovered,
-			essenceOrgasmDiscovered,
-			essenceBottledDiscovered,
-	
-			// Gym:
-			gymIntroduced, gymHadTour, gymIsMember,
-			
-			// Shopping arcade:
-			ralphIntroduced,
-			nyanIntroduced,
-			kateIntroduced, reactedToKatePregnancy,
-			
-			// Aunt's Home:
-			knowsDate, lilayaDateTalk,
-			auntHomeJustEntered, hadSexWithLilaya, reactedToPregnancyLilaya, waitingOnLilayaPregnancyResults,
-			essenceExtractionKnown,
-			readBook1, readBook2, readBook3,
-			
-			// Brax:
-			accessToEnforcerHQ, braxTransformedPlayer, braxBeaten, seenBraxAfterQuest, feminisedBrax, bimbofiedBrax,
-			
-			// Harpy Nests:
-			hasHarpyNestAccess, bimboEncountered, bimboPacified, dominantEncountered, dominantPacified, nymphoEncountered, nymphoPacified,
-			punishedByAlexa,
-			
-			// Slaver Alley:
-			finchIntroduced;
-
 	public DialogueFlags() {
-
-		jinxedClothingDiscovered = false;
-		essencePostCombatDiscovered = false;
-		essenceOrgasmDiscovered = false;
-		essenceBottledDiscovered = false;
+		values = new HashSet<>();
 		
-		quickTrade = false;
-		stormTextUpdateRequired = false;
-		
-		slaveryManagerRootDialogue = null;
 		slaveryManagerSlaveSelected = null;
 		slaveTrader = null;
 		
@@ -82,49 +49,94 @@ public class DialogueFlags implements Serializable {
 		
 		scarlettPrice = 2000;
 		
-		gymIntroduced = false;
-		gymHadTour = false;
-		gymIsMember = false;
-		
-		ralphIntroduced = false;
-		nyanIntroduced = false;
-		kateIntroduced = false;
-		reactedToKatePregnancy = false;
-		
 		skinTypeSelected = null;
-
-		// Aunt's Home:
-		knowsDate = false;
-		lilayaDateTalk = false;
-		auntHomeJustEntered = false;
-		hadSexWithLilaya = false;
-		reactedToPregnancyLilaya = false;
-		waitingOnLilayaPregnancyResults = false;
-		essenceExtractionKnown = false;
-		readBook1 = false;
-		readBook2 = false;
-		readBook3 = false;
+	}
+	
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element element = doc.createElement("dialogueFlags");
+		parentElement.appendChild(element);
 		
-		// Brax:
-		accessToEnforcerHQ = false;
-		braxBeaten = false;
-		seenBraxAfterQuest = false;
-		feminisedBrax = false;
-		bimbofiedBrax = false;
-
-		// Harpy Nests:
-		hasHarpyNestAccess = false;
-		bimboEncountered = false;
-		bimboPacified = false;
-		dominantEncountered = false;
-		dominantPacified = false;
-		nymphoEncountered = false;
-		nymphoPacified = false;
+		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscountStartTime", String.valueOf(ralphDiscountStartTime));
+		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscount", String.valueOf(ralphDiscount));
+		CharacterUtils.createXMLElementWithValue(doc, element, "scarlettPrice", String.valueOf(scarlettPrice));
+		CharacterUtils.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
+//		CharacterUtils.createXMLElementWithValue(doc, element, "skinTypeSelected", skinTypeSelected.toString());
+		CharacterUtils.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
+		CharacterUtils.createXMLElementWithValue(doc, element, "slaveryManagerSlaveSelected", slaveryManagerSlaveSelected);
 		
-		punishedByAlexa = false;
+		Element valuesElement = doc.createElement("dialogueValues");
+		element.appendChild(valuesElement);
+		for(DialogueFlagValue value : values) {
+			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "dialogueValue", value.toString());
+		}
+		
+		return element;
+	}
+	
+	public static DialogueFlags loadFromXML(Element parentElement, Document doc) {
+		DialogueFlags newFlags = new DialogueFlags();
+		
+		newFlags.ralphDiscountStartTime = Long.valueOf(((Element)parentElement.getElementsByTagName("ralphDiscountStartTime").item(0)).getAttribute("value"));
+		newFlags.ralphDiscount = Integer.valueOf(((Element)parentElement.getElementsByTagName("ralphDiscount").item(0)).getAttribute("value"));
+		newFlags.scarlettPrice = Integer.valueOf(((Element)parentElement.getElementsByTagName("scarlettPrice").item(0)).getAttribute("value"));
+		newFlags.offspringDialogueTokens = Integer.valueOf(((Element)parentElement.getElementsByTagName("offspringDialogueTokens").item(0)).getAttribute("value"));
+//		newFlags.skinTypeSelected = BodyCoveringType.valueOf(((Element)parentElement.getElementsByTagName("skinTypeSelected").item(0)).getAttribute("value"));
+		newFlags.slaveTrader = ((Element)parentElement.getElementsByTagName("slaveTrader").item(0)).getAttribute("value");
+		newFlags.slaveryManagerSlaveSelected = ((Element)parentElement.getElementsByTagName("slaveryManagerSlaveSelected").item(0)).getAttribute("value");
+		
+		for(int i=0; i<((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").getLength(); i++){
+			Element e = (Element) ((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").item(i);
+			
+			newFlags.values.add(DialogueFlagValue.valueOf(e.getAttribute("value")));
+		}
+		
+		return newFlags;
+	}
 
-		// Slaver Alley:
-		finchIntroduced = false;
+	public NPC getSlaveTrader() {
+		if(slaveTrader==null) {
+			return null;
+		}
+		return (NPC) Main.game.getNPCById(slaveTrader);
+	}
+
+	public void setSlaveTrader(GameCharacter slaveTrader) {
+		if(slaveTrader==null) {
+			this.slaveTrader = null;
+		} else {
+			this.slaveTrader = slaveTrader.getId();
+		}
+	}
+	
+	public String getSlaveTraderId() {
+		return slaveTrader;
+	}
+
+	public void setSlaveTraderId(String slaveTrader) {
+		this.slaveTrader = slaveTrader;
+	}
+
+	public NPC getSlaveryManagerSlaveSelected() {
+		if(slaveryManagerSlaveSelected==null) {
+			return null;
+		}
+		return (NPC) Main.game.getNPCById(slaveryManagerSlaveSelected);
+	}
+
+	public void setSlaveryManagerSlaveSelected(GameCharacter slaveryManagerSlaveSelected) {
+		if(slaveryManagerSlaveSelected==null) {
+			this.slaveryManagerSlaveSelected = null;
+		} else {
+			this.slaveryManagerSlaveSelected = slaveryManagerSlaveSelected.getId();
+		}
+	}
+	
+	public String getSlaveryManagerSlaveSelectedId() {
+		return slaveryManagerSlaveSelected;
+	}
+
+	public void setSlaveryManagerSlaveSelectedId(String slaveryManagerSlaveSelected) {
+		this.slaveryManagerSlaveSelected = slaveryManagerSlaveSelected;
 	}
 
 }

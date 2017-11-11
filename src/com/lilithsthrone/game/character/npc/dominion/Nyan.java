@@ -3,6 +3,9 @@ package com.lilithsthrone.game.character.npc.dominion;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
@@ -26,23 +29,16 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.ShoppingArcade;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.89
  * @author Innoxia
  */
 public class Nyan extends NPC {
 
 	private static final long serialVersionUID = 1L;
-
-	private AbstractClothing panties = AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false),
-			skirt = AbstractClothingType.generateClothing(ClothingType.LEG_PENCIL_SKIRT, Colour.CLOTHING_BLACK, false),
-			bra = AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false),
-			torso = AbstractClothingType.generateClothing(ClothingType.TORSO_BLOUSE, Colour.CLOTHING_WHITE, false),
-			socks = AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false),
-			shoes = AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false);
 
 	private List<AbstractClothing> commonFemaleClothing, commonFemaleUnderwear, commonFemaleOtherLingerie, commonFemaleAccessories,
 									commonMaleClothing, commonMaleLingerie, commonMaleAccessories,
@@ -50,23 +46,39 @@ public class Nyan extends NPC {
 									specials;
 
 	public Nyan() {
+		this(false);
+	}
+	
+	private Nyan(boolean isImported) {
 		super(new NameTriplet("Nyan"), "Nyan is the owner of the store 'Nyan's Clothing Emporium', found in Dominion's shopping arcade."
 				+ " She's extremely shy, and gets very nervous when having to talk to people.",
 				10, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.LESSER,
-				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, ShoppingArcade.NYANS_SHOP_CLOTHING, true);
+				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_NYANS_SHOP, true);
 
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		if(!isImported) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_BLUE));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLONDE), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_WHITE), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+	
+			this.setBreastSize(CupSize.B.getMeasurement());
+	
+			this.setMuscle(Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue());
+			this.setBodySize(BodySize.ZERO_SKINNY.getMedianValue());
+			
+			this.setMoney(10);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_PENCIL_SKIRT, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_BLOUSE, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+		}
 		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_BLUE));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLONDE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_WHITE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
-
-		this.setBreastSize(CupSize.B.getMeasurement());
-
-		this.setMuscle(Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue());
-		this.setBodySize(BodySize.ZERO_SKINNY.getMedianValue());
-		
+		//TODO import these values
 		commonFemaleClothing = new ArrayList<>();
 		commonFemaleUnderwear = new ArrayList<>();
 		commonFemaleOtherLingerie = new ArrayList<>();
@@ -78,17 +90,16 @@ public class Nyan extends NPC {
 		commonAndrogynousLingerie = new ArrayList<>();
 		commonAndrogynousAccessories = new ArrayList<>();
 		specials = new ArrayList<>();
-		
-		this.setMoney(10);
-		
-		this.equipClothingFromNowhere(panties, true, this);
-		this.equipClothingFromNowhere(bra, true, this);
-		this.equipClothingFromNowhere(skirt, true, this);
-		this.equipClothingFromNowhere(torso, true, this);
-		this.equipClothingFromNowhere(socks, true, this);
-		this.equipClothingFromNowhere(shoes, true, this);
-
 		dailyReset();
+	}
+	
+	@Override
+	public Nyan loadFromXML(Element parentElement, Document doc) {
+		Nyan npc = new Nyan(true);
+
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
+		
+		return npc;
 	}
 
 	@Override

@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.QuestLine;
@@ -17,6 +20,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -31,7 +35,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.HarpyNests;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.8
@@ -43,47 +47,62 @@ public class HarpyBimbo extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public HarpyBimbo() {
+		this(false);
+	}
+	
+	private HarpyBimbo(boolean isImported) {
 		super(new NameTriplet("Brittany"),
 				"One of the more notable harpy matriarchs, Brittany is the leader of a flock of harpies."
 						+ " In order to get into her good graces, most of her flock try to mimic her behaviour and appearance."
 						+ " As a result, Brittany's flock is primarily made up of bleach-blonde bimbos.",
 				7, Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.HARPY_NEST, HarpyNests.HARPY_NEST_YELLOW, true);
+				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW, true);
 
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		if(!isImported) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+	
+			this.addFetish(Fetish.FETISH_BIMBO);
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BLUE));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLEACH_BLONDE), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_BLEACH_BLONDE), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+			
+			this.setFemininity(95);
+			
+			this.setVaginaVirgin(false);
+			this.setVaginaWetness(Wetness.THREE_WET.getValue());
+			this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue(), true);
+			
+			this.setAssVirgin(false);
+			this.setFaceVirgin(false);
+			this.setBreastSize(CupSize.DD.getMeasurement());
+			this.setAssSize(AssSize.FIVE_HUGE.getValue());
+			this.setHipSize(HipSize.FIVE_VERY_WIDE.getValue());
+			
+			this.setHeight(160);
+			
+			this.setPiercedEar(true);
+			this.setPiercedNavel(true);
+	
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_GOLD, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_CROPTOP_BRA, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_BLUE_LIGHT, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_BELTED, Colour.CLOTHING_BLUE_LIGHT, false), true, this);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, Colour.CLOTHING_SILVER, false), true, this);
+		}
+	}
+	
+	@Override
+	public HarpyBimbo loadFromXML(Element parentElement, Document doc) {
+		HarpyBimbo npc = new HarpyBimbo(true);
 
-		this.addFetish(Fetish.FETISH_BIMBO);
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BLUE));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLEACH_BLONDE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_BLEACH_BLONDE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
-		
-		this.setFemininity(95);
-		
-		this.setVaginaVirgin(false);
-		this.setVaginaWetness(Wetness.THREE_WET.getValue());
-		this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue(), true);
-		
-		this.setAssVirgin(false);
-		this.setFaceVirgin(false);
-		this.setBreastSize(CupSize.DD.getMeasurement());
-		this.setAssSize(AssSize.FIVE_HUGE.getValue());
-		this.setHipSize(HipSize.FIVE_VERY_WIDE.getValue());
-		
-		this.setHeight(160);
-		
-		this.setPiercedEar(true);
-		this.setPiercedNavel(true);
-
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_CROPTOP_BRA, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_BLUE_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_BELTED, Colour.CLOTHING_BLUE_LIGHT, false), true, this);
-		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, Colour.CLOTHING_SILVER, false), true, this);
+		return npc;
 	}
 
 	@Override
@@ -234,7 +253,7 @@ public class HarpyBimbo extends NPC {
 			return new Response("", "", HarpyNestBimbo.HARPY_NEST_BIMBO_FIGHT_BEAT_BIMBO) {
 				@Override
 				public void effects() {
-					Main.game.getDialogueFlags().bimboPacified = true;
+					Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboPacified);
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP), false));
 				}
 				@Override

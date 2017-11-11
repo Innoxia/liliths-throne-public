@@ -4,7 +4,7 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Dominion;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -104,7 +104,7 @@ public class SewerPlaces {
 				return new Response("Dominion", "Head back up to Dominion. (This will be added after the first chapter of the story is complete!)", null){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.DOMINION, Dominion.CITY_EXIT_TO_SEWERS, true);
+						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_EXIT_TO_SEWERS, true);
 					}
 				};
 
