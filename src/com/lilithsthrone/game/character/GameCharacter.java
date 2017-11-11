@@ -748,8 +748,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		NodeList nodes = parentElement.getElementsByTagName("core");
 		Element element = (Element) nodes.item(0);
 
-		character.setId(((Element)element.getElementsByTagName("id").item(0)).getAttribute("value"));
-		CharacterUtils.appendToImportLog(log, "</br>Set id: " + character.getId());
+		if(((Element)element.getElementsByTagName("id").item(0))!=null) {
+			character.setId(((Element)element.getElementsByTagName("id").item(0)).getAttribute("value"));
+			CharacterUtils.appendToImportLog(log, "</br>Set id: " + character.getId());
+		}
 		
 		// Name:
 		if(!((Element)element.getElementsByTagName("name").item(0)).getAttribute("value").isEmpty()) {
@@ -1253,23 +1255,24 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		
 		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("sexPartnerMap").item(0);
-		for(int i=0; i<element.getElementsByTagName("id").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("id").item(i));
-			character.sexPartnerMap.put(e.getAttribute("value"), new HashMap<>());
-			
-			for(int j=0; j<element.getElementsByTagName("entry").getLength(); j++){
-				Element e2 = ((Element)element.getElementsByTagName("entry").item(j));
+		if(element!=null) {
+			for(int i=0; i<element.getElementsByTagName("id").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("id").item(i));
+				character.sexPartnerMap.put(e.getAttribute("value"), new HashMap<>());
 				
-				character.sexPartnerMap.get(e.getAttribute("value")).put(
-						new SexType(
-								PenetrationType.valueOf(e2.getAttribute("penetrationType")),
-								OrificeType.valueOf(e2.getAttribute("orificeType"))),
-								Integer.valueOf(e2.getAttribute("count")));
-				
-				CharacterUtils.appendToImportLog(log, "</br>Added sex tracking: "+e.getAttribute("value")+" "+e2.getAttribute("penetrationType")+"/"+e2.getAttribute("orificeType")+" "+Integer.valueOf(e2.getAttribute("count")));
+				for(int j=0; j<element.getElementsByTagName("entry").getLength(); j++){
+					Element e2 = ((Element)element.getElementsByTagName("entry").item(j));
+					
+					character.sexPartnerMap.get(e.getAttribute("value")).put(
+							new SexType(
+									PenetrationType.valueOf(e2.getAttribute("penetrationType")),
+									OrificeType.valueOf(e2.getAttribute("orificeType"))),
+									Integer.valueOf(e2.getAttribute("count")));
+					
+					CharacterUtils.appendToImportLog(log, "</br>Added sex tracking: "+e.getAttribute("value")+" "+e2.getAttribute("penetrationType")+"/"+e2.getAttribute("orificeType")+" "+Integer.valueOf(e2.getAttribute("count")));
+				}
 			}
 		}
-		
 		
 		
 		// ************** Addictions **************//
@@ -1277,20 +1280,22 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("addictions");
 		Element addictionsElement = (Element) nodes.item(0);
 		
-		element = (Element) addictionsElement.getElementsByTagName("addictionMap").item(0);
-		for(int i=0; i<element.getElementsByTagName("addiction").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("addiction").item(i));
+		if(addictionsElement!=null) {
+			element = (Element) addictionsElement.getElementsByTagName("addictionMap").item(0);
+			for(int i=0; i<element.getElementsByTagName("addiction").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("addiction").item(i));
+				
+				character.setAddiction(FluidType.valueOf(e.getAttribute("type")), Integer.valueOf(e.getAttribute("value")));
+				CharacterUtils.appendToImportLog(log, "</br>Added addiction:"+e.getAttribute("type")+" "+e.getAttribute("value"));
+			}
 			
-			character.setAddiction(FluidType.valueOf(e.getAttribute("type")), Integer.valueOf(e.getAttribute("value")));
-			CharacterUtils.appendToImportLog(log, "</br>Added addiction:"+e.getAttribute("type")+" "+e.getAttribute("value"));
-		}
-		
-		element = (Element) addictionsElement.getElementsByTagName("addictionSatisfiedMap").item(0);
-		for(int i=0; i<element.getElementsByTagName("addiction").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("addiction").item(i));
-			
-			character.setLastTimeSatisfiedAddiction(FluidType.valueOf(e.getAttribute("type")), Long.valueOf(e.getAttribute("value")));
-			CharacterUtils.appendToImportLog(log, "</br>Set satisfied time:"+e.getAttribute("type")+" "+e.getAttribute("value"));
+			element = (Element) addictionsElement.getElementsByTagName("addictionSatisfiedMap").item(0);
+			for(int i=0; i<element.getElementsByTagName("addiction").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("addiction").item(i));
+				
+				character.setLastTimeSatisfiedAddiction(FluidType.valueOf(e.getAttribute("type")), Long.valueOf(e.getAttribute("value")));
+				CharacterUtils.appendToImportLog(log, "</br>Set satisfied time:"+e.getAttribute("type")+" "+e.getAttribute("value"));
+			}
 		}
 	}
 	

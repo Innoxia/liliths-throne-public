@@ -134,43 +134,44 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		Element playerSpecificElement = (Element) parentElement.getElementsByTagName("playerSpecific").item(0);
 		
-		if(playerSpecificElement.getElementsByTagName("title").getLength()!=0) {
-			character.setTitle(((Element)playerSpecificElement.getElementsByTagName("title").item(0)).getAttribute("value"));
-		}
-		
-		if(playerSpecificElement.getElementsByTagName("mainQuestUpdated").getLength()!=0) {
-			character.setMainQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("mainQuestUpdated").item(0)).getAttribute("value")));
-		}
-		if(playerSpecificElement.getElementsByTagName("sideQuestUpdated").getLength()!=0) {
-			character.setSideQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("sideQuestUpdated").item(0)).getAttribute("value")));
-		}
-		if(playerSpecificElement.getElementsByTagName("romanceQuestUpdated").getLength()!=0) {
-			character.setRomanceQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("romanceQuestUpdated").item(0)).getAttribute("value")));
-		}
-
-		if(playerSpecificElement.getElementsByTagName("booksRead").item(0)!=null) {
-			for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("booksRead").item(0)).getElementsByTagName("book").getLength(); i++){
-				Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("booksRead").item(0)).getElementsByTagName("book").item(i);
-				character.addBooksRead(ItemType.idToItemMap.get(e.getAttribute("value")));
+		if(playerSpecificElement!=null) {
+			if(playerSpecificElement.getElementsByTagName("title").getLength()!=0) {
+				character.setTitle(((Element)playerSpecificElement.getElementsByTagName("title").item(0)).getAttribute("value"));
+			}
+			
+			if(playerSpecificElement.getElementsByTagName("mainQuestUpdated").getLength()!=0) {
+				character.setMainQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("mainQuestUpdated").item(0)).getAttribute("value")));
+			}
+			if(playerSpecificElement.getElementsByTagName("sideQuestUpdated").getLength()!=0) {
+				character.setSideQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("sideQuestUpdated").item(0)).getAttribute("value")));
+			}
+			if(playerSpecificElement.getElementsByTagName("romanceQuestUpdated").getLength()!=0) {
+				character.setRomanceQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("romanceQuestUpdated").item(0)).getAttribute("value")));
+			}
+	
+			if(playerSpecificElement.getElementsByTagName("booksRead").item(0)!=null) {
+				for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("booksRead").item(0)).getElementsByTagName("book").getLength(); i++){
+					Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("booksRead").item(0)).getElementsByTagName("book").item(i);
+					character.addBooksRead(ItemType.idToItemMap.get(e.getAttribute("value")));
+				}
+			}
+	
+			if(playerSpecificElement.getElementsByTagName("charactersEncountered").item(0)!=null) {
+				for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("charactersEncountered").item(0)).getElementsByTagName("id").getLength(); i++){
+					Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("charactersEncountered").item(0)).getElementsByTagName("id").item(i);
+					character.addCharacterEncountered(e.getAttribute("value"));
+				}
+			}
+	
+			if(playerSpecificElement.getElementsByTagName("questMap").item(0)!=null) {
+				for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("questMap").item(0)).getElementsByTagName("entry").getLength(); i++){
+					Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("questMap").item(0)).getElementsByTagName("entry").item(i);
+					character.quests.put(
+							QuestLine.valueOf(e.getAttribute("questLine")),
+							Integer.valueOf(e.getAttribute("progress")));
+				}
 			}
 		}
-
-		if(playerSpecificElement.getElementsByTagName("charactersEncountered").item(0)!=null) {
-			for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("charactersEncountered").item(0)).getElementsByTagName("id").getLength(); i++){
-				Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("charactersEncountered").item(0)).getElementsByTagName("id").item(i);
-				character.addCharacterEncountered(e.getAttribute("value"));
-			}
-		}
-
-		if(playerSpecificElement.getElementsByTagName("questMap").item(0)!=null) {
-			for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("questMap").item(0)).getElementsByTagName("entry").getLength(); i++){
-				Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("questMap").item(0)).getElementsByTagName("entry").item(i);
-				character.quests.put(
-						QuestLine.valueOf(e.getAttribute("questLine")),
-						Integer.valueOf(e.getAttribute("progress")));
-			}
-		}
-		
 		
 		
 //		// Slaves:
