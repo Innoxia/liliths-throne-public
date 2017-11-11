@@ -433,11 +433,14 @@ public class Game implements Serializable, XMLSaving {
 	
 	public void initNewGame(DialogueNodeOld startingDialogueNode) {
 		// Set up NPCs:
-		genericMaleNPC = new GenericMaleNPC();
-		genericFemaleNPC = new GenericFemaleNPC();
-		genericAndrogynousNPC = new GenericAndrogynousNPC();
+//		genericMaleNPC = new GenericMaleNPC();
+//		genericFemaleNPC = new GenericFemaleNPC();
+//		genericAndrogynousNPC = new GenericAndrogynousNPC();
 		try {
 			NPCMap.clear();
+			addNPC(new GenericMaleNPC(), false);
+			addNPC(new GenericFemaleNPC(), false);
+			addNPC(new GenericAndrogynousNPC(), false);
 			
 			prologueMale = new PrologueMale();
 			addNPC(prologueMale, false);
@@ -1923,15 +1926,15 @@ public class Game implements Serializable, XMLSaving {
 	}
 
 	public NPC getGenericMaleNPC() {
-		return genericMaleNPC;
+		return (NPC) this.getNPCById(getUniqueNPCId(GenericMaleNPC.class));
 	}
 
 	public NPC getGenericFemaleNPC() {
-		return genericFemaleNPC;
+		return (NPC) this.getNPCById(getUniqueNPCId(GenericFemaleNPC.class));
 	}
 
 	public NPC getGenericAndrogynousNPC() {
-		return genericAndrogynousNPC;
+		return (NPC) this.getNPCById(getUniqueNPCId(GenericAndrogynousNPC.class));
 	}
 	
 	public List<NPC> getOffspring() {
