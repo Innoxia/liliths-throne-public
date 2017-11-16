@@ -394,6 +394,9 @@ public class AttributesPanel extends WebEngineEx {
 					"color",
 					Sex.getSexPacePlayer().getColour().toWebHexString()
 			);
+			setTextOf(".data-player-pace",
+					Util.capitaliseSentence(Sex.getSexPacePlayer().getName())
+			);
 			setTextOf(".data-player-numorgasms",
 					""+Sex.getNumberOfPlayerOrgasms()
 			);
