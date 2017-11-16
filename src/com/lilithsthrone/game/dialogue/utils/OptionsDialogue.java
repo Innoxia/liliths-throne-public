@@ -88,8 +88,8 @@ public class OptionsDialogue {
 								Main.game.setInCombat(false);
 								Main.game.setInSex(false);
 							}
-							
-							Main.mainController.setAttributePanelContent("");
+
+							Main.mainController.getAttributesPanel().hide();
 							Main.mainController.setRightPanelContent("");
 							Main.mainController.setButtonsContent("");
 							Main.game.setRenderMap(false);

@@ -1927,7 +1927,7 @@ public class CharacterCreation {
 				return new ResponseEffectsOnly("Back", "Return to new game screen."){
 					@Override
 					public void effects() {
-						Main.mainController.setAttributePanelContent("");
+						Main.mainController.getAttributesPanel().hide();
 						Main.mainController.setButtonsContent("");
 						
 						Main.startNewGame(CharacterCreation.CONTENT_PREFERENCES);
@@ -2016,7 +2016,7 @@ public class CharacterCreation {
 				return new ResponseEffectsOnly("Back", "Return to new game screen."){
 					@Override
 					public void effects() {
-						Main.mainController.setAttributePanelContent("");
+						Main.mainController.getAttributesPanel().hide();
 						Main.mainController.setButtonsContent("");
 						
 						Main.startNewGame(CharacterCreation.CONTENT_PREFERENCES);
