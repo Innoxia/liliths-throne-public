@@ -114,6 +114,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element characterInventory = doc.createElement("characterInventory");
 		parentElement.appendChild(characterInventory);
+		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "maxInventorySpace", String.valueOf(this.getMaximumInventorySpace()));
 		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "money", String.valueOf(this.getMoney()));
 		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "essences", String.valueOf(this.getEssenceCount(TFEssence.ARCANE)));
 		
@@ -161,7 +162,10 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	
 	public static CharacterInventory loadFromXML(Element parentElement, Document doc) {
 		CharacterInventory inventory = new CharacterInventory(0);
-		
+
+		if(parentElement.getElementsByTagName("maxInventorySpace").item(0)!=null) {
+			inventory.setMaximumInventorySpace(Integer.valueOf(((Element)parentElement.getElementsByTagName("maxInventorySpace").item(0)).getAttribute("value")));
+		}
 		inventory.setMoney(Integer.valueOf(((Element)parentElement.getElementsByTagName("money").item(0)).getAttribute("value")));
 		inventory.setEssenceCount(TFEssence.ARCANE, Integer.valueOf(((Element)parentElement.getElementsByTagName("essences").item(0)).getAttribute("value")));
 		

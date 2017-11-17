@@ -4,7 +4,7 @@ import javafx.scene.input.KeyCode;
 
 /**
  * @since 0.1.61
- * @version 0.1.7
+ * @version 0.1.89
  * @author Innoxia
  */
 public enum KeyboardAction {
@@ -49,6 +49,9 @@ public enum KeyboardAction {
 	RESPOND_14("Response 14", new KeyCodeWithModifiers(KeyCode.DIGIT5, true, false), null),
 	RESPOND_0("Response 0", new KeyCodeWithModifiers(KeyCode.DIGIT0), new KeyCodeWithModifiers(KeyCode.SPACE)),
 
+	RESPOND_NEXT_TAB("Next Response Tab", new KeyCodeWithModifiers(KeyCode.E, true, false), null),
+	RESPOND_PREVIOUS_TAB("Previous Response Tab", new KeyCodeWithModifiers(KeyCode.Q, true, false), null),
+	
 	RESPOND_NEXT_PAGE("Next Response Page", new KeyCodeWithModifiers(KeyCode.E), null),
 	RESPOND_PREVIOUS_PAGE("Previous Response Page", new KeyCodeWithModifiers(KeyCode.Q), null);
 

@@ -4,12 +4,12 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.78
- * @version 0.1.84
+ * @version 0.1.89
  * @author Innoxia
  */
 public enum OrificeType {
 	
-	MOUTH_PLAYER(true) {
+	MOUTH_PLAYER(2, true) {
 		@Override
 		public String getName() {
 			return "mouth";
@@ -22,7 +22,7 @@ public enum OrificeType {
 		}
 	},
 	
-	NIPPLE_PLAYER(true) {
+	NIPPLE_PLAYER(2, true) {
 		@Override
 		public String getName() {
 			return Main.game.getPlayer().getNippleName();
@@ -39,7 +39,7 @@ public enum OrificeType {
 		}
 	},
 	
-	BREAST_PLAYER(true) {
+	BREAST_PLAYER(1, true) {
 		@Override
 		public String getName() {
 			return Main.game.getPlayer().getBreastName();
@@ -56,7 +56,7 @@ public enum OrificeType {
 		}
 	},
 	
-	ANUS_PLAYER(true) {
+	ANUS_PLAYER(1, true) {
 		@Override
 		public String getName() {
 			return Main.game.getPlayer().getAnusName(false);
@@ -69,7 +69,7 @@ public enum OrificeType {
 		}
 	},
 	
-	VAGINA_PLAYER(true) {
+	VAGINA_PLAYER(4, true) {
 		@Override
 		public String getName() {
 			return Main.game.getPlayer().getVaginaName(false);
@@ -82,7 +82,7 @@ public enum OrificeType {
 		}
 	},
 	
-	URETHRA_PLAYER(true) {
+	URETHRA_PLAYER(1, true) {
 		@Override
 		public String getName() {
 			return "urethra";
@@ -97,7 +97,7 @@ public enum OrificeType {
 	
 	// Partner:
 	
-	MOUTH_PARTNER(false) {
+	MOUTH_PARTNER(2, false) {
 		@Override
 		public String getName() {
 			return "mouth";
@@ -110,7 +110,7 @@ public enum OrificeType {
 		}
 	},
 	
-	NIPPLE_PARTNER(false) {
+	NIPPLE_PARTNER(2, false) {
 		@Override
 		public String getName() {
 			return Sex.getPartner().getNippleName();
@@ -127,7 +127,7 @@ public enum OrificeType {
 		}
 	},
 	
-	BREAST_PARTNER(false) {
+	BREAST_PARTNER(1, false) {
 		@Override
 		public String getName() {
 			return Sex.getPartner().getBreastName();
@@ -144,7 +144,7 @@ public enum OrificeType {
 		}
 	},
 	
-	ANUS_PARTNER(false) {
+	ANUS_PARTNER(1, false) {
 		@Override
 		public String getName() {
 			return Sex.getPartner().getAnusName(false);
@@ -157,7 +157,7 @@ public enum OrificeType {
 		}
 	},
 	
-	VAGINA_PARTNER(false) {
+	VAGINA_PARTNER(4, false) {
 		@Override
 		public String getName() {
 			return Sex.getPartner().getVaginaName(false);
@@ -170,7 +170,7 @@ public enum OrificeType {
 		}
 	},
 	
-	URETHRA_PARTNER(false) {
+	URETHRA_PARTNER(1, false) {
 		@Override
 		public String getName() {
 			return "urethra";
@@ -182,11 +182,16 @@ public enum OrificeType {
 			return Sex.isPartnerFreePenis();
 		}
 	};
-	
+
+	private float baseArousalWhenPenetrated;
 	private boolean isPlayer;
 
-	private OrificeType(boolean isPlayer) {
+	private OrificeType(float baseArousalWhenPenetrated, boolean isPlayer) {
 		this.isPlayer = isPlayer;
+	}
+	
+	public float getBaseArousalWhenPenetrated() {
+		return baseArousalWhenPenetrated;
 	}
 	
 	public boolean isPlayer() {

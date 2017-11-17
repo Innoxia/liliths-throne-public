@@ -110,7 +110,7 @@ public class TestNPC extends NPC {
 			this.addFetish(Fetish.FETISH_INCEST);
 			this.addFetish(Fetish.FETISH_MASOCHIST);
 			this.addFetish(Fetish.FETISH_MASTURBATION);
-			this.addFetish(Fetish.FETISH_NON_CON);
+			this.addFetish(Fetish.FETISH_NON_CON_SUB);
 			this.addFetish(Fetish.FETISH_ORAL_GIVING);
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 			this.addFetish(Fetish.FETISH_PREGNANCY);
@@ -281,7 +281,7 @@ public class TestNPC extends NPC {
 				
 			} else if (index == 2 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Rape [test.herHim]", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room...", TEST_DIALOGUE_AFTER_RAPE,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
 						null, null, null,
 						false, false, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
 						"<p>"
@@ -301,7 +301,7 @@ public class TestNPC extends NPC {
 				
 			} else if (index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Rape [test.herHim] (gentle)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'gentle' pace.)", TEST_DIALOGUE_AFTER_RAPE,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
 						null, null, null,
 						false, false, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
 						"<p>"
@@ -326,7 +326,7 @@ public class TestNPC extends NPC {
 				
 			} else if (index == 4 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Rape [test.herHim] (rough)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'rough' pace.)", TEST_DIALOGUE_AFTER_RAPE,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
 						null, null, null,
 						false, false, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
 						"<p>"
@@ -565,11 +565,6 @@ public class TestNPC extends NPC {
 	@Override
 	public int getExperienceFromVictory() {
 		return 0;
-	}
-	
-	@Override
-	public String getLostVirginityDescriptor() {
-		return "as you fucked her in her room";
 	}
 	
 	@Override

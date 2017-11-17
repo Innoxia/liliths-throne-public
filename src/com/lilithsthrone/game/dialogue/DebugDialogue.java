@@ -43,7 +43,7 @@ import com.lilithsthrone.utils.Util;
  * @version 0.1.88
  * @author Innoxia
  */
-public class GenericDialogue {
+public class DebugDialogue {
 	// Holds all basic DialogueNodes that don't belong to a specific
 	// NPC/Dungeon/Event
 
@@ -151,7 +151,7 @@ public class GenericDialogue {
 			} else if (index == 7) {
 				return new Response("Spawn Menu", "View the clothing, weapon, and item spawn menu.", SPAWN_MENU);
 				
-			} else if (index == 10) {
+			} else if (index == 8) {
 				return new Response("Brax's revenge", "Brax gets you pregnant! (If you have 0 fertility, this will probably crash the game!)", DEBUG_MENU){
 					@Override
 					public void effects() {
@@ -162,10 +162,10 @@ public class GenericDialogue {
 					}
 				};
 				
-			} else if (index == 11) {
+			} else if (index == 9) {
 				return new Response("Set body parts", "Manually set your body parts.", BODY_PART);
 				
-			}  else if(index==12){
+			}  else if(index==10){
 				return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_STRENGTH.toWebHexString()+";'>Strength</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
@@ -174,7 +174,7 @@ public class GenericDialogue {
 					}
 				};
 			}
-			else if(index==13){
+			else if(index==11){
 				return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_INTELLIGENCE.toWebHexString()+";'>Intelligence</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
@@ -183,7 +183,7 @@ public class GenericDialogue {
 					}
 				};
 			}
-			else if(index==14){
+			else if(index==12){
 				return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_FITNESS.toWebHexString()+";'>Fitness</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
@@ -192,7 +192,7 @@ public class GenericDialogue {
 					}
 				};
 			}
-			else if(index==15){
+			else if(index==13){
 				return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_CORRUPTION.toWebHexString()+";'>Corruption</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
@@ -201,7 +201,7 @@ public class GenericDialogue {
 					}
 				};
 			}
-			else if(index==16){
+			else if(index==14){
 				return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Max all attributes</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
@@ -213,7 +213,7 @@ public class GenericDialogue {
 					}
 				};
 			}
-			else if(index==17){
+			else if(index==15){
 				return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_STRENGTH.toWebHexString()+";'>Strength</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
@@ -222,7 +222,7 @@ public class GenericDialogue {
 					}
 				};
 			}
-			else if(index==18){
+			else if(index==16){
 				return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_INTELLIGENCE.toWebHexString()+";'>Intelligence</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
@@ -231,7 +231,7 @@ public class GenericDialogue {
 					}
 				};
 			}
-			else if(index==19){
+			else if(index==17){
 				return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_FITNESS.toWebHexString()+";'>Fitness</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
@@ -240,7 +240,7 @@ public class GenericDialogue {
 					}
 				};
 			}
-			else if(index==20){
+			else if(index==18){
 				return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_CORRUPTION.toWebHexString()+";'>Corruption</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
@@ -250,7 +250,7 @@ public class GenericDialogue {
 				};
 				
 			}
-			else if(index==21){
+			else if(index==19){
 				return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>+1</span> <span style='color:"+Colour.PERK.toWebHexString()+";'>Perk point</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
@@ -260,7 +260,7 @@ public class GenericDialogue {
 				};
 				
 			}
-			 else if (index == 22) {
+			 else if (index == 20) {
 					return new Response("Offspring", "View available offspring", OFFSPRING);
 					
 				}

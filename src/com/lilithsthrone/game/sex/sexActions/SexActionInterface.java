@@ -30,18 +30,21 @@ public interface SexActionInterface {
 	
 	public abstract String getDescription();
 
-	/**
-	 * @return A list of fetishes that affect the player in this sex action.
-	 */
-	public default List<Fetish> getFetishesPlayer() {
-		return null;
-	}
-
 	public CorruptionLevel getCorruptionNeeded();
 	
 	public default PenetrationType getAssociatedPenetrationType() { return null; }
 	
 	public default OrificeType getAssociatedOrificeType() { return null; }
+	
+	/**
+	 * @return A list of fetishes that affect the player in this sex action.
+	 */
+	public List<Fetish> getFetishesPlayer();
+	
+	/**
+	 * @return A list of fetishes that affect the partner in this sex action.
+	 */
+	public List<Fetish> getFetishesPartner();
 	
 	// Sex-specific:
 	
@@ -91,7 +94,7 @@ public interface SexActionInterface {
 		}
 		
 		if(getActionType()==SexActionType.PLAYER_POSITIONING || getActionType() == SexActionType.PARTNER_POSITIONING) { //TODO
-			
+			// Ongoing penetrations are reset in Sex.setSexManager()
 		}
 		
 		if(getActionType()==SexActionType.PLAYER_STOP_PENETRATION || getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
@@ -630,13 +633,6 @@ public interface SexActionInterface {
 	public default List<OrificeType> getPlayerAreasCummedIn() { return null; }
 
 	public default List<OrificeType> getPartnerAreasCummedIn() { return null; }
-	
-	/**
-	 * @return A list of fetishes that affect the partner in this sex action.
-	 */
-	public default List<Fetish> getFetishesPartner() {
-		return null;
-	}
 	
 	public default boolean ignorePlayerCondom() {
 		return false;

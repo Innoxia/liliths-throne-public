@@ -19,6 +19,8 @@ import com.lilithsthrone.world.places.GenericPlace;
 public class Cell implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 
+	public static final int CELL_MAXIMUM_INVENTORY_SPACE = 48;
+	
 	private WorldType type;
 
 	private Vector2i location;
@@ -36,7 +38,7 @@ public class Cell implements Serializable, XMLSaving {
 		discovered = false;
 		place = new GenericPlace(type.getStandardPlace());
 		
-		inventory = new CharacterInventory(0, 48);
+		inventory = new CharacterInventory(0, CELL_MAXIMUM_INVENTORY_SPACE);
 		
 		northAccess = false;
 		southAccess = false;
@@ -88,6 +90,8 @@ public class Cell implements Serializable, XMLSaving {
 		
 		cell.setPlace(GenericPlace.loadFromXML(((Element)parentElement.getElementsByTagName("place").item(0)), doc));
 		cell.setInventory(CharacterInventory.loadFromXML(((Element)parentElement.getElementsByTagName("characterInventory").item(0)), doc));
+		
+		cell.getInventory().setMaximumInventorySpace(CELL_MAXIMUM_INVENTORY_SPACE);
 		
 		return cell;
 	}

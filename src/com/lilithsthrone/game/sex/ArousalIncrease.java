@@ -11,10 +11,10 @@ public enum ArousalIncrease {
 	NEGATIVE_MAJOR(-25),
 	
 	/**This is a special action for if the player has the denial fetish.*/
-	NEGATIVE(-10),
+	NEGATIVE(-15),
 	
 	/**Calm down a little.*/
-	NEGATIVE_MINOR(-5),
+	NEGATIVE_MINOR(-10),
 
 	/**This action is not arousing at all for this partner. For example, if the other partner is masturbating out-of-sight.*/
 	ZERO_NONE(0),

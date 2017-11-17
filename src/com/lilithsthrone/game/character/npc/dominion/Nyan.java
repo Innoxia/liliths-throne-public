@@ -12,6 +12,8 @@ import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
+import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -60,6 +62,9 @@ public class Nyan extends NPC {
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_BLUE));
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLONDE), true);
+			this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+			this.setHairStyle(HairStyle.LOOSE);
+			
 			this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_WHITE), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
 	
@@ -110,6 +115,12 @@ public class Nyan extends NPC {
 	@Override
 	public void dailyReset() {
 		clearNonEquippedInventory();
+		
+		// Changing old versions of Nyan:
+		if(this.getClothingInSlot(InventorySlot.LEG)!=null && this.getClothingInSlot(InventorySlot.LEG).getClothingType().getId()==ClothingType.LEG_PENCIL_SKIRT.getId()) {
+			this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.LEG), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_SKIRT, Colour.CLOTHING_BLACK, false), true, this);
+		}
 		
 		commonFemaleClothing.clear();
 		commonFemaleUnderwear.clear();

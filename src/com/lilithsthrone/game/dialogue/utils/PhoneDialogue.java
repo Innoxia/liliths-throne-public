@@ -523,6 +523,7 @@ public class PhoneDialogue {
 
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h6 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Attack values</h6>"
+					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_PURE, true)
 					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_ATTACK, true)
 					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS, false)
 					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_MANA, true)
@@ -534,6 +535,7 @@ public class PhoneDialogue {
 
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h6 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Resistance values</h6>"
+					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_PURE, false)
 					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_ATTACK, true)
 					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_SPELLS, false)
 					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_MANA, true)
@@ -902,7 +904,7 @@ public class PhoneDialogue {
 					+ "<tr><th>Name</th><th>Race</th><th>Mother</th><th>Father</th></tr>"
 					+ "<tr style='height:8px;'></tr>");
 			
-			for(NPC npc : Main.game.getOffspring()) {
+			for(NPC npc : Main.game.getOffspringSpawned()) {
 				if(npc.isFeminine()) {
 					UtilText.nodeContentSB.append(
 							"<tr>"
@@ -995,13 +997,12 @@ public class PhoneDialogue {
 			contentSB.append("<div class='container-full-width' style='text-align:center;'>"
 					+ "[style.boldBad(Ongoing pregnancy)]"
 					+ "</br>"
-					+ "[style.bold(Possible partners:)]"
-					+ "</br>");
+					+ "[style.bold(Possible partners:)]");
 			
 			for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsMother()){
 				if(pp.getFather()!=null) {
 					contentSB.append(UtilText.parse(pp.getFather(),
-							"<b>[npc.Name(A)] (</b>"
+							"</br><b>[npc.Name(A)] (</b>"
 								+ (!pp.getFather().getRaceStage().getName().isEmpty()
 										?"<b style='color:"+pp.getFather().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getFather().getRaceStage().getName())+"</b> "
 										:"")
@@ -1021,10 +1022,11 @@ public class PhoneDialogue {
 						contentSB.append("Certainty");
 					}
 					
-					contentSB.append("</br>");
+					contentSB.append("</b>");
 				}
 			}
-			contentSB.append("</b></div>");
+			
+			contentSB.append("</div>");
 			
 			noPregnancies=false;
 		
@@ -1071,6 +1073,7 @@ public class PhoneDialogue {
 		if(!Main.game.getPlayer().getPotentialPartnersAsFather().isEmpty()){
 			
 			for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsFather()){
+				
 				if(pp.getMother()!=null) {
 					contentSB.append(UtilText.parse(pp.getMother(),
 							"<div class='container-full-width' style='text-align:center;'>"
@@ -1110,10 +1113,10 @@ public class PhoneDialogue {
 						}
 					}
 					
-					contentSB.append("</br></div>");
+					contentSB.append("</b></br>");
 				}
 			}
-			contentSB.append("</b></div>");
+			contentSB.append("</div>");
 			
 			noPregnancies=false;
 		
@@ -1211,7 +1214,8 @@ public class PhoneDialogue {
 								? "<div style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";"
 								: "<div style='color:" + Colour.TEXT_GREY.toWebHexString() + ";"))
 					+" width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
-					+ owner.getBaseAttributeValue(att)
+					// To get rid of e.g. 2.3999999999999999999999:
+					+ Math.round(owner.getBaseAttributeValue(att)*100)/100f
 				+ "</div>"
 				+ (owner.getBonusAttributeValue(att) > 0
 						? "<div style='color:" + Colour.GENERIC_GOOD.getShades()[1] + ";"
@@ -1219,10 +1223,12 @@ public class PhoneDialogue {
 								? "<div style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";"
 								: "<div style='color:" + Colour.TEXT_GREY.toWebHexString() + ";"))
 					+" width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
-					+ owner.getBonusAttributeValue(att)
+					// To get rid of e.g. 2.3999999999999999999999:
+					+ Math.round(owner.getBonusAttributeValue(att)*100)/100f
 				+ "</div>"
 				+ "<div style='float:left; width:20%; font-weight:bold; margin:0; padding:0;'>"
-					+ owner.getAttributeValue(att)
+					// To get rid of e.g. 2.3999999999999999999999:
+					+ Math.round(owner.getAttributeValue(att)*100)/100f
 				+"</div>"
 				+ "</div>";
 	}
@@ -1919,7 +1925,7 @@ public class PhoneDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public String getHeaderContent() {
+		public String getContent() {
 			journalSB = new StringBuilder(
 					"<div class='container-full-width'>"
 						+ "You can unlock fetishes by using <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>arcane essences</b> (gained from from orgasming in sex)."
@@ -2028,14 +2034,10 @@ public class PhoneDialogue {
 			
 			// Free Fetishes:
 			
-			journalSB.append("</div></div>");
+			journalSB.append("</div>");
 			
 			
 			return journalSB.toString();
-		}
-		@Override
-		public String getContent(){
-			return "";
 		}
 		
 		@Override

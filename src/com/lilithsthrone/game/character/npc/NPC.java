@@ -430,10 +430,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			if(this.getSlaveJob()==SlaveJob.IDLE) {
 				return this.getHomeLocationPlace().getAffectionChange();
 			}
-			return this.getSlaveJob().getAffectionGain();
+			// To get rid of e.g. 2.3999999999999999999999:
+			return Math.round(this.getSlaveJob().getAffectionGain(this)*100)/100f;
 		}
-
-		return this.getHomeLocationPlace().getAffectionChange();
+		
+		// To get rid of e.g. 2.3999999999999999999999:
+		return Math.round(this.getHomeLocationPlace().getAffectionChange()*100)/100f;
 	}
 	
 	public float getDailyAffectionChange() {
@@ -443,12 +445,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			if(this.getSlaveJob()==SlaveJob.IDLE) {
 				totalAffectionChange+=this.getHomeLocationPlace().getAffectionChange();
 			}
-			totalAffectionChange += this.getSlaveJob().getAffectionGain();
+			totalAffectionChange += this.getSlaveJob().getAffectionGain(this);
 		}
 		
 		for (int homeHour = 0; homeHour < 24-this.getTotalHoursWorked(); homeHour++) {
 			totalAffectionChange += this.getHomeLocationPlace().getAffectionChange();
 		}
+		
 		// To get rid of e.g. 2.3999999999999999999999:
 		return Math.round(totalAffectionChange*100)/100f;
 	}
@@ -1189,7 +1192,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	// Sex:
 	
 	public String getLostVirginityDescriptor() {
-		return "";
+		return this.getLocationPlace().getPlaceType().getVirgintyLossDescription();
 	}
 	
 	public void endSex(boolean applyEffects) {
@@ -1497,6 +1500,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
 					
 				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER))) {
+					sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
 					sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
 					sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
 					
@@ -1560,6 +1564,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 
 	public SexPace getSexPaceSubPreference(GameCharacter character){
+		if(character.hasFetish(Fetish.FETISH_NON_CON_SUB) && Main.game.isNonConEnabled()) {
+			return SexPace.SUB_RESISTING;
+		}
+		
 		if(!isAttractedTo(character)) {
 			if(Main.game.isNonConEnabled()) {
 				if(isSlave()) {
@@ -2065,10 +2073,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			case SUB_EAGER:
 				if(Sex.getPartner().isVaginaVirgin() && Sex.getPartner().hasVagina()) {
 					return UtilText.returnStringAtRandom(
-							"Come on, fuck me already! Just... Not in my pussy! I'm still a virgin!",
-							"I'm still a virgin! Just don't use my pussy, ok?!",
-							"What are you waiting for?! Just... Don't use my pussy! I'm still a virgin!",
-							"I'm so horny! Please, fuck me! But... Not in my pussy... I'm still a virgin...");
+							"Come on, fuck me already! Take my virginity!",
+							"I'm still a virgin! Please, break me in already!",
+							"What are you waiting for?! Fuck my virgin pussy already!",
+							"I'm so horny! Please, fuck my pussy! Take my virginity!");
 				} else {
 					return UtilText.returnStringAtRandom(
 							"Come on, fuck me already! Please!",
@@ -2079,10 +2087,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			case SUB_NORMAL:
 				if(Sex.getPartner().isVaginaVirgin() && Sex.getPartner().hasVagina()) {
 					return UtilText.returnStringAtRandom(
-							"I'll be a good [npc.girl]! Just... Don't use my pussy! I'm still a virgin!",
-							"I'll do whatever you want! Just don't use my pussy, ok?! I'm still a virgin...",
-							"Let's get started! Just... Don't use my pussy! I'm still a virgin!",
-							"Let's have some fun! But... Don't use my pussy... I'm still a virgin...");
+							"I'll be a good [npc.girl]! Just... I'm still a virgin, ok?",
+							"I'll do whatever you want! I'm still a virgin though...",
+							"Let's get started! But... I'm still a virgin...",
+							"Let's have some fun! But... I'm still a virgin, ok?");
 				} else {
 					return UtilText.returnStringAtRandom(
 							"I'll be a good [npc.girl]!",
@@ -2091,10 +2099,18 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							"Let's have some fun!");
 				}
 			case SUB_RESISTING:
-				return UtilText.returnStringAtRandom(
-						"Go away! Leave me alone!",
-						"Stop it! Just go away!",
-						"Please stop! Don't do this!");
+				if(Sex.getPartner().isVaginaVirgin() && Sex.getPartner().hasVagina()) {
+					return UtilText.returnStringAtRandom(
+							"Go away! I-I'm still a virgin! Leave me alone!",
+							"Stop it! Just go away! I-I'm still a virgin!",
+							"Please stop! I don't want to lose my virginity!",
+							"Don't do this! I'm still a virgin!");
+				} else {
+					return UtilText.returnStringAtRandom(
+							"Go away! Leave me alone!",
+							"Stop it! Just go away!",
+							"Please stop! Don't do this!");
+				}
 			default:
 				return UtilText.returnStringAtRandom(
 						"This is going to be good!",
@@ -6545,7 +6561,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				
 				if(Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) {
 					subQualifier = UtilText.returnStringAtRandom("reluctantly", "half-heartedly", "hesitantly");
-					subAction = UtilText.returnStringAtRandom("slides", "pushes", "drives");
+					subAction = UtilText.returnStringAtRandom("slide", "push", "drive");
 					subReactionPrefix = UtilText.returnStringAtRandom("You struggle and try to protest as [npc.name]", "You try to pull away as [npc.name]", "You let out a protesting whine as [npc.name]");
 					subSelfReactionPrefix = UtilText.returnStringAtRandom("You try not to look at [npc.name]", "You try to shuffle away from [npc.name]", "You fail to suppress a desperate whine");
 					domPenSubReactionPostfix = UtilText.returnStringAtRandom(
@@ -7390,6 +7406,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 //        return UtilText.parse("/res/txt/dialogue/sex/Generic/PlayerVaginaVirginityLossDescription.txt", context);
 //	}
 	
+	public String getPlayerPenileVirginityLossDescription(){
+		return formatVirginityLoss("You'll always remember this moment as the time that you lost your penile virginity!");
+	}
+	
 	public String getPlayerNippleVirginityLossDescription(){
 		return formatVirginityLoss("You'll always remember this moment as the time that you lost your nipple virginity!");
 	}
@@ -7411,6 +7431,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 	}
 
+	public String getPartnerPenileVirginityLossDescription(){
+		return formatVirginityLoss("You have taken [npc.name]'s penile virginity!")
+				+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
+						?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
+						+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
+						+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>experience!</i></p>"
+						:"");
+	}
 	
 	public String getPartnerAnalVirginityLossDescription(){
 		if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER).isPlayer()) {

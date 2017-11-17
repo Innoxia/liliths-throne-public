@@ -3,7 +3,7 @@ package com.lilithsthrone.game.dialogue.npcDialogue;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.GenericDialogue;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -115,6 +115,56 @@ public class SlaveDialogue {
 					return new Response("Small talk", "You've already spent time talking with [npc.name] today.", null);
 				}
 				
+			} else if (index == 4) {
+				if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
+					return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
+							AFTER_SEX,
+							true, true, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX,
+							"<p>"
+								+ "Taking hold of [npc.name]'s [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
+								+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
+								+ " [npc.speech(Looking for some fun, hmm?)]"
+							+ "</p>") {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+						}
+					};
+				} else {
+					return new Response("Submissive sex", "[npc.Name] is not too keen on having sex with you, so you'd need to be the dom...", null);
+				}
+				
+			} else if (index == 5) {
+				if(Main.game.isNonConEnabled() && !Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
+					return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
+							AFTER_SEX,
+							false, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
+							"<p>"
+								+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
+								+ " [npc.She] desperately tries to push you away, [npc.moaning],"
+								+ " [npc.speech(No! Stop!)]"
+							+ "</p>") {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -15));
+						}
+					};
+					
+				} else {
+					return new ResponseSex("Sex", "Have sex with [npc.name].", 
+							AFTER_SEX,
+							true, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
+							"<p>"
+								+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
+								+ " [npc.She] desperately leans into you, [npc.moaning],"
+								+ " [npc.speech(~Mmm!~ Yes!)]"
+							+ "</p>") {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+						}
+					};
+				}
 			} else if (index == 6) {
 				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveEncourage)) {
 					return new Response("Encourage", "Encourage [npc.name] by telling [npc.her] how good [npc.she] is.", SLAVE_ENCOURAGE) {
@@ -199,42 +249,11 @@ public class SlaveDialogue {
 					return new Response("Molest", "You've already molested [npc.name] today.", null);
 				}
 				
-			} else if (index == 5) {
-				if(Main.game.isNonConEnabled() && !Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
-					return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
-							AFTER_SEX,
-							false, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
-							"<p>"
-								+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
-								+ " [npc.She] desperately tries to push you away, [npc.moaning]"
-								+ " [npc.speech(No! Stop!)]"
-							+ "</p>") {
-						@Override
-						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -15));
-						}
-					};
-					
-				} else {
-					return new ResponseSex("Sex", "Have sex with [npc.name].", 
-							AFTER_SEX,
-							true, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
-							"<p>"
-								+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
-								+ " [npc.She] desperately leans into you, [npc.moaning]"
-								+ " [npc.speech(~Mmm!~ Yes!)]"
-							+ "</p>") {
-						@Override
-						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
-						}
-					};
-				}
 			} else if (index == 0) {
 				return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.her] some other time.", SLAVE_START) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -621,7 +640,7 @@ public class SlaveDialogue {
 				return new Response("Continue", "Continue on your way.", SLAVE_USES_YOU_POST_SEX) {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {

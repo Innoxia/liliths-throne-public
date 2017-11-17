@@ -161,7 +161,7 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 					}
 					
 					tooltipSB.append(
-							"<div class='description' style='height:"+((response.lineHeight()+1)*18)+"; text-align:center;'>"
+							"<div class='description' style='height:"+((response.lineHeight()+2)*18)+"; text-align:center;'>"
 									+ "<b>Availability:</b>"
 									+response.getTooltipBlockingList()+response.getTooltipRequiredList()
 							+"</div>");

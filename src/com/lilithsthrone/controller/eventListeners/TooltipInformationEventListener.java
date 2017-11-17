@@ -564,7 +564,7 @@ public class TooltipInformationEventListener implements EventListener {
 					+ extraAttributeTableRow(owner, "Willpower", Attribute.DAMAGE_MANA, Attribute.RESISTANCE_MANA)
 					+ extraAttributeTableRow(owner, "Stamina", Attribute.DAMAGE_STAMINA, Attribute.RESISTANCE_STAMINA)
 
-					+ extraAttributeTableRow(owner, "Pure", Attribute.DAMAGE_PURE, Attribute.DAMAGE_PURE)
+					+ extraAttributeTableRow(owner, "Pure", Attribute.DAMAGE_PURE, Attribute.RESISTANCE_PURE)
 					
 					+ extraAttributeBonus(owner, Attribute.FERTILITY)
 					+ extraAttributeBonus(owner, Attribute.VIRILITY)

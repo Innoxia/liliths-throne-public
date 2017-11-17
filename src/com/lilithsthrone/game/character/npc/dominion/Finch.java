@@ -65,6 +65,7 @@ public class Finch extends NPC {
 			
 			this.addFetish(Fetish.FETISH_EXHIBITIONIST);
 			this.addFetish(Fetish.FETISH_SADIST);
+			this.addFetish(Fetish.FETISH_NON_CON_DOM);
 			this.addFetish(Fetish.FETISH_DEFLOWERING);
 	
 			this.setMoney(10);

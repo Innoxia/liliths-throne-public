@@ -97,10 +97,10 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryAttributeChange;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
-import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -111,7 +111,6 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.inventory.item.AbstractFilledCondom;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
@@ -788,7 +787,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 		if(element.getElementsByTagName("description").getLength()!=0) {
 			character.setDescription(((Element)element.getElementsByTagName("description").item(0)).getAttribute("value"));
-			CharacterUtils.appendToImportLog(log, "</br>Set description: "+character.getDescription());
+			CharacterUtils.appendToImportLog(log, "</br>Set description");
 		}
 		if(element.getElementsByTagName("playerPetName").getLength()!=0) {
 			character.setPlayerPetName(((Element)element.getElementsByTagName("playerPetName").item(0)).getAttribute("value"));
@@ -911,61 +910,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("characterInventory");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
+			character.inventory = CharacterInventory.loadFromXML(element, doc);
 			
-//			character.inventory = CharacterInventory.loadFromXML(element, doc);
-			
-			character.setMoney(Integer.valueOf(((Element)element.getElementsByTagName("money").item(0)).getAttribute("value")));
-			character.setEssenceCount(TFEssence.ARCANE, Integer.valueOf(((Element)element.getElementsByTagName("essences").item(0)).getAttribute("value")));
-			
-			if(element.getElementsByTagName("mainWeapon").item(0)!=null) {
-				character.equipMainWeaponFromNowhere(AbstractWeapon.loadFromXML(
-						(Element) ((Element)element.getElementsByTagName("mainWeapon").item(0)).getElementsByTagName("weapon").item(0),
-						doc));
-			}
-	
-			if(element.getElementsByTagName("offhandWeapon").item(0)!=null) {
-				character.equipOffhandWeaponFromNowhere(AbstractWeapon.loadFromXML(
-						(Element) ((Element)element.getElementsByTagName("offhandWeapon").item(0)).getElementsByTagName("weapon").item(0),
-						doc));
-			}
-			
-			Element clothingEquipped = (Element) element.getElementsByTagName("clothingEquipped").item(0);
-			for(int i=0; i<clothingEquipped.getElementsByTagName("clothing").getLength(); i++){
-				Element e = ((Element)clothingEquipped.getElementsByTagName("clothing").item(i));
-				
-				character.equipClothingOverride(AbstractClothing.loadFromXML(e, doc));
-			}
-			
-			Element itemsInInventory = (Element) element.getElementsByTagName("itemsInInventory").item(0);
-			for(int i=0; i<itemsInInventory.getElementsByTagName("item").getLength(); i++){
-				Element e = ((Element)itemsInInventory.getElementsByTagName("item").item(i));
-				
-				for(int itemCount = 0 ; itemCount < Integer.valueOf(e.getAttribute("count")); itemCount++) {
-					if(e.getAttribute("id").equals(ItemType.itemToIdMap.get(ItemType.CONDOM_USED))) {
-						character.addItem(AbstractFilledCondom.loadFromXML(e, doc), false);
-					} else {
-						character.addItem(AbstractItem.loadFromXML(e, doc), false);
-					}
-				}
-			}
-			
-			Element clothingInInventory = (Element) element.getElementsByTagName("clothingInInventory").item(0);
-			for(int i=0; i<clothingInInventory.getElementsByTagName("clothing").getLength(); i++){
-				Element e = ((Element)clothingInInventory.getElementsByTagName("clothing").item(i));
-	
-				for(int clothingCount = 0 ; clothingCount < Integer.valueOf(e.getAttribute("count")); clothingCount++) {
-					character.addClothing(AbstractClothing.loadFromXML(e, doc), false);
-				}
-			}
-			
-			Element weaponsInInventory = (Element) element.getElementsByTagName("weaponsInInventory").item(0);
-			for(int i=0; i<weaponsInInventory.getElementsByTagName("weapon").getLength(); i++){
-				Element e = ((Element)weaponsInInventory.getElementsByTagName("weapon").item(i));
-	
-				for(int weaponCount = 0 ; weaponCount < Integer.valueOf(e.getAttribute("count")); weaponCount++) {
-					character.addWeapon(AbstractWeapon.loadFromXML(e, doc), false);
-				}
-			}
 		} else {
 			CharacterCreation.getDressed(character, false);
 		}
@@ -1015,7 +961,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					Element e = ((Element)element.getElementsByTagName("fetish").item(i));
 					
 					try {
-						if(Fetish.valueOf(e.getAttribute("type")) != null) {
+						if(e.getAttribute("type").equals("FETISH_NON_CON")) { // Support for old non-con fetish:
+							character.incrementEssenceCount(TFEssence.ARCANE, 5);
+							CharacterUtils.appendToImportLog(log, "</br>Added refund for old non-con fetish. (+5 arcane essences)");
+							
+						} else if(Fetish.valueOf(e.getAttribute("type")) != null) {
 							if(Boolean.valueOf(((Element)element.getElementsByTagName("fetish").item(0)).getAttribute("value"))) {
 								character.addFetish(Fetish.valueOf(e.getAttribute("type")));
 								CharacterUtils.appendToImportLog(log, "</br>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
@@ -1092,13 +1042,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				}
 			}
 			
-			nodes = pregnancyElement.getElementsByTagName("characterPotentialPartnersAsFather");
+			nodes = pregnancyElement.getElementsByTagName("potentialPartnersAsFather");
 			element = (Element) nodes.item(0);
 			if(element!=null) {
 				for(int i=0; i<element.getElementsByTagName("pregnancyPossibility").getLength(); i++){
 					Element e = ((Element)element.getElementsByTagName("pregnancyPossibility").item(i));
 					
 					character.getPotentialPartnersAsFather().add(PregnancyPossibility.loadFromXML(e, doc));
+					System.out.println(":3");
 					CharacterUtils.appendToImportLog(log, "</br>Added Pregnancy Possibility as father.");
 				}
 			}
@@ -1568,10 +1519,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			if(this.getSlaveJob()==SlaveJob.IDLE) {
 				return this.getHomeLocationPlace().getObedienceChange();
 			}
-			return this.getSlaveJob().getObedienceGain();
+			// To get rid of e.g. 2.3999999999999999999999:
+			return Math.round(this.getSlaveJob().getObedienceGain(this)*100)/100f;
 		}
-
-		return this.getHomeLocationPlace().getObedienceChange();
+		
+		// To get rid of e.g. 2.3999999999999999999999:
+		return Math.round(this.getHomeLocationPlace().getObedienceChange()*100)/100f;
 	}
 	
 	public float getDailyObedienceChange() {
@@ -1581,7 +1534,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			if(this.getSlaveJob()==SlaveJob.IDLE) {
 				totalObedienceChange+=this.getHomeLocationPlace().getObedienceChange();
 			}
-			totalObedienceChange+=this.getSlaveJob().getObedienceGain();
+			totalObedienceChange+=this.getSlaveJob().getObedienceGain(this);
 			
 		}
 		
@@ -1589,7 +1542,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			totalObedienceChange+=this.getHomeLocationPlace().getObedienceChange();
 		}
 		// To get rid of e.g. 2.3999999999999999999999:
-		return Math.round(totalObedienceChange*100)/100;
+		return Math.round(totalObedienceChange*100)/100f;
 	}
 	
 	public int getSlavesWorkingJob(SlaveJob job) {
@@ -1807,7 +1760,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public int getSlaveryTotalDailyUpkeep() {
 		int i=0;
-		for(Cell c : MiscDialogue.importantCells) {
+		for(Cell c : SlaveryManagementDialogue.importantCells) {
 			i += c.getPlace().getUpkeep();
 		}
 		return i;
@@ -1913,6 +1866,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return experience;
 	}
 
+	private int getExperienceNeededForNextLevel() {
+		return level * 10;
+	}
+	
 	/**
 	 * Increments experience. 100 experience per current level needed to level
 	 * up.
@@ -1931,19 +1888,18 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 		experience += increment;
 
-		if (experience >= level * 10)
+		if (experience >= getExperienceNeededForNextLevel())
 			levelUp();
 	}
 
 	private void levelUp() {
-		// For handling health, mana and stamina changes as a result of an
-		// attribute being changed:
+		// For handling health, mana and stamina changes as a result of an attribute being changed:
 		float healthPercentage = getHealthPercentage();
 		float manaPercentage = getManaPercentage();
 		float staminaPercentage = getStaminaPercentage();
 		
-		while (experience >= level * 10 && level < 20) {
-			experience = experience % (level * 10);
+		while (experience >= getExperienceNeededForNextLevel() && level < 20) {
+			experience -= getExperienceNeededForNextLevel();
 
 			level++;
 
@@ -4022,9 +3978,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return isCoverableAreaExposed(CoverableArea.PENIS);
 			case VAGINA_PARTNER: case VAGINA_PLAYER:
 				return isCoverableAreaExposed(CoverableArea.VAGINA);
-			default:
-				return true;
+			case BREAST_PARTNER: case BREAST_PLAYER:
+				return isCoverableAreaExposed(CoverableArea.BREASTS);
 		}
+		return false;
 	}
 
 

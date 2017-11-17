@@ -717,8 +717,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	public void setDirty(boolean cummedIn) {
 		this.cummedIn = cummedIn;
-		if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(this))
-			Main.game.getPlayer().updateInventoryListeners();
+		if(Main.game.getPlayer()!=null) {
+			if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(this)) {
+				Main.game.getPlayer().updateInventoryListeners();
+			}
+		}
 	}
 
 	public List<DisplacementType> getDisplacedList() {

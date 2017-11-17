@@ -84,8 +84,9 @@ import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.GenericDialogue;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -96,7 +97,6 @@ import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
-import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -623,7 +623,7 @@ public class MainController implements Initializable {
 								}
 							}
 						}
-						if(Main.game.getCurrentDialogueNode() == MiscDialogue.ROOM_UPGRADES){
+						if(Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.ROOM_UPGRADES){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
@@ -669,9 +669,9 @@ public class MainController implements Initializable {
 								}
 							}
 						}
-						if(Main.game.getCurrentDialogueNode() == MiscDialogue.SLAVE_MANAGEMENT_INSPECT
-								|| Main.game.getCurrentDialogueNode() == MiscDialogue.SLAVE_MANAGEMENT_JOBS
-								|| Main.game.getCurrentDialogueNode() == MiscDialogue.SLAVE_MANAGEMENT_PERMISSIONS){
+						if(Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.SLAVE_MANAGEMENT_INSPECT
+								|| Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.SLAVE_MANAGEMENT_JOBS
+								|| Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.SLAVE_MANAGEMENT_PERMISSIONS){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
@@ -755,7 +755,7 @@ public class MainController implements Initializable {
 							}
 						}
 						
-						if(Main.game.getCurrentDialogueNode() == GenericDialogue.PARSER){
+						if(Main.game.getCurrentDialogueNode() == DebugDialogue.PARSER){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('parseInput') === document.activeElement"))
 								allowInput = false;
 						}
@@ -795,19 +795,29 @@ public class MainController implements Initializable {
 							
 						}
 						
+						// Next/Previous response tab:
+						if (keyEventMatchesBindings(KeyboardAction.RESPOND_NEXT_TAB, event)) {
+							if (Main.game.incrementResponseTab()) {
+								Main.game.updateResponses();
+							}
+						}
+						if (keyEventMatchesBindings(KeyboardAction.RESPOND_PREVIOUS_TAB, event)) {
+							if (Main.game.decrementResponseTab()) {
+								Main.game.updateResponses();
+							}
+						}
+						
 						// Next/Previous response page:
 						if (keyEventMatchesBindings(KeyboardAction.RESPOND_NEXT_PAGE, event)) {
 							if (Main.game.isHasNextResponsePage()) {
 								Main.game.setResponsePage(Main.game.getResponsePage() + 1);
-								Main.game.reloadContent();
-//								Main.game.setResponses(Main.game.getCurrentDialogueNode());
+								Main.game.updateResponses();
 							}
 						}
 						if (keyEventMatchesBindings(KeyboardAction.RESPOND_PREVIOUS_PAGE, event)) {
 							if (Main.game.getResponsePage() != 0) {
 								Main.game.setResponsePage(Main.game.getResponsePage() - 1);
-								Main.game.reloadContent();
-//								Main.game.setResponses(Main.game.getCurrentDialogueNode());
+								Main.game.updateResponses();
 							}
 						}
 					}
@@ -1257,10 +1267,10 @@ public class MainController implements Initializable {
 		
 		// -------------------- Debug menu -------------------- //
 		
-		if(Main.game.getCurrentDialogueNode().equals(GenericDialogue.SPAWN_MENU)) {
+		if(Main.game.getCurrentDialogueNode().equals(DebugDialogue.SPAWN_MENU)) {
 			id = "";
 			
-			for(AbstractClothingType clothingType : GenericDialogue.clothingTotal) {
+			for(AbstractClothingType clothingType : DebugDialogue.clothingTotal) {
 				id = clothingType.getId() + "_SPAWN";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
@@ -1276,7 +1286,7 @@ public class MainController implements Initializable {
 				}
 			}
 			
-			for(AbstractWeaponType weaponType : GenericDialogue.weaponsTotal) {
+			for(AbstractWeaponType weaponType : DebugDialogue.weaponsTotal) {
 				id = weaponType.getId() + "_SPAWN";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
@@ -1292,7 +1302,7 @@ public class MainController implements Initializable {
 				}
 			}
 			
-			for(AbstractItemType itemType : GenericDialogue.itemsTotal) {
+			for(AbstractItemType itemType : DebugDialogue.itemsTotal) {
 				id = itemType.getId() + "_SPAWN";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
@@ -1312,7 +1322,7 @@ public class MainController implements Initializable {
 				id = slot + "_SPAWN_SELECT";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						GenericDialogue.activeSlot = slot;
+						DebugDialogue.activeSlot = slot;
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 					
@@ -1321,7 +1331,7 @@ public class MainController implements Initializable {
 			id = "ITEM_SPAWN_SELECT";
 			if (((EventTarget) document.getElementById(id)) != null) {
 				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-					GenericDialogue.activeSlot = null;
+					DebugDialogue.activeSlot = null;
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 				
@@ -1608,6 +1618,7 @@ public class MainController implements Initializable {
 			if (((EventTarget) document.getElementById("INGREDIENT_ENCHANTING")) != null) {
 				
 				((EventTarget) document.getElementById("INGREDIENT_ENCHANTING")).addEventListener("click", e -> {
+					Main.game.setResponseTab(1);
 					Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
 						@Override
 						public void effects() {
@@ -1717,19 +1728,19 @@ public class MainController implements Initializable {
 			
 			// -------------------- Room upgrades -------------------- //
 			
-			if(Main.game.getCurrentDialogueNode() == MiscDialogue.ROOM_MANAGEMENT) {
-				for(Cell c : MiscDialogue.importantCells) {
+			if(Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.ROOM_MANAGEMENT) {
+				for(Cell c : SlaveryManagementDialogue.importantCells) {
 					id = c.getId();
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									MiscDialogue.cellToInspect = c;
+									SlaveryManagementDialogue.cellToInspect = c;
 								}
 								@Override
 								public DialogueNodeOld getNextDialogue() {
-									return MiscDialogue.ROOM_UPGRADES;
+									return SlaveryManagementDialogue.ROOM_UPGRADES;
 								}
 							});
 						}, false);
@@ -1755,11 +1766,11 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									MiscDialogue.cellToInspect = c;
+									SlaveryManagementDialogue.cellToInspect = c;
 								}
 								@Override
 								public DialogueNodeOld getNextDialogue() {
-									return MiscDialogue.ROOM_UPGRADES;
+									return SlaveryManagementDialogue.ROOM_UPGRADES;
 								}
 							});
 						}, false);
@@ -1781,7 +1792,7 @@ public class MainController implements Initializable {
 				}
 			}
 
-			if(Main.game.getCurrentDialogueNode() == MiscDialogue.ROOM_UPGRADES) {
+			if(Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.ROOM_UPGRADES) {
 				for(PlaceUpgrade placeUpgrade : PlaceUpgrade.values()) {
 					
 					id = placeUpgrade+"_BUY";
@@ -1790,7 +1801,7 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									MiscDialogue.cellToInspect.getPlace().addPlaceUpgrade(placeUpgrade);
+									SlaveryManagementDialogue.cellToInspect.getPlace().addPlaceUpgrade(placeUpgrade);
 									Main.game.getPlayer().incrementMoney(-placeUpgrade.getInstallCost());
 								}
 							});
@@ -1799,7 +1810,7 @@ public class MainController implements Initializable {
 						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Purchase Modification",
-								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getInstallCost())+"</br>"+MiscDialogue.getPurchaseAvailabilityTooltipText(MiscDialogue.cellToInspect.getPlace(), placeUpgrade));
+								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getInstallCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect.getPlace(), placeUpgrade));
 						addEventListener(document, id, "mouseenter", el, false);
 					}
 					id = placeUpgrade+"_BUY_DISABLED";
@@ -1808,7 +1819,7 @@ public class MainController implements Initializable {
 						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Purchase Modification",
-								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getInstallCost())+"</br>"+MiscDialogue.getPurchaseAvailabilityTooltipText(MiscDialogue.cellToInspect.getPlace(), placeUpgrade));
+								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getInstallCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect.getPlace(), placeUpgrade));
 						addEventListener(document, id, "mouseenter", el, false);
 					}
 					
@@ -1818,7 +1829,7 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									MiscDialogue.cellToInspect.getPlace().removePlaceUpgrade(placeUpgrade);
+									SlaveryManagementDialogue.cellToInspect.getPlace().removePlaceUpgrade(placeUpgrade);
 									Main.game.getPlayer().incrementMoney(-placeUpgrade.getRemovalCost());
 								}
 							});
@@ -1827,7 +1838,7 @@ public class MainController implements Initializable {
 						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Remove Modification",
-								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getRemovalCost())+"</br>"+MiscDialogue.getPurchaseAvailabilityTooltipText(MiscDialogue.cellToInspect.getPlace(), placeUpgrade));
+								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getRemovalCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect.getPlace(), placeUpgrade));
 						addEventListener(document, id, "mouseenter", el, false);
 					}
 					id = placeUpgrade+"_SELL_DISABLED";
@@ -1838,7 +1849,7 @@ public class MainController implements Initializable {
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Remove Modification",
 								(placeUpgrade.isCoreRoomUpgrade()
 										?"You cannot directly remove core upgrades. Instead, you'll have to purchase a different core modification in order to remove the current one."
-										:"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getRemovalCost())+"</br>"+MiscDialogue.getPurchaseAvailabilityTooltipText(MiscDialogue.cellToInspect.getPlace(), placeUpgrade)));
+										:"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getRemovalCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect.getPlace(), placeUpgrade)));
 						addEventListener(document, id, "mouseenter", el, false);
 					}
 				}
@@ -1865,7 +1876,7 @@ public class MainController implements Initializable {
 								Main.game.setContent(new Response("Rename Room", "Rename this room to whatever you've entered in the text box.", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
-										MiscDialogue.cellToInspect.getPlace().setName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+										SlaveryManagementDialogue.cellToInspect.getPlace().setName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 									}
 								});
 							}
@@ -1879,11 +1890,11 @@ public class MainController implements Initializable {
 			
 			// -------------------- Slavery -------------------- //
 			
-			if(Main.game.getCurrentDialogueNode() == MiscDialogue.SLAVERY_OVERVIEW) {
+			if(Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.SLAVERY_OVERVIEW) {
 				id ="PREVIOUS_DAY";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						MiscDialogue.incrementDayNumber(-1);
+						SlaveryManagementDialogue.incrementDayNumber(-1);
 						Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -1891,7 +1902,7 @@ public class MainController implements Initializable {
 				id ="NEXT_DAY";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						MiscDialogue.incrementDayNumber(1);
+						SlaveryManagementDialogue.incrementDayNumber(1);
 						Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -2012,7 +2023,7 @@ public class MainController implements Initializable {
 								}
 							}
 							
-							Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
+							Main.game.setContent(new Response("", "", SlaveryManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
 						}, false);
 						
 						addEventListener(document, id, "mousemove", moveTooltipListener, false);
@@ -2037,7 +2048,7 @@ public class MainController implements Initializable {
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 							Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setSlaveJob(job);
-							Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
+							Main.game.setContent(new Response("", "", SlaveryManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
 						}, false);
 						
 						addEventListener(document, id, "mousemove", moveTooltipListener, false);
@@ -2060,7 +2071,7 @@ public class MainController implements Initializable {
 						if (((EventTarget) document.getElementById(id)) != null) {
 							((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 								Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().addSlaveJobSettings(setting);
-								Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
+								Main.game.setContent(new Response("", "", SlaveryManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
 							}, false);
 							
 							addEventListener(document, id, "mousemove", moveTooltipListener, false);
@@ -2073,7 +2084,7 @@ public class MainController implements Initializable {
 						if (((EventTarget) document.getElementById(id)) != null) {
 							((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 								Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().removeSlaveJobSettings(setting);
-								Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
+								Main.game.setContent(new Response("", "", SlaveryManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
 							}, false);
 							
 							addEventListener(document, id, "mousemove", moveTooltipListener, false);
@@ -2100,7 +2111,7 @@ public class MainController implements Initializable {
 						if (((EventTarget) document.getElementById(id)) != null) {
 							((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 								Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().addSlavePermissionSetting(permission, setting);
-								Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementSlavePermissionsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
+								Main.game.setContent(new Response("", "", SlaveryManagementDialogue.getSlaveryManagementSlavePermissionsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
 							}, false);
 							
 							addEventListener(document, id, "mousemove", moveTooltipListener, false);
@@ -2113,7 +2124,7 @@ public class MainController implements Initializable {
 						if (((EventTarget) document.getElementById(id)) != null) {
 							((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 								Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().removeSlavePermissionSetting(permission, setting);
-								Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementSlavePermissionsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
+								Main.game.setContent(new Response("", "", SlaveryManagementDialogue.getSlaveryManagementSlavePermissionsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
 							}, false);
 							
 							addEventListener(document, id, "mousemove", moveTooltipListener, false);
@@ -2139,7 +2150,7 @@ public class MainController implements Initializable {
 				NPC slave = (NPC) Main.game.getNPCById(slaveId);
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementInspectSlaveDialogue(slave)));
+						Main.game.setContent(new Response("", "", SlaveryManagementDialogue.getSlaveryManagementInspectSlaveDialogue(slave)));
 					}, false);
 					addEventListener(document, id, "mousemove", moveTooltipListener, false);
 					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
@@ -2152,7 +2163,7 @@ public class MainController implements Initializable {
 				id = slaveId+"_JOB"; //TODO
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementSlaveJobsDialogue(slave)));
+						Main.game.setContent(new Response("", "", SlaveryManagementDialogue.getSlaveryManagementSlaveJobsDialogue(slave)));
 					}, false);
 					addEventListener(document, id, "mousemove", moveTooltipListener, false);
 					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
@@ -2165,7 +2176,7 @@ public class MainController implements Initializable {
 				id = slaveId+"_PERMISSIONS"; //TODO
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementSlavePermissionsDialogue(slave)));
+						Main.game.setContent(new Response("", "", SlaveryManagementDialogue.getSlaveryManagementSlavePermissionsDialogue(slave)));
 					}, false);
 					addEventListener(document, id, "mousemove", moveTooltipListener, false);
 					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
@@ -2259,7 +2270,7 @@ public class MainController implements Initializable {
 					
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementInspectSlaveDialogue(slave)));
+							Main.game.setContent(new Response("", "", SlaveryManagementDialogue.getSlaveryManagementInspectSlaveDialogue(slave)));
 						}, false);
 						addEventListener(document, id, "mousemove", moveTooltipListener, false);
 						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
@@ -3902,7 +3913,7 @@ public class MainController implements Initializable {
 		if (((EventTarget) document.getElementById(id)) != null) {
 			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 				Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setWorkHour(i, !Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getWorkHours()[i]);
-				Main.game.setContent(new Response("", "", MiscDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
+				Main.game.setContent(new Response("", "", SlaveryManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
 			}, false);
 		}
 	}
@@ -4411,7 +4422,7 @@ public class MainController implements Initializable {
 	 */
 	private void checkLastKeys() {
 		if (lastKeysEqual(KeyCode.B, KeyCode.U, KeyCode.G, KeyCode.G, KeyCode.Y)) {
-			Main.game.setContent(new Response("", "", GenericDialogue.DEBUG_MENU));
+			Main.game.setContent(new Response("", "", DebugDialogue.DEBUG_MENU));
 		}
 		if (lastKeysEqual(KeyCode.N, KeyCode.O, KeyCode.X, KeyCode.X, KeyCode.X)) {
 			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_GENERIC_SHOP && !Main.game.getTestNPC().isSlave()) {

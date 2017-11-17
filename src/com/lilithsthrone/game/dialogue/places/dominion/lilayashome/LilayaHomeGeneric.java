@@ -7,11 +7,11 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
-import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
 import com.lilithsthrone.main.Main;
@@ -178,7 +178,7 @@ public class LilayaHomeGeneric {
 				return new Response("Slavery Overview", "Open the slave management screen.",  CORRIDOR) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return MiscDialogue.getSlaveryOverviewDialogue();
+						return SlaveryManagementDialogue.getSlaveryOverviewDialogue();
 					}
 				};
 			} else {
@@ -191,7 +191,7 @@ public class LilayaHomeGeneric {
 				return new Response("Slave List", "Enter the slave management screen.", CORRIDOR) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return MiscDialogue.getSlaveryManagementDialogue(null);
+						return SlaveryManagementDialogue.getSlaveryManagementDialogue(null);
 					}
 				};
 			} else {
@@ -200,7 +200,7 @@ public class LilayaHomeGeneric {
 			
 		} else if (index == 3) {
 			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return new Response("Room List", "Enter the room upgrades options screen.", MiscDialogue.ROOM_MANAGEMENT);
+				return new Response("Room List", "Enter the room upgrades options screen.", SlaveryManagementDialogue.ROOM_MANAGEMENT);
 			} else {
 				return new Response("Room List", "You'll need a slaver license before you can access this menu!",  null);
 			}

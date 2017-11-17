@@ -91,6 +91,129 @@ public class GenericActions {
 						"Begging for [npc.herHim] to leave you alone, you desperately struggle against [npc.name], [pc.sobbing] in distress as you realise that [npc.her] grip is too strong.");
 			}
 		}
+		
+		@Override
+		public List<Fetish> getFetishesPlayer() {
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_SUB));
+		}
+		
+		@Override
+		public List<Fetish> getFetishesPartner() {
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM));
+		}
+	};
+	
+	public static final SexAction PLAYER_STOP_ALL_PENETRATIONS = new SexAction(
+			SexActionType.PLAYER,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+		@Override
+		public String getActionTitle() {
+			return "Stop penetrations";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Stop all ongoing penetrative actions.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.isAnyPenetrationHappening()
+					&& (Sex.isPlayerDom()?true:Sex.isSubHasEqualControl());
+		}
+
+		@Override
+		public String getDescription() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			for(OrificeType ot : OrificeType.values()) {
+				switch(ot) {
+					case ANUS_PARTNER:
+						if (Sex.getPenetrationTypeInOrifice(ot)!=null && Sex.getPenetrationTypeInOrifice(ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.asshole+].");
+						}
+						break;
+					case ANUS_PLAYER:
+						if (Sex.getPenetrationTypeInOrifice(ot)!=null && Sex.getPenetrationTypeInOrifice(ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.asshole+].");
+						}
+						break;
+					case BREAST_PARTNER:
+						if (Sex.getPenetrationTypeInOrifice(ot)!=null && Sex.getPenetrationTypeInOrifice(ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you stop playing with [npc.her] [npc.breasts+].");
+						}
+						break;
+					case BREAST_PLAYER:
+						if (Sex.getPenetrationTypeInOrifice(ot)!=null && Sex.getPenetrationTypeInOrifice(ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.breasts+].");
+						}
+						break;
+					case MOUTH_PARTNER:
+						if (Sex.getPenetrationTypeInOrifice(ot)!=null && Sex.getPenetrationTypeInOrifice(ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] mouth.");
+						}
+						break;
+					case MOUTH_PLAYER:
+						if (Sex.getPenetrationTypeInOrifice(ot)!=null && Sex.getPenetrationTypeInOrifice(ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you pull out of your mouth.");
+						}
+						break;
+					case NIPPLE_PARTNER:
+						if (Sex.getPenetrationTypeInOrifice(ot)!=null && Sex.getPenetrationTypeInOrifice(ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.nipple+].");
+						}
+						break;
+					case NIPPLE_PLAYER:
+						if (Sex.getPenetrationTypeInOrifice(ot)!=null && Sex.getPenetrationTypeInOrifice(ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.nipple+].");
+						}
+						break;
+					case URETHRA_PARTNER:
+						if (Sex.getPenetrationTypeInOrifice(ot)!=null && Sex.getPenetrationTypeInOrifice(ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.urethra+].");
+						}
+						break;
+					case URETHRA_PLAYER:
+						if (Sex.getPenetrationTypeInOrifice(ot)!=null && Sex.getPenetrationTypeInOrifice(ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.urethra+].");
+						}
+						break;
+					case VAGINA_PARTNER:
+						if (Sex.getPenetrationTypeInOrifice(ot)!=null && Sex.getPenetrationTypeInOrifice(ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.pussy+].");
+						}
+						break;
+					case VAGINA_PLAYER:
+						if (Sex.getPenetrationTypeInOrifice(ot)!=null && Sex.getPenetrationTypeInOrifice(ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.pussy+].");
+						}
+						break;
+				}
+			}
+			
+			UtilText.nodeContentSB.replace(0, 5, "");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public void applyEffects() {
+			for(PenetrationType pt : PenetrationType.values()) {
+				if(pt.isPlayer()) {
+					if(Sex.getOngoingPenetrationMap().containsKey(pt)) {
+						for(OrificeType ot : OrificeType.values()) {
+							if(!ot.isPlayer()) {
+								Sex.removePenetration(pt, ot);
+							}
+						}
+					}
+				}
+			}
+		}
 	};
 	
 	public static final SexAction PLAYER_FORBID_PARTNER_SELF = new SexAction(
@@ -381,7 +504,7 @@ public class GenericActions {
 			
 			if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)!=null) {
 				if(!Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER).isPlayer()) {
-					UtilText.nodeContentSB.append("[npc.Name] lets out a disappointed [pc.moan] as you force [npc.herHim] to stop stimulating [npc.her] [npc.pussy+].");
+					UtilText.nodeContentSB.append("[npc.Name] lets out a disappointed [npc.moan] as you force [npc.herHim] to stop stimulating [npc.her] [npc.pussy+].");
 				}
 			}
 			
@@ -405,7 +528,7 @@ public class GenericActions {
 				if(!Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER).isPlayer()) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
-					UtilText.nodeContentSB.append("[npc.Name] lets out a disappointed [pc.moan] as you force [npc.herHim] to stop using [npc.her] mouth.");
+					UtilText.nodeContentSB.append("[npc.Name] lets out a disappointed [npc.moan] as you force [npc.herHim] to stop using [npc.her] mouth.");
 				}
 			}
 			

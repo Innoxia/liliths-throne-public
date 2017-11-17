@@ -8,7 +8,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.NPCOffspring;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.GenericDialogue;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -467,7 +467,7 @@ public class DominionOffspringDialogue {
 							@Override
 							public DialogueNodeOld getNextDialogue() {
 								setOffspringFlags();
-								return GenericDialogue.getDefaultDialogueNoEncounter();
+								return DebugDialogue.getDefaultDialogueNoEncounter();
 							}
 						};
 					
@@ -902,7 +902,7 @@ public class DominionOffspringDialogue {
 					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", OFFSPRING_ENCOUNTER) {
 							@Override
 							public DialogueNodeOld getNextDialogue() {
-								return GenericDialogue.getDefaultDialogueNoEncounter();
+								return DebugDialogue.getDefaultDialogueNoEncounter();
 							}
 							@Override
 							public void effects() {
@@ -1131,7 +1131,7 @@ public class DominionOffspringDialogue {
 				return new Response("Continue", "Give [npc.name] some time to think, and continue on your way.", OFFSPRING_ENCOUNTER_APOLOGY) {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -1327,7 +1327,7 @@ public class DominionOffspringDialogue {
 						}
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 					};
 					
@@ -1465,7 +1465,7 @@ public class DominionOffspringDialogue {
 							}
 							@Override
 							public DialogueNodeOld getNextDialogue() {
-								return GenericDialogue.getDefaultDialogueNoEncounter();
+								return DebugDialogue.getDefaultDialogueNoEncounter();
 							}
 						};
 					
@@ -2119,7 +2119,7 @@ public class DominionOffspringDialogue {
 				return new Response("Apologise", "Maybe you went too far... Perhaps you should apologise?", null){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
@@ -2166,7 +2166,7 @@ public class DominionOffspringDialogue {
 				} else {
 					return new ResponseSex(
 							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", AFTER_SEX_VICTORY,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
 							null, null, null,
 							false, false, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
@@ -2206,7 +2206,7 @@ public class DominionOffspringDialogue {
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", AFTER_SEX_VICTORY,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
 							null, null, null,
 							false, false, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
@@ -2247,7 +2247,7 @@ public class DominionOffspringDialogue {
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", AFTER_SEX_VICTORY,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
 							null, null, null,
 							false, false, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
@@ -2272,7 +2272,7 @@ public class DominionOffspringDialogue {
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
 							AFTER_SEX_DEFEAT,
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-							true, false, offspring(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							true, true, offspring(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "Looking down at your [npc.daughter] as [npc.she] shuffles about on the floor, you're suddenly overcome with regret, and, kneeling down next to [npc.herHim], you pull [npc.herHim] into a loving hug."
 								+ " Leaning in over [npc.her] shoulder as you press yourself to [npc.herHim], you apologise for what you've done,"
@@ -2320,7 +2320,7 @@ public class DominionOffspringDialogue {
 						AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
@@ -2365,7 +2365,7 @@ public class DominionOffspringDialogue {
 				return new Response("Leave", "Now that you've taught [npc.name] a lesson, you can be on your way...", AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
@@ -2514,7 +2514,7 @@ public class DominionOffspringDialogue {
 					return new Response("Continue", "You're left to continue on your way...", AFTER_COMBAT_DEFEAT){
 						@Override
 						public DialogueNodeOld getNextDialogue(){
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 						@Override
 						public void effects() {
@@ -2575,7 +2575,7 @@ public class DominionOffspringDialogue {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_CONSENSUAL){
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -2605,7 +2605,6 @@ public class DominionOffspringDialogue {
 					return UtilText.parse(offspring(),
 							"<p>"
 								+ "As you step back from [npc.name], [npc.she] grabs on to the edge of the sofa and sinks to the floor, letting out a thankful sob as [npc.she] realises that you've finished."
-								+ " Smirking down at your [npc.daughter] one last time, you turn around and walk over to the door, before pulling it open and heading back out into the alleyways."
 							+ "</p>");
 					
 				} else {
@@ -2619,9 +2618,6 @@ public class DominionOffspringDialogue {
 								+ "<p>"
 									+ "[npc.speech(Thanks [npc.pcName],)]"
 									+ " [npc.she] sighs, before resting [npc.her] head on the sofa's cushions and falling asleep."
-								+ "</p>"
-								+ "<p>"
-									+ "Leaving [npc.herHim] to recover by [npc.herself], you turn around and walk over to the door, before pulling it open and heading back out into the alleyways."
 								+ "</p>");
 					} else {
 						return UtilText.parse(offspring(),
@@ -2632,10 +2628,6 @@ public class DominionOffspringDialogue {
 								+ "<p>"
 									+ "[npc.speech([npc.pcName]! I'm still horny!)]"
 									+ " [npc.she] whines."
-								+ "</p>"
-								+ "<p>"
-									+ "Having already had your fun, you leave [npc.herHim] to get some pleasure by [npc.herself]."
-									+ " Turning around and walking over to the door, you pull it open and head back out into the alleyways."
 								+ "</p>");
 					}
 				}
@@ -2645,7 +2637,6 @@ public class DominionOffspringDialogue {
 					return UtilText.parse(offspring(),
 							"<p>"
 								+ "As you step back from [npc.name], [npc.she] sinks down to floor, letting out a thankful sob as [npc.she] realises that you've finished."
-								+ " Smirking down at your [npc.daughter] one last time, you turn around and take your leave, feeling thoroughly satisfied as you continue on your journey through the alleyways."
 							+ "</p>");
 					
 				} else {
@@ -2658,9 +2649,6 @@ public class DominionOffspringDialogue {
 								+ "<p>"
 									+ "[npc.speech(Thanks [npc.pcName],)]"
 									+ " [npc.she] sighs."
-								+ "</p>"
-								+ "<p>"
-									+ "Leaving [npc.herHim] to recover by [npc.herself], you set off and continue on your journey through the alleyways."
 								+ "</p>");
 					} else {
 						return UtilText.parse(offspring(),
@@ -2671,13 +2659,9 @@ public class DominionOffspringDialogue {
 								+ "<p>"
 									+ "[npc.speech([npc.pcName]! I'm still horny!)]"
 									+ " [npc.she] whines."
-								+ "</p>"
-								+ "<p>"
-									+ "Leaving [npc.herHim] to get some pleasure by [npc.herself], you set off and continue on your journey through the alleyways."
 								+ "</p>");
 					}
 				}
-				
 			}
 		}
 
@@ -2686,8 +2670,50 @@ public class DominionOffspringDialogue {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append("<p>");
+						if(offspring().fightInApartment) {
+							if(!offspring().isAttractedTo(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
+								Main.game.getTextStartStringBuilder().append(" Smirking down at your [npc.daughter] one last time, you turn around and walk over to the door, before pulling it open and heading back out into the alleyways.");
+								
+							} else {
+								if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+									Main.game.getTextStartStringBuilder().append("Leaving [npc.herHim] to recover by [npc.herself], you turn around and walk over to the door, before pulling it open and heading back out into the alleyways.");
+								} else {
+									Main.game.getTextStartStringBuilder().append("Having already had your fun, you leave [npc.herHim] to get some pleasure by [npc.herself]."
+												+ " Turning around and walking over to the door, you pull it open and head back out into the alleyways.");
+								}
+							}
+							
+						} else {
+							if(!offspring().isAttractedTo(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
+								Main.game.getTextStartStringBuilder().append("As you step back from [npc.name], [npc.she] sinks down to floor, letting out a thankful sob as [npc.she] realises that you've finished."
+											+ " Smirking down at your [npc.daughter] one last time, you turn around and take your leave, feeling thoroughly satisfied as you continue on your journey through the alleyways.");
+								
+							} else {
+								if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+									Main.game.getTextStartStringBuilder().append("Leaving [npc.herHim] to recover by [npc.herself], you set off and continue on your journey through the alleyways.");
+								} else {
+									Main.game.getTextStartStringBuilder().append("Leaving [npc.herHim] to get some pleasure by [npc.herself], you set off and continue on your journey through the alleyways.");
+								}
+							}
+						}
+						Main.game.getTextStartStringBuilder().append("</p>");
+						String parsed = UtilText.parse(offspring(), Main.game.getTextStartStringBuilder().toString());
+						Main.game.getTextStartStringBuilder().setLength(0);
+						Main.game.getTextStartStringBuilder().append(parsed);
+					}
+					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
+					}
+				};
+				
+			} else if (index == 6) {
+				return new ResponseEffectsOnly("Inventory", "There's nothing stopping you from helping yourself to [npc.name]'s clothing and items..."){
+					@Override
+					public void effects() {
+						Main.mainController.openInventory(Main.game.getActiveNPC(), InventoryInteraction.FULL_MANAGEMENT);
 					}
 				};
 				
@@ -2698,7 +2724,7 @@ public class DominionOffspringDialogue {
 						AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
@@ -2804,7 +2830,7 @@ public class DominionOffspringDialogue {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -2850,7 +2876,7 @@ public class DominionOffspringDialogue {
 				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {

@@ -282,11 +282,6 @@ public class Kate extends NPC {
 	}
 	
 	@Override
-	public String getLostVirginityDescriptor() {
-		return "as you fucked her on a chair in her beauty salon";
-	}
-	
-	@Override
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
 		// Player is using an item:
 		if(user.isPlayer()){

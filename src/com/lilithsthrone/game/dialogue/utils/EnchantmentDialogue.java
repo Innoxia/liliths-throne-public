@@ -226,6 +226,7 @@ public class EnchantmentDialogue {
 				return new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
 					@Override
 					public void effects() {
+						Main.game.setResponseTab(1);
 						EnchantmentDialogue.resetEnchantmentVariables();
 					}
 				};

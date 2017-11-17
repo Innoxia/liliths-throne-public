@@ -182,6 +182,22 @@ public class PlayerTalk {
 			
 			}
 		}
+		
+		@Override
+		public List<Fetish> getFetishesPlayer() {
+			if(Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_SUB));
+			}
+			return null;
+		}
+		
+		@Override
+		public List<Fetish> getFetishesPartner() {
+			if(Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM));
+			}
+			return null;
+		}
 	};
 	
 	public static final SexAction PLAYER_REQUEST_VAGINAL = new SexAction(

@@ -244,11 +244,6 @@ public class Lilaya extends NPC {
 		return 0;
 	}
 	
-	@Override
-	public String getLostVirginityDescriptor() {
-		return "as she performed some extra \"tests\" on you";
-	}
-	
 	
 	// Dirty talk:
 

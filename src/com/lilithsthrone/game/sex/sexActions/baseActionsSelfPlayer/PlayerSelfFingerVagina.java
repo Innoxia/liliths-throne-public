@@ -1,9 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
 
-import java.util.List;
-
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -13,8 +10,6 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
@@ -63,10 +58,6 @@ public class PlayerSelfFingerVagina {
 			}
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
 	};
 	
 	public static final SexAction PLAYER_SELF_FINGER_VAGINA_PENETRATION = new SexAction(
@@ -99,10 +90,6 @@ public class PlayerSelfFingerVagina {
 					"You eagerly push your fingers into your needy [pc.pussy], [pc.moaning+] as you curl your digits up inside yourself and start stroking in a 'come-hither' motion."));
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_FINGER_VAGINA_GENTLE = new SexAction(
@@ -142,10 +129,6 @@ public class PlayerSelfFingerVagina {
 					"Focusing on the pleasure you're giving yourself between your [pc.legs], you start gently pumping your [pc.fingers] in and out of your [pc.pussy+].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_FINGER_VAGINA_NORMAL = new SexAction(
@@ -185,10 +168,6 @@ public class PlayerSelfFingerVagina {
 					"Focusing on the pleasure you're giving yourself between your [pc.legs], you start pumping your [pc.fingers] in and out of your [pc.pussy+].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_FINGER_VAGINA_ROUGH = new SexAction(
@@ -228,10 +207,6 @@ public class PlayerSelfFingerVagina {
 					"Focusing on the pleasure you're giving yourself between your [pc.legs], you start roughly slamming your [pc.fingers] in and out of your [pc.pussy+].");
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction SUB_PLAYER_SELF_FINGER_VAGINA_NORMAL = new SexAction(
@@ -271,10 +246,6 @@ public class PlayerSelfFingerVagina {
 					"Focusing on the pleasure you're giving yourself between your [pc.legs], you start pumping your [pc.fingers] in and out of your [pc.pussy+].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction SUB_PLAYER_SELF_FINGER_VAGINA_EAGER = new SexAction(
@@ -314,10 +285,6 @@ public class PlayerSelfFingerVagina {
 					"Focusing on the pleasure you're giving yourself between your [pc.legs], you eagerly start slamming your [pc.fingers] in and out of your [pc.pussy+].");
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction PLAYER_SELF_FINGER_VAGINA_STOP_PENETRATION = new SexAction(

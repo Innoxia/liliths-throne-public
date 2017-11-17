@@ -23,46 +23,156 @@
 	Patch notes:
 	
 	Engine:
-		<b>Added:</b> First iteration of save compatibility (some minor things aren't working yet, but I'll finish it off over the weekend). This took a loooong time to implement... Sorry that there isn't much else here... ;_;
-		<b>Changed:</b> Importing your character no longer carries over your slaves (and doesn't carry over pregnancies either). This is due to inter-NPC relationships getting quite complicated, so, for example, there would be several serious issues with importing an enslaved Scarlett into a new game, and then meeting the new game's version of Scarlett.
-		Did a lot of general back-end fixes in numerous parts of the code.
-		Added support for multiple pages of responses (for use in the new Sex UI).
+		Added more detail to the game's system of 'CoverableArea's, to allow for clothing to block ass/anus and breasts/nipples separately.
+		
+	Gameplay:
+		Submitting to an NPC after defeating them no longer locks out penetrative sex actions.
+		You can now access the inventory of defeated alleyway attackers, succubi, offspring, and harpies after sex.
+		Split the 'Non-con' fetish up into giving & receiving variants. NPCs with the receiving variant will prefer to resist during sex (if non-con is enabled).
+	
+	Sex:
+		Added a generic 'Stop penetrations' action to stop all ongoing penetrative actions at once.
+		Changed sex action's associated fetishes to make them more consistent.
 	
 	UI:
-		Further improved the Sex UI. Thank you for all of your feedback regarding this!
-		Added an 'Export/Import' tab in the main menu, through which you can use the new Game Export. ^^
+		Added hotkey support for response tab switching. By default, 'Previous tab' is 'ctrl+Q', while 'Next tab' is 'ctrl+E'. (Can be changed in the options menu.)
+		Added indication in enchanting menu of the exact value that an effect will apply. (e.g. Will now display cum increases in ml.)
+		Improved inventory UI to use tabs.
+	
+	Other:
+		<b>Reverted:</b> NPCs will now beg for you to take their virginity if they're in the 'eager' pace, will inform you that they're a virgin in the 'normal' pace, and will beg for you not to take it in the 'resisting' pace.
+		Reduced offspring spawn chance from 25% to 20%.
+		Added penile virginity loss descriptions during sex, as well as experience gain for the other partner if they have the 'Deflowering' fetish.
+		Added submissive sex option in slaves' rooms.
+		NPCs with 'Transformation test subject' fetish now gain affection from being assigned as Lilaya's test subject.
+		Penises will only get lubricated by precum/cum if they're not covered with a condom. (Although the urethra will still get lubricated regardless of condom status.)
+		The 'Repeat action' in combat will now only show actions that aren't already in the main combat menu (i.e. spells and special attacks).
+		The 'Calm down' sex action has had its arousal reduction strength doubled from -5 to -10.
+		Added 'pixie cut', 'bob cut', and 'slicked back' hair styles.
+		Changed Rose's hair style.
+		Added pure damage/resistance to the stats screen.
+	
+	Save game compatibility:
+		Fixed several major bugs associated with loading in a game where you had filled condoms in your inventory.
+		Fixed major bug related to loading an exported game with pregnant NPCs in it.
+		Fixed pregnancy 'potential partners as father' not being imported correctly.
+		Fixed incorrect cell inventory size.
 	
 	Bugs:
-		Filled condoms should now correct import with all cum properties intact.
-		Penile virginity is now correctly lost upon performing a penetrative sex action.
-		Fixed broken lubrication messages during sex.
+		In the crafting screen, you can now change the potency of milk, cum, and girlcum enchantments.
+		Fixed bug where offspring would spawn twice in the same tile.
+		Fixed bug where swapping positions during sex would incorrectly display ongoing penetration text.
+		Fixed duplicate virginity loss descriptions in selfie/character view.
+		Fixed incorrect virginity loss place descriptors.
+		Ongoing penetration description fixes.
+		Fixed UI scaling bug in Fetish screen.
+		Fixed more strange floating point numbers in slavery management screens, as well as the main stats screen. (i.e. Things like 2.3999999 should now display as 2.40.)
+		Fade-in text is now correctly off by default.
+		'Lubricate fingers' self-action now returns the correct text.
+		Masculine transformations (when letting Lilaya use someone as a test subject) will no longer grow breasts, and will now correctly shrink them.
+		Fixed issue with Vicky sometimes not buying essences, and with Ralph sometimes not buying condoms.
+		Fixed UI issue with pregnancy stats screen and slave inspection screen.
+		The stats tooltip that shows up when you mouse over your name now shows the correct value of your global resistance.
+		Breast kissing can no longer be performed if breasts are not exposed.
+		Fixed levelling up method to enable gaining multiple levels at once.
+		Improved arousal increases from ongoing status effects, and fixed incorrect arousal tooltip values.
 	
 	
 	
 	
 	
+	
+	
+	
+	Use tabs for slavery
+	
+	i defeated a harpy matriarch, then i went to try to feed her a fetish endowment potion, but she refuses to take it.
+	 since i beat her and took control, she shouldn't be allowed to say no, imo. given the situation, i can understand how using most transformative potions could be a bad idea, but fetish potions should still be allowed, i think.
+	
+	
+	
+	
+	
+	
+	
+	
+	Make Rose's scenes match her personality
+	Update Lilaya scene
+	
+	
+	one other thing i noticed not on that list, in previous versions, when i got to 80-100 arousal in sex, partners would nearly always tell me if they wanted me to cum inside or out.
+	 in this version, sometimes they do, sometimes they don't, but it's a lot less common. 
+	not saying i care much whether they do or not, mainly asking if this is intentional or not.
+	
+	
+	add in manual font selection
+	
+	Left: map
+	Right: characters present, slavery manager, copy dialogue, save/load indication, menu
+	
+	
+	I haven't had any encounters/interactions with offspring either (in any version of the game), even with the Incest option turned on.
+	I'll change this so that you can always encounter them, but sexual dialogue/options will be disabled if you have incest turned off
+	
+	
+	
+	Chastity cage & belt still allows some forms of masturbation
+	
+	Rough talk that does not degrade the Submissive? (Not using words like slut, bitch etc?)
+	
+	You can indefinitely delay either/both characters from climaxing by repeatedly displacing clothing.
+		
+	-re:sex partner not responding, not sure what's going on, but it apparently is doing something just not printing the text for it.
+	 it is not uncommon for me to get "x is lubed y" messages when the partner's action is blank, as if they're rubbing their pussy/ass against my cock.
+	  i'd also mentin that it's mostly in doggy style, though i only generally use that and recieving oral.
+
+	-until there's some sort of strap-on, women using anal fetish tease and talking about fucking your ass don't really make sense.
+	
+	-could it be possible, perhaps after getting observant & deflowering, to tell if someone's mouth/ass/breasts(and dick now that you've added that) are virgin?
+	
+	I started a new game and I went to the slavers place, the guy there was acting like I already finished the slavers quest and I had full access to the slave content.
+	
+	Comments:
+	-exe version still doesn't want to work on a 32-bit system. specific error message: "This version of %1 is not compatible with the version of Windows you're running. Check your computer's system information to see whether you need a x86(32-bit) or x64(64-bit) version of the program, and then contact the software publisher." so this is me contacting you. :P not a major bug, the jar still works, just thought i'd point it out.
+	
+	-the tooltips for backgrounds in character creation aren't large enough to see everything being a soldier gives. it's fine for the rest, i think, but that one gets cut off.
+	
+	-can we have some way of seeing the entire current map? i.e. when standing on the street, showing the entire city map but not the maps for the mansion or harpy nests or such. maybe an option in the cellphone? naturally would be limited to what you've explored, unless you've got debug mode on, but still useful.
+	
+	-might i suggest some tweaking of kate's services? as is it takes money for each step of the process, i.e. 200 for making your iris glow, 200 for making them heterochromatic, 200 for changing the second iris color, and 200 for making that glow, for a total of 800.
+	maybe add a "buy" button on the left side, either under the description, or make it where the price is, make it only clickable after changing the options to the right, and only actually changing your appearance and charging the fee once you hit buy.
+	--also, can we get a sclera(the area around the iris, typically white) color option?
+	-would also like an option in transformative elixirs to have cross/plus(combination of vertical and horizontal) irises/pupils.
+	
+	-would a potion or transformation option to restore the drinker's virginity(s) be too cheaty?
+	
+	The only options given for getting a discount from ralph are "Do nothing" and "Calm down" you can still earn a 25% discount by just spamming the options until he's done but other than that you have no agency in the scene.
+	Also when your penis is getting lubricated by your own precum (presumably, as you will see) the message is "Your penis yourcum" or something like that. It's weird.
+	Additionally: It's impossible to lose penis virginity.
+	Another bug, it seems that "shemale reactions" are disabled? Maybe i'm just encountering NPCs with an eye for the bulge but I recall NPCS being surprised that I'm a shemale. Not seeing that anymore.
+	No one seems to react to me being a trap anymore either so I assume it's a bug. I seem to remember this happening in a previous build. I also have invincible penile virginity.
+	
+	sticky + oily cum? (and tapered + flared penises)
+	
+	I need to add a more general way to make demons change their body parts, so that you can order them to do it once you've taken them as slaves
+	
+	 I think the pc is submissive and kneeling to perform oral but dominant partner does not remove clothing to reveal sexual organs.  The scene just stayed in limbo after that.
+	
+	Cum on back is a repeatable action
+	"Manage Clothing" is also repeatable
+	
+	i imported from previous patch and i still seem to have my slaves O.O
 	
 	Pressing enter while in a gender pronoun field takes you to a blank page
 	
-	kiss breasts through clothing
-	
-	Use tabs for slavery & inventory
-	
 	slave obedience stuck at 99.600006
 	
+	Urethra stuff:
 	why can you only change those when you have a penis, it's not like women and don't have an urethra
-	
-	Change position should not disply pen effects
-	
-	3x You lost your penile virginity to .
-	
-	Whenever I use rest/rest to evening/morning, the time change doesn't register until I leave the room. Also, the change in calender is purely superficial. I've fast-forwarded 15 days an arcane storm is still going.
 	
 	the arcane price on potion enchantment doesn't match the real price. The cost for changing the shape of my pupils are stated to be one arcane, but it cost me six arcane instead.
 	
-	Non con might get split into giving and recieving variants
-	
-	Update Lilaya scene
+	Horn types & colours (red,black,grey,and dark grey)
 	
 	succubi don't seem to use specific fetish seductions, they just use general "im so wet" seductions
 	
@@ -73,9 +183,36 @@
 		Through his desperate moans and lewd cries, the squirrel-boy somehow manages to formulate a sentence as he cries out for your cum, Cum for me! I want to taste your cum!
 		
 	Even Lilaya is asking for cum
+	Lilaya told me to cum in her and breed her then got mad when I did.
 		
 	Moving into position causes NPC to do nothing
 	using each positioning action then disappears from menu
+	 if you are the sub position and try to request another position the dom AI wont do a move until the sex is finished ( i tried this only as a male sub to a female dom (slave))
+	: I think I found a bug if it isn't known yet: If you are submissive during a sex scene and you try to ask for a certain position. Your partner gets stuck in an infinite loop of doing nothing until the scene ends by someone cumming. Not sure if this is true for all requests but it did happen for me atleast 3 times.
+	
+	I noticed that when transforming nipples into nipple-cunts they are acknowledged in text, but there's no way to finger them/have them penetrated in sex actions
+	
+	Could we also get a bit more special dialogue for incestuous sex? After incestuous sex starts they sound just the same as sex with ordinary npc's, pet name calling from children and mentions of their relationship as child and parent could be enough.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	ornaments or clothing for racially blocked slots, horseshoes, wraps, bangles, plumage ornamentation.
@@ -262,6 +399,19 @@ Okay, just purchased and equipped a new condom belt, it vaporizes into the aethe
 	
 	
 	
+	
+	
+	
+	
+	
+	Slaves in the export file don't retain their family relations from the previous game. So if you have some Lilaya's daughter working as her assistant, then after exporting her with your character she isn't her daughter anymore.
+	
+	
+	How about some slaves being possessive over you? Example for this: They get jealous when noticing you've been having sex with someone else and jumps you to dominate you for that reason? Maybe an added Possession kink to those who would do that.
+BlobPeek1
+16 November 2017
+[03:51] the sarssol: we really oughta be able to call slaves to our room/mess with the slave menus from our room
+[04:54] Leob70: I'd also like my less obedient or dominant slaves to "visit" me when I rest.
 	
 	
 	if a demon has the tf fetish they dont tf you when you lose.
@@ -516,8 +666,6 @@ So basically, the transformer fetish actually reduces the cost of enchantments b
 	
 	Must they always patronise your size?. I went as large as the game will let me and it's still 'cute' and 'little'.
 	
-	all offspring introduction dialogue (if you're the father) assumes the child was birthed by Lilaya.
-	
 	Besides that, I have an export with a slave that had 100 for affection and obedience drop to the negatives for affection and mid 80's for obedience the moment I was able to move them to a room (after unlocking slave content since you still have to do that when importing). 
 	
 	-I noticed that importing a character and skipping the intro leaves you with an empty inventory and no currency. Importing a character and doing the prologue gives a similar result except you have a burning opaque demonstone equipped and have 40 currency. A new character doesn't have these issues. 
@@ -668,14 +816,6 @@ So basically, the transformer fetish actually reduces the cost of enchantments b
 		Now that I got you thinking about dialogue, it's awesome that different characters might say "breed me" or "don't cum inside me" but I wish there was more continuity after I do or don't cum inside them.
 			It would be cool to have the 'unwanted creampie' affect i.e. "wtf, I said don't cum inside assh*le!" Ya know, especially with a huge cum attribute adding, "there's no way that doesn't knock me up!" perhaps an incest optional,
 				"I can't believe I'm going be bear by own dads' children!"
-		Hair styles:
-			- slicked back
-			- spiked up
-			- bob cut
-			- parted down the middle
-			- side parted
-			- shaved (different from bald)
-			- punk (hair draped over face)
 		bdsm equipment do anything or allow us to increase obendience
 		some more piercings would be fun. Like adding Helix earrings, septum rings, Jacobs Ladder, Eyebrow Studs, Snake bite studs, e.t.c.
 			 And maybe some other types of rings, like a dragon ring, a Horcrux ring, the One Ring, and other cool fantasy rings.
@@ -741,6 +881,7 @@ You lost your anal virginity to.
 The first time you performed oral was to.
 It lacks something before the period.
 	
+	cock socks
 	blindfolds, chained-handcuffs, and chained-legcuffs
 	Ladies dress pants
 	butt-plugs, dildos

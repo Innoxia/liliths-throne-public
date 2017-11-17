@@ -68,7 +68,7 @@ public abstract class DialogueNodeOld implements Serializable {
 		return continuesDialogue;
 	}
 	
-	public boolean isDispalysActionTitleOnContinuesDialogue() {
+	public boolean isDisplaysActionTitleOnContinuesDialogue() {
 		return true;
 	}
 

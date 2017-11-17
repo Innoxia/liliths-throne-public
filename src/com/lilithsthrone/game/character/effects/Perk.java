@@ -811,7 +811,7 @@ public enum Perk implements PerkInterface {
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_MANA, -25)),
-			Util.newArrayListOfValues(new ListValue<>("Earn 4 <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essences</span> from each orgasm"))) {
+			Util.newArrayListOfValues(new ListValue<>("Doubles <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return "";

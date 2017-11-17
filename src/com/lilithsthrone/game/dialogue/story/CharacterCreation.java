@@ -1447,25 +1447,25 @@ public class CharacterCreation {
 		}
 		
 		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), 0);
-		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), "");
+		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), null);
 
 		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), 0);
-		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), "");
+		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), null);
 
 		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 0);
-		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), "");
+		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), null);
 
 		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 0);
-		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), "");
+		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), null);
 
 		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 0);
-		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), "");
+		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), null);
 		
 		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 0);
-		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), "");
+		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), null);
 
 		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), 0);
-		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), "");
+		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), null);
 		
 		Main.game.getPlayer().setVaginaVirgin(true);
 		Main.game.getPlayer().setAssVirgin(true);

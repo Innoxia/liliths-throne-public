@@ -9,8 +9,8 @@ import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -407,7 +407,7 @@ public class ScarlettsShop {
 					return new Response("Slave Manager", "Enter the slave management screen.", ALEXAS_SHOP) {
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return MiscDialogue.getSlaveryManagementDialogue(Main.game.getAlexa());
+							return SlaveryManagementDialogue.getSlaveryManagementDialogue(Main.game.getAlexa());
 						}
 					};
 				}

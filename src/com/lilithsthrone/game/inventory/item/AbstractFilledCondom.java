@@ -48,9 +48,9 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 		
 		this.cumProvidor = cumProvidorId;
 		this.cum = new FluidCum(cum.getType());
-		this.cum.setFlavour(Main.game.getGenericAndrogynousNPC(), cum.getFlavour());
+		this.cum.setFlavour(null, cum.getFlavour());
 		for(FluidModifier fm : cum.getFluidModifiers()) {
-			this.cum.addFluidModifier(Main.game.getGenericAndrogynousNPC(), fm);
+			this.cum.addFluidModifier(null, fm);
 		}
 		this.colourShade = colour;
 		SVGString = getSVGString(itemType.getPathName(), colour);

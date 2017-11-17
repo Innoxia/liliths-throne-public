@@ -7,7 +7,6 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -63,15 +62,6 @@ public class SubKneeling {
 
 					"Reaching around and grabbing [npc.name]'s [npc.ass+], you pull [npc.herHim] forwards, grinding your [pc.lips+] against [npc.her] genderless mound as you enthusiastically snog and lick [npc.her] sensitive crotch.");
 		}
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
-		}
 	};
 	
 	public static final SexAction PLAYER_MOUND_KISSING = new SexAction(
@@ -108,16 +98,6 @@ public class SubKneeling {
 					"With delicate care, you plant a series of gentle kisses on [npc.name]'s genderless mound, causing [npc.herHim] to let out [npc.a_moan+].",
 
 					"You kiss and lick [npc.name]'s genderless crotch, causing [npc.herHim] to start moaning and sighing at the feel of your gentle touch.");
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
 		}
 	};
 	
@@ -207,16 +187,6 @@ public class SubKneeling {
 		@Override
 		public void applyEffects() {
 			Sex.removePenetration(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER);
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
 		}
 	};
 	
@@ -320,16 +290,6 @@ public class SubKneeling {
 		public List<OrificeType> getPlayerAreasCummedIn() {
 			return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH_PLAYER));
 		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
-		}
 	};
 	
 	public static final SexAction PARTNER_ORGASM_FACIAL = new SexAction(
@@ -425,16 +385,6 @@ public class SubKneeling {
 				}
 			}
 			Sex.removePenetration(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
 		}
 
 		@Override

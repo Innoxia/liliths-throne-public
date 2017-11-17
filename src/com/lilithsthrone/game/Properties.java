@@ -49,7 +49,7 @@ public class Properties implements Serializable {
 	
 	public int fontSize = 18, level = 1, money = 0, arcaneEssences = 0, humanEncountersLevel = 1, multiBreasts = 1, forcedTFPercentage = 40;
 	
-	public boolean lightTheme = false, overwriteWarning = true, fadeInText=true, calendarDisplay = true, twentyFourHourTime = true,
+	public boolean lightTheme = false, overwriteWarning = true, fadeInText=false, calendarDisplay = true, twentyFourHourTime = true,
 			
 			furryTailPenetrationContent = false,
 			nonConContent = false,

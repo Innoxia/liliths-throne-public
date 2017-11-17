@@ -224,7 +224,7 @@ public class Ralph extends NPC {
 			}
 		}
 		if(item instanceof AbstractClothing) {
-			return ((AbstractClothing)item).getClothingType()==ClothingType.PENIS_CONDOM;
+			return ((AbstractClothing)item).getClothingType().equals(ClothingType.PENIS_CONDOM);
 		}
 		
 		return false;
@@ -281,12 +281,6 @@ public class Ralph extends NPC {
 	public int getExperienceFromVictory() {
 		return 0;
 	}
-	
-	@Override
-	public String getLostVirginityDescriptor() {
-		return "as you earned a discount";
-	}
-	
 	
 	@Override
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {

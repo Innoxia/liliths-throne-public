@@ -6,7 +6,6 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -180,15 +179,6 @@ public class DomDoggy {
 			}
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_SADIST));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_MASOCHIST));
-		}
 	};
 	
 	
@@ -327,10 +317,6 @@ public class DomDoggy {
 			return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS_PARTNER));
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_ANAL_GIVING));
-		}
 	};
 	
 	public static final SexAction PLAYER_DOGGY_CREAMPIE_ORGASM_PUSSY = new SexAction(
@@ -466,10 +452,6 @@ public class DomDoggy {
 			return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA_PARTNER));
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
 	};
 	
 	public static final SexAction PLAYER_DOGGY_OVER_BACK_ORGASM = new SexAction(
@@ -616,10 +598,6 @@ public class DomDoggy {
 			Sex.removePenetration(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER);
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
 	};
 	
 	public static final SexAction PLAYER_DOGGY_DOMINANT_ORGASM = new SexAction(
@@ -722,10 +700,6 @@ public class DomDoggy {
 			Sex.removePenetration(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER);
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST), new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
-		}
 	};
 	
 	public static final SexAction PLAYER_DOGGY_DOMINANT_ORGASM_PUSSY = new SexAction(
@@ -828,10 +802,6 @@ public class DomDoggy {
 			Sex.removePenetration(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER);
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
 	};
 	
 	// Mutual orgasms:
@@ -1018,10 +988,6 @@ public class DomDoggy {
 			return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS_PARTNER));
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_ANAL_GIVING));
-		}
 	};
 	
 	public static final SexAction MUTUAL_DOGGY_CREAMPIE_ORGASM_PUSSY = new SexAction(
@@ -1158,10 +1124,6 @@ public class DomDoggy {
 			return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA_PARTNER));
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
 	};
 	
 	public static final SexAction MUTUAL_DOGGY_OVER_BACK_ORGASM = new SexAction(
@@ -1358,10 +1320,6 @@ public class DomDoggy {
 			Sex.removePenetration(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER);
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
 	};
 	
 	public static final SexAction MUTUAL_DOGGY_DOMINANT_ORGASM = new SexAction(
@@ -1513,10 +1471,6 @@ public class DomDoggy {
 			Sex.removePenetration(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER);
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST), new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
-		}
 	};
 	
 	public static final SexAction MUTUAL_DOGGY_DOMINANT_ORGASM_PUSSY = new SexAction(
@@ -1668,9 +1622,5 @@ public class DomDoggy {
 			Sex.removePenetration(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER);
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
 	};
 }

@@ -13,8 +13,8 @@ import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
-import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
@@ -247,7 +247,7 @@ public class SlaveryUtil implements Serializable {
 		if(hour%24==0) { // Reset daily income tracking:
 			slaveDailyIncome.clear();
 			// Rooms:
-			for(Cell c : MiscDialogue.importantCells) {
+			for(Cell c : SlaveryManagementDialogue.importantCells) {
 				generatedUpkeep += c.getPlace().getUpkeep();
 			}
 		}
@@ -379,8 +379,8 @@ public class SlaveryUtil implements Serializable {
 		
 		if(slave.getBreastSize().getMeasurement() > 0) {
 			int increment = Util.random.nextInt(1)+1;
-			slave.incrementBreastSize(increment);
-			return "[style.boldShrink(Gained "+Util.capitaliseSentence(slave.getBreastSize().getCupSizeName())+"-cup breasts)]";
+			slave.incrementBreastSize(-increment);
+			return "[style.boldShrink(Breasts shrunk to "+Util.capitaliseSentence(slave.getBreastSize().getCupSizeName())+"-cups)]";
 		}
 		
 		return "";

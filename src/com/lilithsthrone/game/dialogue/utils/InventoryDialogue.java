@@ -53,9 +53,9 @@ public class InventoryDialogue {
 	
 	private static final int IDENTIFICATION_PRICE = 10;
 	
-	private static AbstractItem item, itemFloor;
-	private static AbstractClothing clothing, clothingFloor;
-	private static AbstractWeapon weapon, weaponFloor;
+	private static AbstractItem item;
+	private static AbstractClothing clothing;
+	private static AbstractWeapon weapon;
 	private static GameCharacter owner;
 	
 	private static NPC inventoryNPC;
@@ -113,11 +113,35 @@ public class InventoryDialogue {
 				return (interactionType==InventoryInteraction.CHARACTER_CREATION?CharacterCreation.getCheckingClothingDescription():"");
 			}
 		}
+
+		public String getResponseTabTitle(int index) {
+			return getGeneralResponseTabTitle(index);
+		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) { //TODO sex end
 			if (index == 0) {
 				return getCloseInventoryResponse();
+			}
+			
+			if(responseTab==1) {
+				if(item!=null) {
+					return ITEM_INVENTORY.getResponse(responseTab, index);
+				} else if(clothing!=null) {
+					if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(clothing)) {
+						return CLOTHING_EQUIPPED.getResponse(responseTab, index);
+					} else {
+						return CLOTHING_INVENTORY.getResponse(responseTab, index);
+					}
+				} else if(weapon!=null) {
+					if(Main.game.getPlayer().getMainWeapon().equals(weapon) || Main.game.getPlayer().getOffhandWeapon().equals(weapon)) {
+						return WEAPON_EQUIPPED.getResponse(responseTab, index);
+					} else {
+						return WEAPON_INVENTORY.getResponse(responseTab, index);
+					}
+				} else {
+					return null;
+				}
 			}
 
 			switch(interactionType) {
@@ -805,10 +829,17 @@ public class InventoryDialogue {
 								: "")));
 		}
 
+		public String getResponseTabTitle(int index) {
+			return getGeneralResponseTabTitle(index);
+		}
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
-				return getReturnToInventoryMenuResponse();
+				return getCloseInventoryResponse();
+			}
+			if(responseTab==0) {
+				return INVENTORY_MENU.getResponse(responseTab, index);
 			}
 			// ****************************** ITEM BELONGS TO THE PLAYER ******************************
 			if(owner != null && owner.isPlayer()) {
@@ -1984,11 +2015,19 @@ public class InventoryDialogue {
 									+ "</p>" 
 								: "")));
 		}
+
+
+		public String getResponseTabTitle(int index) {
+			return getGeneralResponseTabTitle(index);
+		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
-				return getReturnToInventoryMenuResponse();
+				return getCloseInventoryResponse();
+			}
+			if(responseTab==0) {
+				return INVENTORY_MENU.getResponse(responseTab, index);
 			}
 			
 			// ****************************** ITEM BELONGS TO THE PLAYER ******************************
@@ -2731,12 +2770,18 @@ public class InventoryDialogue {
 								: "")))
 					+(interactionType==InventoryInteraction.CHARACTER_CREATION?CharacterCreation.getCheckingClothingDescription():"");
 		}
+
+		public String getResponseTabTitle(int index) {
+			return getGeneralResponseTabTitle(index);
+		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			
 			if (index == 0) {
-				return getReturnToInventoryMenuResponse();
+				return getCloseInventoryResponse();
+			}
+			if(responseTab==0) {
+				return INVENTORY_MENU.getResponse(responseTab, index);
 			}
 			
 			// ****************************** ITEM BELONGS TO THE PLAYER ******************************
@@ -3680,12 +3725,18 @@ public class InventoryDialogue {
 					weapon.getDisplayName(true),
 					 weapon.getDescription());
 		}
+
+		public String getResponseTabTitle(int index) {
+			return getGeneralResponseTabTitle(index);
+		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			
 			if (index == 0) {
-				return getReturnToInventoryMenuResponse();
+				return getCloseInventoryResponse();
+			}
+			if(responseTab==0) {
+				return INVENTORY_MENU.getResponse(responseTab, index);
 			}
 			
 			// ****************************** ITEM BELONGS TO THE PLAYER ****************************** TODO
@@ -4046,11 +4097,18 @@ public class InventoryDialogue {
 					+ (Main.game.isInSex()||Main.game.isInCombat()?clothing.getDisplacementBlockingDescriptions(owner):""))
 					+(interactionType==InventoryInteraction.CHARACTER_CREATION?CharacterCreation.getCheckingClothingDescription():"");
 		}
+
+		public String getResponseTabTitle(int index) {
+			return getGeneralResponseTabTitle(index);
+		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
-				return getReturnToInventoryMenuResponse();
+				return getCloseInventoryResponse();
+			}
+			if(responseTab==0) {
+				return INVENTORY_MENU.getResponse(responseTab, index);
 			}
 			
 			// ****************************** ITEM BELONGS TO THE PLAYER ******************************
@@ -5118,6 +5176,16 @@ public class InventoryDialogue {
 			+ description;
 	}
 	
+	private static String getGeneralResponseTabTitle(int index) {
+		if(index==0) {
+			return "Overview";
+		} else if(index==1) {
+			return "Selected item";
+		} else {
+			return null;
+		}
+	}
+	
 	private static Response getCloseInventoryResponse() {
 		if(interactionType == InventoryInteraction.CHARACTER_CREATION) {
 			return new Response("Back", "Return to looking in the mirror at your appearance.", CharacterCreation.CHOOSE_ADVANCED_APPEARANCE);
@@ -5130,11 +5198,6 @@ public class InventoryDialogue {
 				}
 			};
 		}
-	}
-	
-	private static Response getReturnToInventoryMenuResponse() { 
-//		return getCloseInventoryResponse();
-		return new Response("Back", "Return to the main inventory options.", INVENTORY_MENU);
 	}
 	
 	private static Response getBuybackResponse() {
@@ -5425,12 +5488,19 @@ public class InventoryDialogue {
 		}
 	}
 	
+	
+	private static void resetItems() {
+		item = null;
+		clothing = null;
+		weapon = null;
+	}
 
 	public static AbstractItem getItem() {
 		return item;
 	}
 
 	public static void setItem(AbstractItem item) {
+		resetItems();
 		InventoryDialogue.item = item;
 	}
 
@@ -5439,6 +5509,7 @@ public class InventoryDialogue {
 	}
 
 	public static void setWeapon(AbstractWeapon weapon) {
+		resetItems();
 		InventoryDialogue.weapon = weapon;
 	}
 
@@ -5447,44 +5518,9 @@ public class InventoryDialogue {
 	}
 
 	public static void setClothing(AbstractClothing clothing) {
+		resetItems();
 		InventoryDialogue.clothing = clothing;
 	}
-
-	public static AbstractItem getItemFloor() {
-		return itemFloor;
-	}
-
-	public static void setItemFloor(AbstractItem itemFloor) {
-		InventoryDialogue.itemFloor = itemFloor;
-	}
-
-	public static AbstractWeapon getWeaponFloor() {
-		return weaponFloor;
-	}
-
-	public static void setWeaponFloor(AbstractWeapon weaponFloor) {
-		InventoryDialogue.weaponFloor = weaponFloor;
-	}
-
-	public static AbstractClothing getClothingFloor() {
-		return clothingFloor;
-	}
-
-	public static void setClothingFloor(AbstractClothing clothingFloor) {
-		InventoryDialogue.clothingFloor = clothingFloor;
-	}
-
-//	public static List<AbstractClothing> getJinxedClothing() {
-//		return jinxedClothing;
-//	}
-//	
-//	public static List<AbstractClothing> getJinxedNPCClothing() {
-//		return jinxedNPCClothing;
-//	}
-//
-//	public static boolean isJinxRemovalFromFloor() {
-//		return jinxRemovalFromFloor;
-//	}
 
 	public static boolean isBuyback() {
 		return buyback;

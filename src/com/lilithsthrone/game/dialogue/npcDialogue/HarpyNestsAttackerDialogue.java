@@ -2,12 +2,11 @@ package com.lilithsthrone.game.dialogue.npcDialogue;
 
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.QuestLine;
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.GenericDialogue;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -281,7 +280,7 @@ public class HarpyNestsAttackerDialogue {
 					return new Response("Continue", "Carry on your way...", null){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 					};
 					
@@ -319,7 +318,7 @@ public class HarpyNestsAttackerDialogue {
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
 							AFTER_SEX_DEFEAT,
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-							true, false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							true, true, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]."
 								+ " Leaning down, you do the first thing that comes into your mind, and start apologising,"
@@ -355,7 +354,7 @@ public class HarpyNestsAttackerDialogue {
 							AFTER_COMBAT_VICTORY){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 						@Override
 						public void effects() {
@@ -372,14 +371,14 @@ public class HarpyNestsAttackerDialogue {
 					return new Response("Continue", "Carry on your way...", null){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 					};
 					
 				} else if (index == 2) {
 					return new ResponseSex(
 							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", AFTER_SEX_VICTORY,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
 							null, null, null,
 							false, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
@@ -389,7 +388,7 @@ public class HarpyNestsAttackerDialogue {
 					
 				} else if (index == 3) {
 					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", AFTER_SEX_VICTORY,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
 							null, null, null,
 							false, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
@@ -404,7 +403,7 @@ public class HarpyNestsAttackerDialogue {
 					
 				} else if (index == 4) {
 					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", AFTER_SEX_VICTORY,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
 							null, null, null,
 							false, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
@@ -437,7 +436,7 @@ public class HarpyNestsAttackerDialogue {
 							AFTER_COMBAT_VICTORY){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 						@Override
 						public void effects() {
@@ -633,7 +632,7 @@ public class HarpyNestsAttackerDialogue {
 						return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 							@Override
 							public DialogueNodeOld getNextDialogue() {
-								return GenericDialogue.getDefaultDialogueNoEncounter();
+								return DebugDialogue.getDefaultDialogueNoEncounter();
 							}
 						};
 						
@@ -742,7 +741,7 @@ public class HarpyNestsAttackerDialogue {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 					};
 					
@@ -840,7 +839,7 @@ public class HarpyNestsAttackerDialogue {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 					};
 					
@@ -871,18 +870,12 @@ public class HarpyNestsAttackerDialogue {
 						"<p>"
 							+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfPartnerOrgasms() > 1?"s":"")+"."
 							+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
-						+ "</p>"
-						+ "<p>"
-							+ "Leaving [npc.herHim] to recover by [npc.herself], you set off and continue on your way."
 						+ "</p>");
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished."
 							+ " [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
-						+ "</p>"
-						+ "<p>"
-							+ "Leaving [npc.herHim] to get some pleasure by [npc.herself], you set off and continue on your way."
 						+ "</p>");
 			}
 		}
@@ -897,6 +890,14 @@ public class HarpyNestsAttackerDialogue {
 					}
 				};
 				
+			} else if (index == 6) {
+				return new ResponseEffectsOnly("Inventory", "There's nothing stopping you from helping yourself to [npc.name]'s clothing and items..."){
+					@Override
+					public void effects() {
+						Main.mainController.openInventory(Main.game.getActiveNPC(), InventoryInteraction.FULL_MANAGEMENT);
+					}
+				};
+				
 			} else if (index == 10) {
 				return new Response(
 						"Remove character",
@@ -905,7 +906,7 @@ public class HarpyNestsAttackerDialogue {
 					
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
@@ -997,7 +998,7 @@ public class HarpyNestsAttackerDialogue {
 					}
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 				};
 				

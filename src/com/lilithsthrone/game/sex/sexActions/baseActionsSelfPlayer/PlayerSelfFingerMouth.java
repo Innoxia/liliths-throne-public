@@ -47,7 +47,7 @@ public class PlayerSelfFingerMouth {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Main.game.getPlayer(), PenetrationType.FINGER_PARTNER, OrificeType.MOUTH_PARTNER);
+			Sex.transferLubrication(Main.game.getPlayer(), Main.game.getPlayer(), PenetrationType.FINGER_PLAYER, OrificeType.MOUTH_PLAYER);
 		}
 	};
 	

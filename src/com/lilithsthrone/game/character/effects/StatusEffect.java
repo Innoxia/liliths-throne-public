@@ -5361,7 +5361,7 @@ public enum StatusEffect {
 			
 			if(target.isPlayer()) {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) != null) {
-					arousal+=2;
+					arousal+=OrificeType.ANUS_PLAYER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.ANUS_PLAYER)) {
 						arousal-=0.5;
@@ -5376,7 +5376,7 @@ public enum StatusEffect {
 				}
 			} else {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) != null) {
-					arousal+=2;
+					arousal+=OrificeType.ANUS_PARTNER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.ANUS_PARTNER)) {
 						arousal-=0.5;
@@ -5441,8 +5441,10 @@ public enum StatusEffect {
 			
 			if(target.isPlayer()) {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) != null) {
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+4 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.ANUS_PLAYER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.ANUS_PLAYER)) {
 						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
@@ -5461,8 +5463,10 @@ public enum StatusEffect {
 			} else {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) != null) {
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+4 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.ANUS_PARTNER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.ANUS_PARTNER)) {
 						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
@@ -5758,7 +5762,7 @@ public enum StatusEffect {
 			
 			if(target.isPlayer()) {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) != null) {
-					arousal+=1;
+					arousal+=OrificeType.MOUTH_PLAYER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.MOUTH_PLAYER)) {
 						arousal-=0.5;
@@ -5769,7 +5773,7 @@ public enum StatusEffect {
 				}
 			} else {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER) != null) {
-					arousal+=1;
+					arousal+=OrificeType.MOUTH_PARTNER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.MOUTH_PARTNER)) {
 						arousal-=0.5;
@@ -5827,8 +5831,10 @@ public enum StatusEffect {
 			if(target.isPlayer()) {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) != null) {
-					modifiersList.add("+1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.MOUTH_PLAYER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.MOUTH_PLAYER)) {
 						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
@@ -5844,8 +5850,10 @@ public enum StatusEffect {
 			} else {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER) != null) {
-					modifiersList.add("+1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.MOUTH_PARTNER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.MOUTH_PARTNER)) {
 						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
@@ -6147,7 +6155,7 @@ public enum StatusEffect {
 			
 			if(target.isPlayer()) {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER) != null) {
-					arousal+=2;
+					arousal+=OrificeType.BREAST_PLAYER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.BREAST_PLAYER)) {
 						arousal-=0.5;
@@ -6161,7 +6169,7 @@ public enum StatusEffect {
 				}
 			} else {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER) != null) {
-					arousal+=2;
+					arousal+=OrificeType.BREAST_PARTNER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.BREAST_PARTNER)) {
 						arousal-=0.5;
@@ -6227,8 +6235,10 @@ public enum StatusEffect {
 			if(target.isPlayer()) {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER) != null) {
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.BREAST_PLAYER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.BREAST_PLAYER)) {
 						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
@@ -6248,8 +6258,10 @@ public enum StatusEffect {
 			} else {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER) != null) {
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.BREAST_PARTNER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.BREAST_PARTNER)) {
 						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
@@ -6550,7 +6562,7 @@ public enum StatusEffect {
 			
 			if(target.isPlayer()) {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) != null) {
-					arousal+=2;
+					arousal+=OrificeType.NIPPLE_PLAYER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.NIPPLE_PLAYER)) {
 						arousal-=0.5;
@@ -6564,7 +6576,7 @@ public enum StatusEffect {
 				}
 			} else {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) != null) {
-					arousal+=2;
+					arousal+=OrificeType.NIPPLE_PARTNER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.NIPPLE_PARTNER)) {
 						arousal-=0.5;
@@ -6630,8 +6642,10 @@ public enum StatusEffect {
 			if(target.isPlayer()) {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) != null) {
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.NIPPLE_PLAYER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.NIPPLE_PLAYER)) {
 						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
@@ -6653,8 +6667,10 @@ public enum StatusEffect {
 			} else {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) != null) {
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.NIPPLE_PARTNER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.NIPPLE_PARTNER)) {
 						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
@@ -6951,7 +6967,7 @@ public enum StatusEffect {
 			
 			if(target.isPlayer()) {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) != null) {
-					arousal+=4;
+					arousal+=OrificeType.VAGINA_PLAYER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.VAGINA_PLAYER)) {
 						arousal-=0.5;
@@ -6965,7 +6981,7 @@ public enum StatusEffect {
 				}
 			} else {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) != null) {
-					arousal+=4;
+					arousal+=OrificeType.VAGINA_PARTNER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.VAGINA_PARTNER)) {
 						arousal-=0.5;
@@ -7031,8 +7047,10 @@ public enum StatusEffect {
 			if(target.isPlayer()) {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) != null) {
-					modifiersList.add("+4 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+4 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.VAGINA_PLAYER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.VAGINA_PLAYER)) {
 						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
@@ -7052,8 +7070,10 @@ public enum StatusEffect {
 			} else {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) != null) {
-					modifiersList.add("+4 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+4 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.VAGINA_PARTNER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.VAGINA_PARTNER)) {
 						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");

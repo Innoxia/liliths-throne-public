@@ -22,7 +22,7 @@ import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.GenericDialogue;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -441,7 +441,7 @@ public class OptionsDialogue {
 				if(!Main.game.isStarted()) {
 					return new Response("Export game", "You'll need to start a game first!", null);
 					
-				} else if(Main.game.getSavedDialogueNode() != GenericDialogue.getDefaultDialogueNoEncounter()) {
+				} else if(Main.game.getSavedDialogueNode() != DebugDialogue.getDefaultDialogueNoEncounter()) {
 					return new Response("Export game", "You can only export your game while in a neutral dialogue (such as when moving through Dominion's streets)!", null);
 					
 				} else {
@@ -567,7 +567,8 @@ public class OptionsDialogue {
 
 					+"<p>"
 					+ "<b>Fade-in:</b>"
-					+ "</br>This option is responsible for fading in the main part of the text each time a new scene is displayed. It is off by default, as having it on may cause some annoying lag in inventory screens."
+					+ "</br>This option is responsible for fading in the main part of the text each time a new scene is displayed."
+					+ " Although it makes scene transitions a little prettier, it is off by default, as it can cause some annoying lag in inventory screens."
 					+ "</p>";
 		}
 		
@@ -695,6 +696,9 @@ public class OptionsDialogue {
 
 					+ getKeybindTableRow(KeyboardAction.RESPOND_NEXT_PAGE)
 					+ getKeybindTableRow(KeyboardAction.RESPOND_PREVIOUS_PAGE)
+
+					+ getKeybindTableRow(KeyboardAction.RESPOND_NEXT_TAB)
+					+ getKeybindTableRow(KeyboardAction.RESPOND_PREVIOUS_TAB)
 					+ "</table>"
 					+ "</p>";
 		}

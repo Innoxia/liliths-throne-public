@@ -1,6 +1,9 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 
+import java.util.List;
+
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
@@ -8,6 +11,8 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
@@ -171,6 +176,22 @@ public class PartnerTalk {
 								+ Sex.getPartner().getDirtyTalk(Sex.isPlayerDom());
 				}
 			}
+		}
+		
+		@Override
+		public List<Fetish> getFetishesPlayer() {
+			if(Sex.getSexPacePartner()==SexPace.SUB_RESISTING) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM));
+			}
+			return null;
+		}
+		
+		@Override
+		public List<Fetish> getFetishesPartner() {
+			if(Sex.getSexPacePartner()==SexPace.SUB_RESISTING) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_SUB));
+			}
+			return null;
 		}
 	};
 	

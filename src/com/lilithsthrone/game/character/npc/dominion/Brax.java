@@ -559,7 +559,7 @@ public class Brax extends NPC {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Obey", "Do as Brax says and present yourself for him.", EnforcerHQDialogue.EXTERIOR,
-						false, false, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
+						false, true, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
 						"<p>"
 							+ "You obediently do as Brax commands and drop down on all fours right there in the middle of his office."
 							+ (Main.game.getPlayer().getTailType() == TailType.LYCAN
@@ -1063,11 +1063,6 @@ public class Brax extends NPC {
 	@Override
 	public Map<TFEssence, Integer> getLootEssenceDrops() {
 		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, 8));
-	}
-	
-	@Override
-	public String getLostVirginityDescriptor() {
-		return "on the floor of his office";
 	}
 	
 	// CoverableArea reveals:

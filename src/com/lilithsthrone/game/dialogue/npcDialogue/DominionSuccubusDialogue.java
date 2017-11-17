@@ -10,7 +10,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.GenericDialogue;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -267,7 +267,7 @@ public class DominionSuccubusDialogue {
 				return new Response("Leave her", "You don't really want to get involved with someone like this. Turn around and carry on your way.", null){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -287,7 +287,7 @@ public class DominionSuccubusDialogue {
 								+ " Perhaps you could cheer her up by <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submitting to her</b> and letting her use your body?",
 						AFTER_SEX_DEFEAT,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-						true, false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+						true, true, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "As "+Main.game.getActiveNPC().getName("the")+" carries on whining and desperately touching herself, you start to feel incredibly sorry for her."
 							+ " Stepping forwards, you lean down and look up into her "+Main.game.getActiveNPC().getEyeName()+", "
@@ -350,7 +350,7 @@ public class DominionSuccubusDialogue {
 					
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
@@ -882,21 +882,14 @@ public class DominionSuccubusDialogue {
 							+ "As you step back from [npc.name], [npc.she] sinks to the floor, whining and desperately touching [npc.herself] as [npc.she] tries to get [npc.herself] off."
 							+ " Looking up at you, [npc.she] moans, "
 							+ UtilText.parseSpeech("Aaah! Why did you stop?! I was so close!", Main.game.getActiveNPC())
-						+ "</p>"
-						+ "<p>"
-							+ "You decide to leave the succubus to her own devices, and, stepping past [npc.herHim] as [npc.she] desperately masturbates on the floor, you carry on your way."
 						+ "</p>");
 				
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a deeply satisfied sigh as [npc.she] slowly starts touching herself."
-							+ " Despite the fact that you just brought [npc.herHim] to a climax, [npc.she]'s already starting to get horny again, and [npc.she] looks up at you as [npc.she] moans, "
-							+ UtilText.parseSpeech("Mmm! Thanks for that... Perhaps we could do this again some time?", Main.game.getActiveNPC())
-						+ "</p>"
-						+ "<p>"
-							+ "Wondering what it must be like to be in a perpetual state of uncontrollable lust,"
-							+ " you step past the horny succubus as [npc.she] starts desperately masturbating on the floor, and with one last look at [npc.her] pitiful form, you carry on your way."
+							+ " Despite the fact that you just brought [npc.herHim] to a climax, [npc.she]'s obviously still incredibly horny, and as [npc.her] sighs turn into lewd moans,"
+								+ " you wonder what it must be like to live in a perpetual state of uncontrollable lust..."
 						+ "</p>");
 				
 			}
@@ -912,6 +905,14 @@ public class DominionSuccubusDialogue {
 					}
 				};
 				
+			} else if (index == 6) {
+				return new ResponseEffectsOnly("Inventory", "There's nothing stopping you from helping yourself to [npc.name]'s clothing and items..."){
+					@Override
+					public void effects() {
+						Main.mainController.openInventory(Main.game.getActiveNPC(), InventoryInteraction.FULL_MANAGEMENT);
+					}
+				};
+				
 			} else if (index == 10) {
 				return new Response(
 						"Remove character",
@@ -919,7 +920,7 @@ public class DominionSuccubusDialogue {
 						AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
@@ -1011,7 +1012,7 @@ public class DominionSuccubusDialogue {
 					}
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 				};
 				

@@ -58,6 +58,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 				InventoryDialogue.setOwner(owner);
 				InventoryDialogue.setItem(item);
 				InventoryDialogue.setBuyBackIndex(buyBackIndex);
+				Main.game.setResponseTab(1);
 				Main.game.setContent(new Response("", "", InventoryDialogue.ITEM_INVENTORY));
 			}
 			
@@ -68,6 +69,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			InventoryDialogue.setOwner(owner);
 			InventoryDialogue.setClothing(clothing);
 			InventoryDialogue.setBuyBackIndex(buyBackIndex);
+			Main.game.setResponseTab(1);
 			Main.game.setContent(new Response("", "", InventoryDialogue.CLOTHING_INVENTORY));
 			
 		} else if (weapon != null) {
@@ -77,6 +79,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			InventoryDialogue.setOwner(owner);
 			InventoryDialogue.setWeapon(weapon);
 			InventoryDialogue.setBuyBackIndex(buyBackIndex);
+			Main.game.setResponseTab(1);
 			Main.game.setContent(new Response("", "", InventoryDialogue.WEAPON_INVENTORY));
 
 		} else if (clothingEquipped != null) {
@@ -86,6 +89,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			InventoryDialogue.setOwner(owner);
 			InventoryDialogue.setClothing(clothingEquipped);
 			InventoryDialogue.setBuyBackIndex(buyBackIndex);
+			Main.game.setResponseTab(1);
 			Main.game.setContent(new Response("", "", InventoryDialogue.CLOTHING_EQUIPPED));
 
 		} else if (weaponEquipped != null) {
@@ -95,6 +99,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			InventoryDialogue.setOwner(owner);
 			InventoryDialogue.setWeapon(weaponEquipped);
 			InventoryDialogue.setBuyBackIndex(buyBackIndex);
+			Main.game.setResponseTab(1);
 			Main.game.setContent(new Response("", "", InventoryDialogue.WEAPON_EQUIPPED));
 		}
 

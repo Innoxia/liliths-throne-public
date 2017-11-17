@@ -306,11 +306,6 @@ public class NPCOffspring extends NPC {
 	}
 	
 	@Override
-	public String getLostVirginityDescriptor() {
-		return "in the streets of Dominion";
-	}
-	
-	@Override
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
 		// Player is using an item:
 		if(user.isPlayer()){

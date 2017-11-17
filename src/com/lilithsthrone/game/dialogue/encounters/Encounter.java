@@ -143,7 +143,7 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
-				if(Main.game.isIncestEnabled() && Math.random()>0.75f) { // Incest
+				if(Main.game.isIncestEnabled() && Math.random()>0.8f) { // Incest
 					List<NPC> offspringAvailable = new ArrayList<>();
 					for(NPC npc : Main.game.getOffspring()) {
 						offspringAvailable.add(npc);
@@ -160,11 +160,7 @@ public enum Encounter {
 						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
 						
 						Main.game.setActiveNPC(offspring);
-						try {
-							Main.game.addNPC(offspring, false);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+						
 						return Main.game.getActiveNPC().getEncounterDialogue();
 					}
 					

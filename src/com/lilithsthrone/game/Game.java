@@ -139,8 +139,6 @@ public class Game implements Serializable, XMLSaving {
 	private NPC activeNPC;
 	private int npcTally = 0;
 	private Map<String, NPC> NPCMap;
-	private List<NPC> playerOffspring;
-	private List<NPC> offspringSpawned;
 	
 	private Map<WorldType, World> worlds;
 	private long minutesPassed;
@@ -195,8 +193,6 @@ public class Game implements Serializable, XMLSaving {
 		inNewWorld = false;
 
 		NPCMap = new HashMap<>();
-		playerOffspring = new ArrayList<>();
-		offspringSpawned = new ArrayList<>();
 
 		// Start in clouds:
 		currentWeather = Weather.CLOUD;
@@ -326,6 +322,7 @@ public class Game implements Serializable, XMLSaving {
 	
 	public static void importGame(String name) {
 		Game newGame = new Game();
+		Main.game = newGame;
 
 		File file = new File("data/saves/"+name+".xml");
 		
@@ -395,7 +392,6 @@ public class Game implements Serializable, XMLSaving {
 		}
 		
 		
-		Main.game = newGame;
 		
 		Main.game.setRenderMap(true);
 		Main.game.setInNewWorld(true);
@@ -828,7 +824,7 @@ public class Game implements Serializable, XMLSaving {
 								dialogueTitle = UtilText.parse(node.getLabel());
 							}
 
-							if(node.isDispalysActionTitleOnContinuesDialogue()) {
+							if(node.isDisplaysActionTitleOnContinuesDialogue()) {
 								if (currentDialogueNode.getMapDisplay() == MapDisplay.NORMAL) {
 									positionAnchor++;
 								}
@@ -1003,7 +999,7 @@ public class Game implements Serializable, XMLSaving {
 					}
 					
 
-					if(node.isDispalysActionTitleOnContinuesDialogue()) {
+					if(node.isDisplaysActionTitleOnContinuesDialogue()) {
 						if (currentDialogueNode.getMapDisplay() == MapDisplay.NORMAL) {
 							positionAnchor++;
 						}
@@ -1201,6 +1197,26 @@ public class Game implements Serializable, XMLSaving {
 		responsePage=0;
 	}
 	
+	public boolean decrementResponseTab() {
+		for(int i=-1; i>-6; i--) {
+			if(currentDialogueNode.getResponseTabTitle(responseTab+i)!=null) {
+				responseTab+=i;
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean incrementResponseTab() {
+		for(int i=1; i<6; i++) {
+			if(currentDialogueNode.getResponseTabTitle(responseTab+i)!=null) {
+				responseTab+=i;
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void updateResponses() {
 		String content = getResponsesDiv(Main.game.getCurrentDialogueNode(), false);
 		content=content.replaceAll("\r", "");
@@ -1239,6 +1255,11 @@ public class Game implements Serializable, XMLSaving {
 										?""
 										:"style='color:"+Colour.TEXT_HALF_GREY.toWebHexString()+";'"))
 							+" id='tab_" + responsePageCounter + "'>"
+							+(responsePageCounter==responseTab-1
+								?"<b class='hotkey-icon'>"+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_PREVIOUS_TAB) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_PREVIOUS_TAB).getFullName()) + "</b>"
+								:(responsePageCounter==responseTab+1
+									?"<b class='hotkey-icon'>"+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_NEXT_TAB) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.RESPOND_NEXT_TAB).getFullName()) + "</b>"
+									:""))
 //							+ (responseTab==responsePageCounter+1?"<b class='hotkey-icon'>" + KeyboardAction.RESPOND_PREVIOUS_PAGE + "</b>" : "" )
 							+ node.getResponseTabTitle(responsePageCounter)
 						+"</div>");
@@ -1932,10 +1953,22 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	public List<NPC> getOffspring() {
-		return playerOffspring;
+		List<NPC> offspring = new ArrayList<>();
+		
+		for(NPC npc : NPCMap.values()) {
+			if((npc.getMother()!=null && npc.getMother().isPlayer()) || (npc.getFather()!=null && npc.getFather().isPlayer())) {
+				offspring.add(npc);
+			}
+		}
+		
+		return offspring;
 	}
 	
 	public List<NPC> getOffspringSpawned() {
+		List<NPC> offspringSpawned = new ArrayList<>(getOffspring());
+		
+		offspringSpawned.removeIf(npc -> npc.getWorldLocation()==WorldType.EMPTY);
+		
 		return offspringSpawned;
 	}
 	
@@ -1944,7 +1977,7 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	public GameCharacter getNPCById(String id) {
-		if(id.equals(player.getId())) {
+		if(id.equals(Main.game.getPlayer().getId())) {
 			return Main.game.getPlayer();
 		}
 		return NPCMap.get(id);

@@ -187,18 +187,18 @@ public class Vicky extends NPC {
 			return true;
 		
 		if(item instanceof AbstractItem) {
-			if(((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_ARCANE
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_CAT_MORPH
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_DEMON
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_DOG_MORPH
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_HARPY
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_HORSE_MORPH
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_HUMAN
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_WOLF_MORPH
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_COW_MORPH
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH
-					|| ((AbstractItem)item).getItemType()==ItemType.POTION
-					|| ((AbstractItem)item).getItemType()==ItemType.ELIXIR) {
+			if(((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_ARCANE)
+					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_CAT_MORPH)
+					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_DEMON)
+					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_DOG_MORPH)
+					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_HARPY)
+					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_HORSE_MORPH)
+					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_HUMAN)
+					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_WOLF_MORPH)
+					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_COW_MORPH)
+					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH)
+					|| ((AbstractItem)item).getItemType().equals(ItemType.POTION)
+					|| ((AbstractItem)item).getItemType().equals(ItemType.ELIXIR)) {
 				return true;
 			}
 		}

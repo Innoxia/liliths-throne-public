@@ -83,10 +83,6 @@ public class SexActionRalphDiscount {
 				SexFlags.alertedCustomer=true;
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
 	};
 			
 	public static final SexAction PLAYER_STAY_QUIET = new SexAction(
@@ -149,10 +145,6 @@ public class SexActionRalphDiscount {
 					+ " he slams his cock forwards down your throat, letting you know that he's clearly not amused by your little game...";
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
 	};
 	
 	public static final SexAction PLAYER_SUCK_COCK = new SexAction(
@@ -198,10 +190,6 @@ public class SexActionRalphDiscount {
 				SexFlags.alertedCustomer=true;
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
 	};
 	
 	public static final SexAction PLAYER_FONDLE_BALLS = new SexAction(
@@ -245,10 +233,6 @@ public class SexActionRalphDiscount {
 				SexFlags.alertedCustomer=true;
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
 	};
 	
 	public static final SexAction PLAYER_DEEP_THROAT = new SexAction(
@@ -293,10 +277,6 @@ public class SexActionRalphDiscount {
 				SexFlags.alertedCustomer=true;
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
 	};
 
 	public static final SexAction PLAYER_BIG_DISCOUNT = new SexAction(
@@ -453,10 +433,6 @@ public class SexActionRalphDiscount {
 					+ " Letting out lewd moans, you fold your arms beneath your head, using them as a pillow as your cunt earns you your extra discount.";
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
 	};
 	
 	public static final SexAction PLAYER_TAKE_IT_ANAL = new SexAction(
@@ -482,16 +458,6 @@ public class SexActionRalphDiscount {
 				+ " Letting out lewd groans, you fold your arms beneath your head, using them as a pillow as your backdoor earns you your extra discount.";
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
-
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
-		}
 	};
 
 	public static final SexAction PLAYER_DIRTY_TALK = new SexAction(
@@ -536,10 +502,6 @@ public class SexActionRalphDiscount {
 			return UtilText.nodeContentSB.toString();
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
 	};
 	
 	public static final SexAction PLAYER_DIRTY_TALK_ANAL = new SexAction(
@@ -584,10 +546,6 @@ public class SexActionRalphDiscount {
 			return UtilText.nodeContentSB.toString();
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
 	};
 
 	
@@ -842,10 +800,6 @@ public class SexActionRalphDiscount {
 			SexFlags.customerAtCounter=false;
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
 	};
 	
 	public static final SexAction PARTNER_START_ORAL = new SexAction(
@@ -899,10 +853,6 @@ public class SexActionRalphDiscount {
 			SexFlags.customerAtCounter=false;
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
 	};
 	
 	public static final SexAction PARTNER_PASSIVE = new SexAction(
@@ -943,10 +893,6 @@ public class SexActionRalphDiscount {
 			SexFlags.customerAtCounter=false;
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
 	};
 	
 	public static final SexAction PARTNER_PASSIVE_VAGINAL = new SexAction(
@@ -986,10 +932,6 @@ public class SexActionRalphDiscount {
 			SexFlags.customerAtCounter=false;
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
 	};
 	
 	public static final SexAction PARTNER_PASSIVE_ANAL = new SexAction(
@@ -1029,10 +971,6 @@ public class SexActionRalphDiscount {
 			SexFlags.customerAtCounter=false;
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
 	};
 	
 	public static final SexAction PARTNER_DEEP_THROAT = new SexAction(
@@ -1078,10 +1016,6 @@ public class SexActionRalphDiscount {
 			SexFlags.customerAtCounter=false;
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
 	};
 	
 	public static final SexAction PARTNER_REDUCES_DISCOUNT = new SexAction(
@@ -1218,10 +1152,6 @@ public class SexActionRalphDiscount {
 			}
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_PREGNANCY));
-		}
 	};
 	
 	public static final SexAction PARTNER_PENETRATES_ANUS = new SexAction(
@@ -1310,10 +1240,6 @@ public class SexActionRalphDiscount {
 
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
 	};
 	
 	public static final SexAction PARTNER_ROUGH_FUCK = new SexAction(
@@ -1347,10 +1273,6 @@ public class SexActionRalphDiscount {
 						:" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, giving you a little reminder as to the origin of your impending creampie's filling.");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
 	};
 	
 	public static final SexAction PARTNER_ROUGH_FUCK_ANAL = new SexAction(
@@ -1379,10 +1301,6 @@ public class SexActionRalphDiscount {
 					:" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, giving you a little reminder as to the origin of your impending creampie's filling.");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
 	};
 	
 	public static final SexAction PARTNER_NORMAL_FUCK = new SexAction(
@@ -1413,10 +1331,6 @@ public class SexActionRalphDiscount {
 						:(Main.game.getPlayer().isVisiblyPregnant()?"deep into your hungry cunt.":"deep in your waiting womb."));
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
 	};
 	
 	public static final SexAction PARTNER_NORMAL_FUCK_ANAL = new SexAction(
@@ -1445,10 +1359,6 @@ public class SexActionRalphDiscount {
 						:"deep in your waiting ass.");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
 	};
 
 }

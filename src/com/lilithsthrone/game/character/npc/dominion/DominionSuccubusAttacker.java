@@ -186,11 +186,6 @@ public class DominionSuccubusAttacker extends NPC {
 		else
 			return Attack.SEDUCTION;
 	}
-	
-	@Override
-	public String getLostVirginityDescriptor() {
-		return "in the streets of Dominion";
-	}
 
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
 		// Player is using an item:

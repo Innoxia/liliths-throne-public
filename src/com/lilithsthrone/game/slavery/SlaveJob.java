@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.main.Main;
@@ -127,7 +128,16 @@ public enum SlaveJob {
 					new ListValue<>(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE)),
 			null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
-			PlaceType.LILAYA_HOME_LAB),
+			PlaceType.LILAYA_HOME_LAB) {
+		@Override
+		public float getAffectionGain(GameCharacter slave) {
+			if(slave.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+				return 0.5f;
+			} else {
+				return -0.5f;
+			}
+		}
+	},
 	
 //	BROTHEL(5, "Prostitute (Brothel)", "Prostitute (Brothel)", "Assign this slave to work as a prostitute at the brothel 'Angel's Kiss' in slaver ally.",
 //			-0.5f, 0.5f,
@@ -245,11 +255,11 @@ public enum SlaveJob {
 		return description;
 	}
 	
-	public float getObedienceGain() {
+	public float getObedienceGain(GameCharacter slave) {
 		return obedienceGain;
 	}
 
-	public float getAffectionGain() {
+	public float getAffectionGain(GameCharacter slave) {
 		return affectionGain;
 	}
 

@@ -156,11 +156,6 @@ public class PrologueMale extends NPC {
 		}
 	};
 	
-	@Override
-	public String getLostVirginityDescriptor() {
-		return "in the museum's restrooms";
-	}
-	
 	// CoverableArea reveals:
 	
 	@Override

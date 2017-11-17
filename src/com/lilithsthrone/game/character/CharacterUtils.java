@@ -1045,9 +1045,10 @@ public class CharacterUtils {
 					availableFetishes.add(f);
 				
 			// Fetishes for content locks:
-			} else if (f==Fetish.FETISH_NON_CON) {
-				if(Main.getProperties().nonConContent)
+			} else if (f==Fetish.FETISH_NON_CON_DOM || f==Fetish.FETISH_NON_CON_SUB) {
+				if(Main.getProperties().nonConContent) {
 					availableFetishes.add(f);
+				}
 				
 			} else if (f==Fetish.FETISH_INCEST) {
 				if(Main.getProperties().incestContent)

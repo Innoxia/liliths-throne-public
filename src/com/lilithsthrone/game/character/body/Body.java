@@ -1443,6 +1443,15 @@ public class Body implements Serializable, XMLSaving {
 				case SIDECUT:
 					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into a sidecut.");
 					break;
+				case BOB_CUT:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into a bob cut.");
+					break;
+				case PIXIE:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into a pixie-cut.");
+					break;
+				case SLICKED_BACK:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been slicked back.");
+					break;
 			}
 		}
 		
@@ -1870,9 +1879,8 @@ public class Body implements Serializable, XMLSaving {
 						break;
 				}
 				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER))!=null) {
-						sb.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>The first time you performed oral sex was to "
-								+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER)) + ".</span>");
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER))!=null && !Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER)).isEmpty()) {
+						sb.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>The first time you performed oral sex was to " + Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER)) + ".</span>");
 					}
 				}
 			}
@@ -2924,9 +2932,8 @@ public class Body implements Serializable, XMLSaving {
 				descriptionSB.append(" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have retained your anal virginity.</span>");
 			}else{
 				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER))!=null) {
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your anal virginity to "
-								+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER)) + ".</span>");
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER))!=null && !Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER)).isEmpty()) {
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your anal virginity to "+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER)) + ".</span>");
 					}
 				}
 			}
@@ -3249,7 +3256,7 @@ public class Body implements Serializable, XMLSaving {
 				
 				if (!breast.getNipples().getOrificeNipples().isVirgin()) {
 					for(PenetrationType pt : PenetrationType.values()) {
-						if(owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER))!=null) {
+						if(owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER))!=null && !owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER)).isEmpty()) {
 							descriptionSB.append(" [style.colourArcane(You lost your nipple virginity to "+ owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER)) + ".)]");
 						}
 					}
@@ -3461,7 +3468,7 @@ public class Body implements Serializable, XMLSaving {
 				
 				if (!breast.getNipples().getOrificeNipples().isVirgin()) {
 					for(PenetrationType pt : PenetrationType.values()) {
-						if(owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PARTNER))!=null) {
+						if(owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PARTNER))!=null && !owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PARTNER)).isEmpty()) {
 							descriptionSB.append(" [style.colourArcane([npc.Name] lost [npc.her] nipple virginity to "+ owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PARTNER)) + ".)]");
 						}
 					}
@@ -3644,7 +3651,7 @@ public class Body implements Serializable, XMLSaving {
 		if(owner.isPlayer()) {
 			if (!penis.isVirgin()) {
 					for(OrificeType ot : OrificeType.values()) {
-						if(owner.getVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, ot))!=null) {
+						if(owner.getVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, ot)) != null && !owner.getVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, ot)).isEmpty()) {
 							descriptionSB.append(" [style.colourArcane(You lost your penile virginity to "+ owner.getVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, ot)) + ".)]");
 						}
 					}
@@ -3655,7 +3662,7 @@ public class Body implements Serializable, XMLSaving {
 		} else {
 			if (!penis.isVirgin()) {
 				for(OrificeType ot : OrificeType.values()) {
-					if(owner.getVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, ot))!=null) {
+					if(owner.getVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, ot))!=null && !owner.getVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, ot)).isEmpty()) {
 						descriptionSB.append(" [style.colourArcane([npc.Name] has lost [npc.her] penile virginity.)]");
 					}
 				}
@@ -3769,9 +3776,8 @@ public class Body implements Serializable, XMLSaving {
 		
 		if (isPlayer && !owner.isUrethraVirgin()) {
 			for(PenetrationType pt : PenetrationType.values()) {
-				if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER))!=null) {
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your urethral virginity to "
-							+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER)) + ".</span>");
+				if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER))!=null && !Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER)).isEmpty()) {
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your urethral virginity to "+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER)) + ".</span>");
 				}
 			}
 		}
@@ -4242,7 +4248,7 @@ public class Body implements Serializable, XMLSaving {
 						+ Capacity.getCapacityFromValue(vagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 				
 				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER))!=null && pt.isTakesVirginity()) {
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER))!=null && !Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER)).isEmpty() && pt.isTakesVirginity()) {
 						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your virginity to "+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER)) + ".</span>");
 					}
 				}
