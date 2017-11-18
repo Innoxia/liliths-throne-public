@@ -1114,9 +1114,9 @@ public class PhoneDialogue {
 					}
 					
 					contentSB.append("</b></br>");
+					contentSB.append("</div>");
 				}
 			}
-			contentSB.append("</div>");
 			
 			noPregnancies=false;
 		

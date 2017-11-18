@@ -165,7 +165,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 				}
 			}
-			if(this.getAssociatedPenetrationType()!=null) {
+			if(this.getAssociatedPenetrationType()!=null && this.getAssociatedOrificeType()!=null) {
 				switch(this.getAssociatedPenetrationType()) {
 					case FINGER_PARTNER:
 						switch(this.getAssociatedOrificeType()) {
@@ -539,7 +539,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 				}
 			}
-			if(this.getAssociatedPenetrationType()!=null) {
+			if(this.getAssociatedPenetrationType()!=null  && this.getAssociatedOrificeType()!=null) {
 				switch(this.getAssociatedPenetrationType()) {
 					case FINGER_PLAYER:
 						switch(this.getAssociatedOrificeType()) {

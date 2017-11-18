@@ -2357,7 +2357,7 @@ public class DominionOffspringDialogue {
 									+ "</p>");
 							
 						}
-						Main.game.removeNPC(offspring());
+						Main.game.banishNPC(offspring());
 					}
 				};
 				
@@ -2761,7 +2761,7 @@ public class DominionOffspringDialogue {
 									+ "</p>");
 							
 						}
-						Main.game.removeNPC(offspring());
+						Main.game.banishNPC(offspring());
 					}
 				};
 				

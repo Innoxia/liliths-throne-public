@@ -359,7 +359,7 @@ public class CultistDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.removeNPC(Main.game.getActiveNPC());
+						Main.game.banishNPC(Main.game.getActiveNPC());
 					}
 				};
 			

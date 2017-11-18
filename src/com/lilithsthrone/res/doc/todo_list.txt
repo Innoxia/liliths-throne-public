@@ -26,6 +26,14 @@
 		Fixed bug where duplicate NPCs were being loaded into the game.
 		Fixed bug with exporting game not working.
 		Fixed bug that would cause game freeze upon importing a character from an old version.
+		Improved handling of pregnant NPC removal. (This was the cause of some exports from 0.1.88.5 not working. ;_;)
+	
+	Bugs:
+		Fixed cause of game freeze during sex.
+		Fixed bug related to Alexa's renewal of slaves for sale (her old slaves weren't being cleaned up properly).
+		Improved NPC removal methods, so that removing NPCs should no longer cause sex & pregnancy stats to break.
+		Fixed all penetrative sex generating +0 base arousal for the person being penetrated.
+		Fixed UI display bug in pregnancy stats screen.
 	
 	
 	

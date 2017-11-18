@@ -151,6 +151,9 @@ public class NPCOffspring extends NPC {
 	@Override
 	public String getDescription() {
 		int timeToBirth = this.getDayOfBirth()-this.getDayOfConception();
+		if(this.getMother()==null || this.getFather()==null) {
+			return "";
+		}
 		return (UtilText.parse(this,
 				"[npc.Name] is your [npc.daughter], who you "+(this.getMother().isPlayer()?"mothered with "+(this.getFather().getName("a")):"fathered with "+(this.getMother().getName("a")))+"."
 						+ " [npc.She] was conceived on day "+this.getDayOfConception()+", and "

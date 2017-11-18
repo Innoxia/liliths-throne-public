@@ -336,7 +336,7 @@ public class DominionAlleywayAttackerDialogue {
 						}
 						@Override
 						public void effects() {
-							Main.game.removeNPC(Main.game.getActiveNPC());
+							Main.game.banishNPC(Main.game.getActiveNPC());
 						}
 					};
 					
@@ -418,7 +418,7 @@ public class DominionAlleywayAttackerDialogue {
 						}
 						@Override
 						public void effects() {
-							Main.game.removeNPC(Main.game.getActiveNPC());
+							Main.game.banishNPC(Main.game.getActiveNPC());
 						}
 					};
 					
@@ -893,7 +893,7 @@ public class DominionAlleywayAttackerDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.removeNPC(Main.game.getActiveNPC());
+						Main.game.banishNPC(Main.game.getActiveNPC());
 					}
 				};
 				

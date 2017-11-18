@@ -2054,6 +2054,19 @@ public class Game implements Serializable, XMLSaving {
 		return npc.getId();
 	}
 	
+	/**
+	 * If the NPC has relationship stats with the player, don't delete entirely. Instead, move to PlaceType.GENERIC_EMPTY_TILE.
+	 * If the NPC has no stats related to the player, then remove them from the game.
+	 * @param npc
+	 */
+	public void banishNPC(NPC npc) {
+		if(npc.getTotalTimesHadSex()!=0 || npc.getPregnantLitter()!=null || npc.getLastLitterBirthed()!=null || npc.getMother()!=null || npc.getFather()!=null) {
+			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+		} else {
+			removeNPC(npc);
+		}
+	}
+	
 	public void removeNPC(NPC npc) {
 		if(npc.isPregnant()) {
 			npc.endPregnancy(false);
@@ -2069,24 +2082,14 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	public void removeNPC(String id) {
-		NPC npc = NPCMap.get(id);
-		if(npc.isPregnant()) {
-			npc.endPregnancy(false);
-		} else if(npc.hasStatusEffect(StatusEffect.PREGNANT_0)) {
-			npc.removeStatusEffect(StatusEffect.PREGNANT_0);
-		}
+		removeNPC(NPCMap.get(id));
 		
-		if(isInNPCUpdateLoop) {
-			npcsToRemove.add(npc);
-		} else {
-			NPCMap.remove(npc.getId());
-		}
 	}
 	
 	public int getNumberOfWitches() {
 		int i = 0;
 		for(NPC npc : NPCMap.values()) {
-			if(npc instanceof Cultist) {
+			if(npc instanceof Cultist && npc.getLocationPlace().getPlaceType()!=PlaceType.GENERIC_EMPTY_TILE) {
 				i++;
 			}
 		}

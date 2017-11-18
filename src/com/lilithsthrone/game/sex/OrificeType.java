@@ -187,6 +187,7 @@ public enum OrificeType {
 	private boolean isPlayer;
 
 	private OrificeType(float baseArousalWhenPenetrated, boolean isPlayer) {
+		this.baseArousalWhenPenetrated = baseArousalWhenPenetrated;
 		this.isPlayer = isPlayer;
 	}
 	

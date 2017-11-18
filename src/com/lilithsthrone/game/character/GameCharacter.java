@@ -3014,6 +3014,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			if(pregnantLitter.getFather()!=null) {
 				pregnantLitter.getFather().getLittersFathered().add(birthedLitter);
 			}
+		} else {
+			for(String npc : pregnantLitter.getOffspring()) {
+				Main.game.removeNPC(npc);
+			}
 		}
 		
 		removeStatusEffect(StatusEffect.PREGNANT_1);

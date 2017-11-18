@@ -124,16 +124,18 @@ public class Alexa extends NPC {
 			
 			for(int i=0; i<5; i++) {
 				NPC newSlave = new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences());
-				newSlave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
-				addSlave(newSlave);
-				newSlave.resetInventory();
-				newSlave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getAlexa());
-				newSlave.setPlayerKnowsName(true);
 				try {
 					Main.game.addNPC(newSlave, false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
+				newSlave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+				addSlave(newSlave);
+				newSlave.resetInventory();
+				newSlave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getAlexa());
+				newSlave.setPlayerKnowsName(true);
+				
 			}
 		}
 	}
