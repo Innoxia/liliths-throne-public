@@ -1049,7 +1049,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					Element e = ((Element)element.getElementsByTagName("pregnancyPossibility").item(i));
 					
 					character.getPotentialPartnersAsFather().add(PregnancyPossibility.loadFromXML(e, doc));
-					System.out.println(":3");
 					CharacterUtils.appendToImportLog(log, "</br>Added Pregnancy Possibility as father.");
 				}
 			}

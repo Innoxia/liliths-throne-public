@@ -22,79 +22,10 @@
 	
 	Patch notes:
 	
-	Engine:
-		Added more detail to the game's 'CoverableArea' system, to allow for clothing to block ass/anus and breasts/nipples separately.
-		Added in a lot of the background framework for Zaranix into the engine. I'll get this finished asap. ;_;
-		
-	Save game compatibility:
-		Fixed several major bugs associated with loading in a game where you had filled condoms in your inventory.
-		Fixed major bug related to loading an exported game with pregnant NPCs in it.
-		Fixed pregnancy 'potential partners as father' not being imported correctly.
-		Fixed incorrect cell inventory size.
-		Added support for generating missing maps.
-		
-	Gameplay:
-		Submitting to an NPC after defeating them no longer locks out penetrative sex actions.
-		You can now access the inventory of defeated alleyway attackers, succubi, offspring, and harpies after sex.
-		Split the 'Non-con' fetish up into giving & receiving variants. NPCs with the receiving variant will prefer to resist during sex (if non-con is enabled).
-		Reduced the default amount of children birthed by each race, so most now give birth to one or two offspring, with the current maximum litter size possible being 16 (for harpies).
-	
-	Sex:
-		Added a generic 'Stop penetrations' action to stop all ongoing penetrative actions at once.
-		Changed sex action's associated fetishes to make them more consistent.
-		NPCs will no longer try to get access to their penis/pussy if tehy don't have one.
-	
-	UI:
-		Added hotkey support for response tab switching. By default, 'Previous tab' is 'ctrl+Q', while 'Next tab' is 'ctrl+E'. (Can be changed in the options menu.)
-		Added indication in enchanting menu of the exact value that an effect will apply. (e.g. Will now display cum increases in ml.)
-		Improved inventory UI to use tabs. (I still have some work left to do on this.)
-	
-	Other:
-		<b>Reverted:</b> NPCs will now beg for you to take their virginity if they're in the 'eager' pace, will inform you that they're a virgin in the 'normal' pace, and will beg for you not to take it in the 'resisting' pace.
-		Slightly changed the secondary modifiers for enchanting body parts. Now, instead of leaving the secondary essence blank to transform your body part, you select a 'Transformative' essence.
-		Improved horn transformations, and added several more colours to horns (available colours are now white, red, black, and grey).
-		Changed horn types from 'demon' and 'bovine' into some more specific types: curled, spiral, curved, swept-back, and straight.
-		Added horn length.
-		Reduced offspring spawn chance from 25% to 20%.
-		Added penile virginity loss descriptions during sex, as well as experience gain for the other partner if they have the 'Deflowering' fetish.
-		Added submissive sex option in slaves' rooms.
-		NPCs with 'Transformation test subject' fetish now gain affection from being assigned as Lilaya's test subject.
-		Penises will only get lubricated by precum/cum if they're not covered with a condom. (Although the urethra will still get lubricated regardless of condom status.)
-		The 'Repeat action' in combat will now only show actions that aren't already in the main combat menu (i.e. spells and special attacks).
-		The 'Calm down' sex action has had its arousal reduction strength doubled from -5 to -10.
-		Added 'pixie cut', 'bob cut', and 'slicked back' hair styles.
-		Changed Rose's hair style.
-		Added pure damage/resistance to the stats screen.
-		You can now use fetish TF potions on the harpy matriarchs.
-		Alleyway Succubi will now use their special tease attacks.
-		Partners in consensual sex will no longer end sex once they've orgasmed. They will continue until you've orgasmed as well.
-	
-	Bugs:
-		In the crafting screen, you can now change the potency of milk, cum, and girlcum enchantments.
-		Fixed bug where offspring would spawn twice in the same tile.
-		Fixed bug where swapping positions during sex would incorrectly display ongoing penetration text.
-		Fixed duplicate virginity loss descriptions in selfie/character view.
-		Fixed incorrect virginity loss place descriptors.
-		Ongoing penetration description fixes.
-		Fixed UI scaling bug in Fetish screen.
-		Fixed more strange floating point numbers in slavery management screens, as well as the main stats screen. (i.e. Things like 2.3999999 should now display as 2.40.)
-		Fade-in text is now correctly off by default.
-		'Lubricate fingers' self-action now returns the correct text.
-		Masculine transformations (when letting Lilaya use someone as a test subject) will no longer grow breasts, and will now correctly shrink them.
-		Fixed issue with Vicky sometimes not buying essences, and with Ralph sometimes not buying condoms.
-		Fixed UI issue with pregnancy stats screen and slave inspection screen.
-		The stats tooltip that shows up when you mouse over your name now shows the correct value of your global resistance.
-		Breast kissing can no longer be performed if breasts are not exposed.
-		Fixed levelling up method to enable gaining multiple levels at once.
-		Improved arousal increases from ongoing status effects, and fixed incorrect arousal tooltip values.
-		Lilaya will now always ask you to pull out.
-		Fixed incorrect NPC reactions just before you reach your orgasm.
-		You should now be able to use the 'Pull out' orgasm if your partner asked for you to pull out.
-		Fixed bug in sex where moving into a position would cause your partner to continuously do nothing.
-		Fixed potentially game-breaking bug related to Brax's clothing being unequipped after defeating him.
-		Fixed storm immunity and items disappearing inconsistencies.
-	
-	
+	Save compatibility & character import:
+		Fixed bug where duplicate NPCs were being loaded into the game.
+		Fixed bug with exporting game not working.
+		Fixed bug that would cause game freeze upon importing a character from an old version.
 	
 	
 	
@@ -115,6 +46,18 @@
 	
 	
 	
+	getting a bug where the map seems to stop working, not sure of the cause think it might have to do with home. also fights just take you to inventory
+	
+	my game freezes when the orgasam hits and it is the same on both versions does any1 have the same problem
+	
+	Are the "safety googles" in  Lilyas lab supposed to respawn every time you go there
+	
+	While the button indicates it would return the flames originally spent when purchasing a room upgrade, it instead removes the same amount once more. This is especially problematic with crazy expensive things like the obedience trainer
+	
+	
+	MAke it so selecting both feminine and masculine TF's for lilayas test subjects does 'futanari' tfs and prevent lilaya from tfing away their boobs/cocks/cunts
+	
+	Orgasming at any point leaves you able to orgasm at will, regardless of your own arousal, on the Repeat Actions tab. Same applies to making the partner orgasm regardless of their own arousal by repeating "prepare", or by repeating a mutual orgasm
 	
 	crafted potions aren't importing correctly
 	
@@ -136,6 +79,7 @@
 	
 	NPCs still use finger-in-mouth somehow...
 	
+	: Transformation Test Subject should probably reverse or at least lessen the affection loss towards Lilaya. Currently, it's just the normal -5 affection to Lilaya with each session regardless of whether or not a slave has said fetish
 	
 	add in manual font selection
 	

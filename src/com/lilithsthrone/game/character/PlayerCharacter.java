@@ -249,6 +249,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	// Quests:
 
+	public void resetAllQuests() {
+		quests = new EnumMap<>(QuestLine.class);
+	}
+	
 	public boolean isMainQuestUpdated() {
 		return mainQuestUpdated;
 	}

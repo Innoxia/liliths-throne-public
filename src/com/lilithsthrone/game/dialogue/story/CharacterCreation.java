@@ -1941,8 +1941,8 @@ public class CharacterCreation {
 				return new Response("Start", "Use this character and start the game at the very beginning.", PrologueDialogue.INTRO_2){
 					@Override
 					public void effects() {
+						Main.game.getPlayer().resetAllQuests();
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
-						
 						applyGameStart();
 					}
 				};
@@ -1953,7 +1953,8 @@ public class CharacterCreation {
 					public void effects() {
 						Main.game.setRenderMap(true);
 						Main.game.setInNewWorld(true);
-						
+
+						Main.game.getPlayer().resetAllQuests();
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						

@@ -257,7 +257,9 @@ public class Game implements Serializable, XMLSaving {
 			Element mapNode = doc.createElement("maps");
 			game.appendChild(mapNode);
 			for(World world : Main.game.getWorlds().values()) {
-				world.saveAsXML(mapNode, doc);
+				if(world!=null) {
+					world.saveAsXML(mapNode, doc);
+				}
 			}
 			
 			// Add player:
@@ -380,16 +382,22 @@ public class Game implements Serializable, XMLSaving {
 				
 				newGame.player = PlayerCharacter.loadFromXML(null, (Element) ((Element) gameElement.getElementsByTagName("playerCharacter").item(0)), doc);
 				
+				List<String> addedIds = new ArrayList<>();
 				// Load NPCs:
 				for(int i=0; i<gameElement.getElementsByTagName("NPC").getLength(); i++) {
 					Element e = (Element) gameElement.getElementsByTagName("NPC").item(i);
 					
-					@SuppressWarnings("unchecked")
-					Class<? extends NPC> npcClass = (Class<? extends NPC>) Class.forName(((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value"));
-					Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class);
-					
-					NPC npc = (NPC) m.invoke(npcClass.newInstance(), e, doc); //TODO You're loading the class twice!!!
-					newGame.addNPC(npc, true);
+					if(!addedIds.contains(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
+						@SuppressWarnings("unchecked")
+						Class<? extends NPC> npcClass = (Class<? extends NPC>) Class.forName(((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value"));
+						Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class);
+						
+						NPC npc = (NPC) m.invoke(npcClass.newInstance(), e, doc); //TODO You're loading the class twice!!!
+						newGame.addNPC(npc, true);
+						addedIds.add(npc.getId());
+					} else {
+						System.out.println("duplicate");
+					}
 				}
 				
 //				TODO Once Zaranix is complete
