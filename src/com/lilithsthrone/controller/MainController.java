@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.ResourceBundle;
 
 import com.lilithsthrone.rendering.AttributesPanel;
+import com.lilithsthrone.rendering.ButtonsPanel;
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
@@ -164,8 +165,9 @@ public class MainController implements Initializable {
 	@FXML
 	private WebView webViewMain, webViewAttributes, webViewRight, webViewButtons;
 
-	private WebEngine webEngine, webEngineTooltip, webEngineAttributes, webEngineRight, webEngineButtons;
+	private WebEngine webEngine, webEngineTooltip, webEngineRight;
 	private AttributesPanel attributesPanel;
+	private ButtonsPanel buttonsPanel;
 	private WebView webviewTooltip;
 	private Tooltip tooltip;
 	private EventHandler<KeyEvent> actionKeyPressed, actionKeyReleased;
@@ -951,35 +953,39 @@ public class MainController implements Initializable {
 		// Buttons webview:
 
 		webViewButtons.setContextMenuEnabled(false);
-		webEngineButtons = webViewButtons.getEngine();
-		webEngineButtons.getHistory().setMaxSize(0);
-		
-		if (Main.getProperties().lightTheme) {
-			webEngineButtons.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet_light.css").toExternalForm());
-		} else {
-			webEngineButtons.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet.css").toExternalForm());
-		}
-		
-		if(debugAllowListeners)
-		webEngineButtons.getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
-			if (newState == State.SUCCEEDED) {
-				unbindListeners(documentButtons);
-				manageButtonListeners();
-			}
+		buttonsPanel = new ButtonsPanel(webViewButtons.getEngine());
+		buttonsPanel.setBeforeContentUpdate((WebEngineEx)->{
+			unbindListeners(documentButtons);
 		});
+		buttonsPanel.setAfterContentUpdate((WebEngineEx)->{
+			manageButtonListeners();
+		});
+		if(debugAllowListeners) {
+			buttonsPanel.getEngine().getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
+				if (newState == State.SUCCEEDED) {
+					unbindListeners(documentButtons);
+					manageButtonListeners();
+				}
+			});
+		}
 
 		
 		// Attributes WebView:
 		webViewAttributes.setContextMenuEnabled(false);
-		webEngineAttributes = webViewAttributes.getEngine();
-		attributesPanel = new AttributesPanel(webEngineAttributes);
-		
-		if(debugAllowListeners)
-		attributesPanel.getEngine().getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
-			if (newState == State.SUCCEEDED) {
-				manageAttributeListeners();
-			}
+		attributesPanel = new AttributesPanel(webViewAttributes.getEngine());
+		attributesPanel.setBeforeContentUpdate((WebEngineEx)->{
+			unbindListeners(documentAttributes);
 		});
+		attributesPanel.setAfterContentUpdate((WebEngineEx)->{
+			manageAttributeListeners();
+		});
+		if(debugAllowListeners) {
+			attributesPanel.getEngine().getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
+				if (newState == State.SUCCEEDED) {
+					manageAttributeListeners();
+				}
+			});
+		}
 		
 		// Attributes WebView:
 		webViewRight.setContextMenuEnabled(false);
@@ -3905,7 +3911,7 @@ public class MainController implements Initializable {
 	}
 	
 	private void manageButtonListeners() {
-		documentButtons = (Document) webEngineButtons.executeScript("document");
+		documentButtons = (Document) buttonsPanel.getEngine().executeScript("document");
 		EventListenerDataMap.put(documentButtons, new ArrayList<>());
 		
 		if(((EventTarget) documentButtons.getElementById("mainMenu"))!=null)
@@ -3921,7 +3927,7 @@ public class MainController implements Initializable {
 	}
 	
 	private void manageAttributeListeners() {
-		documentAttributes = (Document) webEngineAttributes.executeScript("document");
+		documentAttributes = (Document) attributesPanel.getEngine().executeScript("document");
 		EventListenerDataMap.put(documentAttributes, new ArrayList<>());
 		
 		// Map:
@@ -4362,16 +4368,6 @@ public class MainController implements Initializable {
 		}
 	}
 	
-	public void setAttributePanelContent(String content) {
-		if(useJavascriptToSetContent) {
-			unbindListeners(documentAttributes);
-			attributesPanel.setBodyContent(content);
-			manageAttributeListeners();
-		} else {
-			webEngineAttributes.loadContent(content);
-		}
-	}
-	
 	public void setRightPanelContent(String content) {
 		if(useJavascriptToSetContent) {
 			unbindListeners(documentRight);
@@ -4379,16 +4375,6 @@ public class MainController implements Initializable {
 			manageRightListeners();
 		} else {
 			webEngineRight.loadContent(content);
-		}
-	}
-	
-	public void setButtonsContent(String content) {
-		if(useJavascriptToSetContent) {
-			unbindListeners(documentButtons);
-			setWebEngineContent(webEngineButtons, content);
-			manageButtonListeners();
-		} else {
-			webEngineButtons.loadContent(content);
 		}
 	}
 	
@@ -4432,7 +4418,7 @@ public class MainController implements Initializable {
 			manageAttributeListeners();
 			RenderingEngine.ENGINE.renderAttributesPanelRight();
 		}
-		RenderingEngine.ENGINE.renderButtons();
+		getButtonsPanel().render();
 	}
 	
 	public void updateUILeftPanel() {
@@ -4448,7 +4434,7 @@ public class MainController implements Initializable {
 			RenderingEngine.setZoomedIn(!RenderingEngine.isZoomedIn());
 			
 			Main.game.reloadContent();
-			RenderingEngine.ENGINE.renderButtons();
+			getButtonsPanel().render();
 		}
 	}
 
@@ -4550,14 +4536,14 @@ public class MainController implements Initializable {
 		return attributesPanel;
 	}
 
+	public ButtonsPanel getButtonsPanel() {
+		return buttonsPanel;
+	}
+
 	public WebEngine getWebEngineRight() {
 		return webEngineRight;
 	}
 	
-	public WebEngine getWebEngineButtons() {
-		return webEngineButtons;
-	}
-
 	// UI related:
 	public Tooltip getTooltip() {
 		return tooltip;
@@ -4584,10 +4570,10 @@ public class MainController implements Initializable {
 	
 	public void switchTheme() {
 		attributesPanel.setTheme();
+		buttonsPanel.setTheme();
 		if (Main.getProperties().lightTheme) {
 			getWebEngineTooltip().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewTooltip_stylesheet.css").toExternalForm());
 			getWebEngine().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webView_stylesheet.css").toExternalForm());
-			getWebEngineButtons().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet.css").toExternalForm());
 			getWebEngineRight().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet.css").toExternalForm());
 	
 			Main.mainScene.getStylesheets().clear();
@@ -4596,7 +4582,6 @@ public class MainController implements Initializable {
 		} else {
 			getWebEngineTooltip().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewTooltip_stylesheet_light.css").toExternalForm());
 			getWebEngine().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webView_stylesheet_light.css").toExternalForm());
-			getWebEngineButtons().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet_light.css").toExternalForm());
 			getWebEngineRight().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet_light.css").toExternalForm());
 	
 			Main.mainScene.getStylesheets().clear();

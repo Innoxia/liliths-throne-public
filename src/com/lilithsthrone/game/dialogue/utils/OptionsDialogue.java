@@ -91,7 +91,7 @@ public class OptionsDialogue {
 
 							Main.mainController.getAttributesPanel().hide();
 							Main.mainController.setRightPanelContent("");
-							Main.mainController.setButtonsContent("");
+							Main.mainController.getButtonsPanel().hide();
 							Main.game.setRenderMap(false);
 							
 							Main.startNewGame(CharacterCreation.CHARACTER_CREATION_START);

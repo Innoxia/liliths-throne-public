@@ -656,8 +656,7 @@ public class Game implements Serializable, XMLSaving {
 					Main.game.getPlayer().incrementMana(turnTime * 0.1f);
 			}
 		}
-		
-		RenderingEngine.ENGINE.renderButtons();
+		Main.mainController.getButtonsPanel().render();
 		Main.mainController.updateUI();
 		
 		Main.mainController.getTooltip().hide();

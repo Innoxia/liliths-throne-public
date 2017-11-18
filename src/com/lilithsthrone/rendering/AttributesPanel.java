@@ -257,7 +257,7 @@ public class AttributesPanel extends WebEngineEx {
 
 		uiAttributeSB.append("</body>");
 
-		Main.mainController.setAttributePanelContent(uiAttributeSB.toString());
+		setBodyContent(uiAttributeSB.toString());
 	}
 
 	public void render() {

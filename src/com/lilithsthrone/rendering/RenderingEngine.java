@@ -1236,55 +1236,6 @@ public enum RenderingEngine {
 		}
 	}
 
-	public void renderButtons() {
-		Main.mainController.setButtonsContent(
-				"<div class='quarterContainer'>"
-					+ "<div class='button" + (!Main.game.getCurrentDialogueNode().isOptionsDisabled() ? "" : " disabled") + "' id='mainMenu'>"
-						+ SVGImages.SVG_IMAGE_PROVIDER.getMenuIcon() + (!Main.game.getCurrentDialogueNode().isOptionsDisabled() ? "" : "<div class='disabledLayer'></div>")
-					+ "</div>"
-				+ "</div>"
-
-				+ "<div class='quarterContainer'>"
-					+ "<div class='button" + (
-							Main.game.getPlayer().isMainQuestUpdated()
-							|| Main.game.getPlayer().isSideQuestUpdated()
-							|| Main.game.getPlayer().isRomanceQuestUpdated()
-							|| Main.getProperties().isNewWeaponDiscovered()
-							|| Main.getProperties().isNewClothingDiscovered()
-							|| Main.getProperties().isNewItemDiscovered()
-							|| Main.getProperties().isNewRaceDiscovered()
-							|| Main.game.getPlayer().getPerkPoints()>0
-							|| (Main.game.getPlayer().getLevelUpPoints()>0
-									&& (Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH) + Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE) + Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS))<300)
-								?" highlight"
-								:"")
-						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() && Main.game.isInNewWorld() ? "" : " disabled") + "' id='journal'>" + SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
-						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() && Main.game.isInNewWorld() ? "" : "<div class='disabledLayer'></div>")
-					+ "</div>"
-				+ "</div>"
-
-				+ "<div class='quarterContainer'>"
-					+ "<div class='button" + (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().getInventorySlotsTaken()>0 ? " highlight" : "")
-					+ (Main.mainController.isInventoryDisabled() ? " disabled" : "") + "' id='inventory'>"
-						+ SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon()
-						+ (Main.mainController.isInventoryDisabled() ? "<div class='disabledLayer'></div>" : "")
-					+ "</div>"
-				+ "</div>"
-
-				+ "<div class='quarterContainer'>"
-					+ "<div class='button" + (Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentDialogueNode().getMapDisplay() != MapDisplay.CHARACTERS_PRESENT ? " disabled" : "")
-					+ "' id='charactersPresent'>" + SVGImages.SVG_IMAGE_PROVIDER.getPeopleIcon()
-						+ (Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentDialogueNode().getMapDisplay() != MapDisplay.CHARACTERS_PRESENT ? "<div class='disabledLayer'></div>" : "")
-					+ "</div>"
-				+ "</div>"
-
-				+ "<div class='quarterContainer'>"
-					+ "<div class='button" + (Main.game.getCurrentDialogueNode().isTravelDisabled() ? " disabled" : "") + "' id='mapZoom'>"
-						+ (RenderingEngine.isZoomedIn() ? SVGImages.SVG_IMAGE_PROVIDER.getZoomOutIcon() : SVGImages.SVG_IMAGE_PROVIDER.getZoomInIcon()) + (Main.game.getCurrentDialogueNode().isTravelDisabled() ? "<div class='disabledLayer'></div>" : "")
-					+ "</div>"
-				+ "</div>");
-	}
-
 	public static boolean isZoomedIn() {
 		return zoomedIn;
 	}

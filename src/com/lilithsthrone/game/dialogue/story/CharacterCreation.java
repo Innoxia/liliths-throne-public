@@ -1928,7 +1928,7 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						Main.mainController.getAttributesPanel().hide();
-						Main.mainController.setButtonsContent("");
+						Main.mainController.getButtonsPanel().hide();
 						
 						Main.startNewGame(CharacterCreation.CONTENT_PREFERENCES);
 					}
@@ -2017,7 +2017,7 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						Main.mainController.getAttributesPanel().hide();
-						Main.mainController.setButtonsContent("");
+						Main.mainController.getButtonsPanel().hide();
 						
 						Main.startNewGame(CharacterCreation.CONTENT_PREFERENCES);
 					}

@@ -2,12 +2,26 @@ package com.lilithsthrone.controller;
 
 import javafx.scene.web.WebEngine;
 
+import java.util.function.Consumer;
+import java.util.function.Function;
+
 /**
  * A wrapper around WebEngine to manipulate HTML elements' styles and content
  * @author aimozg
  */
 public class WebEngineEx {
 	protected final WebEngine engine;
+	protected boolean useJavascriptToSetContent = true;
+	private Consumer<WebEngineEx> beforeContentUpdate = null;
+	private Consumer<WebEngineEx> afterContentUpdate = null;
+
+	public void setBeforeContentUpdate(Consumer<WebEngineEx> beforeContentUpdate) {
+		this.beforeContentUpdate = beforeContentUpdate;
+	}
+
+	public void setAfterContentUpdate(Consumer<WebEngineEx> afterContentUpdate) {
+		this.afterContentUpdate = afterContentUpdate;
+	}
 
 	public WebEngine getEngine() {
 		return engine;
@@ -19,19 +33,29 @@ public class WebEngineEx {
 
 	protected void executeScriptForEverySelectedElement(String selector, String script) {
 		engine.executeScript("" +
-				"var a = document.querySelectorAll(" + WebEngineEx.escapeJsString(selector) + ");" +
+				"var a = document.querySelectorAll(" + escapeJsString(selector) + ");" +
 				"for (var i=0,n=a.length; i<n; i++) {" + script + "}"
 		);
 	}
 
 	protected void setStyleOf(String selector, String property, String value) {
 		executeScriptForEverySelectedElement(selector,
-				"a[i].style[" + WebEngineEx.escapeJsString(property) + "] = " + escapeJsString(value) + ";"
+				"a[i].style[" + escapeJsString(property) + "] = " + escapeJsString(value) + ";"
+		);
+	}
+	protected void addClass(String selector, String classname) {
+		executeScriptForEverySelectedElement(selector,
+				"a[i].classList.add(" + escapeJsString(classname)+");"
+		);
+	}
+	protected void removeClass(String selector, String classname) {
+		executeScriptForEverySelectedElement(selector,
+				"a[i].classList.remove(" + escapeJsString(classname)+");"
 		);
 	}
 	protected void setContentOf(String selector, String content, boolean isHtml) {
 		executeScriptForEverySelectedElement(selector,
-					"a[i]."+ (isHtml ? "innerHTML" : "innerText") +" = "+ WebEngineEx.escapeJsString(content)+";"
+					"a[i]."+ (isHtml ? "innerHTML" : "innerText") +" = "+ escapeJsString(content)+";"
 		);
 	}
 	protected void setTextOf(String selector, String text) {
@@ -59,10 +83,17 @@ public class WebEngineEx {
 		setStyleOf("body","display","");
 	}
 	public void setBodyContent(String content) {
-		engine.executeScript(""
-				+ "document.open('text/html');"
-				+ "document.write("+ WebEngineEx.escapeJsString(content)+");"
-				+ "document.close();");
+		content = escapeJsString(content);
+		if (beforeContentUpdate != null) beforeContentUpdate.accept(this);
+		if (useJavascriptToSetContent) {
+			engine.executeScript(""
+					+ "document.open('text/html');"
+					+ "document.write(" + content + ");"
+					+ "document.close();");
+		} else {
+			engine.loadContent(content);
+		}
+		if (afterContentUpdate!= null) afterContentUpdate.accept(this);
 	}
 
 	/*
