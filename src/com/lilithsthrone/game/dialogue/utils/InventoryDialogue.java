@@ -107,11 +107,33 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
 			if (inventoryNPC!=null && interactionType == InventoryInteraction.TRADING) {
-				return inventoryNPC.getTraderDescription();
-			} else {
-				return (interactionType==InventoryInteraction.CHARACTER_CREATION?CharacterCreation.getCheckingClothingDescription():"");
+				UtilText.nodeContentSB.append(inventoryNPC.getTraderDescription());
+				
+			} else if(interactionType==InventoryInteraction.CHARACTER_CREATION) {
+				return CharacterCreation.getCheckingClothingDescription();
 			}
+			
+//			if(item!=null) {
+//				return ITEM_INVENTORY.getResponse(responseTab, index);
+//			} else if(clothing!=null) {
+//				if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(clothing) || (inventoryNPC!=null && inventoryNPC.getClothingCurrentlyEquipped().contains(clothing))) {
+//					return CLOTHING_EQUIPPED.getResponse(responseTab, index);
+//				} else {
+//					return CLOTHING_INVENTORY.getResponse(responseTab, index);
+//				}
+//			} else if(weapon!=null) {
+//				if((Main.game.getPlayer().getMainWeapon().equals(weapon) || Main.game.getPlayer().getOffhandWeapon().equals(weapon))
+//						 || (inventoryNPC!=null && (inventoryNPC.getMainWeapon().equals(weapon) || inventoryNPC.getOffhandWeapon().equals(weapon)))) {
+//					return WEAPON_EQUIPPED.getResponse(responseTab, index);
+//				} else {
+//					return WEAPON_INVENTORY.getResponse(responseTab, index);
+//				}
+//			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		public String getResponseTabTitle(int index) {
@@ -128,13 +150,14 @@ public class InventoryDialogue {
 				if(item!=null) {
 					return ITEM_INVENTORY.getResponse(responseTab, index);
 				} else if(clothing!=null) {
-					if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(clothing)) {
+					if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(clothing) || (inventoryNPC!=null && inventoryNPC.getClothingCurrentlyEquipped().contains(clothing))) {
 						return CLOTHING_EQUIPPED.getResponse(responseTab, index);
 					} else {
 						return CLOTHING_INVENTORY.getResponse(responseTab, index);
 					}
 				} else if(weapon!=null) {
-					if(Main.game.getPlayer().getMainWeapon().equals(weapon) || Main.game.getPlayer().getOffhandWeapon().equals(weapon)) {
+					if((Main.game.getPlayer().getMainWeapon().equals(weapon) || Main.game.getPlayer().getOffhandWeapon().equals(weapon))
+							 || (inventoryNPC!=null && (inventoryNPC.getMainWeapon().equals(weapon) || inventoryNPC.getOffhandWeapon().equals(weapon)))) {
 						return WEAPON_EQUIPPED.getResponse(responseTab, index);
 					} else {
 						return WEAPON_INVENTORY.getResponse(responseTab, index);
@@ -354,7 +377,7 @@ public class InventoryDialogue {
 										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
 											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
 												Main.game.getPlayer().isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getDisplaceDescription()+"</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getDisplaceDescription()+"</p>");
 											}
 										}
 									}
@@ -378,7 +401,7 @@ public class InventoryDialogue {
 										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
 											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
 												Main.game.getPlayer().isAbleToBeReplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getReplaceDescription()+"</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getReplaceDescription()+"</p>");
 											}
 										}
 									}
@@ -399,7 +422,7 @@ public class InventoryDialogue {
 									
 									for(AbstractClothing c : zlayerClothing) { 
 										Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-										Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
 									}
 								}
 							};
@@ -423,7 +446,7 @@ public class InventoryDialogue {
 									
 									for(AbstractClothing c : zlayerClothing) {
 										if(!slotsTaken.contains(c.getClothingType().getSlot())) {
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer())+"</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer())+"</p>");
 											slotsTaken.add(c.getClothingType().getSlot());
 										}
 									}
@@ -443,7 +466,7 @@ public class InventoryDialogue {
 										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
 											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
 												inventoryNPC.isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+inventoryNPC.getDisplaceDescription()+"</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+inventoryNPC.getDisplaceDescription()+"</p>");
 											}
 										}
 									}
@@ -467,7 +490,7 @@ public class InventoryDialogue {
 										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
 											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
 												inventoryNPC.isAbleToBeReplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+inventoryNPC.getReplaceDescription()+"</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+inventoryNPC.getReplaceDescription()+"</p>");
 											}
 										}
 									}
@@ -488,7 +511,7 @@ public class InventoryDialogue {
 									
 									for(AbstractClothing c : zlayerClothing) { 
 										inventoryNPC.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-										Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+inventoryNPC.getUnequipDescription()+"</p>");
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+inventoryNPC.getUnequipDescription()+"</p>");
 									}
 								}
 							};
@@ -567,7 +590,7 @@ public class InventoryDialogue {
 										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
 											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
 												Main.game.getPlayer().isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getDisplaceDescription()+"</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getDisplaceDescription()+"</p>");
 											}
 										}
 									}
@@ -591,7 +614,7 @@ public class InventoryDialogue {
 										for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
 											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
 												Main.game.getPlayer().isAbleToBeReplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getReplaceDescription()+"</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getReplaceDescription()+"</p>");
 											}
 										}
 									}
@@ -612,7 +635,7 @@ public class InventoryDialogue {
 									
 									for(AbstractClothing c : zlayerClothing) { 
 										Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-										Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
 									}
 								}
 							};
@@ -636,7 +659,7 @@ public class InventoryDialogue {
 									
 									for(AbstractClothing c : zlayerClothing) {
 										if(!slotsTaken.contains(c.getClothingType().getSlot())) {
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer())+"</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer())+"</p>");
 											slotsTaken.add(c.getClothingType().getSlot());
 										}
 									}
@@ -971,7 +994,8 @@ public class InventoryDialogue {
 									Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
+									Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
+									resetPostAction();
 								}
 							};
 						}
@@ -990,7 +1014,8 @@ public class InventoryDialogue {
 								public void effects(){
 									int itemCount = Main.game.getPlayer().getItemCount(item);
 									for(int i=0;i<itemCount;i++) {
-										Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
+										resetPostAction();
 									}
 								}
 							};
@@ -1041,6 +1066,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Combat.setPlayerTurnText(Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false));
+											resetPostAction();
 											Combat.attackEnemy();
 											Combat.setPreviousAction(Attack.NONE);
 											Main.mainController.openInventory();
@@ -1075,6 +1101,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Combat.setPlayerTurnText(Main.game.getPlayer().useItem(item, inventoryNPC, false));
+											resetPostAction();
 											Combat.attackEnemy();
 											Combat.setPreviousAction(Attack.NONE);
 											Main.mainController.openInventory();
@@ -1087,6 +1114,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Combat.setPlayerTurnText(Main.game.getPlayer().useItem(item, inventoryNPC, false));
+											resetPostAction();
 											Combat.attackEnemy();
 											Combat.setPreviousAction(Attack.NONE);
 											Main.mainController.openInventory();
@@ -1181,7 +1209,8 @@ public class InventoryDialogue {
 											Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
+											resetPostAction();
 										}
 									};
 								}
@@ -1200,8 +1229,9 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
 											}
+											resetPostAction();
 										}
 									};
 								}
@@ -1227,7 +1257,8 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+											resetPostAction();
 										}
 									};
 									
@@ -1237,7 +1268,8 @@ public class InventoryDialogue {
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+											resetPostAction();
 										}
 									};
 								}
@@ -1261,8 +1293,9 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
 											}
+											resetPostAction();
 										}
 									};
 									
@@ -1274,8 +1307,9 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
 											}
+											resetPostAction();
 										}
 									};
 								}
@@ -1313,6 +1347,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, Main.game.getPlayer(), Main.game.getPlayer()));
+											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
 											Sex.setSexStarted(true);
@@ -1347,6 +1382,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
 											Sex.setSexStarted(true);
@@ -1359,6 +1395,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
 											Sex.setSexStarted(true);
@@ -1460,7 +1497,8 @@ public class InventoryDialogue {
 											Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
+											resetPostAction();
 										}
 									};
 								}
@@ -1479,8 +1517,9 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
 											}
+											resetPostAction();
 										}
 									};
 								}
@@ -1562,7 +1601,8 @@ public class InventoryDialogue {
 									Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), true) + "</p>");
+									Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), true) + "</p>");
+									resetPostAction();
 								}
 							};
 						}
@@ -1581,8 +1621,9 @@ public class InventoryDialogue {
 								public void effects(){
 									int itemCount = Main.game.getPlayerCell().getInventory().getItemCount(item);
 									for(int i=0;i<itemCount;i++) {
-										Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), true) + "</p>");
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), true) + "</p>");
 									}
+									resetPostAction();
 								}
 							};
 						}
@@ -1691,7 +1732,8 @@ public class InventoryDialogue {
 											Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, Main.game.getPlayer(), false) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, Main.game.getPlayer(), false) + "</p>");
+											resetPostAction();
 										}
 									};
 								}
@@ -1710,8 +1752,9 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = inventoryNPC.getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, Main.game.getPlayer(), false) + "</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, Main.game.getPlayer(), false) + "</p>");
 											}
+											resetPostAction();
 										}
 									};
 								}
@@ -1737,7 +1780,8 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+											resetPostAction();
 										}
 									};
 									
@@ -1746,7 +1790,8 @@ public class InventoryDialogue {
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+											resetPostAction();
 										}
 									};
 								}
@@ -1771,8 +1816,9 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = inventoryNPC.getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
 											}
+											resetPostAction();
 										}
 									};
 									
@@ -1784,8 +1830,9 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = inventoryNPC.getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.useItem(item, inventoryNPC, false) + "</p>");
 											}
+											resetPostAction();
 										}
 									};
 								}
@@ -1823,6 +1870,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, inventoryNPC, Main.game.getPlayer()));
+											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
 											Sex.setSexStarted(true);
@@ -1858,6 +1906,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, inventoryNPC, inventoryNPC));
+											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
 											Sex.setSexStarted(true);
@@ -1870,6 +1919,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, inventoryNPC, inventoryNPC));
+											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
 											Sex.setSexStarted(true);
@@ -2153,11 +2203,12 @@ public class InventoryDialogue {
 							return new Response("Equip (self)", "Equip the " + weapon.getName() + ".", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"
+									Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
 										+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
 											?Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
 											:Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer()))
 										+ "</p>");
+									resetPostAction();
 								}
 							};
 							
@@ -2197,6 +2248,7 @@ public class InventoryDialogue {
 																	?Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
 																	:Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer()))
 																+ "</p>");
+										resetPostAction();
 										Combat.attackEnemy();
 										Combat.setPreviousAction(Attack.NONE);
 										Main.mainController.openInventory();
@@ -2286,11 +2338,12 @@ public class InventoryDialogue {
 								return new Response("Equip (self)", "Equip the " + weapon.getName() + ".", INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
 												+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
 														?Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
 														:Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer()))
 												+ "</p>");
+											resetPostAction();
 										}
 									};
 									
@@ -2301,11 +2354,12 @@ public class InventoryDialogue {
 								return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+weapon.getName()+"!"), INVENTORY_MENU){
 									@Override
 									public void effects(){
-										Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
 											+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
 												?inventoryNPC.equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
 												:inventoryNPC.equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer()))
 											+ "</p>");
+										resetPostAction();
 									}
 								};
 							
@@ -2418,11 +2472,12 @@ public class InventoryDialogue {
 								return new Response("Equip (self)", "Equip the " + weapon.getName() + ".", INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
 												+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
 													?Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
 													:Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer()))
 												+ "</p>");
+											resetPostAction();
 										}
 									};
 									
@@ -2492,11 +2547,12 @@ public class InventoryDialogue {
 						return new Response("Equip (self)", "Equip the " + weapon.getName() + ".", INVENTORY_MENU){
 							@Override
 							public void effects(){
-								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"
+								Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
 									+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
 										?Main.game.getPlayer().equipMainWeaponFromFloor(weapon)
 										:Main.game.getPlayer().equipOffhandWeaponFromFloor(weapon))
 									+ "</p>");
+								resetPostAction();
 							}
 						};
 							
@@ -2587,11 +2643,12 @@ public class InventoryDialogue {
 								return new Response("Equip (self)", "Equip the " + weapon.getName() + ".", INVENTORY_MENU){
 									@Override
 									public void effects(){
-										Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
 											+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
 												?Main.game.getPlayer().equipMainWeaponFromInventory(weapon, inventoryNPC)
 												:Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, inventoryNPC))
 											+ "</p>");
+										resetPostAction();
 									}
 								};
 								
@@ -2602,11 +2659,12 @@ public class InventoryDialogue {
 								return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + weapon.getName() + "."), INVENTORY_MENU){
 									@Override
 									public void effects(){
-										Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"
 											+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
 												?inventoryNPC.equipMainWeaponFromInventory(weapon, inventoryNPC)
 												:inventoryNPC.equipOffhandWeaponFromInventory(weapon, inventoryNPC))
 											+ "</p>");
+										resetPostAction();
 									}
 								};
 								
@@ -2921,7 +2979,7 @@ public class InventoryDialogue {
 						return new Response("Equip (self)", "Equip the " + clothing.getName() + ".", INVENTORY_MENU){
 							@Override
 							public void effects(){
-								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().equipClothingFromInventory(clothing, true, Main.game.getPlayer(), Main.game.getPlayer()) + "</p>");
+								Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(Main.game.getPlayer(), Main.game.getPlayer(), clothing) + "</p>");
 							}
 						};
 							
@@ -2961,7 +3019,7 @@ public class InventoryDialogue {
 									public void effects(){
 										Combat.setPlayerTurnText(
 												"<p style='text-align:center;'>"
-														+ Main.game.getPlayer().equipClothingFromInventory(clothing, true, Main.game.getPlayer(), Main.game.getPlayer())
+														+ equipClothingFromInventory(Main.game.getPlayer(), Main.game.getPlayer(), clothing)
 												+ "</p>");
 										Combat.attackEnemy();
 										Combat.setPreviousAction(Attack.NONE);
@@ -3066,7 +3124,7 @@ public class InventoryDialogue {
 								return new Response("Equip (self)", "Equip the " + clothing.getName() + ".", INVENTORY_MENU){
 									@Override
 									public void effects(){
-										Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().equipClothingFromInventory(clothing, true, Main.game.getPlayer(), Main.game.getPlayer()) + "</p>");
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(Main.game.getPlayer(), Main.game.getPlayer(), clothing) + "</p>");
 									}
 								};
 									
@@ -3084,7 +3142,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Main.game.getPlayer().addSlave(inventoryNPC);
 											inventoryNPC.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.equipClothingFromInventory(clothing, true, Main.game.getPlayer(), Main.game.getPlayer()) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing) + "</p>");
 										}
 									};
 									
@@ -3092,7 +3150,7 @@ public class InventoryDialogue {
 									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.equipClothingFromInventory(clothing, true, Main.game.getPlayer(), Main.game.getPlayer()) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing) + "</p>");
 										}
 									};
 								}
@@ -3123,7 +3181,7 @@ public class InventoryDialogue {
 										return new Response("Equip (self)", "Equip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
-												Main.game.getPlayer().equipClothingFromInventory(clothing, true, Main.game.getPlayer(), Main.game.getPlayer());
+												equipClothingFromInventory(Main.game.getPlayer(), Main.game.getPlayer(), clothing);
 												Sex.setUnequipClothingText(Main.game.getPlayer().getUnequipDescription());
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -3146,7 +3204,7 @@ public class InventoryDialogue {
 										return new Response("Equip ([npc.Name])", UtilText.parse(inventoryNPC, "Get [npc.Name] to equip the " + clothing.getName() + "."), Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
-												inventoryNPC.equipClothingFromInventory(clothing, true, Main.game.getPlayer(), Main.game.getPlayer());
+												equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing);
 												Sex.setUnequipClothingText(inventoryNPC.getUnequipDescription());
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -3258,7 +3316,7 @@ public class InventoryDialogue {
 								return new Response("Equip (self)", "Equip the " + clothing.getName() + ".", INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().equipClothingFromInventory(clothing, true, Main.game.getPlayer(), Main.game.getPlayer()) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(Main.game.getPlayer(), Main.game.getPlayer(), clothing) + "</p>");
 										}
 									};
 									
@@ -3285,7 +3343,7 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Main.game.getPlayer().removeClothing(clothing);
-											Main.game.getTextStartStringBuilder().append(
+											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>" + "You hand over " + UtilText.formatAsMoney(IDENTIFICATION_PRICE) + " to "
 															+inventoryNPC.getName("the")+", who promptly identifies your "+clothing.getName()+"."
 													+ "</p>"
@@ -3330,7 +3388,7 @@ public class InventoryDialogue {
 							return new Response("Equip", "Equip the " + clothing.getName() + ".", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									Main.game.getPlayer().equipClothingFromGround(clothing, true, Main.game.getPlayer());
+									equipClothingFromGround(Main.game.getPlayer(), Main.game.getPlayer(), clothing);
 								}
 							};
 								
@@ -3401,7 +3459,7 @@ public class InventoryDialogue {
 						return new Response("Equip (self)", "Equip the " + clothing.getName() + ".", INVENTORY_MENU){
 							@Override
 							public void effects(){
-								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().equipClothingFromGround(clothing, true, Main.game.getPlayer()) + "</p>");
+								Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromGround(Main.game.getPlayer(), Main.game.getPlayer(), clothing) + "</p>");
 							}
 						};
 							
@@ -3509,7 +3567,7 @@ public class InventoryDialogue {
 								return new Response("Equip (self)", "Equip the " + clothing.getName() + ".", INVENTORY_MENU){
 									@Override
 									public void effects(){
-										Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().equipClothingFromInventory(clothing, true, Main.game.getPlayer(), inventoryNPC) + "</p>");
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(Main.game.getPlayer(), Main.game.getPlayer(), clothing) + "</p>");
 									}
 								};
 								
@@ -3528,7 +3586,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Main.game.getPlayer().addSlave(inventoryNPC);
 											inventoryNPC.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.equipClothingFromInventory(clothing, true, Main.game.getPlayer(), inventoryNPC) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing) + "</p>");
 										}
 									};
 									
@@ -3536,7 +3594,7 @@ public class InventoryDialogue {
 									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + clothing.getName() + "."), INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.equipClothingFromInventory(clothing, true, Main.game.getPlayer(), inventoryNPC) + "</p>");
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing) + "</p>");
 										}
 									};
 								}
@@ -3567,7 +3625,7 @@ public class InventoryDialogue {
 										return new Response("Equip (self)", "Equip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
-												Main.game.getPlayer().equipClothingFromInventory(clothing, true, Main.game.getPlayer(), owner);
+												equipClothingFromInventory(Main.game.getPlayer(), Main.game.getPlayer(), clothing);
 												Sex.setUnequipClothingText(Main.game.getPlayer().getUnequipDescription());
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -3590,7 +3648,7 @@ public class InventoryDialogue {
 										return new Response("Equip ([npc.Name])", UtilText.parse(inventoryNPC, "Get [npc.Name] to equip the " + clothing.getName() + "."), Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
-												inventoryNPC.equipClothingFromInventory(clothing, true, Main.game.getPlayer(), inventoryNPC);
+												equipClothingFromInventory(inventoryNPC, Main.game.getPlayer(), clothing);
 												Sex.setUnequipClothingText(inventoryNPC.getUnequipDescription());
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -3753,6 +3811,7 @@ public class InventoryDialogue {
 													?Main.game.getPlayer().unequipMainWeapon(false)
 													:Main.game.getPlayer().unequipOffhandWeapon(false))
 											+ "</p>");
+									resetPostAction();
 									Combat.attackEnemy();
 									Combat.setPreviousAction(Attack.NONE);
 									Main.mainController.openInventory();
@@ -3774,6 +3833,7 @@ public class InventoryDialogue {
 															?Main.game.getPlayer().unequipMainWeapon(true)
 															:Main.game.getPlayer().unequipOffhandWeapon(true))
 													+ "</p>");
+											resetPostAction();
 											Combat.attackEnemy();
 											Combat.setPreviousAction(Attack.NONE);
 											Main.mainController.openInventory();
@@ -3794,6 +3854,7 @@ public class InventoryDialogue {
 															?Main.game.getPlayer().unequipMainWeapon(true)
 															:Main.game.getPlayer().unequipOffhandWeapon(true))
 													+ "</p>");
+											resetPostAction();
 											Combat.attackEnemy();
 											Combat.setPreviousAction(Attack.NONE);
 											Main.mainController.openInventory();
@@ -3817,12 +3878,13 @@ public class InventoryDialogue {
 							return new Response("Unequip", "Unequip the " + weapon.getName() + ".", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									Main.game.getTextStartStringBuilder().append(
+									Main.game.getTextEndStringBuilder().append(
 											"<p style='text-align:center;'>"
 												+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
 													?Main.game.getPlayer().unequipMainWeapon(false)
 													:Main.game.getPlayer().unequipOffhandWeapon(false))
 											+ "</p>");
+									resetPostAction();
 								}
 							};
 							
@@ -3835,12 +3897,13 @@ public class InventoryDialogue {
 									return new Response("Drop", "Drop your " + weapon.getName() + ".", INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append(
+											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
 														+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
 															?Main.game.getPlayer().unequipMainWeapon(true)
 															:Main.game.getPlayer().unequipOffhandWeapon(true))
 													+ "</p>");
+											resetPostAction();
 										}
 									};
 								}
@@ -3852,12 +3915,13 @@ public class InventoryDialogue {
 									return new Response("Store", "Store your " + weapon.getName() + " in this area.", INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append(
+											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
 														+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
 															?Main.game.getPlayer().unequipMainWeapon(true)
 															:Main.game.getPlayer().unequipOffhandWeapon(true))
 													+ "</p>");
+											resetPostAction();
 										}
 									};
 								}
@@ -3883,6 +3947,7 @@ public class InventoryDialogue {
 											?Main.game.getPlayer().unequipMainWeapon(false)
 											:Main.game.getPlayer().unequipOffhandWeapon(false))
 									+ "</p>");
+									resetPostAction();
 									Main.mainController.openInventory();
 									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 									Sex.setSexStarted(true);
@@ -3903,6 +3968,7 @@ public class InventoryDialogue {
 													?Main.game.getPlayer().unequipMainWeapon(true)
 													:Main.game.getPlayer().unequipOffhandWeapon(true))
 											+ "</p>");
+											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 											Sex.setSexStarted(true);
@@ -3922,6 +3988,7 @@ public class InventoryDialogue {
 													?Main.game.getPlayer().unequipMainWeapon(true)
 													:Main.game.getPlayer().unequipOffhandWeapon(true))
 											+ "</p>");
+											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 											Sex.setSexStarted(true);
@@ -3967,12 +4034,13 @@ public class InventoryDialogue {
 							return new Response("Unequip", "Unequip the " + weapon.getName() + ".", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									Main.game.getTextStartStringBuilder().append(
+									Main.game.getTextEndStringBuilder().append(
 											"<p style='text-align:center;'>"
 												+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
 													?inventoryNPC.unequipMainWeapon(false)
 													:inventoryNPC.unequipOffhandWeapon(false))
 											+ "</p>");
+									resetPostAction();
 								}
 							};
 							
@@ -3985,12 +4053,13 @@ public class InventoryDialogue {
 									return new Response("Drop", "Drop your " + weapon.getName() + ".", INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append(
+											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
 														+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
 															?inventoryNPC.unequipMainWeapon(true)
 															:inventoryNPC.unequipOffhandWeapon(true))
 													+ "</p>");
+											resetPostAction();
 										}
 									};
 								}
@@ -4002,12 +4071,13 @@ public class InventoryDialogue {
 									return new Response("Store", "Store your " + weapon.getName() + " in this area.", INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextStartStringBuilder().append(
+											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
 														+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
 															?inventoryNPC.unequipMainWeapon(true)
 															:inventoryNPC.unequipOffhandWeapon(true))
 													+ "</p>");
+											resetPostAction();
 										}
 									};
 								}
@@ -4126,11 +4196,7 @@ public class InventoryDialogue {
 											Combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
-											if(clothing.getClothingType().isDiscardedOnUnequip()) {
-												owner.unequipClothingIntoVoid(clothing, true, Main.game.getPlayer());
-											} else {
-												owner.unequipClothingOntoFloor(clothing, true, Main.game.getPlayer());
-											}
+											unequipClothingToFloor(Main.game.getPlayer(), clothing);
 											Combat.setPlayerTurnText(owner.getUnequipDescription());
 											Combat.attackEnemy();
 											Combat.setPreviousAction(Attack.NONE);
@@ -4148,11 +4214,7 @@ public class InventoryDialogue {
 											Combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
-											if(clothing.getClothingType().isDiscardedOnUnequip()) {
-												owner.unequipClothingIntoVoid(clothing, true, Main.game.getPlayer());
-											} else {
-												owner.unequipClothingOntoFloor(clothing, true, Main.game.getPlayer());
-											}
+											unequipClothingToFloor(Main.game.getPlayer(), clothing);
 											Combat.setPlayerTurnText(owner.getUnequipDescription());
 											Combat.attackEnemy();
 											Combat.setPreviousAction(Attack.NONE);
@@ -4181,11 +4243,7 @@ public class InventoryDialogue {
 								return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Combat.ENEMY_ATTACK){
 									@Override
 									public void effects(){
-										if(clothing.getClothingType().isDiscardedOnUnequip()) {
-											owner.unequipClothingIntoVoid(clothing, true, Main.game.getPlayer());
-										} else {
-											owner.unequipClothingIntoInventory(clothing, true, Main.game.getPlayer());
-										}
+										unequipClothingToInventory(Main.game.getPlayer(), clothing);
 										Combat.setPlayerTurnText(owner.getUnequipDescription());
 										Combat.attackEnemy();
 										Combat.setPreviousAction(Attack.NONE);
@@ -4267,11 +4325,7 @@ public class InventoryDialogue {
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
-											if(clothing.getClothingType().isDiscardedOnUnequip()) {
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().unequipClothingIntoVoid(clothing, true, Main.game.getPlayer()) + "</p>");
-											} else {
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().unequipClothingOntoFloor(clothing, true, Main.game.getPlayer()) + "</p>");
-											}
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + unequipClothingToFloor(Main.game.getPlayer(), clothing) + "</p>");
 										}
 									};
 								}
@@ -4285,11 +4339,7 @@ public class InventoryDialogue {
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
-											if(clothing.getClothingType().isDiscardedOnUnequip()) {
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().unequipClothingIntoVoid(clothing, true, Main.game.getPlayer()) + "</p>");
-											} else {
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().unequipClothingOntoFloor(clothing, true, Main.game.getPlayer()) + "</p>");
-											}
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + unequipClothingToFloor(Main.game.getPlayer(), clothing) + "</p>");
 										}
 									};
 								}
@@ -4334,7 +4384,7 @@ public class InventoryDialogue {
 							return new Response("Unequip", "Unequip the " + clothing.getName() + ".", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().unequipClothingIntoInventory(clothing, true, Main.game.getPlayer()) + "</p>");
+									Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + unequipClothingToInventory(Main.game.getPlayer(), clothing) + "</p>");
 								}
 							};
 							
@@ -4393,7 +4443,7 @@ public class InventoryDialogue {
 							return new Response("Unequip", "Unequip the " + clothing.getName() + ".", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									Main.game.getPlayer().unequipClothingOntoFloor(clothing, true, Main.game.getPlayer());
+									unequipClothingToFloor(Main.game.getPlayer(), clothing);
 								}
 							};
 								
@@ -4416,11 +4466,7 @@ public class InventoryDialogue {
 												Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
-												if(clothing.getClothingType().isDiscardedOnUnequip()) {
-													owner.unequipClothingIntoVoid(clothing, true, Main.game.getPlayer());
-												} else {
-													owner.unequipClothingOntoFloor(clothing, true, Main.game.getPlayer());
-												}
+												unequipClothingToFloor(Main.game.getPlayer(), clothing);
 												Sex.setUnequipClothingText(owner.getUnequipDescription());
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -4442,11 +4488,7 @@ public class InventoryDialogue {
 												Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
-												if(clothing.getClothingType().isDiscardedOnUnequip()) {
-													owner.unequipClothingIntoVoid(clothing, true, Main.game.getPlayer());
-												} else {
-													owner.unequipClothingOntoFloor(clothing, true, Main.game.getPlayer());
-												}
+												unequipClothingToFloor(Main.game.getPlayer(), clothing);
 												Sex.setUnequipClothingText(owner.getUnequipDescription());
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -4504,7 +4546,7 @@ public class InventoryDialogue {
 								return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
 									@Override
 									public void effects(){
-										owner.unequipClothingIntoInventory(clothing, true, Main.game.getPlayer());
+										unequipClothingToInventory(Main.game.getPlayer(), clothing);
 										Sex.setUnequipClothingText(owner.getUnequipDescription());
 										Main.mainController.openInventory();
 										Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -4616,11 +4658,7 @@ public class InventoryDialogue {
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
-											if(clothing.getClothingType().isDiscardedOnUnequip()) {
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.unequipClothingIntoVoid(clothing, true, Main.game.getPlayer()) + "</p>");
-											} else {
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.unequipClothingOntoFloor(clothing, true, Main.game.getPlayer()) + "</p>");
-											}
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + unequipClothingToFloor(Main.game.getPlayer(), clothing) + "</p>");
 										}
 									};
 								}
@@ -4636,11 +4674,7 @@ public class InventoryDialogue {
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
-											if(clothing.getClothingType().isDiscardedOnUnequip()) {
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.unequipClothingIntoVoid(clothing, true, Main.game.getPlayer()) + "</p>");
-											} else {
-												Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.unequipClothingOntoFloor(clothing, true, Main.game.getPlayer()) + "</p>");
-											}
+											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + unequipClothingToFloor(Main.game.getPlayer(), clothing) + "</p>");
 										}
 									};
 								}
@@ -4686,7 +4720,7 @@ public class InventoryDialogue {
 							return new Response("Unequip", "Unequip the " + clothing.getName() + ".", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + inventoryNPC.unequipClothingIntoInventory(clothing, true, Main.game.getPlayer()) + "</p>");
+									Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + unequipClothingToInventory(Main.game.getPlayer(), clothing) + "</p>");
 								}
 							};
 							
@@ -4739,11 +4773,7 @@ public class InventoryDialogue {
 												Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
-												if(clothing.getClothingType().isDiscardedOnUnequip()) {
-													inventoryNPC.unequipClothingIntoVoid(clothing, true, Main.game.getPlayer());
-												} else {
-													inventoryNPC.unequipClothingOntoFloor(clothing, true, Main.game.getPlayer());
-												}
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + unequipClothingToFloor(Main.game.getPlayer(), clothing) + "</p>");
 												Sex.setUnequipClothingText(inventoryNPC.getUnequipDescription());
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -4767,11 +4797,7 @@ public class InventoryDialogue {
 												Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
-												if(clothing.getClothingType().isDiscardedOnUnequip()) {
-													inventoryNPC.unequipClothingIntoVoid(clothing, true, Main.game.getPlayer());
-												} else {
-													inventoryNPC.unequipClothingOntoFloor(clothing, true, Main.game.getPlayer());
-												}
+												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + unequipClothingToFloor(Main.game.getPlayer(), clothing) + "</p>");
 												Sex.setUnequipClothingText(inventoryNPC.getUnequipDescription());
 												Main.mainController.openInventory();
 												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -4827,7 +4853,7 @@ public class InventoryDialogue {
 								return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
 									@Override
 									public void effects(){
-										inventoryNPC.unequipClothingIntoInventory(clothing, true, Main.game.getPlayer());
+										unequipClothingToInventory(Main.game.getPlayer(), clothing);
 										Sex.setUnequipClothingText(inventoryNPC.getUnequipDescription());
 										Main.mainController.openInventory();
 										Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -5260,6 +5286,8 @@ public class InventoryDialogue {
 		return Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY);
 	}
 	
+	
+	
 	// Items:
 	
 	private static void transferItems(GameCharacter from, GameCharacter to, AbstractItem item, int count) {
@@ -5274,6 +5302,7 @@ public class InventoryDialogue {
 				from.removeItem(items.get(i));
 			}
 		}
+		resetPostAction();
 	}
 	
 	private static void dropItems(GameCharacter from, AbstractItem item, int count) {
@@ -5288,6 +5317,7 @@ public class InventoryDialogue {
 				from.removeItem(items.get(i));
 			}
 		}
+		resetPostAction();
 	}
 	
 	private static void pickUpItems(GameCharacter to, AbstractItem item, int count) {
@@ -5301,6 +5331,7 @@ public class InventoryDialogue {
 				to.addItem(items.get(i), true);
 			}
 		}
+		resetPostAction();
 	}
 	
 	private static void sellItems(GameCharacter from, GameCharacter to, AbstractItem item, int count, int itemPrice) {
@@ -5333,8 +5364,8 @@ public class InventoryDialogue {
 				((NPC) from).handleSellingEffects(item, count, itemPrice);
 			}
 		}
+		resetPostAction();
 	}
-	
 	
 	
 	// Weapons:
@@ -5351,6 +5382,7 @@ public class InventoryDialogue {
 				from.removeWeapon(weapons.get(i));
 			}
 		}
+		resetPostAction();
 	}
 	
 	private static void dropWeapons(GameCharacter from, AbstractWeapon weapon, int count) {
@@ -5365,6 +5397,7 @@ public class InventoryDialogue {
 				from.removeWeapon(weapons.get(i));
 			}
 		}
+		resetPostAction();
 	}
 	
 	private static void pickUpWeapons(GameCharacter to, AbstractWeapon weapon, int count) {
@@ -5378,6 +5411,7 @@ public class InventoryDialogue {
 				to.addWeapon(weapons.get(i), true);
 			}
 		}
+		resetPostAction();
 	}
 	
 	private static void sellWeapons(GameCharacter from, GameCharacter to, AbstractWeapon weapon, int count, int itemPrice) {
@@ -5410,6 +5444,7 @@ public class InventoryDialogue {
 				((NPC) from).handleSellingEffects(weapon, count, itemPrice);
 			}
 		}
+		resetPostAction();
 	}
 	
 	
@@ -5426,8 +5461,49 @@ public class InventoryDialogue {
 				to.addClothing(clothings.get(i), false);
 				from.removeClothing(clothings.get(i));
 			}
+			owner = to;
 		}
+		resetPostAction();
 	}
+	
+	private static String unequipClothingToFloor(GameCharacter unequipper, AbstractClothing clothing) {
+		String unequipDescription = "";
+		if(clothing.getClothingType().isDiscardedOnUnequip()) {
+			unequipDescription = owner.unequipClothingIntoVoid(clothing, true, unequipper);
+		} else {
+			unequipDescription = owner.unequipClothingOntoFloor(clothing, true, unequipper);
+		}
+		owner = null;
+		resetPostAction();
+		
+		return unequipDescription;
+	}
+	
+	private static String unequipClothingToInventory(GameCharacter unequipper, AbstractClothing clothing) {
+		String unequipDescription = "";
+		if(clothing.getClothingType().isDiscardedOnUnequip()) {
+			unequipDescription = owner.unequipClothingIntoVoid(clothing, true, unequipper);
+		} else {
+			unequipDescription = owner.unequipClothingIntoInventory(clothing, true, unequipper);
+		}
+		resetPostAction();
+		
+		return unequipDescription;
+	}
+	
+	private static String equipClothingFromInventory(GameCharacter to, GameCharacter equipper, AbstractClothing clothing) {
+		String equipDescription = to.equipClothingFromInventory(clothing, true, equipper, owner);
+		owner = to;
+		resetPostAction();
+		return equipDescription;
+	}
+	
+	private static String equipClothingFromGround(GameCharacter to, GameCharacter equipper, AbstractClothing clothing) {
+		owner = to;
+		resetPostAction();
+		return to.equipClothingFromGround(clothing, true, equipper);
+	}
+	
 	
 	private static void dropClothing(GameCharacter from, AbstractClothing clothing, int count) {
 		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasClothing(clothing)) {
@@ -5440,7 +5516,12 @@ public class InventoryDialogue {
 				Main.game.getPlayerCell().getInventory().addClothing(clothings.get(i));
 				from.removeClothing(clothings.get(i));
 			}
+			
+			if(from.getClothingCount(clothing) == 0) {
+				owner = null;
+			}
 		}
+		resetPostAction();
 	}
 	
 	private static void pickUpClothing(GameCharacter to, AbstractClothing clothing, int count) {
@@ -5453,7 +5534,10 @@ public class InventoryDialogue {
 			for(int i = 0 ; i<count; i++) {
 				to.addClothing(clothings.get(i), true);
 			}
+			
+			owner = to;
 		}
+		resetPostAction();
 	}
 	
 	private static void sellClothing(GameCharacter from, GameCharacter to, AbstractClothing clothing, int count, int itemPrice) {
@@ -5486,8 +5570,13 @@ public class InventoryDialogue {
 				((NPC) from).handleSellingEffects(clothing, count, itemPrice);
 			}
 		}
+		resetPostAction();
 	}
 	
+	private static void resetPostAction() {
+		Main.game.setResponseTab(0);
+		resetItems();
+	}
 	
 	private static void resetItems() {
 		item = null;

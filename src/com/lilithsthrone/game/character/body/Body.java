@@ -46,6 +46,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
+import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -133,7 +134,7 @@ public class Body implements Serializable, XMLSaving {
 		
 		// Optional parameters - initialised to null values:
 		private Antenna antenna = new Antenna(AntennaType.NONE);
-		private Horn horn = new Horn(HornType.NONE);
+		private Horn horn = new Horn(HornType.NONE, 0);
 		private Penis penis = new Penis(PenisType.NONE, 0, 0, 0, 0);
 		private Penis secondPenis = new Penis(PenisType.NONE, 0, 0, 0, 0);
 		private Tail tail = new Tail(TailType.NONE);
@@ -479,6 +480,7 @@ public class Body implements Serializable, XMLSaving {
 		Element bodyHorn = doc.createElement("horn");
 		parentElement.appendChild(bodyHorn);
 			CharacterUtils.addAttribute(doc, bodyHorn, "type", this.horn.type.toString());
+			CharacterUtils.addAttribute(doc, bodyHair, "length", String.valueOf(this.horn.length));
 			CharacterUtils.addAttribute(doc, bodyHorn, "rows", String.valueOf(this.horn.rows));
 		
 		// Leg:
@@ -928,21 +930,39 @@ public class Body implements Serializable, XMLSaving {
 		// **************** Horn **************** //
 		Element horn = (Element)parentElement.getElementsByTagName("horn").item(0);
 		
-		Horn importedHorn = new Horn(HornType.NONE);
+		Horn importedHorn = new Horn(HornType.NONE, 0);
 		importedHorn.rows = (Integer.valueOf(horn.getAttribute("rows")));
 		
+		String hornType = horn.getAttribute("type");
+		if(hornType.equals("DEMON")) {
+			hornType = "";
+		}
+		if(hornType.equals("BOVINE")) {
+			hornType = "";
+		}
+		int length = 0;
+		if(!hornType.equals("NONE")) {
+			length = HornLength.TWO_LONG.getMedianValue();
+		}
+		if(!horn.getAttribute("length").isEmpty()) {
+			try {
+				length = Integer.valueOf(horn.getAttribute("length"));
+			} catch(IllegalArgumentException e) {
+			}
+		}
 		try {
-			importedHorn = new Horn(HornType.valueOf(horn.getAttribute("type")));
+			importedHorn = new Horn(HornType.valueOf(hornType), length);
 			CharacterUtils.appendToImportLog(log, "</br></br>Body: Horn: "
 					+ "</br>type: "+importedHorn.getType()
+					+ "</br>length: "+length
 					+ "</br>rows: "+importedHorn.getHornRows());
 			
 		} catch(IllegalArgumentException e) {
 			if(horn.getAttribute("type").startsWith("DEMON")) {
-				importedHorn = new Horn(HornType.DEMON);
+				importedHorn = new Horn(HornType.SWEPT_BACK, length);
 				
 			} else if(horn.getAttribute("type").startsWith("BOVINE")) {
-				importedHorn = new Horn(HornType.BOVINE);
+				importedHorn = new Horn(HornType.CURVED, length);
 			}
 			
 			CharacterUtils.appendToImportLog(log, "</br></br>Body: Horn: "
@@ -1204,16 +1224,20 @@ public class Body implements Serializable, XMLSaving {
 		
 		for(int i=0; i<element.getElementsByTagName("bodyCovering").getLength(); i++){
 			Element e = ((Element)element.getElementsByTagName("bodyCovering").item(i));
-			
+
+			String type = e.getAttribute("type");
+			if(type.equals("HORN_COW") || type.equals("HORN_DEMON")) {
+				type = "HORN";
+			}
 			try {
-				body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(e.getAttribute("type")), CoveringPattern.valueOf(e.getAttribute("pattern")),
+				body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(type), CoveringPattern.valueOf(e.getAttribute("pattern")),
 						Colour.valueOf(e.getAttribute("colourPrimary")), Boolean.valueOf(e.getAttribute("glowPrimary")),
 						Colour.valueOf(e.getAttribute("colourSecondary")), Boolean.valueOf(e.getAttribute("glowSecondary")));
 			} catch(Exception ex) {
 			}
 			
 			if(Boolean.valueOf(e.getAttribute("discovered"))) {
-				body.getBodyCoveringTypesDiscovered().add(BodyCoveringType.valueOf(e.getAttribute("type")));
+				body.getBodyCoveringTypesDiscovered().add(BodyCoveringType.valueOf(type));
 			}
 			
 			CharacterUtils.appendToImportLog(log, "</br>Body: Set bodyCovering: "+e.getAttribute("type") +" pattern:"+CoveringPattern.valueOf(e.getAttribute("pattern"))
@@ -1461,37 +1485,41 @@ public class Body implements Serializable, XMLSaving {
 			case NONE:
 				sb.append("");
 				break;
-			case DEMON:
-				if(owner.isFeminine()) {
-					if (owner.isPlayer())
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from your upper forehead.");
-					else
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from [npc.her] upper forehead.");
+			case CURLED:
+				if (owner.isPlayer()) {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], circular-curling horns protrude from the upper sides of your forehead.");
 				} else {
-					if (owner.isPlayer())
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from your upper forehead.");
-					else
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from [npc.her] upper forehead.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], circular-curling horns protrude from the upper sides of [npc.her] forehead.");
 				}
 				break;
-			case BOVINE:
-				if(owner.isFeminine()) {
-					if (owner.isPlayer())
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, slightly-curved horns, looking much like ones that you'd see on a cow, protrude from the sides of your head.");
-					else
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, slightly-curved horns, looking much like ones that you'd see on a cow, protrude from the sides of [npc.her] head.");
+			case CURVED:
+				if (owner.isPlayer()) {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], curved horns protrude from the upper sides of your forehead.");
 				} else {
-					if (owner.isPlayer())
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, curved horns, looking much like ones that you'd see on a bull, protrude from the sides of your head.");
-					else
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, curved horns, looking much like ones that you'd see on a bull, protrude from the sides of [npc.her] head.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], curved horns protrude from the upper sides of [npc.her] forehead.");
 				}
 				break;
-			default:
-				if (owner.isPlayer())
-					sb.append(" [pc.A_horns+] protrude from your upper forehead.");
-				else
-					sb.append(" [npc.A_horns+] protrude from [npc.her] upper forehead.");
+			case SPIRAL:
+				if (owner.isPlayer()) {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], spiralling horns protrude from the upper sides of your forehead.");
+				} else {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], spiralling horns protrude from the upper sides of [npc.her] forehead.");
+				}
+				break;
+			case STRAIGHT:
+				if (owner.isPlayer()) {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], straight horns protrude from the upper sides of your forehead.");
+				} else {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], straight horns protrude from the upper sides of [npc.her] forehead.");
+				}
+				break;
+			case SWEPT_BACK:
+				if (owner.isPlayer()) {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], swept-back horns protrude from the upper sides of your forehead.");
+				} else {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], swept-back horns protrude from the upper sides of [npc.her] forehead.");
+				}
+				break;
 		}
 		
 		// Antenna:
@@ -2702,10 +2730,11 @@ public class Body implements Serializable, XMLSaving {
 						nonHumanParts++;
 				}
 
-				if (horn.getType() == RacialBody.valueOfRace(r).getHornType()) {
+				if (RacialBody.valueOfRace(r).getHornType().contains(horn.getType())) {
 					currentParts++;
-					if (horn.getType() != RacialBody.valueOfRace(Race.HUMAN).getHornType())
+					if (horn.getType() != HornType.NONE) {
 						nonHumanParts++;
+					}
 				}
 
 				if (tail.getType() == RacialBody.valueOfRace(r).getTailType()) {

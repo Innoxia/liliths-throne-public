@@ -710,7 +710,7 @@ public class ScarlettsShop {
 					+ "[scarlett.speech(His name is Zaranix,)]"
 					+ " Scarlett growls, the very thought of his name making her angry,"
 					+ " [scarlett.speech(he's not hard to miss; after all, how many demons do you know of that choose to stay in their male form?"
-						+ " And yeah, I know where he lives. I had to verify his slaver license, and made a note of his address in Demon Home, so that I could get my revenge later..."
+						+ " And yeah, I know where he lives. I had to verify his slaver license, and made a note of his address in Demon Home so that I could get my revenge later..."
 						+ " It's in the drawer over there.)]"
 				+ "</p>"
 				+ "<p>"
@@ -719,7 +719,8 @@ public class ScarlettsShop {
 					+ " Looking down at the piece of paper, you groan as you realise that Arthur's been right under your nose this whole time; the address is just across the street from his apartment building."
 				+ "</p>"
 				+ "<p>"
-					+ "Your thoughts about how you're going to approach this Zaranix character are suddenly interrupted by Scarlett's impatient shuffling, and you realise that you're going to have to decide what you're going to do with her before anything else."
+					+ "Your thoughts about how you're going to approach this Zaranix character are suddenly interrupted by Scarlett's impatient shuffling,"
+						+ " and you realise that you're going to have to decide what you're going to do with her before anything else."
 				+ "</p>";
 		}
 

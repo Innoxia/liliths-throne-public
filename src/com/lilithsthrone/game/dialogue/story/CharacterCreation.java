@@ -560,7 +560,7 @@ public class CharacterCreation {
 					+ "</p>"
 					+ "<p>"
 						+ "The street lights flicker into life as you rush over to the entrance, illuminating your surroundings with a dull orange glow."
-						+ " It only takes a moment before you're standing at the museum's front doors, where, much to your dismay, you see that there are a couple of people queueing up to gain entry."
+						+ " It only takes a moment before you're standing at the museum's front doors, where, much to your dismay, you see that a small queue has formed."
 						+ " Having no choice but to step in line and wait your turn, you briefly glance over at the large glass windows of the building's modern facade to see your blurry reflection in the glass..."
 					+ "</p>"
 					+ "</br>"
@@ -589,56 +589,6 @@ public class CharacterCreation {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Wait your turn, and hope that the event hasn't started yet.", CHOOSE_NAME);
-				
-			}
-			else if (index == 2) {
-				return new Response("Cycle Gender", "Cycle through the gender options.", CHOOSE_APPEARANCE) {
-					@Override
-					public void effects() {
-						if(Main.game.getPlayer().hasVagina()) {
-							setGenderMale();
-						} else {
-							setGenderFemale();
-						}
-					}
-				};
-				
-			} else if (index == 3) {
-				return new Response("Cycle Femininity", "Cycle through the femininity options.", CHOOSE_APPEARANCE) {
-					@Override
-					public void effects() {
-						if(Main.game.getPlayer().hasVagina()) {
-							switch(Main.game.getPlayer().getFemininity()) {
-								case ANDROGYNOUS:
-									Main.game.getPlayer().setFemininity(Femininity.FEMININE.getMedianFemininity());
-									break;
-								case FEMININE:
-									Main.game.getPlayer().setFemininity(Femininity.FEMININE_STRONG.getMedianFemininity());
-									break;
-								case FEMININE_STRONG:
-									Main.game.getPlayer().setFemininity(Femininity.ANDROGYNOUS.getMedianFemininity());
-									break;
-								default:
-									break;
-							}
-						} else {
-							switch(Main.game.getPlayer().getFemininity()) {
-								case ANDROGYNOUS:
-									Main.game.getPlayer().setFemininity(Femininity.MASCULINE.getMedianFemininity());
-									break;
-								case MASCULINE:
-									Main.game.getPlayer().setFemininity(Femininity.MASCULINE_STRONG.getMedianFemininity());
-									break;
-								case MASCULINE_STRONG:
-									Main.game.getPlayer().setFemininity(Femininity.ANDROGYNOUS.getMedianFemininity());
-									break;
-								default:
-									break;
-							}
-						}
-						getDressed();
-					}
-				};
 				
 			}
 			else if (index == 0) {
@@ -815,6 +765,9 @@ public class CharacterCreation {
 						+ "Thanking him, you hurry through the entranceway, and within moments, find yourself stepping into the museum's enormous central lobby."
 						+ " Large banners have been hung from the upper floor's balconies; their bold font proudly declaring this to be the 'Akkadian Empire Exhibit: Opening Evening'."
 						+ " On the far side of the grand hall, you see throngs of people surrounding a large stage, and you breathe a sigh of relief as you notice that it's currently empty."
+					+ "</p>"
+					+ "<p>"
+						+ "[pc.thought(Phew... I made it in time after all...)]"
 					+ "</p>"
 					+ "<p>"
 						+ "As Lily's opening speech seems to be running just as late as you are, you decide to step over to a nearby mirror to make sure that you're looking presentable..."

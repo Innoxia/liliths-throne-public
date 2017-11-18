@@ -52,11 +52,11 @@ public class GenericOrgasms {
 		public boolean isBaseRequirementsMet() {
 			boolean takingCock = false;
 			
-			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER) != null) {
-				for(OrificeType ot : Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER)) {
-					if(ot.isPlayer())
-						takingCock=true;
-				}
+			if((Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER)) {
+				takingCock = true;
 			}
 			
 			return !takingCock;
@@ -117,12 +117,12 @@ public class GenericOrgasms {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			boolean takingCock = false;
-			
-			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER) != null) {
-				for(OrificeType ot : Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER)) {
-					if(ot.isPlayer())
-						takingCock=true;
-				}
+
+			if((Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER)) {
+				takingCock = true;
 			}
 			
 			return takingCock;
@@ -214,12 +214,12 @@ public class GenericOrgasms {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			boolean takingCock = false;
-			
-			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER) != null) {
-				for(OrificeType ot : Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER)) {
-					if(ot.isPlayer())
-						takingCock=true;
-				}
+
+			if((Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER)) {
+				takingCock = true;
 			}
 			
 			return takingCock;
@@ -578,7 +578,7 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() ||Sex.isConsensual()) && Sex.isAnyPenetrationHappening();
+			return (Sex.isPlayerDom() || Sex.isSubHasEqualControl() || SexFlags.partnerRequestedPullOut) && Sex.isAnyPenetrationHappening();
 		}
 
 		@Override
@@ -876,15 +876,19 @@ public class GenericOrgasms {
 		public boolean isBaseRequirementsMet() {
 			boolean takingCock = false;
 			
-			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER) != null) {
-				for(OrificeType ot : Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER)) {
-					if(!ot.isPlayer()) {
-						takingCock=true;
-					}
-				}
+			if((Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER) == PenetrationType.PENIS_PLAYER)) {
+				takingCock = true;
 			}
 			
 			return !takingCock;
+		}
+
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.LOW;
 		}
 		
 		@Override
@@ -899,7 +903,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getDescription() {
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPacePartner()) {
 				case DOM_GENTLE:
 					return "[npc.Name] lets out a soft [npc.moan] of encouragement as [npc.she] prepares for you to reach your orgasm.";
 				case DOM_NORMAL:
@@ -939,12 +943,11 @@ public class GenericOrgasms {
 		public boolean isBaseRequirementsMet() {
 			boolean takingCock = false;
 			
-			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER) != null) {
-				for(OrificeType ot : Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER)) {
-					if(!ot.isPlayer()) {
-						takingCock=true;
-					}
-				}
+			if((Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER) == PenetrationType.PENIS_PLAYER)) {
+				takingCock = true;
 			}
 			
 			return takingCock && Sex.getSexPacePartner()!=SexPace.SUB_RESISTING;
@@ -952,10 +955,11 @@ public class GenericOrgasms {
 
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)==PenetrationType.PENIS_PARTNER && Sex.getPartner().hasFetish(Fetish.FETISH_PREGNANCY))
-				return SexActionPriority.HIGH;
-			else
+			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)==PenetrationType.PENIS_PARTNER && Sex.getPartner().hasFetish(Fetish.FETISH_PREGNANCY)) {
 				return SexActionPriority.NORMAL;
+			} else {
+				return SexActionPriority.LOW;
+			}
 		}
 
 		@Override
@@ -1040,12 +1044,11 @@ public class GenericOrgasms {
 		public boolean isBaseRequirementsMet() {
 			boolean takingCock = false;
 			
-			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER) != null) {
-				for(OrificeType ot : Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER)) {
-					if(!ot.isPlayer()) {
-						takingCock=true;
-					}
-				}
+			if((Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER)
+					|| (Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER) == PenetrationType.PENIS_PLAYER)) {
+				takingCock = true;
 			}
 			
 			return takingCock
@@ -1058,6 +1061,11 @@ public class GenericOrgasms {
 							:true)));
 		}
 
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.LOW;
+		}
+		
 		@Override
 		public String getDescription() {
 			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {

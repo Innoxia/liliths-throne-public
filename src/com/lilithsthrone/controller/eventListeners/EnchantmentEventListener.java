@@ -36,7 +36,7 @@ public class EnchantmentEventListener implements EventListener {
 		}
 		
 		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.primaryMod).contains(EnchantmentDialogue.secondaryMod)) {
-			EnchantmentDialogue.secondaryMod = TFModifier.NONE;
+			EnchantmentDialogue.secondaryMod = EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.primaryMod).get(0);
 		}
 		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPotencyModifiers(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod).contains(EnchantmentDialogue.potency)) {
 			EnchantmentDialogue.potency = TFPotency.MINOR_BOOST;

@@ -34,7 +34,7 @@ public abstract class RacialEffectUtil {
 	}
 	
 	public String getDescriptionPlusChangeDescription() {
-		return description+(measurement.isEmpty()?"":" ("+change+measurement+")");
+		return description+(measurement.isEmpty()?"":" ("+(change>0?"+":"")+change+measurement+".)");
 	}
 	
 	public abstract String applyEffect();

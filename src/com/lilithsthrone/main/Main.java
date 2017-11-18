@@ -46,7 +46,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.1.88.1
+ * @version 0.1.89
  * @author Innoxia
  */
 public class Main extends Application {
@@ -60,7 +60,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.88.5",
+	public static final String VERSION_NUMBER = "0.1.89",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -71,22 +71,26 @@ public class Main extends Application {
 			
 		"<h1 style='text-align:center;'>Version " + Main.VERSION_NUMBER + "</h1>"
 //		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>Moderately Buggy Preview!</b></h6>"
-//		"<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha!</b></h6>"
-		
-		+"<p><b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Important information:</b> <i>If you don't see a mini-map in the bottom-left corner of the screen after starting the game, please update your java!</i></p>"
+		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha!</b></h6>"
 		
 		+ "<p>"
-			+ "Hello once again everyone! :3"
+			+ "Hello! :3"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I've been working super hard this week to <b>finally</b> get save game compatibility working. It took a lot of work to get it into a working format, so that's why the patch notes are a little scarce..."
-			+ " I'm going to get some bug fixes and content done over Sunday/Monday, so I might push out another update early next week (I really do feel super guily about the lack of patch notes)."
+			+ "As I said in my goals post, the main focus of this release was fixing bugs, adding content, and finally implementing save compatibility."
+			+ " I managed to get a lot of bugs fixed, and got the first version of save compatibility working, but I ran out of time in which to fully add the main story & sex content I had planned. ;_;"
 		+ "</p>"
 		
 		+ "<p>"
-			+ "I am sorry if this update is a little underwhelming for some of you, but this was one of the last three major engine tasks I had left to do."
-			+ " Now that it's out of the way (pending some minor finishing touches), I'm free to move on to the planned content for 0.1.89! :3"
+			+ "I am extremely conscious of of the fact that bugs & engine work have been the focus of the last couple of releases, but please remember that I'm still in the 'engine work' phase of the game's development,"
+				+ " and I really do need to get these final tasks finished before I can really focus on adding content."
+			+ " That being said, I promise that I won't touch any engine work until the promised main story, sex, and slavery content is finished."
+		+ "</p>"
+		
+		+ "<p>"
+			+ "After that, I just have multiple-partner sex scenes and the combat & stats rework to complete, and then all the major engine work will be finished."
+			+ " I'm aiming to have reached version 0.2.0 by Christmas (the version numbers will leap a little), so that I can fully concentrate on writing content going into the new year."
 		+ "</p>"
 		
 		+ "<p>"
@@ -101,7 +105,7 @@ public class Main extends Application {
 
 		+ "<list>"
 		
-			+ "<h6>v0.1.88.5</h6>"
+			+ "<h6>v0.1.88.5 (scroll down for 0.1.89 notes)</h6>"
 			
 			+"<li>Engine:</li>"
 			+"<ul><b>Added:</b> First iteration of save compatibility (some minor things aren't working yet, but I'll finish it off over the weekend). This took a loooong time to implement... Sorry that there isn't much else here... ;_;</ul>"
@@ -118,6 +122,87 @@ public class Main extends Application {
 			+"<ul>Penile virginity is now correctly lost upon performing a penetrative sex action.</ul>"
 			+"<ul>Fixed broken lubrication messages during sex.</ul>"
 			
+		+"</list>"
+
+		
+		+ "</br>"
+
+		+ "<list>"
+		
+			+ "<h6>v0.1.89</h6>"
+		
+			+"<li>Engine:</li>"
+			+"<ul>Added more detail to the game's 'CoverableArea' system, to allow for clothing to block ass/anus and breasts/nipples separately.</ul>"
+			+"<ul>Added in a lot of the background framework for Zaranix into the engine. I'll get this finished asap. ;_;</ul>"
+			
+			+"<li>Save game compatibility:</li>"
+			+"<ul>Fixed several major bugs associated with loading in a game where you had filled condoms in your inventory.</ul>"
+			+"<ul>Fixed major bug related to loading an exported game with pregnant NPCs in it.</ul>"
+			+"<ul>Fixed pregnancy 'potential partners as father' not being imported correctly.</ul>"
+			+"<ul>Fixed incorrect cell inventory size.</ul>"
+			+"<ul>Added support for generating missing maps.</ul>"
+			
+			+"<li>Gameplay:</li>"
+			+"<ul>Submitting to an NPC after defeating them no longer locks out penetrative sex actions.</ul>"
+			+"<ul>You can now access the inventory of defeated alleyway attackers, succubi, offspring, and harpies after sex.</ul>"
+			+"<ul>Split the 'Non-con' fetish up into giving & receiving variants. NPCs with the receiving variant will prefer to resist during sex (if non-con is enabled).</ul>"
+			+"<ul>Reduced the default amount of children birthed by each race, so most now give birth to one or two offspring, with the current maximum litter size possible being 16 (for harpies).</ul>"
+				
+			+"<li>Sex:</li>"
+			+"<ul>Added a generic 'Stop penetrations' action to stop all ongoing penetrative actions at once.</ul>"
+			+"<ul>Changed sex action's associated fetishes to make them more consistent.</ul>"
+			+"<ul>NPCs will no longer try to get access to their penis/pussy if they don't have one.</ul>"
+				
+			+"<li>UI:</li>"
+			+"<ul>Added hotkey support for response tab switching. By default, 'Previous tab' is 'ctrl+Q', while 'Next tab' is 'ctrl+E'. (Can be changed in the options menu.)</ul>"
+			+"<ul>Added indication in enchanting menu of the exact value that an effect will apply. (e.g. Will now display cum increases in ml.)</ul>"
+			+"<ul>Improved inventory UI to use tabs. (I still have some work left to do on this.)</ul>"
+				
+			+"<li>Other:</li>"
+			+"<ul><b>Reverted:</b> NPCs will now beg for you to take their virginity if they're in the 'eager' pace, will inform you that they're a virgin in the 'normal' pace, and will beg for you not to take it in the 'resisting' pace.</ul>"
+			+"<ul>Slightly changed the secondary modifiers for enchanting body parts. Now, instead of leaving the secondary essence blank to transform your body part, you select a 'Transformative' essence.</ul>"
+			+"<ul>Improved horn transformations, and added several more colours to horns (available colours are now white, red, black, and grey).</ul>"
+			+"<ul>Changed horn types from 'demon' and 'bovine' into some more specific types: curled, spiral, curved, swept-back, and straight.</ul>"
+			+"<ul>Added horn length.</ul>"
+			+"<ul>Reduced offspring spawn chance from 25% to 20%.</ul>"
+			+"<ul>Added penile virginity loss descriptions during sex, as well as experience gain for the other partner if they have the 'Deflowering' fetish.</ul>"
+			+"<ul>Added submissive sex option in slaves' rooms.</ul>"
+			+"<ul>NPCs with 'Transformation test subject' fetish now gain affection from being assigned as Lilaya's test subject.</ul>"
+			+"<ul>Penises will only get lubricated by precum/cum if they're not covered with a condom. (Although the urethra will still get lubricated regardless of condom status.)</ul>"
+			+"<ul>The 'Repeat action' in combat will now only show actions that aren't already in the main combat menu (i.e. spells and special attacks).</ul>"
+			+"<ul>The 'Calm down' sex action has had its arousal reduction strength doubled from -5 to -10.</ul>"
+			+"<ul>Added 'pixie cut', 'bob cut', and 'slicked back' hair styles.</ul>"
+			+"<ul>Changed Rose's hair style.</ul>"
+			+"<ul>Added pure damage/resistance to the stats screen.</ul>"
+			+"<ul>You can now use fetish TF potions on the harpy matriarchs.</ul>"
+			+"<ul>Alleyway Succubi will now use their special tease attacks.</ul>"
+			+"<ul>Partners in consensual sex will no longer end sex once they've orgasmed. They will continue until you've orgasmed as well.</ul>"
+				
+			+"<li>Bugs:</li>"
+			+"<ul>In the crafting screen, you can now change the potency of milk, cum, and girlcum enchantments.</ul>"
+			+"<ul>Fixed bug where offspring would spawn twice in the same tile.</ul>"
+			+"<ul>Fixed bug where swapping positions during sex would incorrectly display ongoing penetration text.</ul>"
+			+"<ul>Fixed duplicate virginity loss descriptions in selfie/character view.</ul>"
+			+"<ul>Fixed incorrect virginity loss place descriptors.</ul>"
+			+"<ul>Ongoing penetration description fixes.</ul>"
+			+"<ul>Fixed UI scaling bug in Fetish screen.</ul>"
+			+"<ul>Fixed more strange floating point numbers in slavery management screens, as well as the main stats screen. (i.e. Things like 2.3999999 should now display as 2.40.)</ul>"
+			+"<ul>Fade-in text is now correctly off by default.</ul>"
+			+"<ul>'Lubricate fingers' self-action now returns the correct text.</ul>"
+			+"<ul>Masculine transformations (when letting Lilaya use someone as a test subject) will no longer grow breasts, and will now correctly shrink them.</ul>"
+			+"<ul>Fixed issue with Vicky sometimes not buying essences, and with Ralph sometimes not buying condoms.</ul>"
+			+"<ul>Fixed UI issue with pregnancy stats screen and slave inspection screen.</ul>"
+			+"<ul>The stats tooltip that shows up when you mouse over your name now shows the correct value of your global resistance.</ul>"
+			+"<ul>Breast kissing can no longer be performed if breasts are not exposed.</ul>"
+			+"<ul>Fixed levelling up method to enable gaining multiple levels at once.</ul>"
+			+"<ul>Improved arousal increases from ongoing status effects, and fixed incorrect arousal tooltip values.</ul>"
+			+"<ul>Lilaya will now always ask you to pull out.</ul>"
+			+"<ul>Fixed incorrect NPC reactions just before you reach your orgasm.</ul>"
+			+"<ul>You should now be able to use the 'Pull out' orgasm if your partner asked for you to pull out.</ul>"
+			+"<ul>Fixed bug in sex where moving into a position would cause your partner to continuously do nothing.</ul>"
+			+"<ul>Fixed potentially game-breaking bug related to Brax's clothing being unequipped after defeating him.</ul>"
+			+"<ul>Fixed storm immunity and items disappearing inconsistencies.</ul>"
+
 		+"</list>"
 		;
 	
@@ -144,7 +229,7 @@ public class Main extends Application {
 	public static List<CreditsSlot> credits = new ArrayList<>();
 
 	// World generation:
-	private static Generation gen;
+	public static Generation gen;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 

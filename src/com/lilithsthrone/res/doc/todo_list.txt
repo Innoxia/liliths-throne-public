@@ -23,24 +23,38 @@
 	Patch notes:
 	
 	Engine:
-		Added more detail to the game's system of 'CoverableArea's, to allow for clothing to block ass/anus and breasts/nipples separately.
+		Added more detail to the game's 'CoverableArea' system, to allow for clothing to block ass/anus and breasts/nipples separately.
+		Added in a lot of the background framework for Zaranix into the engine. I'll get this finished asap. ;_;
+		
+	Save game compatibility:
+		Fixed several major bugs associated with loading in a game where you had filled condoms in your inventory.
+		Fixed major bug related to loading an exported game with pregnant NPCs in it.
+		Fixed pregnancy 'potential partners as father' not being imported correctly.
+		Fixed incorrect cell inventory size.
+		Added support for generating missing maps.
 		
 	Gameplay:
 		Submitting to an NPC after defeating them no longer locks out penetrative sex actions.
 		You can now access the inventory of defeated alleyway attackers, succubi, offspring, and harpies after sex.
 		Split the 'Non-con' fetish up into giving & receiving variants. NPCs with the receiving variant will prefer to resist during sex (if non-con is enabled).
+		Reduced the default amount of children birthed by each race, so most now give birth to one or two offspring, with the current maximum litter size possible being 16 (for harpies).
 	
 	Sex:
 		Added a generic 'Stop penetrations' action to stop all ongoing penetrative actions at once.
 		Changed sex action's associated fetishes to make them more consistent.
+		NPCs will no longer try to get access to their penis/pussy if tehy don't have one.
 	
 	UI:
 		Added hotkey support for response tab switching. By default, 'Previous tab' is 'ctrl+Q', while 'Next tab' is 'ctrl+E'. (Can be changed in the options menu.)
 		Added indication in enchanting menu of the exact value that an effect will apply. (e.g. Will now display cum increases in ml.)
-		Improved inventory UI to use tabs.
+		Improved inventory UI to use tabs. (I still have some work left to do on this.)
 	
 	Other:
 		<b>Reverted:</b> NPCs will now beg for you to take their virginity if they're in the 'eager' pace, will inform you that they're a virgin in the 'normal' pace, and will beg for you not to take it in the 'resisting' pace.
+		Slightly changed the secondary modifiers for enchanting body parts. Now, instead of leaving the secondary essence blank to transform your body part, you select a 'Transformative' essence.
+		Improved horn transformations, and added several more colours to horns (available colours are now white, red, black, and grey).
+		Changed horn types from 'demon' and 'bovine' into some more specific types: curled, spiral, curved, swept-back, and straight.
+		Added horn length.
 		Reduced offspring spawn chance from 25% to 20%.
 		Added penile virginity loss descriptions during sex, as well as experience gain for the other partner if they have the 'Deflowering' fetish.
 		Added submissive sex option in slaves' rooms.
@@ -51,12 +65,9 @@
 		Added 'pixie cut', 'bob cut', and 'slicked back' hair styles.
 		Changed Rose's hair style.
 		Added pure damage/resistance to the stats screen.
-	
-	Save game compatibility:
-		Fixed several major bugs associated with loading in a game where you had filled condoms in your inventory.
-		Fixed major bug related to loading an exported game with pregnant NPCs in it.
-		Fixed pregnancy 'potential partners as father' not being imported correctly.
-		Fixed incorrect cell inventory size.
+		You can now use fetish TF potions on the harpy matriarchs.
+		Alleyway Succubi will now use their special tease attacks.
+		Partners in consensual sex will no longer end sex once they've orgasmed. They will continue until you've orgasmed as well.
 	
 	Bugs:
 		In the crafting screen, you can now change the potency of milk, cum, and girlcum enchantments.
@@ -76,6 +87,12 @@
 		Breast kissing can no longer be performed if breasts are not exposed.
 		Fixed levelling up method to enable gaining multiple levels at once.
 		Improved arousal increases from ongoing status effects, and fixed incorrect arousal tooltip values.
+		Lilaya will now always ask you to pull out.
+		Fixed incorrect NPC reactions just before you reach your orgasm.
+		You should now be able to use the 'Pull out' orgasm if your partner asked for you to pull out.
+		Fixed bug in sex where moving into a position would cause your partner to continuously do nothing.
+		Fixed potentially game-breaking bug related to Brax's clothing being unequipped after defeating him.
+		Fixed storm immunity and items disappearing inconsistencies.
 	
 	
 	
@@ -83,17 +100,25 @@
 	
 	
 	
+	Main story
+	
+	Slavery jobs, dialogue
+	Random encounter options
+	
+	Orgasms
+	Addictions
+	Sex
+	
+	Character creation
+	
+	SAVE COMPAT TESTING
+	
+	
+	
+	
+	crafted potions aren't importing correctly
 	
 	Use tabs for slavery
-	
-	i defeated a harpy matriarch, then i went to try to feed her a fetish endowment potion, but she refuses to take it.
-	 since i beat her and took control, she shouldn't be allowed to say no, imo. given the situation, i can understand how using most transformative potions could be a bad idea, but fetish potions should still be allowed, i think.
-	
-	
-	
-	
-	
-	
 	
 	
 	Make Rose's scenes match her personality
@@ -105,6 +130,13 @@
 	not saying i care much whether they do or not, mainly asking if this is intentional or not.
 	
 	
+	I noticed that when transforming nipples into nipple-cunts they are acknowledged in text, but there's no way to finger them/have them penetrated in sex actions
+	
+	Could we also get a bit more special dialogue for incestuous sex? After incestuous sex starts they sound just the same as sex with ordinary npc's, pet name calling from children and mentions of their relationship as child and parent could be enough.
+	
+	NPCs still use finger-in-mouth somehow...
+	
+	
 	add in manual font selection
 	
 	Left: map
@@ -114,7 +146,7 @@
 	I haven't had any encounters/interactions with offspring either (in any version of the game), even with the Incest option turned on.
 	I'll change this so that you can always encounter them, but sexual dialogue/options will be disabled if you have incest turned off
 	
-	
+	even though I don't have a vagina I can get the virgin fetish with enchanted random kink
 	
 	Chastity cage & belt still allows some forms of masturbation
 	
@@ -165,54 +197,10 @@
 	
 	Pressing enter while in a gender pronoun field takes you to a blank page
 	
-	slave obedience stuck at 99.600006
-	
 	Urethra stuff:
 	why can you only change those when you have a penis, it's not like women and don't have an urethra
 	
-	the arcane price on potion enchantment doesn't match the real price. The cost for changing the shape of my pupils are stated to be one arcane, but it cost me six arcane instead.
-	
-	Horn types & colours (red,black,grey,and dark grey)
-	
-	succubi don't seem to use specific fetish seductions, they just use general "im so wet" seductions
-	
-	Your shaft is concealed, so, due to your masculine appearance, everyone assumes that you're a male on first glance. for maleherms, this should probably be something like "since your vag is concealed, everyone assumes you're male"
-	
-	No penetration:
-		Through his desperate moans and lewd cries, the dog-boy somehow manages to formulate a sentence as he cries out to you, Pull out! I don't want to taste your cum!
-		Through his desperate moans and lewd cries, the squirrel-boy somehow manages to formulate a sentence as he cries out for your cum, Cum for me! I want to taste your cum!
-		
-	Even Lilaya is asking for cum
-	Lilaya told me to cum in her and breed her then got mad when I did.
-		
-	Moving into position causes NPC to do nothing
-	using each positioning action then disappears from menu
-	 if you are the sub position and try to request another position the dom AI wont do a move until the sex is finished ( i tried this only as a male sub to a female dom (slave))
-	: I think I found a bug if it isn't known yet: If you are submissive during a sex scene and you try to ask for a certain position. Your partner gets stuck in an infinite loop of doing nothing until the scene ends by someone cumming. Not sure if this is true for all requests but it did happen for me atleast 3 times.
-	
-	I noticed that when transforming nipples into nipple-cunts they are acknowledged in text, but there's no way to finger them/have them penetrated in sex actions
-	
-	Could we also get a bit more special dialogue for incestuous sex? After incestuous sex starts they sound just the same as sex with ordinary npc's, pet name calling from children and mentions of their relationship as child and parent could be enough.
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	slave obedience stuck at 99.600006
 	
 	
 	ornaments or clothing for racially blocked slots, horseshoes, wraps, bangles, plumage ornamentation.
@@ -670,16 +658,16 @@ So basically, the transformer fetish actually reduces the cost of enchantments b
 	
 	-I noticed that importing a character and skipping the intro leaves you with an empty inventory and no currency. Importing a character and doing the prologue gives a similar result except you have a burning opaque demonstone equipped and have 40 currency. A new character doesn't have these issues. 
 
--My imported character also started with nearly all fetishes enabled except for the transformer and transformation test subject fetishes.
-
-- Minor bug this time, but it appears NPC's are once again calling large dicks small, the only time the seem to acknowledge it as 'big' is when the game is describing it as 'enormous'.
+	-My imported character also started with nearly all fetishes enabled except for the transformer and transformation test subject fetishes.
+	
+	- Minor bug this time, but it appears NPC's are once again calling large dicks small, the only time the seem to acknowledge it as 'big' is when the game is describing it as 'enormous'.
 	
 	The bug is that all androgynous characters seem to be spawning with high femininity.
 	
 	-The pronouns one requires that you save your changes, the others do not.  Often leads to forgetting to save.  (You might be able to ghost the save button on the back button to save text boxes)
--A reset to default option would be useful on the other option settings as well, given how many options there are / will be.
--Content options still isn't inside the options menu, for some reason.
-[19:03] DarkMaster: Shouldn't resume be greyed out if there's no save to resume?
+		-A reset to default option would be useful on the other option settings as well, given how many options there are / will be.
+		-Content options still isn't inside the options menu, for some reason.
+		Shouldn't resume be greyed out if there's no save to resume?
 	
 	BUG -- Well, more of a logic error. When a NPC transforms you and gives you a dick, they still react like they didn't expect it when they remove your clothing. And its not as if they gave you a random cocktail without knowing the results, they specifically say what they are trying to turn you into.
 	

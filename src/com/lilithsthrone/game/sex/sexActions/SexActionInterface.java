@@ -11,6 +11,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -423,7 +424,7 @@ public interface SexActionInterface {
 			}
 			@Override
 			public boolean isSexPositioningHighlight() {
-				return getActionType()==SexActionType.PLAYER_POSITIONING;
+				return getActionType()==SexActionType.PLAYER_POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX);
 			}
 			@Override
 			public SexPace getSexPace() {
@@ -453,7 +454,7 @@ public interface SexActionInterface {
 				}
 				@Override
 				public boolean isSexPositioningHighlight() {
-					return getActionType()==SexActionType.PLAYER_POSITIONING;
+					return getActionType()==SexActionType.PLAYER_POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX);
 				}
 				@Override
 				public SexPace getSexPace() {
@@ -534,7 +535,7 @@ public interface SexActionInterface {
 			}
 			@Override
 			public boolean isSexPositioningHighlight() {
-				return getActionType()==SexActionType.PLAYER_POSITIONING;
+				return getActionType()==SexActionType.PLAYER_POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX);
 			}
 			@Override
 			public SexPace getSexPace() {

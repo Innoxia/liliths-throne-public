@@ -1091,7 +1091,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 									startingBodyType.getCumProduction(),
 									startingBodyType.getTesticleQuantity())
 								: new Penis(PenisType.NONE, 0, 0, 0, 2))
-						.horn(new Horn(stage.isHornFurry()?startingBodyType.getHornType():HornType.NONE))
+						.horn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (preferredGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())))
 						.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE))
 						.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
 						.wing(new Wing(stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE))

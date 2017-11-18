@@ -181,10 +181,15 @@ public class DominionSuccubusAttacker extends NPC {
 	
 	@Override
 	public Attack attackType() {
-		if (Math.random() < 0.1)
+		double rnd = Math.random();
+		
+		if (rnd < 0.1) {
 			return Attack.MAIN;
-		else
+		} else if (rnd < 0.5) {
+			return Attack.SPECIAL_ATTACK;
+		} else {
 			return Attack.SEDUCTION;
+		}
 	}
 
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
@@ -385,7 +390,7 @@ public class DominionSuccubusAttacker extends NPC {
 	@Override
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
-			if((Sex.isPlayerDom() || Sex.isConsensual()) && !target.isPlayer()) {
+			if((Sex.isPlayerDom() || Sex.isSubHasEqualControl()) && !target.isPlayer()) {
 				return "<p>"
 							+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
 							+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"

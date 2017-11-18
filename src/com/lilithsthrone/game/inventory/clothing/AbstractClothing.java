@@ -685,12 +685,14 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				if (bp.displacementType == dt)
 					coveredAreas.addAll(bp.blockedBodyParts);
 		}
-
-		if (owner.getVaginaType() == VaginaType.NONE)
-			coveredAreas.remove(CoverableArea.VAGINA);
-		if (owner.getPenisType() == PenisType.NONE)
-			coveredAreas.remove(CoverableArea.PENIS);
-
+		
+		if(owner!=null) {
+			if (owner.getVaginaType() == VaginaType.NONE)
+				coveredAreas.remove(CoverableArea.VAGINA);
+			if (owner.getPenisType() == PenisType.NONE)
+				coveredAreas.remove(CoverableArea.PENIS);
+		}
+		
 		if (!coveredAreas.isEmpty())
 			return preFix + Util.setToStringListCoverableArea(coveredAreas) + postFix;
 		else

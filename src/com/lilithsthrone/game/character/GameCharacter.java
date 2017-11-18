@@ -2923,23 +2923,26 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if (!isPregnant()) {
 			if (Math.random() <= pregnancyChance) {
 				
-				int numberOfChildren = 0;
+				int minimumNumberOfChildren = 1;
+				int maximumNumberOfChildren = 1;
 				
 				if(getVaginaType()==VaginaType.HUMAN) {
-					numberOfChildren = partner.getPenisType().getRace().getNumberOfOffspringLow()
-							+ Util.random.nextInt((partner.getPenisType().getRace().getNumberOfOffspringHigh() - partner.getPenisType().getRace().getNumberOfOffspringLow())+1);
+					minimumNumberOfChildren = partner.getPenisType().getRace().getNumberOfOffspringLow();
+					maximumNumberOfChildren = partner.getPenisType().getRace().getNumberOfOffspringHigh();
 					
 				} else {
-					numberOfChildren = getVaginaType().getRace().getNumberOfOffspringLow()
-							+ Util.random.nextInt((getVaginaType().getRace().getNumberOfOffspringHigh() - getVaginaType().getRace().getNumberOfOffspringLow())+1);
+					minimumNumberOfChildren = getVaginaType().getRace().getNumberOfOffspringLow();
+					maximumNumberOfChildren = getVaginaType().getRace().getNumberOfOffspringHigh();
 				}
 				
 				if(partner.hasFetish(Fetish.FETISH_SEEDER)) {
-					numberOfChildren*=2;
+					maximumNumberOfChildren*=2;
 				}
 				if(hasFetish(Fetish.FETISH_BROODMOTHER)) {
-					numberOfChildren*=2;
+					maximumNumberOfChildren*=2;
 				}
+				
+				int numberOfChildren = minimumNumberOfChildren + Util.random.nextInt(maximumNumberOfChildren-minimumNumberOfChildren+1);
 				
 				List<NPC> offspring = new ArrayList<>();
 				for (int i = 0; i < numberOfChildren; i++) { // Add children here:
@@ -4794,7 +4797,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					}
 					
 					if(hasPenis()) {
-						// Assume male, as penis is not visible:
+						// Assume male:
 						return new GenderAppearance(
 								isPlayer()
 								?"Your [pc.penis] is concealed, so, due to your masculine appearance, everyone assumes that you're "
@@ -4805,10 +4808,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								Gender.M_P_MALE);
 						
 					} else if(hasVagina()) {
-						// Correctly assume male:
+						// Assume male:
 						return new GenderAppearance(
 								isPlayer()
-								?"Your masculine appearance leads everyone to correctly assume that you're "
+								?"Your masculine appearance leads everyone to assume that you're "
 										+UtilText.generateSingularDeterminer(Gender.M_P_MALE.getName())+" "+Gender.M_P_MALE.getName()+"."
 								:UtilText.parse(this,
 										"Due to [npc.her] masculine appearance, everyone assumes that [npc.she]'s "
@@ -4952,23 +4955,22 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		StringBuilder postTFSB = new StringBuilder();
 		// If this is the first time getting this covering type:
 		for(BodyPartInterface bp : body.getAllBodyParts()) {
-			if(!body.getBodyCoveringTypesDiscovered().contains(bp.getType().getBodyCoveringType())) {
-				if(bp.getType().getBodyCoveringType()!=null) {
-					body.getBodyCoveringTypesDiscovered().add(bp.getType().getBodyCoveringType());
+			BodyCoveringType bct = bp.getType().getBodyCoveringType();
+			if(!body.getBodyCoveringTypesDiscovered().contains(bct)) {
+				if(bct!=null) {
+					body.getBodyCoveringTypesDiscovered().add(bct);
 					
 					if(displayColourDiscovered) {
 						if(isPlayer()) {
 							postTFSB.append(
-									"<b>You have discovered that your natural</b>"
-									+" <b style='color:"+bp.getType().getBodyCoveringType().getRace().getColour().toWebHexString()+";'>"+bp.getType().getBodyCoveringType().getRace().getName()+"'s</b>"
-											+ " <b>"+bp.getType().getBodyCoveringType().getName(this)+" colour is "
-									+getCovering(bp.getType().getBodyCoveringType()).getColourDescriptor(true, false)+"!</b>");
+									"<b>You have discovered that your natural</b> "
+									+ (bct == BodyCoveringType.HORN ? "<b>horn's</b>" : "<b style='color:"+bct.getRace().getColour().toWebHexString()+";'>"+bct.getRace().getName()+"'s</b>")
+									+ " <b>"+bct.getName(this)+" colour is "+getCovering(bct).getColourDescriptor(true, false)+"!</b>");
 						} else {
 							postTFSB.append(UtilText.parse(this,
-									"<b>[npc.Name] has discovered that [npc.her] natural</b>"
-									+" <b style='color:"+bp.getType().getBodyCoveringType().getRace().getColour().toWebHexString()+";'>"+bp.getType().getBodyCoveringType().getRace().getName()+"'s</b>"
-											+ " <b>"+bp.getType().getBodyCoveringType().getName(this)+" colour is</b> "
-											+getCovering(bp.getType().getBodyCoveringType()).getColourDescriptor(true, false)+"!</b>"));
+									"<b>[npc.Name] has discovered that [npc.her] natural</b> "
+									+ (bct == BodyCoveringType.HORN ? "<b>horn's</b>" : "<b style='color:"+bct.getRace().getColour().toWebHexString()+";'>"+bct.getRace().getName()+"'s</b>")
+									+ " <b>"+bct.getName(this)+" colour is "+getCovering(bct).getColourDescriptor(true, false)+"!</b>"));
 						}
 					}
 				}
@@ -6520,6 +6522,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	public String getHornPronoun() {
 		return body.getHorn().getType().getPronoun();
+	}
+	// Length:
+	public int getHornLength() {
+		return body.getHorn().getHornLengthValue();
+	}
+	public String setHornLength(int length) {
+		return body.getHorn().setHornLength(this, length);
+	}
+	public String incrementHornLength(int increment) {
+		return body.getHorn().setHornLength(this, getHornLength() + increment);
 	}
 	// Rows:
 	public int getHornRows() {

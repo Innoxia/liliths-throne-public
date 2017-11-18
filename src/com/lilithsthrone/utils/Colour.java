@@ -309,7 +309,11 @@ public enum Colour {
 	FEATHERS_BLEACH_BLONDE(BaseColour.YELLOW_LIGHT, "bleach-blonde"),
 
 	// Horns:
-	HORN_WHITE(BaseColour.WHITE, "white"),
+	HORN_WHITE(BaseColour.WHITE, "ivory"),
+	HORN_RED(BaseColour.RED, "red"),
+	HORN_GREY(BaseColour.RED, "grey"),
+	HORN_DARK_GREY(BaseColour.RED, "dark-grey"),
+	HORN_BLACK(BaseColour.BLACK, "black"),
 
 	// Orifices:
 	ORIFICE_INTERIOR(BaseColour.ROSE, "fleshy-pink"),
@@ -468,6 +472,13 @@ public enum Colour {
 			new ListValue<Colour>(Colour.COVERING_PURPLE),
 			new ListValue<Colour>(Colour.COVERING_RED));
 	
+	public static List<Colour> hornColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.HORN_WHITE),
+			new ListValue<Colour>(Colour.HORN_RED),
+			new ListValue<Colour>(Colour.HORN_GREY),
+			new ListValue<Colour>(Colour.HORN_DARK_GREY),
+			new ListValue<Colour>(Colour.HORN_BLACK));
+	
 	// Orifices:
 	
 	public static List<Colour> orificeInteriors = Util.newArrayListOfValues(
@@ -503,6 +514,7 @@ public enum Colour {
 			new ListValue<Colour>(Colour.COVERING_GREEN),
 			new ListValue<Colour>(Colour.COVERING_PINK),
 			new ListValue<Colour>(Colour.COVERING_PURPLE),
+			new ListValue<Colour>(Colour.COVERING_ORANGE),
 			new ListValue<Colour>(Colour.COVERING_RED));
 	
 	// Eyes:

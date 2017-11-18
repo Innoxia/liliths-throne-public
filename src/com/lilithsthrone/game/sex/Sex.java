@@ -1103,7 +1103,7 @@ public enum Sex {
 
 		} else if (partner.getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) { // Add orgasm reactions if ready to orgasm:
 			for (SexActionInterface sexAction : sexManager.getActionsAvailablePlayer()) {
-				if (sexAction.getActionType()==SexActionType.PLAYER_PREPARE_PARTNER_ORGASM) {
+				if (sexAction.getActionType()==SexActionType.PLAYER_PREPARE_PARTNER_ORGASM && sexAction.isAddedToAvailableSexActions()) {
 					availableSexActionsPlayer.add(sexAction);
 				}
 			}

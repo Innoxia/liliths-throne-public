@@ -772,14 +772,14 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			if(!Sex.isPlayerDom()) {
+			if(!Sex.isPlayerDom() && !Sex.isConsensual()) {
 				return Sex.getNumberOfPartnerOrgasms()>=1;
 				
-			} else if(Sex.isSubHasEqualControl()) {
-				return Sex.getNumberOfPartnerOrgasms()>=1 && Sex.getNumberOfPlayerOrgasms()>=1;
+			} else if(Sex.isPlayerDom() && !Sex.isSubHasEqualControl()) {
+				return false;
 				
 			} else {
-				return false;
+				return Sex.getNumberOfPartnerOrgasms()>=1 && Sex.getNumberOfPlayerOrgasms()>=1;
 			}
 		}
 		

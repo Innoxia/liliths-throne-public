@@ -370,11 +370,18 @@ public class Game implements Serializable, XMLSaving {
 					
 					newGame.worlds.put(world.getWorldType(), world);
 				}
+//				TODO Once Zaranix is complete
+//				for(WorldType wt : WorldType.values()) {
+//					if(newGame.worlds.get(wt)==null) {
+//						Generation gen = new Generation();
+//						gen.worldGeneration(wt);
+//					}
+//				}
 				
 				newGame.player = PlayerCharacter.loadFromXML(null, (Element) ((Element) gameElement.getElementsByTagName("playerCharacter").item(0)), doc);
 				
 				// Load NPCs:
-				for(int i=0; i<gameElement.getElementsByTagName("NPC").getLength(); i++){
+				for(int i=0; i<gameElement.getElementsByTagName("NPC").getLength(); i++) {
 					Element e = (Element) gameElement.getElementsByTagName("NPC").item(i);
 					
 					@SuppressWarnings("unchecked")
@@ -383,8 +390,15 @@ public class Game implements Serializable, XMLSaving {
 					
 					NPC npc = (NPC) m.invoke(npcClass.newInstance(), e, doc); //TODO You're loading the class twice!!!
 					newGame.addNPC(npc, true);
-						
 				}
+				
+//				TODO Once Zaranix is complete
+//				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(Zaranix.class))) {
+//					newGame.addNPC(new Zaranix(), false);
+//					newGame.addNPC(new ZaranixMaid(), false);
+//					newGame.addNPC(new Amber(), false);
+//				}
+					
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -1857,7 +1871,7 @@ public class Game implements Serializable, XMLSaving {
 	}
 
 	public NPC getTestNPC() {
-		return testNPC;
+		return (NPC) this.getNPCById(getUniqueNPCId(TestNPC.class));
 	}
 
 	public NPC getLilaya() {

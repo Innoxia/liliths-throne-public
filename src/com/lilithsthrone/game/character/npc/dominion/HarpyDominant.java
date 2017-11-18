@@ -28,8 +28,10 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -263,6 +265,33 @@ public class HarpyDominant extends NPC {
 		} else {
 			return new Response("", "", HarpyNestDominant.HARPY_NEST_DOMINANT_FIGHT_LOSE_TO_MATRIARCH);
 		}
+	}
+	
+	@Override
+	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
+		if(user.isPlayer() && !target.isPlayer() && (item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED))){
+			if(Sex.isPlayerDom()) {
+				Main.game.getPlayer().removeItem(item);
+				return "<p>"
+							+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
+							+ " Seeing what you're offering [npc.herHim], [npc.she] lets out a little laugh, "
+							+ " [npc.speechNoEffects(There's no way I'm drinking tha-)]"
+						+ "</p>"
+							+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and rather unceremoniously shove the neck down [npc.her] throat."
+							+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to gulp down all of the liquid before finally letting [npc.her] go."
+							+ " [npc.She] coughs and splutters for a moment, before letting out a lewd little cry as [npc.she] wipes the liquid from [npc.her] mouth,"
+							+ " [npc.speechNoEffects(~Aah!~ I feel... all hot inside...)]"
+						+ "</p>"
+						+ Main.game.getPlayer().useItem(item, target, false);
+			} else {
+				return "<p>"
+							+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+							+ " [npc.speechNoEffects(You pathetic little thing! Do you seriously expect me to drink some potion of yours?! Idiot!)]"
+						+ "</p>";
+			}
+		}
+		
+		return super.getItemUseEffects(item, user, target);
 	}
 
 }

@@ -1524,12 +1524,12 @@ public enum ItemEffectType {
 
 		@Override
 		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(primaryModifier);
+			return getRacialSecondaryModifiers(Race.DEMON, primaryModifier);
 		}
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(primaryModifier, secondaryModifier);
+			return getRacialPotencyModifiers(Race.DEMON, primaryModifier, secondaryModifier);
 		}
 		
 		@Override
@@ -1553,12 +1553,12 @@ public enum ItemEffectType {
 
 		@Override
 		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(primaryModifier);
+			return getRacialSecondaryModifiers(Race.HUMAN, primaryModifier);
 		}
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(primaryModifier, secondaryModifier);
+			return getRacialPotencyModifiers(Race.HUMAN, primaryModifier, secondaryModifier);
 		}
 		
 		@Override
@@ -1582,12 +1582,12 @@ public enum ItemEffectType {
 
 		@Override
 		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(primaryModifier);
+			return getRacialSecondaryModifiers(Race.CAT_MORPH, primaryModifier);
 		}
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(primaryModifier, secondaryModifier);
+			return getRacialPotencyModifiers(Race.CAT_MORPH, primaryModifier, secondaryModifier);
 		}
 		
 		@Override
@@ -1611,12 +1611,12 @@ public enum ItemEffectType {
 
 		@Override
 		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(primaryModifier);
+			return getRacialSecondaryModifiers(Race.COW_MORPH, primaryModifier);
 		}
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(primaryModifier, secondaryModifier);
+			return getRacialPotencyModifiers(Race.COW_MORPH, primaryModifier, secondaryModifier);
 		}
 		
 		@Override
@@ -1640,12 +1640,12 @@ public enum ItemEffectType {
 
 		@Override
 		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(primaryModifier);
+			return getRacialSecondaryModifiers(Race.SQUIRREL_MORPH, primaryModifier);
 		}
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(primaryModifier, secondaryModifier);
+			return getRacialPotencyModifiers(Race.SQUIRREL_MORPH, primaryModifier, secondaryModifier);
 		}
 		
 		@Override
@@ -1669,12 +1669,12 @@ public enum ItemEffectType {
 
 		@Override
 		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(primaryModifier);
+			return getRacialSecondaryModifiers(Race.DOG_MORPH, primaryModifier);
 		}
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(primaryModifier, secondaryModifier);
+			return getRacialPotencyModifiers(Race.DOG_MORPH, primaryModifier, secondaryModifier);
 		}
 		
 		@Override
@@ -1698,12 +1698,12 @@ public enum ItemEffectType {
 
 		@Override
 		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(primaryModifier);
+			return getRacialSecondaryModifiers(Race.HORSE_MORPH, primaryModifier);
 		}
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(primaryModifier, secondaryModifier);
+			return getRacialPotencyModifiers(Race.HORSE_MORPH, primaryModifier, secondaryModifier);
 		}
 		
 		@Override
@@ -1727,12 +1727,12 @@ public enum ItemEffectType {
 
 		@Override
 		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(primaryModifier);
+			return getRacialSecondaryModifiers(Race.WOLF_MORPH, primaryModifier);
 		}
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(primaryModifier, secondaryModifier);
+			return getRacialPotencyModifiers(Race.WOLF_MORPH, primaryModifier, secondaryModifier);
 		}
 		
 		@Override
@@ -1756,12 +1756,12 @@ public enum ItemEffectType {
 
 		@Override
 		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(primaryModifier);
+			return getRacialSecondaryModifiers(Race.HARPY, primaryModifier);
 		}
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(primaryModifier, secondaryModifier);
+			return getRacialPotencyModifiers(Race.HARPY, primaryModifier, secondaryModifier);
 		}
 		
 		@Override
@@ -2068,7 +2068,7 @@ public enum ItemEffectType {
 	// Caching:
 	private static Map<TFModifier, LinkedHashMap<TFModifier, List<TFPotency>>> racialPrimaryModSecondaryModPotencyGrid = new HashMap<>();
 	
-	private static List<TFModifier> getRacialSecondaryModifiers(TFModifier primaryModifier) {
+	private static List<TFModifier> getRacialSecondaryModifiers(Race race, TFModifier primaryModifier) {
 		if(racialPrimaryModSecondaryModPotencyGrid.containsKey(primaryModifier)) {
 			return new ArrayList<>(racialPrimaryModSecondaryModPotencyGrid.get(primaryModifier).keySet());
 		} else {
@@ -2081,30 +2081,31 @@ public enum ItemEffectType {
 //					}
 //				}
 //			}
-			populateGrid(primaryModifier);
+			populateGrid(race, primaryModifier);
 			return new ArrayList<>(racialPrimaryModSecondaryModPotencyGrid.get(primaryModifier).keySet());
 		}
 	}
 	
-	private static List<TFPotency> getRacialPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+	private static List<TFPotency> getRacialPotencyModifiers(Race race, TFModifier primaryModifier, TFModifier secondaryModifier) {
 		if(racialPrimaryModSecondaryModPotencyGrid.containsKey(primaryModifier)) {
 			return new ArrayList<>(racialPrimaryModSecondaryModPotencyGrid.get(primaryModifier).get(secondaryModifier));
 		} else {
-			populateGrid(primaryModifier);
+			populateGrid(race, primaryModifier);
 			return new ArrayList<>(racialPrimaryModSecondaryModPotencyGrid.get(primaryModifier).get(secondaryModifier));
 		}
 	}
 	
-	private static void populateGrid(TFModifier primaryModifier){ //TODO Please make this better -.-
+	private static void populateGrid(Race race, TFModifier primaryModifier){ //TODO Please make this better -.-
 		LinkedHashMap<TFModifier, List<TFPotency>> secondaryModPotencyMap = new LinkedHashMap<>();
-		secondaryModPotencyMap.put(TFModifier.NONE, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 		
 		switch(primaryModifier) {
 			case TF_ANTENNA:
+				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				break;
 			
 			case TF_ARMS:
+				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				if(Main.game.isBodyHairEnabled()) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_BODY_HAIR, TFPotency.getAllPotencies());
@@ -2112,6 +2113,7 @@ public enum ItemEffectType {
 				break;
 				
 			case TF_ASS:
+				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.getAllPotencies());
 				if(Main.game.isBodyHairEnabled()) {
@@ -2129,6 +2131,7 @@ public enum ItemEffectType {
 				break;
 				
 			case TF_BREASTS:
+				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT_SECONDARY, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
@@ -2163,6 +2166,7 @@ public enum ItemEffectType {
 				break;
 				
 			case TF_CORE:
+				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.getAllPotencies());
@@ -2173,9 +2177,11 @@ public enum ItemEffectType {
 				break;
 				
 			case TF_EARS:
+				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				break;
 				
 			case TF_EYES:
+				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_EYE_IRIS_CIRCLE, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_EYE_IRIS_VERTICAL, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
@@ -2191,6 +2197,7 @@ public enum ItemEffectType {
 				break;
 				
 			case TF_FACE:
+				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_PUFFY, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
@@ -2208,17 +2215,23 @@ public enum ItemEffectType {
 				break;
 				
 			case TF_HAIR:
+				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				break;
 				
 			case TF_HORNS:
+				for(int i=0; i< RacialBody.valueOfRace(race).getHornType().size();i++) {
+					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
+				}
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				break;
 				
 			case TF_LEGS:
+				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				break;
 				
 			case TF_PENIS:
+				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 
@@ -2249,13 +2262,16 @@ public enum ItemEffectType {
 				break;
 				
 			case TF_SKIN:
+				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				break;
 				
 			case TF_TAIL:
+				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				break;
 				
 			case TF_VAGINA:
+				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
@@ -2273,10 +2289,11 @@ public enum ItemEffectType {
 				break;
 				
 			case TF_WINGS:
+				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				break;
 				
 			case TF_CUM: case TF_MILK: case TF_GIRLCUM:
-				secondaryModPotencyMap.put(TFModifier.NONE, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_ADDICTIVE, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLUID_ALCOHOLIC, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
@@ -2301,6 +2318,7 @@ public enum ItemEffectType {
 				break;
 				
 			default:
+				secondaryModPotencyMap.put(TFModifier.NONE, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				break;
 		}
 		
@@ -2971,8 +2989,28 @@ public enum ItemEffectType {
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds an extra pair of horns.", singleBoost, " pair of horns") { @Override public String applyEffect() { return target.incrementHornRows(singleBoost); } };
 						}
+					case TF_TYPE_1:
+						return new RacialEffectUtil((RacialBody.valueOfRace(race).getHornType().get(0)==HornType.NONE?"Removes horns.":"Grows "+RacialBody.valueOfRace(race).getHornType().get(0).getName(true, Main.game.getPlayer())+"."), 0, "") {
+							@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornType().get(0)); } };
+
+					case TF_TYPE_2:
+						return new RacialEffectUtil((RacialBody.valueOfRace(race).getHornType().get(1)==HornType.NONE?"Removes horns.":"Grows "+RacialBody.valueOfRace(race).getHornType().get(1).getName(true, Main.game.getPlayer())+"."), 0, "") {
+							@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornType().get(1)); } };
+
+					case TF_TYPE_3:
+						return new RacialEffectUtil((RacialBody.valueOfRace(race).getHornType().get(2)==HornType.NONE?"Removes horns.":"Grows "+RacialBody.valueOfRace(race).getHornType().get(2).getName(true, Main.game.getPlayer())+"."), 0, "") {
+							@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornType().get(2)); } };
+
+					case TF_TYPE_4:
+						return new RacialEffectUtil((RacialBody.valueOfRace(race).getHornType().get(3)==HornType.NONE?"Removes horns.":"Grows "+RacialBody.valueOfRace(race).getHornType().get(3).getName(true, Main.game.getPlayer())+"."), 0, "") {
+							@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornType().get(3)); } };
+
+					case TF_TYPE_5:
+						return new RacialEffectUtil((RacialBody.valueOfRace(race).getHornType().get(4)==HornType.NONE?"Removes horns.":"Grows "+RacialBody.valueOfRace(race).getHornType().get(4).getName(true, Main.game.getPlayer())+"."), 0, "") {
+							@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornType().get(4)); } };
+							
 					default:
-						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" horns transformation.", 0, "") { @Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornType()); } };
+						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" horns transformation.", 0, "") { @Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getRandomHornType(false)); } };
 				}
 				
 			case TF_LEGS:
@@ -3080,9 +3118,9 @@ public enum ItemEffectType {
 					case TF_MOD_COUNT:
 						switch(potency) {
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes an extra pair of testicles.", smallChangeDrain, " pair of testicles") { @Override public String applyEffect() { return target.incrementTesticleCount(smallChangeDrain); } };
+								return new RacialEffectUtil("Removes an extra pair of testicles.", smallChangeDrain, " testicles") { @Override public String applyEffect() { return target.incrementTesticleCount(smallChangeDrain); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Adds an extra pair of testicles.", smallChangeBoost, " pair of testicles") { @Override public String applyEffect() { return target.incrementTesticleCount(smallChangeBoost); } };
+								return new RacialEffectUtil("Adds an extra pair of testicles.", smallChangeBoost, " testicles") { @Override public String applyEffect() { return target.incrementTesticleCount(smallChangeBoost); } };
 						}
 					case TF_MOD_WETNESS:
 						switch(potency) {
@@ -3626,10 +3664,10 @@ public enum ItemEffectType {
 						
 						while (mod == TFModifier.NONE || modSecondary == TFModifier.NONE) {
 							mod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
-							modSecondary = getRacialSecondaryModifiers(mod).get(Util.random.nextInt(getRacialSecondaryModifiers(mod).size()));
+							modSecondary = getRacialSecondaryModifiers(race, mod).get(Util.random.nextInt(getRacialSecondaryModifiers(race, mod).size()));
 						}
 						
-						TFPotency pot = getRacialPotencyModifiers(mod, modSecondary).get(Util.random.nextInt(getRacialPotencyModifiers(mod, modSecondary).size()));
+						TFPotency pot = getRacialPotencyModifiers(race, mod, modSecondary).get(Util.random.nextInt(getRacialPotencyModifiers(race, mod, modSecondary).size()));
 						
 						return getRacialEffect(race, mod, modSecondary, pot, user, target).applyEffect();
 					}
@@ -3643,10 +3681,10 @@ public enum ItemEffectType {
 				
 				while (mod == TFModifier.NONE || modSecondary == TFModifier.NONE) {
 					mod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
-					modSecondary = getRacialSecondaryModifiers(mod).get(Util.random.nextInt(getRacialSecondaryModifiers(mod).size()));
+					modSecondary = getRacialSecondaryModifiers(race, mod).get(Util.random.nextInt(getRacialSecondaryModifiers(race, mod).size()));
 				}
 				
-				TFPotency pot = getRacialPotencyModifiers(mod, modSecondary).get(Util.random.nextInt(getRacialPotencyModifiers(mod, modSecondary).size()));
+				TFPotency pot = getRacialPotencyModifiers(race, mod, modSecondary).get(Util.random.nextInt(getRacialPotencyModifiers(race, mod, modSecondary).size()));
 				
 				return getRacialEffect(race, mod, modSecondary, pot, user, target).applyEffect();
 			}

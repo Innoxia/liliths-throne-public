@@ -106,6 +106,9 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		
 		clothingCurrentlyEquipped = new ArrayList<>();
 		clothingSetCount = new EnumMap<>(ClothingSet.class);
+		for(ClothingSet clothingSet : ClothingSet.values()) {
+			clothingSetCount.put(clothingSet, 0);
+		}
 		
 		this.maxInventorySpace = maxInventorySpace;
 	}

@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.PerkInterface;
@@ -2687,6 +2688,25 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				return character.getHairLength().getDescriptor();
+			}
+		});
+		
+		// Horns:
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("hornSize"),
+						new ListValue<>("hornsSize"),
+						new ListValue<>("hornLength"),
+						new ListValue<>("hornsLength")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.HORN){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return HornLength.getHornLengthFromInt(character.getHornLength()).getDescriptor();
 			}
 		});
 		

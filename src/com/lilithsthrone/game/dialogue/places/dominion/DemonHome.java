@@ -10,7 +10,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.89
  * @author Innoxia
  */
 public class DemonHome {
@@ -45,7 +45,8 @@ public class DemonHome {
 
 			} else if (index == 2) {
 				if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
-					return new Response("Zaranix's Home", "This is as far as the main quest goes for now! I'll add more in the next couple of versions! Thank you for playing! ^^", null);
+					return new Response("Zaranix's Home", "A little way down the road from Arthur's apartment building stands the home of Zaranix; the demon that Scarlett told you about. <b>This will be finished for the next version!</b>", null);
+//					return new Response("Zaranix's Home", "A little way down the road from Arthur's apartment building stands the home of Zaranix; the demon that Scarlett told you about.", ZaranixHomeGroundFloor.OUTSIDE);
 				}
 				return null;
 

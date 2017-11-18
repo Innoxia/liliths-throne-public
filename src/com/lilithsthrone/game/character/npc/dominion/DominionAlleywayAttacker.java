@@ -303,27 +303,27 @@ public class DominionAlleywayAttacker extends NPC {
 
 	@Override
 	public String getAttackDescription(Attack attackType, boolean isHit) {
-
+		
 		if (attackType == Attack.MAIN) {
 			switch (Util.random.nextInt(3)) {
-			case 0:
-				return UtilText.parse(this,
-						"<p>"
-							+ "[npc.Name] feints a punch, and as you dodge away, [npc.she] tries to deliver a kick aimed at your legs."
-							+ (isHit ? "" : " You see [npc.her] kick coming and jump backwards out of harm's way.")
-						+ "</p>");
-			case 1:
-				return UtilText.parse(this,
-						"<p>"
-							+ "[npc.Name] jumps forwards, trying to deliver a punch to your stomach."
-							+ (isHit ? "" : " You manage to twist to one side, narrowly avoiding [npc.her] attack.")
-						+ "</p>");
-			default:
-				return UtilText.parse(this,
-						"<p>"
-							+ "[npc.Name] darts forwards, throwing a punch at your torso."
-							+ (isHit ? "" : " You manage to dodge [npc.her] attack by leaping to one side.")
-						+ "</p>");
+				case 0:
+					return UtilText.parse(this,
+							"<p>"
+								+ "[npc.Name] feints a punch, and as you dodge away, [npc.she] tries to deliver a kick aimed at your legs."
+								+ (isHit ? "" : " You see [npc.her] kick coming and jump backwards out of harm's way.")
+							+ "</p>");
+				case 1:
+					return UtilText.parse(this,
+							"<p>"
+								+ "[npc.Name] jumps forwards, trying to deliver a punch to your stomach."
+								+ (isHit ? "" : " You manage to twist to one side, narrowly avoiding [npc.her] attack.")
+							+ "</p>");
+				default:
+					return UtilText.parse(this,
+							"<p>"
+								+ "[npc.Name] darts forwards, throwing a punch at your torso."
+								+ (isHit ? "" : " You manage to dodge [npc.her] attack by leaping to one side.")
+							+ "</p>");
 			}
 		} else {
 			if(isFeminine()) {

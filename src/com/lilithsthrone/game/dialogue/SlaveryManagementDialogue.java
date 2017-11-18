@@ -1191,10 +1191,9 @@ public class SlaveryManagementDialogue {
 							+ "<div class='container-full-width inner'>"
 								+NPC.getCharacterInformationScreen(character)
 							+"</div>"
-					+"</div>");
+					+"</div>"
+					+ "<p id='hiddenFieldName' style='display:none;'></p>");
 			
-			
-			UtilText.nodeContentSB.append("<p id='hiddenFieldName' style='display:none;'></p>");
 			return UtilText.parse(character, UtilText.nodeContentSB.toString());
 		}
 

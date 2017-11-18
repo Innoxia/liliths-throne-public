@@ -400,7 +400,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 
 	// MISC:
 	
-	HORN_DEMON(Race.DEMON,
+	HORN(Race.HUMAN,
 			"a layer of",
 			false,
 			"keratin",
@@ -410,20 +410,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			null,
 			Util.newArrayListOfValues(new ListValue<Colour>(Colour.HORN_WHITE)),
 			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.HORN_WHITE)),
-			null),
-	
-	HORN_COW(Race.COW_MORPH,
-			"a layer of",
-			false,
-			"keratin",
-			"keratin",
-			"hard",
-			null,
-			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.HORN_WHITE)),
-			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.HORN_WHITE)),
+			Colour.hornColours,
 			null),
 
 	TONGUE(Race.HUMAN,
