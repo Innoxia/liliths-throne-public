@@ -34,7 +34,7 @@
 		Improved NPC removal methods, so that removing NPCs should no longer cause sex & pregnancy stats to break.
 		Fixed all penetrative sex generating +0 base arousal for the person being penetrated.
 		Fixed UI display bug in pregnancy stats screen.
-	
+		Fixed incorrect perk assignments when importing a character from an older version.
 	
 	
 	

@@ -866,8 +866,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			character.setLevelUpPoints(Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints);
 			CharacterUtils.appendToImportLog(log, "</br>Set levelUpPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
 			
-			character.setPerkPoints(Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")));
-			CharacterUtils.appendToImportLog(log, "</br>Set levelUpPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
+//			character.setPerkPoints(Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")));
+//			CharacterUtils.appendToImportLog(log, "</br>Set perkPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
 		}
 		
 		
@@ -940,15 +940,26 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// Perks:
 		nodes = parentElement.getElementsByTagName("perks");
 		element = (Element) nodes.item(0);
-		for(int i=0; i<element.getElementsByTagName("perk").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("perk").item(i));
-			
-			try {
-				if(Perk.valueOf(e.getAttribute("type")) != null) {
-					character.addPerk(Perk.valueOf(e.getAttribute("type")));
-					CharacterUtils.appendToImportLog(log, "</br>Added Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
+		if(element!=null) {
+			for(int i=0; i<element.getElementsByTagName("perk").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("perk").item(i));
+				
+				try {
+					if(!e.getAttribute("value").isEmpty()) {
+						if(Boolean.valueOf(e.getAttribute("value"))) {
+							if(Perk.valueOf(e.getAttribute("type")) != null) {
+								character.addPerk(Perk.valueOf(e.getAttribute("type")));
+								CharacterUtils.appendToImportLog(log, "</br>Added Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
+							}
+						}
+					} else {
+						if(Perk.valueOf(e.getAttribute("type")) != null) {
+							character.addPerk(Perk.valueOf(e.getAttribute("type")));
+							CharacterUtils.appendToImportLog(log, "</br>Added Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
+						}
+					}
+				}catch(IllegalArgumentException ex){
 				}
-			}catch(IllegalArgumentException ex){
 			}
 		}
 		
@@ -3032,6 +3043,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public Litter getLastLitterBirthed() {
+		if(littersBirthed.isEmpty()) {
+			return null;
+		}
 		return littersBirthed.get(littersBirthed.size() - 1);
 	}
 	
