@@ -104,9 +104,7 @@ public class Main extends Application {
 		+ "</br>"
 
 		+ "<list>"
-		
 			+ "<h6>v0.1.88.5 (scroll down for 0.1.89 notes)</h6>"
-			
 			+"<li>Engine:</li>"
 			+"<ul><b>Added:</b> First iteration of save compatibility (some minor things aren't working yet, but I'll finish it off over the weekend). This took a loooong time to implement... Sorry that there isn't much else here... ;_;</ul>"
 			+"<ul><b>Changed:</b> Importing your character no longer carries over your slaves (and doesn't carry over pregnancies either). This is due to inter-NPC relationships getting quite complicated, so, for example, there would be several serious issues with importing an enslaved Scarlett into a new game, and then meeting the new game's version of Scarlett.</ul>"
@@ -121,14 +119,11 @@ public class Main extends Application {
 			+"<ul>Filled condoms should now correct import with all cum properties intact.</ul>"
 			+"<ul>Penile virginity is now correctly lost upon performing a penetrative sex action.</ul>"
 			+"<ul>Fixed broken lubrication messages during sex.</ul>"
-			
 		+"</list>"
-
 		
 		+ "</br>"
 
 		+ "<list>"
-		
 			+ "<h6>v0.1.89</h6>"
 		
 			+"<li>Engine:</li>"
@@ -202,7 +197,26 @@ public class Main extends Application {
 			+"<ul>Fixed bug in sex where moving into a position would cause your partner to continuously do nothing.</ul>"
 			+"<ul>Fixed potentially game-breaking bug related to Brax's clothing being unequipped after defeating him.</ul>"
 			+"<ul>Fixed storm immunity and items disappearing inconsistencies.</ul>"
+		+"</list>"
+		
+		+ "</br>"
 
+		+ "<list>"
+			+ "<h6>v0.1.89.1 (Hotfix)</h6>"
+			+"<li>Save compatibility & character import:</li>"
+			+"<ul>Fixed bug where duplicate NPCs were being loaded into the game.</ul>"
+			+"<ul>Fixed bug with exporting game not working.</ul>"
+			+"<ul>Fixed bug that would cause game freeze upon importing a character from an old version.</ul>"
+			+"<ul>Improved handling of pregnant NPC removal. (This was the cause of some exports from 0.1.88.5 not working. ;_;)</ul>"
+				
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed cause of game freeze during sex.</ul>"
+			+"<ul>Fixed bug related to Alexa's renewal of slaves for sale (her old slaves weren't being cleaned up properly).</ul>"
+			+"<ul>Improved NPC removal methods, so that removing NPCs should no longer cause sex & pregnancy stats to break.</ul>"
+			+"<ul>Fixed all penetrative sex generating +0 base arousal for the person being penetrated.</ul>"
+			+"<ul>Fixed UI display bug in pregnancy stats screen.</ul>"
+			+"<ul>Fixed incorrect perk assignments when importing a character from an older version.</ul>"
+			+"<ul>Orgasm-related actions in sex should no longer populate the 'repeat action' tab.</ul>"
 		+"</list>"
 		;
 	

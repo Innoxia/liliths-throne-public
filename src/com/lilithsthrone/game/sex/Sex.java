@@ -1018,7 +1018,10 @@ public enum Sex {
 
 		sexActionPlayer.baseEffects();
 		lastUsedPlayerAction = sexActionPlayer;
-		if(!repeatActionsPlayer.contains(sexActionPlayer)) {
+		if(!repeatActionsPlayer.contains(sexActionPlayer)
+				&& sexActionPlayer.getActionType()!=SexActionType.PLAYER_PREPARE_PARTNER_ORGASM
+				&& sexActionPlayer.getActionType()!=SexActionType.PLAYER_ORGASM
+				&& sexActionPlayer.getActionType()!=SexActionType.PLAYER_ORGASM_NO_AROUSAL_RESET) {
 			repeatActionsPlayer.add(sexActionPlayer);
 		}
 		
