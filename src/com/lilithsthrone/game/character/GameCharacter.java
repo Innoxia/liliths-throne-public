@@ -991,7 +991,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					Element e = ((Element)element.getElementsByTagName("fetish").item(i));
 					
 					try {
-						if(Fetish.valueOf(e.getAttribute("type")) != null) {
+						if(e.getAttribute("type").equals("FETISH_NON_CON")) { // Support for old non-con fetish:
+							character.incrementEssenceCount(TFEssence.ARCANE, 5);
+							CharacterUtils.appendToImportLog(log, "</br>Added refund for old non-con fetish. (+5 arcane essences)");
+							
+						} else if(Fetish.valueOf(e.getAttribute("type")) != null) {
 							character.addFetish(Fetish.valueOf(e.getAttribute("type")));
 							CharacterUtils.appendToImportLog(log, "</br>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
 						}
@@ -2952,7 +2956,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					maximumNumberOfChildren*=2;
 				}
 				
-				int numberOfChildren = minimumNumberOfChildren + Util.random.nextInt(maximumNumberOfChildren-minimumNumberOfChildren+1);
+				int numberOfChildren = minimumNumberOfChildren + Util.random.nextInt((maximumNumberOfChildren-minimumNumberOfChildren)+1);
 				
 				List<NPC> offspring = new ArrayList<>();
 				for (int i = 0; i < numberOfChildren; i++) { // Add children here:
@@ -3010,25 +3014,26 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if (withBirth) {
 			Litter birthedLitter = pregnantLitter;
 			
-			if(birthedLitter.getFather().isPlayer() || birthedLitter.getMother().isPlayer()) {
+			if((birthedLitter.getFather()!=null && birthedLitter.getFather().isPlayer()) || (birthedLitter.getMother()!=null && birthedLitter.getMother().isPlayer())) {
 				for(String id: birthedLitter.getOffspring()) {
 					NPC npc = (NPC) Main.game.getNPCById(id);
-					Main.game.getOffspring().add(npc);
-					birthedLitter.setDayOfBirth(Main.game.getDayNumber());
-					npc.setDayOfConception(birthedLitter.getDayOfConception());
-					npc.setDayOfBirth(Main.game.getDayNumber());
+					if(npc!=null) {
+						birthedLitter.setDayOfBirth(Main.game.getDayNumber());
+						npc.setDayOfConception(birthedLitter.getDayOfConception());
+						npc.setDayOfBirth(Main.game.getDayNumber());
+					}
 				}
 			}
 			
 			littersBirthed.add(birthedLitter);
 			
-			if(pregnantLitter.getFather()!=null) {
-				pregnantLitter.getFather().getLittersFathered().add(birthedLitter);
+			if(birthedLitter.getFather()!=null) {
+				birthedLitter.getFather().getLittersFathered().add(birthedLitter);
 			}
 		} else {
 			if(pregnantLitter!=null) {
 				for(String npc : pregnantLitter.getOffspring()) {
-					Main.game.removeNPC(npc);
+					Main.game.banishNPC(npc);
 				}
 			}
 		}
@@ -3406,7 +3411,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 */
 
 	public String useItem(AbstractItem item, GameCharacter target, boolean removingFromFloor, boolean onlyReturnEffects) {
-		
 		if(ItemType.allItems.contains(item.getItemType()) && isPlayer()) {
 			if(Main.getProperties().addItemDiscovered(item.getItemType())) {
 				Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(item.getItemType().getName(false), item.getRarity().getColour()), true);

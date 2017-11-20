@@ -904,7 +904,7 @@ public class PhoneDialogue {
 					+ "<tr><th>Name</th><th>Race</th><th>Mother</th><th>Father</th></tr>"
 					+ "<tr style='height:8px;'></tr>");
 			
-			for(NPC npc : Main.game.getOffspringSpawned()) {
+			for(NPC npc : Main.game.getOffspring()) {
 				if(npc.isFeminine()) {
 					UtilText.nodeContentSB.append(
 							"<tr>"
@@ -915,10 +915,10 @@ public class PhoneDialogue {
 									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getRace().getOffspringFemaleNameSingular()+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b>"+(npc.getMother().isPlayer()?"You":npc.getMother().getName())+"</b>"
+									+ "<b>"+(npc.getMother()==null?"???":(npc.getMother().isPlayer()?"You":npc.getMother().getName()))+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b>"+(npc.getFather().isPlayer()?"You":npc.getFather().getName())+"</b>"
+									+ "<b>"+(npc.getFather()==null?"???":(npc.getFather().isPlayer()?"You":npc.getFather().getName()))+"</b>"
 								+ "</td>"
 							+ "</tr>");
 				} else {
@@ -931,10 +931,10 @@ public class PhoneDialogue {
 									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getRace().getOffspringMaleNameSingular()+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b>"+(npc.getMother().isPlayer()?"You":npc.getMother().getName())+"</b>"
+									+ "<b>"+(npc.getMother()==null?"???":(npc.getMother().isPlayer()?"You":npc.getMother().getName()))+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b>"+(npc.getFather().isPlayer()?"You":npc.getFather().getName())+"</b>"
+									+ "<b>"+(npc.getFather()==null?"???":(npc.getFather().isPlayer()?"You":npc.getFather().getName()))+"</b>"
 								+ "</td>"
 							+ "</tr>");
 				}
@@ -1070,56 +1070,50 @@ public class PhoneDialogue {
 		contentSB.append("<span style='height:16px;width:100%;float:left;'></span>"
 				+ "<div class='subTitle'>Fathered children</div>");
 		
-		if(!Main.game.getPlayer().getPotentialPartnersAsFather().isEmpty()){
-			
-			for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsFather()){
+		for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsFather()){
+			if(pp.getMother()!=null) {
+				contentSB.append(UtilText.parse(pp.getMother(),
+						"<div class='container-full-width' style='text-align:center;'>"
+						+ "[style.boldBad(Ongoing pregnancy)]"
+						+ "</br>"
+						+"<b>[npc.Name(A)] (</b>"
+							+ (!pp.getMother().getRaceStage().getName().isEmpty()
+									?"<b style='color:"+pp.getMother().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getMother().getRaceStage().getName())+"</b> "
+									:"")
+							+ "<b style='color:"+pp.getMother().getRace().getColour().toWebHexString()+";'>"
+							+ (pp.getMother().getGender().isFeminine()?Util.capitaliseSentence(pp.getMother().getRace().getSingularFemaleName()):Util.capitaliseSentence(pp.getMother().getRace().getSingularMaleName()))
+							+ "</b><b>)</b>"));
 				
-				if(pp.getMother()!=null) {
-					contentSB.append(UtilText.parse(pp.getMother(),
-							"<div class='container-full-width' style='text-align:center;'>"
-							+ "[style.boldBad(Ongoing pregnancy)]"
-							+ "</br>"
-							+"<b>[npc.Name(A)] (</b>"
-								+ (!pp.getMother().getRaceStage().getName().isEmpty()
-										?"<b style='color:"+pp.getMother().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getMother().getRaceStage().getName())+"</b> "
-										:"")
-								+ "<b style='color:"+pp.getMother().getRace().getColour().toWebHexString()+";'>"
-								+ (pp.getMother().getGender().isFeminine()?Util.capitaliseSentence(pp.getMother().getRace().getSingularFemaleName()):Util.capitaliseSentence(pp.getMother().getRace().getSingularMaleName()))
-								+ "</b><b>)</b>"));
-					
-					if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_0)) {
-						contentSB.append("</br>Probability of impregnation: ");
-						if (pp.getProbability() <= 0) {
-							contentSB.append("None");
-						} else if(pp.getProbability()<=0.15f) {
-							contentSB.append("Low");
-						} else if(pp.getProbability()<=0.3f) {
-							contentSB.append("Average");
-						} else if(pp.getProbability()<1) {
-							contentSB.append("High");
-						} else {
-							contentSB.append("Certainty");
-						}
+				if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					contentSB.append("</br>Probability of impregnation: ");
+					if (pp.getProbability() <= 0) {
+						contentSB.append("None");
+					} else if(pp.getProbability()<=0.15f) {
+						contentSB.append("Low");
+					} else if(pp.getProbability()<=0.3f) {
+						contentSB.append("Average");
+					} else if(pp.getProbability()<1) {
+						contentSB.append("High");
 					} else {
-						if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_1)) {
-							contentSB.append("</br>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_1.getName(pp.getMother()))+")]");
-							
-						} else if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_2)) {
-							contentSB.append("</br>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_2.getName(pp.getMother()))+")]");
-							
-						} else {
-							contentSB.append("</br>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_3.getName(pp.getMother()))+")]");
-							
-						}
+						contentSB.append("Certainty");
 					}
-					
-					contentSB.append("</b></br>");
-					contentSB.append("</div>");
+				} else {
+					if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_1)) {
+						contentSB.append("</br>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_1.getName(pp.getMother()))+")]");
+						
+					} else if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_2)) {
+						contentSB.append("</br>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_2.getName(pp.getMother()))+")]");
+						
+					} else {
+						contentSB.append("</br>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_3.getName(pp.getMother()))+")]");
+						
+					}
 				}
+				
+				contentSB.append("</b></br>");
+				contentSB.append("</div>");
 			}
-			
 			noPregnancies=false;
-		
 		}
 		
 		if (!Main.game.getPlayer().getLittersFathered().isEmpty()) {
@@ -1240,7 +1234,9 @@ public class PhoneDialogue {
 		title = "Contacts";
 		StringBuilder contentSB = new StringBuilder("<p>You have encountered the following characters in your travels:</p>");
 		for (int i = 0; i < Main.game.getPlayer().getCharactersEncountered().size(); i++) {
-			contentSB.append("<p>" + Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(i)).getName() + "</p>");
+			if(Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(i))!=null) {
+				contentSB.append("<p>" + Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(i)).getName() + "</p>");
+			}
 		}
 		content = contentSB.toString();
 	}
@@ -1255,7 +1251,9 @@ public class PhoneDialogue {
 			UtilText.nodeContentSB.append("<p>You have encountered the following characters in your travels:</p>");
 			
 			for (int i = 0; i < Main.game.getPlayer().getCharactersEncountered().size(); i++) {
-				UtilText.nodeContentSB.append("<p>" + Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(i)).getName() + "</p>");
+				if(Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(i))!=null) {
+					UtilText.nodeContentSB.append("<p>" + Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(i)).getName() + "</p>");
+				}
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -1268,19 +1266,22 @@ public class PhoneDialogue {
 			
 			} else if (index <= Main.game.getPlayer().getCharactersEncountered().size()) {
 				GameCharacter npc = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(index - 1));
-				
-				return new Response(Util.capitaliseSentence(npc.getName()),
-						"Take a detailed look at what " + npc.getName("the") + " looks like.",
-						CONTACTS_CHARACTER){
-					@Override
-					public void effects() {
-						CharactersPresentDialogue.characterViewed = npc;
-						
-						title = Util.capitaliseSentence(npc.getName());
-						content = NPC.getCharacterInformationScreen((NPC) npc);
-						
-					}
-				};
+				if(npc!=null) {
+					return new Response(Util.capitaliseSentence(npc.getName()),
+							"Take a detailed look at what " + npc.getName("the") + " looks like.",
+							CONTACTS_CHARACTER){
+						@Override
+						public void effects() {
+							CharactersPresentDialogue.characterViewed = npc;
+							
+							title = Util.capitaliseSentence(npc.getName());
+							content = NPC.getCharacterInformationScreen((NPC) npc);
+							
+						}
+					};
+				} else {
+					return null;
+				}
 			
 			} else {
 				return null;
@@ -1313,19 +1314,22 @@ public class PhoneDialogue {
 			
 			} else if (index <= Main.game.getPlayer().getCharactersEncountered().size()) {
 				GameCharacter npc = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(index - 1));
-				
-				return new Response(Util.capitaliseSentence(npc.getName()),
-						"Take a detailed look at what " + npc.getName("the") + " looks like.",
-						CONTACTS_CHARACTER){
-					@Override
-					public void effects() {
-						CharactersPresentDialogue.characterViewed = npc;
-						
-						title = Util.capitaliseSentence(npc.getName());
-						content = NPC.getCharacterInformationScreen((NPC) npc);
-						
-					}
-				};
+				if(npc!=null) {
+					return new Response(Util.capitaliseSentence(npc.getName()),
+							"Take a detailed look at what " + npc.getName("the") + " looks like.",
+							CONTACTS_CHARACTER){
+						@Override
+						public void effects() {
+							CharactersPresentDialogue.characterViewed = npc;
+							
+							title = Util.capitaliseSentence(npc.getName());
+							content = NPC.getCharacterInformationScreen((NPC) npc);
+							
+						}
+					};
+				} else {
+					return null;
+				}
 			
 			} else {
 				return null;

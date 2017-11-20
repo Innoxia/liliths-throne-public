@@ -15,6 +15,7 @@ import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
@@ -35,6 +36,14 @@ public class GenericActions {
 			null,
 			SexPace.SUB_RESISTING,
 			null) {
+		
+		@Override
+		public ArousalIncrease getArousalGainPlayer() {
+			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+				return ArousalIncrease.THREE_NORMAL;
+			}
+			return ArousalIncrease.NEGATIVE;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {

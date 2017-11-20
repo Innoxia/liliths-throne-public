@@ -4268,6 +4268,11 @@ public class MainController implements Initializable {
 					Attribute.AROUSAL };
 			for (Attribute a : attributes) {
 				if (((EventTarget) documentRight.getElementById("NPC_"+a.getName())) != null) {
+					if(a == Attribute.EXPERIENCE) {
+						((EventTarget) documentRight.getElementById("NPC_"+a.getName())).addEventListener("click", e -> {
+							openCharactersPresent(Main.game.getNPCById(Main.game.getActiveNPC().getId()));
+						}, false);
+					}
 					addEventListener(documentRight, "NPC_"+a.getName(), "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, "NPC_"+a.getName(), "mouseleave", hideTooltipListener, false);
 	
@@ -4278,6 +4283,9 @@ public class MainController implements Initializable {
 			
 			// Extra attribute info:
 			if(((EventTarget) documentRight.getElementById("NPC_ATTRIBUTES"))!=null){
+//				((EventTarget) documentRight.getElementById("NPC_ATTRIBUTES")).addEventListener("click", e -> {
+//					openCharactersPresent(Main.game.getNPCById(Main.game.getActiveNPC().getId()));
+//				}, false);
 				addEventListener(documentRight, "NPC_ATTRIBUTES", "mousemove", moveTooltipListener, false);
 				addEventListener(documentRight, "NPC_ATTRIBUTES", "mouseleave", hideTooltipListener, false);
 	

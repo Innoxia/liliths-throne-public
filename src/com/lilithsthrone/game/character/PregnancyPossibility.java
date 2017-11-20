@@ -26,6 +26,23 @@ public class PregnancyPossibility implements Serializable, XMLSaving {
 		this.probability = probability;
 	}
 	
+	@Override
+	public boolean equals (Object o) {
+		return (o instanceof PregnancyPossibility)
+				&& ((PregnancyPossibility)o).getMotherId().equals(motherId)
+				&& ((PregnancyPossibility)o).getFatherId().equals(fatherId)
+				&& ((PregnancyPossibility)o).getProbability() == probability;
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + motherId.hashCode();
+		result = 31 * result + fatherId.hashCode();
+		result = 31 * result + (int)probability;
+		return result;
+	}
+	
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element element = doc.createElement("pregnancyPossibility");
 		parentElement.appendChild(element);

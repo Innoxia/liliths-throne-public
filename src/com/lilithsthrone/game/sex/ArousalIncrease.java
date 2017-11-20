@@ -8,10 +8,10 @@ package com.lilithsthrone.game.sex;
 public enum ArousalIncrease {
 
 	/**This is a special action.*/
-	NEGATIVE_MAJOR(-25),
+	NEGATIVE_MAJOR(-30),
 	
 	/**This is a special action for if the player has the denial fetish.*/
-	NEGATIVE(-15),
+	NEGATIVE(-20),
 	
 	/**Calm down a little.*/
 	NEGATIVE_MINOR(-10),

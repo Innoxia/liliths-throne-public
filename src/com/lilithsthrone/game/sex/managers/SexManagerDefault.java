@@ -428,13 +428,39 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		// --- Priority 5 | Ban actions that make no sense for the partner to perform ---
 		
-		// Ban all vaginal penetrations if the partner is a virgin.
-		if(Sex.getPartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)) {
-			for(SexActionInterface action : availableActions) {
-				if(action.getAssociatedOrificeType()!=null) {
-					if(action.getAssociatedOrificeType()==OrificeType.VAGINA_PARTNER && action.getActionType()==SexActionType.PARTNER_PENETRATION) {
-						bannedActions.add(action);
-					}
+		// Ban all penetrations if the partner is a virgin in the associated orifice:
+		for(SexActionInterface action : availableActions) {
+			if(action.getAssociatedOrificeType()!=null && action.getActionType()==SexActionType.PARTNER_PENETRATION) {
+				switch(action.getAssociatedOrificeType()) {
+					case ANUS_PARTNER:
+						if(Sex.getPartner().isAssVirgin() && Sex.getSexPacePartner()!=SexPace.SUB_EAGER) {
+							bannedActions.add(action);
+						}
+						break;
+					case MOUTH_PARTNER:
+						if(Sex.getPartner().isFaceVirgin() && Sex.getSexPacePartner()!=SexPace.SUB_EAGER) {
+							bannedActions.add(action);
+						}
+						break;
+					case NIPPLE_PARTNER:
+						if(Sex.getPartner().isNippleVirgin() && Sex.getSexPacePartner()!=SexPace.SUB_EAGER) {
+							bannedActions.add(action);
+						}
+						break;
+					case URETHRA_PARTNER:
+						if(Sex.getPartner().isUrethraVirgin() && Sex.getSexPacePartner()!=SexPace.SUB_EAGER) {
+							bannedActions.add(action);
+						}
+						break;
+					case VAGINA_PARTNER:
+						if(Sex.getPartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
+								|| Sex.getPartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN_LUSTY_MAIDEN)
+								|| (Sex.getPartner().isVaginaVirgin() && Sex.getSexPacePartner()!=SexPace.SUB_EAGER)) {
+							bannedActions.add(action);
+						}
+						break;
+					default:
+						break;
 				}
 			}
 		}

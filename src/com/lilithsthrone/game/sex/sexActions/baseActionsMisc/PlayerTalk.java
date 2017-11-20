@@ -6,6 +6,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
@@ -416,7 +417,9 @@ public class PlayerTalk {
 			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST_PLAYER)
 					&& Main.game.getPlayer().isBreastFuckablePaizuri()
 					&& !SexFlags.requestsBlockedPlayer
-					&& !Sex.isPlayerDom();
+					&& !Sex.isPlayerDom()
+					&& Sex.getPartner().hasPenis()
+					&& Sex.getPartner().getPlayerKnowsAreasMap().get(CoverableArea.PENIS);
 		}
 
 		@Override
@@ -466,7 +469,9 @@ public class PlayerTalk {
 			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST_PLAYER)
 					&& !Main.game.getPlayer().isBreastFuckablePaizuri()
 					&& !SexFlags.requestsBlockedPlayer
-					&& !Sex.isPlayerDom();
+					&& !Sex.isPlayerDom()
+					&& Sex.getPartner().hasPenis()
+					&& Sex.getPartner().getPlayerKnowsAreasMap().get(CoverableArea.PENIS);
 		}
 
 		@Override

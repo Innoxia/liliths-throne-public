@@ -743,7 +743,10 @@ public class InventoryDialogue {
 						return new Response("Equip all", "You can't equip clothing in sex!", null);
 							
 					} else if (index == 6 && inventoryNPC != null) {
-						if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
+						if(!Sex.getSexManager().isPlayerCanRemovePartnersClothes()) {
+							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "You can't displace [npc.name]'s clothing in this sex scene!"), null);
+							
+						} else if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
 							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to displace!"), null);
 							
 						} else {
@@ -773,7 +776,10 @@ public class InventoryDialogue {
 						return new Response("Replace all (them)", "You can't replace clothing in sex!", null);
 						
 					} else if (index == 8) {
-						if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
+						if(!Sex.getSexManager().isPlayerCanRemovePartnersClothes()) {
+							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "You can't unequip [npc.name]'s clothing in this sex scene!"), null);
+							
+						} else if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
 							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to remove!"), null);
 							
 						} else {
@@ -1015,8 +1021,8 @@ public class InventoryDialogue {
 									int itemCount = Main.game.getPlayer().getItemCount(item);
 									for(int i=0;i<itemCount;i++) {
 										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false) + "</p>");
-										resetPostAction();
 									}
+									resetPostAction();
 								}
 							};
 						}
@@ -4761,7 +4767,10 @@ public class InventoryDialogue {
 						if (index == 1) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!Sex.getSexManager().isPlayerCanRemovePartnersClothes()) {
+									return new Response("Drop", UtilText.parse(inventoryNPC, "You can't unequip the " + clothing.getName() + " in this sex scene!"), null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Drop", UtilText.parse(inventoryNPC, "This area is full, so you can't drop [npc.name]'s " + clothing.getName() + " here!"), null);
 									
 								} else {
@@ -4786,7 +4795,10 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
+								if(!Sex.getSexManager().isPlayerCanRemovePartnersClothes()) {
+									return new Response("Store", UtilText.parse(inventoryNPC, "You can't unequip the " + clothing.getName() + " in this sex scene!"), null);
+									
+								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
 									return new Response("Store", UtilText.parse(inventoryNPC, "This area is full, so you can't store [npc.name]'s " + clothing.getName() + " here!"), null);
 								} else {
 									if (owner.isAbleToUnequip(clothing, false, Main.game.getPlayer())) {
@@ -4878,7 +4890,6 @@ public class InventoryDialogue {
 
 								if(owner.isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11), false, false, Main.game.getPlayer())){
 									
-
 									if(!Sex.getSexManager().isPlayerCanRemovePartnersClothes()) {
 										return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()),
 												"You "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription() + " the " + clothing.getName() + " in this sex scene!", null);

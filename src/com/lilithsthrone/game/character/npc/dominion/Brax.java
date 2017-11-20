@@ -208,11 +208,17 @@ public class Brax extends NPC {
 			}
 			
 		} else {
+			
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), true, this);
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxBeaten)) {
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), true, this);
+			} else {
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLACK, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLACK, false), true, this);
+			}
 		}
 		
 	}
@@ -964,7 +970,7 @@ public class Brax extends NPC {
 							+ " Deciding that you want a little memento of your time with Brax, <b>you take a spare uniform, and add it to your inventory as you continue on your way</b>."
 							+ "</p>"
 						:"<p>"
-							+ "Although you've been transformed, fucked, and thrown out without so much as a goodbye, you consider that things could always be worse."
+							+ "Although you've been fucked and thrown out without so much as a goodbye, you consider that things could always be worse."
 							+ " Setting off, you try to look on the bright side."
 							+ " After all, at least you weren't enslaved or anything crazy like that..."
 							+ "</p>");
@@ -976,6 +982,9 @@ public class Brax extends NPC {
 				return new ResponseEffectsOnly("Carry on", "Get up and carry on your way.") {
 					@Override
 					public void effects() {
+						if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxBeaten)) {
+							((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
+						}
 						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
 					}
 				};

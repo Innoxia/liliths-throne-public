@@ -514,6 +514,7 @@ public class EnforcerHQDialogue {
 				} else if (index == 2) {
 					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
 						return new ResponseSex("Get punished by [brax.name]", "Get [brax.name] to take out [brax.his] frustration on you.", RECEPTION_DESK,
+								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 								true, false, Main.game.getBrax(), new SMBraxDom(), AFTER_SEX,
 									"<p>"
 										+ "[pc.speech(Sure thing Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."

@@ -1232,8 +1232,42 @@ public enum Sex {
 		if (Main.game.getPlayer().getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) { // Add orgasm reactions if ready to orgasm:
 			for (SexActionInterface sexAction : sexManager.getActionsAvailablePartner()) {
 				if (sexAction.getActionType()==SexActionType.PARTNER_PREPARE_PLAYER_ORGASM) {
-					availableSexActionsPartner.add(sexAction);
+					if (sexAction.isAddedToAvailableSexActions()) {
+						switch(sexAction.getPriority()){
+							case LOW:
+								lowPriority.add(sexAction);
+								break;
+							case NORMAL:
+								normalPriority.add(sexAction);
+								break;
+							case HIGH:
+								highPriority.add(sexAction);
+								break;
+							case UNIQUE_MAX:
+								uniqueMax.add(sexAction);
+								break;
+						}
+					}
 				}
+			}
+			
+			if(!uniqueMax.isEmpty()) {
+				availableSexActionsPartner.addAll(uniqueMax);
+
+			} else if(!highPriority.isEmpty()) {
+				availableSexActionsPartner.addAll(highPriority);
+
+			} else if(!normalPriority.isEmpty()) {
+				availableSexActionsPartner.addAll(normalPriority);
+
+			} else if(!lowPriority.isEmpty()) {
+				availableSexActionsPartner.addAll(lowPriority);
+
+			}
+
+			// Backup just in case for some reason no orgasms were added:
+			if (!availableSexActionsPartner.isEmpty()) {
+				return;
 			}
 			
 		} else if(standardActions) {

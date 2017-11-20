@@ -3249,7 +3249,8 @@ public class ClothingType {
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),

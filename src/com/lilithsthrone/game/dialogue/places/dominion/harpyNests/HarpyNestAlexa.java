@@ -257,7 +257,12 @@ public class HarpyNestAlexa {
 				};
 				
 			} else if(index==2) {
-				return new Response("Take punishment", "Offer to take Scarlett's punishment for her.", ALEXAS_NEST_TAKE_PUNISHMENT) {
+				return new Response("Take punishment", "Offer to take Scarlett's punishment for her.", ALEXAS_NEST_TAKE_PUNISHMENT,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_MASOCHIST)),
+						CorruptionLevel.THREE_DIRTY,
+						null,
+						null,
+						null) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.punishedByAlexa);

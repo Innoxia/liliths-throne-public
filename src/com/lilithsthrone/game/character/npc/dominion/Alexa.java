@@ -118,7 +118,7 @@ public class Alexa extends NPC {
 	public void dailyReset() {
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
 			for(String id : slavesOwned) {
-				Main.game.removeNPC(id);
+				Main.game.banishNPC(id);
 			}
 			this.slavesOwned.clear();
 			

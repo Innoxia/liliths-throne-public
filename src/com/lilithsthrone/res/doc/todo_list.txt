@@ -22,31 +22,50 @@
 	
 	Patch notes:
 	
-	Save compatibility & character import:
-		Fixed bug where duplicate NPCs were being loaded into the game.
-		Fixed bug with exporting game not working.
-		Fixed bug that would cause game freeze upon importing a character from an old version.
-		Improved handling of pregnant NPC removal. (This was the cause of some exports from 0.1.88.5 not working. ;_;)
+	If you have any game freezes/crashes after importing a pre-0.1.88.5 save, you *may* have to start a new one, due to the pre-0.1.88.5 save file format being slightly changed. (This will be the last time you have to start a new character.)
+	
+	Other:
+		You can now open the characters present screen by clocking on the NPC's level bar during combat & sex.
 	
 	Bugs:
-		Fixed cause of game freeze during sex.
-		Fixed bug related to Alexa's renewal of slaves for sale (her old slaves weren't being cleaned up properly).
-		Improved NPC removal methods, so that removing NPCs should no longer cause sex & pregnancy stats to break.
-		Fixed all penetrative sex generating +0 base arousal for the person being penetrated.
-		Fixed UI display bug in pregnancy stats screen.
-		Fixed incorrect perk assignments when importing a character from an older version.
-		Orgasm-related actions in sex should no longer populate the 'repeat action' tab.
+		Offspring will now only be able to be encountered after they've been been birthed.
+		Fixed bug where you could displace and unequip Rose's clothing during her 'sex' scene.
+		You can now only request paizuri/naizuri if you know that your partner has a penis.
+		Fixed wonky behaviour of NPCs being in the 'resisting' pace during sex when they shouldn't have been. (They will now always resist if they have the associated non-con fetish.)
+		NPCs should no longer take their own virginity (in any hole), unless they're in the 'Eager' pace.
+		Minor dialogue inconsistency fixes.
+		Fixed potential cause of game freeze when giving birth.
+		Added submissive fetish associations to submitting to Brax, taking Alexa's punishment, and submitting to slaves.
+		The 'resist' action in sex will now increase your arousal if you have the 'Unwilling fuck-toy' fetish.
+		Lilaya should now never ask for you to cum inside of her.
+		Increased effectiveness of the 'Calm down' action.
+		Slaves with the 'Transformation test subject' fetish will no longer lose affection towards you and Lilaya when transformed.
+		Selecting both 'Masculine Transformations' and 'Feminine Transformations' for the slave job 'Test subject' will now result in futanari transformations taking place.
+		Fixed issue with pregnancy stats page not removing pregnancy possibilities correctly.
+		Fixed offspring's stats page not working (for offspring that were mothered or fathered with an NPC encountered during a storm).
+		Fixed the 'Use all' action in inventory not working.
+		Imported elixirs and potions now work.
+		Condom belt will now render correctly if you have over 8 used condoms in your inventory.
+		Fixed another cause of the pregnancy screen not working, as well as a crash related to the same, now-fixed issue.
+		Fixed issue of selling your enslaved offspring to Alexa causing a major bug in several areas of the game.
+		Brax should now correctly relocate to Candi's desk if you finish completing his quest by having submissive sex.
+		Brax's black enforcer shirt and shorts no longer change to blue ones before he's beaten.
+	
+	
+	
+	
 	
 	
 	
 	Main story
 	
-	Slavery jobs, dialogue
+	Slavery jobs, dialogue, customisation!!!
 	Random encounter options
 	
 	Orgasms
 	Addictions
 	Sex
+	planning on tying-in stamina to the amount of orgasms/length of sex scenes, so I will add in "exhausted/overwhelmed/milked dry" content as part of that
 	
 	Character creation
 	
@@ -54,27 +73,52 @@
 	
 	
 	
-	getting a bug where the map seems to stop working, not sure of the cause think it might have to do with home. also fights just take you to inventory
 	
-	my game freezes when the orgasam hits and it is the same on both versions does any1 have the same problem
 	
-	Are the "safety googles" in  Lilyas lab supposed to respawn every time you go there
+	
+	Mostly a display-issue, if you go from the hair section in Kate's shop to the actual shop part and back, the options at the bottom become part of the scrolling area
+	
+	child encounter frequency option along with the furry preferences list
+	
+	sleeping kinda bugged. visually.
+	i am stuck in sex for deny?? when i'm about to climax
+	another test i stuck at climax 5?
+	
+	The books and your encyclopedia are saved to the "properties" file within the data folder which isn't attached to your actual save file. (Change?)
+		I like the Encyclopedia being there, (Since it tracks what I've witnessed in ANY save) but the books/knowledge should probably be save-specific.
+	
+	One Bug that seems to have appeared is in the character creation menu.
+	 When you are selecting your level of sexual experience, if your have a penis no matter what you pick it says that you are a virgin.
+	  I think this might have something to do with the penis virginity section as when you select max sexual experience it does say that you have lost your mouth virginity, just not your genitals' virginity.
+	   When you have a vagina, it does give your virginity's status, but if you are bi then it says you lost your virginity to a guy in a club's restroom and a your first girlfriend on two separate lines {I'm pretty sure you can only lose your virginity once :) }.
+	
+	
+	Chair Sex:
+	- Submissive & rough talk options aren't associated with submissive & dominant fetishes.
+	- No option to finger partner.
+	- No option to get pussy stuffed with tail.
+	
+	Ralph's Discount:
+	- Ralph probably shouldn't strip off the player's clothes.
+	
+	
+	1) Brax doesn't know how to handle a gal in a chastity belt if he wins. I had one on to protect my precious virginity and he just kind of hung out instead of doing anything. 
+
+	2) Submitting to other characters (again in a chastity belt) seems to not result in anal, pretty much at all. It doesn't appear in the sex options for a lot of the positions as the dominant partner, either. That may be working as intended, but I can't quite tell.
+	
+	Perhaps Lusty maidens shouldn't beg to have thier vaginal virginity taken? That derived fetish seems like they'd be more likely to beg to have their other holes used instead.
 	
 	While the button indicates it would return the flames originally spent when purchasing a room upgrade, it instead removes the same amount once more. This is especially problematic with crazy expensive things like the obedience trainer
 	
-	
-	MAke it so selecting both feminine and masculine TF's for lilayas test subjects does 'futanari' tfs and prevent lilaya from tfing away their boobs/cocks/cunts
-	
-	Orgasming at any point leaves you able to orgasm at will, regardless of your own arousal, on the Repeat Actions tab. Same applies to making the partner orgasm regardless of their own arousal by repeating "prepare", or by repeating a mutual orgasm
-	
-	crafted potions aren't importing correctly
-	
 	Use tabs for slavery
+	
+	Forced transformations should avoid transforming the type of your genitalia with that preference selected, but they *should* be transforming your genitalia's non-racial properties. I'll look into this and make sure it's working properly, thank you for the report! ^^
 	
 	
 	Make Rose's scenes match her personality
 	Update Lilaya scene
 	
+	Displace/remove clothing in sex as a single button on clothing
 	
 	one other thing i noticed not on that list, in previous versions, when i got to 80-100 arousal in sex, partners would nearly always tell me if they wanted me to cum inside or out.
 	 in this version, sometimes they do, sometimes they don't, but it's a lot less common. 
@@ -94,6 +138,7 @@
 	Left: map
 	Right: characters present, slavery manager, copy dialogue, save/load indication, menu
 	
+	add the ability to strip enchantments when I add in clothing enchantment mechanics 
 	
 	I haven't had any encounters/interactions with offspring either (in any version of the game), even with the Incest option turned on.
 	I'll change this so that you can always encounter them, but sexual dialogue/options will be disabled if you have incest turned off
@@ -122,6 +167,8 @@
 	-the tooltips for backgrounds in character creation aren't large enough to see everything being a soldier gives. it's fine for the rest, i think, but that one gets cut off.
 	
 	-can we have some way of seeing the entire current map? i.e. when standing on the street, showing the entire city map but not the maps for the mansion or harpy nests or such. maybe an option in the cellphone? naturally would be limited to what you've explored, unless you've got debug mode on, but still useful.
+	
+	Can you be in a submissive role with your children? I've noticed that the player character only takes the role of dominant, theres no alternative to submit to them.
 	
 	-might i suggest some tweaking of kate's services? as is it takes money for each step of the process, i.e. 200 for making your iris glow, 200 for making them heterochromatic, 200 for changing the second iris color, and 200 for making that glow, for a total of 800.
 	maybe add a "buy" button on the left side, either under the description, or make it where the price is, make it only clickable after changing the options to the right, and only actually changing your appearance and charging the fee once you hit buy.
@@ -174,6 +221,31 @@
 	-having sex with a pregnant slave from an imported save isn't fully detected - if you cum inside them the game says they have a chance of becoming pregnant, even though they already are. This is from a 187.7 export.
 
 -Having a slave drink a tf potion when in a different slaves room has some of the descriptor text go to the incorrect slave. The TFs still go to the correct slave, it's just weird reading how one slave is transforming and then a different slave starts transforming. This applies only to some feature TFs, not all of them. Example A-Player is in Slave X's room. Slave Y drinks potion that adds extra breasts, lipples, and internal muscles to nipples. Description text will say that Slave Y got extra breasts and lipples, but slave X gets internal nip muscles. 
+
+
+
+-can i ask how damage resistance is supposed to work? it seems to be a straight percentage, but if it were, higher than 100resistance would mean you take 0 of that type of damage, but i've got over 150 will resist and i still take direct will damage. not much, less than 1 per attack, usually, but still. if it's supposed to compete with the opponents damage stat, so if their damage% is higher than your resist%, you still take damage, that's sensible and less of an issue. still an issue, though as i keep taking the above damage from someone with only 130 will damage%. if, on the other hand, resistance is capped, so you can never block all damage, which again makes sense, then it is probably working right and you can ignore this.
+
+-after getting scarlett as a slave, i went into permissions and changed what she should call me. typed it into the box, and pressed the checkmark a few times. when i then went to talk to her, she's still calling me by name. this strikes me as a bug, unless it's due to her being "defiant".
+
+-at first i thought it was just because i was only having sex with people outside, but even when doing it with slaves, i haven't seen any sign of the "missionary" position. the patch notes have you adding an action to that position, so i assumed it was accessible.
+
+-right after turning brax into bree, it acts like you have a choice between having sex or leaving, but there is no leave button.
+
+Comments:
+-can we possibly get something more permanent to tell us we've quicksaved? maybe have the notice stay on screen until we do something, at least. the current message is brief enough that it can be missed if you're not paying enough attention.
+-maybe something similar for quickloading? it's usually obvious, but sometimes not.
+
+-a slight issue with remove all, more of a minor annoyance than anything. sometimes, depending on what they are wearing it'll say something like "you pull down their pantyhose, you remove their panties, you replace their pantyhose. you remove their pantyhose." maybe tweak it so it check for blocks and removes the blocking clothes before the blocked ones?
+
+-one thought i had to make the observant perk more obviously useful is to add gender to the list of characters present in the top right. so instead of saying "Scarlett - Harpy" or "A cat-girl - Cat-girl", it'll say something like "Scarlett - Shemale Harpy" or "A cat-girl - Tomboy Cat-girl".
+-might also want to tweak what it says for randos, so it doesn't just say their race twice like that.
+
+-maybe add a eat/drink/absorb 5 button for consumables?
+
+-is there any way to reduce the cost of using fetish teases, as there is for spells?
+
+
 
 The buggy TF description modifiers (not sure if there's more I missed)
 -Tongue bifurcation

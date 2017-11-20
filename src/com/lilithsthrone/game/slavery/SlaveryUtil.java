@@ -10,6 +10,7 @@ import java.util.Map;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -284,24 +285,50 @@ public class SlaveryUtil implements Serializable {
 					} else {
 						switch(slave.getSlaveJobSettings().get(Util.random.nextInt(slave.getSlaveJobSettings().size()))) {
 							case TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE:
-								slave.incrementAffection(Main.game.getPlayer(), -1);
-								slave.incrementAffection(Main.game.getLilaya(), -5);
-								String tf = getTestSubjectFeminineTransformation(slave);
-								List<String> list = Util.newArrayListOfValues(
-										new ListValue<>("[style.boldBad(-1)] [style.boldAffection(Affection)]"),
-										new ListValue<>("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]"));
+								List<String> list = new ArrayList<>();
+								if(slave.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+									slave.incrementAffection(Main.game.getPlayer(), 1);
+									slave.incrementAffection(Main.game.getLilaya(), 5);
+									list.add("[style.boldGood(+1)] [style.boldAffection(Affection)]");
+									list.add("[style.boldGood(+5)] [style.boldAffection(Affection towards Lilaya)]");
+								} else {
+									slave.incrementAffection(Main.game.getPlayer(), -1);
+									slave.incrementAffection(Main.game.getLilaya(), -5);
+									list.add("[style.boldBad(-1)] [style.boldAffection(Affection)]");
+									list.add("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]");
+								}
+
+								String tf = "";
+								if(slave.getSlaveJobSettings().contains(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE)) {
+									tf = getTestSubjectFutanariTransformation(slave);
+								} else {
+									tf = getTestSubjectFeminineTransformation(slave);
+								}
 								if(!tf.isEmpty()) {
 									list.add(tf);
 								}
 								return new SlaveryEventLogEntry(hour, slave, "Feminine Testing", "Lilaya tested some very intrusive feminine transformations on [npc.name].",list);
 								
 							case TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE:
-								slave.incrementAffection(Main.game.getPlayer(), -1);
-								slave.incrementAffection(Main.game.getLilaya(), -5);
-								String tf2 = getTestSubjectMasculineTransformation(slave);
-								List<String> list2 = Util.newArrayListOfValues(
-										new ListValue<>("[style.boldBad(-1)] [style.boldAffection(Affection)]"),
-										new ListValue<>("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]"));
+								List<String> list2 = new ArrayList<>();
+								if(slave.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+									slave.incrementAffection(Main.game.getPlayer(), 1);
+									slave.incrementAffection(Main.game.getLilaya(), 5);
+									list2.add("[style.boldGood(+1)] [style.boldAffection(Affection)]");
+									list2.add("[style.boldGood(+5)] [style.boldAffection(Affection towards Lilaya)]");
+								} else {
+									slave.incrementAffection(Main.game.getPlayer(), -1);
+									slave.incrementAffection(Main.game.getLilaya(), -5);
+									list2.add("[style.boldBad(-1)] [style.boldAffection(Affection)]");
+									list2.add("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]");
+								}
+								
+								String tf2 = "";
+								if(slave.getSlaveJobSettings().contains(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE)) {
+									tf2 = getTestSubjectFutanariTransformation(slave);
+								} else {
+									tf2 = getTestSubjectMasculineTransformation(slave);
+								}
 								if(!tf2.isEmpty()) {
 									list2.add(tf2);
 								}
@@ -381,6 +408,35 @@ public class SlaveryUtil implements Serializable {
 			int increment = Util.random.nextInt(1)+1;
 			slave.incrementBreastSize(-increment);
 			return "[style.boldShrink(Breasts shrunk to "+Util.capitaliseSentence(slave.getBreastSize().getCupSizeName())+"-cups)]";
+		}
+		
+		return "";
+	}
+	
+	private String getTestSubjectFutanariTransformation(NPC slave) {
+		
+		if(!slave.hasVagina()) {
+			slave.setVaginaType(RacialBody.valueOfRace(slave.getRace()).getVaginaType());
+			return "[style.boldGrow(Gained vagina)]";
+		}
+		
+		if(!slave.hasPenis()) {
+			slave.setPenisType(RacialBody.valueOfRace(slave.getRace()).getPenisType());
+			return "[style.boldGrow(Gained penis)]";
+		}
+		
+		if(Math.random()>0.5f) {
+			if(slave.getFemininityValue()<100) {
+				int increment = Util.random.nextInt(5)+1;
+				slave.incrementFemininity(increment);
+				return "[style.boldGrow(+"+increment+")] [style.boldFeminine(Femininity)]";
+			}
+		}
+		
+		if(slave.getBreastSize().getMeasurement() < CupSize.GG.getMeasurement()) {
+			int increment = Util.random.nextInt(1)+1;
+			slave.incrementBreastSize(increment);
+			return "[style.boldGrow(Gained "+Util.capitaliseSentence(slave.getBreastSize().getCupSizeName())+"-cup breasts)]";
 		}
 		
 		return "";

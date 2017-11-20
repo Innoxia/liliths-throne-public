@@ -46,7 +46,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.1.89.2
  * @author Innoxia
  */
 public class Main extends Application {
@@ -60,7 +60,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.89",
+	public static final String VERSION_NUMBER = "0.1.89.2",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -217,6 +217,38 @@ public class Main extends Application {
 			+"<ul>Fixed UI display bug in pregnancy stats screen.</ul>"
 			+"<ul>Fixed incorrect perk assignments when importing a character from an older version.</ul>"
 			+"<ul>Orgasm-related actions in sex should no longer populate the 'repeat action' tab.</ul>"
+		+"</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.1.89.2 (Hotfix)</h6>"
+			+"<li>Other:</li>"
+			+"<ul>You can now open the characters present screen by clocking on the NPC's level bar during combat & sex.</ul>"
+				
+			+"<li>Bugs:</ul>"
+			+"<ul>Offspring will now only be able to be encountered after they've been been birthed.</ul>"
+			+"<ul>Fixed bug where you could displace and unequip Rose's clothing during her 'sex' scene.</ul>"
+			+"<ul>You can now only request paizuri/naizuri if you know that your partner has a penis.</ul>"
+			+"<ul>Fixed wonky behaviour of NPCs being in the 'resisting' pace during sex when they shouldn't have been. (They will now always resist if they have the associated non-con fetish.)</ul>"
+			+"<ul>NPCs should no longer take their own virginity (in any hole), unless they're in the 'Eager' pace.</ul>"
+			+"<ul>Minor dialogue inconsistency fixes.</ul>"
+			+"<ul>Fixed potential cause of game freeze when giving birth.</ul>"
+			+"<ul>Added submissive fetish associations to submitting to Brax, taking Alexa's punishment, and submitting to slaves.</ul>"
+			+"<ul>The 'resist' action in sex will now increase your arousal if you have the 'Unwilling fuck-toy' fetish.</ul>"
+			+"<ul>Lilaya should now never ask for you to cum inside of her.</ul>"
+			+"<ul>Increased effectiveness of the 'Calm down' action.</ul>"
+			+"<ul>Slaves with the 'Transformation test subject' fetish will no longer lose affection towards you and Lilaya when transformed.</ul>"
+			+"<ul>Selecting both 'Masculine Transformations' and 'Feminine Transformations' for the slave job 'Test subject' will now result in futanari transformations taking place.</ul>"
+			+"<ul>Fixed issue with pregnancy stats page not removing pregnancy possibilities correctly.</ul>"
+			+"<ul>Fixed offspring's stats page not working (for offspring that were mothered or fathered with an NPC encountered during a storm).</ul>"
+			+"<ul>Fixed the 'Use all' action in inventory not working.</ul>"
+			+"<ul>Imported elixirs and potions now work.</ul>"
+			+"<ul>Condom belt will now render correctly if you have over 8 used condoms in your inventory.</ul>"
+			+"<ul>Fixed another cause of the pregnancy screen not working, as well as a crash related to the same, now-fixed issue.</ul>"
+			+"<ul>Fixed issue of selling your enslaved offspring to Alexa causing a major bug in several areas of the game.</ul>"
+			+"<ul>Brax should now correctly relocate to Candi's desk if you finish completing his quest by having submissive sex.</ul>"
+			+"<ul>Brax's black enforcer shirt and shorts no longer change to blue ones before he's beaten.</ul>"
 		+"</list>"
 		;
 	

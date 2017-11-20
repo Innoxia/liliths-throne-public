@@ -599,15 +599,20 @@ public class Game implements Serializable, XMLSaving {
 		
 		handleAtmosphericConditions(turnTime);
 
-		// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
-		NPCMap.entrySet().removeIf(e -> (
-				e.getValue().getLocationPlace().getPlaceType() != PlaceType.DOMINION_BACK_ALLEYS
-				&& e.getValue().getWorldLocation() == WorldType.DOMINION
-				&& e.getValue() instanceof DominionAlleywayAttacker
-				&& !Main.game.getPlayer().getLocation().equals(e.getValue().getLocation())));
 		
-		// Apply status effects for all NPCs:
+		// Apply status effects and update all NPCs:
 		isInNPCUpdateLoop = true;
+		
+		// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
+		for(NPC npc : NPCMap.values()) {
+			if(npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_BACK_ALLEYS
+					&& npc.getWorldLocation() == WorldType.DOMINION
+					&& npc instanceof DominionAlleywayAttacker
+					&& !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
+						banishNPC(npc);
+					}
+		}
+		
 		for (NPC npc : NPCMap.values()) {
 			npc.calculateStatusEffects(turnTime);
 			
@@ -1979,7 +1984,13 @@ public class Game implements Serializable, XMLSaving {
 		
 		for(NPC npc : NPCMap.values()) {
 			if((npc.getMother()!=null && npc.getMother().isPlayer()) || (npc.getFather()!=null && npc.getFather().isPlayer())) {
-				offspring.add(npc);
+				if(npc.getMother()!=null) {
+					if(!(npc.getMother().getPregnantLitter() != null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId()))) {
+						offspring.add(npc);
+					}
+				} else {
+					offspring.add(npc);
+				}
 			}
 		}
 		
@@ -2067,7 +2078,16 @@ public class Game implements Serializable, XMLSaving {
 		}
 	}
 	
-	public void removeNPC(NPC npc) {
+	public void banishNPC(String id) {
+		NPC npc = (NPC) getNPCById(id);
+		if(npc.getTotalTimesHadSex()!=0 || npc.getPregnantLitter()!=null || npc.getLastLitterBirthed()!=null || npc.getMother()!=null || npc.getFather()!=null) {
+			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+		} else {
+			removeNPC(npc);
+		}
+	}
+	
+	private void removeNPC(NPC npc) {
 		if(npc.isPregnant()) {
 			npc.endPregnancy(false);
 		} else if(npc.hasStatusEffect(StatusEffect.PREGNANT_0)) {
@@ -2079,11 +2099,6 @@ public class Game implements Serializable, XMLSaving {
 		} else {
 			NPCMap.remove(npc.getId());
 		}
-	}
-	
-	public void removeNPC(String id) {
-		removeNPC(NPCMap.get(id));
-		
 	}
 	
 	public int getNumberOfWitches() {

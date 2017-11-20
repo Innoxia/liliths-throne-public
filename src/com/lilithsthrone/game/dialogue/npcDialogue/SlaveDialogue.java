@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue;
 
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -12,6 +13,8 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
 import com.lilithsthrone.game.sex.managers.universal.SMSubStanding;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.85
@@ -119,6 +122,7 @@ public class SlaveDialogue {
 				if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
 					return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
 							AFTER_SEX,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 							true, true, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX,
 							"<p>"
 								+ "Taking hold of [npc.name]'s [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."

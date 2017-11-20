@@ -28,6 +28,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTai
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailVagina;
 import com.lilithsthrone.game.sex.sexActions.dominion.lilaya.ConChairTopPositionsLilaya;
+import com.lilithsthrone.game.sex.sexActions.dominion.lilaya.SALilayaSpecials;
 import com.lilithsthrone.game.sex.sexActions.universal.consensual.ConChairTop;
 
 /**
@@ -74,7 +75,9 @@ public class SMChairTopLilaya extends SexManagerDefault {
 				// Scene-specific:
 				
 				ConChairTop.class,
+				SALilayaSpecials.class,
 				
+				// Positioning:
 				ConChairTopPositionsLilaya.class,
 				
 				// Universal:

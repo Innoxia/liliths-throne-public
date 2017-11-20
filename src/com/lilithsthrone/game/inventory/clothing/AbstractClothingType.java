@@ -579,12 +579,14 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 						// Draw all backs:
 						for(AbstractItem item : character.getAllItemsInInventory()) {
 							if(item.getItemType().equals(ItemType.CONDOM_USED)) {
-								condomColours.add(item.getColour());
-								
-								is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+condomColours.size()+"_back.svg");
-								s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
-								s = colourReplacement(item.getColour(), s);
-								is.close();
+								if(condomColours.size()<8) {
+									condomColours.add(item.getColour());
+									
+									is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+condomColours.size()+"_back.svg");
+									s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+									s = colourReplacement(item.getColour(), s);
+									is.close();
+								}
 							}
 						}
 						

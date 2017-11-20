@@ -73,7 +73,7 @@ public class SexActionUtility {
 	
 	public static final SexAction PLAYER_CALM_DOWN = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.NEGATIVE_MINOR,
+			ArousalIncrease.NEGATIVE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,

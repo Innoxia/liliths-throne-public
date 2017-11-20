@@ -1564,7 +1564,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 
 	public SexPace getSexPaceSubPreference(GameCharacter character){
-		if(character.hasFetish(Fetish.FETISH_NON_CON_SUB) && Main.game.isNonConEnabled()) {
+		if(this.hasFetish(Fetish.FETISH_NON_CON_SUB) && Main.game.isNonConEnabled()) {
 			return SexPace.SUB_RESISTING;
 		}
 		
